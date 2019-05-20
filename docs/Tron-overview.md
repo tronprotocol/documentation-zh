@@ -1,6 +1,5 @@
-# TRON公链文档
 
-# 1 项目仓库
+# 1. 项目仓库
 仓库地址：  
 [https://github.com/tronprotocol](https://github.com/tronprotocol)  
 其中 java-tron是主网代码，protocol是api和数据结构定义, wallet-cli是官方命令行钱包。   
@@ -12,16 +11,16 @@ TestNet的配置请参照:
 MainNet的配置请参照:
 [https://github.com/tronprotocol/TronDeployment/blob/master/main_net_config.conf](https://github.com/tronprotocol/TronDeployment/blob/master/main_net_config.conf)
 
-# 2 Tron超级代表与委员会
+# 2. 超级代表与委员会
 
-## 2.1 申请成为超级代表候选人规则
+<h2> 2.1 申请成为超级代表候选人规则 </h2>
 
  在TRON网络中，任何账户都可以申请成为超级代表候选人，都有机会成为超级代表。每个账户都可以投票给超级代表候选人，获取投票数最高的27个超级代表候选人就是超级代表。就具有出链块的权利。
  投票统计每6小时统计一次，超级代表也就每6个小时变更一次。
 
  为了防止恶意攻击，成为超级代表候选人也需要一定代价的。TRON网络将直接烧掉申请者账户9999TRX。申请成功后，您就可以竞选超级代表了。
 
-## 2.2 选举超级代表
+<h2> 2.2 选举超级代表 </h2>
 
  投票需要TRON Power(TP)，你的TRON Power(TP)的多少由当前冻结资金决定。TRON Power(TP)的计算方法：每冻结1TRX，就可以获得1单位TRON Power(TP)。
 
@@ -41,7 +40,7 @@ votewitness witness1 3 witness2 7 // 同时给witness1投了3票，给witness2�
 
 以上命令的最终结果是给witness1投了3票，给witness2投了7票
 
-## 2.3 超级代表的奖励
+<h2> 2.3 超级代表的奖励 </h2>
 
 1.&nbsp;票数奖励  
 每6小时，票数排名前127名的超级代表会获得共计115,200 TRX的票数奖励，这部分奖励将按照票数比例分发。每年的票数奖励总计168,192,000 TRX。
@@ -50,13 +49,13 @@ votewitness witness1 3 witness2 7 // 同时给witness1投了3票，给witness2�
 波场协议网络每3秒中会出一个区块，每个区块将给予超级代表32个TRX奖励，每年总计336,384,000 TRX将会被奖励给超级代表。    
 超级代表每次出块完成后，出块奖励都会发到超级代表的子账号当中，超级代表不能直接使用这部分资产，但可以查询。 每24h允许一次提取操作。从该子账号转移到超级代表的账户中。  
 
-## 2.4 委员会
+<h2> 2.4 委员会 </h2>
 
-### 2.4.1 什么是委员会
+<h3> 2.4.1 什么是委员会 </h3>
 委员会用于修改Tron网络动态参数，如出块奖励、交易费用等等。委员会由当前的27个超级代表组成。每个超级代表都具有提议权、对提议的投票权，
 当提议获得19个代表及以上的赞成票时，该提议获得通过，并在下个维护期内进行网络参数修改。
 
-### 2.4.2 创建提议
+<h3> 2.4.2 创建提议 </h3>
 只有超级代表对应账户具有提议权，其他账户无法创建提议。允许修改的网络动态参数以及编号如下( [min,max] )：  
 - 0: MAINTENANCE_TIME_INTERVAL, [3 * 27* 1000 ,24 * 3600 * 1000] //修改超级代表调整时间间隔，目前为6 * 3600 * 1000ms  
 - 1: ACCOUNT_UPGRADE_COST, [0,100 000 000 000 000 000]  //修改账户升级为超级代表的费用，目前为9999_000_000 Sun  
@@ -87,7 +86,7 @@ value0_N: 新参数值
 
 注：Tron网络中，1 TRX = 1000_000 Sun。
 
-### 2.4.3 对提议进行投票
+<h3> 2.4.3 对提议进行投票 </h3>
 提议仅支持投赞成票，不投票代表不赞同。从提议创建时间开始，3天时间内为提议的有效期。超过该时间范围，该提议如果没有获得足够的
 赞成票，该提议失效。允许取消之前投的赞成票。
 
@@ -99,7 +98,7 @@ id: 提议Id，根据提议创建时间递增
 is_or_not_add_approval: 赞成或取消赞成
 ```
 
-### 2.4.4 取消提议
+<h3> 2.4.4 取消提议 </h3>
 提议创建者，能够在提议生效前，取消提议。
 
 + 示例：
@@ -108,7 +107,7 @@ deleteProposal proposalId
 id: 提议Id，根据提议创建时间递增
 ```
 
-### 2.4.5 查询提议
+<h3> 2.4.5 查询提议 </h3>
 
 以下接口可以查询提议，包括：  
 查询所有提议信息（ListProposals）  
@@ -116,15 +115,20 @@ id: 提议Id，根据提议创建时间递增
 查询指定提议信息（GetProposalById）       
 相关api详情，请查询[Tron-http](Tron-http.md)  
 
-# 3 Tron账号
-## 3.1 账户模型介绍  
+# 3. 账号模型
+<h2> 3.1 账户模型介绍  </h2>
+
 Tron采用账户模型。账户的唯一标识为地址address，对账户操作需要验证私钥签名。每个账户拥有TRX、Token余额及智能合约、带宽、能量等各种资源。通过发送交易可以增减TRX或者Token余额，需要消耗带宽；可以发布并拥有智能合约，也可以调用他人发布的智能合约，需要消耗能量。可以申请成为超级代表并被投票，也可以对超级代表进行投票。等等。Tron所有的活动都围绕账户进行。
-## 3.2 创建账号的方式  
+
+<h2> 3.2 创建账号的方式   </h2>
+
 首先用钱包或者浏览器生成私钥和地址，生成方法见3.3和3.4，公钥可以丢弃。  
 由已有老账户调用转账TRX(CreateTransaction2)、转让Token(TransferAsset2)或者创建账户(CreateAccount2)合约，并广播到网络后将完成账户创建的流程。  
-## 3.3 生成密钥对算法  
+
+<h2> 3.3 生成密钥对算法   </h2>
 Tron的签名算法为ECDSA，选用曲线为SECP256K1。其私钥为一个随机数，公钥为椭圆曲线上一个点。生成过程为，首先生成一个随机数d作为私钥，再计算P = d * G作为公钥；其中G为椭圆曲线的基点。
-## 3.4 地址格式说明  
+
+<h2> 3.4 地址格式说明   </h2>
 用公钥P作为输入，计算SHA3得到结果H, 这里公钥长度为64字节，SHA3选用Keccak256。  
 取H的最后20字节，在前面填充一个字节0x41得到address。  
 对address进行basecheck计算得到最终地址，所有地址的第一个字符为T。  
@@ -132,66 +136,84 @@ Tron的签名算法为ECDSA，选用曲线为SECP256K1。其私钥为一个随�
 
 我们用的字符映射表为：  
 ALPHABET = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"  
-## 3.5 签名说明
+
+<h2> 3.5 签名说明 </h2>
 签名说明请参照:     
 [https://github.com/tronprotocol/Documentation/blob/fix_http/%E4%B8%AD%E6%96%87%E6%96%87%E6%A1%A3/%E4%BA%A4%E6%98%93%E7%AD%BE%E5%90%8D%E6%B5%81%E7%A8%8B.md](https://github.com/tronprotocol/Documentation/blob/fix_http/%E4%B8%AD%E6%96%87%E6%96%87%E6%A1%A3/%E4%BA%A4%E6%98%93%E7%AD%BE%E5%90%8D%E6%B5%81%E7%A8%8B.md)
 
-# 4 Tron网络中的节点和部署
-## 4.1 SuperNode
-### 4.1.1 SuperNode介绍
+# 4. 网络中的节点和部署
+<h2> 4.1 SuperNode </h2>
+
+<h3> 4.1.1 SuperNode介绍 </h3>
 [超级代表](https://github.com/tronprotocol/Documentation/blob/master/中文文档/波场区块链浏览器介绍/什么是超级代表.md)(简称SR) 是TRON网络上的记账人，一共27个，负责对网络上广播出来的交易数据进行验证，并将交易打包进区块中，他们是轮流的方式打包区块。超级代表的信息是在TRON网络上公开的，所有人都可以获取这些信息，最便捷的方式是在TRON的[区块链浏览器](https://tronscan.org/#/representatives)查看超级代表列表及其信息。
-### 4.1.2 SuperNode部署方式
+
+<h3> 4.1.2 SuperNode部署方式 </h3>
 [部署SuperNode](https://github.com/tronprotocol/java-tron#running-a-super-representative-node-for-mainnet)
-### 4.1.3 建议硬件配置
+
+<h3> 4.1.3 建议硬件配置 </h3>
 最低配置要求：  
 CPU：16核 内存：32G 带宽：100M 硬盘：1T  
 推荐配置要求：  
 CPU：64核及以上 内存：64G及以上 带宽：500M及以上 硬盘：20T及以上  
 
-## 4.2 FullNode
-### 4.2.1 FullNode介绍  
+<h2> 4.2 FullNode </h2>
+
+<h3> 4.2.1 FullNode介绍   </h3>
 FullNode是拥有完整区块链数据的节点，能够实时更新数据，负责交易的广播和验证，提供操作区块链的api和查询数据的api。
-### 4.2.2 FullNode部署方式
+
+<h3> 4.2.2 FullNode部署方式 </h3>
 详细说明请参考[tron-deployment](https://github.com/tronprotocol/tron-deployment)
 [部署FullNode](https://github.com/tronprotocol/tron-deployment#deployment-of-fullnode-on-the-one-host)
-### 4.2.3 建议硬件配置
+
+<h3> 4.2.3 建议硬件配置 </h3>
 最低配置要求：  
 CPU：16核 内存：32G 带宽：100M 硬盘：1T  
 推荐配置要求：  
 CPU：64核及以上 内存：64G及以上 带宽：500M及以上 硬盘：20T及以上
 
-## 4.3 SolidityNode
-### 4.3.1 SolidityNode介绍
+<h2> 4.3 SolidityNode </h2>
+<h3> 4.3.1 SolidityNode介绍 </h3>
 SolidityNode是只从自己信任的FullNode同步固化块的节点，并提供区块、交易查询等服务。
-### 4.3.2 SolidityNode部署方式
+
+<h3> 4.3.2 SolidityNode部署方式 </h3>
 详细说明请参考[tron-deployment](https://github.com/tronprotocol/tron-deployment)  
-### 4.3.3 建议硬件配置
+
+<h3> 4.3.3 建议硬件配置 </h3>
 最低配置要求：  
 CPU：16核 内存：32G 带宽：100M 硬盘：1T   
 推荐配置要求：  
 CPU：64核及以上 内存：64G及以上 带宽：500M及以上 硬盘：20T及以上
 
-## 4.4 Tron网络结构
+<h2> 4.4 Tron网络结构 </h2>
 Tron网络采用Peer-to-Peer(P2P)的网络架构，网络中的节点地位对等。网络中的节点有SuperNode、FullNode、SolidityNode三种类型，SuperNode主要用于生成区块，FullNode用于同步区块、广播交易，SolidityNode用于同步固化的区块。任何部署运行Tron代码的设备都可以加入Tron网络并作为一个节点，和Tron网络中的其他节点有相同的地位，他们可以创建交易，广播交易，同步区块等，也可以作为SuperNode的候选人参与选举。
 ![image](https://raw.githubusercontent.com/tronprotocol/Documentation/fix_http/TRX_CN/figures/network.png)
-## 4.5 一键部署FullNode和SolidityNode
+
+<h2> 4.5 一键部署FullNode和SolidityNode </h2>
 下载一键部署脚本，根据不同的节点类型附加相应的参数来运行脚本。  
 详见[一键部署节点](https://github.com/tronprotocol/tron-deployment#deployment-of-soliditynode-on-the-one-host)
-## 4.6 主网、测试网、私有网络
+
+<h2> 4.6 主网、测试网、私有网络 </h2>
 加入主网或测试网或私有网络的节点在部署时运行的是同一份代码，区别仅仅在于节点启动时加载的配置文件不同。
-### 4.6.1 主网
+
+<h3> 4.6.1 主网 </h3>
 [主网配置文件](https://github.com/tronprotocol/tron-deployment/blob/master/main_net_config.conf)
-### 4.6.2 测试网
+
+<h3> 4.6.2 测试网 </h3>
 [测试网配置文件](https://github.com/tronprotocol/tron-deployment/blob/master/test_net_config.conf)
-### 4.6.3 搭建私有网络
-#### 4.6.3.1 前提
+
+<h3> 4.6.3 搭建私有网络 <h3>
+
+<h4> 4.6.3.1 前提 </h4>
 1.&nbsp;具备至少两个钱包账户的私钥与地址。 [如何生成钱包账户](https://tronscan.org/#/wallet/new)  
 2.&nbsp;至少部署一个SuperNode用于出块；  
 3.&nbsp;部署任意数量的FullNode节点用于同步区块、广播交易；  
 4.&nbsp;SuperNode与FullNode组成了私有网络，可以进行网络发现、区块同步、广播交易。  
-#### 4.6.3.2 部署
-##### 4.6.3.2.1 步骤一:部署超级节点
+
+<h4> 4.6.3.2 部署 </h4>
+
+<h5> 4.6.3.2.1 步骤一:部署超级节点 </h5>
 1.&nbsp;下载private_net_config.conf  
+
 ```text
 wget https://github.com/tronprotocol/tron-deployment/blob/master/private_net_config.conf
 ```
@@ -201,19 +223,19 @@ wget https://github.com/tronprotocol/tron-deployment/blob/master/private_net_con
 5.&nbsp;第1个SR设置needSyncCheck为false，其他可以设置为true  
 6.&nbsp;设置node.discovery.enable为true  
 7.&nbsp;运行部署脚本  
+
 ```text
 nohup java -Xmx6g -XX:+HeapDumpOnOutOfMemoryError -jar FullNode.jar  --witness  -c private_net_config.conf
-```
-```text
+
 命令行参数说明:
 --witness: 启动witness功能，i.e.: --witness
 --log-config: 指定日志配置文件路径，i.e.: --log-config logback.xml
 -c: 指定配置文件路径，i.e.: -c config.conf
-
+```
 日志文件使用：
 可以修改模块的level等级来控制日志的输出，默认每个模块的level级别为INFO，比如，只打印网络模块warn以上级别的信息，可以如下修改
 <logger name="net" level="WARN"/>
-```
+
  配置文件中需要修改的参数：  
  localwitness:  
  ![image](https://raw.githubusercontent.com/tronprotocol/Documentation/fix_http/TRX_CN/figures/localwitness.jpg)
@@ -223,7 +245,9 @@ nohup java -Xmx6g -XX:+HeapDumpOnOutOfMemoryError -jar FullNode.jar  --witness  
  ![image](https://raw.githubusercontent.com/tronprotocol/Documentation/fix_http/TRX_CN/figures/p2p_version.png)  
  enable:  
  ![image](https://raw.githubusercontent.com/tronprotocol/Documentation/fix_http/TRX_CN/figures/discovery_enable.png)  
-##### 4.6.3.2.2 步骤二:部署FullNode节点    
+
+<h5> 4.6.3.2.2 步骤二:部署FullNode节点    </h5>
+
 1.&nbsp;下载private_net_config.conf   
 ```text
 wget https://github.com/tronprotocol/tron-deployment/blob/master/private_net_config.conf 
@@ -233,20 +257,19 @@ wget https://github.com/tronprotocol/tron-deployment/blob/master/private_net_con
 4.&nbsp;设置genesis.block 与SR中的genesis.block配置一致   
 5.&nbsp;设置needSyncCheck为true    
 6.&nbsp;设置node.discovery.enable 为true    
-7.&nbsp;运行部署脚本    
+7.&nbsp;运行部署脚本   
+
 ```text
 nohup java -Xmx6g -XX:+HeapDumpOnOutOfMemoryError -jar FullNode.jar  --witness  -c private_net_config.conf
-```
-```text
 命令行参数说明:
 --witness: 启动witness功能，i.e.: --witness。
 --log-config: 指定日志配置文件路径，i.e.: --log-config logback.xml。
 -c: 指定配置文件路径，i.e.: -c config.conf。
- 
+```
 日志文件使用：
 可以修改模块的level等级来控制日志的输出，默认每个模块的level级别为INFO，比如，只打印网络模块warn以上级别的信息，可以如下修改
 <logger name="net" level="WARN"/>
-```
+
  配置文件中需要修改的参数：  
  ip.list:  
  ![image](https://raw.githubusercontent.com/tronprotocol/Documentation/fix_http/TRX_CN/figures/ip_list.png)
@@ -259,22 +282,24 @@ nohup java -Xmx6g -XX:+HeapDumpOnOutOfMemoryError -jar FullNode.jar  --witness  
  node.discovery.enable:  
  ![image](https://raw.githubusercontent.com/tronprotocol/Documentation/fix_http/TRX_CN/figures/discovery_enable.png)
  
-## 4.7 数据库引擎
-### 4.7.1 rocksdb
-#### 4.7.1.1 config配置说明
+<h2> 4.7 数据库引擎 </h2>
+<h3> 4.7.1 rocksdb </h3>
+<h4> 4.7.1.1 config配置说明 </h4>
  使用rocksdb作为数据存储引擎，需要将db.engine配置项设置为"ROCKSDB"
  ![image](https://raw.githubusercontent.com/tronprotocol/Documentation/master/TRX_CN/figures/db_engine.png)
  注意: rocksdb只支持db.version=2, 不支持db.version=1。
  rocksdb支持的优化参数如下：
  ![image](https://raw.githubusercontent.com/tronprotocol/Documentation/master/TRX_CN/figures/rocksdb_tuning_parameters.png)
 
-#### 4.7.1.2 使用rocksdb数据备份功能
+<h4> 4.7.1.2 使用rocksdb数据备份功能 </h4>
  选择rocksdb作为数据存储引擎，可以使用其提供的运行时数据备份功能。
  ![image](https://raw.githubusercontent.com/tronprotocol/Documentation/master/TRX_CN/figures/db_backup.png)
  注意: FullNode可以使用数据备份功能；为了不影响SuperNode的产块性能，数据备份功能不支持SuperNode，但是SuperNode的备份服务节点可以使用此功能。
-#### 4.7.1.3 leveldb数据转换为rocksdb数据
+
+<h4> 4.7.1.3 leveldb数据转换为rocksdb数据 </h4>
   leveldb和rocksdb的数据存储架构并不兼容，请确保节点始终使用同一种数据引擎。我们提供了数据转换脚本，用于将leveldb数据转换到rocksdb数据。
   使用方法：
+
 ```text
 cd 源代码根目录
 ./gradlew build   #编译源代码
@@ -305,20 +330,20 @@ java -jar DBConvert.jar output-directory/database  output-directory-dst/database
 ```
   整个的数据转换过程可能需要10个小时左右。
   
-#### 4.7.1.4 rocksdb与leveldb的对比
+<h4> 4.7.1.4 rocksdb与leveldb的对比 </h4>
 你可以查看以下文档获取详细的信息：  
 [rocksdb与leveldb对比](https://github.com/tronprotocol/documentation/blob/master/TRX_CN/Rocksdb_vs_Leveldb.md)  
 
-# 5 智能合约
-## 5.1 Tron智能合约介绍
+# 5. 智能合约
+<h2> 5.1 Tron智能合约介绍 </h2>
 
 智能合约是一种能自动执行其条款的计算化交易协议。智能合约和普通合约一样，定义了参与者相关的条款和奖惩机制。一旦合约被启动，便能按照设定的条款执行，并自动检查所承诺的条款实施情形。  
 Tron兼容以太坊（Ethereum）上采用Solidity编写的智能合约。当前建议的Solidity语言版本为0.4.24 ~ 0.4.25。合约编写、编译完成后，部署到Tron公链上。部署后的合约，被触发时，就会在公链的各个节点上自动执行。
 
-## 5.2 Tron智能合约特性（地址等）
+<h2> 5.2 Tron智能合约特性（地址等） </h2>
 Tron virtual machine 基于以太坊 solidity 语言实现，兼容以太坊虚拟机的特性，但基于tron自身属性也有部分的区别。  
 
-### 5.2.1 智能合约
+<h3> 5.2.1 智能合约 </h3>
 波场虚拟机运行的智能合约兼容以太坊智能合约特性，以protobuf的形式定义合约内容：  
 
     message SmartContract {
@@ -378,7 +403,7 @@ origin_energy_limit: 开发者设置的在一次合约调用过程中自己消�
 通过另外两个grpc message类型 CreateSmartContract 和 TriggerSmartContract 来创建和使用smart contract  
 
 
-### 5.2.2 合约函数的使用
+<h3> 5.2.2 合约函数的使用 </h3>
 
 1.&nbsp;constant function和非constant function
 
@@ -428,7 +453,7 @@ transfer/send/call/callcode/delegatecall函数调用转账
 
 以太坊 RIPEMD160 函数不推荐使用，波场返回的是一个自己的基于sha256的hash结果，并不是准确的以太坊RIPEMD160。以后会考虑删除这个函数。
  
-### 5.2.3 合约地址在solidity语言的使用
+<h3> 5.2.3 合约地址在solidity语言的使用 </h3>
 
 以太坊虚拟机地址为是20字节，而波场虚拟机解析地址为21字节。  
 1.&nbsp;地址转换  
@@ -470,7 +495,7 @@ function assignAddress() public view {
 ```
 如果想直接使用string 类型的波场地址（如TLLM21wteSPs4hKjbxgmH1L6poyMjeTbHm）请参考内置函数的两种地址转换方式（见II-4-7,II-4-8）。  
 
-### 5.2.4 与以太坊有区别的特殊常量
+<h3> 5.2.4 与以太坊有区别的特殊常量 </h3>
 
 **货币**  
 
@@ -495,14 +520,14 @@ function assignAddress() public view {
 - tx.gasprice (uint): 交易的 gas 价格，波场不推荐使用，设置值恒为0
 - tx.origin (address): 交易发起者
 
-## 5.3 Energy介绍
+<h2> 5.3 Energy介绍 </h2>
 智能合约运行时执行每一条指令都需要消耗一定的系统资源，资源的多少用Energy的值来衡量。
 
-### 5.3.1 Energy的获取
+<h3> 5.3.1 Energy的获取 </h3>
 
 冻结获取Energy，即将持有的trx锁定，无法进行交易，作为抵押，并以此获得免费使用Energy的权利。具体计算与全网所有账户冻结有关，可参考相关部分计算。
 
-##### FreezeBalance 冻结获得能量
+** FreezeBalance 冻结获得能量  **
 
 ```text
 freezeBalance frozen_balance frozen_duration [ResourceCode:0 BANDWIDTH,1 ENERGY]
@@ -534,7 +559,7 @@ B: 10_000_000_000 且energy_limit 为10_000_000_000
 
 ```
 
-##### FreezeBalance 恢复能量
+** FreezeBalance 恢复能量 **
 
 所消耗的能量会在24小时内平滑减少至0。
 
@@ -550,7 +575,7 @@ B: 10_000_000_000 且energy_limit 为10_000_000_000
 24小时后A的Energy已使用量为 0 Energy。
 ```
 
-### 5.3.2 如何填写feeLimit(用户必读)
+<h3> 5.3.2 如何填写feeLimit(用户必读) </h3>
 ***
 *在本节范围内，将合约的开发部署人员，简称为“开发者”；将调用合约的用户或者其他合约，简称为“调用者”。*
 
@@ -603,7 +628,7 @@ B: 10_000_000_000 且energy_limit 为10_000_000_000
 [4] 1 trx = 10^4 energy 为目前的燃烧trx的比例，后续Tron可能会根据全网拥塞情况调整，调整后，将通知到全网的节点。
 
 
-### 5.3.3 Energy的计算(开发者必读)
+<h3> 5.3.3 Energy的计算(开发者必读) </h3>
 
 在讨论本章节前，需要了解：
 
@@ -669,21 +694,24 @@ Assert-style异常的介绍详见[异常介绍](https://github.com/tronprotocol/
 
 为避免造成不必要的损失consume_user_resource_percent建议值是10-100。
 
-## 5.4 智能合约开发工具介绍
-### 5.4.1 TronStudio
+<h2> 5.4 智能合约开发工具介绍 </h2>
+<h3> 5.4.1 TronStudio </h3>
 波场智能合约开发工具。提供可视化界面，支持开发者对solidity语言智能合约进行编译，调试，运行等功能。
 [https://developers.tron.network/docs/tron-studio-intro](https://developers.tron.network/docs/tron-studio-intro)
-### 5.4.2 TronBox
+
+<h3> 5.4.2 TronBox </h3>
 波场智能合约部署工具。支持solidity语言智能合约的编译，部署，移植等功能。
 [https://developers.tron.network/docs/tron-box-user-guide](https://developers.tron.network/docs/tron-box-user-guide)
-### 5.4.3 TronWeb
+
+<h3> 5.4.3 TronWeb </h3>
 波场智能合约开发使用的http api库。提供和主链交互，合约部署调用等接口。
 [https://developers.tron.network/docs/tron-web-intro](https://developers.tron.network/docs/tron-web-intro)
-### 5.4.4 TronGrid
+
+<h3> 5.4.4 TronGrid </h3>
 波场智能合约事件查询服务。可以查询智能合约中写入的事件log信息。
 [https://developers.tron.network/docs/tron-grid-intro](https://developers.tron.network/docs/tron-grid-intro)
 
-## 5.5 使用命令行工具进行智能合约开发
+<h2> 5.5 使用命令行工具进行智能合约开发 </h2>
 
 在tron上进行智能合约的开发，除了使用现有的工具之(tron-studio)外，也可以直接使用wallet-cli命令行工具进行智能合约的开发，编译和部署。编写智能合约，可以使用使用TronStudio进行编译、调试等前期的开发工作。 当合约开发完成之后，可以把合约复制到[SimpleWebCompiler](https://github.com/tronprotocol/tron-demo/tree/master/SmartContractTools/SimpleWebCompiler)中进行编译，获取ABI和ByteCode。   
 
@@ -819,26 +847,25 @@ triggercontract TTWq4vMEYB2yibAbPV7gQ4mrqTyX92fha6 get(uint256) 1 false 1000000 
 之前部署的library地址是：TSEJ29gnBkxQZR3oDdLdeQtQQykpVLSk54  
 那么部署的时候，需要将 browser/oneLibrary.sol.Math3:TSEJ29gnBkxQZR3oDdLdeQtQQykpVLSk54 作为deploycontract的参数。  
 
-# 6 内置合约以及API说明
-## 6.1 内置合约说明
+# 6. 内置合约以及API
+<h2> 6.1 内置合约说明 </h2>
 请参考:  
 [https://github.com/tronprotocol/Documentation/blob/master/%E4%B8%AD%E6%96%87%E6%96%87%E6%A1%A3/%E6%B3%A2%E5%9C%BA%E5%8D%8F%E8%AE%AE/%E4%BA%A4%E6%98%93%E6%93%8D%E4%BD%9C%E7%B1%BB%E5%9E%8B%E8%AF%B4%E6%98%8E.md](https://github.com/tronprotocol/Documentation/blob/master/%E4%B8%AD%E6%96%87%E6%96%87%E6%A1%A3/%E6%B3%A2%E5%9C%BA%E5%8D%8F%E8%AE%AE/%E4%BA%A4%E6%98%93%E6%93%8D%E4%BD%9C%E7%B1%BB%E5%9E%8B%E8%AF%B4%E6%98%8E.md)
 
-## 6.2 gRPC 接口说明
+<h2> 6.2 gRPC 接口说明 </h2>
 请参考:  
 [https://github.com/tronprotocol/Documentation/blob/master/%E4%B8%AD%E6%96%87%E6%96%87%E6%A1%A3/%E6%B3%A2%E5%9C%BA%E5%8D%8F%E8%AE%AE/%E6%B3%A2%E5%9C%BA%E9%92%B1%E5%8C%85RPC-API.md](https://github.com/tronprotocol/Documentation/blob/master/%E4%B8%AD%E6%96%87%E6%96%87%E6%A1%A3/%E6%B3%A2%E5%9C%BA%E5%8D%8F%E8%AE%AE/%E6%B3%A2%E5%9C%BA%E9%92%B1%E5%8C%85RPC-API.md)
 
-## 6.3 http 接口说明
+<h2> 6.3 http 接口说明 </h2>
 请参考:
 [https://github.com/tronprotocol/Documentation/blob/master/TRX_CN/Tron-http.md](https://github.com/tronprotocol/Documentation/blob/master/TRX_CN/Tron-http.md)
 
-# 7 Tron TRC10 token说明
-TRON网络支持2种token，一种是通过智能合约发行的TRC20协议的token，一种是通过Tron公链内置的TRC10 token。     
+# 7. TRC10通证
+TRON网络支持2种通证，一种是通过智能合约发行的TRC20协议的通证，一种是通过Tron公链内置的TRC10通证。     
 
-下面对TRC10 token进行说明。  
+下面对TRC10通证进行说明。  
 
-## 7.1 如何发行TRC10 token
-[grpc接口](https://github.com/tronprotocol/Documentation/blob/master/%E4%B8%AD%E6%96%87%E6%96%87%E6%A1%A3/%E6%B3%A2%E5%9C%BA%E5%8D%8F%E8%AE%AE/%E6%B3%A2%E5%9C%BA%E9%92%B1%E5%8C%85RPC-API.md#7-%E9%80%9A%E8%AF%81%E5%8F%91%E8%A1%8C)
+<h2> 7.1 如何发行TRC10通证 </h2>
 
 http接口：  
 ```text
@@ -878,13 +905,12 @@ frozen_supply是token发行者可以在发行的时候指定冻结的token
 返回值：发行Token的Transaction  
 ```
 
-## 7.2 参与TRC10 token
-[grpc接口](https://github.com/tronprotocol/Documentation/blob/master/%E4%B8%AD%E6%96%87%E6%96%87%E6%A1%A3/%E6%B3%A2%E5%9C%BA%E5%8D%8F%E8%AE%AE/%E6%B3%A2%E5%9C%BA%E9%92%B1%E5%8C%85RPC-API.md#12-%E5%8F%82%E4%B8%8E%E9%80%9A%E8%AF%81%E5%8F%91%E8%A1%8C)
+<h2> 7.2 参与TRC10通证 </h2>
 
 http接口：  
 ```
 wallet/participateassetissue
-作用：参与token发行
+作用：参与通证发行
 demo：curl -X POST http://127.0.0.1:8090/wallet/participateassetissue -d '{
 "to_address": "41e552f6487585c2b58bc2c9bb4492bc1f17132cd0",
 "owner_address":"41e472f387585c2b58bc2c9bb4492bc1f17342cd1", 
@@ -901,8 +927,7 @@ asset_name是token的名称，需要是hexString格式
 返回值：参与token发行的transaction
 ```
 
-## 7.3 TRC10 token转账
-[grpc接口](https://github.com/tronprotocol/Documentation/blob/master/%E4%B8%AD%E6%96%87%E6%96%87%E6%A1%A3/%E6%B3%A2%E5%9C%BA%E5%8D%8F%E8%AE%AE/%E6%B3%A2%E5%9C%BA%E9%92%B1%E5%8C%85RPC-API.md#11)
+<h2> 7.3 TRC10通证转账 </h2>
 
 http接口：
 ```
@@ -924,8 +949,8 @@ demo：curl -X POST  http://127.0.0.1:8090/wallet/transferasset -d '{
 返回值：token转账的Transaction
 ```
 
-# 8 Tron资源（Resource）模型
-## 8.1 资源模型介绍
+# 8. 资源模型
+<h2> 8.1 资源模型介绍 </h2>
 
 TRON网络中的资源有4种：带宽，CPU，存储和内存。得益于波场独有的内存模型，TRON网络中的内存资源几乎是无限的。     
 TRON网络引入了Bandwidth point 和 Energy 两种资源概念。其中Bandwidth Point表示带宽资源，Energy表示CPU和存储资源。     
@@ -933,7 +958,7 @@ TRON网络引入了Bandwidth point 和 Energy 两种资源概念。其中Bandwid
 - 普通交易仅消耗Bandwidth points  
 - 智能合约的操作不仅要消耗Bandwidth points，还会消耗Energy  
 
-## 8.2 Bandwidth Points
+<h2> 8.2 Bandwidth Points </h2>
 
 交易以字节数组的形式在网络中传输及存储，一条交易消耗的Bandwidth Points = 交易字节数 * Bandwidth Points费率。当前Bandwidth Points费率 = 1。  
 
@@ -941,7 +966,7 @@ TRON网络引入了Bandwidth point 和 Energy 两种资源概念。其中Bandwid
 
 **注意** 由于网络中总冻结资金以及账户的冻结资金随时可能发生变化，因此账户拥有的Bandwidth Points不是固定值。
 
-### 8.2.1 Bandwidth PointsBandwidth Points的来源
+<h3> 8.2.1 Bandwidth PointsBandwidth Points的来源 <h3>
 
 Bandwidth Points的获取分两种：  
 
@@ -950,13 +975,13 @@ Bandwidth Points的获取分两种：
 
 - 每个账号每天有固定免费额度的带宽，为5000。  
 
-### 8.2.2 Bandwith Points的消耗
+<h3> 8.2.2 Bandwith Points的消耗 </h3>
 
 除了查询操作，任何交易都需要消耗bandwidth points。  
 
 还有一种情况，如果是转账，包括普通转账或发行Token转账，如果目标账户不存在，转账操作则会创建账户并转账，只会扣除创建账户消耗的Bandwidth Points，转账不会再消耗额外的Bandwidth Points。  
 
-### 8.2.3 Bandwidth Points的计算规则
+<h3> 8.2.3 Bandwidth Points的计算规则 </h3>
 
 Bandwidth Points是一个账户1天内能够使用的总字节数。一定时间内，整个网络能够处理的Bandwidth为确定值。  
 
@@ -984,17 +1009,17 @@ Bandwidth Points是一个账户1天内能够使用的总字节数。一定时间
     
 3.&nbsp;尝试消耗交易发起者的TRX，交易的字节数 * 10 sun  
 
-### 8.2.4 带宽的自动恢复
+<h3> 8.2.4 带宽的自动恢复 </h3>
 在网络总锁定资金以及账户锁定资金不变的情况向，账户的带宽的已使用量随着时间增加而按比例衰减，24h衰减到0。如时间T1时刻，账户带宽已使用量为U，到T1+12h，账户再次使用带宽u,此时账户已使用带宽为 U/2 + u。具体公式如下：  
 
 ![image](https://github.com/tronprotocol/Documentation/blob/fix_http/TRX_CN/figures/bandwidthRestoreEqn.gif)
 
 即可以理解为每24h，用户已使用的带宽值重置为0。  
 
-## 8.3 Energy
+<h2> 8.3 Energy </h2>
 [5.3 Energy介绍](5.3 Energy介绍)
 
-## 8.4 资源委托（resource delegate）
+<h2> 8.4 资源委托（resource delegate） </h2>
 在TRON中，一个账户可以通过冻结TRX来获取带宽和能量。同时，也可以把冻结TRX获取的带宽或者能量委托（delegate）给其他地址。  
 此时，主账号拥有冻结的TRX以及相应的投票权，受委托账户拥有冻结获取的资源（带宽或者能量）。  
 和普通冻结一样，委托资源也至少冻结3天。 
@@ -1008,7 +1033,7 @@ frozen_duration为冻结的天数（目前固定为3天），
 ResourceCode表示要获取的资源是带宽还是能量，
 receiverAddress表示受委托账户的地址，
 
-## 8.5 其他交易费
+<h2> 8.5 其他交易费 </h2>
 
 |交易类型|费用|
 | :------|:------:|
@@ -1017,18 +1042,17 @@ receiverAddress表示受委托账户的地址，
 |创建account|0.1 TRX|
 |创建exchange|1024 TRX|
 
-# 9 去中心化交易所(DEX)说明
+# 9. 去中心化交易所(DEX)
 
-## 9.1 什么是交易对
+<h2> 9.1 什么是交易对 </h2>
 TRON网络原生支持去中心化交易所(DEX)。去中心化交易所由多个交易对构成。一个交易对（Exchange）是token与token之间，或者token与TRX之间的交易市场（Exchange Market）。
 任何账户都可以创建任何token之间的交易对，即使TRON网络中已经存在相同的交易对。交易对的买卖与价格波动遵循Bancor协议。
 TRON网络规定，所有交易对中的两个token的权重相等，因此它们数量（balance）的比率即是它们之间的价格。
 举一个简单的例子，假设一个交易对包含ABC和DEF两种token，ABC的balance为1000万，DEF的balance为100万，由于权重相等，因此10 ABC = 1 DEF，也就是说，当前ABC对于DEF的价格为10ABC/DEF。
 
-## 9.2 创建交易对 
+<h2> 9.2 创建交易对  </h2>
 任何账户都可以创建任何token之间的交易对。创建交易对的手续费是1024TRX，这个手续费会被TRON网络烧掉。   
 创建交易对相当于为该交易对注入（inject）原始资本，因此创建者账户中要拥有该交易对的初始balance。当创建成功后，会立即从创建者账户中扣除这两个token的balance。
-
 
 创建交易对的合约是ExchangeCreateContract，该合约有4个参数：
 - first_token_id，第1种token的id   
@@ -1036,15 +1060,16 @@ TRON网络规定，所有交易对中的两个token的权重相等，因此它�
 - second_token_id，第2种token的id   
 - second_token_balance，第2种token的balance   
 
-其中token的id由token的name得到，具体概念请参见token发行相关部分的文档。如果交易对中包含TRX，则使用"_"表示TRX的id。需要注意的是，TRX的单位是sun，即10-6 TRX。    
-例子：
+如果交易对中包含TRX，则使用" _ "表示TRX的id。需要注意的是，TRX的单位是SUN。    
+例子：  
 ```text    
 ExchangeCreate abc 10000000 _ 1000000000000    
-````
+```
+
 该交易会创建abc与TRX之间的交易对，初始balance分别为10000000个abc和1000000000000 sun（1000000TRX），
 如果创建者没有足够的abc和TRX，则交易对创建失败；否则创建者账户中立即扣除相应的abc和TRX，交易对创建成功，可以开始交易。
 
-## 9.3 交易
+<h2> 9.3 交易 </h2>
 任何账户都可以在任何交易对中进行交易。交易量和价格完全遵循Bancor协议。也就是说，一个账户在交易时，交易的对象是exchange。交易是即时的，不需要挂单和抢单，只要有足够的token，就可以交易成功。     
 
 交易的合约是ExchangeTransactionContract，该合约有3个参数：     
@@ -1058,9 +1083,9 @@ ExchangeCreate abc 10000000 _ 1000000000000
 ```text  
 ExchangeTransaction 1 _ 100 990 
 ```     
-其中"_"表示TRX，即向交易对卖出100个TRX。如果成功，该交易会使得交易对中增加100个TRX，并根据Bancor协议计算出减少的abc的数量，交易对创建者的账户中abc和TRX的数量会相应地增加和减少。  
+其中" _ "表示TRX，即向交易对卖出100个TRX。如果成功，该交易会使得交易对中增加100个TRX，并根据Bancor协议计算出减少的abc的数量，交易对创建者的账户中abc和TRX的数量会相应地增加和减少。  
 
-## 9.4 注资
+<h2> 9.4 注资 </h2>
 当一个交易对其中1种token的balance很小时，只需要很小的交易量就会造成很大的价格波动，这不利于正常交易。为了避免这种情况，该交易对的创建者可以选择向该交易对注资（inject）。  
 一个交易对只能由该交易对的创建者来注资。注资不需要手续费。    
 注资需要指定一种token以及注资金额，TRON网络会自动根据当前交易对中两种token的比例，计算出另一个token所需的金额，从而保证注资前后，交易对中两个token的比例相同，价格没有变化。   与创建交易对相同，注资要求创建者拥有足够多的两种token的balance。   
@@ -1077,7 +1102,7 @@ ExchangeInject 1 abc 1000000
 ```    
 如果成功，该交易会使得交易对中增加1000000个abc，并增加100000个TRX，交易对创建者的账户中abc和TRX的数量会相应地减少。
 
-## 9.5 撤资
+<h2> 9.5 撤资 </h2>
 一个交易对中的所有资产都是创建者的。创建者可以随时撤资（withdraw），把交易对中的token赎回到自身账户中。一个交易对只能由该交易对的创建者来撤资。撤资不需要手续费。      
 和注资一样，撤资需要指定一种token以及撤资金额，TRON网络会自动根据当前交易对中两种token的比例，计算出另一个token撤资的金额，从而保证撤资前后，交易对中两个token的比例相同，价格没有变化。      
 撤资前后价格没有变化，但是价格波动会更大。  
@@ -1094,8 +1119,8 @@ ExchangeWithdraw 1 abc 1000000
 ```    
 如果成功，该交易会使得交易对中减少1000000个abc，以及减少100000个TRX，交易对创建者的账户中abc和TRX的数量会相应地增加。
 
-## 9.6 查询
-### 9.6.1 查询交易
+<h2> 9.6 查询 </h2>
+<h3> 9.6.1 查询交易 </h3>
 有三个查询交易对的接口，包括：  
 查询所有交易对信息（ListExchanges）  
 分页查询交易对信息（GetPaginatedExchangeList）(Odyssey-v3.1.1暂不支持)  
@@ -1103,14 +1128,14 @@ ExchangeWithdraw 1 abc 1000000
 
 相关api详情，请查询[波场RPC-API说明](https://github.com/tronprotocol/Documentation/blob/master/%E4%B8%AD%E6%96%87%E6%96%87%E6%A1%A3/%E6%B3%A2%E5%9C%BA%E5%8D%8F%E8%AE%AE/%E6%B3%A2%E5%9C%BA%E9%92%B1%E5%8C%85RPC-API.md#64-%E6%9F%A5%E8%AF%A2%E6%8C%87%E5%AE%9A%E4%BA%A4%E6%98%93%E5%AF%B9)  
 
-### 9.6.2 计算当前价格
+<h3> 9.6.2 计算当前价格 </h3>
 交易中token的当前价格信息的计算过程：  
 
 假设 first_token 当前的价格为 100 Sun，first_token_balance 为1000_000,second_token_balance 为2000_000，  
 second_token 当前的价格为 first_token * first_token_balance/second_token_balance = 50 Sun   
 first_token的价格可有"first_token&&TRX"交易对计算获得  
 
-### 9.6.3 计算交易获得token量
+<h3> 9.6.3 计算交易获得token量 </h3>
 交易中花费first_token置换获得的second_token的数量的计算过程：
 
 sellTokenQuant是要卖出的first_token的金额    
@@ -1123,24 +1148,25 @@ buyTokenQuant = （long）balance * (Math.pow(1.0 + (double) supplyQuant / suppl
 
 相关api详情，请查询[Tron-http](Tron-http.md)。
 
-# 10 多重签名
+# 10. 多重签名
 详细信息请参考:  
 [https://github.com/tronprotocol/documentation/blob/master/%E4%B8%AD%E6%96%87%E6%96%87%E6%A1%A3/%E6%B3%A2%E5%9C%BA%E5%8D%8F%E8%AE%AE/%E5%A4%9A%E9%87%8D%E7%AD%BE%E5%90%8D.md](https://github.com/tronprotocol/documentation/blob/master/%E4%B8%AD%E6%96%87%E6%96%87%E6%A1%A3/%E6%B3%A2%E5%9C%BA%E5%8D%8F%E8%AE%AE/%E5%A4%9A%E9%87%8D%E7%AD%BE%E5%90%8D.md)
 
-# 11 钱包介绍
-## 11.1 wallet-cli功能介绍
+# 11. 钱包介绍
+<h2> 11.1 wallet-cli功能介绍 </h2>
 请参考:  
 [https://github.com/tronprotocol/wallet-cli/blob/master/README.md](https://github.com/tronprotocol/wallet-cli/blob/master/README.md)
 
-## 11.2 计算交易ID
+<h2> 11.2 计算交易ID </h2>
 
 对交易的RawData取Hash。
 ```text
 Hash.sha256(transaction.getRawData().toByteArray())
 ```
-## 11.3 计算blockID
+<h2> 11.3 计算blockID </h2>
 block id是块高度和块头raw_data的hash的混合，具体是计算出块头中raw_data的hash。用块的高度替换该hash中的前8个byte。
 具体代码如下：  
+
 ```text
 private byte[] generateBlockId(long blockNum, byte[] blockHash) { 
   byte[] numBytes = Longs.toByteArray(blockNum); 
@@ -1150,7 +1176,7 @@ private byte[] generateBlockId(long blockNum, byte[] blockHash) { 
   }
 ```
 
-## 11.4 如何本地构造交易
+<h2> 11.4 如何本地构造交易 </h2>
 根据交易的定义，自己填充交易的各个字段，本地构造交易。需要注意是交易里面需要设置refference block信息和Expiration信息，所以在构造交易的时候需要连接mainnet。建议设置refference block为fullnode上面的最新块，设置Expiration为最新块的时间加N分钟。N的大小根据需要设定，后台的判断条件是(Expiration > 最新块时间 and Expiration < 最新块时时 + 24小时），如果条件成立则交易合法，否则交易为过期交易，不会被mainnet接收。   
 
 refference block 的设置方法：设置RefBlockHash为最新块的hash的第8到16(不包含)之间的字节，设置BlockBytes为最新块高度的第6到8（不包含）之间的字节，代码如下：  
@@ -1195,7 +1221,7 @@ public static Transaction createTransaction(byte[] from, byte[] to, long amount)
      return refTransaction;
    }
 ```
-## 11.5 相关demo
+<h2> 11.5 相关demo </h2>
 
 本地构造交易、签名的demo请参考:  
 [https://github.com/tronprotocol/wallet-cli/blob/master/src/main/java/org/tron/demo/TransactionSignDemo.java](https://github.com/tronprotocol/wallet-cli/blob/master/src/main/java/org/tron/demo/TransactionSignDemo.java) 

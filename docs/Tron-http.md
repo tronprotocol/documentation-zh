@@ -20,7 +20,7 @@ https://github.com/tronprotocol/Documentation/blob/master/TRX_CN/index.php
 # SolidityNode接口说明
 
 solidityNode默认的http端口是8091，启动solidityNode的时候会同时启动http服务。
-```
+```text
 /walletsolidity/getaccount
 作用：查询一个账号的信息
 demo: curl -X POST  http://127.0.0.1:8091/walletsolidity/getaccount -d '{"address": "41E552F6487585C2B58BC2C9BB4492BC1F17132CD0"}'
@@ -202,7 +202,7 @@ demo: curl -X POST  http://127.0.0.1:8091/walletsolidity/getdeferredtransactioni
 # FullNode接口说明
 FullNode默认的http端口是8090，启动FullNode的时候会同时启动http服务。
 
-```
+```text
 wallet/createtransaction
 作用： 创建一个转账的Transaction，如果转账的to地址不存在，则在区块链上创建该账号
 demo: curl -X POST  http://127.0.0.1:8090/wallet/createtransaction -d '{"to_address": "41e9d79cc47518930bc322d9bf7cddd260a0260a8d", "owner_address": "41D1E7A6BC354106CB410E65FF8B181C600FF14292", "amount": 1000 }'
@@ -512,8 +512,8 @@ wallet/getblockbylimitnext
 作用：按照范围查询块
 demo: curl -X POST  http://127.0.0.1:8090/wallet/getblockbylimitnext -d '{"startNum": 1, "endNum": 2}'
 参数说明：
-   startNum：起始块高度，包含此块
-   endNum：截止块高度，不包含此此块
+startNum：起始块高度，包含此块
+endNum：截止块高度，不包含此此块
 返回值：块的列表。
 
 wallet/getblockbylatestnum
