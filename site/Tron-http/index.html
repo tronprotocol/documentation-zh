@@ -85,7 +85,7 @@
           
             <li class="toctree-l1">
 		
-    <a class="" href="../Official_Public_Node/">TRON 官方公共节点</a>
+    <a class="" href="../official-public-nodes/">TRON 官方公共节点</a>
 	    </li>
           
             <li class="toctree-l1">
@@ -95,7 +95,7 @@
           
             <li class="toctree-l1">
 		
-    <a class="" href="../SolidityNode&FullNode_Deployment/">TRON 部署</a>
+    <a class="" href="../Tron-deployment/">TRON 部署</a>
 	    </li>
           
         </ul>
@@ -147,7 +147,7 @@ https://github.com/tronprotocol/Documentation/blob/master/TRX_CN/index.php </p>
 3. GET方式请求接口时，通过在url中增加参数。同方式1。     </p>
 <h1 id="soliditynode">SolidityNode接口说明</h1>
 <p>solidityNode默认的http端口是8091，启动solidityNode的时候会同时启动http服务。</p>
-<pre><code>/walletsolidity/getaccount
+<pre><code class="text">/walletsolidity/getaccount
 作用：查询一个账号的信息
 demo: curl -X POST  http://127.0.0.1:8091/walletsolidity/getaccount -d '{&quot;address&quot;: &quot;41E552F6487585C2B58BC2C9BB4492BC1F17132CD0&quot;}'
 参数说明：address 默认为hexString
@@ -327,7 +327,7 @@ demo: curl -X POST  http://127.0.0.1:8091/walletsolidity/getdeferredtransactioni
 
 <h1 id="fullnode">FullNode接口说明</h1>
 <p>FullNode默认的http端口是8090，启动FullNode的时候会同时启动http服务。</p>
-<pre><code>wallet/createtransaction
+<pre><code class="text">wallet/createtransaction
 作用： 创建一个转账的Transaction，如果转账的to地址不存在，则在区块链上创建该账号
 demo: curl -X POST  http://127.0.0.1:8090/wallet/createtransaction -d '{&quot;to_address&quot;: &quot;41e9d79cc47518930bc322d9bf7cddd260a0260a8d&quot;, &quot;owner_address&quot;: &quot;41D1E7A6BC354106CB410E65FF8B181C600FF14292&quot;, &quot;amount&quot;: 1000 }'
 参数说明：
@@ -636,8 +636,8 @@ wallet/getblockbylimitnext
 作用：按照范围查询块
 demo: curl -X POST  http://127.0.0.1:8090/wallet/getblockbylimitnext -d '{&quot;startNum&quot;: 1, &quot;endNum&quot;: 2}'
 参数说明：
-   startNum：起始块高度，包含此块
-   endNum：截止块高度，不包含此此块
+startNum：起始块高度，包含此块
+endNum：截止块高度，不包含此此块
 返回值：块的列表。
 
 wallet/getblockbylatestnum

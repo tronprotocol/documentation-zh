@@ -186,7 +186,7 @@ CPU：64核及以上 内存：64G及以上 带宽：500M及以上 硬盘：20T�
 
 <h2> 4.4 Tron网络结构 </h2>
 Tron网络采用Peer-to-Peer(P2P)的网络架构，网络中的节点地位对等。网络中的节点有SuperNode、FullNode、SolidityNode三种类型，SuperNode主要用于生成区块，FullNode用于同步区块、广播交易，SolidityNode用于同步固化的区块。任何部署运行Tron代码的设备都可以加入Tron网络并作为一个节点，和Tron网络中的其他节点有相同的地位，他们可以创建交易，广播交易，同步区块等，也可以作为SuperNode的候选人参与选举。
-![image](https://raw.githubusercontent.com/tronprotocol/Documentation/fix_http/TRX_CN/figures/network.png)
+![image](https://raw.githubusercontent.com/tronprotocol/documentation-EN/master/imags/network.png)
 
 <h2> 4.5 一键部署FullNode和SolidityNode </h2>
 下载一键部署脚本，根据不同的节点类型附加相应的参数来运行脚本。  
@@ -238,13 +238,13 @@ nohup java -Xmx6g -XX:+HeapDumpOnOutOfMemoryError -jar FullNode.jar  --witness  
 
  配置文件中需要修改的参数：  
  localwitness:  
- ![image](https://raw.githubusercontent.com/tronprotocol/Documentation/fix_http/TRX_CN/figures/localwitness.jpg)
+ ![image](https://raw.githubusercontent.com/tronprotocol/documentation-EN/master/imags/localwitness.jpg)
  witnesses:  
- ![image](https://raw.githubusercontent.com/tronprotocol/Documentation/fix_http/TRX_CN/figures/witness.png) 
+ ![image](https://raw.githubusercontent.com/tronprotocol/documentation-EN/master/imags/witness.png) 
  version:  
- ![image](https://raw.githubusercontent.com/tronprotocol/Documentation/fix_http/TRX_CN/figures/p2p_version.png)  
+ ![image](https://raw.githubusercontent.com/tronprotocol/documentation-EN/master/imags/p2p_version.png)  
  enable:  
- ![image](https://raw.githubusercontent.com/tronprotocol/Documentation/fix_http/TRX_CN/figures/discovery_enable.png)  
+ ![image](https://raw.githubusercontent.com/tronprotocol/documentation-EN/master/imags/discovery_enable.png)  
 
 <h5> 4.6.3.2.2 步骤二:部署FullNode节点    </h5>
 
@@ -272,28 +272,28 @@ nohup java -Xmx6g -XX:+HeapDumpOnOutOfMemoryError -jar FullNode.jar  --witness  
 
  配置文件中需要修改的参数：  
  ip.list:  
- ![image](https://raw.githubusercontent.com/tronprotocol/Documentation/fix_http/TRX_CN/figures/ip_list.png)
+ ![image](https://raw.githubusercontent.com/tronprotocol/documentation-EN/master/imags/ip_list.png)
  p2p.version:  
- ![image](https://raw.githubusercontent.com/tronprotocol/Documentation/fix_http/TRX_CN/figures/p2p_version.png)
+ ![image](https://raw.githubusercontent.com/tronprotocol/documentation-EN/master/imags/p2p_version.png)
  genesis.block:  
- ![image](https://raw.githubusercontent.com/tronprotocol/Documentation/fix_http/TRX_CN/figures/genesis_block.png)
+ ![image](https://raw.githubusercontent.com/tronprotocol/documentation-EN/master/imags/genesis_block.png)
  needSyncCheck:  
- ![image](https://raw.githubusercontent.com/tronprotocol/Documentation/fix_http/TRX_CN/figures/need_sync_check.png)
+ ![image](https://raw.githubusercontent.com/tronprotocol/documentation-EN/master/imags/need_sync_check.png)
  node.discovery.enable:  
- ![image](https://raw.githubusercontent.com/tronprotocol/Documentation/fix_http/TRX_CN/figures/discovery_enable.png)
+ ![image](https://raw.githubusercontent.com/tronprotocol/documentation-EN/master/imags/discovery_enable.png)
  
 <h2> 4.7 数据库引擎 </h2>
 <h3> 4.7.1 rocksdb </h3>
 <h4> 4.7.1.1 config配置说明 </h4>
  使用rocksdb作为数据存储引擎，需要将db.engine配置项设置为"ROCKSDB"
- ![image](https://raw.githubusercontent.com/tronprotocol/Documentation/master/TRX_CN/figures/db_engine.png)
+ ![image](https://raw.githubusercontent.com/tronprotocol/documentation-EN/master/imags/db_engine.png)
  注意: rocksdb只支持db.version=2, 不支持db.version=1。
  rocksdb支持的优化参数如下：
- ![image](https://raw.githubusercontent.com/tronprotocol/Documentation/master/TRX_CN/figures/rocksdb_tuning_parameters.png)
+ ![image](https://raw.githubusercontent.com/tronprotocol/documentation-EN/master/imags/rocksdb_tuning_parameters.png)
 
 <h4> 4.7.1.2 使用rocksdb数据备份功能 </h4>
  选择rocksdb作为数据存储引擎，可以使用其提供的运行时数据备份功能。
- ![image](https://raw.githubusercontent.com/tronprotocol/Documentation/master/TRX_CN/figures/db_backup.png)
+ ![image](https://raw.githubusercontent.com/tronprotocol/documentation-EN/master/imags/db_backup.png)
  注意: FullNode可以使用数据备份功能；为了不影响SuperNode的产块性能，数据备份功能不支持SuperNode，但是SuperNode的备份服务节点可以使用此功能。
 
 <h4> 4.7.1.3 leveldb数据转换为rocksdb数据 </h4>
@@ -1012,7 +1012,7 @@ Bandwidth Points是一个账户1天内能够使用的总字节数。一定时间
 <h3> 8.2.4 带宽的自动恢复 </h3>
 在网络总锁定资金以及账户锁定资金不变的情况向，账户的带宽的已使用量随着时间增加而按比例衰减，24h衰减到0。如时间T1时刻，账户带宽已使用量为U，到T1+12h，账户再次使用带宽u,此时账户已使用带宽为 U/2 + u。具体公式如下：  
 
-![image](https://github.com/tronprotocol/Documentation/blob/fix_http/TRX_CN/figures/bandwidthRestoreEqn.gif)
+![image](https://raw.githubusercontent.com/tronprotocol/documentation-EN/master/imags/bandwidthRestoreEqn.gif)
 
 即可以理解为每24h，用户已使用的带宽值重置为0。  
 
