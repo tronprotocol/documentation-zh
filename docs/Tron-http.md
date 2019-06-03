@@ -1020,6 +1020,324 @@ owner_address：创建合约的账户地址，默认为hexString格式
 owner：账户owner权限的分配信息    
 witness：出块权限的分配信息，如果不是witness，不需要设置   
 actives：其他功能权限的分配信息      
-返回值:账户创建多重签名的transaction       
+返回值:账户创建多重签名的transaction 
+
+wallet/getexpandedspendingkey  
+作用：获取expanded spending keys
+demo: curl -X POST  http://127.0.0.1:8090/wallet/getexpandedspendingkey -d 
+'{
+    "value": "06b02aaa00f230b0887ff57a6609d76691369972ac3ba568fe7a8a0897fce7c4"
+}' 
+参数说明：
+value：Spending key        
+返回值： Expanded spending keys  
+
+wallet/getakfromask  
+作用：从ask获得ak  
+demo: curl -X POST  http://127.0.0.1:8090/wallet/getakfromask -d 
+'{
+    "value": "653b3a3fdd40b60d2f53ba121df8840f6590384993f8fa9a0ecb0dfb23496604"
+}'   
+参数说明： 
+value：Ask        
+返回值：Ak    
+
+wallet/getnkfromnsk  
+作用：从nsk获得nk  
+demo: curl -X POST  http://127.0.0.1:8090/wallet/getnkfromnsk -d 
+'{
+    "value": "428ff3c9e101dc1fca08f7b0e3387b23b68016746ae565aefc19d112b696db01"
+}' 
+参数说明： 
+value：Nsk        
+返回值：Nk   
+
+wallet/getspendingkey   
+作用：获得spending key    
+demo: curl -X GET  http://127.0.0.1:8090/wallet/getspendingkey 
+参数说明：无   
+返回值：Spending key     
+
+wallet/getdiversifier   
+作用：To get diversifier   
+demo: curl -X GET  http://127.0.0.1:8090/wallet/getdiversifier   
+参数说明：无       
+返回值: Diversifier    
+
+wallet/getincomingviewingkey  
+作用：获得incoming viewing key   
+demo: curl -X POST  http://127.0.0.1:8090/wallet/getincomingviewingkey -d 
+'{
+	"ak":"b443f1a303ef5837ba95750b48b6fef15f9c77f63a8c28c161bcd6613f423b5c",
+    "nk":"632137e69179df3d10e252fcce85d13464c3163fe7a619edf8d43ebefa8162d9"
+ }' 
+参数说明：
+ak：Ak   
+nk：Nk   
+返回值：Incoming viewing key   
+
+wallet/getzenpaymentaddress  
+作用：获得支付地址  
+demo: curl -X POST  http://127.0.0.1:8090/wallet/getzenpaymentaddress -d 
+'{
+	"ivk":"8c7852e10862d8eec058635974f70f24c1f8d73819131bb5b54028d0a9408a03",
+    "d":"736ba8692ed88a5473e009"
+ }' 
+参数说明：
+ivk：Ivk    
+d：D    
+返回值：支付地址    
+       
+wallet/createshieldedtransactionwithoutspendauthsig   
+作用：To create shielded transaction without using ask   
+demo: curl -X POST  http://127.0.0.1:8090/wallet/createshieldedtransactionwithoutspendauthsig -d 
+'{
+	"ivk":"8c7852e10862d8eec058635974f70f24c1f8d73819131bb5b54028d0a9408a03",
+    "d":"736ba8692ed88a5473e009"
+ }'  
+参数说明：
+transparent_from_address：透明发送者的地址 
+from_amount：从透明地址转出的数额
+ask：Ask   
+nsk：Nsk  
+ovk：Ovk  
+shielded_receives：匿名接收者信息
+shieldedSpends：匿名发送者信息
+transparent_to_address：透明接收者地址  
+to_amount：转入透明地址的数额 
+返回值：交易对象  
+
+wallet/createshieldedtransactionwithoutspendauthsig  
+作用：创建匿名交易（不需要提供ask）  
+demo: curl -X POST  http://127.0.0.1:8090/wallet/createshieldedtransactionwithoutspendauthsig -d 
+'{
+    "ak": "bf051629fd8122cd9dd8591d72947b026c214cf7cdac1f68eff97179727d38e9",
+    "nsk": "42963d26af8122204273fa3489d9efd6babf1f7179ff193c955a1f3d9c2df10c",
+    "ovk": "bc9848a83966709655b12efadc9e978785858316045e0115a0e72567a9a2a823",
+    "shielded_spends": [
+        {
+            "note": {
+                "value": 500000000,
+                "payment_address": "ztron1jld8fmvujrz2vgkc867zuwklmewy4ypw0wtwgweqs2paee0uhc8f3azy90el770arksa2kunl02",
+                "rcm": "723053bcbfecdf5da66c18ab0376476ef308c61b7abe891b2c01e903bcb87c0e"
+            },
+            "alpha": "2608999c3a97d005a879ecdaa16fd29ae434fb67b177c5e875b0c829e6a1db04",
+            "voucher": {
+                "tree": {
+                    "left": {
+                        "content": "a3d5c9b2db9699f32afec5febbd5586ce9ff33a0bef6fee5691028313b8e1f6a"
+                    },
+                    "parents": [
+                        {
+                            "content": "d9c38484296b3aa8f5e8b59d418a3775e2bb414e75498ad352e4614f05aae548"
+                        },
+                        {
+                            "content": "d0420777afdc4151c3f14fbe4c714d82dc15873edb1ca65ebb3887334a4bae15"
+                        }
+                    ]
+                },
+                "rt": "fb1115d5ddd16c5427c3a608d6b5add5967e70f51c890307c6142083a2c28565"
+            },
+            "path": "2020b2eed031d4d6a4f02a097f80b54cc1541d4163c6b6f5971f88b6e41d35c538142012935f14b676509b81eb49ef25f39269ed72309238b4c145803544b646dca62d20e1f34b034d4a3cd28557e2907ebf990c918f64ecb50a94f01d6fda5ca5c7ef722028e7b841dcbc47cceb69d7cb8d94245fb7cb2ba3a7a6bc18f13f945f7dbd6e2a20a5122c08ff9c161d9ca6fc462073396c7d7d38e8ee48cdb3bea7e2230134ed6a20d2e1642c9a462229289e5b0e3b7f9008e0301cbb93385ee0e21da2545073cb582016d6252968971a83da8521d65382e61f0176646d771c91528e3276ee45383e4a20fee0e52802cb0c46b1eb4d376c62697f4759f6c8917fa352571202fd778fd712204c6937d78f42685f84b43ad3b7b00f81285662f85c6a68ef11d62ad1a3ee0850200769557bc682b1bf308646fd0b22e648e8b9e98f57e29f5af40f6edb833e2c492008eeab0c13abd6069e6310197bf80f9c1ea6de78fd19cbae24d4a520e6cf3023208d5fa43e5a10d11605ac7430ba1f5d81fb1b68d29a640405767749e841527673206aca8448d8263e547d5ff2950e2ed3839e998d31cbc6ac9fd57bc6002b15921620cd1c8dbf6e3acc7a80439bc4962cf25b9dce7c896f3a5bd70803fc5a0e33cf00206edb16d01907b759977d7650dad7e3ec049af1a3d875380b697c862c9ec5d51c201ea6675f9551eeb9dfaaa9247bc9858270d3d3a4c5afa7177a984d5ed1be245120d6acdedf95f608e09fa53fb43dcd0990475726c5131210c9e5caeab97f0e642f20bd74b25aacb92378a871bf27d225cfc26baca344a1ea35fdd94510f3d157082c201b77dac4d24fb7258c3c528704c59430b630718bec486421837021cf75dab65120ec677114c27206f5debc1c1ed66f95e2b1885da5b7be3d736b1de98579473048204777c8776a3b1e69b73a62fa701fa4f7a6282d9aee2c7a6b82e7937d7081c23c20ba49b659fbd0b7334211ea6a9d9df185c757e70aa81da562fb912b84f49bce722043ff5457f13b926b61df552d4e402ee6dc1463f99a535f9a713439264d5b616b207b99abdc3730991cc9274727d7d82d28cb794edbc7034b4f0053ff7c4b68044420d6c639ac24b46bd19341c91b13fdcab31581ddaf7f1411336a271f3d0aa52813208ac9cf9c391e3fd42891d27238a81a8a5c1d3a72b1bcbea8cf44a58ce738961320912d82b2c2bca231f71efcf61737fbf0a08befa0416215aeef53e8bb6d23390a20e110de65c907b9dea4ae0bd83a4b0a51bea175646a64c12b4c9f931b2cb31b4920d8283386ef2ef07ebdbb4383c12a739a953a4d6e0d6fb1139a4036d693bfbb6c20d0420777afdc4151c3f14fbe4c714d82dc15873edb1ca65ebb3887334a4bae1520d9c38484296b3aa8f5e8b59d418a3775e2bb414e75498ad352e4614f05aae5482001000000000000000000000000000000000000000000000000000000000000000600000000000000"
+        }
+    ],
+    "shielded_receives": [
+        {
+            "note": {
+                "value": 40000000,
+                "payment_address": "ztron1wd46s6fwmz99gulqpxul6zffqtevzfpl93ng3s5834fhwf6e7w5l6zmjhmpvtwsc4wxa7dusmvr",
+                "rcm": "ccced07d36641fc93cba33cddda7064cb82f6962a0bdf15a4240a4a742770e03"
+            }
+        }
+    ]
+}'  
+参数说明：
+transparent_from_address：透明发送者的地址 
+from_amount：从透明地址转出的数额
+ak：Ak   
+nsk：Nsk  
+ovk：Ovk  
+shielded_receives：匿名接收者信息
+shieldedSpends：匿名发送者信息
+transparent_to_address：透明接收者地址  
+to_amount：转入透明地址的数额 
+返回值：交易对象   
+
+wallet/scannotebyivk    
+作用：查询与ivk相关的所有的notes  
+demo: curl -X POST  http://127.0.0.1:8090/wallet/scannotebyivk -d 
+'{
+    "startNum": 0,
+    "endNum": 100000,
+    "ivk": "80a481c3c739e54b4e0608090b3a1a6e9f8dce42346e95bf5a2d8a487bf45c05"
+}' 
+参数说明：
+startNum：开始区块高度      
+endNum：结束区块高度     
+ivk：Incoming viewing key        
+返回值：Notes列表    
+
+wallet/scannotebyovk    
+作用：查询与ovk相关的所有的notes  
+demo: curl -X POST  http://127.0.0.1:8090/wallet/scannotebyovk -d 
+'{
+    "startNum": 0,
+    "endNum": 100000,
+    "ovk": "705145aa18cbe6c11d5d0011419a98f3d5b1d341eb4727f1315597f4bdaf8539"
+}' 
+参数说明：
+startNum：开始区块高度      
+endNum：结束区块高度      
+ovk：Outgoing viewing key        
+返回值：Notes列表     
+
+wallet/getrcm    
+作用：获得一个rcm
+demo: curl -X GET  http://127.0.0.1:8090/wallet/getrcm
+参数说明：无       
+返回值：rcm  
+
+wallet/getmerkletreevoucherinfo    
+作用：获得一个note的默克尔树信息 
+demo: curl -X POST  http://127.0.0.1:8090/wallet/getmerkletreevoucherinfo -d 
+'{
+	"out_points":[{
+		"hash":"185b3e085723f5862b3a3c3cf54d52f5c1eaf2541e3a1e0ecd08bc12cd958d74",
+		"index":0
+	}]
+}' 
+参数说明：
+out_points：Note信息        
+返回值：一个note的默克尔树信息   
+
+wallet/isspend   
+作用：查询一个note是否已经被花费  
+demo: curl -X POST  http://127.0.0.1:8090/wallet/isspend -d 
+'{
+    "ak": "a3e65d509b675aaa2aeda977ceff11eebd76218079b6f543d78a615e396ca129",
+    "nk": "62cfda9bea09a53cf2a21022057913734a8458969e11e0bb9c59ead48fbce83e",
+    "note": {
+        "payment_address": "ztron1aqgauawtkelxfu2w6s48cwh0mchjt6kwpj44l4wym3pullx0294j4r4v7kpm75wnclzycsw73mq",
+        "rcm": "74a16c1b27ec7fbf06881d9d35ddaab1554838b1bddcd54f6bd8a9fb4ba0b80a",
+        "value": 500000000
+    },
+    "voucher": {
+        "tree": {
+            "left": {
+                "content": "a4d763fae3fee78964ccdf7567ec3062c95a5b97825d731202d3dfa6cb01c143"
+            }
+        },
+        "rt": "7dc3652c2a16e8518a8be0e3e038f9d28c3eb96f13e8da8acc2a9b650702f33e"
+    }
+}' 
+参数说明：
+ak：Ak      
+nk：Nk      
+note：Note信息     
+voucher：Voucher信息       
+返回值：一个note是否已经被花费状态  
+
+wallet/createspendauthsig    
+作用：为一个交易创建一个签名 
+demo: curl -X POST  http://127.0.0.1:8090/wallet/createspendauthsig -d 
+'{
+    "ask": "e3ebcba1531f6d9158d9c162660c5d7c04dadf77d85d7436a9c98b291ff69a09",
+    "tx_hash": "3b78fee6e956f915ffe082284c5f18640edca9c57a5f227e5f7d7eb65ad61502",
+    "alpha": "2608999c3a97d005a879ecdaa16fd29ae434fb67b177c5e875b0c829e6a1db04"
+}' 
+参数说明：
+ask：Ask    
+tx_hash：交易哈希       
+alpha：Alpha            
+返回值：签名  
+
+wallet/createshieldnullifier    
+作用：To create a shielded nullifier   
+demo: curl -X POST  http://127.0.0.1:8090/wallet/createshieldnullifier -d 
+'{
+    "note": {
+        "payment_address": "ztron1aqgauawtkelxfu2w6s48cwh0mchjt6kwpj44l4wym3pullx0294j4r4v7kpm75wnclzycsw73mq",
+        "rcm": "74a16c1b27ec7fbf06881d9d35ddaab1554838b1bddcd54f6bd8a9fb4ba0b80a",
+        "value": 500000000
+    },
+    "voucher": {
+        "tree": {
+            "left": {
+                "content": "a4d763fae3fee78964ccdf7567ec3062c95a5b97825d731202d3dfa6cb01c143"
+            }
+        },
+        "rt": "7dc3652c2a16e8518a8be0e3e038f9d28c3eb96f13e8da8acc2a9b650702f33e"
+    },
+    "ak": "a3e65d509b675aaa2aeda977ceff11eebd76218079b6f543d78a615e396ca129",
+    "nk": "62cfda9bea09a53cf2a21022057913734a8458969e11e0bb9c59ead48fbce83e"
+}' 
+参数说明：
+note：Note信息      
+voucher：Voucher信息     
+ak：Ak         
+nk：Nk      
+返回值：匿名的nullifier  
+
+wallet/getshieldtransactionhash    
+作用：获得一笔匿名交易的hash 
+demo: curl -X POST  http://127.0.0.1:8090/wallet/createshieldnullifier -d 
+'{
+    "txID": "de639a64497d86bb27e34a2953093a0cc488ec4c7bc9624ac5857d3799748595",
+    "raw_data": {
+        "contract": [
+            {
+                "parameter": {
+                    "value": {
+                        "binding_signature": "2b8ae5e11ecad3e6946f54b7ad513bd8692a3edae72d29e266b28e47c9b37ccdb38e3b6433575694b6681136b1734f85afcfe672061d2ee7368755ad0b96a80b",
+                        "spend_description": [
+                            {
+                                "value_commitment": "cbe1063adbe7e10919421fa6133f03150253913f5aff02d165e2c019cea4a869",
+                                "anchor": "fb1115d5ddd16c5427c3a608d6b5add5967e70f51c890307c6142083a2c28565",
+                                "nullifier": "93e329d464e1dbddc8bb4d2dcc939a796dfe11e985d4e9033a15edf0e3df4f35",
+                                "rk": "10c702d6dff1509502ee5acc0b01d4b4531b2ff53b0dd54488aea6031b5e6d16",
+                                "zkproof": "abf64b3beacfd873b1db764c3da9f739993518f3f740e761cb8af60682b7171892895c3ccfb550c3cf757e906dbf5313a3676b8226b0b84960f76a185c8d3fdfc3fa9c08479a704852d7b3dfeb913cf13e01c25657561e00a06c61e7c65b50b812902ddc4f17bfe2bcb2f247c2dc6132d0f0e0abcecc0332fdd99077af10d07bbdb88c4fd257948428e233c57f84eee8b2eeab2162c1aeccf2e1dfaa306d5803a8b2d281a549440fbd5a3657a830c1ca07a384cea446aa077b195b29b23023b1"
+                            }
+                        ],
+                        "receive_description": [
+                            {
+                                "value_commitment": "f6d45db8ec5a1c8dbbde040b4ea138efbe8db2d0597ed2306ff3fdd0620b3c5a",
+                                "note_commitment": "ec3f5472ac8114a9a07987d1c2a0e1254504e352d9574971e77084293900312e",
+                                "epk": "719eeb5ebaeeccc55c9f0d73767aadf0c0513603400ccb50bd789637d984b8e6",
+                                "c_enc": "3a6c4fe0e79f5b23fed34a419c4728d0b26bca23180a22871743b0a9444c27663cf07c55a0ea6db504d70421768bf17384e180b2ad8b8be88ff5cf662c53a4ba086effc3a4b1df39265f71dfac884bff5a69e1dcdcae8aecf6ae443168ffab692a5c1e4908b415dd830dcf6432fae1c32461132080da74d6b83d3d00887eb2ce9965a749f8d8410ea4182969371ac2fd5e0e74d27d883492a08e6209cd9959d74bb67c2a9fe7faac5a4777f1bff19cf0b6398a2faa9b194bbb93d60f132f382f7d693a722e8cbca1da084ee7e0c371397419a7259d1fa0943078cfe5ea352e4b53907bb6c04ca8ad409fb0ae0b110a6b312200e21ab79d543ae7aeb16802cf87afdac1e8954038caa42818f4ca2847fd642360c098accfeeade4abd1cc9ca3315a4336be224ba3516973c7dae3f41875457236675993df38d3a544470c4f9335d77b005e6a9aec40fd881b34852ec9bbbcc3d24ee92930eae770a5462ce04c4e37b0524ef07e00e8d58c810d6aefb19fa7bc2c3a2fdfab6dd4fe73dbecc0795a280f9b7ca35cc8bc1062aed8e26bd81ba33c6f4c318974636f6d796723e77772ced3dbc1f42afec6fc9bb61f8beac704affea9baf2e2de226250c1d427c7d78b1eb1d239e1f3eb6af0f017b80541333f4fce17340048d826b9b0be8477c996ad8bfc3440dc686fdff6d0d63986db4d95962d7977289cbfd14c745de7c79d4dc0bcd220e5b4ced5b409e79142e0f336e44ca29a9a87f6f43707d8c4936e895236dd2b393a478a8bc27b1f682496ba84a0ddc549da06cb7855c4d8680dc66ac40240733b7f",
+                                "c_out": "50be6e77854d4c427b2af4f16e5275f0b0c206b3ea2d2a24ffb287ea356f323523354cd83d15e7c48e6f1fa103dfca3d49ca2263dbb0cd8bfb35d72cdcad1351de6fba7a30aea27184a68bcda19cc6da",
+                                "zkproof": "a4e6c50d5753092d005689922c2bdeafc98775bce59db840974163ace23c13fec18112e32aae1c39842c645ed172ad8fa277e63c1e3d6d7fb12eb15d56b573237b776f562a81d0e6be362d147d8604fdfec421482270ca82950de1883fda06e719f5d256d7a039769bffc570a1778d70c17295d1c0336a6ae0903d2460dc139a9563c2d40f37bffefa73003a55af1ff0861b6f79ef40099b6a0cb25ab3f40727210e4629647d0711abff125712a5f0d64fcb6e6a6b0b34478d7da0552b493a80"
+                            }
+                        ]
+                    },
+                    "type_url": "type.googleapis.com/protocol.ShieldedTransferContract"
+                },
+                "type": "ShieldedTransferContract"
+            }
+        ],
+        "ref_block_bytes": "0d59",
+        "ref_block_hash": "7356ce5c35d8265e",
+        "expiration": 1559237283000,
+        "timestamp": 1559201285590
+    },
+    "raw_data_hex": "0a020d5922087356ce5c35d8265e40b899a3ceb02d5a940b0833128f0b0a35747970652e676f6f676c65617069732e636f6d2f70726f746f636f6c2e536869656c6465645472616e73666572436f6e747261637412d50a1acb020a20cbe1063adbe7e10919421fa6133f03150253913f5aff02d165e2c019cea4a8691220fb1115d5ddd16c5427c3a608d6b5add5967e70f51c890307c6142083a2c285651a2093e329d464e1dbddc8bb4d2dcc939a796dfe11e985d4e9033a15edf0e3df4f35222010c702d6dff1509502ee5acc0b01d4b4531b2ff53b0dd54488aea6031b5e6d162ac001abf64b3beacfd873b1db764c3da9f739993518f3f740e761cb8af60682b7171892895c3ccfb550c3cf757e906dbf5313a3676b8226b0b84960f76a185c8d3fdfc3fa9c08479a704852d7b3dfeb913cf13e01c25657561e00a06c61e7c65b50b812902ddc4f17bfe2bcb2f247c2dc6132d0f0e0abcecc0332fdd99077af10d07bbdb88c4fd257948428e233c57f84eee8b2eeab2162c1aeccf2e1dfaa306d5803a8b2d281a549440fbd5a3657a830c1ca07a384cea446aa077b195b29b23023b122c2070a20f6d45db8ec5a1c8dbbde040b4ea138efbe8db2d0597ed2306ff3fdd0620b3c5a1220ec3f5472ac8114a9a07987d1c2a0e1254504e352d9574971e77084293900312e1a20719eeb5ebaeeccc55c9f0d73767aadf0c0513603400ccb50bd789637d984b8e622c4043a6c4fe0e79f5b23fed34a419c4728d0b26bca23180a22871743b0a9444c27663cf07c55a0ea6db504d70421768bf17384e180b2ad8b8be88ff5cf662c53a4ba086effc3a4b1df39265f71dfac884bff5a69e1dcdcae8aecf6ae443168ffab692a5c1e4908b415dd830dcf6432fae1c32461132080da74d6b83d3d00887eb2ce9965a749f8d8410ea4182969371ac2fd5e0e74d27d883492a08e6209cd9959d74bb67c2a9fe7faac5a4777f1bff19cf0b6398a2faa9b194bbb93d60f132f382f7d693a722e8cbca1da084ee7e0c371397419a7259d1fa0943078cfe5ea352e4b53907bb6c04ca8ad409fb0ae0b110a6b312200e21ab79d543ae7aeb16802cf87afdac1e8954038caa42818f4ca2847fd642360c098accfeeade4abd1cc9ca3315a4336be224ba3516973c7dae3f41875457236675993df38d3a544470c4f9335d77b005e6a9aec40fd881b34852ec9bbbcc3d24ee92930eae770a5462ce04c4e37b0524ef07e00e8d58c810d6aefb19fa7bc2c3a2fdfab6dd4fe73dbecc0795a280f9b7ca35cc8bc1062aed8e26bd81ba33c6f4c318974636f6d796723e77772ced3dbc1f42afec6fc9bb61f8beac704affea9baf2e2de226250c1d427c7d78b1eb1d239e1f3eb6af0f017b80541333f4fce17340048d826b9b0be8477c996ad8bfc3440dc686fdff6d0d63986db4d95962d7977289cbfd14c745de7c79d4dc0bcd220e5b4ced5b409e79142e0f336e44ca29a9a87f6f43707d8c4936e895236dd2b393a478a8bc27b1f682496ba84a0ddc549da06cb7855c4d8680dc66ac40240733b7f2a5050be6e77854d4c427b2af4f16e5275f0b0c206b3ea2d2a24ffb287ea356f323523354cd83d15e7c48e6f1fa103dfca3d49ca2263dbb0cd8bfb35d72cdcad1351de6fba7a30aea27184a68bcda19cc6da32c001a4e6c50d5753092d005689922c2bdeafc98775bce59db840974163ace23c13fec18112e32aae1c39842c645ed172ad8fa277e63c1e3d6d7fb12eb15d56b573237b776f562a81d0e6be362d147d8604fdfec421482270ca82950de1883fda06e719f5d256d7a039769bffc570a1778d70c17295d1c0336a6ae0903d2460dc139a9563c2d40f37bffefa73003a55af1ff0861b6f79ef40099b6a0cb25ab3f40727210e4629647d0711abff125712a5f0d64fcb6e6a6b0b34478d7da0552b493a802a402b8ae5e11ecad3e6946f54b7ad513bd8692a3edae72d29e266b28e47c9b37ccdb38e3b6433575694b6681136b1734f85afcfe672061d2ee7368755ad0b96a80b70d68b8ebdb02d"
+}' 
+参数说明：
+transaction：交易对象            
+返回值：一笔匿名交易的hash  
+
+wallet/createshieldedtransaction  
+作用：创建匿名交易    
+请参照：[示例](Tron-shielded-transaction.md)   
+参数说明：  
+transparent_from_address：透明发送者的地址 
+from_amount：从透明地址转出的数额
+ask：Ask   
+nsk：Nsk  
+ovk：Ovk  
+shielded_receives：匿名接收者信息
+shieldedSpends：匿名发送者信息
+transparent_to_address：透明接收者地址  
+to_amount：转入透明地址的数额 
+返回值：交易对象   
 
 ```
