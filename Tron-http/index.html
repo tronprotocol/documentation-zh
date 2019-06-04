@@ -137,11 +137,25 @@ https://github.com/tronprotocol/Documentation/blob/master/TRX_CN/index.php </p>
 当参数visible为true时，输入的地址必须为base58格式，字符串为可见字符串，输出的格式也是如此；如果设置为false
 或不设置时，接口行为同原来保持一致。如果参数格式与visible设置不匹配，将会报错。 <br />
 设置参数方式：
-1. 不需要参数的查询接口，通过在url中增加参数。如 127.0.0.1:8090/wallet/listexchanges?visible=true    <br />
-2. POST方式请求接口时，通过在json体最外层中增加参数。如 curl -X POST http://127.0.0.1:8090/wallet/createtransaction 
-{"owner_address_":"TRGhNNfnmgLegT4zHNjEqDSADjgmnHvubJ",
-"to_address_":"TJCnKsPa7y5okkXvQAidZBzqx3QyQ6sxMW","amount":1000000,"visible":true} <br />
-3. GET方式请求接口时，通过在url中增加参数。同方式1。     </p>
+1. 不需要参数的查询接口，通过在url中增加参数。如  </p>
+<pre><code class="text">http://127.0.0.1:8090/wallet/listexchanges?visible=true 
+</code></pre>
+
+<ol>
+<li>POST方式请求接口时，通过在json体最外层中增加参数。如 </li>
+</ol>
+<pre><code class="json">curl -X POST http://127.0.0.1:8090/wallet/createtransaction -d 
+'{
+    &quot;owner_address_&quot;: &quot;TRGhNNfnmgLegT4zHNjEqDSADjgmnHvubJ&quot;,
+    &quot;to_address_&quot;: &quot;TJCnKsPa7y5okkXvQAidZBzqx3QyQ6sxMW&quot;,
+    &quot;amount&quot;: 1000000,
+    &quot;visible&quot;: true
+}'  
+</code></pre>
+
+<ol>
+<li>GET方式请求接口时，通过在url中增加参数。同方式1。     </li>
+</ol>
 <h1 id="soliditynode">SolidityNode接口说明</h1>
 <p>solidityNode默认的http端口是8091，启动solidityNode的时候会同时启动http服务。</p>
 <pre><code class="text">/walletsolidity/getaccount
