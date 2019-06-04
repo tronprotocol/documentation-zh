@@ -220,14 +220,11 @@ Nodes:
 FullNode    
 
 **35.&nbsp;Address and private key creation**
-35.1 Interface statement:      
-rpc CreateAdresss (BytesMessage) returns (BytesMessage) {};
-35.2 Node  
-Fullnode.  
-35.3 Parameters  
-BytesMessage: Passphrase  
-35.4 Returns  
-BytesMessage: address.
+Interface statement:      
+rpc CreateAdresss (BytesMessage) returns (BytesMessage) {};  
+Node:  
+Fullnode  
+
 
 **36.&nbsp;TRX easy transfer**
 Interface statement:      
@@ -241,7 +238,7 @@ rpc DeployContract (CreateSmartContract) returns (TransactionExtention) {}
 Nodes:   
 FullNode and SolidityNode  
 
-**38.&nbsp;Trigger a smart contract**
+**38.&nbsp;Trigger a smart contract**  
 Interface statement:    
 rpc TriggerContract (TriggerSmartContract) returns (TransactionExtention) {}    
 Nodes:    
