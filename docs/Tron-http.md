@@ -9,12 +9,14 @@ https://github.com/tronprotocol/Documentation/blob/master/TRX_CN/index.php
 **3.6版本之后，增加参数visible，当visible设置为true时，相应的地址和字符串不再需要转码。该参数针对所有的接口有效，包括solidityNode接口和FullNode接口**   
 当参数visible为true时，输入的地址必须为base58格式，字符串为可见字符串，输出的格式也是如此；如果设置为false
 或不设置时，接口行为同原来保持一致。如果参数格式与visible设置不匹配，将会报错。   
-设置参数方式：
-1. 不需要参数的查询接口，通过在url中增加参数。如  
+
+设置参数方式：  
+
+- 不需要参数的查询接口，通过在url中增加参数。如  
 ```text 
 http://127.0.0.1:8090/wallet/listexchanges?visible=true 
 ```     
-2. POST方式请求接口时，通过在json体最外层中增加参数。如 
+- POST方式请求接口时，通过在json体最外层中增加参数。如 
 ```json
 curl -X POST http://127.0.0.1:8090/wallet/createtransaction -d 
 '{
@@ -24,7 +26,7 @@ curl -X POST http://127.0.0.1:8090/wallet/createtransaction -d
     "visible": true
 }'  
 ``` 
-3. GET方式请求接口时，通过在url中增加参数。同方式1。     
+- GET方式请求接口时，通过在url中增加参数。同方式1。     
 
     
 # SolidityNode接口说明
