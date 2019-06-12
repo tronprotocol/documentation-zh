@@ -60,14 +60,12 @@ TIPS仓库路径是：[https://github.com/tronprotocol/TIPs](https://github.com/
 ## 如何参与java-tron代码书写
 
 * 开发一个新功能  
-
-**创建一个Feature分支**   
-当你开始开发新功能时，从Develop分支创建一个功能分支。  
+  
+当你开始开发新功能时，从``develop``分支创建一个feature分支，分支需要位于``origin/feature``下。  
 
 * 修复线上漏洞  
-  
-**创建一个Hotfix分支**    
-当你发现一个发布版的Bug时，从Master分支（此时应该是最新Release代码）创建一个Hotfix分支
+     
+当你发现一个发布版的Bug时，从``master``分支（此时应该是最新Release代码）创建一个hotfix分支，分支需要位于``origin/hotfix``下。
 
 最后，请提交一个PR。
 

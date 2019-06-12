@@ -4,7 +4,9 @@ nav:
     - TRON概览: Tron-overview.md
     - TRON Http接口: Tron-http.md
     - TRON RPC接口: Tron-rpc.md
-    - TRON 官方公共节点: official-public-nodes.md
-    - TRON 虚拟机: Tron-VM.md
-    - TRON 部署: Tron-deployment.md
+    - TRON官方公共节点: official-public-nodes.md
+    - TRON虚拟机: Tron-VM.md
+    - TRON部署: Tron-deployment.md
+    - TRON匿名交易: Tron-shielded-transaction.md
+    - TRON资源: resources.md
 theme: readthedocs
