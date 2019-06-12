@@ -59,6 +59,19 @@
     <li class="toctree-l2"><a href="#tips">Tips简介</a></li>
     
 
+    <li class="toctree-l2"><a href="#_2">成为波场社区开发者</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l3" href="#_3">如何参与波场文档的书写</a></li>
+        
+            <li><a class="toctree-l3" href="#tip">如何参与TIP书写</a></li>
+        
+            <li><a class="toctree-l3" href="#java-tron">如何参与java-tron代码书写</a></li>
+        
+        </ul>
+    
+
     </ul>
 	    </li>
           
@@ -135,17 +148,52 @@
 </ul>
 <h1 id="tips">Tips简介</h1>
 <ul>
-<li><a href="https://github.com/tronprotocol/TIPs/blob/master/tip-01.md">TRON Wallet Proposal</a>  </li>
-<li><a href="https://github.com/tronprotocol/TIPs/blob/master/tip-10.md">TRON Token Standard</a>  </li>
-<li><a href="https://github.com/tronprotocol/TIPs/blob/master/tip-12.md">TRON Event Subscription Model</a>  </li>
-<li><a href="https://github.com/tronprotocol/TIPs/blob/master/tip-13.md">Design of TRON account</a>    </li>
-<li><a href="https://github.com/tronprotocol/TIPs/blob/master/tip-16.md">TRON Account Multi-Signature</a>  </li>
-<li><a href="https://github.com/tronprotocol/TIPs/blob/master/tip-17.md">TRON Adaptive Energy Limit Model</a>  </li>
-<li><a href="https://github.com/tronprotocol/TIPs/blob/master/tip-20.md">ERC-20 Token Standard</a>  </li>
-<li><a href="https://github.com/tronprotocol/TIPs/blob/master/tip-24.md">Implement of DB storage with RocksDB</a>  </li>
-<li><a href="https://github.com/tronprotocol/TIPs/blob/master/tip-28.md">Built-in Message Queue in Event Subscription Model</a>  </li>
-<li><a href="https://github.com/tronprotocol/TIPs/blob/master/tip-34.md">To Support Contract without ABI in Event Subscription Model</a></li>
+<li><a href="https://github.com/tronprotocol/TIPs/blob/master/tip-01.md">波场钱包提议</a>  </li>
+<li><a href="https://github.com/tronprotocol/TIPs/blob/master/tip-10.md">波场通证标准</a>  </li>
+<li><a href="https://github.com/tronprotocol/TIPs/blob/master/tip-12.md">波场事件订阅模型</a>  </li>
+<li><a href="https://github.com/tronprotocol/TIPs/blob/master/tip-13.md">波场账户设计</a>    </li>
+<li><a href="https://github.com/tronprotocol/TIPs/blob/master/tip-16.md">波场多重签名</a>  </li>
+<li><a href="https://github.com/tronprotocol/TIPs/blob/master/tip-17.md">波场资源限制调整模型</a>  </li>
+<li><a href="https://github.com/tronprotocol/TIPs/blob/master/tip-20.md">TRC-20通证标准</a>  </li>
+<li><a href="https://github.com/tronprotocol/TIPs/blob/master/tip-24.md">用RocksDB实现DB存储</a>  </li>
+<li><a href="https://github.com/tronprotocol/TIPs/blob/master/tip-28.md">时间订阅中的内置消息队列</a>  </li>
+<li><a href="https://github.com/tronprotocol/TIPs/blob/master/tip-34.md">时间订阅模型支持无ABI的合约</a></li>
 </ul>
+<h1 id="_2">成为波场社区开发者</h1>
+<p>波场是个全球的，开源的去中心化应用的平台。</p>
+<p>非常感谢你帮助我们开发源代码！我们欢迎和感激来自互联网的任何人的贡献，即使是很小的漏洞修复！</p>
+<p>GitHub是用来追踪议题，贡献代码、建议、特性请求、文档等。</p>
+<p>如果你想参与波场开发，请遵循流程：fork，fix，commit，send a pull request (PR)，以供波场主要维护者审查并且合并到主分支。如果你想提交更复杂的改动，为了保证你的改动符合我们的项目需求或者使你的改动更有效，请先通过我们的通信频道与我们的核心开发者确认。</p>
+<p>我们鼓励尽早提交PR，这样可以让其他社区开发者知道你在开发的议题。未开发完成的PR需要被标注“进行中”状态。</p>
+<p><strong> 社区开发者频道 </strong></p>
+<ul>
+<li><a href="https://discord.gg/GsRgsTD">Discord</a>   </li>
+<li><a href="https://gitter.im/tronprotocol/allcoredev">Gitter</a>   </li>
+</ul>
+<h2 id="_3">如何参与波场文档的书写</h2>
+<p>我们有两个文档仓库：<br />
+<a href="https://github.com/tronprotocol/documentation-EN">英文文档</a>   <br />
+<a href="https://github.com/tronprotocol/documentation-ZH">中文文档</a>     </p>
+<p>我们使用MkDocs框架来构建我们的文档项目。文档使用Markdown语言书写，通过在YAML配置文件中配置文档路径。</p>
+<p>你可以在/docs/文件夹下，修改、添加文档。</p>
+<h2 id="tip">如何参与TIP书写</h2>
+<p>波场优化提议(TIPs) 描述了波场平台的标准，包括协议说明、客户端接口、合约标准等等。</p>
+<p>TIPS仓库路径是：<a href="https://github.com/tronprotocol/TIPs">https://github.com/tronprotocol/TIPs</a></p>
+<p>你提交的第一个TIP PR应该是最终TIP的一个草案，必须要符合我们要求的格式。我们会审核你提交的TIP，并且会为之分配一个编号。请确保在TIP页头中附上论坛的地址或者一个公开的GitHub议题地址来让用户进行讨论。  <br />
+请参考：<a href="https://github.com/tronprotocol/TIPs/blob/master/template.md">TIP模板</a></p>
+<h2 id="java-tron">如何参与java-tron代码书写</h2>
+<ul>
+<li>开发一个新功能  </li>
+</ul>
+<p><strong>创建一个Feature分支</strong> <br />
+当你开始开发新功能时，从Develop分支创建一个功能分支。  </p>
+<ul>
+<li>修复线上漏洞  </li>
+</ul>
+<p><strong>创建一个Hotfix分支</strong>  <br />
+当你发现一个发布版的Bug时，从Master分支（此时应该是最新Release代码）创建一个Hotfix分支</p>
+<p>最后，请提交一个PR。</p>
+<p>补充说明：如果你开发了新功能，请确保你在<code>/src/test</code>目录中添加了测试用例。</p>
               
             </div>
           </div>
@@ -194,5 +242,5 @@
 
 <!--
 MkDocs version : 1.0.4
-Build Date UTC : 2019-06-04 03:12:09
+Build Date UTC : 2019-06-12 03:59:35
 -->
