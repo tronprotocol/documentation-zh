@@ -79,10 +79,70 @@ TIPS仓库路径是：[https://github.com/tronprotocol/TIPs](https://github.com/
 **开发一个新功能**  
   
 当你开始开发新功能时，从``develop``分支创建一个feature分支，分支需要位于``origin/feature``下。  
+```text
+$ git checkout -b feature/my-feature develop
+# 切换到新分支'feature/my-feature'
+```
+完成的新功能将被合并到Develop分支，以便未来合并到Master分支。
+```text
+$ git commit -a -m "Bumped version number to 3.1.4"
+# 提交
+$ git checkout develop
+# 切换到分支'develop'
+$ git pull
+# 更新分支
+$ git checkout feature/my-feature
+# 切换到分支'feature/my-feature'
+$ git merge develop
+# 合并分支'develop'，有冲突解决冲突
+$ git push
+# 提交代码到GitHub
+# 在GitHub网站上发起一个Pull Request等待自动化检查和相关人员审核，合并成功后继续下面流程
+$ git branch -d feature/my-feature
+# 删除开发完成后的功能分支'feature/my-feature'
+# 在GitHub网站上，同样删除分支'feature/my-feature'
+```
 
 **修复线上漏洞**  
      
 当你发现一个发布版的Bug时，从``master``分支（此时应该是最新release代码）创建一个hotfix分支，分支需要位于``origin/hotfix``下。
+```text
+$ git checkout -b hotfix/my-hotfix master
+# 切换到新分支'hotfix/my-hotfix'
+# 修改版本号
+$ git commit -a -m "Bumped version number to 3.1.4"
+# 提交
+```
+
+当修复完Bug后，需要将Hotfix分支合并到Master分支和Develop分支.
+```text
+$ git checkout master
+# 切换到分支'master'
+$ git pull
+# 更新
+$ git checkout hotfix/my-hotfix
+# 切换到分支'hotfix/my-hotfix'
+$ git merge master
+# 合并Master分支代码，解决冲突后
+$ git push
+# 提交到GitHub，然后通过GitHub发起一个Pull Request等待自动化检查和相关人员审核，合并成功后继续下面流程
+# 通过GitHub对Master分支代码打Tag
+
+$ git checkout develop
+# 切换到分支'develop'
+$ git pull
+# 更新
+$ git checkout hotfix/my-hotfix
+# 切换到分支'hotfix/my-hotfix'
+$ git merge develop
+# 合并Develop分支代码，解决冲突后
+$ git push
+# 提交到GitHub，然后通过GitHub发起一个Pull Request等待自动化检查和相关人员审核，合并成功后继续下面流程
+
+$ git branch -d hotfix/my-hotfix
+# 本地删除分支
+# 在GitHub网站上，同样删除分支'feature/my-hotfix'
+```
 
 最后，请提交一个PR。
 
