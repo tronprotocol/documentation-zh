@@ -59,13 +59,30 @@ TIPS仓库路径是：[https://github.com/tronprotocol/TIPs](https://github.com/
 
 ## 如何参与java-tron代码书写
 
-* 开发一个新功能  
+**分支介绍：**
+
+``master``分支：  
+这个分支包含最近发布到生成环境的代码，并通过Tag进行标注release版本号，这个分支只能从其他分支合并，不能在这个分支直接修改。
+
+``develop``分支：  
+这个分支是我们的主开发分支，包含所有要发布到下一个release的代码，这个分支只能从其他分支合并，不能在这个分支直接修改。
+
+``feature``分支：  
+这个分支主要是用来开发一个新的功能，基于``develop``分支创建，一旦开发完成，就会将其合并回``develop``分支，并将其删除。
+
+``release``分支：
+预发布分支，当你需要发布的时候，基于``develop``分支创建一个release分支，允许小修复和最终版本元数据（版本号等）修改，从``develop``分支到``release``分支的关键点是开发完成反映新版本的期望状态。至少合并了所有针对要发布的功能，针对未来版本的所有功能不会被合并-他们必须等到Release分支创建完成后才可以被合并。完成release后，将其合并到``master``分支（需要打Tag）和``develop``分支，并将其删除。上线前最后的测试将在这个分支进行。
+
+``hotfix``分支：
+当我们在``master``分支发现bug的时候，需要基于``master``分支创建一个hotfix分支，完成hotfix后，将其合并到``master``分支（当做一个新的release）和``develop``分支，并将其删除。
+
+**开发一个新功能**  
   
 当你开始开发新功能时，从``develop``分支创建一个feature分支，分支需要位于``origin/feature``下。  
 
-* 修复线上漏洞  
+**修复线上漏洞**  
      
-当你发现一个发布版的Bug时，从``master``分支（此时应该是最新Release代码）创建一个hotfix分支，分支需要位于``origin/hotfix``下。
+当你发现一个发布版的Bug时，从``master``分支（此时应该是最新release代码）创建一个hotfix分支，分支需要位于``origin/hotfix``下。
 
 最后，请提交一个PR。
 
