@@ -5,7 +5,7 @@
 
 目前TRON的所有交易签名，都是用的同一个私钥完成。没有权限分级，也不能实现多人共同控制账户。因此，设计并实现多重签名功能，每个权限可以对应多个私钥。
 
- https://github.com/tronprotocol/TIPs/issues/16
+[Tron multi-signatures Tip](https://github.com/tronprotocol/TIPs/issues/16)
 
 ## <h2 id="2">2. 概念说明</h2>   
 
