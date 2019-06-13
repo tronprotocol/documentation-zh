@@ -8,6 +8,6 @@ nav:
     - TRON虚拟机: Tron-VM.md
     - TRON部署: Tron-deployment.md
     - TRON匿名交易: Tron-shielded-transaction.md
-    - TRON多重签名: Tron-multi-signature.md
+    - TRON多重签名: Tron-multi-signatures.md
     - TRON资源: resources.md
 theme: readthedocs
