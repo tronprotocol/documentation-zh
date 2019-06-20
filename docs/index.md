@@ -5,8 +5,12 @@
 + 关于波场虚拟机，请查看[波场虚拟机](Tron-VM.md)
 + 关于波场HTTP接口，请查看[波场HTTP接口](Tron-http.md)
 + 关于波场RPC接口，请查看[波场RPC接口](Tron-rpc.md)
-+ 关于波场官方公共节点IP地址，请查看[波场官方公共节点IP地址](official-public-nodes.md)
++ 关于波场官方公共节点IP地址，请查看[波场官方公共节点IP地址](Tron-official-public-nodes.md)
 + 关于波场节点部署，请查看[波场节点部署](Tron-deployment.md)
++ 关于波场匿名交易，请查看[波场匿名交易](Tron-shielded-transaction.md)  
++ 关于波场多重签名，请查看[波场多重签名](Tron-multi-signatures.md)  
++ 关于波场资源，请查看[波场资源](Tron-resources.md)  
++ 关于波场场景问题源，请查看[波场常见问题](Tron-QA.md)    
 
 # Tips简介
 + [波场钱包提议](https://github.com/tronprotocol/TIPs/blob/master/tip-01.md)  

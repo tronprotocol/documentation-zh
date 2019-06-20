@@ -1,14 +1,14 @@
 site_name: TRON Documentation
 nav:
     - 导航页: index.md
-    - TRON概览: Tron-overview.md
-    - TRON Http接口: Tron-http.md
-    - TRON RPC接口: Tron-rpc.md
-    - TRON官方公共节点: official-public-nodes.md
-    - TRON虚拟机: Tron-VM.md
-    - TRON部署: Tron-deployment.md
-    - TRON匿名交易: Tron-shielded-transaction.md
-    - TRON多重签名: Tron-multi-signatures.md
-    - TRON资源: resources.md
+    - 概览: Tron-overview.md
+    - Http接口: Tron-http.md
+    - RPC接口: Tron-rpc.md
+    - 官方公共节点: Tron-official-public-nodes.md
+    - 虚拟机: Tron-VM.md
+    - 部署: Tron-deployment.md
+    - 匿名交易: Tron-shielded-transaction.md
+    - 多重签名: Tron-multi-signatures.md
+    - 资源: Tron-resources.md
     - 常见问题: Tron-QA.md
 theme: readthedocs
