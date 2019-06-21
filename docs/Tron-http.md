@@ -232,11 +232,11 @@ demo: curl -X POST  http://127.0.0.1:8090/wallet/scannotebyivk -d
     "ivk": "80a481c3c739e54b4e0608090b3a1a6e9f8dce42346e95bf5a2d8a487bf45c05"
 }' 
 参数说明：
-startNum：开始区块高度，包含自身       
-endNum：结束区块高度，不包含自身        
+start_block_index：开始区块高度，包含自身       
+end_block_index：结束区块高度，不包含自身        
 ivk：Incoming viewing key        
 返回值：Notes列表  
-注意：区间限制（endNum - startNum <= 1000）  
+注意：区间限制（end_block_index - start_block_index <= 1000）  
 
 /walletsolidity/scannotebyovk 
 作用：查询与ovk相关的所有的notes  
@@ -247,11 +247,11 @@ demo: curl -X POST  http://127.0.0.1:8090/wallet/scannotebyovk -d
     "ovk": "705145aa18cbe6c11d5d0011419a98f3d5b1d341eb4727f1315597f4bdaf8539"
 }' 
 参数说明：
-startNum：开始区块高度，包含自身      
-endNum：结束区块高度，不包含自身        
+start_block_index：开始区块高度，包含自身      
+end_block_index：结束区块高度，不包含自身        
 ovk：Outgoing viewing key        
 返回值：Notes列表  
-注意：区间限制（endNum - startNum <= 1000） 
+注意：区间限制（end_block_index - start_block_index <= 1000） 
 
 /walletsolidity/isspend
 作用：查询一个note是否已经被花费  
@@ -1261,11 +1261,11 @@ demo: curl -X POST  http://127.0.0.1:8090/wallet/scannotebyivk -d
     "ivk": "80a481c3c739e54b4e0608090b3a1a6e9f8dce42346e95bf5a2d8a487bf45c05"
 }' 
 参数说明：
-startNum：开始区块高度，包含自身      
-endNum：结束区块高度，不包含自身       
+start_block_index：开始区块高度，包含自身      
+end_block_index：结束区块高度，不包含自身       
 ivk：Incoming viewing key        
 返回值：Notes列表   
-注意：区间限制（endNum - startNum <= 1000）     
+注意：区间限制（end_block_index - start_block_index <= 1000）     
 
 wallet/scannotebyovk    
 作用：查询与ovk相关的所有的notes  
@@ -1276,11 +1276,11 @@ demo: curl -X POST  http://127.0.0.1:8090/wallet/scannotebyovk -d
     "ovk": "705145aa18cbe6c11d5d0011419a98f3d5b1d341eb4727f1315597f4bdaf8539"
 }' 
 参数说明：
-startNum：开始区块高度，包含自身        
-endNum：结束区块高度，不包含自身        
+start_block_index：开始区块高度，包含自身        
+end_block_index：结束区块高度，不包含自身        
 ovk：Outgoing viewing key        
 返回值：Notes列表   
-注意：区间限制（endNum - startNum <= 1000）    
+注意：区间限制（end_block_index - start_block_index <= 1000）    
 
 wallet/getrcm    
 作用：获得一个rcm
