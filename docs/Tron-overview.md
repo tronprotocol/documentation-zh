@@ -1157,17 +1157,17 @@ buyTokenQuant = （long）balance * (Math.pow(1.0 + (double) supplyQuant / suppl
 [波场匿名交易](Tron-shielded-transaction.md)   
 
 # 12. 钱包介绍
-<h2> 11.1 wallet-cli功能介绍 </h2>
+<h2> 12.1 wallet-cli功能介绍 </h2>
 请参考:  
 [https://github.com/tronprotocol/wallet-cli/blob/master/README.md](https://github.com/tronprotocol/wallet-cli/blob/master/README.md)
 
-<h2> 11.2 计算交易ID </h2>
+<h2> 12.2 计算交易ID </h2>
 
 对交易的RawData取Hash。
 ```text
 Hash.sha256(transaction.getRawData().toByteArray())
 ```
-<h2> 11.3 计算blockID </h2>
+<h2> 12.3 计算blockID </h2>
 block id是块高度和块头raw_data的hash的混合，具体是计算出块头中raw_data的hash。用块的高度替换该hash中的前8个byte。
 具体代码如下：  
 
@@ -1180,7 +1180,7 @@ private byte[] generateBlockId(long blockNum, byte[] blockHash) { 
   }
 ```
 
-<h2> 11.4 如何本地构造交易 </h2>
+<h2> 12.4 如何本地构造交易 </h2>
 根据交易的定义，自己填充交易的各个字段，本地构造交易。需要注意是交易里面需要设置refference block信息和Expiration信息，所以在构造交易的时候需要连接mainnet。建议设置refference block为fullnode上面的最新块，设置Expiration为最新块的时间加N分钟。N的大小根据需要设定，后台的判断条件是(Expiration > 最新块时间 and Expiration < 最新块时时 + 24小时），如果条件成立则交易合法，否则交易为过期交易，不会被mainnet接收。   
 
 refference block 的设置方法：设置RefBlockHash为最新块的hash的第8到16(不包含)之间的字节，设置BlockBytes为最新块高度的第6到8（不包含）之间的字节，代码如下：  
@@ -1225,7 +1225,7 @@ public static Transaction createTransaction(byte[] from, byte[] to, long amount)
      return refTransaction;
    }
 ```
-<h2> 11.5 相关demo </h2>
+<h2> 12.5 相关demo </h2>
 
 本地构造交易、签名的demo请参考:  
 [https://github.com/tronprotocol/wallet-cli/blob/master/src/main/java/org/tron/demo/TransactionSignDemo.java](https://github.com/tronprotocol/wallet-cli/blob/master/src/main/java/org/tron/demo/TransactionSignDemo.java) 
