@@ -1150,9 +1150,13 @@ buyTokenQuant = （long）balance * (Math.pow(1.0 + (double) supplyQuant / suppl
 
 # 10. 多重签名
 详细信息请参考:  
-[https://github.com/tronprotocol/documentation/blob/master/%E4%B8%AD%E6%96%87%E6%96%87%E6%A1%A3/%E6%B3%A2%E5%9C%BA%E5%8D%8F%E8%AE%AE/%E5%A4%9A%E9%87%8D%E7%AD%BE%E5%90%8D.md](https://github.com/tronprotocol/documentation/blob/master/%E4%B8%AD%E6%96%87%E6%96%87%E6%A1%A3/%E6%B3%A2%E5%9C%BA%E5%8D%8F%E8%AE%AE/%E5%A4%9A%E9%87%8D%E7%AD%BE%E5%90%8D.md)
+[波场多重签名](Tron-multi-signatures.md)  
 
-# 11. 钱包介绍
+# 11. 匿名交易
+详细信息请参考:  
+[波场匿名交易](Tron-shielded-transaction.md)   
+
+# 12. 钱包介绍
 <h2> 11.1 wallet-cli功能介绍 </h2>
 请参考:  
 [https://github.com/tronprotocol/wallet-cli/blob/master/README.md](https://github.com/tronprotocol/wallet-cli/blob/master/README.md)

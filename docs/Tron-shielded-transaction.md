@@ -1,10 +1,37 @@
 
 
-## Simple Summary
+## 简介
 
-This doc describes how to use TRON Shielded Transaction api.
+波场提供是去中心化的匿名交易网络，利用先进的零知识证明协议zk-SNARK(Zero-Knowledge Succinct Non-Interactive Argument of Knowledge), 可以实现完全匿名的交易。
+在波场网络中中，交易的发送方和接收方的地址和转账金额可以做到完全隐藏，账号的信息也做到完全匿名。同时，波场网络支持多种地址转账——”t-addr”(透明地址)和”z-addr”(匿名地址)。除此之外，波场网络的匿名币的交易速度和确认速度特别快，远远超过其他匿名币。
 
-### 1. Transfer from transparent address to shielded address
+Zen Network支持两种类型的地址“t-addr”（透明地址）和“z- addr”（匿名地址），Zen Network网络中有四种类型的交易： 
+
+公开交易：
+所有交易及其金额都会显示。
+
+公开地址到匿名地址交易：
+t-addr到z-addr的交易。“t-addr”的信息是公开的，“z-addr”的信息是隐藏的。
+
+完全匿名交易：  
+z-addr到z-addr的交易，发送方和接收方的地址和交易金额都被隐藏。 
+
+匿名地址到公开地址交易：   
+z-addr到t-addr的交易，z-addr的信息是隐藏的，t-addr的信息是公开的。
+
+
+### 使用指南   
+
+1.&nbsp;发送方在每笔转账中只能花费一个note。接收方每笔交易中最多只能接受2个note。   
+
+2.&nbsp;当从匿名地址到透明地址转账时，如果没有找零到匿名地址，那么系统会自动构建一个值为0的找零note，并把它发送到一个随机黑洞地址。  
+
+3.&nbsp;匿名交易每笔的费用是xx.  
+
+
+接下来的文档演示了怎么通过调用http接口实现匿名交易。  
+
+### 从透明地址到匿名地址
 
 **Step 1. Call api: wallet/createshieldedtransaction to build the transaction**    
 Method: Post  
@@ -59,7 +86,7 @@ Return:
 {"result": true}
 ```
 
-### 2. Transfer from shielded address to shielded address  
+### 从匿名地址到匿名地址  
 
 **Step 1. Call api: wallet/getmerkletreevoucherinfo to get the voucher of the shield address, this info will be used when create shielded transaction**  
 Method: Post  
@@ -128,7 +155,7 @@ Return:
 {"result": true}
 ```
 
-### 3. Transfer from shielded address to transparent address  
+### 从匿名地址到透明地址  
 
 **Step 1. Call api: wallet/getmerkletreevoucherinfo to get the voucher of the shield address, this info will be used when create shielded transaction**  
 Method: Post  
