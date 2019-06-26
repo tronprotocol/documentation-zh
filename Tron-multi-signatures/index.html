@@ -93,16 +93,16 @@
     <a class="current" href="./">多重签名</a>
     <ul class="subnav">
             
-    <li class="toctree-l2"><a href="#1">1. 背景</a></li>
+    <li class="toctree-l2"><a href="#_1">背景</a></li>
     
 
-    <li class="toctree-l2"><a href="#2">2. 概念说明</a></li>
+    <li class="toctree-l2"><a href="#_2">概念说明</a></li>
     
 
-    <li class="toctree-l2"><a href="#3-api">3. API</a></li>
+    <li class="toctree-l2"><a href="#api">API</a></li>
     
 
-    <li class="toctree-l2"><a href="#4">4. 其他</a></li>
+    <li class="toctree-l2"><a href="#_3">其他</a></li>
     
 
     </ul>
@@ -150,13 +150,13 @@
           <div role="main">
             <div class="section">
               
-                <h2 id="1"><h2 id="1">1. 背景</h2></h2>
+                <h2 id="_1"><h2 id="1">背景</h2></h2>
 <p><strong>注意：V3.5版本后支持</strong></p>
 <p>目前TRON的所有交易签名，都是用的同一个私钥完成。没有权限分级，也不能实现多人共同控制账户。因此，设计并实现多重签名功能，每个权限可以对应多个私钥。</p>
 <p><a href="https://github.com/tronprotocol/TIPs/issues/16">Tron multi-signatures Tip</a></p>
-<h2 id="2"><h2 id="2">2. 概念说明</h2></h2>
+<h2 id="_2"><h2 id="2">概念说明</h2></h2>
 <p>该方案共包含三种权限级别，owner、witness以及active权限，其中owner权限具有执行所有合约的权限，witness权限用于超级代表出块，active是自定义权限(可以组合权限集合)，以下将详细说明。</p>
-<h3 id="2.1">2.1 结构说明</h3>
+<h3 id="2.1">1）结构说明</h3>
 
 <p><strong>Account修改</strong></p>
 <pre><code class="text">message Account { 
@@ -240,7 +240,7 @@
 
 <p>在交易中增加 <code>Permission_id</code>字段，与<code>Permission.id</code>相对应，用于指定使用哪个权限。默认为0，即owner权限。 
 不允许为1，因为witness权限仅用于出块，不用于对交易进行签名。</p>
-<h3 id="2.2">2.2 Owner权限</h3>
+<h3 id="2.2">2）Owner权限</h3>
 
 <p>OwnerPermission是账户的最高权限，用于控制用户的所有权、调整权限结构，Owner权限也可以执行所有合约。  </p>
 <p>Owner权限具有以下特性：<br />
@@ -248,7 +248,7 @@
 2、当OwnerPermission为空时，默认采用该账户的地址具有owner权限。<br />
 3、账户新建时，自动将该账户的地址填充到OwnerPermission中，并默认域值为1，keys中仅包含该账户地址且权重为1。<br />
 4、当执行合约时未指定permissionId时， 默认采用OwnerPermission。  </p>
-<h3 id="2.3">2.3 Witness权限</h3>
+<h3 id="2.3">3）Witness权限</h3>
 
 <p>超级代表可使用该权限，管理出块节点。非witness账户无该权限。  </p>
 <p>使用场景示例：一个超级代表在云服务器上部署出块程序，为了账户安全，此时可以将出块权限赋予另一个地址。由于该地址仅具有出块权限，无TRX转出权限，即使该服务器上私钥被泄密，也不会出现TRX丢失。</p>
@@ -275,7 +275,7 @@ localwitness = [
 
 </code></pre>
 
-<h3 id="2.4">2.4 Active权限</h3>
+<h3 id="2.4">4）Active权限</h3>
 
 <p>Active权限，用于提供一个权限的组合，比如提供一个只能执行创建账户、转账功能的权限。   </p>
 <p>Active权限有以下特性：  <br />
@@ -284,13 +284,13 @@ localwitness = [
 3、最多支持8个组合。  <br />
 4、permission的id从2开始自动递增。  <br />
 5、账户新建时，自动创建一个Active权限，并将该账户的地址填充到其中，默认域值为1，keys中仅包含该账户地址且权重为1。  </p>
-<h3 id="2.5">2.5 费用</h3>
+<h3 id="2.5">5）费用</h3>
 
 <p>1、使用更新账户权限时，即 AccountPermissionUpdate 合约，收取100TRX。  <br />
 2、使用多重签名的交易时，即交易中包括两个及两个以上签名的交易，除交易费用外，另收取1TRX。  <br />
 3、可通过提议，修改以上费用。  </p>
-<h2 id="3-api"><h2 id="3">3. API</h2></h2>
-<h3 id="3.1">修改权限</h3>
+<h2 id="api"><h2 id="3">API</h2></h2>
+<h3 id="3.1">1）修改权限</h3>
 
 <p><code>AccountPermissionUpdateContract</code>，修改权限步骤如下：  </p>
 <p>1、使用接口<code>getaccount</code>查询账户，并获取原权限  <br />
@@ -373,7 +373,7 @@ localwitness = [
 }
 </code></pre>
 
-<h3 id="3.2">执行合约</h3>
+<h3 id="3.2">2）执行合约</h3>
 
 <p>1、创建交易，与非多重签名交易的构建过程相同  <br />
 2、指定Permission_id，默认为0，表示owner-permission, <a href="https://github.com/tronprotocol/wallet-cli/commit/ff9122f2236f1ce19cbb9ba9f0494c8923a3d10c#diff-a63fa7484f62fe1d8fb27276c991a4e3R211">demo</a> <br />
@@ -384,7 +384,7 @@ n、最后一个完成签名的用户，将交易广播到节点。<br />
 n+1、验证多重签名的权重之和大于域值则接受交易，否则拒绝交易  </p>
 <p>代码示例：</p>
 <p><a href="https://github.com/tronprotocol/wallet-cli/blob/multi_sign_V2/src/main/java/org/tron/demo/MultiSignDemo.java">https://github.com/tronprotocol/wallet-cli/blob/multi_sign_V2/src/main/java/org/tron/demo/MultiSignDemo.java</a></p>
-<h3 id="3.3">其他新增接口</h3>
+<h3 id="3.3">3）其他新增接口</h3>
 
 <p>接口详细说明，请查看Tron-http.md与波场钱包RPC-API.md<br />
 1、增加签名  </p>
@@ -405,7 +405,7 @@ rpc GetTransactionApprovedList(Transaction) returns (TransactionApprovedList) { 
 rpc GetTransactionSignWeight (Transaction) returns (TransactionSignWeight) {}
 </code></pre>
 
-<h2 id="4"><h2 id="4">4. 其他</h2></h2>
+<h2 id="_3"><h2 id="4">其他</h2></h2>
 <p>支持多重签名后，创建账户时有什么变化？<br />
 在升级到V3.5版本后，并且多重签名提议生效后，创建账户时将自动生成owner-permission以及一个active-permission，
 其中owner-permission中仅包含一个key，权限及阈值都为1。active-permission中也包含一个key，权限及阈值都为1，并且
