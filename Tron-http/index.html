@@ -359,7 +359,7 @@ demo: curl -X POST  http://127.0.0.1:8091/walletsolidity/getdeferredtransactioni
 
 /walletsolidity/getmerkletreevoucherinfo
 作用：获得一个note的默克尔树信息 
-demo: curl -X POST  http://127.0.0.1:8090/wallet/getmerkletreevoucherinfo -d 
+demo: curl -X POST  http://127.0.0.1:8090/walletsolidity/getmerkletreevoucherinfo -d 
 '{
     &quot;out_points&quot;:[{
         &quot;hash&quot;:&quot;185b3e085723f5862b3a3c3cf54d52f5c1eaf2541e3a1e0ecd08bc12cd958d74&quot;,
@@ -372,7 +372,7 @@ out_points：Note信息
 
 /walletsolidity/scannotebyivk  
 作用：查询与ivk相关的所有的notes  
-demo: curl -X POST  http://127.0.0.1:8090/wallet/scannotebyivk -d 
+demo: curl -X POST  http://127.0.0.1:8090/walletsolidity/scannotebyivk -d 
 '{
     &quot;start_block_index&quot;: 0,
     &quot;end_block_index&quot;: 100,
@@ -385,9 +385,28 @@ ivk：Incoming viewing key
 返回值：Notes列表  
 注意：区间限制（end_block_index - start_block_index &lt;= 1000）  
 
+- /walletsolidity/scanandmarknotebyivk    
+作用：查询与ivk相关的所有的notes, 包含是否花费状态   
+demo: curl -X POST  http://127.0.0.1:8090/walletsolidity/scanandmarknotebyivk -d 
+'{
+    &quot;start_block_index&quot;: 0,
+    &quot;end_block_index&quot;: 100,
+    &quot;ivk&quot;: &quot;80a481c3c739e54b4e0608090b3a1a6e9f8dce42346e95bf5a2d8a487bf45c05&quot;,
+    &quot;ak&quot;: &quot;1d4f9b5551f4aa9443ceb263f0e208eb7e26080264571c5ef06de97a646fe418&quot;,
+    &quot;nk&quot;: &quot;748522c7571a9da787e43940c9a474aa0c5c39b46c338905deb6726fa3678bdb&quot;
+}' 
+参数说明：
+start_block_index：开始区块高度，包含自身       
+end_block_index：结束区块高度，不包含自身        
+ivk：Incoming viewing key   
+ak：Ak key  
+nk：Nk key        
+返回值：Notes列表  
+注意：区间限制（end_block_index - start_block_index &lt;= 1000）  
+
 /walletsolidity/scannotebyovk 
 作用：查询与ovk相关的所有的notes  
-demo: curl -X POST  http://127.0.0.1:8090/wallet/scannotebyovk -d 
+demo: curl -X POST  http://127.0.0.1:8090/walletsolidity/scannotebyovk -d 
 '{
     &quot;start_block_index&quot;: 0,
     &quot;end_block_index&quot;: 100,
@@ -400,31 +419,28 @@ ovk：Outgoing viewing key
 返回值：Notes列表  
 注意：区间限制（end_block_index - start_block_index &lt;= 1000） 
 
+
+
 /walletsolidity/isspend
 作用：查询一个note是否已经被花费  
-demo: curl -X POST  http://127.0.0.1:8090/wallet/isspend -d 
+demo: curl -X POST  http://127.0.0.1:8090/walletsolidity/isspend -d 
 '{
     &quot;ak&quot;: &quot;a3e65d509b675aaa2aeda977ceff11eebd76218079b6f543d78a615e396ca129&quot;,
     &quot;nk&quot;: &quot;62cfda9bea09a53cf2a21022057913734a8458969e11e0bb9c59ead48fbce83e&quot;,
     &quot;note&quot;: {
         &quot;payment_address&quot;: &quot;ztron1aqgauawtkelxfu2w6s48cwh0mchjt6kwpj44l4wym3pullx0294j4r4v7kpm75wnclzycsw73mq&quot;,
         &quot;rcm&quot;: &quot;74a16c1b27ec7fbf06881d9d35ddaab1554838b1bddcd54f6bd8a9fb4ba0b80a&quot;,
-        &quot;value&quot;: 500000000
+        &quot;value&quot;: 500000000  
     },
-    &quot;voucher&quot;: {
-        &quot;tree&quot;: {
-            &quot;left&quot;: {
-                &quot;content&quot;: &quot;a4d763fae3fee78964ccdf7567ec3062c95a5b97825d731202d3dfa6cb01c143&quot;
-            }
-        },
-        &quot;rt&quot;: &quot;7dc3652c2a16e8518a8be0e3e038f9d28c3eb96f13e8da8acc2a9b650702f33e&quot;
-    }
+    &quot;txid&quot;: &quot;7d09e471bb047d3ac044d5d6691b3721a2dddbb683ac02c207fbe78af6302463&quot;,
+    &quot;index&quot;: 1
 }' 
 参数说明：
 ak：Ak      
 nk：Nk      
 note：Note信息     
-voucher：Voucher信息       
+txid：交易id       
+index：Note索引          
 返回值：一个note是否已经被花费状态
 
 </code></pre>
@@ -1410,7 +1426,26 @@ start_block_index：开始区块高度，包含自身
 end_block_index：结束区块高度，不包含自身       
 ivk：Incoming viewing key        
 返回值：Notes列表   
-注意：区间限制（end_block_index - start_block_index &lt;= 1000）     
+注意：区间限制（end_block_index - start_block_index &lt;= 1000）   
+
+- /wallet/scanandmarknotebyivk    
+作用：查询与ivk相关的所有的notes, 包含是否花费状态   
+demo: curl -X POST  http://127.0.0.1:8090/wallet/scanandmarknotebyivk -d 
+'{
+    &quot;start_block_index&quot;: 0,
+    &quot;end_block_index&quot;: 100,
+    &quot;ivk&quot;: &quot;80a481c3c739e54b4e0608090b3a1a6e9f8dce42346e95bf5a2d8a487bf45c05&quot;,
+    &quot;ak&quot;: &quot;1d4f9b5551f4aa9443ceb263f0e208eb7e26080264571c5ef06de97a646fe418&quot;,
+    &quot;nk&quot;: &quot;748522c7571a9da787e43940c9a474aa0c5c39b46c338905deb6726fa3678bdb&quot;
+}' 
+参数说明：
+start_block_index：开始区块高度，包含自身       
+end_block_index：结束区块高度，不包含自身        
+ivk：Incoming viewing key   
+ak：Ak key  
+nk：Nk key        
+返回值：Notes列表   
+注意：区间限制（end_block_index - start_block_index &lt;= 1000）    
 
 wallet/scannotebyovk    
 作用：查询与ovk相关的所有的notes  
@@ -1457,20 +1492,15 @@ demo: curl -X POST  http://127.0.0.1:8090/wallet/isspend -d
         &quot;rcm&quot;: &quot;74a16c1b27ec7fbf06881d9d35ddaab1554838b1bddcd54f6bd8a9fb4ba0b80a&quot;,
         &quot;value&quot;: 500000000
     },
-    &quot;voucher&quot;: {
-        &quot;tree&quot;: {
-            &quot;left&quot;: {
-                &quot;content&quot;: &quot;a4d763fae3fee78964ccdf7567ec3062c95a5b97825d731202d3dfa6cb01c143&quot;
-            }
-        },
-        &quot;rt&quot;: &quot;7dc3652c2a16e8518a8be0e3e038f9d28c3eb96f13e8da8acc2a9b650702f33e&quot;
-    }
+    &quot;txid&quot;: &quot;7d09e471bb047d3ac044d5d6691b3721a2dddbb683ac02c207fbe78af6302463&quot;,
+    &quot;index&quot;: 1
 }' 
 参数说明：
 ak：Ak      
 nk：Nk      
 note：Note信息     
-voucher：Voucher信息       
+txid：交易id       
+index：Note索引          
 返回值：一个note是否已经被花费状态  
 
 wallet/createspendauthsig    
