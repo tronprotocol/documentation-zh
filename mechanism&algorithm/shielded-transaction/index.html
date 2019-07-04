@@ -7,23 +7,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   
-  <link rel="shortcut icon" href="../img/favicon.ico">
-  <title>Tron shielded transaction - 波场文档</title>
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+  <title>匿名交易 - 波场文档</title>
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 
-  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
   
   <script>
     // Current page data
-    var mkdocs_page_name = "Tron shielded transaction";
-    var mkdocs_page_input_path = "Tron-shielded-transaction.md";
+    var mkdocs_page_name = "\u533f\u540d\u4ea4\u6613";
+    var mkdocs_page_input_path = "mechanism&algorithm/shielded-transaction.md";
     var mkdocs_page_url = null;
   </script>
   
-  <script src="../js/jquery-2.1.1.min.js" defer></script>
-  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="../../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../../js/modernizr-2.8.3.min.js" defer></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
   <script>hljs.initHighlightingOnLoad();</script> 
   
@@ -36,9 +36,9 @@
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
       <div class="wy-side-nav-search">
-        <a href=".." class="icon icon-home"> 波场文档</a>
+        <a href="../.." class="icon icon-home"> 波场文档</a>
         <div role="search">
-  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
   </form>
 </div>
@@ -50,7 +50,7 @@
           
             <li class="toctree-l1">
 		
-    <a class="" href="../introduction/">简介</a>
+    <a class="" href="../../introduction/">简介</a>
 	    </li>
           
             <li class="toctree-l1">
@@ -59,11 +59,11 @@
     <ul class="subnav">
                 <li class="">
                     
-    <a class="" href="../api/http/">Http接口</a>
+    <a class="" href="../../api/http/">Http接口</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../api/rpc/">Rpc接口</a>
+    <a class="" href="../../api/rpc/">Rpc接口</a>
                 </li>
     </ul>
 	    </li>
@@ -74,31 +74,49 @@
     <ul class="subnav">
                 <li class="">
                     
-    <a class="" href="../mechanism&algorithm/sr/">超级代表与委员会</a>
+    <a class="" href="../sr/">超级代表与委员会</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../mechanism&algorithm/trc10/">TRC-10</a>
+    <a class="" href="../trc10/">TRC-10</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../mechanism&algorithm/account/">账户模型</a>
+    <a class="" href="../account/">账户模型</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../mechanism&algorithm/resource/">资源模型</a>
+    <a class="" href="../resource/">资源模型</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../mechanism&algorithm/dex/">去中心化交易所</a>
+    <a class="" href="../dex/">去中心化交易所</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../mechanism&algorithm/multi-signatures/">多重签名</a>
+    <a class="" href="../multi-signatures/">多重签名</a>
                 </li>
-                <li class="">
+                <li class=" current">
                     
-    <a class="" href="../mechanism&algorithm/shielded-transaction/">匿名交易</a>
+    <a class="current" href="./">匿名交易</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l3"><a href="#_1">简介</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l4" href="#_2">使用指南</a></li>
+        
+            <li><a class="toctree-l4" href="#_3">从透明地址到匿名地址</a></li>
+        
+            <li><a class="toctree-l4" href="#_4">从匿名地址到匿名地址</a></li>
+        
+            <li><a class="toctree-l4" href="#_5">从匿名地址到透明地址</a></li>
+        
+        </ul>
+    
+
+    </ul>
                 </li>
     </ul>
 	    </li>
@@ -109,11 +127,11 @@
     <ul class="subnav">
                 <li class="">
                     
-    <a class="" href="../architecture/network/">网络</a>
+    <a class="" href="../../architecture/network/">网络</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../architecture/database/">数据库</a>
+    <a class="" href="../../architecture/database/">数据库</a>
                 </li>
     </ul>
 	    </li>
@@ -124,15 +142,15 @@
     <ul class="subnav">
                 <li class="">
                     
-    <a class="" href="../contracts/tvm/">虚拟机</a>
+    <a class="" href="../../contracts/tvm/">虚拟机</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../contracts/compiler/">编译器</a>
+    <a class="" href="../../contracts/compiler/">编译器</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../contracts/contract/">合约</a>
+    <a class="" href="../../contracts/contract/">合约</a>
                 </li>
     </ul>
 	    </li>
@@ -143,30 +161,30 @@
     <ul class="subnav">
                 <li class="">
                     
-    <a class="" href="../developers/official-public-nodes/">官方节点</a>
+    <a class="" href="../../developers/official-public-nodes/">官方节点</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../developers/deployment/">部署</a>
+    <a class="" href="../../developers/deployment/">部署</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../developers/resources/">资源</a>
+    <a class="" href="../../developers/resources/">资源</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../developers/contribution/">参与开发</a>
+    <a class="" href="../../developers/contribution/">参与开发</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../developers/incentives/">激励政策</a>
+    <a class="" href="../../developers/incentives/">激励政策</a>
                 </li>
     </ul>
 	    </li>
           
             <li class="toctree-l1">
 		
-    <a class="" href="../q&a/qa/">常见问题</a>
+    <a class="" href="../../q&a/qa/">常见问题</a>
 	    </li>
           
         </ul>
@@ -179,7 +197,7 @@
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
         <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="..">波场文档</a>
+        <a href="../..">波场文档</a>
       </nav>
 
       
@@ -187,11 +205,15 @@
         <div class="rst-content">
           <div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
-    <li><a href="..">Docs</a> &raquo;</li>
+    <li><a href="../..">Docs</a> &raquo;</li>
     
       
+        
+          <li>机制与算法 &raquo;</li>
+        
+      
     
-    <li>Tron shielded transaction</li>
+    <li>匿名交易</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -423,6 +445,15 @@ Parameter:  </p>
           </div>
           <footer>
   
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../../architecture/network/" class="btn btn-neutral float-right" title="网络">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../multi-signatures/" class="btn btn-neutral" title="多重签名"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
 
   <hr/>
 
@@ -445,12 +476,16 @@ Parameter:  </p>
     <span class="rst-current-version" data-toggle="rst-current-version">
       
       
+        <span><a href="../multi-signatures/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../../architecture/network/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>
-    <script>var base_url = '..';</script>
-    <script src="../js/theme.js" defer></script>
-      <script src="../search/main.js" defer></script>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="../../search/main.js" defer></script>
 
 </body>
 </html>

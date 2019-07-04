@@ -8,7 +8,7 @@
   
   
   <link rel="shortcut icon" href="../img/favicon.ico">
-  <title>Advanced Configurations - 波场文档</title>
+  <title>Premise - 波场文档</title>
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 
   <link rel="stylesheet" href="../css/theme.css" type="text/css" />
@@ -17,8 +17,8 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "Advanced Configurations";
-    var mkdocs_page_input_path = "advanced-configuration.md";
+    var mkdocs_page_name = "Premise";
+    var mkdocs_page_input_path = "SolidityNode&FullNode_Deployment.md";
     var mkdocs_page_url = null;
   </script>
   
@@ -191,7 +191,7 @@
     
       
     
-    <li>Advanced Configurations</li>
+    <li>Premise</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -201,114 +201,108 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="advanced-configurations">Advanced Configurations</h1>
-<p>we provide some configuration items for LevelDB and gRPC in <code>config.conf</code> file, for fine-grained performance tuning. <br />
-You may custom these items only if you have deep understanding on them, otherwise keep them as default.</p>
-<h2 id="leveldb">LevelDB</h2>
-<p>You can custom LevelDB options in the <code>storage</code> part of <code>config.conf</code>, which looks like:</p>
-<pre><code>storage {
-  # Directory for storing persistent data
+                <h1 id="premise">Premise</h1>
+<p>Create separate directories for fullnode and soliditynode</p>
+<pre><code class="text">/deploy/fullnode
+/deploy/soliditynode
+</code></pre>
 
-  db.directory = &quot;database&quot;,
-  index.directory = &quot;index&quot;,
+<p>Create two folders for fullnode and soliditynode.</p>
+<p>Clone the latest master branch of <a href="https://github.com/tronprotocol/java-tron">https://github.com/tronprotocol/java-tron</a> and extract it to</p>
+<pre><code class="text">/deploy/java-tron 
+</code></pre>
 
-  # You can custom these 14 databases' configs:
+<p>Make sure you have the proper dependencies.</p>
+<ul>
+<li>JDK 1.8 (JDK 1.9+ is not supported yet)</li>
+<li>On Linux Ubuntu system (e.g. Ubuntu 16.04.4 LTS), ensure that the machine has <a href="https://www.digitalocean.com/community/tutorials/how-to-install-java-with-apt-get-on-ubuntu-16-04"><strong>Oracle JDK 8</strong></a>, instead of having <strong>Open JDK 8</strong> in the system. If you are building the source code by using <strong>Open JDK 8</strong>, you will get <a href="https://github.com/tronprotocol/java-tron/issues/337"><strong>Build Failed</strong></a> result.</li>
+<li>Open <strong>UDP</strong> ports for connection to the network</li>
+<li><strong>MINIMUM</strong> 2 CPU Cores</li>
+</ul>
+<h1 id="deployment-guide">Deployment Guide</h1>
+<p>1.&nbsp;Build the java-tron project  </p>
+<pre><code class="text">cd /deploy/java-tron 
+./gradlew build
+</code></pre>
 
-  # account, account-index, asset-issue, block, block-index,
-  # block_KDB, peers, properties, recent-block, trans,
-  # utxo, votes, witness, witness_schedule.
+<p>2.&nbsp;Copy the FullNode.jar and SolidityNode.jar along with configuration files into the respective directories</p>
+<pre><code class="text">download your needed configuration file from https://github.com/tronprotocol/TronDeployment.  
 
-  # Otherwise, db configs will remain defualt and data will be stored in
-  # the path of &quot;output-directory&quot; or which is set by &quot;-d&quot; (&quot;--output-directory&quot;).
+main_net_config.conf is the configuration for MainNet, and test_net_config.conf is the configuration for TestNet.  
 
-  # Attention: name is a required field that must be set !!!
-  properties = [
-    {
-      name = &quot;account&quot;,
-      path = &quot;/path/to/accout&quot;,   // relative or absolute path
-      createIfMissing = true,
-      paranoidChecks = true,
-      verifyChecksums = true,
-      compressionType = 1,        // 0 - no compression,  1 - compressed with snappy
-      blockSize = 4096,           // 4  KB =         4 * 1024 B
-      writeBufferSize = 10485760, // 10 MB = 10 * 1024 * 1024 B
-      cacheSize = 10485760,       // 10 MB = 10 * 1024 * 1024 B
-      maxOpenFiles = 100
+please rename the configuration file to `config.conf` and use this config.conf to start FullNode and SoliditNode.  
+
+cp build/libs/FullNode.jar ../fullnode  
+
+cp build/libs/SolidityNode.jar ../soliditynode
+</code></pre>
+
+<p>3.&nbsp;You can now run your FullNode using the following command</p>
+<pre><code class="text">java -jar FullNode.jar -c config.conf // make sure that your config.conf is downloaded from https://github.com/tronprotocol/TronDeployment
+</code></pre>
+
+<p>4.&nbsp;Configure the SolidityNode configuration file  </p>
+<p>You need to edit <code>config.conf</code> to connect to your local FullNode. Change  <code>trustNode</code> in <code>node</code> to local <code>127.0.0.1:50051</code>, which is the default rpc port. Set <code>listen.port</code> to any number within the range of 1024-65535. Please don't use any ports between 0-1024 since you'll most likely hit conflicts with other system services. Also change <code>rpc port</code> to <code>50052</code> or something to avoid conflicts. <strong>Please forward the UDP port 18888 for FullNode.</strong></p>
+<pre><code class="text">rpc {
+      port = 50052
     }
-  ]
-
-}
-
 </code></pre>
 
-<p>As shown in the example above, the data of database <code>accout</code> will be stored in the path of <code>/path/to/accout/database</code> while the index be stored in <code>/path/to/accout/index</code>. And, the example also shows our default value of LevelDB options from <code>createIfMissing</code> to <code>maxOpenFiles</code>. You can just refer to the docs of <a href="https://github.com/google/leveldb/blob/master/doc/index.md#performance">LevelDB</a> to figure out details of these options.</p>
-<h2 id="grpc">gRPC</h2>
-<p>You can custom gPRC options in the <code>node.rpc</code> part of <code>config.conf</code>, which looks like:</p>
-<pre><code>node {
-  rpc {
-    port = 50051
-
-    # Number of gRPC thread, default availableProcessors / 2
-    # thread = 16
-
-    # The maximum number of concurrent calls permitted for each incoming connection
-    # maxConcurrentCallsPerConnection =
-
-    # The HTTP/2 flow control window, default 1MB
-    # flowControlWindow =
-
-    # Connection being idle for longer than which will be gracefully terminated
-    maxConnectionIdleInMillis = 60000
-
-    # Connection lasting longer than which will be gracefully terminated
-    # maxConnectionAgeInMillis =
-
-    # The maximum message size allowed to be received on the server, default 4MB
-    # maxMessageSize =
-
-    # The maximum size of header list allowed to be received, default 8192
-    # maxHeaderListSize =
-  }
-}
+<p>5.&nbsp;You can now run your SolidityNode using the following command：</p>
+<pre><code class="text">java -jar SolidityNode.jar -c config.conf //make sure that your config.conf is downloaded from https://github.com/tronprotocol/TronDeployment
 </code></pre>
 
-<h2 id="backup">backup</h2>
-<p>You can custom backup options in the <code>node.backup</code> part of <code>config.conf</code>, which looks like:</p>
-<pre><code>node.backup {
-    # my priority, each member should use different priority
-    priority = 
-    # members should use same port
-    port = 
-    # peer's ip list, can't contain mine
-    members = []
-}
+<p>6.&nbsp;Running a Super Representative Node for mainnet</p>
+<pre><code class="text">java -jar FullNode.jar -p your private key --witness -c your config.conf(Example：/data/java-tron/config.conf)
+Example:
+java -jar FullNode.jar -p 650950B193DDDDB35B6E48912DD28F7AB0E7140C1BFDEFD493348F02295BD812 --witness -c /data/java-tron/config.conf
 </code></pre>
 
-<p>policy: 
-1. the one which synchronized first will become master.
-2. if synchronization is completed at the same time, the one which with big priority will become master.</p>
-<p>E.g. create backups for node A(192.168.0.100) and node B(192.168.0.100 ):
-node A's configuration:</p>
-<pre><code>node.backup {
-    priority = 8 
-    port = 10001
-    members = [
-        &quot;192.168.0.101&quot;
-    ]
-}
+<p>This is similar to running a private testnet, except that the IPs in the <code>config.conf</code> are officially declared by TRON.</p>
+<p>7.&nbsp;Running a Super Representative Node for private testnet  </p>
+<p>You should modify the config.conf:   </p>
+<ul>
+<li>Replace existing entry in genesis.block.witnesses with your address</li>
+<li>Replace existing entry in seed.node ip.list with your ip list</li>
+<li>The first Super Node start, needSyncCheck should be set false</li>
+<li>Set p2pversion to 61 </li>
+</ul>
+<pre><code class="text">cd build/libs
+java -jar FullNode.jar -p your private key --witness -c your config.conf (Example：/data/java-tron/config.conf)
+Example:
+java -jar FullNode.jar -p 650950B193DDDDB35B6E48912DD28F7AB0E7140C1BFDEFD493348F02295BD812 --witness -c /data/java-tron/config.conf
 </code></pre>
 
-<p>node B's configuration:</p>
-<pre><code>node.backup {
-    priority = 5
-    port = 10001
-    members = [
-        &quot;192.168.0.100&quot;
-    ]
-}
+<h1 id="logging-and-network-connection-verification">Logging and Network Connection Verification</h1>
+<p>Logs for both nodes are located in <code>/deploy/\*/logs/tron.log</code>. Use <code>tail -f /logs/tron.log/</code> to follow along with the block syncing.</p>
+<p>You should see something similar to this in your logs for block synchronization:</p>
+<p><strong>FullNode</strong></p>
+<pre><code class="text">12:00:57.658 INFO  [pool-7-thread-1] [o.t.c.n.n.NodeImpl](NodeImpl.java:830) Success handle block Num:236610,ID:0000000000039c427569efa27cc2493c1fff243cc1515aa6665c617c45d2e1bf
 </code></pre>
 
-<p>You may refer to the source code of <code>io.grpc.netty.NettyServerBuilder</code> class to see details or just make a decision according to the brief comments above.  </p>
+<p><strong>SolidityNode</strong></p>
+<pre><code class="text">12:00:40.691 INFO  [pool-17-thread-1] [o.t.p.SolidityNode](SolidityNode.java:88) sync solidity block, lastSolidityBlockNum:209671, remoteLastSolidityBlockNum:211823
+</code></pre>
+
+<h1 id="stop-node-gracefully">Stop Node Gracefully</h1>
+<p>Create file stop.sh，use kill -15 to close java-tron.jar（or FullNode.jar、SolidityNode.jar）.
+You need to modify pid=<code>ps -ef |grep java-tron.jar |grep -v grep |awk '{print $2}'</code> to find the correct pid.</p>
+<pre><code class="text">#!/bin/bash
+while true; do
+  pid=`ps -ef |grep java-tron.jar |grep -v grep |awk '{print $2}'`
+  if [ -n &quot;$pid&quot; ]; then
+    kill -15 $pid
+    echo &quot;The java-tron process is exiting, it may take some time, forcing the exit may cause damage to the database, please wait patiently...&quot;
+    sleep 1
+  else
+    echo &quot;java-tron killed successfully!&quot;
+    break
+  fi
+done
+</code></pre>
+
+<h1 id="advanced-configurations">Advanced Configurations</h1>
+<p>Read the <a href="src/main/java/org/tron/core/config/README.md">Advanced Configurations</a>.</p>
               
             </div>
           </div>
