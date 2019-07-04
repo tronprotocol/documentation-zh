@@ -1,14 +1,31 @@
-site_name: TRON Documentation
+
+site_name: 波场文档
 nav:
-    - 导航页: index.md
-    - 概览: Tron-overview.md
-    - Http接口: Tron-http.md
-    - RPC接口: Tron-rpc.md
-    - 官方公共节点: Tron-official-public-nodes.md
-    - 虚拟机: Tron-VM.md
-    - 部署: Tron-deployment.md
-    - 匿名交易: Tron-shielded-transaction.md
-    - 多重签名: Tron-multi-signatures.md
-    - 资源: Tron-resources.md
-    - 常见问题: Tron-QA.md
+    - 简介: introduction.md
+    - 接口:
+        - Http接口: api/http.md
+        - Rpc接口: api/rpc.md
+    - 机制与算法:
+        - 超级代表与委员会: mechanism&algorithm/sr.md
+        - TRC-10: mechanism&algorithm/trc10.md  
+        - 账户模型: mechanism&algorithm/account.md
+        - 资源模型: mechanism&algorithm/resource.md
+        - 去中心化交易所: mechanism&algorithm/dex.md
+        - 多重签名: mechanism&algorithm/multi-signatures.md
+        - 匿名交易: mechanism&algorithm/shielded-transaction.md
+    - 架构:
+        - 网络: architecture/network.md
+        - 数据库: architecture/database.md
+    - 合约: 
+        - 虚拟机: contracts/tvm.md
+        - 编译器: contracts/compiler.md    
+        - 合约: contracts/contract.md   
+    - 开发者:
+        - 官方节点: developers/official-public-nodes.md
+        - 部署: developers/deployment.md
+        - 资源: developers/resources.md
+        - 参与开发: developers/contribution.md
+        - 激励政策: developers/incentives.md
+    - 常见问题: q&a/qa.md
+
 theme: readthedocs
