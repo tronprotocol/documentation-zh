@@ -1,18 +1,18 @@
-<h1>Community Developers Incentives Policy</h1>
+<h1>社区开发者激励政策</h1>
 
-Point program applies in TRON incentives policy. Developers can earn points by contributing to TRON. At the end of every month, we will calculate the points each developer gets in the month and the developers who finish in Top 5 will be rewarded.  
+波场社区开发者激励政策采用积分制。开发者可以通过为波场做贡献来获得积分。在每个月的月底，我们会统计每个参与波场项目的开发者当月所获得的积分，并给予前五名开发者现金奖励。
 
 | No. 1   |  No. 2    |   No. 3  |   No. 4   |   No. 5   |
 |---------|-----------|----------|-----------|-----------|
 | 200 USD |  180 USD  | 150 USD  |  120 USD  |  100 USD  |
 
-## Non-code Related
+## 非代码相关
 
 ** 1. TIP **
 
-Description: TRON Improvement Proposal（TIP）  
-Scope: Any improvement related to TRON ecosystem, like a new feature, TRC, protocol improvement, programming tool, etc.     
-Points:
+描述：TRON Improvement Proposal（TIP）  
+范围：Any improvement related to TRON ecosystem, like a new feature, TRC, protocol improvement, programming tool, etc.     
+积分：
 
 | Critical  |   High    |  Medium  |     Low   |
 |-----------|-----------|----------|-----------|
@@ -20,9 +20,9 @@ Points:
 
 ** 2. Documentation  **
 
-Description: To revise, update and add technical documentation related to TRON network.  
-Scope: mechanism and algorithm, network architecture and database, contracts and other technical documentation   
-Points:  
+描述：To revise, update and add technical documentation related to TRON network.  
+范围：mechanism and algorithm, network architecture and database, contracts and other technical documentation   
+积分： 
 
 | Critical  |   High    |  Medium  |     Low   |
 |-----------|-----------|----------|-----------|
@@ -30,21 +30,21 @@ Points:
 
 ** 3. Issue **  
 
-Description: Create a topic about a question, enhancement, bug or feature and so on to discuss   
-Scope: java-tron, TRON ecosystem  
-Points:
+描述：Create a topic about a question, enhancement, bug or feature and so on to discuss   
+范围：java-tron, TRON ecosystem  
+积分：
 
 | Critical  |   High    |  Medium  |     Low   |
 |-----------|-----------|----------|-----------|
 |    10     |    8      |    5     |      2    |
 
-## Code Related
+## 代码相关
 
 ** 1. Feature Development **
 
-Description: To add new features to TRON network  
-Scope: java-tron    
-Points:
+描述：To add new features to TRON network  
+范围：java-tron    
+积分：
 
 | Critical  |   High    |  Medium  |     Low   |
 |-----------|-----------|----------|-----------|
@@ -52,9 +52,9 @@ Points:
 
 ** 2. Bug Report **
 
-Description: To report bugs in online TRON network  
-Scope: java-tron     
-Points:
+描述：To report bugs in online TRON network  
+范围：java-tron     
+积分：
 
 | Critical  |   High    |  Medium  |     Low   |
 |-----------|-----------|----------|-----------|
@@ -62,9 +62,9 @@ Points:
 
 **3. Bug Fix**
 
-Description: To fix bugs in online TRON network   
-Scope: java-tron     
-Points:
+描述：To fix bugs in online TRON network   
+范围：java-tron     
+积分：
 
 | Critical  |   High    |  Medium  |     Low   |
 |-----------|-----------|----------|-----------|
@@ -72,9 +72,9 @@ Points:
 
 **4. Security Related**
 
-Description: To find the security risks and enhance the security of TRON network and ecosystem   
-Scope: java-tron, TRON ecosystem   
-Points:
+描述：To find the security risks and enhance the security of TRON network and ecosystem   
+范围：java-tron, TRON ecosystem   
+积分：
 
 | Critical  |   High    |  Medium  |     Low   |
 |-----------|-----------|----------|-----------|
