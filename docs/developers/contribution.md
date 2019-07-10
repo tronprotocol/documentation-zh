@@ -15,6 +15,8 @@ GitHub是用来追踪议题，贡献代码、建议、特性请求、文档等�
 * [Discord](https://discord.gg/GsRgsTD)   
 * [Gitter](https://gitter.im/tronprotocol/allcoredev)   
 
+查看 [波场开发者激励政策](incentives.md)
+
 ## 如何参与波场文档的书写
 
 我们有两个文档仓库：  

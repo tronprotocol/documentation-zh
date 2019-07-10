@@ -303,7 +303,7 @@ id: 提议Id，根据提议创建时间递增
 查询所有提议信息（ListProposals）<br />
 分页查询提议信息（GetPaginatedProposalList）<br />
 查询指定提议信息（GetProposalById）     <br />
-相关api详情，请查询<a href="../Tron-http/">Tron-http</a>  </p>
+相关api详情，请查询<a href="Tron-http.md">Tron-http</a>  </p>
 <h1 id="3">3. 账号模型</h1>
 <p><h2> 3.1 账户模型介绍  </h2></p>
 <p>Tron采用账户模型。账户的唯一标识为地址address，对账户操作需要验证私钥签名。每个账户拥有TRX、Token余额及智能合约、带宽、能量等各种资源。通过发送交易可以增减TRX或者Token余额，需要消耗带宽；可以发布并拥有智能合约，也可以调用他人发布的智能合约，需要消耗能量。可以申请成为超级代表并被投票，也可以对超级代表进行投票。等等。Tron所有的活动都围绕账户进行。</p>
@@ -1224,13 +1224,13 @@ supply = 1_000_000_000_000_000_000L
 supplyQuant = -supply * (1.0 - Math.pow(1.0 + (double) sellTokenQuant/（firstTokenBalance + sellTokenQuant）, 0.0005))
 buyTokenQuant = （long）balance * (Math.pow(1.0 + (double) supplyQuant / supply, 2000.0) - 1.0)</p>
 <p>注意：由于网络其他账户发生交易，价格可能发生变化。    </p>
-<p>相关api详情，请查询<a href="../Tron-http/">Tron-http</a>。</p>
+<p>相关api详情，请查询<a href="Tron-http.md">Tron-http</a>。</p>
 <h1 id="10">10. 多重签名</h1>
 <p>详细信息请参考:<br />
-<a href="../Tron-multi-signatures/">波场多重签名</a>  </p>
+<a href="Tron-multi-signatures.md">波场多重签名</a>  </p>
 <h1 id="11">11. 匿名交易</h1>
 <p>详细信息请参考:<br />
-<a href="../Tron-shielded-transaction/">波场匿名交易</a>   </p>
+<a href="Tron-shielded-transaction.md">波场匿名交易</a>   </p>
 <h1 id="12">12. 钱包介绍</h1>
 <p><h2> 12.1 wallet-cli功能介绍 </h2>
 请参考:<br />
