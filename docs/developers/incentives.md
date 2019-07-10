@@ -41,7 +41,7 @@
 ** 3. Issue **  
 
 描述：创建关于bug、提问、改进等相关的主题来讨论。 
-范围：java-tron, 波场生态 
+范围：java-tron, 波场生态   
 积分：
 
 | Critical  |   High    |  Medium  |     Low   |
