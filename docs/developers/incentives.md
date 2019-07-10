@@ -14,22 +14,24 @@
 
 每个参与波场开发的开发者，都可以获得波场荣誉开发者证书。  
 
+开发者可以参与以下内容：  
+
 ## 非代码相关
 
 ** 1. TIP **
 
 描述：TRON Improvement Proposal（TIP）  
-范围：Any improvement related to TRON ecosystem, like a new feature, TRC, protocol improvement, programming tool, etc.     
+范围：任何与波场相关的改进提议。比如新的功能、TRC协议、protocol改进、编程工具，等等。       
 积分：
 
 | Critical  |   High    |  Medium  |     Low   |
 |-----------|-----------|----------|-----------|
 |    20     |    15     |    10    |      5    |
 
-** 2. Documentation  **
+** 2. 文档  **
 
-描述：To revise, update and add technical documentation related to TRON network.  
-范围：mechanism and algorithm, network architecture and database, contracts and other technical documentation   
+描述：修正、更新、新增与波场相关的技术文档。  
+范围：机制与算法、网络架构与数据库、合约或者其他技术相关的文档。   
 积分： 
 
 | Critical  |   High    |  Medium  |     Low   |
@@ -38,8 +40,8 @@
 
 ** 3. Issue **  
 
-描述：Create a topic about a question, enhancement, bug or feature and so on to discuss   
-范围：java-tron, TRON ecosystem  
+描述：创建关于bug、提问、改进等相关的主题来讨论。 
+范围：java-tron, 波场生态 
 积分：
 
 | Critical  |   High    |  Medium  |     Low   |
@@ -48,9 +50,9 @@
 
 ## 代码相关
 
-** 1. Feature Development **
+** 1. 新功能开发 **
 
-描述：To add new features to TRON network  
+描述：为波场网络开发新功能。  
 范围：java-tron    
 积分：
 
@@ -58,9 +60,9 @@
 |-----------|-----------|----------|-----------|
 |    100    |    80     |    50    |     20    |
 
-** 2. Bug Report **
+** 2. 报告bug **
 
-描述：To report bugs in online TRON network  
+描述：报告波场网络上的bug。   
 范围：java-tron     
 积分：
 
@@ -68,9 +70,9 @@
 |-----------|-----------|----------|-----------|
 |    20     |    15     |    10    |     5     |
 
-**3. Bug Fix**
+**3. 修复bug**
 
-描述：To fix bugs in online TRON network   
+描述：修复波场网络上的bug。     
 范围：java-tron     
 积分：
 
@@ -78,10 +80,10 @@
 |-----------|-----------|----------|-----------|
 |    40     |    30     |    20    |     10    |
 
-**4. Security Related**
+**4. 安全相关**
 
-描述：To find the security risks and enhance the security of TRON network and ecosystem   
-范围：java-tron, TRON ecosystem   
+描述：发现波场网络的安全隐患或者增强波场网络的安全性    
+范围：java-tron, 波场生态   
 积分：
 
 | Critical  |   High    |  Medium  |     Low   |
