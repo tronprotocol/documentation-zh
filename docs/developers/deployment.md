@@ -106,8 +106,8 @@ java -jar FullNode.jar -p 650950B193DDDDB35B6E48912DD28F7AB0E7140C1BFDEFD493348F
 ```
 ## 优雅的停止节点
 
-Create file stop.sh，use kill -15 to close java-tron.jar（or FullNode.jar、SolidityNode.jar）.
-You need to modify pid=`ps -ef |grep java-tron.jar |grep -v grep |awk '{print $2}'` to find the correct pid.
+创建stop.sh文件，使用命令`kill -15`关闭java-tron.jar（或者FullNode.jar、SolidityNode.jar）。    
+修改pid=`ps -ef |grep java-tron.jar |grep -v grep |awk '{print $2}'`来找到正确的pid。    
 ```text
 #!/bin/bash
 while true; do
@@ -125,12 +125,12 @@ done
 
 ## 快速部署节点
 
-Download fast deployment script, run the script according to different types of node.   
+下载快速部署脚本，根据部署节点类型，执行脚本。    
 
 <h3>使用范围</h3>
 
-This script could be used on Linux/MacOS, but not on Windows.
-Just Support FullNode and SolidityNode.
+脚本可以再Linux/MacOS上使用，不支持Windows系统。  
+只支持FullNode与SolidityNode的部署。  
 
 <h3>下载运行脚本</h3>
 
@@ -154,14 +154,14 @@ bash deploy_tron.sh --app [FullNode|SolidityNode] --net [mainnet|testnet|private
 --work_space  Optional, default is current directory.
 ```
 
-<h3> Deployment of FullNode on the one host </h3>
+<h3>部署FullNode</h3>
 
 ```shell
 wget https://raw.githubusercontent.com/tronprotocol/TronDeployment/master/deploy_tron.sh -O deploy_tron.sh
 bash deploy_tron.sh
 ```
 
-<h3> Deployment of SolidityNode on the one host </h3>
+<h3>部署SolidityNode</h3>
 
 ```shell
 wget https://raw.githubusercontent.com/tronprotocol/TronDeployment/master/deploy_tron.sh -O deploy_tron.sh
@@ -169,7 +169,7 @@ wget https://raw.githubusercontent.com/tronprotocol/TronDeployment/master/deploy
 bash deploy_tron.sh --app SolidityNode --trust-node <grpc-ip:grpc-port>
 ```
 
-<h3> Deployment of FullNode and SolidityNode on the same host </h3>
+<h3> FullNode和SolidityNode部署在同一主机上</h3>
 
 ```shell
 # You need to configure different gRPC ports on the same host because gRPC port is available on SolidityNode and FullNodeConfigure and it cannot be set as default value 50051. In this case the default value of rpc port is set as 50041.
