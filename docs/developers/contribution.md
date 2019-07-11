@@ -39,7 +39,7 @@ TIPS仓库路径是：[https://github.com/tronprotocol/TIPs](https://github.com/
 
 ## 如何参与java-tron代码书写
 
-java-tron仓库路径是：[https://github.com/tronprotocol/java-tron]https://github.com/tronprotocol/java-tron)  
+java-tron仓库路径是：[https://github.com/tronprotocol/java-tron](https://github.com/tronprotocol/java-tron)  
 
 **分支介绍：**
 
