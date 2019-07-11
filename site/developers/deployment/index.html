@@ -150,26 +150,25 @@
     <a class="current" href="./">部署</a>
     <ul class="subnav">
             
-    <li class="toctree-l3"><a href="#premise">Premise</a></li>
+    <li class="toctree-l3"><a href="#_1">前提</a></li>
     
 
-    <li class="toctree-l3"><a href="#deployment-guide">Deployment Guide</a></li>
+    <li class="toctree-l3"><a href="#_2">部署指南</a></li>
     
 
-    <li class="toctree-l3"><a href="#logging-and-network-connection-verification">Logging and Network Connection Verification</a></li>
+    <li class="toctree-l3"><a href="#_3">日志与网络连接验证</a></li>
     
 
-    <li class="toctree-l3"><a href="#stop-node-gracefully">Stop Node Gracefully</a></li>
+    <li class="toctree-l3"><a href="#_4">优雅的停止节点</a></li>
     
-        <ul>
-        
-            <li><a class="toctree-l4" href="#fullnode-and-soliditynode-fast-deployment">FullNode and SolidityNode Fast Deployment</a></li>
-        
-            <li><a class="toctree-l4" href="#grpc-gateway-deployment">Grpc Gateway Deployment</a></li>
-        
-            <li><a class="toctree-l4" href="#advanced-configurations">Advanced Configurations</a></li>
-        
-        </ul>
+
+    <li class="toctree-l3"><a href="#_5">快速部署节点</a></li>
+    
+
+    <li class="toctree-l3"><a href="#grpc-gateway">Grpc Gateway部署</a></li>
+    
+
+    <li class="toctree-l3"><a href="#_6">高级配置</a></li>
     
 
     </ul>
@@ -230,31 +229,30 @@
           <div role="main">
             <div class="section">
               
-                <h2 id="premise">Premise</h2>
-<p>Create separate directories for fullnode and soliditynode</p>
+                <h2 id="_1">前提</h2>
+<p>分别为fullnode和soliditynode创建一个目录  </p>
 <pre><code class="text">/deploy/fullnode
 /deploy/soliditynode
 </code></pre>
 
-<p>Create two folders for fullnode and soliditynode.</p>
-<p>Clone the latest master branch of <a href="https://github.com/tronprotocol/java-tron">https://github.com/tronprotocol/java-tron</a> and extract it to</p>
+<p>克隆最新的master分支上的代码<a href="https://github.com/tronprotocol/java-tron">https://github.com/tronprotocol/java-tron</a> 到  </p>
 <pre><code class="text">/deploy/java-tron 
 </code></pre>
 
-<p>Make sure you have the proper dependencies.</p>
+<p>请确保已经安装恰当的依赖环境。  </p>
 <ul>
 <li>JDK 1.8 (JDK 1.9+ is not supported yet)</li>
 <li>On Linux Ubuntu system (e.g. Ubuntu 16.04.4 LTS), ensure that the machine has <a href="https://www.digitalocean.com/community/tutorials/how-to-install-java-with-apt-get-on-ubuntu-16-04"><strong>Oracle JDK 8</strong></a>, instead of having <strong>Open JDK 8</strong> in the system. If you are building the source code by using <strong>Open JDK 8</strong>, you will get <a href="https://github.com/tronprotocol/java-tron/issues/337"><strong>Build Failed</strong></a> result.</li>
 <li>Open <strong>UDP</strong> ports for connection to the network</li>
 <li><strong>MINIMUM</strong> 2 CPU Cores</li>
 </ul>
-<h2 id="deployment-guide">Deployment Guide</h2>
-<p>1.&nbsp;Build the java-tron project  </p>
+<h2 id="_2">部署指南</h2>
+<p>1.&nbsp;编译java-tron项目   </p>
 <pre><code class="text">cd /deploy/java-tron 
 ./gradlew build
 </code></pre>
 
-<p>2.&nbsp;Copy the FullNode.jar and SolidityNode.jar along with configuration files into the respective directories</p>
+<p>2.&nbsp;复制FullNode.jar和SolidityNode.jar以及相应的配置文件到各自的目录    </p>
 <pre><code class="text">download your needed configuration file from https://github.com/tronprotocol/TronDeployment.  
 
 main_net_config.conf is the configuration for MainNet, and test_net_config.conf is the configuration for TestNet.  
@@ -266,35 +264,36 @@ cp build/libs/FullNode.jar ../fullnode
 cp build/libs/SolidityNode.jar ../soliditynode
 </code></pre>
 
-<p>3.&nbsp;You can now run your FullNode using the following command</p>
+<p>3.&nbsp;用以下命令运行FullNode     </p>
 <pre><code class="text">java -jar FullNode.jar -c config.conf // make sure that your config.conf is downloaded from https://github.com/tronprotocol/TronDeployment
 </code></pre>
 
-<p>4.&nbsp;Configure the SolidityNode configuration file  </p>
-<p>You need to edit <code>config.conf</code> to connect to your local FullNode. Change  <code>trustNode</code> in <code>node</code> to local <code>127.0.0.1:50051</code>, which is the default rpc port. Set <code>listen.port</code> to any number within the range of 1024-65535. Please don't use any ports between 0-1024 since you'll most likely hit conflicts with other system services. Also change <code>rpc port</code> to <code>50052</code> or something to avoid conflicts. <strong>Please forward the UDP port 18888 for FullNode.</strong></p>
+<p>4.&nbsp;配置SolidityNode配置文件       </p>
+<p>需要编辑<code>config.conf</code>文件来连接本地的FullNode。修改<code>node</code>里的<code>trustNode</code>为<code>127.0.0.1:50051</code>，这是默认rpc端口。设置<code>listen.port</code>为1024-65535间任意数字。不要使用0-1024间的数字，因为可能会导致与系统服务冲突。同样，为了避免冲突，可以把<code>rpc port</code>改为<code>50052</code>。  </p>
+<p><strong>请为FullNode转发UDP端口18888</strong></p>
 <pre><code class="text">rpc {
       port = 50052
     }
 </code></pre>
 
-<p>5.&nbsp;You can now run your SolidityNode using the following command：</p>
+<p>5.&nbsp;用以下命令运行SolidityNode   </p>
 <pre><code class="text">java -jar SolidityNode.jar -c config.conf //make sure that your config.conf is downloaded from https://github.com/tronprotocol/TronDeployment
 </code></pre>
 
-<p>6.&nbsp;Running a Super Representative Node for mainnet</p>
+<p>6.&nbsp;在公链环境中运行超级节点   </p>
 <pre><code class="text">java -jar FullNode.jar -p your private key --witness -c your config.conf(Example：/data/java-tron/config.conf)
 Example:
 java -jar FullNode.jar -p 650950B193DDDDB35B6E48912DD28F7AB0E7140C1BFDEFD493348F02295BD812 --witness -c /data/java-tron/config.conf
 </code></pre>
 
-<p>This is similar to running a private testnet, except that the IPs in the <code>config.conf</code> are officially declared by TRON.</p>
-<p>7.&nbsp;Running a Super Representative Node for private testnet  </p>
-<p>You should modify the config.conf:   </p>
+<p>这与运行一个个人测试网相似，除了<code>config.conf</code>中的IP不一样。  </p>
+<p>7.&nbsp;在个人测试网环境中运行超级节点   </p>
+<p>你需要修改一下config.conf配置文件内容：    </p>
 <ul>
 <li>Replace existing entry in genesis.block.witnesses with your address</li>
 <li>Replace existing entry in seed.node ip.list with your ip list</li>
 <li>The first Super Node start, needSyncCheck should be set false</li>
-<li>Set p2pversion to 61 </li>
+<li>Set p2p version to 61 </li>
 </ul>
 <pre><code class="text">cd build/libs
 java -jar FullNode.jar -p your private key --witness -c your config.conf (Example：/data/java-tron/config.conf)
@@ -302,9 +301,9 @@ Example:
 java -jar FullNode.jar -p 650950B193DDDDB35B6E48912DD28F7AB0E7140C1BFDEFD493348F02295BD812 --witness -c /data/java-tron/config.conf
 </code></pre>
 
-<h2 id="logging-and-network-connection-verification">Logging and Network Connection Verification</h2>
-<p>Logs for both nodes are located in <code>/deploy/\*/logs/tron.log</code>. Use <code>tail -f /logs/tron.log/</code> to follow along with the block syncing.</p>
-<p>You should see something similar to this in your logs for block synchronization:</p>
+<h2 id="_3">日志与网络连接验证</h2>
+<p>日志位于<code>/deploy/\*/logs/tron.log</code>。 使用<code>tail -f /logs/tron.log/</code>命令来查看块同步日志。  </p>
+<p>你可以看到类似如下块同步的日志信息：  </p>
 <p><strong>FullNode</strong></p>
 <pre><code class="text">12:00:57.658 INFO  [pool-7-thread-1] [o.t.c.n.n.NodeImpl](NodeImpl.java:830) Success handle block Num:236610,ID:0000000000039c427569efa27cc2493c1fff243cc1515aa6665c617c45d2e1bf
 </code></pre>
@@ -313,7 +312,7 @@ java -jar FullNode.jar -p 650950B193DDDDB35B6E48912DD28F7AB0E7140C1BFDEFD493348F
 <pre><code class="text">12:00:40.691 INFO  [pool-17-thread-1] [o.t.p.SolidityNode](SolidityNode.java:88) sync solidity block, lastSolidityBlockNum:209671, remoteLastSolidityBlockNum:211823
 </code></pre>
 
-<h1 id="stop-node-gracefully">Stop Node Gracefully</h1>
+<h2 id="_4">优雅的停止节点</h2>
 <p>Create file stop.sh，use kill -15 to close java-tron.jar（or FullNode.jar、SolidityNode.jar）.
 You need to modify pid=<code>ps -ef |grep java-tron.jar |grep -v grep |awk '{print $2}'</code> to find the correct pid.</p>
 <pre><code class="text">#!/bin/bash
@@ -330,18 +329,18 @@ while true; do
 done
 </code></pre>
 
-<h2 id="fullnode-and-soliditynode-fast-deployment">FullNode and SolidityNode Fast Deployment</h2>
+<h2 id="_5">快速部署节点</h2>
 <p>Download fast deployment script, run the script according to different types of node.   </p>
-<h3>Scope of use</h3>
+<h3>使用范围</h3>
 
 <p>This script could be used on Linux/MacOS, but not on Windows.
 Just Support FullNode and SolidityNode.</p>
-<h3>Download and run script</h3>
+<h3>下载运行脚本</h3>
 
 <pre><code class="shell">wget https://raw.githubusercontent.com/tronprotocol/TronDeployment/master/deploy_tron.sh -O deploy_tron.sh
 </code></pre>
 
-<h3>Parameter Illustration</h3>
+<h3>参数含义</h3>
 
 <pre><code class="shell">bash deploy_tron.sh --app [FullNode|SolidityNode] --net [mainnet|testnet|privatenet] --db [keep|remove|backup] --heap-size &lt;heapsize&gt;
 
@@ -377,20 +376,20 @@ bash deploy_tron.sh --app FullNode
 bash deploy_tron.sh --app SolidityNode --rpc-port 50041
 </code></pre>
 
-<h2 id="grpc-gateway-deployment">Grpc Gateway Deployment</h2>
-<h3> Summary </h3>
+<h2 id="grpc-gateway">Grpc Gateway部署</h2>
+<h3> 摘要 </h3>
 
 <p>This script helps you download the code from https://github.com/tronprotocol/grpc-gateway and deploy the code on your environment.</p>
-<h3> Pre-requests </h3>
+<h3> 前提 </h3>
 
 <p>Please follow the guide on https://github.com/tronprotocol/grpc-gateway 
 Install Golang, Protoc, and set $GOPATH environment variable according to your requirement.</p>
-<h3> Download and run script </h3>
+<h3> 下载运行脚本 </h3>
 
 <pre><code class="shell">wget https://raw.githubusercontent.com/tronprotocol/TronDeployment/master/deploy_grpc_gateway.sh -O deploy_grpc_gateway.sh
 </code></pre>
 
-<h3> Parameter Illustration </h3>
+<h3> 参数含义 </h3>
 
 <pre><code class="shell">bash deploy_grpc_gateway.sh --rpchost [rpc host ip] --rpcport [rpc port number] --httpport [http port number] 
 
@@ -399,17 +398,17 @@ Install Golang, Protoc, and set $GOPATH environment variable according to your r
 --httpport The port intends to provide http service provided by grpc gateway. Default value is 18890.
 </code></pre>
 
-<h3> Example </h3>
+<h3> 示例 </h3>
 
-<p>Use default configuration：</p>
+<p>使用默认配置：</p>
 <pre><code class="shell">bash deploy_grpc_gateway.sh
 </code></pre>
 
-<p>Use customized configuration：</p>
+<p>使用自定义配置：</p>
 <pre><code class="shell">bash deploy_grpc_gateway.sh --rpchost 127.0.0.1 --rpcport 50052 --httpport 18891
 </code></pre>
 
-<h2 id="advanced-configurations">Advanced Configurations</h2>
+<h2 id="_6">高级配置</h2>
 <p>Read the <a href="../../advanced-configuration/">Advanced Configuration</a></p>
               
             </div>
