@@ -105,6 +105,7 @@ nohup java -Xmx6g -XX:+HeapDumpOnOutOfMemoryError -jar FullNode.jar  --witness  
 <logger name="net" level="WARN"/>
 
  配置文件中需要修改的参数：  
+ 
  ip.list:  
  ![image](https://raw.githubusercontent.com/tronprotocol/documentation-EN/master/imags/ip_list.png)
  p2p.version:  
