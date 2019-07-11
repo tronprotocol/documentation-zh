@@ -1,7 +1,9 @@
 ## 项目仓库
-仓库地址：  
-[https://github.com/tronprotocol](https://github.com/tronprotocol)  
-其中 java-tron是主网代码，protocol是api和数据结构定义, wallet-cli是官方命令行钱包。   
+仓库地址：[https://github.com/tronprotocol](https://github.com/tronprotocol)   
+[java-tron](https://github.com/tronprotocol/java-tron) 是主网代码。  
+[protocol](https://github.com/tronprotocol/protocol) 是api和数据结构定义。   
+[wallet-cli](https://github.com/tronprotocol/wallet-cli) 是官方命令行钱包。     
+[tips](https://github.com/tronprotocol/TIPs/issues) 是波场改进提议。  
 
 配置文件     
 TestNet的配置请参照:
