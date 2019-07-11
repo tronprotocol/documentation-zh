@@ -180,14 +180,10 @@ bash deploy_tron.sh --app SolidityNode --rpc-port 50041
 
 ## Grpc Gateway部署
 
-<h3> 摘要 </h3>
-
-This script helps you download the code from https://github.com/tronprotocol/grpc-gateway and deploy the code on your environment.
-
 <h3> 前提 </h3>
 
-Please follow the guide on https://github.com/tronprotocol/grpc-gateway 
-Install Golang, Protoc, and set $GOPATH environment variable according to your requirement.
+请参照：[https://github.com/tronprotocol/grpc-gateway](https://github.com/tronprotocol/grpc-gateway)     
+安装Golang, Protoc, 并且设置$GOPATH环境变量。   
 
 <h3> 下载运行脚本 </h3>
 
