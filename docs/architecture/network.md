@@ -35,13 +35,15 @@ CPU：64核及以上 内存：64G及以上 带宽：500M及以上 硬盘：20T�
 <h3> 2. 测试网 </h3>
 [测试网配置文件](https://github.com/tronprotocol/tron-deployment/blob/master/test_net_config.conf)
 
-<h3> 3. 搭建私有网络 <h3>
+<h3> 3. 搭建私有网络 </h3>
 
 <h4> 3.1 前提 </h4>
-1.&nbsp;具备至少两个钱包账户的私钥与地址。 [如何生成钱包账户](https://tronscan.org/#/wallet/new)  
-2.&nbsp;至少部署一个SuperNode用于出块；  
-3.&nbsp;部署任意数量的FullNode节点用于同步区块、广播交易；  
-4.&nbsp;SuperNode与FullNode组成了私有网络，可以进行网络发现、区块同步、广播交易。  
+
+1.&nbsp;具备至少两个钱包账户的私钥与地址；[如何生成钱包账户](https://tronscan.org/#/wallet/new)    
+2.&nbsp;至少部署一个SuperNode用于出块；     
+3.&nbsp;部署任意数量的FullNode节点用于同步区块、广播交易；        
+4.&nbsp;SuperNode与FullNode组成了私有网络，可以进行网络发现、区块同步、广播交易；    
+
 
 <h4> 3.2 部署 </h4>
 
@@ -51,12 +53,12 @@ CPU：64核及以上 内存：64G及以上 带宽：500M及以上 硬盘：20T�
 ```text
 wget https://github.com/tronprotocol/tron-deployment/blob/master/private_net_config.conf
 ```
-2.&nbsp;在localwitness中添加自己的私钥  
-3.&nbsp;设置genesis.block.witnesses为私钥对应的地址  
-4.&nbsp;设置p2p.version为除了11111之外的任意正整数  
-5.&nbsp;第1个SR设置needSyncCheck为false，其他可以设置为true  
-6.&nbsp;设置node.discovery.enable为true  
-7.&nbsp;运行部署脚本  
+2.&nbsp;在localwitness中添加自己的私钥   
+3.&nbsp;设置genesis.block.witnesses为私钥对应的地址   
+4.&nbsp;设置p2p.version为除了11111之外的任意正整数   
+5.&nbsp;第1个SR设置needSyncCheck为false，其他可以设置为true   
+6.&nbsp;设置node.discovery.enable为true   
+7.&nbsp;运行部署脚本    
 
 ```text
 nohup java -Xmx6g -XX:+HeapDumpOnOutOfMemoryError -jar FullNode.jar  --witness  -c private_net_config.conf
@@ -67,18 +69,22 @@ nohup java -Xmx6g -XX:+HeapDumpOnOutOfMemoryError -jar FullNode.jar  --witness  
 -c: 指定配置文件路径，i.e.: -c config.conf
 ```
 日志文件使用：
-可以修改模块的level等级来控制日志的输出，默认每个模块的level级别为INFO，比如，只打印网络模块warn以上级别的信息，可以如下修改
-<logger name="net" level="WARN"/>
+可以修改模块的level等级来控制日志的输出，默认每个模块的level级别为INFO，比如，只打印网络模块warn以上级别的信息，可以如下修改：  
 
- 配置文件中需要修改的参数：  
- localwitness:  
- ![image](https://raw.githubusercontent.com/tronprotocol/documentation-EN/master/imags/localwitness.jpg)
- witnesses:  
- ![image](https://raw.githubusercontent.com/tronprotocol/documentation-EN/master/imags/witness.png) 
- version:  
- ![image](https://raw.githubusercontent.com/tronprotocol/documentation-EN/master/imags/p2p_version.png)  
- enable:  
- ![image](https://raw.githubusercontent.com/tronprotocol/documentation-EN/master/imags/discovery_enable.png)  
+```text
+<logger name="net" level="WARN"/>
+```
+
+配置文件中需要修改的参数：  
+
+localwitness:  
+![image](https://raw.githubusercontent.com/tronprotocol/documentation-EN/master/imags/localwitness.jpg)
+witnesses:  
+![image](https://raw.githubusercontent.com/tronprotocol/documentation-EN/master/imags/witness.png) 
+version:  
+![image](https://raw.githubusercontent.com/tronprotocol/documentation-EN/master/imags/p2p_version.png)  
+enable:  
+![image](https://raw.githubusercontent.com/tronprotocol/documentation-EN/master/imags/discovery_enable.png)  
 
 <h5> 3.2.2 步骤二:部署FullNode节点    </h5>
 
@@ -88,11 +94,11 @@ wget https://github.com/tronprotocol/tron-deployment/blob/master/private_net_con
 ```
 2.&nbsp;设置seed.node ip.list 为SR的ip地址和端口   
 3.&nbsp;设置p2p.version与超级节点的p2p.version一致   
-4.&nbsp;设置genesis.block 与SR中的genesis.block配置一致   
-5.&nbsp;设置needSyncCheck为true    
-6.&nbsp;设置node.discovery.enable 为true    
-7.&nbsp;运行部署脚本   
-
+4.&nbsp;设置genesis.block 与SR中的genesis.block配置一致    
+5.&nbsp;设置needSyncCheck为true     
+6.&nbsp;设置node.discovery.enable 为true     
+7.&nbsp;运行部署脚本    
+ 
 ```text
 nohup java -Xmx6g -XX:+HeapDumpOnOutOfMemoryError -jar FullNode.jar  --witness  -c private_net_config.conf
 命令行参数说明:
@@ -101,21 +107,24 @@ nohup java -Xmx6g -XX:+HeapDumpOnOutOfMemoryError -jar FullNode.jar  --witness  
 -c: 指定配置文件路径，i.e.: -c config.conf。
 ```
 日志文件使用：
-可以修改模块的level等级来控制日志的输出，默认每个模块的level级别为INFO，比如，只打印网络模块warn以上级别的信息，可以如下修改
-<logger name="net" level="WARN"/>
+可以修改模块的level等级来控制日志的输出，默认每个模块的level级别为INFO，比如，只打印网络模块warn以上级别的信息，可以如下修改：
 
- 配置文件中需要修改的参数：  
- 
- ip.list:  
- ![image](https://raw.githubusercontent.com/tronprotocol/documentation-EN/master/imags/ip_list.png)
- p2p.version:  
- ![image](https://raw.githubusercontent.com/tronprotocol/documentation-EN/master/imags/p2p_version.png)
- genesis.block:  
- ![image](https://raw.githubusercontent.com/tronprotocol/documentation-EN/master/imags/genesis_block.png)
- needSyncCheck:  
- ![image](https://raw.githubusercontent.com/tronprotocol/documentation-EN/master/imags/need_sync_check.png)
- node.discovery.enable:  
- ![image](https://raw.githubusercontent.com/tronprotocol/documentation-EN/master/imags/discovery_enable.png)
+```text
+<logger name="net" level="WARN"/>
+```
+
+配置文件中需要修改的参数：     
+
+ip.list:  
+![image](https://raw.githubusercontent.com/tronprotocol/documentation-EN/master/imags/ip_list.png)
+p2p.version:  
+![image](https://raw.githubusercontent.com/tronprotocol/documentation-EN/master/imags/p2p_version.png)
+genesis.block:  
+![image](https://raw.githubusercontent.com/tronprotocol/documentation-EN/master/imags/genesis_block.png)
+needSyncCheck:  
+![image](https://raw.githubusercontent.com/tronprotocol/documentation-EN/master/imags/need_sync_check.png)
+node.discovery.enable:  
+![image](https://raw.githubusercontent.com/tronprotocol/documentation-EN/master/imags/discovery_enable.png)
 
 
 
