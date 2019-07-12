@@ -1,12 +1,13 @@
 ** TRON内置http接口说明 **
 ## hexString和base58check转码demo
 java: 
-https://github.com/tronprotocol/wallet-cli/blob/master/src/main/java/org/tron/demo/TransactionSignDemo.java#L92
+[https://github.com/tronprotocol/wallet-cli/blob/master/src/main/java/org/tron/demo/TransactionSignDemo.java#L92](https://github.com/tronprotocol/wallet-cli/blob/master/src/main/java/org/tron/demo/TransactionSignDemo.java#L92)
 
 php:
-https://github.com/tronprotocol/Documentation/blob/master/TRX_CN/index.php 
+[https://github.com/tronprotocol/Documentation/blob/master/TRX_CN/index.php](https://github.com/tronprotocol/Documentation/blob/master/TRX_CN/index.php) 
 
-**3.6版本之后，增加参数visible，当visible设置为true时，相应的地址和字符串不再需要转码。该参数针对所有的接口有效，包括solidityNode接口和FullNode接口**   
+**3.6版本之后，增加参数visible，当visible设置为true时，相应的地址和字符串不再需要转码。该参数针对所有的接口有效，包括solidityNode接口和FullNode接口**  
+ 
 当参数visible为true时，输入的地址必须为base58格式，字符串为可见字符串，输出的格式也是如此；如果设置为false
 或不设置时，接口行为同原来保持一致。如果参数格式与visible设置不匹配，将会报错。   
 
