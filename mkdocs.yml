@@ -1,7 +1,7 @@
 
 site_name: 波场文档
 nav:
-    - 简介: introduction.md
+    - 简介: index.md
     - 接口:
         - Http接口: api/http.md
         - Rpc接口: api/rpc.md
