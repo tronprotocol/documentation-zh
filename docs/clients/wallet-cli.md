@@ -1,11 +1,11 @@
-## Usage Guide 
+## 使用指南 
 
-<h3>Download wallet-cli</h3>
+<h3>下载命令行钱包</h3>
 
 git clone [https://github.com/tronprotocol/wallet-cli](https://github.com/tronprotocol/wallet-cli)
 
 
-<h3>Edit config.conf in src/main/resources</h3>
+<h3>编辑 config.conf 在 src/main/resources 目录下</h3>
 
 ```
 net {
@@ -26,9 +26,9 @@ soliditynode = {
 }//note: solidity node is optional
 
 ```
-<h3>Build and run wallet-cli by command line</h3>
+<h3>编译与运行命令行钱包</h3>
 
-Create a new command line terminal window.
+打开命令行窗口：
 
 ```
 cd wallet-cli  
@@ -36,7 +36,7 @@ cd wallet-cli
 ./gradlew run
 ```
 
-<h3>Build and run web wallet</h3>
+<h3>运行命令行钱包jar包</h3>
 
 ```
 cd wallet-cli  
@@ -45,24 +45,22 @@ cd build/libs
 java -jar wallet-cli.jar
 ```
 
+<h3>命令行钱包如何连接java-tron</h3>
 
-<h3>How wallet-cli connects to java-tron:</h3>
-
-Wallet-cli connect to java-tron by grpc protocol.          
-Java-tron nodes can be deployed locally or remotely.          
-We can set the connected java-tron node IP in config.conf of wallet-cli.
+命令行钱包通过grpc协议连接java-tron。  
+运行java-tron的节点可以本地或者远程部署。           
+可以在config.conf文件中设置要连接的java-tron节点的ip。       
  
 
-## Tutorials
+## 使用示例
 
-<h3>Wallet-cli supported command list:</h3>
+<h3>命令行钱包支持的命令行：</h3>
 
 - RegisterWallet  
 
 RegisterWallet Password
 
-Register a wallet in local. Generate a pair of ecc keys. Derive a AES Key by password and then use the AES algorithm to encrypt and save the private key.
-The account address is calculated by the public key sha3-256, and taking the last 20 bytes. All subsequent operations that require the use of a private key must enter the password.
+在本地注册一个钱包账户。生成一对基于椭圆曲线数学得到的秘钥。通过输入的密码得到一个AES秘钥，然后用AES算法加密并本地保存私钥。账户的地址是由公钥经过sha3-256计算并取前20字节得到。所有需要用到私钥签名的操作，都需要输入密码。  
 
 - ImportWallet  
 
@@ -94,7 +92,7 @@ Private key will be returned.
 
 BackupWallet2Base64  
 
-Private key will be returned in Base64 format.
+返回Base64格式的私钥。  
 
 - ChangePassword   
 
@@ -104,19 +102,19 @@ ChangePassword oldPassword newPassword
 
 GenerateAddress  
 
-A pair of address and private key will be returned.  
+返回一对地址与私钥。    
   
 - CreateAccount  
 
 CreateAccount Address  
 
-This will cost 0.1 TRX. 
+需要花费0.1 TRX.    
 
 - GetAddress  
 
 GetAddress  
 
-Return the address of the current account login.  
+返回当前登录账号的地址。     
 
 - GetAccount  
 
@@ -126,7 +124,7 @@ GetAccount Address
 
 GetBalance 
 
-Return the TRX balance of the current account login.    
+返回登录账号的TRX余额。   
 
 - GetAccountbyId   
 
@@ -140,7 +138,7 @@ SetAccountId AccountId
 
 UpdateAccount AccountName
 
-Only the account name can be updated.  
+只有账户的名称可以被更新。   
 
 - GetAccountNet  
 
@@ -190,15 +188,16 @@ AssetIssue AssetName TotalSupply TrxNum AssetNum Precision StartDate EndDate Des
 
 ListAssetIssuePaginated offset limit  
 
-Return the tokens issued in pagination.   
-offset: the index of the start token  
-limit: the amount of tokens per page  
+以分页的形式返回通证列表。    
+
+offset: 起始通证的索引    
+limit: 每页显示的数目   
 
 - Listassetissue
 
 Listassetissue 
 
-Return all the tokens issued.     
+返回所有发行的通证。     
 
 - TransferAsset 
 
@@ -210,21 +209,21 @@ This is used to transfer tokens.
 
 SendCoin ToAddress Amount
 
-This is used to transfer TRX.  
+用来发送TRX。   
 
 - CreateWitness    
 
 CreateWitness Url
 
-To apply to become a super representative. It costs 1024 TRX.  
+申请成为超级代表，需要花费 1024 TRX。  
 
-Url: SR's official website  
+Url: 超级代表的官网地址   
 
 - UpdateWitness    
 
 UpdateWitness Url  
 
-To update the url of the witness account login  
+更新超级代表账户的官网地址。   
 
 - VoteWitness    
 
@@ -266,9 +265,10 @@ ListProposals
 
 ListProposalsPaginated offset limit  
 
-Return the proposals in pagination.   
-offset: the index of the start proposal    
-limit: the amount of proposals per page   
+以分页的形式返回提议列表。  
+
+offset: 起始提议的索引      
+limit: 每页显示的数目    
   
 - GetProposal  
 
@@ -278,31 +278,31 @@ GetProposal proposalId
 
 GetChainParameters  
 
-Query the parameters of the blockchain used for witnessses to create a proposal.
+查询公链上用来创建提议使用的参数。  
 
 - GetNextMaintenanceTime 
 
 GetNextMaintenanceTime  
 
-Query the time interval till the next vote round.  
+查询下一个维护期的时间。  
 
 - ExchangeCreate    
 
 ExchangeCreate first_token_id first_token_balance second_token_id second_token_balance
 
-To create an exchange pair based on bancor protocol.  
+基于班科协议创建一个交易对。  
 
 - ExchangeInject  
 
 ExchangeInject exchange_id token_id quant  
 
-To inject funds for exchange pair.  
+为交易对注资。   
 
 - ExchangeWithdraw    
 
 ExchangeWithdraw exchange_id token_id quant    
 
-To withdraw from exchange pair.  
+从交易对提现。  
 
 - ExchangeTransaction  
 
@@ -312,15 +312,16 @@ ExchangeTransaction exchange_id token_id quant expected
 
 ListExchanges  
 
-Query the list of all the exchange pairs  
+查询所有的交易对。  
 
 - ListExchangesPaginated    
 
 ListExchangesPaginated offset limit  
 
-Return the exchanges in pagination.   
-offset: the index of the start exchange     
-limit: the amount of exchanges per page  
+以分页的形式返回交易对列表。  
+
+offset: 起始交易对的索引        
+limit: 每页显示的数目   
 
 - GetExchange    
 
@@ -338,17 +339,19 @@ GetTotalTransaction
 
 GetTransactionsfromThis Address offset limit  
 
-Return the transactions in pagination.   
-offset: the index of the start transaction     
-limit: the amount of transactions per page  
+以分页的形式返回交易列表。
+
+offset: 起始交易的索引      
+limit: 每页显示的数目    
 
 - GetTransactionstoThis    
 
 GetTransactionstoThis Address offset limit  
 
-Return the transactions in pagination.   
-offset: the index of the start transaction     
-limit: the amount of transactions per page 
+以分页的形式返回交易列表。  
+
+offset: 起始交易的索引       
+limit: 每页显示的数目   
 
 - GetTransactionbyId  
 
@@ -374,7 +377,7 @@ GetBlockbyLatestNum
 
 DeployContract contractName ABI byteCode constructor params isHex fee_limit consume_user_resource_percent origin_energy_limit value token_value token_id(e.g: TRXTOKEN, use # if not provided)    
 
-Note: Please append the param for constructor tightly with byteCode without any space
+注意: Please append the param for constructor tightly with byteCode without any space
 
 - TriggerContract
 
@@ -428,7 +431,7 @@ TestTransaction ToAddress assertName times [interval]
 
 ListNodes  
 
-Query the list of nodes connected to the ip of the api
+查询与连接节点相关联的节点  
 
 - Getblock     
 
@@ -466,9 +469,9 @@ Quit wallet-cli
 
 Help
 
-Input any one of them, you will get more tips.  
+输入任意命令后，可以查看更多提示。   
 
-<h3>Command line operation flow example </h3>
+<h3>命令行操作流程示例</h3>
 
 ```
 cd wallet-cli  
@@ -494,13 +497,9 @@ asset {
 TransferAsset 123456 649DDB4AB82D558AD6809C7AB2BA43D1D1054B3F testAssetIssue00001 10000    
 ```
 
-<h3>How to freeze/unfreeze balance</h3>
+<h3>如何冻结/解冻TRX</h3>
 
-After the funds are frozen, the corresponding number of shares and bandwidth will be obtained.
-Shares can be used for voting and bandwidth can be used for trading.
-The rules for the use and calculation of share and bandwidth are described later in this article.
-
-Example:    
+示例:    
 
 ```
 freezeBalance frozen_balance frozen_duration [ResourceCode:0 BANDWIDTH, 1 ENERGY] [receiverAddress]
@@ -514,26 +513,15 @@ unfreezeBalance  [ResourceCode:0 BANDWIDTH, 1 ENERGY] [receiverAddress]
 
 ```
 
-After the freeze operation,frozen funds will be transferred from Account Balance to Frozen,
-You can view frozen funds from your account information.
-After being unfrozen, it is transferred back to Balance by Frozen, and the frozen funds cannot be used for trading.
+通过冻结TRX可以获取带宽或者能量。  
 
-When more share or bandwidth is needed temporarily, additional funds may be frozen to obtain additional share and bandwidth.
-The unfrozen time is postponed until 3 days after the last freeze operation
+<h3>如何投票</h3>
 
-After the freezing time expires, funds can be unfrozen.
+每一个冻结的TRX代表一个投票权
 
+**注意：** 波场网络只会统计你的最近一次的投票。 
 
-<h3>How to vote</h3>
-
-Voting requires share. Share can be obtained by freezing funds.
-
-- The share calculation method is: **1** unit of share can be obtained for every **1 TRX** frozen. 
-- After unfreezing, previous vote will expire. You can avoid the invalidation of the vote by re-freezing and voting.
-
-**Note:** The Tron Network only records the status of your last vote, which means that each of your votes will cover all previous voting results.
-
-Example：
+示例： 
 
 ```
 VoteWitness Address0 Count0 ... AddressN CountN
@@ -545,13 +533,13 @@ votewitness witness1 4 witness2 6   // Cast 4 votes for witness1 and 6 votes for
 votewitness witness1 10   // Voted 10 votes for witness1.
 ```
 
-The final result of the above command was 10 votes for witness1 and 0 votes for witness2.
+以上示例的最终执行结果是：10票会投给witness1，0票投给witness2。  
 
-<h3>How to issue TRC10 tokens</h3>
+<h3>如何发行TRC-10通证</h3>
 
-Each account can only issue one TRC10 token.   
+每个账户只能发行一个TRC-10通证。    
 
-a. Issue TRC10 tokens   
+a. 发行通证     
 
 ```  
 Command:
@@ -561,13 +549,13 @@ AssetIssue AssetName TotalSupply TrxNum AssetNum Precision StartDate EndDate Des
 AssetName: The name of the issued TRC10 token      
 TotalSupply: Total issuing amount = account balance of the issuer at the time of issuance + all the frozen amount, before asset transfer and the issuance.     
 TrxNum,AssetNum: these two parameters determine the exchange rate between the issued token and the minimum unit of TRX (sun) when the token is issued.    
-FreeNetLimitPerAccount:	The maximum amount of bandwidth an account is allowed to use. Token issuers can freeze TRX to obtain bandwidth (TransferAssetContract only)   
-PublicFreeNetLimit:	The maximum amount of bandwidth issuing accounts are allowed user. Token issuers can freeze REX to obtain bandwidth (TransferAssetContract only).   
+FreeNetLimitPerAccount: The maximum amount of bandwidth an account is allowed to use. Token issuers can freeze TRX to obtain bandwidth (TransferAssetContract only)   
+PublicFreeNetLimit: The maximum amount of bandwidth issuing accounts are allowed user. Token issuers can freeze REX to obtain bandwidth (TransferAssetContract only).   
 StartDate,EndDate: The start and end date of token issuance. Within this period time, other users can participate in token issuance.     
 FrozenAmount0 FrozenDays0: Amount and time of token freeze. FrozenAmount0 must be bigger than 0, FrozenDays0 must be bigger than 1 and smaller than 3653. 
 ```
 
-Example: 
+示例：   
 
 ```  
 AssetIssue TestTRX 100000 1 1 2 "2019-04-04 11:48:00" "2019-04-05" "just for test" www.test.com 
@@ -607,12 +595,12 @@ Frozen_supply
 ]   
 ```
 
-b. Update parameters of TRC10 token   
+b. 更新TRC-10通证参数    
 
 UpdateAsset FreeNetLimitPerAccount PublicFreeNetLimit Description Url   
 Specific meaning of the parameters is the same with that of AssetIssue   
 
-Example:   
+示例：     
 
 ```
 UpdateAsset 1000 1000000 "change description" www.changetest.com    
@@ -652,14 +640,15 @@ Frozen_supply
 ]   
 ```
 
-c. TRC10 transfer    
+c. TRC-10通证转账      
 
 TransferAsset ToAddress AssertName Amount    
-ToAddress:				Address of the target account     
-AssertName:				TRC10 id, 1000001 in the example    
-Amount:                 The number of TRC10 token to transfer   
 
-Example: 
+ToAddress: 目标账户地址      
+AssertName: 通证的id，例如：1000001     
+Amount: 转账数目   
+
+示例：   
 
 ```     
 TransferAsset TN3zfjYUmMFK3ZsHSsrdJoNRtGkQmZLBLz 1000001 1000    
@@ -679,15 +668,17 @@ assetV2
 }    
 ```
 
-d. Participating in the issue of TRC10  
+d. 参与TRC-10通证     
 
 ParticipateAssetIssue ToAddress AssetName Amount    
-ToAddress:				Account address of Token 10 issuers     
-AssertName:				TRC10 ID,1000001 in the example    
-Amount:                 The number of TRC10 token to transfers	    		
-It must happen during the release of Token 10, otherwise an error may occur   
 
-Example: 
+ToAddress: 通证发行账户地址     
+AssertName: 通证的id，例如：1000001      
+Amount: 参与数目        
+
+只有在通证参与有效期期间执行此命令，才能有效参与通证。     
+
+示例：   
 
 ```    
 ParticipateAssetIssue TRGhNNfnmgLegT4zHNjEqDSADjgmnHvubJ 1000001 1000    
@@ -708,37 +699,35 @@ assetV2
 }    
 ```
 
-e. unfreeze TRC10 token    
+e. 解冻TRC-10通证      
 
-It must be unfrozen after the freezing period, unfreeze Token10, which has stopped being frozen.    
+只有过了冻结期后，才能解冻。  
+
 UnfreezeAsset    
     
-f. Obtain information about Token 10   
+f. 获得TRC-10通证的信息    
 
-ListAssetIssue:  
-Obtain all of the published Token 10 information     
-GetAssetIssueByAccount Address:	  
-Obtain Token10 information according to the issuing address    
-GetAssetIssueById AssetId:	  	
-Obtain Token10 Information based on ID    
-GetAssetIssueByName AssetName:    
-Obtain Token10 Information based on names 	    
+ListAssetIssue:   
+获得所有已发行的通证信息      
+GetAssetIssueByAccount Address:   
+根据发行通证的账户获得通证信息      
+GetAssetIssueById AssetId:      
+根据通证ID获得通证信息          
 GetAssetIssueListByName AssetName:  
-Get list information on Token10 based on names      
+通过通证名称获得通证信息       
 
     
-<h3>How to initiate a proposal</h3>
+<h3>如何发起一个提案</h3>
 
-Any proposal-related operations, except for viewing operations, must be performed by committee 
-members.  
+任何提案都只能由委员会成员发起。   
 
-a. Initiate a proposal    
+a. 创建一个提案     
 
 createProposal id0 value0 ... idN valueN    
-id0:					the serial number of the parameter. Every parameter of TRON network has a
- serial number. Go to "http://tronscan.org/#/sr/committee" to see the specifics  
-Value0:                 the modified value
-In the example, modification No.4 (modifying token issuance fee) costs 1000TRX as follows:   
+id0: 提案id。每个提案id否对应着相应的波场网络参数。在[http://tronscan.org/#/sr/committee](http://tronscan.org/#/sr/committee)可以查看详细信息。  
+Value0: 提案的修改值  
+
+示例：  
 
 ```   
 createProposal 4 1000    
@@ -757,79 +746,76 @@ approvalsList: [
 The corresponding id is 1    
 ```
 
-b. Approve/Cancel the proposal      
+b. 同意/反对 提案       
 
 approveProposal id is_or_not_add_approval    
-id:                         ID of the initiated proposal, 1 in the example    
-is_or_not_add_approval:	    true for approve; false against  
+id: 提案id      
+is_or_not_add_approval: true代表同意，false代表反对   
 
-Example:
+示例：  
 
 ```      
 ApproveProposal 1 true              in favor of the offer    
 ApproveProposal 1 false             Cancel the approved proposal    
 ```    
-c. Cancel the created proposal    
+
+c. 撤销提案      
 
 DeleteProposal proposalId    
-proposalId: ID of the initiated proposal, 1 in the example    
-The proposal must be canceled by the supernode that initiated the proposal   
+proposalId: 提案id  
 
-Example：  
+只有发起者才能撤销自己发起的提案。     
+
+示例：   
 
 ```     
 DeleteProposal 1    
 ```
 
-d. Obtain proposal information     
+d. 获得提案信息  
 
 ListProposals:   
-Obtain initiated proposals    
+获得所有提案列表     
 ListProposalsPaginated offset limit:    
-Use the paging mode to obtain the initiated proposal     
+以分页的形式获得提案列表     
 GetProposal id:     
-Obtain proposal information based on the proposal ID    
+通过提案id获得提案信息  
     
+<h3>去中心化交易所</h3>
 
-<h3>How to trade on the exchange</h3>
+去中心化交易所基于班科协议开发。   
 
-The trading and price fluctuations of trading pairs are in accordance with the Bancor Agreement, 
-which can be found in TRON's related documents.   
-
-a. Create a trading pair       
+a. 创建交易对        
 
 exchangeCreate first_token_id first_token_balance second_token_id second_token_balance    
-First_token_id, first_token_balance:    ID and amount of the first token    
-second_token_id, second_token_balance:  ID and amount of the second token    
-The ID is the ID of the issued TRC10 token. If it is TRX, the ID is " _ ", the amount must be greater 
-than 0, and less than 1,000,000,000,000,000.    
+First_token_id, first_token_balance: 第一个通证的id以及数目     
+second_token_id, second_token_balance: 第二个通证的id以及数目     
 
-Example:  
+TRX对应的id为“ _ ”
+
+示例：  
 
 ```      
 exchangeCreate 1000001 10000 _ 10000       
 Create trading pairs with the IDs of 1000001 and TRX, the amount is 10000 for both.      
 ```
 
-b. Capital injection     
+b. 注资       
  
 exchangeInject exchange_id token_id quant    
-exchange_id:    The ID of the transaction pair to be funded    
-token_id,quant: TokenId and quantity of capital injection	   
-When conducting capital injection, depending on the amount of capital injection, the proportion 
-of each token in the transaction pair is deducted from the account and added to the transaction 
-pair. Depending on the difference in the balance of the transaction, the same amount of money for
- the same token is different.    
+exchange_id: 需要注资的交易对id     
+token_id,quant: 需要注资的通证id以及数目     
+
+当为一个通证注资时，为了维持交易对的价格不变，相应比例数目的另一个通证也会被注资。      
     
-c. Transactions    
+c. 交易      
 
 exchangeTransaction exchange_id token_id quant expected    
-exchange_id:        ID of the transaction pair    
-token_id, quant:    The ID and quantity of tokens being exchanged, equivalent to selling    
-expected:           Expected quantity of another token     
-The expected must be less than exchanged, otherwise, an error will be reported.   
+exchange_id: 交易对id    
+token_id, quant: 卖出的通证id以及数目    
+expected: 期望得到的另一个通证的最小数目     
 
-Example： 
+示例：   
 
 ```   
 ExchangeTransaction 1 1000001 100 80    
@@ -837,35 +823,31 @@ It is expected to acquire the 80 TRX by exchanging 1000001 from the transaction 
  the amount is 100 (equivalent to selling token10, the ID is 1000001, the amount is 100).    
 ```
 
-d. Divestment   
+d. 撤资     
 
 exchangeWithdraw exchange_id token_id quant    
-Exchange_id:    The ID of the transaction pair to be divested    
-Token_id,quant: TokenId and quantity of divestment	    
-When conducting divestment, depending on the amount of divestment, the proportion of each token 
-in the transaction pair is deducted from the account and added to the transaction pair. Depending
- on the difference in the balance of the transaction, the same amount of money for the same token is different.    
+Exchange_id: 需要撤资的交易对id  
+Token_id,quant: 撤资的通证id以及数目     
 
-e. Obtain information on trading pairs     
+当撤资一个通证时，为了维持交易对的价格不变，相应比例数目的另一个通证也会被撤资。 
+
+e. 获得交易对信息       
 
 ListExchanges:  
-List trading pairs    
+获得所有交易对列表    
 ListexchangesPaginated offset limit:     
-List trading pairs by page         
+以分页的形式获得交易对列表       
                                             
 
-<h3>How to use the multi-signature feature of wallet-cli? </h3> 
+<h3>使用多重签名</h3> 
 
-Multi-signature allows other users to access the account in order to better manage it. There are 
-three types of accesses:  
-owner: access to the owner of account        
-active:	access to other features of accounts, and access that authorizes a certain feature
-. Block production authorization is not included if it's for witness purposes.       
-witness: only for witness, block production authorization will be granted to one of the 
-other users.     
+多重签名允许多个用户管理同一个波场账户。  
+提供三种类型的账户权限：   
+owner: 账户所有者权限          
+active: 账户操作权限       
+witness: 超级代表权限  
 
-
-The rest of the users will be granted:     
+示例：       
 
 ```
 Updateaccountpermission TRGhNNfnmgLegT4zHNjEqDSADjgmnHvubJ {"owner_permission":{"type":0,
@@ -883,7 +865,7 @@ If the account is not a witness, it's not necessary to set witness_permission, o
  will occur.   
 ``` 
  
-Signed transaction   
+对交易签名：     
 
 SendCoin TJCnKsPa7y5okkXvQAidZBzqx3QyQ6sxMW 10000000000000000    
 will show "Please confirm and input your permission id, if input y or Y means default 0, other 
@@ -901,7 +883,7 @@ Use the instruction addTransactionSign according to the obtained transaction hex
 signing at multiple cli. After signing, the users will need to broadcast final transactions 
 manually.      
  
-Obtain weight information according to transaction:
+查询签名权重：  
 
 ```    
 getTransactionSignWeight 
@@ -965,7 +947,7 @@ signature 1
 }  
 ```   
  
-Get signature information according to transactions:
+查询一个交易的签名列表：  
 
 ```    
 getTransactionApprovedList 
@@ -1011,27 +993,25 @@ signature 1
 }  
 ```
 
-<h3>How to use smart contracts </h3>
+<h3> 使用智能合约 </h3>
 
-a. deploy smart contracts   
+a. 部署智能合约  
 
 DeployContract contractName ABI byteCode constructor params isHex fee_limit 
 consume_user_resource_percent origin_energy_limit value token_value token_id <library:address,
 library:address,...>   
-contractName:					name of smart contract   
-ABI:							Compile generated ABI code   
-byteCode:						Compile generated byte code   
-constructor,params,isHex: 		Define the format of the bytecode，which determines the way to 
-parse byteCode from parameters   
-fee_limit:						Transaction allows for the most consumed TRX   
-consume_user_resource_percent:	Percentage of user resource consumed, in the range [0, 100]   
-origin_energy_limit:			The most amount of developer Energy consumed by trigger contract 
-once   
-value:							The amount of trx transferred to the contract account   
-token_value:					Number of TRX10   
-token_id:						TRX10 Id   
+contractName: 合约名称     
+ABI: 合约ABI    
+byteCode: 合约byteCode     
+constructor,params,isHex:智能合约参数      
+fee_limit: 消耗TRX的限制   
+consume_user_resource_percent: 消耗用户的资源的比例，[0, 100]     
+origin_energy_limit: 最多消耗开发者的能量上限    
+value: 转给合约的TRX数目   
+token_value: 转给合约的通证数目    
+token_id: 通证id     
 
-Example:    
+示例：    
 
 ```
 deployContract normalcontract544 [{"constant":false,"inputs":[{"name":"i","type":"uint256"}],
@@ -1072,22 +1052,20 @@ NetUsage:
 NetFee:    
 0   
 ```
+  
+b. 触发合约  
 
-InternalTransactionList:    
-   
-b. trigger smart contarct   
+TriggerContract contractAddress method args isHex fee_limit value token_value token_id     
+contractAddress: 合约地址     
+method: 调用方法  
+args: 调用方法的参数    
+isHex: 方法和参数的格式   
+fee_limit: 允许消耗的最大TRX数目         
+value: 转给合约的TRX数目   
+token_value: 转给合约的通证数目    
+token_id: 通证id    
 
-TriggerContract contractAddress method args isHex fee_limit value token_value token_id    
-contractAddress:				smart contarct address    
-method:							The name of function and parameters, please refer to the example    
-args:							Parameter value    
-isHex:							The format of the parameters method and args,is hex string or not
-.      
-fee_limit:						The most amount of trx allows for the consumption	    		
-token_value:					Number of TRX10    
-token_id:						TRC10 id，If not, use ‘#’ instead    
-
-Example:   
+示例：    
 
 ```
 triggerContract TGdtALTPZ1FWQcc5MW7aK3o1ASaookkJxG findArgsByIndexTest(uint256) 0 false 
@@ -1125,16 +1103,14 @@ NetUsage:
 314   
 NetFee:   
 0   
-```
-
-InternalTransactionList:    
+```  
    
-c. get details of a smart contract      
+c. 查询合约详情       
 
 GetContract contractAddress   
-contractAddress:		smart contarct address   
+contractAddress:    smart contarct address   
 
-Example:  
+示例：    
 
 ```
 GetContract  TGdtALTPZ1FWQcc5MW7aK3o1ASaookkJxG    
@@ -1157,21 +1133,21 @@ contract ConsumeUserResourcePercent:75
 contract energy limit:50000    
 ```
     
-d. update smart contract parameters    
+d. 更新合约参数   
 
-UpdateEnergyLimit contract_address energy_limit					Update parameter energy_limit    
-UpdateSetting contract_address consume_user_resource_percent	Update parameter 
+UpdateEnergyLimit contract_address energy_limit Update parameter energy_limit    
+UpdateSetting contract_address consume_user_resource_percent  Update parameter 
 consume_user_resource_percent    
 
 
-<h3 id='shieldedTx'>How to use shielded transaction feature in wallet-cli? </h3>  
+<h3 id='shieldedTx'> 使用匿名交易 </h3>  
 
-1.&nbsp;To generate shielded address     
+1.&nbsp;创建匿名账户      
 
-generateshieldedaddress number  
-number: The number of addresses you want to generate, default is 1  
+generateshieldedaddress number   
+number: 生成匿名账户的数目，默认为1   
 
-Example:
+示例：  
 
 ```
 generateshieldedaddress 2   
@@ -1181,11 +1157,11 @@ generateshieldedaddress 2
 10:11:02.567 INFO  [main] [Client](Client.java:1923) GenerateShieldedAddress successful !!
 ```
 
-2.&nbsp;To show the shielded address generated local     
+2.&nbsp;查看本地匿名账户      
 
 listshieldedaddress
 
-Example:
+示例：  
 
 ```
 listshieldedaddress
@@ -1195,24 +1171,24 @@ listshieldedaddress
 10:11:55.371 INFO  [main] [Client](Client.java:1930) ztron1hn9r3wmytavslztwmlzvuzk3dqpdhwcmda2d0deyu5pwv32dp78saaslyt82w0078y6uzfg8x6w
 ```
 
-3.&nbsp;Transfer  
+3.&nbsp;转账   
 
 SendShieldedCoin publicFromAddress fromAmount shieldedInputNum input1 input2 input3 ... publicToAddress toAmount shieldedOutputNum shieldedAddress1 amount1 memo1 shieldedAddress2 amount2 memo2 ...   
 
-publicFromAddress: Transparent sender address. If not needed, set null.    
-fromAmount: The amount of asset want to be sent from transparent address. if publicFromAddress is null, fromAmount must be 0.    
-shieldedInputNum: The number of notes input. 1 at maximum, 0 at minmum.  
-input: The index of your unspent note, you can get it by calling `listshieldednote`. If shieldedInputNum is 0, no need to set.  
-publicToAddress: Transparent receiver address. If not needed, set null.    
-toAmount: The amount of asset want to be sent to transparent address. if publicToAddress is null, toAmount must be 0.     
-shieldedOutputNum: The number of notes output. 2 at maximum, 0 at minmum.    
-shieldedAddress1: Shielded address.    
-amount1: The amount of asset want to be sent to shielded address.   
-memo1: The note in one transaction. 512 bytes at most. If not needed, set null  
+publicFromAddress: 透明发送者地址。如果不需要，置为null。     
+fromAmount: 从透明账户转出的资产数目。如果publicFromAddress为null，fromAmount必须为0。   
+shieldedInputNum: 输入的notes数目。最大为1，最小为0。     
+input: 要花费的note的索引，可以通过调用`listshieldednote`获得。如果shieldedInputNum是0，那么无需设置。    
+publicToAddress: 透明接受者地址。如果不需要，设置为null。    
+toAmount: 转入到透明账户的资产数目。如果publicToAddres为null，toAmount必须为0.       
+shieldedOutputNum: 输出note的数目。最大为2，最小为0。     
+shieldedAddress1: 匿名地址。      
+amount1: 转到匿名地址的资产数目。   
+memo1: 交易备注信息。最大512字节。如果不需要，置为null。    
 
-Example: 
+示例：   
 
-Transfer from transparent address to shielded address   
+从透明地址到匿名地址   
 
 ```
 sendshieldedcoin TRGhNNfnmgLegT4zHNjEqDSADjgmnHvubJ 210000000 0 null 0 2 ztron16j06s3p5gvp2jde4vh7w3ug3zz3m62zkyfu86s7ara5lafhp22p9wr3gz0lcdm3pvt7qx0aftu4 100000000 test1 ztron1ghdy60hya8y72deu0q0r25qfl60unmue6889m3xfc3296a5ut6jcyafzhtp9nlutndukufzap4h 100000000 null
@@ -1321,9 +1297,9 @@ current transaction hex string is 0ac6100a0204ac2208eb0077152510524940b0e0bfc0c0
 10:28:26.914 INFO  [main] [Client](Client.java:2040) SendShieldedCoin successful !!
 ```
 
-Transfer from shielded address to shielded address    
+从匿名地址到匿名地址  
 
-Example: 
+示例：   
 
 ```
 listshieldednote
@@ -1426,9 +1402,9 @@ fee_limit: 0
 10:43:38.722 INFO  [main] [Client](Client.java:2058) SendShieldedCoinWithoutAsk successful !!
 ```
 
-Transfer from shielded address to transparent address   
+从匿名地址到透明地址   
 
-Example:
+示例：  
 
 ```
 listshieldednote
@@ -1538,14 +1514,14 @@ fee_limit: 0
 
 4.&nbsp;sendshieldedcoinwithoutask 
 
-This command is similar with sendshieldedcoin. The difference is sendshieldedcoin uses 'ask' to sign, however sendshieldedcoinwithoutask uses 'ak' to sign.  
+此命令与sendshieldedcoin相似。区别是sendshieldedcoin使用'ask'签名，sendshieldedcoinwithoutask使用'ak'签名。  
 
-5.&nbsp;To show the notes your account possesses  
+5.&nbsp;显示账户拥有的notes   
 
 listshieldednote type   
-type: 0 means the unspent notes, 1 means all the notes.  
+type: 0代表未花费的notes，1代表所有的notes。    
 
-Example:
+示例：  
 
 ```
 listshieldednote 0
@@ -1558,21 +1534,21 @@ ztron16j06s3p5gvp2jde4vh7w3ug3zz3m62zkyfu86s7ara5lafhp22p9wr3gz0lcdm3pvt7qx0aftu
 ztron1hn9r3wmytavslztwmlzvuzk3dqpdhwcmda2d0deyu5pwv32dp78saaslyt82w0078y6uzfg8x6w 90000000 06b55fc27f7ec649396706d149d18a0bb003347bdd7f489e3d47205da9cee802 0 Spend test2
 ```
 
-6.&nbsp;To clear the all local notes   
+6.&nbsp;清除本地所有notes    
 
 resetshieldednote
 
-When there is something wrong with the data or you switch the environment, you can use this command.    
+当切换运行环境或者本地数据异常时，可以调用此命令。      
 
 7.&nbsp;To scan notes using ivk    
 
 ScanNotebyIvk ivk startNum endNum  
 
-ivk: The ivk of the shielded address    
-startNum: The start block number   
-endNum: The end block number   
+ivk: 匿名账户ivk      
+startNum: 起始区块的索引    
+endNum: 结束区块的索引     
 
-Example:
+示例：  
 
 ```
 scannotebyivk d2a4137cecf049965c4183f78fe9fc9fbeadab6ab3ef70ea749421b4c6b8de04 500 1499
@@ -1590,11 +1566,11 @@ memo:test1
 
 ScanNotebyOvk ovk startNum endNum
 
-ovk: The ovk of the shielded address    
-startNum: The start block number    
-endNum: The end block number  
+ovk: 匿名账户ovk      
+startNum: 起始区块的索引    
+endNum: 结束区块的索引  
 
-Example:
+示例：  
 
 ```
 scannotebyovk a5b06ef3067855d741f966d54dfa1c124548535107333336bd9552a427f0529e 500 1499
@@ -1612,9 +1588,9 @@ value:90000000
 
 GetShieldedNullifier index  
 
-index: The index of the note  
+index: note索引   
 
-Example:
+示例：  
 
 ```
 listshieldednote
@@ -1634,11 +1610,11 @@ ShieldedNullifier:2a524a3be2643365ecdacf8f0d3ca1de8fad3080eea0b9561435b5d1ee4670
 
 ScanAndMarkNotebyAddress shieldedAddress startNum endNum   
 
-shieldedAddress: The local shielded address  
-startNum: The start block number  
-endNum: The end block number  
+shieldedAddress: 匿名账户     
+startNum: 起始区块索引    
+endNum: 结束区块索引   
 
-Example:
+示例：  
 
 ```
 ScanAndMarkNotebyAddress  ztron16j06s3p5gvp2jde4vh7w3ug3zz3m62zkyfu86s7ara5lafhp22p9wr3gz0lcdm3pvt7qx0aftu4 500 1500
@@ -1657,7 +1633,7 @@ memo:test1
 
 GetSpendingKey   
 
-Example:
+示例：  
 
 ```
 GetSpendingKey
@@ -1668,7 +1644,7 @@ GetSpendingKey
 
 etExpandedSpendingKey sk   
 
-Example:
+示例：  
 
 ```
 getExpandedSpendingKey 0eb458b309fa544066c40d80ce30a8002756c37d2716315c59a98c893dbb5f6a
@@ -1681,7 +1657,7 @@ getExpandedSpendingKey 0eb458b309fa544066c40d80ce30a8002756c37d2716315c59a98c893
 
 getAkFromAsk ask  
 
-Example:  
+示例：    
 
 ```
 GetAkFromAsk 252a0f6f6f0bac114a13e1e663d51943f1df9309649400218437586dea78260e
@@ -1692,7 +1668,7 @@ GetAkFromAsk 252a0f6f6f0bac114a13e1e663d51943f1df9309649400218437586dea78260e
 
 getNkFromNsk nsk  
 
-Example:  
+示例：  
 
 ```
 GetNkFromNsk 5cd2bc8d9468dbad26ea37c5335a0cd25f110eaf533248c59a3310dcbc03e503
@@ -1703,19 +1679,19 @@ GetNkFromNsk 5cd2bc8d9468dbad26ea37c5335a0cd25f110eaf533248c59a3310dcbc03e503
 
 getIncomingViewingKey ak[64] nk[64]  
 
-Example:  
+示例：  
 
 ```
 getincomingviewingkey  f1b843147150027daa5b522dd8d0757ec5c8c146defd8e01b62b34cf917299f1  ed3dc885049f0a716a4de8c08c6cabcad0da3c437202341aa3d9248d8eb2b74a
 11:51:45.686 INFO  [main] [Client](Client.java:2272) ivk:148cf9e91f1e6656a41dc9b6c6ee4e52ff7a25b25c2d4a3a3182d0a2cd851205
 ```
 
-
 16.&nbsp;To GetDiversifier  
 
 GetDiversifier
 
-Example: 
+示例：  
+
 ```
 GetDiversifier
 11:49:19.158 INFO  [main] [Client](Client.java:2281) 11db4baf6bd5d5afd3a8b5
@@ -1725,6 +1701,8 @@ GetDiversifier
 
 getshieldedpaymentaddress ivk[64] d[22] 
 
+示例：  
+
 ```
 GetShieldedPaymentAddress 148cf9e91f1e6656a41dc9b6c6ee4e52ff7a25b25c2d4a3a3182d0a2cd851205  11db4baf6bd5d5afd3a8b5
 11:52:33.542 INFO  [main] [Client](Client.java:2309) pkd:65c11642115d386ed716b9cc06a3498e86e303d7f20d0869c9de90e31322ac15
@@ -1732,82 +1710,66 @@ GetShieldedPaymentAddress 148cf9e91f1e6656a41dc9b6c6ee4e52ff7a25b25c2d4a3a3182d0
 ```
 
     
-<h3>How to delegate resource</h3>
+<h3>使用资源委托</h3>
    
-a. delegate resource   
-
-The latter two parameters are optional parameters. If not set, the TRX is frozen to obtain 
-resources for its own use; if it is not empty, the acquired resources are used by receiverAddress
-.    
-freezeBalance frozen_balance frozen_duration [ResourceCode:0 BANDWIDTH,1 ENERGY] 
-[receiverAddress]    
-frozen_balance:				The amount of frozen TRX, the unit is the smallest unit (sun), the 
-minimum is 1000000sun    
-frozen_duration:			frezen duration, 3 days    
-ResourceCode:				0 BANDWIDTH;1 ENERGY    
-receiverAddress:			target account address    
+a. 委托资源  
     
-b. unfreeze delegated resource    
+freezeBalance frozen_balance frozen_duration [ResourceCode:0 BANDWIDTH,1 ENERGY] [receiverAddress]    
+frozen_balance: 冻结的TRX数目，最小单位为SUN     
+frozen_duration: 冻结天数      
+ResourceCode: 0 BANDWIDTH;1 ENERGY    
+receiverAddress: 接收方地址。如果为空，则自己获得冻结TRX所获得的资源     
+    
+b. 解除资源委托      
 
-The latter two parameters are optional. If they are not set, the BANDWIDTH resource is unfreeze 
-by default; when the receiverAddress is set, the delegate resources are unfreezed.    
-unfreezeBalance  [ResourceCode:0 BANDWIDTH,1 CPU] [receiverAddress]     
+unfreezeBalance  [ResourceCode:0 BANDWIDTH,1 CPU] [receiverAddress]    
+receiverAddress: 接收方地址。如果为空，则解除自己获得的冻结TRX所获得的资源     
      
-c. get resource delegation information    
+c. 查询资源委托信息     
 
-getDelegatedResource fromAddress toAddress 	   
-get the information from the fromAddress to the  toAddress resource delegate    
-getDelegatedResourceAccountIndex address	   
-get the information that address is delegated to other account resources    
+getDelegatedResource fromAddress toAddress     
+查询从fromAddress代理给toAddress的资源信息  
+getDelegatedResourceAccountIndex address     
+查询从address代理出去的相关账户信息   
 
-
-<h3>Wallet related commands</h3>
+<h3>钱包相关命令</h3>
  
-RegisterWallet: 			Register your wallet, you need to set the wallet password and generate 
-the address and private key.    
-BackupWallet:  			Back up your wallet, you need to enter your wallet password and export 
-the private key.hex string format,such 
-as:721d63b074f18d41c147e04c952ec93467777a30b6f16745bc47a8eae5076545    
-BackupWallet2Base64: 	Back up your wallet, you need to enter your wallet password and export 
-the private key.base64 format,such as:ch1jsHTxjUHBR+BMlS7JNGd3ejC28WdFvEeo6uUHZUU=    
-ChangePassword:			Modify the password of an account    
-ImportWallet:			Import wallet, you need to set a password，hex String format    
-ImportWalletByBase64:	Import wallet, you need to set a password，base64 fromat    
+RegisterWallet: 注册钱包    
+BackupWallet: 备份钱包    
+BackupWallet2Base64: 以base64形式备份钱包     
+ChangePassword: 修改账户的密码      
+ImportWallet: 导入钱包      
+ImportWalletByBase64: 以base64的形式导入钱包     
 
-  
-<h3>Account related commands</h3>
+<h3>账户相关命令</h3>
  
-GenerateAddress:		Generate an address and print out the public and private keys     
-GetAccount:				Get account information based on address    
-GetAccountNet:			The usage of bandwidth    
-GetAccountResource:		The usage of bandwidth and energy    
-GetAddress:				Get the address of the current login account    
-GetBalance:				Get the balance of the current login account    
+GenerateAddress: 生成账户地址     
+GetAccount: 获得账户的信息    
+GetAccountNet: 获取账户的带宽信息    
+GetAccountResource: 获得账户的资源信息     
+GetAddress: 获得当前登录账户的地址      
+GetBalance: 获得当前登录账户的余额     
     
-	
-<h3>How to get transaction information </h3>   
+  
+<h3>获得交易信息</h3>   
  
-GetTransactionById:					Get transaction information based on transaction id    
-GetTransactionCountByBlockNum:		Get the number of transactions in the block based on the 
-block height    
-GetTransactionInfoById:				Get transaction-info based on transaction id,generally used 
-to check the result of a smart contract trigger     
+GetTransactionById id: 通过交易id获得交易      
+GetTransactionCountByBlockNum number: 获取指定区块里的交易的数目  
+GetTransactionInfoById: 通过交易id获得交易（包含费用详情）      
 
-<h3>How to get block information</h3>
+<h3>获得区块信息</h3>
   
-GetBlock:							Get the block according to the block number; if you do not 
-pass the parameter, get the latest block    
-GetBlockById: 						Get block based on blockID    
-GetBlockByLatestNum n				
-Get the latest n blocks, where 0< n < 100    
-GetBlockByLimitNext	startBlockId endBlockId     
-Get the block in the range [startBlockId, endBlockId)     
+GetBlock: 按照区块高度查询区块信息，如果没有提供参数，返回最新区块     
+GetBlockById id: 按照区块id获得区块信息     
+GetBlockByLatestNum n: 获得最新的n个区块的区块信息，0 < n < 100          
+GetBlockByLimitNext startBlockId endBlockId:        
+按照指定的区间查询区块信息        
 
-<h3>some others</h3>
+<h3>其他</h3>
   
-GetNextMaintenanceTime:	Get the start time of the next maintain period    
-ListNodes:				Get other peer information    
-ListWitnesses:			Get all miner node information    
-BroadcastTransaction:	Broadcast the transaction, where the transaction is in hex string format.
+GetNextMaintenanceTime: 获得下一个维护期时间      
+ListNodes: 查询节点列表    
+ListWitnesses: 查询超级代表列表      
+BroadcastTransaction: 广播交易  
     
   
