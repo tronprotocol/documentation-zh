@@ -26,6 +26,8 @@ nav:
         - 资源: developers/resources.md
         - 参与开发: developers/contribution.md
         - 激励政策: developers/incentives.md
+    - 客户端:  
+        - 命令行钱包: clients/wallet-cli.md  
     - 常见问题: q&a/qa.md
 
 theme: readthedocs
