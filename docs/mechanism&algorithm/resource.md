@@ -7,7 +7,7 @@ TRON网络引入了Bandwidth point 和 Energy 两种资源概念。其中Bandwid
 - 普通交易仅消耗Bandwidth points  
 - 智能合约的操作不仅要消耗Bandwidth points，还会消耗Energy  
 
-## Bandwidth Points 
+## 带宽 
 
 交易以字节数组的形式在网络中传输及存储，一条交易消耗的Bandwidth Points = 交易字节数 * Bandwidth Points费率。当前Bandwidth Points费率 = 1。  
 
@@ -15,9 +15,9 @@ TRON网络引入了Bandwidth point 和 Energy 两种资源概念。其中Bandwid
 
 **注意** 由于网络中总冻结资金以及账户的冻结资金随时可能发生变化，因此账户拥有的Bandwidth Points不是固定值。
 
-<h3> 1. Bandwidth PointsBandwidth Points的来源 <h3>
+<h3> 1. Bandwidth Points的来源 </h3>
 
-Bandwidth Points的获取分两种：  
+Bandwidth Points的获取分两种：    
 
 - 通过冻结TRX获取的Bandwidth Points， 额度 = 为获取Bandwidth Points冻结的TRX / 整个网络为获取Bandwidth Points冻结的TRX 总额 * 43_200_000_000。
 也就是所有用户按冻结TRX平分固定额度的Bandwidth Points。  
@@ -65,7 +65,7 @@ Bandwidth Points是一个账户1天内能够使用的总字节数。一定时间
 
 即可以理解为每24h，用户已使用的带宽值重置为0。  
 
-## Energy 
+## 能量   
 
 智能合约运行时执行每一条指令都需要消耗一定的系统资源，资源的多少用Energy的值来衡量。
 
@@ -240,7 +240,7 @@ Assert-style异常的介绍详见[异常介绍](https://github.com/tronprotocol/
 
 为避免造成不必要的损失consume_user_resource_percent建议值是10-100。
 
-## 资源委托（resource delegate） 
+## 资源委托 
 在TRON中，一个账户可以通过冻结TRX来获取带宽和能量。同时，也可以把冻结TRX获取的带宽或者能量委托（delegate）给其他地址。  
 此时，主账号拥有冻结的TRX以及相应的投票权，受委托账户拥有冻结获取的资源（带宽或者能量）。  
 和普通冻结一样，委托资源也至少冻结3天。 

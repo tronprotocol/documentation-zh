@@ -115,6 +115,10 @@
                     
     <a class="" href="../../architecture/database/">数据库</a>
                 </li>
+                <li class="">
+                    
+    <a class="" href="../../architecture/plugin/">插件</a>
+                </li>
     </ul>
 	    </li>
           
@@ -168,7 +172,13 @@
     <li class="toctree-l3"><a href="#grpc-gateway">Grpc Gateway部署</a></li>
     
 
-    <li class="toctree-l3"><a href="#_6">高级配置</a></li>
+    <li class="toctree-l3"><a href="#_6">事件订阅部署</a></li>
+    
+
+    <li class="toctree-l3"><a href="#_7">事件订阅数据查询服务部署</a></li>
+    
+
+    <li class="toctree-l3"><a href="#_8">高级配置</a></li>
     
 
     </ul>
@@ -416,7 +426,278 @@ bash deploy_tron.sh --app SolidityNode --rpc-port 50041
 <pre><code class="shell">bash deploy_grpc_gateway.sh --rpchost 127.0.0.1 --rpcport 50052 --httpport 18891
 </code></pre>
 
-<h2 id="_6">高级配置</h2>
+<h2 id="_6">事件订阅部署</h2>
+<ul>
+<li><strong>api</strong> 模块定义了介于java-tron与插件间的事件订阅接口。   </li>
+<li><strong>app</strong> 模块是加载插件示例，开发者可以用来调试。  </li>
+<li><strong>kafkaplugin</strong> 模块是kafka的实现。它实现了IPluginEventListener，它从java-tron接受事件并转给kafka服务。   </li>
+<li><strong>mongodbplugin</strong> 模块是mongodb的实现。   </li>
+</ul>
+<h3> 搭建运行环境 </h3>
+
+<ol>
+<li>Clone the repo</li>
+<li>Go to eventplugin <code>cd eventplugin</code> </li>
+<li>
+<p>run <code>./gradlew build</code></p>
+</li>
+<li>
+<p>这一步会生成<code>plugin-kafka-1.0.0.zip</code>，位于<code>eventplugin/build/plugins/</code>目录下。  </p>
+</li>
+</ol>
+<h3> 编辑java-tron的 **config.conf** 文件，增加以下字段：</h3>
+
+<pre><code>event.subscribe = {
+    path = &quot;&quot; // absolute path of plugin
+    server = &quot;&quot; // target server address to receive event triggers
+    dbconfig=&quot;&quot; // dbname|username|password
+    topics = [
+        {
+          triggerName = &quot;block&quot; // block trigger, the value can't be modified
+          enable = false
+          topic = &quot;block&quot; // plugin topic, the value could be modified
+        },
+        {
+          triggerName = &quot;transaction&quot;
+          enable = false
+          topic = &quot;transaction&quot;
+        },
+        {
+          triggerName = &quot;contractevent&quot;
+          enable = true
+          topic = &quot;contractevent&quot;
+        },
+        {
+          triggerName = &quot;contractlog&quot;
+          enable = true
+          topic = &quot;contractlog&quot;
+        }
+    ]
+
+    filter = {
+       fromblock = &quot;&quot; // the value could be &quot;&quot;, &quot;earliest&quot; or a specified block number as the beginning of the queried range
+       toblock = &quot;&quot; // the value could be &quot;&quot;, &quot;latest&quot; or a specified block number as end of the queried range
+       contractAddress = [
+           &quot;&quot; // contract address you want to subscribe, if it's set to &quot;&quot;, you will receive contract logs/events with any contract address.
+       ]
+
+       contractTopic = [
+           &quot;&quot; // contract topic you want to subscribe, if it's set to &quot;&quot;, you will receive contract logs/events with any contract topic.
+       ]
+    }
+}
+
+
+</code></pre>
+
+<ul>
+<li><strong>path</strong>: "plugin-kafka-1.0.0.zip"文件的绝对路径  </li>
+<li><strong>server</strong>: Kafka服务地址  </li>
+<li><strong>topics</strong>: 每一种事件匹配一个Kafka主题，我们支持四种事件订阅：区块事件，交易事件，合约事件以及合约日志事件    </li>
+<li><strong>dbconfig</strong>: mongodb的配置，dbname|username|password。如果使用kafka，可以忽略这个参数。  </li>
+<li><strong>triggerName</strong>: 触发类型，只读。   </li>
+<li><strong>enable</strong>: 是否开启事件订阅。   </li>
+<li><strong>topic</strong>: kafka接收事件的主题。请确保Kafka在运行中。    </li>
+<li><strong>filter</strong>: 事件订阅过滤选项。  <br />
+<strong>注意</strong>: 如果服务器地址不是127.0.0.1, 请在config/server.properties文件中设置listeners=PLAINTEXT://:9092，advertised.listeners to PLAINTEXT://host_ip:9092   </li>
+</ul>
+<h3> 安装Kafka </h3>
+
+<p><strong>Mac环境</strong>:</p>
+<pre><code>brew install kafka
+</code></pre>
+
+<p><strong>Linux环境</strong>:</p>
+<pre><code>cd /usr/local
+wget http://archive.apache.org/dist/kafka/0.10.2.2/kafka_2.10-0.10.2.2.tgz
+tar -xzvf kafka_2.10-0.10.2.2.tgz 
+mv kafka_2.10-0.10.2.2 kafka
+
+add &quot;export PATH=$PATH:/usr/local/kafka/bin&quot; to end of /etc/profile
+source /etc/profile
+
+
+kafka-server-start.sh /usr/local/kafka/config/server.properties &amp;
+
+</code></pre>
+
+<p><strong>注意</strong>: 请确保Kafka的版本与build.gradle中eventplugin项目的版本一致。  </p>
+<h3> 运行Kafka </h3>
+
+<p><strong>Mac环境</strong>:</p>
+<pre><code>zookeeper-server-start /usr/local/etc/kafka/zookeeper.properties &amp; kafka-server-start /usr/local/etc/kafka/server.properties
+</code></pre>
+
+<p><strong>Linux环境</strong>:</p>
+<pre><code>zookeeper-server-start.sh /usr/local/kafka/config/zookeeper.properties &amp;
+Sleep about 3 seconds 
+kafka-server-start.sh /usr/local/kafka/config/server.properties &amp;
+</code></pre>
+
+<h3> 创建主题接受事件，主题的定义位于config.conf文件中 </h3>
+
+<p><strong>Mac环境</strong>:</p>
+<pre><code>kafka-topics --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic block
+kafka-topics --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic transaction
+kafka-topics --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic contractlog
+kafka-topics --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic contractevent
+</code></pre>
+
+<p><strong>Linux环境</strong>:</p>
+<pre><code>kafka-topics.sh  --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic block
+kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic transaction
+kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic contractlog
+kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic contractevent
+</code></pre>
+
+<h3> Kafka用户 </h3>
+
+<p><strong>Mac环境</strong>:</p>
+<pre><code>kafka-console-consumer --bootstrap-server localhost:9092  --topic block
+kafka-console-consumer --bootstrap-server localhost:9092  --topic transaction
+kafka-console-consumer --bootstrap-server localhost:9092  --topic contractlog
+kafka-console-consumer --bootstrap-server localhost:9092  --topic contractevent
+</code></pre>
+
+<p><strong>Linux环境</strong>:</p>
+<pre><code>kafka-console-consumer.sh --zookeeper localhost:2181 --topic block
+kafka-console-consumer.sh --zookeeper localhost:2181 --topic transaction
+kafka-console-consumer.sh --zookeeper localhost:2181 --topic contractlog
+kafka-console-consumer.sh --zookeeper localhost:2181 --topic contractevent
+</code></pre>
+
+<h3> 在Java-tron中加载插件 </h3>
+
+<ul>
+<li>add --es to command line, for example:</li>
+</ul>
+<pre><code> java -jar FullNode.jar -p privatekey -c config.conf --es 
+</code></pre>
+
+<h3> 事件订阅过滤 </h3>
+
+<p>事件订阅过滤参数在config.conf文件中设置：</p>
+<pre><code>filter = {
+       fromblock = &quot;&quot; // the value could be &quot;&quot;, &quot;earliest&quot; or a specified block number as the beginning of the queried range
+       toblock = &quot;&quot; // the value could be &quot;&quot;, &quot;latest&quot; or a specified block number as end of the queried range
+       contractAddress = [
+           &quot;TVkNuE1BYxECWq85d8UR9zsv6WppBns9iH&quot; // contract address you want to subscribe, if it's set to &quot;&quot;, you will receive contract logs/events with any contract address.
+       ]
+
+       contractTopic = [
+           &quot;f0f1e23ddce8a520eaa7502e02fa767cb24152e9a86a4bf02529637c4e57504b&quot; // contract topic you want to subscribe, if it's set to &quot;&quot;, you will receive contract logs/events with any contract topic.
+       ]
+    }
+</code></pre>
+
+<h3> 下载并安装MongoDB </h3>
+
+<p><strong> 建议配置 </strong> </p>
+<ul>
+<li>CPU/ RAM: 16Core / 32G  </li>
+<li>DISK: 500G  </li>
+<li>System: CentOS 64</li>
+</ul>
+<p>MongoDB的版本是<strong>4.0.4</strong>，以下是安装命令:</p>
+<ul>
+<li>cd /home/java-tron</li>
+<li>curl -O https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-4.0.4.tgz</li>
+<li>tar zxvf mongodb-linux-x86_64-4.0.4.tgz</li>
+<li>mv mongodb-linux-x86_64-4.0.4 mongodb</li>
+</ul>
+<p><strong> 设计环境变量 </strong></p>
+<ul>
+<li>export MONGOPATH=/home/java-tron/mongodb/</li>
+<li>export PATH=$PATH:$MONGOPATH/bin</li>
+</ul>
+<p><strong> 创建配置文件 </strong></p>
+<p>The path is : /etc/mongodb/mgdb.conf</p>
+<ul>
+<li>cd /etc/mongodb</li>
+<li>touch mgdb.conf</li>
+</ul>
+<p>创建数据和日志文件夹，并把它们的绝对路径加入mgdb.conf</p>
+<p><strong> 示例 </strong></p>
+<ul>
+<li>dbpath=/home/java-tron/mongodb/data</li>
+<li>logpath=/home/java-tron/mongodb/log/mongodb.log</li>
+<li>port=27017</li>
+<li>logappend=true</li>
+<li>fork=true</li>
+<li>bind_ip=0.0.0.0</li>
+<li>auth=true</li>
+<li>wiredTigerCacheSizeGB=2</li>
+</ul>
+<p><strong> 注意 </strong>
+- bind_ip must be configured to 0.0.0.0，otherwise remote connection will be refused.
+- wiredTigerCacheSizeGB, must be configured to prevent OOM</p>
+<p><strong> 运行MongoDB </strong></p>
+<ul>
+<li>mongod  --config /etc/mongodb/mgdb.conf</li>
+</ul>
+<p><strong> 创建管理员账户 </strong>
+- mongo
+- use admin
+- db.createUser({user:"root",pwd:"admin",roles:[{role:"root",db:"admin"}]})</p>
+<p><strong> 创建事件日志以及所有者账户 </strong></p>
+<ul>
+<li>db.auth("root", "admin")</li>
+<li>use eventlog</li>
+<li>db.createUser({user:"tron",pwd:"123456",roles:[{role:"dbOwner",db:"eventlog"}]})</li>
+</ul>
+<blockquote>
+<p>database: eventlog, username:tron, password: 123456</p>
+</blockquote>
+<p><strong> 防火墙策略 </strong></p>
+<ul>
+<li>iptables -A INPUT -p tcp -m state --state NEW -m tcp --dport 27017 -j ACCEPT</li>
+</ul>
+<p><strong> 远程连接mongo </strong></p>
+<ul>
+<li>mongo 47.90.245.68:27017</li>
+<li>use eventlog</li>
+<li>db.auth("tron", "123456")</li>
+<li>show collections</li>
+<li>db.block.find()</li>
+</ul>
+<p><strong> 查询区块事件触发数据 </strong></p>
+<ul>
+<li>db.block.find({blockNumber: {$lt: 1000}});  // 返回区块高度小于1000的数据  </li>
+</ul>
+<p><strong> 设置数据库索引 </strong></p>
+<p>cd /{projectPath} <br />
+sh insertIndex.sh</p>
+<h2 id="_7">事件订阅数据查询服务部署</h2>
+<h3>下载代码</h3>
+
+<p>git clone https://github.com/tronprotocol/tron-eventquery.git
+cd troneventquery</p>
+<h3> 编译 </h3>
+
+<ul>
+<li>mvn package</li>
+</ul>
+<p>代码编译成功后，在/troneventquery目录下会生成troneventquery.jar文件。  </p>
+<p>需要创建一个config.conf配置文件用来设置mongodb的配置属性，我们在/troneventquery/config.conf中提供了个示例，如果有需要可以进行修改。  </p>
+<p><strong>注意：</strong></p>
+<p>config.conf文件应该位于/troneventquery文件夹下。  </p>
+<ul>
+<li>mongo.host=IP </li>
+<li>mongo.port=27017 </li>
+<li>mongo.dbname=eventlog</li>
+<li>mongo.username=tron</li>
+<li>mongo.password=123456</li>
+<li>mongo.connectionsPerHost=8</li>
+<li>mongo.threadsAllowedToBlockForConnectionMultiplier=4</li>
+</ul>
+<p><strong>mongo.dbname</strong>的值是指定的事件订阅数据库的名称，不可以修改。  </p>
+<h3> 运行 </h3>
+
+<ul>
+<li>troneventquery/deploy.sh 是用来部署事件订阅数据查询服务的。    </li>
+<li>troneventquery/insertIndex.sh 是用来设置mongodb索引来加速查询的。  </li>
+</ul>
+<h2 id="_8">高级配置</h2>
 <p>Read the <a href="../../advanced-configuration/">Advanced Configuration</a></p>
               
             </div>

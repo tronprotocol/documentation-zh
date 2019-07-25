@@ -16,6 +16,7 @@ nav:
     - 架构:
         - 网络: architecture/network.md
         - 数据库: architecture/database.md
+        - 插件: architecture/plugin.md  
     - 合约: 
         - 虚拟机: contracts/tvm.md
         - 编译器: contracts/compiler.md    
@@ -28,6 +29,6 @@ nav:
         - 激励政策: developers/incentives.md
     - 客户端:  
         - 命令行钱包: clients/wallet-cli.md  
-    - 常见问题: q&a/qa.md
+    - 常见问题: q&a/qa.md  
 
 theme: readthedocs
