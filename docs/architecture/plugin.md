@@ -83,8 +83,8 @@ contractTopics: 合约主题
 
 <h3> 事件订阅相关插件部署 </h3>
 
-- [kafka部署](https://tronprotocol.github.io/documentation-ZH/developers/deployment/#kafka)
-- [mongo部署](https://tronprotocol.github.io/documentation-ZH/developers/deployment/#mongo)
+- [kafka部署](https://tronprotocol.github.io/documentation-ZH/developers/deployment/#kafka)  
+- [mongo部署](https://tronprotocol.github.io/documentation-ZH/developers/deployment/#mongo)  
 
 <h3> 事件订阅数据查询 </h3>
 
