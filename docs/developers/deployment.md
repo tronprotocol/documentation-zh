@@ -283,7 +283,7 @@ event.subscribe = {
  * **filter**: 事件订阅过滤选项。    
  **注意**: 如果服务器地址不是127.0.0.1, 请在config/server.properties文件中设置listeners=PLAINTEXT://:9092，advertised.listeners to PLAINTEXT://host_ip:9092   
 
-<h3> 安装Kafka </h3>
+<h3 id="kafka"> 安装Kafka </h3>
 
 **Mac环境**:
 ```
@@ -383,7 +383,7 @@ filter = {
 ```
 
 
-<h3> 下载并安装MongoDB </h3>
+<h3 id="mongo"> 下载并安装MongoDB </h3>
 
 ** 建议配置 ** 
 

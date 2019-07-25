@@ -83,8 +83,8 @@ contractTopics: 合约主题
 
 <h3> 事件订阅相关插件部署 </h3>
 
-- [kafka部署](https://tronprotocol.github.io/documentation-ZH/developers/deployment/#event-subscribe-plugin-deployment)
-- [mongo部署](https://tronprotocol.github.io/documentation-ZH/developers/deployment/#event-subscribe-plugin-deployment)
+- [kafka部署](https://tronprotocol.github.io/documentation-ZH/developers/deployment/#kafka)
+- [mongo部署](https://tronprotocol.github.io/documentation-ZH/developers/deployment/#mongo)
 
 <h3> 事件订阅数据查询 </h3>
 
@@ -92,5 +92,5 @@ contractTopics: 合约主题
 
 查看更多信息，请查阅[https://github.com/tronprotocol/TIPs/issues/12](https://github.com/tronprotocol/TIPs/issues/12)
 
-- [事件订阅数据查询服务部署](https://tronprotocol.github.io/documentation-ZH/developers/deployment/#event-subscribe-plugin-deployment)
+- [事件订阅数据查询服务部署](https://tronprotocol.github.io/documentation-ZH/developers/deployment/#_6)
 - [事件订阅数据查询服务http api](https://github.com/tronprotocol/documentation-ZH/tree/master/docs_without_index/plugin/event-query-http.md)
