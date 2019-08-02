@@ -33,7 +33,7 @@
 
 答：[Tronscan](https://tronscan.org/#/sr/representatives)  
 
-**问：超级节点出块的间隔会保持不变吗**
+**问：超级节点出块的间隔会保持不变吗？**
 
 答：目前是3秒钟，将来可能会优化到1秒钟。   
 
@@ -263,7 +263,7 @@ genesis.block = {
 
 **问：怎么把Tronscan的钱包导入到wallet-cli？**
 
-答：通过调用wallet-cli api 'ImportWallet'.  
+答：通过调用wallet-cli api 'ImportWallet'。 
 
 ## API问题
 
