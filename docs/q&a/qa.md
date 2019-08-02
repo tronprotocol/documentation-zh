@@ -1,53 +1,25 @@
-
-## Private运行环境下full node模式的问题
-
-**问：config.conf中的genesis.block.witnesses替换成在https://tronscan.org/ 注册时给出的address字符串：是否需要删除其他address？url和voteCount字段是否需要删除？**    
-
-答：不需要删除其他地址，但是这些地址也会成为您网络的一部分，而如果您不持有其私钥，这些相当于是废地址。注意：Zion、Sun以及Blackhole账户不能从创世块的配置文件中删除，但是可以对它们的地址进行更改。 
     
-**问：seed.node ip.list 替换成自己公网的ip地址后，使用启动命令 java -jar java-tron.jar 启动后，如何测试部署是否正常，比如是否有测试接口或者命令，类似redis，get ping 会返回 pong？**
+ 
 
-答：Java-tron没有默认的接口。一旦服务器开始运行，就能够发送grpc命令，基于这一点，有几种检验部署是否成功的方法。首先，需要您确认grpc端口已处于开启状态：
-              
-```text             
-- netstat -tulnp| grep 50051 
-      
-![](https://raw.githubusercontent.com/tronprotocol/Documentation/master/images/FAQ/查询节点.png)
-      
-如果端口已开启，需要您使用tronscan.org测试节点，确保端口和IP对网络开放。如果使用的是私网IP，则需要其他gRPC软件。
-      
-也可以使用下面的终端指令，检查节点是否正常运行：
-              
-- tail -f logs/tron.log |grep "MyheadBlockNumber"
-```
 
-## Private运行环境下super node模式的问题
 
-**问：在部署private 环境时，SuperNode和FullNode 关系是什么样子？是否需要先部署SuperNode ,然后部署FullNode？**
 
-答：在private环境中，至少需要部署一个SuperNode，但对FullNode的数量没有最低要求。
 
-**问：Private环境，因为我看官网是通过手动投票产生的SuperNode节点，是否还需要提交TRON资料审核注册成为Super Node节点？**
 
-答：在private环境的前提下，不需要向波场基金会提交申请材料。
 
-**问：既然是Private环境，为什么日志还持续的更新全网其他节点，并同步保存信息？那么private 和public 的区别是什么？**
 
-答：如果和IP list有关  A: 需要在config.conf更新seed.ip，如果设置得和公网一样，并且电脑连入了互联网，电脑就会尝试连接其它节点，那么即使连接失败，IP list也会存入DB。如果和区块还有交易有关  A: 在private环境中，需要更改p2p版本和父哈希。如果设置同主网或测试网一样，并且电脑连入了互联网，那么节点也会和公网同步。
    
-## Public运行环境下的问题
 
-**问：单点的java程序最大能支持多少内存，cpu，处理请求等？**
 
-答：这取决于您的系统环境：如果是32位系统，堆内存最大为32GB。如果是64位系统，堆内存会受到操作系统的限制。最好能将JVM堆内存限制为可以在NUMA区域容纳的大小（在较大的机器上大约是1TB），如果超出NUMA区域，垃圾回收耗费的时间会更久。 
+    
 
-**问：这个网络流量大概是多少，我们是准备多台主机前面挂负载，还是提供多节点即可？**
+ 
+   
+## 波场网络设计与协议问题  
 
-答：双核CPU能够勉强负担一个Full Node的运行。在private环境中，交易数量更少，4核CPU就够了。所以说CPU性能取决于网络的情况。您需要根据电脑的运行情况，决定CPU性能。在公网，成为TRON的超级代表我们推荐您使用64核CPU的设备。 
+**问：如何生成一个账户**
 
-**问：对公网需要暴露那些服务端口？**
-
-答：端口18888，50051是两个默认端口。
+答：可以使用[Wallet-cli](https://github.com/tronprotocol/wallet-cli) 或者 [Tronscan](https://tronscan.org/#/wallet/new)  
 
 **问：目前的网络流量有多大？数据能够传输到多个主机还是只能够满足个人的一些节点？**
 
@@ -55,10 +27,267 @@
 
 **问：tokens 申请完成后，如何由not started yet 变更成 participate?**
 
-答：发行通证后无法改变发行开始日期，需要等到创建通证时设置的具体时间才能开始发行。在创建通证后，只能修改URL和描述。
+答：发行通证后无法改变发行开始日期，需要等到创建通证时设置的具体时间才能开始发行。在创建通证后，只能修改URL和描述。 
+
+**问：在哪里可以查看目前的超级节点的出块状态？**
+
+答：[Tronscan](https://tronscan.org/#/sr/representatives)  
+
+**问：超级节点出块的间隔会保持不变吗**
+
+答：目前是3秒钟，将来可能会优化到1秒钟。   
+
+**问：未来大概会有出块的TRX会减半的计划吗？如果有的话，大概在什么时间点？**
+
+答：没有减半计划。
+
+**问：如果某一个超级节点除了问题，它会被移除前27名吗？**
+
+答：不会强行移出，当用户停止为其投票时，如果它的得票数不在前27名，会自动停止出块。   
+
+**问：成为超级代表的门槛是什么？**  
+
+答：你的得票数需要排在前27名。    
+
+**问：27个超级代表的出块奖励是平均分配，还是按照算力分配？**
+
+答：平均分配，每出一个块，获得32个TRX奖励。
+
+**问：是否有可能会出现算力超过50%的问题？**
+
+答：不会。
+
+**问：投票会消耗TRX吗？**
+
+答：投票不会消耗TRX。
+
+**问：超级代表的出块权利可以持续多久？**
+
+答：每6小时会重新计票一次，只要还在前27名中，就可以持续产块。   
+
+**问：一笔交易的凭证是什么？**
+
+答：交易哈希。  
+
+**问：为什么TRX的冻结不允许解冻期不能超过3天？**
+
+答：目前冻结不允许解冻期固定为3天。意味着，满3天的冻结期后才能解冻，如果3天后不进行解冻操作，还是会保持冻结状态。     
+
+**问：如何监控与我的账户有关的交易？**
+
+答：你可以使用波场事件订阅插件。请查阅[https://tronprotocol.github.io/documentation-EN/architecture/plugin/#tron-event-subscription](https://tronprotocol.github.io/documentation-EN/architecture/plugin/#tron-event-subscription)  
+
+**问：怎么计算交易费用？**  
+
+答：请查阅[https://tronprotocol.github.io/documentation-EN/mechanism&algorithm/resource/](https://tronprotocol.github.io/documentation-EN/mechanism&algorithm/resource/)
+
+**问：怎么计算交易大小？**
+
+答：tx-size  = grpcClient.getTransactionById(txId).get().getSerializedSize() + 60
+
+**问：怎么将我的投票重置？**
+
+答：只需要再投一次票，将票数置为0就可以了。  
 
 
-## 运行超级节点报错
+## 配置问题  
+
+**问：config.conf中的genesis.block.witnesses替换成在[https://tronscan.org/](https://tronscan.org/) 注册时给出的address字符串：是否需要删除其他address？url和voteCount字段是否需要删除？**    
+
+答：不需要删除其他地址，但是这些地址也会成为您网络的一部分，而如果您不持有其私钥，这些相当于是废地址。注意：Zion、Sun以及Blackhole账户不能从创世块的配置文件中删除，但是可以对它们的地址进行更改。 
+
+**问：启动节点的时候怎么制定数据存储目录？**
+
+答：可以在启动节点时指定数据存储目录，例如：  
+```text
+java -jar FullNode.jar -c config.conf -d /data/output
+```
+
+**问：怎么修改配置可以让logs发送到stdout？**
+
+答：步骤如下：
+
+下载[https://github.com/tronprotocol/java-tron/blob/develop/src/main/resources/logback.xml](https://github.com/tronprotocol/java-tron/blob/develop/src/main/resources/logback.xml)
+
+取消注释掉以下内容：
+
+appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender"  
+
+在’root level="INFO"‘下  
+取消注释掉’appender-ref ref="STDOUT"‘  
+注释掉’appender-ref ref="ASYNC"‘  
+
+将logback.xml移到FullNode.jar所在的目录下  
+
+启动时，添加’--log-config logback.xml‘参数，例如：
+```text
+java -jar FullNode.jar --log-config logback.xml  
+```
+
+**问：如何修改日志级别？**
+
+答：日志级别在’logback.xml‘中定义。通过修改’root level‘来改变输出的日志级别。  
+```text
+<root level="ERROR">
+    <!--<appender-ref ref="STDOUT"/>-->
+    <appender-ref ref="ASYNC"/>
+  </root>
+
+  <logger name="app" level="ERROR"/>
+  <logger name="net" level="ERROR"/>
+  <logger name="backup" level="ERROR"/>
+  <logger name="discover" level="ERROR"/>
+  <logger name="crypto" level="ERROR"/>
+  <logger name="utils" level="ERROR"/>
+  <logger name="actuator" level="ERROR"/>
+  <logger name="API" level="ERROR"/>
+  <logger name="witness" level="ERROR"/>
+  <logger name="DB" level="ERROR"/>
+  <logger name="capsule" level="ERROR"/>
+  <logger name="VM" level="ERROR"/>
+```
+
+**问：在私有网络环境下，我如何设置我的资产？**
+
+答：在私有网络环境下，你可以通过修改配置文件来设置你初始账户的资产。配置文件如下：
+```text
+genesis.block = {
+  # Reserve balance
+  assets = [
+    {
+      accountName = "TestA"
+      accountType = "AssetIssue"
+      address = "THRR7uvFbRLfNzpKPXEyQa8KCJqi59V59e"
+      balance = "1000000000000000"
+    },
+    {
+      accountName = "TestB"
+      accountType = "AssetIssue"
+      address = "TBLZaw93rsnLJ1SWTvoPkr7GVg5ixn2Jv1"
+      balance = "1000000000000000"
+    },
+    {
+      accountName = "TestC"
+      accountType = "AssetIssue"
+      address = "TJg8yZ4Co8RXsHmTWissmSL1VpL7dCybY1"
+      balance = "1000000000000000"
+    }
+  ]
+```
+
+## 编译问题
+
+**Ask：java-tron编译时遇到单元测试没有通过问题**
+
+答：可以用'./gradlew build -x test'命令忽略单元测试。  
+
+## 部署问题
+
+**问：如何测试部署是否正常，比如是否有测试接口或者命令，类似redis，get ping 会返回 pong？**
+
+答：Java-tron没有默认的接口。一旦服务器开始运行，就能够发送grpc命令，基于这一点，有几种检验部署是否成功的方法。
+              
+```text                       
+- tail -f logs/tron.log |grep "MyheadBlockNumber"
+```
+
+**问：在部署private 环境时，SuperNode和FullNode 关系是什么样子？是否需要先部署SuperNode ,然后部署FullNode？**
+
+答：在private环境中，至少需要部署一个SuperNode，但对FullNode的数量没有最低要求。 
+
+**问：我怎样才能知道我的测试超级节点在运行了呢？**
+
+答：运行以下命令：
+```text             
+- tail -f logs/tron.log |grep "Try Produce Block"
+```
+
+**问：SolidityNode与FullNode可以部署在一台机器上吗？他们会分享数据吗？**
+
+答：指定数据目录是可以做到的，配置文件参数：db.directory = "database"，index.directory = "index"。但是也可以让FullNode.jar和SolidityNode.jar在不同目录下运行，将数据和日志文档完全分离。记得修改config.conf的端口，因为两个应用无法在同一端口运行。 
+
+## 开发问题
+
+## 节点运行问题 
+
+**问：既然是Private环境，为什么日志还持续的更新全网其他节点，并同步保存信息？那么private 和public 的区别是什么？**
+
+答：如果和IP list有关  A: 需要在config.conf更新seed.ip，如果设置得和公网一样，并且电脑连入了互联网，电脑就会尝试连接其它节点，那么即使连接失败，IP list也会存入DB。如果和区块还有交易有关  A: 在private环境中，需要更改p2p版本和父哈希。如果设置同主网或测试网一样，并且电脑连入了互联网，那么节点也会和公网同步。
+
+**问：Private环境，因为我看官网是通过手动投票产生的SuperNode节点，是否还需要提交TRON资料审核注册成为Super Node节点？**
+
+答：在private环境的前提下，不需要向波场基金会提交申请材料。
+
+**问：对公网需要暴露那些服务端口？**
+
+答：端口18888，50051是两个默认端口。
+
+**问：在最坏情况下，万一超级节点无法联通，最多允许多长时间恢复服务？**
+
+答：SR节点重新连上网络的速度只取决于SR节点自己的恢复速度，跟网络没关系。
+
+**问：solidity是根据full同步区块的吗？**
+
+答：是的。
+
+**问：节点有钱包功能吗？**
+
+答：节点有钱包的RPC接口，不能直接用命令行调用钱包功能，可以用另外一个repo里的命令行钱包使用full node的钱包功能。
+
+**问：为什么我的机器上区块处理时间非常久？**
+
+答：Java-tron运行是需要更多的内存来处理交易。 
+
+## 测试网问题
+
+**问：我们要测试超级节点出块和性能的情况，是不是需要你们投票我们的节点才能竞选上？**
+
+答：测试的时候，我们可以给你投票，让你成为测试网的一个超级节点。 
+
+**问：测试网与Shasta的区别是?**
+
+答：to be answered    
+
+**问：如何获得测试网TRX？**
+
+答：[http://testnet.tronex.io/join/getJoinPage](http://testnet.tronex.io/join/getJoinPage) 
+
+## 只能合约问题
+
+
+## 客户端问题
+
+**问：如何离线签名交易？**
+
+答：你可以使用[tronweb](https://developers.tron.network/docs/api-sign-flow)  
+
+**问：怎么把Tronscan的钱包导入到wallet-cli？**
+
+答：通过调用wallet-cli api 'ImportWallet'.  
+
+## API问题
+
+**问：gateway链接的是SolidityNode吗？**
+
+答：gateway可以连接SolidityNode，也可以连接FullNode。  
+
+**问：'getTransactionById'与'getTransactionInfoById'的区别是什么？**
+
+答：它们的数据取自不同的数据模块。'getTransactionById'主要侧重交易的通用数据，'getTransactionInfoById'侧重交易的费用数据。    
+
+**问：如何广播原始的交易数据？**
+
+答：可以使用'wallet/broadcasthex'接口。 
+
+**问：如何获得一个智能合约账户的余额？**
+
+答：可以使用以下wallet-cli api:
+
+```text
+triggercontract contractaddress balanceOf(address) "youraddress" false 0 0 0 #
+```
+
+## 常见错误
 
 **问：以下错误信息表达了什么意思？**
 ```text
@@ -70,175 +299,12 @@
 - tail -f logs/tron.log |grep "MyheadBlockNumber"
 ```
 
-## 超级节点出块问题
-
-**问：超级节点也是轮流出块的吗？出块间隔是多少？是不是24小时无心跳消息就从超级节点列表里删除了？**
-
-答：轮流出，现在测试环境5秒一块，会统计超级节点出块miss率，出块率太低就会被投出局。
-
-**问：在最坏情况下，万一超级节点无法联通，最多允许多长时间恢复服务？**
-
-答：SR节点重新连上网络的速度只取决于SR节点自己的恢复速度，跟网络没关系。
-
-**问：超级节点出块miss率的计算公式是什么？**
-   
-答：主要统计"应该出但是没有出的块的个数"， 数量会一直累计，不会清除。
-
-**问：超级节点服务器的测试版本，或者源码开放了吗？**
-
-答：都是开源的，参见https://github.com/tronprotocol/java-tron。
-
-**问：我怎样才能知道我的测试超级节点在运行了呢？**
-
-答：运行以下命令：
-```text             
-- tail -f logs/tron.log |grep "Try Produce Block"
-```
-
-**问：另外，根据这个命令：java -jar java-tron.jar -p yourself private key --witness -c yourself config.conf(Example：/data/java-tron/config.conf，我怎样才知道运行的是超级节点？**
-
-答：运行以下命令：
-```text             
-- tail -f logs/tron.log |grep "Try Produce Block"
-```
-
-**问：有什么命令行命令可以生成地址，发送tron的吗？一定要通过web wallet?**
-
-答：你可以使用命令行钱包 [https://github.com/tronprotocol/wallet-cli](https://github.com/tronprotocol/wallet-cli)
-
-**问： 我们要测试超级节点出块和性能的情况，是不是需要你们投票我们的节点才能竞选上？**
-
-答：测试的时候，我们可以帮你么投票。
-
-**问：那现在是不是可以看节点有没有出块了？**
-
-答：可以在通过以下链接查询 [https://tronscan.org/#/address/YOURADDRESS](https://tronscan.org/#/address/YOURADDRESS)
-
-**问：请问刚上线是否出块时间是3秒一块？预计在什么时间会变成1秒1块？**
-
-答：主网上线后会变成3秒1块。在未来，出块速度会在之后提升为1秒1块。
-
-**问：未来大概会有出块的TRX会减半的计划吗？如果有的话，大概在什么时间点？**
-
-答：没有减半计划。
-
-**问：当27节点中有一个出现故障时，会自动检测并取消轮询资格吧？出现这种情况保留超级代表资格否？如果资格被取消后，何时可以恢复资格？**
-
-答：会一直保留不出块的记录，其他人看了就不投了。
-
-
-## 超级代表选举问题
- 
-**问：为什么我在 [https://tronscan.org/#/network](https://tronscan.org/#/network) 看不到我的投票？**
-
-答：投票结果6小时更新一次。
-
-**问：持有的票数是和目前持有的TRX相等，每个TRX等于一票对吗。而且这个票可以投不止一个超级代表候选人？**
-    
-答：1个TRX等于1票且该票只能投给1个超级代表候选人。但是，当持有TP（或冻结TRX）数量超过1，可以将票数分配给自己认可的候选人。
-
-**问：如果用TRX来投票，是否代表我们需要在Tronscan钱包里存入一定数量的TRX？**
-
-答：需要存，因为TRX用来申请成为节点和投票。但是不是必须存到tronscan wallet。区块链的账本是在链上的，钱包只是查看。 
-
-**问：针对每日选举的27个超级节点，是否有门槛？还是鼓励自由竞争？**
-
-答：自由竞争，拉票。现在由于GR制度的存在，SR需要至少1亿票才能替代GR，作为GR是没有任何收益的。  
-
-**问：这27个超级代表获得的TRX是否是平均分配，还是是依据算力自由竞争？**
-
-答：和机器算力无关，轮流出块。
-
-**问：如果有大型矿厂参与竞选的话，是否有可能会出现算力超过50%的问题？**
-
-答：不会。
-
-**问：按照每3秒出一个块的速度，出块的32TRX的奖励给对应出块的节点是吗？TRON公链网络是否能保证每秒都有交易数量？**
-
-答：32个TRX全部奖励给出块的节点。TRON公链网络能够保证。
-
-**问：细则里的社区支持方案具体是指什么？**
-   
-答：可以理解为预算多、计划多的方案或者精力去发展社区。
-   
-**问：投票会消耗TRX吗？**
-
-答：投票不会消耗TRX。
-    
-**问：超级代表的权限只维持24小时吗？**
-
-答：不是，维持6个小时。但是下一轮的竞选结果还保持一样的话，超级代表的权限能够继续维持。
-    
-**问：build/resources/main/config.conf 和 wallet的build/resources/main/config.conf 两个配置节点里没有我的节点的任何信息,能识别我的节点并进行出块吗？**
-
-答：配置文件需要改成您自己的私钥，然后投票成功，就可以出块了。
-    
-**问：我生成了自己的私钥以后怎样配置？**
-
-答：配置文件里面有个localwitness，配成您投票账户的私钥。
-   
-   
 ## 其他问题
 
-**问：启动节点的时候怎么制定数据存储目录？**
-
-答：现在还不能制定数据目录，下一个版本会加。
-
-**问：节点有钱包功能吗？**
-
-答：节点有钱包的RPC接口，不能直接用命令行调用钱包功能，可以用另外一个repo里的命令行钱包使用full node的钱包功能。
-
-**问：生成地址不需要按照文档里面自己生成私钥，计算生成地址吧？**
-
-答：你注册一个账户后，不需要关心你的私钥，只要用pincode登入后就可以获取你的地址了。
-
-**问：SolidityNode 和 FullNode可以装在同一台机器上吗？数据目录不能指定，两个节点会共用数据吗？有没有问题？**
-
-答：指定数据目录是可以做到的，配置文件参数：db.directory = "database"，index.directory = "index"。但是也可以让FullNode.jar和SolidityNode.jar在不同目录下运行，将数据和日志文档完全分离。记得修改config.conf的端口，因为两个应用无法在同一端口运行。
-
-**问：没有Txid很麻烦，我们出金后怎么告诉用户？怎么查询出金交易？**
-
-答：可以使用交易的哈希作为交易ID。
-
-**问：solidity是根据full同步区块的吗？**
-
-答：是的。
-
-**问：gateway是链接solidity节点的吗？**
-
-答：solidity节点主要目的是存储不可回退的固化块，会落后fullnode几个块，用来确认到账情况是比较合适的。用gateway链接solidity，或者连接fullnode，都能连接上。
-
-**问：listaccounts是全网所有地址吗？**
-
-答：目前是的，还不确定会不会改，因为这个地址数量会很庞大，我们需要更多的沟通考量。
-
-**问：余额小数位是多少？**
-    
-答：6位。
-
-**问：节点的机器是否搭建在北京，会不会墙的问题？**
+**问：节点的机器是否搭建在北京，会不会遇到防火墙的问题？**
 
 答：39.106.220.120在北京，其他的都在美国欧洲香港。
 
-**问：用户可以通过将TRX存入tron.network向主网迁移吗？如果不行，还有哪些其他钱包支持迁移，还是只能由交易所经手？**
-
-答：暂无钱包支持迁移，只能通过交易所。
-
-**问：TRON现阶段有多少种钱包？**
-
-答：我们已经有wallet-cli（具指令行钱包）、网页钱包、IOS钱包、安卓钱包和Chrome钱包。
-
-**问：宽带需要达到25Gbps吗，还是10Gbps就足够？或者有其他的门槛？**
-
-答：我们对网络宽带不做要求，给定的具体数据仅供参考。
-
-**问：对于超级代表选举中排名27名开外但是100名以内的人，在当选的超级代表出局时，是由排名决定替补顺序，还是由特定算法决定接替人选？**
-
-答：在测试网，我们仅是选出得票最多的27个节点。在主网及将来的测试网上，我们会使用另外的算法，增加超级代表产生的随机性。
-
-**问：想要成为超级代表，我们只需要一个成熟的技术方案就可以，还是需要在提交申请前就搭建硬件？**
-
-答：技术方案需要包含两个部分：1. 在6月26日即第一次选举之前的技术方案。2. 在6月26日即第一次选举结束之后的技术方案。第二部分只要有一个方案就可以。而第一部分，现阶段可以只有方案，但是只有具备了硬件条件，我们才能测试你的节点，其他用户也才能确认你们确实已经搭建起了测试节点。申请超级代表，并不等于能胜任超级代表。
 
 
 
@@ -248,6 +314,27 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
 
 
 
