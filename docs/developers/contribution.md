@@ -11,8 +11,7 @@ GitHub是用来追踪议题，贡献代码、建议、特性请求、文档等�
 我们鼓励尽早提交PR，这样可以让其他社区开发者知道你在开发的议题。未开发完成的PR需要被标注“进行中”状态。
 
 ** 社区开发者频道 **
-
-* [Discord](https://discord.gg/GsRgsTD)   
+  
 * [Gitter](https://gitter.im/tronprotocol/allcoredev)   
 
 查看 [波场开发者激励政策](incentives.md)
