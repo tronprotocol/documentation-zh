@@ -13,7 +13,7 @@ TronGrid支持所有的FullNode和SolidityNode的api调用，你只需要加上�
 
 示例：`https://api.trongrid.io/v1`
 
-## 参数, 查询以及返回值  
+**参数, 查询以及返回值**
 
 - TG3类型接口调用地址可以按照base58或者hex形式    
 - 查询参数可以按照驼峰或者下划线形式   
