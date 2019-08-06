@@ -181,22 +181,19 @@
     <a class="current" href="./">波场网格</a>
     <ul class="subnav">
             
-    <li class="toctree-l3"><a href="#_1">参数, 查询以及返回值</a></li>
+    <li class="toctree-l3"><a href="#_1">账户接口</a></li>
     
 
-    <li class="toctree-l3"><a href="#_2">账户接口</a></li>
+    <li class="toctree-l3"><a href="#_2">通证接口</a></li>
     
 
-    <li class="toctree-l3"><a href="#_3">通证接口</a></li>
+    <li class="toctree-l3"><a href="#_3">区块接口</a></li>
     
 
-    <li class="toctree-l3"><a href="#_4">区块接口</a></li>
+    <li class="toctree-l3"><a href="#_4">合约接口</a></li>
     
 
-    <li class="toctree-l3"><a href="#_5">合约接口</a></li>
-    
-
-    <li class="toctree-l3"><a href="#_6">交易接口</a></li>
+    <li class="toctree-l3"><a href="#_5">交易接口</a></li>
     
 
     </ul>
@@ -256,14 +253,14 @@
 <li>TronGrid v3 (TG3) api  </li>
 </ul>
 <p>示例：<code>https://api.trongrid.io/v1</code></p>
-<h2 id="_1">参数, 查询以及返回值</h2>
+<p><strong>参数, 查询以及返回值</strong></p>
 <ul>
 <li>TG3类型接口调用地址可以按照base58或者hex形式    </li>
 <li>查询参数可以按照驼峰或者下划线形式   </li>
 <li>所有返回的json数据按照下划线形式    </li>
 <li>在本文档中，我们优先使用base58和下划线形式   </li>
 </ul>
-<h2 id="_2">账户接口</h2>
+<h2 id="_1">账户接口</h2>
 <p>1.&nbsp;通过地址查询账户   <br />
 <em>接口：</em>  <br />
 <code>https://api.trongrid.io/v1/accounts/:address</code>   <br />
@@ -295,7 +292,7 @@ address: 账户的地址    <br />
 address: 账户的地址  <br />
 <em>示例：</em>    <br />
 <code>https://api.trongrid.io/v1/accounts/TLCuBEirVzB6V4menLZKw1jfBTFMZbuKq/resources</code>  </p>
-<h2 id="_3">通证接口</h2>
+<h2 id="_2">通证接口</h2>
 <p>1.&nbsp;查询所有通证信息
 <em>接口：</em>   <br />
 <code>https://api.trongrid.io/v1/assets</code><br />
@@ -315,13 +312,13 @@ name: 通证名称。<br />
 <code>limit</code> 分页查询交易，每页的数目。默认<code>20</code>。最大<code>200</code>。    <br />
 <code>fingerprint</code> 上一页返回的最后一笔交易的指纹。     <br />
 <code>order_by</code> 排序方案。支持字段 <code>order_by=total_supply,asc</code>，<code>order_by=start_time,desc</code>。         </p>
-<h2 id="_4">区块接口</h2>
+<h2 id="_3">区块接口</h2>
 <p>1.&nbsp;查询一个区块中的事件信息    <br />
 <em>接口：</em>   <br />
 <code>https://api.trongrid.io/v1/blocks/:identifier/events</code>  <br />
 <em>参数：</em>    <br />
 identifier: 区块高度。     </p>
-<h2 id="_5">合约接口</h2>
+<h2 id="_4">合约接口</h2>
 <p>1.&nbsp;根据合约地址查询事件信息<br />
 <em>接口：</em>   <br />
 <code>https://api.trongrid.io/v1/contracts/:address/events</code>  <br />
@@ -350,7 +347,7 @@ address: 合约地址。 <br />
 <code>limit</code> 分页查询交易，每页的数目。默认<code>20</code>。最大<code>200</code>。   <br />
 <code>fingerprint</code> 上一页返回的最后一笔交易的指纹。    <br />
 <code>order_by</code> 排序方案。自持字段 <code>block_timestamp,asc</code>, <code>block_timestamp,desc</code>。      </p>
-<h2 id="_6">交易接口</h2>
+<h2 id="_5">交易接口</h2>
 <p>1.&nbsp;根据交易ID查询交易信息<br />
 <em>接口：</em>     <br />
 <code>https://api.trongrid.io/v1/transactions/:id</code>  <br />
