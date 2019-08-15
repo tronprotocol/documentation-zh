@@ -12,7 +12,15 @@ GitHub是用来追踪议题，贡献代码、建议、特性请求、文档等�
 
 ** 社区开发者频道 **
   
-* [Gitter](https://gitter.im/tronprotocol/allcoredev)   
+* [java-tron gitter channel](https://gitter.im/tronprotocol/allcoredev)   
+这个频道用来处理跟波场网络相关的问题     
+* [wallet-cli gitter channel](https://gitter.im/tronprotocol/wallet-cli)  
+这个频道用来处理跟波场网络客户端相关的问题     
+* [documentation gitter channel](https://gitter.im/tronprotocol/documentation)  
+这个频道用来处理跟波场相关的文档的问题   
+* [tips gitter channel](https://gitter.im/tronprotocol/TIPs)   
+这个频道用来处理跟波场改进提议相关的问题  
+  
 
 查看 [波场开发者激励政策](incentives.md)
 
