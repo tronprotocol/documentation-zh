@@ -8,7 +8,7 @@
   
   
   <link rel="shortcut icon" href="../../img/favicon.ico">
-  <title>参与开发 - 波场文档</title>
+  <title>Java tron - 波场文档</title>
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 
   <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
@@ -17,8 +17,8 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "\u53c2\u4e0e\u5f00\u53d1";
-    var mkdocs_page_input_path = "developers/contribution.md";
+    var mkdocs_page_name = "Java tron";
+    var mkdocs_page_input_path = "developers/java-tron.md";
     var mkdocs_page_url = null;
   </script>
   
@@ -167,27 +167,9 @@
                     
     <a class="" href="../resources/">资源</a>
                 </li>
-                <li class=" current">
+                <li class="">
                     
-    <a class="current" href="./">参与开发</a>
-    <ul class="subnav">
-            
-    <li class="toctree-l3"><a href="#_1">成为波场社区开发者</a></li>
-    
-
-    <li class="toctree-l3"><a href="#_2">如何参与波场文档的书写</a></li>
-    
-
-    <li class="toctree-l3"><a href="#tip">如何参与TIP书写</a></li>
-    
-
-    <li class="toctree-l3"><a href="#java-tron">如何参与java-tron代码书写</a></li>
-    
-
-    <li class="toctree-l3"><a href="#_3">报告安全问题</a></li>
-    
-
-    </ul>
+    <a class="" href="../contribution/">参与开发</a>
                 </li>
                 <li class="">
                     
@@ -233,12 +215,8 @@
     <li><a href="../..">Docs</a> &raquo;</li>
     
       
-        
-          <li>开发者 &raquo;</li>
-        
-      
     
-    <li>参与开发</li>
+    <li>Java tron</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -248,35 +226,9 @@
           <div role="main">
             <div class="section">
               
-                <h2 id="_1">成为波场社区开发者</h2>
-<p>波场是个全球的，开源的去中心化应用的平台。</p>
-<p>非常感谢你帮助我们开发源代码！我们欢迎和感激来自互联网的任何人的贡献，即使是很小的漏洞修复！</p>
-<p>GitHub是用来追踪议题，贡献代码、建议、特性请求、文档等。</p>
-<p>如果你想参与波场开发，请遵循流程：fork，fix，commit，send a pull request (PR)，以供波场主要维护者审查并且合并到主分支。如果你想提交更复杂的改动，为了保证你的改动符合我们的项目需求或者使你的改动更有效，请先通过我们的通信频道与我们的核心开发者确认。</p>
-<p>我们鼓励尽早提交PR，这样可以让其他社区开发者知道你在开发的议题。未开发完成的PR需要被标注“进行中”状态。</p>
-<p><strong> 社区开发者频道 </strong></p>
-<ul>
-<li><a href="https://gitter.im/tronprotocol/allcoredev">java-tron gitter channel</a> <br />
-这个频道用来处理跟波场网络相关的问题     </li>
-<li><a href="https://gitter.im/tronprotocol/wallet-cli">wallet-cli gitter channel</a><br />
-这个频道用来处理跟波场网络客户端相关的问题     </li>
-<li><a href="https://gitter.im/tronprotocol/documentation">documentation gitter channel</a><br />
-这个频道用来处理跟波场相关的文档的问题   </li>
-<li><a href="https://gitter.im/tronprotocol/TIPs">tips gitter channel</a> <br />
-这个频道用来处理跟波场改进提议相关的问题  </li>
-</ul>
-<p>查看 <a href="../incentives/">波场开发者激励政策</a></p>
-<h2 id="_2">如何参与波场文档的书写</h2>
-<p>我们有两个文档仓库：<br />
-<a href="https://github.com/tronprotocol/documentation-EN">英文文档</a>   <br />
-<a href="https://github.com/tronprotocol/documentation-ZH">中文文档</a>     </p>
-<p>我们使用MkDocs框架来构建我们的文档项目。文档使用Markdown语言书写，通过在YAML配置文件中配置文档路径。</p>
-<p>你可以在/docs/文件夹下，修改、添加文档。</p>
-<h2 id="tip">如何参与TIP书写</h2>
-<p>请查阅<a href="../tips/">如何参与TIP书写</a></p>
-<h2 id="java-tron">如何参与java-tron代码书写</h2>
-<p>java-tron仓库路径是：<a href="https://github.com/tronprotocol/java-tron">https://github.com/tronprotocol/java-tron</a>  </p>
-<p><strong>分支介绍：</strong></p>
+                <p>java-tron仓库路径是：<a href="https://github.com/tronprotocol/java-tron">https://github.com/tronprotocol/java-tron</a>  </p>
+<h2>分支介绍</h2>
+
 <p><code>master</code>分支：<br />
 这个分支包含最近发布到生成环境的代码，并通过Tag进行标注release版本号，这个分支只能从其他分支合并，不能在这个分支直接修改。</p>
 <p><code>develop</code>分支：<br />
@@ -287,7 +239,8 @@
 预发布分支，当你需要发布的时候，基于<code>develop</code>分支创建一个release分支，允许小修复和最终版本元数据（版本号等）修改，从<code>develop</code>分支到<code>release</code>分支的关键点是开发完成反映新版本的期望状态。至少合并了所有针对要发布的功能，针对未来版本的所有功能不会被合并-他们必须等到Release分支创建完成后才可以被合并。完成release后，将其合并到<code>master</code>分支（需要打Tag）和<code>develop</code>分支，并将其删除。上线前最后的测试将在这个分支进行。</p>
 <p><code>hotfix</code>分支：
 当我们在<code>master</code>分支发现bug的时候，需要基于<code>master</code>分支创建一个hotfix分支，完成hotfix后，将其合并到<code>master</code>分支（当做一个新的release）和<code>develop</code>分支，并将其删除。</p>
-<p><strong>开发一个新功能</strong>  </p>
+<h2>开发一个新功能</h2>
+
 <p>当你开始开发新功能时，从<code>develop</code>分支创建一个feature分支，分支需要位于<code>origin/feature</code>下。  </p>
 <pre><code class="text">$ git checkout -b feature/my-feature develop
 # 切换到新分支'feature/my-feature'
@@ -312,7 +265,8 @@ $ git branch -d feature/my-feature
 # 在GitHub网站上，同样删除分支'feature/my-feature'
 </code></pre>
 
-<p><strong>修复线上漏洞</strong>  </p>
+<h2>修复线上漏洞</h2>
+
 <p>当你发现一个发布版的Bug时，从<code>master</code>分支（此时应该是最新release代码）创建一个hotfix分支，分支需要位于<code>origin/hotfix</code>下。</p>
 <pre><code class="text">$ git checkout -b hotfix/my-hotfix master
 # 切换到新分支'hotfix/my-hotfix'
@@ -352,25 +306,10 @@ $ git branch -d hotfix/my-hotfix
 
 <p>最后，请提交一个PR。</p>
 <p>补充说明：如果你开发了新功能，请确保你在<code>/src/test</code>目录中添加了测试用例。</p>
-<h2 id="_3">报告安全问题</h2>
-<p>我们高度重视所有与波场项目安全有关的问题。我们非常感谢你帮助我们增强波场项目的安全性。  </p>
-<p>请在这里报告安全有关的问题 <a href="https://hackerone.com/tronfoundation">https://hackerone.com/tronfoundation</a>  </p>
-<p>我们会从核心开发人员中委派一人跟进问题。首先，我们会确认问题的有效性并且确认问题所影响的版本。其次，我们会去排查是否还有相似的问题存在。最后，我们会修复问题，并发布新的版本。  </p>
-<p>当我们收到你的报告后，我们会及时通知你我们的处理进度。我们有可能会需要你提供更详细的问题信息。   </p>
-<p>如果你对问题的修改有好的建议，请提交一个PR。  </p>
               
             </div>
           </div>
           <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="../incentives/" class="btn btn-neutral float-right" title="激励政策">Next <span class="icon icon-circle-arrow-right"></span></a>
-      
-      
-        <a href="../resources/" class="btn btn-neutral" title="资源"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-      
-    </div>
   
 
   <hr/>
@@ -394,10 +333,6 @@ $ git branch -d hotfix/my-hotfix
     <span class="rst-current-version" data-toggle="rst-current-version">
       
       
-        <span><a href="../resources/" style="color: #fcfcfc;">&laquo; Previous</a></span>
-      
-      
-        <span style="margin-left: 15px"><a href="../incentives/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>
