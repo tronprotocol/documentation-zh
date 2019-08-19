@@ -1,49 +1,6 @@
-## 成为波场社区开发者
-
-波场是个全球的，开源的去中心化应用的平台。
-
-非常感谢你帮助我们开发源代码！我们欢迎和感激来自互联网的任何人的贡献，即使是很小的漏洞修复！
-
-GitHub是用来追踪议题，贡献代码、建议、特性请求、文档等。
-
-如果你想参与波场开发，请遵循流程：fork，fix，commit，send a pull request (PR)，以供波场主要维护者审查并且合并到主分支。如果你想提交更复杂的改动，为了保证你的改动符合我们的项目需求或者使你的改动更有效，请先通过我们的通信频道与我们的核心开发者确认。
-
-我们鼓励尽早提交PR，这样可以让其他社区开发者知道你在开发的议题。未开发完成的PR需要被标注“进行中”状态。
-
-** 社区开发者频道 **
-  
-* [java-tron gitter channel](https://gitter.im/tronprotocol/allcoredev)   
-这个频道用来处理跟波场网络相关的问题     
-* [wallet-cli gitter channel](https://gitter.im/tronprotocol/wallet-cli)  
-这个频道用来处理跟波场网络客户端相关的问题     
-* [documentation gitter channel](https://gitter.im/tronprotocol/documentation)  
-这个频道用来处理跟波场相关的文档的问题   
-* [tips gitter channel](https://gitter.im/tronprotocol/TIPs)   
-这个频道用来处理跟波场改进提议相关的问题  
-  
-
-查看 [波场开发者激励政策](incentives.md)
-
-## 如何参与波场文档的书写
-
-我们有两个文档仓库：  
-[英文文档](https://github.com/tronprotocol/documentation-EN)     
-[中文文档](https://github.com/tronprotocol/documentation-ZH)     
-
-我们使用MkDocs框架来构建我们的文档项目。文档使用Markdown语言书写，通过在YAML配置文件中配置文档路径。
-
-你可以在/docs/文件夹下，修改、添加文档。
-
-## 如何参与TIP书写
-
-请查阅[如何参与TIP书写](./tips.md)
-
-
-## 如何参与java-tron代码书写
-
 java-tron仓库路径是：[https://github.com/tronprotocol/java-tron](https://github.com/tronprotocol/java-tron)  
 
-**分支介绍：**
+<h2>分支介绍</h2>
 
 ``master``分支：  
 这个分支包含最近发布到生成环境的代码，并通过Tag进行标注release版本号，这个分支只能从其他分支合并，不能在这个分支直接修改。
@@ -60,7 +17,7 @@ java-tron仓库路径是：[https://github.com/tronprotocol/java-tron](https://g
 ``hotfix``分支：
 当我们在``master``分支发现bug的时候，需要基于``master``分支创建一个hotfix分支，完成hotfix后，将其合并到``master``分支（当做一个新的release）和``develop``分支，并将其删除。
 
-**开发一个新功能**  
+<h2>开发一个新功能</h2> 
   
 当你开始开发新功能时，从``develop``分支创建一个feature分支，分支需要位于``origin/feature``下。  
 ```text
@@ -87,7 +44,7 @@ $ git branch -d feature/my-feature
 # 在GitHub网站上，同样删除分支'feature/my-feature'
 ```
 
-**修复线上漏洞**  
+<h2>修复线上漏洞</h2> 
      
 当你发现一个发布版的Bug时，从``master``分支（此时应该是最新release代码）创建一个hotfix分支，分支需要位于``origin/hotfix``下。
 ```text
@@ -131,15 +88,3 @@ $ git branch -d hotfix/my-hotfix
 最后，请提交一个PR。
 
 补充说明：如果你开发了新功能，请确保你在``/src/test``目录中添加了测试用例。
-
-## 报告安全问题  
-
-我们高度重视所有与波场项目安全有关的问题。我们非常感谢你帮助我们增强波场项目的安全性。  
-  
-请在这里报告安全有关的问题 [https://hackerone.com/tronfoundation](https://hackerone.com/tronfoundation)  
-
-我们会从核心开发人员中委派一人跟进问题。首先，我们会确认问题的有效性并且确认问题所影响的版本。其次，我们会去排查是否还有相似的问题存在。最后，我们会修复问题，并发布新的版本。  
-
-当我们收到你的报告后，我们会及时通知你我们的处理进度。我们有可能会需要你提供更详细的问题信息。   
-
-如果你对问题的修改有好的建议，请提交一个PR。  
