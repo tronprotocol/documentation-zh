@@ -175,16 +175,16 @@
     <li class="toctree-l3"><a href="#_1">成为波场社区开发者</a></li>
     
 
-    <li class="toctree-l3"><a href="#_2">如何参与波场文档的书写</a></li>
-    
-
     <li class="toctree-l3"><a href="#tip">如何参与TIP书写</a></li>
     
 
     <li class="toctree-l3"><a href="#java-tron">如何参与java-tron代码书写</a></li>
     
 
-    <li class="toctree-l3"><a href="#_3">报告安全问题</a></li>
+    <li class="toctree-l3"><a href="#_2">报告安全问题</a></li>
+    
+
+    <li class="toctree-l3"><a href="#_3">如何参与波场文档的书写</a></li>
     
 
     </ul>
@@ -266,98 +266,22 @@
 这个频道用来处理跟波场改进提议相关的问题  </li>
 </ul>
 <p>查看 <a href="../incentives/">波场开发者激励政策</a></p>
-<h2 id="_2">如何参与波场文档的书写</h2>
-<p>我们有两个文档仓库：<br />
-<a href="https://github.com/tronprotocol/documentation-EN">英文文档</a>   <br />
-<a href="https://github.com/tronprotocol/documentation-ZH">中文文档</a>     </p>
-<p>我们使用MkDocs框架来构建我们的文档项目。文档使用Markdown语言书写，通过在YAML配置文件中配置文档路径。</p>
-<p>你可以在/docs/文件夹下，修改、添加文档。</p>
 <h2 id="tip">如何参与TIP书写</h2>
 <p>请查阅<a href="../tips/">如何参与TIP书写</a></p>
 <h2 id="java-tron">如何参与java-tron代码书写</h2>
-<p>java-tron仓库路径是：<a href="https://github.com/tronprotocol/java-tron">https://github.com/tronprotocol/java-tron</a>  </p>
-<p><strong>分支介绍：</strong></p>
-<p><code>master</code>分支：<br />
-这个分支包含最近发布到生成环境的代码，并通过Tag进行标注release版本号，这个分支只能从其他分支合并，不能在这个分支直接修改。</p>
-<p><code>develop</code>分支：<br />
-这个分支是我们的主开发分支，包含所有要发布到下一个release的代码，这个分支只能从其他分支合并，不能在这个分支直接修改。</p>
-<p><code>feature</code>分支：<br />
-这个分支主要是用来开发一个新的功能，基于<code>develop</code>分支创建，一旦开发完成，就会将其合并回<code>develop</code>分支，并将其删除。</p>
-<p><code>release</code>分支：
-预发布分支，当你需要发布的时候，基于<code>develop</code>分支创建一个release分支，允许小修复和最终版本元数据（版本号等）修改，从<code>develop</code>分支到<code>release</code>分支的关键点是开发完成反映新版本的期望状态。至少合并了所有针对要发布的功能，针对未来版本的所有功能不会被合并-他们必须等到Release分支创建完成后才可以被合并。完成release后，将其合并到<code>master</code>分支（需要打Tag）和<code>develop</code>分支，并将其删除。上线前最后的测试将在这个分支进行。</p>
-<p><code>hotfix</code>分支：
-当我们在<code>master</code>分支发现bug的时候，需要基于<code>master</code>分支创建一个hotfix分支，完成hotfix后，将其合并到<code>master</code>分支（当做一个新的release）和<code>develop</code>分支，并将其删除。</p>
-<p><strong>开发一个新功能</strong>  </p>
-<p>当你开始开发新功能时，从<code>develop</code>分支创建一个feature分支，分支需要位于<code>origin/feature</code>下。  </p>
-<pre><code class="text">$ git checkout -b feature/my-feature develop
-# 切换到新分支'feature/my-feature'
-</code></pre>
-
-<p>完成的新功能将被合并到Develop分支，以便未来合并到Master分支。</p>
-<pre><code class="text">$ git commit -a -m &quot;Bumped version number to 3.1.4&quot;
-# 提交
-$ git checkout develop
-# 切换到分支'develop'
-$ git pull
-# 更新分支
-$ git checkout feature/my-feature
-# 切换到分支'feature/my-feature'
-$ git merge develop
-# 合并分支'develop'，有冲突解决冲突
-$ git push
-# 提交代码到GitHub
-# 在GitHub网站上发起一个Pull Request等待自动化检查和相关人员审核，合并成功后继续下面流程
-$ git branch -d feature/my-feature
-# 删除开发完成后的功能分支'feature/my-feature'
-# 在GitHub网站上，同样删除分支'feature/my-feature'
-</code></pre>
-
-<p><strong>修复线上漏洞</strong>  </p>
-<p>当你发现一个发布版的Bug时，从<code>master</code>分支（此时应该是最新release代码）创建一个hotfix分支，分支需要位于<code>origin/hotfix</code>下。</p>
-<pre><code class="text">$ git checkout -b hotfix/my-hotfix master
-# 切换到新分支'hotfix/my-hotfix'
-# 修改版本号
-$ git commit -a -m &quot;Bumped version number to 3.1.4&quot;
-# 提交
-</code></pre>
-
-<p>当修复完Bug后，需要将Hotfix分支合并到Master分支和Develop分支.</p>
-<pre><code class="text">$ git checkout master
-# 切换到分支'master'
-$ git pull
-# 更新
-$ git checkout hotfix/my-hotfix
-# 切换到分支'hotfix/my-hotfix'
-$ git merge master
-# 合并Master分支代码，解决冲突后
-$ git push
-# 提交到GitHub，然后通过GitHub发起一个Pull Request等待自动化检查和相关人员审核，合并成功后继续下面流程
-# 通过GitHub对Master分支代码打Tag
-
-$ git checkout develop
-# 切换到分支'develop'
-$ git pull
-# 更新
-$ git checkout hotfix/my-hotfix
-# 切换到分支'hotfix/my-hotfix'
-$ git merge develop
-# 合并Develop分支代码，解决冲突后
-$ git push
-# 提交到GitHub，然后通过GitHub发起一个Pull Request等待自动化检查和相关人员审核，合并成功后继续下面流程
-
-$ git branch -d hotfix/my-hotfix
-# 本地删除分支
-# 在GitHub网站上，同样删除分支'feature/my-hotfix'
-</code></pre>
-
-<p>最后，请提交一个PR。</p>
-<p>补充说明：如果你开发了新功能，请确保你在<code>/src/test</code>目录中添加了测试用例。</p>
-<h2 id="_3">报告安全问题</h2>
+<p>请查阅<a href="../java-tron/">如何参与java-tron代码书写</a></p>
+<h2 id="_2">报告安全问题</h2>
 <p>我们高度重视所有与波场项目安全有关的问题。我们非常感谢你帮助我们增强波场项目的安全性。  </p>
 <p>请在这里报告安全有关的问题 <a href="https://hackerone.com/tronfoundation">https://hackerone.com/tronfoundation</a>  </p>
 <p>我们会从核心开发人员中委派一人跟进问题。首先，我们会确认问题的有效性并且确认问题所影响的版本。其次，我们会去排查是否还有相似的问题存在。最后，我们会修复问题，并发布新的版本。  </p>
 <p>当我们收到你的报告后，我们会及时通知你我们的处理进度。我们有可能会需要你提供更详细的问题信息。   </p>
 <p>如果你对问题的修改有好的建议，请提交一个PR。  </p>
+<h2 id="_3">如何参与波场文档的书写</h2>
+<p>我们有两个文档仓库：<br />
+<a href="https://github.com/tronprotocol/documentation-EN">英文文档</a>   <br />
+<a href="https://github.com/tronprotocol/documentation-ZH">中文文档</a>     </p>
+<p>我们使用MkDocs框架来构建我们的文档项目。文档使用Markdown语言书写，通过在YAML配置文件中配置文档路径。</p>
+<p>你可以在/docs/文件夹下，修改、添加文档。</p>
               
             </div>
           </div>
