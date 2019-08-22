@@ -32,5 +32,6 @@ nav:
     - 客户端:  
         - 命令行钱包: clients/wallet-cli.md  
     - 常见问题: q&a/qa.md  
+    - 术语: glossary.md  
 
 theme: readthedocs

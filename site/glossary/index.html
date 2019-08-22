@@ -8,7 +8,7 @@
   
   
   <link rel="shortcut icon" href="../img/favicon.ico">
-  <title>Advanced Configurations - 波场文档</title>
+  <title>术语 - 波场文档</title>
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 
   <link rel="stylesheet" href="../css/theme.css" type="text/css" />
@@ -17,8 +17,8 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "Advanced Configurations";
-    var mkdocs_page_input_path = "advanced-configuration.md";
+    var mkdocs_page_name = "\u672f\u8bed";
+    var mkdocs_page_input_path = "glossary.md";
     var mkdocs_page_url = null;
   </script>
   
@@ -194,9 +194,12 @@
     <a class="" href="../q&a/qa/">常见问题</a>
 	    </li>
           
-            <li class="toctree-l1">
+            <li class="toctree-l1 current">
 		
-    <a class="" href="../glossary/">术语</a>
+    <a class="current" href="./">术语</a>
+    <ul class="subnav">
+            
+    </ul>
 	    </li>
           
         </ul>
@@ -221,7 +224,7 @@
     
       
     
-    <li>Advanced Configurations</li>
+    <li>术语</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -231,118 +234,37 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="advanced-configurations">Advanced Configurations</h1>
-<p>we provide some configuration items for LevelDB and gRPC in <code>config.conf</code> file, for fine-grained performance tuning. <br />
-You may custom these items only if you have deep understanding on them, otherwise keep them as default.</p>
-<h2 id="leveldb">LevelDB</h2>
-<p>You can custom LevelDB options in the <code>storage</code> part of <code>config.conf</code>, which looks like:</p>
-<pre><code>storage {
-  # Directory for storing persistent data
-
-  db.directory = &quot;database&quot;,
-  index.directory = &quot;index&quot;,
-
-  # You can custom these 14 databases' configs:
-
-  # account, account-index, asset-issue, block, block-index,
-  # block_KDB, peers, properties, recent-block, trans,
-  # utxo, votes, witness, witness_schedule.
-
-  # Otherwise, db configs will remain defualt and data will be stored in
-  # the path of &quot;output-directory&quot; or which is set by &quot;-d&quot; (&quot;--output-directory&quot;).
-
-  # Attention: name is a required field that must be set !!!
-  properties = [
-    {
-      name = &quot;account&quot;,
-      path = &quot;/path/to/accout&quot;,   // relative or absolute path
-      createIfMissing = true,
-      paranoidChecks = true,
-      verifyChecksums = true,
-      compressionType = 1,        // 0 - no compression,  1 - compressed with snappy
-      blockSize = 4096,           // 4  KB =         4 * 1024 B
-      writeBufferSize = 10485760, // 10 MB = 10 * 1024 * 1024 B
-      cacheSize = 10485760,       // 10 MB = 10 * 1024 * 1024 B
-      maxOpenFiles = 100
-    }
-  ]
-
-}
-
-</code></pre>
-
-<p>As shown in the example above, the data of database <code>accout</code> will be stored in the path of <code>/path/to/accout/database</code> while the index be stored in <code>/path/to/accout/index</code>. And, the example also shows our default value of LevelDB options from <code>createIfMissing</code> to <code>maxOpenFiles</code>. You can just refer to the docs of <a href="https://github.com/google/leveldb/blob/master/doc/index.md#performance">LevelDB</a> to figure out details of these options.</p>
-<h2 id="grpc">gRPC</h2>
-<p>You can custom gPRC options in the <code>node.rpc</code> part of <code>config.conf</code>, which looks like:</p>
-<pre><code>node {
-  rpc {
-    port = 50051
-
-    # Number of gRPC thread, default availableProcessors / 2
-    # thread = 16
-
-    # The maximum number of concurrent calls permitted for each incoming connection
-    # maxConcurrentCallsPerConnection =
-
-    # The HTTP/2 flow control window, default 1MB
-    # flowControlWindow =
-
-    # Connection being idle for longer than which will be gracefully terminated
-    maxConnectionIdleInMillis = 60000
-
-    # Connection lasting longer than which will be gracefully terminated
-    # maxConnectionAgeInMillis =
-
-    # The maximum message size allowed to be received on the server, default 4MB
-    # maxMessageSize =
-
-    # The maximum size of header list allowed to be received, default 8192
-    # maxHeaderListSize =
-  }
-}
-</code></pre>
-
-<h2 id="backup">backup</h2>
-<p>You can custom backup options in the <code>node.backup</code> part of <code>config.conf</code>, which looks like:</p>
-<pre><code>node.backup {
-    # my priority, each member should use different priority
-    priority = 
-    # members should use same port
-    port = 
-    # peer's ip list, can't contain mine
-    members = []
-}
-</code></pre>
-
-<p>policy: 
-1. the one which synchronized first will become master.
-2. if synchronization is completed at the same time, the one which with big priority will become master.</p>
-<p>E.g. create backups for node A(192.168.0.100) and node B(192.168.0.100 ):
-node A's configuration:</p>
-<pre><code>node.backup {
-    priority = 8 
-    port = 10001
-    members = [
-        &quot;192.168.0.101&quot;
-    ]
-}
-</code></pre>
-
-<p>node B's configuration:</p>
-<pre><code>node.backup {
-    priority = 5
-    port = 10001
-    members = [
-        &quot;192.168.0.100&quot;
-    ]
-}
-</code></pre>
-
-<p>You may refer to the source code of <code>io.grpc.netty.NettyServerBuilder</code> class to see details or just make a decision according to the brief comments above.  </p>
+                <p><strong>energyUsage</strong></p>
+<p>此次调用中，合约调用者消耗的Energy的总量</p>
+<p><strong>energyFee</strong> </p>
+<p>此次调用中，合约调用者消耗的Energy中，需要TRX支付的数目(SUN为单位)</p>
+<p><strong>originEnergyUsage</strong> </p>
+<p>此次调用中，合约开发者消耗的Energy的总量</p>
+<p><strong>energyUsageTotal</strong> </p>
+<p>此次调用中，合约调用者和合约开发者消耗的Energy的总量</p>
+<p><strong>Feelimit</strong> </p>
+<p>用户在调用或者创建智能合约时，指定的最高可接受的trx费用消耗，包含消耗冻结获得资源的trx和消耗用户本身持有的trx两部分，优先使用冻结资源。</p>
+<p><strong>CallValue</strong></p>
+<p>用户在智能合约调用或创建时给智能合约本身的账户转账的trx数量，在判断feelimit的时候会抛去这部分的值。</p>
+<p><strong>consume_user_resource_percent</strong></p>
+<p>对于一个智能合约来说，付费是由两大部分组成的。一部分是合约开发者付费，另一部分是由合约调用者支付。这个值是调用者付费的比例</p>
+<p><strong>origin_energy_limit</strong></p>
+<p>开发者设置的在一次合约调用过程中自己消耗的energy的上限，必须大于0。对于之前老的合约，没有提供设置该值的参数，会存成0，但是会按照1000万energy上限计算，开发者可以通过updateEnergyLimit接口重新设置该值，设置新值时也必须大于0</p>
+<p><strong>net_usage</strong></p>
+<p>本次合约消耗的Bandwidth(不包含NetFee对应的)</p>
+<p><strong>net_fee</strong> </p>
+<p>本次合约因Bandwidth不足消耗的TRX</p>
               
             </div>
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="../q&a/qa/" class="btn btn-neutral" title="常见问题"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>
@@ -365,6 +287,8 @@ node A's configuration:</p>
   <div class="rst-versions" role="note" style="cursor: pointer">
     <span class="rst-current-version" data-toggle="rst-current-version">
       
+      
+        <span><a href="../q&a/qa/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
     </span>
