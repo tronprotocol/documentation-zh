@@ -5,8 +5,11 @@ Tron采用账户模型。账户的唯一标识为地址address，对账户操作
 
 ## 创建账号的方式  
 
-首先用钱包或者浏览器生成私钥和地址，生成方法见3.3和3.4，公钥可以丢弃。  
-由已有老账户调用转账TRX(CreateTransaction2)、转让Token(TransferAsset2)或者创建账户(CreateAccount2)合约，并广播到网络后将完成账户创建的流程。  
+1.&nbsp;首先用钱包或者浏览器生成私钥和地址，公钥可以丢弃。由已有老账户往目标地址发送TRX或者Token，并广播到网络后将完成账户创建的流程。
+
+2.&nbsp;通过调用CreateAccount内置合约，完成创建账户
+
+如果账户有足够的通过冻结TRX获得的带宽，那么创建账户只会消耗带宽，否则，创建账户会烧掉0.1个TRX。    
 
 ## 生成密钥对算法   
 Tron的签名算法为ECDSA，选用曲线为SECP256K1。其私钥为一个随机数，公钥为椭圆曲线上一个点。生成过程为，首先生成一个随机数d作为私钥，再计算P = d * G作为公钥；其中G为椭圆曲线的基点。
@@ -16,18 +19,17 @@ Tron的签名算法为ECDSA，选用曲线为SECP256K1。其私钥为一个随�
 取H的最后20字节，在前面填充一个字节0x41得到address。  
 对address进行basecheck计算得到最终地址，所有地址的第一个字符为T。  
 其中basecheck的计算过程为：首先对address计算sha256得到h1，再对h1计算sha256得到h2，取其前4字节作为check填充到address之后得到address||check，对其进行base58编码得到最终结果。  
-
 我们用的字符映射表为：  
 ALPHABET = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"  
 
 ## 签名说明
 
-<h3> Step </h3>
+<h3> 步骤 </h3>
 1.&nbsp;取交易的rawdata，转成byte[]格式。  
 2.&nbsp;对rawdata进行sha256运算。  
 3.&nbsp;用交易每个合约中地址对应的私钥（现在一般就是一个合约，一个私钥），对sha256的结果进行签名。  
 4.&nbsp;把签名结果添加到交易中。  
-<h3> Algorithm </h3>
+<h3> 算法 </h3>
 1.&nbsp;ECDSA算法，SECP256K。  
 2.&nbsp;签名示例数据    
 ```text    
@@ -39,8 +41,9 @@ ALPHABET = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"
     v:::0  
 ```   
 注意：签名结果应该是65字节。 r 32字节， s 32字节，v 1个字节。  
+
 3.&nbsp;fullnode节点收到交易后会进行验签，由hash 和 r、s、v计算出一个地址，与合约中的地址进行比较，相同则为验签通过。  
-<h3> Demo </h3>
+<h3> 示例 </h3>
 ```
 public static Transaction sign(Transaction transaction, ECKey myKey) {
     Transaction.Builder transactionBuilderSigned = transaction.toBuilder();
