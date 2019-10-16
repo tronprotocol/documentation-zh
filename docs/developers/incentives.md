@@ -66,7 +66,7 @@
 ** 1. 新功能开发 **
 
 描述：为波场网络开发新功能。  
-范围：java-tron    
+范围：java-tron, wallet-cli      
 积分：
 
 | Critical  |   High    |  Medium  |     Low   |
@@ -76,7 +76,7 @@
 ** 2. 报告bug **
 
 描述：报告波场网络上的bug。   
-范围：java-tron     
+范围：java-tron, wallet-cli       
 积分：
 
 | Critical  |   High    |  Medium  |     Low   |
@@ -86,7 +86,7 @@
 **3. 修复bug**
 
 描述：修复波场网络上的bug。     
-范围：java-tron     
+范围：java-tron, wallet-cli       
 积分：
 
 | Critical  |   High    |  Medium  |     Low   |
@@ -106,7 +106,7 @@
 **5. 其他**
 
 描述：代码优化，等等    
-范围：java-tron     
+范围：java-tron, wallet-cli       
 积分：  
 
 | Critical  |   High    |  Medium  |     Low   |
