@@ -43,7 +43,8 @@ votewitness witness1 3 witness2 7 // 同时给witness1投了3票，给witness2�
 当提议获得19个代表及以上的赞成票时，该提议获得通过，并在下个维护期内进行网络参数修改。
 
 <h4> 4.2 创建提议 </h4>
-只有超级代表对应账户具有提议权，其他账户无法创建提议。允许修改的网络动态参数以及编号如下( [min,max] )：  
+只有超级代表对应账户具有提议权，其他账户无法创建提议。允许修改的网络动态参数以及编号如下( [min,max] )：
+ 
 - 0: MAINTENANCE_TIME_INTERVAL, [3 * 27* 1000 ,24 * 3600 * 1000] //修改超级代表调整时间间隔，目前为6 * 3600 * 1000ms  
 - 1: ACCOUNT_UPGRADE_COST, [0,100 000 000 000 000 000]  //修改账户升级为超级代表的费用，目前为9999_000_000 Sun  
 - 2: CREATE_ACCOUNT_FEE, [0,100 000 000 000  000 000] // 修改创建账户费用，目前为100_000Sun  
@@ -62,7 +63,24 @@ votewitness witness1 3 witness2 7 // 同时给witness1投了3票，给witness2�
 - 15: ALLOW_SAME_TOKEN_NAME, // 用于允许创建相同名称的token，目前为0，表示不允许  
 - 16: ALLOW_DELEGATE_RESOURCE, // 用于控制资源代理功能的开启  
 - 17: TOTAL_ENERGY_LIMIT, // 用于调整Energy上限  
-- 18: ALLOW_TVM_TRANSFER_TRC10, // 允许智能合约调用TRC10 token的接口，目前为0，表示不允许。设置为1表示允许  
+- 18: ALLOW_TVM_TRANSFER_TRC10, // 允许智能合约调用TRC10 token的接口，目前为0，表示不允许。设置为1表示允许
+- 19: TOTAL_CURRENT_ENERGY_LIMIT, //用于修改ENERGY总量, 目前为50000000000
+- 20: ALLOW_MULTI_SIGN, //用于多重签名，目前为1
+- 21: ALLOW_ADAPTIVE_ENERGY, //用于允许ENERGY总量自适应调整，目前为0，表示不允许
+- 22: UPDATE_ACCOUNT_PERMISSION_FEE, //用于修改账户权限费用，目前为100000000 SUN
+- 23: MULTI_SIGN_FEE, //用于修改多重签名费用，目前为1000000 SUN
+- 24: ALLOW_PROTO_FILTER_NUM, //用于允许更新protobuf的数字
+- 25: ALLOW_ACCOUNT_STATE_ROOT, //
+- 26: ALLOW_TVM_CONSTANTINOPLE, //
+- 27: ALLOW_SHIELDED_TRANSACTION, //允许匿名交易开启，目前为0，表示不允许
+- 28: SHIELDED_TRANSACTION_FEE, [0,10 000 000 000] //修改匿名交易手续费，目前为10
+- 29: ADAPTIVE_RESOURCE_LIMIT_MULTIPLIER, [1,10 000] //用于修改动态能量最大值，目前值为1000时，表示动态能量最大值是总能量的1000倍
+- 30: ALLOW_CHANGE_DELEGATION, //是否打开更换委托机制开关，目前为0，表示关闭
+- 31: WITNESS_127_PAY_PER_BLOCK, [0,100 000 000 000 000 000] //修改票数排名奖励，目前为16000000 Sun
+- 32: ALLOW_TVM_SOLIDITY_059, //允许虚拟机支持0.5.9版本的Solidity编译器，目前为0，表示不允许
+- 33: ADAPTIVE_RESOURCE_LIMIT_TARGET_RATIO, [1,1 000] //用于修改能量目标值，目前值为10时，表示为目标能量是总能量的1/10
+
+
 
 + 示例：
 ```text
