@@ -221,11 +221,11 @@ bash deploy_grpc_gateway.sh --rpchost 127.0.0.1 --rpcport 50052 --httpport 18891
 
 <h3> 搭建运行环境 </h3>
 
-1. Clone the repo
-2. Go to eventplugin `cd eventplugin` 
+1. Clone the repo `git clone https://github.com/tronprotocol/event-plugin.git`
+2. Go to eventplugin `cd event-plugin` 
 3. run `./gradlew build`
 
-* 这一步会生成`plugin-kafka-1.0.0.zip`，位于`eventplugin/build/plugins/`目录下。  
+* 这一步会生成`plugin-kafka-1.0.0.zip`，位于`event-plugin/build/plugins/`目录下。  
 
 
 <h3> 编辑java-tron的 **config.conf** 文件，增加以下字段：</h3>
