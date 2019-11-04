@@ -451,13 +451,13 @@ bash deploy_tron.sh --app SolidityNode --rpc-port 50041
 <h3> 搭建运行环境 </h3>
 
 <ol>
-<li>Clone the repo</li>
-<li>Go to eventplugin <code>cd eventplugin</code> </li>
+<li>Clone the repo <code>git clone https://github.com/tronprotocol/event-plugin.git</code></li>
+<li>Go to eventplugin <code>cd event-plugin</code> </li>
 <li>
 <p>run <code>./gradlew build</code></p>
 </li>
 <li>
-<p>这一步会生成<code>plugin-kafka-1.0.0.zip</code>，位于<code>eventplugin/build/plugins/</code>目录下。  </p>
+<p>这一步会生成<code>plugin-kafka-1.0.0.zip</code>，位于<code>event-plugin/build/plugins/</code>目录下。  </p>
 </li>
 </ol>
 <h3> 编辑java-tron的 **config.conf** 文件，增加以下字段：</h3>
