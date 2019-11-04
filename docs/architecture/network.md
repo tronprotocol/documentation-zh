@@ -3,7 +3,7 @@ Tron网络采用Peer-to-Peer(P2P)的网络架构，网络中的节点地位对�
 ![image](https://raw.githubusercontent.com/tronprotocol/documentation-EN/master/imags/network.png)
 
 <h3> SuperNode介绍 </h3>
-[超级代表](https://github.com/tronprotocol/Documentation/blob/master/中文文档/波场区块链浏览器介绍/什么是超级代表.md)(简称SR) 是TRON网络上的记账人，一共27个，负责对网络上广播出来的交易数据进行验证，并将交易打包进区块中，他们是轮流的方式打包区块。超级代表的信息是在TRON网络上公开的，所有人都可以获取这些信息，最便捷的方式是在TRON的[区块链浏览器](https://tronscan.org/#/representatives)查看超级代表列表及其信息。
+[超级代表](https://github.com/tronprotocol/Documentation/blob/master/中文文档/波场区块链浏览器介绍/什么是超级代表.md)(简称SR) 是TRON网络上的记账人，一共27个，负责对网络上广播出来的交易数据进行验证，并将交易打包进区块中，他们是轮流的方式打包区块。超级代表的信息是在TRON网络上公开的，所有人都可以获取这些信息，最便捷的方式是在TRON的[区块链浏览器](https://tronscan.org/#/sr/representatives)查看超级代表列表及其信息。
 
 最低配置要求：  
 CPU：16核 内存：32G 带宽：100M 硬盘：1T  
