@@ -252,7 +252,7 @@ genesis.block = {
 
 答：[http://testnet.tronex.io/join/getJoinPage](http://testnet.tronex.io/join/getJoinPage) 
 
-## 只能合约问题
+## 智能合约问题
 
 
 ## 客户端问题
