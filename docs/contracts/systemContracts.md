@@ -1,5 +1,4 @@
- 
-          
+    
  <h2 id="1">1.创建账户 AccountCreateContract</h2>  
 
     message AccountCreateContract {
@@ -67,11 +66,11 @@
    
    `owner_address`：合约持有人地址。    
    `url`：超级节点的网址。    
-     
+    
      
  <h2 id="6">6.发布Token AssetIssueContract</h2>  
 
-   message AssetIssueContract {
+    message AssetIssueContract {
        message FrozenSupply {
          int64 frozen_amount = 1;
          int64 frozen_days = 2;
@@ -112,7 +111,7 @@
    `public_free_asset_net_limit`：所有账户可以使用的免费带宽（转移该资产时使用）。  
    `public_free_asset_net_usage`：所有账户使用免费带宽（转移该资产时使用）。  
    `public_latest_free_net_time`：最近一次转移该Token使用免费带宽的时间。  
-     
+    
      
  <h2 id="7">7.更新超级节点候选人URL WitnessUpdateContract</h2>  
 
@@ -141,7 +140,7 @@
      
  <h2 id="9">9.更新账户 AccountUpdateContract</h2> 
 
-      // Update account name. Account name is not unique now.
+      // Update account name. Account name is unique now.
      message AccountUpdateContract {
        bytes account_name = 1;
        bytes owner_address = 2;
@@ -163,7 +162,7 @@
    `owner_address`：合约持有人地址。  
    `frozen_balance`：冻结资产的数量。  
    `frozen_duration`：冻结资产的时间段。  
-   `resource`： 冻结TRX获取资源的类型。 
+   `resource`： 冻结TRX获取资源的类型。   
    `receiver_address`：接收资源的账户。    
 
      
