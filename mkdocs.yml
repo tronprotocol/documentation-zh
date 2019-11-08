@@ -15,15 +15,15 @@ nav:
         - 去中心化交易所: mechanism&algorithm/dex.md
         - 多重签名: mechanism&algorithm/multi-signatures.md
         - 匿名交易: mechanism&algorithm/shielded-transaction.md
+        - 系统合约: mechanism&algorithm/systemContracts.md   
     - 架构:
         - 网络: architecture/network.md
         - 数据库: architecture/database.md
         - 插件: architecture/plugin.md  
-    - 合约: 
+    - 智能合约: 
         - 虚拟机: contracts/tvm.md
         - 编译器: contracts/compiler.md    
         - 合约: contracts/contract.md  
-        - 系统合约: contracts/systemContracts.md 
     - 开发者:
         - 官方节点: developers/official-public-nodes.md
         - 部署: developers/deployment.md

@@ -414,3 +414,8 @@
    `c_enc`：note加密结果的一部分，是对（Diversifier, 转账金额v, 生成note_commitment的随机数rcm, Memo）的加密结果。  
    `c_out`：note加密结果的另一部分，是对（接收方公钥，临时私钥）的加密结果。  
    `zkproof`：交易接收方note存在的零知识证明。   
+
+  <h2 id="27">27.多重签名</h2>
+
+  [多重签名](./multi-signatures.md)
+
