@@ -87,9 +87,6 @@
     <a class="current" href="./">超级代表与委员会</a>
     <ul class="subnav">
             
-    <li class="toctree-l3"><a href="#_1">超级代表与委员会</a></li>
-    
-
     </ul>
                 </li>
                 <li class="">
@@ -116,6 +113,10 @@
                     
     <a class="" href="../shielded-transaction/">匿名交易</a>
                 </li>
+                <li class="">
+                    
+    <a class="" href="../systemContracts/">系统合约</a>
+                </li>
     </ul>
 	    </li>
           
@@ -140,7 +141,7 @@
           
             <li class="toctree-l1">
 		
-    <span class="caption-text">合约</span>
+    <span class="caption-text">智能合约</span>
     <ul class="subnav">
                 <li class="">
                     
@@ -153,10 +154,6 @@
                 <li class="">
                     
     <a class="" href="../../contracts/contract/">合约</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../../contracts/systemContracts/">系统合约</a>
                 </li>
     </ul>
 	    </li>
@@ -245,16 +242,16 @@
           <div role="main">
             <div class="section">
               
-                <h2 id="_1">超级代表与委员会</h2>
-<h3>1. 申请成为超级代表候选人规则 </h3>
+                <h3>1. 申请成为超级代表候选人规则 </h3>
 
-<p>在TRON网络中，任何账户都可以申请成为超级代表候选人，都有机会成为超级代表。每个账户都可以投票给超级代表候选人，获取投票数最高的27个超级代表候选人就是超级代表。就具有出链块的权利。
- 投票统计每6小时统计一次，超级代表也就每6个小时变更一次。</p>
+<p>在TRON网络中，任何账户都可以申请成为超级代表候选人，都有机会成为超级代表。每个账户都可以投票给超级代表候选人。    </p>
+<p>得票前27名的witness称为超级代表（SR），就具有出链块的权利。 从28名到127名（包含）的witness称为合伙人（partner），从128名之后的witness称为候选人（Candidates）。     </p>
+<p>投票统计每6小时统计一次，超级代表也就每6个小时变更一次。  </p>
 <p>为了防止恶意攻击，成为超级代表候选人也需要一定代价的。TRON网络将直接烧掉申请者账户9999TRX。申请成功后，您就可以竞选超级代表了。</p>
 <h3>2. 选举超级代表 </h3>
 
 <p>投票需要TRON Power(TP)，你的TRON Power(TP)的多少由当前冻结资金决定。TRON Power(TP)的计算方法：每冻结1TRX，就可以获得1单位TRON Power(TP)。</p>
-<p>TRON网络中的每一个账户都具有选举权，可以通过投票选出自己认同的超级代表了。</p>
+<p>TRON网络中的每一个账户都具有选举权，可以通过投票选出自己认同的超级代表了。  </p>
 <p>在解冻后，你没有了冻结的资产，相应地失去了所有的TRON Power(TP)，因此以前的投票会失效。你可以通过重新冻结并投票来避免投票失效。</p>
 <p>注意: 波场网络只记录你最后一次投票的状态，也就是说你的每一次投票都会覆盖以前所有的投票效果</p>
 <ul>
@@ -281,8 +278,8 @@ votewitness witness1 3 witness2 7 // 同时给witness1投了3票，给witness2�
 当提议获得19个代表及以上的赞成票时，该提议获得通过，并在下个维护期内进行网络参数修改。</p>
 <h4> 4.2 创建提议 </h4>
 
-<p>只有超级代表以及超级代表候选人对应账户具有提议权，其他账户无法创建提议。  <br />
-允许修改的网络动态参数以及编号如下( [min,max] )：
+<p>只有超级代表（SR）、合伙人（Partner）和候选人（Candidates）对应账户具有提议权。     </p>
+<p>允许修改的网络动态参数以及编号如下( [min,max] )：
 {0,1}：1代表‘通过’或者‘激活’，0代表否。    </p>
 <table>
 <thead>
