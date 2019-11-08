@@ -242,9 +242,7 @@
           <div role="main">
             <div class="section">
               
-                <pre><code>
-</code></pre>
-<p><h2 id="1">1.创建账户 AccountCreateContract</h2>  </p>
+                <p><h2 id="1">1.创建账户 AccountCreateContract</h2>  </p>
 <pre><code>message AccountCreateContract {
    bytes owner_address = 1;
    bytes account_address = 2;
@@ -300,29 +298,30 @@
 <p><code>owner_address</code>：合约持有人地址。  <br />
 <code>url</code>：超级节点的网址。    </p>
 <p><h2 id="6">6.发布Token AssetIssueContract</h2>  </p>
-<p>message AssetIssueContract {
-       message FrozenSupply {
-         int64 frozen_amount = 1;
-         int64 frozen_days = 2;
-       }
-       bytes owner_address = 1;
-       bytes name = 2;
-       bytes abbr = 3;
-       int64 total_supply = 4;
-       repeated FrozenSupply frozen_supply = 5;
-       int32 trx_num = 6;
-       int32 num = 8;
-       int64 start_time = 9;
-       int64 end_time = 10;
-       int64 order = 11; // the order of tokens of the same name
-       int32 vote_score = 16;
-       bytes description = 20;
-       bytes url = 21;
-       int64 free_asset_net_limit = 22;
-       int64 public_free_asset_net_limit = 23;
-       int64 public_free_asset_net_usage = 24;
-       int64 public_latest_free_net_time = 25;
-     }</p>
+<pre><code>message AssetIssueContract {
+   message FrozenSupply {
+     int64 frozen_amount = 1;
+     int64 frozen_days = 2;
+   }
+   bytes owner_address = 1;
+   bytes name = 2;
+   bytes abbr = 3;
+   int64 total_supply = 4;
+   repeated FrozenSupply frozen_supply = 5;
+   int32 trx_num = 6;
+   int32 num = 8;
+   int64 start_time = 9;
+   int64 end_time = 10;
+   int64 order = 11; // the order of tokens of the same name
+   int32 vote_score = 16;
+   bytes description = 20;
+   bytes url = 21;
+   int64 free_asset_net_limit = 22;
+   int64 public_free_asset_net_limit = 23;
+   int64 public_free_asset_net_usage = 24;
+   int64 public_latest_free_net_time = 25;
+ }
+</code></pre>
 <p><code>owner_address</code>：合约持有人地址。   <br />
 <code>name</code>：发布Token的名称。 
    <code>abbr</code>：Token缩写。  <br />
@@ -361,7 +360,7 @@
 <code>asset_name</code>： 发行Token的id。  <br />
 <code>amount</code>：购买发行Token使用TRX的数量，单位是 sun。  </p>
 <p><h2 id="9">9.更新账户 AccountUpdateContract</h2> </p>
-<pre><code>  // Update account name. Account name is not unique now.
+<pre><code>  // Update account name. Account name is unique now.
  message AccountUpdateContract {
    bytes account_name = 1;
    bytes owner_address = 2;
@@ -381,8 +380,8 @@
 <p><code>owner_address</code>：合约持有人地址。<br />
 <code>frozen_balance</code>：冻结资产的数量。<br />
 <code>frozen_duration</code>：冻结资产的时间段。<br />
-<code>resource</code>： 冻结TRX获取资源的类型。 
-   <code>receiver_address</code>：接收资源的账户。    </p>
+<code>resource</code>： 冻结TRX获取资源的类型。 <br />
+<code>receiver_address</code>：接收资源的账户。    </p>
 <p><h2 id="11">11.解冻资产 UnfreezeBalanceContract</h2>  </p>
 <pre><code>  message UnfreezeBalanceContract {
    bytes owner_address = 1;
