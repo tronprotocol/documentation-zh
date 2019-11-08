@@ -22,7 +22,8 @@ nav:
     - 合约: 
         - 虚拟机: contracts/tvm.md
         - 编译器: contracts/compiler.md    
-        - 合约: contracts/contract.md   
+        - 合约: contracts/contract.md  
+        - 系统合约: contracts/systemContracts.md 
     - 开发者:
         - 官方节点: developers/official-public-nodes.md
         - 部署: developers/deployment.md
