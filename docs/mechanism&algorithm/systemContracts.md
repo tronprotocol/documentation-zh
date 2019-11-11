@@ -417,5 +417,39 @@
 
   <h2 id="27">27.多重签名</h2>
 
-  [多重签名](./multi-signatures.md)
+  [多重签名](./multi-signatures.md)   
+
+  <h2 id="28">28. 清除ABI合约</h2>  
+
+     message ClearABIContract {
+       bytes owner_address = 1;
+       bytes contract_address = 2;
+     }
+  
+   `owner_address`：合约持有人地址。  
+   `account_address`：需要清除ABI的合约。   
+
+  <h2 id="29">29. 更新分红比例合约</h2>  
+
+     message UpdateBrokerageContract {
+       bytes owner_address = 1;
+       int32 brokerage = 2; 
+     }
+  
+   `owner_address`：合约持有人地址。     
+   `brokerage`: 分红比例，从0到100，1代表1%。      
+
+  <h2 id="30">30. 调整能量上限合约</h2>  
+
+     message UpdateEnergyLimitContract {
+       bytes owner_address = 1;
+       bytes contract_address = 2;
+       int64 origin_energy_limit = 3; 
+     }
+  
+   `owner_address`：合约持有人地址。    
+   `contract_address`：需要调整的合约地址。      
+   `origin_energy_limit`：初始能量上限。     
+
+
 
