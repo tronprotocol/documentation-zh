@@ -434,7 +434,8 @@ CPU：64核及以上 内存：64G及以上 带宽：500M及以上 硬盘：20T�
 1.&nbsp;下载private_net_config.conf  
 
 
-wzxhzdk:4
+<pre><code class="text">wget https://github.com/tronprotocol/tron-deployment/blob/master/private_net_config.conf
+</code></pre>
 
 2.&nbsp;在localwitness中添加自己的私钥  
 3.&nbsp;设置genesis.block.witnesses为私钥对应的地址  
@@ -444,7 +445,13 @@ CPU：64核及以上 内存：64G及以上 带宽：500M及以上 硬盘：20T�
 7.&nbsp;运行部署脚本  
 
 
-wzxhzdk:5
+<pre><code class="text">nohup java -Xmx6g -XX:+HeapDumpOnOutOfMemoryError -jar FullNode.jar  --witness  -c private_net_config.conf
+
+命令行参数说明:
+--witness: 启动witness功能，i.e.: --witness
+--log-config: 指定日志配置文件路径，i.e.: --log-config logback.xml
+-c: 指定配置文件路径，i.e.: -c config.conf
+</code></pre>
 
 日志文件使用：
 可以修改模块的level等级来控制日志的输出，默认每个模块的level级别为INFO，比如，只打印网络模块warn以上级别的信息，可以如下修改
@@ -464,7 +471,8 @@ CPU：64核及以上 内存：64G及以上 带宽：500M及以上 硬盘：20T�
 
 1.&nbsp;下载private_net_config.conf   
 
-wzxhzdk:6
+<pre><code class="text">wget https://github.com/tronprotocol/tron-deployment/blob/master/private_net_config.conf 
+</code></pre>
 
 2.&nbsp;设置seed.node ip.list 为SR的ip地址和端口   
 3.&nbsp;设置p2p.version与超级节点的p2p.version一致   
@@ -474,7 +482,12 @@ CPU：64核及以上 内存：64G及以上 带宽：500M及以上 硬盘：20T�
 7.&nbsp;运行部署脚本   
 
 
-wzxhzdk:7
+<pre><code class="text">nohup java -Xmx6g -XX:+HeapDumpOnOutOfMemoryError -jar FullNode.jar  --witness  -c private_net_config.conf
+命令行参数说明:
+--witness: 启动witness功能，i.e.: --witness。
+--log-config: 指定日志配置文件路径，i.e.: --log-config logback.xml。
+-c: 指定配置文件路径，i.e.: -c config.conf。
+</code></pre>
 
 日志文件使用：
 可以修改模块的level等级来控制日志的输出，默认每个模块的level级别为INFO，比如，只打印网络模块warn以上级别的信息，可以如下修改
@@ -511,7 +524,10 @@ CPU：64核及以上 内存：64G及以上 带宽：500M及以上 硬盘：20T�
   使用方法：
 
 
-wzxhzdk:8
+<pre><code class="text">cd 源代码根目录
+./gradlew build   #编译源代码
+java -jar build/libs/DBConvert.jar  #执行数据转换指令
+</code></pre>
 
   注意：如果节点的数据存储目录是自定义的，运行DBConvert.jar时添加下面2个可选参数。  
 
@@ -520,11 +536,13 @@ CPU：64核及以上 内存：64G及以上 带宽：500M及以上 硬盘：20T�
 
   例如，如果节点是像这样的脚本运行的:
 
-wzxhzdk:9
+<pre><code class="text">nohup java -jar FullNode.jar -d your_database_dir &amp;
+</code></pre>
 
   那么，你应该这样运行数据转换工具DBConvert.jar:
 
-wzxhzdk:10
+<pre><code class="text">java -jar build/libs/DBConvert.jar  your_database_dir/database  output-directory-dst/database
+</code></pre>
 
   注意：必须停止节点的运行，然后再运行数据转换脚本。  
   如果不希望节点停止时间太长，可以在节点停止后先将leveldb数据目录output-directory拷贝一份到新的目录下，然后恢复节点的运行。  
@@ -532,7 +550,10 @@ CPU：64核及以上 内存：64G及以上 带宽：500M及以上 硬盘：20T�
   在新目录的上级目录中执行DBConvert.jar并指定参数`src_db_path`和`dst_db_path` 。
   例如:
 
-wzxhzdk:11
+<pre><code class="text">cp -rf output-directory /tmp/output-directory
+cd /tmp
+java -jar DBConvert.jar output-directory/database  output-directory-dst/database
+</code></pre>
 
   整个的数据转换过程可能需要10个小时左右。
 
