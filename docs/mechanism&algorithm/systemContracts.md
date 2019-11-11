@@ -449,7 +449,7 @@
   
    `owner_address`：合约持有人地址。    
    `contract_address`：需要调整的合约地址。      
-   `origin_energy_limit`：初始能量上限。     
+   `origin_energy_limit`：能量上限目标值。     
 
 
 
