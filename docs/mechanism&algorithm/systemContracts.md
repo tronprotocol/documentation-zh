@@ -9,7 +9,7 @@
  
    `owner_address`：合约持有人地址。     
    `account_address`： 将要创建的账户地址。    
-   `type`：账户类型。0代表普通账户，1代表智能合约账户。  
+   `type`：账户类型。0代表普通账户，1代表创世块中初始账号，2代表智能合约账户。    
      
  <h2 id="2">2.转账 TransferContract</h2>  
 
