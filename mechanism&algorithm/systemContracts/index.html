@@ -251,7 +251,7 @@
 </code></pre>
 <p><code>owner_address</code>：合约持有人地址。   <br />
 <code>account_address</code>： 将要创建的账户地址。  <br />
-<code>type</code>：账户类型。0代表普通账户，1代表智能合约账户。  </p>
+<code>type</code>：账户类型。0代表普通账户，1代表创世块中初始账号，2代表智能合约账户。    </p>
 <p><h2 id="2">2.转账 TransferContract</h2>  </p>
 <pre><code>  message TransferContract {
    bytes owner_address = 1;
@@ -608,7 +608,7 @@
 </code></pre>
 <p><code>owner_address</code>：合约持有人地址。  <br />
 <code>contract_address</code>：需要调整的合约地址。    <br />
-<code>origin_energy_limit</code>：能量上限目标值。     </p>
+<code>origin_energy_limit</code>：调整后智能合约部署者提供的能量上限值。        </p>
               
             </div>
           </div>
