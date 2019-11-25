@@ -472,7 +472,7 @@ localwitness = [
     operations[e / 8] |= (1 &lt;&lt; e % 8);
   });
 
-  //7fff1fc0037e0000000000000000000000000000000000000000000000000000
+  //7fff1fc0033e0000000000000000000000000000000000000000000000000000
   System.out.println(ByteArray.toHexString(operations));
 }
 </code></pre>
@@ -513,8 +513,9 @@ rpc GetTransactionSignWeight (Transaction) returns (TransactionSignWeight) {}
 <p>支持多重签名后，创建账户时有什么变化？<br />
 在升级到V3.5版本后，并且多重签名提议生效后，创建账户时将自动生成owner-permission以及一个active-permission，
 其中owner-permission中仅包含一个key，权限及阈值都为1。active-permission中也包含一个key，权限及阈值都为1，并且
-operations为"7fff1fc0037e0000000000000000000000000000000000000000000000000000"，表示支持除
-AccountPermissionUpdateContract以外的所有操作。</p>
+operations为"7fff1fc0033e0000000000000000000000000000000000000000000000000000"，表示支持除
+AccountPermissionUpdateContract以外的所有操作。
+在V3.5版本以后，如果有新增系统合约，新创建的账户的默认operations值会发生变化。已经创建的账户的operations不会发生变化。</p>
               
             </div>
           </div>
