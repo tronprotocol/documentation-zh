@@ -1,4 +1,55 @@
-** TRON内置http接口说明 **
+**API INDEX:**
+    
+| transaction                   |  account                           |   shielded transactions                      |
+|-------------------------------|------------------------------------|----------------------------------------------|
+| createtransaction             |  updateaccount                     | getexpandedspendingkey                       |
+| gettransactionsign            |  createaccount                     | getakfromask                                 |
+| gettransactionbyid            |  createaddress                     | getnkfromnsk                                 |
+| gettransactioninfobyid        |  getaccountnet                     | getspendingkey                               |
+| gettransactioncountbyblocknum |  getaccount                        | getdiversifier                               | 
+| totaltransaction              |  generateaddress                   | getincomingviewingkey                        | 
+| getdeferredtransactionbyid    |  validateaddress                   | getzenpaymentaddress                         |
+| canceldeferredtransactionbyid |  getaccountresource                | scannotebyivk                                |
+| getdeferredtransactioninfobyid|  setaccountid                      | scanandmarknotebyivk                         | 
+| getsignweight                 |  getaccountbyid                    | scannotebyovk                                |
+| addtransactionsign            |  accountpermissionupdate           | getrcm                                       | 
+|                               |  getdelegatedresource              | getmerkletreevoucherinfo                     | 
+|                               |  getdelegatedresourceaccountindex  | isspend                                      |
+|    **block**                  |  freezebalance                     | createspendauthsig                           | 
+| getnowblock                   |  unfreezebalance                   | createshieldnullifier                        |
+| getblockbynum                 |  unfreezeasset                     | getshieldtransactionhash                     | 
+| getblockbyid                  |  withdrawbalance                   | createshieldedtransaction                    |
+| getblockbylimitnext           |  votewitnessaccount                | createshieldedtransaction<br>withoutspendauthsig |
+| getblockbylatestnum           |  updatewitness                     | createshieldedtransaction<br>withoutspendauthsig |
+|                               |  createwitness                     |                                              |
+
+
+
+|   asset                        |  exchange               | transfer                        |  
+|--------------------------------|-------------------------|---------------------------------|
+|  createassetissue              | exchangecreate          | easytransferbyprivate           | 
+|  participateassetissue         | exchangeinject          | easytransferassetbyprivate      |       
+|  getassetissuebyaccount        | exchangewithdraw        | transferasset                   |  
+|  getassetissuebyname           | exchangetransaction     | easytransfer                    | 
+|  getassetissuelistbyname       | getexchangebyid         | easytransferasset               | 
+|  getassetissuelist             | getpaginatedexchangelist|                                 |                    
+|  getpaginatedassetissuelist    | getpaginatedexchangelist|                                 |                    
+|  getassetissuebyid             | listexchanges           |                                 |                    
+|  updateasset                   | getpaginatedexchangelist|                                 |                    
+
+
+
+|   proposal                       | smart contract          | others                |
+|----------------------------------|-------------------------|-----------------------|
+|  getpaginatedproposallist        | deploycontract          | broadcasttransaction  |
+|  proposalcreate                  | getcontract             | broadcasthex          |
+|  getproposalbyid                 | triggerconstantcontract | listnodes             |
+|  listproposals                   | triggersmartcontract    | listwitnesses         |
+|  proposalapprove                 | clearabi                | getnextmaintenancetime|
+|  proposaldelete                  | updateenergylimit       | getnodeinfo           |
+|  getapprovedlist                 | updatesetting           | getchainparameters    |
+
+
 ## hexString和base58check转码demo
 java: 
 [https://github.com/tronprotocol/wallet-cli/blob/master/src/main/java/org/tron/demo/TransactionSignDemo.java#L92](https://github.com/tronprotocol/wallet-cli/blob/master/src/main/java/org/tron/demo/TransactionSignDemo.java#L92)
