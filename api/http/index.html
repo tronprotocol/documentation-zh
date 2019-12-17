@@ -287,32 +287,32 @@
 <td>getdiversifier</td>
 </tr>
 <tr>
-<td>totaltransaction</td>
+<td>getdeferredtransactionbyid</td>
 <td>generateaddress</td>
 <td>getincomingviewingkey</td>
 </tr>
 <tr>
-<td>getdeferredtransactionbyid</td>
+<td>canceldeferredtransactionbyid</td>
 <td>validateaddress</td>
 <td>getzenpaymentaddress</td>
 </tr>
 <tr>
-<td>canceldeferredtransactionbyid</td>
+<td>getdeferredtransactioninfobyid</td>
 <td>getaccountresource</td>
 <td>scannotebyivk</td>
 </tr>
 <tr>
-<td>getdeferredtransactioninfobyid</td>
+<td>getsignweight</td>
 <td>setaccountid</td>
 <td>scanandmarknotebyivk</td>
 </tr>
 <tr>
-<td>getsignweight</td>
+<td>addtransactionsign</td>
 <td>getaccountbyid</td>
 <td>scannotebyovk</td>
 </tr>
 <tr>
-<td>addtransactionsign</td>
+<td></td>
 <td>accountpermissionupdate</td>
 <td>getrcm</td>
 </tr>
@@ -1142,12 +1142,6 @@ wallet/getpaginatedexchangelist(Odyssey-v3.2开始支持)
 demo: curl -X POST  http://127.0.0.1:8090/wallet/getpaginatedexchangelist -d '{&quot;offset&quot;: 0, &quot;limit&quot;:10}'
 参数说明：offset是起始交易对的index，limit是期望返回的交易对数量
 返回值：提案列表
-
-wallet/totaltransaction
-作用：统计所有交易总数
-demo: curl -X POST  http://127.0.0.1:8090/wallet/totaltransaction
-参数说明：无
-返回值：交易总数。
 
 wallet/getnextmaintenancetime
 作用：获取下次统计投票的时间
