@@ -7,12 +7,12 @@
 | gettransactionbyid            |  createaddress                     | getnkfromnsk                                 |
 | gettransactioninfobyid        |  getaccountnet                     | getspendingkey                               |
 | gettransactioncountbyblocknum |  getaccount                        | getdiversifier                               | 
-| totaltransaction              |  generateaddress                   | getincomingviewingkey                        | 
-| getdeferredtransactionbyid    |  validateaddress                   | getzenpaymentaddress                         |
-| canceldeferredtransactionbyid |  getaccountresource                | scannotebyivk                                |
-| getdeferredtransactioninfobyid|  setaccountid                      | scanandmarknotebyivk                         | 
-| getsignweight                 |  getaccountbyid                    | scannotebyovk                                |
-| addtransactionsign            |  accountpermissionupdate           | getrcm                                       | 
+| getdeferredtransactionbyid    |  generateaddress                   | getincomingviewingkey                        | 
+| canceldeferredtransactionbyid |  validateaddress                   | getzenpaymentaddress                         |
+| getdeferredtransactioninfobyid|  getaccountresource                | scannotebyivk                                |
+| getsignweight                 |  setaccountid                      | scanandmarknotebyivk                         | 
+| addtransactionsign            |  getaccountbyid                    | scannotebyovk                                |
+|                               |  accountpermissionupdate           | getrcm                                       | 
 |                               |  getdelegatedresource              | getmerkletreevoucherinfo                     | 
 |                               |  getdelegatedresourceaccountindex  | isspend                                      |
 |    **block**                  |  freezebalance                     | createspendauthsig                           | 
@@ -732,12 +732,6 @@ wallet/getpaginatedexchangelist(Odyssey-v3.2开始支持)
 demo: curl -X POST  http://127.0.0.1:8090/wallet/getpaginatedexchangelist -d '{"offset": 0, "limit":10}'
 参数说明：offset是起始交易对的index，limit是期望返回的交易对数量
 返回值：提案列表
-
-wallet/totaltransaction
-作用：统计所有交易总数
-demo: curl -X POST  http://127.0.0.1:8090/wallet/totaltransaction
-参数说明：无
-返回值：交易总数。
 
 wallet/getnextmaintenancetime
 作用：获取下次统计投票的时间
