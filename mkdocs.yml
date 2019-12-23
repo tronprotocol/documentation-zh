@@ -24,6 +24,7 @@ nav:
         - 虚拟机: contracts/tvm.md
         - 编译器: contracts/compiler.md    
         - 合约: contracts/contract.md  
+        - TRC-20: contracts/trc20.md  
     - 开发者:
         - 官方节点: developers/official-public-nodes.md
         - 部署: developers/deployment.md
