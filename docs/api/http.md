@@ -20,7 +20,7 @@
 | getblockbynum                 |  unfreezeasset                     | getshieldtransactionhash                     | 
 | getblockbyid                  |  withdrawbalance                   | createshieldedtransaction                    |
 | getblockbylimitnext           |  votewitnessaccount                | createshieldedtransaction<br>withoutspendauthsig |
-| getblockbylatestnum           |  updatewitness                     | createshieldedtransaction<br>withoutspendauthsig |
+| getblockbylatestnum           |  updatewitness                     | getnewshieldedaddress                        |
 |                               |  createwitness                     |                                              |
 
 
@@ -1447,7 +1447,7 @@ nk：Nk
 
 wallet/getshieldtransactionhash    
 作用：获得一笔匿名交易的hash 
-demo: curl -X POST  http://127.0.0.1:8090/wallet/createshieldnullifier -d 
+demo: curl -X POST  http://127.0.0.1:8090/wallet/getshieldtransactionhash -d 
 '{
     "txID": "de639a64497d86bb27e34a2953093a0cc488ec4c7bc9624ac5857d3799748595",
     "raw_data": {
@@ -1508,3 +1508,21 @@ to_amount：转入透明地址的数额
 返回值：交易对象   
 
 ```
+
+
+
+wallet/getnewshieldedaddress   
+
+作用: 获得shieldedAddress
+demo: curl -X GET  http://127.0.0.1:8090/wallet/getnewshieldedaddress
+参数说明: 无      
+返回值: Spending key     
+返回值: Ask key
+返回值: Nsk key
+返回值: Outgoing viewing key
+返回值: Ak Key
+返回值: Nk key
+返回值: incoming viewing key
+返回值: Diversifier
+返回值: pkD
+返回值: payment address 
