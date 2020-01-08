@@ -303,7 +303,7 @@ Nodes: FullNode
 
 **59.&nbsp;Get all orders for the account**      
 Interface statement:    
-rpc GetMarketOrderByAccount (Account) returns (MarketOrderList) {};
+rpc GetMarketOrderByAccount (BytesMessage) returns (MarketOrderList) {};
 Nodes: FullNode 
 
 **60.&nbsp;Get all trading pairs**      
