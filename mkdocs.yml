@@ -28,6 +28,7 @@ nav:
     - 开发者:
         - 官方节点: developers/official-public-nodes.md
         - 部署: developers/deployment.md
+        - 在IEDEA中启动节点: developers/run_in_IDEA.md
         - 资源: developers/resources.md
         - 参与开发: developers/contribution.md
         - 激励政策: developers/incentives.md
