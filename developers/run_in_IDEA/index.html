@@ -176,11 +176,11 @@
     <a class="current" href="./">在IDEA中启动节点</a>
     <ul class="subnav">
             
-    <li class="toctree-l3"><a href="#idea">使用IDEA运行我们的节点</a></li>
+    <li class="toctree-l3"><a href="#ideafullnode">使用IDEA运行FullNode节点</a></li>
     
         <ul>
         
-            <li><a class="toctree-l4" href="#idea_1">一、配置集成开发环境IDEA</a></li>
+            <li><a class="toctree-l4" href="#idea">一、配置集成开发环境IDEA</a></li>
         
             <li><a class="toctree-l4" href="#_1">二、部署指南</a></li>
         
@@ -261,18 +261,24 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="idea">使用IDEA运行我们的节点</h1>
-<p>该文档旨在方便有一定经验的开发者在集成开发环境IDEA中运行我们的节点</p>
-<p><strong>以下内容针对当前master分支</strong></p>
-<h2 id="idea_1">一、配置集成开发环境IDEA</h2>
-<p><strong>IDEA配置</strong>
-- Oracle JDK 1.8 <strong>当前不支持OpenJDK</strong>
-- 安装Lombok插件</p>
-<p><img alt="" src="../../imags/lombok.png" /></p>
+                <h1 id="ideafullnode">使用IDEA运行FullNode节点</h1>
+<p>该文档旨在方便有一定经验的开发者在集成开发环境IDEA中运行FullNode节点</p>
+<p><strong>以下内容针对java-tron的master分支</strong></p>
+<h2 id="idea">一、配置集成开发环境IDEA</h2>
+<p><strong>IDEA配置</strong></p>
+<ul>
+<li>
+<p>Oracle JDK 1.8 <strong>当前不支持OpenJDK</strong></p>
+</li>
+<li>
+<p>安装Lombok插件</p>
+</li>
+</ul>
+<p><img alt="" src="https://raw.githubusercontent.com/cathy-lishipu/documentation-zh/idea_instruction/imags/lombok.png" /></p>
 <ul>
 <li>将Compiler下Annotation Processors中的Enable annotation processing前打勾</li>
 </ul>
-<p><img alt="" src="../../imags/annnotation.png" /></p>
+<p><img alt="" src="https://raw.githubusercontent.com/cathy-lishipu/documentation-zh/idea_instruction/imags/annnotation.png" /></p>
 <h2 id="_1">二、部署指南</h2>
 <p><strong>1.创建目录</strong>
 <em>/deploy</em></p>
@@ -294,19 +300,19 @@ git checkout -t origin/master
 
 <p>编译过程可能需要一定时间，请耐心等待。
 若编译成功，你可以看到类似如下块信息：</p>
-<p><img alt="" src="../../imags/build_success_test.png" /></p>
+<p><img alt="" src="https://raw.githubusercontent.com/cathy-lishipu/documentation-zh/idea_instruction/imags/build_success_test.png" /></p>
 <p>如果不想执行单元测试任务，可运行如下命令：</p>
 <pre><code class="swift">./gradlew build -x test
 </code></pre>
 
 <p><strong>5.启动FullNode节点</strong></p>
 <p>编译成功后，可通过java-tron/src/main/java/org/tron/program/FullNode.java路径找到主函数文件，启动一个全节点。</p>
-<p><img alt="" src="../../imags/start.png" /></p>
+<p><img alt="" src="https://raw.githubusercontent.com/cathy-lishipu/documentation-zh/idea_instruction/imags/start.png" /></p>
 <p>启动后可查看日志验证是否启动成功，日志路径为：/deploy/java-tron/logs/tron.log。
 若启动成功，可看到如下日志：</p>
-<p><img alt="" src="../../imags/start_success.png" /></p>
+<p><img alt="" src="https://raw.githubusercontent.com/cathy-lishipu/documentation-zh/idea_instruction/imags/start_success.png" /></p>
 <p>使用tail -f /logs/tron.log命令可查看实时日志，如下：</p>
-<p><img alt="" src="../../imags/start_successed.png" /></p>
+<p><img alt="" src="https://raw.githubusercontent.com/cathy-lishipu/documentation-zh/idea_instruction/imags/start_successed.png" /></p>
               
             </div>
           </div>
