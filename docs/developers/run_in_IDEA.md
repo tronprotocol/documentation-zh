@@ -24,7 +24,7 @@ _/deploy_
 mkdir deploy
 ```
 
-**2.克隆最新的代码https://github.com/tronprotocol/java-tron 到上述目录**
+**2.克隆最新的代码**
 
 ```swift
 git clone https://github.com/tronprotocol/java-tron
@@ -43,7 +43,7 @@ git checkout -t origin/master
 ./gradlew build
 ```
 编译过程可能需要一定时间，请耐心等待。
-若编译成功，你可以看到类似如下块信息：
+若编译成功，你可以看到类似如下信息：
 
 ![](https://raw.githubusercontent.com/cathy-lishipu/documentation-zh/idea_instruction/imags/build_success_test.png)
 
