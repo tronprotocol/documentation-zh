@@ -411,28 +411,28 @@ vote_count是投票数量
 wallet/getBrokerage
 作用：查询witness当前Brokerage比例
 demo：curl -X GET  http://127.0.0.1:8090/wallet/getBrokerage -d '{
-"vote_address":"41E552F6487585C2B58BC2C9BB4492BC1F17132CD0"}'
+"address":"41E552F6487585C2B58BC2C9BB4492BC1F17132CD0"}'
 参数说明：
-vote_address是被投票的超级代表的地址，默认为hexString格式    
+address是被投票的超级代表的地址，默认为hexString格式    
 返回值：witness当前Brokerage比例
 
 wallet/getReward
 作用：查询投票人未领取的奖励
 demo：curl -X GET  
 http://127.0.0.1:8090/wallet/getReward -d '{
-"owner_address":"41E552F6487585C2B58BC2C9BB4492BC1F17132CD0"}'
+"address":"41E552F6487585C2B58BC2C9BB4492BC1F17132CD0"}'
 参数说明：
-owner_address是投票人地址，默认为hexString格式    
+address是投票人地址，默认为hexString格式    
 返回值：投票人未领取的奖励      
 
 wallet/updateBrokerage 
 作用：更新witness当前Brokerage比例
 demo：curl -X POST  http://47.252.81.126:8090/wallet/updateBrokerage  -d '{
-"vote_address":"41E552F6487585C2B58BC2C9BB4492BC1F17132CD0",
-"ratio":30}' 
+"owner_address":"41E552F6487585C2B58BC2C9BB4492BC1F17132CD0",
+"brokerage":30}' 
 参数说明：
-vote_address是被投票的超级代表的地址，默认为hexString格式 
-ratio是witness想要更新为的Brokerage比例
+owner_address是被投票的超级代表的地址，默认为hexString格式 
+brokerage是witness想要更新为的Brokerage比例
 返回值：更新Brokerage的Transaction
 
 wallet/createassetissue
