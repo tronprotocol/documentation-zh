@@ -369,6 +369,21 @@
 <td>createwitness</td>
 <td></td>
 </tr>
+<tr>
+<td></td>
+<td>getbrokerage</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>getreward</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>updateBrokerage</td>
+<td></td>
+</tr>
 </tbody>
 </table>
 <table>
@@ -823,6 +838,33 @@ votes.vote_address是被投票的超级代表的地址，默认为hexString格�
 vote_count是投票数量    
 可选参数Permission_id，多重签名时使用，设置交易多重签名时使用的permissionId    
 返回值：投票的Transaction      
+
+wallet/getBrokerage
+作用：查询witness当前Brokerage比例
+demo：curl -X GET  http://127.0.0.1:8090/wallet/getBrokerage -d '{
+&quot;address&quot;:&quot;41E552F6487585C2B58BC2C9BB4492BC1F17132CD0&quot;}'
+参数说明：
+address是被投票的超级代表的地址，默认为hexString格式    
+返回值：witness当前Brokerage比例
+
+wallet/getReward
+作用：查询投票人未领取的奖励
+demo：curl -X GET  
+http://127.0.0.1:8090/wallet/getReward -d '{
+&quot;address&quot;:&quot;41E552F6487585C2B58BC2C9BB4492BC1F17132CD0&quot;}'
+参数说明：
+address是投票人地址，默认为hexString格式    
+返回值：投票人未领取的奖励      
+
+wallet/updateBrokerage 
+作用：更新witness当前Brokerage比例
+demo：curl -X POST  http://47.252.81.126:8090/wallet/updateBrokerage  -d '{
+&quot;owner_address&quot;:&quot;41E552F6487585C2B58BC2C9BB4492BC1F17132CD0&quot;,
+&quot;brokerage&quot;:30}' 
+参数说明：
+owner_address是被投票的超级代表的地址，默认为hexString格式 
+brokerage是witness想要更新为的Brokerage比例
+返回值：更新Brokerage的Transaction
 
 wallet/createassetissue
 作用：发行Token
