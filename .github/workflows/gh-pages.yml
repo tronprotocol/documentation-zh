@@ -1,4 +1,4 @@
-name: Doc Publish
+name: Publish Document
 
 on:
   push:
