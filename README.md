@@ -1,6 +1,9 @@
-# 简介
-[documentation-ZH] 是基于MkDocs框架的中文版本的波场文档库。 你可以通过以下链接访问：  
-   
-[https://tronprotocol.github.io/documentation-zh/introduction](https://tronprotocol.github.io/documentation-zh/introduction)   
+# 波场中文文档
 
-[Community Gitter Channel](https://gitter.im/tronprotocol/documentation)  
+[tronprotocol/documentation-zh](https://tronprotocol.github.io/documentation-zh/introduction) 是基于 MkDocs 框架的中文版本的波场文档库。你可以通过以下链接访问：
+
+[https://tronprotocol.github.io/documentation-zh/introduction](https://tronprotocol.github.io/documentation-zh/introduction)
+
+## 社区
+
+- [文档 Gitter](https://gitter.im/tronprotocol/documentation)
