@@ -72,7 +72,7 @@ CPU：64核及以上 内存：64G及以上 带宽：500M及以上 硬盘：20T�
 7. 运行部署脚本
 
 ```text
-java -Xmx6g -XX:+HeapDumpOnOutOfMemoryError -jar FullNode.jar  --witness  -c private_net_config.conf
+nohup java -Xmx6g -XX:+HeapDumpOnOutOfMemoryError -jar FullNode.jar  --witness  -c private_net_config.conf &>/dev/null &
 
 命令行参数说明:
 --witness: 启动witness功能，i.e.: --witness
@@ -102,18 +102,18 @@ enable:
 
 1. 下载private_net_config.conf
     ```text
-    wget https://raw.githubusercontent.com/tronprotocol/tron-deployment/master/private_net_config.conf
+    wget https://raw.githubusercontent.com/tronprotocol/tron-deployment/master/private_net_config.conf 
     ```
 2. 设置seed.node ip.list 为SR的ip地址和端口
 3. 设置p2p.version与超级节点的p2p.version一致
 4. 设置genesis.block 与SR中的genesis.block配置一致
 5. 设置needSyncCheck为true
 6. 设置node.discovery.enable 为true
-7. 如果FullNode和SR部署在同一台机器上，则需要修改listen.port、http端口、rpc 端口         
+7. 如果FullNode和SR部署在同一台机器上，则需要修改listen.port、http端口、rpc 端口     
 8. 运行部署脚本
 
 ```text
-java -Xmx6g -XX:+HeapDumpOnOutOfMemoryError -jar FullNode.jar -c private_net_config.conf
+nohup java -Xmx6g -XX:+HeapDumpOnOutOfMemoryError -jar FullNode.jar -c private_net_config.conf &>/dev/null &
 命令行参数说明:
 --log-config: 指定日志配置文件路径，i.e.: --log-config logback.xml。
 -c: 指定配置文件路径，i.e.: -c config.conf。
