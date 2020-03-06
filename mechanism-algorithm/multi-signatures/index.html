@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+  <title>Multi signatures - 波场中文文档</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/highlight.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Multi signatures";
+    var mkdocs_page_input_path = "mechanism-algorithm/multi-signatures.md";
+    var mkdocs_page_url = "/mechanism-algorithm/multi-signatures/";
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js"></script>
+  <script src="../../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> 波场中文文档</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../..">Home</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../../glossary/">Glossary</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Api</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../../api/http/">Http</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../api/rpc/">Rpc</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Architecture</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../../architecture/database/">Database</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../architecture/network/">Network</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../architecture/plugin/">Plugin</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Clients</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../../clients/tron-grid/">Tron grid</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../clients/wallet-cli/">Wallet cli</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Contracts</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../../contracts/compiler/">Compiler</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../contracts/contract/">Contract</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../contracts/trc20/">Trc20</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../contracts/tvm/">Tvm</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Developers</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../../developers/advanced-configuration/">Advanced configuration</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../developers/contribution/">Contribution</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../developers/deployment/">Deployment</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../developers/incentives/">Incentives</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../developers/java-tron/">Java tron</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../developers/official-public-nodes/">Official public nodes</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../developers/resources/">Resources</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../developers/run-in-idea/">Run in idea</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../developers/tips/">Tips</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Faq</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../../faq/">Home</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Introduction</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../../introduction/dpos/">Dpos</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../introduction/">Home</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../introduction/overview/">Overview</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Mechanism algorithm</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../account/">Account</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../dex/">Dex</a>
+                </li>
+                <li class=" current">
+                    
+    <a class="current" href="./">Multi signatures</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l3"><a href="#_1">背景</a></li>
+    
+
+    <li class="toctree-l3"><a href="#_2">概念说明</a></li>
+    
+
+    <li class="toctree-l3"><a href="#api">API</a></li>
+    
+
+    <li class="toctree-l3"><a href="#_3">其他</a></li>
+    
+
+    </ul>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../resource/">Resource</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../shielded-transaction/">Shielded transaction</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../sr/">Sr</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../system-contracts/">System contracts</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../trc10/">Trc10</a>
+                </li>
+    </ul>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">波场中文文档</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Mechanism algorithm &raquo;</li>
+        
+      
+    
+    <li>Multi signatures</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/tronprotocol/documentation-zh/edit/master/docs/mechanism-algorithm/multi-signatures.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h2 id="_1"><h2 id="1">背景</h2></h2>
+<p><strong>注意：V3.5版本后支持</strong></p>
+<p>目前TRON的所有交易签名，都是用的同一个私钥完成。没有权限分级，也不能实现多人共同控制账户。因此，设计并实现多重签名功能，每个权限可以对应多个私钥。</p>
+<p><a href="https://github.com/tronprotocol/TIPs/issues/16">Tron multi-signatures Tip</a></p>
+<h2 id="_2"><h2 id="2">概念说明</h2></h2>
+<p>该方案共包含三种权限级别，owner、witness以及active权限，其中owner权限具有执行所有合约的权限，witness权限用于超级代表出块，active是自定义权限(可以组合权限集合)，以下将详细说明。</p>
+<h3 id="2.1">1）结构说明</h3>
+
+<p><strong>Account修改</strong></p>
+<pre><code class="text">message Account { 
+  ... 
+  Permission owner_permission = 31;
+  Permission witness_permission = 32;
+  repeated Permission active_permission = 33;
+}
+</code></pre>
+
+<p>在账户结构中新增三个权限属性，分别是 owner_permission、witness_permission 和 active_permission，其中 active_permission 是个列表，可以指定最多8个。</p>
+<p><strong>ContractType修改</strong></p>
+<pre><code class="text">message Transaction {
+  message Contract {
+    enum ContractType { 
+      AccountCreateContract = 0; 
+      ... 
+      AccountPermissionUpdateContract = 46; 
+    }
+  }  
+}
+</code></pre>
+
+<p>新增一种交易类型 AccountPermissionUpdateContract，用于更新账户权限。</p>
+<p><strong>AccountPermissionUpdateContract</strong>    </p>
+<pre><code class="text">message AccountPermissionUpdateContract {
+  bytes owner_address = 1;
+  Permission owner = 2;   
+  Permission witness = 3; 
+  repeated Permission actives = 4; 
+}
+</code></pre>
+
+<p><code>owner_address</code>：待修改权限的账户的地址<br />
+<code>owner</code>：修改后的 owner 权限<br />
+<code>witness</code>：修改后的 witness 权限（如果是 witness ）<br />
+<code>actives</code>：修改后的 actives 权限  </p>
+<p>该接口是覆盖原账户权限，因此，如果只想修改owner权限，witness（如果是witnss账户）及actives的也需要设置。</p>
+<p><strong>Permission</strong></p>
+<pre><code class="text">message Permission {
+  enum PermissionType {
+    Owner = 0;
+    Witness = 1;
+    Active = 2;
+  }
+  PermissionType type = 1; 
+  int32 id = 2;     
+  string permission_name = 3;
+  int64 threshold = 4;
+  int32 parent_id = 5; 
+  bytes operations = 6;  
+  repeated Key keys = 7;
+}
+</code></pre>
+
+<p><code>PermissionType</code>: 权限类型，目前仅支持三种权限<br />
+<code>id</code>: 值由系统自动设置，Owner id=0, Witness id=1, Active id 从2开始递增分配。在执行合约时，
+通过该id来指定使用哪个权限，如使用owner权限，即将id设置为0。<br />
+<code>permission_name</code>: 权限名称，由用户设定，长度限制为32字节<br />
+<code>threshold</code>: 阈值，只有当参与签名的权重之和超过域值才允许做相应的操作。要求小于Long类型的最大值<br />
+<code>parent_id</code>：目前只能为0<br />
+<code>operations</code>：共32字节（256位），每位代表一个合约的权限，为1时表示拥有该合约的权限。 
+如<code>operations=0x0100...00(十六进制),即100...0(二进制)</code>时,查看proto中Transaction.ContractType定义，合约AccountCreateContract的id为0，
+即表示该permission只拥有执行AccountCreateContract的权限，可以使用"active权限中operations的计算示例"计算获得。<br />
+<code>keys</code>：共同拥有该权限的地址及权重，最多允许5个key。  </p>
+<p><strong>Key</strong>     </p>
+<pre><code class="text">message Key {
+  bytes address = 1;
+  int64 weight = 2;
+}
+</code></pre>
+
+<p><code>address</code>：拥有该权限的地址   <br />
+<code>weight</code>：该地址对该权限拥有权重   </p>
+<p><strong>Transaction修改</strong></p>
+<pre><code class="text">message Transaction {
+  ...
+  int32 Permission_id = 5;
+}
+</code></pre>
+
+<p>在交易中增加 <code>Permission_id</code>字段，与<code>Permission.id</code>相对应，用于指定使用哪个权限。默认为0，即owner权限。 
+不允许为1，因为witness权限仅用于出块，不用于对交易进行签名。</p>
+<h3 id="2.2">2）Owner权限</h3>
+
+<p>OwnerPermission是账户的最高权限，用于控制用户的所有权、调整权限结构，Owner权限也可以执行所有合约。  </p>
+<p>Owner权限具有以下特性：<br />
+1、拥有OwnerPermission的地址可以修改OwnerPermission。<br />
+2、当OwnerPermission为空时，默认采用该账户的地址具有owner权限。<br />
+3、账户新建时，自动将该账户的地址填充到OwnerPermission中，并默认域值为1，keys中仅包含该账户地址且权重为1。<br />
+4、当执行合约时未指定permissionId时， 默认采用OwnerPermission。  </p>
+<h3 id="2.3">3）Witness权限</h3>
+
+<p>超级代表可使用该权限，管理出块节点。非witness账户无该权限。  </p>
+<p>使用场景示例：一个超级代表在云服务器上部署出块程序，为了账户安全，此时可以将出块权限赋予另一个地址。由于该地址仅具有出块权限，无TRX转出权限，即使该服务器上私钥被泄密，也不会出现TRX丢失。</p>
+<p>Witness出块节点的配置：<br />
+1、未修改witness权限时，无需特殊配置。<br />
+2、修改witness权限后的出块节点，需要在重新配置，配置项如下：  </p>
+<pre><code class="text">#config.conf
+
+// Optional.The default is empty.
+// It is used when the witness account has set the witnessPermission.
+// When it is not empty, the localWitnessAccountAddress represents the address of the witness account,
+// and the localwitness is configured with the private key of the witnessPermissionAddress in the witness account.
+// When it is empty,the localwitness is configured with the private key of the witness account.
+//可选项，默认为空。
+//用于当witness账户设置了witnessPermission。
+//当该值不为空时，localWitnessAccountAddress代表witness账户的地址，localwitness是witnessPermission中的地址的私钥。
+//当该值为空时，localwitness配置为witness账户的私钥。
+
+//localWitnessAccountAddress =
+
+localwitness = [
+  f4df789d3210ac881cb900464dd30409453044d2777060a0c391cbdf4c6a4f57
+]
+
+</code></pre>
+
+<h3 id="2.4">4）Active权限</h3>
+
+<p>Active权限，用于提供一个权限的组合，比如提供一个只能执行创建账户、转账功能的权限。   </p>
+<p>Active权限有以下特性：  <br />
+1、拥有OwnerPermission的地址可以修改Active权限  <br />
+2、拥有执行AccountPermissionUpdateContract权限的地址也能够修改Active权限  <br />
+3、最多支持8个组合。  <br />
+4、permission的id从2开始自动递增。  <br />
+5、账户新建时，自动创建一个Active权限，并将该账户的地址填充到其中，默认域值为1，keys中仅包含该账户地址且权重为1。  </p>
+<h3 id="2.5">5）费用</h3>
+
+<p>1、使用更新账户权限时，即 AccountPermissionUpdate 合约，收取100TRX。  <br />
+2、使用多重签名的交易时，即交易中包括两个及两个以上签名的交易，除交易费用外，另收取1TRX。  <br />
+3、可通过提议，修改以上费用。  </p>
+<h2 id="api"><h2 id="3">API</h2></h2>
+<h3 id="3.1">1）修改权限</h3>
+
+<p><code>AccountPermissionUpdateContract</code>，修改权限步骤如下：  </p>
+<p>1、使用接口<code>getaccount</code>查询账户，并获取原权限  <br />
+2、修改permission  <br />
+3、创建合约，签名  <br />
+4、发送交易    </p>
+<p><strong>http-demo</strong></p>
+<pre><code class="json">http://{{host}}:{{port}}/wallet/accountpermissionupdate
+
+
+{
+  &quot;owner_address&quot;: &quot;41ffa9466d5bf6bb6b7e4ab6ef2b1cb9f1f41f9700&quot;,
+  &quot;owner&quot;: {
+    &quot;type&quot;: 0,
+    &quot;id&quot;: 0,
+    &quot;permission_name&quot;: &quot;owner&quot;,
+    &quot;threshold&quot;: 2,
+    &quot;keys&quot;: [{
+        &quot;address&quot;: &quot;41F08012B4881C320EB40B80F1228731898824E09D&quot;,
+        &quot;weight&quot;: 1
+      },
+      {
+        &quot;address&quot;: &quot;41DF309FEF25B311E7895562BD9E11AAB2A58816D2&quot;,
+        &quot;weight&quot;: 1
+      },
+      {
+        &quot;address&quot;: &quot;41BB7322198D273E39B940A5A4C955CB7199A0CDEE&quot;,
+        &quot;weight&quot;: 1
+      }
+    ]
+  },
+  &quot;witness&quot;: {
+      &quot;type&quot;: 1,
+      &quot;id&quot;: 1,
+      &quot;permission_name&quot;: &quot;witness&quot;,
+      &quot;threshold&quot;: 1,
+      &quot;keys&quot;: [{
+          &quot;address&quot;: &quot;41F08012B4881C320EB40B80F1228731898824E09D&quot;,
+          &quot;weight&quot;: 1
+        } 
+      ]
+    },
+  &quot;actives&quot;: [{
+    &quot;type&quot;: 2,
+    &quot;id&quot;: 2,
+    &quot;permission_name&quot;: &quot;active0&quot;,
+    &quot;threshold&quot;: 3,
+    &quot;operations&quot;: &quot;7fff1fc0037e0000000000000000000000000000000000000000000000000000&quot;,
+    &quot;keys&quot;: [{
+        &quot;address&quot;: &quot;41F08012B4881C320EB40B80F1228731898824E09D&quot;,
+        &quot;weight&quot;: 1
+      },
+      {
+        &quot;address&quot;: &quot;41DF309FEF25B311E7895562BD9E11AAB2A58816D2&quot;,
+        &quot;weight&quot;: 1
+      },
+      {
+        &quot;address&quot;: &quot;41BB7322198D273E39B940A5A4C955CB7199A0CDEE&quot;,
+        &quot;weight&quot;: 1
+      }
+    ]
+  }]
+}
+
+参数字段的定义及限制，请查看&quot;2.1 结构说明&quot;。
+
+</code></pre>
+
+<p><strong>active权限中operations的计算示例</strong></p>
+<pre><code class="java">public static void main(String[] args) {
+
+  //指定需要支持的合约id(查看proto中Transaction.ContractType定义)，这里包含除AccountPermissionUpdateContract（id=46）以外的所有合约  
+  Integer[] contractId = {0, 1, 2, 3, 4, 5, 6, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 30, 31,
+      32, 33, 41, 42, 43, 44, 45};
+  List&lt;Integer&gt; list = new ArrayList&lt;&gt;(Arrays.asList(contractId)); 
+  byte[] operations = new byte[32];
+  list.forEach(e -&gt; {
+    operations[e / 8] |= (1 &lt;&lt; e % 8);
+  });
+
+  //7fff1fc0033e0000000000000000000000000000000000000000000000000000
+  System.out.println(ByteArray.toHexString(operations));
+}
+</code></pre>
+
+<h3 id="3.2">2）执行合约</h3>
+
+<p>1、创建交易，与非多重签名交易的构建过程相同  <br />
+2、指定Permission_id，默认为0，表示owner-permission, <a href="https://github.com/tronprotocol/wallet-cli/commit/ff9122f2236f1ce19cbb9ba9f0494c8923a3d10c#diff-a63fa7484f62fe1d8fb27276c991a4e3R211">demo</a> <br />
+3、用户A签名，将签名后交易通过其他方式发送给B。<br />
+4、用户B签名，将签名后交易通过其他方式发送给C。<br />
+…<br />
+n、最后一个完成签名的用户，将交易广播到节点。<br />
+n+1、验证多重签名的权重之和大于域值则接受交易，否则拒绝交易  </p>
+<p>代码示例：</p>
+<p><a href="https://github.com/tronprotocol/wallet-cli/blob/multi_sign_V2/src/main/java/org/tron/demo/MultiSignDemo.java">https://github.com/tronprotocol/wallet-cli/blob/multi_sign_V2/src/main/java/org/tron/demo/MultiSignDemo.java</a></p>
+<h3 id="3.3">3）其他新增接口</h3>
+
+<p>接口详细说明，请查看Tron-http.md与波场钱包RPC-API.md<br />
+1、增加签名  </p>
+<pre><code class="text">curl -X POST  http://127.0.0.1:8090/wallet/addtransactionsign -d '{&quot;transaction&quot;: &quot;TransferContract&quot;, &quot;privateKey&quot;: &quot;permissionkey1&quot;}'
+
+rpc AddSign (TransactionSign) returns (TransactionExtention) {}
+</code></pre>
+
+<p>2、查询已签名地址</p>
+<pre><code class="text">curl -X POST  http://127.0.0.1:8090/wallet/getapprovedlist -d '{&quot;transaction&quot;}'
+
+rpc GetTransactionApprovedList(Transaction) returns (TransactionApprovedList) { }
+</code></pre>
+
+<p>3、查询交易签名权重</p>
+<pre><code class="text">curl -X POST  http://127.0.0.1:8090/wallet/getsignweight -d '{&quot;transaction&quot;}'
+
+rpc GetTransactionSignWeight (Transaction) returns (TransactionSignWeight) {}
+</code></pre>
+
+<h2 id="_3"><h2 id="4">其他</h2></h2>
+<p>支持多重签名后，创建账户时有什么变化？<br />
+在升级到V3.5版本后，并且多重签名提议生效后，创建账户时将自动生成owner-permission以及一个active-permission，
+其中owner-permission中仅包含一个key，权限及阈值都为1。active-permission中也包含一个key，权限及阈值都为1，并且
+operations为"7fff1fc0033e0000000000000000000000000000000000000000000000000000"，表示支持除
+AccountPermissionUpdateContract以外的所有操作。
+在V3.5版本以后，如果有新增系统合约，新创建的账户的默认operations值会发生变化。已经创建的账户的operations不会发生变化。</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../resource/" class="btn btn-neutral float-right" title="Resource">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../dex/" class="btn btn-neutral" title="Dex"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+	  
+        </div>
+      </div>
+
+    </section>
+    
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/tronprotocol/documentation-zh" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+        <span><a href="../dex/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../resource/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script src="../../js/theme.js"></script>
+
+</body>
+</html>

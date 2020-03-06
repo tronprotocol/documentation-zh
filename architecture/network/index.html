@@ -8,24 +8,23 @@
   
   
   <link rel="shortcut icon" href="../../img/favicon.ico">
-  <title>网络 - 波场文档</title>
+  <title>Network - 波场中文文档</title>
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 
   <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+  <link rel="stylesheet" href="../../css/highlight.css">
   
   <script>
     // Current page data
-    var mkdocs_page_name = "\u7f51\u7edc";
+    var mkdocs_page_name = "Network";
     var mkdocs_page_input_path = "architecture/network.md";
-    var mkdocs_page_url = null;
+    var mkdocs_page_url = "/architecture/network/";
   </script>
   
-  <script src="../../js/jquery-2.1.1.min.js" defer></script>
-  <script src="../../js/modernizr-2.8.3.min.js" defer></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-  <script>hljs.initHighlightingOnLoad();</script> 
+  <script src="../../js/jquery-2.1.1.min.js"></script>
+  <script src="../../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script> 
   
 </head>
 
@@ -36,10 +35,10 @@
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
       <div class="wy-side-nav-search">
-        <a href="../.." class="icon icon-home"> 波场文档</a>
+        <a href="../.." class="icon icon-home"> 波场中文文档</a>
         <div role="search">
   <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+    <input type="text" name="q" placeholder="Search docs" />
   </form>
 </div>
       </div>
@@ -50,80 +49,40 @@
           
             <li class="toctree-l1">
 		
-    <span class="caption-text">简介</span>
+    <a class="" href="../..">Home</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../../glossary/">Glossary</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Api</span>
     <ul class="subnav">
                 <li class="">
                     
-    <a class="" href="../../introduction/">项目仓库</a>
+    <a class="" href="../../api/http/">Http</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../../introduction/dpos/">波场共识</a>
+    <a class="" href="../../api/rpc/">Rpc</a>
                 </li>
     </ul>
 	    </li>
           
             <li class="toctree-l1">
 		
-    <span class="caption-text">接口</span>
+    <span class="caption-text">Architecture</span>
     <ul class="subnav">
                 <li class="">
                     
-    <a class="" href="../../api/http/">Http接口</a>
+    <a class="" href="../database/">Database</a>
                 </li>
-                <li class="">
-                    
-    <a class="" href="../../api/rpc/">Rpc接口</a>
-                </li>
-    </ul>
-	    </li>
-          
-            <li class="toctree-l1">
-		
-    <span class="caption-text">机制与算法</span>
-    <ul class="subnav">
-                <li class="">
-                    
-    <a class="" href="../../mechanism&algorithm/sr/">超级代表与委员会</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../../mechanism&algorithm/trc10/">TRC-10</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../../mechanism&algorithm/account/">账户模型</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../../mechanism&algorithm/resource/">资源模型</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../../mechanism&algorithm/dex/">去中心化交易所</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../../mechanism&algorithm/multi-signatures/">多重签名</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../../mechanism&algorithm/shielded-transaction/">匿名交易</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../../mechanism&algorithm/systemContracts/">系统合约</a>
-                </li>
-    </ul>
-	    </li>
-          
-            <li class="toctree-l1">
-		
-    <span class="caption-text">架构</span>
-    <ul class="subnav">
                 <li class=" current">
                     
-    <a class="current" href="./">网络</a>
+    <a class="current" href="./">Network</a>
     <ul class="subnav">
             
     <li class="toctree-l3"><a href="#tron">Tron网络结构</a></li>
@@ -145,88 +104,159 @@
                 </li>
                 <li class="">
                     
-    <a class="" href="../database/">数据库</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../plugin/">插件</a>
+    <a class="" href="../plugin/">Plugin</a>
                 </li>
     </ul>
 	    </li>
           
             <li class="toctree-l1">
 		
-    <span class="caption-text">智能合约</span>
+    <span class="caption-text">Clients</span>
     <ul class="subnav">
                 <li class="">
                     
-    <a class="" href="../../contracts/tvm/">虚拟机</a>
+    <a class="" href="../../clients/tron-grid/">Tron grid</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../../contracts/compiler/">编译器</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../../contracts/contract/">合约</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../../contracts/trc20/">TRC-20</a>
+    <a class="" href="../../clients/wallet-cli/">Wallet cli</a>
                 </li>
     </ul>
 	    </li>
           
             <li class="toctree-l1">
 		
-    <span class="caption-text">开发者</span>
+    <span class="caption-text">Contracts</span>
     <ul class="subnav">
                 <li class="">
                     
-    <a class="" href="../../developers/official-public-nodes/">官方节点</a>
+    <a class="" href="../../contracts/compiler/">Compiler</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../../developers/deployment/">部署</a>
+    <a class="" href="../../contracts/contract/">Contract</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../../developers/run_in_IDEA/">在IDEA中启动节点</a>
+    <a class="" href="../../contracts/trc20/">Trc20</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../../developers/resources/">资源</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../../developers/contribution/">参与开发</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../../developers/incentives/">激励政策</a>
+    <a class="" href="../../contracts/tvm/">Tvm</a>
                 </li>
     </ul>
 	    </li>
           
             <li class="toctree-l1">
 		
-    <span class="caption-text">客户端</span>
+    <span class="caption-text">Developers</span>
     <ul class="subnav">
                 <li class="">
                     
-    <a class="" href="../../clients/wallet-cli/">命令行钱包</a>
+    <a class="" href="../../developers/advanced-configuration/">Advanced configuration</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../developers/contribution/">Contribution</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../developers/deployment/">Deployment</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../developers/incentives/">Incentives</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../developers/java-tron/">Java tron</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../developers/official-public-nodes/">Official public nodes</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../developers/resources/">Resources</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../developers/run-in-idea/">Run in idea</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../developers/tips/">Tips</a>
                 </li>
     </ul>
 	    </li>
           
             <li class="toctree-l1">
 		
-    <a class="" href="../../q&a/qa/">常见问题</a>
+    <span class="caption-text">Faq</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../../faq/">Home</a>
+                </li>
+    </ul>
 	    </li>
           
             <li class="toctree-l1">
 		
-    <a class="" href="../../glossary/">术语</a>
+    <span class="caption-text">Introduction</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../../introduction/dpos/">Dpos</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../introduction/">Home</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../introduction/overview/">Overview</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Mechanism algorithm</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../../mechanism-algorithm/account/">Account</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../mechanism-algorithm/dex/">Dex</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../mechanism-algorithm/multi-signatures/">Multi signatures</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../mechanism-algorithm/resource/">Resource</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../mechanism-algorithm/shielded-transaction/">Shielded transaction</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../mechanism-algorithm/sr/">Sr</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../mechanism-algorithm/system-contracts/">System contracts</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../mechanism-algorithm/trc10/">Trc10</a>
+                </li>
+    </ul>
 	    </li>
           
         </ul>
@@ -239,7 +269,7 @@
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
         <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../..">波场文档</a>
+        <a href="../..">波场中文文档</a>
       </nav>
 
       
@@ -251,12 +281,15 @@
     
       
         
-          <li>架构 &raquo;</li>
+          <li>Architecture &raquo;</li>
         
       
     
-    <li>网络</li>
+    <li>Network</li>
     <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/tronprotocol/documentation-zh/edit/master/docs/architecture/network.md"
+          class="icon icon-github"> Edit on GitHub</a>
       
     </li>
   </ul>
@@ -267,7 +300,7 @@
               
                 <h1 id="tron">Tron网络结构</h1>
 <p>Tron网络采用Peer-to-Peer(P2P)的网络架构，网络中的节点地位对等。网络中的节点有SuperNode、FullNode、SolidityNode三种类型，SuperNode主要用于生成区块，FullNode用于同步区块、广播交易，SolidityNode用于同步固化的区块。任何部署运行Tron代码的设备都可以加入Tron网络并作为一个节点，和Tron网络中的其他节点有相同的地位，他们可以创建交易，广播交易，同步区块等，也可以作为SuperNode的候选人参与选举。</p>
-<p><img alt="image" src="https://raw.githubusercontent.com/tronprotocol/documentation-EN/master/imags/network.png" /></p>
+<p><img alt="image" src="https://raw.githubusercontent.com/tronprotocol/documentation-EN/master/images/network.png" /></p>
 <h2 id="supernode">SuperNode介绍</h2>
 <p><a href="https://github.com/tronprotocol/Documentation/blob/master/中文文档/波场区块链浏览器介绍/什么是超级代表.md">超级代表</a>(简称SR) 是TRON网络上的记账人，一共27个，负责对网络上广播出来的交易数据进行验证，并将交易打包进区块中，他们是轮流的方式打包区块。超级代表的信息是在TRON网络上公开的，所有人都可以获取这些信息，最便捷的方式是在TRON的<a href="https://tronscan.org/#/sr/representatives">区块链浏览器</a>查看超级代表列表及其信息。</p>
 <p>最低配置要求：
@@ -309,7 +342,7 @@ CPU：64核及以上 内存：64G及以上 带宽：500M及以上 硬盘：20T�
 <li>
 <p>下载private_net_config.conf</p>
 <p><code>text
-wget https://github.com/tronprotocol/tron-deployment/blob/master/private_net_config.conf</code></p>
+wget https://raw.githubusercontent.com/tronprotocol/tron-deployment/master/private_net_config.conf</code></p>
 </li>
 <li>
 <p>在localwitness中添加自己的私钥</p>
@@ -320,7 +353,7 @@ wget https://github.com/tronprotocol/tron-deployment/blob/master/private_net_con
 <li>设置node.discovery.enable为true</li>
 <li>运行部署脚本</li>
 </ol>
-<pre><code class="text">nohup java -Xmx6g -XX:+HeapDumpOnOutOfMemoryError -jar FullNode.jar  --witness  -c private_net_config.conf
+<pre><code class="text">nohup java -Xmx6g -XX:+HeapDumpOnOutOfMemoryError -jar FullNode.jar  --witness  -c private_net_config.conf &amp;&gt;/dev/null &amp;
 
 命令行参数说明:
 --witness: 启动witness功能，i.e.: --witness
@@ -335,28 +368,28 @@ wget https://github.com/tronprotocol/tron-deployment/blob/master/private_net_con
 
 <p>配置文件中需要修改的参数：</p>
 <p>localwitness:
-<img alt="image" src="https://raw.githubusercontent.com/tronprotocol/documentation-EN/master/imags/localwitness.jpg" />
+<img alt="image" src="https://raw.githubusercontent.com/tronprotocol/documentation-EN/master/images/localwitness.jpg" />
 witnesses:
-<img alt="image" src="https://raw.githubusercontent.com/tronprotocol/documentation-EN/master/imags/witness.png" />
+<img alt="image" src="https://raw.githubusercontent.com/tronprotocol/documentation-EN/master/images/witness.png" />
 version:
-<img alt="image" src="https://raw.githubusercontent.com/tronprotocol/documentation-EN/master/imags/p2p_version.png" />
+<img alt="image" src="https://raw.githubusercontent.com/tronprotocol/documentation-EN/master/images/p2p_version.png" />
 enable:
-<img alt="image" src="https://raw.githubusercontent.com/tronprotocol/documentation-EN/master/imags/discovery_enable.png" /></p>
+<img alt="image" src="https://raw.githubusercontent.com/tronprotocol/documentation-EN/master/images/discovery_enable.png" /></p>
 <h5 id="322-fullnode">3.2.2 步骤二:部署FullNode节点</h5>
 <ol>
 <li>下载private_net_config.conf
     <code>text
-    wget https://github.com/tronprotocol/tron-deployment/blob/master/private_net_config.conf</code></li>
+    wget https://raw.githubusercontent.com/tronprotocol/tron-deployment/master/private_net_config.conf</code></li>
 <li>设置seed.node ip.list 为SR的ip地址和端口</li>
 <li>设置p2p.version与超级节点的p2p.version一致</li>
 <li>设置genesis.block 与SR中的genesis.block配置一致</li>
 <li>设置needSyncCheck为true</li>
 <li>设置node.discovery.enable 为true</li>
+<li>如果FullNode和SR部署在同一台机器上，则需要修改listen.port、http端口、rpc 端口</li>
 <li>运行部署脚本</li>
 </ol>
-<pre><code class="text">nohup java -Xmx6g -XX:+HeapDumpOnOutOfMemoryError -jar FullNode.jar  --witness  -c private_net_config.conf
+<pre><code class="text">nohup java -Xmx6g -XX:+HeapDumpOnOutOfMemoryError -jar FullNode.jar -c private_net_config.conf &amp;&gt;/dev/null &amp;
 命令行参数说明:
---witness: 启动witness功能，i.e.: --witness。
 --log-config: 指定日志配置文件路径，i.e.: --log-config logback.xml。
 -c: 指定配置文件路径，i.e.: -c config.conf。
 </code></pre>
@@ -368,15 +401,15 @@ enable:
 
 <p>配置文件中需要修改的参数：</p>
 <p>ip.list:
-<img alt="image" src="https://raw.githubusercontent.com/tronprotocol/documentation-EN/master/imags/ip_list.png" />
+<img alt="image" src="https://raw.githubusercontent.com/tronprotocol/documentation-EN/master/images/ip_list.png" />
 p2p.version:
-<img alt="image" src="https://raw.githubusercontent.com/tronprotocol/documentation-EN/master/imags/p2p_version.png" />
+<img alt="image" src="https://raw.githubusercontent.com/tronprotocol/documentation-EN/master/images/p2p_version.png" />
 genesis.block:
-<img alt="image" src="https://raw.githubusercontent.com/tronprotocol/documentation-EN/master/imags/genesis_block.png" />
+<img alt="image" src="https://raw.githubusercontent.com/tronprotocol/documentation-EN/master/images/genesis_block.png" />
 needSyncCheck:
-<img alt="image" src="https://raw.githubusercontent.com/tronprotocol/documentation-EN/master/imags/need_sync_check.png" />
+<img alt="image" src="https://raw.githubusercontent.com/tronprotocol/documentation-EN/master/images/need_sync_check.png" />
 node.discovery.enable:
-<img alt="image" src="https://raw.githubusercontent.com/tronprotocol/documentation-EN/master/imags/discovery_enable.png" /></p>
+<img alt="image" src="https://raw.githubusercontent.com/tronprotocol/documentation-EN/master/images/discovery_enable.png" /></p>
               
             </div>
           </div>
@@ -384,10 +417,10 @@ node.discovery.enable:
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../database/" class="btn btn-neutral float-right" title="数据库">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../plugin/" class="btn btn-neutral float-right" title="Plugin">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
-        <a href="../../mechanism&algorithm/systemContracts/" class="btn btn-neutral" title="系统合约"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../database/" class="btn btn-neutral" title="Database"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -401,28 +434,28 @@ node.discovery.enable:
 
   Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
 </footer>
-      
+	  
         </div>
       </div>
 
     </section>
-
+    
   </div>
 
   <div class="rst-versions" role="note" style="cursor: pointer">
     <span class="rst-current-version" data-toggle="rst-current-version">
       
+          <a href="https://github.com/tronprotocol/documentation-zh" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
       
-        <span><a href="../../mechanism&algorithm/systemContracts/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+        <span><a href="../database/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
-        <span style="margin-left: 15px"><a href="../database/" style="color: #fcfcfc">Next &raquo;</a></span>
+        <span style="margin-left: 15px"><a href="../plugin/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>
-    <script>var base_url = '../..';</script>
-    <script src="../../js/theme.js" defer></script>
-      <script src="../../search/main.js" defer></script>
+    <script src="../../js/theme.js"></script>
 
 </body>
 </html>
