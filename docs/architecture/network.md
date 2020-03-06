@@ -2,7 +2,7 @@
 
 Tron网络采用Peer-to-Peer(P2P)的网络架构，网络中的节点地位对等。网络中的节点有SuperNode、FullNode、SolidityNode三种类型，SuperNode主要用于生成区块，FullNode用于同步区块、广播交易，SolidityNode用于同步固化的区块。任何部署运行Tron代码的设备都可以加入Tron网络并作为一个节点，和Tron网络中的其他节点有相同的地位，他们可以创建交易，广播交易，同步区块等，也可以作为SuperNode的候选人参与选举。
 
-![image](https://raw.githubusercontent.com/tronprotocol/documentation-EN/master/imags/network.png)
+![image](https://raw.githubusercontent.com/tronprotocol/documentation-EN/master/images/network.png)
 
 ## SuperNode介绍
 
@@ -90,26 +90,26 @@ nohup java -Xmx6g -XX:+HeapDumpOnOutOfMemoryError -jar FullNode.jar  --witness  
 配置文件中需要修改的参数：
 
 localwitness:
-![image](https://raw.githubusercontent.com/tronprotocol/documentation-EN/master/imags/localwitness.jpg)
+![image](https://raw.githubusercontent.com/tronprotocol/documentation-EN/master/images/localwitness.jpg)
 witnesses:
-![image](https://raw.githubusercontent.com/tronprotocol/documentation-EN/master/imags/witness.png)
+![image](https://raw.githubusercontent.com/tronprotocol/documentation-EN/master/images/witness.png)
 version:
-![image](https://raw.githubusercontent.com/tronprotocol/documentation-EN/master/imags/p2p_version.png)
+![image](https://raw.githubusercontent.com/tronprotocol/documentation-EN/master/images/p2p_version.png)
 enable:
-![image](https://raw.githubusercontent.com/tronprotocol/documentation-EN/master/imags/discovery_enable.png)
+![image](https://raw.githubusercontent.com/tronprotocol/documentation-EN/master/images/discovery_enable.png)
 
 ##### 3.2.2 步骤二:部署FullNode节点
 
 1. 下载private_net_config.conf
     ```text
-    wget https://raw.githubusercontent.com/tronprotocol/tron-deployment/master/private_net_config.conf 
+    wget https://raw.githubusercontent.com/tronprotocol/tron-deployment/master/private_net_config.conf
     ```
 2. 设置seed.node ip.list 为SR的ip地址和端口
 3. 设置p2p.version与超级节点的p2p.version一致
 4. 设置genesis.block 与SR中的genesis.block配置一致
 5. 设置needSyncCheck为true
 6. 设置node.discovery.enable 为true
-7. 如果FullNode和SR部署在同一台机器上，则需要修改listen.port、http端口、rpc 端口     
+7. 如果FullNode和SR部署在同一台机器上，则需要修改listen.port、http端口、rpc 端口
 8. 运行部署脚本
 
 ```text
@@ -128,12 +128,12 @@ nohup java -Xmx6g -XX:+HeapDumpOnOutOfMemoryError -jar FullNode.jar -c private_n
 配置文件中需要修改的参数：
 
 ip.list:
-![image](https://raw.githubusercontent.com/tronprotocol/documentation-EN/master/imags/ip_list.png)
+![image](https://raw.githubusercontent.com/tronprotocol/documentation-EN/master/images/ip_list.png)
 p2p.version:
-![image](https://raw.githubusercontent.com/tronprotocol/documentation-EN/master/imags/p2p_version.png)
+![image](https://raw.githubusercontent.com/tronprotocol/documentation-EN/master/images/p2p_version.png)
 genesis.block:
-![image](https://raw.githubusercontent.com/tronprotocol/documentation-EN/master/imags/genesis_block.png)
+![image](https://raw.githubusercontent.com/tronprotocol/documentation-EN/master/images/genesis_block.png)
 needSyncCheck:
-![image](https://raw.githubusercontent.com/tronprotocol/documentation-EN/master/imags/need_sync_check.png)
+![image](https://raw.githubusercontent.com/tronprotocol/documentation-EN/master/images/need_sync_check.png)
 node.discovery.enable:
-![image](https://raw.githubusercontent.com/tronprotocol/documentation-EN/master/imags/discovery_enable.png)
+![image](https://raw.githubusercontent.com/tronprotocol/documentation-EN/master/images/discovery_enable.png)

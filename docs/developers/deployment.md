@@ -506,4 +506,4 @@ config.conf文件应该位于/troneventquery文件夹下。
 
 ## 高级配置
 
-Read the [Advanced Configuration](../advanced-configuration.md)
+Read the [Advanced Configuration](./advanced-configuration.md)

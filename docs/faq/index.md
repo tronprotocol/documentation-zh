@@ -1,21 +1,6 @@
+# 波场网络设计与协议问题
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-## 波场网络设计与协议问题
+## 日常使用
 
 **问：如何生成一个账户**
 
@@ -79,7 +64,7 @@
 
 **问：怎么计算交易费用？**
 
-答：请查阅[https://tronprotocol.github.io/documentation-EN/mechanism&algorithm/resource/](https://tronprotocol.github.io/documentation-EN/mechanism&algorithm/resource/)
+答：请查阅[https://tronprotocol.github.io/documentation-EN/mechanism-algorithm/resource/](https://tronprotocol.github.io/documentation-EN/mechanism-algorithm/resource/)
 
 **问：怎么计算交易大小？**
 
