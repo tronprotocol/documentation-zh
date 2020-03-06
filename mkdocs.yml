@@ -1,7 +1,6 @@
 site_name: 波场中文文档
 site_url: https://tronprotocol.github.io/documentation-zh/introduction/
 repo_url: https://github.com/tronprotocol/documentation-zh
-strict: true
 
 nav:
     - 首页: index.md
