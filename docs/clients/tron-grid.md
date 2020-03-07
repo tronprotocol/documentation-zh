@@ -1,5 +1,7 @@
 # TronGrid
 
+最新官方 TronGrid 文档位于 [https://developers.tron.network/docs/tron-grid-intro](https://developers.tron.network/docs/tron-grid-intro).
+
 TronGrid提供运行在云端的客户端, 因而你自己本地不需要运行节点。TronGrid提供负载均衡的，安全的，可靠的的节点访问API。
 
 TronGrid支持两种类型的API调用：

@@ -22,8 +22,8 @@ nav:
         - 系统合约: mechanism-algorithm/system-contracts.md
     - 架构介绍:
         - 网络: architecture/network.md
-        - 数据库: architecture/database.md
-        - 插件: architecture/plugin.md
+        - 数据储存: architecture/database.md
+        - 事件插件: architecture/event.md
     - 智能合约文档:
         - 虚拟机: contracts/tvm.md
         - 编译器: contracts/compiler.md
@@ -33,16 +33,28 @@ nav:
         - 官方节点: developers/official-public-nodes.md
         - 部署: developers/deployment.md
         - 在 IDEA 中启动节点: developers/run-in-idea.md
-        - 资源: developers/resources.md
-        - 参与开发: developers/contribution.md
-        - 激励政策: developers/incentives.md
+        - 如何参与开发: developers/contribution.md
+        - 开发者激励: developers/incentives.md
         - Java-Tron: developers/java-tron.md
         - TIPs: developers/tips.md
+        - 高级配置项: developers/advanced-configuration.md
+        - 其他参考资源: developers/resources.md
     - 客户端:
         - 命令行钱包: clients/wallet-cli.md
         - clients/tron-grid.md
-        - 高级配置项: developers/advanced-configuration.md
     - 常见问题: faq/index.md
     - 术语表: glossary.md
 
 theme: readthedocs
+extra_javascript:
+    - 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML'
+markdown_extensions:
+    - admonition
+    - footnotes
+    - codehilite
+    - toc:
+        permalink: true
+    - pymdownx.arithmatex
+    - pymdownx.tilde
+    - pymdownx.tasklist
+    - pymdownx.superfences

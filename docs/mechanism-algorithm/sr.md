@@ -1,3 +1,4 @@
+# 超级代表与委员会
 
 <h3>1. 申请成为超级代表候选人规则 </h3>
 
@@ -146,7 +147,9 @@ id: 提议Id，根据提议创建时间递增
 <h4> 5.5 查询提议 </h4>
 
 以下接口可以查询提议，包括：
-查询所有提议信息（ListProposals）
-分页查询提议信息（GetPaginatedProposalList）
-查询指定提议信息（GetProposalById）
-相关api详情，请查询[Tron HTTP API](../api/http.md)
+
+- 查询所有提议信息（ListProposals）
+- 分页查询提议信息（GetPaginatedProposalList）
+- 查询指定提议信息（GetProposalById）
+
+相关api详情，请查询[Tron HTTP API](../api/http.md).

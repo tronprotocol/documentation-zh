@@ -1,4 +1,4 @@
-# 波场网络设计与协议问题
+# 波场 FAQ
 
 ## 日常使用
 
@@ -171,9 +171,9 @@ genesis.block = {
 **问：如何测试部署是否正常，比如是否有测试接口或者命令，类似redis，get ping 会返回 pong？**
 
 答：Java-tron没有默认的接口。一旦服务器开始运行，就能够发送grpc命令，基于这一点，有几种检验部署是否成功的方法。
-       
+
 ```text
-- tail -f logs/tron.log |grep "MyheadBlockNumber"
+> tail -f logs/tron.log |grep "MyheadBlockNumber"
 ```
 
 **问：在部署private 环境时，SuperNode和FullNode 关系是什么样子？是否需要先部署SuperNode ,然后部署FullNode？**
@@ -184,7 +184,7 @@ genesis.block = {
 
 答：运行以下命令：
 ```text
-- tail -f logs/tron.log |grep "Try Produce Block"
+> tail -f logs/tron.log |grep "Try Produce Block"
 ```
 
 **问：SolidityNode与FullNode可以部署在一台机器上吗？他们会分享数据吗？**
@@ -282,7 +282,7 @@ triggercontract contractaddress balanceOf(address) "youraddress" false 0 0 0 #
 ```
 答： 出现该消息，说明您的节点和网络未同步。开始出块前，首先需要进行同步。请使用以下命令检查区块高度。
 ```text
-- tail -f logs/tron.log |grep "MyheadBlockNumber"
+> tail -f logs/tron.log |grep "MyheadBlockNumber"
 ```
 
 ## 其他问题
