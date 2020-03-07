@@ -38,11 +38,23 @@ nav:
         - 激励政策: developers/incentives.md
         - Java-Tron: developers/java-tron.md
         - TIPs: developers/tips.md
+        - 高级配置项: developers/advanced-configuration.md
     - 客户端:
         - 命令行钱包: clients/wallet-cli.md
         - clients/tron-grid.md
-        - 高级配置项: developers/advanced-configuration.md
     - 常见问题: faq/index.md
     - 术语表: glossary.md
 
 theme: readthedocs
+extra_javascript:
+    - 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML'
+markdown_extensions:
+    - admonition
+    - footnotes
+    - codehilite
+    - toc:
+        permalink: true
+    - pymdownx.arithmatex
+    - pymdownx.tilde
+    - pymdownx.tasklist
+    - pymdownx.superfences
