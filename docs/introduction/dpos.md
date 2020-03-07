@@ -1,3 +1,5 @@
+# 波场共识机制 DPoS
+
 ## 概况
 
 区块链是一个分布式的记账系统，在一个区块链系统中可以有成千上万的节点，他们各自独立保存一份相同的账本，而新的交易数据想要被写入帐本，需要获得这些节点的认可。在不可信的分布式环境中实现这一目标是一个很复杂的系统工程。区块链系统正常运行，即区块链中各节点总能保存同一份账本，前提是系统中绝大部分的节点是诚实可靠的。为了保证诚实可靠的节点能够共同监督交易数据写入账本，每个区块链系统都需要构建自己的共识，共识就相当于区块链的宪法。共识保证了即便是在不可信的分布式环境下，只要绝大多数节点遵守共识的规定，就一定能获得确定可信结果。因此共识的意义在于，区块链中的诚信节点可以最终达成账本的一致只要他们严格遵守这份共识。
@@ -38,7 +40,7 @@ DPOS共识在区块链系统中根据节点获取选票的多少确定出部分�
 
 维护期：波场设定是2个区块时间，即6秒钟。这段时间用于统计候选人得票数。因为24个小时有4个出块轮，自然就有4个维护期，维护期中不进行区块生产，主要用来确定下个出块轮的出块顺序。
 
-![image](https://raw.githubusercontent.com/tronprotocol/documentation-ZH/master/images/sequence.png)
+![image](https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/sequence.png)
 
 ## 选举机制
 
@@ -60,19 +62,18 @@ DPOS共识在区块链系统中根据节点获取选票的多少确定出部分�
 
 通过每个区块保存了上个区块hash值的方式，从而在逻辑上将区块相互关联了起来，最后组成了一条链的结构。典型的区块链结构示意图如下所示：
 
-![image](https://raw.githubusercontent.com/tronprotocol/documentation-ZH/master/images/blockchain_structure.png)
+![image](https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/blockchain_structure.png)
 
 
 理想情况下，采用DPOS共识的区块链系统的记账过程就是按照事先计算好的记账顺序，由witness轮流依序产块（如下图a），但实际情况下，区块链网络是一个分布式的、不可信的复杂系统，体现在 1）由于网络链路环境不佳导致witness生产的区块并不会在有效时间内被其他的witness收到（如下图b1、b2）；
 2）并不能保证某个witness运行始终正常（如图c）；
 3）某些witness恶意生产分叉的区块企图将链分叉（如图d）。
 
-![image](https://raw.githubusercontent.com/tronprotocol/documentation-ZH/master/images/longest_chain1.png)
+![image](https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/longest_chain1.png)
 
-![image](https://raw.githubusercontent.com/tronprotocol/documentation-ZH/master/images/longest_chain2.png)
+![image](https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/longest_chain2.png)
 
 前文已经提到区块链系统正常运行的基础是系统中绝大部分的节点是诚实可靠的，再进一步探讨这个问题，区块链系统安全的首要保证的是账本的安全，账本既不能被恶意写入不合法的数据，账本在各个节点上保存的副本也应该是一致的。如果从DPOS共识的角度上来看，记账过程是由witness完成，因此波场的安全取决于大部分witness的可靠性，波场设定了不可逆转区块，也称为固化块。同时为了抵抗少部分记账节点的恶意行为，波场采用基于最长链的原则确认为主链。
-
 
 **固化块原则**
 
@@ -138,11 +139,9 @@ DPOS的一个重要的特性是任何系统参数的调整都可以通过链上�
 
 待补充
 
-附录：参考文档
+## 附录：参考文档
 
-[https://www.coinbureau.com/education/delegated-proof-stake-dpos/](https://www.coinbureau.com/education/delegated-proof-stake-dpos/)
-
-[https://www.nichanank.com/blog/2018/6/4/consensus-algorithms-pos-dpos](https://www.nichanank.com/blog/2018/6/4/consensus-algorithms-pos-dpos)
-
-[http://docs.bitshares.org/en/master/technology/dpos.html#role-of-delegates](http://docs.bitshares.org/en/master/technology/dpos.html#role-of-delegates)
-[https://hackernoon.com/what-is-delegated-proof-of-stake-897a2f0558f9](https://hackernoon.com/what-is-delegated-proof-of-stake-897a2f0558f9)
+- [Delegated Proof of Stake (DPoS) – Total Beginners Guide](https://www.coinbureau.com/education/delegated-proof-stake-dpos/)
+- [Consensus Algorithms: Proof-of-Stake & Cryptoeconomics](https://www.nichanank.com/blog/2018/6/4/consensus-algorithms-pos-dpos)
+- [Role of Delegates](http://docs.bitshares.org/en/master/technology/dpos.html#role-of-delegates)
+- [What is Delegated Proof of Stake?](https://hackernoon.com/what-is-delegated-proof-of-stake-897a2f0558f9)

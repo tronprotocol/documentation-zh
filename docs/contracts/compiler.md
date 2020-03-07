@@ -1,11 +1,14 @@
+# 合约编译
+
+## 工具介绍
 
 <h3> 1. TronStudio </h3>
-波场智能合约开发工具。提供可视化界面，支持开发者对solidity语言智能合约进行编译，调试，运行等功能。   
+波场智能合约开发工具。提供可视化界面，支持开发者对solidity语言智能合约进行编译，调试，运行等功能。
 [https://developers.tron.network/docs/tron-studio-intro](https://developers.tron.network/docs/tron-studio-intro)
 
 <h3> 2. TronIDE </h3>
-波场智能合约开发工具。提供可视化界面，支持开发者对solidity语言智能合约进行编译，调试，运行等功能。  
-[http://www.tronide.io/#optimize=false&version=soljson-v0.4.24+commit.tron.js](http://www.tronide.io/#optimize=false&version=soljson-v0.4.24+commit.tron.js)
+波场智能合约开发工具。提供可视化界面，支持开发者对solidity语言智能合约进行编译，调试，运行等功能。
+[https://www.tronide.io/](https://www.tronide.io/)
 
 <h3> 3. TronBox </h3>
 波场智能合约部署工具。支持solidity语言智能合约的编译，部署，移植等功能。
@@ -19,9 +22,9 @@
 波场智能合约事件查询服务。可以查询智能合约中写入的事件log信息。
 [https://developers.tron.network/docs/tron-grid-intro](https://developers.tron.network/docs/tron-grid-intro)
 
-<h2> 使用命令行工具进行智能合约开发 </h2>
+## 使用命令行工具进行智能合约开发
 
-在tron上进行智能合约的开发，除了使用现有的工具之(tron-studio)外，也可以直接使用wallet-cli命令行工具进行智能合约的开发，编译和部署。编写智能合约，可以使用使用TronStudio进行编译、调试等前期的开发工作。 当合约开发完成之后，可以把合约复制到[SimpleWebCompiler](https://github.com/tronprotocol/tron-demo/tree/master/SmartContractTools/SimpleWebCompiler)中进行编译，获取ABI和ByteCode。   
+在tron上进行智能合约的开发，除了使用现有的工具(tron-studio)之外，也可以直接使用wallet-cli命令行工具进行智能合约的开发，编译和部署。编写智能合约，可以使用使用TronStudio进行编译、调试等前期的开发工作。 当合约开发完成之后，可以把合约复制到[SimpleWebCompiler](https://github.com/tronprotocol/tron-demo/tree/master/SmartContractTools/SimpleWebCompiler)中进行编译，获取ABI和ByteCode。
 
 我们提供一个简单的数据存取的合约代码示例，以这个示例来说明编译、部署、调用的步骤。
 
@@ -34,7 +37,7 @@ contract DataStore {
     function set(uint256 key, uint256 value) public {
         data[key] = value;
     }
-    
+
     function get(uint256 key) view public returns (uint256 value) {
         value = data[key];
     }
@@ -68,16 +71,16 @@ cd  wallet-cli
 cd  build/libs
 ```
 
-注意：  
-wallet-cli 默认的配置会连接本地127.0.0.1:50051的 fullnode，如果开发者需要连接不同的其他节点或者端口可在 config.conf 文件中进行修改  
+注意：
+wallet-cli 默认的配置会连接本地127.0.0.1:50051的 fullnode，如果开发者需要连接不同的其他节点或者端口可在 config.conf 文件中进行修改
 
-启动wallet-cli  
+启动wallet-cli
 
 ```text
 java -jar wallet-cli.jar
 ```
 
-启动之后，可在命令中交互式输入指令。导入私钥，并查询余额是否正确   
+启动之后，可在命令中交互式输入指令。导入私钥，并查询余额是否正确
 
 ```text
 importwallet
@@ -88,10 +91,9 @@ login
 getbalance
 ```
 
-部署合约  
+部署合约
 
 ```text
-Shell
 # 合约部署指令
 DeployContract contractName ABI byteCode constructor params isHex fee_limit consume_user_resource_percent <value> <library:address,library:address,...>
 
@@ -111,7 +113,7 @@ deploycontract DataStore [{"constant":false,"inputs":[{"name":"key","type":"uint
 部署成功会显示Deploy the contract successfully
 ```
 
-得到合约的地址  
+得到合约的地址
 
 ```text
 Your smart contract address will be: <合约地址>
@@ -120,7 +122,7 @@ Your smart contract address will be: <合约地址>
 Your smart contract address will be: TTWq4vMEYB2yibAbPV7gQ4mrqTyX92fha6
 ```
 
-调用合约存储数据、查询数据  
+调用合约存储数据、查询数据
 
 ```text
 Shell
@@ -143,14 +145,14 @@ triggercontract TTWq4vMEYB2yibAbPV7gQ4mrqTyX92fha6 set(uint256,uint256) 1,1 fals
 triggercontract TTWq4vMEYB2yibAbPV7gQ4mrqTyX92fha6 get(uint256) 1 false 1000000  0000000000000000000000000000000000000000000000000000000000000000
 ```
 
-如果调用的函数是 constant 或 view，wallet-cli 将会直接返回结果  
+如果调用的函数是 constant 或 view，wallet-cli 将会直接返回结果
 
-如果包含library，则需要在部署合约之前先部署library，部署完library之后，知道了library地址，将地址填进library:address,library:address,...  
+如果包含library，则需要在部署合约之前先部署library，部署完library之后，知道了library地址，将地址填进library:address,library:address,...
 
 ```text
 # 比如使用remix生成的合约，bytecode是
-608060405234801561001057600080fd5b5061013f806100206000396000f300608060405260043610610041576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff168063f75dac5a14610046575b600080fd5b34801561005257600080fd5b5061005b610071565b6040518082815260200191505060405180910390f35b600073<b>__browser/oneLibrary.sol.Math3__________<\b>634f2be91f6040518163ffffffff167c010000000000000000000000000000000000000000000000000000000002815260040160206040518083038186803b1580156100d357600080fd5b505af41580156100e7573d6000803e3d6000fd5b505050506040513d60208110156100fd57600080fd5b81019080805190602001909291905050509050905600a165627a7a7230582052333e136f236d95e9d0b59c4490a39e25dd3a3dcdc16285820ee0a7508eb8690029  
+608060405234801561001057600080fd5b5061013f806100206000396000f300608060405260043610610041576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff168063f75dac5a14610046575b600080fd5b34801561005257600080fd5b5061005b610071565b6040518082815260200191505060405180910390f35b600073<b>__browser/oneLibrary.sol.Math3__________<\b>634f2be91f6040518163ffffffff167c010000000000000000000000000000000000000000000000000000000002815260040160206040518083038186803b1580156100d357600080fd5b505af41580156100e7573d6000803e3d6000fd5b505050506040513d60208110156100fd57600080fd5b81019080805190602001909291905050509050905600a165627a7a7230582052333e136f236d95e9d0b59c4490a39e25dd3a3dcdc16285820ee0a7508eb8690029
 ```
 
-之前部署的library地址是：TSEJ29gnBkxQZR3oDdLdeQtQQykpVLSk54  
-那么部署的时候，需要将 browser/oneLibrary.sol.Math3:TSEJ29gnBkxQZR3oDdLdeQtQQykpVLSk54 作为deploycontract的参数。 
+之前部署的library地址是：TSEJ29gnBkxQZR3oDdLdeQtQQykpVLSk54
+那么部署的时候，需要将 browser/oneLibrary.sol.Math3:TSEJ29gnBkxQZR3oDdLdeQtQQykpVLSk54 作为deploycontract的参数。

@@ -1,11 +1,12 @@
+# TRC-10
 
-TRON网络支持2种通证，一种是通过智能合约发行的TRC20协议的通证，一种是通过Tron公链内置的TRC10通证。     
+TRON网络支持2种通证，一种是通过智能合约发行的TRC20协议的通证，一种是通过Tron公链内置的TRC10通证。
 
-下面对TRC10通证进行说明。  
+下面对TRC10通证进行说明。
 
-## 如何发行TRC10通证 
+## 如何发行TRC10通证
 
-http接口：  
+http接口：
 ```text
 wallet/createassetissue
 作用：发行Token
@@ -27,32 +28,32 @@ demo：curl -X POST  http://127.0.0.1:8090/wallet/createassetissue -d '{
 }'
 
 参数说明：
-owner_address发行人地址    
-name是token名称    
-abbr是token简称  
-total_supply是发行总量  
-trx_num和num是token和trx的兑换价值  
-precision是精度，也就是小数点个数  
-start_time和end_time是token发行起止时间  
-description是token说明，需要是hexString格式 
-url是token发行方的官网，需要是hexString格式 
-free_asset_net_limit是Token的总的免费带宽 
-public_free_asset_net_limit是每个token拥护者能使用本token的免费带  
-frozen_supply是token发行者可以在发行的时候指定冻结的token  
+owner_address发行人地址
+name是token名称
+abbr是token简称
+total_supply是发行总量
+trx_num和num是token和trx的兑换价值
+precision是精度，也就是小数点个数
+start_time和end_time是token发行起止时间
+description是token说明，需要是hexString格式
+url是token发行方的官网，需要是hexString格式
+free_asset_net_limit是Token的总的免费带宽
+public_free_asset_net_limit是每个token拥护者能使用本token的免费带
+frozen_supply是token发行者可以在发行的时候指定冻结的token
 
-返回值：发行Token的Transaction  
+返回值：发行Token的Transaction
 ```
 
-## 参与TRC10通证 
+## 参与TRC10通证
 
-http接口：  
+http接口：
 ```
 wallet/participateassetissue
 作用：参与通证发行
 demo：curl -X POST http://127.0.0.1:8090/wallet/participateassetissue -d '{
 "to_address": "41e552f6487585c2b58bc2c9bb4492bc1f17132cd0",
-"owner_address":"41e472f387585c2b58bc2c9bb4492bc1f17342cd1", 
-"amount":100, 
+"owner_address":"41e472f387585c2b58bc2c9bb4492bc1f17342cd1",
+"amount":100,
 "asset_name":"3230313271756265696a696e67"
 }'
 
@@ -65,24 +66,24 @@ asset_name是token的名称，需要是hexString格式
 返回值：参与token发行的transaction
 ```
 
-## TRC10通证转账 
+## TRC10通证转账
 
 http接口：
 ```
 wallet/transferasset
 作用：转账Token
 demo：curl -X POST  http://127.0.0.1:8090/wallet/transferasset -d '{
-  "owner_address":"41d1e7a6bc354106cb410e65ff8b181c600ff14292", 
-  "to_address": "41e552f6487585c2b58bc2c9bb4492bc1f17132cd0", 
-  "asset_name": "0x6173736574497373756531353330383934333132313538", 
+  "owner_address":"41d1e7a6bc354106cb410e65ff8b181c600ff14292",
+  "to_address": "41e552f6487585c2b58bc2c9bb4492bc1f17132cd0",
+  "asset_name": "0x6173736574497373756531353330383934333132313538",
   "amount": 100
 }'
 
 参数说明：
-  owner_address是token转出地址，需要是hexString格式 
-  to_address是token转入地址，需要是hexString格式 
+  owner_address是token转出地址，需要是hexString格式
+  to_address是token转入地址，需要是hexString格式
   asset_name是token名称，需要是hexString格式
-  amount是token转账数量  
+  amount是token转账数量
 
 返回值：token转账的Transaction
 ```

@@ -1,4 +1,6 @@
-TRC-20是用于TRON区块链上的智能合约的技术标准，用于使用TRON虚拟机（TVM）实施代币。 它与 ERC-20完全兼容。  
+# TRC-20
+
+TRC-20是用于TRON区块链上的智能合约的技术标准，用于使用TRON虚拟机（TVM）实施代币。 它与 ERC-20完全兼容。
 
 ## 实现规则
 
@@ -7,13 +9,13 @@ TRC-20是用于TRON区块链上的智能合约的技术标准，用于使用TRON
 - 通证名称
 
 ```text
-string public constant name = “TRONEuropeRewardCoin”;
+string public constant name = "TRONEuropeRewardCoin";
 ```
 
 - 通证缩写
 
 ```text
-string public constant symbol = “TERC”;
+string public constant symbol = "TERC";
 ```
 
 - 通证精度
@@ -59,18 +61,18 @@ contract TRC20 {
 这个方法用来授权第三方（例如DAPP合约）从通证拥有者账户转账通证。
 
 
-- transferFrom() 
+- transferFrom()
 
-这个方法可供第三方从通证拥有者账户转账通证。需要配合approve()方法使用。  
+这个方法可供第三方从通证拥有者账户转账通证。需要配合approve()方法使用。
 
 
-- allowance() 
+- allowance()
 
-这个方法用来查询可供第三方转账的查询账户的通证余额。  
+这个方法用来查询可供第三方转账的查询账户的通证余额。
 
 **2 个事件函数**
 
-当通证被成功转账后，会触发转账事件。   
+当通证被成功转账后，会触发转账事件。
 
 ```text
 event Transfer(address indexed _from, address indexed _to, uint256 _value)
