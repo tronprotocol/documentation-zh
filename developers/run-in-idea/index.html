@@ -90,9 +90,9 @@
                 <ul>
                     <li class="toctree-l1"><a class="reference internal" href="../../architecture/network/">网络</a>
                     </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../../architecture/database/">数据库</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../../architecture/database/">数据储存</a>
                     </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../../architecture/plugin/">插件</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../../architecture/event/">事件插件</a>
                     </li>
                 </ul>
                 <p class="caption"><span class="caption-text">智能合约文档</span></p>
@@ -120,15 +120,17 @@
     </li>
     </ul>
                     </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../resources/">资源</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../contribution/">如何参与开发</a>
                     </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../contribution/">参与开发</a>
-                    </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../incentives/">激励政策</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../incentives/">开发者激励</a>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../java-tron/">Java-Tron</a>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../tips/">TIPs</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../advanced-configuration/">高级配置项</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../resources/">其他参考资源</a>
                     </li>
                 </ul>
                 <p class="caption"><span class="caption-text">客户端</span></p>
@@ -136,8 +138,6 @@
                     <li class="toctree-l1"><a class="reference internal" href="../../clients/wallet-cli/">命令行钱包</a>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../../clients/tron-grid/">TronGrid</a>
-                    </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../advanced-configuration/">高级配置项</a>
                     </li>
                 </ul>
                 <ul>
@@ -187,10 +187,10 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="ideafullnode">使用IDEA运行FullNode节点</h1>
+                <h1 id="ideafullnode">使用IDEA运行FullNode节点<a class="headerlink" href="#ideafullnode" title="Permanent link">&para;</a></h1>
 <p>该文档旨在方便有一定经验的开发者在集成开发环境IDEA中运行FullNode节点</p>
 <p><strong>以下内容针对java-tron的master分支</strong></p>
-<h2 id="idea">一、配置集成开发环境IDEA</h2>
+<h2 id="idea">一、配置集成开发环境IDEA<a class="headerlink" href="#idea" title="Permanent link">&para;</a></h2>
 <p><strong>IDEA配置</strong></p>
 <ul>
 <li>
@@ -205,31 +205,30 @@
 <li>将Compiler下Annotation Processors中的Enable annotation processing前打勾</li>
 </ul>
 <p><img alt="" src="https://raw.githubusercontent.com/cathy-lishipu/documentation-zh/idea_instruction/images/annnotation.png" /></p>
-<h2 id="_1">二、部署指南</h2>
+<h2 id="_1">二、部署指南<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
 <p><strong>1.创建目录</strong>
 <em>/deploy</em></p>
-<pre><code class="swift">mkdir deploy
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="n">mkdir</span> <span class="n">deploy</span>
+</code></pre></div>
 
 <p><strong>2.克隆最新的代码</strong></p>
-<pre><code class="swift">git clone https://github.com/tronprotocol/java-tron
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="c1">//github.com/tronprotocol/java-tron</span>
+</code></pre></div>
 
 <p><strong>3.切换master分支</strong></p>
-<pre><code class="swift">cd java-tron
-git checkout -t origin/master
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="n">cd</span> <span class="n">java</span><span class="o">-</span><span class="n">tron</span>
+<span class="n">git</span> <span class="n">checkout</span> <span class="o">-</span><span class="n">t</span> <span class="n">origin</span><span class="o">/</span><span class="n">master</span>
+</code></pre></div>
 
 <p><strong>4.编译代码</strong></p>
-<pre><code class="swift">./gradlew build
-</code></pre>
-
-<p>编译过程可能需要一定时间，请耐心等待。
+<p><div class="codehilite"><pre><span></span><code><span class="p">.</span><span class="o">/</span><span class="n">gradlew</span> <span class="n">build</span>
+</code></pre></div>
+编译过程可能需要一定时间，请耐心等待。
 若编译成功，你可以看到类似如下信息：</p>
 <p><img alt="" src="https://raw.githubusercontent.com/cathy-lishipu/documentation-zh/idea_instruction/images/build_success_test.png" /></p>
 <p>如果不想执行单元测试任务，可运行如下命令：</p>
-<pre><code class="swift">./gradlew build -x test
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="p">.</span><span class="o">/</span><span class="n">gradlew</span> <span class="n">build</span> <span class="o">-</span><span class="n">x</span> <span class="n">test</span>
+</code></pre></div>
 
 <p><strong>5.启动FullNode节点</strong></p>
 <p>编译成功后，可通过java-tron/src/main/java/org/tron/program/FullNode.java路径找到主函数文件，启动一个全节点。</p>
@@ -246,7 +245,7 @@ git checkout -t origin/master
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../resources/" class="btn btn-neutral float-right" title="资源">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../contribution/" class="btn btn-neutral float-right" title="如何参与开发">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
         <a href="../deployment/" class="btn btn-neutral" title="部署"><span class="icon icon-circle-arrow-left"></span> Previous</a>
@@ -280,12 +279,13 @@ git checkout -t origin/master
         <span><a href="../deployment/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
-        <span style="margin-left: 15px"><a href="../resources/" style="color: #fcfcfc">Next &raquo;</a></span>
+        <span style="margin-left: 15px"><a href="../contribution/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>
     <script>var base_url = '../..';</script>
     <script src="../../js/theme.js" defer></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
       <script src="../../search/main.js" defer></script>
     <script defer>
         window.onload = function () {

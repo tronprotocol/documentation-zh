@@ -77,6 +77,16 @@
                     </li>
                     <li class="toctree-l1 current"><a class="reference internal current" href="./">资源模型</a>
     <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#_2">资源模型介绍</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_3">带宽</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_4">能量</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_5">资源委托</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_6">其他交易费</a>
+    </li>
     </ul>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../dex/">去中心化交易所</a>
@@ -92,9 +102,9 @@
                 <ul>
                     <li class="toctree-l1"><a class="reference internal" href="../../architecture/network/">网络</a>
                     </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../../architecture/database/">数据库</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../../architecture/database/">数据储存</a>
                     </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../../architecture/plugin/">插件</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../../architecture/event/">事件插件</a>
                     </li>
                 </ul>
                 <p class="caption"><span class="caption-text">智能合约文档</span></p>
@@ -116,15 +126,17 @@
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../../developers/run-in-idea/">在 IDEA 中启动节点</a>
                     </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../../developers/resources/">资源</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../../developers/contribution/">如何参与开发</a>
                     </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../../developers/contribution/">参与开发</a>
-                    </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../../developers/incentives/">激励政策</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../../developers/incentives/">开发者激励</a>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../../developers/java-tron/">Java-Tron</a>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../../developers/tips/">TIPs</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../developers/advanced-configuration/">高级配置项</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../developers/resources/">其他参考资源</a>
                     </li>
                 </ul>
                 <p class="caption"><span class="caption-text">客户端</span></p>
@@ -132,8 +144,6 @@
                     <li class="toctree-l1"><a class="reference internal" href="../../clients/wallet-cli/">命令行钱包</a>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../../clients/tron-grid/">TronGrid</a>
-                    </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../../developers/advanced-configuration/">高级配置项</a>
                     </li>
                 </ul>
                 <ul>
@@ -183,13 +193,14 @@
           <div role="main">
             <div class="section">
               
-                <h2 id="_1">资源模型介绍</h2>
+                <h1 id="_1">资源模型<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<h2 id="_2">资源模型介绍<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <p>TRON网络中的资源有4种：带宽，CPU，存储和内存。得益于波场独有的内存模型，TRON网络中的内存资源几乎是无限的。
 TRON网络引入了Bandwidth point 和 Energy 两种资源概念。其中Bandwidth Point表示带宽资源，Energy表示CPU和存储资源。
 <strong>注意</strong>
 - 普通交易仅消耗Bandwidth points
 - 智能合约的操作不仅要消耗Bandwidth points，还会消耗Energy</p>
-<h2 id="_2">带宽</h2>
+<h2 id="_3">带宽<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
 <p>交易以字节数组的形式在网络中传输及存储，一条交易消耗的Bandwidth Points = 交易字节数 * Bandwidth Points费率。当前Bandwidth Points费率 = 1。</p>
 <p>如一条交易的字节数组长度为200，那么该交易需要消耗200 Bandwidth Points。</p>
 <p><strong>注意</strong> 由于网络中总冻结资金以及账户的冻结资金随时可能发生变化，因此账户拥有的Bandwidth Points不是固定值。</p>
@@ -229,19 +240,19 @@ TRON网络引入了Bandwidth point 和 Energy 两种资源概念。其中Bandwid
 <p>在网络总锁定资金以及账户锁定资金不变的情况向，账户的带宽的已使用量随着时间增加而按比例衰减，24h衰减到0。如时间T1时刻，账户带宽已使用量为U，到T1+12h，账户再次使用带宽u,此时账户已使用带宽为 U/2 + u。具体公式如下：</p>
 <p><img alt="image" src="https://raw.githubusercontent.com/tronprotocol/documentation-EN/master/images/bandwidthRestoreEqn.gif" /></p>
 <p>即可以理解为每24h，用户已使用的带宽值重置为0。</p>
-<h2 id="_3">能量</h2>
+<h2 id="_4">能量<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
 <p>智能合约运行时执行每一条指令都需要消耗一定的系统资源，资源的多少用Energy的值来衡量。</p>
 <h3>1. Energy的获取 </h3>
 
 <p>冻结获取Energy，即将持有的trx锁定，无法进行交易，作为抵押，并以此获得免费使用Energy的权利。具体计算与全网所有账户冻结有关，可参考相关部分计算。</p>
 <p><strong> FreezeBalance 冻结获得能量  </strong></p>
-<pre><code class="text">freezeBalance frozen_balance frozen_duration [ResourceCode:0 BANDWIDTH,1 ENERGY]
-</code></pre>
+<div class="codehilite"><pre><span></span><code>freezeBalance frozen_balance frozen_duration [ResourceCode:0 BANDWIDTH,1 ENERGY]
+</code></pre></div>
 
 <p>通过冻结TRX获取的Energy， 额度 = 为获取Energy冻结的TRX / 整个网络为获取Energy冻结的TRX 总额 * 50_000_000_000。
 也就是所有用户按冻结TRX平分固定额度的Energy。</p>
 <p>示例：</p>
-<pre><code class="text">如全网只有两个人A，B分别冻结2TRX，2TRX。
+<div class="codehilite"><pre><span></span><code>如全网只有两个人A，B分别冻结2TRX，2TRX。
 
 二人冻结获得的可用Energy分别是
 
@@ -258,20 +269,19 @@ A: 20_000_000_000 且energy_limit调整为20_000_000_000
 B: 20_000_000_000 且energy_limit调整为20_000_000_000
 
 B: 10_000_000_000 且energy_limit 为10_000_000_000
-
-</code></pre>
+</code></pre></div>
 
 <p><strong> FreezeBalance 恢复能量 </strong></p>
 <p>所消耗的能量会在24小时内平滑减少至0。</p>
 <p>示例：</p>
-<pre><code class="text">在某一时刻A的Energy已使用量为72_000_000 Energy
+<div class="codehilite"><pre><span></span><code>在某一时刻A的Energy已使用量为72_000_000 Energy
 
 在没有其他消耗或冻结的操作下：
 
 一小时后A的Energy已使用量为 72_000_000 - (72_000_000 * (60*60/60*60*24)) Energy = 69_000_000 Energy
 
 24小时后A的Energy已使用量为 0 Energy。
-</code></pre>
+</code></pre></div>
 
 <h3> 2. 如何填写feeLimit(用户必读) </h3>
 
@@ -311,10 +321,12 @@ B: 10_000_000_000 且energy_limit 为10_000_000_000
 <p>1). tron为了惩罚恶意开发者，对于异常合约，如果执行超时（超过50ms），或因bug异常退出（不包含revert），会扣除本次的最大可用Energy。若合约正常执行，或revert，则仅扣除执行相关指令所需的Energy；</p>
 <p>2). 开发者可以设置执行合约时，消耗Energy中自己承担的比例，该比例后续可修改。一次合约调用消耗的Energy，若开发者的Energy不足以支付其承担的部分，剩余部分全由调用者支付；</p>
 <p>3). 目前执行一个合约，可用的Energy总数由 调用者调用时设置的feeLimit 和 开发者承担部分共同决定；</p>
-<pre><code>注意：
-1.若开发者不确定合约是否正常，请勿将用户承担比例设置为0%，否则在被判为恶意执行时，会扣除开发者的所有Energy。[1]
-2.因此建议开发者设置的用户承担的比例为10%~100%。[2]
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="err">注意：</span>
+<span class="err">1.若开发者不确定合约是否正常，请勿将用户承担比例设置为0%，否则在被判为恶意执行时，会扣除开发者的所有Energy。[1]</span>
+<span class="err">2.因此建议开发者设置的用户承担的比例为10%~100%。[2]</span>
+</code></pre></div>
+
+
 <p>下面具体举例，详细描述合约可用Energy的计算方法。</p>
 <p><strong>示例1</strong>
 如果一个账户A的balance是 100 TRX(100000000 SUN)，冻结 10 TRX 获得了100000 Energy，未冻结的balance是 90 TRX。
@@ -356,19 +368,18 @@ B: 10_000_000_000 且energy_limit 为10_000_000_000
 开发者自己承担所有资源消耗，意味着当发生了Assert-style异常时，会消耗开发者冻结的所有Energy。
 Assert-style异常的介绍详见<a href="https://github.com/tronprotocol/Documentation/blob/master/%E4%B8%AD%E6%96%87%E6%96%87%E6%A1%A3/%E8%99%9A%E6%8B%9F%E6%9C%BA/%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86.md">异常介绍</a></p>
 <p>为避免造成不必要的损失consume_user_resource_percent建议值是10-100。</p>
-<h2 id="_4">资源委托</h2>
+<h2 id="_5">资源委托<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
 <p>在TRON中，一个账户可以通过冻结TRX来获取带宽和能量。同时，也可以把冻结TRX获取的带宽或者能量委托（delegate）给其他地址。
 此时，主账号拥有冻结的TRX以及相应的投票权，受委托账户拥有冻结获取的资源（带宽或者能量）。
 和普通冻结一样，委托资源也至少冻结3天。</p>
-<p>资源委托的命令如下：</p>
-<pre><code class="text">  freezeBalance frozen_balance frozen_duration [ResourceCode:0 BANDWIDTH,1 ENERGY] [receiverAddress]
-</code></pre>
-
-<p>frozen_balance是冻结的TRX数量（单位为sun），
+<p>资源委托的命令如下：
+<div class="codehilite"><pre><span></span><code>  freezeBalance frozen_balance frozen_duration [ResourceCode:0 BANDWIDTH,1 ENERGY] [receiverAddress]
+</code></pre></div>
+frozen_balance是冻结的TRX数量（单位为sun），
 frozen_duration为冻结的天数（目前固定为3天），
 ResourceCode表示要获取的资源是带宽还是能量，
 receiverAddress表示受委托账户的地址，</p>
-<h2 id="_5">其他交易费</h2>
+<h2 id="_6">其他交易费<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
@@ -442,6 +453,7 @@ receiverAddress表示受委托账户的地址，</p>
 </div>
     <script>var base_url = '../..';</script>
     <script src="../../js/theme.js" defer></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
       <script src="../../search/main.js" defer></script>
     <script defer>
         window.onload = function () {

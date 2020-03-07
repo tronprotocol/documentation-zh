@@ -90,9 +90,9 @@
                 <ul>
                     <li class="toctree-l1"><a class="reference internal" href="../../architecture/network/">网络</a>
                     </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../../architecture/database/">数据库</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../../architecture/database/">数据储存</a>
                     </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../../architecture/plugin/">插件</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../../architecture/event/">事件插件</a>
                     </li>
                 </ul>
                 <p class="caption"><span class="caption-text">智能合约文档</span></p>
@@ -114,15 +114,19 @@
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../run-in-idea/">在 IDEA 中启动节点</a>
                     </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../resources/">资源</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../contribution/">如何参与开发</a>
                     </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../contribution/">参与开发</a>
-                    </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../incentives/">激励政策</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../incentives/">开发者激励</a>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../java-tron/">Java-Tron</a>
                     </li>
                     <li class="toctree-l1 current"><a class="reference internal current" href="./">TIPs</a>
+    <ul class="current">
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../advanced-configuration/">高级配置项</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../resources/">其他参考资源</a>
                     </li>
                 </ul>
                 <p class="caption"><span class="caption-text">客户端</span></p>
@@ -130,8 +134,6 @@
                     <li class="toctree-l1"><a class="reference internal" href="../../clients/wallet-cli/">命令行钱包</a>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../../clients/tron-grid/">TronGrid</a>
-                    </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../advanced-configuration/">高级配置项</a>
                     </li>
                 </ul>
                 <ul>
@@ -181,40 +183,41 @@
           <div role="main">
             <div class="section">
               
-                <p>波场优化提议(TIPs) 描述了波场平台的标准，包括协议说明、客户端接口、合约标准等等。  </p>
-<p>TIPS仓库路径是：<a href="https://github.com/tronprotocol/TIPs">https://github.com/tronprotocol/TIPs</a>  </p>
+                <h1 id="tip">波场优化提议(TIP)<a class="headerlink" href="#tip" title="Permanent link">&para;</a></h1>
+<p>波场优化提议(TIP) 描述了波场平台的标准，包括协议说明、客户端接口、合约标准等等。</p>
+<p>TIPS仓库路径是：<a href="https://github.com/tronprotocol/TIPs">https://github.com/tronprotocol/TIPs</a></p>
 <h2>提交一个PR</h2>
 
-<p>1.&nbsp;首先fork远程项目到本地；     </p>
-<p>2.&nbsp;在本地仓库新建一个TIP。请参照<a href="https://github.com/tronprotocol/TIPs/blob/master/template.md">TIP模板</a>。  </p>
-<p>3.&nbsp;提交一个PR到波场TIPs仓库。     </p>
-<p>你提交的第一个TIP PR应该是最终TIP的一个草案，必须要符合我们要求的格式。我们会审核你提交的TIP，并且会为之分配一个编号。请确保在TIP页头中附上论坛的地址或者一个公开的GitHub议题地址来让用户进行讨论。 </p>
+<p>1.&nbsp;首先fork远程项目到本地；</p>
+<p>2.&nbsp;在本地仓库新建一个TIP。请参照<a href="https://github.com/tronprotocol/TIPs/blob/master/template.md">TIP模板</a>。</p>
+<p>3.&nbsp;提交一个PR到波场TIPs仓库。</p>
+<p>你提交的第一个TIP PR应该是最终TIP的一个草案，必须要符合我们要求的格式。我们会审核你提交的TIP，并且会为之分配一个编号。请确保在TIP页头中附上论坛的地址或者一个公开的GitHub议题地址来让用户进行讨论。</p>
 <p>当你认为你的TIP已经成熟完善并且准备越过草稿阶段，你应该：</p>
 <ul>
 <li>
-<p>涉及核心类型标准化的TIP，你需要联系波场核心开发人员把你的提议讨论加入到下次会议内容里，从而可以讨论你的提议。如果核心开发者决定采纳你的提议，TIP编辑者会更新你的TIP状态为”已采纳“。    </p>
+<p>涉及核心类型标准化的TIP，你需要联系波场核心开发人员把你的提议讨论加入到下次会议内容里，从而可以讨论你的提议。如果核心开发者决定采纳你的提议，TIP编辑者会更新你的TIP状态为”已采纳“。</p>
 </li>
 <li>
-<p>对于其他类型的TIP，打开一个PR并且把你的TIP状态改为'最终版'。TIP编辑者会审核你的草稿并且询问是否有人反对将你的提议状态改为最终版。如果TIP编辑者不认可你的内容，他们可能会关闭你的PR，并且要求你继续修改草案内容。  </p>
+<p>对于其他类型的TIP，打开一个PR并且把你的TIP状态改为'最终版'。TIP编辑者会审核你的草稿并且询问是否有人反对将你的提议状态改为最终版。如果TIP编辑者不认可你的内容，他们可能会关闭你的PR，并且要求你继续修改草案内容。</p>
 </li>
 </ul>
 <h2>TIP状态</h2>
 
 <ul>
 <li>
-<p><strong>草案版</strong>: 提议处于快速迭代与修改期      </p>
+<p><strong>草案版</strong>: 提议处于快速迭代与修改期</p>
 </li>
 <li>
-<p><strong>待审核</strong>: 提议已经完成初始迭代并且可以被他人审核      </p>
+<p><strong>待审核</strong>: 提议已经完成初始迭代并且可以被他人审核</p>
 </li>
 <li>
-<p><strong>已采纳</strong>: 核心类型标准化的提议已被核心开发人员采纳    </p>
+<p><strong>已采纳</strong>: 核心类型标准化的提议已被核心开发人员采纳</p>
 </li>
 <li>
-<p><strong>最终版 (非核心)</strong>: 非核心类型标准化的提议已经完善，不需要再做修改         </p>
+<p><strong>最终版 (非核心)</strong>: 非核心类型标准化的提议已经完善，不需要再做修改</p>
 </li>
 <li>
-<p><strong>最终版（核心）</strong>: 核心类型标准化的提议已经完善，不需要再做修改           </p>
+<p><strong>最终版（核心）</strong>: 核心类型标准化的提议已经完善，不需要再做修改</p>
 </li>
 </ul>
               
@@ -224,7 +227,7 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../../clients/wallet-cli/" class="btn btn-neutral float-right" title="命令行钱包">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../advanced-configuration/" class="btn btn-neutral float-right" title="高级配置项">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
         <a href="../java-tron/" class="btn btn-neutral" title="Java-Tron"><span class="icon icon-circle-arrow-left"></span> Previous</a>
@@ -258,12 +261,13 @@
         <span><a href="../java-tron/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
-        <span style="margin-left: 15px"><a href="../../clients/wallet-cli/" style="color: #fcfcfc">Next &raquo;</a></span>
+        <span style="margin-left: 15px"><a href="../advanced-configuration/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>
     <script>var base_url = '../..';</script>
     <script src="../../js/theme.js" defer></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
       <script src="../../search/main.js" defer></script>
     <script defer>
         window.onload = function () {

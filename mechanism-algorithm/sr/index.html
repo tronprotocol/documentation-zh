@@ -70,6 +70,8 @@
                 <p class="caption"><span class="caption-text">机制与算法</span></p>
                 <ul class="current">
                     <li class="toctree-l1 current"><a class="reference internal current" href="./">超级代表与委员会</a>
+    <ul class="current">
+    </ul>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../trc10/">TRC-10</a>
                     </li>
@@ -90,9 +92,9 @@
                 <ul>
                     <li class="toctree-l1"><a class="reference internal" href="../../architecture/network/">网络</a>
                     </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../../architecture/database/">数据库</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../../architecture/database/">数据储存</a>
                     </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../../architecture/plugin/">插件</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../../architecture/event/">事件插件</a>
                     </li>
                 </ul>
                 <p class="caption"><span class="caption-text">智能合约文档</span></p>
@@ -114,15 +116,17 @@
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../../developers/run-in-idea/">在 IDEA 中启动节点</a>
                     </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../../developers/resources/">资源</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../../developers/contribution/">如何参与开发</a>
                     </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../../developers/contribution/">参与开发</a>
-                    </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../../developers/incentives/">激励政策</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../../developers/incentives/">开发者激励</a>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../../developers/java-tron/">Java-Tron</a>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../../developers/tips/">TIPs</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../developers/advanced-configuration/">高级配置项</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../developers/resources/">其他参考资源</a>
                     </li>
                 </ul>
                 <p class="caption"><span class="caption-text">客户端</span></p>
@@ -130,8 +134,6 @@
                     <li class="toctree-l1"><a class="reference internal" href="../../clients/wallet-cli/">命令行钱包</a>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../../clients/tron-grid/">TronGrid</a>
-                    </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../../developers/advanced-configuration/">高级配置项</a>
                     </li>
                 </ul>
                 <ul>
@@ -181,7 +183,8 @@
           <div role="main">
             <div class="section">
               
-                <h3>1. 申请成为超级代表候选人规则 </h3>
+                <h1 id="_1">超级代表与委员会<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<h3>1. 申请成为超级代表候选人规则 </h3>
 
 <p>在TRON网络中，任何账户都可以申请成为超级代表候选人，都有机会成为超级代表。每个账户都可以投票给超级代表候选人。</p>
 <p>得票前27名的witness称为超级代表（SR），就具有出链块的权利。 从28名到127名（包含）的witness称为合伙人（Partner），从128名之后的witness称为候选人（Candidates）。</p>
@@ -196,10 +199,10 @@
 <ul>
 <li>示例：</li>
 </ul>
-<pre><code>freezebalance 10,000,000 3 // 冻结了10TRX，获取了10单位TRON Power(TP)
-votewitness witness1 4 witness2 6 // 同时给witness1投了4票，给witness2投了6票
-votewitness witness1 3 witness2 7 // 同时给witness1投了3票，给witness2投了7票
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="err">freezebalance 10,000,000 3 // 冻结了10TRX，获取了10单位TRON Power(TP)</span>
+<span class="err">votewitness witness1 4 witness2 6 // 同时给witness1投了4票，给witness2投了6票</span>
+<span class="err">votewitness witness1 3 witness2 7 // 同时给witness1投了3票，给witness2投了7票</span>
+</code></pre></div>
 
 <p>以上命令的最终结果是给witness1投了3票，给witness2投了7票</p>
 <p><strong>Witnesses分红</strong></p>
@@ -405,43 +408,42 @@ votewitness witness1 3 witness2 7 // 同时给witness1投了3票，给witness2�
 </tbody>
 </table>
 <ul>
-<li>示例：</li>
-</ul>
-<pre><code class="text">createproposal id0 value0 ... idN valueN
+<li>示例：
+<div class="codehilite"><pre><span></span><code>createproposal id0 value0 ... idN valueN
 id0_N: 参数编号
 value0_N: 新参数值
-</code></pre>
-
+</code></pre></div></li>
+</ul>
 <p>注：Tron网络中，1 TRX = 1000_000 SUN。</p>
 <h4> 5.3 对提议进行投票 </h4>
 
 <p>提议仅支持投赞成票，不投票代表不赞同。从提议创建时间开始，3天时间内为提议的有效期。超过该时间范围，该提议如果没有获得足够的
 赞成票，该提议失效。允许取消之前投的赞成票。</p>
 <ul>
-<li>示例：</li>
-</ul>
-<pre><code class="text">approveProposal id is_or_not_add_approval
+<li>示例：
+<div class="codehilite"><pre><span></span><code>approveProposal id is_or_not_add_approval
 id: 提议Id，根据提议创建时间递增
 is_or_not_add_approval: 赞成或取消赞成
-</code></pre>
-
+</code></pre></div></li>
+</ul>
 <h4> 5.4 取消提议 </h4>
 
 <p>提议创建者，能够在提议生效前，取消提议。</p>
 <ul>
-<li>示例：</li>
-</ul>
-<pre><code class="text">deleteProposal proposalId
+<li>示例：
+<div class="codehilite"><pre><span></span><code>deleteProposal proposalId
 id: 提议Id，根据提议创建时间递增
-</code></pre>
-
+</code></pre></div></li>
+</ul>
 <h4> 5.5 查询提议 </h4>
 
-<p>以下接口可以查询提议，包括：
-查询所有提议信息（ListProposals）
-分页查询提议信息（GetPaginatedProposalList）
-查询指定提议信息（GetProposalById）
-相关api详情，请查询<a href="../../api/http/">Tron HTTP API</a></p>
+<p>以下接口可以查询提议，包括：</p>
+<ul>
+<li>查询所有提议信息（ListProposals）</li>
+<li>分页查询提议信息（GetPaginatedProposalList）</li>
+<li>查询指定提议信息（GetProposalById）</li>
+</ul>
+<p>相关api详情，请查询<a href="../../api/http/">Tron HTTP API</a>.</p>
               
             </div>
           </div>
@@ -489,6 +491,7 @@ id: 提议Id，根据提议创建时间递增
 </div>
     <script>var base_url = '../..';</script>
     <script src="../../js/theme.js" defer></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
       <script src="../../search/main.js" defer></script>
     <script defer>
         window.onload = function () {

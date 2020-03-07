@@ -81,6 +81,14 @@
                     </li>
                     <li class="toctree-l1 current"><a class="reference internal current" href="./">多重签名</a>
     <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#_2">背景</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_3">概念说明</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#api">API</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_4">其他</a>
+    </li>
     </ul>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../shielded-transaction/">匿名交易</a>
@@ -92,9 +100,9 @@
                 <ul>
                     <li class="toctree-l1"><a class="reference internal" href="../../architecture/network/">网络</a>
                     </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../../architecture/database/">数据库</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../../architecture/database/">数据储存</a>
                     </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../../architecture/plugin/">插件</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../../architecture/event/">事件插件</a>
                     </li>
                 </ul>
                 <p class="caption"><span class="caption-text">智能合约文档</span></p>
@@ -116,15 +124,17 @@
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../../developers/run-in-idea/">在 IDEA 中启动节点</a>
                     </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../../developers/resources/">资源</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../../developers/contribution/">如何参与开发</a>
                     </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../../developers/contribution/">参与开发</a>
-                    </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../../developers/incentives/">激励政策</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../../developers/incentives/">开发者激励</a>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../../developers/java-tron/">Java-Tron</a>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../../developers/tips/">TIPs</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../developers/advanced-configuration/">高级配置项</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../developers/resources/">其他参考资源</a>
                     </li>
                 </ul>
                 <p class="caption"><span class="caption-text">客户端</span></p>
@@ -132,8 +142,6 @@
                     <li class="toctree-l1"><a class="reference internal" href="../../clients/wallet-cli/">命令行钱包</a>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../../clients/tron-grid/">TronGrid</a>
-                    </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../../developers/advanced-configuration/">高级配置项</a>
                     </li>
                 </ul>
                 <ul>
@@ -183,112 +191,107 @@
           <div role="main">
             <div class="section">
               
-                <h2 id="_1"><h2 id="1">背景</h2></h2>
+                <h1 id="_1">多重签名<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<h2 id="_2">背景<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <p><strong>注意：V3.5版本后支持</strong></p>
 <p>目前TRON的所有交易签名，都是用的同一个私钥完成。没有权限分级，也不能实现多人共同控制账户。因此，设计并实现多重签名功能，每个权限可以对应多个私钥。</p>
-<p><a href="https://github.com/tronprotocol/TIPs/issues/16">Tron multi-signatures Tip</a></p>
-<h2 id="_2"><h2 id="2">概念说明</h2></h2>
+<p><a href="https://github.com/tronprotocol/TIPs/issues/16">Tron multi-signatures TIP</a></p>
+<h2 id="_3">概念说明<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
 <p>该方案共包含三种权限级别，owner、witness以及active权限，其中owner权限具有执行所有合约的权限，witness权限用于超级代表出块，active是自定义权限(可以组合权限集合)，以下将详细说明。</p>
 <h3 id="2.1">1）结构说明</h3>
 
-<p><strong>Account修改</strong></p>
-<pre><code class="text">message Account { 
-  ... 
+<p><strong>Account修改</strong>
+<div class="codehilite"><pre><span></span><code>message Account {
+  ...
   Permission owner_permission = 31;
   Permission witness_permission = 32;
   repeated Permission active_permission = 33;
 }
-</code></pre>
-
-<p>在账户结构中新增三个权限属性，分别是 owner_permission、witness_permission 和 active_permission，其中 active_permission 是个列表，可以指定最多8个。</p>
-<p><strong>ContractType修改</strong></p>
-<pre><code class="text">message Transaction {
+</code></pre></div>
+在账户结构中新增三个权限属性，分别是 owner_permission、witness_permission 和 active_permission，其中 active_permission 是个列表，可以指定最多8个。</p>
+<p><strong>ContractType修改</strong>
+<div class="codehilite"><pre><span></span><code>message Transaction {
   message Contract {
-    enum ContractType { 
-      AccountCreateContract = 0; 
-      ... 
-      AccountPermissionUpdateContract = 46; 
+    enum ContractType {
+      AccountCreateContract = 0;
+      ...
+      AccountPermissionUpdateContract = 46;
     }
-  }  
+  }
 }
-</code></pre>
-
-<p>新增一种交易类型 AccountPermissionUpdateContract，用于更新账户权限。</p>
-<p><strong>AccountPermissionUpdateContract</strong>    </p>
-<pre><code class="text">message AccountPermissionUpdateContract {
+</code></pre></div>
+新增一种交易类型 AccountPermissionUpdateContract，用于更新账户权限。</p>
+<p><strong>AccountPermissionUpdateContract</strong>
+<div class="codehilite"><pre><span></span><code>message AccountPermissionUpdateContract {
   bytes owner_address = 1;
-  Permission owner = 2;   
-  Permission witness = 3; 
-  repeated Permission actives = 4; 
+  Permission owner = 2;
+  Permission witness = 3;
+  repeated Permission actives = 4;
 }
-</code></pre>
-
-<p><code>owner_address</code>：待修改权限的账户的地址<br />
-<code>owner</code>：修改后的 owner 权限<br />
-<code>witness</code>：修改后的 witness 权限（如果是 witness ）<br />
-<code>actives</code>：修改后的 actives 权限  </p>
+</code></pre></div>
+<code>owner_address</code>：待修改权限的账户的地址
+<code>owner</code>：修改后的 owner 权限
+<code>witness</code>：修改后的 witness 权限（如果是 witness ）
+<code>actives</code>：修改后的 actives 权限</p>
 <p>该接口是覆盖原账户权限，因此，如果只想修改owner权限，witness（如果是witnss账户）及actives的也需要设置。</p>
-<p><strong>Permission</strong></p>
-<pre><code class="text">message Permission {
+<p><strong>Permission</strong>
+<div class="codehilite"><pre><span></span><code>message Permission {
   enum PermissionType {
     Owner = 0;
     Witness = 1;
     Active = 2;
   }
-  PermissionType type = 1; 
-  int32 id = 2;     
+  PermissionType type = 1;
+  int32 id = 2;
   string permission_name = 3;
   int64 threshold = 4;
-  int32 parent_id = 5; 
-  bytes operations = 6;  
+  int32 parent_id = 5;
+  bytes operations = 6;
   repeated Key keys = 7;
 }
-</code></pre>
-
-<p><code>PermissionType</code>: 权限类型，目前仅支持三种权限<br />
+</code></pre></div>
+<code>PermissionType</code>: 权限类型，目前仅支持三种权限
 <code>id</code>: 值由系统自动设置，Owner id=0, Witness id=1, Active id 从2开始递增分配。在执行合约时，
-通过该id来指定使用哪个权限，如使用owner权限，即将id设置为0。<br />
-<code>permission_name</code>: 权限名称，由用户设定，长度限制为32字节<br />
-<code>threshold</code>: 阈值，只有当参与签名的权重之和超过域值才允许做相应的操作。要求小于Long类型的最大值<br />
-<code>parent_id</code>：目前只能为0<br />
-<code>operations</code>：共32字节（256位），每位代表一个合约的权限，为1时表示拥有该合约的权限。 
+通过该id来指定使用哪个权限，如使用owner权限，即将id设置为0。
+<code>permission_name</code>: 权限名称，由用户设定，长度限制为32字节
+<code>threshold</code>: 阈值，只有当参与签名的权重之和超过域值才允许做相应的操作。要求小于Long类型的最大值
+<code>parent_id</code>：目前只能为0
+<code>operations</code>：共32字节（256位），每位代表一个合约的权限，为1时表示拥有该合约的权限。
 如<code>operations=0x0100...00(十六进制),即100...0(二进制)</code>时,查看proto中Transaction.ContractType定义，合约AccountCreateContract的id为0，
-即表示该permission只拥有执行AccountCreateContract的权限，可以使用"active权限中operations的计算示例"计算获得。<br />
-<code>keys</code>：共同拥有该权限的地址及权重，最多允许5个key。  </p>
-<p><strong>Key</strong>     </p>
-<pre><code class="text">message Key {
+即表示该permission只拥有执行AccountCreateContract的权限，可以使用"active权限中operations的计算示例"计算获得。
+<code>keys</code>：共同拥有该权限的地址及权重，最多允许5个key。</p>
+<p><strong>Key</strong>
+<div class="codehilite"><pre><span></span><code>message Key {
   bytes address = 1;
   int64 weight = 2;
 }
-</code></pre>
-
-<p><code>address</code>：拥有该权限的地址   <br />
-<code>weight</code>：该地址对该权限拥有权重   </p>
-<p><strong>Transaction修改</strong></p>
-<pre><code class="text">message Transaction {
+</code></pre></div>
+<code>address</code>：拥有该权限的地址
+<code>weight</code>：该地址对该权限拥有权重</p>
+<p><strong>Transaction修改</strong>
+<div class="codehilite"><pre><span></span><code>message Transaction {
   ...
   int32 Permission_id = 5;
 }
-</code></pre>
-
-<p>在交易中增加 <code>Permission_id</code>字段，与<code>Permission.id</code>相对应，用于指定使用哪个权限。默认为0，即owner权限。 
+</code></pre></div>
+在交易中增加 <code>Permission_id</code>字段，与<code>Permission.id</code>相对应，用于指定使用哪个权限。默认为0，即owner权限。
 不允许为1，因为witness权限仅用于出块，不用于对交易进行签名。</p>
 <h3 id="2.2">2）Owner权限</h3>
 
-<p>OwnerPermission是账户的最高权限，用于控制用户的所有权、调整权限结构，Owner权限也可以执行所有合约。  </p>
-<p>Owner权限具有以下特性：<br />
-1、拥有OwnerPermission的地址可以修改OwnerPermission。<br />
-2、当OwnerPermission为空时，默认采用该账户的地址具有owner权限。<br />
-3、账户新建时，自动将该账户的地址填充到OwnerPermission中，并默认域值为1，keys中仅包含该账户地址且权重为1。<br />
-4、当执行合约时未指定permissionId时， 默认采用OwnerPermission。  </p>
+<p>OwnerPermission是账户的最高权限，用于控制用户的所有权、调整权限结构，Owner权限也可以执行所有合约。</p>
+<p>Owner权限具有以下特性：
+1、拥有OwnerPermission的地址可以修改OwnerPermission。
+2、当OwnerPermission为空时，默认采用该账户的地址具有owner权限。
+3、账户新建时，自动将该账户的地址填充到OwnerPermission中，并默认域值为1，keys中仅包含该账户地址且权重为1。
+4、当执行合约时未指定permissionId时， 默认采用OwnerPermission。</p>
 <h3 id="2.3">3）Witness权限</h3>
 
-<p>超级代表可使用该权限，管理出块节点。非witness账户无该权限。  </p>
+<p>超级代表可使用该权限，管理出块节点。非witness账户无该权限。</p>
 <p>使用场景示例：一个超级代表在云服务器上部署出块程序，为了账户安全，此时可以将出块权限赋予另一个地址。由于该地址仅具有出块权限，无TRX转出权限，即使该服务器上私钥被泄密，也不会出现TRX丢失。</p>
-<p>Witness出块节点的配置：<br />
-1、未修改witness权限时，无需特殊配置。<br />
-2、修改witness权限后的出块节点，需要在重新配置，配置项如下：  </p>
-<pre><code class="text">#config.conf
+<p>Witness出块节点的配置：
+1、未修改witness权限时，无需特殊配置。
+2、修改witness权限后的出块节点，需要在重新配置，配置项如下：</p>
+<div class="codehilite"><pre><span></span><code>#config.conf
 
 // Optional.The default is empty.
 // It is used when the witness account has set the witnessPermission.
@@ -305,144 +308,138 @@
 localwitness = [
   f4df789d3210ac881cb900464dd30409453044d2777060a0c391cbdf4c6a4f57
 ]
-
-</code></pre>
+</code></pre></div>
 
 <h3 id="2.4">4）Active权限</h3>
 
-<p>Active权限，用于提供一个权限的组合，比如提供一个只能执行创建账户、转账功能的权限。   </p>
-<p>Active权限有以下特性：  <br />
-1、拥有OwnerPermission的地址可以修改Active权限  <br />
-2、拥有执行AccountPermissionUpdateContract权限的地址也能够修改Active权限  <br />
-3、最多支持8个组合。  <br />
-4、permission的id从2开始自动递增。  <br />
-5、账户新建时，自动创建一个Active权限，并将该账户的地址填充到其中，默认域值为1，keys中仅包含该账户地址且权重为1。  </p>
+<p>Active权限，用于提供一个权限的组合，比如提供一个只能执行创建账户、转账功能的权限。</p>
+<p>Active权限有以下特性：
+1、拥有OwnerPermission的地址可以修改Active权限
+2、拥有执行AccountPermissionUpdateContract权限的地址也能够修改Active权限
+3、最多支持8个组合。
+4、permission的id从2开始自动递增。
+5、账户新建时，自动创建一个Active权限，并将该账户的地址填充到其中，默认域值为1，keys中仅包含该账户地址且权重为1。</p>
 <h3 id="2.5">5）费用</h3>
 
-<p>1、使用更新账户权限时，即 AccountPermissionUpdate 合约，收取100TRX。  <br />
-2、使用多重签名的交易时，即交易中包括两个及两个以上签名的交易，除交易费用外，另收取1TRX。  <br />
-3、可通过提议，修改以上费用。  </p>
-<h2 id="api"><h2 id="3">API</h2></h2>
+<p>1、使用更新账户权限时，即 AccountPermissionUpdate 合约，收取100TRX。
+2、使用多重签名的交易时，即交易中包括两个及两个以上签名的交易，除交易费用外，另收取1TRX。
+3、可通过提议，修改以上费用。</p>
+<h2 id="api">API<a class="headerlink" href="#api" title="Permanent link">&para;</a></h2>
 <h3 id="3.1">1）修改权限</h3>
 
-<p><code>AccountPermissionUpdateContract</code>，修改权限步骤如下：  </p>
-<p>1、使用接口<code>getaccount</code>查询账户，并获取原权限  <br />
-2、修改permission  <br />
-3、创建合约，签名  <br />
-4、发送交易    </p>
-<p><strong>http-demo</strong></p>
-<pre><code class="json">http://{{host}}:{{port}}/wallet/accountpermissionupdate
+<p><code>AccountPermissionUpdateContract</code>，修改权限步骤如下：</p>
+<p>1、使用接口<code>getaccount</code>查询账户，并获取原权限
+2、修改permission
+3、创建合约，签名
+4、发送交易</p>
+<p><strong>http-demo</strong>
+<div class="codehilite"><pre><span></span><code><span class="err">http://</span><span class="p">{</span><span class="err">{host</span><span class="p">}</span><span class="err">}:</span><span class="p">{</span><span class="err">{port</span><span class="p">}</span><span class="err">}/wallet/accountpermissionupdate</span>
 
 
-{
-  &quot;owner_address&quot;: &quot;41ffa9466d5bf6bb6b7e4ab6ef2b1cb9f1f41f9700&quot;,
-  &quot;owner&quot;: {
-    &quot;type&quot;: 0,
-    &quot;id&quot;: 0,
-    &quot;permission_name&quot;: &quot;owner&quot;,
-    &quot;threshold&quot;: 2,
-    &quot;keys&quot;: [{
-        &quot;address&quot;: &quot;41F08012B4881C320EB40B80F1228731898824E09D&quot;,
-        &quot;weight&quot;: 1
-      },
-      {
-        &quot;address&quot;: &quot;41DF309FEF25B311E7895562BD9E11AAB2A58816D2&quot;,
-        &quot;weight&quot;: 1
-      },
-      {
-        &quot;address&quot;: &quot;41BB7322198D273E39B940A5A4C955CB7199A0CDEE&quot;,
-        &quot;weight&quot;: 1
-      }
-    ]
-  },
-  &quot;witness&quot;: {
-      &quot;type&quot;: 1,
-      &quot;id&quot;: 1,
-      &quot;permission_name&quot;: &quot;witness&quot;,
-      &quot;threshold&quot;: 1,
-      &quot;keys&quot;: [{
-          &quot;address&quot;: &quot;41F08012B4881C320EB40B80F1228731898824E09D&quot;,
-          &quot;weight&quot;: 1
-        } 
-      ]
-    },
-  &quot;actives&quot;: [{
-    &quot;type&quot;: 2,
-    &quot;id&quot;: 2,
-    &quot;permission_name&quot;: &quot;active0&quot;,
-    &quot;threshold&quot;: 3,
-    &quot;operations&quot;: &quot;7fff1fc0037e0000000000000000000000000000000000000000000000000000&quot;,
-    &quot;keys&quot;: [{
-        &quot;address&quot;: &quot;41F08012B4881C320EB40B80F1228731898824E09D&quot;,
-        &quot;weight&quot;: 1
-      },
-      {
-        &quot;address&quot;: &quot;41DF309FEF25B311E7895562BD9E11AAB2A58816D2&quot;,
-        &quot;weight&quot;: 1
-      },
-      {
-        &quot;address&quot;: &quot;41BB7322198D273E39B940A5A4C955CB7199A0CDEE&quot;,
-        &quot;weight&quot;: 1
-      }
-    ]
-  }]
-}
+<span class="p">{</span>
+  <span class="nt">&quot;owner_address&quot;</span><span class="p">:</span> <span class="s2">&quot;41ffa9466d5bf6bb6b7e4ab6ef2b1cb9f1f41f9700&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;owner&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="nt">&quot;permission_name&quot;</span><span class="p">:</span> <span class="s2">&quot;owner&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;threshold&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="nt">&quot;keys&quot;</span><span class="p">:</span> <span class="p">[{</span>
+        <span class="nt">&quot;address&quot;</span><span class="p">:</span> <span class="s2">&quot;41F08012B4881C320EB40B80F1228731898824E09D&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;weight&quot;</span><span class="p">:</span> <span class="mi">1</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;address&quot;</span><span class="p">:</span> <span class="s2">&quot;41DF309FEF25B311E7895562BD9E11AAB2A58816D2&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;weight&quot;</span><span class="p">:</span> <span class="mi">1</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;address&quot;</span><span class="p">:</span> <span class="s2">&quot;41BB7322198D273E39B940A5A4C955CB7199A0CDEE&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;weight&quot;</span><span class="p">:</span> <span class="mi">1</span>
+      <span class="p">}</span>
+    <span class="p">]</span>
+  <span class="p">},</span>
+  <span class="nt">&quot;witness&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+      <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+      <span class="nt">&quot;permission_name&quot;</span><span class="p">:</span> <span class="s2">&quot;witness&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;threshold&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+      <span class="nt">&quot;keys&quot;</span><span class="p">:</span> <span class="p">[{</span>
+          <span class="nt">&quot;address&quot;</span><span class="p">:</span> <span class="s2">&quot;41F08012B4881C320EB40B80F1228731898824E09D&quot;</span><span class="p">,</span>
+          <span class="nt">&quot;weight&quot;</span><span class="p">:</span> <span class="mi">1</span>
+        <span class="p">}</span>
+      <span class="p">]</span>
+    <span class="p">},</span>
+  <span class="nt">&quot;actives&quot;</span><span class="p">:</span> <span class="p">[{</span>
+    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="nt">&quot;permission_name&quot;</span><span class="p">:</span> <span class="s2">&quot;active0&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;threshold&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="nt">&quot;operations&quot;</span><span class="p">:</span> <span class="s2">&quot;7fff1fc0037e0000000000000000000000000000000000000000000000000000&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;keys&quot;</span><span class="p">:</span> <span class="p">[{</span>
+        <span class="nt">&quot;address&quot;</span><span class="p">:</span> <span class="s2">&quot;41F08012B4881C320EB40B80F1228731898824E09D&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;weight&quot;</span><span class="p">:</span> <span class="mi">1</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;address&quot;</span><span class="p">:</span> <span class="s2">&quot;41DF309FEF25B311E7895562BD9E11AAB2A58816D2&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;weight&quot;</span><span class="p">:</span> <span class="mi">1</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;address&quot;</span><span class="p">:</span> <span class="s2">&quot;41BB7322198D273E39B940A5A4C955CB7199A0CDEE&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;weight&quot;</span><span class="p">:</span> <span class="mi">1</span>
+      <span class="p">}</span>
+    <span class="p">]</span>
+  <span class="p">}]</span>
+<span class="p">}</span>
 
-参数字段的定义及限制，请查看&quot;2.1 结构说明&quot;。
-
-</code></pre>
-
+<span class="err">参数字段的定义及限制，请查看</span><span class="s2">&quot;2.1 结构说明&quot;</span><span class="err">。</span>
+</code></pre></div></p>
 <p><strong>active权限中operations的计算示例</strong></p>
-<pre><code class="java">public static void main(String[] args) {
+<div class="codehilite"><pre><span></span><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
 
-  //指定需要支持的合约id(查看proto中Transaction.ContractType定义)，这里包含除AccountPermissionUpdateContract（id=46）以外的所有合约  
-  Integer[] contractId = {0, 1, 2, 3, 4, 5, 6, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 30, 31,
-      32, 33, 41, 42, 43, 44, 45};
-  List&lt;Integer&gt; list = new ArrayList&lt;&gt;(Arrays.asList(contractId)); 
-  byte[] operations = new byte[32];
-  list.forEach(e -&gt; {
-    operations[e / 8] |= (1 &lt;&lt; e % 8);
-  });
+  <span class="c1">//指定需要支持的合约id(查看proto中Transaction.ContractType定义)，这里包含除AccountPermissionUpdateContract（id=46）以外的所有合约</span>
+  <span class="n">Integer</span><span class="o">[]</span> <span class="n">contractId</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">19</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">31</span><span class="p">,</span>
+      <span class="mi">32</span><span class="p">,</span> <span class="mi">33</span><span class="p">,</span> <span class="mi">41</span><span class="p">,</span> <span class="mi">42</span><span class="p">,</span> <span class="mi">43</span><span class="p">,</span> <span class="mi">44</span><span class="p">,</span> <span class="mi">45</span><span class="p">};</span>
+  <span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">list</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;</span><span class="p">(</span><span class="n">Arrays</span><span class="p">.</span><span class="na">asList</span><span class="p">(</span><span class="n">contractId</span><span class="p">));</span>
+  <span class="kt">byte</span><span class="o">[]</span> <span class="n">operations</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">byte</span><span class="o">[</span><span class="mi">32</span><span class="o">]</span><span class="p">;</span>
+  <span class="n">list</span><span class="p">.</span><span class="na">forEach</span><span class="p">(</span><span class="n">e</span> <span class="o">-&gt;</span> <span class="p">{</span>
+    <span class="n">operations</span><span class="o">[</span><span class="n">e</span> <span class="o">/</span> <span class="mi">8</span><span class="o">]</span> <span class="o">|=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="n">e</span> <span class="o">%</span> <span class="mi">8</span><span class="p">);</span>
+  <span class="p">});</span>
 
-  //7fff1fc0033e0000000000000000000000000000000000000000000000000000
-  System.out.println(ByteArray.toHexString(operations));
-}
-</code></pre>
+  <span class="c1">//7fff1fc0033e0000000000000000000000000000000000000000000000000000</span>
+  <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">ByteArray</span><span class="p">.</span><span class="na">toHexString</span><span class="p">(</span><span class="n">operations</span><span class="p">));</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h3 id="3.2">2）执行合约</h3>
 
-<p>1、创建交易，与非多重签名交易的构建过程相同  <br />
-2、指定Permission_id，默认为0，表示owner-permission, <a href="https://github.com/tronprotocol/wallet-cli/commit/ff9122f2236f1ce19cbb9ba9f0494c8923a3d10c#diff-a63fa7484f62fe1d8fb27276c991a4e3R211">demo</a> <br />
-3、用户A签名，将签名后交易通过其他方式发送给B。<br />
-4、用户B签名，将签名后交易通过其他方式发送给C。<br />
-…<br />
-n、最后一个完成签名的用户，将交易广播到节点。<br />
-n+1、验证多重签名的权重之和大于域值则接受交易，否则拒绝交易  </p>
+<p>1、创建交易，与非多重签名交易的构建过程相同
+2、指定Permission_id，默认为0，表示owner-permission, <a href="https://github.com/tronprotocol/wallet-cli/commit/ff9122f2236f1ce19cbb9ba9f0494c8923a3d10c#diff-a63fa7484f62fe1d8fb27276c991a4e3R211">demo</a>
+3、用户A签名，将签名后交易通过其他方式发送给B。
+4、用户B签名，将签名后交易通过其他方式发送给C。
+…
+n、最后一个完成签名的用户，将交易广播到节点。
+n+1、验证多重签名的权重之和大于域值则接受交易，否则拒绝交易</p>
 <p>代码示例：</p>
 <p><a href="https://github.com/tronprotocol/wallet-cli/blob/multi_sign_V2/src/main/java/org/tron/demo/MultiSignDemo.java">https://github.com/tronprotocol/wallet-cli/blob/multi_sign_V2/src/main/java/org/tron/demo/MultiSignDemo.java</a></p>
 <h3 id="3.3">3）其他新增接口</h3>
 
-<p>接口详细说明，请查看Tron-http.md与波场钱包RPC-API.md<br />
-1、增加签名  </p>
-<pre><code class="text">curl -X POST  http://127.0.0.1:8090/wallet/addtransactionsign -d '{&quot;transaction&quot;: &quot;TransferContract&quot;, &quot;privateKey&quot;: &quot;permissionkey1&quot;}'
+<p>接口详细说明，请查看Tron-http.md与波场钱包RPC-API.md
+1、增加签名
+<div class="codehilite"><pre><span></span><code>curl -X POST  http://127.0.0.1:8090/wallet/addtransactionsign -d &#39;{&quot;transaction&quot;: &quot;TransferContract&quot;, &quot;privateKey&quot;: &quot;permissionkey1&quot;}&#39;
 
 rpc AddSign (TransactionSign) returns (TransactionExtention) {}
-</code></pre>
-
-<p>2、查询已签名地址</p>
-<pre><code class="text">curl -X POST  http://127.0.0.1:8090/wallet/getapprovedlist -d '{&quot;transaction&quot;}'
+</code></pre></div>
+2、查询已签名地址
+<div class="codehilite"><pre><span></span><code>curl -X POST  http://127.0.0.1:8090/wallet/getapprovedlist -d &#39;{&quot;transaction&quot;}&#39;
 
 rpc GetTransactionApprovedList(Transaction) returns (TransactionApprovedList) { }
-</code></pre>
-
-<p>3、查询交易签名权重</p>
-<pre><code class="text">curl -X POST  http://127.0.0.1:8090/wallet/getsignweight -d '{&quot;transaction&quot;}'
+</code></pre></div></p>
+<p>3、查询交易签名权重
+<div class="codehilite"><pre><span></span><code>curl -X POST  http://127.0.0.1:8090/wallet/getsignweight -d &#39;{&quot;transaction&quot;}&#39;
 
 rpc GetTransactionSignWeight (Transaction) returns (TransactionSignWeight) {}
-</code></pre>
-
-<h2 id="_3"><h2 id="4">其他</h2></h2>
-<p>支持多重签名后，创建账户时有什么变化？<br />
+</code></pre></div></p>
+<h2 id="_4">其他<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<p>支持多重签名后，创建账户时有什么变化？
 在升级到V3.5版本后，并且多重签名提议生效后，创建账户时将自动生成owner-permission以及一个active-permission，
 其中owner-permission中仅包含一个key，权限及阈值都为1。active-permission中也包含一个key，权限及阈值都为1，并且
 operations为"7fff1fc0033e0000000000000000000000000000000000000000000000000000"，表示支持除
@@ -495,6 +492,7 @@ AccountPermissionUpdateContract以外的所有操作。
 </div>
     <script>var base_url = '../..';</script>
     <script src="../../js/theme.js" defer></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
       <script src="../../search/main.js" defer></script>
     <script defer>
         window.onload = function () {

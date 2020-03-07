@@ -7,9 +7,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   
-  <link rel="canonical" href="https://tronprotocol.github.io/documentation-zh/introduction/developers/incentives/">
+  <link rel="canonical" href="https://tronprotocol.github.io/documentation-zh/introduction/architecture/event/">
   <link rel="shortcut icon" href="../../img/favicon.ico">
-  <title>开发者激励 - 波场中文文档</title>
+  <title>事件插件 - 波场中文文档</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
 
   <link rel="stylesheet" href="../../css/theme.css" />
@@ -18,9 +18,9 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "\u5f00\u53d1\u8005\u6fc0\u52b1";
-    var mkdocs_page_input_path = "developers/incentives.md";
-    var mkdocs_page_url = "/documentation-zh/introduction/developers/incentives/";
+    var mkdocs_page_name = "\u4e8b\u4ef6\u63d2\u4ef6";
+    var mkdocs_page_input_path = "architecture/event.md";
+    var mkdocs_page_url = "/documentation-zh/introduction/architecture/event/";
   </script>
   
   <script src="../../js/jquery-2.1.1.min.js" defer></script>
@@ -87,12 +87,14 @@
                     </li>
                 </ul>
                 <p class="caption"><span class="caption-text">架构介绍</span></p>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../../architecture/network/">网络</a>
+                <ul class="current">
+                    <li class="toctree-l1"><a class="reference internal" href="../network/">网络</a>
                     </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../../architecture/database/">数据储存</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../database/">数据储存</a>
                     </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../../architecture/event/">事件插件</a>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">事件插件</a>
+    <ul class="current">
+    </ul>
                     </li>
                 </ul>
                 <p class="caption"><span class="caption-text">智能合约文档</span></p>
@@ -107,30 +109,24 @@
                     </li>
                 </ul>
                 <p class="caption"><span class="caption-text">开发者文档</span></p>
-                <ul class="current">
-                    <li class="toctree-l1"><a class="reference internal" href="../official-public-nodes/">官方节点</a>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../developers/official-public-nodes/">官方节点</a>
                     </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../deployment/">部署</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../../developers/deployment/">部署</a>
                     </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../run-in-idea/">在 IDEA 中启动节点</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../../developers/run-in-idea/">在 IDEA 中启动节点</a>
                     </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../contribution/">如何参与开发</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../../developers/contribution/">如何参与开发</a>
                     </li>
-                    <li class="toctree-l1 current"><a class="reference internal current" href="./">开发者激励</a>
-    <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#_2">非代码相关</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_3">代码相关</a>
-    </li>
-    </ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../developers/incentives/">开发者激励</a>
                     </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../java-tron/">Java-Tron</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../../developers/java-tron/">Java-Tron</a>
                     </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../tips/">TIPs</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../../developers/tips/">TIPs</a>
                     </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../advanced-configuration/">高级配置项</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../../developers/advanced-configuration/">高级配置项</a>
                     </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../resources/">其他参考资源</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../../developers/resources/">其他参考资源</a>
                     </li>
                 </ul>
                 <p class="caption"><span class="caption-text">客户端</span></p>
@@ -169,14 +165,14 @@
     
       
         
-          <li>开发者文档 &raquo;</li>
+          <li>架构介绍 &raquo;</li>
         
       
     
-    <li>开发者激励</li>
+    <li>事件插件</li>
     <li class="wy-breadcrumbs-aside">
       
-        <a href="https://github.com/tronprotocol/documentation-zh/edit/master/docs/developers/incentives.md"
+        <a href="https://github.com/tronprotocol/documentation-zh/edit/master/docs/architecture/event.md"
           class="icon icon-github"> Edit on GitHub</a>
       
     </li>
@@ -187,219 +183,86 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="_1">社区开发者激励计划<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
-<p>波场社区开发者激励计划采用积分制。开发者可以通过为波场做贡献来获得积分。</p>
-<p>当一个issue（或PR）被关闭时，它将被转移到奖励分配项目。核心开发人员将对issue或PR进行评论，以分数表示每个贡献者的奖励。奖励分配项目允许贡献者跟踪奖励流程状态。</p>
-<p>你可以在<a href="https://tronscan.org/#/developersreward">Tronscan</a>查看你的积分排名。</p>
-<p>奖励1：</p>
-<p>在每个月结束前，我们会统计每个参与波场项目的开发者当月所获得的积分，并给予前五名开发者现金奖励。</p>
-<p>在每季度结束前，我们会统计每个参与波场项目的开发者当季度所获得的积分，并给予前五名开发者现金奖励。</p>
-<p>在每一年结束前，我们会统计每个参与波场项目的开发者当年所获得的积分，并给予前五名开发者现金奖励。</p>
-<p>在Tronscan上，我们会公布获得现金奖励的用户。</p>
-<p>更有机会把开发者照片展示在波场官网中。</p>
-<table>
-<thead>
-<tr>
-<th>No. 1</th>
-<th>No. 2</th>
-<th>No. 3</th>
-<th>No. 4</th>
-<th>No. 5</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>200 USD</td>
-<td>180 USD</td>
-<td>150 USD</td>
-<td>120 USD</td>
-<td>100 USD</td>
-</tr>
-</tbody>
-</table>
-<p>奖励2：</p>
-<p>每个参与波场开发的开发者，都可以获得波场荣誉开发者证书。我们会在波场官网对参与的开发者公开致谢。</p>
-<p>开发者可以参与以下内容：</p>
-<h2 id="_2">非代码相关<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
-<p><strong> 1. TIP </strong></p>
-<p>描述：TRON Improvement Proposal（TIP）
-范围：任何与波场相关的改进提议。比如新的功能、TRC协议、protocol改进、编程工具，等等。
-积分：</p>
-<table>
-<thead>
-<tr>
-<th>Critical</th>
-<th>High</th>
-<th>Medium</th>
-<th>Low</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>20</td>
-<td>15</td>
-<td>10</td>
-<td>5</td>
-</tr>
-</tbody>
-</table>
-<p><strong> 2. 文档  </strong></p>
-<p>描述：修正、更新、新增与波场相关的技术文档。
-范围：机制与算法、网络架构与数据库、合约或者其他技术相关的文档。
-积分：</p>
-<table>
-<thead>
-<tr>
-<th>Critical</th>
-<th>High</th>
-<th>Medium</th>
-<th>Low</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>20</td>
-<td>15</td>
-<td>10</td>
-<td>5</td>
-</tr>
-</tbody>
-</table>
-<p><strong> 3. Issue </strong></p>
-<p>描述：创建关于bug、提问、改进等相关的主题来讨论。
-范围：java-tron, 波场生态
-积分：</p>
-<table>
-<thead>
-<tr>
-<th>Critical</th>
-<th>High</th>
-<th>Medium</th>
-<th>Low</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>10</td>
-<td>8</td>
-<td>5</td>
-<td>2</td>
-</tr>
-</tbody>
-</table>
-<h2 id="_3">代码相关<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
-<p><strong> 1. 新功能开发 </strong></p>
-<p>描述：为波场网络开发新功能。
-范围：java-tron, wallet-cli
-积分：</p>
-<table>
-<thead>
-<tr>
-<th>Critical</th>
-<th>High</th>
-<th>Medium</th>
-<th>Low</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>100</td>
-<td>80</td>
-<td>50</td>
-<td>20</td>
-</tr>
-</tbody>
-</table>
-<p><strong> 2. 报告bug </strong></p>
-<p>描述：报告波场网络上的bug。
-范围：java-tron, wallet-cli
-积分：</p>
-<table>
-<thead>
-<tr>
-<th>Critical</th>
-<th>High</th>
-<th>Medium</th>
-<th>Low</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>20</td>
-<td>15</td>
-<td>10</td>
-<td>5</td>
-</tr>
-</tbody>
-</table>
-<p><strong>3. 修复bug</strong></p>
-<p>描述：修复波场网络上的bug。
-范围：java-tron, wallet-cli
-积分：</p>
-<table>
-<thead>
-<tr>
-<th>Critical</th>
-<th>High</th>
-<th>Medium</th>
-<th>Low</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>40</td>
-<td>30</td>
-<td>20</td>
-<td>10</td>
-</tr>
-</tbody>
-</table>
-<p><strong>4. 安全相关</strong></p>
-<p>描述：发现波场网络的安全隐患或者增强波场网络的安全性
-范围：java-tron, 波场生态
-积分：</p>
-<table>
-<thead>
-<tr>
-<th>Critical</th>
-<th>High</th>
-<th>Medium</th>
-<th>Low</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>100</td>
-<td>80</td>
-<td>50</td>
-<td>20</td>
-</tr>
-</tbody>
-</table>
-<p><strong>5. 其他</strong></p>
-<p>描述：代码优化，等等
-范围：java-tron, wallet-cli
-积分：</p>
-<table>
-<thead>
-<tr>
-<th>Critical</th>
-<th>High</th>
-<th>Medium</th>
-<th>Low</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>20</td>
-<td>15</td>
-<td>10</td>
-<td>5</td>
-</tr>
-</tbody>
-</table>
-<p>想要获得5分（或者高于5分）的评分， 一个PR的内容应该是具有创新性，实用性，关键性或者能体现出工作量。</p>
-<p>一个PR应该专注于解决一类问题，因而请不要把一个PR拆成若干个类似的PR提交。</p>
+                <h1 id="tron">Tron 事件订阅机制<a class="headerlink" href="#tron" title="Permanent link">&para;</a></h1>
+<h3> 简介 </h3>
+
+<p>TIP: <a href="https://github.com/tronprotocol/TIPs/issues/12">https://github.com/tronprotocol/TIPs/issues/12</a></p>
+<p>波场事件订阅支持四种类型的事件：</p>
+<ul>
+<li>交易相关事件</li>
+</ul>
+<p>订阅的内容：</p>
+<p>transactionId: 交易哈希
+blockHash: 区块哈希
+blockNumber: 区块高度
+energyUsage: 此次调用中，合约调用者消耗的Energy的总量
+energyFee: 此次调用中，合约调用者消耗的Energy中，需要TRX支付的数目(SUN为单位)
+originEnergyUsage: 此次调用中，合约开发者消耗的Energy的总量
+energyUsageTotal: 此次调用中，合约调用者和合约开发者消耗的Energy的总量</p>
+<ul>
+<li>区块相关事件</li>
+</ul>
+<p>订阅的内容：</p>
+<p>blockHash: 区块哈希
+blockNumber: 区块高度
+transactionSize: 区块中包含的交易的数目
+latestSolidifiedBlockNumber: 最新的固化块的高度
+transactionList: 交易哈希列表</p>
+<ul>
+<li>合约事件相关</li>
+</ul>
+<p>订阅的内容：</p>
+<p>transactionId: 交易哈希
+contractAddress: 合约地址
+callerAddress: 合约调用者地址
+blockNumber: 合约事件所在的区块高度
+blockTimestamp: 区块时间戳
+eventSignature: 事件签名
+topicMap: the map of topic in solidity language
+data: the data information in solidity language</p>
+<ul>
+<li>合约日志事件相关</li>
+</ul>
+<p>订阅的内容：</p>
+<p>transactionId: 交易哈希
+contractAddress: 合约地址
+callerAddress: 合约调用者地址
+blockNumber: 合约事件所在的区块高度
+blockTimestamp: 区块时间戳
+contractTopics: the list of topic in solidity language
+data: the data information in solidity language
+removed: 'true'代表日志已经被移除</p>
+<p>合约事件与合约日志事件订阅支持过滤功能：</p>
+<p>fromBlock: 起始区块索引
+toBlock: 结束区块索引
+contractAddress: 合约地址
+contractTopics: 合约主题</p>
+<p><strong>注意</strong>: 不支持历史数据查询</p>
+<h3> 新功能 </h3>
+
+<p>1.&nbsp;支持事件插件，kafka &amp; mongodb 插件已经发布，开发者可以按照需求自定义插件。</p>
+<p>2.&nbsp;支持订阅链上数据，例如区块，交易，合约以及合约日志。开发者还可以通过设置过滤条件来订阅指定的数据。</p>
+<p>3.&nbsp;提供事件订阅的数据查询服务，线上地址为<a href="https://api.tronex.io">https://api.tronex.io</a>。</p>
+<h3> Github 项目 </h3>
+
+<ul>
+<li><a href="https://github.com/tronprotocol/event-plugin">事件订阅</a></li>
+<li><a href="https://github.com/tronprotocol/tron-eventquery">事件订阅数据查询</a></li>
+</ul>
+<h3> 事件订阅相关插件部署 </h3>
+
+<ul>
+<li><a href="https://tronprotocol.github.io/documentation-zh/developers/deployment/#kafka">kafka部署</a></li>
+<li><a href="https://tronprotocol.github.io/documentation-zh/developers/deployment/#mongo">mongo部署</a></li>
+</ul>
+<h3> 事件订阅数据查询 </h3>
+
+<p>事件订阅数据查询服务实现了事件订阅模型。</p>
+<p>查看更多信息，请查阅<a href="https://github.com/tronprotocol/TIPs/issues/12">https://github.com/tronprotocol/TIPs/issues/12</a></p>
+<ul>
+<li><a href="https://tronprotocol.github.io/documentation-zh/developers/deployment/#_6">事件订阅数据查询服务部署</a></li>
+<li><a href="https://github.com/tronprotocol/documentation-zh/tree/master/docs_without_index/plugin/event-query-http.md">事件订阅数据查询服务http api</a></li>
+</ul>
               
             </div>
           </div>
@@ -407,10 +270,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../java-tron/" class="btn btn-neutral float-right" title="Java-Tron">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../../contracts/tvm/" class="btn btn-neutral float-right" title="虚拟机">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
-        <a href="../contribution/" class="btn btn-neutral" title="如何参与开发"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../database/" class="btn btn-neutral" title="数据储存"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -438,10 +301,10 @@
           <a href="https://github.com/tronprotocol/documentation-zh/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
       
       
-        <span><a href="../contribution/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href="../database/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
-        <span style="margin-left: 15px"><a href="../java-tron/" style="color: #fcfcfc">Next &raquo;</a></span>
+        <span style="margin-left: 15px"><a href="../../contracts/tvm/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>

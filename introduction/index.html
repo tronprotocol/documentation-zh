@@ -55,6 +55,8 @@
                 <ul class="current">
                     <li class="toctree-l1 current"><a class="reference internal current" href="./">项目仓库</a>
     <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#_2">配置文件</a>
+    </li>
     </ul>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="dpos/">波场共识</a>
@@ -92,9 +94,9 @@
                 <ul>
                     <li class="toctree-l1"><a class="reference internal" href="../architecture/network/">网络</a>
                     </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../architecture/database/">数据库</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../architecture/database/">数据储存</a>
                     </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../architecture/plugin/">插件</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../architecture/event/">事件插件</a>
                     </li>
                 </ul>
                 <p class="caption"><span class="caption-text">智能合约文档</span></p>
@@ -116,15 +118,17 @@
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../developers/run-in-idea/">在 IDEA 中启动节点</a>
                     </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../developers/resources/">资源</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../developers/contribution/">如何参与开发</a>
                     </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../developers/contribution/">参与开发</a>
-                    </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../developers/incentives/">激励政策</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../developers/incentives/">开发者激励</a>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../developers/java-tron/">Java-Tron</a>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../developers/tips/">TIPs</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../developers/advanced-configuration/">高级配置项</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../developers/resources/">其他参考资源</a>
                     </li>
                 </ul>
                 <p class="caption"><span class="caption-text">客户端</span></p>
@@ -132,8 +136,6 @@
                     <li class="toctree-l1"><a class="reference internal" href="../clients/wallet-cli/">命令行钱包</a>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../clients/tron-grid/">TronGrid</a>
-                    </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../developers/advanced-configuration/">高级配置项</a>
                     </li>
                 </ul>
                 <ul>
@@ -183,16 +185,16 @@
           <div role="main">
             <div class="section">
               
-                <h2 id="_1">项目仓库</h2>
-<p>仓库地址：<a href="https://github.com/tronprotocol">https://github.com/tronprotocol</a>   </p>
-<p><a href="https://github.com/tronprotocol/java-tron">java-tron</a> 是主网代码。    </p>
-<p><a href="https://github.com/tronprotocol/protocol">protocol</a> 是api和数据结构定义。     </p>
-<p><a href="https://github.com/tronprotocol/wallet-cli">wallet-cli</a> 是官方命令行钱包。     </p>
-<p><a href="https://github.com/tronprotocol/tips">tips</a> 是波场改进提议。   </p>
-<p><a href="https://github.com/tronprotocol/sun-network">sun-network</a> 是波场侧链。      </p>
-<p>配置文件   <br />
-TestNet的配置请参照:
-<a href="https://github.com/tronprotocol/TronDeployment/blob/master/test_net_config.conf">https://github.com/tronprotocol/TronDeployment/blob/master/test_net_config.conf</a>  </p>
+                <h1 id="_1">项目仓库<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<p>仓库地址：<a href="https://github.com/tronprotocol">https://github.com/tronprotocol</a>。</p>
+<p><a href="https://github.com/tronprotocol/java-tron">tronprotocol/java-tron</a> 是主网代码。</p>
+<p><a href="https://github.com/tronprotocol/protocol">tronprotocol/protocol</a> 是api和数据结构定义。</p>
+<p><a href="https://github.com/tronprotocol/wallet-cli">tronprotocol/wallet-cli</a> 是官方命令行钱包。</p>
+<p><a href="https://github.com/tronprotocol/tips">tronprotocol/tips</a> 是波场改进提议。</p>
+<p><a href="https://github.com/tronprotocol/sun-network">tronprotocol/sun-network</a> 是波场侧链。</p>
+<h2 id="_2">配置文件<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>TestNet的配置请参照:
+<a href="https://github.com/tronprotocol/TronDeployment/blob/master/test_net_config.conf">https://github.com/tronprotocol/TronDeployment/blob/master/test_net_config.conf</a></p>
 <p>MainNet的配置请参照:
 <a href="https://github.com/tronprotocol/TronDeployment/blob/master/main_net_config.conf">https://github.com/tronprotocol/TronDeployment/blob/master/main_net_config.conf</a></p>
               
@@ -242,6 +244,7 @@ TestNet的配置请参照:
 </div>
     <script>var base_url = '..';</script>
     <script src="../js/theme.js" defer></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
       <script src="../search/main.js" defer></script>
     <script defer>
         window.onload = function () {
