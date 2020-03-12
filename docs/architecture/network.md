@@ -2,7 +2,7 @@
 
 Tron网络采用Peer-to-Peer(P2P)的网络架构，网络中的节点地位对等。网络中的节点有SuperNode、FullNode、SolidityNode三种类型，SuperNode主要用于生成区块，FullNode用于同步区块、广播交易，SolidityNode用于同步固化的区块。任何部署运行Tron代码的设备都可以加入Tron网络并作为一个节点，和Tron网络中的其他节点有相同的地位，他们可以创建交易，广播交易，同步区块等，也可以作为SuperNode的候选人参与选举。
 
-![image](https://raw.githubusercontent.com/tronprotocol/documentation-EN/master/images/network.png)
+![image](https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/network.png)
 
 ## SuperNode介绍
 
@@ -90,13 +90,13 @@ nohup java -Xmx6g -XX:+HeapDumpOnOutOfMemoryError -jar FullNode.jar  --witness  
 配置文件中需要修改的参数：
 
 localwitness:
-![image](https://raw.githubusercontent.com/tronprotocol/documentation-EN/master/images/localwitness.jpg)
+![image](https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/localwitness.jpg)
 witnesses:
-![image](https://raw.githubusercontent.com/tronprotocol/documentation-EN/master/images/witness.png)
+![image](https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/witness.png)
 version:
-![image](https://raw.githubusercontent.com/tronprotocol/documentation-EN/master/images/p2p_version.png)
+![image](https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/p2p_version.png)
 enable:
-![image](https://raw.githubusercontent.com/tronprotocol/documentation-EN/master/images/discovery_enable.png)
+![image](https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/discovery_enable.png)
 
 ##### 3.2.2 步骤二:部署FullNode节点
 
@@ -128,12 +128,12 @@ nohup java -Xmx6g -XX:+HeapDumpOnOutOfMemoryError -jar FullNode.jar -c private_n
 配置文件中需要修改的参数：
 
 ip.list:
-![image](https://raw.githubusercontent.com/tronprotocol/documentation-EN/master/images/ip_list.png)
+![image](https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/ip_list.png)
 p2p.version:
-![image](https://raw.githubusercontent.com/tronprotocol/documentation-EN/master/images/p2p_version.png)
+![image](https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/p2p_version.png)
 genesis.block:
-![image](https://raw.githubusercontent.com/tronprotocol/documentation-EN/master/images/genesis_block.png)
+![image](https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/genesis_block.png)
 needSyncCheck:
-![image](https://raw.githubusercontent.com/tronprotocol/documentation-EN/master/images/need_sync_check.png)
+![image](https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/need_sync_check.png)
 node.discovery.enable:
-![image](https://raw.githubusercontent.com/tronprotocol/documentation-EN/master/images/discovery_enable.png)
+![image](https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/discovery_enable.png)
