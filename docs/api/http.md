@@ -14,7 +14,7 @@
 | getdeferredtransactioninfobyid|  getaccountresource                | scannotebyivk                                |
 | getsignweight                 |  setaccountid                      | scanandmarknotebyivk                         |
 | addtransactionsign            |  getaccountbyid                    | scannotebyovk                                |
-|                               |  accountpermissionupdate           | getrcm                                       |
+| gettransactioninfobyblocknum  |  accountpermissionupdate           | getrcm                                       |
 |                               |  getdelegatedresource              | getmerkletreevoucherinfo                     |
 |                               |  getdelegatedresourceaccountindex  | isspend                                      |
 |    **block**                  |  freezebalance                     | createspendauthsig                           |
@@ -161,6 +161,12 @@ demo: curl -X POST  http://127.0.0.1:8091/walletsolidity/gettransactioncountbybl
 demo: curl -X POST  http://127.0.0.1:8091/walletsolidity/gettransactioninfobyid -d '{"value" : "309b6fa3d01353e46f57dd8a8f27611f98e392b50d035cef213f2c55225a8bd2"}'
 参数说明：value是交易id
 返回值：Transaction的交易fee，所在block的高度，创建时间
+
+/walletsolidity/gettransactioninfobyblocknum(Odyssey-v3.7开始支持)
+作用：查询特定block上transaction的个数
+demo: curl -X POST  http://127.0.0.1:8091/walletsolidity/gettransactioninfobyblocknum -d '{"num" : 100}'
+参数说明：num是块的高度.
+返回值e：指定块中，包含的transactioninfo的列表.
 
 /walletsolidity/getdelegatedresource(Odyssey-v3.2开始支持)
 作用：查看一个账户代理给另外一个账户的资源情况
@@ -727,6 +733,12 @@ demo: curl -X POST  http://127.0.0.1:8090/wallet/gettransactioninfobyid -d '{"va
 demo: curl -X POST  http://127.0.0.1:8090/wallet/gettransactioncountbyblocknum -d '{"num" : 100}'
 参数说明：num是块的高度.
 返回值e：transaction的个数.
+
+/wallet/gettransactioninfobyblocknum(Odyssey-v3.7开始支持)
+作用：查询特定block上transaction的个数
+demo: curl -X POST  http://127.0.0.1:8090/wallet/gettransactioninfobyblocknum -d '{"num" : 100}'
+参数说明：num是块的高度.
+返回值e：指定块中，包含的transactioninfo的列表.
 
 wallet/getaccount
 作用：查询一个账号的信息
