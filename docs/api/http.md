@@ -154,7 +154,7 @@ demo: curl -X POST  http://127.0.0.1:8091/walletsolidity/gettransactionbyid -d '
 作用：查询特定block上transaction的个数
 demo: curl -X POST  http://127.0.0.1:8091/walletsolidity/gettransactioncountbyblocknum -d '{"num" : 100}'
 参数说明：num是块的高度.
-返回值e：transaction的个数.
+返回值：transaction的个数.
 
 /walletsolidity/gettransactioninfobyid
 作用：根据id查询交易的fee，所在的block
@@ -166,7 +166,7 @@ demo: curl -X POST  http://127.0.0.1:8091/walletsolidity/gettransactioninfobyid 
 作用：查询特定block上transaction的个数
 demo: curl -X POST  http://127.0.0.1:8091/walletsolidity/gettransactioninfobyblocknum -d '{"num" : 100}'
 参数说明：num是块的高度.
-返回值e：指定块中，包含的transactioninfo的列表.
+返回值：指定块中，包含的transactioninfo的列表.
 
 /walletsolidity/getdelegatedresource(Odyssey-v3.2开始支持)
 作用：查看一个账户代理给另外一个账户的资源情况
@@ -390,7 +390,7 @@ demo：curl -X POST  http://127.0.0.1:8090/wallet/broadcasttransaction -d '{"sig
 
 - wallet/broadcasthex
 作用：对签名后的transaction hex进行广播
-demo：curl -X POST  http://127.0.0.1:8090/wallet/broadcasttransaction -d '{"transaction":"0A8A010A0202DB2208C89D4811359A28004098A4E0A6B52D5A730802126F0A32747970652E676F6F676C65617069732E636F6D2F70726F746F636F6C2E5472616E736665724173736574436F6E747261637412390A07313030303030311215415A523B449890854C8FC460AB602DF9F31FE4293F1A15416B0580DA195542DDABE288FEC436C7D5AF769D24206412418BF3F2E492ED443607910EA9EF0A7EF79728DAAAAC0EE2BA6CB87DA38366DF9AC4ADE54B2912C1DEB0EE6666B86A07A6C7DF68F1F9DA171EEE6A370B3CA9CBBB00"}'
+demo：curl -X POST  http://127.0.0.1:8090/wallet/broadcasthex -d '{"transaction":"0A8A010A0202DB2208C89D4811359A28004098A4E0A6B52D5A730802126F0A32747970652E676F6F676C65617069732E636F6D2F70726F746F636F6C2E5472616E736665724173736574436F6E747261637412390A07313030303030311215415A523B449890854C8FC460AB602DF9F31FE4293F1A15416B0580DA195542DDABE288FEC436C7D5AF769D24206412418BF3F2E492ED443607910EA9EF0A7EF79728DAAAAC0EE2BA6CB87DA38366DF9AC4ADE54B2912C1DEB0EE6666B86A07A6C7DF68F1F9DA171EEE6A370B3CA9CBBB00"}'
 参数说明：签名之后的Transaction hex
 返回值：广播是否成功
 
@@ -732,13 +732,13 @@ demo: curl -X POST  http://127.0.0.1:8090/wallet/gettransactioninfobyid -d '{"va
 作用：查询特定block上transaction的个数
 demo: curl -X POST  http://127.0.0.1:8090/wallet/gettransactioncountbyblocknum -d '{"num" : 100}'
 参数说明：num是块的高度.
-返回值e：transaction的个数.
+返回值：transaction的个数.
 
 /wallet/gettransactioninfobyblocknum(Odyssey-v3.7开始支持)
 作用：查询特定block上transaction的个数
 demo: curl -X POST  http://127.0.0.1:8090/wallet/gettransactioninfobyblocknum -d '{"num" : 100}'
 参数说明：num是块的高度.
-返回值e：指定块中，包含的transactioninfo的列表.
+返回值：指定块中，包含的transactioninfo的列表.
 
 wallet/getaccount
 作用：查询一个账号的信息
