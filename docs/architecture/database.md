@@ -3,14 +3,14 @@
 ## rocksdb
 <h3> 1. config配置说明 </h3>
  使用rocksdb作为数据存储引擎，需要将db.engine配置项设置为"ROCKSDB"
- ![image](https://raw.githubusercontent.com/tronprotocol/documentation-EN/master/images/db_engine.png)
+ ![image](https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/db_engine.png)
  注意: rocksdb只支持db.version=2, 不支持db.version=1。
  rocksdb支持的优化参数如下：
- ![image](https://raw.githubusercontent.com/tronprotocol/documentation-EN/master/images/rocksdb_tuning_parameters.png)
+ ![image](https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/rocksdb_tuning_parameters.png)
 
 <h3> 2. 使用rocksdb数据备份功能 </h3>
  选择rocksdb作为数据存储引擎，可以使用其提供的运行时数据备份功能。
- ![image](https://raw.githubusercontent.com/tronprotocol/documentation-EN/master/images/db_backup.png)
+ ![image](https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/db_backup.png)
  注意: FullNode可以使用数据备份功能；为了不影响SuperNode的产块性能，数据备份功能不支持SuperNode，但是SuperNode的备份服务节点可以使用此功能。
 
 <h3> 3. leveldb数据转换为rocksdb数据 </h3>

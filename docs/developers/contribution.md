@@ -48,7 +48,7 @@ GitHub是用来追踪议题，贡献代码、建议、特性请求、文档等�
 ## 如何参与波场文档的编写
 
 我们有两个文档仓库：
-[英文文档](https://github.com/tronprotocol/documentation-EN)
+[英文文档](https://github.com/tronprotocol/documentation-en)
 [中文文档](https://github.com/tronprotocol/documentation-zh)
 
 我们使用MkDocs框架来构建我们的文档项目。文档使用Markdown语言书写，通过在YAML配置文件中配置文档路径。

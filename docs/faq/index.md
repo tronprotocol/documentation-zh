@@ -60,11 +60,11 @@
 
 **问：如何监控与我的账户有关的交易？**
 
-答：你可以使用波场事件订阅插件。请查阅[https://tronprotocol.github.io/documentation-EN/architecture/plugin/#tron-event-subscription](https://tronprotocol.github.io/documentation-EN/architecture/plugin/#tron-event-subscription)
+答：你可以使用波场事件订阅插件。请查阅[Tron 事件订阅机制](../architecture/event.md)
 
 **问：怎么计算交易费用？**
 
-答：请查阅[https://tronprotocol.github.io/documentation-EN/mechanism-algorithm/resource/](https://tronprotocol.github.io/documentation-EN/mechanism-algorithm/resource/)
+答：请查阅[资源模型](../mechanism-algorithm/resource.md)
 
 **问：怎么计算交易大小？**
 
@@ -74,12 +74,11 @@
 
 答：只需要再投一次票，将票数置为0就可以了。
 
-
 ## 配置问题
 
 **问：config.conf中的genesis.block.witnesses替换成在[https://tronscan.org/](https://tronscan.org/) 注册时给出的address字符串：是否需要删除其他address？url和voteCount字段是否需要删除？**
 
-答：不需要删除其他地址，但是这些地址也会成为您网络的一部分，而如果您不持有其私钥，这些相当于是废地址。注意：Zion、Sun以及Blackhole账户不能从创世块的配置文件中删除，但是可以对它们的地址进行更改。 
+答：不需要删除其他地址，但是这些地址也会成为您网络的一部分，而如果您不持有其私钥，这些相当于是废地址。注意：Zion、Sun以及Blackhole账户不能从创世块的配置文件中删除，但是可以对它们的地址进行更改。
 
 **问：启动节点的时候怎么制定数据存储目录？**
 

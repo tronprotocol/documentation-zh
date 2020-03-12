@@ -1,6 +1,6 @@
 # 项目仓库
 
-仓库地址：[https://github.com/tronprotocol](https://github.com/tronprotocol)。
+项目地址：[https://github.com/tronprotocol](https://github.com/tronprotocol)。
 
 [tronprotocol/java-tron](https://github.com/tronprotocol/java-tron) 是主网代码。
 
