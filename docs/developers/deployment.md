@@ -4,7 +4,7 @@
 
 分别为fullnode和soliditynode创建一个目录
 
-> NOTE: 原则上不鼓励继续使用 SolidityNode, 目前 FullMode 可以替代 SolidityNode 的功能.
+> NOTE: 原则上不鼓励继续使用 SolidityNode, 目前 FullNode 可以替代 SolidityNode 的功能.
 
 ```text
 /deploy/fullnode
