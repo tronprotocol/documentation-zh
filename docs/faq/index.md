@@ -297,6 +297,15 @@ genesis.block = {
 
 ## 节点运行相关
 
+### SolidityNode与FullNode可以部署在一台机器上吗？他们会分享数据吗？
+
+指定数据目录是可以做到的，配置文件参数: `db.directory = "database"`, `index.directory = "index"`。
+但是也可以让 FullNode.jar 和 SolidityNode.jar 在不同目录下运行，将数据和日志文档完全分离。
+记得修改 `config.conf` 的端口，因为两个应用无法在同一端口运行。
+
+!!! warning
+    原则上不鼓励继续使用 SolidityNode, 目前 FullNode 可以替代 SolidityNode 的功能。
+
 ### 既然是Private环境，为什么日志还持续的更新全网其他节点，并同步保存信息？那么private 和public 的区别是什么？
 
 和 IP list 有关。
