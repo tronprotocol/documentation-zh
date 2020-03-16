@@ -25,7 +25,7 @@ CPU：64核及以上 内存：64G及以上 带宽：500M及以上 硬盘：20T�
 
 SolidityNode是只从自己信任的FullNode同步固化块的节点，并提供区块、交易查询等服务。
 
-> NOTE: 原则上不鼓励继续使用 SolidityNode, 目前 FullMode 可以替代 SolidityNode 的功能.
+> NOTE: 原则上不鼓励继续使用 SolidityNode, 目前 FullNode 可以替代 SolidityNode 的功能.
 
 最低配置要求：
 CPU：16核 内存：32G 带宽：100M 硬盘：1T
