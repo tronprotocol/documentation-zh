@@ -8,7 +8,7 @@
   
   
   <link rel="shortcut icon" href="../img/favicon.ico">
-  <title>项目仓库 - 波场中文文档</title>
+  <title>一致性检验 - 波场中文文档</title>
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 
   <link rel="stylesheet" href="../css/theme.css" type="text/css" />
@@ -17,9 +17,9 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "\u9879\u76ee\u4ed3\u5e93";
-    var mkdocs_page_input_path = "introduction/index.md";
-    var mkdocs_page_url = "/documentation-zh/introduction/introduction/";
+    var mkdocs_page_name = "\u4e00\u81f4\u6027\u68c0\u9a8c";
+    var mkdocs_page_input_path = "releases/index.md";
+    var mkdocs_page_url = "/documentation-zh/introduction/releases/";
   </script>
   
   <script src="../js/jquery-2.1.1.min.js" defer></script>
@@ -57,29 +57,17 @@
 		
     <span class="caption-text">简介</span>
     <ul class="subnav">
-                <li class=" current">
+                <li class="">
                     
-    <a class="current" href="./">项目仓库</a>
-    <ul class="subnav">
-            
-    <li class="toctree-l3"><a href="#_1">项目仓库</a></li>
-    
-        <ul>
-        
-            <li><a class="toctree-l4" href="#_2">配置文件</a></li>
-        
-        </ul>
-    
-
-    </ul>
+    <a class="" href="../introduction/">项目仓库</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="dpos/">波场共识</a>
+    <a class="" href="../introduction/dpos/">波场共识</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="overview/">波场概览</a>
+    <a class="" href="../introduction/overview/">波场概览</a>
                 </li>
     </ul>
 	    </li>
@@ -242,9 +230,21 @@
 		
     <span class="caption-text">版本发布</span>
     <ul class="subnav">
-                <li class="">
+                <li class=" current">
                     
-    <a class="" href="../releases/">一致性检验</a>
+    <a class="current" href="./">一致性检验</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l3"><a href="#_1">版本发布</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l4" href="#_2">二进制一致性检验</a></li>
+        
+        </ul>
+    
+
+    </ul>
                 </li>
     </ul>
 	    </li>
@@ -281,14 +281,14 @@
     
       
         
-          <li>简介 &raquo;</li>
+          <li>版本发布 &raquo;</li>
         
       
     
-    <li>项目仓库</li>
+    <li>一致性检验</li>
     <li class="wy-breadcrumbs-aside">
       
-        <a href="https://github.com/tronprotocol/documentation-zh/edit/master/docs/introduction/index.md"
+        <a href="https://github.com/tronprotocol/documentation-zh/edit/master/docs/releases/index.md"
           class="icon icon-github"> Edit on GitHub</a>
       
     </li>
@@ -298,18 +298,34 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="_1">项目仓库<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
-<p>项目地址：<a href="https://github.com/tronprotocol">https://github.com/tronprotocol</a>。</p>
-<p><a href="https://github.com/tronprotocol/java-tron">tronprotocol/java-tron</a> 是主网代码。</p>
-<p><a href="https://github.com/tronprotocol/protocol">tronprotocol/protocol</a> 是api和数据结构定义。</p>
-<p><a href="https://github.com/tronprotocol/wallet-cli">tronprotocol/wallet-cli</a> 是官方命令行钱包。</p>
-<p><a href="https://github.com/tronprotocol/tips">tronprotocol/tips</a> 是波场改进提议。</p>
-<p><a href="https://github.com/tronprotocol/sun-network">tronprotocol/sun-network</a> 是波场侧链。</p>
-<h2 id="_2">配置文件<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
-<p>TestNet的配置请参照:
-<a href="https://github.com/tronprotocol/TronDeployment/blob/master/test_net_config.conf">https://github.com/tronprotocol/TronDeployment/blob/master/test_net_config.conf</a></p>
-<p>MainNet的配置请参照:
-<a href="https://github.com/tronprotocol/TronDeployment/blob/master/main_net_config.conf">https://github.com/tronprotocol/TronDeployment/blob/master/main_net_config.conf</a></p>
+                <h1 id="_1">版本发布<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<h2 id="_2">二进制一致性检验<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>自版本 3.7 之后的所有发布文件将由 Tron 账户 <code>TKeAcHxgErbVXrG3N3TZiSV6AT566BHTj2</code> 对文件一致性进行签名。</p>
+<h3 id="_3">签名验证<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<p>这里介绍如何通过 tronweb 验证签名。</p>
+<div class="codehilite"><pre><span></span><code><span class="kr">const</span> <span class="nx">Trx</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;tronweb&#39;</span><span class="p">).</span><span class="nx">Trx</span><span class="p">;</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">Trx</span><span class="p">.</span><span class="nx">verifySignature</span><span class="p">(</span><span class="nx">SHA256</span><span class="p">,</span> <span class="nx">ADDRESS</span><span class="p">,</span> <span class="nx">SIGNATURE</span><span class="p">));</span>
+</code></pre></div>
+
+<p>例如 <code>FullNode.jar</code> 发布时附带 SHA256 hash <code>2fca93b09da4ac62641e03838e77fce99b4711ddb0c09aa91656c80fc9556d2e</code>,
+并提供 Tron 签名  <code>21435e32131feb6d00ba8048df04e112e02569ec851064d8ecad2d4dd5da44b7628ddce16823dadfff6fd683fc58cee74964970621a845ee459e2c96a750de551b</code>.</p>
+<p>验证已发布文件的完整性：</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># 首先验证 sha256 哈希值</span>
+
+sha256sum FullNode.jar  <span class="c1"># or shasum -a 256 FullNode.jar (macOS)</span>
+<span class="c1"># 2fca93b09da4ac62641e03838e77fce99b4711ddb0c09aa91656c80fc9556d2e  FullNode.jar</span>
+
+<span class="c1"># 然后检查 Tron 签名</span>
+
+npm install -g tronweb
+node -e <span class="s1">&#39;console.log(require(&quot;tronweb&quot;).Trx.verifySignature(</span>
+<span class="s1">    &quot;2fca93b09da4ac62641e03838e77fce99b4711ddb0c09aa91656c80fc9556d2e&quot;,</span>
+<span class="s1">    &quot;TKeAcHxgErbVXrG3N3TZiSV6AT566BHTj2&quot;,</span>
+<span class="s1">    &quot;21435e32131feb6d00ba8048df04e112e02569ec851064d8ecad2d4dd5da44b7628ddce16823dadfff6fd683fc58cee74964970621a845ee459e2c96a750de551b&quot;</span>
+<span class="s1">  ))&#39;</span>
+<span class="c1"># true</span>
+</code></pre></div>
               
             </div>
           </div>
@@ -317,10 +333,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="dpos/" class="btn btn-neutral float-right" title="波场共识">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../faq/" class="btn btn-neutral float-right" title="常见问题">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
-        <a href=".." class="btn btn-neutral" title="首页"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../clients/tron-grid/" class="btn btn-neutral" title="TronGrid"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -348,10 +364,10 @@
           <a href="https://github.com/tronprotocol/documentation-zh/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
       
       
-        <span><a href=".." style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href="../clients/tron-grid/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
-        <span style="margin-left: 15px"><a href="dpos/" style="color: #fcfcfc">Next &raquo;</a></span>
+        <span style="margin-left: 15px"><a href="../faq/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>
