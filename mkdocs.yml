@@ -42,6 +42,8 @@ nav:
     - 客户端:
         - 命令行钱包: clients/wallet-cli.md
         - clients/tron-grid.md
+    - 版本发布:
+        - 一致性检验: releases/index.md
     - 常见问题: faq/index.md
     - 术语表: glossary.md
 
