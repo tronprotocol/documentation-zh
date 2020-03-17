@@ -335,7 +335,7 @@ SR节点重新连上网络的速度只取决于SR节点自己的恢复速度，�
 ### 节点有钱包功能吗？
 
 节点有钱包的 RPC 接口，不能直接用命令行调用钱包功能，可以用 [wallet-cli](https://github.com/tronprotocol/wallet-cli)
-里的命令行钱包使用 full node 的钱包功能。
+里的命令行钱包使用 FullNode 的钱包功能。
 
 ### 为什么我的服务器上区块处理时间非常久？
 
