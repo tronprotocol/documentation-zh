@@ -248,25 +248,21 @@
         
             <li><a class="toctree-l3" href="#_1">日常使用</a></li>
         
-            <li><a class="toctree-l3" href="#_13">配置问题</a></li>
+            <li><a class="toctree-l3" href="#api">API 使用</a></li>
         
-            <li><a class="toctree-l3" href="#_17">编译问题</a></li>
+            <li><a class="toctree-l3" href="#_17">智能合约</a></li>
         
-            <li><a class="toctree-l3" href="#_18">部署问题</a></li>
+            <li><a class="toctree-l3" href="#_19">部署问题</a></li>
         
-            <li><a class="toctree-l3" href="#_20">节点运行问题</a></li>
+            <li><a class="toctree-l3" href="#_26">节点运行相关</a></li>
         
-            <li><a class="toctree-l3" href="#_25">测试网问题</a></li>
+            <li><a class="toctree-l3" href="#_31">测试网问题</a></li>
         
-            <li><a class="toctree-l3" href="#_27">客户端问题</a></li>
+            <li><a class="toctree-l3" href="#_33">工具使用</a></li>
         
-            <li><a class="toctree-l3" href="#api">API问题</a></li>
+            <li><a class="toctree-l3" href="#_36">其他问题</a></li>
         
-            <li><a class="toctree-l3" href="#_31">常见错误</a></li>
-        
-            <li><a class="toctree-l3" href="#_32">其他问题</a></li>
-        
-            <li><a class="toctree-l3" href="#_34">没有找到你的问题？</a></li>
+            <li><a class="toctree-l3" href="#_38">没有找到你的问题？</a></li>
         
         </ul>
     
@@ -322,80 +318,93 @@
 <li><a href="#faq">波场 FAQ</a><ul>
 <li><a href="#_1">日常使用</a><ul>
 <li><a href="#_2">如何生成一个账户</a></li>
-<li><a href="#_3">目前的网络流量有多大？数据能够传输到多个主机还是只能够满足个人的一些节点？</a></li>
-<li><a href="#tokens-not-started-yet-participate">tokens 申请完成后，如何由 not started yet 变更成 participate?</a></li>
-<li><a href="#_4">在哪里可以查看目前的超级节点的出块状态？</a></li>
-<li><a href="#_5">超级节点出块的间隔会保持不变吗？</a></li>
-<li><a href="#trx">未来大概会有出块的TRX会减半的计划吗？如果有的话，大概在什么时间点？</a></li>
-<li><a href="#27">如果某一个超级节点除了问题，它会被移除前27名吗？</a></li>
-<li><a href="#_6">成为超级代表的门槛是什么？</a></li>
+<li><a href="#tron">目前的 TRON 网络处理性能有多高？需要多大网络带宽？</a></li>
+<li><a href="#trc10-token-not-started-yet-participate">TRC10 token 申请完成后，如何由 not started yet 变更成 participate?</a></li>
+<li><a href="#trx">未来大概会有 TRX 有出块的减半计划吗？如果有的话，大概在什么时间点？</a></li>
+<li><a href="#50">是否有可能会出现算力超过 50% 的问题？</a></li>
+<li><a href="#_3">一笔交易的凭证是什么？</a></li>
+<li><a href="#trx_1">投票会消耗 TRX 吗？</a></li>
+<li><a href="#_4">怎么将我的投票重置？</a></li>
+<li><a href="#_5">超级代表</a><ul>
+<li><a href="#_6">在哪里可以查看目前的超级代表节点的出块状态？</a></li>
+<li><a href="#_7">超级代表节点出块的间隔会保持不变吗？</a></li>
+<li><a href="#27">如果某一个超级代表节点出了问题，它会被移出前27名吗？</a></li>
+<li><a href="#_8">成为超级代表的门槛是什么？</a></li>
 <li><a href="#27_1">27个超级代表的出块奖励是平均分配，还是按照算力分配？</a></li>
-<li><a href="#50">是否有可能会出现算力超过50%的问题？</a></li>
-<li><a href="#trx_1">投票会消耗TRX吗？</a></li>
-<li><a href="#_7">超级代表的出块权利可以持续多久？</a></li>
-<li><a href="#_8">一笔交易的凭证是什么？</a></li>
-<li><a href="#trx3">为什么TRX的冻结不允许解冻期不能超过3天？</a></li>
-<li><a href="#_9">如何监控与我的账户有关的交易？</a></li>
-<li><a href="#_10">怎么计算交易费用？</a></li>
-<li><a href="#_11">怎么计算交易大小？</a></li>
-<li><a href="#_12">怎么将我的投票重置？</a></li>
+<li><a href="#_9">超级代表的出块权利可以持续多久？</a></li>
 </ul>
 </li>
-<li><a href="#_13">配置问题</a><ul>
-<li><a href="#configconf-genesisblockwitnesses">config.conf 中的 genesis.block.witnesses 如何设置？</a></li>
-<li><a href="#_14">启动节点的时候怎么制定数据存储目录？</a></li>
-<li><a href="#java-tron-stdout">怎么修改配置可以让 java-tron 日志发送到 stdout?</a></li>
-<li><a href="#_15">如何修改日志级别？</a></li>
-<li><a href="#_16">在私有网络环境下，我如何设置我的资产？</a></li>
+<li><a href="#_10">资源消耗</a><ul>
+<li><a href="#trx-3">为什么 TRX 的冻结解冻期不能超过3天？</a></li>
+<li><a href="#_11">怎么计算交易费用？</a></li>
+<li><a href="#_12">怎么计算交易带宽消耗？</a></li>
 </ul>
 </li>
-<li><a href="#_17">编译问题</a><ul>
-<li><a href="#java-tron">java-tron 编译时单元测试没有通过</a></li>
 </ul>
 </li>
-<li><a href="#_18">部署问题</a><ul>
-<li><a href="#redisget-ping-pong">如何测试部署是否正常，比如是否有测试接口或者命令，类似redis，get ping 会返回 pong？</a></li>
-<li><a href="#private-supernode-fullnode-supernode-fullnode">在部署private 环境时，SuperNode 和 FullNode 关系是什么样子？是否需要先部署SuperNode, 然后部署FullNode？</a></li>
-<li><a href="#_19">我怎样才能知道我的测试超级节点在运行了呢？</a></li>
-<li><a href="#soliditynodefullnode">SolidityNode与FullNode可以部署在一台机器上吗？他们会分享数据吗？</a></li>
-</ul>
-</li>
-<li><a href="#_20">节点运行问题</a><ul>
-<li><a href="#privateprivate-public">既然是Private环境，为什么日志还持续的更新全网其他节点，并同步保存信息？那么private 和public 的区别是什么？</a></li>
-<li><a href="#privatesupernodetronsuper-node">Private环境，因为我看官网是通过手动投票产生的SuperNode节点，是否还需要提交TRON资料审核注册成为Super Node节点？</a></li>
-<li><a href="#_21">对公网需要暴露那些服务端口？</a></li>
-<li><a href="#_22">在最坏情况下，万一超级节点无法联通，最多允许多长时间恢复服务？</a></li>
-<li><a href="#solidityfull">solidity是根据full同步区块的吗？</a></li>
-<li><a href="#_23">节点有钱包功能吗？</a></li>
-<li><a href="#_24">为什么我的机器上区块处理时间非常久？</a></li>
-</ul>
-</li>
-<li><a href="#_25">测试网问题</a><ul>
-<li><a href="#_26">我们要测试超级节点出块和性能的情况，是不是需要你们投票我们的节点才能竞选上？</a></li>
-<li><a href="#trx_2">如何获得测试网TRX？</a></li>
-</ul>
-</li>
-<li><a href="#_27">客户端问题</a><ul>
-<li><a href="#_28">如何离线签名交易？</a></li>
-<li><a href="#tronscan-wallet-cli">怎么把 Tronscan 的钱包导入到 wallet-cli？</a></li>
-</ul>
-</li>
-<li><a href="#api">API问题</a><ul>
-<li><a href="#gateway-soliditynode">gateway 链接的是 SolidityNode 吗？</a></li>
+<li><a href="#api">API 使用</a><ul>
 <li><a href="#gettransactionbyid-gettransactioninfobyid">getTransactionById 与 getTransactionInfoById 的区别是什么？</a></li>
-<li><a href="#_29">如何广播原始的交易数据？</a></li>
-<li><a href="#_30">如何获得一个智能合约账户的余额？</a></li>
+<li><a href="#_13">如何广播原始的交易数据？</a></li>
+<li><a href="#_14">如何在交易数据里添加备注？</a></li>
+<li><a href="#trc20-api">如何调用 TRC20 API?</a></li>
+<li><a href="#_15">如何判断交易是否成功？</a></li>
+<li><a href="#dup_transaction_error">广播交易出现 DUP_TRANSACTION_ERROR 错误</a></li>
+<li><a href="#_16">如何监控与我的账户有关的交易？</a></li>
 </ul>
 </li>
-<li><a href="#_31">常见错误</a><ul>
+<li><a href="#_17">智能合约</a><ul>
+<li><a href="#out_of_time">出现 OUT_OF_TIME 错误</a></li>
+<li><a href="#out_of_energy">出现 OUT_OF_ENERGY 错误</a></li>
+<li><a href="#_18">如何把以太坊合约转到波场？</a></li>
+</ul>
+</li>
+<li><a href="#_19">部署问题</a><ul>
+<li><a href="#java-tron">java-tron 编译时单元测试没有通过</a></li>
+<li><a href="#_20">如何测试部署是否正常？</a></li>
+<li><a href="#private-supernode-fullnode">在部署 private 环境时, SuperNode 和 FullNode 关系是什么样子？</a></li>
+<li><a href="#_21">我怎样才能知道我的测试超级节点在运行了呢？</a></li>
+<li><a href="#soliditynode-fullnode">SolidityNode 与 FullNode可以部署在一台机器上吗？他们会分享数据吗？</a></li>
+<li><a href="#_22">配置文件</a><ul>
+<li><a href="#contract-validate-error-this-node-dont-support-constant">调用合约报错: "contract validate error : this node don't support constant"</a></li>
+<li><a href="#log">节点启动时如何指定 log 日志文件路径</a></li>
+<li><a href="#configconf-genesisblockwitnesses">config.conf 中的 genesis.block.witnesses 如何设置？</a></li>
+<li><a href="#_23">启动节点的时候怎么指定数据存储目录？</a></li>
+<li><a href="#java-tron-stdout">怎么修改配置可以让 java-tron 日志发送到 stdout?</a></li>
+<li><a href="#_24">如何修改日志级别？</a></li>
+<li><a href="#_25">在私有网络环境下，我如何设置我的资产？</a></li>
+<li><a href="#tapos">广播交易时出现 TAPOS 错误</a></li>
+<li><a href="#trc20-internal-transaction">TRC20 交易的 internal transaction 查不到</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#_26">节点运行相关</a><ul>
+<li><a href="#soliditynodefullnode">SolidityNode与FullNode可以部署在一台机器上吗？他们会分享数据吗？</a></li>
+<li><a href="#privateprivate-public">既然是Private环境，为什么日志还持续的更新全网其他节点，并同步保存信息？那么private 和public 的区别是什么？</a></li>
+<li><a href="#privatetronsuper-node">Private环境，是否还需要提交TRON资料审核注册成为Super Node节点？</a></li>
+<li><a href="#_27">对公网需要暴露那些服务端口？</a></li>
+<li><a href="#_28">在最坏情况下，万一超级节点无法联通，最多允许多长时间恢复服务？</a></li>
+<li><a href="#_29">节点有钱包功能吗？</a></li>
+<li><a href="#_30">为什么我的服务器上区块处理时间非常久？</a></li>
 <li><a href="#not-sync">Not sync 错误信息表达了什么意思？</a></li>
 </ul>
 </li>
-<li><a href="#_32">其他问题</a><ul>
-<li><a href="#_33">节点的机器是否搭建在北京，会不会遇到防火墙的问题？</a></li>
+<li><a href="#_31">测试网问题</a><ul>
+<li><a href="#_32">我们要测试超级节点出块和性能的情况，是不是需要足够投票我们的节点才能竞选上？</a></li>
+<li><a href="#trx_2">如何获得测试网TRX？</a></li>
 </ul>
 </li>
-<li><a href="#_34">没有找到你的问题？</a></li>
+<li><a href="#_33">工具使用</a><ul>
+<li><a href="#_34">如何离线签名交易？</a></li>
+<li><a href="#tronscan-wallet-cli">怎么把 Tronscan 的钱包导入到 wallet-cli？</a></li>
+<li><a href="#_35">如何获得一个智能合约账户的余额？</a></li>
+</ul>
+</li>
+<li><a href="#_36">其他问题</a><ul>
+<li><a href="#_37">节点的机器是否搭建在北京，会不会遇到防火墙的问题？</a></li>
+</ul>
+</li>
+<li><a href="#_38">没有找到你的问题？</a></li>
 </ul>
 </li>
 </ul>
@@ -406,50 +415,120 @@
 <li><a href="https://tronscan.org/#/wallet/new">Tronscan: 生成账户</a></li>
 <li><a href="https://github.com/tronprotocol/wallet-cli">Wallet-cli</a></li>
 </ul>
-<h3 id="_3">目前的网络流量有多大？数据能够传输到多个主机还是只能够满足个人的一些节点？<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<h3 id="tron">目前的 TRON 网络处理性能有多高？需要多大网络带宽？<a class="headerlink" href="#tron" title="Permanent link">&para;</a></h3>
 <p>网络流量取决于交易数量。作为大致参考，可以将每一个交易的流量算作200字节。当前网络配置是 2000TPS（每秒交易量）。</p>
-<h3 id="tokens-not-started-yet-participate">tokens 申请完成后，如何由 not started yet 变更成 participate?<a class="headerlink" href="#tokens-not-started-yet-participate" title="Permanent link">&para;</a></h3>
-<p>发行通证后无法改变发行开始日期，需要等到创建通证时设置的具体时间才能开始发行。在创建通证后，只能修改URL和描述。</p>
-<h3 id="_4">在哪里可以查看目前的超级节点的出块状态？<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
-<p><a href="https://tronscan.org/#/sr/representatives">Tronscan</a>.</p>
-<h3 id="_5">超级节点出块的间隔会保持不变吗？<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
-<p>目前是3秒钟，将来可能会优化到1秒钟。</p>
-<h3 id="trx">未来大概会有出块的TRX会减半的计划吗？如果有的话，大概在什么时间点？<a class="headerlink" href="#trx" title="Permanent link">&para;</a></h3>
-<p>没有减半计划。</p>
-<h3 id="27">如果某一个超级节点除了问题，它会被移除前27名吗？<a class="headerlink" href="#27" title="Permanent link">&para;</a></h3>
+<h3 id="trc10-token-not-started-yet-participate">TRC10 token 申请完成后，如何由 not started yet 变更成 participate?<a class="headerlink" href="#trc10-token-not-started-yet-participate" title="Permanent link">&para;</a></h3>
+<p>发行 TRC10 通证后无法改变发行开始日期，需要等到创建通证时设置的具体时间才能开始发行。在创建通证后，只能修改 URL 和描述。</p>
+<h3 id="trx">未来大概会有 TRX 有出块的减半计划吗？如果有的话，大概在什么时间点？<a class="headerlink" href="#trx" title="Permanent link">&para;</a></h3>
+<p>目前没有减半计划。</p>
+<h3 id="50">是否有可能会出现算力超过 50% 的问题？<a class="headerlink" href="#50" title="Permanent link">&para;</a></h3>
+<p>TRON 没有采用 PoW 共识机制，不会出现该问题。</p>
+<h3 id="_3">一笔交易的凭证是什么？<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<p>交易哈希，对交易的签名。</p>
+<h3 id="trx_1">投票会消耗 TRX 吗？<a class="headerlink" href="#trx_1" title="Permanent link">&para;</a></h3>
+<p>投票不会消耗 TRX. 只需要提前冻结 TRX 为 Bandwidth, 获得 TP(TRON Power) 点数即可。</p>
+<h3 id="_4">怎么将我的投票重置？<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<p>只需要再投一次票，将对应的票数置为 0 就可以了。</p>
+<h3 id="_5">超级代表<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<h4 id="_6">在哪里可以查看目前的超级代表节点的出块状态？<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h4>
+<p>区块浏览器 <a href="https://tronscan.org/#/sr/representatives">Tronscan</a>.</p>
+<h4 id="_7">超级代表节点出块的间隔会保持不变吗？<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h4>
+<p>目前是3秒钟，将来有可能会优化到1秒钟。</p>
+<h4 id="27">如果某一个超级代表节点出了问题，它会被移出前27名吗？<a class="headerlink" href="#27" title="Permanent link">&para;</a></h4>
 <p>不会强行移出，当用户停止为其投票时，如果它的得票数不在前27名，会自动停止出块。</p>
-<h3 id="_6">成为超级代表的门槛是什么？<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
-<p>你的得票数需要排在前27名。</p>
-<h3 id="27_1">27个超级代表的出块奖励是平均分配，还是按照算力分配？<a class="headerlink" href="#27_1" title="Permanent link">&para;</a></h3>
+<h4 id="_8">成为超级代表的门槛是什么？<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h4>
+<p>该超级代表得票数需要排在前27名。</p>
+<h4 id="27_1">27个超级代表的出块奖励是平均分配，还是按照算力分配？<a class="headerlink" href="#27_1" title="Permanent link">&para;</a></h4>
 <p>平均分配，每出一个块，获得32个TRX奖励。</p>
-<h3 id="50">是否有可能会出现算力超过50%的问题？<a class="headerlink" href="#50" title="Permanent link">&para;</a></h3>
-<p>不会。</p>
-<h3 id="trx_1">投票会消耗TRX吗？<a class="headerlink" href="#trx_1" title="Permanent link">&para;</a></h3>
-<p>投票不会消耗 TRX.</p>
-<h3 id="_7">超级代表的出块权利可以持续多久？<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
-<p>每6小时会重新计票一次，只要还在前27名中，就可以持续产块。</p>
-<h3 id="_8">一笔交易的凭证是什么？<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
-<p>交易哈希。</p>
-<h3 id="trx3">为什么TRX的冻结不允许解冻期不能超过3天？<a class="headerlink" href="#trx3" title="Permanent link">&para;</a></h3>
-<p>目前冻结不允许解冻期固定为3天。意味着，满3天的冻结期后才能解冻，如果3天后不进行解冻操作，还是会保持冻结状态。</p>
-<h3 id="_9">如何监控与我的账户有关的交易？<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
-<p>你可以使用波场事件订阅插件。请查阅 <a href="../architecture/event/">TRON 事件订阅机制</a>.</p>
-<h3 id="_10">怎么计算交易费用？<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
+<h4 id="_9">超级代表的出块权利可以持续多久？<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h4>
+<p>每6小时会重新计票一次，只要票数排名还在前27名中，就可以持续产块。</p>
+<h3 id="_10">资源消耗<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
+<h4 id="trx-3">为什么 TRX 的冻结解冻期不能超过3天？<a class="headerlink" href="#trx-3" title="Permanent link">&para;</a></h4>
+<p>目前冻结解冻期固定为3天。意味着，满3天的冻结期后才能解冻，如果3天后不进行解冻操作，还是会保持冻结状态。</p>
+<h4 id="_11">怎么计算交易费用？<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h4>
 <p>请查阅 <a href="../mechanism-algorithm/resource/">资源模型</a>.</p>
-<h3 id="_11">怎么计算交易大小？<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h3>
-<p>tx-size = grpcClient.getTransactionById(txId).get().getSerializedSize() + 60</p>
-<h3 id="_12">怎么将我的投票重置？<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
-<p>只需要再投一次票，将票数置为0就可以了。</p>
-<h2 id="_13">配置问题<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h2>
-<h3 id="configconf-genesisblockwitnesses">config.conf 中的 genesis.block.witnesses 如何设置？<a class="headerlink" href="#configconf-genesisblockwitnesses" title="Permanent link">&para;</a></h3>
-<p>是否需要删除其他address？url和voteCount字段是否需要删除？</p>
+<h4 id="_12">怎么计算交易带宽消耗？<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h4>
+<p><code>Transaction</code> pb 结构去除 <code>ret</code> 字段，然后再加上 64 字节。</p>
+<div class="codehilite"><pre><span></span><code><span class="n">Transaction</span> <span class="n">transaction</span> <span class="o">=</span> <span class="n">result</span><span class="p">.</span><span class="na">get</span><span class="p">();</span>
+<span class="kt">long</span> <span class="n">bytesSize</span> <span class="o">=</span> <span class="n">transaction</span><span class="p">.</span><span class="na">toBuilder</span><span class="p">().</span><span class="na">clearRet</span><span class="p">().</span><span class="na">build</span><span class="p">().</span><span class="na">getSerializedSize</span><span class="p">()</span> <span class="o">+</span> <span class="mi">64</span><span class="p">;</span>
+</code></pre></div>
+
+<p>参考 <a href="https://github.com/tronprotocol/documentation/issues/370">tronprotocol/documentation#370</a>.</p>
+<h2 id="api">API 使用<a class="headerlink" href="#api" title="Permanent link">&para;</a></h2>
+<h3 id="gettransactionbyid-gettransactioninfobyid">getTransactionById 与 getTransactionInfoById 的区别是什么？<a class="headerlink" href="#gettransactionbyid-gettransactioninfobyid" title="Permanent link">&para;</a></h3>
+<p>它们的数据取自不同的数据模块。</p>
+<ul>
+<li><code>getTransactionById</code> 主要侧重交易的通用数据</li>
+<li><code>getTransactionInfoById</code> 侧重交易的费用，执行结果，中间结果数据</li>
+</ul>
+<h3 id="_13">如何广播原始的交易数据？<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h3>
+<p>可以使用 <code>wallet/broadcasthex</code> 接口。</p>
+<h3 id="_14">如何在交易数据里添加备注？<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h3>
+<p>Transaction 里有 <code>data</code> 字段，可以附带任意 bytes, 用于保存不超过 500k 的信息数据。
+创建交易的时候在 <code>raw_data</code> 里手动添加这个字段，目前 HTTP API 没有有接口实现。需要通过 gRPC 接口访问。</p>
+<p>可参考：<a href="https://cn.developers.tron.network/docs/%E6%9C%AC%E5%9C%B0%E6%9E%84%E5%BB%BA%E4%BA%A4%E6%98%93">本地构建交易</a>.</p>
+<h3 id="trc20-api">如何调用 TRC20 API?<a class="headerlink" href="#trc20-api" title="Permanent link">&para;</a></h3>
+<p>可参考：<a href="https://cn.developers.tron.network/docs/trc20%E5%90%88%E7%BA%A6%E4%BA%A4%E4%BA%92%E4%BB%A5usdt%E4%B8%BA%E4%BE%8B">TRC20 合约交互</a>.</p>
+<h3 id="_15">如何判断交易是否成功？<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h3>
+<p>通过交易状态 API <code>getTransactionInfoById</code>.</p>
+<p>参考：<a href="https://cn.developers.tron.network/docs/%E4%BA%A4%E6%98%93#section-%E4%BA%A4%E6%98%93%E7%8A%B6%E6%80%81">交易状态</a>.</p>
+<h3 id="dup_transaction_error">广播交易出现 DUP_TRANSACTION_ERROR 错误<a class="headerlink" href="#dup_transaction_error" title="Permanent link">&para;</a></h3>
+<p>是重复广播了，交易第一次广播到节点 A, 节点 A 会先缓存起来（可能没上链），交易再次广播到节点 A, 就会报重复交易。
+如果第一次广播没报错，最好等到交易的超时时间过了，确定没有上链再选择重发。</p>
+<h3 id="_16">如何监控与我的账户有关的交易？<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h3>
+<p>你可以使用波场事件订阅插件。请查阅 <a href="../architecture/event/">TRON 事件订阅机制</a>.</p>
+<h2 id="_17">智能合约<a class="headerlink" href="#_17" title="Permanent link">&para;</a></h2>
+<h3 id="out_of_time">出现 OUT_OF_TIME 错误<a class="headerlink" href="#out_of_time" title="Permanent link">&para;</a></h3>
+<p>该错误是超时错误。合约最长执行时间是 50ms.
+如果同样的逻辑有时候会发生超时错误，有时候不会发生，是因为代码执行的复杂度正好在某个临界点附近，
+出块节点的机器性能波动恰好导致错误概率发生。</p>
+<h3 id="out_of_energy">出现 OUT_OF_ENERGY 错误<a class="headerlink" href="#out_of_energy" title="Permanent link">&para;</a></h3>
+<ol>
+<li>检查 feelimit 设置的是否为 0 或太小</li>
+<li>trx 余额不足，能量不够</li>
+</ol>
+<h3 id="_18">如何把以太坊合约转到波场？<a class="headerlink" href="#_18" title="Permanent link">&para;</a></h3>
+<p>波场是兼容以太坊的，修改代币相关的字段后，理论上是可以直接部署到波场的，可以编译部署到测试网测试一下。</p>
+<p>目前波场不兼容以太坊的 json-rpc API, 相关 API 请求需要做相应转换。</p>
+<h2 id="_19">部署问题<a class="headerlink" href="#_19" title="Permanent link">&para;</a></h2>
+<h3 id="java-tron">java-tron 编译时单元测试没有通过<a class="headerlink" href="#java-tron" title="Permanent link">&para;</a></h3>
+<p>可以用 <code>./gradlew build -x test</code> 命令忽略单元测试。对报错有疑惑，欢迎在 Github 项目提出 Issue.</p>
+<h3 id="_20">如何测试部署是否正常？<a class="headerlink" href="#_20" title="Permanent link">&para;</a></h3>
+<p>Java-tron 没有默认的接口。一旦服务器开始运行，就能够发送 grpc 命令，基于这一点，有几种检验部署是否成功的方法。</p>
+<ul>
+<li>查看日志，确认是否区块同步，或有在出块</li>
+<li>检查 18888/tcp, 18888/udp 端口流量</li>
+<li>发送测试 API 请求，例如 <code>getnodeinfo</code></li>
+</ul>
+<h3 id="private-supernode-fullnode">在部署 private 环境时, SuperNode 和 FullNode 关系是什么样子？<a class="headerlink" href="#private-supernode-fullnode" title="Permanent link">&para;</a></h3>
+<p>在 private 环境中，至少需要部署一个 SuperNode, 但对 FullNode 的数量没有最低要求。</p>
+<h3 id="_21">我怎样才能知道我的测试超级节点在运行了呢？<a class="headerlink" href="#_21" title="Permanent link">&para;</a></h3>
+<p>运行以下命令：</p>
+<div class="codehilite"><pre><span></span><code><span class="go">tail -f logs/tron.log | grep &quot;Try Produce Block&quot;</span>
+</code></pre></div>
+
+<h3 id="soliditynode-fullnode">SolidityNode 与 FullNode可以部署在一台机器上吗？他们会分享数据吗？<a class="headerlink" href="#soliditynode-fullnode" title="Permanent link">&para;</a></h3>
+<p>指定数据目录是可以做到的，配置文件参数: <code>db.directory = "database"</code>, <code>index.directory = "index"</code>。
+但是也可以让 FullNode.jar 和 SolidityNode.jar 在不同目录下运行，将数据和日志文档完全分离。
+记得修改 <code>config.conf</code> 的端口，因为两个应用无法在同一端口运行。</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>原则上不鼓励继续使用 SolidityNode, 目前 FullNode 可以替代 SolidityNode 的功能。</p>
+</div>
+<h3 id="_22">配置文件<a class="headerlink" href="#_22" title="Permanent link">&para;</a></h3>
+<h4 id="contract-validate-error-this-node-dont-support-constant">调用合约报错: "contract validate error : this node don't support constant"<a class="headerlink" href="#contract-validate-error-this-node-dont-support-constant" title="Permanent link">&para;</a></h4>
+<p>修改配置 <code>vm.supportConstant = true</code>.</p>
+<h4 id="log">节点启动时如何指定 log 日志文件路径<a class="headerlink" href="#log" title="Permanent link">&para;</a></h4>
+<p>添加启动参数 <code>--log-config logback.xml</code>(在 <code>logback.xml</code> 里面修改 <code>tron.log</code> 路径)</p>
+<h4 id="configconf-genesisblockwitnesses">config.conf 中的 genesis.block.witnesses 如何设置？<a class="headerlink" href="#configconf-genesisblockwitnesses" title="Permanent link">&para;</a></h4>
+<p>是否需要删除其他 address？url和voteCount字段是否需要删除？</p>
 <p>不需要删除其他地址，但是这些地址也会成为您网络的一部分，而如果您不持有其私钥，这些相当于是废地址。注意：Zion、Sun以及Blackhole账户不能从创世块的配置文件中删除，但是可以对它们的地址进行更改。</p>
-<h3 id="_14">启动节点的时候怎么制定数据存储目录？<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h3>
+<h4 id="_23">启动节点的时候怎么指定数据存储目录？<a class="headerlink" href="#_23" title="Permanent link">&para;</a></h4>
 <p>可以在启动节点时指定数据存储目录，例如：</p>
 <div class="codehilite"><pre><span></span><code><span class="go">java -jar FullNode.jar -c config.conf -d /data/output</span>
 </code></pre></div>
 
-<h3 id="java-tron-stdout">怎么修改配置可以让 java-tron 日志发送到 stdout?<a class="headerlink" href="#java-tron-stdout" title="Permanent link">&para;</a></h3>
+<h4 id="java-tron-stdout">怎么修改配置可以让 java-tron 日志发送到 stdout?<a class="headerlink" href="#java-tron-stdout" title="Permanent link">&para;</a></h4>
 <p>步骤如下：</p>
 <p>下载<a href="https://github.com/tronprotocol/java-tron/blob/develop/src/main/resources/logback.xml">logback.xml</a></p>
 <p>取消注释掉以下内容：</p>
@@ -466,7 +545,7 @@
 <div class="codehilite"><pre><span></span><code><span class="go">java -jar FullNode.jar --log-config logback.xml</span>
 </code></pre></div>
 
-<h3 id="_15">如何修改日志级别？<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h3>
+<h4 id="_24">如何修改日志级别？<a class="headerlink" href="#_24" title="Permanent link">&para;</a></h4>
 <p>日志级别在 <code>logback.xml</code> 中定义。通过修改 <code>root level=</code> 来改变输出的日志级别。</p>
 <div class="codehilite"><pre><span></span><code><span class="nt">&lt;root</span> <span class="na">level=</span><span class="s">&quot;ERROR&quot;</span><span class="nt">&gt;</span>
     <span class="c">&lt;!--&lt;appender-ref ref=&quot;STDOUT&quot;/&gt;--&gt;</span>
@@ -487,7 +566,7 @@
   <span class="nt">&lt;logger</span> <span class="na">name=</span><span class="s">&quot;VM&quot;</span> <span class="na">level=</span><span class="s">&quot;ERROR&quot;</span><span class="nt">/&gt;</span>
 </code></pre></div>
 
-<h3 id="_16">在私有网络环境下，我如何设置我的资产？<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h3>
+<h4 id="_25">在私有网络环境下，我如何设置我的资产？<a class="headerlink" href="#_25" title="Permanent link">&para;</a></h4>
 <p>在私有网络环境下，你可以通过修改配置文件来设置你初始账户的资产。配置文件如下：</p>
 <div class="codehilite"><pre><span></span><code><span class="err">genesis.block = {</span>
 <span class="err">  # Reserve balance</span>
@@ -513,22 +592,15 @@
 <span class="err">  ]</span>
 </code></pre></div>
 
-<h2 id="_17">编译问题<a class="headerlink" href="#_17" title="Permanent link">&para;</a></h2>
-<h3 id="java-tron">java-tron 编译时单元测试没有通过<a class="headerlink" href="#java-tron" title="Permanent link">&para;</a></h3>
-<p>可以用 <code>./gradlew build -x test</code> 命令忽略单元测试。</p>
-<h2 id="_18">部署问题<a class="headerlink" href="#_18" title="Permanent link">&para;</a></h2>
-<h3 id="redisget-ping-pong">如何测试部署是否正常，比如是否有测试接口或者命令，类似redis，get ping 会返回 pong？<a class="headerlink" href="#redisget-ping-pong" title="Permanent link">&para;</a></h3>
-<p>Java-tron没有默认的接口。一旦服务器开始运行，就能够发送grpc命令，基于这一点，有几种检验部署是否成功的方法。</p>
-<div class="codehilite"><pre><span></span><code><span class="go">tail -f logs/tron.log |grep &quot;MyheadBlockNumber&quot;</span>
-</code></pre></div>
-
-<h3 id="private-supernode-fullnode-supernode-fullnode">在部署private 环境时，SuperNode 和 FullNode 关系是什么样子？是否需要先部署SuperNode, 然后部署FullNode？<a class="headerlink" href="#private-supernode-fullnode-supernode-fullnode" title="Permanent link">&para;</a></h3>
-<p>在private环境中，至少需要部署一个SuperNode，但对FullNode的数量没有最低要求。</p>
-<h3 id="_19">我怎样才能知道我的测试超级节点在运行了呢？<a class="headerlink" href="#_19" title="Permanent link">&para;</a></h3>
-<p>运行以下命令：</p>
-<div class="codehilite"><pre><span></span><code><span class="go">tail -f logs/tron.log | grep &quot;Try Produce Block&quot;</span>
-</code></pre></div>
-
+<h4 id="tapos">广播交易时出现 TAPOS 错误<a class="headerlink" href="#tapos" title="Permanent link">&para;</a></h4>
+<p>修改配置文件: <code>trx.reference.block = "solid"</code>.</p>
+<p>每一个合法的交易需要有一个链上已存在的一定时间内的块作为参考块(TAPOS: Transaction As Proof Of Stake),
+如果你创建交易时用作参考块的块被回退了或者不够新，就会出现 TAPOS 验证失败,
+<code>solid</code> 指的是用已确认的块作为参考块, <code>head</code> 表示使用最新块。</p>
+<h4 id="trc20-internal-transaction">TRC20 交易的 internal transaction 查不到<a class="headerlink" href="#trc20-internal-transaction" title="Permanent link">&para;</a></h4>
+<p>配置文件选项 <code>vm.saveInternalTx</code> 没有打开，需要改成 <code>true</code> 并重启节点。</p>
+<p>该配置项目打开后只会保存修改配置之后的区块的 internal transaction 数据。不会同步历史 internal transaction.</p>
+<h2 id="_26">节点运行相关<a class="headerlink" href="#_26" title="Permanent link">&para;</a></h2>
 <h3 id="soliditynodefullnode">SolidityNode与FullNode可以部署在一台机器上吗？他们会分享数据吗？<a class="headerlink" href="#soliditynodefullnode" title="Permanent link">&para;</a></h3>
 <p>指定数据目录是可以做到的，配置文件参数: <code>db.directory = "database"</code>, <code>index.directory = "index"</code>。
 但是也可以让 FullNode.jar 和 SolidityNode.jar 在不同目录下运行，将数据和日志文档完全分离。
@@ -537,53 +609,28 @@
 <p class="admonition-title">Warning</p>
 <p>原则上不鼓励继续使用 SolidityNode, 目前 FullNode 可以替代 SolidityNode 的功能。</p>
 </div>
-<h2 id="_20">节点运行问题<a class="headerlink" href="#_20" title="Permanent link">&para;</a></h2>
 <h3 id="privateprivate-public">既然是Private环境，为什么日志还持续的更新全网其他节点，并同步保存信息？那么private 和public 的区别是什么？<a class="headerlink" href="#privateprivate-public" title="Permanent link">&para;</a></h3>
 <p>和 IP list 有关。</p>
 <p>需要在 <code>config.conf</code> 更新 <code>seed.ip</code>.
-如果设置和公网一样，并且电脑连入了互联网，电脑就会尝试连接其它节点，那么即使连接失败，IP list 也会存入 DB.</p>
+如果设置和公网一样，并且服务器连入了互联网，服务器会尝试连接其它节点，那么即使连接失败，IP list 也会存入 DB.</p>
 <p>在 private 环境中，需要更改 <em>p2p版本</em> 和 <em>父哈希</em>。</p>
-<p>如果设置同主网或测试网一样，并且电脑连入了互联网，那么节点也会和公网同步。</p>
-<h3 id="privatesupernodetronsuper-node">Private环境，因为我看官网是通过手动投票产生的SuperNode节点，是否还需要提交TRON资料审核注册成为Super Node节点？<a class="headerlink" href="#privatesupernodetronsuper-node" title="Permanent link">&para;</a></h3>
+<p>如果设置同主网或测试网一样，并且服务器连入了互联网，那么节点也会和公网同步。</p>
+<h3 id="privatetronsuper-node">Private环境，是否还需要提交TRON资料审核注册成为Super Node节点？<a class="headerlink" href="#privatetronsuper-node" title="Permanent link">&para;</a></h3>
 <p>在private环境的前提下，不需要向波场基金会提交申请材料。</p>
-<h3 id="_21">对公网需要暴露那些服务端口？<a class="headerlink" href="#_21" title="Permanent link">&para;</a></h3>
+<h3 id="_27">对公网需要暴露那些服务端口？<a class="headerlink" href="#_27" title="Permanent link">&para;</a></h3>
 <ul>
 <li>节点发现 18888/udp</li>
 <li>区块广播同步 18888/tcp</li>
-<li>gRPC API 50051/tcp, 500061/tcp</li>
-<li>HTTP API 8090/tcp, 8091/tcp</li>
+<li>gRPC API 50051/tcp, 500061/tcp (可选)</li>
+<li>HTTP API 8090/tcp, 8091/tcp (可选)</li>
 </ul>
-<h3 id="_22">在最坏情况下，万一超级节点无法联通，最多允许多长时间恢复服务？<a class="headerlink" href="#_22" title="Permanent link">&para;</a></h3>
+<h3 id="_28">在最坏情况下，万一超级节点无法联通，最多允许多长时间恢复服务？<a class="headerlink" href="#_28" title="Permanent link">&para;</a></h3>
 <p>SR节点重新连上网络的速度只取决于SR节点自己的恢复速度，跟网络没关系。</p>
-<h3 id="solidityfull">solidity是根据full同步区块的吗？<a class="headerlink" href="#solidityfull" title="Permanent link">&para;</a></h3>
-<p>是的。</p>
-<h3 id="_23">节点有钱包功能吗？<a class="headerlink" href="#_23" title="Permanent link">&para;</a></h3>
-<p>节点有钱包的RPC接口，不能直接用命令行调用钱包功能，可以用另外一个repo里的命令行钱包使用full node的钱包功能。</p>
-<h3 id="_24">为什么我的机器上区块处理时间非常久？<a class="headerlink" href="#_24" title="Permanent link">&para;</a></h3>
-<p>Java-tron 运行是需要更多的内存来处理交易。</p>
-<h2 id="_25">测试网问题<a class="headerlink" href="#_25" title="Permanent link">&para;</a></h2>
-<h3 id="_26">我们要测试超级节点出块和性能的情况，是不是需要你们投票我们的节点才能竞选上？<a class="headerlink" href="#_26" title="Permanent link">&para;</a></h3>
-<p>测试的时候，我们可以给你投票，让你成为测试网的一个超级节点。</p>
-<h3 id="trx_2">如何获得测试网TRX？<a class="headerlink" href="#trx_2" title="Permanent link">&para;</a></h3>
-<p><a href="http://testnet.tronex.io/join/getJoinPage">http://testnet.tronex.io/join/getJoinPage</a></p>
-<h2 id="_27">客户端问题<a class="headerlink" href="#_27" title="Permanent link">&para;</a></h2>
-<h3 id="_28">如何离线签名交易？<a class="headerlink" href="#_28" title="Permanent link">&para;</a></h3>
-<p>你可以使用<a href="https://developers.tron.network/docs/api-sign-flow">tronweb</a>.</p>
-<h3 id="tronscan-wallet-cli">怎么把 Tronscan 的钱包导入到 wallet-cli？<a class="headerlink" href="#tronscan-wallet-cli" title="Permanent link">&para;</a></h3>
-<p>通过调用wallet-cli api 'ImportWallet'。</p>
-<h2 id="api">API问题<a class="headerlink" href="#api" title="Permanent link">&para;</a></h2>
-<h3 id="gateway-soliditynode">gateway 链接的是 SolidityNode 吗？<a class="headerlink" href="#gateway-soliditynode" title="Permanent link">&para;</a></h3>
-<p>gateway 可以连接SolidityNode，也可以连接FullNode。</p>
-<h3 id="gettransactionbyid-gettransactioninfobyid">getTransactionById 与 getTransactionInfoById 的区别是什么？<a class="headerlink" href="#gettransactionbyid-gettransactioninfobyid" title="Permanent link">&para;</a></h3>
-<p>它们的数据取自不同的数据模块。<code>getTransactionById</code> 主要侧重交易的通用数据，<code>getTransactionInfoById</code> 侧重交易的费用数据。</p>
-<h3 id="_29">如何广播原始的交易数据？<a class="headerlink" href="#_29" title="Permanent link">&para;</a></h3>
-<p>可以使用'wallet/broadcasthex'接口。</p>
-<h3 id="_30">如何获得一个智能合约账户的余额？<a class="headerlink" href="#_30" title="Permanent link">&para;</a></h3>
-<p>可以使用以下wallet-cli api:</p>
-<div class="codehilite"><pre><span></span><code>triggercontract contractaddress balanceOf(address) &quot;youraddress&quot; false 0 0 0 #
-</code></pre></div>
-
-<h2 id="_31">常见错误<a class="headerlink" href="#_31" title="Permanent link">&para;</a></h2>
+<h3 id="_29">节点有钱包功能吗？<a class="headerlink" href="#_29" title="Permanent link">&para;</a></h3>
+<p>节点有钱包的 RPC 接口，不能直接用命令行调用钱包功能，可以用 <a href="https://github.com/tronprotocol/wallet-cli">wallet-cli</a>
+里的命令行钱包使用 FullNode 的钱包功能。</p>
+<h3 id="_30">为什么我的服务器上区块处理时间非常久？<a class="headerlink" href="#_30" title="Permanent link">&para;</a></h3>
+<p>Java-tron 运行时需要更多的内存来处理交易。</p>
 <h3 id="not-sync">Not sync 错误信息表达了什么意思？<a class="headerlink" href="#not-sync" title="Permanent link">&para;</a></h3>
 <p>出现日志</p>
 <div class="codehilite"><pre><span></span><code>17:02:42.699 INFO [o.t.c.s.WitnessService] Try Produce Block
@@ -594,10 +641,25 @@
 <div class="codehilite"><pre><span></span><code><span class="go">tail -f logs/tron.log | grep &quot;MyheadBlockNumber&quot;</span>
 </code></pre></div>
 
-<h2 id="_32">其他问题<a class="headerlink" href="#_32" title="Permanent link">&para;</a></h2>
-<h3 id="_33">节点的机器是否搭建在北京，会不会遇到防火墙的问题？<a class="headerlink" href="#_33" title="Permanent link">&para;</a></h3>
+<h2 id="_31">测试网问题<a class="headerlink" href="#_31" title="Permanent link">&para;</a></h2>
+<h3 id="_32">我们要测试超级节点出块和性能的情况，是不是需要足够投票我们的节点才能竞选上？<a class="headerlink" href="#_32" title="Permanent link">&para;</a></h3>
+<p>测试的时候，我们可以给你投票，让你成为测试网的一个超级节点。</p>
+<h3 id="trx_2">如何获得测试网TRX？<a class="headerlink" href="#trx_2" title="Permanent link">&para;</a></h3>
+<p><a href="http://testnet.tronex.io/join/getJoinPage">http://testnet.tronex.io/join/getJoinPage</a></p>
+<h2 id="_33">工具使用<a class="headerlink" href="#_33" title="Permanent link">&para;</a></h2>
+<h3 id="_34">如何离线签名交易？<a class="headerlink" href="#_34" title="Permanent link">&para;</a></h3>
+<p>你可以使用 <a href="https://developers.tron.network/docs/api-sign-flow">tronweb</a>.</p>
+<h3 id="tronscan-wallet-cli">怎么把 Tronscan 的钱包导入到 wallet-cli？<a class="headerlink" href="#tronscan-wallet-cli" title="Permanent link">&para;</a></h3>
+<p>通过调用 wallet-cli 命令 <code>ImportWallet</code>.</p>
+<h3 id="_35">如何获得一个智能合约账户的余额？<a class="headerlink" href="#_35" title="Permanent link">&para;</a></h3>
+<p>可以使用以下 wallet-cli 命令:</p>
+<div class="codehilite"><pre><span></span><code>triggercontract contractaddress balanceOf(address) &quot;youraddress&quot; false 0 0 0 #
+</code></pre></div>
+
+<h2 id="_36">其他问题<a class="headerlink" href="#_36" title="Permanent link">&para;</a></h2>
+<h3 id="_37">节点的机器是否搭建在北京，会不会遇到防火墙的问题？<a class="headerlink" href="#_37" title="Permanent link">&para;</a></h3>
 <p><code>39.106.220.120</code> 在北京，其他节点均位于美洲欧洲或香港。</p>
-<h2 id="_34">没有找到你的问题？<a class="headerlink" href="#_34" title="Permanent link">&para;</a></h2>
+<h2 id="_38">没有找到你的问题？<a class="headerlink" href="#_38" title="Permanent link">&para;</a></h2>
 <p>欢迎到社区提问，或在 Gihub 项目页面提出 Issue.</p>
 <ul>
 <li>波场开发者电报群: <a href="https://t.me/troncoredevscommunity">t.me/troncoredevscommunity</a></li>
@@ -658,5 +720,5 @@
 
 <!--
 MkDocs version : 1.0.4
-Build Date UTC : 2020-03-17 09:07:17
+Build Date UTC : 2020-03-18 03:02:21
 -->
