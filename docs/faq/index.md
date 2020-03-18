@@ -177,7 +177,7 @@ tail -f logs/tron.log | grep "Try Produce Block"
 记得修改 `config.conf` 的端口，因为两个应用无法在同一端口运行。
 
 !!! warning
-    原则上不鼓励继续使用 SolidityNode, 目前 FullMode 可以替代 SolidityNode 的功能。
+    原则上不鼓励继续使用 SolidityNode, 目前 FullNode 可以替代 SolidityNode 的功能。
 
 ### 配置文件
 
