@@ -6,4 +6,4 @@
 
 ## 社区
 
-- [文档 Gitter](https://gitter.im/tronprotocol/documentation)
+- [文档 Telegram](https://t.me/troncoredevscommunity)
