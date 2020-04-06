@@ -48,9 +48,9 @@
 |  proposalcreate                  | getcontract             | createshieldedcontractparameterswithoutask          |
 |  getproposalbyid                 | triggerconstantcontract | scanshieldedtrc20notesbyivk             |
 |  listproposals                   | triggersmartcontract    | scanshieldedtrc20notesbyovk         |
-|  proposalapprove                 | clearabi                | getnextmaintenancetime|
-|  proposaldelete                  | updateenergylimit       | getnodeinfo           |
-|  getapprovedlist                 | updatesetting           | getchainparameters    |
+|  proposalapprove                 | clearabi                | isshieldedtrc20contractnotespent|
+|  proposaldelete                  | updateenergylimit       |                                 |
+|  getapprovedlist                 | updatesetting           |                                 |
 
 
 | others                |
@@ -62,7 +62,6 @@
 | getnextmaintenancetime|
 | getnodeinfo           |
 | getchainparameters    |
-
 
 
 ## hexString和base58check转码demo
