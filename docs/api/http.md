@@ -42,16 +42,26 @@
 |  updateasset                   | getpaginatedexchangelist|                                 |
 
 
-
-|   proposal                       | smart contract          | others                |
+|   proposal                       | smart contract          | shielded TRC20 contract|
 |----------------------------------|-------------------------|-----------------------|
-|  getpaginatedproposallist        | deploycontract          | broadcasttransaction  |
-|  proposalcreate                  | getcontract             | broadcasthex          |
-|  getproposalbyid                 | triggerconstantcontract | listnodes             |
-|  listproposals                   | triggersmartcontract    | listwitnesses         |
-|  proposalapprove                 | clearabi                | getnextmaintenancetime|
-|  proposaldelete                  | updateenergylimit       | getnodeinfo           |
-|  getapprovedlist                 | updatesetting           | getchainparameters    |
+|  getpaginatedproposallist        | deploycontract          | createshieldedcontractparameters  |
+|  proposalcreate                  | getcontract             | createshieldedcontractparameterswithoutask          |
+|  getproposalbyid                 | triggerconstantcontract | scanshieldedtrc20notesbyivk             |
+|  listproposals                   | triggersmartcontract    | scanshieldedtrc20notesbyovk         |
+|  proposalapprove                 | clearabi                | isshieldedtrc20contractnotespent|
+|  proposaldelete                  | updateenergylimit       |                                 |
+|  getapprovedlist                 | updatesetting           |                                 |
+
+
+| others                |
+|-----------------------|
+| broadcasttransaction  |
+| broadcasthex          |
+| listnodes             |
+| listwitnesses         |
+| getnextmaintenancetime|
+| getnodeinfo           |
+| getchainparameters    |
 
 
 ## hexString和base58check转码demo
@@ -334,8 +344,6 @@ ovk：Outgoing viewing key
 返回值：Notes列表
 注意：区间限制（end_block_index - start_block_index <= 1000）
 
-
-
 /walletsolidity/isspend
 作用：查询一个note是否已经被花费
 demo: curl -X POST  http://127.0.0.1:8090/walletsolidity/isspend -d
@@ -358,7 +366,67 @@ txid：交易id
 index：Note索引
 返回值：一个note是否已经被花费状态
 
+/walletsolidity/scanshieldedtrc20notesbyivk
+作用：查询匿名TRC20合约中与ivk相关的所有notes, 并标记其是否已花费
+demo: curl -X POST  http://127.0.0.1:8091/walletsolidity/scanshieldedtrc20notesbyivk -d
+'{
+    "start_block_index": 9200,
+    "end_block_index": 9240,
+    "shielded_TRC20_contract_address": "41274fc7464fadac5c00c893c58bce6c39bf59e4c7",
+    "ivk": "9f8e74bb3d7188a2781dc1db38810c6914eef4570a79e8ec8404480948e4e305",
+    "ak":"8072d9110c9de9d9ade33d5d0f5890a7aa65b0cde42af7816d187297caf2fd64",
+    "nk":"590bf33f93f792be659fd404df91e75c3b08d38d4e08ee226c3f5219cf598f14"
+}'
+参数说明：
+start_block_index：开始区块高度，包含自身
+end_block_index：结束区块高度，不包含自身
+shielded_TRC20_contract_address: 匿名TRC20合约地址
+ivk：Incoming viewing key
+ak：Ak key
+nk：Nk key
+返回值：Notes列表
+注意：区间限制（end_block_index - start_block_index <= 1000）
+
+/walletsolidity/scanshieldedtrc20notesbyovk
+作用：查询匿名TRC20合约中与ovk相关的所有notes
+demo: curl -X POST  http://127.0.0.1:8091/walletsolidity/scanshieldedtrc20notesbyovk -d
+'{
+    "start_block_index": 9200,
+    "end_block_index": 9240,
+    "shielded_TRC20_contract_address": "41274fc7464fadac5c00c893c58bce6c39bf59e4c7",
+    "ovk": "0ff58efd75e083fe4fd759c8701e1c8cb6961c4297a12b2c800bdb7b2bcab889"
+}'
+参数说明：
+start_block_index：开始区块高度，包含自身
+end_block_index：结束区块高度，不包含自身
+shielded_TRC20_contract_address: 匿名TRC20合约地址
+ovk：Outgoing viewing key
+返回值：Notes列表
+注意：区间限制（end_block_index - start_block_index <= 1000）
+
+/walletsolidity/isshieldedtrc20contractnotespent
+作用：查询匿名TRC20合约的note是否已被花费
+demo: curl -X POST  http://127.0.0.1:8091/walletsolidity/scanshieldedtrc20notesbyovk -d
+'{
+   "note": {
+       "value": 40,
+       "payment_address":"ztron1768kf7dy4qquefp46szk978d65eeua66yhr4zv260c0uzj68t3tfjl3en9lhyyfxalv4jus30xs",
+       "rcm": "296070782a94c6936b0b4f6daf8d7c7605a4374fe595b96148dc0f4b59015d0d"
+    },
+    "ak": "8072d9110c9de9d9ade33d5d0f5890a7aa65b0cde42af7816d187297caf2fd64",
+    "nk": "590bf33f93f792be659fd404df91e75c3b08d38d4e08ee226c3f5219cf598f14",
+    "position": 272,
+    "shielded_TRC20_contract_address": "41274fc7464fadac5c00c893c58bce6c39bf59e4c7"
+}'
+参数说明：
+note：Note信息
+ak：Ak
+nk：Nk
+position：note承诺在匿名合约Merkle树叶子节点的位置索引
+shielded_TRC20_contract_address: 匿名TRC20合约地址
+返回值：一个note是否已经被花费状态
 ```
+
 
 ## FullNode接口
 FullNode默认的http端口是8090，启动FullNode的时候会同时启动http服务。
@@ -1565,4 +1633,114 @@ demo: curl -X GET  http://127.0.0.1:8090/wallet/getnewshieldedaddress
 返回值: Diversifier
 返回值: pkD
 返回值: payment address
+
+wallet/createshieldedcontractparameters
+作用：创建匿名TRC20合约交易的相关参数，包括mint, transfer和burn三种类型
+demo: curl -X POST  http://127.0.0.1:8090/wallet/createshieldedcontractparameters -d
+'{
+   "ask": "0f63eabdfe2bbfe08012f6bb2db024e6809c16e8ed055aa41a6095424f192005",
+   "nsk": "cd43d722fd4b6b01f19449ea826c3e935609648520fcc2a95c0026f0fa9ee404",
+   "ovk": "1797de3b7f33cafffe3fe18c6b43ec6760add2ad81b10978d1fca5290497ede9",
+   "from_amount": 50,
+    "shielded_receives": {
+       "note": {
+          "value": 50,
+          "payment_address": "ztron15js0jkuxczt8caq5hp59rnh6rgf34sek7vqn9u6ljelxv4nuzz2x9qe3ffm2wzz6ck53yxyhxs6",
+          "rcm": "74baec30dfac8ed59968955ff245ae002009005194e5b824c35ab88c52e5170e"
+       }
+    },
+    "shielded_TRC20_contract_address": "41e6e90fbc958ba09483550882b1f0327e0193250a"
+}'
+参数说明：
+ask：Ask
+nsk：Nsk
+ovk：Outgoing view key
+from_amount：mint的金额
+shielded_receives: 待创建的匿名合约notes
+shielded_TRC20_contract_address: 匿名TRC20合约地址
+返回值：匿名TRC20合约交易的参数
+注意：根据待创建的匿名合约交易类型的不同，输入的参数不同
+
+wallet/createshieldedcontractparameterswithoutask
+作用：在没有Ask的情况下，创建匿名TRC20合约交易的相关参数，包括mint, transfer和burn三种类型
+demo: curl -X POST  http://127.0.0.1:8090/wallet/createshieldedcontractparameterswithoutask -d
+'{
+   "ovk": "cd361834b3adc06f130de24f7d0c18f92a093cc885d9ce492cc6c02071f7a4f0",
+   "from_amount": 50,
+    "shielded_receives": {
+       "note": {
+          "value": 50,
+          "payment_address": "ztron13lvfnt4rau4ad9mmgztd3aftw49e3amz8gm2kvyzrsaw0ugz2grxwkvcfys5e2gkchj7cnnetjz",
+          "rcm": "499e73f2f8aaf05fac41a35b8343bde27f6629cbe66d35da5364a99b94a55a06"
+       }
+    },
+    "shielded_TRC20_contract_address": "41e6e90fbc958ba09483550882b1f0327e0193250a"
+}'
+参数说明：
+ovk：Outgoing view key
+from_amount：mint的金额
+shielded_receives: 待创建的匿名合约notes
+shielded_TRC20_contract_address: 匿名TRC20合约地址
+返回值：匿名TRC20合约交易的参数
+注意：根据待创建的匿名合约交易类型的不同，输入的参数不同
+
+wallet/scanshieldedtrc20notesbyivk
+作用：查询匿名TRC20合约中与ivk相关的所有notes, 并标记其是否已花费
+demo: curl -X POST  http://127.0.0.1:8090/wallet/scanshieldedtrc20notesbyivk -d
+'{
+    "start_block_index": 9200,
+    "end_block_index": 9240,
+    "shielded_TRC20_contract_address": "41274fc7464fadac5c00c893c58bce6c39bf59e4c7",
+    "ivk": "9f8e74bb3d7188a2781dc1db38810c6914eef4570a79e8ec8404480948e4e305",
+    "ak":"8072d9110c9de9d9ade33d5d0f5890a7aa65b0cde42af7816d187297caf2fd64",
+    "nk":"590bf33f93f792be659fd404df91e75c3b08d38d4e08ee226c3f5219cf598f14"
+}'
+参数说明：
+start_block_index：开始区块高度，包含自身
+end_block_index：结束区块高度，不包含自身
+shielded_TRC20_contract_address: 匿名TRC20合约地址
+ivk：Incoming viewing key
+ak：Ak key
+nk：Nk key
+返回值：Notes列表
+注意：区间限制（end_block_index - start_block_index <= 1000）
+
+wallet/scanshieldedtrc20notesbyovk
+作用：查询匿名TRC20合约中与ovk相关的所有notes
+demo: curl -X POST  http://127.0.0.1:8090/wallet/scanshieldedtrc20notesbyovk -d
+'{
+    "start_block_index": 9200,
+    "end_block_index": 9240,
+    "shielded_TRC20_contract_address": "41274fc7464fadac5c00c893c58bce6c39bf59e4c7",
+    "ovk": "0ff58efd75e083fe4fd759c8701e1c8cb6961c4297a12b2c800bdb7b2bcab889"
+}'
+参数说明：
+start_block_index：开始区块高度，包含自身
+end_block_index：结束区块高度，不包含自身
+shielded_TRC20_contract_address: 匿名TRC20合约地址
+ovk：Outgoing viewing key
+返回值：Notes列表
+注意：区间限制（end_block_index - start_block_index <= 1000）
+
+wallet/isshieldedtrc20contractnotespent
+作用：查询匿名TRC20合约的note是否已被花费
+demo: curl -X POST  http://127.0.0.1:8090/wallet/scanshieldedtrc20notesbyovk -d
+'{
+   "note": {
+       "value": 40,
+       "payment_address":"ztron1768kf7dy4qquefp46szk978d65eeua66yhr4zv260c0uzj68t3tfjl3en9lhyyfxalv4jus30xs",
+       "rcm": "296070782a94c6936b0b4f6daf8d7c7605a4374fe595b96148dc0f4b59015d0d"
+    },
+    "ak": "8072d9110c9de9d9ade33d5d0f5890a7aa65b0cde42af7816d187297caf2fd64",
+    "nk": "590bf33f93f792be659fd404df91e75c3b08d38d4e08ee226c3f5219cf598f14",
+    "position": 272,
+    "shielded_TRC20_contract_address": "41274fc7464fadac5c00c893c58bce6c39bf59e4c7"
+}'
+参数说明：
+note：Note信息
+ak：Ak
+nk：Nk
+position：note承诺在匿名合约Merkle树叶子节点的位置索引
+shielded_TRC20_contract_address: 匿名TRC20合约地址
+返回值：一个note是否已经被花费状态
 ```
