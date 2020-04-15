@@ -79,7 +79,8 @@ curl -X POST http://127.0.0.1:8090/wallet/createtransaction -d
     "owner_address": "TRGhNNfnmgLegT4zHNjEqDSADjgmnHvubJ",
     "to_address": "TJCnKsPa7y5okkXvQAidZBzqx3QyQ6sxMW",
     "amount": 1000000,
-    "visible": true
+    "visible": true,
+		"extra_data": "你可以在这里加上附言"
 }'
 ```
 - GET方式请求接口时，通过在url中增加参数。同方式1。
