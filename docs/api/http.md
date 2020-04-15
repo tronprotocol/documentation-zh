@@ -49,7 +49,7 @@
 |  getproposalbyid                 | triggerconstantcontract | scanshieldedtrc20notesbyivk             |
 |  listproposals                   | triggersmartcontract    | scanshieldedtrc20notesbyovk         |
 |  proposalapprove                 | clearabi                | isshieldedtrc20contractnotespent|
-|  proposaldelete                  | updateenergylimit       |                                 |
+|  proposaldelete                  | updateenergylimit       | getTriggerInputForShieldedTRC20Contract |
 |  getapprovedlist                 | updatesetting           |                                 |
 
 
@@ -1743,4 +1743,27 @@ nk：Nk
 position：note承诺在匿名合约Merkle树叶子节点的位置索引
 shielded_TRC20_contract_address: 匿名TRC20合约地址
 返回值：一个note是否已经被花费状态
+
+
+- wallet/gettriggerinputforshieldedtrc20contract
+
+作用: 对于没有授权签名的匿名TRC-20合约参数，生成触发合约的输入数据
+demo: curl -X POST  http://127.0.0.1:8090/wallet/gettriggerinputforshieldedtrc20contract -d
+'{  
+     "shielded_TRC20_Parameters": {"spend_description": [{"value_commitment": "43916fbd329030567a12ed99e389ed3498a122453a90fcb87eafd195bde3b726","anchor": "4c9cbebece033dc1d253b93e4a3682187daae4f905515761d10287b801e69816","nullifier": "74edce8798a3976ee41e045bb666f3a121c27235b0f1b44b3456d2c84bc725dc","rk": "9dcf4254aa7c4fb7c8bc6956d4b0c7c6c87c37a2552e7bf4e60c12cb5bc6c8cd","zkproof": "976aef79cf12c9d769c3113997f5c797cc4f51c3fbdc29f720cdb28a0f19eba1b6ce047ce6e107e8c5520746de81490a991aedda34b1662e446264d9941517f20876f8e00600e77534abd15ec3c21bd926eb3915bba05c38e7a7477b34b790081447ebd0458e5b9713b1516863e620952dc9fe02a3b7ed9d6685645b426133c06b9a6fe97adf20ad829268598f4938cd93c6bd4d662ebc4cd1a9495f070e3e7066f34831dc734d18603ca29a334973b77085b92304a302f0d37ff9a2eae6bfcb"}],"binding_signature": "853e64a648a80113b2cd38b3cc4ed52da565cd63dcecf81df6dad296d4de1190928735a37853db231d2f00a44a2bc5901e528fbfbff71bf6d7c2f07158ee2b0b","message_hash": "4378a92b097411a857411ba2d51b78fc6ac522283d517dbb46129e512488590e","parameter_type": "burn"},
+     "spend_authority_signature": [
+       {
+         "value": "62690bf5a5796507403695e9a645c419bf08593010878f7af8bb206156c1ea6cbfc3aac0cf383b2d269bb02ec857e3be19e24092988c84c7ea277be70ccd9d05"
+       }
+     ],
+     "amount": 60,
+     "transparent_to_address": "4140cd765f8e637a2bbe00f9bc458f6b21eb0e648f"
+ }'
+参数说明:
+shielded_TRC20_Parameters: 生成的匿名TRC-20合约参数
+spend_authority_signature: 授权签名
+amount: 交易金额  
+transparent_to_address: 接收者地址. 
+返回值: 触发TRC-20合约的输入数据
 ```
+
