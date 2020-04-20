@@ -2,8 +2,6 @@
 
 ## 简介
 
-TRC-20 token contract allows users to issue and transfer tokens, but it can not guarantee the privacy since it leaks the token ownership. When transferring the token, the source address, destination address, and the token amount are  public. The shielded token contract ([TIP-135](https://github.com/tronprotocol/tips/blob/master/tip-135.md)) aims to solve this problem and provides users better privacy of token ownership and transactions.
-
 TRC-20合约允许用户发行代币和转账交易，但无法保证隐私性，因为代币的所有者是公开的。当进行转账交易的时候，发送者地址、接收者地址和转账金额也是公开的。匿名币全约 ([TIP-135](https://github.com/tronprotocol/tips/blob/master/tip-135.md)) 主要解决这个问题，为用户提供更强的隐私保护。
 
 匿名币合约主要有三个核心函数： `mint`, `transfer` 和 `burn`.
@@ -198,7 +196,7 @@ Return:
 
 由于缺少`ask`, 该api 无法生成`spend_authority_signature` 和 `trigger_contract_input `. 为了生成`trigger_contract_input`， 用户需要调用以下api生成`spend_authority_signature`：
 
-**wallet/createspendauthsig **
+**wallet/createspendauthsig**
 
 Method: Post
 
@@ -220,7 +218,7 @@ Return:
 
 返回值`value` 即为`spend_authority_signature`。若`transfer`有两个输入，用户需要分别生成对应的`spend_authority_signatures`。然后用户调用以下api：
 
-**wallet/gettriggerinputforshieldedtrc20contract **
+**wallet/gettriggerinputforshieldedtrc20contract**
 
 Method: Post
 
@@ -316,7 +314,7 @@ Return:
 
 由于缺少`ask`, 该api 无法生成`spend_authority_signature` 和 `trigger_contract_input `. 为了生成`trigger_contract_input`， 用户需要调用以下api生成`spend_authority_signature`：
 
-**wallet/createspendauthsig **
+**wallet/createspendauthsig**
 
 Method: Post
 
@@ -338,7 +336,7 @@ Return:
 
 返回值`value` 即为`spend_authority_signature`。然后用户调用以下api：
 
-**wallet/gettriggerinputforshieldedtrc20contract **
+**wallet/gettriggerinputforshieldedtrc20contract**
 
 Method: Post
 
