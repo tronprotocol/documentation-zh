@@ -369,13 +369,13 @@ U^\prime = ( 1 - \frac{T_2 - T_1}{24h} ) * U + u
 <h3 id="1-energy">1. Energy的获取<a class="headerlink" href="#1-energy" title="Permanent link">&para;</a></h3>
 <p>冻结获取Energy，即将持有的trx锁定，无法进行交易，作为抵押，并以此获得免费使用Energy的权利。具体计算与全网所有账户冻结有关，可参考相关部分计算。</p>
 <h4 id="freezebalance">FreezeBalance 冻结获得能量<a class="headerlink" href="#freezebalance" title="Permanent link">&para;</a></h4>
-<div class="codehilite"><pre><span></span><code>freezeBalance frozen_balance frozen_duration [ResourceCode:0 BANDWIDTH,1 ENERGY]
+<div class="highlight"><pre><span></span><code>freezeBalance frozen_balance frozen_duration [ResourceCode:0 BANDWIDTH,1 ENERGY]
 </code></pre></div>
 
 <p>通过冻结TRX获取的Energy， 额度 = 为获取Energy冻结的TRX / 整个网络为获取Energy冻结的TRX 总额 * 50_000_000_000。
 也就是所有用户按冻结TRX平分固定额度的Energy。</p>
 <p>示例：</p>
-<div class="codehilite"><pre><span></span><code>如全网只有两个人A，B分别冻结2TRX，2TRX。
+<div class="highlight"><pre><span></span><code>如全网只有两个人A，B分别冻结2TRX，2TRX。
 
 二人冻结获得的可用Energy分别是
 
@@ -397,7 +397,7 @@ B: 10_000_000_000 且energy_limit 为10_000_000_000
 <h4 id="freezebalance_1">FreezeBalance 恢复能量<a class="headerlink" href="#freezebalance_1" title="Permanent link">&para;</a></h4>
 <p>所消耗的能量会在24小时内平滑减少至0。</p>
 <p>示例：</p>
-<div class="codehilite"><pre><span></span><code>在某一时刻A的Energy已使用量为72_000_000 Energy
+<div class="highlight"><pre><span></span><code>在某一时刻A的Energy已使用量为72_000_000 Energy
 
 在没有其他消耗或冻结的操作下：
 
@@ -508,7 +508,7 @@ Assert-style异常的介绍详见<a href="https://github.com/tronprotocol/Docume
 此时，主账号拥有冻结的TRX以及相应的投票权，受委托账户拥有冻结获取的资源（带宽或者能量）。
 和普通冻结一样，委托资源也至少冻结3天。</p>
 <p>资源委托的命令如下：</p>
-<div class="codehilite"><pre><span></span><code>freezeBalance frozen_balance frozen_duration [ResourceCode:0 BANDWIDTH,1 ENERGY] [receiverAddress]
+<div class="highlight"><pre><span></span><code>freezeBalance frozen_balance frozen_duration [ResourceCode:0 BANDWIDTH,1 ENERGY] [receiverAddress]
 
 frozen_balance是冻结的TRX数量（单位为sun）
 frozen_duration为冻结的天数（目前固定为3天）

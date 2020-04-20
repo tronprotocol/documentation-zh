@@ -321,26 +321,26 @@
 <h2 id="_1">二、部署指南<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
 <p><strong>1.创建目录</strong>
 <em>/deploy</em></p>
-<div class="codehilite"><pre><span></span><code><span class="n">mkdir</span> <span class="n">deploy</span>
+<div class="highlight"><pre><span></span><code><span class="n">mkdir</span> <span class="n">deploy</span>
 </code></pre></div>
 
 <p><strong>2.克隆最新的代码</strong></p>
-<div class="codehilite"><pre><span></span><code><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="c1">//github.com/tronprotocol/java-tron</span>
+<div class="highlight"><pre><span></span><code><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="c1">//github.com/tronprotocol/java-tron</span>
 </code></pre></div>
 
 <p><strong>3.切换master分支</strong></p>
-<div class="codehilite"><pre><span></span><code><span class="n">cd</span> <span class="n">java</span><span class="o">-</span><span class="n">tron</span>
+<div class="highlight"><pre><span></span><code><span class="n">cd</span> <span class="n">java</span><span class="o">-</span><span class="n">tron</span>
 <span class="n">git</span> <span class="n">checkout</span> <span class="o">-</span><span class="n">t</span> <span class="n">origin</span><span class="o">/</span><span class="n">master</span>
 </code></pre></div>
 
 <p><strong>4.编译代码</strong></p>
-<p><div class="codehilite"><pre><span></span><code><span class="p">.</span><span class="o">/</span><span class="n">gradlew</span> <span class="n">build</span>
+<p><div class="highlight"><pre><span></span><code><span class="p">.</span><span class="o">/</span><span class="n">gradlew</span> <span class="n">build</span>
 </code></pre></div>
 编译过程可能需要一定时间，请耐心等待。
 若编译成功，你可以看到类似如下信息：</p>
 <p><img alt="" src="https://raw.githubusercontent.com/cathy-lishipu/documentation-zh/idea_instruction/images/build_success_test.png" /></p>
 <p>如果不想执行单元测试任务，可运行如下命令：</p>
-<div class="codehilite"><pre><span></span><code><span class="p">.</span><span class="o">/</span><span class="n">gradlew</span> <span class="n">build</span> <span class="o">-</span><span class="n">x</span> <span class="n">test</span>
+<div class="highlight"><pre><span></span><code><span class="p">.</span><span class="o">/</span><span class="n">gradlew</span> <span class="n">build</span> <span class="o">-</span><span class="n">x</span> <span class="n">test</span>
 </code></pre></div>
 
 <p><strong>5.启动FullNode节点</strong></p>

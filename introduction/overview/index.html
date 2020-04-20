@@ -350,9 +350,9 @@ TestNet的配置请参照:
 <ul>
 <li>示例：</li>
 </ul>
-<div class="codehilite"><pre><span></span><code><span class="err">freezebalance 10,000,000 3 // 冻结了10TRX，获取了10单位TRON Power(TP)</span>
-<span class="err">votewitness witness1 4 witness2 6 // 同时给witness1投了4票，给witness2投了6票</span>
-<span class="err">votewitness witness1 3 witness2 7 // 同时给witness1投了3票，给witness2投了7票</span>
+<div class="highlight"><pre><span></span><code>freezebalance 10,000,000 3 // 冻结了10TRX，获取了10单位TRON Power(TP)
+votewitness witness1 4 witness2 6 // 同时给witness1投了4票，给witness2投了6票
+votewitness witness1 3 witness2 7 // 同时给witness1投了3票，给witness2投了7票
 </code></pre></div>
 
 <p>以上命令的最终结果是给witness1投了3票，给witness2投了7票</p>
@@ -393,7 +393,7 @@ TestNet的配置请参照:
 - 18: ALLOW_TVM_TRANSFER_TRC10, // 允许智能合约调用TRC10 token的接口，目前为0，表示不允许。设置为1表示允许</p>
 <ul>
 <li>示例：
-<div class="codehilite"><pre><span></span><code>createproposal id0 value0 ... idN valueN
+<div class="highlight"><pre><span></span><code>createproposal id0 value0 ... idN valueN
 id0_N: 参数编号
 value0_N: 新参数值
 </code></pre></div></li>
@@ -405,7 +405,7 @@ value0_N: 新参数值
 赞成票，该提议失效。允许取消之前投的赞成票。</p>
 <ul>
 <li>示例：
-<div class="codehilite"><pre><span></span><code>approveProposal id is_or_not_add_approval
+<div class="highlight"><pre><span></span><code>approveProposal id is_or_not_add_approval
 id: 提议Id，根据提议创建时间递增
 is_or_not_add_approval: 赞成或取消赞成
 </code></pre></div></li>
@@ -415,7 +415,7 @@ is_or_not_add_approval: 赞成或取消赞成
 <p>提议创建者，能够在提议生效前，取消提议。</p>
 <ul>
 <li>示例：
-<div class="codehilite"><pre><span></span><code>deleteProposal proposalId
+<div class="highlight"><pre><span></span><code>deleteProposal proposalId
 id: 提议Id，根据提议创建时间递增
 </code></pre></div></li>
 </ul>
@@ -524,7 +524,7 @@ CPU：64核及以上 内存：64G及以上 带宽：500M及以上 硬盘：20T�
 <h5> 4.6.3.2.1 步骤一:部署超级节点 </h5>
 1.&nbsp;下载private_net_config.conf
 
-<div class="codehilite"><pre><span></span><code>wget https://github.com/tronprotocol/tron-deployment/blob/master/private_net_config.conf
+<div class="highlight"><pre><span></span><code>wget https://github.com/tronprotocol/tron-deployment/blob/master/private_net_config.conf
 </code></pre></div>
 2.&nbsp;在localwitness中添加自己的私钥
 3.&nbsp;设置genesis.block.witnesses为私钥对应的地址
@@ -533,7 +533,7 @@ CPU：64核及以上 内存：64G及以上 带宽：500M及以上 硬盘：20T�
 6.&nbsp;设置node.discovery.enable为true
 7.&nbsp;运行部署脚本
 
-<div class="codehilite"><pre><span></span><code>nohup java -Xmx6g -XX:+HeapDumpOnOutOfMemoryError -jar FullNode.jar  --witness  -c private_net_config.conf
+<div class="highlight"><pre><span></span><code>nohup java -Xmx6g -XX:+HeapDumpOnOutOfMemoryError -jar FullNode.jar  --witness  -c private_net_config.conf
 
 命令行参数说明:
 --witness: 启动witness功能，i.e.: --witness
@@ -557,7 +557,7 @@ CPU：64核及以上 内存：64G及以上 带宽：500M及以上 硬盘：20T�
 <h5> 4.6.3.2.2 步骤二:部署FullNode节点    </h5>
 
 1.&nbsp;下载private_net_config.conf
-<div class="codehilite"><pre><span></span><code>wget https://github.com/tronprotocol/tron-deployment/blob/master/private_net_config.conf
+<div class="highlight"><pre><span></span><code>wget https://github.com/tronprotocol/tron-deployment/blob/master/private_net_config.conf
 </code></pre></div>
 2.&nbsp;设置seed.node ip.list 为SR的ip地址和端口
 3.&nbsp;设置p2p.version与超级节点的p2p.version一致
@@ -566,7 +566,7 @@ CPU：64核及以上 内存：64G及以上 带宽：500M及以上 硬盘：20T�
 6.&nbsp;设置node.discovery.enable 为true
 7.&nbsp;运行部署脚本
 
-<div class="codehilite"><pre><span></span><code>nohup java -Xmx6g -XX:+HeapDumpOnOutOfMemoryError -jar FullNode.jar  --witness  -c private_net_config.conf
+<div class="highlight"><pre><span></span><code>nohup java -Xmx6g -XX:+HeapDumpOnOutOfMemoryError -jar FullNode.jar  --witness  -c private_net_config.conf
 命令行参数说明:
 --witness: 启动witness功能，i.e.: --witness。
 --log-config: 指定日志配置文件路径，i.e.: --log-config logback.xml。
@@ -606,7 +606,7 @@ CPU：64核及以上 内存：64G及以上 带宽：500M及以上 硬盘：20T�
   leveldb和rocksdb的数据存储架构并不兼容，请确保节点始终使用同一种数据引擎。我们提供了数据转换脚本，用于将leveldb数据转换到rocksdb数据。
   使用方法：
 
-<div class="codehilite"><pre><span></span><code>cd 源代码根目录
+<div class="highlight"><pre><span></span><code>cd 源代码根目录
 ./gradlew build   #编译源代码
 java -jar build/libs/DBConvert.jar  #执行数据转换指令
 </code></pre></div>
@@ -616,17 +616,17 @@ java -jar build/libs/DBConvert.jar  #执行数据转换指令
   <b>dst_db_path</b>:指定RocksDB数据库路径，默认是 output-directory-dst/database
 
   例如，如果节点是像这样的脚本运行的:
-<div class="codehilite"><pre><span></span><code>nohup java -jar FullNode.jar -d your_database_dir &amp;
+<div class="highlight"><pre><span></span><code>nohup java -jar FullNode.jar -d your_database_dir &amp;
 </code></pre></div>
   那么，你应该这样运行数据转换工具DBConvert.jar:
-<div class="codehilite"><pre><span></span><code>java -jar build/libs/DBConvert.jar  your_database_dir/database  output-directory-dst/database
+<div class="highlight"><pre><span></span><code>java -jar build/libs/DBConvert.jar  your_database_dir/database  output-directory-dst/database
 </code></pre></div>
   注意：必须停止节点的运行，然后再运行数据转换脚本。
   如果不希望节点停止时间太长，可以在节点停止后先将leveldb数据目录output-directory拷贝一份到新的目录下，然后恢复节点的运行。
 
   在新目录的上级目录中执行DBConvert.jar并指定参数`src_db_path`和`dst_db_path` 。
   例如:
-<div class="codehilite"><pre><span></span><code>cp -rf output-directory /tmp/output-directory
+<div class="highlight"><pre><span></span><code>cp -rf output-directory /tmp/output-directory
 cd /tmp
 java -jar DBConvert.jar output-directory/database  output-directory-dst/database
 </code></pre></div>
@@ -744,7 +744,7 @@ transfer/send/call/callcode/delegatecall函数调用转账</p>
 <p>以太坊虚拟机地址为是20字节，而波场虚拟机解析地址为21字节。
 1.&nbsp;地址转换
 在solidity中使用的时候需要对波场地址做如下处理（推荐）：
-<div class="codehilite"><pre><span></span><code>/**
+<div class="highlight"><pre><span></span><code>/**
   *  @dev    convert uint256 (HexString add 0x at beginning) tron address to solidity address type
   *  @param  tronAddress uint256 tronAddress, begin with 0x, followed by HexString
   *  @return Solidity address type
@@ -757,7 +757,7 @@ transfer/send/call/callcode/delegatecall函数调用转账</p>
 <p>这个和在以太坊中其他类型转换成address类型语法相同。
 2.&nbsp;地址判断
 solidity中有地址常量判断，如果写的是21字节地址编译器会报错，只用写20字节地址即可，如：
-<div class="codehilite"><pre><span></span><code>function compareAddress(address tronAddress) public view returns (uint256){
+<div class="highlight"><pre><span></span><code>function compareAddress(address tronAddress) public view returns (uint256){
         // if (tronAddress == 0x41ca35b7d915458ef540ade6068dfe2f44e8fa733c) { // compile error
         if (tronAddress == 0xca35b7d915458ef540ade6068dfe2f44e8fa733c) { // right
             return 1;
@@ -769,7 +769,7 @@ solidity中有地址常量判断，如果写的是21字节地址编译器会报�
 tronAddress从wallet-cli传入是0000000000000000000041ca35b7d915458ef540ade6068dfe2f44e8fa733c这个21字节地址，即正常的波场地址时，是会返回1的，判断正确。
 3.&nbsp;地址赋值
 solidity中有地址常量的赋值，如果写的是21字节地址编译器会报错，只用写20字节地址即可，solidity中后续操作直接利用这个20位地址，波场虚拟机内部做了补位操作。如：
-<div class="codehilite"><pre><span></span><code>function assignAddress() public view {
+<div class="highlight"><pre><span></span><code>function assignAddress() public view {
         // address newAddress = 0x41ca35b7d915458ef540ade6068dfe2f44e8fa733c; // compile error
         address newAddress = 0xca35b7d915458ef540ade6068dfe2f44e8fa733c;
         // do something
@@ -806,13 +806,13 @@ solidity中有地址常量的赋值，如果写的是21字节地址编译器会�
 
 <p>冻结获取Energy，即将持有的trx锁定，无法进行交易，作为抵押，并以此获得免费使用Energy的权利。具体计算与全网所有账户冻结有关，可参考相关部分计算。</p>
 <p><strong> FreezeBalance 冻结获得能量  </strong></p>
-<div class="codehilite"><pre><span></span><code>freezeBalance frozen_balance frozen_duration [ResourceCode:0 BANDWIDTH,1 ENERGY]
+<div class="highlight"><pre><span></span><code>freezeBalance frozen_balance frozen_duration [ResourceCode:0 BANDWIDTH,1 ENERGY]
 </code></pre></div>
 
 <p>通过冻结TRX获取的Energy， 额度 = 为获取Energy冻结的TRX / 整个网络为获取Energy冻结的TRX 总额 * 50_000_000_000。
 也就是所有用户按冻结TRX平分固定额度的Energy。</p>
 <p>示例：</p>
-<div class="codehilite"><pre><span></span><code>如全网只有两个人A，B分别冻结2TRX，2TRX。
+<div class="highlight"><pre><span></span><code>如全网只有两个人A，B分别冻结2TRX，2TRX。
 
 二人冻结获得的可用Energy分别是
 
@@ -834,7 +834,7 @@ B: 10_000_000_000 且energy_limit 为10_000_000_000
 <p><strong> FreezeBalance 恢复能量 </strong></p>
 <p>所消耗的能量会在24小时内平滑减少至0。</p>
 <p>示例：</p>
-<div class="codehilite"><pre><span></span><code>在某一时刻A的Energy已使用量为72_000_000 Energy
+<div class="highlight"><pre><span></span><code>在某一时刻A的Energy已使用量为72_000_000 Energy
 
 在没有其他消耗或冻结的操作下：
 
@@ -950,7 +950,7 @@ Assert-style异常的介绍详见<a href="https://github.com/tronprotocol/Docume
 
 <p>在tron上进行智能合约的开发，除了使用现有的工具之(tron-studio)外，也可以直接使用wallet-cli命令行工具进行智能合约的开发，编译和部署。编写智能合约，可以使用使用TronStudio进行编译、调试等前期的开发工作。 当合约开发完成之后，可以把合约复制到<a href="https://github.com/tronprotocol/tron-demo/tree/master/SmartContractTools/SimpleWebCompiler">SimpleWebCompiler</a>中进行编译，获取ABI和ByteCode。</p>
 <p>我们提供一个简单的数据存取的合约代码示例，以这个示例来说明编译、部署、调用的步骤。</p>
-<div class="codehilite"><pre><span></span><code>pragma solidity ^0.4.0;
+<div class="highlight"><pre><span></span><code>pragma solidity ^0.4.0;
 contract DataStore {
 
     mapping(uint256 =&gt; uint256) data;
@@ -974,7 +974,7 @@ contract DataStore {
 把上述代码复制到SimpleWebCompiler中，点击Compile按钮，获取ABI和ByteCode。</p>
 <p><strong>通过Wallet-cli部署智能合约</strong></p>
 <p>下载Wallet-Cli，文件然后编译。</p>
-<div class="codehilite"><pre><span></span><code>shell
+<div class="highlight"><pre><span></span><code>shell
 # 下载源代码
 git clone https://github.com/tronprotocol/wallet-cli
 cd  wallet-cli
@@ -986,11 +986,11 @@ cd  build/libs
 <p>注意：
 wallet-cli 默认的配置会连接本地127.0.0.1:50051的 fullnode，如果开发者需要连接不同的其他节点或者端口可在 config.conf 文件中进行修改</p>
 <p>启动wallet-cli</p>
-<div class="codehilite"><pre><span></span><code>java -jar wallet-cli.jar
+<div class="highlight"><pre><span></span><code>java -jar wallet-cli.jar
 </code></pre></div>
 
 <p>启动之后，可在命令中交互式输入指令。导入私钥，并查询余额是否正确</p>
-<div class="codehilite"><pre><span></span><code>importwallet
+<div class="highlight"><pre><span></span><code>importwallet
 &lt;输入你自己的设定的钱包密码2次&gt;
 &lt;输入私钥：da146374a75310b9666e834ee4ad0866d6f4035967bfc76217c5a495fff9f0d0&gt;
 login
@@ -999,7 +999,7 @@ getbalance
 </code></pre></div>
 
 <p>部署合约</p>
-<div class="codehilite"><pre><span></span><code>Shell
+<div class="highlight"><pre><span></span><code>Shell
 # 合约部署指令
 DeployContract contractName ABI byteCode constructor params isHex fee_limit consume_user_resource_percent &lt;value&gt; &lt;library:address,library:address,...&gt;
 
@@ -1020,14 +1020,14 @@ deploycontract DataStore [{&quot;constant&quot;:false,&quot;inputs&quot;:[{&quot
 </code></pre></div>
 
 <p>得到合约的地址</p>
-<div class="codehilite"><pre><span></span><code>Your smart contract address will be: &lt;合约地址&gt;
+<div class="highlight"><pre><span></span><code>Your smart contract address will be: &lt;合约地址&gt;
 
 # 在本例中
 Your smart contract address will be: TTWq4vMEYB2yibAbPV7gQ4mrqTyX92fha6
 </code></pre></div>
 
 <p>调用合约存储数据、查询数据</p>
-<div class="codehilite"><pre><span></span><code>Shell
+<div class="highlight"><pre><span></span><code>Shell
 # 调用合约指令
 triggercontract &lt;contract_address&gt; &lt;method&gt; &lt;args&gt; &lt;is_hex&gt; &lt;fee_limit&gt; &lt;value&gt;
 
@@ -1049,7 +1049,7 @@ triggercontract TTWq4vMEYB2yibAbPV7gQ4mrqTyX92fha6 get(uint256) 1 false 1000000 
 
 <p>如果调用的函数是 constant 或 view，wallet-cli 将会直接返回结果</p>
 <p>如果包含library，则需要在部署合约之前先部署library，部署完library之后，知道了library地址，将地址填进library:address,library:address,...</p>
-<div class="codehilite"><pre><span></span><code># 比如使用remix生成的合约，bytecode是
+<div class="highlight"><pre><span></span><code># 比如使用remix生成的合约，bytecode是
 608060405234801561001057600080fd5b5061013f806100206000396000f300608060405260043610610041576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff168063f75dac5a14610046575b600080fd5b34801561005257600080fd5b5061005b610071565b6040518082815260200191505060405180910390f35b600073&lt;b&gt;__browser/oneLibrary.sol.Math3__________&lt;\b&gt;634f2be91f6040518163ffffffff167c010000000000000000000000000000000000000000000000000000000002815260040160206040518083038186803b1580156100d357600080fd5b505af41580156100e7573d6000803e3d6000fd5b505050506040513d60208110156100fd57600080fd5b81019080805190602001909291905050509050905600a165627a7a7230582052333e136f236d95e9d0b59c4490a39e25dd3a3dcdc16285820ee0a7508eb8690029
 </code></pre></div>
 
@@ -1073,7 +1073,7 @@ triggercontract TTWq4vMEYB2yibAbPV7gQ4mrqTyX92fha6 get(uint256) 1 false 1000000 
 <h2> 7.1 如何发行TRC10通证 </h2>
 
 <p>http接口：
-<div class="codehilite"><pre><span></span><code>wallet/createassetissue
+<div class="highlight"><pre><span></span><code>wallet/createassetissue
 作用：发行Token
 demo：curl -X POST  http://127.0.0.1:8090/wallet/createassetissue -d &#39;{
 &quot;owner_address&quot;:&quot;41e552f6487585c2b58bc2c9bb4492bc1f17132cd0&quot;,
@@ -1111,42 +1111,42 @@ frozen_supply是token发行者可以在发行的时候指定冻结的token
 <h2> 7.2 参与TRC10通证 </h2>
 
 <p>http接口：
-<div class="codehilite"><pre><span></span><code><span class="n">wallet</span><span class="o">/</span><span class="n">participateassetissue</span>
-<span class="err">作用：参与通证发行</span>
-<span class="n">demo</span><span class="err">：</span><span class="n">curl</span> <span class="o">-</span><span class="n">X</span> <span class="n">POST</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="mi">127</span><span class="p">.</span><span class="mi">0</span><span class="p">.</span><span class="mi">0</span><span class="p">.</span><span class="mi">1</span><span class="p">:</span><span class="mi">8090</span><span class="o">/</span><span class="n">wallet</span><span class="o">/</span><span class="n">participateassetissue</span> <span class="o">-</span><span class="n">d</span> <span class="s1">&#39;{</span>
-<span class="s1">&quot;to_address&quot;: &quot;41e552f6487585c2b58bc2c9bb4492bc1f17132cd0&quot;,</span>
-<span class="s1">&quot;owner_address&quot;:&quot;41e472f387585c2b58bc2c9bb4492bc1f17342cd1&quot;,</span>
-<span class="s1">&quot;amount&quot;:100,</span>
-<span class="s1">&quot;asset_name&quot;:&quot;3230313271756265696a696e67&quot;</span>
-<span class="s1">}&#39;</span>
+<div class="highlight"><pre><span></span><code>wallet/participateassetissue
+作用：参与通证发行
+demo：curl -X POST http://127.0.0.1:8090/wallet/participateassetissue -d &#39;{
+&quot;to_address&quot;: &quot;41e552f6487585c2b58bc2c9bb4492bc1f17132cd0&quot;,
+&quot;owner_address&quot;:&quot;41e472f387585c2b58bc2c9bb4492bc1f17342cd1&quot;,
+&quot;amount&quot;:100,
+&quot;asset_name&quot;:&quot;3230313271756265696a696e67&quot;
+}&#39;
 
-<span class="err">参数说明：</span>
-<span class="n">to_address是Token发行人的地址</span><span class="err">，需要是</span><span class="n">hexString格式</span>
-<span class="n">owner_address是参与token人的地址</span><span class="err">，需要是</span><span class="n">hexString格式</span>
-<span class="n">amount是参与token的数量</span>
-<span class="n">asset_name是token的名称</span><span class="err">，需要是</span><span class="n">hexString格式</span>
+参数说明：
+to_address是Token发行人的地址，需要是hexString格式
+owner_address是参与token人的地址，需要是hexString格式
+amount是参与token的数量
+asset_name是token的名称，需要是hexString格式
 
-<span class="err">返回值：参与</span><span class="n">token发行的transaction</span>
+返回值：参与token发行的transaction
 </code></pre></div></p>
 <h2> 7.3 TRC10通证转账 </h2>
 
 <p>http接口：
-<div class="codehilite"><pre><span></span><code><span class="n">wallet</span><span class="o">/</span><span class="n">transferasset</span>
-<span class="err">作用：转账</span><span class="n">Token</span>
-<span class="n">demo</span><span class="err">：</span><span class="n">curl</span> <span class="o">-</span><span class="n">X</span> <span class="n">POST</span>  <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="mi">127</span><span class="p">.</span><span class="mi">0</span><span class="p">.</span><span class="mi">0</span><span class="p">.</span><span class="mi">1</span><span class="p">:</span><span class="mi">8090</span><span class="o">/</span><span class="n">wallet</span><span class="o">/</span><span class="n">transferasset</span> <span class="o">-</span><span class="n">d</span> <span class="s1">&#39;{</span>
-<span class="s1">  &quot;owner_address&quot;:&quot;41d1e7a6bc354106cb410e65ff8b181c600ff14292&quot;,</span>
-<span class="s1">  &quot;to_address&quot;: &quot;41e552f6487585c2b58bc2c9bb4492bc1f17132cd0&quot;,</span>
-<span class="s1">  &quot;asset_name&quot;: &quot;0x6173736574497373756531353330383934333132313538&quot;,</span>
-<span class="s1">  &quot;amount&quot;: 100</span>
-<span class="s1">}&#39;</span>
+<div class="highlight"><pre><span></span><code>wallet/transferasset
+作用：转账Token
+demo：curl -X POST  http://127.0.0.1:8090/wallet/transferasset -d &#39;{
+  &quot;owner_address&quot;:&quot;41d1e7a6bc354106cb410e65ff8b181c600ff14292&quot;,
+  &quot;to_address&quot;: &quot;41e552f6487585c2b58bc2c9bb4492bc1f17132cd0&quot;,
+  &quot;asset_name&quot;: &quot;0x6173736574497373756531353330383934333132313538&quot;,
+  &quot;amount&quot;: 100
+}&#39;
 
-<span class="err">参数说明：</span>
-  <span class="n">owner_address是token转出地址</span><span class="err">，需要是</span><span class="n">hexString格式</span>
-  <span class="n">to_address是token转入地址</span><span class="err">，需要是</span><span class="n">hexString格式</span>
-  <span class="n">asset_name是token名称</span><span class="err">，需要是</span><span class="n">hexString格式</span>
-  <span class="n">amount是token转账数量</span>
+参数说明：
+  owner_address是token转出地址，需要是hexString格式
+  to_address是token转入地址，需要是hexString格式
+  asset_name是token名称，需要是hexString格式
+  amount是token转账数量
 
-<span class="err">返回值：</span><span class="n">token转账的Transaction</span>
+返回值：token转账的Transaction
 </code></pre></div></p>
 <h1 id="8">8. 资源模型<a class="headerlink" href="#8" title="Permanent link">&para;</a></h1>
 <p><h2> 8.1 资源模型介绍 </h2></p>
@@ -1202,7 +1202,7 @@ Bandwidth Points的获取分两种：
 此时，主账号拥有冻结的TRX以及相应的投票权，受委托账户拥有冻结获取的资源（带宽或者能量）。
 和普通冻结一样，委托资源也至少冻结3天。</p>
 <p>资源委托的命令如下：
-<div class="codehilite"><pre><span></span><code>  freezeBalance frozen_balance frozen_duration [ResourceCode:0 BANDWIDTH,1 ENERGY] [receiverAddress]
+<div class="highlight"><pre><span></span><code>  freezeBalance frozen_balance frozen_duration [ResourceCode:0 BANDWIDTH,1 ENERGY] [receiverAddress]
 </code></pre></div>
 frozen_balance是冻结的TRX数量（单位为sun），
 frozen_duration为冻结的天数（目前固定为3天），
@@ -1254,7 +1254,7 @@ TRON网络规定，所有交易对中的两个token的权重相等，因此它�
 - second_token_balance，第2种token的balance</p>
 <p>如果交易对中包含TRX，则使用" _ "表示TRX的id。需要注意的是，TRX的单位是SUN。
 例子：
-<div class="codehilite"><pre><span></span><code>ExchangeCreate abc 10000000 _ 1000000000000
+<div class="highlight"><pre><span></span><code>ExchangeCreate abc 10000000 _ 1000000000000
 </code></pre></div></p>
 <p>该交易会创建abc与TRX之间的交易对，初始balance分别为10000000个abc和1000000000000 sun（1000000TRX），
 如果创建者没有足够的abc和TRX，则交易对创建失败；否则创建者账户中立即扣除相应的abc和TRX，交易对创建成功，可以开始交易。</p>
@@ -1268,7 +1268,7 @@ TRON网络规定，所有交易对中的两个token的权重相等，因此它�
  - expected，期望得到的另一个token的最小金额。如果小于此数值，交易不会成功</p>
 <p>例子：
 我们在刚刚创建的abc与TRX的交易对中进行交易，假设此交易对id为1，当前交易对中abc balance为10000000，TRX balance为1000000，如果期望花100个TRX买到至少990个abc，则
-<div class="codehilite"><pre><span></span><code>ExchangeTransaction 1 _ 100 990
+<div class="highlight"><pre><span></span><code>ExchangeTransaction 1 _ 100 990
 </code></pre></div>
 其中" _ "表示TRX，即向交易对卖出100个TRX。如果成功，该交易会使得交易对中增加100个TRX，并根据Bancor协议计算出减少的abc的数量，交易对创建者的账户中abc和TRX的数量会相应地增加和减少。</p>
 <h2> 9.4 注资 </h2>
@@ -1282,7 +1282,7 @@ TRON网络规定，所有交易对中的两个token的权重相等，因此它�
  - quant，要注资的token的金额</p>
 <p>例子：
 我们对刚刚创建的abc与TRX的交易对进行注资，假设此交易对id为1（TRON网络中第1个交易对），当前交易对中abc balance为10000000，TRX balance为1000000，如果要增加10%的abc，则
-<div class="codehilite"><pre><span></span><code>ExchangeInject 1 abc 1000000
+<div class="highlight"><pre><span></span><code>ExchangeInject 1 abc 1000000
 </code></pre></div>
 如果成功，该交易会使得交易对中增加1000000个abc，并增加100000个TRX，交易对创建者的账户中abc和TRX的数量会相应地减少。</p>
 <h2> 9.5 撤资 </h2>
@@ -1296,7 +1296,7 @@ TRON网络规定，所有交易对中的两个token的权重相等，因此它�
  - quant，要撤资的token的金额</p>
 <p>例子：
 我们对之前创建的abc与TRX的交易对进行撤资，假设此交易对id为1，当前交易对中abc balance为10000000，TRX balance为1000000，如果要赎回10%的abc，则
-<div class="codehilite"><pre><span></span><code><span class="err">ExchangeWithdraw 1 abc 1000000</span>
+<div class="highlight"><pre><span></span><code>ExchangeWithdraw 1 abc 1000000
 </code></pre></div>
 如果成功，该交易会使得交易对中减少1000000个abc，以及减少100000个TRX，交易对创建者的账户中abc和TRX的数量会相应地增加。</p>
 <h2> 9.6 查询 </h2>
@@ -1337,12 +1337,12 @@ buyTokenQuant = （long）balance * (Math.pow(1.0 + (double) supplyQuant / suppl
 <h2> 12.2 计算交易ID </h2>
 
 <p>对交易的RawData取Hash。
-<div class="codehilite"><pre><span></span><code>Hash.sha256(transaction.getRawData().toByteArray())
+<div class="highlight"><pre><span></span><code>Hash.sha256(transaction.getRawData().toByteArray())
 </code></pre></div>
 <h2> 12.3 计算blockID </h2>
 block id是块高度和块头raw_data的hash的混合，具体是计算出块头中raw_data的hash。用块的高度替换该hash中的前8个byte。
 具体代码如下：</p>
-<div class="codehilite"><pre><span></span><code>private byte[] generateBlockId(long blockNum, byte[] blockHash) {
+<div class="highlight"><pre><span></span><code>private byte[] generateBlockId(long blockNum, byte[] blockHash) {
   byte[] numBytes = Longs.toByteArray(blockNum);
   byte[] hash = blockHash;
   System.arraycopy(numBytes, 0, hash, 0, 8);
@@ -1354,7 +1354,7 @@ block id是块高度和块头raw_data的hash的混合，具体是计算出块头
 
 <p>根据交易的定义，自己填充交易的各个字段，本地构造交易。需要注意是交易里面需要设置refference block信息和Expiration信息，所以在构造交易的时候需要连接mainnet。建议设置refference block为fullnode上面的最新块，设置Expiration为最新块的时间加N分钟。N的大小根据需要设定，后台的判断条件是(Expiration &gt; 最新块时间 and Expiration &lt; 最新块时时 + 24小时），如果条件成立则交易合法，否则交易为过期交易，不会被mainnet接收。</p>
 <p>refference block 的设置方法：设置RefBlockHash为最新块的hash的第8到16(不包含)之间的字节，设置BlockBytes为最新块高度的第6到8（不包含）之间的字节，代码如下：
-<div class="codehilite"><pre><span></span><code>public static Transaction setReference(Transaction transaction, Block newestBlock) {
+<div class="highlight"><pre><span></span><code>public static Transaction setReference(Transaction transaction, Block newestBlock) {
      long blockHeight = newestBlock.getBlockHeader().getRawData().getNumber();
      byte[] blockHash = getBlockHash(newestBlock).getBytes();
      byte[] refBlockNum = ByteArray.fromLong(blockHeight);
@@ -1366,7 +1366,7 @@ block id是块高度和块头raw_data的hash的混合，具体是计算出块头
    }
 </code></pre></div>
 Expiration 和交易时间戳的设置方法：
-<div class="codehilite"><pre><span></span><code>public static Transaction createTransaction(byte[] from, byte[] to, long amount) {
+<div class="highlight"><pre><span></span><code>public static Transaction createTransaction(byte[] from, byte[] to, long amount) {
      Transaction.Builder transactionBuilder = Transaction.newBuilder();
      Block newestBlock = WalletClient.getBlock(-1);
 

@@ -315,7 +315,7 @@
 
 <p>leveldb和rocksdb的数据存储架构并不兼容，请确保节点始终使用同一种数据引擎。我们提供了数据转换脚本，用于将leveldb数据转换到rocksdb数据。
   使用方法：</p>
-<p><div class="codehilite"><pre><span></span><code>cd 源代码根目录
+<p><div class="highlight"><pre><span></span><code>cd 源代码根目录
 ./gradlew build   #编译源代码
 java -jar build/libs/DBConvert.jar  #执行数据转换指令
 </code></pre></div>
@@ -323,16 +323,16 @@ java -jar build/libs/DBConvert.jar  #执行数据转换指令
 <p><b>src_db_path</b>:指定LevelDB数据库路径源，默认是 output-directory/database
   <b>dst_db_path</b>:指定RocksDB数据库路径，默认是 output-directory-dst/database</p>
 <p>例如，如果节点是像这样的脚本运行的:
-<div class="codehilite"><pre><span></span><code>nohup java -jar FullNode.jar -d your_database_dir &amp;
+<div class="highlight"><pre><span></span><code>nohup java -jar FullNode.jar -d your_database_dir &amp;
 </code></pre></div>
   那么，你应该这样运行数据转换工具DBConvert.jar:
-<div class="codehilite"><pre><span></span><code>java -jar build/libs/DBConvert.jar  your_database_dir/database  output-directory-dst/database
+<div class="highlight"><pre><span></span><code>java -jar build/libs/DBConvert.jar  your_database_dir/database  output-directory-dst/database
 </code></pre></div>
   注意：必须停止节点的运行，然后再运行数据转换脚本。
   如果不希望节点停止时间太长，可以在节点停止后先将leveldb数据目录output-directory拷贝一份到新的目录下，然后恢复节点的运行。</p>
 <p>在新目录的上级目录中执行DBConvert.jar并指定参数<code>src_db_path</code>和<code>dst_db_path</code> 。
   例如:
-<div class="codehilite"><pre><span></span><code>cp -rf output-directory /tmp/output-directory
+<div class="highlight"><pre><span></span><code>cp -rf output-directory /tmp/output-directory
 cd /tmp
 java -jar DBConvert.jar output-directory/database  output-directory-dst/database
 </code></pre></div>

@@ -381,23 +381,23 @@ Constant function 是指用 view/pure/constant 修饰的函数。会在调用的
 <p>4.&nbsp;CREATE 指令（CREATE instruction）</p>
 <p>另一个与合约调用相关的是调用指令集的时候使用CREATE指令。这个指令将会创建一个新的合约并生成新的地址。与以太坊的创建唯一的不同在于波场新生成的地址使用的是传入的本次智能合约交易id与调用的nonce的哈希组合。和以太坊不同，这个nonce的定义为本次根调用开始创建的合约序号。即如果有多次的 CREATE指令调用，从1开始，顺序编号每次调用的合约。详细请参考代码。还需注意，与deploycontract的grpc调用创建合约不同，CREATE的合约并不会保存合约的abi。</p>
 <p>5.&nbsp;内置功能属性及内置函数 (Odyssey-v3.1.1及之后的版本暂时不支持TVM内置函数)</p>
-<div class="codehilite"><pre><span></span><code><span class="mi">1</span><span class="err">）</span><span class="n">TVM兼容solidity语言的转账形式</span><span class="err">，包括：</span>
-<span class="err">伴随</span><span class="n">constructor调用转账</span>
-<span class="err">伴随合约内函数调用转账</span>
-<span class="n">transfer</span><span class="o">/</span><span class="n">send</span><span class="o">/</span><span class="k">call</span><span class="o">/</span><span class="n">callcode</span><span class="o">/</span><span class="n">delegatecall函数调用转账</span>
+<div class="highlight"><pre><span></span><code>1）TVM兼容solidity语言的转账形式，包括：
+伴随constructor调用转账
+伴随合约内函数调用转账
+transfer/send/call/callcode/delegatecall函数调用转账
 
-<span class="err">注意，波场的智能合约与波场系统合约的逻辑不同，如果转账的目标地址账户不存在，不能通过智能合约转账的形式创建目标地址账户。这也是与以太坊的不同点。</span>
+注意，波场的智能合约与波场系统合约的逻辑不同，如果转账的目标地址账户不存在，不能通过智能合约转账的形式创建目标地址账户。这也是与以太坊的不同点。
 
-<span class="mi">2</span><span class="err">）不同账户为超级节点投票</span> <span class="p">(</span><span class="n">Odyssey</span><span class="o">-</span><span class="n">v3</span><span class="p">.</span><span class="mi">1</span><span class="p">.</span><span class="mi">1</span><span class="err">及之后的版本暂时不支持</span><span class="p">)</span>
-<span class="mi">3</span><span class="err">）超级节点获取所有奖励</span> <span class="p">(</span><span class="n">Odyssey</span><span class="o">-</span><span class="n">v3</span><span class="p">.</span><span class="mi">1</span><span class="p">.</span><span class="mi">1</span><span class="err">及之后的版本暂时不支持</span><span class="p">)</span>
-<span class="mi">4</span><span class="err">）超级节点通过或否定提案</span> <span class="p">(</span><span class="n">Odyssey</span><span class="o">-</span><span class="n">v3</span><span class="p">.</span><span class="mi">1</span><span class="p">.</span><span class="mi">1</span><span class="err">及之后的版本暂时不支持</span><span class="p">)</span>
-<span class="mi">5</span><span class="err">）超级节点提出提案</span> <span class="p">(</span><span class="n">Odyssey</span><span class="o">-</span><span class="n">v3</span><span class="p">.</span><span class="mi">1</span><span class="p">.</span><span class="mi">1</span><span class="err">及之后的版本暂时不支持</span><span class="p">)</span>
-<span class="mi">6</span><span class="err">）超级节点删除提案</span> <span class="p">(</span><span class="n">Odyssey</span><span class="o">-</span><span class="n">v3</span><span class="p">.</span><span class="mi">1</span><span class="p">.</span><span class="mi">1</span><span class="err">及之后的版本暂时不支持</span><span class="p">)</span>
-<span class="mi">7</span><span class="err">）波场</span><span class="n">byte地址转换为solidity地址</span> <span class="p">(</span><span class="n">Odyssey</span><span class="o">-</span><span class="n">v3</span><span class="p">.</span><span class="mi">1</span><span class="p">.</span><span class="mi">1</span><span class="err">及之后的版本暂时不支持</span><span class="p">)</span>
-<span class="mi">8</span><span class="err">）波场</span><span class="n">string地址转换为solidity地址</span> <span class="p">(</span><span class="n">Odyssey</span><span class="o">-</span><span class="n">v3</span><span class="p">.</span><span class="mi">1</span><span class="p">.</span><span class="mi">1</span><span class="err">及之后的版本暂时不支持</span><span class="p">)</span>
-<span class="mi">9</span><span class="err">）向目标账户地址发送</span><span class="n">token转账</span> <span class="p">(</span><span class="n">Odyssey</span><span class="o">-</span><span class="n">v3</span><span class="p">.</span><span class="mi">1</span><span class="p">.</span><span class="mi">1</span><span class="err">及之后的版本暂时不支持</span><span class="p">)</span>
-<span class="mi">10</span><span class="err">）查询目标账户地址的指定</span><span class="n">token的数量</span> <span class="p">(</span><span class="n">Odyssey</span><span class="o">-</span><span class="n">v3</span><span class="p">.</span><span class="mi">1</span><span class="p">.</span><span class="mi">1</span><span class="err">及之后的版本暂时不支持</span><span class="p">)</span>
-<span class="mi">11</span><span class="err">）兼容所有以太坊内置函数</span>
+2）不同账户为超级节点投票 (Odyssey-v3.1.1及之后的版本暂时不支持)
+3）超级节点获取所有奖励 (Odyssey-v3.1.1及之后的版本暂时不支持)
+4）超级节点通过或否定提案 (Odyssey-v3.1.1及之后的版本暂时不支持)
+5）超级节点提出提案 (Odyssey-v3.1.1及之后的版本暂时不支持)
+6）超级节点删除提案 (Odyssey-v3.1.1及之后的版本暂时不支持)
+7）波场byte地址转换为solidity地址 (Odyssey-v3.1.1及之后的版本暂时不支持)
+8）波场string地址转换为solidity地址 (Odyssey-v3.1.1及之后的版本暂时不支持)
+9）向目标账户地址发送token转账 (Odyssey-v3.1.1及之后的版本暂时不支持)
+10）查询目标账户地址的指定token的数量 (Odyssey-v3.1.1及之后的版本暂时不支持)
+11）兼容所有以太坊内置函数
 </code></pre></div>
 
 <p>注意：
@@ -408,7 +408,7 @@ Constant function 是指用 view/pure/constant 修饰的函数。会在调用的
 <p>以太坊虚拟机地址为是20字节，而波场虚拟机解析地址为21字节。
 1.&nbsp;地址转换
 在solidity中使用的时候需要对波场地址做如下处理（推荐）：
-<div class="codehilite"><pre><span></span><code>/**
+<div class="highlight"><pre><span></span><code>/**
   *  @dev    convert uint256 (HexString add 0x at beginning) tron address to solidity address type
   *  @param  tronAddress uint256 tronAddress, begin with 0x, followed by HexString
   *  @return Solidity address type
@@ -421,7 +421,7 @@ Constant function 是指用 view/pure/constant 修饰的函数。会在调用的
 <p>这个和在以太坊中其他类型转换成address类型语法相同。
 2.&nbsp;地址判断
 solidity中有地址常量判断，如果写的是21字节地址编译器会报错，只用写20字节地址即可，如：
-<div class="codehilite"><pre><span></span><code>function compareAddress(address tronAddress) public view returns (uint256){
+<div class="highlight"><pre><span></span><code>function compareAddress(address tronAddress) public view returns (uint256){
         // if (tronAddress == 0x41ca35b7d915458ef540ade6068dfe2f44e8fa733c) { // compile error
         if (tronAddress == 0xca35b7d915458ef540ade6068dfe2f44e8fa733c) { // right
             return 1;
@@ -433,7 +433,7 @@ solidity中有地址常量判断，如果写的是21字节地址编译器会报�
 tronAddress从wallet-cli传入是0000000000000000000041ca35b7d915458ef540ade6068dfe2f44e8fa733c这个21字节地址，即正常的波场地址时，是会返回1的，判断正确。
 3.&nbsp;地址赋值
 solidity中有地址常量的赋值，如果写的是21字节地址编译器会报错，只用写20字节地址即可，solidity中后续操作直接利用这个20位地址，波场虚拟机内部做了补位操作。如：
-<div class="codehilite"><pre><span></span><code>function assignAddress() public view {
+<div class="highlight"><pre><span></span><code>function assignAddress() public view {
         // address newAddress = 0x41ca35b7d915458ef540ade6068dfe2f44e8fa733c; // compile error
         address newAddress = 0xca35b7d915458ef540ade6068dfe2f44e8fa733c;
         // do something

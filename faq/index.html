@@ -262,7 +262,7 @@
         
             <li><a class="toctree-l3" href="#_36">其他问题</a></li>
         
-            <li><a class="toctree-l3" href="#_38">没有找到你的问题？</a></li>
+            <li><a class="toctree-l3" href="#_37">没有找到你的问题？</a></li>
         
         </ul>
     
@@ -400,11 +400,8 @@
 <li><a href="#_35">如何获得一个智能合约账户的余额？</a></li>
 </ul>
 </li>
-<li><a href="#_36">其他问题</a><ul>
-<li><a href="#_37">节点的机器是否搭建在北京，会不会遇到防火墙的问题？</a></li>
-</ul>
-</li>
-<li><a href="#_38">没有找到你的问题？</a></li>
+<li><a href="#_36">其他问题</a></li>
+<li><a href="#_37">没有找到你的问题？</a></li>
 </ul>
 </li>
 </ul>
@@ -449,7 +446,7 @@
 <p>请查阅 <a href="../mechanism-algorithm/resource/">资源模型</a>.</p>
 <h4 id="_12">怎么计算交易带宽消耗？<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h4>
 <p><code>Transaction</code> pb 结构去除 <code>ret</code> 字段，然后再加上 64 字节。</p>
-<div class="codehilite"><pre><span></span><code><span class="n">Transaction</span> <span class="n">transaction</span> <span class="o">=</span> <span class="n">result</span><span class="p">.</span><span class="na">get</span><span class="p">();</span>
+<div class="highlight"><pre><span></span><code><span class="n">Transaction</span> <span class="n">transaction</span> <span class="o">=</span> <span class="n">result</span><span class="p">.</span><span class="na">get</span><span class="p">();</span>
 <span class="kt">long</span> <span class="n">bytesSize</span> <span class="o">=</span> <span class="n">transaction</span><span class="p">.</span><span class="na">toBuilder</span><span class="p">().</span><span class="na">clearRet</span><span class="p">().</span><span class="na">build</span><span class="p">().</span><span class="na">getSerializedSize</span><span class="p">()</span> <span class="o">+</span> <span class="mi">64</span><span class="p">;</span>
 </code></pre></div>
 
@@ -504,7 +501,7 @@
 <p>在 private 环境中，至少需要部署一个 SuperNode, 但对 FullNode 的数量没有最低要求。</p>
 <h3 id="_21">我怎样才能知道我的测试超级节点在运行了呢？<a class="headerlink" href="#_21" title="Permanent link">&para;</a></h3>
 <p>运行以下命令：</p>
-<div class="codehilite"><pre><span></span><code><span class="go">tail -f logs/tron.log | grep &quot;Try Produce Block&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="go">tail -f logs/tron.log | grep &quot;Try Produce Block&quot;</span>
 </code></pre></div>
 
 <h3 id="soliditynode-fullnode">SolidityNode 与 FullNode可以部署在一台机器上吗？他们会分享数据吗？<a class="headerlink" href="#soliditynode-fullnode" title="Permanent link">&para;</a></h3>
@@ -525,14 +522,14 @@
 <p>不需要删除其他地址，但是这些地址也会成为您网络的一部分，而如果您不持有其私钥，这些相当于是废地址。注意：Zion、Sun以及Blackhole账户不能从创世块的配置文件中删除，但是可以对它们的地址进行更改。</p>
 <h4 id="_23">启动节点的时候怎么指定数据存储目录？<a class="headerlink" href="#_23" title="Permanent link">&para;</a></h4>
 <p>可以在启动节点时指定数据存储目录，例如：</p>
-<div class="codehilite"><pre><span></span><code><span class="go">java -jar FullNode.jar -c config.conf -d /data/output</span>
+<div class="highlight"><pre><span></span><code><span class="go">java -jar FullNode.jar -c config.conf -d /data/output</span>
 </code></pre></div>
 
 <h4 id="java-tron-stdout">怎么修改配置可以让 java-tron 日志发送到 stdout?<a class="headerlink" href="#java-tron-stdout" title="Permanent link">&para;</a></h4>
 <p>步骤如下：</p>
 <p>下载<a href="https://github.com/tronprotocol/java-tron/blob/develop/src/main/resources/logback.xml">logback.xml</a></p>
 <p>取消注释掉以下内容：</p>
-<div class="codehilite"><pre><span></span><code>appender name=&quot;STDOUT&quot; class=&quot;ch.qos.logback.core.ConsoleAppender&quot;
+<div class="highlight"><pre><span></span><code>appender name=&quot;STDOUT&quot; class=&quot;ch.qos.logback.core.ConsoleAppender&quot;
 </code></pre></div>
 
 <p>在 <code>root level="INFO"</code> 下</p>
@@ -542,12 +539,12 @@
 </ul>
 <p>将 <code>logback.xml</code> 移到 <code>FullNode.jar</code> 所在的目录下</p>
 <p>启动时，添加 <code>--log-config logback.xml</code> 参数，例如：</p>
-<div class="codehilite"><pre><span></span><code><span class="go">java -jar FullNode.jar --log-config logback.xml</span>
+<div class="highlight"><pre><span></span><code><span class="go">java -jar FullNode.jar --log-config logback.xml</span>
 </code></pre></div>
 
 <h4 id="_24">如何修改日志级别？<a class="headerlink" href="#_24" title="Permanent link">&para;</a></h4>
 <p>日志级别在 <code>logback.xml</code> 中定义。通过修改 <code>root level=</code> 来改变输出的日志级别。</p>
-<div class="codehilite"><pre><span></span><code><span class="nt">&lt;root</span> <span class="na">level=</span><span class="s">&quot;ERROR&quot;</span><span class="nt">&gt;</span>
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;root</span> <span class="na">level=</span><span class="s">&quot;ERROR&quot;</span><span class="nt">&gt;</span>
     <span class="c">&lt;!--&lt;appender-ref ref=&quot;STDOUT&quot;/&gt;--&gt;</span>
     <span class="nt">&lt;appender-ref</span> <span class="na">ref=</span><span class="s">&quot;ASYNC&quot;</span><span class="nt">/&gt;</span>
   <span class="nt">&lt;/root&gt;</span>
@@ -568,28 +565,28 @@
 
 <h4 id="_25">在私有网络环境下，我如何设置我的资产？<a class="headerlink" href="#_25" title="Permanent link">&para;</a></h4>
 <p>在私有网络环境下，你可以通过修改配置文件来设置你初始账户的资产。配置文件如下：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">genesis.block = {</span>
-<span class="err">  # Reserve balance</span>
-<span class="err">  assets = [</span>
-<span class="err">    {</span>
-<span class="err">      accountName = &quot;TestA&quot;</span>
-<span class="err">      accountType = &quot;AssetIssue&quot;</span>
-<span class="err">      address = &quot;THRR7uvFbRLfNzpKPXEyQa8KCJqi59V59e&quot;</span>
-<span class="err">      balance = &quot;1000000000000000&quot;</span>
-<span class="err">    },</span>
-<span class="err">    {</span>
-<span class="err">      accountName = &quot;TestB&quot;</span>
-<span class="err">      accountType = &quot;AssetIssue&quot;</span>
-<span class="err">      address = &quot;TBLZaw93rsnLJ1SWTvoPkr7GVg5ixn2Jv1&quot;</span>
-<span class="err">      balance = &quot;1000000000000000&quot;</span>
-<span class="err">    },</span>
-<span class="err">    {</span>
-<span class="err">      accountName = &quot;TestC&quot;</span>
-<span class="err">      accountType = &quot;AssetIssue&quot;</span>
-<span class="err">      address = &quot;TJg8yZ4Co8RXsHmTWissmSL1VpL7dCybY1&quot;</span>
-<span class="err">      balance = &quot;1000000000000000&quot;</span>
-<span class="err">    }</span>
-<span class="err">  ]</span>
+<div class="highlight"><pre><span></span><code>genesis.block = {
+  # Reserve balance
+  assets = [
+    {
+      accountName = &quot;TestA&quot;
+      accountType = &quot;AssetIssue&quot;
+      address = &quot;THRR7uvFbRLfNzpKPXEyQa8KCJqi59V59e&quot;
+      balance = &quot;1000000000000000&quot;
+    },
+    {
+      accountName = &quot;TestB&quot;
+      accountType = &quot;AssetIssue&quot;
+      address = &quot;TBLZaw93rsnLJ1SWTvoPkr7GVg5ixn2Jv1&quot;
+      balance = &quot;1000000000000000&quot;
+    },
+    {
+      accountName = &quot;TestC&quot;
+      accountType = &quot;AssetIssue&quot;
+      address = &quot;TJg8yZ4Co8RXsHmTWissmSL1VpL7dCybY1&quot;
+      balance = &quot;1000000000000000&quot;
+    }
+  ]
 </code></pre></div>
 
 <h4 id="tapos">广播交易时出现 TAPOS 错误<a class="headerlink" href="#tapos" title="Permanent link">&para;</a></h4>
@@ -633,12 +630,12 @@
 <p>Java-tron 运行时需要更多的内存来处理交易。</p>
 <h3 id="not-sync">Not sync 错误信息表达了什么意思？<a class="headerlink" href="#not-sync" title="Permanent link">&para;</a></h3>
 <p>出现日志</p>
-<div class="codehilite"><pre><span></span><code>17:02:42.699 INFO [o.t.c.s.WitnessService] Try Produce Block
+<div class="highlight"><pre><span></span><code>17:02:42.699 INFO [o.t.c.s.WitnessService] Try Produce Block
 17:02:42.699 INFO [o.t.c.s.WitnessService] Not sync
 </code></pre></div>
 
 <p>出现该消息，说明您的节点和网络未同步。开始出块前，首先需要进行同步。请使用以下命令检查区块高度。</p>
-<div class="codehilite"><pre><span></span><code><span class="go">tail -f logs/tron.log | grep &quot;MyheadBlockNumber&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="go">tail -f logs/tron.log | grep &quot;MyheadBlockNumber&quot;</span>
 </code></pre></div>
 
 <h2 id="_31">测试网问题<a class="headerlink" href="#_31" title="Permanent link">&para;</a></h2>
@@ -653,13 +650,11 @@
 <p>通过调用 wallet-cli 命令 <code>ImportWallet</code>.</p>
 <h3 id="_35">如何获得一个智能合约账户的余额？<a class="headerlink" href="#_35" title="Permanent link">&para;</a></h3>
 <p>可以使用以下 wallet-cli 命令:</p>
-<div class="codehilite"><pre><span></span><code>triggercontract contractaddress balanceOf(address) &quot;youraddress&quot; false 0 0 0 #
+<div class="highlight"><pre><span></span><code>triggercontract contractaddress balanceOf(address) &quot;youraddress&quot; false 0 0 0 #
 </code></pre></div>
 
 <h2 id="_36">其他问题<a class="headerlink" href="#_36" title="Permanent link">&para;</a></h2>
-<h3 id="_37">节点的机器是否搭建在北京，会不会遇到防火墙的问题？<a class="headerlink" href="#_37" title="Permanent link">&para;</a></h3>
-<p><code>39.106.220.120</code> 在北京，其他节点均位于美洲欧洲或香港。</p>
-<h2 id="_38">没有找到你的问题？<a class="headerlink" href="#_38" title="Permanent link">&para;</a></h2>
+<h2 id="_37">没有找到你的问题？<a class="headerlink" href="#_37" title="Permanent link">&para;</a></h2>
 <p>欢迎到社区提问，或在 Gihub 项目页面提出 Issue.</p>
 <ul>
 <li>波场开发者电报群: <a href="https://t.me/troncoredevscommunity">t.me/troncoredevscommunity</a></li>
@@ -720,5 +715,5 @@
 
 <!--
 MkDocs version : 1.0.4
-Build Date UTC : 2020-03-27 02:43:53
+Build Date UTC : 2020-04-20 08:06:42
 -->

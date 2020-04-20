@@ -314,7 +314,7 @@
 <h3 id="2.1">1）结构说明</h3>
 
 <p><strong>Account修改</strong>
-<div class="codehilite"><pre><span></span><code>message Account {
+<div class="highlight"><pre><span></span><code>message Account {
   ...
   Permission owner_permission = 31;
   Permission witness_permission = 32;
@@ -323,7 +323,7 @@
 </code></pre></div>
 在账户结构中新增三个权限属性，分别是 owner_permission、witness_permission 和 active_permission，其中 active_permission 是个列表，可以指定最多8个。</p>
 <p><strong>ContractType修改</strong>
-<div class="codehilite"><pre><span></span><code>message Transaction {
+<div class="highlight"><pre><span></span><code>message Transaction {
   message Contract {
     enum ContractType {
       AccountCreateContract = 0;
@@ -335,7 +335,7 @@
 </code></pre></div>
 新增一种交易类型 AccountPermissionUpdateContract，用于更新账户权限。</p>
 <p><strong>AccountPermissionUpdateContract</strong>
-<div class="codehilite"><pre><span></span><code>message AccountPermissionUpdateContract {
+<div class="highlight"><pre><span></span><code>message AccountPermissionUpdateContract {
   bytes owner_address = 1;
   Permission owner = 2;
   Permission witness = 3;
@@ -348,7 +348,7 @@
 <code>actives</code>：修改后的 actives 权限</p>
 <p>该接口是覆盖原账户权限，因此，如果只想修改owner权限，witness（如果是witnss账户）及actives的也需要设置。</p>
 <p><strong>Permission</strong>
-<div class="codehilite"><pre><span></span><code>message Permission {
+<div class="highlight"><pre><span></span><code>message Permission {
   enum PermissionType {
     Owner = 0;
     Witness = 1;
@@ -374,7 +374,7 @@
 即表示该permission只拥有执行AccountCreateContract的权限，可以使用"active权限中operations的计算示例"计算获得。
 <code>keys</code>：共同拥有该权限的地址及权重，最多允许5个key。</p>
 <p><strong>Key</strong>
-<div class="codehilite"><pre><span></span><code>message Key {
+<div class="highlight"><pre><span></span><code>message Key {
   bytes address = 1;
   int64 weight = 2;
 }
@@ -382,7 +382,7 @@
 <code>address</code>：拥有该权限的地址
 <code>weight</code>：该地址对该权限拥有权重</p>
 <p><strong>Transaction修改</strong>
-<div class="codehilite"><pre><span></span><code>message Transaction {
+<div class="highlight"><pre><span></span><code>message Transaction {
   ...
   int32 Permission_id = 5;
 }
@@ -404,7 +404,7 @@
 <p>Witness出块节点的配置：
 1、未修改witness权限时，无需特殊配置。
 2、修改witness权限后的出块节点，需要在重新配置，配置项如下：</p>
-<div class="codehilite"><pre><span></span><code>#config.conf
+<div class="highlight"><pre><span></span><code>#config.conf
 
 // Optional.The default is empty.
 // It is used when the witness account has set the witnessPermission.
@@ -446,7 +446,7 @@ localwitness = [
 3、创建合约，签名
 4、发送交易</p>
 <p><strong>http-demo</strong>
-<div class="codehilite"><pre><span></span><code><span class="err">http://</span><span class="p">{</span><span class="err">{host</span><span class="p">}</span><span class="err">}:</span><span class="p">{</span><span class="err">{port</span><span class="p">}</span><span class="err">}/wallet/accountpermissionupdate</span>
+<div class="highlight"><pre><span></span><code><span class="err">http://</span><span class="p">{</span><span class="err">{host</span><span class="p">}</span><span class="err">}:</span><span class="p">{</span><span class="err">{port</span><span class="p">}</span><span class="err">}/wallet/accountpermissionupdate</span>
 
 
 <span class="p">{</span>
@@ -506,7 +506,7 @@ localwitness = [
 <span class="err">参数字段的定义及限制，请查看</span><span class="s2">&quot;2.1 结构说明&quot;</span><span class="err">。</span>
 </code></pre></div></p>
 <p><strong>active权限中operations的计算示例</strong></p>
-<div class="codehilite"><pre><span></span><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
 
   <span class="c1">//指定需要支持的合约id(查看proto中Transaction.ContractType定义)，这里包含除AccountPermissionUpdateContract（id=46）以外的所有合约</span>
   <span class="n">Integer</span><span class="o">[]</span> <span class="n">contractId</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">19</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">31</span><span class="p">,</span>
@@ -537,17 +537,17 @@ n+1、验证多重签名的权重之和大于域值则接受交易，否则拒�
 
 <p>接口详细说明，请查看Tron-http.md与波场钱包RPC-API.md
 1、增加签名
-<div class="codehilite"><pre><span></span><code>curl -X POST  http://127.0.0.1:8090/wallet/addtransactionsign -d &#39;{&quot;transaction&quot;: &quot;TransferContract&quot;, &quot;privateKey&quot;: &quot;permissionkey1&quot;}&#39;
+<div class="highlight"><pre><span></span><code>curl -X POST  http://127.0.0.1:8090/wallet/addtransactionsign -d &#39;{&quot;transaction&quot;: &quot;TransferContract&quot;, &quot;privateKey&quot;: &quot;permissionkey1&quot;}&#39;
 
 rpc AddSign (TransactionSign) returns (TransactionExtention) {}
 </code></pre></div>
 2、查询已签名地址
-<div class="codehilite"><pre><span></span><code>curl -X POST  http://127.0.0.1:8090/wallet/getapprovedlist -d &#39;{&quot;transaction&quot;}&#39;
+<div class="highlight"><pre><span></span><code>curl -X POST  http://127.0.0.1:8090/wallet/getapprovedlist -d &#39;{&quot;transaction&quot;}&#39;
 
 rpc GetTransactionApprovedList(Transaction) returns (TransactionApprovedList) { }
 </code></pre></div></p>
 <p>3、查询交易签名权重
-<div class="codehilite"><pre><span></span><code>curl -X POST  http://127.0.0.1:8090/wallet/getsignweight -d &#39;{&quot;transaction&quot;}&#39;
+<div class="highlight"><pre><span></span><code>curl -X POST  http://127.0.0.1:8090/wallet/getsignweight -d &#39;{&quot;transaction&quot;}&#39;
 
 rpc GetTransactionSignWeight (Transaction) returns (TransactionSignWeight) {}
 </code></pre></div></p>

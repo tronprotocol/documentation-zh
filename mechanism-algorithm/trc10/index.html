@@ -307,7 +307,7 @@
 <p>下面对TRC10通证进行说明。</p>
 <h2 id="trc10">如何发行TRC10通证<a class="headerlink" href="#trc10" title="Permanent link">&para;</a></h2>
 <p>http接口：
-<div class="codehilite"><pre><span></span><code>wallet/createassetissue
+<div class="highlight"><pre><span></span><code>wallet/createassetissue
 作用：发行Token
 demo：curl -X POST  http://127.0.0.1:8090/wallet/createassetissue -d &#39;{
 &quot;owner_address&quot;:&quot;41e552f6487585c2b58bc2c9bb4492bc1f17132cd0&quot;,
@@ -344,41 +344,41 @@ frozen_supply是token发行者可以在发行的时候指定冻结的token
 </code></pre></div></p>
 <h2 id="trc10_1">参与TRC10通证<a class="headerlink" href="#trc10_1" title="Permanent link">&para;</a></h2>
 <p>http接口：
-<div class="codehilite"><pre><span></span><code><span class="n">wallet</span><span class="o">/</span><span class="n">participateassetissue</span>
-<span class="err">作用：参与通证发行</span>
-<span class="n">demo</span><span class="err">：</span><span class="n">curl</span> <span class="o">-</span><span class="n">X</span> <span class="n">POST</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="mi">127</span><span class="p">.</span><span class="mi">0</span><span class="p">.</span><span class="mi">0</span><span class="p">.</span><span class="mi">1</span><span class="p">:</span><span class="mi">8090</span><span class="o">/</span><span class="n">wallet</span><span class="o">/</span><span class="n">participateassetissue</span> <span class="o">-</span><span class="n">d</span> <span class="s1">&#39;{</span>
-<span class="s1">&quot;to_address&quot;: &quot;41e552f6487585c2b58bc2c9bb4492bc1f17132cd0&quot;,</span>
-<span class="s1">&quot;owner_address&quot;:&quot;41e472f387585c2b58bc2c9bb4492bc1f17342cd1&quot;,</span>
-<span class="s1">&quot;amount&quot;:100,</span>
-<span class="s1">&quot;asset_name&quot;:&quot;3230313271756265696a696e67&quot;</span>
-<span class="s1">}&#39;</span>
+<div class="highlight"><pre><span></span><code>wallet/participateassetissue
+作用：参与通证发行
+demo：curl -X POST http://127.0.0.1:8090/wallet/participateassetissue -d &#39;{
+&quot;to_address&quot;: &quot;41e552f6487585c2b58bc2c9bb4492bc1f17132cd0&quot;,
+&quot;owner_address&quot;:&quot;41e472f387585c2b58bc2c9bb4492bc1f17342cd1&quot;,
+&quot;amount&quot;:100,
+&quot;asset_name&quot;:&quot;3230313271756265696a696e67&quot;
+}&#39;
 
-<span class="err">参数说明：</span>
-<span class="n">to_address是Token发行人的地址</span><span class="err">，需要是</span><span class="n">hexString格式</span>
-<span class="n">owner_address是参与token人的地址</span><span class="err">，需要是</span><span class="n">hexString格式</span>
-<span class="n">amount是参与token的数量</span>
-<span class="n">asset_name是token的名称</span><span class="err">，需要是</span><span class="n">hexString格式</span>
+参数说明：
+to_address是Token发行人的地址，需要是hexString格式
+owner_address是参与token人的地址，需要是hexString格式
+amount是参与token的数量
+asset_name是token的名称，需要是hexString格式
 
-<span class="err">返回值：参与</span><span class="n">token发行的transaction</span>
+返回值：参与token发行的transaction
 </code></pre></div></p>
 <h2 id="trc10_2">TRC10通证转账<a class="headerlink" href="#trc10_2" title="Permanent link">&para;</a></h2>
 <p>http接口：
-<div class="codehilite"><pre><span></span><code><span class="n">wallet</span><span class="o">/</span><span class="n">transferasset</span>
-<span class="err">作用：转账</span><span class="n">Token</span>
-<span class="n">demo</span><span class="err">：</span><span class="n">curl</span> <span class="o">-</span><span class="n">X</span> <span class="n">POST</span>  <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="mi">127</span><span class="p">.</span><span class="mi">0</span><span class="p">.</span><span class="mi">0</span><span class="p">.</span><span class="mi">1</span><span class="p">:</span><span class="mi">8090</span><span class="o">/</span><span class="n">wallet</span><span class="o">/</span><span class="n">transferasset</span> <span class="o">-</span><span class="n">d</span> <span class="s1">&#39;{</span>
-<span class="s1">  &quot;owner_address&quot;:&quot;41d1e7a6bc354106cb410e65ff8b181c600ff14292&quot;,</span>
-<span class="s1">  &quot;to_address&quot;: &quot;41e552f6487585c2b58bc2c9bb4492bc1f17132cd0&quot;,</span>
-<span class="s1">  &quot;asset_name&quot;: &quot;0x6173736574497373756531353330383934333132313538&quot;,</span>
-<span class="s1">  &quot;amount&quot;: 100</span>
-<span class="s1">}&#39;</span>
+<div class="highlight"><pre><span></span><code>wallet/transferasset
+作用：转账Token
+demo：curl -X POST  http://127.0.0.1:8090/wallet/transferasset -d &#39;{
+  &quot;owner_address&quot;:&quot;41d1e7a6bc354106cb410e65ff8b181c600ff14292&quot;,
+  &quot;to_address&quot;: &quot;41e552f6487585c2b58bc2c9bb4492bc1f17132cd0&quot;,
+  &quot;asset_name&quot;: &quot;0x6173736574497373756531353330383934333132313538&quot;,
+  &quot;amount&quot;: 100
+}&#39;
 
-<span class="err">参数说明：</span>
-  <span class="n">owner_address是token转出地址</span><span class="err">，需要是</span><span class="n">hexString格式</span>
-  <span class="n">to_address是token转入地址</span><span class="err">，需要是</span><span class="n">hexString格式</span>
-  <span class="n">asset_name是token名称</span><span class="err">，需要是</span><span class="n">hexString格式</span>
-  <span class="n">amount是token转账数量</span>
+参数说明：
+  owner_address是token转出地址，需要是hexString格式
+  to_address是token转入地址，需要是hexString格式
+  asset_name是token名称，需要是hexString格式
+  amount是token转账数量
 
-<span class="err">返回值：</span><span class="n">token转账的Transaction</span>
+返回值：token转账的Transaction
 </code></pre></div></p>
               
             </div>

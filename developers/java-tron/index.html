@@ -309,11 +309,11 @@
 <h2>开发一个新功能</h2>
 
 <p>当你开始开发新功能时，从<code>develop</code>分支创建一个feature分支，分支需要位于<code>origin/feature</code>下。
-<div class="codehilite"><pre><span></span><code>$ git checkout -b feature/my-feature develop
+<div class="highlight"><pre><span></span><code>$ git checkout -b feature/my-feature develop
 # 切换到新分支&#39;feature/my-feature&#39;
 </code></pre></div>
 完成的新功能将被合并到Develop分支，以便未来合并到Master分支。
-<div class="codehilite"><pre><span></span><code>$ git commit -a -m &quot;Bumped version number to 3.1.4&quot;
+<div class="highlight"><pre><span></span><code>$ git commit -a -m &quot;Bumped version number to 3.1.4&quot;
 # 提交
 $ git checkout develop
 # 切换到分支&#39;develop&#39;
@@ -333,14 +333,14 @@ $ git branch -d feature/my-feature
 <h2>修复线上漏洞</h2>
 
 <p>当你发现一个发布版的Bug时，从<code>master</code>分支（此时应该是最新release代码）创建一个hotfix分支，分支需要位于<code>origin/hotfix</code>下。
-<div class="codehilite"><pre><span></span><code>$ git checkout -b hotfix/my-hotfix master
+<div class="highlight"><pre><span></span><code>$ git checkout -b hotfix/my-hotfix master
 # 切换到新分支&#39;hotfix/my-hotfix&#39;
 # 修改版本号
 $ git commit -a -m &quot;Bumped version number to 3.1.4&quot;
 # 提交
 </code></pre></div></p>
 <p>当修复完Bug后，需要将Hotfix分支合并到Master分支和Develop分支.
-<div class="codehilite"><pre><span></span><code>$ git checkout master
+<div class="highlight"><pre><span></span><code>$ git checkout master
 # 切换到分支&#39;master&#39;
 $ git pull
 # 更新
