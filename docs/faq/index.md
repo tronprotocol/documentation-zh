@@ -386,10 +386,6 @@ triggercontract contractaddress balanceOf(address) "youraddress" false 0 0 0 #
 
 ## 其他问题
 
-### 节点的机器是否搭建在北京，会不会遇到防火墙的问题？
-
-`39.106.220.120` 在北京，其他节点均位于美洲欧洲或香港。
-
 ## 没有找到你的问题？
 
 欢迎到社区提问，或在 Gihub 项目页面提出 Issue.
