@@ -1746,7 +1746,6 @@ shielded_TRC20_contract_address: 匿名TRC20合约地址
 
 
 - wallet/gettriggerinputforshieldedtrc20contract
-
 作用: 对于没有授权签名的匿名TRC-20合约参数，生成触发合约的输入数据
 demo: curl -X POST  http://127.0.0.1:8090/wallet/gettriggerinputforshieldedtrc20contract -d
 '{  
