@@ -426,6 +426,7 @@ position：note承诺在匿名合约Merkle树叶子节点的位置索引
 shielded_TRC20_contract_address: 匿名TRC20合约地址
 返回值：一个note是否已经被花费状态
 ```
+注意: Note 中`value` 是由 `scalingFactor` 缩放后的值，`scalingFactor` 在匿名TRC-20合约中设置，真实金额 `real_amount` = `value` * `scalingFactor`。
 
 
 ## FullNode接口
@@ -1655,7 +1656,7 @@ demo: curl -X POST  http://127.0.0.1:8090/wallet/createshieldedcontractparameter
 ask：Ask
 nsk：Nsk
 ovk：Outgoing view key
-from_amount：mint的金额，根据缩放因子，和note值成比例关系
+from_amount：mint的金额，根据缩放因子`scalingFactor`，和note值 `value` 成比例关系，即 `from_amount` = `value` * `scalingFactor`. 在上面的示例中，`scalingFactor` 值为 100
 shielded_receives: 待创建的匿名合约notes
 shielded_TRC20_contract_address: 匿名TRC20合约地址
 返回值：匿名TRC20合约交易的参数
@@ -1678,7 +1679,7 @@ demo: curl -X POST  http://127.0.0.1:8090/wallet/createshieldedcontractparameter
   }'
 参数说明：
 ovk：Outgoing view key
-from_amount：mint的金额，根据缩放因子，和note值成比例关系
+from_amount：mint的金额，根据缩放因子`scalingFactor`，和note值 `value` 成比例关系，即 `from_amount` = `value` * `scalingFactor`. 在上面的示例中，`scalingFactor` 值为 100
 shielded_receives: 待创建的匿名合约notes
 shielded_TRC20_contract_address: 匿名TRC20合约地址
 返回值：匿名TRC20合约交易的参数
@@ -1743,6 +1744,7 @@ nk：Nk
 position：note承诺在匿名合约Merkle树叶子节点的位置索引
 shielded_TRC20_contract_address: 匿名TRC20合约地址
 返回值：一个note是否已经被花费状态
+注意: Note 中`value` 是由 `scalingFactor` 缩放后的值，`scalingFactor` 在匿名TRC-20合约中设置，真实金额 `real_amount` = `value` * `scalingFactor`。
 
 
 - wallet/gettriggerinputforshieldedtrc20contract
