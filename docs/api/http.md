@@ -49,7 +49,7 @@
 |  getproposalbyid                 | triggerconstantcontract | scanshieldedtrc20notesbyivk             |
 |  listproposals                   | triggersmartcontract    | scanshieldedtrc20notesbyovk         |
 |  proposalapprove                 | clearabi                | isshieldedtrc20contractnotespent|
-|  proposaldelete                  | updateenergylimit       | getTriggerInputForShieldedTRC20Contract |
+|  proposaldelete                  | updateenergylimit       | gettriggerinputforshieldedtrc20contract |
 |  getapprovedlist                 | updatesetting           |                                 |
 
 
