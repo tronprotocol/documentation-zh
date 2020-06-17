@@ -12,6 +12,11 @@ TRC-20合约允许用户发行代币和转账交易，但无法保证隐私性�
 
 匿名TRC-20合约主要基于zk-SNARK(Zero-Knowledge Succinct Non-Interactive Argument of Knowledge) 零知识证明技术，保证其安全和有效性。
 
+### 合约部署
+
+1. 利用wallet-cli中的 `deployContract` 方法部署TRC-20合约；
+2. 利用`deployContract` 方法部署匿名TRC-20合约，它将绑定TRC-20合约。在部署匿名TRC-20合约的时候，还需要指定`scalingFactor`，关于`scalingFactor`的更多细节，请参考[TIP-135](https://github.com/tronprotocol/tips/blob/master/tip-135.md)。
+
 ### 使用指南
 
 1.&nbsp;发送者首先通过API创建普通账户，用来触发匿名TRC-20合约，账户需要一些余额用于支付触发合约费用；   
