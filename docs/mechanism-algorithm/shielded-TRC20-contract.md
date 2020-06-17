@@ -477,7 +477,7 @@ Parameters:
     "visible": true
 }
 ```
-注意: `to_amount` 为真实地交易金额, note中的 `value` 为`scalingFactor`缩放后的值，`scalingFactor` 在匿名TRC-20合约中设置。在本例中， 缩放因子`scalingFactor`值为100. 
+注意: `to_amount` 为真实地交易金额, note中的 `value` 为`scalingFactor`缩放后的值，`scalingFactor` 在匿名TRC-20合约中设置。在本例中， 缩放因子`scalingFactor`值为100，即60 * 100  = 40 * 100 + 2000。
 
 Return:
 
@@ -526,7 +526,7 @@ Parameters:
     "visible": true
 }
 ```
-注意: `to_amount` 为真实地交易金额, note中的 `value` 为`scalingFactor`缩放后的值，`scalingFactor` 在匿名TRC-20合约中设置。在本例中， 缩放因子`scalingFactor`值为100. 
+注意: `to_amount` 为真实地交易金额, note中的 `value` 为`scalingFactor`缩放后的值，`scalingFactor` 在匿名TRC-20合约中设置。在本例中， 缩放因子`scalingFactor`值为100，即60 * 100  = 40 * 100 + 2000。
 
 Return:
 
