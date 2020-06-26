@@ -212,7 +212,7 @@ Parameters:
     "shielded_TRC20_contract_address": "41f3392eaa7d38749176e0671dbc6912f8ef956943"
 }
 ```
-注意: 1. 确保在调用这个api之前，匿名合约已完成部署；2. `from_amount` 为真实地交易金额, note中的 `value` 为`scalingFactor`缩放后的值，`scalingFactor` 在匿名TRC-20合约中设置，即 `from_amount` = `value` * `scalingFactor`. 在本例中， 缩放因子`scalingFactor`值为100；3. `rcm`为32字节长的随机域元素，需调用librustzcash库中的``librustzcashSaplingGenerateR`` 函数生成。
+注意: 1. 确保在调用这个api之前，匿名合约已完成部署；2. `from_amount` 为真实地交易金额, note中的 `value` 为`scalingFactor`缩放后的值，`scalingFactor` 在匿名TRC-20合约中设置，即 `from_amount` = `value` * `scalingFactor`. 在本例中， 缩放因子`scalingFactor`值为100；3. `rcm`为32字节长的随机域元素，需调用`GetRcm` 接口生成。
 
 Return:
 
@@ -395,7 +395,7 @@ Parameters:
 }
 ```
 
-其中`alpha` 为32字节的随机域元素，需调用librustzcash库中的``librustzcashSaplingGenerateR`` 函数生成。
+其中`alpha` 为32字节的随机域元素，需调用`GetRcm` 接口生成。
 
 Return:
 
