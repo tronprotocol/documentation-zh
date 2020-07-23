@@ -49,6 +49,16 @@
 |  proposaldelete                  | updateenergylimit       | getnodeinfo           |
 |  getapprovedlist                 | updatesetting           | getchainparameters    |
 
+|   market                       |    |             |
+|----------------------------------|-------------------------|-----------------------|
+|  marketsellasset        |          |   |
+|  marketcancelorder                  |              |           |
+|  getmarketorderbyaccount                 |  |              |
+|  getmarketorderlistbypair                   |     |          |
+|  getmarketpricebypair                 |                 | |
+|  getmarketorderbyid                  |        |            |
+
+
 
 ## hexString和base58check转码demo
 java: 
