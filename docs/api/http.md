@@ -54,6 +54,7 @@
 |  marketsellasset        |          |   |
 |  marketcancelorder                  |              |           |
 |  getmarketorderbyaccount                 |  |              |
+|  getmarketpairlist                 |  |              |
 |  getmarketorderlistbypair                   |     |          |
 |  getmarketpricebypair                 |                 | |
 |  getmarketorderbyid                  |        |            |

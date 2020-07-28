@@ -109,8 +109,8 @@ GetMarketPriceByPair _ 1000001
   "buy_token_id": "1000001",
   "prices": [
     {
-      "sell_token_quantity": 100,
-      "buy_token_quantity": 200
+      "sell_token_quantity": 1,
+      "buy_token_quantity": 2
     }
   ]
 }
