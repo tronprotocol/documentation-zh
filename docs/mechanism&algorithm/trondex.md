@@ -142,7 +142,7 @@ getMarketOrderById e7e283c2066f6b82850dfb82d34fd9ec5ac2f70ae31b0669e96c1a9ad810a
 ```text  
 MarketSellAsset TN3zfjYUmMFK3ZsHSsrdJoNRtGkQmZLBLz 1000001 400 _ 200
 ```
-这里，订单中，卖出400个TokenA，买入200个TRX。第一笔订单中，卖出200个TRX，买入100个TokenA。
+这里，订单中，卖出400个TokenA，买入200个TRX。第一笔订单中，卖出100个TRX，买入200个TokenA。
 两个订单的价格是相同，发生撮合。其实，只要第二笔订单的价格高于第一笔订单，就能够发生撮合，这里为了方便计算数量，采用相同价格。
 发生撮合后，可以查询transactionInfo中，来获得具体撮合信息。
 ```text  
