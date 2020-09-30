@@ -1,4 +1,6 @@
-## 使用指南 
+# Wallet-cli
+
+## 使用指南
 
 <h3>下载命令行钱包</h3>
 
@@ -10,7 +12,7 @@ git clone [https://github.com/tronprotocol/wallet-cli](https://github.com/tronpr
 ```
 net {
  type = mainnet
- #type = testnet 
+ #type = testnet
 }
 
 fullnode = {
@@ -19,27 +21,27 @@ fullnode = {
   ]
 }
 
-soliditynode = {
-  ip.list = [
-    "solidity ip : port"
-  ]
-}//note: solidity node is optional
-
+# soliditynode = {
+#   ip.list = [
+#     "solidity ip : port"
+#   ]
+# } // note: solidity node is optional
 ```
+
 <h3>编译与运行命令行钱包</h3>
 
 打开命令行窗口：
 
 ```
-cd wallet-cli  
-./gradlew build      
+cd wallet-cli
+./gradlew build
 ./gradlew run
 ```
 
 <h3>运行命令行钱包jar包</h3>
 
 ```
-cd wallet-cli  
+cd wallet-cli
 ./gradlew build
 cd build/libs
 java -jar wallet-cli.jar
@@ -47,335 +49,335 @@ java -jar wallet-cli.jar
 
 <h3>命令行钱包如何连接java-tron</h3>
 
-命令行钱包通过grpc协议连接java-tron。  
-运行java-tron的节点可以本地或者远程部署。           
-可以在config.conf文件中设置要连接的java-tron节点的ip。       
- 
+命令行钱包通过grpc协议连接java-tron。
+运行java-tron的节点可以本地或者远程部署。
+可以在config.conf文件中设置要连接的java-tron节点的ip。
+
 
 ## 使用示例
 
 <h3>命令行钱包支持的命令行：</h3>
 
-- RegisterWallet  
+- RegisterWallet
 
 RegisterWallet Password
 
-在本地注册一个钱包账户。生成一对基于椭圆曲线数学得到的秘钥。通过输入的密码得到一个AES秘钥，然后用AES算法加密并本地保存私钥。账户的地址是由公钥经过sha3-256计算并取前20字节得到。所有需要用到私钥签名的操作，都需要输入密码。  
+在本地注册一个钱包账户。生成一对基于椭圆曲线数学得到的秘钥。通过输入的密码得到一个AES秘钥，然后用AES算法加密并本地保存私钥。账户的地址是由公钥经过sha3-256计算并取前20字节得到。所有需要用到私钥签名的操作，都需要输入密码。
 
-- ImportWallet  
-
-ImportWallet Password PrivateKey
-
-- ImportwalletByBase64  
+- ImportWallet
 
 ImportWallet Password PrivateKey
 
-- ChangePassword  
+- ImportwalletByBase64
+
+ImportWallet Password PrivateKey
+
+- ChangePassword
 
 ChangePassword oldPassword newPassword
 
-- Login  
+- Login
 
 Login Password
 
-- Logout  
+- Logout
 
 Logout
 
-- BackupWallet  
+- BackupWallet
 
-BackupWallet  
+BackupWallet
 
-Private key will be returned.  
+Private key will be returned.
 
-- BackupWallet2Base64   
+- BackupWallet2Base64
 
-BackupWallet2Base64  
+BackupWallet2Base64
 
-返回Base64格式的私钥。  
+返回Base64格式的私钥。
 
-- ChangePassword   
+- ChangePassword
 
-ChangePassword oldPassword newPassword  
+ChangePassword oldPassword newPassword
 
-- GenerateAddress  
+- GenerateAddress
 
-GenerateAddress  
+GenerateAddress
 
-返回一对地址与私钥。    
-  
-- CreateAccount  
+返回一对地址与私钥。
 
-CreateAccount Address  
+- CreateAccount
 
-需要花费0.1 TRX.    
+CreateAccount Address
 
-- GetAddress  
+需要花费0.1 TRX.
 
-GetAddress  
+- GetAddress
 
-返回当前登录账号的地址。     
+GetAddress
 
-- GetAccount  
+返回当前登录账号的地址。
 
-GetAccount Address 
+- GetAccount
 
-- GetBalance 
+GetAccount Address
 
-GetBalance 
+- GetBalance
 
-返回登录账号的TRX余额。   
+GetBalance
 
-- GetAccountbyId   
+返回登录账号的TRX余额。
+
+- GetAccountbyId
 
 GetAccountbyId accountId
 
-- SetAccountId  
+- SetAccountId
 
-SetAccountId AccountId 
+SetAccountId AccountId
 
 - UpdateAccount
 
 UpdateAccount AccountName
 
-只有账户的名称可以被更新。   
+只有账户的名称可以被更新。
 
-- GetAccountNet  
+- GetAccountNet
 
 GetAccountNet Address
 
-- GetAccountResource   
+- GetAccountResource
 
 GetAccountResource Address
 
-- GetDelegatedResource   
+- GetDelegatedResource
 
 GetDelegatedResource fromAddress toAddress
 
-- GetDelegatedResourceAccountIndex  
+- GetDelegatedResourceAccountIndex
 
 GetDelegatedResourceAccountIndex address
-  
-- GetAssetissueByAccount      
+
+- GetAssetissueByAccount
 
 GetAssetissueByAccount Address
 
-- GetAssetIssueByName  
+- GetAssetIssueByName
 
 GetAssetIssueByName AssetName
 
-- GetAssetIssueListbyName  
+- GetAssetIssueListbyName
 
 GetAssetIssueListbyName AssetName
 
-- GetAssetIssuebyId   
+- GetAssetIssuebyId
 
 GetAssetIssuebyId AssetId
 
-- UpdateAsset   
+- UpdateAsset
 
 UpdateAsset newLimit newPublicLimit description url
 
-- ParticipateAssetIssue 
+- ParticipateAssetIssue
 
 ParticipateAssetIssue ToAddress AssetName Amount
 
-- AssetIssue 
+- AssetIssue
 
 AssetIssue AssetName TotalSupply TrxNum AssetNum Precision StartDate EndDate Description Url FreeNetLimitPerAccount PublicFreeNetLimit FrozenAmount0 FrozenDays0 ... FrozenAmountN FrozenDaysN
 
-- ListAssetIssuePaginated 
+- ListAssetIssuePaginated
 
-ListAssetIssuePaginated offset limit  
+ListAssetIssuePaginated offset limit
 
-以分页的形式返回通证列表。    
+以分页的形式返回通证列表。
 
-offset: 起始通证的索引    
-limit: 每页显示的数目   
+offset: 起始通证的索引
+limit: 每页显示的数目
 
 - Listassetissue
 
-Listassetissue 
+Listassetissue
 
-返回所有发行的通证。     
+返回所有发行的通证。
 
-- TransferAsset 
+- TransferAsset
 
-TransferAsset ToAddress AssertName Amount  
+TransferAsset ToAddress AssertName Amount
 
-This is used to transfer tokens.  
+This is used to transfer tokens.
 
-- SendCoin    
+- SendCoin
 
 SendCoin ToAddress Amount
 
-用来发送TRX。   
+用来发送TRX。
 
-- CreateWitness    
+- CreateWitness
 
 CreateWitness Url
 
-申请成为超级代表，需要花费 1024 TRX。  
+申请成为超级代表，需要花费 1024 TRX。
 
-Url: 超级代表的官网地址   
+Url: 超级代表的官网地址
 
-- UpdateWitness    
+- UpdateWitness
 
-UpdateWitness Url  
+UpdateWitness Url
 
-更新超级代表账户的官网地址。   
+更新超级代表账户的官网地址。
 
-- VoteWitness    
+- VoteWitness
 
 VoteWitness Address0 Count0 ... AddressN CountN
 
-- FreezeBalance    
+- FreezeBalance
 
 FreezeBalance frozen_balance frozen_duration [ResourceCode:0 BANDWIDTH, 1 ENERGY] [receiverAddress]
 
-- UnfreezeBalance  
+- UnfreezeBalance
 
 UnfreezeBalance [ResourceCode:0 BANDWIDTH, 1 ENERGY] [receiverAddress]
 
-- WithdrawBalance  
+- WithdrawBalance
 
-WithdrawBalance 
+WithdrawBalance
 
-- Listwitnesses  
+- Listwitnesses
 
-Listwitnesses 
-          
-- CreateProposal    
+Listwitnesses
 
-CreateProposal id0 value0 ... idN valueN 
+- CreateProposal
 
-- ApproveProposal    
+CreateProposal id0 value0 ... idN valueN
 
-ApproveProposal id is_or_not_add_approval 
+- ApproveProposal
 
-- DeleteProposal  
+ApproveProposal id is_or_not_add_approval
+
+- DeleteProposal
 
 DeleteProposal proposalId
 
-- ListProposals    
+- ListProposals
 
-ListProposals 
+ListProposals
 
-- ListProposalsPaginated    
+- ListProposalsPaginated
 
-ListProposalsPaginated offset limit  
+ListProposalsPaginated offset limit
 
-以分页的形式返回提议列表。  
+以分页的形式返回提议列表。
 
-offset: 起始提议的索引      
-limit: 每页显示的数目    
-  
-- GetProposal  
+offset: 起始提议的索引
+limit: 每页显示的数目
+
+- GetProposal
 
 GetProposal proposalId
 
 - GetChainParameters
 
-GetChainParameters  
+GetChainParameters
 
-查询公链上用来创建提议使用的参数。  
+查询公链上用来创建提议使用的参数。
 
-- GetNextMaintenanceTime 
+- GetNextMaintenanceTime
 
-GetNextMaintenanceTime  
+GetNextMaintenanceTime
 
-查询下一个维护期的时间。  
+查询下一个维护期的时间。
 
-- ExchangeCreate    
+- ExchangeCreate
 
 ExchangeCreate first_token_id first_token_balance second_token_id second_token_balance
 
-基于班科协议创建一个交易对。  
+基于班科协议创建一个交易对。
 
-- ExchangeInject  
+- ExchangeInject
 
-ExchangeInject exchange_id token_id quant  
+ExchangeInject exchange_id token_id quant
 
-为交易对注资。   
+为交易对注资。
 
-- ExchangeWithdraw    
+- ExchangeWithdraw
 
-ExchangeWithdraw exchange_id token_id quant    
+ExchangeWithdraw exchange_id token_id quant
 
-从交易对提现。  
+从交易对提现。
 
-- ExchangeTransaction  
+- ExchangeTransaction
 
 ExchangeTransaction exchange_id token_id quant expected
 
-- ListExchanges  
+- ListExchanges
 
-ListExchanges  
+ListExchanges
 
-查询所有的交易对。  
+查询所有的交易对。
 
-- ListExchangesPaginated    
+- ListExchangesPaginated
 
-ListExchangesPaginated offset limit  
+ListExchangesPaginated offset limit
 
-以分页的形式返回交易对列表。  
+以分页的形式返回交易对列表。
 
-offset: 起始交易对的索引        
-limit: 每页显示的数目   
+offset: 起始交易对的索引
+limit: 每页显示的数目
 
-- GetExchange    
+- GetExchange
 
 GetExchange exchangeId
-  
-- GetTransactionCountbyBlockNum    
+
+- GetTransactionCountbyBlockNum
 
 GetTransactionCountbyBlockNum number
 
-- GetTotalTransaction    
+- GetTotalTransaction
 
-GetTotalTransaction 
+GetTotalTransaction
 
-- GetTransactionsfromThis  
+- GetTransactionsfromThis
 
-GetTransactionsfromThis Address offset limit  
+GetTransactionsfromThis Address offset limit
 
 以分页的形式返回交易列表。
 
-offset: 起始交易的索引      
-limit: 每页显示的数目    
+offset: 起始交易的索引
+limit: 每页显示的数目
 
-- GetTransactionstoThis    
+- GetTransactionstoThis
 
-GetTransactionstoThis Address offset limit  
+GetTransactionstoThis Address offset limit
 
-以分页的形式返回交易列表。  
+以分页的形式返回交易列表。
 
-offset: 起始交易的索引       
-limit: 每页显示的数目   
+offset: 起始交易的索引
+limit: 每页显示的数目
 
-- GetTransactionbyId  
+- GetTransactionbyId
 
-GetTransactionbyId txId  
+GetTransactionbyId txId
 
-- GetTransactionInfobyId   
+- GetTransactionInfobyId
 
-GetTransactionInfobyId txId  
+GetTransactionInfobyId txId
 
-- GetBlockbyId  
+- GetBlockbyId
 
-GetBlockbyId blockId  
+GetBlockbyId blockId
 
-- GetBlockbyLimitNext  
+- GetBlockbyLimitNext
 
-GetBlockbyLimitNext start_block_id and end_block_id    
+GetBlockbyLimitNext start_block_id and end_block_id
 
-- GetBlockbyLatestNum  
+- GetBlockbyLatestNum
 
-GetBlockbyLatestNum 
+GetBlockbyLatestNum
 
-- DeployContract 
+- DeployContract
 
-DeployContract contractName ABI byteCode constructor params isHex fee_limit consume_user_resource_percent origin_energy_limit value token_value token_id(e.g: TRXTOKEN, use # if not provided)    
+DeployContract contractName ABI byteCode constructor params isHex fee_limit consume_user_resource_percent origin_energy_limit value token_value token_id(e.g: TRXTOKEN, use # if not provided)
 
 注意: Please append the param for constructor tightly with byteCode without any space
 
@@ -383,123 +385,123 @@ DeployContract contractName ABI byteCode constructor params isHex fee_limit cons
 
 TriggerContract contractAddress method args isHex
 
-- TriggerConstantContract 
+- TriggerConstantContract
 
-TriggerConstantContract contractAddress method args isHex fee_limit value token_value token_id(e.g: TRXTOKEN, use # if not provided)   
+TriggerConstantContract contractAddress method args isHex fee_limit value token_value token_id(e.g: TRXTOKEN, use # if not provided)
 
 - ClearContractabi
 
 ClearContractabi contract_address
 
-- GetContract 
+- GetContract
 
-GetContract contractAddress  
+GetContract contractAddress
 
-- UpdateSetting  
+- UpdateSetting
 
-UpdateSetting contract_address consume_user_resource_percent 
+UpdateSetting contract_address consume_user_resource_percent
 
-- UpdateEnergyLimit  
+- UpdateEnergyLimit
 
-UpdateEnergyLimit contract_address energy_limit 
+UpdateEnergyLimit contract_address energy_limit
 
-- UpdateAccountPermission    
+- UpdateAccountPermission
 
 UpdateAccountPermission ownerAddress permissions
 
-- GetTransactionSignWeight  
+- GetTransactionSignWeight
 
 GetTransactionSignWeight transaction_hex
 
-- GetTransactionApprovedList   
+- GetTransactionApprovedList
 
 GetTransactionApprovedList transaction_hex
 
-- AddTransactionSign  
+- AddTransactionSign
 
 AddTransactionSign transaction_hex
 
 - BroadcastTransaction
 
-BroadcastTransaction transaction_hex  
+BroadcastTransaction transaction_hex
 
 - TestTransaction
 
 TestTransaction ToAddress assertName times [interval]
 
-- ListNodes     
+- ListNodes
 
-ListNodes  
+ListNodes
 
-查询与连接节点相关联的节点  
+查询与连接节点相关联的节点
 
-- Getblock     
+- Getblock
 
 Getblock [BlockNum]
-   
-- BuyStorage  
+
+- BuyStorage
 
 BuyStorage quantity
 
-- BuyStorageBytes    
+- BuyStorageBytes
 
 BuyStorageBytes bytes
 
-- SellStorage  
+- SellStorage
 
 SellStorage quantity
 
-- Shielded Transaction Related  
+- Shielded Transaction Related
 
-[Shielded Transaction Related](#shieldedTx)  
+[Shielded Transaction Related](#shieldedTx)
 
 - Exit
 
-Exit  
+Exit
 
-Exit wallet-cli  
+Exit wallet-cli
 
-- Quit    
+- Quit
 
-Quit  
+Quit
 
-Quit wallet-cli  
+Quit wallet-cli
 
-- Help  
+- Help
 
 Help
 
-输入任意命令后，可以查看更多提示。   
+输入任意命令后，可以查看更多提示。
 
 <h3>命令行操作流程示例</h3>
 
 ```
-cd wallet-cli  
-./gradlew build      
-./gradlew run                                                                               
-RegisterWallet 123456      (password = 123456)                                                        
-login 123456                                                                                           
-getAddress                 (Print 'address = f286522619d962e6f93235ca27b2cb67a9e5c27b', backup it)                                                       
-BackupWallet 123456        (Print 'priKey = 22be575f19b9ac6e94c7646a19a4c89e06fe99e2c054bd242c0af2b6282a65e9', backup it) (BackupWallet2Base64 option)                                                    
-getbalance                 (Print 'Balance = 0')                                                                                                                                          
- 
-getbalance                                                             
-          
-assetIssue 123456 testAssetIssue00001 10000000000000000 1 100 2018-4-1 2018-4-30 1 just-test https://github.com/tronprotocol/wallet-cli/                   
-getaccount  f286522619d962e6f93235ca27b2cb67a9e5c27b                                                                        
-(Print balance: 9999900000                                                                          
-asset {                                                                                                     
-  key: "testAssetIssue00001"                                                                           
-  value: 10000000000000000                                                                             
-})                                                                                                       
-(cost trx 1000 trx for assetIssue)                                                                    
-(You can query the trx balance and other asset balances for any account )                                                
-TransferAsset 123456 649DDB4AB82D558AD6809C7AB2BA43D1D1054B3F testAssetIssue00001 10000    
+cd wallet-cli
+./gradlew build
+./gradlew run
+RegisterWallet 123456      (password = 123456)
+login 123456
+getAddress                 (Print 'address = f286522619d962e6f93235ca27b2cb67a9e5c27b', backup it)
+BackupWallet 123456        (Print 'priKey = 22be575f19b9ac6e94c7646a19a4c89e06fe99e2c054bd242c0af2b6282a65e9', backup it) (BackupWallet2Base64 option)
+getbalance                 (Print 'Balance = 0')
+
+getbalance
+
+assetIssue 123456 testAssetIssue00001 10000000000000000 1 100 2018-4-1 2018-4-30 1 just-test https://github.com/tronprotocol/wallet-cli/
+getaccount  f286522619d962e6f93235ca27b2cb67a9e5c27b
+(Print balance: 9999900000
+asset {
+  key: "testAssetIssue00001"
+  value: 10000000000000000
+})
+(cost trx 1000 trx for assetIssue)
+(You can query the trx balance and other asset balances for any account )
+TransferAsset 123456 649DDB4AB82D558AD6809C7AB2BA43D1D1054B3F testAssetIssue00001 10000
 ```
 
 <h3>如何冻结/解冻TRX</h3>
 
-示例:    
+示例:
 
 ```
 freezeBalance frozen_balance frozen_duration [ResourceCode:0 BANDWIDTH, 1 ENERGY] [receiverAddress]
@@ -513,15 +515,15 @@ unfreezeBalance  [ResourceCode:0 BANDWIDTH, 1 ENERGY] [receiverAddress]
 
 ```
 
-通过冻结TRX可以获取带宽或者能量。  
+通过冻结TRX可以获取带宽或者能量。
 
 <h3>如何投票</h3>
 
 每一个冻结的TRX代表一个投票权
 
-**注意：** 波场网络只会统计你的最近一次的投票。 
+**注意：** 波场网络只会统计你的最近一次的投票。
 
-示例： 
+示例：
 
 ```
 VoteWitness Address0 Count0 ... AddressN CountN
@@ -533,321 +535,321 @@ votewitness witness1 4 witness2 6   // Cast 4 votes for witness1 and 6 votes for
 votewitness witness1 10   // Voted 10 votes for witness1.
 ```
 
-以上示例的最终执行结果是：10票会投给witness1，0票投给witness2。  
+以上示例的最终执行结果是：10票会投给witness1，0票投给witness2。
 
 <h3>如何发行TRC-10通证</h3>
 
-每个账户只能发行一个TRC-10通证。    
+每个账户只能发行一个TRC-10通证。
 
-a. 发行通证     
+a. 发行通证
 
-```  
+```
 Command:
 
-AssetIssue AssetName TotalSupply TrxNum AssetNum Precision StartDate EndDate Description Url FreeNetLimitPerAccount PublicFreeNetLimit FrozenAmount0 FrozenDays0 ... FrozenAmountN FrozenDaysN   
+AssetIssue AssetName TotalSupply TrxNum AssetNum Precision StartDate EndDate Description Url FreeNetLimitPerAccount PublicFreeNetLimit FrozenAmount0 FrozenDays0 ... FrozenAmountN FrozenDaysN
 
-AssetName: The name of the issued TRC10 token      
-TotalSupply: Total issuing amount = account balance of the issuer at the time of issuance + all the frozen amount, before asset transfer and the issuance.     
-TrxNum,AssetNum: these two parameters determine the exchange rate between the issued token and the minimum unit of TRX (sun) when the token is issued.    
-FreeNetLimitPerAccount: The maximum amount of bandwidth an account is allowed to use. Token issuers can freeze TRX to obtain bandwidth (TransferAssetContract only)   
-PublicFreeNetLimit: The maximum amount of bandwidth issuing accounts are allowed user. Token issuers can freeze REX to obtain bandwidth (TransferAssetContract only).   
-StartDate,EndDate: The start and end date of token issuance. Within this period time, other users can participate in token issuance.     
-FrozenAmount0 FrozenDays0: Amount and time of token freeze. FrozenAmount0 must be bigger than 0, FrozenDays0 must be bigger than 1 and smaller than 3653. 
+AssetName: The name of the issued TRC10 token
+TotalSupply: Total issuing amount = account balance of the issuer at the time of issuance + all the frozen amount, before asset transfer and the issuance.
+TrxNum,AssetNum: these two parameters determine the exchange rate between the issued token and the minimum unit of TRX (sun) when the token is issued.
+FreeNetLimitPerAccount: The maximum amount of bandwidth an account is allowed to use. Token issuers can freeze TRX to obtain bandwidth (TransferAssetContract only)
+PublicFreeNetLimit: The maximum amount of bandwidth issuing accounts are allowed user. Token issuers can freeze REX to obtain bandwidth (TransferAssetContract only).
+StartDate,EndDate: The start and end date of token issuance. Within this period time, other users can participate in token issuance.
+FrozenAmount0 FrozenDays0: Amount and time of token freeze. FrozenAmount0 must be bigger than 0, FrozenDays0 must be bigger than 1 and smaller than 3653.
 ```
 
-示例：   
-
-```  
-AssetIssue TestTRX 100000 1 1 2 "2019-04-04 11:48:00" "2019-04-05" "just for test" www.test.com 
-100 100000 10000 10 10000 1     
-View published information:    
-GetAssetIssueByAccount TRGhNNfnmgLegT4zHNjEqDSADjgmnHvubJ     
-11:50:02.688 INFO  [main] [Client](Client.java: 361)     
-assetIssue 0 :::   
-[   
-Id: 1000001   
-Owner_address: TRGhNNfnmgLegT4zHNjEqDSADjgmnHvubJ   
-Name: TestTRX   
-Order: 0   
-Total_supply: 100000   
-Trx_num: 1   
-Num: 1   
-Precision 2   
-Start_time: Thu Apr 04 11:48:00 CST 2019   
-End_time: Fri Apr 05 00:00:00 CST 2019   
-Vote_score: 0   
-Description: just for test   
-Url: www.test.com   
-Free asset net limit: 100   
-Public free asset net limit: 100000   
-Public free asset net usage: 0   
-Public latest free net time: 0   
-Frozen_supply   
-{   
-  Amount: 10000   
-  Frozen_days: 1    
-}   
-Frozen_supply    
-{   
-  Amount: 10000    
-  Frozen_days: 10    
-}   
-]   
-```
-
-b. 更新TRC-10通证参数    
-
-UpdateAsset FreeNetLimitPerAccount PublicFreeNetLimit Description Url   
-Specific meaning of the parameters is the same with that of AssetIssue   
-
-示例：     
+示例：
 
 ```
-UpdateAsset 1000 1000000 "change description" www.changetest.com    
-
-View the modified information:   
-GetAssetIssueByAccount TRGhNNfnmgLegT4zHNjEqDSADjgmnHvubJ   
-11:52:16.677 INFO  [main] [Client](Client.java: 361)    
-assetIssue 0 :::  
-[  
-Id: 1000001   
-Owner_address: TRGhNNfnmgLegT4zHNjEqDSADjgmnHvubJ   
-Name: TestTRX   
-Order: 0   
-Total_supply: 100000   
-Trx_num: 1   
-Num: 1   
-Precision 2   
-Start_time: Thu Apr 04 11:48:00 CST 2019   
-End_time: Fri Apr 05 00:00:00 CST 2019    
-Vote_score: 0   
-description: change description    
-url: www.changetest.com   
-Free asset net limit: 1000   
-public free asset net limit: 1000000   
-Public free asset net usage: 0   
-public latest free net time: 0   
-Frozen_supply  
-{   
-  Amount: 10000   
-  Frozen_days: 1   
-}   
-Frozen_supply    
-{   
-  Amount: 10000    
-  Frozen_days: 10    
-}   
-]   
+AssetIssue TestTRX 100000 1 1 2 "2019-04-04 11:48:00" "2019-04-05" "just for test" www.test.com
+100 100000 10000 10 10000 1
+View published information:
+GetAssetIssueByAccount TRGhNNfnmgLegT4zHNjEqDSADjgmnHvubJ
+11:50:02.688 INFO  [main] [Client](Client.java: 361)
+assetIssue 0 :::
+[
+Id: 1000001
+Owner_address: TRGhNNfnmgLegT4zHNjEqDSADjgmnHvubJ
+Name: TestTRX
+Order: 0
+Total_supply: 100000
+Trx_num: 1
+Num: 1
+Precision 2
+Start_time: Thu Apr 04 11:48:00 CST 2019
+End_time: Fri Apr 05 00:00:00 CST 2019
+Vote_score: 0
+Description: just for test
+Url: www.test.com
+Free asset net limit: 100
+Public free asset net limit: 100000
+Public free asset net usage: 0
+Public latest free net time: 0
+Frozen_supply
+{
+  Amount: 10000
+  Frozen_days: 1
+}
+Frozen_supply
+{
+  Amount: 10000
+  Frozen_days: 10
+}
+]
 ```
 
-c. TRC-10通证转账      
+b. 更新TRC-10通证参数
 
-TransferAsset ToAddress AssertName Amount    
+UpdateAsset FreeNetLimitPerAccount PublicFreeNetLimit Description Url
+Specific meaning of the parameters is the same with that of AssetIssue
 
-ToAddress: 目标账户地址      
-AssertName: 通证的id，例如：1000001     
-Amount: 转账数目   
+示例：
 
-示例：   
+```
+UpdateAsset 1000 1000000 "change description" www.changetest.com
 
-```     
-TransferAsset TN3zfjYUmMFK3ZsHSsrdJoNRtGkQmZLBLz 1000001 1000    
-View target account information after the transfer:    
-getaccount TN3zfjYUmMFK3ZsHSsrdJoNRtGkQmZLBLz  
-11:54:33.118 INFO  [main] [Client](Client.java:260)      
-address: TN3zfjYUmMFK3ZsHSsrdJoNRtGkQmZLBLz     
-...   
-assetV2   
-{   
-  id: 1000001    
-  balance: 1000    
-  latest_asset_operation_timeV2: null    
-  free_asset_net_usageV2: 0    
-}    
-...    
-}    
+View the modified information:
+GetAssetIssueByAccount TRGhNNfnmgLegT4zHNjEqDSADjgmnHvubJ
+11:52:16.677 INFO  [main] [Client](Client.java: 361)
+assetIssue 0 :::
+[
+Id: 1000001
+Owner_address: TRGhNNfnmgLegT4zHNjEqDSADjgmnHvubJ
+Name: TestTRX
+Order: 0
+Total_supply: 100000
+Trx_num: 1
+Num: 1
+Precision 2
+Start_time: Thu Apr 04 11:48:00 CST 2019
+End_time: Fri Apr 05 00:00:00 CST 2019
+Vote_score: 0
+description: change description
+url: www.changetest.com
+Free asset net limit: 1000
+public free asset net limit: 1000000
+Public free asset net usage: 0
+public latest free net time: 0
+Frozen_supply
+{
+  Amount: 10000
+  Frozen_days: 1
+}
+Frozen_supply
+{
+  Amount: 10000
+  Frozen_days: 10
+}
+]
 ```
 
-d. 参与TRC-10通证     
+c. TRC-10通证转账
 
-ParticipateAssetIssue ToAddress AssetName Amount    
+TransferAsset ToAddress AssertName Amount
 
-ToAddress: 通证发行账户地址     
-AssertName: 通证的id，例如：1000001      
-Amount: 参与数目        
+ToAddress: 目标账户地址
+AssertName: 通证的id，例如：1000001
+Amount: 转账数目
 
-只有在通证参与有效期期间执行此命令，才能有效参与通证。     
+示例：
 
-示例：   
-
-```    
-ParticipateAssetIssue TRGhNNfnmgLegT4zHNjEqDSADjgmnHvubJ 1000001 1000    
-
-View remaining balance:    
-getaccount TJCnKsPa7y5okkXvQAidZBzqx3QyQ6sxMW    
-11:59:57.558 INFO  [main] [Client](Client.java:260)     
-address: TJCnKsPa7y5okkXvQAidZBzqx3QyQ6sxMW    
-...    
-assetV2    
-{    
-  id: 1000001    
-  balance: 1000    
-  latest_asset_operation_timeV2: null    
-  free_asset_net_usageV2: 0    
-}    
-...    
-}    
+```
+TransferAsset TN3zfjYUmMFK3ZsHSsrdJoNRtGkQmZLBLz 1000001 1000
+View target account information after the transfer:
+getaccount TN3zfjYUmMFK3ZsHSsrdJoNRtGkQmZLBLz
+11:54:33.118 INFO  [main] [Client](Client.java:260)
+address: TN3zfjYUmMFK3ZsHSsrdJoNRtGkQmZLBLz
+...
+assetV2
+{
+  id: 1000001
+  balance: 1000
+  latest_asset_operation_timeV2: null
+  free_asset_net_usageV2: 0
+}
+...
+}
 ```
 
-e. 解冻TRC-10通证      
+d. 参与TRC-10通证
 
-只有过了冻结期后，才能解冻。  
+ParticipateAssetIssue ToAddress AssetName Amount
 
-UnfreezeAsset    
-    
-f. 获得TRC-10通证的信息    
+ToAddress: 通证发行账户地址
+AssertName: 通证的id，例如：1000001
+Amount: 参与数目
 
-ListAssetIssue:   
-获得所有已发行的通证信息      
-GetAssetIssueByAccount Address:   
-根据发行通证的账户获得通证信息      
-GetAssetIssueById AssetId:      
-根据通证ID获得通证信息          
-GetAssetIssueListByName AssetName:  
-通过通证名称获得通证信息       
+只有在通证参与有效期期间执行此命令，才能有效参与通证。
 
-    
+示例：
+
+```
+ParticipateAssetIssue TRGhNNfnmgLegT4zHNjEqDSADjgmnHvubJ 1000001 1000
+
+View remaining balance:
+getaccount TJCnKsPa7y5okkXvQAidZBzqx3QyQ6sxMW
+11:59:57.558 INFO  [main] [Client](Client.java:260)
+address: TJCnKsPa7y5okkXvQAidZBzqx3QyQ6sxMW
+...
+assetV2
+{
+  id: 1000001
+  balance: 1000
+  latest_asset_operation_timeV2: null
+  free_asset_net_usageV2: 0
+}
+...
+}
+```
+
+e. 解冻TRC-10通证
+
+只有过了冻结期后，才能解冻。
+
+UnfreezeAsset
+
+f. 获得TRC-10通证的信息
+
+ListAssetIssue:
+获得所有已发行的通证信息
+GetAssetIssueByAccount Address:
+根据发行通证的账户获得通证信息
+GetAssetIssueById AssetId:
+根据通证ID获得通证信息
+GetAssetIssueListByName AssetName:
+通过通证名称获得通证信息
+
+
 <h3>如何发起一个提案</h3>
 
-任何提案都只能由委员会成员发起。   
+任何提案都只能由委员会成员发起。
 
-a. 创建一个提案     
+a. 创建一个提案
 
-createProposal id0 value0 ... idN valueN    
-id0: 提案id。每个提案id否对应着相应的波场网络参数。在[http://tronscan.org/#/sr/committee](http://tronscan.org/#/sr/committee)可以查看详细信息。  
-Value0: 提案的修改值  
+createProposal id0 value0 ... idN valueN
+id0: 提案id。每个提案id否对应着相应的波场网络参数。在[http://tronscan.org/#/sr/committee](http://tronscan.org/#/sr/committee)可以查看详细信息。
+Value0: 提案的修改值
 
-示例：  
+示例：
 
-```   
-createProposal 4 1000    
-View initiated proposal:     
-listproposals    
-12:20:50.288 INFO  [main] [Client](Client.java:1043)    
-proposal 0 :::    
-[    
-id: 1    
-state: PENDING    
-createTime: 1554351564000    
-expirationTime: 1554616800000    
-parametersMap: {4=1000}    
-approvalsList: [     
-]]    
-The corresponding id is 1    
+```
+createProposal 4 1000
+View initiated proposal:
+listproposals
+12:20:50.288 INFO  [main] [Client](Client.java:1043)
+proposal 0 :::
+[
+id: 1
+state: PENDING
+createTime: 1554351564000
+expirationTime: 1554616800000
+parametersMap: {4=1000}
+approvalsList: [
+]]
+The corresponding id is 1
 ```
 
-b. 同意/反对 提案       
+b. 同意/反对 提案
 
-approveProposal id is_or_not_add_approval    
-id: 提案id      
-is_or_not_add_approval: true代表同意，false代表反对   
+approveProposal id is_or_not_add_approval
+id: 提案id
+is_or_not_add_approval: true代表同意，false代表反对
 
-示例：  
+示例：
 
-```      
-ApproveProposal 1 true              in favor of the offer    
-ApproveProposal 1 false             Cancel the approved proposal    
-```    
-
-c. 撤销提案      
-
-DeleteProposal proposalId    
-proposalId: 提案id  
-
-只有发起者才能撤销自己发起的提案。     
-
-示例：   
-
-```     
-DeleteProposal 1    
+```
+ApproveProposal 1 true              in favor of the offer
+ApproveProposal 1 false             Cancel the approved proposal
 ```
 
-d. 获得提案信息  
+c. 撤销提案
 
-ListProposals:   
-获得所有提案列表     
-ListProposalsPaginated offset limit:    
-以分页的形式获得提案列表     
-GetProposal id:     
-通过提案id获得提案信息  
-    
+DeleteProposal proposalId
+proposalId: 提案id
+
+只有发起者才能撤销自己发起的提案。
+
+示例：
+
+```
+DeleteProposal 1
+```
+
+d. 获得提案信息
+
+ListProposals:
+获得所有提案列表
+ListProposalsPaginated offset limit:
+以分页的形式获得提案列表
+GetProposal id:
+通过提案id获得提案信息
+
 <h3>去中心化交易所</h3>
 
-去中心化交易所基于班科协议开发。   
+去中心化交易所基于班科协议开发。
 
-a. 创建交易对        
+a. 创建交易对
 
-exchangeCreate first_token_id first_token_balance second_token_id second_token_balance    
-First_token_id, first_token_balance: 第一个通证的id以及数目     
-second_token_id, second_token_balance: 第二个通证的id以及数目     
+exchangeCreate first_token_id first_token_balance second_token_id second_token_balance
+First_token_id, first_token_balance: 第一个通证的id以及数目
+second_token_id, second_token_balance: 第二个通证的id以及数目
 
 TRX对应的id为“ _ ”
 
-示例：  
+示例：
 
-```      
-exchangeCreate 1000001 10000 _ 10000       
-Create trading pairs with the IDs of 1000001 and TRX, the amount is 10000 for both.      
+```
+exchangeCreate 1000001 10000 _ 10000
+Create trading pairs with the IDs of 1000001 and TRX, the amount is 10000 for both.
 ```
 
-b. 注资       
- 
-exchangeInject exchange_id token_id quant    
-exchange_id: 需要注资的交易对id     
-token_id,quant: 需要注资的通证id以及数目     
+b. 注资
 
-当为一个通证注资时，为了维持交易对的价格不变，相应比例数目的另一个通证也会被注资。      
-    
-c. 交易      
+exchangeInject exchange_id token_id quant
+exchange_id: 需要注资的交易对id
+token_id,quant: 需要注资的通证id以及数目
 
-exchangeTransaction exchange_id token_id quant expected    
-exchange_id: 交易对id    
-token_id, quant: 卖出的通证id以及数目    
-expected: 期望得到的另一个通证的最小数目     
+当为一个通证注资时，为了维持交易对的价格不变，相应比例数目的另一个通证也会被注资。
 
-示例：   
+c. 交易
 
-```   
-ExchangeTransaction 1 1000001 100 80    
+exchangeTransaction exchange_id token_id quant expected
+exchange_id: 交易对id
+token_id, quant: 卖出的通证id以及数目
+expected: 期望得到的另一个通证的最小数目
+
+示例：
+
+```
+ExchangeTransaction 1 1000001 100 80
 It is expected to acquire the 80 TRX by exchanging 1000001 from the transaction pair ID of 1, and
- the amount is 100 (equivalent to selling token10, the ID is 1000001, the amount is 100).    
+ the amount is 100 (equivalent to selling token10, the ID is 1000001, the amount is 100).
 ```
 
-d. 撤资     
+d. 撤资
 
-exchangeWithdraw exchange_id token_id quant    
-Exchange_id: 需要撤资的交易对id  
-Token_id,quant: 撤资的通证id以及数目     
+exchangeWithdraw exchange_id token_id quant
+Exchange_id: 需要撤资的交易对id
+Token_id,quant: 撤资的通证id以及数目
 
-当撤资一个通证时，为了维持交易对的价格不变，相应比例数目的另一个通证也会被撤资。 
+当撤资一个通证时，为了维持交易对的价格不变，相应比例数目的另一个通证也会被撤资。
 
-e. 获得交易对信息       
+e. 获得交易对信息
 
-ListExchanges:  
-获得所有交易对列表    
-ListexchangesPaginated offset limit:     
-以分页的形式获得交易对列表       
-                                            
+ListExchanges:
+获得所有交易对列表
+ListexchangesPaginated offset limit:
+以分页的形式获得交易对列表
 
-<h3>使用多重签名</h3> 
 
-多重签名允许多个用户管理同一个波场账户。  
-提供三种类型的账户权限：   
-owner: 账户所有者权限          
-active: 账户操作权限       
-witness: 超级代表权限  
+<h3>使用多重签名</h3>
 
-示例：       
+多重签名允许多个用户管理同一个波场账户。
+提供三种类型的账户权限：
+owner: 账户所有者权限
+active: 账户操作权限
+witness: 超级代表权限
+
+示例：
 
 ```
 Updateaccountpermission TRGhNNfnmgLegT4zHNjEqDSADjgmnHvubJ {"owner_permission":{"type":0,
@@ -857,311 +859,311 @@ Updateaccountpermission TRGhNNfnmgLegT4zHNjEqDSADjgmnHvubJ {"owner_permission":{
 "active_permissions":[{"type":2,"permission_name":"active12323","threshold":2,
 "operations":"7fff1fc0033e0000000000000000000000000000000000000000000000000000",
 "keys":[{"address":"TNhXo1GbRNCuorvYu5JFWN3m2NYr9QQpVR","weight":1},
-{"address":"TKwhcDup8L2PH5r6hxp5CQvQzZqJLmKvZP","weight":1}]}]}       
+{"address":"TKwhcDup8L2PH5r6hxp5CQvQzZqJLmKvZP","weight":1}]}]}
 The account TRGhNNfnmgLegT4zHNjEqDSADjgmnHvubJ gives the owner access to itself, active access to
- TNhXo1GbRNCuorvYu5JFWN3m2NYr9QQpVR and TKwhcDup8L2PH5r6hxp5CQvQzZqJLmKvZP. Active access will 
- need signatures from both accounts in order to take effect.  
+ TNhXo1GbRNCuorvYu5JFWN3m2NYr9QQpVR and TKwhcDup8L2PH5r6hxp5CQvQzZqJLmKvZP. Active access will
+ need signatures from both accounts in order to take effect.
 If the account is not a witness, it's not necessary to set witness_permission, otherwise an error
- will occur.   
-``` 
- 
-对交易签名：     
+ will occur.
+```
 
-SendCoin TJCnKsPa7y5okkXvQAidZBzqx3QyQ6sxMW 10000000000000000    
-will show "Please confirm and input your permission id, if input y or Y means default 0, other 
-non-numeric characters will cancell transaction."     
-This will require the transfer authorization of active access. Enter: 2     
-Then select accounts and put in local password, i.e. TNhXo1GbRNCuorvYu5JFWN3m2NYr9QQpVR needs a 
-private key TNhXo1GbRNCuorvYu5JFWN3m2NYr9QQpVR to sign a transaction.  
+对交易签名：
+
+SendCoin TJCnKsPa7y5okkXvQAidZBzqx3QyQ6sxMW 10000000000000000
+will show "Please confirm and input your permission id, if input y or Y means default 0, other
+non-numeric characters will cancell transaction."
+This will require the transfer authorization of active access. Enter: 2
+Then select accounts and put in local password, i.e. TNhXo1GbRNCuorvYu5JFWN3m2NYr9QQpVR needs a
+private key TNhXo1GbRNCuorvYu5JFWN3m2NYr9QQpVR to sign a transaction.
 Select another account and enter the local password. i.e. TKwhcDup8L2PH5r6hxp5CQvQzZqJLmKvZP will
- need a private key of TKwhcDup8L2PH5r6hxp5CQvQzZqJLmKvZP to sign a transaction. 
-The weight of each account is 1, threshold of access is 2. When the requirements are met, users 
-will be notified with “Send 10000000000000000 drop to TJCnKsPa7y5okkXvQAidZBzqx3QyQ6sxMW 
-successful !!”。  
-This is how multiple accounts user multi-signature when using the same cli.   
-Use the instruction addTransactionSign according to the obtained transaction hex string if 
-signing at multiple cli. After signing, the users will need to broadcast final transactions 
-manually.      
- 
-查询签名权重：  
+ need a private key of TKwhcDup8L2PH5r6hxp5CQvQzZqJLmKvZP to sign a transaction.
+The weight of each account is 1, threshold of access is 2. When the requirements are met, users
+will be notified with “Send 10000000000000000 drop to TJCnKsPa7y5okkXvQAidZBzqx3QyQ6sxMW
+successful !!”。
+This is how multiple accounts user multi-signature when using the same cli.
+Use the instruction addTransactionSign according to the obtained transaction hex string if
+signing at multiple cli. After signing, the users will need to broadcast final transactions
+manually.
 
-```    
-getTransactionSignWeight 
-0a8c010a020318220860e195d3609c86614096eadec79d2d5a6e080112680a2d747970652e676f6f676c65617069732e636f6d2f70726f746f636f6c2e5472616e73666572436f6e747261637412370a1541a7d8a35b260395c14aa456297662092ba3b76fc01215415a523b449890854c8fc460ab602df9f31fe4293f18808084fea6dee11128027094bcb8bd9d2d1241c18ca91f1533ecdd83041eb0005683c4a39a2310ec60456b1f0075b4517443cf4f601a69788f001d4bc03872e892a5e25c618e38e7b81b8b1e69d07823625c2b0112413d61eb0f8868990cfa138b19878e607af957c37b51961d8be16168d7796675384e24043d121d01569895fcc7deb37648c59f538a8909115e64da167ff659c26101      
-The information displays as follows:          
-14:56:30.574 INFO  [main] [Client](Client.java:1764) permission:   
-{   
-permission_type: Active   
-permission_id: 2   
-permission_name: active12323   
-threshold: 2  
-parent_id: 0  
-operations: 7fff1fc0033e0000000000000000000000000000000000000000000000000000   
-keys:  
-[   
-address: TNhXo1GbRNCuorvYu5JFWN3m2NYr9QQpVR  
-weight: 1  
-address: TKwhcDup8L2PH5r6hxp5CQvQzZqJLmKvZP  
-weight: 1  
-]  
-}  
-current_weight: 2  
-result:  
-{  
-code: ENOUGH_PERMISSION  
-}  
-approved_list:  
-[  
-TKwhcDup8L2PH5r6hxp5CQvQzZqJLmKvZP  
-TNhXo1GbRNCuorvYu5JFWN3m2NYr9QQpVR  
-]  
-transaction:  
-{  
-txid:   
-7da63b6a1f008d03ef86fa871b24a56a501a8bbf15effd7aca635de6c738df4b   
-raw_data:   
-{  
-ref_block_bytes: 0318   
-ref_block_hash: 60e195d3609c8661   
-contract:   
-{   
-contract 0 :::  
-[  
-contract_type: TransferContract   
-owner_address: TRGhNNfnmgLegT4zHNjEqDSADjgmnHvubJ  
-to_address: TJCnKsPa7y5okkXvQAidZBzqx3QyQ6sxMW   
-amount: 10000000000000000  
-]  
-  
-}   
-timestamp: Mon Apr 01 14:55:06 CST 2019   
-fee_limit: 0   
-}  
-signature:   
-{   
-signature 0 
-:c18ca91f1533ecdd83041eb0005683c4a39a2310ec60456b1f0075b4517443cf4f601a69788f001d4bc03872e892a5e25c618e38e7b81b8b1e69d07823625c2b01  
-signature 1 
-:3d61eb0f8868990cfa138b19878e607af957c37b51961d8be16168d7796675384e24043d121d01569895fcc7deb37648c59f538a8909115e64da167ff659c26101   
-}  
-}  
-```   
- 
-查询一个交易的签名列表：  
+查询签名权重：
 
-```    
-getTransactionApprovedList 
-0a8c010a020318220860e195d3609c86614096eadec79d2d5a6e080112680a2d747970652e676f6f676c65617069732e636f6d2f70726f746f636f6c2e5472616e73666572436f6e747261637412370a1541a7d8a35b260395c14aa456297662092ba3b76fc01215415a523b449890854c8fc460ab602df9f31fe4293f18808084fea6dee11128027094bcb8bd9d2d1241c18ca91f1533ecdd83041eb0005683c4a39a2310ec60456b1f0075b4517443cf4f601a69788f001d4bc03872e892a5e25c618e38e7b81b8b1e69d07823625c2b0112413d61eb0f8868990cfa138b19878e607af957c37b51961d8be16168d7796675384e24043d121d01569895fcc7deb37648c59f538a8909115e64da167ff659c26101      
-14:57:37.807 INFO  [main] [Client](Client.java:1784) result:    
-{    
-code: SUCCESS   
-}   
-approved_list:   
-[   
-TKwhcDup8L2PH5r6hxp5CQvQzZqJLmKvZP  
-TNhXo1GbRNCuorvYu5JFWN3m2NYr9QQpVR   
-]   
-transaction:  
-{  
-txid:    
-7da63b6a1f008d03ef86fa871b24a56a501a8bbf15effd7aca635de6c738df4b   
-raw_data:    
-{   
-ref_block_bytes: 0318   
-ref_block_hash: 60e195d3609c8661   
-contract:    
-{    
-contract 0 :::  
-[   
-contract_type: TransferContract   
-owner_address: TRGhNNfnmgLegT4zHNjEqDSADjgmnHvubJ   
-to_address: TJCnKsPa7y5okkXvQAidZBzqx3QyQ6sxMW   
-amount: 10000000000000000   
-]  
-   
-}   
-timestamp: Mon Apr 01 14:55:06 CST 2019  
-fee_limit: 0   
-}  
-signature:    
-{   
-signature 0 
-:c18ca91f1533ecdd83041eb0005683c4a39a2310ec60456b1f0075b4517443cf4f601a69788f001d4bc03872e892a5e25c618e38e7b81b8b1e69d07823625c2b01    
-signature 1 
-:3d61eb0f8868990cfa138b19878e607af957c37b51961d8be16168d7796675384e24043d121d01569895fcc7deb37648c59f538a8909115e64da167ff659c26101   
-}   
-}  
+```
+getTransactionSignWeight
+0a8c010a020318220860e195d3609c86614096eadec79d2d5a6e080112680a2d747970652e676f6f676c65617069732e636f6d2f70726f746f636f6c2e5472616e73666572436f6e747261637412370a1541a7d8a35b260395c14aa456297662092ba3b76fc01215415a523b449890854c8fc460ab602df9f31fe4293f18808084fea6dee11128027094bcb8bd9d2d1241c18ca91f1533ecdd83041eb0005683c4a39a2310ec60456b1f0075b4517443cf4f601a69788f001d4bc03872e892a5e25c618e38e7b81b8b1e69d07823625c2b0112413d61eb0f8868990cfa138b19878e607af957c37b51961d8be16168d7796675384e24043d121d01569895fcc7deb37648c59f538a8909115e64da167ff659c26101
+The information displays as follows:
+14:56:30.574 INFO  [main] [Client](Client.java:1764) permission:
+{
+permission_type: Active
+permission_id: 2
+permission_name: active12323
+threshold: 2
+parent_id: 0
+operations: 7fff1fc0033e0000000000000000000000000000000000000000000000000000
+keys:
+[
+address: TNhXo1GbRNCuorvYu5JFWN3m2NYr9QQpVR
+weight: 1
+address: TKwhcDup8L2PH5r6hxp5CQvQzZqJLmKvZP
+weight: 1
+]
+}
+current_weight: 2
+result:
+{
+code: ENOUGH_PERMISSION
+}
+approved_list:
+[
+TKwhcDup8L2PH5r6hxp5CQvQzZqJLmKvZP
+TNhXo1GbRNCuorvYu5JFWN3m2NYr9QQpVR
+]
+transaction:
+{
+txid:
+7da63b6a1f008d03ef86fa871b24a56a501a8bbf15effd7aca635de6c738df4b
+raw_data:
+{
+ref_block_bytes: 0318
+ref_block_hash: 60e195d3609c8661
+contract:
+{
+contract 0 :::
+[
+contract_type: TransferContract
+owner_address: TRGhNNfnmgLegT4zHNjEqDSADjgmnHvubJ
+to_address: TJCnKsPa7y5okkXvQAidZBzqx3QyQ6sxMW
+amount: 10000000000000000
+]
+
+}
+timestamp: Mon Apr 01 14:55:06 CST 2019
+fee_limit: 0
+}
+signature:
+{
+signature 0
+:c18ca91f1533ecdd83041eb0005683c4a39a2310ec60456b1f0075b4517443cf4f601a69788f001d4bc03872e892a5e25c618e38e7b81b8b1e69d07823625c2b01
+signature 1
+:3d61eb0f8868990cfa138b19878e607af957c37b51961d8be16168d7796675384e24043d121d01569895fcc7deb37648c59f538a8909115e64da167ff659c26101
+}
+}
+```
+
+查询一个交易的签名列表：
+
+```
+getTransactionApprovedList
+0a8c010a020318220860e195d3609c86614096eadec79d2d5a6e080112680a2d747970652e676f6f676c65617069732e636f6d2f70726f746f636f6c2e5472616e73666572436f6e747261637412370a1541a7d8a35b260395c14aa456297662092ba3b76fc01215415a523b449890854c8fc460ab602df9f31fe4293f18808084fea6dee11128027094bcb8bd9d2d1241c18ca91f1533ecdd83041eb0005683c4a39a2310ec60456b1f0075b4517443cf4f601a69788f001d4bc03872e892a5e25c618e38e7b81b8b1e69d07823625c2b0112413d61eb0f8868990cfa138b19878e607af957c37b51961d8be16168d7796675384e24043d121d01569895fcc7deb37648c59f538a8909115e64da167ff659c26101
+14:57:37.807 INFO  [main] [Client](Client.java:1784) result:
+{
+code: SUCCESS
+}
+approved_list:
+[
+TKwhcDup8L2PH5r6hxp5CQvQzZqJLmKvZP
+TNhXo1GbRNCuorvYu5JFWN3m2NYr9QQpVR
+]
+transaction:
+{
+txid:
+7da63b6a1f008d03ef86fa871b24a56a501a8bbf15effd7aca635de6c738df4b
+raw_data:
+{
+ref_block_bytes: 0318
+ref_block_hash: 60e195d3609c8661
+contract:
+{
+contract 0 :::
+[
+contract_type: TransferContract
+owner_address: TRGhNNfnmgLegT4zHNjEqDSADjgmnHvubJ
+to_address: TJCnKsPa7y5okkXvQAidZBzqx3QyQ6sxMW
+amount: 10000000000000000
+]
+
+}
+timestamp: Mon Apr 01 14:55:06 CST 2019
+fee_limit: 0
+}
+signature:
+{
+signature 0
+:c18ca91f1533ecdd83041eb0005683c4a39a2310ec60456b1f0075b4517443cf4f601a69788f001d4bc03872e892a5e25c618e38e7b81b8b1e69d07823625c2b01
+signature 1
+:3d61eb0f8868990cfa138b19878e607af957c37b51961d8be16168d7796675384e24043d121d01569895fcc7deb37648c59f538a8909115e64da167ff659c26101
+}
+}
 ```
 
 <h3> 使用智能合约 </h3>
 
-a. 部署智能合约  
+a. 部署智能合约
 
-DeployContract contractName ABI byteCode constructor params isHex fee_limit 
+DeployContract contractName ABI byteCode constructor params isHex fee_limit
 consume_user_resource_percent origin_energy_limit value token_value token_id <library:address,
-library:address,...>   
-contractName: 合约名称     
-ABI: 合约ABI    
-byteCode: 合约byteCode     
-constructor,params,isHex:智能合约参数      
-fee_limit: 消耗TRX的限制   
-consume_user_resource_percent: 消耗用户的资源的比例，[0, 100]     
-origin_energy_limit: 最多消耗开发者的能量上限    
-value: 转给合约的TRX数目   
-token_value: 转给合约的通证数目    
-token_id: 通证id     
+library:address,...>
+contractName: 合约名称
+ABI: 合约ABI
+byteCode: 合约byteCode
+constructor,params,isHex:智能合约参数
+fee_limit: 消耗TRX的限制
+consume_user_resource_percent: 消耗用户的资源的比例，[0, 100]
+origin_energy_limit: 最多消耗开发者的能量上限
+value: 转给合约的TRX数目
+token_value: 转给合约的通证数目
+token_id: 通证id
 
-示例：    
+示例：
 
 ```
 deployContract normalcontract544 [{"constant":false,"inputs":[{"name":"i","type":"uint256"}],
 "name":"findArgsByIndexTest","outputs":[{"name":"z","type":"uint256"}],"payable":false,
-"stateMutability":"nonpayable","type":"function"}] 
-608060405234801561001057600080fd5b50610134806100206000396000f3006080604052600436106100405763ffffffff7c0100000000000000000000000000000000000000000000000000000000600035041663329000b58114610045575b600080fd5b34801561005157600080fd5b5061005d60043561006f565b60408051918252519081900360200190f35b604080516003808252608082019092526000916060919060208201838038833901905050905060018160008151811015156100a657fe5b602090810290910101528051600290829060019081106100c257fe5b602090810290910101528051600390829060029081106100de57fe5b6020908102909101015280518190849081106100f657fe5b906020019060200201519150509190505600a165627a7a72305820b24fc247fdaf3644b3c4c94fcee380aa610ed83415061ff9e65d7fa94a5a50a00029  # # false 1000000000 75 50000 0 0 #    
-Get the result of the contract execution with the getTransactionInfoById command:  
-getTransactionInfoById 4978dc64ff746ca208e51780cce93237ee444f598b24d5e9ce0da885fb3a3eb9   
-14:13:40.627 INFO  [main] [Client](Client.java:1326) txid:    
-4978dc64ff746ca208e51780cce93237ee444f598b24d5e9ce0da885fb3a3eb9    
-fee:   
-6170500   
-blockNumber:    
-26   
-blockTimeStamp:    
-1554703977000   
-result:    
-SUCCESS   
-resMessage:   
-   
-contractResult:    
-6080604052600436106100405763ffffffff7c0100000000000000000000000000000000000000000000000000000000600035041663329000b58114610045575b600080fd5b34801561005157600080fd5b5061005d60043561006f565b60408051918252519081900360200190f35b604080516003808252608082019092526000916060919060208201838038833901905050905060018160008151811015156100a657fe5b602090810290910101528051600290829060019081106100c257fe5b602090810290910101528051600390829060029081106100de57fe5b6020908102909101015280518190849081106100f657fe5b906020019060200201519150509190505600a165627a7a72305820b24fc247fdaf3644b3c4c94fcee380aa610ed83415061ff9e65d7fa94a5a50a00029     
-contractAddress:    
-TGdtALTPZ1FWQcc5MW7aK3o1ASaookkJxG    
-logList:    
-    
-receipt:     
-EnergyUsage:     
-0    
-EnergyFee(SUN):    
-6170500     
-OriginEnergyUsage:     
-0     
-EnergyUsageTotal:     
-61705    
-NetUsage:    
-704    
-NetFee:    
-0   
-```
-  
-b. 触发合约  
+"stateMutability":"nonpayable","type":"function"}]
+608060405234801561001057600080fd5b50610134806100206000396000f3006080604052600436106100405763ffffffff7c0100000000000000000000000000000000000000000000000000000000600035041663329000b58114610045575b600080fd5b34801561005157600080fd5b5061005d60043561006f565b60408051918252519081900360200190f35b604080516003808252608082019092526000916060919060208201838038833901905050905060018160008151811015156100a657fe5b602090810290910101528051600290829060019081106100c257fe5b602090810290910101528051600390829060029081106100de57fe5b6020908102909101015280518190849081106100f657fe5b906020019060200201519150509190505600a165627a7a72305820b24fc247fdaf3644b3c4c94fcee380aa610ed83415061ff9e65d7fa94a5a50a00029  # # false 1000000000 75 50000 0 0 #
+Get the result of the contract execution with the getTransactionInfoById command:
+getTransactionInfoById 4978dc64ff746ca208e51780cce93237ee444f598b24d5e9ce0da885fb3a3eb9
+14:13:40.627 INFO  [main] [Client](Client.java:1326) txid:
+4978dc64ff746ca208e51780cce93237ee444f598b24d5e9ce0da885fb3a3eb9
+fee:
+6170500
+blockNumber:
+26
+blockTimeStamp:
+1554703977000
+result:
+SUCCESS
+resMessage:
 
-TriggerContract contractAddress method args isHex fee_limit value token_value token_id     
-contractAddress: 合约地址     
-method: 调用方法  
-args: 调用方法的参数    
-isHex: 方法和参数的格式   
-fee_limit: 允许消耗的最大TRX数目         
-value: 转给合约的TRX数目   
-token_value: 转给合约的通证数目    
-token_id: 通证id    
+contractResult:
+6080604052600436106100405763ffffffff7c0100000000000000000000000000000000000000000000000000000000600035041663329000b58114610045575b600080fd5b34801561005157600080fd5b5061005d60043561006f565b60408051918252519081900360200190f35b604080516003808252608082019092526000916060919060208201838038833901905050905060018160008151811015156100a657fe5b602090810290910101528051600290829060019081106100c257fe5b602090810290910101528051600390829060029081106100de57fe5b6020908102909101015280518190849081106100f657fe5b906020019060200201519150509190505600a165627a7a72305820b24fc247fdaf3644b3c4c94fcee380aa610ed83415061ff9e65d7fa94a5a50a00029
+contractAddress:
+TGdtALTPZ1FWQcc5MW7aK3o1ASaookkJxG
+logList:
 
-示例：    
-
-```
-triggerContract TGdtALTPZ1FWQcc5MW7aK3o1ASaookkJxG findArgsByIndexTest(uint256) 0 false 
-1000000000 0 0 #    
-Get the result of the contract execution with the getTransactionInfoById command:   
-getTransactionInfoById 7d9c4e765ea53cf6749d8a89ac07d577141b93f83adc4015f0b266d8f5c2dec4    
-14:27:50.055 INFO  [main] [Client](Client.java:1326) txid:    
-7d9c4e765ea53cf6749d8a89ac07d577141b93f83adc4015f0b266d8f5c2dec4    
-fee:    
-54400   
-blockNumber:    
-318    
-blockTimeStamp:    
-1554704853000   
-result:    
-SUCCESS   
-resMessage:    
-    
-contractResult:     
-0000000000000000000000000000000000000000000000000000000000000001    
-contractAddress:    
-TGdtALTPZ1FWQcc5MW7aK3o1ASaookkJxG   
-logList:    
-   
-receipt:     
-EnergyUsage:    
-0   
-EnergyFee(SUN):    
-54400    
-OriginEnergyUsage: 
+receipt:
+EnergyUsage:
 0
-EnergyUsageTotal:     
-544   
-NetUsage:    
-314   
-NetFee:   
-0   
-```  
-   
-c. 查询合约详情       
+EnergyFee(SUN):
+6170500
+OriginEnergyUsage:
+0
+EnergyUsageTotal:
+61705
+NetUsage:
+704
+NetFee:
+0
+```
 
-GetContract contractAddress   
-contractAddress:    smart contarct address   
+b. 触发合约
 
-示例：    
+TriggerContract contractAddress method args isHex fee_limit value token_value token_id
+contractAddress: 合约地址
+method: 调用方法
+args: 调用方法的参数
+isHex: 方法和参数的格式
+fee_limit: 允许消耗的最大TRX数目
+value: 转给合约的TRX数目
+token_value: 转给合约的通证数目
+token_id: 通证id
+
+示例：
 
 ```
-GetContract  TGdtALTPZ1FWQcc5MW7aK3o1ASaookkJxG    
-contract :entrys {   
-  name: "findArgsByIndexTest"   
-  inputs {   
-    name: "i"   
-    type: "uint256"   
-  }   
-  outputs {   
-    name: "z"    
-    type: "uint256"    
-  }    
-  type: Function    
-  stateMutability: Nonpayable    
-}    
-    
-contract owner:TRGhNNfnmgLegT4zHNjEqDSADjgmnHvubJ    
-contract ConsumeUserResourcePercent:75    
-contract energy limit:50000    
+triggerContract TGdtALTPZ1FWQcc5MW7aK3o1ASaookkJxG findArgsByIndexTest(uint256) 0 false
+1000000000 0 0 #
+Get the result of the contract execution with the getTransactionInfoById command:
+getTransactionInfoById 7d9c4e765ea53cf6749d8a89ac07d577141b93f83adc4015f0b266d8f5c2dec4
+14:27:50.055 INFO  [main] [Client](Client.java:1326) txid:
+7d9c4e765ea53cf6749d8a89ac07d577141b93f83adc4015f0b266d8f5c2dec4
+fee:
+54400
+blockNumber:
+318
+blockTimeStamp:
+1554704853000
+result:
+SUCCESS
+resMessage:
+
+contractResult:
+0000000000000000000000000000000000000000000000000000000000000001
+contractAddress:
+TGdtALTPZ1FWQcc5MW7aK3o1ASaookkJxG
+logList:
+
+receipt:
+EnergyUsage:
+0
+EnergyFee(SUN):
+54400
+OriginEnergyUsage:
+0
+EnergyUsageTotal:
+544
+NetUsage:
+314
+NetFee:
+0
 ```
-    
-d. 更新合约参数   
 
-UpdateEnergyLimit contract_address energy_limit Update parameter energy_limit    
-UpdateSetting contract_address consume_user_resource_percent  Update parameter 
-consume_user_resource_percent    
+c. 查询合约详情
 
+GetContract contractAddress
+contractAddress:    smart contarct address
 
-<h3 id='shieldedTx'> 使用匿名交易 </h3>  
-
-1.&nbsp;创建匿名账户      
-
-generateshieldedaddress number   
-number: 生成匿名账户的数目，默认为1   
-
-示例：  
+示例：
 
 ```
-generateshieldedaddress 2   
+GetContract  TGdtALTPZ1FWQcc5MW7aK3o1ASaookkJxG
+contract :entrys {
+  name: "findArgsByIndexTest"
+  inputs {
+    name: "i"
+    type: "uint256"
+  }
+  outputs {
+    name: "z"
+    type: "uint256"
+  }
+  type: Function
+  stateMutability: Nonpayable
+}
+
+contract owner:TRGhNNfnmgLegT4zHNjEqDSADjgmnHvubJ
+contract ConsumeUserResourcePercent:75
+contract energy limit:50000
+```
+
+d. 更新合约参数
+
+UpdateEnergyLimit contract_address energy_limit Update parameter energy_limit
+UpdateSetting contract_address consume_user_resource_percent  Update parameter
+consume_user_resource_percent
+
+
+<h3 id='shieldedTx'> 使用匿名交易 </h3>
+
+1.&nbsp;创建匿名账户
+
+generateshieldedaddress number
+number: 生成匿名账户的数目，默认为1
+
+示例：
+
+```
+generateshieldedaddress 2
 10:11:02.482 INFO  [main] [Client](Client.java:1914) ShieldedAddress list:
 10:11:02.526 INFO  [main] [Client](Client.java:1919) ztron1ghdy60hya8y72deu0q0r25qfl60unmue6889m3xfc3296a5ut6jcyafzhtp9nlutndukufzap4h
 10:11:02.567 INFO  [main] [Client](Client.java:1919) ztron1hn9r3wmytavslztwmlzvuzk3dqpdhwcmda2d0deyu5pwv32dp78saaslyt82w0078y6uzfg8x6w
 10:11:02.567 INFO  [main] [Client](Client.java:1923) GenerateShieldedAddress successful !!
 ```
 
-2.&nbsp;查看本地匿名账户      
+2.&nbsp;查看本地匿名账户
 
 listshieldedaddress
 
-示例：  
+示例：
 
 ```
 listshieldedaddress
@@ -1171,44 +1173,44 @@ listshieldedaddress
 10:11:55.371 INFO  [main] [Client](Client.java:1930) ztron1hn9r3wmytavslztwmlzvuzk3dqpdhwcmda2d0deyu5pwv32dp78saaslyt82w0078y6uzfg8x6w
 ```
 
-3.&nbsp;转账   
+3.&nbsp;转账
 
-SendShieldedCoin publicFromAddress fromAmount shieldedInputNum input1 input2 input3 ... publicToAddress toAmount shieldedOutputNum shieldedAddress1 amount1 memo1 shieldedAddress2 amount2 memo2 ...   
+SendShieldedCoin publicFromAddress fromAmount shieldedInputNum input1 input2 input3 ... publicToAddress toAmount shieldedOutputNum shieldedAddress1 amount1 memo1 shieldedAddress2 amount2 memo2 ...
 
-publicFromAddress: 透明发送者地址。如果不需要，置为null。     
-fromAmount: 从透明账户转出的资产数目。如果publicFromAddress为null，fromAmount必须为0。   
-shieldedInputNum: 输入的notes数目。最大为1，最小为0。     
-input: 要花费的note的索引，可以通过调用`listshieldednote`获得。如果shieldedInputNum是0，那么无需设置。    
-publicToAddress: 透明接受者地址。如果不需要，设置为null。    
-toAmount: 转入到透明账户的资产数目。如果publicToAddres为null，toAmount必须为0.       
-shieldedOutputNum: 输出note的数目。最大为2，最小为0。     
-shieldedAddress1: 匿名地址。      
-amount1: 转到匿名地址的资产数目。   
-memo1: 交易备注信息。最大512字节。如果不需要，置为null。    
+publicFromAddress: 透明发送者地址。如果不需要，置为null。
+fromAmount: 从透明账户转出的资产数目。如果publicFromAddress为null，fromAmount必须为0。
+shieldedInputNum: 输入的notes数目。最大为1，最小为0。
+input: 要花费的note的索引，可以通过调用`listshieldednote`获得。如果shieldedInputNum是0，那么无需设置。
+publicToAddress: 透明接受者地址。如果不需要，设置为null。
+toAmount: 转入到透明账户的资产数目。如果publicToAddres为null，toAmount必须为0.
+shieldedOutputNum: 输出note的数目。最大为2，最小为0。
+shieldedAddress1: 匿名地址。
+amount1: 转到匿名地址的资产数目。
+memo1: 交易备注信息。最大512字节。如果不需要，置为null。
 
-示例：   
+示例：
 
-从透明地址到匿名地址   
+从透明地址到匿名地址
 
 ```
 sendshieldedcoin TRGhNNfnmgLegT4zHNjEqDSADjgmnHvubJ 210000000 0 null 0 2 ztron16j06s3p5gvp2jde4vh7w3ug3zz3m62zkyfu86s7ara5lafhp22p9wr3gz0lcdm3pvt7qx0aftu4 100000000 test1 ztron1ghdy60hya8y72deu0q0r25qfl60unmue6889m3xfc3296a5ut6jcyafzhtp9nlutndukufzap4h 100000000 null
 Receive txid = 4ce5656a13049df00abc7fb3ce78d54c78944d3cbbdfdb29f288e1df5fdf67e1
-transaction hex string is hash: 
+transaction hex string is hash:
 259979e238ea70d76802a77c6fb50810a94a198e4ae7b8a5d51ae6b1a0d18fb9
-txid: 
+txid:
 4ce5656a13049df00abc7fb3ce78d54c78944d3cbbdfdb29f288e1df5fdf67e1
-raw_data: 
+raw_data:
 {
 ref_block_bytes: 04ac
 ref_block_hash: eb00771525105249
-contract: 
+contract:
 {
 contract 0 :::
 [
 contract_type: ShieldedTransferContract
 transparent_from_address: TRGhNNfnmgLegT4zHNjEqDSADjgmnHvubJ
 from_amount: 210000000
-receive_description: 
+receive_description:
 [
 {
 value_commitment:de75bc31efea3a115c387d70721cb0f9aecfec2474f27475abcb980886ad0d3d
@@ -1234,20 +1236,20 @@ timestamp: Fri Jul 19 10:28:20 CST 2019
 fee_limit: 0
 }
 
-txid: 
+txid:
 4ce5656a13049df00abc7fb3ce78d54c78944d3cbbdfdb29f288e1df5fdf67e1
-raw_data: 
+raw_data:
 {
 ref_block_bytes: 04ac
 ref_block_hash: eb00771525105249
-contract: 
+contract:
 {
 contract 0 :::
 [
 contract_type: ShieldedTransferContract
 transparent_from_address: TRGhNNfnmgLegT4zHNjEqDSADjgmnHvubJ
 from_amount: 210000000
-receive_description: 
+receive_description:
 [
 {
 value_commitment:de75bc31efea3a115c387d70721cb0f9aecfec2474f27475abcb980886ad0d3d
@@ -1297,14 +1299,14 @@ current transaction hex string is 0ac6100a0204ac2208eb0077152510524940b0e0bfc0c0
 10:28:26.914 INFO  [main] [Client](Client.java:2040) SendShieldedCoin successful !!
 ```
 
-从匿名地址到匿名地址  
+从匿名地址到匿名地址
 
-示例：   
+示例：
 
 ```
 listshieldednote
 Unspend note list like:
-1 ztron1ghdy60hya8y72deu0q0r25qfl60unmue6889m3xfc3296a5ut6jcyafzhtp9nlutndukufzap4h 100000000 4ce5656a13049df00abc7fb3ce78d54c78944d3cbbdfdb29f288e1df5fdf67e1 1 UnSpend 
+1 ztron1ghdy60hya8y72deu0q0r25qfl60unmue6889m3xfc3296a5ut6jcyafzhtp9nlutndukufzap4h 100000000 4ce5656a13049df00abc7fb3ce78d54c78944d3cbbdfdb29f288e1df5fdf67e1 1 UnSpend
 0 ztron16j06s3p5gvp2jde4vh7w3ug3zz3m62zkyfu86s7ara5lafhp22p9wr3gz0lcdm3pvt7qx0aftu4 100000000 4ce5656a13049df00abc7fb3ce78d54c78944d3cbbdfdb29f288e1df5fdf67e1 0 UnSpend test1
 
 sendshieldedcoin null 0 1 0 null 0 1 ztron1hn9r3wmytavslztwmlzvuzk3dqpdhwcmda2d0deyu5pwv32dp78saaslyt82w0078y6uzfg8x6w 90000000 test2
@@ -1315,20 +1317,20 @@ trxId 4ce5656a13049df00abc7fb3ce78d54c78944d3cbbdfdb29f288e1df5fdf67e1
 index 0
 memo test1
 Receive txid = 840b127fea05f7f86c43ad9fb5fe7fa27e977465cea4e4ae25e59e0de75ad99e
-transaction hex string is hash: 
+transaction hex string is hash:
 69ef6fa21da0d1633187a0c55c1ba20f323e88ba8e27e52ece452860c9726e9f
-txid: 
+txid:
 06b55fc27f7ec649396706d149d18a0bb003347bdd7f489e3d47205da9cee802
-raw_data: 
+raw_data:
 {
 ref_block_bytes: 05d8
 ref_block_hash: d5877abdc498f58f
-contract: 
+contract:
 {
 contract 0 :::
 [
 contract_type: ShieldedTransferContract
-spend_description: 
+spend_description:
 [
 {
 value_commitment:d972b1946f3884732f0c1d67d447ab6aa2128cc70fc44f7ec664c257361e7638
@@ -1339,7 +1341,7 @@ zkproof:975a3ea4d6682945ad6d036401027cff7ec26b554ece18bc42e69acdbeb3742daa1a556d
 spend_authority_signature:5caaa268628276ef71a709e31c9cc5ab1160ba6ab82be0064fbaa31fc372ab4f311dd2ccb50e5d908522acea4cd512241aed7c54bdf65bc76fbba27d8451dc03
 }
 ]
-receive_description: 
+receive_description:
 [
 {
 value_commitment:9e9bd0ff2d6c1dfa134dd7c834426c3158a1c0b1780cd7cfd4fdf3a055ff2e50
@@ -1358,18 +1360,18 @@ timestamp: Fri Jul 19 10:43:38 CST 2019
 fee_limit: 0
 }
 
-txid: 
+txid:
 840b127fea05f7f86c43ad9fb5fe7fa27e977465cea4e4ae25e59e0de75ad99e
-raw_data: 
+raw_data:
 {
 ref_block_bytes: 05d8
 ref_block_hash: d5877abdc498f58f
-contract: 
+contract:
 {
 contract 0 :::
 [
 contract_type: ShieldedTransferContract
-spend_description: 
+spend_description:
 [
 {
 value_commitment:d972b1946f3884732f0c1d67d447ab6aa2128cc70fc44f7ec664c257361e7638
@@ -1380,7 +1382,7 @@ zkproof:975a3ea4d6682945ad6d036401027cff7ec26b554ece18bc42e69acdbeb3742daa1a556d
 spend_authority_signature:5caaa268628276ef71a709e31c9cc5ab1160ba6ab82be0064fbaa31fc372ab4f311dd2ccb50e5d908522acea4cd512241aed7c54bdf65bc76fbba27d8451dc03
 }
 ]
-receive_description: 
+receive_description:
 [
 {
 value_commitment:9e9bd0ff2d6c1dfa134dd7c834426c3158a1c0b1780cd7cfd4fdf3a055ff2e50
@@ -1402,14 +1404,14 @@ fee_limit: 0
 10:43:38.722 INFO  [main] [Client](Client.java:2058) SendShieldedCoinWithoutAsk successful !!
 ```
 
-从匿名地址到透明地址   
+从匿名地址到透明地址
 
-示例：  
+示例：
 
 ```
 listshieldednote
 Unspend note list like:
-1 ztron1ghdy60hya8y72deu0q0r25qfl60unmue6889m3xfc3296a5ut6jcyafzhtp9nlutndukufzap4h 100000000 4ce5656a13049df00abc7fb3ce78d54c78944d3cbbdfdb29f288e1df5fdf67e1 1 UnSpend 
+1 ztron1ghdy60hya8y72deu0q0r25qfl60unmue6889m3xfc3296a5ut6jcyafzhtp9nlutndukufzap4h 100000000 4ce5656a13049df00abc7fb3ce78d54c78944d3cbbdfdb29f288e1df5fdf67e1 1 UnSpend
 2 ztron1hn9r3wmytavslztwmlzvuzk3dqpdhwcmda2d0deyu5pwv32dp78saaslyt82w0078y6uzfg8x6w 90000000 06b55fc27f7ec649396706d149d18a0bb003347bdd7f489e3d47205da9cee802 0 UnSpend test2
 
 sendshieldedcoin null 0 1 2 TRGhNNfnmgLegT4zHNjEqDSADjgmnHvubJ 80000000 0
@@ -1420,20 +1422,20 @@ trxId 06b55fc27f7ec649396706d149d18a0bb003347bdd7f489e3d47205da9cee802
 index 0
 memo test2
 Receive txid = f8bd9e486bdd3a7fa99b4e0b8492f6dac6179c143e44c94e363a397a1ab9fc3b
-transaction hex string is hash: 
+transaction hex string is hash:
 d6487d07461fc5c32e61469be9deec6d6e0288e5906eb840b6bac287b2e946e6
-txid: 
+txid:
 f8bd9e486bdd3a7fa99b4e0b8492f6dac6179c143e44c94e363a397a1ab9fc3b
-raw_data: 
+raw_data:
 {
 ref_block_bytes: 060c
 ref_block_hash: c047800cdbd6b5db
-contract: 
+contract:
 {
 contract 0 :::
 [
 contract_type: ShieldedTransferContract
-spend_description: 
+spend_description:
 [
 {
 value_commitment:65f4ee0430e1d6ee492be68885ac38aa44a0d341ceec915dc4c6821bd1e09535
@@ -1444,7 +1446,7 @@ zkproof:a87f2f3445338304142a0b515b2bc90525dcc51c6f16cfd49b00e7592efa9847004a2533
 spend_authority_signature:588f25beaf8d2a52bb4b5ff09d34c756cd2da4623b08f580046e0a858b32a41b2fc8c5acecce59c74368fbfff05d64f09a72dde569b16d2ac020f7df1bb15105
 }
 ]
-receive_description: 
+receive_description:
 [
 {
 value_commitment:577acf5e74a0359cd2850287ac141845a5cdae3152e0b1770842c01516a1606b
@@ -1465,18 +1467,18 @@ timestamp: Fri Jul 19 10:46:19 CST 2019
 fee_limit: 0
 }
 
-txid: 
+txid:
 f8bd9e486bdd3a7fa99b4e0b8492f6dac6179c143e44c94e363a397a1ab9fc3b
-raw_data: 
+raw_data:
 {
 ref_block_bytes: 060c
 ref_block_hash: c047800cdbd6b5db
-contract: 
+contract:
 {
 contract 0 :::
 [
 contract_type: ShieldedTransferContract
-spend_description: 
+spend_description:
 [
 {
 value_commitment:65f4ee0430e1d6ee492be68885ac38aa44a0d341ceec915dc4c6821bd1e09535
@@ -1487,7 +1489,7 @@ zkproof:a87f2f3445338304142a0b515b2bc90525dcc51c6f16cfd49b00e7592efa9847004a2533
 spend_authority_signature:588f25beaf8d2a52bb4b5ff09d34c756cd2da4623b08f580046e0a858b32a41b2fc8c5acecce59c74368fbfff05d64f09a72dde569b16d2ac020f7df1bb15105
 }
 ]
-receive_description: 
+receive_description:
 [
 {
 value_commitment:577acf5e74a0359cd2850287ac141845a5cdae3152e0b1770842c01516a1606b
@@ -1512,47 +1514,47 @@ fee_limit: 0
 
 ```
 
-4.&nbsp;sendshieldedcoinwithoutask 
+4.&nbsp;sendshieldedcoinwithoutask
 
-此命令与sendshieldedcoin相似。区别是sendshieldedcoin使用'ask'签名，sendshieldedcoinwithoutask使用'ak'签名。  
+此命令与sendshieldedcoin相似。区别是sendshieldedcoin使用'ask'签名，sendshieldedcoinwithoutask使用'ak'签名。
 
-5.&nbsp;显示账户拥有的notes   
+5.&nbsp;显示账户拥有的notes
 
-listshieldednote type   
-type: 0代表未花费的notes，1代表所有的notes。    
+listshieldednote type
+type: 0代表未花费的notes，1代表所有的notes。
 
-示例：  
+示例：
 
 ```
 listshieldednote 0
 Unspend note list like:
-1 ztron1ghdy60hya8y72deu0q0r25qfl60unmue6889m3xfc3296a5ut6jcyafzhtp9nlutndukufzap4h 100000000 4ce5656a13049df00abc7fb3ce78d54c78944d3cbbdfdb29f288e1df5fdf67e1 1 UnSpend 
+1 ztron1ghdy60hya8y72deu0q0r25qfl60unmue6889m3xfc3296a5ut6jcyafzhtp9nlutndukufzap4h 100000000 4ce5656a13049df00abc7fb3ce78d54c78944d3cbbdfdb29f288e1df5fdf67e1 1 UnSpend
 listshieldednote 1
 All note list like:
-ztron1ghdy60hya8y72deu0q0r25qfl60unmue6889m3xfc3296a5ut6jcyafzhtp9nlutndukufzap4h 100000000 4ce5656a13049df00abc7fb3ce78d54c78944d3cbbdfdb29f288e1df5fdf67e1 1 UnSpend 
+ztron1ghdy60hya8y72deu0q0r25qfl60unmue6889m3xfc3296a5ut6jcyafzhtp9nlutndukufzap4h 100000000 4ce5656a13049df00abc7fb3ce78d54c78944d3cbbdfdb29f288e1df5fdf67e1 1 UnSpend
 ztron16j06s3p5gvp2jde4vh7w3ug3zz3m62zkyfu86s7ara5lafhp22p9wr3gz0lcdm3pvt7qx0aftu4 100000000 4ce5656a13049df00abc7fb3ce78d54c78944d3cbbdfdb29f288e1df5fdf67e1 0 Spend test1
 ztron1hn9r3wmytavslztwmlzvuzk3dqpdhwcmda2d0deyu5pwv32dp78saaslyt82w0078y6uzfg8x6w 90000000 06b55fc27f7ec649396706d149d18a0bb003347bdd7f489e3d47205da9cee802 0 Spend test2
 ```
 
-6.&nbsp;清除本地所有notes    
+6.&nbsp;清除本地所有notes
 
 resetshieldednote
 
-当切换运行环境或者本地数据异常时，可以调用此命令。      
+当切换运行环境或者本地数据异常时，可以调用此命令。
 
-7.&nbsp;To scan notes using ivk    
+7.&nbsp;To scan notes using ivk
 
-ScanNotebyIvk ivk startNum endNum  
+ScanNotebyIvk ivk startNum endNum
 
-ivk: 匿名账户ivk      
-startNum: 起始区块的索引    
-endNum: 结束区块的索引     
+ivk: 匿名账户ivk
+startNum: 起始区块的索引
+endNum: 结束区块的索引
 
-示例：  
+示例：
 
 ```
 scannotebyivk d2a4137cecf049965c4183f78fe9fc9fbeadab6ab3ef70ea749421b4c6b8de04 500 1499
-11:25:43.728 INFO  [main] [WalletApiWrapper](WalletApiWrapper.java:966) 
+11:25:43.728 INFO  [main] [WalletApiWrapper](WalletApiWrapper.java:966)
 txid:4ce5656a13049df00abc7fb3ce78d54c78944d3cbbdfdb29f288e1df5fdf67e1
 index:0
 address:ztron16j06s3p5gvp2jde4vh7w3ug3zz3m62zkyfu86s7ara5lafhp22p9wr3gz0lcdm3pvt7qx0aftu4
@@ -1562,19 +1564,19 @@ memo:test1
 11:25:43.730 INFO  [main] [WalletApiWrapper](WalletApiWrapper.java:974) complete.
 ```
 
-8.&nbsp;To scan notes using ovk   
+8.&nbsp;To scan notes using ovk
 
 ScanNotebyOvk ovk startNum endNum
 
-ovk: 匿名账户ovk      
-startNum: 起始区块的索引    
-endNum: 结束区块的索引  
+ovk: 匿名账户ovk
+startNum: 起始区块的索引
+endNum: 结束区块的索引
 
-示例：  
+示例：
 
 ```
 scannotebyovk a5b06ef3067855d741f966d54dfa1c124548535107333336bd9552a427f0529e 500 1499
-11:27:17.760 INFO  [main] [WalletApiWrapper](WalletApiWrapper.java:1042) 
+11:27:17.760 INFO  [main] [WalletApiWrapper](WalletApiWrapper.java:1042)
 txid:06b55fc27f7ec649396706d149d18a0bb003347bdd7f489e3d47205da9cee802
 index:0
 paymentAddress:ztron1hn9r3wmytavslztwmlzvuzk3dqpdhwcmda2d0deyu5pwv32dp78saaslyt82w0078y6uzfg8x6w
@@ -1584,41 +1586,41 @@ value:90000000
 11:27:17.760 INFO  [main] [WalletApiWrapper](WalletApiWrapper.java:1050) complete.
 ```
 
-9.&nbsp;To calculate the nullifier of a note  
+9.&nbsp;To calculate the nullifier of a note
 
-GetShieldedNullifier index  
+GetShieldedNullifier index
 
-index: note索引   
+index: note索引
 
-示例：  
+示例：
 
 ```
 listshieldednote
 Unspend note list like:
-2 ztron1ghdy60hya8y72deu0q0r25qfl60unmue6889m3xfc3296a5ut6jcyafzhtp9nlutndukufzap4h 100000000 4ce5656a13049df00abc7fb3ce78d54c78944d3cbbdfdb29f288e1df5fdf67e1 1 UnSpend 
+2 ztron1ghdy60hya8y72deu0q0r25qfl60unmue6889m3xfc3296a5ut6jcyafzhtp9nlutndukufzap4h 100000000 4ce5656a13049df00abc7fb3ce78d54c78944d3cbbdfdb29f288e1df5fdf67e1 1 UnSpend
 getshieldednullifier 2
 address ztron1ghdy60hya8y72deu0q0r25qfl60unmue6889m3xfc3296a5ut6jcyafzhtp9nlutndukufzap4h
 value 100000000
 rcm 07ed5471098652ad441575c61868d1e11317de0f73cbb743a4c5cfe78e3d150c
 trxId 4ce5656a13049df00abc7fb3ce78d54c78944d3cbbdfdb29f288e1df5fdf67e1
 index 1
-memo 
+memo
 ShieldedNullifier:2a524a3be2643365ecdacf8f0d3ca1de8fad3080eea0b9561435b5d1ee467042
 ```
 
-10.&nbsp;To scan the notes status of your local shielded address  
+10.&nbsp;To scan the notes status of your local shielded address
 
-ScanAndMarkNotebyAddress shieldedAddress startNum endNum   
+ScanAndMarkNotebyAddress shieldedAddress startNum endNum
 
-shieldedAddress: 匿名账户     
-startNum: 起始区块索引    
-endNum: 结束区块索引   
+shieldedAddress: 匿名账户
+startNum: 起始区块索引
+endNum: 结束区块索引
 
-示例：  
+示例：
 
 ```
 ScanAndMarkNotebyAddress  ztron16j06s3p5gvp2jde4vh7w3ug3zz3m62zkyfu86s7ara5lafhp22p9wr3gz0lcdm3pvt7qx0aftu4 500 1500
-11:33:27.789 INFO  [main] [WalletApiWrapper](WalletApiWrapper.java:1004) 
+11:33:27.789 INFO  [main] [WalletApiWrapper](WalletApiWrapper.java:1004)
 txid:4ce5656a13049df00abc7fb3ce78d54c78944d3cbbdfdb29f288e1df5fdf67e1
 index:0
 isSpend:true
@@ -1629,22 +1631,22 @@ memo:test1
 11:33:27.789 INFO  [main] [WalletApiWrapper](WalletApiWrapper.java:1019) complete.
 ```
 
-11.&nbsp;To generate the spending key of a shielded address   
+11.&nbsp;To generate the spending key of a shielded address
 
-GetSpendingKey   
+GetSpendingKey
 
-示例：  
+示例：
 
 ```
 GetSpendingKey
 11:48:52.918 INFO  [main] [Client](Client.java:2194) 0eb458b309fa544066c40d80ce30a8002756c37d2716315c59a98c893dbb5f6a
 ```
 
-12.&nbsp;To get the ask，nsk and ovk from a spending key  
+12.&nbsp;To get the ask，nsk and ovk from a spending key
 
-etExpandedSpendingKey sk   
+etExpandedSpendingKey sk
 
-示例：  
+示例：
 
 ```
 getExpandedSpendingKey 0eb458b309fa544066c40d80ce30a8002756c37d2716315c59a98c893dbb5f6a
@@ -1652,124 +1654,122 @@ getExpandedSpendingKey 0eb458b309fa544066c40d80ce30a8002756c37d2716315c59a98c893
 11:49:00.485 INFO  [main] [Client](Client.java:2213) nsk:5cd2bc8d9468dbad26ea37c5335a0cd25f110eaf533248c59a3310dcbc03e503
 11:49:00.485 INFO  [main] [Client](Client.java:2214) ovk:892a10c1d3e8ea22242849e13f177d69e1180d1d5bba118c586765241ba2d3d6
 ```
-    
-13.&nbsp;To get ak from ask  
 
-getAkFromAsk ask  
+13.&nbsp;To get ak from ask
 
-示例：    
+getAkFromAsk ask
+
+示例：
 
 ```
 GetAkFromAsk 252a0f6f6f0bac114a13e1e663d51943f1df9309649400218437586dea78260e
 11:49:33.547 INFO  [main] [Client](Client.java:2232) ak:f1b843147150027daa5b522dd8d0757ec5c8c146defd8e01b62b34cf917299f1
 ```
 
-14.&nbsp;To get nk from nsk  
+14.&nbsp;To get nk from nsk
 
-getNkFromNsk nsk  
+getNkFromNsk nsk
 
-示例：  
+示例：
 
 ```
 GetNkFromNsk 5cd2bc8d9468dbad26ea37c5335a0cd25f110eaf533248c59a3310dcbc03e503
 11:49:44.651 INFO  [main] [Client](Client.java:2250) nk:ed3dc885049f0a716a4de8c08c6cabcad0da3c437202341aa3d9248d8eb2b74a
 ```
 
-15.&nbsp;To get ivk from ak and nk  
+15.&nbsp;To get ivk from ak and nk
 
-getIncomingViewingKey ak[64] nk[64]  
+getIncomingViewingKey ak[64] nk[64]
 
-示例：  
+示例：
 
 ```
 getincomingviewingkey  f1b843147150027daa5b522dd8d0757ec5c8c146defd8e01b62b34cf917299f1  ed3dc885049f0a716a4de8c08c6cabcad0da3c437202341aa3d9248d8eb2b74a
 11:51:45.686 INFO  [main] [Client](Client.java:2272) ivk:148cf9e91f1e6656a41dc9b6c6ee4e52ff7a25b25c2d4a3a3182d0a2cd851205
 ```
 
-16.&nbsp;To GetDiversifier  
+16.&nbsp;To GetDiversifier
 
 GetDiversifier
 
-示例：  
+示例：
 
 ```
 GetDiversifier
 11:49:19.158 INFO  [main] [Client](Client.java:2281) 11db4baf6bd5d5afd3a8b5
 ```
 
-17.&nbsp;To get a shielded payment address by ivk and diversifier  
+17.&nbsp;To get a shielded payment address by ivk and diversifier
 
-getshieldedpaymentaddress ivk[64] d[22] 
+getshieldedpaymentaddress ivk[64] d[22]
 
-示例：  
+示例：
 
 ```
 GetShieldedPaymentAddress 148cf9e91f1e6656a41dc9b6c6ee4e52ff7a25b25c2d4a3a3182d0a2cd851205  11db4baf6bd5d5afd3a8b5
 11:52:33.542 INFO  [main] [Client](Client.java:2309) pkd:65c11642115d386ed716b9cc06a3498e86e303d7f20d0869c9de90e31322ac15
-11:52:33.543 INFO  [main] [Client](Client.java:2310) shieldedAddress:ztron1z8d5htmt6h26l5agk4juz9jzz9wnsmkhz6uucp4rfx8gdccr6leq6zrfe80fpccny2kp2cray8z  
+11:52:33.543 INFO  [main] [Client](Client.java:2310) shieldedAddress:ztron1z8d5htmt6h26l5agk4juz9jzz9wnsmkhz6uucp4rfx8gdccr6leq6zrfe80fpccny2kp2cray8z
 ```
 
-    
+
 <h3>使用资源委托</h3>
-   
-a. 委托资源  
-    
-freezeBalance frozen_balance frozen_duration [ResourceCode:0 BANDWIDTH,1 ENERGY] [receiverAddress]    
-frozen_balance: 冻结的TRX数目，最小单位为SUN     
-frozen_duration: 冻结天数      
-ResourceCode: 0 BANDWIDTH;1 ENERGY    
-receiverAddress: 接收方地址。如果为空，则自己获得冻结TRX所获得的资源     
-    
-b. 解除资源委托      
 
-unfreezeBalance  [ResourceCode:0 BANDWIDTH,1 CPU] [receiverAddress]    
-receiverAddress: 接收方地址。如果为空，则解除自己获得的冻结TRX所获得的资源     
-     
-c. 查询资源委托信息     
+a. 委托资源
 
-getDelegatedResource fromAddress toAddress     
-查询从fromAddress代理给toAddress的资源信息  
-getDelegatedResourceAccountIndex address     
-查询从address代理出去的相关账户信息   
+freezeBalance frozen_balance frozen_duration [ResourceCode:0 BANDWIDTH,1 ENERGY] [receiverAddress]
+frozen_balance: 冻结的TRX数目，最小单位为SUN
+frozen_duration: 冻结天数
+ResourceCode: 0 BANDWIDTH;1 ENERGY
+receiverAddress: 接收方地址。如果为空，则自己获得冻结TRX所获得的资源
+
+b. 解除资源委托
+
+unfreezeBalance  [ResourceCode:0 BANDWIDTH,1 CPU] [receiverAddress]
+receiverAddress: 接收方地址。如果为空，则解除自己获得的冻结TRX所获得的资源
+
+c. 查询资源委托信息
+
+getDelegatedResource fromAddress toAddress
+查询从fromAddress代理给toAddress的资源信息
+getDelegatedResourceAccountIndex address
+查询从address代理出去的相关账户信息
 
 <h3>钱包相关命令</h3>
- 
-RegisterWallet: 注册钱包    
-BackupWallet: 备份钱包    
-BackupWallet2Base64: 以base64形式备份钱包     
-ChangePassword: 修改账户的密码      
-ImportWallet: 导入钱包      
-ImportWalletByBase64: 以base64的形式导入钱包     
+
+RegisterWallet: 注册钱包
+BackupWallet: 备份钱包
+BackupWallet2Base64: 以base64形式备份钱包
+ChangePassword: 修改账户的密码
+ImportWallet: 导入钱包
+ImportWalletByBase64: 以base64的形式导入钱包
 
 <h3>账户相关命令</h3>
- 
-GenerateAddress: 生成账户地址     
-GetAccount: 获得账户的信息    
-GetAccountNet: 获取账户的带宽信息    
-GetAccountResource: 获得账户的资源信息     
-GetAddress: 获得当前登录账户的地址      
-GetBalance: 获得当前登录账户的余额     
-    
-  
-<h3>获得交易信息</h3>   
- 
-GetTransactionById id: 通过交易id获得交易      
-GetTransactionCountByBlockNum number: 获取指定区块里的交易的数目  
-GetTransactionInfoById: 通过交易id获得交易（包含费用详情）      
+
+GenerateAddress: 生成账户地址
+GetAccount: 获得账户的信息
+GetAccountNet: 获取账户的带宽信息
+GetAccountResource: 获得账户的资源信息
+GetAddress: 获得当前登录账户的地址
+GetBalance: 获得当前登录账户的余额
+
+
+<h3>获得交易信息</h3>
+
+GetTransactionById id: 通过交易id获得交易
+GetTransactionCountByBlockNum number: 获取指定区块里的交易的数目
+GetTransactionInfoById: 通过交易id获得交易（包含费用详情）
 
 <h3>获得区块信息</h3>
-  
-GetBlock: 按照区块高度查询区块信息，如果没有提供参数，返回最新区块     
-GetBlockById id: 按照区块id获得区块信息     
-GetBlockByLatestNum n: 获得最新的n个区块的区块信息，0 < n < 100          
-GetBlockByLimitNext startBlockId endBlockId:        
-按照指定的区间查询区块信息        
+
+GetBlock: 按照区块高度查询区块信息，如果没有提供参数，返回最新区块
+GetBlockById id: 按照区块id获得区块信息
+GetBlockByLatestNum n: 获得最新的n个区块的区块信息，0 < n < 100
+GetBlockByLimitNext startBlockId endBlockId:
+按照指定的区间查询区块信息
 
 <h3>其他</h3>
-  
-GetNextMaintenanceTime: 获得下一个维护期时间      
-ListNodes: 查询节点列表    
-ListWitnesses: 查询超级代表列表      
-BroadcastTransaction: 广播交易  
-    
-  
+
+GetNextMaintenanceTime: 获得下一个维护期时间
+ListNodes: 查询节点列表
+ListWitnesses: 查询超级代表列表
+BroadcastTransaction: 广播交易
