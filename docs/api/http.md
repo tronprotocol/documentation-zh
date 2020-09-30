@@ -55,15 +55,15 @@
 
  
 
-|   market                       |  others   |             |
+|   market                       |  others                 |                       |
 |--------------------------------|-------------------------|-----------------------|
-|  marketsellasset               |broadcasttransaction          |   |
-|  marketcancelorder             |broadcasthex              |           |
-|  getmarketorderbyaccount       |listnodes  |              |
-|  getmarketpairlist             |listwitnesses  |              |
-|  getmarketorderlistbypair      |getnextmaintenancetime     |          |
-|  getmarketpricebypair          |getnodeinfo                 | |
-|  getmarketorderbyid            |getchainparameters        |            |
+|  marketsellasset               |broadcasttransaction     |                       |
+|  marketcancelorder             |broadcasthex             |                       |
+|  getmarketorderbyaccount       |listnodes                |                       |
+|  getmarketpairlist             |listwitnesses            |                       |
+|  getmarketorderlistbypair      |getnextmaintenancetime   |                       |
+|  getmarketpricebypair          |getnodeinfo              |                       |
+|  getmarketorderbyid            |getchainparameters       |                       |
 
 
 
