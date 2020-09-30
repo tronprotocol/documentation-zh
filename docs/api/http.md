@@ -53,25 +53,17 @@
 |  getapprovedlist                 | updatesetting           |                                 |
 
 
-| others                |
-|-----------------------|
-| broadcasttransaction  |
-| broadcasthex          |
-| listnodes             |
-| listwitnesses         |
-| getnextmaintenancetime|
-| getnodeinfo           |
-| getchainparameters    |
+ 
 
-|   market                       |    |             |
-|----------------------------------|-------------------------|-----------------------|
-|  marketsellasset        |          |   |
-|  marketcancelorder                  |              |           |
-|  getmarketorderbyaccount                 |  |              |
-|  getmarketpairlist                 |  |              |
-|  getmarketorderlistbypair                   |     |          |
-|  getmarketpricebypair                 |                 | |
-|  getmarketorderbyid                  |        |            |
+|   market                       |  others   |             |
+|--------------------------------|-------------------------|-----------------------|
+|  marketsellasset               |broadcasttransaction          |   |
+|  marketcancelorder             |broadcasthex              |           |
+|  getmarketorderbyaccount       |listnodes  |              |
+|  getmarketpairlist             |listwitnesses  |              |
+|  getmarketorderlistbypair      |getnextmaintenancetime     |          |
+|  getmarketpricebypair          |getnodeinfo                 | |
+|  getmarketorderbyid            |getchainparameters        |            |
 
 
 
