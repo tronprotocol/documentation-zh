@@ -1842,7 +1842,7 @@ demo: curl -X POST  http://127.0.0.1:8090/wallet/getmarketpricebypair -d
 参数说明：
 sell_token_id：卖出asset的id，默认为hexString格式         
 buy_token_id：买入asset的id，默认为hexString格式       
-返回值：订单列表 
+返回值：价格列表 
 
 wallet/getmarketorderbyid    
 作用：查询订单
