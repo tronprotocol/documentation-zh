@@ -1783,10 +1783,10 @@ demo: curl -X POST  http://127.0.0.1:8090/wallet/marketsellasset -d
 }'  
 
 参数说明：
-owner_address：订单发起者地址,默认为hexString格式  
-sell_token_id：卖出asset的id,默认为hexString格式      
+owner_address：订单发起者地址，默认为hexString格式  
+sell_token_id：卖出asset的id，默认为hexString格式      
 sell_token_quantity：卖出asset的数量            
-buy_token_id：买入asset的id,默认为hexString格式          
+buy_token_id：买入asset的id，默认为hexString格式          
 buy_token_quantity：最少买入的asset的数量          
 返回值：交易对象  
 
@@ -1799,7 +1799,7 @@ demo: curl -X POST  http://127.0.0.1:8090/wallet/marketcancelorder -d
     "order_id": "0a7af584a53b612bcff1d0fc86feab05f69bc4528f26a4433bb344d453bd6eeb"
 }'   
 参数说明：
-owner_address：订单发起者地址,默认为hexString格式  
+owner_address：订单发起者地址，默认为hexString格式  
 order_id：取消订单的id        
 返回值：交易对象  
 
@@ -1810,7 +1810,7 @@ demo: curl -X POST  http://127.0.0.1:8090/wallet/getmarketorderbyaccount -d
     "value": "4184894b42f66dce8cb84aec2ed11604c991351ac8" 
 }'   
 参数说明：
-value：地址,默认为hexString格式      
+value：地址，默认为hexString格式      
 返回值：订单列表   
 
 wallet/getmarketpairlist     
