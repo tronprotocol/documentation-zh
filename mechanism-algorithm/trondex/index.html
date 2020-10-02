@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+  <title>Trondex - 波场中文文档</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Trondex";
+    var mkdocs_page_input_path = "mechanism-algorithm/trondex.md";
+    var mkdocs_page_url = "/documentation-zh/introduction/mechanism-algorithm/trondex/";
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> 波场中文文档</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../..">首页</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">简介</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../../introduction/">项目仓库</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../introduction/dpos/">波场共识</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../introduction/overview/">波场概览</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">API 接口</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../../api/http/">HTTP 接口</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../api/rpc/">RPC 接口</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">机制与算法</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../sr/">超级代表与委员会</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../trc10/">TRC-10</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../account/">账户模型</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../resource/">资源模型</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../dex/">去中心化交易所</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../multi-signatures/">多重签名</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../shielded-transaction/">匿名交易</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../system-contracts/">系统合约</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">架构介绍</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../../architecture/network/">网络</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../architecture/database/">数据储存</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../architecture/event/">事件插件</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">智能合约文档</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../../contracts/tvm/">虚拟机</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../contracts/compiler/">编译器</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../contracts/contract/">合约</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../contracts/trc20/">TRC-20</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">开发者文档</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../../developers/official-public-nodes/">官方节点</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../developers/deployment/">部署</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../developers/run-in-idea/">在 IDEA 中启动节点</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../developers/contribution/">如何参与开发</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../developers/incentives/">开发者激励</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../developers/java-tron/">Java-Tron</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../developers/tips/">TIPs</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../developers/advanced-configuration/">高级配置项</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../developers/resources/">其他参考资源</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">客户端</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../../clients/wallet-cli/">命令行钱包</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../clients/tron-grid/">TronGrid</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">版本发布</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../../releases/">一致性检验</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../../faq/">常见问题</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../../glossary/">术语表</a>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">波场中文文档</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Trondex</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/tronprotocol/documentation-zh/edit/master/docs/mechanism-algorithm/trondex.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h2 id="tron-dex">tron-dex概述<a class="headerlink" href="#tron-dex" title="Permanent link">&para;</a></h2>
+<p>Tron-DEX是一个去中心化的交易所，包含链上订单表、高效的链上撮合引擎，用户在这里可以获得类似于中心化交易所的交易体验。 
+在Tron-Dex中，所有的交易信息都是透明可验证，用户可以在这里进行挂单，买单操作。
+Tron-Dex上支持TRX与TRC10的交易，TRC20的token需要通过转换合约，先兑换成对应的TRC10的token，然后在DEX中进行交易。</p>
+<h2 id="_1">创建第一笔订单<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>任何用户都可以创建订单，只需要设定需要买卖的token对及交易数量。创建完成的订单将放到对应的订单表中，
+如果之前没有该token对的订单，系统将创建订单表，新订单将作为表中第一笔订单。</p>
+<p>创建订单的合约 MarketSellAsset，该合约有4个参数：
+- sellTokenId:卖出token id，TRX以"<em>"表示
+- sellTokenQuantity：卖出Token或TRX的数量
+- buyTokenId：买入token id，TRX以"</em>"表示 
+- buyTokenQuantity：买入Token或TRX的最少数量</p>
+<p>例子：<br />
+<div class="highlight"><pre><span></span><code>MarketSellAsset TN3zfjYUmMFK3ZsHSsrdJoNRtGkQmZLBLz  _ 100 1000001 200  
+</code></pre></div></p>
+<p>该交易会创建订单，卖出100个TRX，买入200个TokenA(Id=1000001)，
+如果创建者没有足够的TokenA和TRX，则订单创建失败；创建订单后，用户账户中的对应token或TRX的余额减少sellTokenQuantity。</p>
+<h2 id="_2">查询用户及订单状态<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>创建订单以后，通过用户地址查询到订单信息，包括订单的状态（未成交、已成交、已取消），订单详情，订单已经完成量等。</p>
+<p>例子：     <br />
+查询我们刚刚创建的TokenA与TRX的订单，接口 GetMarketOrderByAccount ownerAddress。
+例子：
+<div class="highlight"><pre><span></span><code>GetMarketOrderByAccount TN3zfjYUmMFK3ZsHSsrdJoNRtGkQmZLBLz     
+</code></pre></div></p>
+<p><div class="highlight"><pre><span></span><code>{
+  &quot;orders&quot;: [
+    {
+      &quot;order_id&quot;: &quot;e7e283c2066f6b82850dfb82d34fd9ec5ac2f70ae31b0669e96c1a9ad810a748&quot;,
+      &quot;owner_address&quot;: &quot;TN3zfjYUmMFK3ZsHSsrdJoNRtGkQmZLBLz&quot;,
+      &quot;create_time&quot;: 1578302082000,
+      &quot;sell_token_id&quot;: &quot;_&quot;,
+      &quot;buy_token_id&quot;: &quot;1000001&quot;,
+      &quot;sell_token_quantity&quot;: 100,
+      &quot;buy_token_quantity&quot;: 200,
+      &quot;sell_token_quantity_remain&quot;: 100
+    }
+  ]
+}
+</code></pre></div>
+除了用户创建订单时的参数外，还增加了sell_token_quantity_remain， 表示剩余待卖出的数量。
+订单信息中还包含state字段，表示当前订单的状态，有active、inactive、cancel，默认是active，则不显示。
+active,表示当前有效的订单。inactive，表示订单已经撮合完成。cancel，表示订单已经被取消。</p>
+<h2 id="_3">查询订单表状态<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p>除了查询账户中包含的订单以外，还可以查询到订单表的状态，包括存在的交易对，指定交易对中所有的订单，交易对中的价格等。</p>
+<h4 id="_4">查询存在的交易对<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h4>
+<p>通过 getMarketPairList 接口，查询存在的交易对
+例子：
+<div class="highlight"><pre><span></span><code>getMarketPairList
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>{
+  &quot;orderPair&quot;: [
+    {
+      &quot;sell_token_id&quot;: &quot;_&quot;,
+      &quot;buy_token_id&quot;: &quot;1000001&quot;
+    }
+  ]
+}
+</code></pre></div>
+从返回的结果中看到，之前创建的第一笔订单，系统自动增加了一个TokenA和TRX的交易对。</p>
+<h4 id="_5">查询指定交易对的所有的订单<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h4>
+<p>通过 GetMarketOrderListByPair sell_token_id buy_token_id 接口，查询交易对的所有的订单。
+例子：
+<div class="highlight"><pre><span></span><code>getMarketOrderListByPair _ 1000001
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>{
+    &quot;orders&quot;: [
+        {
+            &quot;order_id&quot;: &quot;fc9c64dfd48ae58952e85f05ecb8ec87f55e19402493bb2df501ae9d2da75db0&quot;,
+            &quot;owner_address&quot;: &quot;TJCnKsPa7y5okkXvQAidZBzqx3QyQ6sxMW&quot;,
+            &quot;create_time&quot;: 1578983490000,
+            &quot;sell_token_id&quot;: &quot;_&quot;,
+            &quot;sell_token_quantity&quot;: 100,
+            &quot;buy_token_id&quot;: &quot;1000001&quot;,
+            &quot;buy_token_quantity&quot;: 200,
+            &quot;sell_token_quantity_remain&quot;: 100
+        }
+    ]
+}
+</code></pre></div></p>
+<h4 id="_6">查询指定交易对的价格表<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h4>
+<p>通过 GetMarketPriceByPair sell_token_id buy_token_id 接口，查询交易对的所有的价格。
+例子：
+<div class="highlight"><pre><span></span><code>GetMarketPriceByPair _ 1000001
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>{
+  &quot;sell_token_id&quot;: &quot;_&quot;,
+  &quot;buy_token_id&quot;: &quot;1000001&quot;,
+  &quot;prices&quot;: [
+    {
+      &quot;sell_token_quantity&quot;: 1,
+      &quot;buy_token_quantity&quot;: 2
+    }
+  ]
+}
+</code></pre></div>
+其中prices列表，表示该交易对有的所有价格。</p>
+<h4 id="orderid">根据OrderId查询订单详情<a class="headerlink" href="#orderid" title="Permanent link">&para;</a></h4>
+<p>也可以通过 getMarketOrderById orderId 接口，直接查询订单详情。
+例子：
+<div class="highlight"><pre><span></span><code>getMarketOrderById e7e283c2066f6b82850dfb82d34fd9ec5ac2f70ae31b0669e96c1a9ad810a748
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>{
+    &quot;order_id&quot;: &quot;e7e283c2066f6b82850dfb82d34fd9ec5ac2f70ae31b0669e96c1a9ad810a748&quot;,
+    &quot;owner_address&quot;: &quot;TN3zfjYUmMFK3ZsHSsrdJoNRtGkQmZLBLz&quot;,
+    &quot;create_time&quot;: 1581344955000,
+    &quot;sell_token_id&quot;: &quot;_&quot;,
+    &quot;sell_token_quantity&quot;: 100,
+    &quot;buy_token_id&quot;: &quot;1000001&quot;,
+    &quot;buy_token_quantity&quot;: 200,
+    &quot;sell_token_quantity_remain&quot;: 100
+}
+</code></pre></div></p>
+<h2 id="_7">创建第二笔订单，并发生撮合<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<p>在第一笔订单中，卖出TRX买入TokenA。在我们的第二笔订单中，用与第一笔订单相同的命令，但是这一次卖出TokenA买入的TRX，
+也就是交换了买入卖出的Token。
+例子：
+<div class="highlight"><pre><span></span><code>MarketSellAsset TN3zfjYUmMFK3ZsHSsrdJoNRtGkQmZLBLz 1000001 400 _ 200
+</code></pre></div>
+这里，订单中，卖出400个TokenA，买入200个TRX。第一笔订单中，卖出100个TRX，买入200个TokenA。
+两个订单的价格是相同，发生撮合。其实，只要第二笔订单的价格高于第一笔订单，就能够发生撮合，这里为了方便计算数量，采用相同价格。
+发生撮合后，可以查询transactionInfo中，来获得具体撮合信息。
+<div class="highlight"><pre><span></span><code>gettransactioninfobyid 461276fcceb73760578a96692778918560d599fa7b71b3545c924e2518d5733b
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>{
+...
+&quot;orderId&quot;: &quot;5c83953fd64af67cb452171df5e0ff90ae8f348a6f5ba0c664613d21599dfb89&quot;,
+    &quot;orderDetails&quot;: [
+        {
+            &quot;makerOrderId&quot;: &quot;e7e283c2066f6b82850dfb82d34fd9ec5ac2f70ae31b0669e96c1a9ad810a748&quot;,
+            &quot;takerOrderId&quot;: &quot;5c83953fd64af67cb452171df5e0ff90ae8f348a6f5ba0c664613d21599dfb89&quot;,
+            &quot;fillSellQuantity&quot;: 200,
+            &quot;fillBuyQuantity&quot;: 100
+        }
+    ]
+}
+</code></pre></div>
+其中，makerOrderId是第一笔订单的id，takerOrderId表示本次订单的id，fillSellQuantity表示撮合完成的卖出量，
+这里是TokenA的卖出量，fillBuyQuantity表示撮合完成的买入量，这里是TRX的买入量。fillSellQuantity和fillBuyQuantity，也构成了本次撮合的价格。
+如果本次订单和之前的多个订单发生了撮合，那么这里的orderDetails将是个列表，包含多个撮合信息。</p>
+<p>再次使用 GetMarketOrderByAccount 接口查看账户拥有订单。</p>
+<p><div class="highlight"><pre><span></span><code>{
+  &quot;orders&quot;: [    
+    {
+      &quot;order_id&quot;: &quot;5c83953fd64af67cb452171df5e0ff90ae8f348a6f5ba0c664613d21599dfb89&quot;,
+      &quot;owner_address&quot;: &quot;TN3zfjYUmMFK3ZsHSsrdJoNRtGkQmZLBLz&quot;,
+      &quot;create_time&quot;: 1578302487000,
+      &quot;sell_token_id&quot;: &quot;1000001&quot;,
+      &quot;buy_token_id&quot;: &quot;_&quot;,
+      &quot;sell_token_quantity&quot;: 400,
+      &quot;buy_token_quantity&quot;: 200,
+      &quot;sell_token_quantity_remain&quot;: 200
+    }
+  ]
+}
+</code></pre></div>
+这里只能看到第二笔订单的信息，第一个订单已经完全被撮合，不在账户订单中记录，可以通过getOrderById查看。
+第二个订单部分被撮合，sell_token_quantity_remain为200</p>
+<h2 id="_8">取消订单<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
+<p>使用 MarketCancelOrder ownerAddress orderId 接口，来取消订单，这里我们取消第二笔订单。
+<div class="highlight"><pre><span></span><code>marketcancelorder  TN3zfjYUmMFK3ZsHSsrdJoNRtGkQmZLBLz 5c83953fd64af67cb452171df5e0ff90ae8f348a6f5ba0c664613d21599dfb89
+</code></pre></div>
+此时，再次查询账户中的将返回空，表示账户中已经不包含正在进行的订单。</p>
+<h2 id="_9">其他注意事项<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
+<p>1.撮合的价格。撮合的价格以之前存在的挂单为准，如上面的示例中，在发起第二笔订单时，撮合价格是按照第一笔价格。
+如果第二笔订单的价格高于第一笔价格，第二笔订单实际获得token &gt;= 订单中的buy_token数目。\
+2、一个账户拥有的最大active订单数为100。\
+3.由于链上合约执行时间的限制，无法在一笔交易中完成大量的撮合交易交易，所以有最大撮合数的限制，目前是20，超过这个数目的交易会执行错误。\
+4.交易费。除了创建交易时消耗的带宽，其他的手续费为0，未来可通过提案修改。</p>
+<p>相关api详情，请查询<a href="../../api/http/">http api</a>。  </p>
+              
+            </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/tronprotocol/documentation-zh/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+      
+    </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+      <script src="../../search/main.js" defer></script>
+
+</body>
+</html>
