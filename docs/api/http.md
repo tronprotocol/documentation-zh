@@ -53,15 +53,18 @@
 |  getapprovedlist                 | updatesetting           |                                 |
 
 
-| others                |
-|-----------------------|
-| broadcasttransaction  |
-| broadcasthex          |
-| listnodes             |
-| listwitnesses         |
-| getnextmaintenancetime|
-| getnodeinfo           |
-| getchainparameters    |
+ 
+
+|   market                       |  others                 |                       |
+|--------------------------------|-------------------------|-----------------------|
+|  marketsellasset               |broadcasttransaction     |                       |
+|  marketcancelorder             |broadcasthex             |                       |
+|  getmarketorderbyaccount       |listnodes                |                       |
+|  getmarketpairlist             |listwitnesses            |                       |
+|  getmarketorderlistbypair      |getnextmaintenancetime   |                       |
+|  getmarketpricebypair          |getnodeinfo              |                       |
+|  getmarketorderbyid            |getchainparameters       |                       |
+
 
 
 ## hexString和base58check转码demo
@@ -1766,5 +1769,89 @@ spend_authority_signature: 授权签名
 amount: 交易金额  
 transparent_to_address: 接收者地址. 
 返回值: 触发TRC-20合约的输入数据
-```
 
+
+wallet/marketsellasset    
+作用：创建订单 
+demo: curl -X POST  http://127.0.0.1:8090/wallet/marketsellasset -d 
+'{
+    "owner_address": "4184894b42f66dce8cb84aec2ed11604c991351ac8",
+    "sell_token_id": "5f",
+    "sell_token_quantity": 100,
+    "buy_token_id": "31303030303031",
+    "buy_token_quantity": 200
+}'  
+
+参数说明：
+owner_address：订单发起者地址，默认为hexString格式  
+sell_token_id：卖出asset的id，默认为hexString格式      
+sell_token_quantity：卖出asset的数量            
+buy_token_id：买入asset的id，默认为hexString格式          
+buy_token_quantity：最少买入的asset的数量          
+返回值：交易对象  
+
+
+wallet/marketcancelorder    
+作用：取消订单
+demo: curl -X POST  http://127.0.0.1:8090/wallet/marketcancelorder -d 
+'{
+    "owner_address": "4184894b42f66dce8cb84aec2ed11604c991351ac8",
+    "order_id": "0a7af584a53b612bcff1d0fc86feab05f69bc4528f26a4433bb344d453bd6eeb"
+}'   
+参数说明：
+owner_address：订单发起者地址，默认为hexString格式  
+order_id：取消订单的id        
+返回值：交易对象  
+
+wallet/getmarketorderbyaccount    
+作用：查询账户拥有的订单
+demo: curl -X POST  http://127.0.0.1:8090/wallet/getmarketorderbyaccount -d 
+'{
+    "value": "4184894b42f66dce8cb84aec2ed11604c991351ac8" 
+}'   
+参数说明：
+value：地址，默认为hexString格式      
+返回值：订单列表   
+
+wallet/getmarketpairlist     
+作用：查询存在的所有交易对
+demo: curl -X get  http://127.0.0.1:8090/wallet/getmarketpairlist  
+参数说明：    
+无  
+返回值：交易对列表
+ 
+wallet/getmarketorderlistbypair   
+作用：查询某交易对的所有订单
+demo: curl -X POST  http://127.0.0.1:8090/wallet/getmarketorderlistbypair -d 
+'{
+    "sell_token_id": "5f" ,
+    "buy_token_id": "31303030303031"
+}'   
+参数说明：
+sell_token_id：卖出asset的id，默认为hexString格式           
+buy_token_id：买入asset的id，默认为hexString格式          
+返回值：订单列表 
+
+wallet/getmarketpricebypair    
+作用：查询某交易对的所有价格
+demo: curl -X POST  http://127.0.0.1:8090/wallet/getmarketpricebypair -d 
+'{
+    "sell_token_id": "5f" 
+    "buy_token_id": "31303030303031" 
+}'   
+参数说明：
+sell_token_id：卖出asset的id，默认为hexString格式         
+buy_token_id：买入asset的id，默认为hexString格式       
+返回值：价格列表 
+
+wallet/getmarketorderbyid    
+作用：查询订单
+demo: curl -X POST  http://127.0.0.1:8090/wallet/getmarketorderbyid -d 
+'{
+   "value": "orderid"
+}'   
+参数说明：
+value：order id，默认为hexString格式               
+返回值：订单
+  
+```
