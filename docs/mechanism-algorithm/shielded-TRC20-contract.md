@@ -671,10 +671,9 @@ Parameters:
         }
      }
    ],
-   "transparent_to_address":"TBaBXpRAeBhs75TZT751LwyhrcR25XeUot",
+   "transparent_to_address":"411195752747f24146fd1fcd12c31600a81f7c5423",
    "to_amount":"2000",
-    "shielded_TRC20_contract_address": "TDxka3zetrpWsWoeWWjSAQDwM186UmzwQn",
-    "visible": true
+    "shielded_TRC20_contract_address": "412bca7084a865c9e8e2db0509b2eb4b195693e725"
 }
 ```
 注意: `to_amount` 为真实地交易金额, note中的 `value` 为`scalingFactor`缩放后的值，`scalingFactor` 在匿名TRC-20合约中设置。在本例中， 缩放因子`scalingFactor`值为100，即60 * 100  = 40 * 100 + 2000。
