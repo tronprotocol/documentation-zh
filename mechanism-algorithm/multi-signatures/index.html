@@ -226,6 +226,10 @@
                     
     <a class="" href="../../developers/resources/">其他参考资源</a>
                 </li>
+                <li class="">
+                    
+    <a class="" href="../../developers/gpg/">联系我们（GPG Key）</a>
+                </li>
     </ul>
 	    </li>
           
@@ -398,7 +402,6 @@
 3、账户新建时，自动将该账户的地址填充到OwnerPermission中，并默认域值为1，keys中仅包含该账户地址且权重为1。
 4、当执行合约时未指定permissionId时， 默认采用OwnerPermission。</p>
 <h3 id="2.3">3）Witness权限</h3>
-
 <p>超级代表可使用该权限，管理出块节点。非witness账户无该权限。</p>
 <p>使用场景示例：一个超级代表在云服务器上部署出块程序，为了账户安全，此时可以将出块权限赋予另一个地址。由于该地址仅具有出块权限，无TRX转出权限，即使该服务器上私钥被泄密，也不会出现TRX丢失。</p>
 <p>Witness出块节点的配置：
@@ -422,7 +425,6 @@ localwitness = [
   f4df789d3210ac881cb900464dd30409453044d2777060a0c391cbdf4c6a4f57
 ]
 </code></pre></div>
-
 <h3 id="2.4">4）Active权限</h3>
 
 <p>Active权限，用于提供一个权限的组合，比如提供一个只能执行创建账户、转账功能的权限。</p>
@@ -521,7 +523,6 @@ localwitness = [
   <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">ByteArray</span><span class="p">.</span><span class="na">toHexString</span><span class="p">(</span><span class="n">operations</span><span class="p">));</span>
 <span class="p">}</span>
 </code></pre></div>
-
 <h3 id="3.2">2）执行合约</h3>
 
 <p>1、创建交易，与非多重签名交易的构建过程相同

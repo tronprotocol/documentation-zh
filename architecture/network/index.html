@@ -226,6 +226,10 @@
                     
     <a class="" href="../../developers/resources/">其他参考资源</a>
                 </li>
+                <li class="">
+                    
+    <a class="" href="../../developers/gpg/">联系我们（GPG Key）</a>
+                </li>
     </ul>
 	    </li>
           
@@ -349,7 +353,6 @@ CPU：32核及以上 内存：48G及以上 带宽：500M及以上 硬盘：2T及
 <p>下载private_net_config.conf</p>
 <div class="highlight"><pre><span></span><code>wget https://raw.githubusercontent.com/tronprotocol/tron-deployment/master/private_net_config.conf
 </code></pre></div>
-
 </li>
 <li>
 <p>在localwitness中添加自己的私钥</p>
@@ -367,12 +370,10 @@ CPU：32核及以上 内存：48G及以上 带宽：500M及以上 硬盘：2T及
 --log-config: 指定日志配置文件路径，i.e.: --log-config logback.xml
 -c: 指定配置文件路径，i.e.: -c config.conf
 </code></pre></div>
-
 <p>日志文件使用：
 可以修改模块的level等级来控制日志的输出，默认每个模块的level级别为INFO，比如，只打印网络模块warn以上级别的信息，可以如下修改：</p>
 <div class="highlight"><pre><span></span><code>&lt;logger name=&quot;net&quot; level=&quot;WARN&quot;/&gt;
 </code></pre></div>
-
 <p>配置文件中需要修改的参数：</p>
 <p>localwitness:
 <img alt="image" src="https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/localwitness.jpg" />
@@ -404,7 +405,6 @@ enable:
 可以修改模块的level等级来控制日志的输出，默认每个模块的level级别为INFO，比如，只打印网络模块warn以上级别的信息，可以如下修改：</p>
 <div class="highlight"><pre><span></span><code>&lt;logger name=&quot;net&quot; level=&quot;WARN&quot;/&gt;
 </code></pre></div>
-
 <p>配置文件中需要修改的参数：</p>
 <p>ip.list:
 <img alt="image" src="https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/ip_list.png" />

@@ -208,6 +208,10 @@
                     
     <a class="" href="../developers/resources/">其他参考资源</a>
                 </li>
+                <li class="">
+                    
+    <a class="" href="../developers/gpg/">联系我们（GPG Key）</a>
+                </li>
     </ul>
 	    </li>
           
@@ -449,7 +453,6 @@
 <div class="highlight"><pre><span></span><code><span class="n">Transaction</span> <span class="n">transaction</span> <span class="o">=</span> <span class="n">result</span><span class="p">.</span><span class="na">get</span><span class="p">();</span>
 <span class="kt">long</span> <span class="n">bytesSize</span> <span class="o">=</span> <span class="n">transaction</span><span class="p">.</span><span class="na">toBuilder</span><span class="p">().</span><span class="na">clearRet</span><span class="p">().</span><span class="na">build</span><span class="p">().</span><span class="na">getSerializedSize</span><span class="p">()</span> <span class="o">+</span> <span class="mi">64</span><span class="p">;</span>
 </code></pre></div>
-
 <p>参考 <a href="https://github.com/tronprotocol/documentation/issues/370">tronprotocol/documentation#370</a>.</p>
 <h2 id="api">API 使用<a class="headerlink" href="#api" title="Permanent link">&para;</a></h2>
 <h3 id="gettransactionbyid-gettransactioninfobyid">getTransactionById 与 getTransactionInfoById 的区别是什么？<a class="headerlink" href="#gettransactionbyid-gettransactioninfobyid" title="Permanent link">&para;</a></h3>
@@ -503,7 +506,6 @@
 <p>运行以下命令：</p>
 <div class="highlight"><pre><span></span><code><span class="go">tail -f logs/tron.log | grep &quot;Try Produce Block&quot;</span>
 </code></pre></div>
-
 <h3 id="soliditynode-fullnode">SolidityNode 与 FullNode可以部署在一台机器上吗？他们会分享数据吗？<a class="headerlink" href="#soliditynode-fullnode" title="Permanent link">&para;</a></h3>
 <p>指定数据目录是可以做到的，配置文件参数: <code>db.directory = "database"</code>, <code>index.directory = "index"</code>。
 但是也可以让 FullNode.jar 和 SolidityNode.jar 在不同目录下运行，将数据和日志文档完全分离。
@@ -524,14 +526,12 @@
 <p>可以在启动节点时指定数据存储目录，例如：</p>
 <div class="highlight"><pre><span></span><code><span class="go">java -jar FullNode.jar -c config.conf -d /data/output</span>
 </code></pre></div>
-
 <h4 id="java-tron-stdout">怎么修改配置可以让 java-tron 日志发送到 stdout?<a class="headerlink" href="#java-tron-stdout" title="Permanent link">&para;</a></h4>
 <p>步骤如下：</p>
 <p>下载<a href="https://github.com/tronprotocol/java-tron/blob/develop/src/main/resources/logback.xml">logback.xml</a></p>
 <p>取消注释掉以下内容：</p>
 <div class="highlight"><pre><span></span><code>appender name=&quot;STDOUT&quot; class=&quot;ch.qos.logback.core.ConsoleAppender&quot;
 </code></pre></div>
-
 <p>在 <code>root level="INFO"</code> 下</p>
 <ul>
 <li>取消注释<code>appender-ref ref="STDOUT"</code></li>
@@ -541,7 +541,6 @@
 <p>启动时，添加 <code>--log-config logback.xml</code> 参数，例如：</p>
 <div class="highlight"><pre><span></span><code><span class="go">java -jar FullNode.jar --log-config logback.xml</span>
 </code></pre></div>
-
 <h4 id="_24">如何修改日志级别？<a class="headerlink" href="#_24" title="Permanent link">&para;</a></h4>
 <p>日志级别在 <code>logback.xml</code> 中定义。通过修改 <code>root level=</code> 来改变输出的日志级别。</p>
 <div class="highlight"><pre><span></span><code><span class="nt">&lt;root</span> <span class="na">level=</span><span class="s">&quot;ERROR&quot;</span><span class="nt">&gt;</span>
@@ -562,7 +561,6 @@
   <span class="nt">&lt;logger</span> <span class="na">name=</span><span class="s">&quot;capsule&quot;</span> <span class="na">level=</span><span class="s">&quot;ERROR&quot;</span><span class="nt">/&gt;</span>
   <span class="nt">&lt;logger</span> <span class="na">name=</span><span class="s">&quot;VM&quot;</span> <span class="na">level=</span><span class="s">&quot;ERROR&quot;</span><span class="nt">/&gt;</span>
 </code></pre></div>
-
 <h4 id="_25">在私有网络环境下，我如何设置我的资产？<a class="headerlink" href="#_25" title="Permanent link">&para;</a></h4>
 <p>在私有网络环境下，你可以通过修改配置文件来设置你初始账户的资产。配置文件如下：</p>
 <div class="highlight"><pre><span></span><code>genesis.block = {
@@ -588,7 +586,6 @@
     }
   ]
 </code></pre></div>
-
 <h4 id="tapos">广播交易时出现 TAPOS 错误<a class="headerlink" href="#tapos" title="Permanent link">&para;</a></h4>
 <p>修改配置文件: <code>trx.reference.block = "solid"</code>.</p>
 <p>每一个合法的交易需要有一个链上已存在的一定时间内的块作为参考块(TAPOS: Transaction As Proof Of Stake),
@@ -633,11 +630,9 @@
 <div class="highlight"><pre><span></span><code>17:02:42.699 INFO [o.t.c.s.WitnessService] Try Produce Block
 17:02:42.699 INFO [o.t.c.s.WitnessService] Not sync
 </code></pre></div>
-
 <p>出现该消息，说明您的节点和网络未同步。开始出块前，首先需要进行同步。请使用以下命令检查区块高度。</p>
 <div class="highlight"><pre><span></span><code><span class="go">tail -f logs/tron.log | grep &quot;MyheadBlockNumber&quot;</span>
 </code></pre></div>
-
 <h2 id="_31">测试网问题<a class="headerlink" href="#_31" title="Permanent link">&para;</a></h2>
 <h3 id="_32">我们要测试超级节点出块和性能的情况，是不是需要足够投票我们的节点才能竞选上？<a class="headerlink" href="#_32" title="Permanent link">&para;</a></h3>
 <p>测试的时候，我们可以给你投票，让你成为测试网的一个超级节点。</p>
@@ -652,7 +647,6 @@
 <p>可以使用以下 wallet-cli 命令:</p>
 <div class="highlight"><pre><span></span><code>triggercontract contractaddress balanceOf(address) &quot;youraddress&quot; false 0 0 0 #
 </code></pre></div>
-
 <h2 id="_36">其他问题<a class="headerlink" href="#_36" title="Permanent link">&para;</a></h2>
 <h2 id="_37">没有找到你的问题？<a class="headerlink" href="#_37" title="Permanent link">&para;</a></h2>
 <p>欢迎到社区提问，或在 Gihub 项目页面提出 Issue.</p>
@@ -715,5 +709,5 @@
 
 <!--
 MkDocs version : 1.0.4
-Build Date UTC : 2020-10-02 16:44:11
+Build Date UTC : 2020-10-20 15:28:49
 -->

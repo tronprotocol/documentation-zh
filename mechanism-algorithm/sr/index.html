@@ -214,6 +214,10 @@
                     
     <a class="" href="../../developers/resources/">其他参考资源</a>
                 </li>
+                <li class="">
+                    
+    <a class="" href="../../developers/gpg/">联系我们（GPG Key）</a>
+                </li>
     </ul>
 	    </li>
           
@@ -312,7 +316,6 @@
 votewitness witness1 4 witness2 6 // 同时给witness1投了4票，给witness2投了6票
 votewitness witness1 3 witness2 7 // 同时给witness1投了3票，给witness2投了7票
 </code></pre></div>
-
 <p>以上命令的最终结果是给witness1投了3票，给witness2投了7票</p>
 <p><strong>Witnesses分红</strong></p>
 <p>默认比例是20%，witnesses可以调整该值。</p>
@@ -337,11 +340,9 @@ votewitness witness1 3 witness2 7 // 同时给witness1投了3票，给witness2�
 <h3> 5. 委员会 </h3>
 
 <h4> 5.1 什么是委员会 </h4>
-
 <p>委员会用于修改Tron网络动态参数，如出块奖励、交易费用等等。委员会由当前的27个超级代表组成。每个超级代表都具有提议权、对提议的投票权，
 当提议获得19个代表及以上的赞成票时，该提议获得通过，并在下个维护期内进行网络参数修改。</p>
 <h4> 5.2 创建提议 </h4>
-
 <p>只有超级代表（SR）、合伙人（Partner）和候选人（Candidates）对应账户具有提议权。</p>
 <p>允许修改的网络动态参数以及编号如下( [min,max] )：
 {0,1}：1代表‘通过’或者‘激活’，0代表否。</p>
@@ -525,7 +526,6 @@ value0_N: 新参数值
 </ul>
 <p>注：Tron网络中，1 TRX = 1000_000 SUN。</p>
 <h4> 5.3 对提议进行投票 </h4>
-
 <p>提议仅支持投赞成票，不投票代表不赞同。从提议创建时间开始，3天时间内为提议的有效期。超过该时间范围，该提议如果没有获得足够的
 赞成票，该提议失效。允许取消之前投的赞成票。</p>
 <ul>
@@ -536,7 +536,6 @@ is_or_not_add_approval: 赞成或取消赞成
 </code></pre></div></li>
 </ul>
 <h4> 5.4 取消提议 </h4>
-
 <p>提议创建者，能够在提议生效前，取消提议。</p>
 <ul>
 <li>示例：

@@ -236,6 +236,10 @@
                     
     <a class="" href="../resources/">其他参考资源</a>
                 </li>
+                <li class="">
+                    
+    <a class="" href="../gpg/">联系我们（GPG Key）</a>
+                </li>
     </ul>
 	    </li>
           
@@ -323,11 +327,9 @@
 <div class="highlight"><pre><span></span><code>/deploy/fullnode
 /deploy/soliditynode
 </code></pre></div>
-
 <p>克隆最新的master分支上的代码<a href="https://github.com/tronprotocol/java-tron">https://github.com/tronprotocol/java-tron</a> 到</p>
 <div class="highlight"><pre><span></span><code>/deploy/java-tron
 </code></pre></div>
-
 <p>请确保已经安装恰当的依赖环境。</p>
 <ul>
 <li>JDK 1.8 (JDK 1.9+ is not supported yet)</li>
@@ -361,7 +363,6 @@ cp build/libs/SolidityNode.jar ../soliditynode
       port = 50052
     }
 </code></pre></div>
-
 <p>5.&nbsp;用以下命令运行SolidityNode
 <div class="highlight"><pre><span></span><code>java -jar SolidityNode.jar -c config.conf //make sure that your config.conf is downloaded from https://github.com/tronprotocol/TronDeployment
 </code></pre></div></p>
@@ -384,7 +385,6 @@ java -jar FullNode.jar -p your private key --witness -c your config.conf (Exampl
 Example:
 java -jar FullNode.jar -p 650950B193DDDDB35B6E48912DD28F7AB0E7140C1BFDEFD493348F02295BD812 --witness -c /data/java-tron/config.conf
 </code></pre></div>
-
 <h2 id="_4">日志与网络连接验证<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
 <p>日志位于<code>/deploy/\*/logs/tron.log</code>。 使用<code>tail -f /logs/tron.log/</code>命令来查看块同步日志。</p>
 <p>你可以看到类似如下块同步的日志信息：</p>
@@ -420,7 +420,6 @@ done
 
 <div class="highlight"><pre><span></span><code>wget https://raw.githubusercontent.com/tronprotocol/TronDeployment/master/deploy_tron.sh -O deploy_tron.sh
 </code></pre></div>
-
 <h3>参数含义</h3>
 
 <div class="highlight"><pre><span></span><code>bash deploy_tron.sh --app <span class="o">[</span>FullNode<span class="p">|</span>SolidityNode<span class="o">]</span> --net <span class="o">[</span>mainnet<span class="p">|</span>testnet<span class="p">|</span>privatenet<span class="o">]</span> --db <span class="o">[</span>keep<span class="p">|</span>remove<span class="p">|</span>backup<span class="o">]</span> --heap-size &lt;heapsize&gt;
@@ -435,20 +434,17 @@ done
 --heap-size  Optional, jvm option: Xmx. The default heap-size is <span class="m">0</span>.8 * memory size.
 --work_space  Optional, default is current directory.
 </code></pre></div>
-
 <h3>部署FullNode</h3>
 
 <div class="highlight"><pre><span></span><code>wget https://raw.githubusercontent.com/tronprotocol/TronDeployment/master/deploy_tron.sh -O deploy_tron.sh
 bash deploy_tron.sh
 </code></pre></div>
-
 <h3>部署SolidityNode</h3>
 
 <div class="highlight"><pre><span></span><code>wget https://raw.githubusercontent.com/tronprotocol/TronDeployment/master/deploy_tron.sh -O deploy_tron.sh
 <span class="c1"># User can self-configure the IP and Port of GRPC service in the turst-node field of SolidityNode. trust-node is the fullnode you just deploy.</span>
 bash deploy_tron.sh --app SolidityNode --trust-node &lt;grpc-ip:grpc-port&gt;
 </code></pre></div>
-
 <h3> FullNode和SolidityNode部署在同一主机上</h3>
 
 <div class="highlight"><pre><span></span><code><span class="c1"># You need to configure different gRPC ports on the same host because gRPC port is available on SolidityNode and FullNodeConfigure and it cannot be set as default value 50051. In this case the default value of rpc port is set as 50041.</span>
@@ -456,7 +452,6 @@ wget https://raw.githubusercontent.com/tronprotocol/TronDeployment/master/deploy
 bash deploy_tron.sh --app FullNode
 bash deploy_tron.sh --app SolidityNode --rpc-port <span class="m">50041</span>
 </code></pre></div>
-
 <h2 id="grpc-gateway">Grpc Gateway部署<a class="headerlink" href="#grpc-gateway" title="Permanent link">&para;</a></h2>
 <h3> 前提 </h3>
 
@@ -466,7 +461,6 @@ bash deploy_tron.sh --app SolidityNode --rpc-port <span class="m">50041</span>
 
 <div class="highlight"><pre><span></span><code>wget https://raw.githubusercontent.com/tronprotocol/TronDeployment/master/deploy_grpc_gateway.sh -O deploy_grpc_gateway.sh
 </code></pre></div>
-
 <h3> 参数含义 </h3>
 
 <div class="highlight"><pre><span></span><code>bash deploy_grpc_gateway.sh --rpchost <span class="o">[</span>rpc host ip<span class="o">]</span> --rpcport <span class="o">[</span>rpc port number<span class="o">]</span> --httpport <span class="o">[</span>http port number<span class="o">]</span>
@@ -475,7 +469,6 @@ bash deploy_tron.sh --app SolidityNode --rpc-port <span class="m">50041</span>
 --rpcport The fullnode or soliditynode port number grpc service is consuming. Default value is <span class="m">50051</span>.
 --httpport The port intends to provide http service provided by grpc gateway. Default value is <span class="m">18890</span>.
 </code></pre></div>
-
 <h3> 示例 </h3>
 
 <p>使用默认配置：
@@ -632,7 +625,6 @@ kafka-console-consumer.sh --zookeeper localhost:2181 --topic contractevent
        ]
     }
 </code></pre></div>
-
 <h3 id="mongo"> 下载并安装MongoDB </h3>
 
 <p><strong> 建议配置 </strong></p>

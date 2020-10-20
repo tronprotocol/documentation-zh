@@ -224,6 +224,10 @@
                     
     <a class="" href="../resources/">其他参考资源</a>
                 </li>
+                <li class="">
+                    
+    <a class="" href="../gpg/">联系我们（GPG Key）</a>
+                </li>
     </ul>
 	    </li>
           
@@ -340,7 +344,6 @@ You may custom these items only if you have deep understanding on them, otherwis
 
 }
 </code></pre></div>
-
 <p>As shown in the example above, the data of database <code>accout</code> will be stored in the path of <code>/path/to/accout/database</code> while the index be stored in <code>/path/to/accout/index</code>. And, the example also shows our default value of LevelDB options from <code>createIfMissing</code> to <code>maxOpenFiles</code>. You can just refer to the docs of <a href="https://github.com/google/leveldb/blob/master/doc/index.md#performance">LevelDB</a> to figure out details of these options.</p>
 <h2 id="grpc">gRPC<a class="headerlink" href="#grpc" title="Permanent link">&para;</a></h2>
 <p>You can custom gPRC options in the <code>node.rpc</code> part of <code>config.conf</code>, which looks like:</p>
@@ -371,7 +374,6 @@ You may custom these items only if you have deep understanding on them, otherwis
   }
 }
 </code></pre></div>
-
 <h2 id="backup">backup<a class="headerlink" href="#backup" title="Permanent link">&para;</a></h2>
 <p>You can custom backup options in the <code>node.backup</code> part of <code>config.conf</code>, which looks like:
 <div class="highlight"><pre><span></span><code>node.backup {

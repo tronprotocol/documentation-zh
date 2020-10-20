@@ -222,6 +222,10 @@
                     
     <a class="" href="../../developers/resources/">其他参考资源</a>
                 </li>
+                <li class="">
+                    
+    <a class="" href="../../developers/gpg/">联系我们（GPG Key）</a>
+                </li>
     </ul>
 	    </li>
           
@@ -309,19 +313,16 @@
 </ul>
 <div class="highlight"><pre><span></span><code>string public constant name = &quot;TRONEuropeRewardCoin&quot;;
 </code></pre></div>
-
 <ul>
 <li>通证缩写</li>
 </ul>
 <div class="highlight"><pre><span></span><code>string public constant symbol = &quot;TERC&quot;;
 </code></pre></div>
-
 <ul>
 <li>通证精度</li>
 </ul>
 <div class="highlight"><pre><span></span><code>uint8 public constant decimals = 6;
 </code></pre></div>
-
 <p><strong>6 个必选项</strong></p>
 <div class="highlight"><pre><span></span><code>contract TRC20 {
     function totalSupply() constant returns (uint theTotalSupply);
@@ -334,7 +335,6 @@
     event Approval(address indexed _owner, address indexed _spender, uint _value);
 }
 </code></pre></div>
-
 <ul>
 <li>totalSupply()</li>
 </ul>
@@ -363,11 +363,9 @@
 <p>当通证被成功转账后，会触发转账事件。</p>
 <div class="highlight"><pre><span></span><code>event Transfer(address indexed _from, address indexed _to, uint256 _value)
 </code></pre></div>
-
 <p>当approval()方法被成功调用后，会触发Approval事件。</p>
 <div class="highlight"><pre><span></span><code>event Approval(address indexed _owner, address indexed _spender, uint256 _value)
 </code></pre></div>
-
 <h2 id="_2">合约示例<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code>pragma solidity ^0.4.16;
 

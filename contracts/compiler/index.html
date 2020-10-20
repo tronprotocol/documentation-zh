@@ -222,6 +222,10 @@
                     
     <a class="" href="../../developers/resources/">其他参考资源</a>
                 </li>
+                <li class="">
+                    
+    <a class="" href="../../developers/gpg/">联系我们（GPG Key）</a>
+                </li>
     </ul>
 	    </li>
           
@@ -303,23 +307,18 @@
                 <h1 id="_1">合约编译<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
 <h2 id="_2">工具介绍<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <h3> 1. TronStudio </h3>
-
 <p>波场智能合约开发工具。提供可视化界面，支持开发者对solidity语言智能合约进行编译，调试，运行等功能。
 <a href="https://developers.tron.network/docs/tron-studio-intro">https://developers.tron.network/docs/tron-studio-intro</a></p>
 <h3> 2. TronIDE </h3>
-
 <p>波场智能合约开发工具。提供可视化界面，支持开发者对solidity语言智能合约进行编译，调试，运行等功能。
 <a href="https://www.tronide.io/">https://www.tronide.io/</a></p>
 <h3> 3. TronBox </h3>
-
 <p>波场智能合约部署工具。支持solidity语言智能合约的编译，部署，移植等功能。
 <a href="https://developers.tron.network/docs/tron-box-user-guide">https://developers.tron.network/docs/tron-box-user-guide</a></p>
 <h3> 4. TronWeb </h3>
-
 <p>波场智能合约开发使用的http api库。提供和主链交互，合约部署调用等接口。
 <a href="https://developers.tron.network/docs/tron-web-intro">https://developers.tron.network/docs/tron-web-intro</a></p>
 <h3> 5. TronGrid </h3>
-
 <p>波场智能合约事件查询服务。可以查询智能合约中写入的事件log信息。
 <a href="https://developers.tron.network/docs/tron-grid-intro">https://developers.tron.network/docs/tron-grid-intro</a></p>
 <h2 id="_3">使用命令行工具进行智能合约开发<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
@@ -339,7 +338,6 @@ contract DataStore {
     }
 }
 </code></pre></div>
-
 <p><strong>启动私有链</strong></p>
 <p>确保前提条件中，私有链已经在本地部署完成。可以检查FullNode/logs/tron.log中，是否有持续产块的log信息出现：“Produce block successfully”</p>
 <p><strong>开发智能合约</strong></p>
@@ -357,13 +355,11 @@ cd  wallet-cli
 ./gradlew build
 cd  build/libs
 </code></pre></div>
-
 <p>注意：
 wallet-cli 默认的配置会连接本地127.0.0.1:50051的 fullnode，如果开发者需要连接不同的其他节点或者端口可在 config.conf 文件中进行修改</p>
 <p>启动wallet-cli</p>
 <div class="highlight"><pre><span></span><code>java -jar wallet-cli.jar
 </code></pre></div>
-
 <p>启动之后，可在命令中交互式输入指令。导入私钥，并查询余额是否正确</p>
 <div class="highlight"><pre><span></span><code>importwallet
 &lt;输入你自己的设定的钱包密码2次&gt;
@@ -372,7 +368,6 @@ login
 &lt;输入你自己的设定的钱包密码&gt;
 getbalance
 </code></pre></div>
-
 <p>部署合约</p>
 <div class="highlight"><pre><span></span><code># 合约部署指令
 DeployContract contractName ABI byteCode constructor params isHex fee_limit consume_user_resource_percent &lt;value&gt; &lt;library:address,library:address,...&gt;
@@ -392,14 +387,12 @@ library:address,library:address,...:如果合约包含library，则需要在部�
 deploycontract DataStore [{&quot;constant&quot;:false,&quot;inputs&quot;:[{&quot;name&quot;:&quot;key&quot;,&quot;type&quot;:&quot;uint256&quot;},{&quot;name&quot;:&quot;value&quot;,&quot;type&quot;:&quot;uint256&quot;}],&quot;name&quot;:&quot;set&quot;,&quot;outputs&quot;:[],&quot;payable&quot;:false,&quot;stateMutability&quot;:&quot;nonpayable&quot;,&quot;type&quot;:&quot;function&quot;},{&quot;constant&quot;:true,&quot;inputs&quot;:[{&quot;name&quot;:&quot;key&quot;,&quot;type&quot;:&quot;uint256&quot;}],&quot;name&quot;:&quot;get&quot;,&quot;outputs&quot;:[{&quot;name&quot;:&quot;value&quot;,&quot;type&quot;:&quot;uint256&quot;}],&quot;payable&quot;:false,&quot;stateMutability&quot;:&quot;view&quot;,&quot;type&quot;:&quot;function&quot;}] 608060405234801561001057600080fd5b5060de8061001f6000396000f30060806040526004361060485763ffffffff7c01000000000000000000000000000000000000000000000000000000006000350416631ab06ee58114604d5780639507d39a146067575b600080fd5b348015605857600080fd5b506065600435602435608e565b005b348015607257600080fd5b50607c60043560a0565b60408051918252519081900360200190f35b60009182526020829052604090912055565b600090815260208190526040902054905600a165627a7a72305820fdfe832221d60dd582b4526afa20518b98c2e1cb0054653053a844cf265b25040029 # # false 1000000 30 0
 部署成功会显示Deploy the contract successfully
 </code></pre></div>
-
 <p>得到合约的地址</p>
 <div class="highlight"><pre><span></span><code>Your smart contract address will be: &lt;合约地址&gt;
 
 # 在本例中
 Your smart contract address will be: TTWq4vMEYB2yibAbPV7gQ4mrqTyX92fha6
 </code></pre></div>
-
 <p>调用合约存储数据、查询数据</p>
 <div class="highlight"><pre><span></span><code>Shell
 # 调用合约指令
@@ -420,13 +413,11 @@ triggercontract TTWq4vMEYB2yibAbPV7gQ4mrqTyX92fha6 set(uint256,uint256) 1,1 fals
 ## 取出 mapping key = 1的 value
 triggercontract TTWq4vMEYB2yibAbPV7gQ4mrqTyX92fha6 get(uint256) 1 false 1000000  0000000000000000000000000000000000000000000000000000000000000000
 </code></pre></div>
-
 <p>如果调用的函数是 constant 或 view，wallet-cli 将会直接返回结果</p>
 <p>如果包含library，则需要在部署合约之前先部署library，部署完library之后，知道了library地址，将地址填进library:address,library:address,...</p>
 <div class="highlight"><pre><span></span><code># 比如使用remix生成的合约，bytecode是
 608060405234801561001057600080fd5b5061013f806100206000396000f300608060405260043610610041576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff168063f75dac5a14610046575b600080fd5b34801561005257600080fd5b5061005b610071565b6040518082815260200191505060405180910390f35b600073&lt;b&gt;__browser/oneLibrary.sol.Math3__________&lt;\b&gt;634f2be91f6040518163ffffffff167c010000000000000000000000000000000000000000000000000000000002815260040160206040518083038186803b1580156100d357600080fd5b505af41580156100e7573d6000803e3d6000fd5b505050506040513d60208110156100fd57600080fd5b81019080805190602001909291905050509050905600a165627a7a7230582052333e136f236d95e9d0b59c4490a39e25dd3a3dcdc16285820ee0a7508eb8690029
 </code></pre></div>
-
 <p>之前部署的library地址是：TSEJ29gnBkxQZR3oDdLdeQtQQykpVLSk54
 那么部署的时候，需要将 browser/oneLibrary.sol.Math3:TSEJ29gnBkxQZR3oDdLdeQtQQykpVLSk54 作为deploycontract的参数。</p>
               

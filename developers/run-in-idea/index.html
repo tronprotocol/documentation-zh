@@ -222,6 +222,10 @@
                     
     <a class="" href="../resources/">其他参考资源</a>
                 </li>
+                <li class="">
+                    
+    <a class="" href="../gpg/">联系我们（GPG Key）</a>
+                </li>
     </ul>
 	    </li>
           
@@ -323,16 +327,13 @@
 <em>/deploy</em></p>
 <div class="highlight"><pre><span></span><code><span class="n">mkdir</span> <span class="n">deploy</span>
 </code></pre></div>
-
 <p><strong>2.克隆最新的代码</strong></p>
 <div class="highlight"><pre><span></span><code><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="c1">//github.com/tronprotocol/java-tron</span>
 </code></pre></div>
-
 <p><strong>3.切换master分支</strong></p>
 <div class="highlight"><pre><span></span><code><span class="n">cd</span> <span class="n">java</span><span class="o">-</span><span class="n">tron</span>
 <span class="n">git</span> <span class="n">checkout</span> <span class="o">-</span><span class="n">t</span> <span class="n">origin</span><span class="o">/</span><span class="n">master</span>
 </code></pre></div>
-
 <p><strong>4.编译代码</strong></p>
 <p><div class="highlight"><pre><span></span><code><span class="p">.</span><span class="o">/</span><span class="n">gradlew</span> <span class="n">build</span>
 </code></pre></div>
@@ -342,7 +343,6 @@
 <p>如果不想执行单元测试任务，可运行如下命令：</p>
 <div class="highlight"><pre><span></span><code><span class="p">.</span><span class="o">/</span><span class="n">gradlew</span> <span class="n">build</span> <span class="o">-</span><span class="n">x</span> <span class="n">test</span>
 </code></pre></div>
-
 <p><strong>5.启动FullNode节点</strong></p>
 <p>编译成功后，可通过java-tron/src/main/java/org/tron/program/FullNode.java路径找到主函数文件，启动一个全节点。</p>
 <p><img alt="" src="https://raw.githubusercontent.com/cathy-lishipu/documentation-zh/idea_instruction/images/start.png" /></p>

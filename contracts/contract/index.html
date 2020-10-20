@@ -222,6 +222,10 @@
                     
     <a class="" href="../../developers/resources/">其他参考资源</a>
                 </li>
+                <li class="">
+                    
+    <a class="" href="../../developers/gpg/">联系我们（GPG Key）</a>
+                </li>
     </ul>
 	    </li>
           
@@ -307,7 +311,6 @@ Tron兼容以太坊（Ethereum）上采用Solidity编写的智能合约。当前
 <h2 id="_3">波场智能合约特性<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
 <p>Tron virtual machine 基于以太坊 solidity 语言实现，兼容以太坊虚拟机的特性，但基于tron自身属性也有部分的区别。</p>
 <h3> 1. 智能合约 </h3>
-
 <p>波场虚拟机运行的智能合约兼容以太坊智能合约特性，以protobuf的形式定义合约内容：</p>
 <div class="codehilite"><pre><span></span><code><span class="n">message</span> <span class="n">SmartContract</span> <span class="p">{</span>
   <span class="n">message</span> <span class="n">ABI</span> <span class="p">{</span>
@@ -355,7 +358,6 @@ Tron兼容以太坊（Ethereum）上采用Solidity编写的智能合约。当前
 <span class="p">}</span>
 </code></pre></div>
 
-
 <p>origin_address: 合约创建者地址
 contract_address: 合约地址
 abi:合约所有函数的接口信息
@@ -399,7 +401,6 @@ transfer/send/call/callcode/delegatecall函数调用转账
 10）查询目标账户地址的指定token的数量 (Odyssey-v3.1.1及之后的版本暂时不支持)
 11）兼容所有以太坊内置函数
 </code></pre></div>
-
 <p>注意：
 波场2）- 10）为波场自己的内置函数 具体中文文档请参看：https://github.com/tronprotocol/Documentation/blob/master/中文文档/虚拟机/虚拟机内置函数.md</p>
 <p>以太坊 RIPEMD160 函数不推荐使用，波场返回的是一个自己的基于sha256的hash结果，并不是准确的以太坊RIPEMD160。以后会考虑删除这个函数。</p>
