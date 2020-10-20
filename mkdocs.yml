@@ -39,6 +39,7 @@ nav:
         - TIPs: developers/tips.md
         - 高级配置项: developers/advanced-configuration.md
         - 其他参考资源: developers/resources.md
+        - 联系我们（GPG Key）: developers/gpg.md
     - 客户端:
         - 命令行钱包: clients/wallet-cli.md
         - clients/tron-grid.md
