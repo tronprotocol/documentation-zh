@@ -33,7 +33,7 @@ nav:
         - 官方节点: developers/official-public-nodes.md
         - 部署: developers/deployment.md
         - 在 IDEA 中启动节点: developers/run-in-idea.md
-        - 如果使用LiteFullnode工具: developers/litefullnode.md
+        - 如何使用LiteFullnode工具: developers/litefullnode.md
         - 如何参与开发: developers/contribution.md
         - 开发者激励: developers/incentives.md
         - Java-Tron: developers/java-tron.md
