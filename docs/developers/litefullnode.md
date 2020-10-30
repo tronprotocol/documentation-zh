@@ -7,7 +7,7 @@
 - `Snapshot dataset`: 用于快速启动Lite FullNode节点的必要数据集。 
 - `History dataset`: 用于历史数据查询的归档数据集。
 
-使用本工具进行任何操作之前，需要首先停止当前运行的FullNode节点。 此工具提供了根据当前`最新区块高度`(latest_block_number)将完整数据切分成两个数据集的功能。通过快照数据集启动的微节点不支持查询此区块高度之前的历史数据。此工具还提供了将历史数据集同快照数据集合并的功能。 更多的API使用详情可以参考[HTTP&GRPC APIs](#HTTP&GRPC-APIs)
+使用本工具进行任何操作之前，需要首先停止当前运行的FullNode节点。 此工具提供了根据当前`最新区块高度`(latest_block_number)将完整数据切分成两个数据集的功能。通过快照数据集启动的微节点不支持查询此区块高度之前的历史数据。此工具还提供了将历史数据集同快照数据集合并的功能。 更多的API使用详情可以参考[HTTP&GRPC APIs](#httpgrpc-apis)
 
 更多的设计思想，请参考: [TIP128](https://github.com/tronprotocol/tips/issues/128)
 
