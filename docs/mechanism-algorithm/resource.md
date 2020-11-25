@@ -143,7 +143,7 @@ B: 10_000_000_000 且energy_limit 为10_000_000_000
 
 - 假设合约C上一次成功执行时，消耗了18000 Energy，那么预估本次执行消耗的Energy上限为20000 Energy；[^3]
 - 冻结trx时，当前全网用于CPU冻结的TRX总量和Energy总量的比值，假设是冻结1 trx，可以获得400 Energy；
-- 燃烧trx时，4 trx固定可以兑换10000 Energy；[^4]
+- 燃烧trx时，4 trx固定可以兑换100000 Energy；[^4]
 - 假设开发者承诺承担90%的Energy，而且开发者账户有充足的Energy；
 
 则，feeLimit的预估方法为：
