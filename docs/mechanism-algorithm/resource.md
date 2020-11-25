@@ -45,13 +45,13 @@ Bandwidth Points是一个账户1天内能够使用的总字节数。一定时间
 1. 依次验证 发行Token资产总的免费Bandwidth Points是否足够消耗，转账发起者的Token剩余免费Bandwidth Points是否足够消耗，Token发行者冻结TRX获取Bandwidth Points剩余量是否足够消耗。如果满足则扣除Token发行者的Bandwidth Points，任意一个不满足则进入下一步
 2. 尝试消耗交易发起者冻结获取的Bandwidth Points。如果交易发起者Bandwidth Points不足，则进入下一步
 3. 尝试消耗交易发起者的免费Bandwidth Points。如果免费Bandwidth Points也不足，则进入下一步
-4. 尝试消耗交易发起者的TRX，交易的字节数 * 10 sun
+4. 尝试消耗交易发起者的TRX，交易的字节数 * 40 sun
 
 如果交易普通交易，Bandwidth Points消耗如下：
 
 1. 尝试消耗交易发起者冻结获取的Bandwidth Points。如果交易发起者Bandwidth Points不足，则进入下一步
 2. 尝试消耗交易发起者的免费Bandwidth Points。如果免费Bandwidth Points也不足，则进入下一步
-3. 尝试消耗交易发起者的TRX，交易的字节数 * 10 sun
+3. 尝试消耗交易发起者的TRX，交易的字节数 * 40 sun
 
 ### 4. 带宽的自动恢复
 
@@ -143,13 +143,13 @@ B: 10_000_000_000 且energy_limit 为10_000_000_000
 
 - 假设合约C上一次成功执行时，消耗了18000 Energy，那么预估本次执行消耗的Energy上限为20000 Energy；[^3]
 - 冻结trx时，当前全网用于CPU冻结的TRX总量和Energy总量的比值，假设是冻结1 trx，可以获得400 Energy；
-- 燃烧trx时，1 trx固定可以兑换10000 Energy；[^4]
+- 燃烧trx时，4 trx固定可以兑换100000 Energy；[^4]
 - 假设开发者承诺承担90%的Energy，而且开发者账户有充足的Energy；
 
 则，feeLimit的预估方法为：
 
 1. A = 20000 energy * (1 trx / 400 energy) = 50 trx = 50_000_000 sun,
-2. B = 20000 energy * (1 trx / 10000 energy) = 2 trx = 2_000_000 sun，
+2. B = 20000 energy * (4 trx / 10000 energy) = 0.8 trx = 800_000 sun，
 3. 取A和B的最大值，为50_000_000 sun，
 4. 开发者承诺承担90%，用户需要承担10%，
 
@@ -257,4 +257,4 @@ receiverAddress表示受委托账户的地址
 [^1]: 根据tron各节点的情况，每次执行消耗的Energy可能会有小幅度的浮动。
 [^2]: tron可能会视后续公链的情况，调整这一策略。
 [^3]: 预估的下一次执行所需Energy上限，应该略大于上一次实际消耗的Energy。
-[^4]: 1 trx = 10^4 energy 为目前的燃烧trx的比例，后续Tron可能会根据全网拥塞情况调整，调整后，将通知到全网的节点。
+[^4]: 4 trx = 10^5 energy 为目前的燃烧trx的比例，后续Tron可能会根据全网拥塞情况调整，调整后，将通知到全网的节点。
