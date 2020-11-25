@@ -353,13 +353,13 @@ TRON网络引入了Bandwidth point 和 Energy 两种资源概念。其中Bandwid
 <li>依次验证 发行Token资产总的免费Bandwidth Points是否足够消耗，转账发起者的Token剩余免费Bandwidth Points是否足够消耗，Token发行者冻结TRX获取Bandwidth Points剩余量是否足够消耗。如果满足则扣除Token发行者的Bandwidth Points，任意一个不满足则进入下一步</li>
 <li>尝试消耗交易发起者冻结获取的Bandwidth Points。如果交易发起者Bandwidth Points不足，则进入下一步</li>
 <li>尝试消耗交易发起者的免费Bandwidth Points。如果免费Bandwidth Points也不足，则进入下一步</li>
-<li>尝试消耗交易发起者的TRX，交易的字节数 * 10 sun</li>
+<li>尝试消耗交易发起者的TRX，交易的字节数 * 40 sun</li>
 </ol>
 <p>如果交易普通交易，Bandwidth Points消耗如下：</p>
 <ol>
 <li>尝试消耗交易发起者冻结获取的Bandwidth Points。如果交易发起者Bandwidth Points不足，则进入下一步</li>
 <li>尝试消耗交易发起者的免费Bandwidth Points。如果免费Bandwidth Points也不足，则进入下一步</li>
-<li>尝试消耗交易发起者的TRX，交易的字节数 * 10 sun</li>
+<li>尝试消耗交易发起者的TRX，交易的字节数 * 40 sun</li>
 </ol>
 <h3 id="4">4. 带宽的自动恢复<a class="headerlink" href="#4" title="Permanent link">&para;</a></h3>
 <p>在网络总锁定资金以及账户锁定资金不变的情况向，账户的带宽的已使用量随着时间增加而按比例衰减，24h 衰减到 0. 如时间 <span><span class="MathJax_Preview">T_1</span><script type="math/tex">T_1</script></span> 时刻，账户带宽已使用量为 <span><span class="MathJax_Preview">U</span><script type="math/tex">U</script></span>, 到 <span><span class="MathJax_Preview">T_1 + 12h</span><script type="math/tex">T_1 + 12h</script></span> ，账户再次使用带宽 <span><span class="MathJax_Preview">u</span><script type="math/tex">u</script></span>, 此时账户已使用带宽为 <span><span class="MathJax_Preview">U / 2 + u</span><script type="math/tex">U / 2 + u</script></span>. 具体公式如下：</p>
@@ -430,13 +430,13 @@ B: 10_000_000_000 且energy_limit 为10_000_000_000
 <ul>
 <li>假设合约C上一次成功执行时，消耗了18000 Energy，那么预估本次执行消耗的Energy上限为20000 Energy；<sup id="fnref:3"><a class="footnote-ref" href="#fn:3">3</a></sup></li>
 <li>冻结trx时，当前全网用于CPU冻结的TRX总量和Energy总量的比值，假设是冻结1 trx，可以获得400 Energy；</li>
-<li>燃烧trx时，1 trx固定可以兑换10000 Energy；<sup id="fnref:4"><a class="footnote-ref" href="#fn:4">4</a></sup></li>
+<li>燃烧trx时，4 trx固定可以兑换100000 Energy；<sup id="fnref:4"><a class="footnote-ref" href="#fn:4">4</a></sup></li>
 <li>假设开发者承诺承担90%的Energy，而且开发者账户有充足的Energy；</li>
 </ul>
 <p>则，feeLimit的预估方法为：</p>
 <ol>
 <li>A = 20000 energy * (1 trx / 400 energy) = 50 trx = 50_000_000 sun,</li>
-<li>B = 20000 energy * (1 trx / 10000 energy) = 2 trx = 2_000_000 sun，</li>
+<li>B = 20000 energy * (4 trx / 10000 energy) = 0.8 trx = 800_000 sun，</li>
 <li>取A和B的最大值，为50_000_000 sun，</li>
 <li>开发者承诺承担90%，用户需要承担10%，</li>
 </ol>
@@ -560,7 +560,7 @@ receiverAddress表示受委托账户的地址
 <p>预估的下一次执行所需Energy上限，应该略大于上一次实际消耗的Energy。&#160;<a class="footnote-backref" href="#fnref:3" title="Jump back to footnote 3 in the text">&#8617;</a></p>
 </li>
 <li id="fn:4">
-<p>1 trx = 10^4 energy 为目前的燃烧trx的比例，后续Tron可能会根据全网拥塞情况调整，调整后，将通知到全网的节点。&#160;<a class="footnote-backref" href="#fnref:4" title="Jump back to footnote 4 in the text">&#8617;</a></p>
+<p>4 trx = 10^5 energy 为目前的燃烧trx的比例，后续Tron可能会根据全网拥塞情况调整，调整后，将通知到全网的节点。&#160;<a class="footnote-backref" href="#fnref:4" title="Jump back to footnote 4 in the text">&#8617;</a></p>
 </li>
 </ol>
 </div>
