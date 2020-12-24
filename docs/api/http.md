@@ -791,7 +791,7 @@ demo: curl -X POST  http://127.0.0.1:8090/wallet/getblockbylatestnum -d '{"num":
 返回值：块的列表。
 
 wallet/getblockbalance
-作用：查询指定区块中交易对账户余额的变化
+作用：获取一个区块中所有的余额变化操作
 demo: curl -X POST  http://127.0.0.1:8090/wallet/getblockbalance -d
 '{
     "hash": "000000000000dc2a3731e28a75b49ac1379bcc425afc95f6ab3916689fbb0189",
@@ -1156,7 +1156,7 @@ demo: curl -X POST  http://127.0.0.1:8090/wallet/getaccountbyid -d
 返回值：Account对象
 
 wallet/getaccountbalance
-作用：查询一个账号在某个区块上的余额
+作用：查询账户历史余额
 demo: curl -X POST  http://127.0.0.1:8090/wallet/getaccountbalance -d
 '{
     "account_identifier": {
