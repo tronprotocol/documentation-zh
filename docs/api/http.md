@@ -792,7 +792,7 @@ demo: curl -X POST  http://127.0.0.1:8090/wallet/getblockbylatestnum -d '{"num":
 
 wallet/getblockbalance
 作用：查询指定区块中交易对账户余额的变化
-demo: curl -X POST  http://127.0.0.1:8090/wallet/getblockbalance -d 
+demo: curl -X POST  http://127.0.0.1:8090/wallet/getblockbalance -d
 '{
     "hash": "000000000000dc2a3731e28a75b49ac1379bcc425afc95f6ab3916689fbb0189",
     "number": 56362,
@@ -1168,7 +1168,7 @@ demo: curl -X POST  http://127.0.0.1:8090/wallet/getaccountbalance -d
     },
     "visible": true
 }'
-参数说明： 账户 address + 区块 hash 和 number，区块hash和number必须匹配一致。
+参数说明： 账户 address + 区块 hash 和 number，区块 hash 和 number 必须匹配一致。
 返回值：
 {
     "balance": 64086449348265042,
@@ -1177,7 +1177,7 @@ demo: curl -X POST  http://127.0.0.1:8090/wallet/getaccountbalance -d
         "number": 68682
     }
 }
-返回值说明：返回值中的block_identifier表示账户余额发生变化的区块
+返回值说明：返回值中的 block_identifier 表示账户余额发生变化的区块
 
 wallet/getdeferredtransactionbyid
 作用：通过交易id查询延迟交易
