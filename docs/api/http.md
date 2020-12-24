@@ -23,10 +23,12 @@
 | getblockbyid                  |  withdrawbalance                   | createshieldedtransaction                    |
 | getblockbylimitnext           |  votewitnessaccount                | createshieldedtransaction<br>withoutspendauthsig |
 | getblockbylatestnum           |  updatewitness                     | getnewshieldedaddress                        |
-|                               |  createwitness                     |                                              |
+| getblockbalance               |  createwitness                     |                                              |
 |                               |  getbrokerage                      |                                              |
 |                               |  getreward                         |                                              |
 |                               |  updateBrokerage                   |                                              |
+|                               |  getaccountbalance                 |                                              |
+
 
 
 |   asset                        |  exchange               | transfer                        |
@@ -1103,6 +1105,13 @@ wallet/getaccountbyid
 作用：通过accountId查询一个账号的信息
 demo: curl -X POST  http://127.0.0.1:8090/wallet/getaccountbyid -d
 '{"account_id":"6161616162626262"}'
+参数说明：account_id 默认为hexString格式
+返回值：Account对象
+
+wallet/getaccountbalance
+作用：通过accountId查询一个账号的信息
+demo: curl -X POST  http://127.0.0.1:8090/wallet/getaccountbalance -d
+'{"address":"6161616162626262"}'
 参数说明：account_id 默认为hexString格式
 返回值：Account对象
 
