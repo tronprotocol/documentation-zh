@@ -790,6 +790,53 @@ demo: curl -X POST  http://127.0.0.1:8090/wallet/getblockbylatestnum -d '{"num":
 参数说明：块的数量。
 返回值：块的列表。
 
+wallet/getblockbalance
+作用：查询指定区块中交易对账户余额的变化
+demo: curl -X POST  http://127.0.0.1:8090/wallet/getblockbalance -d 
+'{
+    "hash": "000000000000dc2a3731e28a75b49ac1379bcc425afc95f6ab3916689fbb0189",
+    "number": 56362,
+    "visible": true
+}'
+参数说明：区块hash和number必须一致。
+返回值：
+'{
+    "block_identifier": {
+        "hash": "000000000000dc2a3731e28a75b49ac1379bcc425afc95f6ab3916689fbb0189",
+        "number": 56362
+    },
+    "timestamp": 1530060672000,
+    "transaction_balance_trace": [
+        {
+            "transaction_identifier": "e6cabb1833cd1f795eed39d8dd7689eaa70e5bb217611766c74c7aa9feea80df",
+            "operation": [
+                {
+                    "operation_identifier": 0,
+                    "address": "TPttBLmFuykRi83y9HxDoEWxTQw6CCcQ4p",
+                    "amount": -100000
+                },
+                {
+                    "operation_identifier": 1,
+                    "address": "TLsV52sRDL79HXGGm9yzwKibb6BeruhUzy",
+                    "amount": 100000
+                },
+                {
+                    "operation_identifier": 2,
+                    "address": "TPttBLmFuykRi83y9HxDoEWxTQw6CCcQ4p",
+                    "amount": -10000000
+                },
+                {
+                    "operation_identifier": 3,
+                    "address": "TMrysg7DbwR1M8xqhpaPdVCHCuWFhw7uk1",
+                    "amount": 10000000
+                }
+            ],
+            "type": "TransferContract",
+            "status": "SUCCESS"
+        }
+    ]
+}'
+
 wallet/gettransactionbyid
 作用：通过ID查询交易
 demo: curl -X POST  http://127.0.0.1:8090/wallet/gettransactionbyid -d '{"value": "d5ec749ecc2a615399d8a6c864ea4c74ff9f523c2be0e341ac9be5d47d7c2d62"}'
@@ -1109,11 +1156,28 @@ demo: curl -X POST  http://127.0.0.1:8090/wallet/getaccountbyid -d
 返回值：Account对象
 
 wallet/getaccountbalance
-作用：通过accountId查询一个账号的信息
+作用：查询一个账号在某个区块上的余额
 demo: curl -X POST  http://127.0.0.1:8090/wallet/getaccountbalance -d
-'{"address":"6161616162626262"}'
-参数说明：account_id 默认为hexString格式
-返回值：Account对象
+'{
+    "account_identifier": {
+        "address": "TLLM21wteSPs4hKjbxgmH1L6poyMjeTbHm"
+    }, 
+    "block_identifier": {
+        "hash": "0000000000010c4a732d1e215e87466271e425c86945783c3d3f122bfa5affd9",
+        "number": 68682
+    },
+    "visible": true
+}'
+参数说明： 账户 address + 区块 hash 和 number，区块hash和number必须匹配一致。
+返回值：
+{
+    "balance": 64086449348265042,
+    "block_identifier": {
+        "hash": "0000000000010c4a732d1e215e87466271e425c86945783c3d3f122bfa5affd9",
+        "number": 68682
+    }
+}
+返回值说明：返回值中的block_identifier表示账户余额发生变化的区块
 
 wallet/getdeferredtransactionbyid
 作用：通过交易id查询延迟交易
