@@ -311,7 +311,7 @@
 <p>自版本 3.7 之后的所有发布文件将由 Tron 账户 <code>TKeAcHxgErbVXrG3N3TZiSV6AT566BHTj2</code> 对文件一致性进行签名。</p>
 <h3 id="_3">签名验证<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
 <p>这里介绍如何通过 tronweb 验证签名。</p>
-<div class="highlight"><pre><span></span><code><span class="kr">const</span> <span class="nx">Trx</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;tronweb&#39;</span><span class="p">).</span><span class="nx">Trx</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span> <span class="nx">Trx</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;tronweb&#39;</span><span class="p">).</span><span class="nx">Trx</span><span class="p">;</span>
 
 <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">Trx</span><span class="p">.</span><span class="nx">verifySignature</span><span class="p">(</span><span class="nx">SHA256</span><span class="p">,</span> <span class="nx">ADDRESS</span><span class="p">,</span> <span class="nx">SIGNATURE</span><span class="p">));</span>
 </code></pre></div>
