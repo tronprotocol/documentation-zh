@@ -66,7 +66,7 @@
 |  getmarketorderlistbypair      |getnextmaintenancetime   |                       |
 |  getmarketpricebypair          |getnodeinfo              |                       |
 |  getmarketorderbyid            |getchainparameters       |                       |
-
+|                                |getburntrx               |                       |
 
 
 ## hexString和base58check转码demo
@@ -1926,5 +1926,12 @@ demo: curl -X POST  http://127.0.0.1:8090/wallet/getmarketorderbyid -d
 参数说明：
 value：order id，默认为hexString格式               
 返回值：订单
+
+wallet/getburntrx     
+作用：查询烧掉的trx总量
+demo: curl -X get  http://127.0.0.1:8090/wallet/getburntrx  
+参数说明：    
+无  
+返回值：烧掉的trx总量
   
 ```
