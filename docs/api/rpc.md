@@ -452,5 +452,18 @@ Interface statement:
 rpc GetMarketOrderById (BytesMessage) returns (MarketOrder) {}; 
 Nodes: FullNode 
     
+**73.&nbsp;perform a historical balance lookup**      
+Interface statement:  
+rpc GetAccountBalance (AccountBalanceRequest) returns (AccountBalanceResponse){}; 
+Nodes: FullNode 
 
+**74.&nbsp;fetch all balance-changing transactions in a block**      
+Interface statement:  
+rpc GetBlockBalanceTrace (BlockBalanceTrace.BlockIdentifier) returns (BlockBalanceTrace) {}; 
+Nodes: FullNode 
+
+**75.&nbsp;get the burn trx amount**      
+Interface statement:  
+rpc GetBurnTrx (EmptyMessage) returns (NumberMessage) {}; 
+Nodes: FullNode and SolidityNode
 
