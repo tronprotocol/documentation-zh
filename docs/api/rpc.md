@@ -472,9 +472,9 @@ Interface statement:
 rpc GetTransactionFromPending (BytesMessage) returns (Transaction) {};
 Nodes: FullNode
 
-**77.&nbsp;Query the pending pool transaction list**
+**77.&nbsp;Query the pending pool transaction id list**
 Interface statement:
-rpc GetTransactionListFromPending (EmptyMessage) returns (TransactionList) {};
+rpc GetTransactionListFromPending (EmptyMessage) returns (TransactionIdList) {};
 Nodes: FullNode
 
 **78.&nbsp;Query the size of the pending pool**

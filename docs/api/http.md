@@ -1946,11 +1946,11 @@ value: 交易id，默认为hexString格式
 返回值：交易的详细信息
 
 wallet/gettransactionlistfrompending
-作用：查询pending pool交易列表
+作用：查询pending pool交易列表id
 demo: curl -X get  http://127.0.0.1:8090/wallet/gettransactionlistfrompending
 参数说明：
 无
-返回值：pending pool交易列表
+返回值：pending pool交易列表id
 
 wallet/getpendingsize
 作用：查询pending pool大小
