@@ -303,11 +303,11 @@
                 <h1 id="_1">系统合约<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
 <h2 id="1">1.创建账户 AccountCreateContract</h2>
 
-<div class="codehilite"><pre><span></span><code><span class="err">message AccountCreateContract {</span>
-<span class="err">   bytes owner_address = 1;</span>
-<span class="err">   bytes account_address = 2;</span>
-<span class="err">   AccountType type = 3;</span>
-<span class="err">}</span>
+<div class="codehilite"><pre><span></span><code>message AccountCreateContract {
+   bytes owner_address = 1;
+   bytes account_address = 2;
+   AccountType type = 3;
+}
 </code></pre></div>
 
 <p><code>owner_address</code>：合约持有人地址。
@@ -315,11 +315,11 @@
    <code>type</code>：账户类型。0代表普通账户，1代表创世块中初始账号，2代表智能合约账户。</p>
 <h2 id="2">2.转账 TransferContract</h2>
 
-<div class="codehilite"><pre><span></span><code><span class="err">  message TransferContract {</span>
-<span class="err">   bytes owner_address = 1;</span>
-<span class="err">   bytes to_address = 2;</span>
-<span class="err">   int64 amount = 3;</span>
-<span class="err"> }</span>
+<div class="codehilite"><pre><span></span><code>  message TransferContract {
+   bytes owner_address = 1;
+   bytes to_address = 2;
+   int64 amount = 3;
+ }
 </code></pre></div>
 
 <p><code>owner_address</code>：合约持有人地址。
@@ -327,12 +327,12 @@
    <code>amount</code>：转账金额，单位为 sun。</p>
 <h2 id="3">3.转账发布的Token TransferAssetContract</h2>
 
-<div class="codehilite"><pre><span></span><code><span class="err">  message TransferAssetContract {</span>
-<span class="err">   bytes asset_name = 1;</span>
-<span class="err">   bytes owner_address = 2;</span>
-<span class="err">   bytes to_address = 3;</span>
-<span class="err">   int64 amount = 4;</span>
-<span class="err"> }</span>
+<div class="codehilite"><pre><span></span><code>  message TransferAssetContract {
+   bytes asset_name = 1;
+   bytes owner_address = 2;
+   bytes to_address = 3;
+   int64 amount = 4;
+ }
 </code></pre></div>
 
 <p><code>asset_name</code>：发布Token的id。
@@ -341,15 +341,15 @@
    <code>amount</code>：转账Token的数量。</p>
 <h2 id="4">4.投票超级节点  VoteWitnessContract</h2>
 
-<div class="codehilite"><pre><span></span><code><span class="err">  message VoteWitnessContract {</span>
-<span class="err">   message Vote {</span>
-<span class="err">     bytes vote_address = 1;</span>
-<span class="err">     int64 vote_count = 2;</span>
-<span class="err">   }</span>
-<span class="err">   bytes owner_address = 1;</span>
-<span class="err">   repeated Vote votes = 2;</span>
-<span class="err">   bool support = 3;</span>
-<span class="err"> }</span>
+<div class="codehilite"><pre><span></span><code>  message VoteWitnessContract {
+   message Vote {
+     bytes vote_address = 1;
+     int64 vote_count = 2;
+   }
+   bytes owner_address = 1;
+   repeated Vote votes = 2;
+   bool support = 3;
+ }
 </code></pre></div>
 
 <p><code>owner_address</code>：合约持有人地址。
@@ -358,39 +358,39 @@
    <code>support</code>：是否支持，这里应该是恒为true，暂未使用该参数。</p>
 <h2 id="5">5.创建超级节点候选人 WitnessCreateContract</h2>
 
-<div class="codehilite"><pre><span></span><code><span class="err">  message WitnessCreateContract {</span>
-<span class="err">   bytes owner_address = 1;</span>
-<span class="err">   bytes url = 2;</span>
-<span class="err"> }</span>
+<div class="codehilite"><pre><span></span><code>  message WitnessCreateContract {
+   bytes owner_address = 1;
+   bytes url = 2;
+ }
 </code></pre></div>
 
 <p><code>owner_address</code>：合约持有人地址。
    <code>url</code>：超级节点的网址。</p>
 <h2 id="6">6.发布Token AssetIssueContract</h2>
 
-<div class="codehilite"><pre><span></span><code><span class="err">message AssetIssueContract {</span>
-<span class="err">   message FrozenSupply {</span>
-<span class="err">     int64 frozen_amount = 1;</span>
-<span class="err">     int64 frozen_days = 2;</span>
-<span class="err">   }</span>
-<span class="err">   bytes owner_address = 1;</span>
-<span class="err">   bytes name = 2;</span>
-<span class="err">   bytes abbr = 3;</span>
-<span class="err">   int64 total_supply = 4;</span>
-<span class="err">   repeated FrozenSupply frozen_supply = 5;</span>
-<span class="err">   int32 trx_num = 6;</span>
-<span class="err">   int32 num = 8;</span>
-<span class="err">   int64 start_time = 9;</span>
-<span class="err">   int64 end_time = 10;</span>
-<span class="err">   int64 order = 11; // the order of tokens of the same name</span>
-<span class="err">   int32 vote_score = 16;</span>
-<span class="err">   bytes description = 20;</span>
-<span class="err">   bytes url = 21;</span>
-<span class="err">   int64 free_asset_net_limit = 22;</span>
-<span class="err">   int64 public_free_asset_net_limit = 23;</span>
-<span class="err">   int64 public_free_asset_net_usage = 24;</span>
-<span class="err">   int64 public_latest_free_net_time = 25;</span>
-<span class="err"> }</span>
+<div class="codehilite"><pre><span></span><code>message AssetIssueContract {
+   message FrozenSupply {
+     int64 frozen_amount = 1;
+     int64 frozen_days = 2;
+   }
+   bytes owner_address = 1;
+   bytes name = 2;
+   bytes abbr = 3;
+   int64 total_supply = 4;
+   repeated FrozenSupply frozen_supply = 5;
+   int32 trx_num = 6;
+   int32 num = 8;
+   int64 start_time = 9;
+   int64 end_time = 10;
+   int64 order = 11; // the order of tokens of the same name
+   int32 vote_score = 16;
+   bytes description = 20;
+   bytes url = 21;
+   int64 free_asset_net_limit = 22;
+   int64 public_free_asset_net_limit = 23;
+   int64 public_free_asset_net_usage = 24;
+   int64 public_latest_free_net_time = 25;
+ }
 </code></pre></div>
 
 <p><code>owner_address</code>：合约持有人地址。
@@ -412,22 +412,22 @@
    <code>public_latest_free_net_time</code>：最近一次转移该Token使用免费带宽的时间。</p>
 <h2 id="7">7.更新超级节点候选人URL WitnessUpdateContract</h2>
 
-<div class="codehilite"><pre><span></span><code><span class="err">  message WitnessUpdateContract {</span>
-<span class="err">   bytes owner_address = 1;</span>
-<span class="err">   bytes update_url = 12;</span>
-<span class="err"> }</span>
+<div class="codehilite"><pre><span></span><code>  message WitnessUpdateContract {
+   bytes owner_address = 1;
+   bytes update_url = 12;
+ }
 </code></pre></div>
 
 <p><code>owner_address</code>：合约持有人地址。
    <code>update_url</code>：超级节点网站的url。</p>
 <h2 id="8">8.购买发行的Token ParticipateAssetIssueContract</h2>
 
-<div class="codehilite"><pre><span></span><code><span class="err">  message ParticipateAssetIssueContract {</span>
-<span class="err">   bytes owner_address = 1;</span>
-<span class="err">   bytes to_address = 2;</span>
-<span class="err">   bytes asset_name = 3;</span>
-<span class="err">   int64 amount = 4;</span>
-<span class="err"> }</span>
+<div class="codehilite"><pre><span></span><code>  message ParticipateAssetIssueContract {
+   bytes owner_address = 1;
+   bytes to_address = 2;
+   bytes asset_name = 3;
+   int64 amount = 4;
+ }
 </code></pre></div>
 
 <p><code>owner_address</code>：合约持有人地址。
@@ -436,24 +436,24 @@
    <code>amount</code>：购买发行Token使用TRX的数量，单位是 sun。</p>
 <h2 id="9">9.更新账户 AccountUpdateContract</h2>
 
-<div class="codehilite"><pre><span></span><code><span class="err">  // Update account name. Account name is unique now.</span>
-<span class="err"> message AccountUpdateContract {</span>
-<span class="err">   bytes account_name = 1;</span>
-<span class="err">   bytes owner_address = 2;</span>
-<span class="err"> }</span>
+<div class="codehilite"><pre><span></span><code>  // Update account name. Account name is unique now.
+ message AccountUpdateContract {
+   bytes account_name = 1;
+   bytes owner_address = 2;
+ }
 </code></pre></div>
 
 <p><code>owner_address</code>：合约持有人地址。
    <code>account_name</code>： 账户名称。</p>
 <h2 id="10">10.冻结资产 FreezeBalanceContract</h2>
 
-<div class="codehilite"><pre><span></span><code><span class="err">  message FreezeBalanceContract {</span>
-<span class="err">   bytes owner_address = 1;</span>
-<span class="err">   int64 frozen_balance = 2;</span>
-<span class="err">   int64 frozen_duration = 3;</span>
-<span class="err">   ResourceCode resource = 10;</span>
-<span class="err">   bytes receiver_address = 15;</span>
-<span class="err"> }</span>
+<div class="codehilite"><pre><span></span><code>  message FreezeBalanceContract {
+   bytes owner_address = 1;
+   int64 frozen_balance = 2;
+   int64 frozen_duration = 3;
+   ResourceCode resource = 10;
+   bytes receiver_address = 15;
+ }
 </code></pre></div>
 
 <p><code>owner_address</code>：合约持有人地址。
@@ -463,11 +463,11 @@
    <code>receiver_address</code>：接收资源的账户。</p>
 <h2 id="11">11.解冻资产 UnfreezeBalanceContract</h2>
 
-<div class="codehilite"><pre><span></span><code><span class="err">  message UnfreezeBalanceContract {</span>
-<span class="err">   bytes owner_address = 1;</span>
-<span class="err">   ResourceCode resource = 10;</span>
-<span class="err">   bytes receiver_address = 13;</span>
-<span class="err"> }</span>
+<div class="codehilite"><pre><span></span><code>  message UnfreezeBalanceContract {
+   bytes owner_address = 1;
+   ResourceCode resource = 10;
+   bytes receiver_address = 13;
+ }
 </code></pre></div>
 
 <p><code>owner_address</code>：合约持有人地址。
@@ -475,29 +475,29 @@
    <code>receiver_address</code>：接收资源的账户。</p>
 <h2 id="12">12.提取奖励 WithdrawBalanceContract</h2>
 
-<div class="codehilite"><pre><span></span><code><span class="err">  message WithdrawBalanceContract {</span>
-<span class="err">   bytes owner_address = 1;</span>
-<span class="err"> }</span>
+<div class="codehilite"><pre><span></span><code>  message WithdrawBalanceContract {
+   bytes owner_address = 1;
+ }
 </code></pre></div>
 
 <p><code>owner_address</code>：合约持有人地址。</p>
 <h2 id="13">13.解冻发布的Token UnfreezeAssetContract</h2>
 
-<div class="codehilite"><pre><span></span><code><span class="err">  message UnfreezeAssetContract {</span>
-<span class="err">   bytes owner_address = 1;</span>
-<span class="err"> }</span>
+<div class="codehilite"><pre><span></span><code>  message UnfreezeAssetContract {
+   bytes owner_address = 1;
+ }
 </code></pre></div>
 
 <p><code>owner_address</code>：合约持有人地址。</p>
 <h2 id="14">14.更新通证参数 UpdateAssetContract</h2>
 
-<div class="codehilite"><pre><span></span><code><span class="err">  message UpdateAssetContract {</span>
-<span class="err">   bytes owner_address = 1;</span>
-<span class="err">   bytes description = 2;</span>
-<span class="err">   bytes url = 3;</span>
-<span class="err">   int64 new_limit = 4;</span>
-<span class="err">   int64 new_public_limit = 5;</span>
-<span class="err"> }</span>
+<div class="codehilite"><pre><span></span><code>  message UpdateAssetContract {
+   bytes owner_address = 1;
+   bytes description = 2;
+   bytes url = 3;
+   int64 new_limit = 4;
+   int64 new_public_limit = 5;
+ }
 </code></pre></div>
 
 <p><code>owner_address</code>：合约持有人地址。
@@ -507,21 +507,21 @@
    <code>new_public_limit</code>： 所有调用者可以消耗Bandwidth points的限制。</p>
 <h2 id="15">15.创建提议  ProposalCreateContract</h2>
 
-<div class="codehilite"><pre><span></span><code><span class="err">  message ProposalCreateContract {</span>
-<span class="err">   bytes owner_address = 1;</span>
-<span class="err">   map&lt;int64, int64&gt; parameters = 2;</span>
-<span class="err"> }</span>
+<div class="codehilite"><pre><span></span><code>  message ProposalCreateContract {
+   bytes owner_address = 1;
+   map&lt;int64, int64&gt; parameters = 2;
+ }
 </code></pre></div>
 
 <p><code>owner_address</code>：合约持有人地址。
    <code>parameters</code>： 提议。</p>
 <h2 id="16">16.赞成提议 ProposalApproveContract</h2>
 
-<div class="codehilite"><pre><span></span><code><span class="err">  message ProposalApproveContract {</span>
-<span class="err">   bytes owner_address = 1;</span>
-<span class="err">   int64 proposal_id = 2;</span>
-<span class="err">   bool is_add_approval = 3; // add or remove approval</span>
-<span class="err"> }</span>
+<div class="codehilite"><pre><span></span><code>  message ProposalApproveContract {
+   bytes owner_address = 1;
+   int64 proposal_id = 2;
+   bool is_add_approval = 3; // add or remove approval
+ }
 </code></pre></div>
 
 <p><code>owner_address</code>：合约持有人地址。
@@ -529,43 +529,43 @@
    <code>is_add_approval</code>：是否赞成提议。</p>
 <h2 id="17">17.删除提议 ProposalDeleteContract</h2>
 
-<div class="codehilite"><pre><span></span><code><span class="err"> message ProposalDeleteContract {</span>
-<span class="err">   bytes owner_address = 1;</span>
-<span class="err">   int64 proposal_id = 2;</span>
-<span class="err"> }</span>
+<div class="codehilite"><pre><span></span><code> message ProposalDeleteContract {
+   bytes owner_address = 1;
+   int64 proposal_id = 2;
+ }
 </code></pre></div>
 
 <p><code>owner_address</code>：合约持有人地址。
    <code>proposal_id</code>： 提议ID。</p>
 <h2 id="18">18.设置账户ID SetAccountIdContract</h2>
 
-<div class="codehilite"><pre><span></span><code><span class="err">  // Set account id if the account has no id. Account id is unique and case insensitive.</span>
-<span class="err"> message SetAccountIdContract {</span>
-<span class="err">   bytes account_id = 1;</span>
-<span class="err">   bytes owner_address = 2;</span>
-<span class="err"> }</span>
+<div class="codehilite"><pre><span></span><code>  <span class="o">//</span> <span class="nv">Set</span> <span class="nv">account</span> <span class="nv">id</span> <span class="k">if</span> <span class="nv">the</span> <span class="nv">account</span> <span class="nv">has</span> <span class="nv">no</span> <span class="nv">id</span>. <span class="nv">Account</span> <span class="nv">id</span> <span class="nv">is</span> <span class="nv">unique</span> <span class="nv">and</span> <span class="nv">case</span> <span class="nv">insensitive</span>.
+ <span class="nv">message</span> <span class="nv">SetAccountIdContract</span> {
+   <span class="nv">bytes</span> <span class="nv">account_id</span> <span class="o">=</span> <span class="mi">1</span><span class="c1">;</span>
+   <span class="nv">bytes</span> <span class="nv">owner_address</span> <span class="o">=</span> <span class="mi">2</span><span class="c1">;</span>
+ }
 </code></pre></div>
 
 <p><code>owner_address</code>：合约持有人地址。
    <code>account_id</code>： 账户Id。</p>
 <h2 id="19">19.创建智能合约 CreateSmartContract</h2>
 
-<div class="codehilite"><pre><span></span><code><span class="err"> message CreateSmartContract {</span>
-<span class="err">   bytes owner_address = 1;</span>
-<span class="err">   SmartContract new_contract = 2;</span>
-<span class="err"> }</span>
+<div class="codehilite"><pre><span></span><code> message CreateSmartContract {
+   bytes owner_address = 1;
+   SmartContract new_contract = 2;
+ }
 </code></pre></div>
 
 <p><code>owner_address</code>：合约持有人地址。
    <code>new_contract</code>： 智能合约。</p>
 <h2 id="20">20.触发智能合约 TriggerSmartContract</h2>
 
-<div class="codehilite"><pre><span></span><code><span class="err">  message TriggerSmartContract {</span>
-<span class="err">   bytes owner_address = 1;</span>
-<span class="err">   bytes contract_address = 2;</span>
-<span class="err">   int64 call_value = 3;</span>
-<span class="err">   bytes data = 4;</span>
-<span class="err"> }</span>
+<div class="codehilite"><pre><span></span><code>  message TriggerSmartContract {
+   bytes owner_address = 1;
+   bytes contract_address = 2;
+   int64 call_value = 3;
+   bytes data = 4;
+ }
 </code></pre></div>
 
 <p><code>owner_address</code>：合约持有人地址。
@@ -574,11 +574,11 @@
    <code>data</code>：操作参数。</p>
 <h2 id="21">21.更新合约 UpdateSettingContract</h2>
 
-<div class="codehilite"><pre><span></span><code><span class="err">  message UpdateSettingContract {</span>
-<span class="err">   bytes owner_address = 1;</span>
-<span class="err">   bytes contract_address = 2;</span>
-<span class="err">   int64 consume_user_resource_percent = 3;</span>
-<span class="err"> }</span>
+<div class="codehilite"><pre><span></span><code>  message UpdateSettingContract {
+   bytes owner_address = 1;
+   bytes contract_address = 2;
+   int64 consume_user_resource_percent = 3;
+ }
 </code></pre></div>
 
 <p><code>owner_address</code>：合约持有人地址。
@@ -586,13 +586,13 @@
    <code>consume_user_resource_percent</code>：将要更新的账户消耗资源的百分比。</p>
 <h2 id="22">22.创建交易所 ExchangeCreateContract</h2>
 
-<div class="codehilite"><pre><span></span><code><span class="err">  message ExchangeCreateContract {</span>
-<span class="err">   bytes owner_address = 1;</span>
-<span class="err">   bytes first_token_id = 2;</span>
-<span class="err">   int64 first_token_balance = 3;</span>
-<span class="err">   bytes second_token_id = 4;</span>
-<span class="err">   int64 second_token_balance = 5;</span>
-<span class="err"> }</span>
+<div class="codehilite"><pre><span></span><code>  message ExchangeCreateContract {
+   bytes owner_address = 1;
+   bytes first_token_id = 2;
+   int64 first_token_balance = 3;
+   bytes second_token_id = 4;
+   int64 second_token_balance = 5;
+ }
 </code></pre></div>
 
 <p><code>owner_address</code>：合约持有人地址。
@@ -602,12 +602,12 @@
    <code>second_token_balance</code>：第2种token的balance。</p>
 <h2 id="23">23.给交易所注资 ExchangeInjectContract</h2>
 
-<div class="codehilite"><pre><span></span><code><span class="err">  message ExchangeInjectContract {</span>
-<span class="err">   bytes owner_address = 1;</span>
-<span class="err">   int64 exchange_id = 2;</span>
-<span class="err">   bytes token_id = 3;</span>
-<span class="err">   int64 quant = 4;</span>
-<span class="err"> }</span>
+<div class="codehilite"><pre><span></span><code>  message ExchangeInjectContract {
+   bytes owner_address = 1;
+   int64 exchange_id = 2;
+   bytes token_id = 3;
+   int64 quant = 4;
+ }
 </code></pre></div>
 
 <p><code>owner_address</code>：合约持有人地址。
@@ -616,12 +616,12 @@
    <code>quant</code>：要注资的token的金额。</p>
 <h2 id="24">24.从交易所撤资 ExchangeWithdrawContract</h2>
 
-<div class="codehilite"><pre><span></span><code><span class="err">  message ExchangeWithdrawContract {</span>
-<span class="err">   bytes owner_address = 1;</span>
-<span class="err">   int64 exchange_id = 2;</span>
-<span class="err">   bytes token_id = 3;</span>
-<span class="err">   int64 quant = 4;</span>
-<span class="err"> }</span>
+<div class="codehilite"><pre><span></span><code>  message ExchangeWithdrawContract {
+   bytes owner_address = 1;
+   int64 exchange_id = 2;
+   bytes token_id = 3;
+   int64 quant = 4;
+ }
 </code></pre></div>
 
 <p><code>owner_address</code>：合约持有人地址。
@@ -630,12 +630,12 @@
    <code>quant</code>：要撤资的token的金额。</p>
 <h2 id="25">25.在交易所交易 ExchangeTransactionContract</h2>
 
-<div class="codehilite"><pre><span></span><code><span class="err">  message ExchangeTransactionContract {</span>
-<span class="err">   bytes owner_address = 1;</span>
-<span class="err">   int64 exchange_id = 2;</span>
-<span class="err">   bytes token_id = 3;</span>
-<span class="err">   int64 quant = 4;</span>
-<span class="err"> }</span>
+<div class="codehilite"><pre><span></span><code>  message ExchangeTransactionContract {
+   bytes owner_address = 1;
+   int64 exchange_id = 2;
+   bytes token_id = 3;
+   int64 quant = 4;
+ }
 </code></pre></div>
 
 <p><code>owner_address</code>：合约持有人地址。
@@ -644,15 +644,15 @@
    <code>quant</code>：要卖出的token的金额。</p>
 <h2 id="26">26.匿名交易 ShieldedTransferContract</h2>
 
-<div class="codehilite"><pre><span></span><code><span class="err">message ShieldedTransferContract {</span>
-<span class="err">   bytes transparent_from_address = 1;</span>
-<span class="err">   int64 from_amount = 2;</span>
-<span class="err">   repeated SpendDescription spend_description = 3;</span>
-<span class="err">   repeated ReceiveDescription receive_description = 4;</span>
-<span class="err">   bytes binding_signature = 5;</span>
-<span class="err">   bytes transparent_to_address = 6;</span>
-<span class="err">   int64 to_amount = 7;</span>
-<span class="err">}</span>
+<div class="codehilite"><pre><span></span><code>message ShieldedTransferContract {
+   bytes transparent_from_address = 1;
+   int64 from_amount = 2;
+   repeated SpendDescription spend_description = 3;
+   repeated ReceiveDescription receive_description = 4;
+   bytes binding_signature = 5;
+   bytes transparent_to_address = 6;
+   int64 to_amount = 7;
+}
 </code></pre></div>
 
 <p><code>transparent_from_address</code>：交易发送方透明地址，如果交易发送方是匿名的，则该参数为空。
@@ -662,14 +662,14 @@
    <code>binding_signature</code>：交易的绑定签名，证明交易双方金额平衡。
    <code>transparent_to_address</code>：交易接收方透明地址，如果交易接收方都是匿名的，则该参数为空。
    <code>to_amount</code>：交易接收方转账金额，正整数；如果交易接收方是匿名的，则该参数为0。</p>
-<div class="codehilite"><pre><span></span><code><span class="err"> message SpendDescription {</span>
-<span class="err">   bytes value_commitment = 1;</span>
-<span class="err">   bytes anchor = 2;</span>
-<span class="err">   bytes nullifier = 3;</span>
-<span class="err">   bytes rk = 4;</span>
-<span class="err">   bytes zkproof = 5;</span>
-<span class="err">   bytes spend_authority_signature = 6;</span>
-<span class="err"> }</span>
+<div class="codehilite"><pre><span></span><code> message SpendDescription {
+   bytes value_commitment = 1;
+   bytes anchor = 2;
+   bytes nullifier = 3;
+   bytes rk = 4;
+   bytes zkproof = 5;
+   bytes spend_authority_signature = 6;
+ }
 </code></pre></div>
 
 <p><code>value_commitment</code>：对交易发送方转账金额的承诺。
@@ -678,14 +678,14 @@
    <code>rk</code>：验证交易发送方Spend Authorization签名的公钥。
    <code>zkproof</code>：交易发送方note的零知识证明，证明要花费的note存在，且可以被花费。
    <code>spend_authority_signature</code>：交易发送方的Spend Authorization签名。</p>
-<div class="codehilite"><pre><span></span><code><span class="err"> message ReceiveDescription {</span>
-<span class="err">   bytes value_commitment = 1;</span>
-<span class="err">   bytes note_commitment = 2;</span>
-<span class="err">   bytes epk = 3;</span>
-<span class="err">   bytes c_enc = 4;</span>
-<span class="err">   bytes c_out = 5;</span>
-<span class="err">   bytes zkproof = 6;</span>
-<span class="err"> }</span>
+<div class="codehilite"><pre><span></span><code> message ReceiveDescription {
+   bytes value_commitment = 1;
+   bytes note_commitment = 2;
+   bytes epk = 3;
+   bytes c_enc = 4;
+   bytes c_out = 5;
+   bytes zkproof = 6;
+ }
 </code></pre></div>
 
 <p><code>value_commitment</code>：对交易接收方转账金额的承诺。
@@ -699,31 +699,31 @@
 <p><a href="../multi-signatures/">多重签名</a></p>
 <h2 id="28">28. 清除ABI合约</h2>
 
-<div class="codehilite"><pre><span></span><code><span class="err"> message ClearABIContract {</span>
-<span class="err">   bytes owner_address = 1;</span>
-<span class="err">   bytes contract_address = 2;</span>
-<span class="err"> }</span>
+<div class="codehilite"><pre><span></span><code> message ClearABIContract {
+   bytes owner_address = 1;
+   bytes contract_address = 2;
+ }
 </code></pre></div>
 
 <p><code>owner_address</code>：合约持有人地址。
    <code>account_address</code>：需要清除ABI的合约。</p>
 <h2 id="29">29. 更新分红比例合约</h2>
 
-<div class="codehilite"><pre><span></span><code><span class="err"> message UpdateBrokerageContract {</span>
-<span class="err">   bytes owner_address = 1;</span>
-<span class="err">   int32 brokerage = 2;</span>
-<span class="err"> }</span>
+<div class="codehilite"><pre><span></span><code> message UpdateBrokerageContract {
+   bytes owner_address = 1;
+   int32 brokerage = 2;
+ }
 </code></pre></div>
 
 <p><code>owner_address</code>：合约持有人地址。
    <code>brokerage</code>: 分红比例，从0到100，1代表1%。</p>
 <h2 id="30">30. 调整能量上限合约</h2>
 
-<div class="codehilite"><pre><span></span><code><span class="err"> message UpdateEnergyLimitContract {</span>
-<span class="err">   bytes owner_address = 1;</span>
-<span class="err">   bytes contract_address = 2;</span>
-<span class="err">   int64 origin_energy_limit = 3;</span>
-<span class="err"> }</span>
+<div class="codehilite"><pre><span></span><code> message UpdateEnergyLimitContract {
+   bytes owner_address = 1;
+   bytes contract_address = 2;
+   int64 origin_energy_limit = 3;
+ }
 </code></pre></div>
 
 <p><code>owner_address</code>：合约持有人地址。
