@@ -502,7 +502,7 @@ CPU：64核及以上 内存：64G及以上 带宽：500M及以上 硬盘：20T�
 <div class="highlight"><pre><span></span><code>nohup java -Xmx6g -XX:+HeapDumpOnOutOfMemoryError -jar FullNode.jar  --witness  -c private_net_config.conf
 
 命令行参数说明:
---witness: 启动witness功能，i.e.: --witness
+--witness: 启动witness功能，超级节点命令行启动时需要添加这个参数，i.e.: --witness
 --log-config: 指定日志配置文件路径，i.e.: --log-config logback.xml
 -c: 指定配置文件路径，i.e.: -c config.conf
 </code></pre></div>
@@ -532,9 +532,9 @@ CPU：64核及以上 内存：64G及以上 带宽：500M及以上 硬盘：20T�
 6.&nbsp;设置node.discovery.enable 为true
 7.&nbsp;运行部署脚本
 
-<div class="highlight"><pre><span></span><code>nohup java -Xmx6g -XX:+HeapDumpOnOutOfMemoryError -jar FullNode.jar  --witness  -c private_net_config.conf
+<div class="highlight"><pre><span></span><code>nohup java -Xmx6g -XX:+HeapDumpOnOutOfMemoryError -jar FullNode.jar  -c private_net_config.conf
 命令行参数说明:
---witness: 启动witness功能，i.e.: --witness。
+--witness: 启动witness功能,由于配置的这个fullnode节点不需要产快，所以此fullnode节点不可以添加这个参数，i.e.: --witness。
 --log-config: 指定日志配置文件路径，i.e.: --log-config logback.xml。
 -c: 指定配置文件路径，i.e.: -c config.conf。
 </code></pre></div>
