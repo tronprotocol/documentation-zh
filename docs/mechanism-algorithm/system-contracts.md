@@ -12,7 +12,7 @@
    `account_address`： 将要创建的账户地址。
    `type`：账户类型。0代表普通账户，1代表创世块中初始账号，2代表智能合约账户。
 
- <h2 id="2">2.转账 TransferContract</h2>
+ <h2 id="2">2.TRX转账 TransferContract</h2>
 
       message TransferContract {
        bytes owner_address = 1;
@@ -26,7 +26,7 @@
    `amount`：转账金额，单位为 sun。
 
 
- <h2 id="3">3.转账发布的Token TransferAssetContract</h2>
+ <h2 id="3">3.TRC-10代币转账 TransferAssetContract</h2>
 
       message TransferAssetContract {
        bytes asset_name = 1;
@@ -35,10 +35,10 @@
        int64 amount = 4;
      }
 
-   `asset_name`：发布Token的id。
+   `asset_name`：TRC-10的id。
    `owner_address`：合约持有人地址。
    `to_address`： 目标账户地址。
-   `amount`：转账Token的数量。
+   `amount`：转账代币的数量。
 
 
  <h2 id="4">4.投票超级节点  VoteWitnessContract</h2>
@@ -70,7 +70,7 @@
    `url`：超级节点的网址。
 
 
- <h2 id="6">6.发布Token AssetIssueContract</h2>
+ <h2 id="6">6.发布TRC-10代币 AssetIssueContract</h2>
 
     message AssetIssueContract {
        message FrozenSupply {
@@ -125,7 +125,7 @@
    `owner_address`：合约持有人地址。
    `update_url`：超级节点网站的url。
 
- <h2 id="8">8.购买发行的Token ParticipateAssetIssueContract</h2>
+ <h2 id="8">8.购买TRC-10代币 ParticipateAssetIssueContract</h2>
 
       message ParticipateAssetIssueContract {
        bytes owner_address = 1;
@@ -267,10 +267,14 @@
      message CreateSmartContract {
        bytes owner_address = 1;
        SmartContract new_contract = 2;
+       int64 call_token_value = 3;
+       int64 token_id = 4;
      }
 
    `owner_address`：合约持有人地址。
    `new_contract`： 智能合约。
+   `call_token_value`：转入TRC-10数目。
+   `token_id`：转入TRC-10的id。
 
 
  <h2 id="20">20.触发智能合约 TriggerSmartContract</h2>
@@ -280,12 +284,16 @@
        bytes contract_address = 2;
        int64 call_value = 3;
        bytes data = 4;
+       int64 call_token_value = 5;
+       int64 token_id = 6;
      }
 
    `owner_address`：合约持有人地址。
    `contract_address`： 合约地址。
    `call_value`：传入合约的TRX的值。
    `data`：操作参数。
+   `call_token_value`：转入TRC-10数目。
+   `token_id`：转入TRC-10的id。
 
 
  <h2 id="21">21.更新合约 UpdateSettingContract</h2>
