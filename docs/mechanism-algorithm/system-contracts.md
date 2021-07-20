@@ -284,12 +284,16 @@
        bytes contract_address = 2;
        int64 call_value = 3;
        bytes data = 4;
+       int64 call_token_value = 5;
+       int64 token_id = 6;
      }
 
    `owner_address`：合约持有人地址。
    `contract_address`： 合约地址。
    `call_value`：传入合约的TRX的值。
    `data`：操作参数。
+   `call_token_value`：转入TRC-10数目。
+   `token_id`：转入TRC-10的id。
 
 
  <h2 id="21">21.更新合约 UpdateSettingContract</h2>
