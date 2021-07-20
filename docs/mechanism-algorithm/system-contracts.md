@@ -26,7 +26,7 @@
    `amount`：转账金额，单位为 sun。
 
 
- <h2 id="3">3.转账发布的Token TransferAssetContract</h2>
+ <h2 id="3">3.TRC-10代币转账 TransferAssetContract</h2>
 
       message TransferAssetContract {
        bytes asset_name = 1;
@@ -35,10 +35,10 @@
        int64 amount = 4;
      }
 
-   `asset_name`：发布Token的id。
+   `asset_name`：TRC-10的id。
    `owner_address`：合约持有人地址。
    `to_address`： 目标账户地址。
-   `amount`：转账Token的数量。
+   `amount`：转账代币的数量。
 
 
  <h2 id="4">4.投票超级节点  VoteWitnessContract</h2>
