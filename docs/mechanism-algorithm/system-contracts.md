@@ -70,7 +70,7 @@
    `url`：超级节点的网址。
 
 
- <h2 id="6">6.发布Token AssetIssueContract</h2>
+ <h2 id="6">6.发布TRC-10代币 AssetIssueContract</h2>
 
     message AssetIssueContract {
        message FrozenSupply {
@@ -125,7 +125,7 @@
    `owner_address`：合约持有人地址。
    `update_url`：超级节点网站的url。
 
- <h2 id="8">8.购买发行的Token ParticipateAssetIssueContract</h2>
+ <h2 id="8">8.购买TRC-10代币 ParticipateAssetIssueContract</h2>
 
       message ParticipateAssetIssueContract {
        bytes owner_address = 1;
