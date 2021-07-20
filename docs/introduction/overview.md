@@ -230,7 +230,7 @@ wget https://github.com/tronprotocol/tron-deployment/blob/master/private_net_con
 nohup java -Xmx6g -XX:+HeapDumpOnOutOfMemoryError -jar FullNode.jar  --witness  -c private_net_config.conf
 
 命令行参数说明:
---witness: 启动witness功能，i.e.: --witness
+--witness: 启动witness功能，超级节点命令行启动时需要添加这个参数，i.e.: --witness
 --log-config: 指定日志配置文件路径，i.e.: --log-config logback.xml
 -c: 指定配置文件路径，i.e.: -c config.conf
 ```
@@ -262,9 +262,9 @@ wget https://github.com/tronprotocol/tron-deployment/blob/master/private_net_con
 7.&nbsp;运行部署脚本
 
 ```text
-nohup java -Xmx6g -XX:+HeapDumpOnOutOfMemoryError -jar FullNode.jar  --witness  -c private_net_config.conf
+nohup java -Xmx6g -XX:+HeapDumpOnOutOfMemoryError -jar FullNode.jar  -c private_net_config.conf
 命令行参数说明:
---witness: 启动witness功能，i.e.: --witness。
+--witness: 启动witness功能,由于配置的这个fullnode节点不需要产快，所以此fullnode节点不可以添加这个参数，i.e.: --witness。
 --log-config: 指定日志配置文件路径，i.e.: --log-config logback.xml。
 -c: 指定配置文件路径，i.e.: -c config.conf。
 ```
