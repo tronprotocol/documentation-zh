@@ -267,10 +267,14 @@
      message CreateSmartContract {
        bytes owner_address = 1;
        SmartContract new_contract = 2;
+       int64 call_token_value = 3;
+       int64 token_id = 4;
      }
 
    `owner_address`：合约持有人地址。
    `new_contract`： 智能合约。
+   `call_token_value`：转入TRC-10数目。
+   `token_id`：转入TRC-10的id。
 
 
  <h2 id="20">20.触发智能合约 TriggerSmartContract</h2>
