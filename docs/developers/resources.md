@@ -24,4 +24,4 @@
 
 
 * 波场Javascript API
-[https://github.com/tron-us/tronweb](https://github.com/tron-us/tronweb)
+[https://github.com/tronprotocol/tronweb](https://github.com/tronprotocol/tronweb)
