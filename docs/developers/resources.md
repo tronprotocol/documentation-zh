@@ -10,7 +10,6 @@
 
 * 波场区块浏览器
 [https://tronscan.org/](https://tronscan.org/)
-[https://www.trxplorer.io/](https://www.trxplorer.io/)
 
 
 * 波场钱包

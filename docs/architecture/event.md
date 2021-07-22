@@ -93,4 +93,4 @@ contractTopics: 合约主题
 查看更多信息，请查阅[https://github.com/tronprotocol/TIPs/issues/12](https://github.com/tronprotocol/TIPs/issues/12)
 
 - [事件订阅数据查询服务部署](https://tronprotocol.github.io/documentation-zh/developers/deployment/#_6)
-- [事件订阅数据查询服务http api](https://github.com/tronprotocol/documentation-zh/tree/master/docs_without_index/plugin/event-query-http.md)
+- [事件订阅数据查询服务http api](https://github.com/tronprotocol/documentation-en/blob/master/docs_without_index/plugin/event-query-http.md)
