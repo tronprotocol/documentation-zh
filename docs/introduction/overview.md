@@ -139,8 +139,7 @@ Tron的签名算法为ECDSA，选用曲线为SECP256K1。其私钥为一个随�
 ALPHABET = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"
 
 <h2> 3.5 签名说明 </h2>
-签名说明请参照:
-[https://github.com/tronprotocol/documentation/blob/master/%E4%B8%AD%E6%96%87%E6%96%87%E6%A1%A3/%E4%BA%A4%E6%98%93%E7%AD%BE%E5%90%8D%E6%B5%81%E7%A8%8B.md](https://github.com/tronprotocol/documentation/blob/master/%E4%B8%AD%E6%96%87%E6%96%87%E6%A1%A3/%E4%BA%A4%E6%98%93%E7%AD%BE%E5%90%8D%E6%B5%81%E7%A8%8B.md)
+[签名说明](https://github.com/tronprotocol/documentation/blob/master/%E4%B8%AD%E6%96%87%E6%96%87%E6%A1%A3/%E4%BA%A4%E6%98%93%E7%AD%BE%E5%90%8D%E6%B5%81%E7%A8%8B.md)
 
 # 4. 网络中的节点和部署
 <h2> 4.1 SuperNode </h2>
@@ -206,7 +205,7 @@ Tron网络采用Peer-to-Peer(P2P)的网络架构，网络中的节点地位对�
 <h3> 4.6.3 搭建私有网络 <h3>
 
 <h4> 4.6.3.1 前提 </h4>
-1.&nbsp;具备至少两个钱包账户的私钥与地址。 [如何生成钱包账户](https://tronscan.org/#/wallet/new)
+1.&nbsp;准备至少两个钱包账户的私钥与地址。
 2.&nbsp;至少部署一个SuperNode用于出块；
 3.&nbsp;部署任意数量的FullNode节点用于同步区块、广播交易；
 4.&nbsp;SuperNode与FullNode组成了私有网络，可以进行网络发现、区块同步、广播交易。
