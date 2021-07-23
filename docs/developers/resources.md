@@ -10,7 +10,6 @@
 
 * 波场区块浏览器
 [https://tronscan.org/](https://tronscan.org/)
-[https://www.trxplorer.io/](https://www.trxplorer.io/)
 
 
 * 波场钱包
@@ -25,4 +24,4 @@
 
 
 * 波场Javascript API
-[https://github.com/tron-us/tronweb](https://github.com/tron-us/tronweb)
+[https://github.com/tronprotocol/tronweb](https://github.com/tronprotocol/tronweb)
