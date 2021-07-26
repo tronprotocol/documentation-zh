@@ -353,13 +353,13 @@ TRON网络引入了Bandwidth point 和 Energy 两种资源概念。其中Bandwid
 <li>依次验证 发行Token资产总的免费Bandwidth Points是否足够消耗，转账发起者的Token剩余免费Bandwidth Points是否足够消耗，Token发行者冻结TRX获取Bandwidth Points剩余量是否足够消耗。如果满足则扣除Token发行者的Bandwidth Points，任意一个不满足则进入下一步</li>
 <li>尝试消耗交易发起者冻结获取的Bandwidth Points。如果交易发起者Bandwidth Points不足，则进入下一步</li>
 <li>尝试消耗交易发起者的免费Bandwidth Points。如果免费Bandwidth Points也不足，则进入下一步</li>
-<li>尝试消耗交易发起者的TRX，交易的字节数 * 40 sun</li>
+<li>尝试消耗交易发起者的TRX，交易的字节数 * 1000 sun</li>
 </ol>
 <p>如果交易普通交易，Bandwidth Points消耗如下：</p>
 <ol>
 <li>尝试消耗交易发起者冻结获取的Bandwidth Points。如果交易发起者Bandwidth Points不足，则进入下一步</li>
 <li>尝试消耗交易发起者的免费Bandwidth Points。如果免费Bandwidth Points也不足，则进入下一步</li>
-<li>尝试消耗交易发起者的TRX，交易的字节数 * 40 sun</li>
+<li>尝试消耗交易发起者的TRX，交易的字节数 * 1000 sun</li>
 </ol>
 <h3 id="4">4. 带宽的自动恢复<a class="headerlink" href="#4" title="Permanent link">&para;</a></h3>
 <p>在网络总锁定资金以及账户锁定资金不变的情况向，账户的带宽的已使用量随着时间增加而按比例衰减，24h 衰减到 0. 如时间 <span><span class="MathJax_Preview">T_1</span><script type="math/tex">T_1</script></span> 时刻，账户带宽已使用量为 <span><span class="MathJax_Preview">U</span><script type="math/tex">U</script></span>, 到 <span><span class="MathJax_Preview">T_1 + 12h</span><script type="math/tex">T_1 + 12h</script></span> ，账户再次使用带宽 <span><span class="MathJax_Preview">u</span><script type="math/tex">u</script></span>, 此时账户已使用带宽为 <span><span class="MathJax_Preview">U / 2 + u</span><script type="math/tex">U / 2 + u</script></span>. 具体公式如下：</p>
@@ -539,7 +539,7 @@ receiverAddress表示受委托账户的地址
 </tr>
 <tr>
 <td align="left">创建account</td>
-<td align="center">0.1 TRX</td>
+<td align="center">1 TRX</td>
 </tr>
 <tr>
 <td align="left">创建exchange</td>
