@@ -33,7 +33,7 @@ TRON 没有采用 PoW 共识机制，不会出现该问题。
 
 ### 投票会消耗 TRX 吗？
 
-投票不会消耗 TRX. 只需要提前冻结 TRX 为 Bandwidth, 获得 TP(TRON Power) 点数即可。
+投票不会消耗 TRX. 只需要提前冻结 TRX 为 Bandwidth/Energy, 获得 TP(TRON Power) 点数即可。
 
 ### 怎么将我的投票重置？
 
