@@ -45,13 +45,13 @@ Bandwidth Points是一个账户1天内能够使用的总字节数。一定时间
 1. 依次验证 发行Token资产总的免费Bandwidth Points是否足够消耗，转账发起者的Token剩余免费Bandwidth Points是否足够消耗，Token发行者冻结TRX获取Bandwidth Points剩余量是否足够消耗。如果满足则扣除Token发行者的Bandwidth Points，任意一个不满足则进入下一步
 2. 尝试消耗交易发起者冻结获取的Bandwidth Points。如果交易发起者Bandwidth Points不足，则进入下一步
 3. 尝试消耗交易发起者的免费Bandwidth Points。如果免费Bandwidth Points也不足，则进入下一步
-4. 尝试消耗交易发起者的TRX，交易的字节数 * 40 sun
+4. 尝试消耗交易发起者的TRX，交易的字节数 * 1000 sun
 
 如果交易普通交易，Bandwidth Points消耗如下：
 
 1. 尝试消耗交易发起者冻结获取的Bandwidth Points。如果交易发起者Bandwidth Points不足，则进入下一步
 2. 尝试消耗交易发起者的免费Bandwidth Points。如果免费Bandwidth Points也不足，则进入下一步
-3. 尝试消耗交易发起者的TRX，交易的字节数 * 40 sun
+3. 尝试消耗交易发起者的TRX，交易的字节数 * 1000 sun
 
 ### 4. 带宽的自动恢复
 
@@ -251,7 +251,7 @@ receiverAddress表示受委托账户的地址
 | :------|:------:|
 |创建witness|9999 TRX|
 |发行token|1024 TRX|
-|创建account|0.1 TRX|
+|创建account|1 TRX|
 |创建exchange|1024 TRX|
 
 [^1]: 根据tron各节点的情况，每次执行消耗的Energy可能会有小幅度的浮动。
