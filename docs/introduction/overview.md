@@ -65,7 +65,7 @@ votewitness witness1 3 witness2 7 // 同时给witness1投了3票，给witness2�
 - 4: ASSET_ISSUE_FEE, [0,100 000 000 000 000 000] // 修改资产发行费用，目前为1024_000_000 Sun
 - 5: WITNESS_PAY_PER_BLOCK, [0,100 000 000 000 000 000] // 修改超级代表出块奖励，目前为32_000_000 Sun
 - 6: WITNESS_STANDBY_ALLOWANCE, [0,100 000 000 000 000 000] // 修改分给前127名超级代表候选人的奖励，115_200_000_000 Sun
-- 7: CREATE_NEW_ACCOUNT_FEE_IN_SYSTEM_CONTRACT, []// 修改系统创建账户的费用，目前为0 Sun
+- 7: CREATE_NEW_ACCOUNT_FEE_IN_SYSTEM_CONTRACT, []// 修改系统创建账户的费用，目前为1_000_000 Sun
 - 8: CREATE_NEW_ACCOUNT_BANDWIDTH_RATE, // 提议7、8，组合使用，用于修改创建账户时对资源或TRX的消耗
 - 9: ALLOW_CREATION_OF_CONTRACTS, // 用于控制虚拟机功能的开启
 - 10: REMOVE_THE_POWER_OF_THE_GR  // 用于清除GR的创世票数
@@ -980,7 +980,7 @@ Bandwidth Points的获取分两种：
 
 除了查询操作，任何交易都需要消耗bandwidth points。
 
-还有一种情况，如果是转账，包括普通转账或发行Token转账，如果目标账户不存在，转账操作则会创建账户并转账，只会扣除创建账户消耗的Bandwidth Points，转账不会再消耗额外的Bandwidth Points。
+还有一种情况，如果是转账，包括普通转账或发行Token转账，如果目标账户不存在，转账操作则会创建账户并转账，只会扣除创建账户消耗的Bandwidth Points，转账不会再消耗额外的Bandwidth Points。除此之外，无论通过任何方式创建账户，都有1TRX的固定费用。
 
 <h3> 8.2.3 Bandwidth Points的计算规则 </h3>
 
@@ -1000,7 +1000,7 @@ Bandwidth Points是一个账户1天内能够使用的总字节数。一定时间
 
 3.&nbsp;尝试消耗交易发起者的免费Bandwidth Points。如果免费Bandwidth Points也不足，则进入下一步
 
-4.&nbsp;尝试消耗交易发起者的TRX，交易的字节数 * 10 sun
+4.&nbsp;尝试消耗交易发起者的TRX，交易的字节数 * 1000 sun
 
 如果交易普通交易，Bandwidth Points消耗如下：
 
@@ -1008,7 +1008,7 @@ Bandwidth Points是一个账户1天内能够使用的总字节数。一定时间
 
 2.&nbsp;尝试消耗交易发起者的免费Bandwidth Points。如果免费Bandwidth Points也不足，则进入下一步
 
-3.&nbsp;尝试消耗交易发起者的TRX，交易的字节数 * 10 sun
+3.&nbsp;尝试消耗交易发起者的TRX，交易的字节数 * 1000 sun
 
 <h3> 8.2.4 带宽的自动恢复 </h3>
 在网络总锁定资金以及账户锁定资金不变的情况向，账户的带宽的已使用量随着时间增加而按比例衰减，24h衰减到0。如时间T1时刻，账户带宽已使用量为U，到T1+12h，账户再次使用带宽u,此时账户已使用带宽为 U/2 + u。具体公式如下：

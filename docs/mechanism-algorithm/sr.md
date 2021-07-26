@@ -83,15 +83,15 @@ votewitness witness1 3 witness2 7 // 同时给witness1投了3票，给witness2�
 |  0     | getMaintenanceTimeInterval <br> (修改超级代表调整时间间隔)	| 6  Hours <br> [3 * 27, 24 * 3600] s |
 |  1     | getAccountUpgradeCost <br> (修改账户升级为超级代表的费用) | 9999  TRX <br> [0, 100000000000] TRX |
 |  2     | getCreateAccountFee <br> (修改创建账户费用) | 0.1  TRX <br> [0, 100000000000] TRX |
-|  3     | getTransactionFee <br> (修改TRX抵扣带宽的费用) | 10  Sun/Byte <br> [0, 100000000000] TRX |
+|  3     | getTransactionFee <br> (修改TRX抵扣带宽的费用) | 140  Sun/Byte <br> [0, 100000000000] TRX |
 |  4     | getAssetIssueFee <br> (修改资产发行费用) | 1024  TRX <br> [0, 100000000000] TRX|
 |  5     | getWitnessPayPerBlock <br> (修改超级代表出块奖励) | 16 TRX <br> [0, 100000000000] TRX |
 |  6     | getWitnessStandbyAllowance <br> (修改分给前127名超级代表候选人的奖励) | 115200  TRX <br> [0, 100000000000] TRX |
-|  7     | getCreateNewAccountFeeInSystemContract <br> (修改系统创建账户的费用) | 0 TRX  |
+|  7     | getCreateNewAccountFeeInSystemContract <br> (修改系统创建账户的费用) | 1 TRX  |
 |  8     | getCreateNewAccountBandwidthRate <br> (提议7、8，组合使用，用于修改创建账户时对资源或TRX的消耗) | 1&nbsp;Bandwith/Byte |
 |  9     | getAllowCreationOfContracts <br> (控制虚拟机功能的开启 ) | 1 <br> {0, 1} |
 |  10	 | getRemoveThePowerOfTheGr <br> (用于清除GR的创世票数) |	1 <br> {0, 1}|
-|  11	 | getEnergyFee <br> (修改能量费用) | 10 Sun <br> [0, 100000000000] TRX |
+|  11	 | getEnergyFee <br> (修改能量费用) | 140 Sun <br> [0, 100000000000] TRX |
 |  12	 | getExchangeCreateFee <br> (修改创建交易对的费用) | 1024 TRX <br> [0, 100000000000] TRX |
 |  13	 | getMaxCpuTimeOfOneTx <br> (修改交易最长执行时间) | 50 ms <br> [0, 1000] ms |
 |  14	 | getAllowUpdateAccountName <br> (允许用户更改昵称以及昵称同名) | 0 <br> {0, 1} |
@@ -121,7 +121,7 @@ id0_N: 参数编号
 value0_N: 新参数值
 ```
 
-注：Tron网络中，1 TRX = 1000_000 SUN。
+注：Tron网络中，1 TRX = 1_000_000 SUN。
 
 <h4> 5.3 对提议进行投票 </h4>
 提议仅支持投赞成票，不投票代表不赞同。从提议创建时间开始，3天时间内为提议的有效期。超过该时间范围，该提议如果没有获得足够的
