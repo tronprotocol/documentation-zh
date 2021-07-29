@@ -389,10 +389,14 @@ enable:
 <img alt="image" src="https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/discovery_enable.png" /></p>
 <h5 id="322-fullnode">3.2.2 步骤二:部署FullNode节点<a class="headerlink" href="#322-fullnode" title="Permanent link">&para;</a></h5>
 <ol>
-<li>下载private_net_config.conf
-    <div class="highlight"><pre><span></span><code>wget https://raw.githubusercontent.com/tronprotocol/tron-deployment/master/private_net_config.conf
-</code></pre></div></li>
-<li>设置seed.node ip.list 为SR的ip地址和端口</li>
+<li>
+<p>下载private_net_config.conf</p>
+<div class="highlight"><pre><span></span><code>wget https://raw.githubusercontent.com/tronprotocol/tron-deployment/master/private_net_config.conf
+</code></pre></div>
+</li>
+<li>
+<p>设置seed.node ip.list 为SR的ip地址和端口</p>
+</li>
 <li>设置p2p.version与超级节点的p2p.version一致</li>
 <li>设置genesis.block 与SR中的genesis.block配置一致</li>
 <li>设置needSyncCheck为true</li>
@@ -400,12 +404,12 @@ enable:
 <li>如果FullNode和SR部署在同一台机器上，则需要修改listen.port、http端口、rpc 端口</li>
 <li>运行部署脚本</li>
 </ol>
-<p><div class="highlight"><pre><span></span><code>nohup java -Xmx6g -XX:+HeapDumpOnOutOfMemoryError -jar FullNode.jar -c private_net_config.conf &amp;&gt;/dev/null &amp;
+<div class="highlight"><pre><span></span><code>nohup java -Xmx6g -XX:+HeapDumpOnOutOfMemoryError -jar FullNode.jar -c private_net_config.conf &amp;&gt;/dev/null &amp;
 命令行参数说明:
 --log-config: 指定日志配置文件路径，i.e.: --log-config logback.xml。
 -c: 指定配置文件路径，i.e.: -c config.conf。
 </code></pre></div>
-日志文件使用：
+<p>日志文件使用：
 可以修改模块的level等级来控制日志的输出，默认每个模块的level级别为INFO，比如，只打印网络模块warn以上级别的信息，可以如下修改：</p>
 <div class="highlight"><pre><span></span><code>&lt;logger name=&quot;net&quot; level=&quot;WARN&quot;/&gt;
 </code></pre></div>

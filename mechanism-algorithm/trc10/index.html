@@ -314,25 +314,25 @@
 <p>TRON网络支持2种通证，一种是通过智能合约发行的TRC20协议的通证，一种是通过Tron公链内置的TRC10通证。</p>
 <p>下面对TRC10通证进行说明。</p>
 <h2 id="trc10">如何发行TRC10通证<a class="headerlink" href="#trc10" title="Permanent link">&para;</a></h2>
-<p>http接口：
+<p>http接口：</p>
 <div class="highlight"><pre><span></span><code>wallet/createassetissue
 作用：发行Token
-demo：curl -X POST  http://127.0.0.1:8090/wallet/createassetissue -d &#39;{
-&quot;owner_address&quot;:&quot;41e552f6487585c2b58bc2c9bb4492bc1f17132cd0&quot;,
-&quot;name&quot;:&quot;0x6173736574497373756531353330383934333132313538&quot;,
-&quot;abbr&quot;: &quot;0x6162627231353330383934333132313538&quot;,
-&quot;total_supply&quot; :4321,
-&quot;trx_num&quot;:1,
-&quot;num&quot;:1,
-&quot;precision&quot;:1,
-&quot;start_time&quot; : 1530894315158,
-&quot;end_time&quot;:1533894312158,
-&quot;description&quot;:&quot;007570646174654e616d6531353330363038383733343633&quot;,
-&quot;url&quot;:&quot;007570646174654e616d6531353330363038383733343633&quot;,
-&quot;free_asset_net_limit&quot;:10000,
-&quot;public_free_asset_net_limit&quot;:10000,
-&quot;frozen_supply&quot;:{&quot;frozen_amount&quot;:1, &quot;frozen_days&quot;:2}
-}&#39;
+demo：curl -X POST  http://127.0.0.1:8090/wallet/createassetissue -d <span class="s1">&#39;{</span>
+<span class="s1">&quot;owner_address&quot;:&quot;41e552f6487585c2b58bc2c9bb4492bc1f17132cd0&quot;,</span>
+<span class="s1">&quot;name&quot;:&quot;0x6173736574497373756531353330383934333132313538&quot;,</span>
+<span class="s1">&quot;abbr&quot;: &quot;0x6162627231353330383934333132313538&quot;,</span>
+<span class="s1">&quot;total_supply&quot; :4321,</span>
+<span class="s1">&quot;trx_num&quot;:1,</span>
+<span class="s1">&quot;num&quot;:1,</span>
+<span class="s1">&quot;precision&quot;:1,</span>
+<span class="s1">&quot;start_time&quot; : 1530894315158,</span>
+<span class="s1">&quot;end_time&quot;:1533894312158,</span>
+<span class="s1">&quot;description&quot;:&quot;007570646174654e616d6531353330363038383733343633&quot;,</span>
+<span class="s1">&quot;url&quot;:&quot;007570646174654e616d6531353330363038383733343633&quot;,</span>
+<span class="s1">&quot;free_asset_net_limit&quot;:10000,</span>
+<span class="s1">&quot;public_free_asset_net_limit&quot;:10000,</span>
+<span class="s1">&quot;frozen_supply&quot;:{&quot;frozen_amount&quot;:1, &quot;frozen_days&quot;:2}</span>
+<span class="s1">}&#39;</span>
 
 参数说明：
 owner_address发行人地址
@@ -349,17 +349,17 @@ public_free_asset_net_limit是每个token拥护者能使用本token的免费带
 frozen_supply是token发行者可以在发行的时候指定冻结的token
 
 返回值：发行Token的Transaction
-</code></pre></div></p>
+</code></pre></div>
 <h2 id="trc10_1">参与TRC10通证<a class="headerlink" href="#trc10_1" title="Permanent link">&para;</a></h2>
-<p>http接口：
+<p>http接口：</p>
 <div class="highlight"><pre><span></span><code>wallet/participateassetissue
 作用：参与通证发行
-demo：curl -X POST http://127.0.0.1:8090/wallet/participateassetissue -d &#39;{
-&quot;to_address&quot;: &quot;41e552f6487585c2b58bc2c9bb4492bc1f17132cd0&quot;,
-&quot;owner_address&quot;:&quot;41e472f387585c2b58bc2c9bb4492bc1f17342cd1&quot;,
-&quot;amount&quot;:100,
-&quot;asset_name&quot;:&quot;3230313271756265696a696e67&quot;
-}&#39;
+demo：curl -X POST http://127.0.0.1:8090/wallet/participateassetissue -d <span class="s1">&#39;{</span>
+<span class="s1">&quot;to_address&quot;: &quot;41e552f6487585c2b58bc2c9bb4492bc1f17132cd0&quot;,</span>
+<span class="s1">&quot;owner_address&quot;:&quot;41e472f387585c2b58bc2c9bb4492bc1f17342cd1&quot;,</span>
+<span class="s1">&quot;amount&quot;:100,</span>
+<span class="s1">&quot;asset_name&quot;:&quot;3230313271756265696a696e67&quot;</span>
+<span class="s1">}&#39;</span>
 
 参数说明：
 to_address是Token发行人的地址，需要是hexString格式
@@ -368,17 +368,17 @@ amount是参与token发行的TRX数量
 asset_name是token的名称，需要是hexString格式
 
 返回值：参与token发行的transaction
-</code></pre></div></p>
+</code></pre></div>
 <h2 id="trc10_2">TRC10通证转账<a class="headerlink" href="#trc10_2" title="Permanent link">&para;</a></h2>
-<p>http接口：
+<p>http接口：</p>
 <div class="highlight"><pre><span></span><code>wallet/transferasset
 作用：转账Token
-demo：curl -X POST  http://127.0.0.1:8090/wallet/transferasset -d &#39;{
-  &quot;owner_address&quot;:&quot;41d1e7a6bc354106cb410e65ff8b181c600ff14292&quot;,
-  &quot;to_address&quot;: &quot;41e552f6487585c2b58bc2c9bb4492bc1f17132cd0&quot;,
-  &quot;asset_name&quot;: &quot;0x6173736574497373756531353330383934333132313538&quot;,
-  &quot;amount&quot;: 100
-}&#39;
+demo：curl -X POST  http://127.0.0.1:8090/wallet/transferasset -d <span class="s1">&#39;{</span>
+<span class="s1">  &quot;owner_address&quot;:&quot;41d1e7a6bc354106cb410e65ff8b181c600ff14292&quot;,</span>
+<span class="s1">  &quot;to_address&quot;: &quot;41e552f6487585c2b58bc2c9bb4492bc1f17132cd0&quot;,</span>
+<span class="s1">  &quot;asset_name&quot;: &quot;0x6173736574497373756531353330383934333132313538&quot;,</span>
+<span class="s1">  &quot;amount&quot;: 100</span>
+<span class="s1">}&#39;</span>
 
 参数说明：
   owner_address是token转出地址，需要是hexString格式
@@ -387,7 +387,7 @@ demo：curl -X POST  http://127.0.0.1:8090/wallet/transferasset -d &#39;{
   amount是token转账数量
 
 返回值：token转账的Transaction
-</code></pre></div></p>
+</code></pre></div>
               
             </div>
           </div>

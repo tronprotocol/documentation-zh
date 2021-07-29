@@ -145,6 +145,20 @@
             
     <li class="toctree-l3"><a href="#tron">Tron 事件订阅机制</a></li>
     
+        <ul>
+        
+            <li><a class="toctree-l4" href="#_1">简介</a></li>
+        
+            <li><a class="toctree-l4" href="#_2">新功能</a></li>
+        
+            <li><a class="toctree-l4" href="#github">Github 项目</a></li>
+        
+            <li><a class="toctree-l4" href="#_3">事件订阅相关插件部署</a></li>
+        
+            <li><a class="toctree-l4" href="#_4">事件订阅数据查询</a></li>
+        
+        </ul>
+    
 
     </ul>
                 </li>
@@ -301,8 +315,7 @@
             <div class="section">
               
                 <h1 id="tron">Tron 事件订阅机制<a class="headerlink" href="#tron" title="Permanent link">&para;</a></h1>
-<h3> 简介 </h3>
-
+<h2 id="_1">简介<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
 <p>TIP: <a href="https://github.com/tronprotocol/TIPs/issues/12">https://github.com/tronprotocol/TIPs/issues/12</a></p>
 <p>波场事件订阅支持四种类型的事件：</p>
 <ul>
@@ -355,25 +368,29 @@ toBlock: 结束区块索引<br />
 contractAddress: 合约地址<br />
 contractTopics: 合约主题  </p>
 <p><strong>注意</strong>: 不支持历史数据查询</p>
-<h3> 新功能 </h3>
-
-<p>1.&nbsp;支持事件插件，kafka &amp; mongodb 插件已经发布，开发者可以按照需求自定义插件。</p>
-<p>2.&nbsp;支持订阅链上数据，例如区块，交易，合约以及合约日志。开发者还可以通过设置过滤条件来订阅指定的数据。</p>
-<p>3.&nbsp;提供事件订阅的数据查询服务，线上地址为<a href="https://api.tronex.io">https://api.tronex.io</a>。</p>
-<h3> Github 项目 </h3>
-
+<h2 id="_2">新功能<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<ol>
+<li>
+<p>支持事件插件，kafka &amp; mongodb 插件已经发布，开发者可以按照需求自定义插件。</p>
+</li>
+<li>
+<p>支持订阅链上数据，例如区块，交易，合约以及合约日志。开发者还可以通过设置过滤条件来订阅指定的数据。</p>
+</li>
+<li>
+<p>提供事件订阅的数据查询服务，线上地址为<a href="https://api.tronex.io">https://api.tronex.io</a>。</p>
+</li>
+</ol>
+<h2 id="github">Github 项目<a class="headerlink" href="#github" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="https://github.com/tronprotocol/event-plugin">事件订阅</a></li>
 <li><a href="https://github.com/tronprotocol/tron-eventquery">事件订阅数据查询</a></li>
 </ul>
-<h3> 事件订阅相关插件部署 </h3>
-
+<h2 id="_3">事件订阅相关插件部署<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="https://tronprotocol.github.io/documentation-zh/developers/deployment/#kafka">kafka部署</a></li>
 <li><a href="https://tronprotocol.github.io/documentation-zh/developers/deployment/#mongo">mongo部署</a></li>
 </ul>
-<h3> 事件订阅数据查询 </h3>
-
+<h2 id="_4">事件订阅数据查询<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
 <p>事件订阅数据查询服务实现了事件订阅模型。</p>
 <p>查看更多信息，请查阅<a href="https://github.com/tronprotocol/TIPs/issues/12">https://github.com/tronprotocol/TIPs/issues/12</a></p>
 <ul>

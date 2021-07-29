@@ -98,6 +98,20 @@
             
     <li class="toctree-l3"><a href="#_1">超级代表与委员会</a></li>
     
+        <ul>
+        
+            <li><a class="toctree-l4" href="#1">1. 申请成为超级代表候选人规则</a></li>
+        
+            <li><a class="toctree-l4" href="#2">2. 选举超级代表</a></li>
+        
+            <li><a class="toctree-l4" href="#3">3. 超级代表的奖励</a></li>
+        
+            <li><a class="toctree-l4" href="#4">4. 投票者的奖励</a></li>
+        
+            <li><a class="toctree-l4" href="#5">5. 委员会</a></li>
+        
+        </ul>
+    
 
     </ul>
                 </li>
@@ -301,14 +315,12 @@
             <div class="section">
               
                 <h1 id="_1">超级代表与委员会<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
-<h3>1. 申请成为超级代表候选人规则 </h3>
-
+<h2 id="1">1. 申请成为超级代表候选人规则<a class="headerlink" href="#1" title="Permanent link">&para;</a></h2>
 <p>在TRON网络中，任何账户都可以申请成为超级代表候选人，都有机会成为超级代表。每个账户都可以投票给超级代表候选人。</p>
 <p>得票前27名的witness称为超级代表（SR），就具有出链块的权利。 从28名到127名（包含）的witness称为合伙人（Partner），从128名之后的witness称为候选人（Candidates）。</p>
 <p>投票统计每6小时统计一次，超级代表也就每6个小时变更一次。</p>
 <p>为了防止恶意攻击，成为超级代表候选人也需要一定代价的。TRON网络将直接烧掉申请者账户9999TRX。申请成功后，您就可以竞选超级代表了。</p>
-<h3>2. 选举超级代表 </h3>
-
+<h2 id="2">2. 选举超级代表<a class="headerlink" href="#2" title="Permanent link">&para;</a></h2>
 <p>投票需要TRON Power(TP)，你的TRON Power(TP)的多少由当前冻结资金决定。TRON Power(TP)的计算方法：每冻结1TRX，就可以获得1单位TRON Power(TP)。</p>
 <p>TRON网络中的每一个账户都具有选举权，可以通过投票选出自己认同的超级代表了。</p>
 <p>在解冻后，你没有了冻结的资产，相应地失去了所有的TRON Power(TP)，因此以前的投票会失效。你可以通过重新冻结并投票来避免投票失效。</p>
@@ -316,37 +328,34 @@
 <ul>
 <li>示例：</li>
 </ul>
-<div class="highlight"><pre><span></span><code>freezebalance 10,000,000 3 // 冻结了10TRX，获取了10单位TRON Power(TP)
-votewitness witness1 4 witness2 6 // 同时给witness1投了4票，给witness2投了6票
-votewitness witness1 3 witness2 7 // 同时给witness1投了3票，给witness2投了7票
+<div class="highlight"><pre><span></span><code>freezebalance <span class="m">10</span>,000,000 <span class="m">3</span> <span class="c1"># 冻结了10TRX，获取了10单位TRON Power(TP)</span>
+votewitness witness1 <span class="m">4</span> witness2 <span class="m">6</span> <span class="c1"># 同时给witness1投了4票，给witness2投了6票</span>
+votewitness witness1 <span class="m">3</span> witness2 <span class="m">7</span> <span class="c1"># 同时给witness1投了3票，给witness2投了7票</span>
 </code></pre></div>
 <p>以上命令的最终结果是给witness1投了3票，给witness2投了7票</p>
-<p><strong>Witnesses分红</strong></p>
+<h3 id="witnesses">Witnesses分红<a class="headerlink" href="#witnesses" title="Permanent link">&para;</a></h3>
 <p>默认比例是20%，witnesses可以调整该值。</p>
 <p>如果一个witness获得20%的奖励，那么剩余的80%奖励会被分配给投票者。如果分红比例设置为100%，那么只有witness可以获得奖励；相反，如果设置为0，那么只有投票者会获得奖励。</p>
-<h3>3. 超级代表的奖励 </h3>
-
-<p>1.&nbsp;票数奖励</p>
+<h2 id="3">3. 超级代表的奖励<a class="headerlink" href="#3" title="Permanent link">&para;</a></h2>
+<h3 id="_2">票数奖励<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
 <p>票数奖励是每生成一个区块奖励160TRX，总奖励数是4,608,000 TRX / 天。</p>
 <p>对每一个SR与Partner，每天获得的票数奖励 = 4,608,000 * ( 获得的票数 /  总票数) x 20%  TRX</p>
-<p>2.&nbsp;出块奖励</p>
+<h3 id="_3">出块奖励<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
 <p>波场协议网络每3秒中会出一个区块，每个区块将给予超级代表16个TRX奖励，每年总计168,192,000 TRX将会被奖励给超级代表。</p>
 <p>超级代表每次出块完成后，出块奖励都会发到超级代表的子账号当中，超级代表不能直接使用这部分资产，但可以查询。 每24h允许一次提取操作。从该子账号转移到超级代表的账户中。</p>
 <p>16 (TRX/区块) * 28,800 (总区块数/day) = 460,800 (TRX/天)</p>
 <p>对每一个SR，每天获得的出块奖励 = (460,800 / 27) x 20%  TRX</p>
 <p>实际奖励可能会比理论上的奖励少，因为出块失败或者维护期切换。</p>
-<h3>4. 投票者的奖励 </h3>
-
+<h2 id="4">4. 投票者的奖励<a class="headerlink" href="#4" title="Permanent link">&para;</a></h2>
 <p>如果投票给Super Representative：</p>
-<p>每日获得奖励 =  (((你投给一个witness的票数) * 4,608,000 / 总票数) * 80%) + ((460,800 / 27) * 80%) * (你投给一个witness的票数) / (一个witness获得的总票数) TRX</p>
+<p>每日获得奖励 =  (((你投给一个witness的票数) <em>4,608,000 / 总票数)</em> 80%) + ((460,800 / 27) <em>80%)</em> (你投给一个witness的票数) / (一个witness获得的总票数) TRX</p>
 <p>如果你投票给Partner：</p>
-<p>每日获得奖励 =  (((你投给一个witness的票数) * 4,608,000 / 总票数) * 80%) TRX</p>
-<h3> 5. 委员会 </h3>
-
-<h4> 5.1 什么是委员会 </h4>
+<p>每日获得奖励 =  (((你投给一个witness的票数) <em>4,608,000 / 总票数)</em> 80%) TRX</p>
+<h2 id="5">5. 委员会<a class="headerlink" href="#5" title="Permanent link">&para;</a></h2>
+<h3 id="51">5.1 什么是委员会<a class="headerlink" href="#51" title="Permanent link">&para;</a></h3>
 <p>委员会用于修改Tron网络动态参数，如出块奖励、交易费用等等。委员会由当前的27个超级代表组成。每个超级代表都具有提议权、对提议的投票权，
 当提议获得19个代表及以上的赞成票时，该提议获得通过，并在下个维护期内进行网络参数修改。</p>
-<h4> 5.2 创建提议 </h4>
+<h3 id="52">5.2 创建提议<a class="headerlink" href="#52" title="Permanent link">&para;</a></h3>
 <p>只有超级代表（SR）、合伙人（Partner）和候选人（Candidates）对应账户具有提议权。</p>
 <p>允许修改的网络动态参数以及编号如下( [min,max] )：
 {0,1}：1代表‘通过’或者‘激活’，0代表否。</p>
@@ -522,33 +531,32 @@ votewitness witness1 3 witness2 7 // 同时给witness1投了3票，给witness2�
 </tbody>
 </table>
 <ul>
-<li>示例：
+<li>示例：</li>
+</ul>
 <div class="highlight"><pre><span></span><code>createproposal id0 value0 ... idN valueN
 id0_N: 参数编号
 value0_N: 新参数值
-</code></pre></div></li>
-</ul>
+</code></pre></div>
 <p>注：Tron网络中，1 TRX = 1_000_000 SUN。</p>
-<h4> 5.3 对提议进行投票 </h4>
+<h3 id="53">5.3 对提议进行投票<a class="headerlink" href="#53" title="Permanent link">&para;</a></h3>
 <p>提议仅支持投赞成票，不投票代表不赞同。从提议创建时间开始，3天时间内为提议的有效期。超过该时间范围，该提议如果没有获得足够的
 赞成票，该提议失效。允许取消之前投的赞成票。</p>
 <ul>
-<li>示例：
+<li>示例：</li>
+</ul>
 <div class="highlight"><pre><span></span><code>approveProposal id is_or_not_add_approval
 id: 提议Id，根据提议创建时间递增
 is_or_not_add_approval: 赞成或取消赞成
-</code></pre></div></li>
-</ul>
-<h4> 5.4 取消提议 </h4>
+</code></pre></div>
+<h3 id="54">5.4 取消提议<a class="headerlink" href="#54" title="Permanent link">&para;</a></h3>
 <p>提议创建者，能够在提议生效前，取消提议。</p>
 <ul>
-<li>示例：
+<li>示例：</li>
+</ul>
 <div class="highlight"><pre><span></span><code>deleteProposal proposalId
 id: 提议Id，根据提议创建时间递增
-</code></pre></div></li>
-</ul>
-<h4> 5.5 查询提议 </h4>
-
+</code></pre></div>
+<h3 id="55">5.5 查询提议<a class="headerlink" href="#55" title="Permanent link">&para;</a></h3>
 <p>以下接口可以查询提议，包括：</p>
 <ul>
 <li>查询所有提议信息（ListProposals）</li>

@@ -318,8 +318,14 @@
 <h2 id="_2">账户模型介绍<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <p>Tron采用账户模型。账户的唯一标识为地址address，对账户操作需要验证私钥签名。每个账户拥有TRX、Token余额及智能合约、带宽、能量等各种资源。通过发送交易可以增减TRX或者Token余额，需要消耗带宽；可以发布并拥有智能合约，也可以调用他人发布的智能合约，需要消耗能量。可以申请成为超级代表并被投票，也可以对超级代表进行投票。等等。Tron所有的活动都围绕账户进行。</p>
 <h2 id="_3">创建账号的方式<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
-<p>1.&nbsp;首先用钱包或者浏览器生成私钥和地址，公钥可以丢弃。由已有老账户往目标地址发送TRX或者Token，并广播到网络后将完成账户创建的流程。</p>
-<p>2.&nbsp;通过调用CreateAccount内置合约，完成创建账户</p>
+<ol>
+<li>
+<p>首先用钱包或者浏览器生成私钥和地址，公钥可以丢弃。由已有老账户往目标地址发送TRX或者Token，并广播到网络后将完成账户创建的流程。</p>
+</li>
+<li>
+<p>通过调用CreateAccount内置合约，完成创建账户</p>
+</li>
+</ol>
 <p>如果账户有足够的通过冻结TRX获得的带宽，那么创建账户只会消耗带宽，否则，创建账户会烧掉0.1个TRX。</p>
 <h2 id="_4">生成密钥对算法<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
 <p>Tron的签名算法为ECDSA，选用曲线为SECP256K1。其私钥为一个随机数，公钥为椭圆曲线上一个点。生成过程为，首先生成一个随机数d作为私钥，再计算P = d * G作为公钥；其中G为椭圆曲线的基点。</p>
@@ -331,14 +337,18 @@
 我们用的字符映射表为：
 ALPHABET = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"</p>
 <h2 id="_6">签名说明<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
-<h3> 步骤 </h3>
-<p>1.&nbsp;取交易的rawdata，转成byte[]格式。
-2.&nbsp;对rawdata进行sha256运算。
-3.&nbsp;用交易每个合约中地址对应的私钥（现在一般就是一个合约，一个私钥），对sha256的结果进行签名。
-4.&nbsp;把签名结果添加到交易中。</p>
-<h3> 算法 </h3>
-<p>1.&nbsp;ECDSA算法，SECP256K。
-2.&nbsp;签名示例数据
+<h3 id="_7">步骤<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<ol>
+<li>取交易的rawdata，转成byte[]格式。</li>
+<li>对rawdata进行sha256运算。</li>
+<li>用交易每个合约中地址对应的私钥（现在一般就是一个合约，一个私钥），对sha256的结果进行签名。</li>
+<li>把签名结果添加到交易中。</li>
+</ol>
+<h3 id="_8">算法<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<ol>
+<li>ECDSA算法，SECP256K。</li>
+<li>签名示例数据</li>
+</ol>
 <div class="highlight"><pre><span></span><code>    priKey:::8e812436a0e3323166e1f0e8ba79e19e217b2c4a53c970d4cca0cfb1078979df       
     pubKey::04a5bb3b28466f578e6e93fbfd5f75cee1ae86033aa4bbea690e3312c087181eb366f9a1d1d6a437a9bf9fc65ec853b9fd60fa322be3997c47144eb20da658b3d1       
     hash:::159817a085f113d099d3d93c051410e9bfe043cc5c20e43aa9a083bf73660145       
@@ -346,10 +356,11 @@ ALPHABET = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"</p>
     s:::08bf123eabe77480787d664ca280dc1f20d9205725320658c39c6c143fd5642d       
     v:::0
 </code></pre></div>
-注意：签名结果应该是65字节。 r 32字节， s 32字节，v 1个字节。</p>
-<p>3.&nbsp;fullnode节点收到交易后会进行验签，由hash 和 r、s、v计算出一个地址，与合约中的地址进行比较，相同则为验签通过。</p>
-<h3> 示例 </h3>
-
+<p>注意：签名结果应该是65字节。 r 32字节， s 32字节，v 1个字节。</p>
+<ol>
+<li>fullnode节点收到交易后会进行验签，由hash 和 r、s、v计算出一个地址，与合约中的地址进行比较，相同则为验签通过。</li>
+</ol>
+<h3 id="_9">示例<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="kd">public</span> <span class="kd">static</span> <span class="n">Transaction</span> <span class="nf">sign</span><span class="p">(</span><span class="n">Transaction</span> <span class="n">transaction</span><span class="p">,</span> <span class="n">ECKey</span> <span class="n">myKey</span><span class="p">)</span> <span class="p">{</span>
     <span class="n">Transaction</span><span class="p">.</span><span class="na">Builder</span> <span class="n">transactionBuilderSigned</span> <span class="o">=</span> <span class="n">transaction</span><span class="p">.</span><span class="na">toBuilder</span><span class="p">();</span>
     <span class="kt">byte</span><span class="o">[]</span> <span class="n">hash</span> <span class="o">=</span> <span class="n">sha256</span><span class="p">(</span><span class="n">transaction</span><span class="p">.</span><span class="na">getRawData</span><span class="p">().</span><span class="na">toByteArray</span><span class="p">());</span>

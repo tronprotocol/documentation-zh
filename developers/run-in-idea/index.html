@@ -309,10 +309,10 @@
             <div class="section">
               
                 <h1 id="ideafullnode">使用IDEA运行FullNode节点<a class="headerlink" href="#ideafullnode" title="Permanent link">&para;</a></h1>
-<p>该文档旨在方便有一定经验的开发者在集成开发环境IDEA中运行FullNode节点</p>
-<p><strong>以下内容针对java-tron的master分支</strong></p>
+<p>该文档旨在方便有一定经验的开发者在集成开发环境IDEA中运行FullNode节点
+<strong>以下内容针对java-tron的master分支</strong></p>
 <h2 id="idea">一、配置集成开发环境IDEA<a class="headerlink" href="#idea" title="Permanent link">&para;</a></h2>
-<p><strong>IDEA配置</strong></p>
+<h3 id="idea_1">IDEA配置<a class="headerlink" href="#idea_1" title="Permanent link">&para;</a></h3>
 <ul>
 <li>
 <p>Oracle JDK 1.8 <strong>当前不支持OpenJDK</strong></p>
@@ -321,40 +321,40 @@
 <p>安装Lombok插件</p>
 </li>
 </ul>
-<p><img alt="" src="https://raw.githubusercontent.com/cathy-lishipu/documentation-zh/idea_instruction/images/lombok.png" /></p>
+<p><img alt="image" src="https://raw.githubusercontent.com/cathy-lishipu/documentation-zh/idea_instruction/images/lombok.png" /></p>
 <ul>
 <li>将Compiler下Annotation Processors中的Enable annotation processing前打勾</li>
 </ul>
-<p><img alt="" src="https://raw.githubusercontent.com/cathy-lishipu/documentation-zh/idea_instruction/images/annnotation.png" /></p>
+<p><img alt="image" src="https://raw.githubusercontent.com/cathy-lishipu/documentation-zh/idea_instruction/images/annnotation.png" /></p>
 <h2 id="_1">二、部署指南<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<p><strong>1.创建目录</strong>
-<em>/deploy</em></p>
-<div class="highlight"><pre><span></span><code><span class="n">mkdir</span> <span class="n">deploy</span>
+<h3 id="1">1.创建目录<a class="headerlink" href="#1" title="Permanent link">&para;</a></h3>
+<p><em>/deploy</em></p>
+<div class="highlight"><pre><span></span><code>mkdir deploy
 </code></pre></div>
-<p><strong>2.克隆最新的代码</strong></p>
-<div class="highlight"><pre><span></span><code><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="c1">//github.com/tronprotocol/java-tron</span>
+<h3 id="2">2.克隆最新的代码<a class="headerlink" href="#2" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>git clone https://github.com/tronprotocol/java-tron
 </code></pre></div>
-<p><strong>3.切换master分支</strong></p>
-<div class="highlight"><pre><span></span><code><span class="n">cd</span> <span class="n">java</span><span class="o">-</span><span class="n">tron</span>
-<span class="n">git</span> <span class="n">checkout</span> <span class="o">-</span><span class="n">t</span> <span class="n">origin</span><span class="o">/</span><span class="n">master</span>
+<h3 id="3master">3.切换master分支<a class="headerlink" href="#3master" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span> java-tron
+git checkout -t origin/master
 </code></pre></div>
-<p><strong>4.编译代码</strong></p>
-<p><div class="highlight"><pre><span></span><code><span class="p">.</span><span class="o">/</span><span class="n">gradlew</span> <span class="n">build</span>
+<h3 id="4">4.编译代码<a class="headerlink" href="#4" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>./gradlew build
 </code></pre></div>
-编译过程可能需要一定时间，请耐心等待。
+<p>编译过程可能需要一定时间，请耐心等待。
 若编译成功，你可以看到类似如下信息：</p>
-<p><img alt="" src="https://raw.githubusercontent.com/cathy-lishipu/documentation-zh/idea_instruction/images/build_success_test.png" /></p>
+<p><img alt="image" src="https://raw.githubusercontent.com/cathy-lishipu/documentation-zh/idea_instruction/images/build_success_test.png" /></p>
 <p>如果不想执行单元测试任务，可运行如下命令：</p>
-<div class="highlight"><pre><span></span><code><span class="p">.</span><span class="o">/</span><span class="n">gradlew</span> <span class="n">build</span> <span class="o">-</span><span class="n">x</span> <span class="n">test</span>
+<div class="highlight"><pre><span></span><code>./gradlew build -x <span class="nb">test</span>
 </code></pre></div>
-<p><strong>5.启动FullNode节点</strong></p>
+<h3 id="5fullnode">5.启动FullNode节点<a class="headerlink" href="#5fullnode" title="Permanent link">&para;</a></h3>
 <p>编译成功后，可通过java-tron/src/main/java/org/tron/program/FullNode.java路径找到主函数文件，启动一个全节点。</p>
-<p><img alt="" src="https://raw.githubusercontent.com/cathy-lishipu/documentation-zh/idea_instruction/images/start.png" /></p>
+<p><img alt="image" src="https://raw.githubusercontent.com/cathy-lishipu/documentation-zh/idea_instruction/images/start.png" /></p>
 <p>启动后可查看日志验证是否启动成功，日志路径为：/deploy/java-tron/logs/tron.log。
 若启动成功，可看到如下日志：</p>
-<p><img alt="" src="https://raw.githubusercontent.com/cathy-lishipu/documentation-zh/idea_instruction/images/start_success.png" /></p>
+<p><img alt="image" src="https://raw.githubusercontent.com/cathy-lishipu/documentation-zh/idea_instruction/images/start_success.png" /></p>
 <p>使用tail -f /logs/tron.log命令可查看实时日志，如下：</p>
-<p><img alt="" src="https://raw.githubusercontent.com/cathy-lishipu/documentation-zh/idea_instruction/images/start_successed.png" /></p>
+<p><img alt="image" src="https://raw.githubusercontent.com/cathy-lishipu/documentation-zh/idea_instruction/images/start_successed.png" /></p>
               
             </div>
           </div>

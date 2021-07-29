@@ -236,15 +236,17 @@
     
         <ul>
         
-            <li><a class="toctree-l4" href="#_1">账户接口</a></li>
+            <li><a class="toctree-l4" href="#_1">参数, 查询以及返回值</a></li>
         
-            <li><a class="toctree-l4" href="#_2">通证接口</a></li>
+            <li><a class="toctree-l4" href="#_2">账户接口</a></li>
         
-            <li><a class="toctree-l4" href="#_3">区块接口</a></li>
+            <li><a class="toctree-l4" href="#_3">通证接口</a></li>
         
-            <li><a class="toctree-l4" href="#_4">合约接口</a></li>
+            <li><a class="toctree-l4" href="#_4">区块接口</a></li>
         
-            <li><a class="toctree-l4" href="#_5">交易接口</a></li>
+            <li><a class="toctree-l4" href="#_5">合约接口</a></li>
+        
+            <li><a class="toctree-l4" href="#_6">交易接口</a></li>
         
         </ul>
     
@@ -327,15 +329,17 @@
 <li>TronGrid v3 (TG3) api</li>
 </ul>
 <p>示例：<code>https://api.trongrid.io/v1</code></p>
-<p><strong>参数, 查询以及返回值</strong></p>
+<h2 id="_1">参数, 查询以及返回值<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
 <ul>
 <li>TG3类型接口调用地址可以按照base58或者hex形式</li>
 <li>查询参数可以按照驼峰或者下划线形式</li>
 <li>所有返回的json数据按照下划线形式</li>
 <li>在本文档中，我们优先使用base58和下划线形式</li>
 </ul>
-<h2 id="_1">账户接口<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<p>1.&nbsp;通过地址查询账户
+<h2 id="_2">账户接口<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<ol>
+<li>
+<p>通过地址查询账户
 <em>接口：</em>
 <code>https://api.trongrid.io/v1/accounts/:address</code>
 <em>参数：</em>
@@ -344,7 +348,9 @@ address: 账户的地址
 <code>only_confirmed</code> 只查询已经被确认的区块。<code>true</code> | <code>false</code> 默认为false。
 <em>示例：</em>
 <code>https://api.trongrid.io/v1/accounts/TLCuBEirVzB6V4menLZKw1jfBTFMZbuKq7?only_confirmed=false</code></p>
-<p>2.&nbsp;查询账户的交易信息
+</li>
+<li>
+<p>查询账户的交易信息
 <em>接口：</em>
 <code>https://api.trongrid.io/v1/accounts/:address/transactions</code>
 <em>参数：</em>
@@ -357,27 +363,37 @@ address: 账户的地址
 <code>limit</code> 分页查询交易，每页的数目。默认<code>20</code>。最大<code>200</code>。
 <code>fingerprint</code> 上一页返回的最后一笔交易的指纹。
 <code>order_by</code> 排序方案。<code>order_by=block_number,asc</code>, <code>order_by=block_timestamp,desc</code>。<code>min_block_timestamp</code> 交易时间戳最小值为<code>0</code>。 <code>max_block_timestamp</code> 交易时间戳最大值为<code>now</code>。</p>
+</li>
+</ol>
 <p><em>示例：</em>
 <code>https://api.trongrid.io/v1/accounts/TLCuBEirVzB6V4menLZKw1jfBTFMZbuKq/transactions?only_to=true&amp;only_from=true</code></p>
-<p>3.&nbsp;查询账户资源信息
+<ol>
+<li>查询账户资源信息
 <em>接口：</em>
 <code>https://api.trongrid.io/v1/accounts/:address/resources</code>
 <em>参数：</em>
 address: 账户的地址
 <em>示例：</em>
-<code>https://api.trongrid.io/v1/accounts/TLCuBEirVzB6V4menLZKw1jfBTFMZbuKq/resources</code></p>
-<h2 id="_2">通证接口<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
-<p>1.&nbsp;查询所有通证信息
+<code>https://api.trongrid.io/v1/accounts/TLCuBEirVzB6V4menLZKw1jfBTFMZbuKq/resources</code></li>
+</ol>
+<h2 id="_3">通证接口<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<ol>
+<li>
+<p>查询所有通证信息
 <em>接口：</em>
 <code>https://api.trongrid.io/v1/assets</code>
 <em>选项：</em>
 <code>order_by</code> 排序方案。支持字段：<code>total_supply,asc</code> | <code>total_supply,desc</code>, <code>start_time,asc</code> | <code>start_time,desc</code>, <code>end_time,asc</code> | <code>end_time,desc</code>, <code>id,asc</code> | <code>id,desc</code>. 例如：<code>order_by=total_supply,asc</code>。</p>
-<p>2.&nbsp;按照标识符查询通证信息
+</li>
+<li>
+<p>按照标识符查询通证信息
 <em>接口：</em>
 <code>https://api.trongrid.io/v1/assets/:identifier</code>
 <em>参数：</em>
 identifier: 可以为通证id或者发行者的地址</p>
-<p>3.&nbsp;按照通证名称查询通证信息
+</li>
+<li>
+<p>按照通证名称查询通证信息
 <em>接口：</em>
 <code>https://api.trongrid.io/v1/assets/:name/list</code>
 <em>参数：</em>
@@ -386,14 +402,18 @@ name: 通证名称。
 <code>limit</code> 分页查询交易，每页的数目。默认<code>20</code>。最大<code>200</code>。
 <code>fingerprint</code> 上一页返回的最后一笔交易的指纹。
 <code>order_by</code> 排序方案。支持字段 <code>order_by=total_supply,asc</code>，<code>order_by=start_time,desc</code>。</p>
-<h2 id="_3">区块接口<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+</li>
+</ol>
+<h2 id="_4">区块接口<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
 <p>1.&nbsp;查询一个区块中的事件信息
 <em>接口：</em>
 <code>https://api.trongrid.io/v1/blocks/:identifier/events</code>
 <em>参数：</em>
 identifier: 区块高度。</p>
-<h2 id="_4">合约接口<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
-<p>1.&nbsp;根据合约地址查询事件信息
+<h2 id="_5">合约接口<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<ol>
+<li>
+<p>根据合约地址查询事件信息
 <em>接口：</em>
 <code>https://api.trongrid.io/v1/contracts/:address/events</code>
 <em>参数：</em>
@@ -408,7 +428,9 @@ address: 合约地址。
 <code>limit</code> 分页查询交易，每页的数目。默认<code>20</code>。最大<code>200</code>。
 <code>fingerprint</code> 上一页返回的最后一笔交易的指纹。
 <code>order_by</code> 排序方案。自持字段 <code>block_timestamp,asc</code>, <code>block_timestamp,desc</code>。</p>
-<p>2.&nbsp;查询合约地址的交易信息
+</li>
+<li>
+<p>查询合约地址的交易信息
 <em>接口：</em>
 <code>https://api.trongrid.io/v1/contracts/:address/transactions</code>
 <em>参数：</em>
@@ -421,17 +443,25 @@ address: 合约地址。
 <code>limit</code> 分页查询交易，每页的数目。默认<code>20</code>。最大<code>200</code>。
 <code>fingerprint</code> 上一页返回的最后一笔交易的指纹。
 <code>order_by</code> 排序方案。自持字段 <code>block_timestamp,asc</code>, <code>block_timestamp,desc</code>。</p>
-<h2 id="_5">交易接口<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
-<p>1.&nbsp;根据交易ID查询交易信息
+</li>
+</ol>
+<h2 id="_6">交易接口<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<ol>
+<li>
+<p>根据交易ID查询交易信息
 <em>接口：</em>
 <code>https://api.trongrid.io/v1/transactions/:id</code>
 <em>参数：</em>
 id: 交易ID。</p>
-<p>2.&nbsp;根据交易ID查询交易中的事件
+</li>
+<li>
+<p>根据交易ID查询交易中的事件
 <em>A接口：</em>
 <code>https://api.trongrid.io/v1/transactions/:id/events</code>
 <em>参数：</em>
 id: 交易ID。</p>
+</li>
+</ol>
               
             </div>
           </div>

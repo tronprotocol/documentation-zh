@@ -312,7 +312,7 @@
 <h2 id="_2">介绍<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <p>微节点（Lite FullNode）工具用于将全节点（FullNode）的数据切分成快照数据集（Snapshot dataset）和历史数据集（History dataset）两部分。</p>
 <ul>
-<li><code>Snapshot dataset</code>: 用于快速启动Lite FullNode节点的必要数据集。 </li>
+<li><code>Snapshot dataset</code>: 用于快速启动Lite FullNode节点的必要数据集。</li>
 <li><code>History dataset</code>: 用于历史数据查询的归档数据集。</li>
 </ul>
 <p>使用本工具进行任何操作之前，需要首先停止当前运行的FullNode节点。 此工具提供了根据当前<code>最新区块高度</code>(latest_block_number)将完整数据切分成两个数据集的功能。通过快照数据集启动的微节点不支持查询此区块高度之前的历史数据。此工具还提供了将历史数据集同快照数据集合并的功能。 更多的API使用详情可以参考<a href="#httpgrpc-apis">HTTP&amp;GRPC APIs</a></p>
@@ -329,25 +329,25 @@
 <h3 id="_5">例子<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
 <p>通过默认的配置文件启动全节点时，将在当前启动目录下生成一个<code>output-directory</code>目录，在<code>output-directory</code> 目录的<code>database</code>子目录就是将要被切分的数据库。 </p>
 <h4 id="_6">切分快照数据集<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h4>
-<p>首先, 停止FullNode并执行命令:
-<div class="highlight"><pre><span></span><code>// 简单起见，将快照数据集存放在`/tmp`目录下
+<p>首先, 停止FullNode并执行命令:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 简单起见，将快照数据集存放在`/tmp`目录下</span>
 java -jar LiteFullNodeTool.jar -o split -t snapshot --fn-data-path output-directory/database --dataset-path /tmp
 </code></pre></div>
-命令执行完毕之后，将在<code>/tmp</code>目录下生成<code>snapshot</code>目录, 将此目录的名字修改为<code>database</code>，并拷贝到Lite FullNode的运行目录output-directory之下。 </p>
+<p>命令执行完毕之后，将在<code>/tmp</code>目录下生成<code>snapshot</code>目录, 将此目录的名字修改为<code>database</code>，并拷贝到Lite FullNode的运行目录output-directory之下。 </p>
 <h4 id="_7">切分历史数据集<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h4>
 <p>如果需要查询历史数据，历史数据集必须被生成并合并到微节点数据库中。</p>
-<div class="highlight"><pre><span></span><code>// 简单起见，将历史数据集存放在`/tmp`目录下
-java -jar LiteFullNodeTool.jar -o split -t history --fn-data-path output-directory/database --dataset-path /tmp
+<div class="highlight"><pre><span></span><code><span class="c1"># 简单起见，将历史数据集存放在`/tmp`目录下</span>
+java -jar LiteFullNodeTool.jar -o split -t <span class="nb">history</span> --fn-data-path output-directory/database --dataset-path /tmp
 </code></pre></div>
 <p>命令执行完毕之后，将在<code>/tmp</code>目录下生成<code>history</code>目录，将此目录拷贝到Lite FullNode运行目录output-directory之下，注意需要确保有足够的硬盘空间来存储历史数据集。</p>
 <h4 id="merge">Merge<a class="headerlink" href="#merge" title="Permanent link">&para;</a></h4>
 <p>历史数据集和快照数据集中都保存了一个info.properties文件，用于记录数据拆分时的区块高度。需要注意的是，两个数据集进行合并时，历史数据集的区块高度必须大于等于快照数据集的区块高度。通过merge操作将历史数据集同快照数据集进行合并之后，微节点将成为一个真正的全节点。</p>
-<div class="highlight"><pre><span></span><code>// 简单起见，假设历史数据集存放在了`/tmp`目录下
+<div class="highlight"><pre><span></span><code><span class="c1"># 简单起见，假设历史数据集存放在了`/tmp`目录下</span>
 java -jar LiteFullNodeTool.jar -o merge --fn-data-path output-directory/database --dataset-path /tmp/history
 </code></pre></div>
 <h3 id="httpgrpc-apis">HTTP&amp;GRPC APIs<a class="headerlink" href="#httpgrpc-apis" title="Permanent link">&para;</a></h3>
 <p>目前一些API在微节点上暂不支持，列表如下:</p>
-<h4 id="http">Http<a class="headerlink" href="#http" title="Permanent link">&para;</a></h4>
+<h4 id="http">HTTP<a class="headerlink" href="#http" title="Permanent link">&para;</a></h4>
 <table>
 <thead>
 <tr>
@@ -414,7 +414,7 @@ java -jar LiteFullNodeTool.jar -o merge --fn-data-path output-directory/database
 </tr>
 </tbody>
 </table>
-<h4 id="grpc">GRPC<a class="headerlink" href="#grpc" title="Permanent link">&para;</a></h4>
+<h4 id="grpc">gRPC<a class="headerlink" href="#grpc" title="Permanent link">&para;</a></h4>
 <table>
 <thead>
 <tr>

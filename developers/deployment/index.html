@@ -197,11 +197,11 @@
         
             <li><a class="toctree-l4" href="#grpc-gateway">Grpc Gateway部署</a></li>
         
-            <li><a class="toctree-l4" href="#_7">事件订阅部署</a></li>
+            <li><a class="toctree-l4" href="#_14">事件订阅部署</a></li>
         
-            <li><a class="toctree-l4" href="#_8">事件订阅数据查询服务部署</a></li>
+            <li><a class="toctree-l4" href="#_27">事件订阅数据查询服务部署</a></li>
         
-            <li><a class="toctree-l4" href="#_9">高级配置</a></li>
+            <li><a class="toctree-l4" href="#_31">高级配置</a></li>
         
         </ul>
     
@@ -342,41 +342,55 @@
 <li><strong>MINIMUM</strong> 2 CPU Cores</li>
 </ul>
 <h2 id="_3">部署指南<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
-<p>1.&nbsp;编译java-tron项目
-<div class="highlight"><pre><span></span><code>cd /deploy/java-tron
+<ol>
+<li>编译java-tron项目</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span> /deploy/java-tron
 ./gradlew build
-</code></pre></div></p>
-<p>2.&nbsp;复制FullNode.jar和SolidityNode.jar以及相应的配置文件到各自的目录
+</code></pre></div>
+<ol>
+<li>复制FullNode.jar和SolidityNode.jar以及相应的配置文件到各自的目录</li>
+</ol>
 <div class="highlight"><pre><span></span><code>download your needed configuration file from https://github.com/tronprotocol/TronDeployment.
 
-main_net_config.conf is the configuration for MainNet, and test_net_config.conf is the configuration for TestNet.
+main_net_config.conf is the configuration <span class="k">for</span> MainNet, and test_net_config.conf is the configuration <span class="k">for</span> TestNet.
 
-please rename the configuration file to `config.conf` and use this config.conf to start FullNode and SoliditNode.
+please rename the configuration file to <span class="sb">`</span>config.conf<span class="sb">`</span> and use this config.conf to start FullNode and SoliditNode.
 
 cp build/libs/FullNode.jar ../fullnode
 
 cp build/libs/SolidityNode.jar ../soliditynode
-</code></pre></div></p>
-<p>3.&nbsp;用以下命令运行FullNode
+</code></pre></div>
+<ol>
+<li>用以下命令运行FullNode</li>
+</ol>
 <div class="highlight"><pre><span></span><code>java -jar FullNode.jar -c config.conf // make sure that your config.conf is downloaded from https://github.com/tronprotocol/TronDeployment
-</code></pre></div></p>
-<p>4.&nbsp;配置SolidityNode配置文件</p>
+</code></pre></div>
+<ol>
+<li>配置SolidityNode配置文件</li>
+</ol>
 <p>需要编辑<code>config.conf</code>文件来连接本地的FullNode。修改<code>node</code>里的<code>trustNode</code>为<code>127.0.0.1:50051</code>，这是默认rpc端口。设置<code>listen.port</code>为1024-65535间任意数字。不要使用0-1024间的数字，因为可能会导致与系统服务冲突。同样，为了避免冲突，可以把<code>rpc port</code>改为<code>50052</code>。</p>
 <p><strong>请为FullNode转发UDP端口18888</strong></p>
 <div class="highlight"><pre><span></span><code>rpc {
       port = 50052
     }
 </code></pre></div>
-<p>5.&nbsp;用以下命令运行SolidityNode
+<ol>
+<li>用以下命令运行SolidityNode</li>
+</ol>
 <div class="highlight"><pre><span></span><code>java -jar SolidityNode.jar -c config.conf //make sure that your config.conf is downloaded from https://github.com/tronprotocol/TronDeployment
-</code></pre></div></p>
-<p>6.&nbsp;在公链环境中运行超级节点
-<div class="highlight"><pre><span></span><code>java -jar FullNode.jar -p your private key --witness -c your config.conf(Example：/data/java-tron/config.conf)
+</code></pre></div>
+<ol>
+<li>在公链环境中运行超级节点</li>
+</ol>
+<div class="highlight"><pre><span></span><code>java -jar FullNode.jar -p your private key --witness -c your config.conf<span class="o">(</span>Example：/data/java-tron/config.conf<span class="o">)</span>
 Example:
 java -jar FullNode.jar -p 650950B193DDDDB35B6E48912DD28F7AB0E7140C1BFDEFD493348F02295BD812 --witness -c /data/java-tron/config.conf
-</code></pre></div></p>
+</code></pre></div>
 <p>这与运行一个个人测试网相似，除了<code>config.conf</code>中的IP不一样。</p>
-<p>7.&nbsp;在个人测试网环境中运行超级节点</p>
+<ol>
+<li>在个人测试网环境中运行超级节点</li>
+</ol>
 <p>你需要修改一下config.conf配置文件内容：</p>
 <ul>
 <li>Replace existing entry in genesis.block.witnesses with your address</li>
@@ -384,48 +398,45 @@ java -jar FullNode.jar -p 650950B193DDDDB35B6E48912DD28F7AB0E7140C1BFDEFD493348F
 <li>The first Super Node start, needSyncCheck should be set false</li>
 <li>Set p2p version to 61</li>
 </ul>
-<div class="highlight"><pre><span></span><code>cd build/libs
-java -jar FullNode.jar -p your private key --witness -c your config.conf (Example：/data/java-tron/config.conf)
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span> build/libs
+java -jar FullNode.jar -p your private key --witness -c your config.conf <span class="o">(</span>Example：/data/java-tron/config.conf<span class="o">)</span>
 Example:
 java -jar FullNode.jar -p 650950B193DDDDB35B6E48912DD28F7AB0E7140C1BFDEFD493348F02295BD812 --witness -c /data/java-tron/config.conf
 </code></pre></div>
 <h2 id="_4">日志与网络连接验证<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
 <p>日志位于<code>/deploy/\*/logs/tron.log</code>。 使用<code>tail -f /logs/tron.log/</code>命令来查看块同步日志。</p>
 <p>你可以看到类似如下块同步的日志信息：</p>
-<p><strong>FullNode</strong>
+<h3 id="fullnode">FullNode<a class="headerlink" href="#fullnode" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code>12:00:57.658 INFO  [pool-7-thread-1] [o.t.c.n.n.NodeImpl](NodeImpl.java:830) Success handle block Num:236610,ID:0000000000039c427569efa27cc2493c1fff243cc1515aa6665c617c45d2e1bf
 </code></pre></div>
-<strong>SolidityNode</strong>
+<h3 id="soliditynode">SolidityNode<a class="headerlink" href="#soliditynode" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code>12:00:40.691 INFO  [pool-17-thread-1] [o.t.p.SolidityNode](SolidityNode.java:88) sync solidity block, lastSolidityBlockNum:209671, remoteLastSolidityBlockNum:211823
-</code></pre></div></p>
+</code></pre></div>
 <h2 id="_5">优雅的停止节点<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
 <p>创建stop.sh文件，使用命令<code>kill -15</code>关闭java-tron.jar（或者FullNode.jar、SolidityNode.jar）。
-修改pid=<code>ps -ef |grep java-tron.jar |grep -v grep |awk '{print $2}'</code>来找到正确的pid。
-<div class="highlight"><pre><span></span><code>#!/bin/bash
-while true; do
-  pid=`ps -ef |grep java-tron.jar |grep -v grep |awk &#39;{print $2}&#39;`
-  if [ -n &quot;$pid&quot; ]; then
-    kill -15 $pid
-    echo &quot;The java-tron process is exiting, it may take some time, forcing the exit may cause damage to the database, please wait patiently...&quot;
-    sleep 1
-  else
-    echo &quot;java-tron killed successfully!&quot;
-    break
-  fi
-done
-</code></pre></div></p>
+修改pid=<code>ps -ef |grep java-tron.jar |grep -v grep |awk '{print $2}'</code>来找到正确的pid。</p>
+<div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+<span class="k">while</span> true<span class="p">;</span> <span class="k">do</span>
+  <span class="nv">pid</span><span class="o">=</span><span class="sb">`</span>ps -ef <span class="p">|</span>grep java-tron.jar <span class="p">|</span>grep -v grep <span class="p">|</span>awk <span class="s1">&#39;{print $2}&#39;</span><span class="sb">`</span>
+  <span class="k">if</span> <span class="o">[</span> -n <span class="s2">&quot;</span><span class="nv">$pid</span><span class="s2">&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+    <span class="nb">kill</span> -15 <span class="nv">$pid</span>
+    <span class="nb">echo</span> <span class="s2">&quot;The java-tron process is exiting, it may take some time, forcing the exit may cause damage to the database, please wait patiently...&quot;</span>
+    sleep <span class="m">1</span>
+  <span class="k">else</span>
+    <span class="nb">echo</span> <span class="s2">&quot;java-tron killed successfully!&quot;</span>
+    <span class="nb">break</span>
+  <span class="k">fi</span>
+<span class="k">done</span>
+</code></pre></div>
 <h2 id="_6">快速部署节点<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
 <p>下载快速部署脚本，根据部署节点类型，执行脚本。</p>
-<h3>使用范围</h3>
-
+<h3 id="_7">使用范围<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
 <p>脚本可以再Linux/MacOS上使用，不支持Windows系统。
 只支持FullNode与SolidityNode的部署。</p>
-<h3>下载运行脚本</h3>
-
+<h3 id="_8">下载运行脚本<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code>wget https://raw.githubusercontent.com/tronprotocol/TronDeployment/master/deploy_tron.sh -O deploy_tron.sh
 </code></pre></div>
-<h3>参数含义</h3>
-
+<h3 id="_9">参数含义<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code>bash deploy_tron.sh --app <span class="o">[</span>FullNode<span class="p">|</span>SolidityNode<span class="o">]</span> --net <span class="o">[</span>mainnet<span class="p">|</span>testnet<span class="p">|</span>privatenet<span class="o">]</span> --db <span class="o">[</span>keep<span class="p">|</span>remove<span class="p">|</span>backup<span class="o">]</span> --heap-size &lt;heapsize&gt;
 
 --app Optional, Running application. The default node is Fullnode and it could be FullNode or SolidityNode.
@@ -438,58 +449,50 @@ done
 --heap-size  Optional, jvm option: Xmx. The default heap-size is <span class="m">0</span>.8 * memory size.
 --work_space  Optional, default is current directory.
 </code></pre></div>
-<h3>部署FullNode</h3>
-
+<h3 id="fullnode_1">部署FullNode<a class="headerlink" href="#fullnode_1" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code>wget https://raw.githubusercontent.com/tronprotocol/TronDeployment/master/deploy_tron.sh -O deploy_tron.sh
 bash deploy_tron.sh
 </code></pre></div>
-<h3>部署SolidityNode</h3>
-
+<h3 id="soliditynode_1">部署SolidityNode<a class="headerlink" href="#soliditynode_1" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code>wget https://raw.githubusercontent.com/tronprotocol/TronDeployment/master/deploy_tron.sh -O deploy_tron.sh
 <span class="c1"># User can self-configure the IP and Port of GRPC service in the turst-node field of SolidityNode. trust-node is the fullnode you just deploy.</span>
 bash deploy_tron.sh --app SolidityNode --trust-node &lt;grpc-ip:grpc-port&gt;
 </code></pre></div>
-<h3> FullNode和SolidityNode部署在同一主机上</h3>
-
+<h3 id="fullnodesoliditynode">FullNode和SolidityNode部署在同一主机上<a class="headerlink" href="#fullnodesoliditynode" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="c1"># You need to configure different gRPC ports on the same host because gRPC port is available on SolidityNode and FullNodeConfigure and it cannot be set as default value 50051. In this case the default value of rpc port is set as 50041.</span>
 wget https://raw.githubusercontent.com/tronprotocol/TronDeployment/master/deploy_tron.sh -O deploy_tron.sh
 bash deploy_tron.sh --app FullNode
 bash deploy_tron.sh --app SolidityNode --rpc-port <span class="m">50041</span>
 </code></pre></div>
 <h2 id="grpc-gateway">Grpc Gateway部署<a class="headerlink" href="#grpc-gateway" title="Permanent link">&para;</a></h2>
-<h3> 前提 </h3>
-
+<h3 id="_10">前提<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
 <p>请参照：<a href="https://github.com/tronprotocol/grpc-gateway">https://github.com/tronprotocol/grpc-gateway</a>
 安装Golang, Protoc, 并且设置$GOPATH环境变量。</p>
-<h3> 下载运行脚本 </h3>
-
+<h3 id="_11">下载运行脚本<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code>wget https://raw.githubusercontent.com/tronprotocol/TronDeployment/master/deploy_grpc_gateway.sh -O deploy_grpc_gateway.sh
 </code></pre></div>
-<h3> 参数含义 </h3>
-
+<h3 id="_12">参数含义<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code>bash deploy_grpc_gateway.sh --rpchost <span class="o">[</span>rpc host ip<span class="o">]</span> --rpcport <span class="o">[</span>rpc port number<span class="o">]</span> --httpport <span class="o">[</span>http port number<span class="o">]</span>
 
 --rpchost The fullnode or soliditynode IP where the grpc service is provided. Default value is <span class="s2">&quot;localhost&quot;</span>.
 --rpcport The fullnode or soliditynode port number grpc service is consuming. Default value is <span class="m">50051</span>.
 --httpport The port intends to provide http service provided by grpc gateway. Default value is <span class="m">18890</span>.
 </code></pre></div>
-<h3> 示例 </h3>
-
-<p>使用默认配置：
+<h3 id="_13">示例<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h3>
+<p>使用默认配置：</p>
 <div class="highlight"><pre><span></span><code>bash deploy_grpc_gateway.sh
 </code></pre></div>
-使用自定义配置：
+<p>使用自定义配置：</p>
 <div class="highlight"><pre><span></span><code>bash deploy_grpc_gateway.sh --rpchost <span class="m">127</span>.0.0.1 --rpcport <span class="m">50052</span> --httpport <span class="m">18891</span>
-</code></pre></div></p>
-<h2 id="_7">事件订阅部署<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+</code></pre></div>
+<h2 id="_14">事件订阅部署<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h2>
 <ul>
 <li><strong>api</strong> 模块定义了介于java-tron与插件间的事件订阅接口。</li>
 <li><strong>app</strong> 模块是加载插件示例，开发者可以用来调试。</li>
 <li><strong>kafkaplugin</strong> 模块是kafka的实现。它实现了IPluginEventListener，它从java-tron接受事件并转给kafka服务。</li>
 <li><strong>mongodbplugin</strong> 模块是mongodb的实现。</li>
 </ul>
-<h3> 搭建运行环境 </h3>
-
+<h3 id="_15">搭建运行环境<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h3>
 <ol>
 <li>Clone the repo <code>git clone https://github.com/tronprotocol/event-plugin.git</code></li>
 <li>Go to eventplugin <code>cd event-plugin</code></li>
@@ -500,9 +503,8 @@ bash deploy_tron.sh --app SolidityNode --rpc-port <span class="m">50041</span>
 <p>这一步会生成<code>plugin-kafka-1.0.0.zip</code>，位于<code>event-plugin/build/plugins/</code>目录下。</p>
 </li>
 </ol>
-<h3> 编辑java-tron的 **config.conf** 文件，增加以下字段：</h3>
-
-<p><div class="highlight"><pre><span></span><code>event.subscribe = {
+<h3 id="java-tron-configconf">编辑java-tron的 <strong>config.conf</strong> 文件，增加以下字段<a class="headerlink" href="#java-tron-configconf" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>event.subscribe = {
     path = &quot;&quot; // absolute path of plugin
     server = &quot;&quot; // target server address to receive event triggers
     dbconfig=&quot;&quot; // dbname|username|password
@@ -542,80 +544,74 @@ bash deploy_tron.sh --app SolidityNode --rpc-port <span class="m">50041</span>
     }
 }
 </code></pre></div>
- * <strong>path</strong>: "plugin-kafka-1.0.0.zip"文件的绝对路径
- * <strong>server</strong>: Kafka服务地址
- * <strong>topics</strong>: 每一种事件匹配一个Kafka主题，我们支持四种事件订阅：区块事件，交易事件，合约事件以及合约日志事件
- * <strong>dbconfig</strong>: mongodb的配置，dbname|username|password。如果使用kafka，可以忽略这个参数。
- * <strong>triggerName</strong>: 触发类型，只读。
- * <strong>enable</strong>: 是否开启事件订阅。
- * <strong>topic</strong>: kafka接收事件的主题。请确保Kafka在运行中。
- * <strong>filter</strong>: 事件订阅过滤选项。
- <strong>注意</strong>: 如果服务器地址不是127.0.0.1, 请在config/server.properties文件中设置listeners=PLAINTEXT://:9092，advertised.listeners to PLAINTEXT://host_ip:9092</p>
-<h3 id="kafka"> 安装Kafka </h3>
-
-<p><strong>Mac环境</strong>:
+<p><strong><em>path</em>*: "plugin-kafka-1.0.0.zip"文件的绝对路径
+ </strong><em>server</em><em>: Kafka服务地址
+ </em><strong>topics</strong>: 每一种事件匹配一个Kafka主题，我们支持四种事件订阅：区块事件，交易事件，合约事件以及合约日志事件
+ <strong><em>dbconfig</em>*: mongodb的配置，dbname|username|password。如果使用kafka，可以忽略这个参数。
+ </strong><em>triggerName</em><em>: 触发类型，只读。
+ </em><strong>enable</strong>: 是否开启事件订阅。
+ <strong><em>topic</em>*: kafka接收事件的主题。请确保Kafka在运行中。
+ </strong><em>filter</em><em>: 事件订阅过滤选项。
+ </em><em>注意</em>*: 如果服务器地址不是127.0.0.1, 请在config/server.properties文件中设置listeners=PLAINTEXT://:9092，advertised.listeners to PLAINTEXT://host_ip:9092</p>
+<h3 id="kafka">安装Kafka<a class="headerlink" href="#kafka" title="Permanent link">&para;</a></h3>
+<p><strong>Mac环境</strong>:</p>
 <div class="highlight"><pre><span></span><code>brew install kafka
-</code></pre></div></p>
-<p><strong>Linux环境</strong>:
-<div class="highlight"><pre><span></span><code>cd /usr/local
+</code></pre></div>
+<p><strong>Linux环境</strong>:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span> /usr/local
 wget http://archive.apache.org/dist/kafka/0.10.2.2/kafka_2.10-0.10.2.2.tgz
 tar -xzvf kafka_2.10-0.10.2.2.tgz
 mv kafka_2.10-0.10.2.2 kafka
 
-add &quot;export PATH=$PATH:/usr/local/kafka/bin&quot; to end of /etc/profile
-source /etc/profile
+add <span class="s2">&quot;export PATH=</span><span class="nv">$PATH</span><span class="s2">:/usr/local/kafka/bin&quot;</span> to end of /etc/profile
+<span class="nb">source</span> /etc/profile
 
 
-kafka-server-start.sh /usr/local/kafka/config/server.properties &amp;
+kafka-server-start.sh /usr/local/kafka/config/server.properties <span class="p">&amp;</span>
 </code></pre></div>
-<strong>注意</strong>: 请确保Kafka的版本与build.gradle中eventplugin项目的版本一致。</p>
-<h3> 运行Kafka </h3>
-
-<p><strong>Mac环境</strong>:
-<div class="highlight"><pre><span></span><code>zookeeper-server-start /usr/local/etc/kafka/zookeeper.properties &amp; kafka-server-start /usr/local/etc/kafka/server.properties
-</code></pre></div></p>
-<p><strong>Linux环境</strong>:
-<div class="highlight"><pre><span></span><code>zookeeper-server-start.sh /usr/local/kafka/config/zookeeper.properties &amp;
-Sleep about 3 seconds
-kafka-server-start.sh /usr/local/kafka/config/server.properties &amp;
-</code></pre></div></p>
-<h3> 创建主题接受事件，主题的定义位于config.conf文件中 </h3>
-
-<p><strong>Mac环境</strong>:
-<div class="highlight"><pre><span></span><code>kafka-topics --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic block
-kafka-topics --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic transaction
-kafka-topics --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic contractlog
-kafka-topics --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic contractevent
-</code></pre></div></p>
-<p><strong>Linux环境</strong>:
-<div class="highlight"><pre><span></span><code>kafka-topics.sh  --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic block
-kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic transaction
-kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic contractlog
-kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic contractevent
-</code></pre></div></p>
-<h3> Kafka用户 </h3>
-
-<p><strong>Mac环境</strong>:
+<p><strong>注意</strong>: 请确保Kafka的版本与build.gradle中eventplugin项目的版本一致。</p>
+<h3 id="kafka_1">运行Kafka<a class="headerlink" href="#kafka_1" title="Permanent link">&para;</a></h3>
+<p><strong>Mac环境</strong>:</p>
+<div class="highlight"><pre><span></span><code>zookeeper-server-start /usr/local/etc/kafka/zookeeper.properties <span class="p">&amp;</span> kafka-server-start /usr/local/etc/kafka/server.properties
+</code></pre></div>
+<p><strong>Linux环境</strong>:</p>
+<div class="highlight"><pre><span></span><code>zookeeper-server-start.sh /usr/local/kafka/config/zookeeper.properties <span class="p">&amp;</span>
+Sleep about <span class="m">3</span> seconds
+kafka-server-start.sh /usr/local/kafka/config/server.properties <span class="p">&amp;</span>
+</code></pre></div>
+<h3 id="configconf">创建主题接受事件，主题的定义位于config.conf文件中<a class="headerlink" href="#configconf" title="Permanent link">&para;</a></h3>
+<p><strong>Mac环境</strong>:</p>
+<div class="highlight"><pre><span></span><code>kafka-topics --create --zookeeper localhost:2181 --replication-factor <span class="m">1</span> --partitions <span class="m">1</span> --topic block
+kafka-topics --create --zookeeper localhost:2181 --replication-factor <span class="m">1</span> --partitions <span class="m">1</span> --topic transaction
+kafka-topics --create --zookeeper localhost:2181 --replication-factor <span class="m">1</span> --partitions <span class="m">1</span> --topic contractlog
+kafka-topics --create --zookeeper localhost:2181 --replication-factor <span class="m">1</span> --partitions <span class="m">1</span> --topic contractevent
+</code></pre></div>
+<p><strong>Linux环境</strong>:</p>
+<div class="highlight"><pre><span></span><code>kafka-topics.sh  --create --zookeeper localhost:2181 --replication-factor <span class="m">1</span> --partitions <span class="m">1</span> --topic block
+kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor <span class="m">1</span> --partitions <span class="m">1</span> --topic transaction
+kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor <span class="m">1</span> --partitions <span class="m">1</span> --topic contractlog
+kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor <span class="m">1</span> --partitions <span class="m">1</span> --topic contractevent
+</code></pre></div>
+<h3 id="kafka_2">Kafka用户<a class="headerlink" href="#kafka_2" title="Permanent link">&para;</a></h3>
+<p><strong>Mac环境</strong>:</p>
 <div class="highlight"><pre><span></span><code>kafka-console-consumer --bootstrap-server localhost:9092  --topic block
 kafka-console-consumer --bootstrap-server localhost:9092  --topic transaction
 kafka-console-consumer --bootstrap-server localhost:9092  --topic contractlog
 kafka-console-consumer --bootstrap-server localhost:9092  --topic contractevent
-</code></pre></div></p>
-<p><strong>Linux环境</strong>:
+</code></pre></div>
+<p><strong>Linux环境</strong>:</p>
 <div class="highlight"><pre><span></span><code>kafka-console-consumer.sh --zookeeper localhost:2181 --topic block
 kafka-console-consumer.sh --zookeeper localhost:2181 --topic transaction
 kafka-console-consumer.sh --zookeeper localhost:2181 --topic contractlog
 kafka-console-consumer.sh --zookeeper localhost:2181 --topic contractevent
-</code></pre></div></p>
-<h3> 在Java-tron中加载插件 </h3>
-
+</code></pre></div>
+<h3 id="java-tron">在Java-tron中加载插件<a class="headerlink" href="#java-tron" title="Permanent link">&para;</a></h3>
 <ul>
-<li>add --es to command line, for example:
-<div class="highlight"><pre><span></span><code> java -jar FullNode.jar -p privatekey -c config.conf --es
-</code></pre></div></li>
+<li>add --es to command line, for example:</li>
 </ul>
-<h3> 事件订阅过滤 </h3>
-
+<div class="highlight"><pre><span></span><code> java -jar FullNode.jar -p privatekey -c config.conf --es
+</code></pre></div>
+<h3 id="_16">事件订阅过滤<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h3>
 <p>事件订阅过滤参数在config.conf文件中设置：</p>
 <div class="highlight"><pre><span></span><code>filter = {
        fromblock = &quot;&quot; // the value could be &quot;&quot;, &quot;earliest&quot; or a specified block number as the beginning of the queried range
@@ -629,9 +625,8 @@ kafka-console-consumer.sh --zookeeper localhost:2181 --topic contractevent
        ]
     }
 </code></pre></div>
-<h3 id="mongo"> 下载并安装MongoDB </h3>
-
-<p><strong> 建议配置 </strong></p>
+<h3 id="mongodb">下载并安装MongoDB<a class="headerlink" href="#mongodb" title="Permanent link">&para;</a></h3>
+<h4 id="_17">建议配置<a class="headerlink" href="#_17" title="Permanent link">&para;</a></h4>
 <ul>
 <li>CPU/ RAM: 16Core / 32G</li>
 <li>DISK: 500G</li>
@@ -644,19 +639,19 @@ kafka-console-consumer.sh --zookeeper localhost:2181 --topic contractevent
 <li>tar zxvf mongodb-linux-x86_64-4.0.4.tgz</li>
 <li>mv mongodb-linux-x86_64-4.0.4 mongodb</li>
 </ul>
-<p><strong> 设计环境变量 </strong></p>
+<h4 id="_18">设计环境变量<a class="headerlink" href="#_18" title="Permanent link">&para;</a></h4>
 <ul>
 <li>export MONGOPATH=/home/java-tron/mongodb/</li>
 <li>export PATH=<span><span class="MathJax_Preview">PATH:</span><script type="math/tex">PATH:</script></span>MONGOPATH/bin</li>
 </ul>
-<p><strong> 创建配置文件 </strong></p>
+<h4 id="_19">创建配置文件<a class="headerlink" href="#_19" title="Permanent link">&para;</a></h4>
 <p>The path is : /etc/mongodb/mgdb.conf</p>
 <ul>
 <li>cd /etc/mongodb</li>
 <li>touch mgdb.conf</li>
 </ul>
 <p>创建数据和日志文件夹，并把它们的绝对路径加入mgdb.conf</p>
-<p><strong> 示例 </strong></p>
+<h4 id="_20">示例<a class="headerlink" href="#_20" title="Permanent link">&para;</a></h4>
 <ul>
 <li>dbpath=/home/java-tron/mongodb/data</li>
 <li>logpath=/home/java-tron/mongodb/log/mongodb.log</li>
@@ -667,18 +662,20 @@ kafka-console-consumer.sh --zookeeper localhost:2181 --topic contractevent
 <li>auth=true</li>
 <li>wiredTigerCacheSizeGB=2</li>
 </ul>
-<p><strong> 注意 </strong>
-- bind_ip must be configured to 0.0.0.0，otherwise remote connection will be refused.
-- wiredTigerCacheSizeGB, must be configured to prevent OOM</p>
-<p><strong> 运行MongoDB </strong></p>
+<h4 id="_21">注意<a class="headerlink" href="#_21" title="Permanent link">&para;</a></h4>
 <ul>
-<li>mongod  --config /etc/mongodb/mgdb.conf</li>
+<li>bind_ip must be configured to 0.0.0.0，otherwise remote connection will be refused.</li>
+<li>wiredTigerCacheSizeGB, must be configured to prevent OOM</li>
 </ul>
-<p><strong> 创建管理员账户 </strong>
-- mongo
+<h4 id="mongodb_1">运行MongoDB<a class="headerlink" href="#mongodb_1" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>mongod  --config /etc/mongodb/mgdb.conf
+</code></pre></div>
+<h4 id="_22">创建管理员账户<a class="headerlink" href="#_22" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>- mongo
 - use admin
-- db.createUser({user:"root",pwd:"admin",roles:[{role:"root",db:"admin"}]})</p>
-<p><strong> 创建事件日志以及所有者账户 </strong></p>
+- db.createUser<span class="o">({</span>user:<span class="s2">&quot;root&quot;</span>,pwd:<span class="s2">&quot;admin&quot;</span>,roles:<span class="o">[{</span>role:<span class="s2">&quot;root&quot;</span>,db:<span class="s2">&quot;admin&quot;</span><span class="o">}]})</span>
+</code></pre></div>
+<h4 id="_23">创建事件日志以及所有者账户<a class="headerlink" href="#_23" title="Permanent link">&para;</a></h4>
 <ul>
 <li>db.auth("root", "admin")</li>
 <li>use eventlog</li>
@@ -687,11 +684,10 @@ kafka-console-consumer.sh --zookeeper localhost:2181 --topic contractevent
 <blockquote>
 <p>database: eventlog, username:tron, password: 123456</p>
 </blockquote>
-<p><strong> 防火墙策略 </strong></p>
-<ul>
-<li>iptables -A INPUT -p tcp -m state --state NEW -m tcp --dport 27017 -j ACCEPT</li>
-</ul>
-<p><strong> 远程连接mongo </strong></p>
+<h4 id="_24">防火墙策略<a class="headerlink" href="#_24" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>iptables -A INPUT -p tcp -m state --state NEW -m tcp --dport <span class="m">27017</span> -j ACCEPT
+</code></pre></div>
+<h4 id="mongo">远程连接mongo<a class="headerlink" href="#mongo" title="Permanent link">&para;</a></h4>
 <ul>
 <li>mongo 47.90.245.68:27017</li>
 <li>use eventlog</li>
@@ -699,23 +695,21 @@ kafka-console-consumer.sh --zookeeper localhost:2181 --topic contractevent
 <li>show collections</li>
 <li>db.block.find()</li>
 </ul>
-<p><strong> 查询区块事件触发数据 </strong></p>
+<h4 id="_25">查询区块事件触发数据<a class="headerlink" href="#_25" title="Permanent link">&para;</a></h4>
 <ul>
 <li>db.block.find({blockNumber: {$lt: 1000}});  // 返回区块高度小于1000的数据</li>
 </ul>
-<p><strong> 设置数据库索引 </strong></p>
-<p>cd /{projectPath}
-sh insertIndex.sh</p>
-<h2 id="_8">事件订阅数据查询服务部署<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
-<h3>下载代码</h3>
-
+<h4 id="_26">设置数据库索引<a class="headerlink" href="#_26" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span> /<span class="o">{</span>projectPath<span class="o">}</span>
+sh insertIndex.sh
+</code></pre></div>
+<h2 id="_27">事件订阅数据查询服务部署<a class="headerlink" href="#_27" title="Permanent link">&para;</a></h2>
+<h3 id="_28">下载代码<a class="headerlink" href="#_28" title="Permanent link">&para;</a></h3>
 <p>git clone https://github.com/tronprotocol/tron-eventquery.git
 cd troneventquery</p>
-<h3> 编译 </h3>
-
-<ul>
-<li>mvn package</li>
-</ul>
+<h3 id="_29">编译<a class="headerlink" href="#_29" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>mvn package
+</code></pre></div>
 <p>代码编译成功后，在/troneventquery目录下会生成troneventquery.jar文件。</p>
 <p>需要创建一个config.conf配置文件用来设置mongodb的配置属性，我们在/troneventquery/config.conf中提供了个示例，如果有需要可以进行修改。</p>
 <p><strong>注意：</strong></p>
@@ -730,13 +724,12 @@ cd troneventquery</p>
 <li>mongo.threadsAllowedToBlockForConnectionMultiplier=4</li>
 </ul>
 <p><strong>mongo.dbname</strong>的值是指定的事件订阅数据库的名称，不可以修改。</p>
-<h3> 运行 </h3>
-
+<h3 id="_30">运行<a class="headerlink" href="#_30" title="Permanent link">&para;</a></h3>
 <ul>
 <li>troneventquery/deploy.sh 是用来部署事件订阅数据查询服务的。</li>
 <li>troneventquery/insertIndex.sh 是用来设置mongodb索引来加速查询的。</li>
 </ul>
-<h2 id="_9">高级配置<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
+<h2 id="_31">高级配置<a class="headerlink" href="#_31" title="Permanent link">&para;</a></h2>
 <p>Read the <a href="../advanced-configuration/">Advanced Configuration</a></p>
               
             </div>
