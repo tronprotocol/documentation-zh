@@ -14,6 +14,7 @@ CPU：16核 内存：32G 带宽：100M 硬盘：1T
 CPU：64核及以上 内存：64G及以上 带宽：500M及以上 硬盘：2T及以上
 
 ## FullNode介绍
+
 FullNode是拥有完整区块链数据的节点，能够实时更新数据，负责交易的广播和验证，提供操作区块链的api和查询数据的api。
 
 最低配置要求：
@@ -60,7 +61,7 @@ CPU：32核及以上 内存：48G及以上 带宽：500M及以上 硬盘：2T及
 
 1. 下载private_net_config.conf
 
-    ```text
+    ```shell
     wget https://raw.githubusercontent.com/tronprotocol/tron-deployment/master/private_net_config.conf
     ```
 
@@ -101,9 +102,11 @@ enable:
 ##### 3.2.2 步骤二:部署FullNode节点
 
 1. 下载private_net_config.conf
-    ```text
+
+    ```shell
     wget https://raw.githubusercontent.com/tronprotocol/tron-deployment/master/private_net_config.conf
     ```
+
 2. 设置seed.node ip.list 为SR的ip地址和端口
 3. 设置p2p.version与超级节点的p2p.version一致
 4. 设置genesis.block 与SR中的genesis.block配置一致
@@ -118,6 +121,7 @@ nohup java -Xmx6g -XX:+HeapDumpOnOutOfMemoryError -jar FullNode.jar -c private_n
 --log-config: 指定日志配置文件路径，i.e.: --log-config logback.xml。
 -c: 指定配置文件路径，i.e.: -c config.conf。
 ```
+
 日志文件使用：
 可以修改模块的level等级来控制日志的输出，默认每个模块的level级别为INFO，比如，只打印网络模块warn以上级别的信息，可以如下修改：
 

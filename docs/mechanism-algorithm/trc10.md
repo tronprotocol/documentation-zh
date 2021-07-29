@@ -7,7 +7,8 @@ TRON网络支持2种通证，一种是通过智能合约发行的TRC20协议的�
 ## 如何发行TRC10通证
 
 http接口：
-```text
+
+```shell
 wallet/createassetissue
 作用：发行Token
 demo：curl -X POST  http://127.0.0.1:8090/wallet/createassetissue -d '{
@@ -47,7 +48,8 @@ frozen_supply是token发行者可以在发行的时候指定冻结的token
 ## 参与TRC10通证
 
 http接口：
-```
+
+```shell
 wallet/participateassetissue
 作用：参与通证发行
 demo：curl -X POST http://127.0.0.1:8090/wallet/participateassetissue -d '{
@@ -69,7 +71,8 @@ asset_name是token的名称，需要是hexString格式
 ## TRC10通证转账
 
 http接口：
-```
+
+```shell
 wallet/transferasset
 作用：转账Token
 demo：curl -X POST  http://127.0.0.1:8090/wallet/transferasset -d '{

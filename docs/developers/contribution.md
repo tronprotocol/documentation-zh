@@ -10,7 +10,7 @@ GitHub是用来追踪议题，贡献代码、建议、特性请求、文档等�
 
 我们鼓励尽早提交PR，这样可以让其他社区开发者知道你在开发的议题。未开发完成的PR需要被标注“进行中”状态。
 
-** 社区开发者频道 **
+## 社区开发者频道
 
 * [java-tron gitter channel](https://gitter.im/tronprotocol/allcoredev)
 这个频道用来处理跟波场网络相关的问题
@@ -21,13 +21,11 @@ GitHub是用来追踪议题，贡献代码、建议、特性请求、文档等�
 * [tips gitter channel](https://gitter.im/tronprotocol/TIPs)
 这个频道用来处理跟波场改进提议相关的问题
 
-
 查看 [波场开发者激励政策](incentives.md)
 
 ## 如何参与TIP编写
 
 请查阅[如何参与TIP书写](./tips.md)
-
 
 ## 如何贡献java-tron代码
 

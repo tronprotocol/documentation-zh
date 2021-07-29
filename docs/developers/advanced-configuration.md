@@ -7,7 +7,7 @@ You may custom these items only if you have deep understanding on them, otherwis
 
 You can custom LevelDB options in the `storage` part of `config.conf`, which looks like:
 
-```
+```conf
 storage {
   # Directory for storing persistent data
 
@@ -49,7 +49,7 @@ As shown in the example above, the data of database `accout` will be stored in t
 
 You can custom gPRC options in the `node.rpc` part of `config.conf`, which looks like:
 
-```
+```conf
 node {
   rpc {
     port = 50051
@@ -79,8 +79,10 @@ node {
 ```
 
 ## backup
+
 You can custom backup options in the `node.backup` part of `config.conf`, which looks like:
-```
+
+```conf
 node.backup {
     # my priority, each member should use different priority
     priority = 
@@ -90,13 +92,16 @@ node.backup {
     members = []
 }
 ```
-policy: 
+
+policy:
+
 1. the one which synchronized first will become master.
 2. if synchronization is completed at the same time, the one which with big priority will become master.
 
 E.g. create backups for node A(192.168.0.100) and node B(192.168.0.100 ):
 node A's configuration:
-```
+
+```conf
 node.backup {
     priority = 8 
     port = 10001
@@ -105,8 +110,10 @@ node.backup {
     ]
 }
 ```
+
 node B's configuration:
-```
+
+```conf
 node.backup {
     priority = 5
     port = 10001
