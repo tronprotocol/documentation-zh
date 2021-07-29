@@ -4,29 +4,29 @@ TRC-20是用于TRON区块链上的智能合约的技术标准，用于使用TRON
 
 ## 实现规则
 
-**3 个可选项**
+### 3 个可选项
 
 - 通证名称
 
-```text
+```solidity
 string public constant name = "TRONEuropeRewardCoin";
 ```
 
 - 通证缩写
 
-```text
+```solidity
 string public constant symbol = "TERC";
 ```
 
 - 通证精度
 
-```text
+```solidity
 uint8 public constant decimals = 6;
 ```
 
-**6 个必选项**
+### 6 个必选项
 
-```text
+```solidity
 
 contract TRC20 {
     function totalSupply() constant returns (uint theTotalSupply);
@@ -45,48 +45,43 @@ contract TRC20 {
 
 这个方法返回通证总的发行量。
 
-
 - balanceOf()
 
 这个方法返回查询账户的通证余额。
-
 
 - transfer()
 
 这个方法用来从智能合约地址里转账通证到指定账户。
 
-
 - approve()
 
 这个方法用来授权第三方（例如DAPP合约）从通证拥有者账户转账通证。
-
 
 - transferFrom()
 
 这个方法可供第三方从通证拥有者账户转账通证。需要配合approve()方法使用。
 
-
 - allowance()
 
 这个方法用来查询可供第三方转账的查询账户的通证余额。
 
-**2 个事件函数**
+### 2 个事件函数
 
 当通证被成功转账后，会触发转账事件。
 
-```text
+```solidity
 event Transfer(address indexed _from, address indexed _to, uint256 _value)
 ```
 
 当approval()方法被成功调用后，会触发Approval事件。
 
-```text
+```solidity
 event Approval(address indexed _owner, address indexed _spender, uint256 _value)
 ```
 
 ## 合约示例
 
-```text
+```solidity
 pragma solidity ^0.4.16;
 
 interface tokenRecipient { function receiveApproval(address _from, uint256 _value, address _token, bytes _extraData) external; }

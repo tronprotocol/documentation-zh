@@ -1,13 +1,13 @@
-这个文档是关于官方支持的PGP key的说明  
+# 这个文档是关于官方支持的PGP key的说明  
   
 Users: pgp < KEYS  
-or&nbsp;&nbsp;&nbsp;&nbsp;gpg --import KEYS  
-or&nbsp;&nbsp;&nbsp;&nbsp;gpg --keyserver hkp://keys.gnupg.net --search-keys support@tron.network  
+or gpg --import KEYS  
+or gpg --keyserver hkp://keys.gnupg.net --search-keys support@tron.network  
 
-pub&nbsp;&nbsp;rsa3072&nbsp;&nbsp;2020-10-20 [SC]  
-   &nbsp;&nbsp;fingerprint = C07A AC17 C98D 205F 0CE3  0BF9 7F0A F58B 65C7 EEF4  
-uid&nbsp;&nbsp;Tron-Support <support@tron.network>  
-sub&nbsp;&nbsp;rsa3072&nbsp;&nbsp;2020-10-20 [E]  
+pub rsa3072 2020-10-20 [SC]  
+    fingerprint = C07A AC17 C98D 205F 0CE3  0BF9 7F0A F58B 65C7 EEF4  
+uid Tron-Support <support@tron.network>  
+sub rsa3072 2020-10-20 [E]  
 
 -----BEGIN PGP PUBLIC KEY BLOCK-----  
 

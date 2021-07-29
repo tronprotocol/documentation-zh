@@ -6,8 +6,8 @@ TRC-20合约允许用户发行代币和转账交易，但无法保证隐私性�
 
 匿名TRC-20合约主要有三个核心函数： `mint`, `transfer` 和 `burn`.
 
--  `mint` 主要用来把公开的TRC-20 转换为匿名的代币，隐藏代币的所有者和金额。`mint` 只有一个公开的输入和一个匿名的输出。
--  `transfer`用于匿名交易转账，可以隐私发送者地址、接收者地址和转账金额。`transfer` 最多有两个匿名输入和两个匿名输出。
+- `mint` 主要用来把公开的TRC-20 转换为匿名的代币，隐藏代币的所有者和金额。`mint` 只有一个公开的输入和一个匿名的输出。
+- `transfer`用于匿名交易转账，可以隐私发送者地址、接收者地址和转账金额。`transfer` 最多有两个匿名输入和两个匿名输出。
 - `burn` 用于将匿名币转换为了公开的TRC-20 代币。`burn` 有一个匿名的输入，一个公开的输出和零个或一个匿名输出。
 
 匿名TRC-20合约主要基于zk-SNARK(Zero-Knowledge Succinct Non-Interactive Argument of Knowledge) 零知识证明技术，保证其安全和有效性。
@@ -24,23 +24,23 @@ TRC-20合约允许用户发行代币和转账交易，但无法保证隐私性�
 
 ### 使用指南
 
-1.&nbsp;发送者首先通过API创建普通账户，用来触发匿名TRC-20合约，账户需要一些余额用于支付触发合约费用；   
+1. 发送者首先通过API创建普通账户，用来触发匿名TRC-20合约，账户需要一些余额用于支付触发合约费用；   
 
-2.&nbsp;发送者创建匿名合约地址，用来发送和接收匿名TRC-20资产;
+2. 发送者创建匿名合约地址，用来发送和接收匿名TRC-20资产;
 
-3.&nbsp;发送者调用api分别为`mint`，`transfer`，`burn`创建匿名TRC-20合约参数；
+3. 发送者调用api分别为`mint`，`transfer`，`burn`创建匿名TRC-20合约参数；
 
-4.&nbsp;发送者利用创建的参数触发匿名TRC-20合约，生成匿名TRC-20交易； 
+4. 发送者利用创建的参数触发匿名TRC-20合约，生成匿名TRC-20交易； 
 
-5.&nbsp;发送者广播匿名TRC-20交易；
+5. 发送者广播匿名TRC-20交易；
 
-6.&nbsp;接收者通过扫描方式获取收到的匿名TRC-20资产。
+6. 接收者通过扫描方式获取收到的匿名TRC-20资产。
 
 接下来的文档演示了怎么通过调用http接口实现匿名TRC-20交易。
 
 ### 创建账户
 
-**1. Call api: wallet/createaccount to generate the account**
+1. Call api: wallet/createaccount to generate the account
 
 Method: Post
 
@@ -52,9 +52,10 @@ Parameters:
     "account_address":"41e552f6487585c2b58bc2c9bb4492bc1f17132cd0"
 }
 ```
+
 Return:
 
-```
+```json
 {
     "visible":false,
     "txID":"c43651d448e82e00de3c31d7d34a826af4a6538bc3f5e9abcde11ef25f57d70e",
@@ -81,7 +82,7 @@ Return:
 
 ### 创建匿名地址
 
-**1. Call api: wallet/getspendingkey to generate the spending key**
+1. Call api: wallet/getspendingkey to generate the spending key
 
 Method: Post
 
@@ -90,15 +91,16 @@ Parameters:
 ```json
 null
 ```
+
 Return:
 
-```
+```json
 {
     "value": "09124de6a534661ef1cfad0335832445a3b83c08e885881a68a52cf4dc735e68"
 }
 ```
 
-**2. Call api: wallet/getexpandedspendingkey to generate the expanded spending key**
+2. Call api: wallet/getexpandedspendingkey to generate the expanded spending key
 
 Method: Post
 
@@ -109,9 +111,10 @@ Parameters:
    "value": "09124de6a534661ef1cfad0335832445a3b83c08e885881a68a52cf4dc735e68" 
 }
 ```
+
 Return:
 
-```
+```json
 {
     "ask": "23d11537676610c287ffcd1bc33d650df37fc90d13bb65356fbc9045cfb91705",
     "nsk": "da6542f57f6f730cb31b401b9ca8660589d8a765405c6d6f48fd392ac5360b0a",
@@ -119,7 +122,7 @@ Return:
 }
 ```
 
-**3. Call api: wallet/getakfromask to generate the ak from ask**
+3. Call api: wallet/getakfromask to generate the ak from ask
 
 Method: Post
 
@@ -133,11 +136,11 @@ Parameters:
 
 Return:
 
-```
+```json
 {"value": "72b041a8006a02a995c24f5b8531a62008c8c54a1979622dc4ea6f54a506732d"}
 ```
 
-**4. Call api: wallet/getnkfromnsk to generate the nk from nsk**
+4. Call api: wallet/getnkfromnsk to generate the nk from nsk
 
 Method: Post
 
@@ -151,13 +154,13 @@ Parameters:
 
 Return:
 
-```
+```json
 {
     "value": "2d817ea2e005e174d9291d0bd0605e11cb79e3f5855780521bc300d0636a58df"
 }
 ```
 
-**5. Call api: wallet/getincomingviewingkey to generate the incoming viewing key**
+5. Call api: wallet/getincomingviewingkey to generate the incoming viewing key
 
 Method: Post
 
@@ -172,12 +175,13 @@ Parameters:
 
 Return:
 
-```
+```json
 {
     "ivk": "6896b46a8355ae75896900ac617293d98e1b48fd885ed484a7cbddd566762705"
 }
 ```
-**6. Call api: wallet/getdiversifier to generate the diversifier**
+
+6. Call api: wallet/getdiversifier to generate the diversifier
 
 Method: Post
 
@@ -189,11 +193,11 @@ null
 
 Return:
 
-```
+```json
 {"d": "dd6b441bd5dcb9c25ec41f"}
 ```
 
-**7. Call api: wallet/getzenpaymentaddress to generate shielded payment address**
+7. Call api: wallet/getzenpaymentaddress to generate shielded payment address
 
 Method: Post
 
@@ -208,7 +212,7 @@ Parameters:
 
 Return:
 
-```
+```json
 {
     "d": {
         "d": "dd6b441bd5dcb9c25ec41f"
@@ -218,7 +222,7 @@ Return:
 }
 ```
 
-**8. Call api: wallet/getnewshieldedaddress to generate all the related keys**
+8. Call api: wallet/getnewshieldedaddress to generate all the related keys
 
 Method: Post
 
@@ -230,7 +234,7 @@ null
 
 Return:
 
-```
+```json
 {
     "sk": "0bfc211444fa877ba546ffb3a64e8b7aa58dd7bdd23a7b22166e9da923add0e6",
     "ask": "264c351e5a154555b1ec7822f9bfc0faa5ced9d75b17ed1552699a20b18f7c07",
@@ -247,7 +251,7 @@ Return:
 
 ### 为 `mint`创建匿名TRC-20合约参数
 
-**1. Call api: wallet/createshieldedcontractparameters to build the parameters**
+1. Call api: wallet/createshieldedcontractparameters to build the parameters
 
 Method: Post
 
@@ -267,6 +271,7 @@ Parameters:
     "shielded_TRC20_contract_address": "41f3392eaa7d38749176e0671dbc6912f8ef956943"
 }
 ```
+
 注意: 1. 确保在调用这个api之前，匿名合约已完成部署；2. `from_amount` 为真实地交易金额, note中的 `value` 为`scalingFactor`缩放后的值，`scalingFactor` 在匿名TRC-20合约中设置，即 `from_amount` = `value` * `scalingFactor`. 在本例中， 缩放因子`scalingFactor`值为100；3. `rcm`为32字节长的随机域元素，需调用`GetRcm` 接口生成。
 
 Return:
@@ -293,7 +298,7 @@ Return:
 
 注意：在触发`mint`函数之前，用户需要先触发TRC-20合约的`approve`函数，授权匿名TRC-20合约能将用户资产从TRC-20合约转到匿名TRC-20。匿名TRC-20合约在部署时绑定相应的TRC-20合约。
 
-**2. Call api: wallet/createshieldedcontractparameterswithoutask to build the parameters**
+2. Call api: wallet/createshieldedcontractparameterswithoutask to build the parameters
 
 Method: Post
 
@@ -313,6 +318,7 @@ Parameters:
     "shielded_TRC20_contract_address": "41f3392eaa7d38749176e0671dbc6912f8ef956943"
 }
 ```
+
 注意: `from_amount` 为真实地交易金额, note中的 `value` 为`scalingFactor`缩放后的值，`scalingFactor` 在匿名TRC-20合约中设置，即`from_amount` = `value` * `scalingFactor`. 在本例中， 缩放因子`scalingFactor`值为100. 
 
 Return:
@@ -337,10 +343,9 @@ Return:
 
  `trigger_contract_input`作为输入数据主要用来触发匿名TRC-20合约的`mint`函数。
 
-
 ### 为 `transfer`创建匿名TRC-20合约参数
 
-**1. Call api: wallet/createshieldedcontractparameters to build the parameters**
+1. Call api: wallet/createshieldedcontractparameters to build the parameters
 
 Method: Post
 
@@ -394,7 +399,9 @@ Parameters:
     "shielded_TRC20_contract_address": "41e6e90fbc958ba09483550882b1f0327e0193250a"
 }
 ```
+
 Return:
+
 ```bash
 {
     "spend_description": [
@@ -440,9 +447,9 @@ Return:
 
  `trigger_contract_input`作为输入数据主要用来触发匿名TRC-20合约的 `transfer`函数。
 
-注意：1. `shielded_spends` 通过 `scanshieldedtrc20notesbyivk` 获取；2. `root` 和 `path` 通过触发匿名TRC-20合约 `getPath` 函数获取。 
+注意：1. `shielded_spends` 通过 `scanshieldedtrc20notesbyivk` 获取；2. `root` 和 `path` 通过触发匿名TRC-20合约 `getPath` 函数获取。
 
-**2. Call api: wallet/createshieldedcontractparameterswithoutask to build the parameters**
+2. Call api: wallet/createshieldedcontractparameterswithoutask to build the parameters
 
 Method: Post
 
@@ -496,7 +503,9 @@ Parameters:
     "shielded_TRC20_contract_address": "41e6e90fbc958ba09483550882b1f0327e0193250a"
 }
 ```
+
 Return:
+
 ```bash
 {
     "spend_description": [
@@ -537,15 +546,15 @@ Return:
 }
 ```
 
-由于缺少`ask`, 该api 无法生成`spend_authority_signature` 和 `trigger_contract_input `. 为了生成`trigger_contract_input`， 用户需要自己生成，或者调用以下api生成`spend_authority_signature`：
+由于缺少`ask`, 该api 无法生成`spend_authority_signature` 和 `trigger_contract_input. 为了生成`trigger_contract_input`， 用户需要自己生成，或者调用以下api生成`spend_authority_signature`：
 
-**wallet/createspendauthsig**
+### wallet/createspendauthsig
 
 Method: Post
 
 Parameters:
 
-```
+```json
 {
    "ask": "0f63eabdfe2bbfe08012f6bb2db024e6809c16e8ed055aa41a6095424f192005",
    "tx_hash": "7fb99e66df052f430d50e80a3f197c319a4e35184ed48a433d6219e025741337",
@@ -557,7 +566,7 @@ Parameters:
 
 Return:
 
-```
+```json
 {
     "value": "9e889cea041002ed7a9a80d093f2e9b5bdec24da1dda11cc7c5d1bfb6c7046b3c4ed0a2cb6cbbead42336d1235d1ec671a832c2ada9ee1ad3048129b7c99e309"
 }
@@ -569,13 +578,13 @@ Return:
 
 然后用户调用以下api生成触发合约输入：
 
-**wallet/gettriggerinputforshieldedtrc20contract**
+### wallet/gettriggerinputforshieldedtrc20contract
 
 Method: Post
 
 Parameters:
 
-```
+```json
 {
     "shielded_TRC20_Parameters": {
         "spend_description": [
@@ -627,7 +636,7 @@ Parameters:
 
 Return:
 
-```
+```json
 {
     "value": "00000000000000000000000000000000000000000000000000000000000000c000000000000000000000000000000000000000000000000000000000000003600000000000000000000000000000000000000000000000000000000000000400c7f303709c57e49264fd5ae5922bf977ef2a57ccc84d746effc5c6937eecf36e05b09faf95e5f869aeaf1aa87b24570eb723a4d8c77edea32c31b2909c84eb0400000000000000000000000000000000000000000000000000000000000006600000000000000000000000000000000000000000000000000000000000000002882842cb630c1a0c77b1af4e0c23c2584b83875d928673d1d57d7322ea3ad825c1dda86b7af8ce842e349347b364936baf24ad36be65046e2fd7349640bba87368b6f57d972dfeef1784017d0a669b45a367091671c098ea99fc9654d7bdc0e78574c873fbf582b4c491f901127c7922f6819fb20a38bac5f3d44bef01bdc5d2a0bfa6e0c26cbd0d23dadaa1125df75cd6f0987e5e876e704193417cf9870a9f1f34be6a91a06694ca6709a0ad6e7976b8893a9df057b43fac950c5fb7331a14303e3841c542e5455b3dd794ac7f97347928427d4b02405a9ae3d55ae560b7fe0aa20b51dbbc720479a50c38f4dae5ce2d2c1a1c68d32fae0c6ac23bae1069d5789c2c519614f85d75196286930b55148812d6c23936ddd40e1b771452664d2d067deb4f58600a7079025ffeb9bf409a38500e93c72ae1d09130f85e2dffc35379e938e0951d4d6cf6acd679fc6bb59147a6abc2f9e2828185328e93a83ab2f1c1dda86b7af8ce842e349347b364936baf24ad36be65046e2fd7349640bba873219ed48bc4bfe14cc2953ab5027528353e177e2263479122ea97c609ce18798699c0c1fbe3ad8a6e27d712632064fdeeb10952624c60a0ddcba0eb233bbf4e8bb536d0f442f6e0517930a9ccdb551c9e551a148c41fcf1e4748d1330d6c3e6f952012a5c3c6b06cfb51a92da5ebec4bcb11ed37cf36b60c9997baa026733ab6711894b5d17ca1f96667d68ed97f4cf75e5a9d96484d9f2453f869400e14dc54f0bf54f9abec8baf45baec320a06cc09780f4c5a2058f870993ff8a31f6d19b03f772a7d4d29ae837c7c2c3d6b300c4d485390d2e7bf09f971ed82e3676daf6fb655b2e47e040de762fe26317815e30b1f9638af979803e37abc3a95742c6faaa00000000000000000000000000000000000000000000000000000000000000029e889cea041002ed7a9a80d093f2e9b5bdec24da1dda11cc7c5d1bfb6c7046b3c4ed0a2cb6cbbead42336d1235d1ec671a832c2ada9ee1ad3048129b7c99e30924409c69b9d03a7c714f7c8bac39a3310054eef9e99dcbf256c8e39ef267e31884f2f2465ca7cd7aaba006e7f0a8635787de61eef1b96ce559764d300f637a080000000000000000000000000000000000000000000000000000000000000002bcf2634c9ab870604831ae151b7959fe72c588488271640cf7772ee040f7882000d705dd92237759b4b339d1c9b4da7d2a8baa132daf6feb3091ef746afff0b0e6129572f05703a81cd55a7bc3e86d6b2c76f8f4bd60b02162d0b76d8dce21c88e4072af7180ab0cb95350026623a1e89850039ab8de7342a9661d41a7103f645292521cec3c199a5e3c3a4dedee33d5b37c4bd18d9f2c3ec1b28297e80ad640b77140685dd36243b89f1d6a23d115f6f52804685cd445a64661c8c2d0c11aaf11a8cf790c47ff796d27231597a981cff8fa58a33d0a1d163754ebd7814765f779920867295fee03d5882e7da940c60eb9688c22640a079bad4f33fe5a02d459e60844bb77d67c0c74e9c6f8b0be2023953cee099ce175e4fb64ef5de947a5e4e40b9da38887963c8cd1e163b4b7d4b999502c32e1204b791242633aebcdbb6d19ac352ba8d7f5167ef43a5b9c225056db2c44fb19f7fe8c63e0d2b956771656b1675f0b5331371466ff30d621991f0a30c9bc4d34c322be44619a0acf932905a6b41694f8fa378886ef77d5bd07de56de55b9ad7c8438d05380dd5fa1ce2e7d0ae0528f82c23a6d92e6150e426ef3958556757ee973c5e79ae7ce074b1b25c74ccdde0b2b2dfd1b42215401f700c06b84785572eb4e585971cc4b451420bfbc17db489dbc996e9c5533b7da9e4a88d53388b411dd4a4e8801707aa01508054faa91a2c422a4cbad61ababfc3b1893c38e2ec19d19a1e5b47d2257ca9e347283afd5e53a2f8989d8db6a76b7942a737601ed3082e2e56290a9cd694a399f855100000000000000000000000000000000000000000000000000000000000000024d80bb52b7a1518bef81bbdb7584cefbd3cef9f9bc98fa75194f2b08d0b6c18253ca2e9ddea6330d96562db0bf9cebb6a8d1198599d420eba2ed5868956719ea835d1d5e58433fbbb7b72ae51f99f90440c67c03dc89101416a331b436f8ac560ddb772b9a7a8c16a0300cff97364d59046192b744592bc5f45c584385b24bfd4bdf159230893983516d82ee2a20d3da62f3ff979baf2ba010a6e7766ae30b7c56e4c78a746630d579833e56a07653716737fbaf19346d527f38938b75e0208355289185343364b0867f48ddca45e121b64bae64b32f002037c94050e07f96e86a4765ddf589b5e360b24ccf23b398275c575759cd3e1dd784c654dd8948efefafb1f9ae1c4d41efe803588bccb1b4bfbab6bf1a526f935e7123190ae8031f5c37ecf2820b812250ebe7b79f085abd2af5c2d59caf79355a6143b70f2ea0a66ae99e7392e2f64b9a2d7d3f79f278cbaeb897de832db2e2ea23cfe7906b0c61d5c99a75e076fdb000b57a78989edfa9730c6f485dc44c6d52fca1c884428514abf1cc4cde54c2d456b44c563b815969c7c8d4eb28cce53715d20bfe92fabcbcc30bd5ed8dac1f2b6acc98621311b21d3d7c979498f97ef318dbb335d87b5d0db43ee15323e90df8a59d6675495ed928d62db31e41cc4426e110f9994c21d2fb549bc94eb6d55ed4877b9f56ad624d80f81254dc3f90e14769f4e0bbada33dbfa7d33fd8675f7d9c30cd4f40fad2ef1e24c083889de3a71629f24601ead906a93b5a9dd2296d0577f8db42b8395134212f26fc84902693098c214704db5608c7509c8b23b4f3755f2d22d0881b0021adf5621708025e296c8591e0e076dba416a1437a9fc0a3312c09a35a8912a8c2115165bb67fe0565064140960ab44d836d307a93013ae28e390483fe5d59baca900c7bc606cf000000000000000000000000b69f20ae969de55319d2b7617bf7351a4683098af1e7b16fa64d44ff758471f33b0fb4f8896b2c32c68c410672fa81356e535f8d04338bdb69d69655eeee11e10727f319e1df6702ba7c90b2c5e4f38f809eddd2084fd30fd5684d9c004c679f4e574e17334d731550a76a842960bcdd811c67362bed7cdf698284a549e240da1727814af5137a7a384b5f24bd61a4b9cc1c4f6abe84524184a3ee257e002f7a9f6ccd3f6f0d490c5f77e3c26896f7bce84bf224429a45e156a4c62de64f739f9555147ed3fb7704206e7e45faf0f385229c7ed4e57253f8b5c4e518a26b90c069708c356e490abe97c1f78d361e7166fed9c67bad5aa820cadbefea2095b2a1adddb13b0249dae1c5c48ff0aad8eec23493786dead33d68e107bc13c3448129a58556ef5a21873ee151035117871652b1e151308d358f0df9c1c3188af4f15431b6fd262f4e0cbe5401c20b4633617fcf92a54d94991bd98e21f9cdcbcb6899341a9924d6eb11168daa6b19c2424993d4308bf40158564000aa79d106d09ebac3ad0a0e1729d20cff6226f3e632d9fd1c4f541b2f2ebaf5110ea5170498ce690e9115bca423ba2f5498b365db9dab936d1896ad5bc5b0d8c86b37f36debd5aca0e1194c48d51cff2253e32f069e8b969d7ba3c9391715c6b3118e2e31621321302b93edfdba0639542f3144eb6d90cdd86d354959df6398cf5fa497cf0fcbb19395d9bc1243da98afbc9087ec2997df1e84e97b4e18b1691e2d942a67214202e3d3880ce4eace0903cdd07f53b6f1ea23e277d867e73fbb10560a7d1df10402bd50d42c1e5333e35985d343697dcce92703c2536a861eb49722e1c83a112cf004006e9cdb63f96132393c7616e5f947d9d07cd6a22a664643c117f52791724efde660605f134aa86d3374b4804f9bb9ce64fc99000000000000000000000000"
 }
@@ -635,9 +644,9 @@ Return:
 
  `value`作为输入数据主要用来触发匿名TRC-20合约的 `transfer`函数。
 
-###  为`burn`创建匿名TRC-20合约的参数
+### 为`burn`创建匿名TRC-20合约的参数
 
-**1. Call api: wallet/createshieldedcontractparameters to build the parameters**
+#### 1. Call api: wallet/createshieldedcontractparameters to build the parameters
 
 Method: Post
 
@@ -676,7 +685,8 @@ Parameters:
     "shielded_TRC20_contract_address": "412bca7084a865c9e8e2db0509b2eb4b195693e725"
 }
 ```
-注意: `to_amount` 为真实地交易金额, note中的 `value` 为`scalingFactor`缩放后的值，`scalingFactor` 在匿名TRC-20合约中设置。在本例中， 缩放因子`scalingFactor`值为100，即60 * 100  = 40 * 100 + 2000。
+
+注意: `to_amount` 为真实地交易金额, note中的 `value` 为`scalingFactor`缩放后的值，`scalingFactor` 在匿名TRC-20合约中设置。在本例中， 缩放因子`scalingFactor`值为100，即60 *100 = 40* 100 + 2000。
 
 Return:
 
@@ -709,7 +719,7 @@ Return:
 
  `trigger_contract_input` 作为输入数据主要用来触发匿名TRC-20合约的 `burn`函数。
 
-**2. Call api: wallet/createshieldedcontractparameterswithoutask to build the parameters**
+#### 2. Call api: wallet/createshieldedcontractparameterswithoutask to build the parameters
 
 Method: Post
 
@@ -748,6 +758,7 @@ Parameters:
     "visible": true
 }
 ```
+
 注意: `to_amount` 为真实地交易金额, note中的 `value` 为`scalingFactor`缩放后的值，`scalingFactor` 在匿名TRC-20合约中设置。在本例中， 缩放因子`scalingFactor`值为100，即60 * 100  = 40 * 100 + 2000。
 
 Return:
@@ -780,13 +791,13 @@ Return:
 
 由于缺少`ask`, 该api 无法生成 `spend_authority_signature` 和 `trigger_contract_input `. 为了生成 `trigger_contract_input`， 用户需要调用以下api生成 `spend_authority_signature`：
 
-**wallet/createspendauthsig**
+#### wallet/createspendauthsig
 
 Method: Post
 
 Parameters:
 
-```
+```json
 {
    "ask": "0f63eabdfe2bbfe08012f6bb2db024e6809c16e8ed055aa41a6095424f192005",
    "tx_hash": "f9f665aa712ee948c5a0fb5b3994d1ef0110060cd02725cf69d904112fa3f106",
@@ -796,7 +807,7 @@ Parameters:
 
 Return:
 
-```
+```json
 {
     "value": "1947036add76206b9f9b03ffd9d9526c5547db955387798f15c5e7c911f41eadc23eee214e64be792a404b77c64335a675c3489ca63d0d471de484c3a606d002"
 }
@@ -804,13 +815,13 @@ Return:
 
 返回值`value` 即为`spend_authority_signature`。然后用户调用以下api：
 
-**wallet/gettriggerinputforshieldedtrc20contract**
+#### wallet/gettriggerinputforshieldedtrc20contract
 
 Method: Post
 
 Parameters:
 
-```
+```json
 {
     "shielded_TRC20_Parameters": {
         "spend_description": [
@@ -848,7 +859,7 @@ Parameters:
 
 Return:
 
-```
+```json
 {
     "value": "dbd34894ce33fee5836283233df7121c6d85443e047fd1c009c4cecbad1d650bb0b6f5be533b99be38bc9a3c2f3c75a9be263c42500a9e13ffb00df15cda126fc8565a546d8922f7b5fdba99504961ccf827fc3ffa23905e50ac2f4eef8197662e722d314646bcec8d4c546224bb9fa7396e0fc49a4c0e41a4c181ad7b0f24368f5c35655e812a02ee308c75c8d4fbda3c756319327e656d971b5b0e1507918beda848f44fdf10ca7bd9ff911608d2c8a8fb5378ff1c18e604302fe808c6ba3368d0cfeb0e0d976a81a419f9c7f33045a134d476e23de9e9c56e233beee76573016814d2424afebcd7a061054613e4db8c9d85d5258c5abb1c38576daa704018d5d15daa21c13bb6c8c400452d0c163d8eece84dea1d28fa1dcce6a91191d66b9a43d7c76f3535a9ff43f84e5243313e8381d75bf3bb02ef2196eb7b9f76351d1947036add76206b9f9b03ffd9d9526c5547db955387798f15c5e7c911f41eadc23eee214e64be792a404b77c64335a675c3489ca63d0d471de484c3a606d00200000000000000000000000000000000000000000000000000000000000007d04cd9c8855bb27548e83c5aed968dd91f9e2d1aab1b5b4e9343774970c460f518f834f894760f03368da8d8e781c51e785e1a1a82c3f3efcf67e7b650b1585b00000000000000000000000041d2017434977a0125039bfdc111922e9eb77f055bc4c231ecb68f670bcd7892da38b297edefd91960bea3326c9b825abe726bea0dbac4c2d3c24a7dbfb82aec128876481f9740751dcd581d713ed33dfd9a1017b87d7b0af8be5361c23cd1e9575ed32ef30000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002a000000000000000000000000000000000000000000000000000000000000003e0000000000000000000000000000000000000000000000000000000000000000175d9624ffdf9c1bcfe88104710403d8916183a8aa97635ac5573fd4d8d9811580534ca13075b567ea6c2ebb487fb54b97ee0148e451ede224d1833f4b5394b8e96fd1aa79db655677d6a31c277e08ddb87527fa7b1848ed817ccc55a741c9210b08bbd60ea3784da8aec576e2e2edc068d8b4d21899ee3413ad4f7cbb9fd703bfa7f188a9c4424a5254445b97564ed0a8ca4c62a1176006f1b9852f4b7f0381f50a1e5d06820ffb4c8c2aeddd38435138e5ebb1f8324b6634d75582ae9823829062975d2d5a940e1de72cd6b5cb123737011e9c25f6df866d4ee5fcceacc60d347886af6241d4a8d074826a8698cc04096ee4fef38ec061a07a6a04c4e2c4bed4124e78bf1a030b233a01eca189827d59329cd18ea5e6481e76b2261a3cf678d000000000000000000000000000000000000000000000000000000000000000114c3a0d8d62ded3ff49ec3f940b5b0458af28227e4419a63ee2b377146e1bd2d3e963eabcd22cd3cf76d54baa53de0099f785eed4d8ac994153371a04cbf9028ce9e4b1a0f2a0a56281a360508d8428b270960a720c0ff3659acd9445f0e8f6975ece1ce93b67daee879c17006a31bbea3c78ae494a54d7ef9ef3462d143f725cdc76b486ce92f32c25a93859e7c298287440338e984d7bb7191feb87af7cc9eb0e9d670222d7d309360463c1c0b863225d631bb1997fee37fcad3d8c18acea6377087df8b45256310c634120d4e974aecf1f24a0083a6671277ec452329652bd5a3b2cd5c2b7e03f4e70703624e9be1a30c543028a592da533dfa18305098d370207d473859051afa14062d8fc062eb946f0326c16aa8680efaa0e29a55547957a967122ac6ea8f3139c1d8392e5914c98fdf115f8f959c0cd11f466e9d8c9168ca592ed4f7cb7e900a8bf94cec047e86b1c6c606eeb9db7655498b0590680aacf91e1958d5c05d5f3cda5ae87d8ae92f285a4ae258c2c216857a4118052dad44673b3f60e2866f9c73d5696c3ddf4967aa1df3438b6a1a5e937f2af23e698c02021fdb1e1e80258313687a49100bb2965627c2369ef559c2b987bdfce8057c66091c0cf39d14eca98989856687248885b4006770f9121530da170963f16c4145d1777d060f7a406b09b23e139c576719d2f99f296f61ac8b9ee65dff7dfa307e2c4835aba2a4c5659aa2878d37f4250d01d4ea69be5911a417e5716e72c1a3bd505f64041ee28003508edb2a55c7e9475281fde204d31e541059e16fe4311a27075e871e2057789a029d029792c60db3bb91218ce613d73e4fc486dbe90398e1475861d0b60eb5ed93bb16306cb1f0cff85b9c311cadd6a0902b906c887a5550b6c2ca99c50b72c3cb23faa0a22091122fcb0d000000000000000000000000"
 }
@@ -856,8 +867,9 @@ Return:
 
  `value`作为输入数据主要用来触发匿名TRC-20合约的 `burn`函数。
 
-### 触发匿名TRC-20合约 
-**Call api: wallet/triggersmartcontract to trigger the shielded TRC-20 contract and geneate the shielded TRC-20 transaction**
+### 触发匿名TRC-20合约
+
+#### Call api: wallet/triggersmartcontract to trigger the shielded TRC-20 contract and geneate the shielded TRC-20 transaction
 
 Method: Post
 
@@ -875,7 +887,9 @@ Parameters:
    "fee_limit": 1000000000
 }
 ```
+
 Return:
+
 ```bash
 {
     "result":{
@@ -910,9 +924,9 @@ Return:
 
 Note: the above is an example for triggering the `mint` function. For `transfer` and `burn`, it's similar.
 
-### 广播匿名TRC-20交易 
+### 广播匿名TRC-20交易
 
-**Call api: wallet/broadcasttransaction to broadcast this transaction**
+#### Call api: wallet/broadcasttransaction to broadcast this transaction
 
 Method: Post
 
@@ -944,15 +958,18 @@ Parameters:
     "raw_data_hex": "0a02f1a022086525d0bb0966c22440b8b087adb12e5a9009081f128b090a31747970652e676f6f676c65617069732e636f6d2f70726f746f636f6c2e54726967676572536d617274436f6e747261637412d5080a15411195752747f24146fd1fcd12c31600a81f7c5423121541959ec81ae3c002192fd25dff7f8d20b4bb6b76ee22a408855d175e00000000000000000000000000000000000000000000000000000000000013889fb4acd771c24fdd47aabb109b7596566509421cdc11d1f8babb5d5af22a614ef10f73d04837be9158010626423130663ad09d6436b97b694acb2b92d940201efa4a7ef3e2406c2c897894ea73cad3ded8dbcfb90521ec8488163b2baeef6a88aa9af11367a3cd1cd797937bb7f521162d5264e1f2dc39ca7c6b0eadf8520a1b5c2bd3bbe50835a9f3419b82909cbf60989f83496480008cceb6a3783bbc25d2921f86d79b0bad5d493766b8cf1f6bec74f6b67480e770c3a7f5b27a30ae3d4a13df273ab73e9107a5287883317bb5417b7f6841e197df99f5321807995c80fd3810f791845681560ccd3a4bfd8c56e298bc09b989e5279ca190ac3b29cdb7941315c027facc97bf1c0a02fa437dd68b335f8cbf0d9a3ba4a30302523609f40a177cc31961ca63a9c375b714831bc007ddbc5cfbafca368200b6c33b4b0aeadf537b47c16788bdc00981713b79f23fc0b4065ab9369072589728ed0cc3ac25076a2f8141a2637e589983210ce6d09e67c36167cb9fa5b4a9bf8daafc795b9c3978ffeade3698dfd4c86f3c7b2dd92c36e6303101b49fdd4f1e4357223c02f19329f6bb18f1f6d2e297e9fefa2d9f92f81ce07a8980effa10b8b8bf39aa19e80d96ef1c915cc55d1d26ea07b1c0da2ecf66b7f8b64657f6ac95466a983553f29a8bea3d78c178b2129745d432ddc95532e56f8e93625c674f20375a48990ca287591fcf0c476c3d1392d4e1355caf8d7352f895dc62da55d83e478ab00b78d5a68a0f50a69d9c595bcf494361517c703db9dba728e8c79a833d753f1977f526e9afd4b6daaff37fa0f1d52a63199fb3f8e97b7061a200aed5d2865de16b83b762638e6c8f9269967299a97618c1bd984f5afa25d170cf9eef601bdd1c1d33bd91813c19f70e102b16327e4cd3d4851bfa76b7caf45026c70d4f2b4872d7255133b07dc41b626228051537eee53083e9a11daf5fcc5cf7ca1cef99579362b1506a90fc1ed5d4fe8b7133c7179a2d3aee27dc802a90403ba445adb6eef8b35fd798fb0d374ce3c8b4a6870bcf32651c9c32cfeafbb0672f50561d76826b938b9b2c44029bc5d11838d453a48565c70e0d3c8f2a915ba932a02271c73046b2c53aaf6e27bb72a567a26e2a4164974fc52d0ad7fa5dddfe9390007e2fc3ad46d644be55519e01a2cce76744f165c6705d3b007d2f649df84e3783622f5e077fe37fdd192896eae9b1245322db6e3242714a0552253b472103553f09b6b1d32804742375d3b140d2ebff2155b6248d07992f40e5537a0587315c451ac53cee490ce49c3b321a967558c39f789bf5d35859d4136bcf4178bf6b1814d617e139aa35710edcd325dd03957462070393b7066182fc56be713bba49a2359db71604e97e9350af687a7f185d7905d8900f7e2431386c00e55e3200000000000000000000000070d7f083adb12e90018094ebdc03"
 }
 ```
+
 Return:
+
 ```bash
 {"result": true}
 ```
+
 注意：在广播交易之前，发送者需要利用账户私钥生成签名，添加到交易中。
 
 ### 通过 `ivk`扫描接收者的匿名TRC-20代币
 
-**Call api: wallet/scanshieldedtrc20notesbyivk to scan the shielded TRC-20 notes**
+#### Call api: wallet/scanshieldedtrc20notesbyivk to scan the shielded TRC-20 notes
 
 Method: Post and Get
 
@@ -969,7 +986,9 @@ Parameters:
     "visible": true
 }
 ```
+
 Return:
+
 ```bash
 {
     "noteTxs":[
@@ -989,7 +1008,7 @@ Return:
 
 ### 通过 `ovk` 扫描已发送的匿名TRC-20代币
 
-**Call api: wallet/scanshieldedtrc20notesbyovk to scan the shileded TRC-20 notes**
+#### Call api: wallet/scanshieldedtrc20notesbyovk to scan the shileded TRC-20 notes
 
 Method: Post and Get
 
@@ -1004,7 +1023,9 @@ Parameters:
     "visible": true
 }
 ```
+
 Return:
+
 ```bash
 {
     "noteTxs":[
@@ -1037,7 +1058,7 @@ Return:
 
 ### 检查匿名TRC-20代币是否已花费的状态
 
-**Call api: wallet/isshieldedtrc20contractNoteSpent to check the shielded TRC-20 note status whether it is spent**
+#### Call api: wallet/isshieldedtrc20contractNoteSpent to check the shielded TRC-20 note status whether it is spent
 
 Method: Post
 
@@ -1056,9 +1077,9 @@ Parameters:
     "shielded_TRC20_contract_address": "41e6e90fbc958ba09483550882b1f0327e0193250a"
 }
 ```
+
 Return:
+
 ```bash
 {"is_spent": true}
 ```
-
-
