@@ -5,9 +5,9 @@
 随着levelDB的运行，manifest文件会持续增长，过大的manifest文件不但影响节点启动速度，而且还有可能会导致内存持续增长系统退出的问题。
 为此在`GreatVoyage-v4.3.0(Bacon)`引入了leveldb 启动优化插件，插件优化了manifest的文件大小以及LevelDB的启动过程，减少了内存占用，提升了节点启动速度。
 
-使用本工具进行任何操作之前，需要首先停止当前运行的FullNode节点。 此工具提供了根据当前`数据库`(database)情况,对 manifest 进行重新归整的功能
+使用本工具进行任何操作之前，需要首先停止当前运行的FullNode节点。 此工具提供了根据当前`数据库`(database)情况,对 manifest 进行重新归整的功能。
 
-更多的设计思想，请参考: [TIP298](https://github.com/tronprotocol/tips/issues/298)
+更多的设计思想，请参考: [TIP298](https://github.com/tronprotocol/tips/issues/298) 。
 
 ## 使用
 
@@ -20,18 +20,24 @@
 - `-m | --manifest-size`: [ int ] 此选项用于指定最小需要批处理manifest 文件大小低于此值，不进行处理，单位M，默认值：0。
 - `-h | --help`: [ bool ]  此选项用于查看帮助，默认值：false。
 
-###获取方式
+### 获取方式
 - 通过编译
-  在java-tron 下，执行 ``./gradlew build`` ，在 `build/libs/`下可找到ArchiveManifest.jar
+  在java-tron 下，执行 ``./gradlew build`` ，在 `build/libs/`下可找到ArchiveManifest.jar。
 - 直接下载
   [下载链接](https://github.com/tronprotocol/java-tron/releases)
+
+### 使用步骤
+``步骤2`` 不是每次必需，但是为了优化体验，建议每次执行
+- 1. 确保 FullNode 服务停止
+- 2. 执行 ArchiveManifest 插件
+- 3. 启动 FullNode 服务
 
 ### 使用例子
 
 通过默认的配置文件启动全节点时，将在当前启动目录下生成一个`output-directory`目录，在`output-directory` 目录的`database`子目录下的数据库就是要处理的数据库。
 
 #### 单独使用
-指定批处理manifest 大小 5120，目录为/tmp/output-directory/database,最小处理大小为 4M
+指定批处理manifest 大小 5120，目录为/tmp/output-directory/database,最小处理大小为 4M。
 
 首先, 停止FullNode并执行命令:
 
