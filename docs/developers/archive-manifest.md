@@ -3,7 +3,7 @@
 ## 介绍
 
 随着levelDB的运行，manifest文件会持续增长，过大的manifest文件不但影响节点启动速度，而且还有可能会导致内存持续增长系统退出的问题。
-为此引入了leveldb 启动优化插件，插件优化了manifest的文件大小以及LevelDB的启动过程，减少了内存占用，提升了节点启动速度。
+为此在`GreatVoyage-v4.3.0(Bacon)`引入了leveldb 启动优化插件，插件优化了manifest的文件大小以及LevelDB的启动过程，减少了内存占用，提升了节点启动速度。
 
 使用本工具进行任何操作之前，需要首先停止当前运行的FullNode节点。 此工具提供了根据当前`数据库`(database)情况,对 manifest 进行重新归整的功能
 
@@ -22,7 +22,7 @@
 
 ###获取方式
 - 通过编译
-  在java-tron 下，执行 ``./gradlew build`` ，在 `build/libs/`下可找到
+  在java-tron 下，执行 ``./gradlew build`` ，在 `build/libs/`下可找到ArchiveManifest.jar
 - 直接下载
   [下载链接](https://github.com/tronprotocol/java-tron/releases)
 
