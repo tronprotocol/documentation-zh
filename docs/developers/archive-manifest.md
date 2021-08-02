@@ -44,11 +44,12 @@ FullNode 运行之后，默认数据库目录：`output-directory`  ，优化插
 首先, 停止FullNode并执行命令:
 
 ```shell
-# 简单起见，将快照数据集存放在`/tmp`目录下
-java -jar ArchiveManifest.jar -b 5120 -d /tmp/output-directory/database -m 4
+java -jar ArchiveManifest.jar
 ```
 
 命令执行完毕之后，将在`./logs`目录下生成`archive.log`日志, 可查看此次归整情况
+
+最后,启动停止FullNode服务
 
 #### 2. 集成启动脚本
 
@@ -62,6 +63,7 @@ APP=$1
 MANIFEST_OPT=$2
 
 ALL_OPT=$*
+ALL_OPT_NUM=$#
 
 
 
@@ -126,6 +128,35 @@ checkpid() {
 
  return $pid
 
+}
+
+
+checkPath(){
+  path='output-directory/database'
+  flag=1
+  for p in ${ALL_OPT}
+  do
+   	 if [[ $flag == 0 ]] ; then
+   	 	path=`echo $p`
+   	 	break
+   	 fi
+   	 if [[ $p == '-d' || $p == '--database-directory' ]] ; then
+   	 	path=''
+   	 	flag=0
+   	 fi
+  done
+
+  if [[ -z "${path}" ]]; then
+     echo '-d /path or --database-directory /path'
+     return 1
+  fi
+
+  if [[ -d ${path} ]]; then
+    return 0
+  else
+    echo $path 'not exist'
+    return 1
+  fi
 }
 
 
@@ -197,7 +228,14 @@ startService() {
 
 stopService
 
-rebuildManifest
+checkPath
+
+if [[ 0 ==  $? ]] ; then
+ rebuildManifest
+ APP=''
+else
+ exit -1
+fi
 
 sleep 5
 
@@ -206,7 +244,6 @@ startService
 启动示例
 > Note: 在以上脚本中 `-r` 参数 固定在第一个参数或者第二个参数(后续版本优化)
 ```shell
-# 简单起见，将历史数据集存放在`/tmp`目录下
-./start.sh -r -b 5120 -d /tmp/output-directory/database -m 4
+./start.sh -r
 ````
 
