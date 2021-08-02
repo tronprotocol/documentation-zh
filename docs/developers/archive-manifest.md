@@ -32,13 +32,13 @@
 - 2. 执行 ArchiveManifest 插件。
 - 3. 启动 FullNode 服务。
 
-``步骤 ii`` 不是每次必需，但是为了优化体验，建议每次执行。
+> Note: ``步骤 ii`` 不是每次必需，但是为了优化体验，建议每次执行。
 
-### 使用例子
+### 使用说明
 
 FullNode 运行之后，默认数据库目录：`output-directory`  ，优化插件会处理 `output-directory/database`目录。
 
-#### 单独使用
+####  1. 单独使用
 指定批处理manifest 大小 5120，目录为/tmp/output-directory/database,最小处理大小为 4M。
 
 首先, 停止FullNode并执行命令:
@@ -50,7 +50,7 @@ java -jar ArchiveManifest.jar -b 5120 -d /tmp/output-directory/database -m 4
 
 命令执行完毕之后，将在`./logs`目录下生成`archive.log`日志, 可查看此次归整情况
 
-#### 集成启动脚本
+#### 2. 集成启动脚本
 
 也可以将此归整插件集成到启动脚本。
 
@@ -204,7 +204,7 @@ sleep 5
 startService
 ```
 启动示例
-在以上脚本中 `-r` 参数 固定在第一个参数或者第二个参数(后续版本优化)
+> Note: 在以上脚本中 `-r` 参数 固定在第一个参数或者第二个参数(后续版本优化)
 ```shell
 # 简单起见，将历史数据集存放在`/tmp`目录下
 ./start.sh -r -b 5120 -d /tmp/output-directory/database -m 4
