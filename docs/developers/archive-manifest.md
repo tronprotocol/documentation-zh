@@ -27,14 +27,16 @@
   [下载链接](https://github.com/tronprotocol/java-tron/releases)
 
 ### 使用步骤
-``步骤2`` 不是每次必需，但是为了优化体验，建议每次执行
-- 1. 确保 FullNode 服务停止
-- 2. 执行 ArchiveManifest 插件
-- 3. 启动 FullNode 服务
+
+- 1. 确保 FullNode 服务停止。
+- 2. 执行 ArchiveManifest 插件。
+- 3. 启动 FullNode 服务。
+
+``步骤2`` 不是每次必需，但是为了优化体验，建议每次执行。
 
 ### 使用例子
 
-通过默认的配置文件启动全节点时，将在当前启动目录下生成一个`output-directory`目录，在`output-directory` 目录的`database`子目录下的数据库就是要处理的数据库。
+FullNode 运行之后，默认数据库目录：`output-directory`  ，优化插件会处理 `output-directory/database`目录。
 
 #### 单独使用
 指定批处理manifest 大小 5120，目录为/tmp/output-directory/database,最小处理大小为 4M。
