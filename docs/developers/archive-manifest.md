@@ -62,24 +62,22 @@ APP=$1
 MANIFEST_OPT=$2
 
 ALL_OPT=$*
-ALL_OPT_NUM=$#
 
+NEED_REBUILD=0
+
+if [[ $1 == '-y' ]]  ; then
+   APP=''
+   NEED_REBUILD=1
+
+ elif [[ $2 == '-y' ]]  ; then
+   NEED_REBUILD=1
+ fi
 
 
 rebuildManifest() {
 
- APP=''
-
- ARCHIVE_JAR='ArchiveManifest.jar'
-
- if [[ $1 == '-r' ]] ; then
-
+ if [[ $NEED_REBUILD == 1 ]] ; then
    buildManifest
-
- elif [[ $2 == '-r' ]]  ; then
-
-   buildManifest
-
  fi
 
 }
@@ -88,8 +86,6 @@ rebuildManifest() {
 buildManifest() {
 
  ARCHIVE_JAR='ArchiveManifest.jar'
-
- echo $ALL_OPT
 
  java -jar $ARCHIVE_JAR $ALL_OPT
 
@@ -129,7 +125,6 @@ checkpid() {
 
 }
 
-
 checkPath(){
   path='output-directory/database'
   flag=1
@@ -157,8 +152,6 @@ checkPath(){
     return 1
   fi
 }
-
-
 
 
 
@@ -201,7 +194,7 @@ stopService() {
 startService() {
  echo `date` >> start.log
 
- total=`cat /proc/meminfo  |grep MemTotal |awk -F ' ' '{print $2}'`
+ total=16*1024*1024
 
  xmx=`echo "$total/1024/1024*0.6" | bc |awk -F. '{print $1"g"}'`
 
@@ -212,10 +205,8 @@ startService() {
  export LD_PRELOAD="/usr/lib64/libtcmalloc.so"
 
   nohup java -Xms$xmx -Xmx$xmx -XX:+UseConcMarkSweepGC -XX:+PrintGCDetails -Xloggc:./gc.log\
-
- -XX:+PrintGCDateStamps -XX:+CMSParallelRemarkEnabled -XX:ReservedCodeCacheSize=256m -XX:+UseCodeCacheFlushing\
-
- $MEM_OPT -XX:MaxDirectMemorySize=$directmem -XX:+HeapDumpOnOutOfMemoryError -jar $JAR_NAME $START_OPT -c config.conf  >> start.log 2>&1 &
+  -XX:+PrintGCDateStamps -XX:+CMSParallelRemarkEnabled -XX:ReservedCodeCacheSize=256m -XX:+UseCodeCacheFlushing\
+  $MEM_OPT -XX:MaxDirectMemorySize=$directmem -XX:+HeapDumpOnOutOfMemoryError -jar $JAR_NAME $START_OPT -c config.conf  >> start.log 2>&1 &
 
  pid=`ps -ef |grep $JAR_NAME |grep -v grep |awk '{print $2}'`
 
@@ -224,14 +215,12 @@ startService() {
 }
 
 
-
 stopService
 
 checkPath
 
 if [[ 0 ==  $? ]] ; then
  rebuildManifest
- APP=''
 else
  exit -1
 fi
@@ -241,8 +230,8 @@ sleep 5
 startService
 ```
 启动示例
-> Note: 在以上脚本中 `-r` 参数 固定在第一个参数或者第二个参数(后续版本优化)
+> Note: 在以上脚本中 `-y` 参数 固定在第一个参数或者第二个参数(后续版本优化)
 ```shell
-./start.sh -r
+./start.sh -y
 ````
 
