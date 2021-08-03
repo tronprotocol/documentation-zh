@@ -39,7 +39,6 @@
 FullNode 运行之后，默认数据库目录：`output-directory`  ，优化插件会处理 `output-directory/database`目录。
 
 ####  1. 单独使用
-指定批处理manifest 大小 5120，目录为/tmp/output-directory/database,最小处理大小为 4M。
 
 首先, 停止FullNode并执行命令:
 
