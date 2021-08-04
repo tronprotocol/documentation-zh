@@ -65,11 +65,11 @@ ALL_OPT=$*
 
 NEED_REBUILD=0
 
-if [[ $1 == '-y' ]]  ; then
+if [[ $1 == '--rewrite--manifest' ]]  ; then
    APP=''
    NEED_REBUILD=1
 
- elif [[ $2 == '-y' ]]  ; then
+ elif [[ $2 == '--rewrite--manifest' ]]  ; then
    NEED_REBUILD=1
  fi
 
@@ -230,8 +230,12 @@ sleep 5
 startService
 ```
 启动示例
-> Note: 在以上脚本中 `-y` 参数 固定在第一个参数或者第二个参数(后续版本优化)
+> Note: 在以上脚本中 `--rewrite--manifest` 参数 固定在第一个参数或者第二个参数
+>
+> OPTIONS
+>
+>            --rewrite--manifest       开启数据库优化插件
 ```shell
-./start.sh -y
+./start.sh [--rewrite--manifest]
 ````
 
