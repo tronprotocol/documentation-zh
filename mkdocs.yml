@@ -18,7 +18,7 @@ nav:
         - 资源模型: mechanism-algorithm/resource.md
         - 去中心化交易所: mechanism-algorithm/dex.md
         - 多重签名: mechanism-algorithm/multi-signatures.md
-        - 匿名交易: mechanism-algorithm/shielded-transaction.md
+        - 匿名合约: mechanism-algorithm/shielded-TRC20-contract.md
         - 系统合约: mechanism-algorithm/system-contracts.md
     - 架构介绍:
         - 网络: architecture/network.md
@@ -32,6 +32,7 @@ nav:
     - 开发者文档:
         - 官方节点: developers/official-public-nodes.md
         - 部署: developers/deployment.md
+        - levelDB 启动优化插件: developers/archive-manifest.md
         - 在 IDEA 中启动节点: developers/run-in-idea.md
         - 如何使用LiteFullnode工具: developers/litefullnode.md
         - 如何参与开发: developers/contribution.md

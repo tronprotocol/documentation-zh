@@ -27,14 +27,16 @@
 
 ## 部署指南
 
-1.&nbsp;编译java-tron项目
-```text
+1. 编译java-tron项目
+
+```shell
 cd /deploy/java-tron
 ./gradlew build
 ```
 
-2.&nbsp;复制FullNode.jar和SolidityNode.jar以及相应的配置文件到各自的目录
-```text
+2. 复制FullNode.jar和SolidityNode.jar以及相应的配置文件到各自的目录
+
+```shell
 download your needed configuration file from https://github.com/tronprotocol/TronDeployment.
 
 main_net_config.conf is the configuration for MainNet, and test_net_config.conf is the configuration for TestNet.
@@ -46,30 +48,33 @@ cp build/libs/FullNode.jar ../fullnode
 cp build/libs/SolidityNode.jar ../soliditynode
 ```
 
-3.&nbsp;用以下命令运行FullNode
-```text
+3. 用以下命令运行FullNode
+
+```shell
 java -jar FullNode.jar -c config.conf // make sure that your config.conf is downloaded from https://github.com/tronprotocol/TronDeployment
 ```
 
-4.&nbsp;配置SolidityNode配置文件
+4. 配置SolidityNode配置文件
 
 需要编辑`config.conf`文件来连接本地的FullNode。修改`node`里的`trustNode`为`127.0.0.1:50051`，这是默认rpc端口。设置`listen.port`为1024-65535间任意数字。不要使用0-1024间的数字，因为可能会导致与系统服务冲突。同样，为了避免冲突，可以把`rpc port`改为`50052`。
 
 **请为FullNode转发UDP端口18888**
 
-```text
+```conf
 rpc {
       port = 50052
     }
 ```
 
-5.&nbsp;用以下命令运行SolidityNode
-```text
+5. 用以下命令运行SolidityNode
+
+```shell
 java -jar SolidityNode.jar -c config.conf //make sure that your config.conf is downloaded from https://github.com/tronprotocol/TronDeployment
 ```
 
-6.&nbsp;在公链环境中运行超级节点
-```text
+6. 在公链环境中运行超级节点
+
+```shell
 java -jar FullNode.jar -p your private key --witness -c your config.conf(Example：/data/java-tron/config.conf)
 Example:
 java -jar FullNode.jar -p 650950B193DDDDB35B6E48912DD28F7AB0E7140C1BFDEFD493348F02295BD812 --witness -c /data/java-tron/config.conf
@@ -77,22 +82,21 @@ java -jar FullNode.jar -p 650950B193DDDDB35B6E48912DD28F7AB0E7140C1BFDEFD493348F
 
 这与运行一个个人测试网相似，除了`config.conf`中的IP不一样。
 
-7.&nbsp;在个人测试网环境中运行超级节点
+7. 在个人测试网环境中运行超级节点
 
 你需要修改一下config.conf配置文件内容：
 
-- Replace existing entry in genesis.block.witnesses with your address
-- Replace existing entry in seed.node ip.list with your ip list
-- The first Super Node start, needSyncCheck should be set false
-- Set p2p version to 61
+* Replace existing entry in genesis.block.witnesses with your address
+* Replace existing entry in seed.node ip.list with your ip list
+* The first Super Node start, needSyncCheck should be set false
+* Set p2p version to 61
 
-```text
+```shell
 cd build/libs
 java -jar FullNode.jar -p your private key --witness -c your config.conf (Example：/data/java-tron/config.conf)
 Example:
 java -jar FullNode.jar -p 650950B193DDDDB35B6E48912DD28F7AB0E7140C1BFDEFD493348F02295BD812 --witness -c /data/java-tron/config.conf
 ```
-
 
 ## 日志与网络连接验证
 
@@ -100,19 +104,24 @@ java -jar FullNode.jar -p 650950B193DDDDB35B6E48912DD28F7AB0E7140C1BFDEFD493348F
 
 你可以看到类似如下块同步的日志信息：
 
-**FullNode**
-```text
+### FullNode
+
+```log
 12:00:57.658 INFO  [pool-7-thread-1] [o.t.c.n.n.NodeImpl](NodeImpl.java:830) Success handle block Num:236610,ID:0000000000039c427569efa27cc2493c1fff243cc1515aa6665c617c45d2e1bf
 ```
-**SolidityNode**
-```text
+
+### SolidityNode
+
+```log
 12:00:40.691 INFO  [pool-17-thread-1] [o.t.p.SolidityNode](SolidityNode.java:88) sync solidity block, lastSolidityBlockNum:209671, remoteLastSolidityBlockNum:211823
 ```
+
 ## 优雅的停止节点
 
 创建stop.sh文件，使用命令`kill -15`关闭java-tron.jar（或者FullNode.jar、SolidityNode.jar）。
 修改pid=`ps -ef |grep java-tron.jar |grep -v grep |awk '{print $2}'`来找到正确的pid。
-```text
+
+```shell
 #!/bin/bash
 while true; do
   pid=`ps -ef |grep java-tron.jar |grep -v grep |awk '{print $2}'`
@@ -131,18 +140,18 @@ done
 
 下载快速部署脚本，根据部署节点类型，执行脚本。
 
-<h3>使用范围</h3>
+### 使用范围
 
 脚本可以再Linux/MacOS上使用，不支持Windows系统。
 只支持FullNode与SolidityNode的部署。
 
-<h3>下载运行脚本</h3>
+### 下载运行脚本
 
 ```shell
 wget https://raw.githubusercontent.com/tronprotocol/TronDeployment/master/deploy_tron.sh -O deploy_tron.sh
 ```
 
-<h3>参数含义</h3>
+### 参数含义
 
 ```shell
 bash deploy_tron.sh --app [FullNode|SolidityNode] --net [mainnet|testnet|privatenet] --db [keep|remove|backup] --heap-size <heapsize>
@@ -158,14 +167,14 @@ bash deploy_tron.sh --app [FullNode|SolidityNode] --net [mainnet|testnet|private
 --work_space  Optional, default is current directory.
 ```
 
-<h3>部署FullNode</h3>
+### 部署FullNode
 
 ```shell
 wget https://raw.githubusercontent.com/tronprotocol/TronDeployment/master/deploy_tron.sh -O deploy_tron.sh
 bash deploy_tron.sh
 ```
 
-<h3>部署SolidityNode</h3>
+### 部署SolidityNode
 
 ```shell
 wget https://raw.githubusercontent.com/tronprotocol/TronDeployment/master/deploy_tron.sh -O deploy_tron.sh
@@ -173,7 +182,7 @@ wget https://raw.githubusercontent.com/tronprotocol/TronDeployment/master/deploy
 bash deploy_tron.sh --app SolidityNode --trust-node <grpc-ip:grpc-port>
 ```
 
-<h3> FullNode和SolidityNode部署在同一主机上</h3>
+### FullNode和SolidityNode部署在同一主机上
 
 ```shell
 # You need to configure different gRPC ports on the same host because gRPC port is available on SolidityNode and FullNodeConfigure and it cannot be set as default value 50051. In this case the default value of rpc port is set as 50041.
@@ -184,18 +193,18 @@ bash deploy_tron.sh --app SolidityNode --rpc-port 50041
 
 ## Grpc Gateway部署
 
-<h3> 前提 </h3>
+### 前提
 
 请参照：[https://github.com/tronprotocol/grpc-gateway](https://github.com/tronprotocol/grpc-gateway)
 安装Golang, Protoc, 并且设置$GOPATH环境变量。
 
-<h3> 下载运行脚本 </h3>
+### 下载运行脚本
 
 ```shell
 wget https://raw.githubusercontent.com/tronprotocol/TronDeployment/master/deploy_grpc_gateway.sh -O deploy_grpc_gateway.sh
 ```
 
-<h3> 参数含义 </h3>
+### 参数含义
 
 ```shell
 bash deploy_grpc_gateway.sh --rpchost [rpc host ip] --rpcport [rpc port number] --httpport [http port number]
@@ -205,13 +214,16 @@ bash deploy_grpc_gateway.sh --rpchost [rpc host ip] --rpcport [rpc port number] 
 --httpport The port intends to provide http service provided by grpc gateway. Default value is 18890.
 ```
 
-<h3> 示例 </h3>
+### 示例
 
 使用默认配置：
+
 ```shell
 bash deploy_grpc_gateway.sh
 ```
+
 使用自定义配置：
+
 ```shell
 bash deploy_grpc_gateway.sh --rpchost 127.0.0.1 --rpcport 50052 --httpport 18891
 ```
@@ -223,7 +235,7 @@ bash deploy_grpc_gateway.sh --rpchost 127.0.0.1 --rpcport 50052 --httpport 18891
 * **kafkaplugin** 模块是kafka的实现。它实现了IPluginEventListener，它从java-tron接受事件并转给kafka服务。
 * **mongodbplugin** 模块是mongodb的实现。
 
-<h3> 搭建运行环境 </h3>
+### 搭建运行环境
 
 1. Clone the repo `git clone https://github.com/tronprotocol/event-plugin.git`
 2. Go to eventplugin `cd event-plugin`
@@ -231,10 +243,9 @@ bash deploy_grpc_gateway.sh --rpchost 127.0.0.1 --rpcport 50052 --httpport 18891
 
 * 这一步会生成`plugin-kafka-1.0.0.zip`，位于`event-plugin/build/plugins/`目录下。
 
+### 编辑java-tron的 **config.conf** 文件，增加以下字段
 
-<h3> 编辑java-tron的 **config.conf** 文件，增加以下字段：</h3>
-
-```
+```conf
 event.subscribe = {
     path = "" // absolute path of plugin
     server = "" // target server address to receive event triggers
@@ -277,25 +288,28 @@ event.subscribe = {
 
 
 ```
- * **path**: "plugin-kafka-1.0.0.zip"文件的绝对路径
- * **server**: Kafka服务地址
- * **topics**: 每一种事件匹配一个Kafka主题，我们支持四种事件订阅：区块事件，交易事件，合约事件以及合约日志事件
- * **dbconfig**: mongodb的配置，dbname|username|password。如果使用kafka，可以忽略这个参数。
- * **triggerName**: 触发类型，只读。
- * **enable**: 是否开启事件订阅。
- * **topic**: kafka接收事件的主题。请确保Kafka在运行中。
- * **filter**: 事件订阅过滤选项。
+
+ ***path**: "plugin-kafka-1.0.0.zip"文件的绝对路径
+ ***server**: Kafka服务地址
+ ***topics**: 每一种事件匹配一个Kafka主题，我们支持四种事件订阅：区块事件，交易事件，合约事件以及合约日志事件
+ ***dbconfig**: mongodb的配置，dbname|username|password。如果使用kafka，可以忽略这个参数。
+ ***triggerName**: 触发类型，只读。
+ ***enable**: 是否开启事件订阅。
+ ***topic**: kafka接收事件的主题。请确保Kafka在运行中。
+ ***filter**: 事件订阅过滤选项。
  **注意**: 如果服务器地址不是127.0.0.1, 请在config/server.properties文件中设置listeners=PLAINTEXT://:9092，advertised.listeners to PLAINTEXT://host_ip:9092
 
-<h3 id="kafka"> 安装Kafka </h3>
+### 安装Kafka
 
 **Mac环境**:
-```
+
+```shell
 brew install kafka
 ```
 
 **Linux环境**:
-```
+
+```shell
 cd /usr/local
 wget http://archive.apache.org/dist/kafka/0.10.2.2/kafka_2.10-0.10.2.2.tgz
 tar -xzvf kafka_2.10-0.10.2.2.tgz
@@ -308,26 +322,30 @@ source /etc/profile
 kafka-server-start.sh /usr/local/kafka/config/server.properties &
 
 ```
+
 **注意**: 请确保Kafka的版本与build.gradle中eventplugin项目的版本一致。
 
-<h3> 运行Kafka </h3>
+### 运行Kafka
 
 **Mac环境**:
-```
+
+```shell
 zookeeper-server-start /usr/local/etc/kafka/zookeeper.properties & kafka-server-start /usr/local/etc/kafka/server.properties
 ```
 
 **Linux环境**:
-```
+
+```shell
 zookeeper-server-start.sh /usr/local/kafka/config/zookeeper.properties &
 Sleep about 3 seconds
 kafka-server-start.sh /usr/local/kafka/config/server.properties &
 ```
 
-<h3> 创建主题接受事件，主题的定义位于config.conf文件中 </h3>
+### 创建主题接受事件，主题的定义位于config.conf文件中
 
 **Mac环境**:
-```
+
+```shell
 kafka-topics --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic block
 kafka-topics --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic transaction
 kafka-topics --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic contractlog
@@ -335,17 +353,19 @@ kafka-topics --create --zookeeper localhost:2181 --replication-factor 1 --partit
 ```
 
 **Linux环境**:
-```
+
+```shell
 kafka-topics.sh  --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic block
 kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic transaction
 kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic contractlog
 kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic contractevent
 ```
 
-<h3> Kafka用户 </h3>
+### Kafka用户
 
 **Mac环境**:
-```
+
+```shell
 kafka-console-consumer --bootstrap-server localhost:9092  --topic block
 kafka-console-consumer --bootstrap-server localhost:9092  --topic transaction
 kafka-console-consumer --bootstrap-server localhost:9092  --topic contractlog
@@ -353,26 +373,27 @@ kafka-console-consumer --bootstrap-server localhost:9092  --topic contractevent
 ```
 
 **Linux环境**:
-```
+
+```shell
 kafka-console-consumer.sh --zookeeper localhost:2181 --topic block
 kafka-console-consumer.sh --zookeeper localhost:2181 --topic transaction
 kafka-console-consumer.sh --zookeeper localhost:2181 --topic contractlog
 kafka-console-consumer.sh --zookeeper localhost:2181 --topic contractevent
 ```
 
-<h3> 在Java-tron中加载插件 </h3>
+### 在Java-tron中加载插件
 
 * add --es to command line, for example:
-```
+
+```shell
  java -jar FullNode.jar -p privatekey -c config.conf --es
 ```
 
-
-<h3> 事件订阅过滤 </h3>
+### 事件订阅过滤
 
 事件订阅过滤参数在config.conf文件中设置：
 
-```
+```conf
 filter = {
        fromblock = "" // the value could be "", "earliest" or a specified block number as the beginning of the queried range
        toblock = "" // the value could be "", "latest" or a specified block number as end of the queried range
@@ -386,99 +407,110 @@ filter = {
     }
 ```
 
+### 下载并安装MongoDB
 
-<h3 id="mongo"> 下载并安装MongoDB </h3>
+#### 建议配置
 
-** 建议配置 **
-
-- CPU/ RAM: 16Core / 32G
-- DISK: 500G
-- System: CentOS 64
+* CPU/ RAM: 16Core / 32G
+* DISK: 500G
+* System: CentOS 64
 
 MongoDB的版本是**4.0.4**，以下是安装命令:
 
-- cd /home/java-tron
-- curl -O https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-4.0.4.tgz
-- tar zxvf mongodb-linux-x86_64-4.0.4.tgz
-- mv mongodb-linux-x86_64-4.0.4 mongodb
+* cd /home/java-tron
+* curl -O https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-4.0.4.tgz
+* tar zxvf mongodb-linux-x86_64-4.0.4.tgz
+* mv mongodb-linux-x86_64-4.0.4 mongodb
 
-** 设计环境变量 **
+#### 设计环境变量
 
-- export MONGOPATH=/home/java-tron/mongodb/
-- export PATH=$PATH:$MONGOPATH/bin
+* export MONGOPATH=/home/java-tron/mongodb/
+* export PATH=$PATH:$MONGOPATH/bin
 
-** 创建配置文件 **
+#### 创建配置文件
 
 The path is : /etc/mongodb/mgdb.conf
 
-- cd /etc/mongodb
-- touch mgdb.conf
+* cd /etc/mongodb
+* touch mgdb.conf
 
 创建数据和日志文件夹，并把它们的绝对路径加入mgdb.conf
 
-** 示例 **
+#### 示例
 
-- dbpath=/home/java-tron/mongodb/data
-- logpath=/home/java-tron/mongodb/log/mongodb.log
-- port=27017
-- logappend=true
-- fork=true
-- bind_ip=0.0.0.0
-- auth=true
-- wiredTigerCacheSizeGB=2
+* dbpath=/home/java-tron/mongodb/data
+* logpath=/home/java-tron/mongodb/log/mongodb.log
+* port=27017
+* logappend=true
+* fork=true
+* bind_ip=0.0.0.0
+* auth=true
+* wiredTigerCacheSizeGB=2
 
-** 注意 **
-- bind_ip must be configured to 0.0.0.0，otherwise remote connection will be refused.
-- wiredTigerCacheSizeGB, must be configured to prevent OOM
+#### 注意
 
-** 运行MongoDB **
+* bind_ip must be configured to 0.0.0.0，otherwise remote connection will be refused.
+* wiredTigerCacheSizeGB, must be configured to prevent OOM
 
-- mongod  --config /etc/mongodb/mgdb.conf
+#### 运行MongoDB
 
-** 创建管理员账户 **
+```shell
+mongod  --config /etc/mongodb/mgdb.conf
+```
+
+#### 创建管理员账户
+
+```shell
 - mongo
 - use admin
 - db.createUser({user:"root",pwd:"admin",roles:[{role:"root",db:"admin"}]})
+```
 
-** 创建事件日志以及所有者账户 **
+#### 创建事件日志以及所有者账户
 
-- db.auth("root", "admin")
-- use eventlog
-- db.createUser({user:"tron",pwd:"123456",roles:[{role:"dbOwner",db:"eventlog"}]})
+* db.auth("root", "admin")
+* use eventlog
+* db.createUser({user:"tron",pwd:"123456",roles:[{role:"dbOwner",db:"eventlog"}]})
 
 > database: eventlog, username:tron, password: 123456
 
-** 防火墙策略 **
+#### 防火墙策略
 
-- iptables -A INPUT -p tcp -m state --state NEW -m tcp --dport 27017 -j ACCEPT
+```shell
+iptables -A INPUT -p tcp -m state --state NEW -m tcp --dport 27017 -j ACCEPT
+```
 
-** 远程连接mongo **
+#### 远程连接mongo
 
-- mongo 47.90.245.68:27017
-- use eventlog
-- db.auth("tron", "123456")
-- show collections
-- db.block.find()
+* mongo 47.90.245.68:27017
+* use eventlog
+* db.auth("tron", "123456")
+* show collections
+* db.block.find()
 
-** 查询区块事件触发数据 **
+#### 查询区块事件触发数据
 
--  db.block.find({blockNumber: {$lt: 1000}});  // 返回区块高度小于1000的数据
+* db.block.find({blockNumber: {$lt: 1000}});  // 返回区块高度小于1000的数据
 
-** 设置数据库索引 **
+#### 设置数据库索引
 
+```shell
 cd /{projectPath}
 sh insertIndex.sh
+```
 
 ## 事件订阅数据查询服务部署
 
-<h3>下载代码</h3>
+### 下载代码
 
 git clone https://github.com/tronprotocol/tron-eventquery.git
 cd troneventquery
 
-<h3> 编译 </h3>
+### 编译
 
-- mvn package
+```shell
+mvn package
+```
 
 代码编译成功后，在/troneventquery目录下会生成troneventquery.jar文件。
 
@@ -488,21 +520,20 @@ cd troneventquery
 
 config.conf文件应该位于/troneventquery文件夹下。
 
- - mongo.host=IP
- - mongo.port=27017
- - mongo.dbname=eventlog
- - mongo.username=tron
- - mongo.password=123456
- - mongo.connectionsPerHost=8
- - mongo.threadsAllowedToBlockForConnectionMultiplier=4
+ * mongo.host=IP
+ * mongo.port=27017
+ * mongo.dbname=eventlog
+ * mongo.username=tron
+ * mongo.password=123456
+ * mongo.connectionsPerHost=8
+ * mongo.threadsAllowedToBlockForConnectionMultiplier=4
 
 **mongo.dbname**的值是指定的事件订阅数据库的名称，不可以修改。
 
-<h3> 运行 </h3>
+### 运行
 
-- troneventquery/deploy.sh 是用来部署事件订阅数据查询服务的。
-- troneventquery/insertIndex.sh 是用来设置mongodb索引来加速查询的。
-
+* troneventquery/deploy.sh 是用来部署事件订阅数据查询服务的。
+* troneventquery/insertIndex.sh 是用来设置mongodb索引来加速查询的。
 
 ## 高级配置
 

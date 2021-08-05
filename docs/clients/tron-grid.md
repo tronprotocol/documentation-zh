@@ -16,7 +16,7 @@ TronGrid支持所有的FullNode和SolidityNode的api调用，你只需要加上�
 
 示例：`https://api.trongrid.io/v1`
 
-**参数, 查询以及返回值**
+## 参数, 查询以及返回值
 
 - TG3类型接口调用地址可以按照base58或者hex形式
 - 查询参数可以按照驼峰或者下划线形式
@@ -25,7 +25,7 @@ TronGrid支持所有的FullNode和SolidityNode的api调用，你只需要加上�
 
 ## 账户接口
 
-1.&nbsp;通过地址查询账户
+1. 通过地址查询账户
 *接口：*
 `https://api.trongrid.io/v1/accounts/:address`
 *参数：*
@@ -35,8 +35,7 @@ address: 账户的地址
 *示例：*
 `https://api.trongrid.io/v1/accounts/TLCuBEirVzB6V4menLZKw1jfBTFMZbuKq7?only_confirmed=false`
 
-
-2.&nbsp;查询账户的交易信息
+2. 查询账户的交易信息
 *接口：*
 `https://api.trongrid.io/v1/accounts/:address/transactions`
 *参数：*
@@ -53,8 +52,7 @@ address: 账户的地址
 *示例：*
 `https://api.trongrid.io/v1/accounts/TLCuBEirVzB6V4menLZKw1jfBTFMZbuKq/transactions?only_to=true&only_from=true`
 
-
-3.&nbsp;查询账户资源信息
+3. 查询账户资源信息
 *接口：*
 `https://api.trongrid.io/v1/accounts/:address/resources`
 *参数：*
@@ -64,19 +62,19 @@ address: 账户的地址
 
 ## 通证接口
 
-1.&nbsp;查询所有通证信息
+1. 查询所有通证信息
 *接口：*
 `https://api.trongrid.io/v1/assets`
 *选项：*
 `order_by` 排序方案。支持字段：`total_supply,asc` | `total_supply,desc`, `start_time,asc` | `start_time,desc`, `end_time,asc` | `end_time,desc`, `id,asc` | `id,desc`. 例如：`order_by=total_supply,asc`。
 
-2.&nbsp;按照标识符查询通证信息
+2. 按照标识符查询通证信息
 *接口：*
 `https://api.trongrid.io/v1/assets/:identifier`
 *参数：*
 identifier: 可以为通证id或者发行者的地址
 
-3.&nbsp;按照通证名称查询通证信息
+3. 按照通证名称查询通证信息
 *接口：*
 `https://api.trongrid.io/v1/assets/:name/list`
 *参数：*
@@ -96,7 +94,7 @@ identifier: 区块高度。
 
 ## 合约接口
 
-1.&nbsp;根据合约地址查询事件信息
+1. 根据合约地址查询事件信息
 *接口：*
 `https://api.trongrid.io/v1/contracts/:address/events`
 *参数：*
@@ -112,7 +110,7 @@ address: 合约地址。
 `fingerprint` 上一页返回的最后一笔交易的指纹。
 `order_by` 排序方案。自持字段 `block_timestamp,asc`, `block_timestamp,desc`。
 
-2.&nbsp;查询合约地址的交易信息
+2. 查询合约地址的交易信息
 *接口：*
 `https://api.trongrid.io/v1/contracts/:address/transactions`
 *参数：*
@@ -128,13 +126,13 @@ address: 合约地址。
 
 ## 交易接口
 
-1.&nbsp;根据交易ID查询交易信息
+1. 根据交易ID查询交易信息
 *接口：*
 `https://api.trongrid.io/v1/transactions/:id`
 *参数：*
 id: 交易ID。
 
-2.&nbsp;根据交易ID查询交易中的事件
+2. 根据交易ID查询交易中的事件
 *A接口：*
 `https://api.trongrid.io/v1/transactions/:id/events`
 *参数：*

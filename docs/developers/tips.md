@@ -4,13 +4,13 @@
 
 TIPS仓库路径是：[https://github.com/tronprotocol/TIPs](https://github.com/tronprotocol/TIPs)
 
-<h2>提交一个PR</h2>
+## 提交一个PR
 
-1.&nbsp;首先fork远程项目到本地；
+1. 首先fork远程项目到本地；
 
-2.&nbsp;在本地仓库新建一个TIP。请参照[TIP模板](https://github.com/tronprotocol/TIPs/blob/master/template.md)。
+2. 在本地仓库新建一个TIP。请参照[TIP模板](https://github.com/tronprotocol/TIPs/blob/master/template.md)。
 
-3.&nbsp;提交一个PR到波场TIPs仓库。
+3. 提交一个PR到波场TIPs仓库。
 
 你提交的第一个TIP PR应该是最终TIP的一个草案，必须要符合我们要求的格式。我们会审核你提交的TIP，并且会为之分配一个编号。请确保在TIP页头中附上论坛的地址或者一个公开的GitHub议题地址来让用户进行讨论。
 
@@ -20,7 +20,7 @@ TIPS仓库路径是：[https://github.com/tronprotocol/TIPs](https://github.com/
 
 - 对于其他类型的TIP，打开一个PR并且把你的TIP状态改为'最终版'。TIP编辑者会审核你的草稿并且询问是否有人反对将你的提议状态改为最终版。如果TIP编辑者不认可你的内容，他们可能会关闭你的PR，并且要求你继续修改草案内容。
 
-<h2>TIP状态</h2>
+## TIP状态
 
 - **草案版**: 提议处于快速迭代与修改期
 

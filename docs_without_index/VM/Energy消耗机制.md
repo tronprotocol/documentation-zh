@@ -1,7 +1,7 @@
 
-## ENERGY 消耗机制
+# ENERGY 消耗机制
 
-### 名词解释
+## 名词解释
 
     合约创建者 : 即创建合约的账户
 
@@ -26,25 +26,25 @@
                对于之前老的合约，没有提供设置该值的参数，会存成0，但是会按照1000万energy上限计算，
                开发者可以通过updateEnergyLimit接口重新设置该值，设置新值时也必须大于0
 
+## Energy消耗
 
-
-### Energy消耗
 顺序如下：
 
 1. 按照合约中设置的比例消耗合约创建者冻结的Energy，若不足优先扣除合约创建者剩余所有Energy,剩余消耗需调用者提供
 1. 调用者消耗顺序（优先消耗调用者冻结获取的Energy，为保证合约可正常执行，不足部分通过销毁TRX相抵）
 1. 若创建者无冻结Energy资源，则所有消耗需调用者提供
 
-
 ### 相关接口
 
-##### getTransactionInfoById 查询包含合约调用或合约创建结果的交易信息
-```
+#### getTransactionInfoById 查询包含合约调用或合约创建结果的交易信息
+
+```shell
 getTransactionInfoById needs 1 parameter, transaction id
 ```
+
 相关字段
 
-```
+```java
 energy_usage: //本次合约调用者消耗的Energy数量
 0
 energy_fee: //本次合约调用者消耗TRX数量（SUN）
@@ -58,8 +58,10 @@ net_usage: //本次合约消耗的Bandwidth(不包含NetFee对应的)
 net_fee: //本次合约因Bandwidth不足消耗的TRX
 0
 ```
-##### FreezeBalance 冻结获得带宽或能量
-```
+
+#### FreezeBalance 冻结获得带宽或能量
+
+```shell
 freezeBalance frozen_balance frozen_duration [ResourceCode:0 BANDWIDTH,1 ENERGY]
 ```
 
@@ -71,11 +73,11 @@ freezeBalance frozen_balance frozen_duration [ResourceCode:0 BANDWIDTH,1 ENERGY]
 
 对应关系：
 
-```
+```text
 已冻结Energy部分：(冻结的balance数量/冻结获得总共的Energy)*消耗Energy数量
 销毁TRX获得Energy部分：按照比例消耗的TRX数量
 ```
 
-#### 注意事项：
-详见 [异常处理](异常处理.md)
+### 注意事项
 
+详见 [异常处理](异常处理.md)

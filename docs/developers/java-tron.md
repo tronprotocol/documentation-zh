@@ -2,7 +2,7 @@
 
 java-tron仓库路径是：[https://github.com/tronprotocol/java-tron](https://github.com/tronprotocol/java-tron)
 
-<h2>分支介绍</h2>
+## 分支介绍
 
 ``master``分支：
 这个分支包含最近发布到生成环境的代码，并通过Tag进行标注release版本号，这个分支只能从其他分支合并，不能在这个分支直接修改。
@@ -19,15 +19,18 @@ java-tron仓库路径是：[https://github.com/tronprotocol/java-tron](https://g
 ``hotfix``分支：
 当我们在``master``分支发现bug的时候，需要基于``master``分支创建一个hotfix分支，完成hotfix后，将其合并到``master``分支（当做一个新的release）和``develop``分支，并将其删除。
 
-<h2>开发一个新功能</h2>
+## 开发一个新功能
 
 当你开始开发新功能时，从``develop``分支创建一个feature分支，分支需要位于``origin/feature``下。
-```text
+
+```shell
 $ git checkout -b feature/my-feature develop
 # 切换到新分支'feature/my-feature'
 ```
+
 完成的新功能将被合并到Develop分支，以便未来合并到Master分支。
-```text
+
+```shell
 $ git commit -a -m "Bumped version number to 3.1.4"
 # 提交
 $ git checkout develop
@@ -46,10 +49,11 @@ $ git branch -d feature/my-feature
 # 在GitHub网站上，同样删除分支'feature/my-feature'
 ```
 
-<h2>修复线上漏洞</h2>
+## 修复线上漏洞
 
 当你发现一个发布版的Bug时，从``master``分支（此时应该是最新release代码）创建一个hotfix分支，分支需要位于``origin/hotfix``下。
-```text
+
+```shell
 $ git checkout -b hotfix/my-hotfix master
 # 切换到新分支'hotfix/my-hotfix'
 # 修改版本号
@@ -58,7 +62,8 @@ $ git commit -a -m "Bumped version number to 3.1.4"
 ```
 
 当修复完Bug后，需要将Hotfix分支合并到Master分支和Develop分支.
-```text
+
+```shell
 $ git checkout master
 # 切换到分支'master'
 $ git pull

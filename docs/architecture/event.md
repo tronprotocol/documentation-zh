@@ -1,7 +1,7 @@
 
 # Tron 事件订阅机制
 
-<h3> 简介 </h3>
+## 简介
 
 TIP: [https://github.com/tronprotocol/TIPs/issues/12](https://github.com/tronprotocol/TIPs/issues/12)
 
@@ -18,7 +18,6 @@ energyUsage: 此次调用中，合约调用者消耗的Energy的总量
 energyFee: 此次调用中，合约调用者消耗的Energy中，需要TRX支付的数目(SUN为单位)  
 originEnergyUsage: 此次调用中，合约开发者消耗的Energy的总量  
 energyUsageTotal: 此次调用中，合约调用者和合约开发者消耗的Energy的总量  
-
 
 - 区块相关事件
 
@@ -43,7 +42,6 @@ eventSignature: 事件签名
 topicMap: the map of topic in solidity language  
 data: the data information in solidity language  
 
-
 - 合约日志事件相关
 
 订阅的内容：
@@ -57,7 +55,6 @@ contractTopics: the list of topic in solidity language
 data: the data information in solidity language  
 removed: 'true'代表日志已经被移除  
 
-
 合约事件与合约日志事件订阅支持过滤功能：
 
 fromBlock: 起始区块索引  
@@ -67,26 +64,25 @@ contractTopics: 合约主题
 
 **注意**: 不支持历史数据查询
 
+## 新功能
 
-<h3> 新功能 </h3>
+1. 支持事件插件，kafka & mongodb 插件已经发布，开发者可以按照需求自定义插件。
 
-1.&nbsp;支持事件插件，kafka & mongodb 插件已经发布，开发者可以按照需求自定义插件。
+2. 支持订阅链上数据，例如区块，交易，合约以及合约日志。开发者还可以通过设置过滤条件来订阅指定的数据。
 
-2.&nbsp;支持订阅链上数据，例如区块，交易，合约以及合约日志。开发者还可以通过设置过滤条件来订阅指定的数据。
+3. 提供事件订阅的数据查询服务，线上地址为[https://api.tronex.io](https://api.tronex.io)。
 
-3.&nbsp;提供事件订阅的数据查询服务，线上地址为[https://api.tronex.io](https://api.tronex.io)。
-
-<h3> Github 项目 </h3>
+## Github 项目
 
 - [事件订阅](https://github.com/tronprotocol/event-plugin)
 - [事件订阅数据查询](https://github.com/tronprotocol/tron-eventquery)
 
-<h3> 事件订阅相关插件部署 </h3>
+## 事件订阅相关插件部署
 
 - [kafka部署](https://tronprotocol.github.io/documentation-zh/developers/deployment/#kafka)
 - [mongo部署](https://tronprotocol.github.io/documentation-zh/developers/deployment/#mongo)
 
-<h3> 事件订阅数据查询 </h3>
+## 事件订阅数据查询
 
 事件订阅数据查询服务实现了事件订阅模型。
 

@@ -1,6 +1,6 @@
 # 超级代表与委员会
 
-<h3>1. 申请成为超级代表候选人规则 </h3>
+## 1. 申请成为超级代表候选人规则
 
  在TRON网络中，任何账户都可以申请成为超级代表候选人，都有机会成为超级代表。每个账户都可以投票给超级代表候选人。
 
@@ -10,7 +10,7 @@
 
  为了防止恶意攻击，成为超级代表候选人也需要一定代价的。TRON网络将直接烧掉申请者账户9999TRX。申请成功后，您就可以竞选超级代表了。
 
-<h3>2. 选举超级代表 </h3>
+## 2. 选举超级代表
 
  投票需要TRON Power(TP)，你的TRON Power(TP)的多少由当前冻结资金决定。TRON Power(TP)的计算方法：每冻结1TRX，就可以获得1单位TRON Power(TP)。
 
@@ -22,29 +22,29 @@
 
 + 示例：
 
-```
-freezebalance 10,000,000 3 // 冻结了10TRX，获取了10单位TRON Power(TP)
-votewitness witness1 4 witness2 6 // 同时给witness1投了4票，给witness2投了6票
-votewitness witness1 3 witness2 7 // 同时给witness1投了3票，给witness2投了7票
+```shell
+freezebalance 10,000,000 3 # 冻结了10TRX，获取了10单位TRON Power(TP)
+votewitness witness1 4 witness2 6 # 同时给witness1投了4票，给witness2投了6票
+votewitness witness1 3 witness2 7 # 同时给witness1投了3票，给witness2投了7票
 ```
 
 以上命令的最终结果是给witness1投了3票，给witness2投了7票
 
-**Witnesses分红**
+### Witnesses分红
 
 默认比例是20%，witnesses可以调整该值。
 
 如果一个witness获得20%的奖励，那么剩余的80%奖励会被分配给投票者。如果分红比例设置为100%，那么只有witness可以获得奖励；相反，如果设置为0，那么只有投票者会获得奖励。
 
-<h3>3. 超级代表的奖励 </h3>
+## 3. 超级代表的奖励
 
-1.&nbsp;票数奖励
+### 票数奖励
 
 票数奖励是每生成一个区块奖励160TRX，总奖励数是4,608,000 TRX / 天。
 
 对每一个SR与Partner，每天获得的票数奖励 = 4,608,000 * ( 获得的票数 /  总票数) x 20%  TRX
 
-2.&nbsp;出块奖励
+### 出块奖励
 
 波场协议网络每3秒中会出一个区块，每个区块将给予超级代表16个TRX奖励，每年总计168,192,000 TRX将会被奖励给超级代表。
 
@@ -56,23 +56,25 @@ votewitness witness1 3 witness2 7 // 同时给witness1投了3票，给witness2�
 
 实际奖励可能会比理论上的奖励少，因为出块失败或者维护期切换。
 
-<h3>4. 投票者的奖励 </h3>
+## 4. 投票者的奖励
 
 如果投票给Super Representative：
 
-每日获得奖励 =  (((你投给一个witness的票数) * 4,608,000 / 总票数) * 80%) + ((460,800 / 27) * 80%) * (你投给一个witness的票数) / (一个witness获得的总票数) TRX
+每日获得奖励 =  (((你投给一个witness的票数) *4,608,000 / 总票数)* 80%) + ((460,800 / 27) *80%)* (你投给一个witness的票数) / (一个witness获得的总票数) TRX
 
 如果你投票给Partner：
 
-每日获得奖励 =  (((你投给一个witness的票数) * 4,608,000 / 总票数) * 80%) TRX
+每日获得奖励 =  (((你投给一个witness的票数) *4,608,000 / 总票数)* 80%) TRX
 
-<h3> 5. 委员会 </h3>
+## 5. 委员会
 
-<h4> 5.1 什么是委员会 </h4>
+### 5.1 什么是委员会
+
 委员会用于修改Tron网络动态参数，如出块奖励、交易费用等等。委员会由当前的27个超级代表组成。每个超级代表都具有提议权、对提议的投票权，
 当提议获得19个代表及以上的赞成票时，该提议获得通过，并在下个维护期内进行网络参数修改。
 
-<h4> 5.2 创建提议 </h4>
+### 5.2 创建提议
+
 只有超级代表（SR）、合伙人（Partner）和候选人（Candidates）对应账户具有提议权。
 
 允许修改的网络动态参数以及编号如下( [min,max] )：
@@ -83,15 +85,15 @@ votewitness witness1 3 witness2 7 // 同时给witness1投了3票，给witness2�
 |  0     | getMaintenanceTimeInterval <br> (修改超级代表调整时间间隔)	| 6  Hours <br> [3 * 27, 24 * 3600] s |
 |  1     | getAccountUpgradeCost <br> (修改账户升级为超级代表的费用) | 9999  TRX <br> [0, 100000000000] TRX |
 |  2     | getCreateAccountFee <br> (修改创建账户费用) | 0.1  TRX <br> [0, 100000000000] TRX |
-|  3     | getTransactionFee <br> (修改TRX抵扣带宽的费用) | 10  Sun/Byte <br> [0, 100000000000] TRX |
+|  3     | getTransactionFee <br> (修改TRX抵扣带宽的费用) | 140  Sun/Byte <br> [0, 100000000000] TRX |
 |  4     | getAssetIssueFee <br> (修改资产发行费用) | 1024  TRX <br> [0, 100000000000] TRX|
 |  5     | getWitnessPayPerBlock <br> (修改超级代表出块奖励) | 16 TRX <br> [0, 100000000000] TRX |
 |  6     | getWitnessStandbyAllowance <br> (修改分给前127名超级代表候选人的奖励) | 115200  TRX <br> [0, 100000000000] TRX |
-|  7     | getCreateNewAccountFeeInSystemContract <br> (修改系统创建账户的费用) | 0 TRX  |
+|  7     | getCreateNewAccountFeeInSystemContract <br> (修改系统创建账户的费用) | 1 TRX  |
 |  8     | getCreateNewAccountBandwidthRate <br> (提议7、8，组合使用，用于修改创建账户时对资源或TRX的消耗) | 1&nbsp;Bandwith/Byte |
 |  9     | getAllowCreationOfContracts <br> (控制虚拟机功能的开启 ) | 1 <br> {0, 1} |
 |  10	 | getRemoveThePowerOfTheGr <br> (用于清除GR的创世票数) |	1 <br> {0, 1}|
-|  11	 | getEnergyFee <br> (修改能量费用) | 10 Sun <br> [0, 100000000000] TRX |
+|  11	 | getEnergyFee <br> (修改能量费用) | 140 Sun <br> [0, 100000000000] TRX |
 |  12	 | getExchangeCreateFee <br> (修改创建交易对的费用) | 1024 TRX <br> [0, 100000000000] TRX |
 |  13	 | getMaxCpuTimeOfOneTx <br> (修改交易最长执行时间) | 50 ms <br> [0, 1000] ms |
 |  14	 | getAllowUpdateAccountName <br> (允许用户更改昵称以及昵称同名) | 0 <br> {0, 1} |
@@ -113,43 +115,46 @@ votewitness witness1 3 witness2 7 // 同时给witness1投了3票，给witness2�
 |  32    | getAllowTvmSolidity059 <br> (允许虚拟机支持0.5.9版本的Solidity编译器) | 0 <br> {0, 1} |
 |  33    | getAdaptiveResourceLimitTargetRatio <br> (修改能量目标值) | 10 <br> [1, 1000] |
 
-
 + 示例：
+
 ```text
 createproposal id0 value0 ... idN valueN
 id0_N: 参数编号
 value0_N: 新参数值
 ```
 
-注：Tron网络中，1 TRX = 1000_000 SUN。
+注：Tron网络中，1 TRX = 1_000_000 SUN。
 
-<h4> 5.3 对提议进行投票 </h4>
+### 5.3 对提议进行投票
+
 提议仅支持投赞成票，不投票代表不赞同。从提议创建时间开始，3天时间内为提议的有效期。超过该时间范围，该提议如果没有获得足够的
 赞成票，该提议失效。允许取消之前投的赞成票。
 
-
 + 示例：
-```text
+
+```shell
 approveProposal id is_or_not_add_approval
 id: 提议Id，根据提议创建时间递增
 is_or_not_add_approval: 赞成或取消赞成
 ```
 
-<h4> 5.4 取消提议 </h4>
+### 5.4 取消提议
+
 提议创建者，能够在提议生效前，取消提议。
 
 + 示例：
-```text
+
+```shell
 deleteProposal proposalId
 id: 提议Id，根据提议创建时间递增
 ```
 
-<h4> 5.5 查询提议 </h4>
+### 5.5 查询提议
 
 以下接口可以查询提议，包括：
 
-- 查询所有提议信息（ListProposals）
-- 分页查询提议信息（GetPaginatedProposalList）
-- 查询指定提议信息（GetProposalById）
++ 查询所有提议信息（ListProposals）
++ 分页查询提议信息（GetPaginatedProposalList）
++ 查询指定提议信息（GetProposalById）
 
 相关api详情，请查询[Tron HTTP API](../api/http.md).
