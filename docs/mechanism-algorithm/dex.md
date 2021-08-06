@@ -47,7 +47,7 @@ ExchangeCreate abc 10000000 _ 1000000000000
 ExchangeTransaction 1 _ 100 990
 ```
 
-其中" _ "表示TRX，即向交易对卖出100个TRX。如果成功，该交易会使得交易对中增加100个TRX，并根据Bancor协议计算出减少的abc的数量，交易对创建者的账户中abc和TRX的数量会相应地增加和减少。
+其中" _ "表示TRX，即向交易对卖出100个TRX。如果成功，该交易会使得交易对中增加100个TRX，并根据Bancor协议计算出减少的abc的数量，交易创建者的账户中abc和TRX的数量会相应地增加和减少。实际交易到的abc数量，通过transaction result的exchange_received_amount字段返回，可以通过gettransactioninfobyid查询。
 
 ## 注资
 
