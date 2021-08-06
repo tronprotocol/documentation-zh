@@ -319,7 +319,7 @@
 <p>使用本工具进行任何操作之前，需要首先停止当前运行的FullNode节点。 此工具提供了根据当前<code>数据库</code>(database)情况,对 manifest 进行重新归整的功能。</p>
 <p>更多的设计思想，请参考: <a href="https://github.com/tronprotocol/tips/issues/298">TIP298</a> 。</p>
 <h2 id="_2">使用<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
-<h3 id="_3">选项<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<h3 id="_3">插件选项<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
 <p>此工具提供了归整manifest 功能</p>
 <ul>
 <li><code>-b | --batch-size</code>: [ int ]  此选项用于指定批处理manifest 大小,默认值：80000。</li>
@@ -359,9 +359,13 @@
 <p>FullNode 运行之后，默认数据库目录：<code>output-directory</code>  ，优化插件会处理 <code>output-directory/database</code>目录。</p>
 <h4 id="1">1. 单独使用<a class="headerlink" href="#1" title="Permanent link">&para;</a></h4>
 <p>首先, 停止FullNode并执行命令:</p>
-<div class="highlight"><pre><span></span><code>java -jar ArchiveManifest.jar
+<div class="highlight"><pre><span></span><code>java -jar ArchiveManifest.jar <span class="o">[</span>-b batchSize<span class="o">]</span> <span class="o">[</span>-d databaseDirectory<span class="o">]</span> <span class="o">[</span>-m manifestSize<span class="o">]</span>
 </code></pre></div>
 <p>命令执行完毕之后，将在<code>./logs</code>目录下生成<code>archive.log</code>日志, 可查看此次归整情况</p>
+<blockquote>
+<p>Note: 执行完成后，如果成功 日志会显示如下类似内容，运行一般在120s内，视FullNode服务持续运行时长决定，失败会有相应的错误信息</p>
+<p><code>[main] [archive](ArchiveManifest.java:144) DatabaseDirectory:output-directory/database, maxManifestSize:0, maxBatchSize:80000,database reopen use 80 seconds total.</code></p>
+</blockquote>
 <p>最后,启动停止FullNode服务</p>
 <h4 id="2">2. 集成启动脚本<a class="headerlink" href="#2" title="Permanent link">&para;</a></h4>
 <p>也可以将此归整插件集成到启动脚本。</p>
@@ -375,11 +379,11 @@
 
 <span class="nv">NEED_REBUILD</span><span class="o">=</span><span class="m">0</span>
 
-<span class="k">if</span> <span class="o">[[</span> <span class="nv">$1</span> <span class="o">==</span> <span class="s1">&#39;-y&#39;</span> <span class="o">]]</span>  <span class="p">;</span> <span class="k">then</span>
+<span class="k">if</span> <span class="o">[[</span> <span class="nv">$1</span> <span class="o">==</span> <span class="s1">&#39;--rewrite--manifest&#39;</span> <span class="o">]]</span>  <span class="p">;</span> <span class="k">then</span>
    <span class="nv">APP</span><span class="o">=</span><span class="s1">&#39;&#39;</span>
    <span class="nv">NEED_REBUILD</span><span class="o">=</span><span class="m">1</span>
 
- <span class="k">elif</span> <span class="o">[[</span> <span class="nv">$2</span> <span class="o">==</span> <span class="s1">&#39;-y&#39;</span> <span class="o">]]</span>  <span class="p">;</span> <span class="k">then</span>
+ <span class="k">elif</span> <span class="o">[[</span> <span class="nv">$2</span> <span class="o">==</span> <span class="s1">&#39;--rewrite--manifest&#39;</span> <span class="o">]]</span>  <span class="p">;</span> <span class="k">then</span>
    <span class="nv">NEED_REBUILD</span><span class="o">=</span><span class="m">1</span>
  <span class="k">fi</span>
 
@@ -541,9 +545,13 @@ startService
 </code></pre></div>
 启动示例</p>
 <blockquote>
-<p>Note: 在以上脚本中 <code>-y</code> 参数 固定在第一个参数或者第二个参数(后续版本优化)
-```shell
-./start.sh -y
+<p>Note: 将上述脚本保存为start.sh，在以上脚本中 <code>--rewrite--manifest</code> 参数 固定在第一个参数或者第二个参数</p>
+<p>OPTIONS</p>
+<div class="codehilite"><pre><span></span><code>       --rewrite--manifest       开启数据库优化插件，开启此项后 以上插件选项的`-d -m -b -h` 才会生效
+</code></pre></div>
+
+<p>```shell
+./start.sh [FullNode|SolidityNode] [--rewrite--manifest] [-b batchSize] [-d databaseDirectory] [-m manifestSize]
 ````</p>
 </blockquote>
               
