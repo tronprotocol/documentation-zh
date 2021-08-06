@@ -44,7 +44,6 @@ FullNode 运行之后，默认数据库目录：`output-directory`  ，优化插
 
 ```shell
 java -jar ArchiveManifest.jar [-b batchSize] [-d databaseDirectory] [-m manifestSize]
-java -jar -h
 ```
 
 命令执行完毕之后，将在`./logs`目录下生成`archive.log`日志, 可查看此次归整情况
