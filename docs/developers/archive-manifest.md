@@ -241,9 +241,6 @@ startService
 >
 >            --rewrite--manifest       开启数据库优化插件，开启此项后 以上插件选项的`-d -m -b -h` 才会生效
 ```shell
-#正确示例
-./start.sh --rewrite--manifest [-b batchSize] [-d databaseDirectory] [-m manifestSize]
-#无效示例
-./start.sh  [-b batchSize] [-d databaseDirectory] [-m manifestSize]
+./start.sh [FullNode|SolidityNode] [--rewrite--manifest] [-b batchSize] [-d databaseDirectory] [-m manifestSize]
 ````
 
