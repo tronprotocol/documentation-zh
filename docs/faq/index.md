@@ -8,7 +8,6 @@
 
 ### 如何生成一个账户
 
-- [Tronscan: 生成账户](https://tronscan.org/#/wallet/new)
 - [Wallet-cli](https://github.com/tronprotocol/wallet-cli)
 
 ### 目前的 TRON 网络处理性能有多高？需要多大网络带宽？

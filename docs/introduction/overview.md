@@ -246,7 +246,7 @@ Tron网络采用Peer-to-Peer(P2P)的网络架构，网络中的节点地位对�
 1. 下载private_net_config.conf
 
 ```shell
-wget https://github.com/tronprotocol/tron-deployment/blob/master/private_net_config.conf
+wget https://raw.githubusercontent.com/tronprotocol/tron-deployment/master/private_net_config.conf
 ```
 
 2. 在localwitness中添加自己的私钥
@@ -274,12 +274,16 @@ nohup java -Xmx6g -XX:+HeapDumpOnOutOfMemoryError -jar FullNode.jar  --witness  
 
  配置文件中需要修改的参数：
  localwitness:
+
  ![image](https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/localwitness.jpg)
  witnesses:
+
  ![image](https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/witness.png)
  version:
+
  ![image](https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/p2p_version.png)
  enable:
+
  ![image](https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/discovery_enable.png)
 
 ###### 4.6.3.2.2 步骤二:部署FullNode节点
@@ -287,7 +291,7 @@ nohup java -Xmx6g -XX:+HeapDumpOnOutOfMemoryError -jar FullNode.jar  --witness  
 1. 下载private_net_config.conf
 
 ```shell
-wget https://github.com/tronprotocol/tron-deployment/blob/master/private_net_config.conf
+wget https://raw.githubusercontent.com/tronprotocol/tron-deployment/master/private_net_config.conf
 ```
 
 2. 设置seed.node ip.list 为SR的ip地址和端口
