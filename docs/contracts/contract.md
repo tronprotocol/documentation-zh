@@ -74,7 +74,7 @@ origin_energy_limit: 开发者设置的在一次合约调用过程中自己消�
 
 ### 2. 合约函数的使用
 
-1. constant function和非constant function
+* constant function和非constant function
 
 函数调用从对链上属性是否有更改可分为两种：constant function 和 非constant function。
 Constant function 是指用 view/pure/constant 修饰的函数。会在调用的节点上直接返回结果，并不以一笔交易的形式广播出去。
@@ -82,21 +82,21 @@ Constant function 是指用 view/pure/constant 修饰的函数。会在调用的
 
 注意: 如果在合约内部使用create指令（CREATE instruction），即使用view/pure/constant来修饰这个动态创建的合约合约方法，这个合约方法仍会被当作非constant function，以交易的形式来处理。
 
-2. 消息调用（message calls）
+* 消息调用（message calls）
 
 消息调用可以向其他的合约发起函数调用，也可以向合约的账户或非合约的账户转帐trx。 与普通的波场triggercontract类似， 消息调用也有调用的发起者，接受者，数据，转账金额，扣费，以及返回值等属性。每一个消息调用都可以递归的生成新的消息调用。
 合约可以决定在其内部的消息调用中，对于剩余的 energy ，应发送和保留多少。如果在内部消息调用时发生了OutOfEnergyException
 异常（或其他任何异常）,会返回false，但不会以异常的形式抛出。此时，只有与该内部消息调用一起发送的gas会被消耗掉，如果不表明消息调用所传入的费用call.value(energy)，则会扣掉所有的剩余energy。
 
-3. 委托调用/代码调用和库 (delegatecall/callcode/libary)
+* 委托调用/代码调用和库 (delegatecall/callcode/libary)
 
 有一种特殊类型的消息调用，被称为 委托调用(delegatecall) 。它和一般的消息调用的区别在于，目标地址的代码将在发起调用的合约的上下文中执行，并且msg.sender 和msg.value 不变。 这意味着一个合约可以在运行时从另外一个地址动态加载代码。存储、当前地址和余额都指向发起调用的合约，只有代码是从被调用地址获取的。 这使得 Solidity 可以实现”库“能力：可复用的代码库可以放在一个合约的存储上，如用来实现复杂的数据结构的库。
 
-4. CREATE 指令（CREATE instruction）
+* CREATE 指令（CREATE instruction）
 
 另一个与合约调用相关的是调用指令集的时候使用CREATE指令。这个指令将会创建一个新的合约并生成新的地址。与以太坊的创建唯一的不同在于波场新生成的地址使用的是传入的本次智能合约交易id与调用的nonce的哈希组合。和以太坊不同，这个nonce的定义为本次根调用开始创建的合约序号。即如果有多次的 CREATE指令调用，从1开始，顺序编号每次调用的合约。详细请参考代码。还需注意，与deploycontract的grpc调用创建合约不同，CREATE的合约并不会保存合约的abi。
 
-5. 内置功能属性及内置函数 (Odyssey-v3.1.1及之后的版本暂时不支持TVM内置函数)
+* 内置功能属性及内置函数 (Odyssey-v3.1.1及之后的版本暂时不支持TVM内置函数)
 
 ```shell
 1）TVM兼容solidity语言的转账形式，包括：
@@ -126,7 +126,7 @@ transfer/send/call/callcode/delegatecall函数调用转账
 ### 3. 合约地址在solidity语言的使用
 
 以太坊虚拟机地址为是20字节，而波场虚拟机解析地址为21字节。
-1. 地址转换
+* 地址转换
 
 在solidity中使用的时候需要对波场地址做如下处理（推荐）：
 
@@ -144,7 +144,7 @@ transfer/send/call/callcode/delegatecall函数调用转账
 
 这个和在以太坊中其他类型转换成address类型语法相同。
 
-2. 地址判断
+* 地址判断
 
 solidity中有地址常量判断，如果写的是21字节地址编译器会报错，只用写20字节地址即可，如：
 
@@ -161,7 +161,7 @@ function compareAddress(address tronAddress) public view returns (uint256){
 
 tronAddress从wallet-cli传入是0000000000000000000041ca35b7d915458ef540ade6068dfe2f44e8fa733c这个21字节地址，即正常的波场地址时，是会返回1的，判断正确。
 
-3. 地址赋值
+* 地址赋值
 
 solidity中有地址常量的赋值，如果写的是21字节地址编译器会报错，只用写20字节地址即可，solidity中后续操作直接利用这个20位地址，波场虚拟机内部做了补位操作。如：
 
