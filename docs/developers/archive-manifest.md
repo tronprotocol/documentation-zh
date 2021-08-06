@@ -11,7 +11,7 @@
 
 ## 使用
 
-### 选项
+### 插件选项
 
 此工具提供了归整manifest 功能
 
@@ -43,7 +43,8 @@ FullNode 运行之后，默认数据库目录：`output-directory`  ，优化插
 首先, 停止FullNode并执行命令:
 
 ```shell
-java -jar ArchiveManifest.jar
+java -jar ArchiveManifest.jar [-b batchSize] [-d databaseDirectory] [-m manifestSize]
+java -jar -h
 ```
 
 命令执行完毕之后，将在`./logs`目录下生成`archive.log`日志, 可查看此次归整情况
@@ -234,12 +235,15 @@ sleep 5
 startService
 ```
 启动示例
-> Note: 在以上脚本中 `--rewrite--manifest` 参数 固定在第一个参数或者第二个参数
+> Note: 将上述脚本保存为start.sh，在以上脚本中 `--rewrite--manifest` 参数 固定在第一个参数或者第二个参数
 >
 > OPTIONS
 >
->            --rewrite--manifest       开启数据库优化插件
+>            --rewrite--manifest       开启数据库优化插件，开启此项后 以上插件选项的`-d -m -b -h` 才会生效
 ```shell
-./start.sh [--rewrite--manifest]
+#正确示例
+./start.sh --rewrite--manifest [-b batchSize] [-d databaseDirectory] [-m manifestSize]
+#无效示例
+./start.sh  [-b batchSize] [-d databaseDirectory] [-m manifestSize]
 ````
 
