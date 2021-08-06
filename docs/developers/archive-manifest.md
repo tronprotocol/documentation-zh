@@ -11,7 +11,7 @@
 
 ## 使用
 
-### 选项
+### 插件选项
 
 此工具提供了归整manifest 功能
 
@@ -43,10 +43,14 @@ FullNode 运行之后，默认数据库目录：`output-directory`  ，优化插
 首先, 停止FullNode并执行命令:
 
 ```shell
-java -jar ArchiveManifest.jar
+java -jar ArchiveManifest.jar [-b batchSize] [-d databaseDirectory] [-m manifestSize]
 ```
 
 命令执行完毕之后，将在`./logs`目录下生成`archive.log`日志, 可查看此次归整情况
+
+> Note: 执行完成后，如果成功 日志会显示如下类似内容，运行一般在120s内，视FullNode服务持续运行时长决定，失败会有相应的错误信息
+>
+> `[main] [archive](ArchiveManifest.java:144) DatabaseDirectory:output-directory/database, maxManifestSize:0, maxBatchSize:80000,database reopen use 80 seconds total.`
 
 最后,启动停止FullNode服务
 
@@ -65,11 +69,11 @@ ALL_OPT=$*
 
 NEED_REBUILD=0
 
-if [[ $1 == '-y' ]]  ; then
+if [[ $1 == '--rewrite--manifest' ]]  ; then
    APP=''
    NEED_REBUILD=1
 
- elif [[ $2 == '-y' ]]  ; then
+ elif [[ $2 == '--rewrite--manifest' ]]  ; then
    NEED_REBUILD=1
  fi
 
@@ -230,8 +234,12 @@ sleep 5
 startService
 ```
 启动示例
-> Note: 在以上脚本中 `-y` 参数 固定在第一个参数或者第二个参数(后续版本优化)
+> Note: 将上述脚本保存为start.sh，在以上脚本中 `--rewrite--manifest` 参数 固定在第一个参数或者第二个参数
+>
+> OPTIONS
+>
+>            --rewrite--manifest       开启数据库优化插件，开启此项后 以上插件选项的`-d -m -b -h` 才会生效
 ```shell
-./start.sh -y
+./start.sh [FullNode|SolidityNode] [--rewrite--manifest] [-b batchSize] [-d databaseDirectory] [-m manifestSize]
 ````
 
