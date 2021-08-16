@@ -12,18 +12,18 @@
 
 ## 2. 选举超级代表
 
- 投票需要TRON Power(TP)，你的TRON Power(TP)的多少由当前冻结资金决定。TRON Power(TP)的计算方法：每冻结1TRX，就可以获得1单位TRON Power(TP)。
+ 投票需要TRON Power(TP)，你的TRON Power(TP)的多少由当前质押资金决定。TRON Power(TP)的计算方法：每质押1TRX，就可以获得1单位TRON Power(TP)。
 
  TRON网络中的每一个账户都具有选举权，可以通过投票选出自己认同的超级代表了。
 
- 在解冻后，你没有了冻结的资产，相应地失去了所有的TRON Power(TP)，因此以前的投票会失效。你可以通过重新冻结并投票来避免投票失效。
+ 在解锁后，你没有了质押的资产，相应地失去了所有的TRON Power(TP)，因此以前的投票会失效。你可以通过重新质押并投票来避免投票失效。
 
 注意: 波场网络只记录你最后一次投票的状态，也就是说你的每一次投票都会覆盖以前所有的投票效果
 
 + 示例：
 
 ```shell
-freezebalance 10,000,000 3 # 冻结了10TRX，获取了10单位TRON Power(TP)
+freezebalance 10,000,000 3 # 质押了10TRX，获取了10单位TRON Power(TP)
 votewitness witness1 4 witness2 6 # 同时给witness1投了4票，给witness2投了6票
 votewitness witness1 3 witness2 7 # 同时给witness1投了3票，给witness2投了7票
 ```

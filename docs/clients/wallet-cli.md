@@ -497,7 +497,7 @@ asset {
 TransferAsset 123456 649DDB4AB82D558AD6809C7AB2BA43D1D1054B3F testAssetIssue00001 10000
 ```
 
-### 如何冻结/解冻TRX
+### 如何质押/解锁TRX
 
 示例:
 
@@ -513,11 +513,11 @@ unfreezeBalance  [ResourceCode:0 BANDWIDTH, 1 ENERGY] [receiverAddress]
 
 ```
 
-通过冻结TRX可以获取带宽或者能量。
+通过质押TRX可以获取带宽或者能量。
 
 ### 如何投票
 
-每一个冻结的TRX代表一个投票权
+每一个质押的TRX代表一个投票权
 
 **注意：** 波场网络只会统计你的最近一次的投票。
 
@@ -699,9 +699,9 @@ assetV2
 }
 ```
 
-e. 解冻TRC-10通证
+e. 解锁TRC-10通证
 
-只有过了冻结期后，才能解冻。
+只有过了质押期后，才能解锁。
 
 UnfreezeAsset
 
@@ -1711,15 +1711,15 @@ GetShieldedPaymentAddress 148cf9e91f1e6656a41dc9b6c6ee4e52ff7a25b25c2d4a3a3182d0
 a. 委托资源
 
 freezeBalance frozen_balance frozen_duration [ResourceCode:0 BANDWIDTH,1 ENERGY] [receiverAddress]
-frozen_balance: 冻结的TRX数目，最小单位为SUN
-frozen_duration: 冻结天数
+frozen_balance: 质押的TRX数目，最小单位为SUN
+frozen_duration: 质押天数
 ResourceCode: 0 BANDWIDTH;1 ENERGY
-receiverAddress: 接收方地址。如果为空，则自己获得冻结TRX所获得的资源
+receiverAddress: 接收方地址。如果为空，则自己获得质押TRX所获得的资源
 
 b. 解除资源委托
 
 unfreezeBalance  [ResourceCode:0 BANDWIDTH,1 CPU] [receiverAddress]
-receiverAddress: 接收方地址。如果为空，则解除自己获得的冻结TRX所获得的资源
+receiverAddress: 接收方地址。如果为空，则解除自己获得的质押TRX所获得的资源
 
 c. 查询资源委托信息
 

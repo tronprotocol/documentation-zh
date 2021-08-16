@@ -24,18 +24,18 @@ MainNet的配置请参照:
 
 ### 2.2 选举超级代表
 
- 投票需要TRON Power(TP)，你的TRON Power(TP)的多少由当前冻结资金决定。TRON Power(TP)的计算方法：每冻结1TRX，就可以获得1单位TRON Power(TP)。
+ 投票需要TRON Power(TP)，你的TRON Power(TP)的多少由当前质押资金决定。TRON Power(TP)的计算方法：每质押1TRX，就可以获得1单位TRON Power(TP)。
 
  TRON网络中的每一个账户都具有选举权，可以通过投票选出自己认同的超级代表了。
 
- 在解冻后，你没有了冻结的资产，相应地失去了所有的TRON Power(TP)，因此以前的投票会失效。你可以通过重新冻结并投票来避免投票失效。
+ 在解锁后，你没有了质押的资产，相应地失去了所有的TRON Power(TP)，因此以前的投票会失效。你可以通过重新质押并投票来避免投票失效。
 
 注意: 波场网络只记录你最后一次投票的状态，也就是说你的每一次投票都会覆盖以前所有的投票效果
 
 + 示例：
 
 ```shell
-freezebalance 10,000,000 3 # 冻结了10TRX，获取了10单位TRON Power(TP)
+freezebalance 10,000,000 3 # 质押了10TRX，获取了10单位TRON Power(TP)
 votewitness witness1 4 witness2 6 # 同时给witness1投了4票，给witness2投了6票
 votewitness witness1 3 witness2 7 # 同时给witness1投了3票，给witness2投了7票
 ```
@@ -599,31 +599,31 @@ function assignAddress() public view {
 
 #### 5.3.1 Energy的获取
 
-冻结获取Energy，即将持有的trx锁定，无法进行交易，作为抵押，并以此获得免费使用Energy的权利。具体计算与全网所有账户冻结有关，可参考相关部分计算。
+质押获取Energy，即将持有的trx锁定，无法进行交易，作为抵押，并以此获得免费使用Energy的权利。具体计算与全网所有账户质押有关，可参考相关部分计算。
 
-##### FreezeBalance 冻结获得能量
+##### FreezeBalance 质押获得能量
 
 ```shell
 freezeBalance frozen_balance frozen_duration [ResourceCode:0 BANDWIDTH,1 ENERGY]
 ```
 
-通过冻结TRX获取的Energy， 额度 = 为获取Energy冻结的TRX / 整个网络为获取Energy冻结的TRX 总额 * 50_000_000_000。
-也就是所有用户按冻结TRX平分固定额度的Energy。
+通过质押TRX获取的Energy， 额度 = 为获取Energy质押的TRX / 整个网络为获取Energy质押的TRX 总额 * 50_000_000_000。
+也就是所有用户按质押TRX平分固定额度的Energy。
 
 示例：
 
 ```text
-如全网只有两个人A，B分别冻结2TRX，2TRX。
+如全网只有两个人A，B分别质押2TRX，2TRX。
 
-二人冻结获得的可用Energy分别是
+二人质押获得的可用Energy分别是
 
 A: 25_000_000_000 且energy_limit 为25_000_000_000
 
 B: 25_000_000_000 且energy_limit 为25_000_000_000
 
-当第三人C冻结1TRX时。
+当第三人C质押1TRX时。
 
-三人冻结获得的可用Energy调整为
+三人质押获得的可用Energy调整为
 
 A: 20_000_000_000 且energy_limit调整为20_000_000_000
 
@@ -642,7 +642,7 @@ B: 10_000_000_000 且energy_limit 为10_000_000_000
 ```text
 在某一时刻A的Energy已使用量为72_000_000 Energy
 
-在没有其他消耗或冻结的操作下：
+在没有其他消耗或质押的操作下：
 
 一小时后A的Energy已使用量为 72_000_000 - (72_000_000 * (60*60/60*60*24)) Energy = 69_000_000 Energy
 
@@ -677,7 +677,7 @@ B: 10_000_000_000 且energy_limit 为10_000_000_000
 下面将以一个合约C的执行，来具体举例，如何估算feeLimit：
 
 + 假设合约C上一次成功执行时，消耗了18000 Energy，那么预估本次执行消耗的Energy上限为20000 Energy；[3]
-+ 冻结trx时，当前全网用于CPU冻结的TRX总量和Energy总量的比值，假设是冻结1 trx，可以获得400 Energy；
++ 质押trx时，当前全网用于CPU质押的TRX总量和Energy总量的比值，假设是质押1 trx，可以获得400 Energy；
 + 燃烧trx时，1 trx固定可以兑换10000 Energy；[4]
 + 假设开发者承诺承担90%的Energy，而且开发者账户有充足的Energy；
 
@@ -720,15 +720,15 @@ B: 10_000_000_000 且energy_limit 为10_000_000_000
 下面具体举例，详细描述合约可用Energy的计算方法。
 
 **示例1**
-如果一个账户A的balance是 100 TRX(100000000 SUN)，冻结 10 TRX 获得了100000 Energy，未冻结的balance是 90 TRX。
+如果一个账户A的balance是 100 TRX(100000000 SUN)，质押 10 TRX 获得了100000 Energy，未质押的balance是 90 TRX。
 有一个合约C设置的消耗调用者资源的比例是100%，也就是完全由调用者支付所需资源。
 此时A调用了合约C，填写的feeLimit是 30000000(单位是SUN, 30 TRX)。
 那么A此次调用能够使用的Energy是由两部分计算出来的：
 
-+ A冻结剩余的Energy
-这部分的价格是根据账户A当前冻结的TRX和当前冻结所获得的Energy总量按比例计算出来的，也就是：1 Energy = (10 / 100000) TRX，还剩100000 Energy，价值10 TRX，小于feeLimit，则能获得所有的100000 Energy，价值的10 TRX算进feeLimit中。
++ A质押剩余的Energy
+这部分的价格是根据账户A当前质押的TRX和当前质押所获得的Energy总量按比例计算出来的，也就是：1 Energy = (10 / 100000) TRX，还剩100000 Energy，价值10 TRX，小于feeLimit，则能获得所有的100000 Energy，价值的10 TRX算进feeLimit中。
 + 按照固定比例换算出来的Energy
-如果feeLimit大于冻结剩余Energy价值的TRX，那么需要使用balance中的TRX来换算。固定比例是： 1 Energy = 100 SUN, feeLimit还有(30 - 10) TRX = 20 TRX，获得的Energy是 20 TRX / 100 SUN = 200000 Energy
+如果feeLimit大于质押剩余Energy价值的TRX，那么需要使用balance中的TRX来换算。固定比例是： 1 Energy = 100 SUN, feeLimit还有(30 - 10) TRX = 20 TRX，获得的Energy是 20 TRX / 100 SUN = 200000 Energy
 
 所以，A此次调用能够使用的Energy是 (100000 + 200000) = 300000 Energy
 
@@ -737,18 +737,18 @@ B: 10_000_000_000 且energy_limit 为10_000_000_000
 Assert-style异常的介绍详见[异常介绍](https://github.com/tronprotocol/Documentation/blob/master/%E4%B8%AD%E6%96%87%E6%96%87%E6%A1%A3/%E8%99%9A%E6%8B%9F%E6%9C%BA/%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86.md)
 
 **示例2**
-如果一个账户A的balance是 100 TRX(100000000 SUN)，冻结 10 TRX 获得了100000 Energy，未冻结的balance是 90 TRX。
+如果一个账户A的balance是 100 TRX(100000000 SUN)，质押 10 TRX 获得了100000 Energy，未质押的balance是 90 TRX。
 有一个合约C设置的消耗调用者资源的比例是40%，也就是由合约开发者支付所需资源的60%。
-开发者是D，冻结 50 TRX 获得了500000 Energy。
+开发者是D，质押 50 TRX 获得了500000 Energy。
 此时A调用了合约C，填写的feeLimit是 200000000(单位是SUN, 200 TRX)。
 那么A此次调用能够使用的Energy是于以下三部分相关：
 
-+ 调用者A冻结剩余的Energy（X Energy）
-这部分的价格是根据账户A当前冻结的TRX和当前冻结所获得的Energy总量按比例计算出来的，也就是：1 Energy = (10 / 100000) TRX，还剩100000 Energy，价值10 TRX，小于剩下的feeLimit，则能获得所有的100000 Energy，价值的10 TRX算进feeLimit中。
++ 调用者A质押剩余的Energy（X Energy）
+这部分的价格是根据账户A当前质押的TRX和当前质押所获得的Energy总量按比例计算出来的，也就是：1 Energy = (10 / 100000) TRX，还剩100000 Energy，价值10 TRX，小于剩下的feeLimit，则能获得所有的100000 Energy，价值的10 TRX算进feeLimit中。
 + 从调用者A的balance中，按照固定比例换算出来的Energy （Y Energy）
 如果feeLimit大于1和2的和，那么需要使用A的balance中的TRX来换算。固定比例是： 1 Energy = 100 SUN, feeLimit还有(200 - 10)TRX = 190 TRX，但是A的balance只有90 TRX，按照min(190 TRX, 90 TRX) = 90 TRX来计算获得的Energy，即为 90 TRX / 100 SUN = 900000 Energy
-+ 开发者D冻结剩余的Energy (Z Energy)
-开发者D冻结剩余500000 Energy。
++ 开发者D质押剩余的Energy (Z Energy)
+开发者D质押剩余500000 Energy。
 
 会出现以下两种情况：
 当(X + Y) / 40% >= Z / 60%，A此次调用能够使用的Energy是 X + Y + Z Energy。
@@ -764,7 +764,7 @@ Assert-style异常的介绍详见[异常介绍](https://github.com/tronprotocol/
 
 注意：
 开发者创建合约的时候，consume_user_resource_percent不要设置成0，也就是开发者自己承担所有资源消耗。
-开发者自己承担所有资源消耗，意味着当发生了Assert-style异常时，会消耗开发者冻结的所有Energy。
+开发者自己承担所有资源消耗，意味着当发生了Assert-style异常时，会消耗开发者质押的所有Energy。
 Assert-style异常的介绍详见[异常介绍](https://github.com/tronprotocol/Documentation/blob/master/%E4%B8%AD%E6%96%87%E6%96%87%E6%A1%A3/%E8%99%9A%E6%8B%9F%E6%9C%BA/%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86.md)
 
 为避免造成不必要的损失consume_user_resource_percent建议值是10-100。
@@ -984,7 +984,7 @@ description是token说明，需要是hexString格式
 url是token发行方的官网，需要是hexString格式
 free_asset_net_limit是Token的总的免费带宽
 public_free_asset_net_limit是每个token拥护者能使用本token的免费带
-frozen_supply是token发行者可以在发行的时候指定冻结的token
+frozen_supply是token发行者可以在发行的时候指定质押的token
 
 返回值：发行Token的Transaction
 ```
@@ -1053,14 +1053,14 @@ TRON网络引入了Bandwidth point 和 Energy 两种资源概念。其中Bandwid
 
 如一条交易的字节数组长度为200，那么该交易需要消耗200 Bandwidth Points。
 
-**注意** 由于网络中总冻结资金以及账户的冻结资金随时可能发生变化，因此账户拥有的Bandwidth Points不是固定值。
+**注意** 由于网络中总质押资金以及账户的质押资金随时可能发生变化，因此账户拥有的Bandwidth Points不是固定值。
 
 #### 8.2.1 Bandwidth Points的来源
 
 Bandwidth Points的获取分两种：
 
-+ 通过冻结TRX获取的Bandwidth Points， 额度 = 为获取Bandwidth Points冻结的TRX / 整个网络为获取Bandwidth Points冻结的TRX 总额 * 43_200_000_000。
-也就是所有用户按冻结TRX平分固定额度的Bandwidth Points。
++ 通过质押TRX获取的Bandwidth Points， 额度 = 为获取Bandwidth Points质押的TRX / 整个网络为获取Bandwidth Points质押的TRX 总额 * 43_200_000_000。
+也就是所有用户按质押TRX平分固定额度的Bandwidth Points。
 
 + 每个账号每天有固定免费额度的带宽，为5000。
 
@@ -1076,15 +1076,15 @@ Bandwidth Points是一个账户1天内能够使用的总字节数。一定时间
 
 如果交易需要创建新账户，Bandwidth Points消耗如下：
 
-1. 尝试消耗交易发起者冻结获取的Bandwidth Points。如果交易发起者Bandwidth Points不足，则进入下一步
+1. 尝试消耗交易发起者质押获取的Bandwidth Points。如果交易发起者Bandwidth Points不足，则进入下一步
 
 2. 尝试消耗交易发起者的TRX，这部分烧掉0.1TRX
 
 如果交易是Token转账，Bandwidth Points消耗如下：
 
-1. 依次验证 发行Token资产总的免费Bandwidth Points是否足够消耗，转账发起者的Token剩余免费Bandwidth Points是否足够消耗，Token发行者冻结TRX获取Bandwidth Points剩余量是否足够消耗。如果满足则扣除Token发行者的Bandwidth Points，任意一个不满足则进入下一步
+1. 依次验证 发行Token资产总的免费Bandwidth Points是否足够消耗，转账发起者的Token剩余免费Bandwidth Points是否足够消耗，Token发行者质押TRX获取Bandwidth Points剩余量是否足够消耗。如果满足则扣除Token发行者的Bandwidth Points，任意一个不满足则进入下一步
 
-2. 尝试消耗交易发起者冻结获取的Bandwidth Points。如果交易发起者Bandwidth Points不足，则进入下一步
+2. 尝试消耗交易发起者质押获取的Bandwidth Points。如果交易发起者Bandwidth Points不足，则进入下一步
 
 3. 尝试消耗交易发起者的免费Bandwidth Points。如果免费Bandwidth Points也不足，则进入下一步
 
@@ -1092,7 +1092,7 @@ Bandwidth Points是一个账户1天内能够使用的总字节数。一定时间
 
 如果交易普通交易，Bandwidth Points消耗如下：
 
-1. 尝试消耗交易发起者冻结获取的Bandwidth Points。如果交易发起者Bandwidth Points不足，则进入下一步
+1. 尝试消耗交易发起者质押获取的Bandwidth Points。如果交易发起者Bandwidth Points不足，则进入下一步
 
 2. 尝试消耗交易发起者的免费Bandwidth Points。如果免费Bandwidth Points也不足，则进入下一步
 
@@ -1112,9 +1112,9 @@ Bandwidth Points是一个账户1天内能够使用的总字节数。一定时间
 
 ### 8.4 资源委托（resource delegate）
 
-在TRON中，一个账户可以通过冻结TRX来获取带宽和能量。同时，也可以把冻结TRX获取的带宽或者能量委托（delegate）给其他地址。
-此时，主账号拥有冻结的TRX以及相应的投票权，受委托账户拥有冻结获取的资源（带宽或者能量）。
-和普通冻结一样，委托资源也至少冻结3天。
+在TRON中，一个账户可以通过质押TRX来获取带宽和能量。同时，也可以把质押TRX获取的带宽或者能量委托（delegate）给其他地址。
+此时，主账号拥有质押的TRX以及相应的投票权，受委托账户拥有质押获取的资源（带宽或者能量）。
+和普通质押一样，委托资源也至少质押3天。
 
 资源委托的命令如下：
 
@@ -1122,8 +1122,8 @@ Bandwidth Points是一个账户1天内能够使用的总字节数。一定时间
   freezeBalance frozen_balance frozen_duration [ResourceCode:0 BANDWIDTH,1 ENERGY] [receiverAddress]
 ```
 
-frozen_balance是冻结的TRX数量（单位为sun），
-frozen_duration为冻结的天数（目前固定为3天），
+frozen_balance是质押的TRX数量（单位为sun），
+frozen_duration为质押的天数（目前固定为3天），
 ResourceCode表示要获取的资源是带宽还是能量，
 receiverAddress表示受委托账户的地址，
 
