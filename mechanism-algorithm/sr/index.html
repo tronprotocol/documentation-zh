@@ -325,14 +325,14 @@
 <p>投票统计每6小时统计一次，超级代表也就每6个小时变更一次。</p>
 <p>为了防止恶意攻击，成为超级代表候选人也需要一定代价的。TRON网络将直接烧掉申请者账户9999TRX。申请成功后，您就可以竞选超级代表了。</p>
 <h2 id="2">2. 选举超级代表<a class="headerlink" href="#2" title="Permanent link">&para;</a></h2>
-<p>投票需要TRON Power(TP)，你的TRON Power(TP)的多少由当前冻结资金决定。TRON Power(TP)的计算方法：每冻结1TRX，就可以获得1单位TRON Power(TP)。</p>
+<p>投票需要TRON Power(TP)，你的TRON Power(TP)的多少由当前质押资金决定。TRON Power(TP)的计算方法：每质押1TRX，就可以获得1单位TRON Power(TP)。</p>
 <p>TRON网络中的每一个账户都具有选举权，可以通过投票选出自己认同的超级代表了。</p>
-<p>在解冻后，你没有了冻结的资产，相应地失去了所有的TRON Power(TP)，因此以前的投票会失效。你可以通过重新冻结并投票来避免投票失效。</p>
+<p>在解锁后，你没有了质押的资产，相应地失去了所有的TRON Power(TP)，因此以前的投票会失效。你可以通过重新质押并投票来避免投票失效。</p>
 <p>注意: 波场网络只记录你最后一次投票的状态，也就是说你的每一次投票都会覆盖以前所有的投票效果</p>
 <ul>
 <li>示例：</li>
 </ul>
-<div class="highlight"><pre><span></span><code>freezebalance <span class="m">10</span>,000,000 <span class="m">3</span> <span class="c1"># 冻结了10TRX，获取了10单位TRON Power(TP)</span>
+<div class="highlight"><pre><span></span><code>freezebalance <span class="m">10</span>,000,000 <span class="m">3</span> <span class="c1"># 质押了10TRX，获取了10单位TRON Power(TP)</span>
 votewitness witness1 <span class="m">4</span> witness2 <span class="m">6</span> <span class="c1"># 同时给witness1投了4票，给witness2投了6票</span>
 votewitness witness1 <span class="m">3</span> witness2 <span class="m">7</span> <span class="c1"># 同时给witness1投了3票，给witness2投了7票</span>
 </code></pre></div>

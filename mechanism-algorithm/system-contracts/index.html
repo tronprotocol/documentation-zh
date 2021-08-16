@@ -146,13 +146,13 @@
         
             <li><a class="toctree-l4" href="#9-accountupdatecontract">9.更新账户 AccountUpdateContract</a></li>
         
-            <li><a class="toctree-l4" href="#10-freezebalancecontract">10.冻结资产 FreezeBalanceContract</a></li>
+            <li><a class="toctree-l4" href="#10-freezebalancecontract">10.质押资产 FreezeBalanceContract</a></li>
         
-            <li><a class="toctree-l4" href="#11-unfreezebalancecontract">11.解冻资产 UnfreezeBalanceContract</a></li>
+            <li><a class="toctree-l4" href="#11-unfreezebalancecontract">11.资产 UnfreezeBalanceContract</a></li>
         
             <li><a class="toctree-l4" href="#12-withdrawbalancecontract">12.提取奖励 WithdrawBalanceContract</a></li>
         
-            <li><a class="toctree-l4" href="#13token-unfreezeassetcontract">13.解冻发布的Token UnfreezeAssetContract</a></li>
+            <li><a class="toctree-l4" href="#13token-unfreezeassetcontract">13.解锁发布的Token UnfreezeAssetContract</a></li>
         
             <li><a class="toctree-l4" href="#14-updateassetcontract">14.更新通证参数 UpdateAssetContract</a></li>
         
@@ -453,7 +453,7 @@
    <code>name</code>：发布Token的名称。
    <code>abbr</code>：Token缩写。
    <code>total_supply</code>：发行总的token数量。
-   <code>frozen_supply</code>：冻结Token的数量和冻结时间列表。
+   <code>frozen_supply</code>：质押Token的数量和质押时间列表。
    <code>trx_num</code>：对应TRX数量。
    <code>num</code>： 对应的自定义资产数目。
    <code>start_time</code>：ICO开始时间。
@@ -495,7 +495,7 @@
 </code></pre></div>
 <p><code>owner_address</code>：合约持有人地址。
    <code>account_name</code>： 账户名称。</p>
-<h2 id="10-freezebalancecontract">10.冻结资产 FreezeBalanceContract<a class="headerlink" href="#10-freezebalancecontract" title="Permanent link">&para;</a></h2>
+<h2 id="10-freezebalancecontract">10.质押资产 FreezeBalanceContract<a class="headerlink" href="#10-freezebalancecontract" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code>      <span class="kd">message</span> <span class="nc">FreezeBalanceContract</span> <span class="p">{</span>
        <span class="kt">bytes</span> <span class="na">owner_address</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
        <span class="kt">int64</span> <span class="na">frozen_balance</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
@@ -505,11 +505,11 @@
      <span class="p">}</span>
 </code></pre></div>
 <p><code>owner_address</code>：合约持有人地址。
-   <code>frozen_balance</code>：冻结资产的数量。
-   <code>frozen_duration</code>：冻结资产的时间段。
-   <code>resource</code>： 冻结TRX获取资源的类型。
+   <code>frozen_balance</code>：质押资产的数量。
+   <code>frozen_duration</code>：质押资产的时间段。
+   <code>resource</code>： 质押TRX获取资源的类型。
    <code>receiver_address</code>：接收资源的账户。</p>
-<h2 id="11-unfreezebalancecontract">11.解冻资产 UnfreezeBalanceContract<a class="headerlink" href="#11-unfreezebalancecontract" title="Permanent link">&para;</a></h2>
+<h2 id="11-unfreezebalancecontract">11.资产 UnfreezeBalanceContract<a class="headerlink" href="#11-unfreezebalancecontract" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code>      <span class="kd">message</span> <span class="nc">UnfreezeBalanceContract</span> <span class="p">{</span>
        <span class="kt">bytes</span> <span class="na">owner_address</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
        <span class="n">ResourceCode</span> <span class="na">resource</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
@@ -517,7 +517,7 @@
      <span class="p">}</span>
 </code></pre></div>
 <p><code>owner_address</code>：合约持有人地址。
-   <code>resource</code>： 解冻资源的类型。
+   <code>resource</code>： 解锁资源的类型。
    <code>receiver_address</code>：接收资源的账户。</p>
 <h2 id="12-withdrawbalancecontract">12.提取奖励 WithdrawBalanceContract<a class="headerlink" href="#12-withdrawbalancecontract" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code>      <span class="kd">message</span> <span class="nc">WithdrawBalanceContract</span> <span class="p">{</span>
@@ -525,7 +525,7 @@
      <span class="p">}</span>
 </code></pre></div>
 <p><code>owner_address</code>：合约持有人地址。</p>
-<h2 id="13token-unfreezeassetcontract">13.解冻发布的Token UnfreezeAssetContract<a class="headerlink" href="#13token-unfreezeassetcontract" title="Permanent link">&para;</a></h2>
+<h2 id="13token-unfreezeassetcontract">13.解锁发布的Token UnfreezeAssetContract<a class="headerlink" href="#13token-unfreezeassetcontract" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code>      <span class="kd">message</span> <span class="nc">UnfreezeAssetContract</span> <span class="p">{</span>
        <span class="kt">bytes</span> <span class="na">owner_address</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
      <span class="p">}</span>

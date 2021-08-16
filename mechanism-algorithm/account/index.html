@@ -330,7 +330,7 @@
 <p>通过调用CreateAccount内置合约，完成创建账户</p>
 </li>
 </ol>
-<p>如果账户有足够的通过冻结TRX获得的带宽，那么创建账户只会消耗带宽，否则，创建账户会烧掉0.1个TRX。</p>
+<p>如果账户有足够的通过质押TRX获得的带宽，那么创建账户只会消耗带宽，否则，创建账户会烧掉0.1个TRX。</p>
 <h2 id="_4">生成密钥对算法<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
 <p>Tron的签名算法为ECDSA，选用曲线为SECP256K1。其私钥为一个随机数，公钥为椭圆曲线上一个点。生成过程为，首先生成一个随机数d作为私钥，再计算P = d * G作为公钥；其中G为椭圆曲线的基点。</p>
 <h2 id="_5">地址格式说明<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>

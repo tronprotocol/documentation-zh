@@ -755,7 +755,7 @@ asset <span class="o">{</span>
 <span class="o">(</span>You can query the trx balance and other asset balances <span class="k">for</span> any account <span class="o">)</span>
 TransferAsset <span class="m">123456</span> 649DDB4AB82D558AD6809C7AB2BA43D1D1054B3F testAssetIssue00001 <span class="m">10000</span>
 </code></pre></div>
-<h3 id="trx">如何冻结/解冻TRX<a class="headerlink" href="#trx" title="Permanent link">&para;</a></h3>
+<h3 id="trx">如何质押/解锁TRX<a class="headerlink" href="#trx" title="Permanent link">&para;</a></h3>
 <p>示例:</p>
 <div class="highlight"><pre><span></span><code>freezeBalance frozen_balance frozen_duration [ResourceCode:0 BANDWIDTH, 1 ENERGY] [receiverAddress]
 
@@ -766,9 +766,9 @@ frozen_duration: Freeze time, this value is currently only allowed for 3 days
 
 unfreezeBalance  [ResourceCode:0 BANDWIDTH, 1 ENERGY] [receiverAddress]
 </code></pre></div>
-<p>通过冻结TRX可以获取带宽或者能量。</p>
+<p>通过质押TRX可以获取带宽或者能量。</p>
 <h3 id="_7">如何投票<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
-<p>每一个冻结的TRX代表一个投票权</p>
+<p>每一个质押的TRX代表一个投票权</p>
 <p><strong>注意：</strong> 波场网络只会统计你的最近一次的投票。</p>
 <p>示例：</p>
 <div class="highlight"><pre><span></span><code>VoteWitness Address0 Count0 ... AddressN CountN
@@ -918,8 +918,8 @@ assetV2
 ...
 <span class="o">}</span>
 </code></pre></div>
-<p>e. 解冻TRC-10通证</p>
-<p>只有过了冻结期后，才能解冻。</p>
+<p>e. 解锁TRC-10通证</p>
+<p>只有过了质押期后，才能解锁。</p>
 <p>UnfreezeAsset</p>
 <p>f. 获得TRC-10通证的信息</p>
 <p>ListAssetIssue:
@@ -1789,13 +1789,13 @@ memo:test1
 <h3 id="_13">使用资源委托<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h3>
 <p>a. 委托资源</p>
 <p>freezeBalance frozen_balance frozen_duration [ResourceCode:0 BANDWIDTH,1 ENERGY] [receiverAddress]
-frozen_balance: 冻结的TRX数目，最小单位为SUN
-frozen_duration: 冻结天数
+frozen_balance: 质押的TRX数目，最小单位为SUN
+frozen_duration: 质押天数
 ResourceCode: 0 BANDWIDTH;1 ENERGY
-receiverAddress: 接收方地址。如果为空，则自己获得冻结TRX所获得的资源</p>
+receiverAddress: 接收方地址。如果为空，则自己获得质押TRX所获得的资源</p>
 <p>b. 解除资源委托</p>
 <p>unfreezeBalance  [ResourceCode:0 BANDWIDTH,1 CPU] [receiverAddress]
-receiverAddress: 接收方地址。如果为空，则解除自己获得的冻结TRX所获得的资源</p>
+receiverAddress: 接收方地址。如果为空，则解除自己获得的质押TRX所获得的资源</p>
 <p>c. 查询资源委托信息</p>
 <p>getDelegatedResource fromAddress toAddress
 查询从fromAddress代理给toAddress的资源信息
