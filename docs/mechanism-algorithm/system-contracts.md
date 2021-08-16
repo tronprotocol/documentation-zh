@@ -108,7 +108,7 @@
    `name`：发布Token的名称。
    `abbr`：Token缩写。
    `total_supply`：发行总的token数量。
-   `frozen_supply`：冻结Token的数量和冻结时间列表。
+   `frozen_supply`：质押Token的数量和质押时间列表。
    `trx_num`：对应TRX数量。
    `num`： 对应的自定义资产数目。
    `start_time`：ICO开始时间。
@@ -163,7 +163,7 @@
    `owner_address`：合约持有人地址。
    `account_name`： 账户名称。
 
-## 10.冻结资产 FreezeBalanceContract
+## 10.质押资产 FreezeBalanceContract
 
 ```protobuf
       message FreezeBalanceContract {
@@ -176,12 +176,12 @@
 ```
 
    `owner_address`：合约持有人地址。
-   `frozen_balance`：冻结资产的数量。
-   `frozen_duration`：冻结资产的时间段。
-   `resource`： 冻结TRX获取资源的类型。
+   `frozen_balance`：质押资产的数量。
+   `frozen_duration`：质押资产的时间段。
+   `resource`： 质押TRX获取资源的类型。
    `receiver_address`：接收资源的账户。
 
-## 11.解冻资产 UnfreezeBalanceContract
+## 11.资产 UnfreezeBalanceContract
 
 ```protobuf
       message UnfreezeBalanceContract {
@@ -192,7 +192,7 @@
 ```
 
    `owner_address`：合约持有人地址。
-   `resource`： 解冻资源的类型。
+   `resource`： 解锁资源的类型。
    `receiver_address`：接收资源的账户。
 
 ## 12.提取奖励 WithdrawBalanceContract
@@ -205,7 +205,7 @@
 
    `owner_address`：合约持有人地址。
 
-## 13.解冻发布的Token UnfreezeAssetContract
+## 13.解锁发布的Token UnfreezeAssetContract
 
 ```protobuf
       message UnfreezeAssetContract {

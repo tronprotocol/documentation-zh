@@ -545,7 +545,7 @@ description是token说明，默认为hexString格式
 url 是token发行方的官网，默认为hexString格式
 free_asset_net_limit是Token的总的免费带宽
 public_free_asset_net_limit 是每个token拥护者能使用本token的免费带宽
-frozen_supply是token发行者可以在发行的时候指定冻结的token
+frozen_supply是token发行者可以在发行的时候指定质押的token
 可选参数Permission_id，多重签名时使用，设置交易多重签名时使用的permissionId
 返回值：
 发行Token的Transaction
@@ -649,7 +649,7 @@ asset_name是token的名称，默认为hexString格式
 - 当前的asset_name为token名称。当委员会通过AllowSameTokenName提议后asset_name改为token ID的String类型。
 
 wallet/freezebalance
-作用：冻结trx，获取带宽，获取投票权
+作用：质押trx，获取带宽，获取投票权
 demo：curl -X POST http://127.0.0.1:8090/wallet/freezebalance -d '{
 "owner_address":"41e472f387585c2b58bc2c9bb4492bc1f17342cd1",
 "frozen_balance": 10000,
@@ -658,39 +658,39 @@ demo：curl -X POST http://127.0.0.1:8090/wallet/freezebalance -d '{
 "receiver_address":"414332f387585c2b58bc2c9bb4492bc1f17342cd1"
 }'
 参数说明：
-owner_address是冻结trx账号的地址，默认为hexString格式
-frozen_balance是冻结trx的数量
-frozen_duration是冻结天数，最少是3天
-resource: 冻结trx获取资源的类型(可以是BANDWIDTH或者ENERGY，BANDWIDTH为带宽，ENERGY为虚拟机消耗资源)
+owner_address是质押trx账号的地址，默认为hexString格式
+frozen_balance是质押trx的数量
+frozen_duration是质押天数，最少是3天
+resource: 质押trx获取资源的类型(可以是BANDWIDTH或者ENERGY，BANDWIDTH为带宽，ENERGY为虚拟机消耗资源)
 receiverAddress表示受委托账户的地址，默认为hexString格式
 可选参数Permission_id，多重签名时使用，设置交易多重签名时使用的permissionId
-返回值：冻结trx的transaction
+返回值：质押trx的transaction
 【注意】资源委托功能需要委员会开启
 
 wallet/unfreezebalance
-作用：解冻已经结束冻结期的trx，会同时失去这部分trx带来的带宽和投票权
+作用：解锁已经结束质押期的trx，会同时失去这部分trx带来的带宽和投票权
 demo：curl -X POST http://127.0.0.1:8090/wallet/unfreezebalance -d '{
 "owner_address":"41e472f387585c2b58bc2c9bb4492bc1f17342cd1",
 "resource": "BANDWIDTH",
 "receiver_address":"414332f387585c2b58bc2c9bb4492bc1f17342cd1"
 }'
 参数说明：
-owner_address是解冻trx账号的地址，默认为hexString格式
+owner_address是解锁trx账号的地址，默认为hexString格式
 resource可以是BANDWIDTH或者ENERGY
 receiverAddress表示受委托账户的地址，默认为hexString格式
 可选参数Permission_id，多重签名时使用，设置交易多重签名时使用的permissionId
-返回值：解冻trx的transaction
+返回值：解锁trx的transaction
 【注意】资源委托功能需要委员会开启
 
 wallet/unfreezeasset
-作用：解冻已经结束冻结期的Token
+作用：解锁已经结束质押期的Token
 demo：curl -X POST http://127.0.0.1:8090/wallet/unfreezeasset -d '{
 "owner_address":"41e472f387585c2b58bc2c9bb4492bc1f17342cd1",
 }'
 参数说明：
-owner_address是解冻token账号的地址，默认为hexString格式
+owner_address是解锁token账号的地址，默认为hexString格式
 可选参数Permission_id，多重签名时使用，设置交易多重签名时使用的permissionId
-返回值：解冻token的transaction
+返回值：解锁token的transaction
 
 wallet/withdrawbalance
 作用：超级代表提现奖励到balance，每24个小时可以提现一次

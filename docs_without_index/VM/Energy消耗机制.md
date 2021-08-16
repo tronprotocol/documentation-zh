@@ -9,11 +9,11 @@
 
     Energy   : 智能合约运行时每一步指令都需要消耗一定的资源，资源的多少用energy的值来衡量。
 
-    Freeze   : 冻结，即将持有的trx锁定，无法进行交易，作为抵押，并以此获得免费使用energy的权利。
-               具体计算与全网所有账户冻结有关，可参考相关部分计算。
+    Freeze   : 质押，即将持有的trx锁定，无法进行交易，作为抵押，并以此获得免费使用energy的权利。
+               具体计算与全网所有账户质押有关，可参考相关部分计算。
 
-    Feelimit : 用户在调用或者创建智能合约时，指定的最高可接受的trx费用消耗，包含消耗冻结获得资源的trx
-               和消耗用户本身持有的trx两部分，优先使用冻结资源。
+    Feelimit : 用户在调用或者创建智能合约时，指定的最高可接受的trx费用消耗，包含消耗质押获得资源的trx
+               和消耗用户本身持有的trx两部分，优先使用质押资源。
 
     CallValue: 用户在智能合约调用或创建时给智能合约本身的账户转账的trx数量，在判断feelimit的时候会抛去这部分的值。
 
@@ -30,9 +30,9 @@
 
 顺序如下：
 
-1. 按照合约中设置的比例消耗合约创建者冻结的Energy，若不足优先扣除合约创建者剩余所有Energy,剩余消耗需调用者提供
-1. 调用者消耗顺序（优先消耗调用者冻结获取的Energy，为保证合约可正常执行，不足部分通过销毁TRX相抵）
-1. 若创建者无冻结Energy资源，则所有消耗需调用者提供
+1. 按照合约中设置的比例消耗合约创建者质押的Energy，若不足优先扣除合约创建者剩余所有Energy,剩余消耗需调用者提供
+1. 调用者消耗顺序（优先消耗调用者质押获取的Energy，为保证合约可正常执行，不足部分通过销毁TRX相抵）
+1. 若创建者无质押Energy资源，则所有消耗需调用者提供
 
 ### 相关接口
 
@@ -59,7 +59,7 @@ net_fee: //本次合约因Bandwidth不足消耗的TRX
 0
 ```
 
-#### FreezeBalance 冻结获得带宽或能量
+#### FreezeBalance 质押获得带宽或能量
 
 ```shell
 freezeBalance frozen_balance frozen_duration [ResourceCode:0 BANDWIDTH,1 ENERGY]
@@ -74,7 +74,7 @@ freezeBalance frozen_balance frozen_duration [ResourceCode:0 BANDWIDTH,1 ENERGY]
 对应关系：
 
 ```text
-已冻结Energy部分：(冻结的balance数量/冻结获得总共的Energy)*消耗Energy数量
+已质押Energy部分：(质押的balance数量/质押获得总共的Energy)*消耗Energy数量
 销毁TRX获得Energy部分：按照比例消耗的TRX数量
 ```
 
