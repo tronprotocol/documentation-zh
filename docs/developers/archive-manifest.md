@@ -15,7 +15,7 @@
 
 此工具提供了归整manifest 功能
 
-- `-b | --batch-size`: [ int ]  此选项用于指定批处理manifest 大小,默认值：80000。
+- `-b | --batch-size`: [ int ]  此选项用于指定 优化 manifest时一次批处理大小,默认值：80000。
 - `-d | --database-directory`: [ string ]  此选项用于指定FullNode数据库父级目录,默认值：output-directory/database。
 - `-m | --manifest-size`: [ int ] 此选项用于指定最小需要批处理manifest 文件大小低于此值，不进行处理，单位M，默认值：0。
 - `-h | --help`: [ bool ]  此选项用于查看帮助，默认值：false。
@@ -28,7 +28,7 @@
 
 ### 使用步骤
 
-- 1. 确保 FullNode 服务停止。
+- 1. 停止FullNode 服务。
 - 2. 执行 ArchiveManifest 插件。
 - 3. 启动 FullNode 服务。
 
@@ -37,13 +37,41 @@
 ### 使用说明
 
 FullNode 运行之后，默认数据库目录：`output-directory`  ，优化插件会处理 `output-directory/database`目录。
+以下“单独使用” 和 “集成启动脚本” 这两种使用方式，开发者可以根据自己实际情况 任选一种即可。
 
 ####  1. 单独使用
 
-首先, 停止FullNode并执行命令:
+##### 步骤一： 停止FullNode 服务
+
+创建stop.sh文件，使用命令`kill -15`关闭java-tron.jar（或者FullNode.jar、SolidityNode.jar）。
+修改pid=`ps -ef |grep java-tron.jar |grep -v grep |awk '{print $2}'`来找到正确的pid。
 
 ```shell
-java -jar ArchiveManifest.jar [-b batchSize] [-d databaseDirectory] [-m manifestSize]
+#!/bin/bash
+while true; do
+  pid=`ps -ef |grep java-tron.jar |grep -v grep |awk '{print $2}'`
+  if [ -n "$pid" ]; then
+    kill -15 $pid
+    echo "The java-tron process is exiting, it may take some time, forcing the exit may cause damage to the database, please wait patiently..."
+    sleep 1
+  else
+    echo "java-tron killed successfully!"
+    break
+  fi
+done
+```
+
+##### 步骤二： 执行 ArchiveManifest 插件
+
+```shell
+#完整命令
+java -jar ArchiveManifest.jar -b batchSize -d databaseDirectory -m manifestSize
+#示例
+   java -jar ArchiveManifest.jar #1. 使用默认参数
+   java -jar ArchiveManifest.jar -d /tmp/db/database #2. 指定数据库目录为/tmp/db/database
+   java -jar ArchiveManifest.jar -b 64000 #3. 指定优化Manifest时，应用version时批处理大小为64000
+   java -jar ArchiveManifest.jar -m 128 #4. 指定当Manifest超过128M时，才进行优化处理
+
 ```
 
 命令执行完毕之后，将在`./logs`目录下生成`archive.log`日志, 可查看此次归整情况
@@ -52,7 +80,7 @@ java -jar ArchiveManifest.jar [-b batchSize] [-d databaseDirectory] [-m manifest
 >
 > `[main] [archive](ArchiveManifest.java:144) DatabaseDirectory:output-directory/database, maxManifestSize:0, maxBatchSize:80000,database reopen use 80 seconds total.`
 
-最后,启动停止FullNode服务
+##### 步骤三：启动 FullNode 服务
 
 #### 2. 集成启动脚本
 
@@ -218,11 +246,12 @@ startService() {
 
 }
 
-
+#1.停止 FullNode 服务
 stopService
 
 checkPath
 
+#2.执行 ArchiveManifest 插件
 if [[ 0 ==  $? ]] ; then
  rebuildManifest
 else
@@ -230,7 +259,7 @@ else
 fi
 
 sleep 5
-
+#3.启动 FullNode 服务
 startService
 ```
 启动示例
@@ -242,6 +271,14 @@ startService
 
 
 ```shell
+#完整命令
 ./start.sh [FullNode|SolidityNode] [--rewrite--manifest] [-b batchSize] [-d databaseDirectory] [-m manifestSize]
+#示例
+   ./start.sh # 1. 不使用插件，启动FullNode.jar 服务
+   ./start.sh SolidityNode #2. 不使用插件，启动SolidityNode.jar 服务
+   ./start.sh FullNode --rewrite--manifest  #3. 使用默认参数执行优化插件，并启动FullNode.jar 服务
+   ./start.sh --rewrite--manifest -d /tmp/db/database #4. 指定数据库目录为/tmp/db/database,执行优化插件， 并启动FullNode.jar 服务
+   ./start.sh --rewrite--manifest -b 64000 #5. 指定优化Manifest时，应用version时批处理大小为64000, 并启动FullNode.jar 服务
+   ./start.sh --rewrite--manifest -m 128 #6. 指定当Manifest超过128M时，才进行优化处理，并启动FullNode.jar 服务
 ```
 
