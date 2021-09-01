@@ -417,11 +417,11 @@ java -jar FullNode.jar -p 650950B193DDDDB35B6E48912DD28F7AB0E7140C1BFDEFD493348F
 <div class="highlight"><pre><span></span><code>12:00:40.691 INFO  [pool-17-thread-1] [o.t.p.SolidityNode](SolidityNode.java:88) sync solidity block, lastSolidityBlockNum:209671, remoteLastSolidityBlockNum:211823
 </code></pre></div>
 <h2 id="_5">优雅的停止节点<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
-<p>创建stop.sh文件，使用命令<code>kill -15</code>关闭java-tron.jar（或者FullNode.jar、SolidityNode.jar）。
-修改pid=<code>ps -ef |grep java-tron.jar |grep -v grep |awk '{print $2}'</code>来找到正确的pid。</p>
+<p>创建stop.sh文件，使用命令<code>kill -15</code>关闭FullNode.jar（或者SolidityNode.jar）。
+修改pid=<code>ps -ef |grep FullNode.jar |grep -v grep |awk '{print $2}'</code>来找到正确的pid。</p>
 <div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
 <span class="k">while</span> true<span class="p">;</span> <span class="k">do</span>
-  <span class="nv">pid</span><span class="o">=</span><span class="sb">`</span>ps -ef <span class="p">|</span>grep java-tron.jar <span class="p">|</span>grep -v grep <span class="p">|</span>awk <span class="s1">&#39;{print $2}&#39;</span><span class="sb">`</span>
+  <span class="nv">pid</span><span class="o">=</span><span class="sb">`</span>ps -ef <span class="p">|</span>grep FullNode.jar <span class="p">|</span>grep -v grep <span class="p">|</span>awk <span class="s1">&#39;{print $2}&#39;</span><span class="sb">`</span>
   <span class="k">if</span> <span class="o">[</span> -n <span class="s2">&quot;</span><span class="nv">$pid</span><span class="s2">&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
     <span class="nb">kill</span> -15 <span class="nv">$pid</span>
     <span class="nb">echo</span> <span class="s2">&quot;The java-tron process is exiting, it may take some time, forcing the exit may cause damage to the database, please wait patiently...&quot;</span>
