@@ -118,13 +118,13 @@ java -jar FullNode.jar -p 650950B193DDDDB35B6E48912DD28F7AB0E7140C1BFDEFD493348F
 
 ## 优雅的停止节点
 
-创建stop.sh文件，使用命令`kill -15`关闭java-tron.jar（或者FullNode.jar、SolidityNode.jar）。
-修改pid=`ps -ef |grep java-tron.jar |grep -v grep |awk '{print $2}'`来找到正确的pid。
+创建stop.sh文件，使用命令`kill -15`关闭FullNode.jar（或者SolidityNode.jar）。
+修改pid=`ps -ef |grep FullNode.jar |grep -v grep |awk '{print $2}'`来找到正确的pid。
 
 ```shell
 #!/bin/bash
 while true; do
-  pid=`ps -ef |grep java-tron.jar |grep -v grep |awk '{print $2}'`
+  pid=`ps -ef |grep FullNode.jar |grep -v grep |awk '{print $2}'`
   if [ -n "$pid" ]; then
     kill -15 $pid
     echo "The java-tron process is exiting, it may take some time, forcing the exit may cause damage to the database, please wait patiently..."
