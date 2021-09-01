@@ -43,23 +43,9 @@ FullNode 运行之后，默认数据库目录：`output-directory`  ，优化插
 
 ##### 步骤一： 停止FullNode 服务
 
-创建stop.sh文件，使用命令`kill -15`关闭java-tron.jar（或者FullNode.jar、SolidityNode.jar）。
-修改pid=`ps -ef |grep java-tron.jar |grep -v grep |awk '{print $2}'`来找到正确的pid。
+使用命令`kill -15`关闭FullNode.jar
+查找 pid `ps -ef |grep FullNode.jar |grep -v grep |awk '{print $2}'`。
 
-```shell
-#!/bin/bash
-while true; do
-  pid=`ps -ef |grep java-tron.jar |grep -v grep |awk '{print $2}'`
-  if [ -n "$pid" ]; then
-    kill -15 $pid
-    echo "The java-tron process is exiting, it may take some time, forcing the exit may cause damage to the database, please wait patiently..."
-    sleep 1
-  else
-    echo "java-tron killed successfully!"
-    break
-  fi
-done
-```
 
 ##### 步骤二： 执行 ArchiveManifest 插件
 
@@ -81,6 +67,13 @@ java -jar ArchiveManifest.jar -b batchSize -d databaseDirectory -m manifestSize
 > `[main] [archive](ArchiveManifest.java:144) DatabaseDirectory:output-directory/database, maxManifestSize:0, maxBatchSize:80000,database reopen use 80 seconds total.`
 
 ##### 步骤三：启动 FullNode 服务
+
+```shell
+ #FullNode
+nohup java -Xmx24g -XX:+UseConcMarkSweepGC -jar FullNode.jar -c main_net_config.conf </dev/null &>/dev/null &
+ #SR Node
+nohup java -Xmx24g -XX:+UseConcMarkSweepGC  -jar FullNode.jar  -p  private key --witness -c main_net_config.conf </dev/null &>/dev/null &
+```
 
 #### 2. 集成启动脚本
 
