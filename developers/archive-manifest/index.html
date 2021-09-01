@@ -322,7 +322,7 @@
 <h3 id="_3">插件选项<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
 <p>此工具提供了归整manifest 功能</p>
 <ul>
-<li><code>-b | --batch-size</code>: [ int ]  此选项用于指定批处理manifest 大小,默认值：80000。</li>
+<li><code>-b | --batch-size</code>: [ int ]  此选项用于指定 优化 manifest时一次批处理大小,默认值：80000。</li>
 <li><code>-d | --database-directory</code>: [ string ]  此选项用于指定FullNode数据库父级目录,默认值：output-directory/database。</li>
 <li><code>-m | --manifest-size</code>: [ int ] 此选项用于指定最小需要批处理manifest 文件大小低于此值，不进行处理，单位M，默认值：0。</li>
 <li><code>-h | --help</code>: [ bool ]  此选项用于查看帮助，默认值：false。</li>
@@ -338,7 +338,7 @@
 <ul>
 <li>
 <ol>
-<li>确保 FullNode 服务停止。</li>
+<li>停止FullNode 服务。</li>
 </ol>
 </li>
 <li>
@@ -356,17 +356,32 @@
 <p>Note: <code>步骤 ii</code> 不是每次必需，但是为了优化体验，建议每次执行。</p>
 </blockquote>
 <h3 id="_6">使用说明<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
-<p>FullNode 运行之后，默认数据库目录：<code>output-directory</code>  ，优化插件会处理 <code>output-directory/database</code>目录。</p>
+<p>FullNode 运行之后，默认数据库目录：<code>output-directory</code>  ，优化插件会处理 <code>output-directory/database</code>目录。
+以下“单独使用” 和 “集成启动脚本” 这两种使用方式，开发者可以根据自己实际情况 任选一种即可。</p>
 <h4 id="1">1. 单独使用<a class="headerlink" href="#1" title="Permanent link">&para;</a></h4>
-<p>首先, 停止FullNode并执行命令:</p>
-<div class="highlight"><pre><span></span><code>java -jar ArchiveManifest.jar <span class="o">[</span>-b batchSize<span class="o">]</span> <span class="o">[</span>-d databaseDirectory<span class="o">]</span> <span class="o">[</span>-m manifestSize<span class="o">]</span>
+<h5 id="fullnode">步骤一： 停止FullNode 服务<a class="headerlink" href="#fullnode" title="Permanent link">&para;</a></h5>
+<p>使用命令<code>kill -15</code>关闭FullNode.jar</p>
+<p>查找 pid: <code>ps -ef |grep FullNode.jar |grep -v grep |awk '{print $2}'</code>。</p>
+<h5 id="archivemanifest">步骤二： 执行 ArchiveManifest 插件<a class="headerlink" href="#archivemanifest" title="Permanent link">&para;</a></h5>
+<div class="highlight"><pre><span></span><code><span class="c1">#完整命令</span>
+java -jar ArchiveManifest.jar -b batchSize -d databaseDirectory -m manifestSize
+<span class="c1">#示例</span>
+   java -jar ArchiveManifest.jar <span class="c1">#1. 使用默认参数</span>
+   java -jar ArchiveManifest.jar -d /tmp/db/database <span class="c1">#2. 指定数据库目录为/tmp/db/database</span>
+   java -jar ArchiveManifest.jar -b <span class="m">64000</span> <span class="c1">#3. 指定优化Manifest时，应用version时批处理大小为64000</span>
+   java -jar ArchiveManifest.jar -m <span class="m">128</span> <span class="c1">#4. 指定当Manifest超过128M时，才进行优化处理</span>
 </code></pre></div>
 <p>命令执行完毕之后，将在<code>./logs</code>目录下生成<code>archive.log</code>日志, 可查看此次归整情况</p>
 <blockquote>
 <p>Note: 执行完成后，如果成功 日志会显示如下类似内容，运行一般在120s内，视FullNode服务持续运行时长决定，失败会有相应的错误信息</p>
 <p><code>[main] [archive](ArchiveManifest.java:144) DatabaseDirectory:output-directory/database, maxManifestSize:0, maxBatchSize:80000,database reopen use 80 seconds total.</code></p>
 </blockquote>
-<p>最后,启动停止FullNode服务</p>
+<h5 id="fullnode_1">步骤三：启动 FullNode 服务<a class="headerlink" href="#fullnode_1" title="Permanent link">&para;</a></h5>
+<div class="highlight"><pre><span></span><code> <span class="c1">#FullNode</span>
+nohup java -Xmx24g -XX:+UseConcMarkSweepGC -jar FullNode.jar -c main_net_config.conf &lt;/dev/null <span class="p">&amp;</span>&gt;/dev/null <span class="p">&amp;</span>
+ <span class="c1">#SR Node</span>
+nohup java -Xmx24g -XX:+UseConcMarkSweepGC  -jar FullNode.jar  -p  private key --witness -c main_net_config.conf &lt;/dev/null <span class="p">&amp;</span>&gt;/dev/null <span class="p">&amp;</span>
+</code></pre></div>
 <h4 id="2">2. 集成启动脚本<a class="headerlink" href="#2" title="Permanent link">&para;</a></h4>
 <p>也可以将此归整插件集成到启动脚本。</p>
 <p><div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
@@ -528,11 +543,12 @@ startService<span class="o">()</span> <span class="o">{</span>
 
 <span class="o">}</span>
 
-
+<span class="c1">#1.停止 FullNode 服务</span>
 stopService
 
 checkPath
 
+<span class="c1">#2.执行 ArchiveManifest 插件</span>
 <span class="k">if</span> <span class="o">[[</span> <span class="nv">0</span> <span class="o">==</span>  <span class="nv">$?</span> <span class="o">]]</span> <span class="p">;</span> <span class="k">then</span>
  rebuildManifest
 <span class="k">else</span>
@@ -540,7 +556,7 @@ checkPath
 <span class="k">fi</span>
 
 sleep <span class="m">5</span>
-
+<span class="c1">#3.启动 FullNode 服务</span>
 startService
 </code></pre></div>
 启动示例</p>
@@ -551,7 +567,15 @@ startService
 </code></pre></div>
 
 </blockquote>
-<div class="highlight"><pre><span></span><code>./start.sh <span class="o">[</span>FullNode<span class="p">|</span>SolidityNode<span class="o">]</span> <span class="o">[</span>--rewrite--manifest<span class="o">]</span> <span class="o">[</span>-b batchSize<span class="o">]</span> <span class="o">[</span>-d databaseDirectory<span class="o">]</span> <span class="o">[</span>-m manifestSize<span class="o">]</span>
+<div class="highlight"><pre><span></span><code><span class="c1">#完整命令</span>
+./start.sh <span class="o">[</span>FullNode<span class="p">|</span>SolidityNode<span class="o">]</span> <span class="o">[</span>--rewrite--manifest<span class="o">]</span> <span class="o">[</span>-b batchSize<span class="o">]</span> <span class="o">[</span>-d databaseDirectory<span class="o">]</span> <span class="o">[</span>-m manifestSize<span class="o">]</span>
+<span class="c1">#示例</span>
+   ./start.sh <span class="c1">#1. 不使用插件，启动FullNode.jar 服务</span>
+   ./start.sh SolidityNode <span class="c1">#2. 不使用插件，启动SolidityNode.jar 服务</span>
+   ./start.sh FullNode --rewrite--manifest <span class="c1">#3. 使用默认参数执行优化插件，并启动FullNode.jar 服务</span>
+   ./start.sh --rewrite--manifest -d /tmp/db/database <span class="c1">#4. 指定数据库目录为/tmp/db/database,执行优化插件， 并启动FullNode.jar 服务</span>
+   ./start.sh --rewrite--manifest -b <span class="m">64000</span> <span class="c1">#5. 指定优化Manifest时，应用version时批处理大小为64000, 并启动FullNode.jar 服务</span>
+   ./start.sh --rewrite--manifest -m <span class="m">128</span> <span class="c1">#6. 指定当Manifest超过128M时，才进行优化处理，并启动FullNode.jar 服务</span>
 </code></pre></div>
               
             </div>
