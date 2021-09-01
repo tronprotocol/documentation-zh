@@ -267,9 +267,9 @@ startService
 #完整命令
 ./start.sh [FullNode|SolidityNode] [--rewrite--manifest] [-b batchSize] [-d databaseDirectory] [-m manifestSize]
 #示例
-   ./start.sh # 1. 不使用插件，启动FullNode.jar 服务
+   ./start.sh #1. 不使用插件，启动FullNode.jar 服务
    ./start.sh SolidityNode #2. 不使用插件，启动SolidityNode.jar 服务
-   ./start.sh FullNode --rewrite--manifest  #3. 使用默认参数执行优化插件，并启动FullNode.jar 服务
+   ./start.sh FullNode --rewrite--manifest #3. 使用默认参数执行优化插件，并启动FullNode.jar 服务
    ./start.sh --rewrite--manifest -d /tmp/db/database #4. 指定数据库目录为/tmp/db/database,执行优化插件， 并启动FullNode.jar 服务
    ./start.sh --rewrite--manifest -b 64000 #5. 指定优化Manifest时，应用version时批处理大小为64000, 并启动FullNode.jar 服务
    ./start.sh --rewrite--manifest -m 128 #6. 指定当Manifest超过128M时，才进行优化处理，并启动FullNode.jar 服务
