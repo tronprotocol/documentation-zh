@@ -44,7 +44,7 @@ FullNode 运行之后，默认数据库目录：`output-directory`  ，优化插
 ##### 步骤一： 停止FullNode 服务
 
 使用命令`kill -15`关闭FullNode.jar
-查找 pid `ps -ef |grep FullNode.jar |grep -v grep |awk '{print $2}'`。
+,查找 pid `ps -ef |grep FullNode.jar |grep -v grep |awk '{print $2}'`。
 
 
 ##### 步骤二： 执行 ArchiveManifest 插件
