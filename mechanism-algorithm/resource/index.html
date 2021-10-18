@@ -366,8 +366,8 @@ TRON网络引入了Bandwidth point 和 Energy 两种资源概念。其中Bandwid
 <li>尝试消耗交易发起者的TRX，交易的字节数 * 1000 sun</li>
 </ol>
 <h3 id="4">4. 带宽的自动恢复<a class="headerlink" href="#4" title="Permanent link">&para;</a></h3>
-<p>在网络总锁定资金以及账户锁定资金不变的情况向，账户的带宽的已使用量随着时间增加而按比例衰减，24h 衰减到 0. 如时间 <span><span class="MathJax_Preview">T_1</span><script type="math/tex">T_1</script></span> 时刻，账户带宽已使用量为 <span><span class="MathJax_Preview">U</span><script type="math/tex">U</script></span>, 到 <span><span class="MathJax_Preview">T_1 + 12h</span><script type="math/tex">T_1 + 12h</script></span> ，账户再次使用带宽 <span><span class="MathJax_Preview">u</span><script type="math/tex">u</script></span>, 此时账户已使用带宽为 <span><span class="MathJax_Preview">U / 2 + u</span><script type="math/tex">U / 2 + u</script></span>. 具体公式如下：</p>
-<div>
+<p>在网络总锁定资金以及账户锁定资金不变的情况向，账户的带宽的已使用量随着时间增加而按比例衰减，24h 衰减到 0. 如时间 <span class="arithmatex"><span class="MathJax_Preview">T_1</span><script type="math/tex">T_1</script></span> 时刻，账户带宽已使用量为 <span class="arithmatex"><span class="MathJax_Preview">U</span><script type="math/tex">U</script></span>, 到 <span class="arithmatex"><span class="MathJax_Preview">T_1 + 12h</span><script type="math/tex">T_1 + 12h</script></span> ，账户再次使用带宽 <span class="arithmatex"><span class="MathJax_Preview">u</span><script type="math/tex">u</script></span>, 此时账户已使用带宽为 <span class="arithmatex"><span class="MathJax_Preview">U / 2 + u</span><script type="math/tex">U / 2 + u</script></span>. 具体公式如下：</p>
+<div class="arithmatex">
 <div class="MathJax_Preview">
 U^\prime = ( 1 - \frac{T_2 - T_1}{24h} ) * U + u
 </div>
@@ -504,7 +504,7 @@ B: 10_000_000_000 且energy_limit 为10_000_000_000
 <li>当(X + Y) / 40% &lt; Z / 60%，A此次调用能够使用的Energy是 (X + Y) / 40% Energy。</li>
 </ul>
 <p>若A此次调用能够使用的Energy是 Q Energy</p>
-<p>同上，如果合约执行成功，没有发生任何异常，消耗总Energy小于Q Energy，如消耗 500000 Energy ，会按照比例扣除合约运行实际消耗的Energy，调用者A消耗 <span><span class="MathJax_Preview">500000 * 40\% =200000</span><script type="math/tex">500000 * 40\% =200000</script></span> Energy，开发者D消耗 <span><span class="MathJax_Preview">500000 * 60\% = 300000</span><script type="math/tex">500000 * 60\% = 300000</script></span> Energy。</p>
+<p>同上，如果合约执行成功，没有发生任何异常，消耗总Energy小于Q Energy，如消耗 500000 Energy ，会按照比例扣除合约运行实际消耗的Energy，调用者A消耗 <span class="arithmatex"><span class="MathJax_Preview">500000 * 40\% =200000</span><script type="math/tex">500000 * 40\% =200000</script></span> Energy，开发者D消耗 <span class="arithmatex"><span class="MathJax_Preview">500000 * 60\% = 300000</span><script type="math/tex">500000 * 60\% = 300000</script></span> Energy。</p>
 <p>一般实际消耗Energy都远远小于此次调用能够使用的Energy。如果发生了Assert-style异常，则会消耗feeLimit对应的所有的Energy。</p>
 <p>Assert-style异常的介绍详见<a href="https://github.com/tronprotocol/Documentation/blob/master/%E4%B8%AD%E6%96%87%E6%96%87%E6%A1%A3/%E8%99%9A%E6%8B%9F%E6%9C%BA/%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86.md">异常介绍</a></p>
 <p>注意：
