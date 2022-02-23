@@ -370,84 +370,84 @@
               
                 <h1 id="_1">系统合约<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
 <h2 id="1-accountcreatecontract">1.创建账户 AccountCreateContract<a class="headerlink" href="#1-accountcreatecontract" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>    <span class="kd">message</span> <span class="nc">AccountCreateContract</span> <span class="p">{</span>
-       <span class="kt">bytes</span> <span class="na">owner_address</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-       <span class="kt">bytes</span> <span class="na">account_address</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
-       <span class="n">AccountType</span> <span class="na">type</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
-    <span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="kd">message</span><span class="w"> </span><span class="nc">AccountCreateContract</span><span class="w"> </span><span class="p">{</span>
+<span class="w">       </span><span class="kt">bytes</span><span class="w"> </span><span class="na">owner_address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">       </span><span class="kt">bytes</span><span class="w"> </span><span class="na">account_address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="w">       </span><span class="n">AccountType</span><span class="w"> </span><span class="na">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
 </code></pre></div>
 <p><code>owner_address</code>：合约持有人地址。
    <code>account_address</code>： 将要创建的账户地址。
    <code>type</code>：账户类型。0代表普通账户，1代表创世块中初始账号，2代表智能合约账户。</p>
 <h2 id="2trx-transfercontract">2.TRX转账 TransferContract<a class="headerlink" href="#2trx-transfercontract" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>      <span class="kd">message</span> <span class="nc">TransferContract</span> <span class="p">{</span>
-       <span class="kt">bytes</span> <span class="na">owner_address</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-       <span class="kt">bytes</span> <span class="na">to_address</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
-       <span class="kt">int64</span> <span class="na">amount</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
-     <span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="w">      </span><span class="kd">message</span><span class="w"> </span><span class="nc">TransferContract</span><span class="w"> </span><span class="p">{</span>
+<span class="w">       </span><span class="kt">bytes</span><span class="w"> </span><span class="na">owner_address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">       </span><span class="kt">bytes</span><span class="w"> </span><span class="na">to_address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="w">       </span><span class="kt">int64</span><span class="w"> </span><span class="na">amount</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+<span class="w">     </span><span class="p">}</span>
 </code></pre></div>
 <p><code>owner_address</code>：合约持有人地址。
    <code>to_address</code>： 目标账户地址。
    <code>amount</code>：转账金额，单位为 sun。</p>
 <h2 id="3trc-10-transferassetcontract">3.TRC-10代币转账 TransferAssetContract<a class="headerlink" href="#3trc-10-transferassetcontract" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>      <span class="kd">message</span> <span class="nc">TransferAssetContract</span> <span class="p">{</span>
-       <span class="kt">bytes</span> <span class="na">asset_name</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-       <span class="kt">bytes</span> <span class="na">owner_address</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
-       <span class="kt">bytes</span> <span class="na">to_address</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
-       <span class="kt">int64</span> <span class="na">amount</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
-     <span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="w">      </span><span class="kd">message</span><span class="w"> </span><span class="nc">TransferAssetContract</span><span class="w"> </span><span class="p">{</span>
+<span class="w">       </span><span class="kt">bytes</span><span class="w"> </span><span class="na">asset_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">       </span><span class="kt">bytes</span><span class="w"> </span><span class="na">owner_address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="w">       </span><span class="kt">bytes</span><span class="w"> </span><span class="na">to_address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+<span class="w">       </span><span class="kt">int64</span><span class="w"> </span><span class="na">amount</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
+<span class="w">     </span><span class="p">}</span>
 </code></pre></div>
 <p><code>asset_name</code>：TRC-10的id。
    <code>owner_address</code>：合约持有人地址。
    <code>to_address</code>： 目标账户地址。
    <code>amount</code>：转账代币的数量。</p>
 <h2 id="4-votewitnesscontract">4.投票超级节点  VoteWitnessContract<a class="headerlink" href="#4-votewitnesscontract" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>      <span class="kd">message</span> <span class="nc">VoteWitnessContract</span> <span class="p">{</span>
-       <span class="kd">message</span> <span class="nc">Vote</span> <span class="p">{</span>
-         <span class="kt">bytes</span> <span class="na">vote_address</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-         <span class="kt">int64</span> <span class="na">vote_count</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
-       <span class="p">}</span>
-       <span class="kt">bytes</span> <span class="na">owner_address</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-       <span class="k">repeated</span> <span class="n">Vote</span> <span class="na">votes</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
-       <span class="kt">bool</span> <span class="na">support</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
-     <span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="w">      </span><span class="kd">message</span><span class="w"> </span><span class="nc">VoteWitnessContract</span><span class="w"> </span><span class="p">{</span>
+<span class="w">       </span><span class="kd">message</span><span class="w"> </span><span class="nc">Vote</span><span class="w"> </span><span class="p">{</span>
+<span class="w">         </span><span class="kt">bytes</span><span class="w"> </span><span class="na">vote_address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">         </span><span class="kt">int64</span><span class="w"> </span><span class="na">vote_count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="w">       </span><span class="p">}</span>
+<span class="w">       </span><span class="kt">bytes</span><span class="w"> </span><span class="na">owner_address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">       </span><span class="k">repeated</span><span class="w"> </span><span class="n">Vote</span><span class="w"> </span><span class="na">votes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="w">       </span><span class="kt">bool</span><span class="w"> </span><span class="na">support</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+<span class="w">     </span><span class="p">}</span>
 </code></pre></div>
 <p><code>owner_address</code>：合约持有人地址。
    <code>vote_address</code>： 超级节点候选人的地址。
    <code>vote_count</code>：投给超级节点候选人的票数。
    <code>support</code>：是否支持，这里应该是恒为true，暂未使用该参数。</p>
 <h2 id="5-witnesscreatecontract">5.创建超级节点候选人 WitnessCreateContract<a class="headerlink" href="#5-witnesscreatecontract" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>      <span class="kd">message</span> <span class="nc">WitnessCreateContract</span> <span class="p">{</span>
-       <span class="kt">bytes</span> <span class="na">owner_address</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-       <span class="kt">bytes</span> <span class="na">url</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
-     <span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="w">      </span><span class="kd">message</span><span class="w"> </span><span class="nc">WitnessCreateContract</span><span class="w"> </span><span class="p">{</span>
+<span class="w">       </span><span class="kt">bytes</span><span class="w"> </span><span class="na">owner_address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">       </span><span class="kt">bytes</span><span class="w"> </span><span class="na">url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="w">     </span><span class="p">}</span>
 </code></pre></div>
 <p><code>owner_address</code>：合约持有人地址。
    <code>url</code>：超级节点的网址。</p>
 <h2 id="6trc-10-assetissuecontract">6.发布TRC-10代币 AssetIssueContract<a class="headerlink" href="#6trc-10-assetissuecontract" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>    <span class="kd">message</span> <span class="nc">AssetIssueContract</span> <span class="p">{</span>
-       <span class="kd">message</span> <span class="nc">FrozenSupply</span> <span class="p">{</span>
-         <span class="kt">int64</span> <span class="na">frozen_amount</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-         <span class="kt">int64</span> <span class="na">frozen_days</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
-       <span class="p">}</span>
-       <span class="kt">bytes</span> <span class="na">owner_address</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-       <span class="kt">bytes</span> <span class="na">name</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
-       <span class="kt">bytes</span> <span class="na">abbr</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
-       <span class="kt">int64</span> <span class="na">total_supply</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
-       <span class="k">repeated</span> <span class="n">FrozenSupply</span> <span class="na">frozen_supply</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
-       <span class="kt">int32</span> <span class="na">trx_num</span> <span class="o">=</span> <span class="mi">6</span><span class="p">;</span>
-       <span class="kt">int32</span> <span class="na">num</span> <span class="o">=</span> <span class="mi">8</span><span class="p">;</span>
-       <span class="kt">int64</span> <span class="na">start_time</span> <span class="o">=</span> <span class="mi">9</span><span class="p">;</span>
-       <span class="kt">int64</span> <span class="na">end_time</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
-       <span class="kt">int64</span> <span class="na">order</span> <span class="o">=</span> <span class="mi">11</span><span class="p">;</span> <span class="c1">// the order of tokens of the same name</span>
-       <span class="kt">int32</span> <span class="na">vote_score</span> <span class="o">=</span> <span class="mi">16</span><span class="p">;</span>
-       <span class="kt">bytes</span> <span class="na">description</span> <span class="o">=</span> <span class="mi">20</span><span class="p">;</span>
-       <span class="kt">bytes</span> <span class="na">url</span> <span class="o">=</span> <span class="mi">21</span><span class="p">;</span>
-       <span class="kt">int64</span> <span class="na">free_asset_net_limit</span> <span class="o">=</span> <span class="mi">22</span><span class="p">;</span>
-       <span class="kt">int64</span> <span class="na">public_free_asset_net_limit</span> <span class="o">=</span> <span class="mi">23</span><span class="p">;</span>
-       <span class="kt">int64</span> <span class="na">public_free_asset_net_usage</span> <span class="o">=</span> <span class="mi">24</span><span class="p">;</span>
-       <span class="kt">int64</span> <span class="na">public_latest_free_net_time</span> <span class="o">=</span> <span class="mi">25</span><span class="p">;</span>
-     <span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="kd">message</span><span class="w"> </span><span class="nc">AssetIssueContract</span><span class="w"> </span><span class="p">{</span>
+<span class="w">       </span><span class="kd">message</span><span class="w"> </span><span class="nc">FrozenSupply</span><span class="w"> </span><span class="p">{</span>
+<span class="w">         </span><span class="kt">int64</span><span class="w"> </span><span class="na">frozen_amount</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">         </span><span class="kt">int64</span><span class="w"> </span><span class="na">frozen_days</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="w">       </span><span class="p">}</span>
+<span class="w">       </span><span class="kt">bytes</span><span class="w"> </span><span class="na">owner_address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">       </span><span class="kt">bytes</span><span class="w"> </span><span class="na">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="w">       </span><span class="kt">bytes</span><span class="w"> </span><span class="na">abbr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+<span class="w">       </span><span class="kt">int64</span><span class="w"> </span><span class="na">total_supply</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
+<span class="w">       </span><span class="k">repeated</span><span class="w"> </span><span class="n">FrozenSupply</span><span class="w"> </span><span class="na">frozen_supply</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span>
+<span class="w">       </span><span class="kt">int32</span><span class="w"> </span><span class="na">trx_num</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">6</span><span class="p">;</span>
+<span class="w">       </span><span class="kt">int32</span><span class="w"> </span><span class="na">num</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8</span><span class="p">;</span>
+<span class="w">       </span><span class="kt">int64</span><span class="w"> </span><span class="na">start_time</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">9</span><span class="p">;</span>
+<span class="w">       </span><span class="kt">int64</span><span class="w"> </span><span class="na">end_time</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
+<span class="w">       </span><span class="kt">int64</span><span class="w"> </span><span class="na">order</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">11</span><span class="p">;</span><span class="w"> </span><span class="c1">// the order of tokens of the same name</span>
+<span class="w">       </span><span class="kt">int32</span><span class="w"> </span><span class="na">vote_score</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">16</span><span class="p">;</span>
+<span class="w">       </span><span class="kt">bytes</span><span class="w"> </span><span class="na">description</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">20</span><span class="p">;</span>
+<span class="w">       </span><span class="kt">bytes</span><span class="w"> </span><span class="na">url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">21</span><span class="p">;</span>
+<span class="w">       </span><span class="kt">int64</span><span class="w"> </span><span class="na">free_asset_net_limit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">22</span><span class="p">;</span>
+<span class="w">       </span><span class="kt">int64</span><span class="w"> </span><span class="na">public_free_asset_net_limit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">23</span><span class="p">;</span>
+<span class="w">       </span><span class="kt">int64</span><span class="w"> </span><span class="na">public_free_asset_net_usage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">24</span><span class="p">;</span>
+<span class="w">       </span><span class="kt">int64</span><span class="w"> </span><span class="na">public_latest_free_net_time</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">25</span><span class="p">;</span>
+<span class="w">     </span><span class="p">}</span>
 </code></pre></div>
 <p><code>owner_address</code>：合约持有人地址。
    <code>name</code>：发布Token的名称。
@@ -467,42 +467,42 @@
    <code>public_free_asset_net_usage</code>：所有账户使用免费带宽（转移该资产时使用）。
    <code>public_latest_free_net_time</code>：最近一次转移该Token使用免费带宽的时间。</p>
 <h2 id="7url-witnessupdatecontract">7.更新超级节点候选人URL WitnessUpdateContract<a class="headerlink" href="#7url-witnessupdatecontract" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>      <span class="kd">message</span> <span class="nc">WitnessUpdateContract</span> <span class="p">{</span>
-       <span class="kt">bytes</span> <span class="na">owner_address</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-       <span class="kt">bytes</span> <span class="na">update_url</span> <span class="o">=</span> <span class="mi">12</span><span class="p">;</span>
-     <span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="w">      </span><span class="kd">message</span><span class="w"> </span><span class="nc">WitnessUpdateContract</span><span class="w"> </span><span class="p">{</span>
+<span class="w">       </span><span class="kt">bytes</span><span class="w"> </span><span class="na">owner_address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">       </span><span class="kt">bytes</span><span class="w"> </span><span class="na">update_url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">12</span><span class="p">;</span>
+<span class="w">     </span><span class="p">}</span>
 </code></pre></div>
 <p><code>owner_address</code>：合约持有人地址。
    <code>update_url</code>：超级节点网站的url。</p>
 <h2 id="8trc-10-participateassetissuecontract">8.购买TRC-10代币 ParticipateAssetIssueContract<a class="headerlink" href="#8trc-10-participateassetissuecontract" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>      <span class="kd">message</span> <span class="nc">ParticipateAssetIssueContract</span> <span class="p">{</span>
-       <span class="kt">bytes</span> <span class="na">owner_address</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-       <span class="kt">bytes</span> <span class="na">to_address</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
-       <span class="kt">bytes</span> <span class="na">asset_name</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
-       <span class="kt">int64</span> <span class="na">amount</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
-     <span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="w">      </span><span class="kd">message</span><span class="w"> </span><span class="nc">ParticipateAssetIssueContract</span><span class="w"> </span><span class="p">{</span>
+<span class="w">       </span><span class="kt">bytes</span><span class="w"> </span><span class="na">owner_address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">       </span><span class="kt">bytes</span><span class="w"> </span><span class="na">to_address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="w">       </span><span class="kt">bytes</span><span class="w"> </span><span class="na">asset_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+<span class="w">       </span><span class="kt">int64</span><span class="w"> </span><span class="na">amount</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
+<span class="w">     </span><span class="p">}</span>
 </code></pre></div>
 <p><code>owner_address</code>：合约持有人地址。
    <code>to_address</code>：发行Token所有者地址。
    <code>asset_name</code>： 发行Token的id。
    <code>amount</code>：购买发行Token使用TRX的数量，单位是 sun。</p>
 <h2 id="9-accountupdatecontract">9.更新账户 AccountUpdateContract<a class="headerlink" href="#9-accountupdatecontract" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>      <span class="c1">// Update account name. Account name is unique now.</span>
-     <span class="kd">message</span> <span class="nc">AccountUpdateContract</span> <span class="p">{</span>
-       <span class="kt">bytes</span> <span class="na">account_name</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-       <span class="kt">bytes</span> <span class="na">owner_address</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
-     <span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="w">      </span><span class="c1">// Update account name. Account name is unique now.</span>
+<span class="w">     </span><span class="kd">message</span><span class="w"> </span><span class="nc">AccountUpdateContract</span><span class="w"> </span><span class="p">{</span>
+<span class="w">       </span><span class="kt">bytes</span><span class="w"> </span><span class="na">account_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">       </span><span class="kt">bytes</span><span class="w"> </span><span class="na">owner_address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="w">     </span><span class="p">}</span>
 </code></pre></div>
 <p><code>owner_address</code>：合约持有人地址。
    <code>account_name</code>： 账户名称。</p>
 <h2 id="10-freezebalancecontract">10.质押资产 FreezeBalanceContract<a class="headerlink" href="#10-freezebalancecontract" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>      <span class="kd">message</span> <span class="nc">FreezeBalanceContract</span> <span class="p">{</span>
-       <span class="kt">bytes</span> <span class="na">owner_address</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-       <span class="kt">int64</span> <span class="na">frozen_balance</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
-       <span class="kt">int64</span> <span class="na">frozen_duration</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
-       <span class="n">ResourceCode</span> <span class="na">resource</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
-       <span class="kt">bytes</span> <span class="na">receiver_address</span> <span class="o">=</span> <span class="mi">15</span><span class="p">;</span>
-     <span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="w">      </span><span class="kd">message</span><span class="w"> </span><span class="nc">FreezeBalanceContract</span><span class="w"> </span><span class="p">{</span>
+<span class="w">       </span><span class="kt">bytes</span><span class="w"> </span><span class="na">owner_address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">       </span><span class="kt">int64</span><span class="w"> </span><span class="na">frozen_balance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="w">       </span><span class="kt">int64</span><span class="w"> </span><span class="na">frozen_duration</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+<span class="w">       </span><span class="n">ResourceCode</span><span class="w"> </span><span class="na">resource</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
+<span class="w">       </span><span class="kt">bytes</span><span class="w"> </span><span class="na">receiver_address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">15</span><span class="p">;</span>
+<span class="w">     </span><span class="p">}</span>
 </code></pre></div>
 <p><code>owner_address</code>：合约持有人地址。
    <code>frozen_balance</code>：质押资产的数量。
@@ -510,35 +510,35 @@
    <code>resource</code>： 质押TRX获取资源的类型。
    <code>receiver_address</code>：接收资源的账户。</p>
 <h2 id="11-unfreezebalancecontract">11.资产 UnfreezeBalanceContract<a class="headerlink" href="#11-unfreezebalancecontract" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>      <span class="kd">message</span> <span class="nc">UnfreezeBalanceContract</span> <span class="p">{</span>
-       <span class="kt">bytes</span> <span class="na">owner_address</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-       <span class="n">ResourceCode</span> <span class="na">resource</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
-       <span class="kt">bytes</span> <span class="na">receiver_address</span> <span class="o">=</span> <span class="mi">13</span><span class="p">;</span>
-     <span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="w">      </span><span class="kd">message</span><span class="w"> </span><span class="nc">UnfreezeBalanceContract</span><span class="w"> </span><span class="p">{</span>
+<span class="w">       </span><span class="kt">bytes</span><span class="w"> </span><span class="na">owner_address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">       </span><span class="n">ResourceCode</span><span class="w"> </span><span class="na">resource</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
+<span class="w">       </span><span class="kt">bytes</span><span class="w"> </span><span class="na">receiver_address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">13</span><span class="p">;</span>
+<span class="w">     </span><span class="p">}</span>
 </code></pre></div>
 <p><code>owner_address</code>：合约持有人地址。
    <code>resource</code>： 解锁资源的类型。
    <code>receiver_address</code>：接收资源的账户。</p>
 <h2 id="12-withdrawbalancecontract">12.提取奖励 WithdrawBalanceContract<a class="headerlink" href="#12-withdrawbalancecontract" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>      <span class="kd">message</span> <span class="nc">WithdrawBalanceContract</span> <span class="p">{</span>
-       <span class="kt">bytes</span> <span class="na">owner_address</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-     <span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="w">      </span><span class="kd">message</span><span class="w"> </span><span class="nc">WithdrawBalanceContract</span><span class="w"> </span><span class="p">{</span>
+<span class="w">       </span><span class="kt">bytes</span><span class="w"> </span><span class="na">owner_address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">     </span><span class="p">}</span>
 </code></pre></div>
 <p><code>owner_address</code>：合约持有人地址。</p>
 <h2 id="13token-unfreezeassetcontract">13.解锁发布的Token UnfreezeAssetContract<a class="headerlink" href="#13token-unfreezeassetcontract" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>      <span class="kd">message</span> <span class="nc">UnfreezeAssetContract</span> <span class="p">{</span>
-       <span class="kt">bytes</span> <span class="na">owner_address</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-     <span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="w">      </span><span class="kd">message</span><span class="w"> </span><span class="nc">UnfreezeAssetContract</span><span class="w"> </span><span class="p">{</span>
+<span class="w">       </span><span class="kt">bytes</span><span class="w"> </span><span class="na">owner_address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">     </span><span class="p">}</span>
 </code></pre></div>
 <p><code>owner_address</code>：合约持有人地址。</p>
 <h2 id="14-updateassetcontract">14.更新通证参数 UpdateAssetContract<a class="headerlink" href="#14-updateassetcontract" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>      <span class="kd">message</span> <span class="nc">UpdateAssetContract</span> <span class="p">{</span>
-       <span class="kt">bytes</span> <span class="na">owner_address</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-       <span class="kt">bytes</span> <span class="na">description</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
-       <span class="kt">bytes</span> <span class="na">url</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
-       <span class="kt">int64</span> <span class="na">new_limit</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
-       <span class="kt">int64</span> <span class="na">new_public_limit</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
-     <span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="w">      </span><span class="kd">message</span><span class="w"> </span><span class="nc">UpdateAssetContract</span><span class="w"> </span><span class="p">{</span>
+<span class="w">       </span><span class="kt">bytes</span><span class="w"> </span><span class="na">owner_address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">       </span><span class="kt">bytes</span><span class="w"> </span><span class="na">description</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="w">       </span><span class="kt">bytes</span><span class="w"> </span><span class="na">url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+<span class="w">       </span><span class="kt">int64</span><span class="w"> </span><span class="na">new_limit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
+<span class="w">       </span><span class="kt">int64</span><span class="w"> </span><span class="na">new_public_limit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span>
+<span class="w">     </span><span class="p">}</span>
 </code></pre></div>
 <p><code>owner_address</code>：合约持有人地址。
    <code>description</code>： 通证的描述。
@@ -546,61 +546,61 @@
    <code>new_limit</code>：每个调用者可以消耗Bandwidth point的限制。
    <code>new_public_limit</code>： 所有调用者可以消耗Bandwidth points的限制。</p>
 <h2 id="15-proposalcreatecontract">15.创建提议  ProposalCreateContract<a class="headerlink" href="#15-proposalcreatecontract" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>      <span class="kd">message</span> <span class="nc">ProposalCreateContract</span> <span class="p">{</span>
-       <span class="kt">bytes</span> <span class="na">owner_address</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-       <span class="n">map</span><span class="p">&lt;</span><span class="kt">int64</span><span class="p">,</span> <span class="kt">int64</span><span class="p">&gt;</span> <span class="na">parameters</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
-     <span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="w">      </span><span class="kd">message</span><span class="w"> </span><span class="nc">ProposalCreateContract</span><span class="w"> </span><span class="p">{</span>
+<span class="w">       </span><span class="kt">bytes</span><span class="w"> </span><span class="na">owner_address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">       </span><span class="n">map</span><span class="p">&lt;</span><span class="kt">int64</span><span class="p">,</span><span class="w"> </span><span class="kt">int64</span><span class="p">&gt;</span><span class="w"> </span><span class="na">parameters</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="w">     </span><span class="p">}</span>
 </code></pre></div>
 <p><code>owner_address</code>：合约持有人地址。
    <code>parameters</code>： 提议。</p>
 <h2 id="16-proposalapprovecontract">16.赞成提议 ProposalApproveContract<a class="headerlink" href="#16-proposalapprovecontract" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>      <span class="kd">message</span> <span class="nc">ProposalApproveContract</span> <span class="p">{</span>
-       <span class="kt">bytes</span> <span class="na">owner_address</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-       <span class="kt">int64</span> <span class="na">proposal_id</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
-       <span class="kt">bool</span> <span class="na">is_add_approval</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span> <span class="c1">// add or remove approval</span>
-     <span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="w">      </span><span class="kd">message</span><span class="w"> </span><span class="nc">ProposalApproveContract</span><span class="w"> </span><span class="p">{</span>
+<span class="w">       </span><span class="kt">bytes</span><span class="w"> </span><span class="na">owner_address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">       </span><span class="kt">int64</span><span class="w"> </span><span class="na">proposal_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="w">       </span><span class="kt">bool</span><span class="w"> </span><span class="na">is_add_approval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span><span class="w"> </span><span class="c1">// add or remove approval</span>
+<span class="w">     </span><span class="p">}</span>
 </code></pre></div>
 <p><code>owner_address</code>：合约持有人地址。
    <code>proposal_id</code>： 提议的Id。
    <code>is_add_approval</code>：是否赞成提议。</p>
 <h2 id="17-proposaldeletecontract">17.删除提议 ProposalDeleteContract<a class="headerlink" href="#17-proposaldeletecontract" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>     <span class="kd">message</span> <span class="nc">ProposalDeleteContract</span> <span class="p">{</span>
-       <span class="kt">bytes</span> <span class="na">owner_address</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-       <span class="kt">int64</span> <span class="na">proposal_id</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
-     <span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="w">     </span><span class="kd">message</span><span class="w"> </span><span class="nc">ProposalDeleteContract</span><span class="w"> </span><span class="p">{</span>
+<span class="w">       </span><span class="kt">bytes</span><span class="w"> </span><span class="na">owner_address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">       </span><span class="kt">int64</span><span class="w"> </span><span class="na">proposal_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="w">     </span><span class="p">}</span>
 </code></pre></div>
 <p><code>owner_address</code>：合约持有人地址。
    <code>proposal_id</code>： 提议ID。</p>
 <h2 id="18id-setaccountidcontract">18.设置账户ID SetAccountIdContract<a class="headerlink" href="#18id-setaccountidcontract" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>      <span class="c1">// Set account id if the account has no id. Account id is unique and case insensitive.</span>
-     <span class="kd">message</span> <span class="nc">SetAccountIdContract</span> <span class="p">{</span>
-       <span class="kt">bytes</span> <span class="na">account_id</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-       <span class="kt">bytes</span> <span class="na">owner_address</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
-     <span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="w">      </span><span class="c1">// Set account id if the account has no id. Account id is unique and case insensitive.</span>
+<span class="w">     </span><span class="kd">message</span><span class="w"> </span><span class="nc">SetAccountIdContract</span><span class="w"> </span><span class="p">{</span>
+<span class="w">       </span><span class="kt">bytes</span><span class="w"> </span><span class="na">account_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">       </span><span class="kt">bytes</span><span class="w"> </span><span class="na">owner_address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="w">     </span><span class="p">}</span>
 </code></pre></div>
 <p><code>owner_address</code>：合约持有人地址。
    <code>account_id</code>： 账户Id。</p>
 <h2 id="19-createsmartcontract">19.创建智能合约 CreateSmartContract<a class="headerlink" href="#19-createsmartcontract" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>     <span class="kd">message</span> <span class="nc">CreateSmartContract</span> <span class="p">{</span>
-       <span class="kt">bytes</span> <span class="na">owner_address</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-       <span class="n">SmartContract</span> <span class="na">new_contract</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
-       <span class="kt">int64</span> <span class="na">call_token_value</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
-       <span class="kt">int64</span> <span class="na">token_id</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
-     <span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="w">     </span><span class="kd">message</span><span class="w"> </span><span class="nc">CreateSmartContract</span><span class="w"> </span><span class="p">{</span>
+<span class="w">       </span><span class="kt">bytes</span><span class="w"> </span><span class="na">owner_address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">       </span><span class="n">SmartContract</span><span class="w"> </span><span class="na">new_contract</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="w">       </span><span class="kt">int64</span><span class="w"> </span><span class="na">call_token_value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+<span class="w">       </span><span class="kt">int64</span><span class="w"> </span><span class="na">token_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
+<span class="w">     </span><span class="p">}</span>
 </code></pre></div>
 <p><code>owner_address</code>：合约持有人地址。
    <code>new_contract</code>： 智能合约。
    <code>call_token_value</code>：转入TRC-10数目。
    <code>token_id</code>：转入TRC-10的id。</p>
 <h2 id="20-triggersmartcontract">20.触发智能合约 TriggerSmartContract<a class="headerlink" href="#20-triggersmartcontract" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>      <span class="kd">message</span> <span class="nc">TriggerSmartContract</span> <span class="p">{</span>
-       <span class="kt">bytes</span> <span class="na">owner_address</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-       <span class="kt">bytes</span> <span class="na">contract_address</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
-       <span class="kt">int64</span> <span class="na">call_value</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
-       <span class="kt">bytes</span> <span class="na">data</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
-       <span class="kt">int64</span> <span class="na">call_token_value</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
-       <span class="kt">int64</span> <span class="na">token_id</span> <span class="o">=</span> <span class="mi">6</span><span class="p">;</span>
-     <span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="w">      </span><span class="kd">message</span><span class="w"> </span><span class="nc">TriggerSmartContract</span><span class="w"> </span><span class="p">{</span>
+<span class="w">       </span><span class="kt">bytes</span><span class="w"> </span><span class="na">owner_address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">       </span><span class="kt">bytes</span><span class="w"> </span><span class="na">contract_address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="w">       </span><span class="kt">int64</span><span class="w"> </span><span class="na">call_value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+<span class="w">       </span><span class="kt">bytes</span><span class="w"> </span><span class="na">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
+<span class="w">       </span><span class="kt">int64</span><span class="w"> </span><span class="na">call_token_value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span>
+<span class="w">       </span><span class="kt">int64</span><span class="w"> </span><span class="na">token_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">6</span><span class="p">;</span>
+<span class="w">     </span><span class="p">}</span>
 </code></pre></div>
 <p><code>owner_address</code>：合约持有人地址。
    <code>contract_address</code>： 合约地址。
@@ -609,23 +609,23 @@
    <code>call_token_value</code>：转入TRC-10数目。
    <code>token_id</code>：转入TRC-10的id。</p>
 <h2 id="21-updatesettingcontract">21.更新合约 UpdateSettingContract<a class="headerlink" href="#21-updatesettingcontract" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>      <span class="kd">message</span> <span class="nc">UpdateSettingContract</span> <span class="p">{</span>
-       <span class="kt">bytes</span> <span class="na">owner_address</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-       <span class="kt">bytes</span> <span class="na">contract_address</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
-       <span class="kt">int64</span> <span class="na">consume_user_resource_percent</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
-     <span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="w">      </span><span class="kd">message</span><span class="w"> </span><span class="nc">UpdateSettingContract</span><span class="w"> </span><span class="p">{</span>
+<span class="w">       </span><span class="kt">bytes</span><span class="w"> </span><span class="na">owner_address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">       </span><span class="kt">bytes</span><span class="w"> </span><span class="na">contract_address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="w">       </span><span class="kt">int64</span><span class="w"> </span><span class="na">consume_user_resource_percent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+<span class="w">     </span><span class="p">}</span>
 </code></pre></div>
 <p><code>owner_address</code>：合约持有人地址。
    <code>contract_address</code>： 合约地址。
    <code>consume_user_resource_percent</code>：将要更新的账户消耗资源的百分比。</p>
 <h2 id="22-exchangecreatecontract">22.创建交易所 ExchangeCreateContract<a class="headerlink" href="#22-exchangecreatecontract" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>      <span class="kd">message</span> <span class="nc">ExchangeCreateContract</span> <span class="p">{</span>
-       <span class="kt">bytes</span> <span class="na">owner_address</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-       <span class="kt">bytes</span> <span class="na">first_token_id</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
-       <span class="kt">int64</span> <span class="na">first_token_balance</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
-       <span class="kt">bytes</span> <span class="na">second_token_id</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
-       <span class="kt">int64</span> <span class="na">second_token_balance</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
-     <span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="w">      </span><span class="kd">message</span><span class="w"> </span><span class="nc">ExchangeCreateContract</span><span class="w"> </span><span class="p">{</span>
+<span class="w">       </span><span class="kt">bytes</span><span class="w"> </span><span class="na">owner_address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">       </span><span class="kt">bytes</span><span class="w"> </span><span class="na">first_token_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="w">       </span><span class="kt">int64</span><span class="w"> </span><span class="na">first_token_balance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+<span class="w">       </span><span class="kt">bytes</span><span class="w"> </span><span class="na">second_token_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
+<span class="w">       </span><span class="kt">int64</span><span class="w"> </span><span class="na">second_token_balance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span>
+<span class="w">     </span><span class="p">}</span>
 </code></pre></div>
 <p><code>owner_address</code>：合约持有人地址。
    <code>first_token_id</code>： 第1种token的id。
@@ -633,119 +633,119 @@
    <code>second_token_id</code>：第2种token的id。
    <code>second_token_balance</code>：第2种token的balance。</p>
 <h2 id="23-exchangeinjectcontract">23.给交易所注资 ExchangeInjectContract<a class="headerlink" href="#23-exchangeinjectcontract" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>      <span class="kd">message</span> <span class="nc">ExchangeInjectContract</span> <span class="p">{</span>
-       <span class="kt">bytes</span> <span class="na">owner_address</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-       <span class="kt">int64</span> <span class="na">exchange_id</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
-       <span class="kt">bytes</span> <span class="na">token_id</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
-       <span class="kt">int64</span> <span class="na">quant</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
-     <span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="w">      </span><span class="kd">message</span><span class="w"> </span><span class="nc">ExchangeInjectContract</span><span class="w"> </span><span class="p">{</span>
+<span class="w">       </span><span class="kt">bytes</span><span class="w"> </span><span class="na">owner_address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">       </span><span class="kt">int64</span><span class="w"> </span><span class="na">exchange_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="w">       </span><span class="kt">bytes</span><span class="w"> </span><span class="na">token_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+<span class="w">       </span><span class="kt">int64</span><span class="w"> </span><span class="na">quant</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
+<span class="w">     </span><span class="p">}</span>
 </code></pre></div>
 <p><code>owner_address</code>：合约持有人地址。
    <code>exchange_id</code>： 交易对的id。
    <code>token_id</code>：要注资的token的id。
    <code>quant</code>：要注资的token的金额。</p>
 <h2 id="24-exchangewithdrawcontract">24.从交易所撤资 ExchangeWithdrawContract<a class="headerlink" href="#24-exchangewithdrawcontract" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>      <span class="kd">message</span> <span class="nc">ExchangeWithdrawContract</span> <span class="p">{</span>
-       <span class="kt">bytes</span> <span class="na">owner_address</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-       <span class="kt">int64</span> <span class="na">exchange_id</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
-       <span class="kt">bytes</span> <span class="na">token_id</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
-       <span class="kt">int64</span> <span class="na">quant</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
-     <span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="w">      </span><span class="kd">message</span><span class="w"> </span><span class="nc">ExchangeWithdrawContract</span><span class="w"> </span><span class="p">{</span>
+<span class="w">       </span><span class="kt">bytes</span><span class="w"> </span><span class="na">owner_address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">       </span><span class="kt">int64</span><span class="w"> </span><span class="na">exchange_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="w">       </span><span class="kt">bytes</span><span class="w"> </span><span class="na">token_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+<span class="w">       </span><span class="kt">int64</span><span class="w"> </span><span class="na">quant</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
+<span class="w">     </span><span class="p">}</span>
 </code></pre></div>
 <p><code>owner_address</code>：合约持有人地址。
    <code>exchange_id</code>： 交易对的id。
    <code>token_id</code>：要撤资的token的id。
    <code>quant</code>：要撤资的token的金额。</p>
 <h2 id="25-exchangetransactioncontract">25.在交易所交易 ExchangeTransactionContract<a class="headerlink" href="#25-exchangetransactioncontract" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>      <span class="kd">message</span> <span class="nc">ExchangeTransactionContract</span> <span class="p">{</span>
-       <span class="kt">bytes</span> <span class="na">owner_address</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-       <span class="kt">int64</span> <span class="na">exchange_id</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
-       <span class="kt">bytes</span> <span class="na">token_id</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
-       <span class="kt">int64</span> <span class="na">quant</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
-     <span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="w">      </span><span class="kd">message</span><span class="w"> </span><span class="nc">ExchangeTransactionContract</span><span class="w"> </span><span class="p">{</span>
+<span class="w">       </span><span class="kt">bytes</span><span class="w"> </span><span class="na">owner_address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">       </span><span class="kt">int64</span><span class="w"> </span><span class="na">exchange_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="w">       </span><span class="kt">bytes</span><span class="w"> </span><span class="na">token_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+<span class="w">       </span><span class="kt">int64</span><span class="w"> </span><span class="na">quant</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
+<span class="w">     </span><span class="p">}</span>
 </code></pre></div>
 <p><code>owner_address</code>：合约持有人地址。
    <code>exchange_id</code>： 交易对的id。
    <code>token_id</code>：要卖出的token的id。
    <code>quant</code>：要卖出的token的金额。</p>
 <h2 id="26-shieldedtransfercontract">26.匿名交易 ShieldedTransferContract<a class="headerlink" href="#26-shieldedtransfercontract" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>    <span class="kd">message</span> <span class="nc">ShieldedTransferContract</span> <span class="p">{</span>
-       <span class="kt">bytes</span> <span class="na">transparent_from_address</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-       <span class="kt">int64</span> <span class="na">from_amount</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
-       <span class="k">repeated</span> <span class="n">SpendDescription</span> <span class="na">spend_description</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
-       <span class="k">repeated</span> <span class="n">ReceiveDescription</span> <span class="na">receive_description</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
-       <span class="kt">bytes</span> <span class="na">binding_signature</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
-       <span class="kt">bytes</span> <span class="na">transparent_to_address</span> <span class="o">=</span> <span class="mi">6</span><span class="p">;</span>
-       <span class="kt">int64</span> <span class="na">to_amount</span> <span class="o">=</span> <span class="mi">7</span><span class="p">;</span>
-    <span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="kd">message</span><span class="w"> </span><span class="nc">ShieldedTransferContract</span><span class="w"> </span><span class="p">{</span>
+<span class="w">       </span><span class="kt">bytes</span><span class="w"> </span><span class="na">transparent_from_address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">       </span><span class="kt">int64</span><span class="w"> </span><span class="na">from_amount</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="w">       </span><span class="k">repeated</span><span class="w"> </span><span class="n">SpendDescription</span><span class="w"> </span><span class="na">spend_description</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+<span class="w">       </span><span class="k">repeated</span><span class="w"> </span><span class="n">ReceiveDescription</span><span class="w"> </span><span class="na">receive_description</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
+<span class="w">       </span><span class="kt">bytes</span><span class="w"> </span><span class="na">binding_signature</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span>
+<span class="w">       </span><span class="kt">bytes</span><span class="w"> </span><span class="na">transparent_to_address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">6</span><span class="p">;</span>
+<span class="w">       </span><span class="kt">int64</span><span class="w"> </span><span class="na">to_amount</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">7</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
 
 
-   <span class="err">`</span><span class="n">transparent_from_address</span><span class="err">`：交易发送方透明地址，如果交易发送方是匿名的，则该参数为空。</span>
-   <span class="err">`</span><span class="n">from_amount</span><span class="err">`：交易发送方转账金额，正整数；如果交易发送方是匿名的，则该参数为</span><span class="mi">0</span><span class="err">。</span>
-   <span class="err">`</span><span class="n">spend_description</span><span class="err">`：交易发送方</span><span class="n">note的SpendDescription</span><span class="err">，最多一个，该参数类型具体描述见下文；如果发送方是透明地址，则该参数为空。</span>
-   <span class="err">`</span><span class="n">receive_description</span><span class="err">`：交易接收方</span><span class="n">note的ReceiveDescription</span><span class="err">，最多两个，该参数类型具体描述见下文。</span>
-   <span class="err">`</span><span class="n">binding_signature</span><span class="err">`：交易的绑定签名，证明交易双方金额平衡。</span>
-   <span class="err">`</span><span class="n">transparent_to_address</span><span class="err">`：交易接收方透明地址，如果交易接收方都是匿名的，则该参数为空。</span>
-   <span class="err">`</span><span class="n">to_amount</span><span class="err">`：交易接收方转账金额，正整数；如果交易接收方是匿名的，则该参数为</span><span class="mi">0</span><span class="err">。</span>
+<span class="w">   </span><span class="err">`</span><span class="n">transparent_from_address</span><span class="err">`：交易发送方透明地址，如果交易发送方是匿名的，则该参数为空。</span>
+<span class="w">   </span><span class="err">`</span><span class="n">from_amount</span><span class="err">`：交易发送方转账金额，正整数；如果交易发送方是匿名的，则该参数为</span><span class="mi">0</span><span class="err">。</span>
+<span class="w">   </span><span class="err">`</span><span class="n">spend_description</span><span class="err">`：交易发送方</span><span class="n">note的SpendDescription</span><span class="err">，最多一个，该参数类型具体描述见下文；如果发送方是透明地址，则该参数为空。</span>
+<span class="w">   </span><span class="err">`</span><span class="n">receive_description</span><span class="err">`：交易接收方</span><span class="n">note的ReceiveDescription</span><span class="err">，最多两个，该参数类型具体描述见下文。</span>
+<span class="w">   </span><span class="err">`</span><span class="n">binding_signature</span><span class="err">`：交易的绑定签名，证明交易双方金额平衡。</span>
+<span class="w">   </span><span class="err">`</span><span class="n">transparent_to_address</span><span class="err">`：交易接收方透明地址，如果交易接收方都是匿名的，则该参数为空。</span>
+<span class="w">   </span><span class="err">`</span><span class="n">to_amount</span><span class="err">`：交易接收方转账金额，正整数；如果交易接收方是匿名的，则该参数为</span><span class="mi">0</span><span class="err">。</span>
 
-     <span class="kd">message</span> <span class="nc">SpendDescription</span> <span class="p">{</span>
-       <span class="kt">bytes</span> <span class="na">value_commitment</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-       <span class="kt">bytes</span> <span class="na">anchor</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
-       <span class="kt">bytes</span> <span class="na">nullifier</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
-       <span class="kt">bytes</span> <span class="na">rk</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
-       <span class="kt">bytes</span> <span class="na">zkproof</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
-       <span class="kt">bytes</span> <span class="na">spend_authority_signature</span> <span class="o">=</span> <span class="mi">6</span><span class="p">;</span>
-     <span class="p">}</span>
+<span class="w">     </span><span class="kd">message</span><span class="w"> </span><span class="nc">SpendDescription</span><span class="w"> </span><span class="p">{</span>
+<span class="w">       </span><span class="kt">bytes</span><span class="w"> </span><span class="na">value_commitment</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">       </span><span class="kt">bytes</span><span class="w"> </span><span class="na">anchor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="w">       </span><span class="kt">bytes</span><span class="w"> </span><span class="na">nullifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+<span class="w">       </span><span class="kt">bytes</span><span class="w"> </span><span class="na">rk</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
+<span class="w">       </span><span class="kt">bytes</span><span class="w"> </span><span class="na">zkproof</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span>
+<span class="w">       </span><span class="kt">bytes</span><span class="w"> </span><span class="na">spend_authority_signature</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">6</span><span class="p">;</span>
+<span class="w">     </span><span class="p">}</span>
 
-   <span class="err">`</span><span class="n">value_commitment</span><span class="err">`：对交易发送方转账金额的承诺。</span>
-   <span class="err">`</span><span class="n">anchor</span><span class="err">`：交易发送方</span><span class="n">note</span> <span class="n">commitment所在Merkle树的根hash</span><span class="err">。</span>
-   <span class="err">`</span><span class="n">nullifier</span><span class="err">`：交易发送方</span><span class="n">note的作废证明</span><span class="err">，防止双花。</span>
-   <span class="err">`</span><span class="n">rk</span><span class="err">`：验证交易发送方</span><span class="n">Spend</span> <span class="n">Authorization签名的公钥</span><span class="err">。</span>
-   <span class="err">`</span><span class="n">zkproof</span><span class="err">`：交易发送方</span><span class="n">note的零知识证明</span><span class="err">，证明要花费的</span><span class="n">note存在</span><span class="err">，且可以被花费。</span>
-   <span class="err">`</span><span class="n">spend_authority_signature</span><span class="err">`：交易发送方的</span><span class="n">Spend</span> <span class="n">Authorization签名</span><span class="err">。</span>
+<span class="w">   </span><span class="err">`</span><span class="n">value_commitment</span><span class="err">`：对交易发送方转账金额的承诺。</span>
+<span class="w">   </span><span class="err">`</span><span class="n">anchor</span><span class="err">`：交易发送方</span><span class="n">note</span><span class="w"> </span><span class="n">commitment所在Merkle树的根hash</span><span class="err">。</span>
+<span class="w">   </span><span class="err">`</span><span class="n">nullifier</span><span class="err">`：交易发送方</span><span class="n">note的作废证明</span><span class="err">，防止双花。</span>
+<span class="w">   </span><span class="err">`</span><span class="n">rk</span><span class="err">`：验证交易发送方</span><span class="n">Spend</span><span class="w"> </span><span class="n">Authorization签名的公钥</span><span class="err">。</span>
+<span class="w">   </span><span class="err">`</span><span class="n">zkproof</span><span class="err">`：交易发送方</span><span class="n">note的零知识证明</span><span class="err">，证明要花费的</span><span class="n">note存在</span><span class="err">，且可以被花费。</span>
+<span class="w">   </span><span class="err">`</span><span class="n">spend_authority_signature</span><span class="err">`：交易发送方的</span><span class="n">Spend</span><span class="w"> </span><span class="n">Authorization签名</span><span class="err">。</span>
 
 
-     <span class="kd">message</span> <span class="nc">ReceiveDescription</span> <span class="p">{</span>
-       <span class="kt">bytes</span> <span class="na">value_commitment</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-       <span class="kt">bytes</span> <span class="na">note_commitment</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
-       <span class="kt">bytes</span> <span class="na">epk</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
-       <span class="kt">bytes</span> <span class="na">c_enc</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
-       <span class="kt">bytes</span> <span class="na">c_out</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
-       <span class="kt">bytes</span> <span class="na">zkproof</span> <span class="o">=</span> <span class="mi">6</span><span class="p">;</span>
-     <span class="p">}</span>
+<span class="w">     </span><span class="kd">message</span><span class="w"> </span><span class="nc">ReceiveDescription</span><span class="w"> </span><span class="p">{</span>
+<span class="w">       </span><span class="kt">bytes</span><span class="w"> </span><span class="na">value_commitment</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">       </span><span class="kt">bytes</span><span class="w"> </span><span class="na">note_commitment</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="w">       </span><span class="kt">bytes</span><span class="w"> </span><span class="na">epk</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+<span class="w">       </span><span class="kt">bytes</span><span class="w"> </span><span class="na">c_enc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
+<span class="w">       </span><span class="kt">bytes</span><span class="w"> </span><span class="na">c_out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span>
+<span class="w">       </span><span class="kt">bytes</span><span class="w"> </span><span class="na">zkproof</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">6</span><span class="p">;</span>
+<span class="w">     </span><span class="p">}</span>
 
-   <span class="err">`</span><span class="n">value_commitment</span><span class="err">`：对交易接收方转账金额的承诺。</span>
-   <span class="err">`</span><span class="n">note_commitment</span><span class="err">`：对交易接收方</span><span class="n">note的承诺</span><span class="err">。</span>
-   <span class="err">`</span><span class="n">epk</span><span class="err">`：临时公钥，用于生成解密</span><span class="n">note密钥</span><span class="err">。</span>
-   <span class="err">`</span><span class="n">c_enc</span><span class="err">`：</span><span class="n">note加密结果的一部分</span><span class="err">，是对（</span><span class="n">Diversifier</span><span class="p">,</span> <span class="err">转账金额</span><span class="n">v</span><span class="p">,</span> <span class="err">生成</span><span class="n">note_commitment的随机数rcm</span><span class="p">,</span> <span class="n">Memo</span><span class="err">）的加密结果。</span>
-   <span class="err">`</span><span class="n">c_out</span><span class="err">`：</span><span class="n">note加密结果的另一部分</span><span class="err">，是对（接收方公钥，临时私钥）的加密结果。</span>
-   <span class="err">`</span><span class="n">zkproof</span><span class="err">`：交易接收方</span><span class="n">note存在的零知识证明</span><span class="err">。</span>
+<span class="w">   </span><span class="err">`</span><span class="n">value_commitment</span><span class="err">`：对交易接收方转账金额的承诺。</span>
+<span class="w">   </span><span class="err">`</span><span class="n">note_commitment</span><span class="err">`：对交易接收方</span><span class="n">note的承诺</span><span class="err">。</span>
+<span class="w">   </span><span class="err">`</span><span class="n">epk</span><span class="err">`：临时公钥，用于生成解密</span><span class="n">note密钥</span><span class="err">。</span>
+<span class="w">   </span><span class="err">`</span><span class="n">c_enc</span><span class="err">`：</span><span class="n">note加密结果的一部分</span><span class="err">，是对（</span><span class="n">Diversifier</span><span class="p">,</span><span class="w"> </span><span class="err">转账金额</span><span class="n">v</span><span class="p">,</span><span class="w"> </span><span class="err">生成</span><span class="n">note_commitment的随机数rcm</span><span class="p">,</span><span class="w"> </span><span class="n">Memo</span><span class="err">）的加密结果。</span>
+<span class="w">   </span><span class="err">`</span><span class="n">c_out</span><span class="err">`：</span><span class="n">note加密结果的另一部分</span><span class="err">，是对（接收方公钥，临时私钥）的加密结果。</span>
+<span class="w">   </span><span class="err">`</span><span class="n">zkproof</span><span class="err">`：交易接收方</span><span class="n">note存在的零知识证明</span><span class="err">。</span>
 </code></pre></div>
 <h2 id="27">27.多重签名<a class="headerlink" href="#27" title="Permanent link">&para;</a></h2>
 <p><a href="../multi-signatures/">多重签名</a></p>
 <h2 id="28-abi">28. 清除ABI合约<a class="headerlink" href="#28-abi" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>     <span class="kd">message</span> <span class="nc">ClearABIContract</span> <span class="p">{</span>
-       <span class="kt">bytes</span> <span class="na">owner_address</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-       <span class="kt">bytes</span> <span class="na">contract_address</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
-     <span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="w">     </span><span class="kd">message</span><span class="w"> </span><span class="nc">ClearABIContract</span><span class="w"> </span><span class="p">{</span>
+<span class="w">       </span><span class="kt">bytes</span><span class="w"> </span><span class="na">owner_address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">       </span><span class="kt">bytes</span><span class="w"> </span><span class="na">contract_address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="w">     </span><span class="p">}</span>
 
-   <span class="err">`</span><span class="n">owner_address</span><span class="err">`：合约持有人地址。</span>
-   <span class="err">`</span><span class="n">account_address</span><span class="err">`：需要清除</span><span class="n">ABI的合约</span><span class="err">。</span>
+<span class="w">   </span><span class="err">`</span><span class="n">owner_address</span><span class="err">`：合约持有人地址。</span>
+<span class="w">   </span><span class="err">`</span><span class="n">account_address</span><span class="err">`：需要清除</span><span class="n">ABI的合约</span><span class="err">。</span>
 </code></pre></div>
 <h2 id="29">29. 更新分红比例合约<a class="headerlink" href="#29" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>     <span class="kd">message</span> <span class="nc">UpdateBrokerageContract</span> <span class="p">{</span>
-       <span class="kt">bytes</span> <span class="na">owner_address</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-       <span class="kt">int32</span> <span class="na">brokerage</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
-     <span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="w">     </span><span class="kd">message</span><span class="w"> </span><span class="nc">UpdateBrokerageContract</span><span class="w"> </span><span class="p">{</span>
+<span class="w">       </span><span class="kt">bytes</span><span class="w"> </span><span class="na">owner_address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">       </span><span class="kt">int32</span><span class="w"> </span><span class="na">brokerage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="w">     </span><span class="p">}</span>
 </code></pre></div>
 <p><code>owner_address</code>：合约持有人地址。
    <code>brokerage</code>: 分红比例，从0到100，1代表1%。</p>
 <h2 id="30">30. 调整能量上限合约<a class="headerlink" href="#30" title="Permanent link">&para;</a></h2>
-<p><div class="highlight"><pre><span></span><code>     <span class="kd">message</span> <span class="nc">UpdateEnergyLimitContract</span> <span class="p">{</span>
-       <span class="kt">bytes</span> <span class="na">owner_address</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-       <span class="kt">bytes</span> <span class="na">contract_address</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
-       <span class="kt">int64</span> <span class="na">origin_energy_limit</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
-     <span class="p">}</span>
+<p><div class="highlight"><pre><span></span><code><span class="w">     </span><span class="kd">message</span><span class="w"> </span><span class="nc">UpdateEnergyLimitContract</span><span class="w"> </span><span class="p">{</span>
+<span class="w">       </span><span class="kt">bytes</span><span class="w"> </span><span class="na">owner_address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">       </span><span class="kt">bytes</span><span class="w"> </span><span class="na">contract_address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="w">       </span><span class="kt">int64</span><span class="w"> </span><span class="na">origin_energy_limit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+<span class="w">     </span><span class="p">}</span>
 </code></pre></div>
    <code>owner_address</code>：合约持有人地址。
    <code>contract_address</code>：需要调整的合约地址。

@@ -623,50 +623,50 @@ Tron兼容以太坊（Ethereum）上采用Solidity编写的智能合约。当前
 <p>Tron virtual machine 基于以太坊 solidity 语言实现，兼容以太坊虚拟机的特性，但基于tron自身属性也有部分的区别。</p>
 <h4 id="521">5.2.1 智能合约<a class="headerlink" href="#521" title="Permanent link">&para;</a></h4>
 <p>波场虚拟机运行的智能合约兼容以太坊智能合约特性，以protobuf的形式定义合约内容：</p>
-<div class="highlight"><pre><span></span><code>    <span class="kd">message</span> <span class="nc">SmartContract</span> <span class="p">{</span>
-      <span class="kd">message</span> <span class="nc">ABI</span> <span class="p">{</span>
-        <span class="kd">message</span> <span class="nc">Entry</span> <span class="p">{</span>
-          <span class="kd">enum</span> <span class="n">EntryType</span> <span class="p">{</span>
-            <span class="na">UnknownEntryType</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-            <span class="na">Constructor</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-            <span class="na">Function</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
-            <span class="na">Event</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
-            <span class="na">Fallback</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
-          <span class="p">}</span>
-          <span class="kd">message</span> <span class="nc">Param</span> <span class="p">{</span>
-            <span class="kt">bool</span> <span class="na">indexed</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-            <span class="kt">string</span> <span class="na">name</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
-            <span class="kt">string</span> <span class="na">type</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
-            <span class="c1">// SolidityType type = 3;</span>
-          <span class="p">}</span>
-          <span class="kd">enum</span> <span class="n">StateMutabilityType</span> <span class="p">{</span>
-            <span class="na">UnknownMutabilityType</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-            <span class="na">Pure</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-            <span class="na">View</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
-            <span class="na">Nonpayable</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
-            <span class="na">Payable</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
-          <span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="kd">message</span><span class="w"> </span><span class="nc">SmartContract</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="kd">message</span><span class="w"> </span><span class="nc">ABI</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kd">message</span><span class="w"> </span><span class="nc">Entry</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="kd">enum</span><span class="w"> </span><span class="n">EntryType</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="na">UnknownEntryType</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">            </span><span class="na">Constructor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">            </span><span class="na">Function</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="w">            </span><span class="na">Event</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+<span class="w">            </span><span class="na">Fallback</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
+<span class="w">          </span><span class="p">}</span>
+<span class="w">          </span><span class="kd">message</span><span class="w"> </span><span class="nc">Param</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="kt">bool</span><span class="w"> </span><span class="na">indexed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">            </span><span class="kt">string</span><span class="w"> </span><span class="na">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="w">            </span><span class="kt">string</span><span class="w"> </span><span class="na">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+<span class="w">            </span><span class="c1">// SolidityType type = 3;</span>
+<span class="w">          </span><span class="p">}</span>
+<span class="w">          </span><span class="kd">enum</span><span class="w"> </span><span class="n">StateMutabilityType</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="na">UnknownMutabilityType</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">            </span><span class="na">Pure</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">            </span><span class="na">View</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="w">            </span><span class="na">Nonpayable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+<span class="w">            </span><span class="na">Payable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
+<span class="w">          </span><span class="p">}</span>
 
-          <span class="kt">bool</span> <span class="na">anonymous</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-          <span class="kt">bool</span> <span class="na">constant</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
-          <span class="kt">string</span> <span class="na">name</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
-          <span class="k">repeated</span> <span class="n">Param</span> <span class="na">inputs</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
-          <span class="k">repeated</span> <span class="n">Param</span> <span class="na">outputs</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
-          <span class="n">EntryType</span> <span class="na">type</span> <span class="o">=</span> <span class="mi">6</span><span class="p">;</span>
-          <span class="kt">bool</span> <span class="na">payable</span> <span class="o">=</span> <span class="mi">7</span><span class="p">;</span>
-          <span class="n">StateMutabilityType</span> <span class="na">stateMutability</span> <span class="o">=</span> <span class="mi">8</span><span class="p">;</span>
-        <span class="p">}</span>
-        <span class="k">repeated</span> <span class="n">Entry</span> <span class="na">entrys</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-      <span class="p">}</span>
-      <span class="kt">bytes</span> <span class="na">origin_address</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-      <span class="kt">bytes</span> <span class="na">contract_address</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
-      <span class="n">ABI</span> <span class="na">abi</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
-      <span class="kt">bytes</span> <span class="na">bytecode</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
-      <span class="kt">int64</span> <span class="na">call_value</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
-      <span class="kt">int64</span> <span class="na">consume_user_resource_percent</span> <span class="o">=</span> <span class="mi">6</span><span class="p">;</span>
-      <span class="kt">string</span> <span class="na">name</span> <span class="o">=</span> <span class="mi">7</span><span class="err">；</span>
-      <span class="kt">int64</span> <span class="na">origin_energy_limit</span> <span class="o">=</span> <span class="mi">8</span><span class="p">;</span>
-    <span class="p">}</span>
+<span class="w">          </span><span class="kt">bool</span><span class="w"> </span><span class="na">anonymous</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">          </span><span class="kt">bool</span><span class="w"> </span><span class="na">constant</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="w">          </span><span class="kt">string</span><span class="w"> </span><span class="na">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+<span class="w">          </span><span class="k">repeated</span><span class="w"> </span><span class="n">Param</span><span class="w"> </span><span class="na">inputs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
+<span class="w">          </span><span class="k">repeated</span><span class="w"> </span><span class="n">Param</span><span class="w"> </span><span class="na">outputs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span>
+<span class="w">          </span><span class="n">EntryType</span><span class="w"> </span><span class="na">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">6</span><span class="p">;</span>
+<span class="w">          </span><span class="kt">bool</span><span class="w"> </span><span class="na">payable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">7</span><span class="p">;</span>
+<span class="w">          </span><span class="n">StateMutabilityType</span><span class="w"> </span><span class="na">stateMutability</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="k">repeated</span><span class="w"> </span><span class="n">Entry</span><span class="w"> </span><span class="na">entrys</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">      </span><span class="kt">bytes</span><span class="w"> </span><span class="na">origin_address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">      </span><span class="kt">bytes</span><span class="w"> </span><span class="na">contract_address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="w">      </span><span class="n">ABI</span><span class="w"> </span><span class="na">abi</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+<span class="w">      </span><span class="kt">bytes</span><span class="w"> </span><span class="na">bytecode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
+<span class="w">      </span><span class="kt">int64</span><span class="w"> </span><span class="na">call_value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span>
+<span class="w">      </span><span class="kt">int64</span><span class="w"> </span><span class="na">consume_user_resource_percent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">6</span><span class="p">;</span>
+<span class="w">      </span><span class="kt">string</span><span class="w"> </span><span class="na">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">7</span><span class="err">；</span>
+<span class="w">      </span><span class="kt">int64</span><span class="w"> </span><span class="na">origin_energy_limit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
 </code></pre></div>
 <p>origin_address: 合约创建者地址
 contract_address: 合约地址

@@ -325,32 +325,32 @@
 <p>该方案共包含三种权限级别，owner、witness以及active权限，其中owner权限具有执行所有合约的权限，witness权限用于超级代表出块，active是自定义权限(可以组合权限集合)，以下将详细说明。</p>
 <h3 id="_4">结构说明<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
 <h4 id="account">Account修改<a class="headerlink" href="#account" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="kd">message</span> <span class="nc">Account</span> <span class="p">{</span>
-  <span class="o">...</span>
-  <span class="n">Permission</span> <span class="na">owner_permission</span> <span class="o">=</span> <span class="mi">31</span><span class="p">;</span>
-  <span class="n">Permission</span> <span class="na">witness_permission</span> <span class="o">=</span> <span class="mi">32</span><span class="p">;</span>
-  <span class="k">repeated</span> <span class="n">Permission</span> <span class="na">active_permission</span> <span class="o">=</span> <span class="mi">33</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="kd">message</span><span class="w"> </span><span class="nc">Account</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="o">...</span>
+<span class="w">  </span><span class="n">Permission</span><span class="w"> </span><span class="na">owner_permission</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">31</span><span class="p">;</span>
+<span class="w">  </span><span class="n">Permission</span><span class="w"> </span><span class="na">witness_permission</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">32</span><span class="p">;</span>
+<span class="w">  </span><span class="k">repeated</span><span class="w"> </span><span class="n">Permission</span><span class="w"> </span><span class="na">active_permission</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">33</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
 <p>在账户结构中新增三个权限属性，分别是 owner_permission、witness_permission 和 active_permission，其中 active_permission 是个列表，可以指定最多8个。</p>
 <h4 id="contracttype">ContractType修改<a class="headerlink" href="#contracttype" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="kd">message</span> <span class="nc">Transaction</span> <span class="p">{</span>
-  <span class="kd">message</span> <span class="nc">Contract</span> <span class="p">{</span>
-    <span class="kd">enum</span> <span class="n">ContractType</span> <span class="p">{</span>
-      <span class="na">AccountCreateContract</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-      <span class="o">...</span>
-      <span class="na">AccountPermissionUpdateContract</span> <span class="o">=</span> <span class="mi">46</span><span class="p">;</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="kd">message</span><span class="w"> </span><span class="nc">Transaction</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">message</span><span class="w"> </span><span class="nc">Contract</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">enum</span><span class="w"> </span><span class="n">ContractType</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="na">AccountCreateContract</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">      </span><span class="o">...</span>
+<span class="w">      </span><span class="na">AccountPermissionUpdateContract</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">46</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
 <p>新增一种交易类型 AccountPermissionUpdateContract，用于更新账户权限。</p>
 <h4 id="accountpermissionupdatecontract">AccountPermissionUpdateContract<a class="headerlink" href="#accountpermissionupdatecontract" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="kd">message</span> <span class="nc">AccountPermissionUpdateContract</span> <span class="p">{</span>
-  <span class="kt">bytes</span> <span class="na">owner_address</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-  <span class="n">Permission</span> <span class="na">owner</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
-  <span class="n">Permission</span> <span class="na">witness</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
-  <span class="k">repeated</span> <span class="n">Permission</span> <span class="na">actives</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="kd">message</span><span class="w"> </span><span class="nc">AccountPermissionUpdateContract</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kt">bytes</span><span class="w"> </span><span class="na">owner_address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">  </span><span class="n">Permission</span><span class="w"> </span><span class="na">owner</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="w">  </span><span class="n">Permission</span><span class="w"> </span><span class="na">witness</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+<span class="w">  </span><span class="k">repeated</span><span class="w"> </span><span class="n">Permission</span><span class="w"> </span><span class="na">actives</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
 <p><code>owner_address</code>：待修改权限的账户的地址
@@ -359,19 +359,19 @@
 <code>actives</code>：修改后的 actives 权限</p>
 <p>该接口是覆盖原账户权限，因此，如果只想修改owner权限，witness（如果是witnss账户）及actives的也需要设置。</p>
 <h4 id="permission">Permission<a class="headerlink" href="#permission" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="kd">message</span> <span class="nc">Permission</span> <span class="p">{</span>
-  <span class="kd">enum</span> <span class="n">PermissionType</span> <span class="p">{</span>
-    <span class="na">Owner</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="na">Witness</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-    <span class="na">Active</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
-  <span class="p">}</span>
-  <span class="n">PermissionType</span> <span class="na">type</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-  <span class="kt">int32</span> <span class="na">id</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
-  <span class="kt">string</span> <span class="na">permission_name</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
-  <span class="kt">int64</span> <span class="na">threshold</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
-  <span class="kt">int32</span> <span class="na">parent_id</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
-  <span class="kt">bytes</span> <span class="na">operations</span> <span class="o">=</span> <span class="mi">6</span><span class="p">;</span>
-  <span class="k">repeated</span> <span class="n">Key</span> <span class="na">keys</span> <span class="o">=</span> <span class="mi">7</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="kd">message</span><span class="w"> </span><span class="nc">Permission</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">enum</span><span class="w"> </span><span class="n">PermissionType</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="na">Owner</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="na">Witness</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">    </span><span class="na">Active</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="n">PermissionType</span><span class="w"> </span><span class="na">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">int32</span><span class="w"> </span><span class="na">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">string</span><span class="w"> </span><span class="na">permission_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">int64</span><span class="w"> </span><span class="na">threshold</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">int32</span><span class="w"> </span><span class="na">parent_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">bytes</span><span class="w"> </span><span class="na">operations</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">6</span><span class="p">;</span>
+<span class="w">  </span><span class="k">repeated</span><span class="w"> </span><span class="n">Key</span><span class="w"> </span><span class="na">keys</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">7</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
 <p><code>PermissionType</code>: 权限类型，目前仅支持三种权限
@@ -385,17 +385,17 @@
 即表示该permission只拥有执行AccountCreateContract的权限，可以使用"active权限中operations的计算示例"计算获得。
 <code>keys</code>：共同拥有该权限的地址及权重，最多允许5个key。</p>
 <h4 id="key">Key<a class="headerlink" href="#key" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="kd">message</span> <span class="nc">Key</span> <span class="p">{</span>
-  <span class="kt">bytes</span> <span class="na">address</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-  <span class="kt">int64</span> <span class="na">weight</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="kd">message</span><span class="w"> </span><span class="nc">Key</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kt">bytes</span><span class="w"> </span><span class="na">address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">int64</span><span class="w"> </span><span class="na">weight</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
 <p><code>address</code>：拥有该权限的地址
 <code>weight</code>：该地址对该权限拥有权重</p>
 <h4 id="transaction">Transaction修改<a class="headerlink" href="#transaction" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="kd">message</span> <span class="nc">Transaction</span> <span class="p">{</span>
-  <span class="o">...</span>
-  <span class="kt">int32</span> <span class="na">Permission_id</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="kd">message</span><span class="w"> </span><span class="nc">Transaction</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="o">...</span>
+<span class="w">  </span><span class="kt">int32</span><span class="w"> </span><span class="na">Permission_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
 <p>在交易中增加 <code>Permission_id</code>字段，与<code>Permission.id</code>相对应，用于指定使用哪个权限。默认为0，即owner权限。
@@ -453,64 +453,64 @@ localwitness = [
 3、创建合约，签名
 4、发送交易</p>
 <h3 id="http-demo">http-demo<a class="headerlink" href="#http-demo" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="err">h</span><span class="kc">tt</span><span class="err">p</span><span class="p">:</span><span class="err">//</span><span class="p">{{</span><span class="err">hos</span><span class="kc">t</span><span class="p">}}:{{</span><span class="err">por</span><span class="kc">t</span><span class="p">}}</span><span class="err">/walle</span><span class="kc">t</span><span class="err">/accou</span><span class="kc">nt</span><span class="err">permissio</span><span class="kc">nu</span><span class="err">pda</span><span class="kc">te</span>
+<div class="highlight"><pre><span></span><code><span class="err">h</span><span class="kc">tt</span><span class="err">p</span><span class="p">:</span><span class="err">//</span><span class="p">{{</span><span class="err">hos</span><span class="kc">t</span><span class="p">}}:{{</span><span class="err">por</span><span class="kc">t</span><span class="p">}}</span><span class="err">/walle</span><span class="kc">t</span><span class="err">/accou</span><span class="kc">nt</span><span class="err">permissio</span><span class="kc">nu</span><span class="err">pda</span><span class="kc">te</span><span class="w"></span>
 
 
-<span class="p">{</span>
-  <span class="nt">&quot;owner_address&quot;</span><span class="p">:</span> <span class="s2">&quot;41ffa9466d5bf6bb6b7e4ab6ef2b1cb9f1f41f9700&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;owner&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-    <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-    <span class="nt">&quot;permission_name&quot;</span><span class="p">:</span> <span class="s2">&quot;owner&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;threshold&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
-    <span class="nt">&quot;keys&quot;</span><span class="p">:</span> <span class="p">[{</span>
-        <span class="nt">&quot;address&quot;</span><span class="p">:</span> <span class="s2">&quot;41F08012B4881C320EB40B80F1228731898824E09D&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;weight&quot;</span><span class="p">:</span> <span class="mi">1</span>
-      <span class="p">},</span>
-      <span class="p">{</span>
-        <span class="nt">&quot;address&quot;</span><span class="p">:</span> <span class="s2">&quot;41DF309FEF25B311E7895562BD9E11AAB2A58816D2&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;weight&quot;</span><span class="p">:</span> <span class="mi">1</span>
-      <span class="p">},</span>
-      <span class="p">{</span>
-        <span class="nt">&quot;address&quot;</span><span class="p">:</span> <span class="s2">&quot;41BB7322198D273E39B940A5A4C955CB7199A0CDEE&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;weight&quot;</span><span class="p">:</span> <span class="mi">1</span>
-      <span class="p">}</span>
-    <span class="p">]</span>
-  <span class="p">},</span>
-  <span class="nt">&quot;witness&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-      <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-      <span class="nt">&quot;permission_name&quot;</span><span class="p">:</span> <span class="s2">&quot;witness&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;threshold&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-      <span class="nt">&quot;keys&quot;</span><span class="p">:</span> <span class="p">[{</span>
-          <span class="nt">&quot;address&quot;</span><span class="p">:</span> <span class="s2">&quot;41F08012B4881C320EB40B80F1228731898824E09D&quot;</span><span class="p">,</span>
-          <span class="nt">&quot;weight&quot;</span><span class="p">:</span> <span class="mi">1</span>
-        <span class="p">}</span>
-      <span class="p">]</span>
-    <span class="p">},</span>
-  <span class="nt">&quot;actives&quot;</span><span class="p">:</span> <span class="p">[{</span>
-    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
-    <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
-    <span class="nt">&quot;permission_name&quot;</span><span class="p">:</span> <span class="s2">&quot;active0&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;threshold&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
-    <span class="nt">&quot;operations&quot;</span><span class="p">:</span> <span class="s2">&quot;7fff1fc0037e0000000000000000000000000000000000000000000000000000&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;keys&quot;</span><span class="p">:</span> <span class="p">[{</span>
-        <span class="nt">&quot;address&quot;</span><span class="p">:</span> <span class="s2">&quot;41F08012B4881C320EB40B80F1228731898824E09D&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;weight&quot;</span><span class="p">:</span> <span class="mi">1</span>
-      <span class="p">},</span>
-      <span class="p">{</span>
-        <span class="nt">&quot;address&quot;</span><span class="p">:</span> <span class="s2">&quot;41DF309FEF25B311E7895562BD9E11AAB2A58816D2&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;weight&quot;</span><span class="p">:</span> <span class="mi">1</span>
-      <span class="p">},</span>
-      <span class="p">{</span>
-        <span class="nt">&quot;address&quot;</span><span class="p">:</span> <span class="s2">&quot;41BB7322198D273E39B940A5A4C955CB7199A0CDEE&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;weight&quot;</span><span class="p">:</span> <span class="mi">1</span>
-      <span class="p">}</span>
-    <span class="p">]</span>
-  <span class="p">}]</span>
-<span class="p">}</span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;owner_address&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;41ffa9466d5bf6bb6b7e4ab6ef2b1cb9f1f41f9700&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;owner&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;permission_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;owner&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;threshold&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;keys&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;address&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;41F08012B4881C320EB40B80F1228731898824E09D&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;weight&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w"></span>
+<span class="w">      </span><span class="p">},</span><span class="w"></span>
+<span class="w">      </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;address&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;41DF309FEF25B311E7895562BD9E11AAB2A58816D2&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;weight&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w"></span>
+<span class="w">      </span><span class="p">},</span><span class="w"></span>
+<span class="w">      </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;address&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;41BB7322198D273E39B940A5A4C955CB7199A0CDEE&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;weight&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">]</span><span class="w"></span>
+<span class="w">  </span><span class="p">},</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;witness&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;permission_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;witness&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;threshold&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;keys&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w"></span>
+<span class="w">          </span><span class="nt">&quot;address&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;41F08012B4881C320EB40B80F1228731898824E09D&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">          </span><span class="nt">&quot;weight&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="p">]</span><span class="w"></span>
+<span class="w">    </span><span class="p">},</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;actives&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;permission_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;active0&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;threshold&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;operations&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;7fff1fc0037e0000000000000000000000000000000000000000000000000000&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;keys&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;address&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;41F08012B4881C320EB40B80F1228731898824E09D&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;weight&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w"></span>
+<span class="w">      </span><span class="p">},</span><span class="w"></span>
+<span class="w">      </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;address&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;41DF309FEF25B311E7895562BD9E11AAB2A58816D2&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;weight&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w"></span>
+<span class="w">      </span><span class="p">},</span><span class="w"></span>
+<span class="w">      </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;address&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;41BB7322198D273E39B940A5A4C955CB7199A0CDEE&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;weight&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">]</span><span class="w"></span>
+<span class="w">  </span><span class="p">}]</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="err">参数字段的定义及限制，请查看</span><span class="s2">&quot;2.1 结构说明&quot;</span><span class="err">。</span>
+<span class="err">参数字段的定义及限制，请查看</span><span class="s2">&quot;2.1 结构说明&quot;</span><span class="err">。</span><span class="w"></span>
 </code></pre></div>
 <h3 id="activeoperations">active权限中operations的计算示例<a class="headerlink" href="#activeoperations" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
