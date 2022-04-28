@@ -457,8 +457,8 @@
 <p>请查阅 <a href="../mechanism-algorithm/resource/">资源模型</a>.</p>
 <h4 id="_12">怎么计算交易带宽消耗？<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h4>
 <p><code>Transaction</code> pb 结构去除 <code>ret</code> 字段，然后再加上 64 字节。</p>
-<div class="highlight"><pre><span></span><code><span class="n">Transaction</span> <span class="n">transaction</span> <span class="o">=</span> <span class="n">result</span><span class="p">.</span><span class="na">get</span><span class="p">();</span>
-<span class="kt">long</span> <span class="n">bytesSize</span> <span class="o">=</span> <span class="n">transaction</span><span class="p">.</span><span class="na">toBuilder</span><span class="p">().</span><span class="na">clearRet</span><span class="p">().</span><span class="na">build</span><span class="p">().</span><span class="na">getSerializedSize</span><span class="p">()</span> <span class="o">+</span> <span class="mi">64</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="n">Transaction</span><span class="w"> </span><span class="n">transaction</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="na">get</span><span class="p">();</span><span class="w"></span>
+<span class="kt">long</span><span class="w"> </span><span class="n">bytesSize</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">transaction</span><span class="p">.</span><span class="na">toBuilder</span><span class="p">().</span><span class="na">clearRet</span><span class="p">().</span><span class="na">build</span><span class="p">().</span><span class="na">getSerializedSize</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">64</span><span class="p">;</span><span class="w"></span>
 </code></pre></div>
 <p>参考 <a href="https://github.com/tronprotocol/documentation/issues/370">tronprotocol/documentation#370</a>.</p>
 <h2 id="api">API 使用<a class="headerlink" href="#api" title="Permanent link">&para;</a></h2>
@@ -716,5 +716,5 @@
 
 <!--
 MkDocs version : 1.0.4
-Build Date UTC : 2022-02-23 07:56:37
+Build Date UTC : 2022-04-28 14:04:29
 -->
