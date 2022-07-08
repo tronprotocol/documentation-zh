@@ -10,7 +10,7 @@ Java-tron是用Java编写的TRON网络客户端，这意味着运行Java-tron的
 有多种方法来生成TRON网络帐户，这里将演示如何使用wallet-cli生成帐户。帐户是一对密钥(公钥和私钥)。
 
 在终端中通过命令`java -jar wallet-cli.jar`来启动一个wallet-cli：
-```shell=
+```
 $ java -jar wallet-cli.jar
 
 Welcome to Tron Wallet-Cli
@@ -23,7 +23,7 @@ wallet>
 ```
 
 输入命令：registerwallet，然后根据提示输入密码。该命令会生成TRON网络账户,并注册到wallet-cli，也就是wallet-cli会保存此账户的私钥，之后就可以使用该私钥对交易进行签名了。
-```shell=
+```
 wallet> registerwallet
 Please input password.
 password: 
@@ -37,12 +37,13 @@ wallet>
 
 ### 步骤二：登录wallet-cli
 注册完成后，输入login命令登录wallet-cli。
-```shell=
+```
 wallet> login
 ```
+
 选择要登录的账户，然后输入密码，密码输入正确后，会看到"Login successful !!!"字样，表示登录成功。
 
-```shell=
+```
 Please choose between 1 and 3
 2
 Please input your password.
@@ -52,7 +53,7 @@ wallet>
 ```
 
 登录后，可以通过getaddress命令查看登录的账户地址：
-```shell=
+```
 wallet> getaddress
 GetAddress successful !!
 address = TQXjm2J8K2DKTV49MdfT2anjUehbU3WDJz
@@ -64,7 +65,7 @@ wallet>
 
 ### 步骤三：启动Java-tron节点
 Java-tron是TRON网络客户端，它使计算机可以连接到TRON网络中。 本教程中的网络指的是TRON nile测试网。 要启动Java-tron，请首先获取Java-tron可执行文件，请参考[安装和部署](https://tronprotocol.github.io/documentation-zh/developers/deployment/)章节，然后通过如下命令，启动Java-tron。
-```shell=
+```
 $  java -Xmx24g -XX:+UseConcMarkSweepGC -jar FullNode.jar -c nile_net_config.conf
 ```
 Java-tron启动后，日志将包括以下内容：
@@ -129,7 +130,7 @@ $ curl http://127.0.0.1:16887/wallet/getnodeinfo
 Java-tron对外提供http接口和grpc接口，方便用户与TRON网络进行交互。wallet-cli使用的是grpc接口。
 ##### 获取账户信息
 在wallet-cli中输入getaccount命令后，它将向Java-tron节点请求账户信息数据，然后将结果展示到终端。
-```shell
+```
 wallet> getaccount TUoHaVjx7n5xz8LwPRDckgFrDWhMhuSuJM
 ```
 结果为：
@@ -160,7 +161,7 @@ wallet>
 
 ##### 转账TRX
 通过sendcoin命令来转账TRX，输入转入地址，及金额：
-```shell=
+```
 wallet> sendcoin TUznHJfHe6gdYY7gvWmf6bNZHuPHDZtowf 1000000
 {
 	"raw_data":{
@@ -209,7 +210,7 @@ wallet>
 ##### 根据交易id查询交易
 上面通过sendcoin命令发送了一条转账TRX的交易，在wallet-cli终端打印出了交易的id：`0e28724f0963dff35c6c76149524d3ee1073463c6dd0ceb03a592bf2c1b37122`，接下来可以通过gettransactionbyid查询交易，也可以通过gettransactioninfobyid查询交易的结果。
 
-```shell=
+```
 wallet> gettransactionbyid 21851bcf1faf22c99a7a49c4f246d709cf9f54db2f264ca145adcd464ea155a4
 {
 	"ret":[
@@ -246,7 +247,7 @@ wallet>
 
 ```
 
-```shell=
+```
 wallet> gettransactioninfobyid 21851bcf1faf22c99a7a49c4f246d709cf9f54db2f264ca145adcd464ea155a4
 {
 	"id": "21851bcf1faf22c99a7a49c4f246d709cf9f54db2f264ca145adcd464ea155a4",
