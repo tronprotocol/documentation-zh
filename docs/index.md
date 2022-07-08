@@ -1,10 +1,10 @@
-# Java-Tron入门
-本文主要说明如何启动java-tron节点并使用命令行工具wallet-cli执行基本命令与java-tron节点进行交互。关于java-tron的安装，您可以直接下载可运行文件，也可以通过源代码构建。安装java-tron的说明可以参考[安装和构建](https://tronprotocol.github.io/documentation-zh/developers/deployment/)页面。本教程是在java-tron和相关开发工具已经成功安装的基础上进行介绍的。
+# Java-tron入门
+本文主要说明如何启动Java-tron节点并使用命令行工具wallet-cli执行基本命令与Java-tron节点进行交互。关于Java-tron的安装，您可以直接下载可运行文件，也可以通过源代码构建。安装Java-tron的说明可以参考[安装和构建](https://tronprotocol.github.io/documentation-zh/developers/deployment/)页面。本教程是在Java-tron和相关开发工具已经成功安装的基础上进行介绍的。
 
-本文涵盖了使用java-tron的基础，这包括生成帐户、加入TRON nile测试网络、在帐户之间发送TRX。文档中也使用了wallet-cli，wallet-cli是TRON网络的一个命令行工具，该工具提供用户交互式命令，使用它可以更方便的与java-tron进行交互。
+本文涵盖了使用Java-tron的基础，这包括生成帐户、加入TRON nile测试网络、在帐户之间发送TRX。文档中也使用了wallet-cli，wallet-cli是TRON网络的一个命令行工具，该工具提供用户交互式命令，使用它可以更方便的与Java-tron进行交互。
 
 
-Java-tron是用Java编写的TRON网络客户端，这意味着运行java-tron的计算机会变成一个TRON网络节点。TRON网络是一个分布式网络，信息在节点之间共享，而不是由中央服务器管理。超级代表的节点在生成新的区块后，会将区块发送给其它节点。每个节点在接收到一个新的区块时，都会对其进行校验，校验通过后将其添加到自己的数据库中。java-tron使用每个区块提供的信息来更新其“状态”——TRON网络上每个账户的余额。TRON网络上有两种类型的帐户:外部拥有的帐户和合约帐户。合约帐户在收到交易时执行合约代码。外部账户是用户在本地管理的帐户，以便签署和提交交易。每个外部账户都是一个公私密钥对，其中公钥用于为用户派生一个唯一的地址，而私钥用于保护帐户和安全签署消息。因此，为了使用TRON网络，首先需要生成外部账户(以下简称“帐户”)。本教程将指导用户如何创建一个帐户，存入TRX代币，并转账TRX。
+Java-tron是用Java编写的TRON网络客户端，这意味着运行Java-tron的计算机会变成一个TRON网络节点。TRON网络是一个分布式网络，信息在节点之间共享，而不是由中央服务器管理。超级代表的节点在生成新的区块后，会将区块发送给其它节点。每个节点在接收到一个新的区块时，都会对其进行校验，校验通过后将其添加到自己的数据库中。Java-tron使用每个区块提供的信息来更新其“状态”——TRON网络上每个账户的余额。TRON网络上有两种类型的帐户:外部拥有的帐户和合约帐户。合约帐户在收到交易时执行合约代码。外部账户是用户在本地管理的帐户，以便签署和提交交易。每个外部账户都是一个公私密钥对，其中公钥用于为用户派生一个唯一的地址，而私钥用于保护帐户和安全签署消息。因此，为了使用TRON网络，首先需要生成外部账户(以下简称“帐户”)。本教程将指导用户如何创建一个帐户，存入TRX代币，并转账TRX。
 
 ## 步骤一：生成账户
 有多种方法来生成TRON网络帐户，这里将演示如何使用wallet-cli生成帐户。帐户是一对密钥(公钥和私钥)。
@@ -62,12 +62,12 @@ wallet>
 然后可以通过backupwallet命令，根据提示输入密码后，查看账户的私钥，建议保存好私钥。
 
 
-## 步骤三：启动java-tron节点
-java-tron是TRON网络客户端，它使计算机可以连接到TRON网络中。 本教程中的网络指的是TRON nile测试网。 要启动java-tron，请首先获取java-tron可执行文件，请参考[安装和部署](https://tronprotocol.github.io/documentation-zh/developers/deployment/)章节，然后通过如下命令，启动java-tron。
+## 步骤三：启动Java-tron节点
+Java-tron是TRON网络客户端，它使计算机可以连接到TRON网络中。 本教程中的网络指的是TRON nile测试网。 要启动Java-tron，请首先获取Java-tron可执行文件，请参考[安装和部署](https://tronprotocol.github.io/documentation-zh/developers/deployment/)章节，然后通过如下命令，启动Java-tron。
 ```shell=
 $  java -Xmx24g -XX:+UseConcMarkSweepGC -jar FullNode.jar -c nile_net_config.conf
 ```
-java-tron启动后，日志将包括以下内容：
+Java-tron启动后，日志将包括以下内容：
 
 ```
 11:07:58.758 INFO  [main] [app](Args.java:1143) ************************ Net config ************************
@@ -78,7 +78,7 @@ java-tron启动后，日志将包括以下内容：
 11:07:58.758 INFO  [main] [app](Args.java:1148) Discover enable: true
 ```
 
-上述日志表明java-tron已经启动并连接到了nile测试网，然后它将寻找可以连接的对等节点。一旦它找到了对等节点，就可以向它们请求区块了，日志也证实了这一点：
+上述日志表明Java-tron已经启动并连接到了nile测试网，然后它将寻找可以连接的对等节点。一旦它找到了对等节点，就可以向它们请求区块了，日志也证实了这一点：
 
 ```
 11:08:42.547 INFO  [TronJClientWorker-1] [net](Channel.java:116) Finish handshake with /123.56.3.74:18888.
@@ -107,13 +107,13 @@ Num:23113869,ID:000000000160b08d231e450ae1993a72ba19eb8f3c748fa70d105dadd0c9fd5f
 Num:23113870,ID:000000000160b08e37cb9951d31a4233f106c7e77e0535c597dbb6a16f163699, trx size: 0
 ```
 
-这些日志表明java-tron按照预期运行着。可以通过向此java-tron节点发送如下http请求，来判断节点是否已经启动，以及查看节点的状态：
+这些日志表明Java-tron按照预期运行着。可以通过向此Java-tron节点发送如下http请求，来判断节点是否已经启动，以及查看节点的状态：
 ```
 $ curl http://127.0.0.1:16887/wallet/getnodeinfo
 ```
-如果节点日志中没有报告任何错误消息，则一切正常。为了让用户与TRON网络交互，java-tron节点必须是运行着，并且处于同步正常的状态。节点是否与网络中其它节点保持同步，可以通过在Tronscan查询当前的区块高度，并与本地java-tron节点`/wallet/getnowblock`的结果进行比较，如果相等，则说明本地节点的同步状态是正常的。
+如果节点日志中没有报告任何错误消息，则一切正常。为了让用户与TRON网络交互，Java-tron节点必须是运行着，并且处于同步正常的状态。节点是否与网络中其它节点保持同步，可以通过在Tronscan查询当前的区块高度，并与本地Java-tron节点`/wallet/getnowblock`的结果进行比较，如果相等，则说明本地节点的同步状态是正常的。
 
-如果要关闭java-tron，请通过`kill -15 进程id`来暂停节点。
+如果要关闭Java-tron，请通过`kill -15 进程id`来暂停节点。
 
 ## 步骤四：获取Nile测试网TRX
 为了能够发送交易，用户的账户中需要持有TRX。在TRON网络主网上，只能通过三种方式获得TRX: 
@@ -123,12 +123,12 @@ $ curl http://127.0.0.1:16887/wallet/getnodeinfo
 
 在TRON测试网中，TRX没有实际价值, 可以通过 [水龙头](https://nileex.io/join/getJoinPage) 免费获得。
 
-## 步骤五：与Java-Tron交互
+## 步骤五：与Java-tron交互
 
-### 使用wallet-cli与Java-Tron节点进行交互
-java-tron对外提供http接口和grpc接口，方便用户与TRON网络进行交互。wallet-cli使用的是grpc接口。
+### 使用wallet-cli与Java-tron节点进行交互
+Java-tron对外提供http接口和grpc接口，方便用户与TRON网络进行交互。wallet-cli使用的是grpc接口。
 #### 获取账户信息
-在wallet-cli中输入getaccount命令后，它将向java-tron节点请求账户信息数据，然后将结果展示到终端。
+在wallet-cli中输入getaccount命令后，它将向Java-tron节点请求账户信息数据，然后将结果展示到终端。
 ```shell
 wallet> getaccount TUoHaVjx7n5xz8LwPRDckgFrDWhMhuSuJM
 ```
@@ -188,7 +188,7 @@ before sign transaction hex string is 0a85010a02cbc322088581ae7e29258a5240a89aef
 Please confirm and input your permission id, if input y or Y means default 0, other non-numeric characters will cancel transaction.
 ```
 
-该命令返回转账TRX的交易，确认无误后，输入`y`确认，其它字母表示取消这个交易。如果输入`y`，则接下来根据提示，选择使用哪个账户的私钥进行签名，最后输入密码，完成对该交易的签名，wallet-cli最后会将签名后的交易发送到java-tron节点，完成交易：
+该命令返回转账TRX的交易，确认无误后，输入`y`确认，其它字母表示取消这个交易。如果输入`y`，则接下来根据提示，选择使用哪个账户的私钥进行签名，最后输入密码，完成对该交易的签名，wallet-cli最后会将签名后的交易发送到Java-tron节点，完成交易：
 ```json=
 Please confirm and input your permission id, if input y or Y means default 0, other non-numeric characters will cancel transaction.
 y
@@ -263,8 +263,8 @@ wallet>
 ```
 
 
-### 使用Curl与Java-Tron节点进行交互
-上文介绍了如何使用wallet-cli与java-tron进行交互。与直接发送grpc/http命令相比，该工具提供更友好的交互式命令，使用户可以更方便的向java-tron发送指令。但是，如何直接发送HTTP请求到java-tron节点呢？ Curl是一个发送HTTP请求的命令行工具。本章节将说明如何通过Curl检查帐户余额，并发送交易。
+### 使用Curl与Java-tron节点进行交互
+上文介绍了如何使用wallet-cli与Java-tron进行交互。与直接发送grpc/http命令相比，该工具提供更友好的交互式命令，使用户可以更方便的向Java-tron发送指令。但是，如何直接发送HTTP请求到Java-tron节点呢？ Curl是一个发送HTTP请求的命令行工具。本章节将说明如何通过Curl检查帐户余额，并发送交易。
 
 #### 查询账户余额
 可以通过节点HTTP接口`wallet/getaccount`来查询账户的TRX余额信息，返回结果中的balance即为TRX余额，以sun为单位：
@@ -285,7 +285,7 @@ wallet>
 2. 签名交易
 3. 广播交易
 
-下面以转账TRX为例来说明如何向java-tron发送交易。
+下面以转账TRX为例来说明如何向Java-tron发送交易。
 
 通过fullnode HTTP接口`wallet/createtransaction`创建一个未签名的TRX转账交易：
 ```curl=
@@ -384,7 +384,7 @@ curl --location --request POST 'http://127.0.0.1:16887/wallet/gettransactionsign
     "raw_data_hex": "0a02193b2208aaecd88e4e0e752840e098909f9b305a68080112640a2d747970652e676f6f676c65617069732e636f6d2f70726f746f636f6c2e5472616e73666572436f6e747261637412330a154198927ffb9f554dc4a453c64b2e553a02d6df514b121541d0b69631440f0a494bb51f7eee68ff5c593c00f01880ade20470b4d58c9f9b30"
 }
 ```
-最后通过[`wallet/broadcasttransaction`](https://cn.developers.tron.network/reference/broadcasttransaction)接口将签名后的交易广播到java-tron节点，完成TRX转账交易的发送。
+最后通过[`wallet/broadcasttransaction`](https://cn.developers.tron.network/reference/broadcasttransaction)接口将签名后的交易广播到Java-tron节点，完成TRX转账交易的发送。
 
 ```curl=
 curl --location --request POST 'http://127.0.0.1:16887/wallet/broadcasttransaction' \
