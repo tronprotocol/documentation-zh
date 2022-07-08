@@ -1,9 +1,9 @@
-site_name: 波场中文文档
+site_name: Java Tron
 site_url: https://tronprotocol.github.io/documentation-zh/introduction/
 repo_url: https://github.com/tronprotocol/documentation-zh
 
 nav:
-    - 首页: index.md
+    - 入门: index.md
     - 简介:
         - 项目仓库: introduction/index.md
         - 波场共识: introduction/dpos.md
