@@ -1,5 +1,5 @@
 # Java-tron入门
-本文主要说明如何启动Java-tron节点，并通过命令行工具wallet-cli执行基本命令与Java-tron节点进行交互。关于Java-tron的安装，您可以直接下载可运行文件，也可以通过源代码构建，具体步骤可以参考[安装和构建](https://tronprotocol.github.io/documentation-zh/developers/deployment/)页面。本教程是基于Java-tron和相关开发工具已经成功安装的基础上进行介绍的。
+本文主要说明如何启动Java-tron节点，并通过命令行工具wallet-cli执行基本命令与Java-tron节点进行交互。关于Java-tron的安装，您可以直接下载可运行文件，也可以通过源代码构建，具体步骤可以参考[安装和构建](../using_javatron/installing_javatron.md)页面。本教程是基于Java-tron和相关开发工具已经成功安装的基础上进行介绍的。
 
 本文涵盖了使用Java-tron的基础，这包括生成帐户、加入TRON nile测试网络、在帐户之间发送TRX。文档中也使用了wallet-cli，wallet-cli是TRON网络的一个命令行工具，该工具提供用户交互式命令，使用它可以更方便的与Java-tron进行交互。
 
@@ -64,7 +64,7 @@ wallet>
 
 
 ### 启动Java-tron节点
-Java-tron是TRON网络客户端，它使计算机可以连接到TRON网络中。 本教程中的网络指的是TRON nile测试网。 要启动Java-tron，请首先获取Java-tron可执行文件，请参考[安装和部署](https://tronprotocol.github.io/documentation-zh/developers/deployment/)章节，然后通过如下命令，启动Java-tron。
+Java-tron是TRON网络客户端，它使计算机可以连接到TRON网络中。 本教程中的网络指的是TRON nile测试网。 要启动Java-tron，请首先获取Java-tron可执行文件，请参考[安装和部署](../using_javatron/installing_javatron.md)章节，然后通过如下命令，启动Java-tron。
 ```
 $  java -Xmx24g -XX:+UseConcMarkSweepGC -jar FullNode.jar -c nile_net_config.conf
 ```

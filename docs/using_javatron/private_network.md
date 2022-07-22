@@ -14,7 +14,7 @@
       $ mkdir FullNode
       ```
 
-2. 获取[FullNode.jar]()
+2. 获取[FullNode.jar](https://github.com/tronprotocol/java-tron/releases)
 
     获取 FullNode.jar，将其分别放到SR和FullNode目录中。
      ```

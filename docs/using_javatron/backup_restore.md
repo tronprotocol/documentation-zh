@@ -42,7 +42,7 @@ $ tar xzvf output-directory.20220628152402.etgz
 
 # 公共备份数据 
 
-对于主网和nile测试网，由于新节点启动后，需要同步的数据量较大，因此同步数据需要较长的时间。为了方便开发者进行快速的节点部署，TRON定期提供数据快照。数据快照是TRON网络节点某一时刻的数据库备份的压缩文件，开发者可以通过下载并使用数据快照加快节点同步过程。
+对于主网和nile测试网，由于新节点启动后，需要同步的数据量较大，因此同步数据需要较长的时间。为了方便开发者进行快速的节点部署，社区定期提供数据快照。数据快照是TRON网络节点某一时刻的数据库备份的压缩文件，开发者可以通过下载并使用数据快照加快节点同步过程。
 
 ### FullNode数据快照
 
@@ -69,7 +69,7 @@ TRON网络从GreatVoyage-V4.1.0版本开始，支持Lite FullNode类型的节点
 | -------- | -------- | -------- |
 | 官方数据源(美洲:美国弗吉尼亚)   | http://47.89.178.46/     | LevelDB数据。目前已经关闭了Lite Fullnode数据快照的下载，预计从GreatVoyage-V4.5.0版本开始支持下载，但具体时间请等待社区通知    |
 
-小提示：如果用户已经有Fullnode的全量数据，可以使用[Lite FullNode工具](https://tronprotocol.github.io/documentation-zh/developers/litefullnode/)自行将fullnode数据切分成Lite fullnode数据。
+小提示：如果用户已经有Fullnode的全量数据，可以使用[Lite FullNode工具](../../developers/litefullnode/#lite-fullnode-tool)自行将fullnode数据切分成Lite fullnode数据。
 
 ### 数据快照的使用
 
