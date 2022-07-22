@@ -1,54 +1,43 @@
 site_name: Java Tron
-site_url: https://tronprotocol.github.io/documentation-zh/introduction/
+site_url: https://tronprotocol.github.io/documentation-zh/
 repo_url: https://github.com/tronprotocol/documentation-zh
 
 nav:
-    - 入门: index.md
-    - 简介:
-        - 项目仓库: introduction/index.md
-        - 波场共识: introduction/dpos.md
-        - 波场概览: introduction/overview.md
+    - 入门: getting_started/getting_started_with_javatron.md
+    - 使用Java-tron:
+        - 部署Java-tron节点: using_javatron/installing_javatron.md
+        - 备份和恢复: using_javatron/backup_restore.md
+        - 连接到TRON网络: using_javatron/connecting_to_tron.md
+        - 轻节点: developers/litefullnode.md
+        - 私链网络: using_javatron/private_network.md
+        - 数据库配置: architecture/database.md
+        - 部署事件插件: architecture/event.md
+        - 节点监控: using_javatron/metrics.md
     - API 接口:
         - HTTP 接口: api/http.md
         - RPC 接口: api/rpc.md
-    - 机制与算法:
-        - 超级代表与委员会: mechanism-algorithm/sr.md
-        - TRC-10: mechanism-algorithm/trc10.md
+    - 核心协议:
+        - 波场共识: introduction/dpos.md
+        - 超级代表: mechanism-algorithm/sr.md
         - 账户模型: mechanism-algorithm/account.md
         - 资源模型: mechanism-algorithm/resource.md
+        - 智能合约: contracts/contract.md
         - 去中心化交易所: mechanism-algorithm/dex.md
         - 多重签名: mechanism-algorithm/multi-signatures.md
-        - 匿名合约: mechanism-algorithm/shielded-TRC20-contract.md
-        - 系统合约: mechanism-algorithm/system-contracts.md
-    - 架构介绍:
-        - 网络: architecture/network.md
-        - 数据储存: architecture/database.md
-        - 事件插件: architecture/event.md
-    - 智能合约文档:
-        - 虚拟机: contracts/tvm.md
-        - 编译器: contracts/compiler.md
-        - 合约: contracts/contract.md
-        - TRC-20: contracts/trc20.md
-    - 开发者文档:
-        - 官方节点: developers/official-public-nodes.md
-        - 部署: developers/deployment.md
-        - levelDB 启动优化插件: developers/archive-manifest.md
-        - 在 IDEA 中启动节点: developers/run-in-idea.md
-        - 如何使用LiteFullnode工具: developers/litefullnode.md
+    - Java-tron开发:
+        - Java-tron仓库: developers/java-tron.md
         - 如何参与开发: developers/contribution.md
-        - 开发者激励: developers/incentives.md
-        - Java-Tron: developers/java-tron.md
+        - 配置集成开发环境IDEA: developers/run-in-idea.md
         - TIPs: developers/tips.md
-        - 高级配置项: developers/advanced-configuration.md
-        - 其他参考资源: developers/resources.md
-        - 联系我们（GPG Key）: developers/gpg.md
-    - 客户端:
-        - 命令行钱包: clients/wallet-cli.md
-        - clients/tron-grid.md
+        - GPG Key: developers/gpg.md
+    - Dapp开发:
+        - Dapp开发工具: contracts/compiler.md
+    - Wallet-cli: 
+        - 安装: clients/wallet-cli.md
     - 版本发布:
         - 一致性检验: releases/index.md
-    - 常见问题: faq/index.md
     - 术语表: glossary.md
+
 
 theme: readthedocs
 extra_javascript:
