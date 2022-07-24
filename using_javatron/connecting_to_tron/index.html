@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://tronprotocol.github.io/documentation-zh/using_javatron/connecting_to_tron/" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>连接到TRON网络 - Java Tron</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\u8fde\u63a5\u5230TRON\u7f51\u7edc";
+        var mkdocs_page_input_path = "using_javatron/connecting_to_tron.md";
+        var mkdocs_page_url = "/documentation-zh/using_javatron/connecting_to_tron/";
+      </script>
+    
+    <script src="../../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> Java Tron
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">主页</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../getting_started/getting_started_with_javatron/">入门</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">使用Java-tron</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../installing_javatron/">部署Java-tron节点</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../backup_restore/">备份和恢复</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">连接到TRON网络</a>
+    <ul class="current">
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../developers/litefullnode/">轻节点</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../private_network/">私链网络</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../architecture/database/">数据库配置</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../architecture/event/">部署事件插件</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../metrics/">节点监控</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">API 接口</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../api/http/">HTTP 接口</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../api/rpc/">RPC 接口</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">核心协议</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../introduction/dpos/">波场共识</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../mechanism-algorithm/sr/">超级代表</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../mechanism-algorithm/account/">账户模型</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../mechanism-algorithm/resource/">资源模型</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../contracts/contract/">智能合约</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../mechanism-algorithm/dex/">去中心化交易所</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../mechanism-algorithm/multi-signatures/">多重签名</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Java-tron开发</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../developers/java-tron/">Java-tron仓库</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../developers/contribution/">如何参与开发</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../developers/run-in-idea/">配置集成开发环境IDEA</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../developers/tips/">TIPs</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../developers/gpg/">GPG Key</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Dapp开发</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../contracts/compiler/">Dapp开发工具</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Wallet-cli</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../clients/wallet-cli/">安装</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">版本发布</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../releases/">一致性检验</a>
+                  </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../glossary/">术语表</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">Java Tron</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" alt="Docs"></a> &raquo;</li>
+          <li>使用Java-tron &raquo;</li><li>连接到TRON网络</li>
+    <li class="wy-breadcrumbs-aside">
+        <a href="https://github.com/tronprotocol/documentation-zh/edit/master/docs/using_javatron/connecting_to_tron.md"
+          class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="tron">连接到TRON网络<a class="headerlink" href="#tron" title="Permanent link">&para;</a></h1>
+<p>TRON网络主要分为主网，Shasta测试网，Nile测试网以及私网，因此对于Java-Tron客户端软件，可以通过对配置文件中配置项的修改使其连接到任意一个TRON网络中。目前Shasta测试网不支持运行一个节点加入其中，Nile测试网可以支持。</p>
+<p>您需要设置如下配置项，将Java-tron连接到其中一个TRON网络：</p>
+<ul>
+<li><code>node.p2p.version</code> ： 用来设置P2P网络id，只有网络id相同的节点才能握手成功。<ul>
+<li>TRON主网：<code>node.p2p.version=11111</code></li>
+<li>Nile测试网：<code>node.p2p.version = 201910292</code></li>
+<li>私链网络：设置成其它值</li>
+</ul>
+</li>
+<li><code>seed.node</code>：设置种子节点</li>
+<li><code>genesis.block</code>：创世块设置。如果想要加入一个网络中，必须保证创世块的设置与网络中其它节点的相同，否则无法加入到该网络。</li>
+</ul>
+<h1 id="_1">节点发现<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<p>Java-tron节点在有足够的对等节点之前会不断地尝试与网络上的其他节点建立连接，同时它也会接受来自其他节点的连接。Java-tron使用节点发现协议查找对等点。在发现协议中，节点间交换连接细节，然后建立会话，交换TRON网络数据。</p>
+<p>首先，如果需要Java-tron节点进行节点发现，那么要在节点配置文件中开启节点发现服务：</p>
+<div class="highlight"><pre><span></span><code>node.discovery = {
+  enable = true
+  ...
+}
+</code></pre></div>
+<p>然后，对于加入到TRON网络的新节点，可以通过配置<code>种子节点</code>使当前节点更容易的连接到对等节点，然后再通过对等节点获取到其它节点的地址信息。一般将种子节点设置成稳定在线的全节点，对于TRON主网，可以使用社区公共节点作为种子节点，例如:</p>
+<div class="highlight"><pre><span></span><code>seed.node = {
+  # List of the seed nodes
+  # Seed nodes are stable full nodes
+
+  ip.list = [
+    &quot;3.225.171.164:18888&quot;,
+    &quot;52.53.189.99:18888&quot;,
+    &quot;18.196.99.16:18888&quot;,
+    &quot;34.253.187.192:18888&quot;,
+    &quot;18.133.82.227:18888&quot;,
+    &quot;35.180.51.163:18888&quot;,
+    &quot;54.252.224.209:18888&quot;,
+    &quot;18.231.27.82:18888&quot;,
+    &quot;52.15.93.92:18888&quot;,
+    &quot;34.220.77.106:18888&quot;,
+    &quot;15.207.144.3:18888&quot;,
+    &quot;13.124.62.58:18888&quot;,
+    &quot;13.229.128.108:18888&quot;,
+    &quot;35.182.37.246:18888&quot;,
+    &quot;34.200.228.125:18888&quot;,
+    &quot;18.220.232.201:18888&quot;,
+    &quot;13.57.30.186:18888&quot;,
+    &quot;35.165.103.105:18888&quot;,
+    &quot;18.184.238.21:18888&quot;,
+    &quot;34.250.140.143:18888&quot;,
+    &quot;35.176.192.130:18888&quot;,
+    &quot;52.47.197.188:18888&quot;,
+    &quot;52.62.210.100:18888&quot;,
+    &quot;13.231.4.243:18888&quot;,
+    &quot;18.231.76.29:18888&quot;,
+    &quot;35.154.90.144:18888&quot;,
+    &quot;13.125.210.234:18888&quot;,
+    &quot;13.250.40.82:18888&quot;,
+    &quot;35.183.101.48:18888&quot;
+  ]
+}
+</code></pre></div>
+<p>在某些情况下，不需要开启节点发现进程，比如，运行一个本地测试节点或部署一个具有固定的一些节点的测试网络。这时可以通过将配置项设置成<code>node.discovery.enable = false</code>来关闭节点发现进程。</p>
+<h1 id="_2">连接问题<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h1>
+<p>有时Java-tron无法连接到对等节点，常见的原因有:</p>
+<ul>
+<li>本地时钟错误。参与到TRON网络需要一个精确的时钟。可以使用<code>sudo ntpdate -s time.nist.gov</code> 命令重新同步本地时钟。</li>
+<li>某些防火墙配置可能会禁止UDP流量，而节点发现服务建立在UDP协议基础之上，因此可以通过配置<a href="#_5"><code>node.active</code></a>，在节点发现无效的情况下连接到网络。</li>
+<li>通过配置<a href="#_5"><code>node.passive</code></a>，以接受可信的节点的主动连接。</li>
+<li>Shasta测试网暂时不支持节点加入到网络中 ，如果需要运行节点加入到公共测试网络，可以选择Nile测试网。</li>
+</ul>
+<h1 id="_3">日志与网络连接验证<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h1>
+<p>java-tron节点日志位于<code>/logs/torn.log</code>，可以使用如下命令查看节点最新日志，查看节点区块同步情况：</p>
+<div class="highlight"><pre><span></span><code>$ tail -f /logs/tron.log/
+</code></pre></div>
+<p>如果一切正常，您将看到类似如下区块同步的日志信息：
+<div class="highlight"><pre><span></span><code>15:41:48.033 INFO  [nioEventLoopGroup-6-2] [DB](Manager.java:1208) pushBlock block number:76, cost/txs:13/0 false
+15:41:48.033 INFO  [nioEventLoopGroup-6-2] [net](TronNetDelegate.java:255) Success process block Num:76,ID:000000000000004c9e3899ee9952a7f0d9e4f692c7070a48390e6fea8099432f.
+</code></pre></div></p>
+<p>对于超级代表的产块的全节点，您将看到如下生产区块的日志信息：</p>
+<div class="highlight"><pre><span></span><code>02:31:33.008 INFO  [DPosMiner] [DB](Manager.java:1383) Generate block 79336 begin
+02:31:33.059 INFO  [DPosMiner] [DB](SnapshotManager.java:315) flush cost:51, create checkpoint cost:49, refresh cost:2
+02:31:33.060 INFO  [DPosMiner] [DB](Manager.java:1492) Generate block 79336 success, trxs:0, pendingCount: 0, rePushCount: 0, postponedCount: 0
+</code></pre></div>
+<p>如果节点日志中没有报告任何错误消息，则表示一切正常。您也可以通过发送http请求，来判断节点是否已经启动，以及查看节点的状态：包括节点配置信息，节点所在机器信息，节点peers连接情况等：
+<div class="highlight"><pre><span></span><code>$ curl http://127.0.0.1:16887/wallet/getnodeinfo
+</code></pre></div></p>
+<p>返回结果：</p>
+<div class="highlight"><pre><span></span><code>{
+    &quot;activeConnectCount&quot;: 3,
+    &quot;beginSyncNum&quot;: 42518346,
+    &quot;block&quot;: &quot;Num:42518365,ID:000000000288c75d1967232f1efe606ff90b9dd76660d7de8cc091849be6bf10&quot;,
+    &quot;cheatWitnessInfoMap&quot;: {
+        ...
+    },
+    &quot;configNodeInfo&quot;: {
+        ...
+        &quot;codeVersion&quot;: &quot;4.5.1&quot;,
+        &quot;dbVersion&quot;: 2,
+        &quot;discoverEnable&quot;: true,
+        &quot;listenPort&quot;: 18888,
+        ...
+    },
+    &quot;currentConnectCount&quot;: 18,
+    &quot;machineInfo&quot;: {
+        ...
+    },
+    &quot;passiveConnectCount&quot;: 15,
+    &quot;peerList&quot;: [
+        ...
+    ],
+    &quot;solidityBlock&quot;: &quot;Num:42518347,ID:000000000288c74b723398aef104c585bad1c7cbade7793c5551466bd916feee&quot;,
+    &quot;totalFlow&quot;: 8735314
+}
+</code></pre></div>
+<p>为了让用户与TRON网络交互，java-tron节点必须处于运行状态，并且处于同步正常的状态。节点是否与网络中其它节点保持同步，可以通过在Tronscan查询当前的区块高度和节点ID，并与本地节点<code>/wallet/getnowblock</code>的结果进行比较，如果相等，则说明本地节点的同步状态是正常的。</p>
+<h1 id="_4">私链网络<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h1>
+<p>对于开发人员来说，他的节点有可能并不需要连接到TRON主网或者TRON公共测试网络，而是需要连接到私有测试网络，因为私链不但对机器配置没有要求，而且在私链网络的沙盒环境下，更容易测试各种功能，可以自由破坏而不需要承担任何后果。</p>
+<p>私链网络需要将<a href="https://github.com/tronprotocol/tron-deployment/blob/master/private_net_config.conf">私链配置文件</a>中的配置项<code>node.p2p.version</code>配置成一个没有被任何其他现有的公共网络（TRON主网，测试网）使用的值。有关私链搭建的详细说明请参考 <a href="../private_network/">私链网络</a>。</p>
+<h1 id="_5">主动连接与被动连接<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h1>
+<p>Java-tron支持设置其主动连接的节点<code>node.active</code>以及被动连接的节点<code>node.passive</code>。配置<code>node.active</code>和<code>node.passive</code>对改善节点的网络连接稳定性有很大的帮助。</p>
+<p>当Java-tron启动后，会主动与<code>node.active</code>中的对等节点建立连接。</p>
+<div class="highlight"><pre><span></span><code>node {
+  active = [
+    # Active establish connection in any case
+    # Sample entries:
+    # &quot;ip:port&quot;,
+    # &quot;ip:port&quot;
+  ]
+ }
+</code></pre></div>
+<p>当<code>node.passive</code>中的节点主动与当前节点建立连接时，当前节点都会无条件的接受。</p>
+<div class="highlight"><pre><span></span><code>node {
+  passive = [
+    # Passive accept connection in any case
+    # Sample entries:
+    # &quot;ip:port&quot;,
+    # &quot;ip:port&quot;
+  ]
+ }
+</code></pre></div>
+<h1 id="peer">Peer数量限制<a class="headerlink" href="#peer" title="Permanent link">&para;</a></h1>
+<p><code>node.maxActiveNodes</code>表示节点与其它节点的最大连接数量，默认值是30。设置更大的值可以使节点能够建立更多的连接，加入网络的效率更高，同时广播的效率也更高，但是，相对的维护连接需要的带宽也更高，性能消耗也更大，因此，请根据实际情况设置。
+<div class="highlight"><pre><span></span><code>node {
+    maxActiveNodes = 30
+}
+</code></pre></div></p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../backup_restore/" class="btn btn-neutral float-left" title="备份和恢复"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../../developers/litefullnode/" class="btn btn-neutral float-right" title="轻节点">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/tronprotocol/documentation-zh" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../backup_restore/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../../developers/litefullnode/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme_extra.js" defer></script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+      <script src="../../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

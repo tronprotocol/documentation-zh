@@ -1,298 +1,152 @@
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  
-  <link rel="shortcut icon" href="../../img/favicon.ico">
-  <title>tron-dex概述 - Java Tron</title>
-  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
-
-  <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
-  
-  <script>
-    // Current page data
-    var mkdocs_page_name = "tron-dex\u6982\u8ff0";
-    var mkdocs_page_input_path = "mechanism-algorithm/trondex.md";
-    var mkdocs_page_url = "/documentation-zh/introduction/mechanism-algorithm/trondex/";
-  </script>
-  
-  <script src="../../js/jquery-2.1.1.min.js" defer></script>
-  <script src="../../js/modernizr-2.8.3.min.js" defer></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-  <script>hljs.initHighlightingOnLoad();</script> 
-  
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://tronprotocol.github.io/documentation-zh/mechanism-algorithm/trondex/" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>tron-dex概述 - Java Tron</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "tron-dex\u6982\u8ff0";
+        var mkdocs_page_input_path = "mechanism-algorithm/trondex.md";
+        var mkdocs_page_url = "/documentation-zh/mechanism-algorithm/trondex/";
+      </script>
+    
+    <script src="../../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
 </head>
 
 <body class="wy-body-for-nav" role="document">
 
   <div class="wy-grid-for-nav">
-
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
       <div class="wy-side-nav-search">
-        <a href="../.." class="icon icon-home"> Java Tron</a>
-        <div role="search">
+          <a href="../.." class="icon icon-home"> Java Tron
+        </a><div role="search">
   <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
   </form>
 </div>
       </div>
 
-      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-	<ul class="current">
-	  
-          
-            <li class="toctree-l1">
-		
-    <a class="" href="../..">入门</a>
-	    </li>
-          
-            <li class="toctree-l1">
-		
-    <span class="caption-text">简介</span>
-    <ul class="subnav">
-                <li class="">
-                    
-    <a class="" href="../../introduction/">项目仓库</a>
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">主页</a>
                 </li>
-                <li class="">
-                    
-    <a class="" href="../../introduction/dpos/">波场共识</a>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../getting_started/getting_started_with_javatron/">入门</a>
                 </li>
-                <li class="">
-                    
-    <a class="" href="../../introduction/overview/">波场概览</a>
+              </ul>
+              <p class="caption"><span class="caption-text">使用Java-tron</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../using_javatron/installing_javatron/">部署Java-tron节点</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../using_javatron/backup_restore/">备份和恢复</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../using_javatron/connecting_to_tron/">连接到TRON网络</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../developers/litefullnode/">轻节点</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../using_javatron/private_network/">私链网络</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../architecture/database/">数据库配置</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../architecture/event/">部署事件插件</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../using_javatron/metrics/">节点监控</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">API 接口</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../api/http/">HTTP 接口</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../api/rpc/">RPC 接口</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">核心协议</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../introduction/dpos/">波场共识</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../sr/">超级代表</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../account/">账户模型</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../resource/">资源模型</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../contracts/contract/">智能合约</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dex/">去中心化交易所</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../multi-signatures/">多重签名</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Java-tron开发</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../developers/java-tron/">Java-tron仓库</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../developers/contribution/">如何参与开发</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../developers/run-in-idea/">配置集成开发环境IDEA</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../developers/tips/">TIPs</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../developers/gpg/">GPG Key</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Dapp开发</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../contracts/compiler/">Dapp开发工具</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Wallet-cli</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../clients/wallet-cli/">安装</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">版本发布</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../releases/">一致性检验</a>
+                  </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../glossary/">术语表</a>
                 </li>
-    </ul>
-	    </li>
-          
-            <li class="toctree-l1">
-		
-    <span class="caption-text">API 接口</span>
-    <ul class="subnav">
-                <li class="">
-                    
-    <a class="" href="../../api/http/">HTTP 接口</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../../api/rpc/">RPC 接口</a>
-                </li>
-    </ul>
-	    </li>
-          
-            <li class="toctree-l1">
-		
-    <span class="caption-text">机制与算法</span>
-    <ul class="subnav">
-                <li class="">
-                    
-    <a class="" href="../sr/">超级代表与委员会</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../trc10/">TRC-10</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../account/">账户模型</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../resource/">资源模型</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../dex/">去中心化交易所</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../multi-signatures/">多重签名</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../shielded-TRC20-contract/">匿名合约</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../system-contracts/">系统合约</a>
-                </li>
-    </ul>
-	    </li>
-          
-            <li class="toctree-l1">
-		
-    <span class="caption-text">架构介绍</span>
-    <ul class="subnav">
-                <li class="">
-                    
-    <a class="" href="../../architecture/network/">网络</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../../architecture/database/">数据储存</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../../architecture/event/">事件插件</a>
-                </li>
-    </ul>
-	    </li>
-          
-            <li class="toctree-l1">
-		
-    <span class="caption-text">智能合约文档</span>
-    <ul class="subnav">
-                <li class="">
-                    
-    <a class="" href="../../contracts/tvm/">虚拟机</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../../contracts/compiler/">编译器</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../../contracts/contract/">合约</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../../contracts/trc20/">TRC-20</a>
-                </li>
-    </ul>
-	    </li>
-          
-            <li class="toctree-l1">
-		
-    <span class="caption-text">开发者文档</span>
-    <ul class="subnav">
-                <li class="">
-                    
-    <a class="" href="../../developers/official-public-nodes/">官方节点</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../../developers/deployment/">部署</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../../developers/archive-manifest/">levelDB 启动优化插件</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../../developers/run-in-idea/">在 IDEA 中启动节点</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../../developers/litefullnode/">如何使用LiteFullnode工具</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../../developers/contribution/">如何参与开发</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../../developers/incentives/">开发者激励</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../../developers/java-tron/">Java-Tron</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../../developers/tips/">TIPs</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../../developers/advanced-configuration/">高级配置项</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../../developers/resources/">其他参考资源</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../../developers/gpg/">联系我们（GPG Key）</a>
-                </li>
-    </ul>
-	    </li>
-          
-            <li class="toctree-l1">
-		
-    <span class="caption-text">客户端</span>
-    <ul class="subnav">
-                <li class="">
-                    
-    <a class="" href="../../clients/wallet-cli/">命令行钱包</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../../clients/tron-grid/">TronGrid</a>
-                </li>
-    </ul>
-	    </li>
-          
-            <li class="toctree-l1">
-		
-    <span class="caption-text">版本发布</span>
-    <ul class="subnav">
-                <li class="">
-                    
-    <a class="" href="../../releases/">一致性检验</a>
-                </li>
-    </ul>
-	    </li>
-          
-            <li class="toctree-l1">
-		
-    <a class="" href="../../faq/">常见问题</a>
-	    </li>
-          
-            <li class="toctree-l1">
-		
-    <a class="" href="../../glossary/">术语表</a>
-	    </li>
-          
-        </ul>
+              </ul>
       </div>
-      &nbsp;
+    </div>
     </nav>
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../..">Java Tron</a>
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">Java Tron</a>
+        
       </nav>
-
-      
       <div class="wy-nav-content">
-        <div class="rst-content">
-          <div role="navigation" aria-label="breadcrumbs navigation">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
-    <li><a href="../..">Docs</a> &raquo;</li>
-    
-      
-    
-    <li>tron-dex概述</li>
+    <li><a href="../.." class="icon icon-home" alt="Docs"></a> &raquo;</li><li>tron-dex概述</li>
     <li class="wy-breadcrumbs-aside">
-      
         <a href="https://github.com/tronprotocol/documentation-zh/edit/master/docs/mechanism-algorithm/trondex.md"
           class="icon icon-github"> Edit on GitHub</a>
-      
     </li>
   </ul>
   <hr/>
 </div>
-          <div role="main">
-            <div class="section">
+
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
               
                 <h1 id="tron-dex">tron-dex概述<a class="headerlink" href="#tron-dex" title="Permanent link">&para;</a></h1>
 <p>Tron-DEX是一个去中心化的交易所，包含链上订单表、高效的链上撮合引擎，用户在这里可以获得类似于中心化交易所的交易体验。 
@@ -467,20 +321,17 @@ active,表示当前有效的订单。inactive，表示订单已经撮合完成�
 <p>相关api详情，请查询<a href="../../api/http/">http api</a>。  </p>
               
             </div>
-          </div>
-          <footer>
-  
+          </div><footer>
 
   <hr/>
 
   <div role="contentinfo">
     <!-- Copyright etc -->
-    
   </div>
 
-  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
 </footer>
-      
+          
         </div>
       </div>
 
@@ -488,19 +339,27 @@ active,表示当前有效的订单。inactive，表示订单已经撮合完成�
 
   </div>
 
-  <div class="rst-versions" role="note" style="cursor: pointer">
-    <span class="rst-current-version" data-toggle="rst-current-version">
-      
-          <a href="https://github.com/tronprotocol/documentation-zh/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
-      
-      
-      
-    </span>
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/tronprotocol/documentation-zh" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+    
+  </span>
 </div>
     <script>var base_url = '../..';</script>
+    <script src="../../js/theme_extra.js" defer></script>
     <script src="../../js/theme.js" defer></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
       <script src="../../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
 
 </body>
 </html>

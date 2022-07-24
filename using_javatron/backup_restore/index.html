@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://tronprotocol.github.io/documentation-zh/using_javatron/backup_restore/" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>备份和恢复 - Java Tron</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\u5907\u4efd\u548c\u6062\u590d";
+        var mkdocs_page_input_path = "using_javatron/backup_restore.md";
+        var mkdocs_page_url = "/documentation-zh/using_javatron/backup_restore/";
+      </script>
+    
+    <script src="../../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> Java Tron
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">主页</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../getting_started/getting_started_with_javatron/">入门</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">使用Java-tron</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../installing_javatron/">部署Java-tron节点</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">备份和恢复</a>
+    <ul class="current">
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../connecting_to_tron/">连接到TRON网络</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../developers/litefullnode/">轻节点</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../private_network/">私链网络</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../architecture/database/">数据库配置</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../architecture/event/">部署事件插件</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../metrics/">节点监控</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">API 接口</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../api/http/">HTTP 接口</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../api/rpc/">RPC 接口</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">核心协议</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../introduction/dpos/">波场共识</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../mechanism-algorithm/sr/">超级代表</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../mechanism-algorithm/account/">账户模型</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../mechanism-algorithm/resource/">资源模型</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../contracts/contract/">智能合约</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../mechanism-algorithm/dex/">去中心化交易所</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../mechanism-algorithm/multi-signatures/">多重签名</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Java-tron开发</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../developers/java-tron/">Java-tron仓库</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../developers/contribution/">如何参与开发</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../developers/run-in-idea/">配置集成开发环境IDEA</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../developers/tips/">TIPs</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../developers/gpg/">GPG Key</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Dapp开发</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../contracts/compiler/">Dapp开发工具</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Wallet-cli</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../clients/wallet-cli/">安装</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">版本发布</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../releases/">一致性检验</a>
+                  </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../glossary/">术语表</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">Java Tron</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" alt="Docs"></a> &raquo;</li>
+          <li>使用Java-tron &raquo;</li><li>备份和恢复</li>
+    <li class="wy-breadcrumbs-aside">
+        <a href="https://github.com/tronprotocol/documentation-zh/edit/master/docs/using_javatron/backup_restore.md"
+          class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="_1">数据备份和恢复<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<h1 id="_2">数据库目录<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h1>
+<p>Java-Tron会将持久化存储的数据写入到数据目录，默认的数据目录为：<code>/output-directory/</code>，如需指定其它目录，可以在java-tron节点启动命令中加入 <code>-d</code> 或者 <code>--output-directory</code> 参数来指定数据存储位置。
+<div class="highlight"><pre><span></span><code>$ java -jar fullnode.jar -d ./outputdir
+</code></pre></div></p>
+<h1 id="_3">数据备份<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h1>
+<p>对节点数据进行备份之前，请先关闭节点进程。具体请参考如下步骤：</p>
+<p>首先，使用命令<code>$ ps -ef |grep FullNode.jar |grep -v grep |awk '{print $2}'</code> 获取java-tron的进程id，然后使用命令<code>kill -15 进程id</code> 关闭进程。或者使用如下的停止脚本：</p>
+<div class="highlight"><pre><span></span><code>#!/bin/bash
+while true; do
+  pid=`ps -ef |grep FullNode.jar |grep -v grep |awk &#39;{print $2}&#39;`
+  if [ -n &quot;$pid&quot; ]; then
+    kill -15 $pid
+    echo &quot;The java-tron process is exiting, it may take some time, forcing the exit may cause damage to the database, please wait patiently...&quot;
+    sleep 1
+  else
+    echo &quot;java-tron killed successfully!&quot;
+    break
+  fi
+done
+</code></pre></div>
+<p>然后，当关闭了Java-tron进程后，可通过如下命令进行数据的备份。</p>
+<div class="highlight"><pre><span></span><code>$ tar cvzf output-directory.`date &quot;+%Y%m%d%H%M%S&quot;`.etgz output-directory
+</code></pre></div>
+<h1 id="_4">数据恢复<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h1>
+<p>当恢复数据时，只需将相应的数据拷贝到节点目录下即可。假如数据库备份文件名为<code>output-directory.20220628152402.etgz</code>，则恢复数据库文件的命令为：</p>
+<div class="highlight"><pre><span></span><code>$ tar xzvf output-directory.20220628152402.etgz
+</code></pre></div>
+<h1 id="_5">公共备份数据<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h1>
+<p>对于主网和nile测试网，由于新节点启动后，需要同步的数据量较大，因此同步数据需要较长的时间。为了方便开发者进行快速的节点部署，社区定期提供数据快照。数据快照是TRON网络节点某一时刻的数据库备份的压缩文件，开发者可以通过下载并使用数据快照加快节点同步过程。</p>
+<h3 id="fullnode">FullNode数据快照<a class="headerlink" href="#fullnode" title="Permanent link">&para;</a></h3>
+<p>下表为Fullnode数据快照的下载地址，请根据所在地和节点数据库类型，以及是否需要查询历史内部交易等需求选择适合的数据快照。</p>
+<table>
+<thead>
+<tr>
+<th>Fullnode节点数据源</th>
+<th>下载地址</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>官方数据源(美洲:美国弗吉尼亚)</td>
+<td>http://47.89.178.46/</td>
+<td>LevelDB数据，不包含内部交易(截止2021-10-28约 609G)</td>
+</tr>
+<tr>
+<td>官方数据源(美洲:美国弗吉尼亚)</td>
+<td>http://47.89.178.46:18811/</td>
+<td>RocksDB数据，不包含内部交易(截止2021-10-28约 601G)</td>
+</tr>
+<tr>
+<td>官方数据源(亚洲:新加坡)</td>
+<td>http://47.74.159.117/</td>
+<td>LevelDB数据，不包含内部交易(截止2021-10-28约 609G)</td>
+</tr>
+<tr>
+<td>官方数据源(亚洲:新加坡)</td>
+<td>http://47.74.159.117/saveInternalTx/</td>
+<td>LevelDB数据，包含内部交易(截止2021-10-28约 769G)</td>
+</tr>
+<tr>
+<td>TronGrid社区提供的数据源</td>
+<td>https://backups.trongrid.io/</td>
+<td>LevelDB数据，包含内部交易(截止2021-10-28约 815G)</td>
+</tr>
+</tbody>
+</table>
+<p>注意：LevelDB和RocksDB的数据不允许混用。FullNode的数据库类型通过配置文件的配置项<code>db.engine</code> 进行指定，可选值为<code>LEVELDB</code>或者<code>ROCKSDB</code>。</p>
+<h3 id="lite-fullnode">Lite FullNode数据快照<a class="headerlink" href="#lite-fullnode" title="Permanent link">&para;</a></h3>
+<p>TRON网络从GreatVoyage-V4.1.0版本开始，支持Lite FullNode类型的节点。相比于普通的FullNode，Lite FullNode不但数据库小，而且启动速度快，它只需要状态数据和必要的历史数据就可以启动。下表为Lite Fullnode数据快照的下载地址。</p>
+<table>
+<thead>
+<tr>
+<th>Lite Fullnode节点数据源</th>
+<th>下载地址</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>官方数据源(美洲:美国弗吉尼亚)</td>
+<td>http://47.89.178.46/</td>
+<td>LevelDB数据。目前已经关闭了Lite Fullnode数据快照的下载，预计从GreatVoyage-V4.5.0版本开始支持下载，但具体时间请等待社区通知</td>
+</tr>
+</tbody>
+</table>
+<p>小提示：如果用户已经有Fullnode的全量数据，可以使用<a href="../../developers/litefullnode/#lite-fullnode-tool">Lite FullNode工具</a>自行将fullnode数据切分成Lite fullnode数据。</p>
+<h3 id="_6">数据快照的使用<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<p>无论是Fullnode数据快照还是lite Fullnode数据快照，使用步骤相同，具体如下：</p>
+<ol>
+<li>根据自己需求下载相应压缩备份数据库。</li>
+<li>解压备份数据库压缩文件至output-directory目录，或者根据自己需求指定解压的目标目录。</li>
+<li>启动节点。节点默认读取output-directory目录，如需指定其他目录，请在节点启动时，添加参数 -d 数据库目录名</li>
+</ol>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../installing_javatron/" class="btn btn-neutral float-left" title="部署Java-tron节点"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../connecting_to_tron/" class="btn btn-neutral float-right" title="连接到TRON网络">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/tronprotocol/documentation-zh" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../installing_javatron/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../connecting_to_tron/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme_extra.js" defer></script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+      <script src="../../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

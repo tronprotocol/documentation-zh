@@ -1,771 +1,189 @@
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="None">
-  
-  <link rel="shortcut icon" href="img/favicon.ico">
-  <title>入门 - Java Tron</title>
-  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
-
-  <link rel="stylesheet" href="css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="css/theme_extra.css" type="text/css" />
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
-  
-  <script>
-    // Current page data
-    var mkdocs_page_name = "\u5165\u95e8";
-    var mkdocs_page_input_path = "index.md";
-    var mkdocs_page_url = "/documentation-zh/introduction/";
-  </script>
-  
-  <script src="js/jquery-2.1.1.min.js" defer></script>
-  <script src="js/modernizr-2.8.3.min.js" defer></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-  <script>hljs.initHighlightingOnLoad();</script> 
-  
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="description" content="None" /><link rel="canonical" href="https://tronprotocol.github.io/documentation-zh/" />
+      <link rel="shortcut icon" href="img/favicon.ico" />
+    <title>Java Tron</title>
+    <link rel="stylesheet" href="css/theme.css" />
+    <link rel="stylesheet" href="css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\u4e3b\u9875";
+        var mkdocs_page_input_path = "index.md";
+        var mkdocs_page_url = "/documentation-zh/";
+      </script>
+    
+    <script src="js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
 </head>
 
 <body class="wy-body-for-nav" role="document">
 
   <div class="wy-grid-for-nav">
-
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
       <div class="wy-side-nav-search">
-        <a href="." class="icon icon-home"> Java Tron</a>
-        <div role="search">
+          <a href="." class="icon icon-home"> Java Tron
+        </a><div role="search">
   <form id ="rtd-search-form" class="wy-form" action="./search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
   </form>
 </div>
       </div>
 
-      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-	<ul class="current">
-	  
-          
-            <li class="toctree-l1 current">
-		
-    <a class="current" href=".">入门</a>
-    <ul class="subnav">
-            
-    <li class="toctree-l2"><a href="#java-tron">Java-tron入门</a></li>
-    
-        <ul>
-        
-            <li><a class="toctree-l3" href="#_1">生成账户</a></li>
-        
-            <li><a class="toctree-l3" href="#wallet-cli">登录wallet-cli</a></li>
-        
-            <li><a class="toctree-l3" href="#java-tron_1">启动Java-tron节点</a></li>
-        
-            <li><a class="toctree-l3" href="#niletrx">获取Nile测试网TRX</a></li>
-        
-            <li><a class="toctree-l3" href="#java-tron_2">与Java-tron交互</a></li>
-        
-        </ul>
-    
-
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href=".">主页</a>
+    <ul class="current">
     </ul>
-	    </li>
-          
-            <li class="toctree-l1">
-		
-    <span class="caption-text">简介</span>
-    <ul class="subnav">
-                <li class="">
-                    
-    <a class="" href="introduction/">项目仓库</a>
                 </li>
-                <li class="">
-                    
-    <a class="" href="introduction/dpos/">波场共识</a>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="getting_started/getting_started_with_javatron/">入门</a>
                 </li>
-                <li class="">
-                    
-    <a class="" href="introduction/overview/">波场概览</a>
+              </ul>
+              <p class="caption"><span class="caption-text">使用Java-tron</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="using_javatron/installing_javatron/">部署Java-tron节点</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="using_javatron/backup_restore/">备份和恢复</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="using_javatron/connecting_to_tron/">连接到TRON网络</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="developers/litefullnode/">轻节点</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="using_javatron/private_network/">私链网络</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="architecture/database/">数据库配置</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="architecture/event/">部署事件插件</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="using_javatron/metrics/">节点监控</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">API 接口</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="api/http/">HTTP 接口</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="api/rpc/">RPC 接口</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">核心协议</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="introduction/dpos/">波场共识</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="mechanism-algorithm/sr/">超级代表</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="mechanism-algorithm/account/">账户模型</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="mechanism-algorithm/resource/">资源模型</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="contracts/contract/">智能合约</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="mechanism-algorithm/dex/">去中心化交易所</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="mechanism-algorithm/multi-signatures/">多重签名</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Java-tron开发</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="developers/java-tron/">Java-tron仓库</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="developers/contribution/">如何参与开发</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="developers/run-in-idea/">配置集成开发环境IDEA</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="developers/tips/">TIPs</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="developers/gpg/">GPG Key</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Dapp开发</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="contracts/compiler/">Dapp开发工具</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Wallet-cli</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="clients/wallet-cli/">安装</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">版本发布</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="releases/">一致性检验</a>
+                  </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="glossary/">术语表</a>
                 </li>
-    </ul>
-	    </li>
-          
-            <li class="toctree-l1">
-		
-    <span class="caption-text">API 接口</span>
-    <ul class="subnav">
-                <li class="">
-                    
-    <a class="" href="api/http/">HTTP 接口</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="api/rpc/">RPC 接口</a>
-                </li>
-    </ul>
-	    </li>
-          
-            <li class="toctree-l1">
-		
-    <span class="caption-text">机制与算法</span>
-    <ul class="subnav">
-                <li class="">
-                    
-    <a class="" href="mechanism-algorithm/sr/">超级代表与委员会</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="mechanism-algorithm/trc10/">TRC-10</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="mechanism-algorithm/account/">账户模型</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="mechanism-algorithm/resource/">资源模型</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="mechanism-algorithm/dex/">去中心化交易所</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="mechanism-algorithm/multi-signatures/">多重签名</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="mechanism-algorithm/shielded-TRC20-contract/">匿名合约</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="mechanism-algorithm/system-contracts/">系统合约</a>
-                </li>
-    </ul>
-	    </li>
-          
-            <li class="toctree-l1">
-		
-    <span class="caption-text">架构介绍</span>
-    <ul class="subnav">
-                <li class="">
-                    
-    <a class="" href="architecture/network/">网络</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="architecture/database/">数据储存</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="architecture/event/">事件插件</a>
-                </li>
-    </ul>
-	    </li>
-          
-            <li class="toctree-l1">
-		
-    <span class="caption-text">智能合约文档</span>
-    <ul class="subnav">
-                <li class="">
-                    
-    <a class="" href="contracts/tvm/">虚拟机</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="contracts/compiler/">编译器</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="contracts/contract/">合约</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="contracts/trc20/">TRC-20</a>
-                </li>
-    </ul>
-	    </li>
-          
-            <li class="toctree-l1">
-		
-    <span class="caption-text">开发者文档</span>
-    <ul class="subnav">
-                <li class="">
-                    
-    <a class="" href="developers/official-public-nodes/">官方节点</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="developers/deployment/">部署</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="developers/archive-manifest/">levelDB 启动优化插件</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="developers/run-in-idea/">在 IDEA 中启动节点</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="developers/litefullnode/">如何使用LiteFullnode工具</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="developers/contribution/">如何参与开发</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="developers/incentives/">开发者激励</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="developers/java-tron/">Java-Tron</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="developers/tips/">TIPs</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="developers/advanced-configuration/">高级配置项</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="developers/resources/">其他参考资源</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="developers/gpg/">联系我们（GPG Key）</a>
-                </li>
-    </ul>
-	    </li>
-          
-            <li class="toctree-l1">
-		
-    <span class="caption-text">客户端</span>
-    <ul class="subnav">
-                <li class="">
-                    
-    <a class="" href="clients/wallet-cli/">命令行钱包</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="clients/tron-grid/">TronGrid</a>
-                </li>
-    </ul>
-	    </li>
-          
-            <li class="toctree-l1">
-		
-    <span class="caption-text">版本发布</span>
-    <ul class="subnav">
-                <li class="">
-                    
-    <a class="" href="releases/">一致性检验</a>
-                </li>
-    </ul>
-	    </li>
-          
-            <li class="toctree-l1">
-		
-    <a class="" href="faq/">常见问题</a>
-	    </li>
-          
-            <li class="toctree-l1">
-		
-    <a class="" href="glossary/">术语表</a>
-	    </li>
-          
-        </ul>
+              </ul>
       </div>
-      &nbsp;
+    </div>
     </nav>
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href=".">Java Tron</a>
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href=".">Java Tron</a>
+        
       </nav>
-
-      
       <div class="wy-nav-content">
-        <div class="rst-content">
-          <div role="navigation" aria-label="breadcrumbs navigation">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
-    <li><a href=".">Docs</a> &raquo;</li>
-    
-      
-    
-    <li>入门</li>
+    <li><a href="." class="icon icon-home" alt="Docs"></a> &raquo;</li><li>主页</li>
     <li class="wy-breadcrumbs-aside">
-      
         <a href="https://github.com/tronprotocol/documentation-zh/edit/master/docs/index.md"
           class="icon icon-github"> Edit on GitHub</a>
-      
     </li>
   </ul>
   <hr/>
 </div>
-          <div role="main">
-            <div class="section">
+
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
               
-                <h1 id="java-tron">Java-tron入门<a class="headerlink" href="#java-tron" title="Permanent link">&para;</a></h1>
-<p>本文主要说明如何启动Java-tron节点并使用命令行工具wallet-cli执行基本命令与Java-tron节点进行交互。关于Java-tron的安装，您可以直接下载可运行文件，也可以通过源代码构建。安装Java-tron的说明可以参考<a href="https://tronprotocol.github.io/documentation-zh/developers/deployment/">安装和构建</a>页面。本教程是在Java-tron和相关开发工具已经成功安装的基础上进行介绍的。</p>
-<p>本文涵盖了使用Java-tron的基础，这包括生成帐户、加入TRON nile测试网络、在帐户之间发送TRX。文档中也使用了wallet-cli，wallet-cli是TRON网络的一个命令行工具，该工具提供用户交互式命令，使用它可以更方便的与Java-tron进行交互。</p>
-<p>Java-tron是用Java编写的TRON网络客户端，这意味着运行Java-tron的计算机会变成一个TRON网络节点。TRON网络是一个分布式网络，信息在节点之间共享，而不是由中央服务器管理。超级代表的节点在生成新的区块后，会将区块发送给其它节点。每个节点在接收到一个新的区块时，都会对其进行校验，校验通过后将其添加到自己的数据库中。Java-tron使用每个区块提供的信息来更新其“状态”——TRON网络上每个账户的余额。TRON网络上有两种类型的帐户:外部拥有的帐户和合约帐户。合约帐户在收到交易时执行合约代码。外部账户是用户在本地管理的帐户，以便签署和提交交易。每个外部账户都是一个公私密钥对，其中公钥用于为用户派生一个唯一的地址，而私钥用于保护帐户和安全签署消息。因此，为了使用TRON网络，首先需要生成外部账户(以下简称“帐户”)。本教程将指导用户如何创建一个帐户，存入TRX代币，并转账TRX。</p>
-<h3 id="_1">生成账户<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
-<p>有多种方法来生成TRON网络帐户，这里将演示如何使用wallet-cli生成帐户。帐户是一对密钥(公钥和私钥)。</p>
-<p>在终端中通过命令<code>java -jar wallet-cli.jar</code>来启动一个wallet-cli：
-<div class="highlight"><pre><span></span><code>$ java -jar wallet-cli.jar
-
-Welcome to Tron Wallet-Cli
-Please type one of the following commands to proceed.
-Login, RegisterWallet or ImportWallet
-
-You may also use the Help command at anytime to display a full list of commands.
-
-wallet&gt; 
-</code></pre></div></p>
-<p>输入命令：registerwallet，然后根据提示输入密码。该命令会生成TRON网络账户,并注册到wallet-cli，也就是wallet-cli会保存此账户的私钥，之后就可以使用该私钥对交易进行签名了。
-<div class="highlight"><pre><span></span><code>wallet&gt; registerwallet
-Please input password.
-password: 
-user defined config file doesn&#39;t exists, use default config file in jar
-WalletApi getRpcVsersion: 2
-Please input password again.
-password: 
-Register a wallet successful, keystore file name is UTC--2022-07-04T06-35-35.304000000Z--TQXjm2J8K2DKTV49MdfT2anjUehbU3WDJz.json
-wallet&gt; 
-</code></pre></div></p>
-<h3 id="wallet-cli">登录wallet-cli<a class="headerlink" href="#wallet-cli" title="Permanent link">&para;</a></h3>
-<p>注册完成后，输入login命令登录wallet-cli。
-<div class="highlight"><pre><span></span><code>wallet&gt; login
-</code></pre></div></p>
-<p>选择要登录的账户，然后输入密码，密码输入正确后，会看到"Login successful !!!"字样，表示登录成功。</p>
-<div class="highlight"><pre><span></span><code>Please choose between 1 and 3
-2
-Please input your password.
-password: 
-Login successful !!!
-wallet&gt; 
-</code></pre></div>
-<p>登录后，可以通过getaddress命令查看登录的账户地址：
-<div class="highlight"><pre><span></span><code>wallet&gt; getaddress
-GetAddress successful !!
-address = TQXjm2J8K2DKTV49MdfT2anjUehbU3WDJz
-wallet&gt; 
-</code></pre></div></p>
-<p>然后可以通过backupwallet命令，根据提示输入密码后，查看账户的私钥，建议保存好私钥。</p>
-<h3 id="java-tron_1">启动Java-tron节点<a class="headerlink" href="#java-tron_1" title="Permanent link">&para;</a></h3>
-<p>Java-tron是TRON网络客户端，它使计算机可以连接到TRON网络中。 本教程中的网络指的是TRON nile测试网。 要启动Java-tron，请首先获取Java-tron可执行文件，请参考<a href="https://tronprotocol.github.io/documentation-zh/developers/deployment/">安装和部署</a>章节，然后通过如下命令，启动Java-tron。
-<div class="highlight"><pre><span></span><code>$  java -Xmx24g -XX:+UseConcMarkSweepGC -jar FullNode.jar -c nile_net_config.conf
-</code></pre></div>
-Java-tron启动后，日志将包括以下内容：</p>
-<div class="highlight"><pre><span></span><code>11:07:58.758 INFO  [main] [app](Args.java:1143) ************************ Net config ************************
-11:07:58.758 INFO  [main] [app](Args.java:1144) P2P version: 201910292
-11:07:58.758 INFO  [main] [app](Args.java:1145) Bind IP: 192.168.20.101
-11:07:58.758 INFO  [main] [app](Args.java:1146) External IP: 203.12.203.3
-11:07:58.758 INFO  [main] [app](Args.java:1147) Listen port: 18888
-11:07:58.758 INFO  [main] [app](Args.java:1148) Discover enable: true
-</code></pre></div>
-<p>上述日志表明Java-tron已经启动并连接到了nile测试网，然后它将寻找可以连接的对等节点。一旦它找到了对等节点，就可以向它们请求区块了，日志也证实了这一点：</p>
-<div class="highlight"><pre><span></span><code>11:08:42.547 INFO  [TronJClientWorker-1] [net](Channel.java:116) Finish handshake with /123.56.3.74:18888.
-11:08:42.547 INFO  [TronJClientWorker-1] [net](ChannelManager.java:161) Add active peer /123.56.3.74:18888 | fea80a0298b465a54fd332ff36819545d850115e77b327858b5306c9a58c6b8c2e7c08df76ab508a7594ed3577a8f4157727108442877077ab499b102b488467, total active peers: 1
-11:08:42.549 INFO  [TronJClientWorker-1] [net](Channel.java:208) Peer /123.56.3.74:18888 status change to SYNCING.
-11:08:42.566 INFO  [TronJClientWorker-1] [DB](Manager.java:1636) headNumber:23113867
-11:08:42.566 INFO  [TronJClientWorker-1] [DB](Manager.java:1638) syncBeginNumber:23113867
-11:08:42.567 INFO  [TronJClientWorker-1] [DB](Manager.java:1642) solidBlockNumber:23113849
-11:08:42.567 INFO  [TronJClientWorker-1] [net](SyncService.java:179) Get block chain summary, low: 23113867, highNoFork: 23113867, high: 23113867, realHigh: 23113867
-11:08:42.572 INFO  [TronJClientWorker-1] [net](MessageQueue.java:106) Send to /123.56.3.74:18888, type: SYNC_BLOCK_CHAIN
-size: 1, start block: Num:23113867,ID:000000000160b08b510b6c501c980a2567bff1229eed62ca79874c9ca7828e9c 
-11:08:42.631 INFO  [TronJClientWorker-1] [net](MessageQueue.java:121) Receive from /123.56.3.74:18888, type: BLOCK_CHAIN_INVENTORY
-size: 2001, first blockId: Num:23113867,ID:000000000160b08b510b6c501c980a2567bff1229eed62ca79874c9ca7828e9c, end blockId: Num:23115867,ID:000000000160b85b587ef18d00a1905d8022ec0a8fd174f3980b78f6aacf0ede
-
-......
-
-11:08:43.478 INFO  [pool-49-thread-1] [net](MessageQueue.java:106) Send to /123.56.3.74:18888, type: FETCH_INV_DATA
-invType: BLOCK, size: 100, First hash: 000000000160b08c6eeba60eced4fb13d7c56e46a3c5220a67bb2801a05e5679, End hash: 000000000160b0efd90560e389d1f6e5b3c8d3877709ce375a8e063f5db73af9 
-11:08:43.502 INFO  [TronJClientWorker-1] [net](MessageQueue.java:121) Receive from /123.56.3.74:18888, type: BLOCK
-Num:23113868,ID:000000000160b08c6eeba60eced4fb13d7c56e46a3c5220a67bb2801a05e5679, trx size: 1
-
-11:08:43.504 INFO  [TronJClientWorker-1] [net](MessageQueue.java:121) Receive from /123.56.3.74:18888, type: BLOCK
-Num:23113869,ID:000000000160b08d231e450ae1993a72ba19eb8f3c748fa70d105dadd0c9fd5f, trx size: 0
-
-11:08:43.504 INFO  [TronJClientWorker-1] [net](MessageQueue.java:121) Receive from /123.56.3.74:18888, type: BLOCK
-Num:23113870,ID:000000000160b08e37cb9951d31a4233f106c7e77e0535c597dbb6a16f163699, trx size: 0
-</code></pre></div>
-<p>这些日志表明Java-tron按照预期运行着。可以通过向此Java-tron节点发送如下http请求，来判断节点是否已经启动，以及查看节点的状态：
-<div class="highlight"><pre><span></span><code>$ curl http://127.0.0.1:16887/wallet/getnodeinfo
-</code></pre></div>
-如果节点日志中没有报告任何错误消息，则一切正常。为了让用户与TRON网络交互，Java-tron节点必须是运行着，并且处于同步正常的状态。节点是否与网络中其它节点保持同步，可以通过在Tronscan查询当前的区块高度，并与本地Java-tron节点<code>/wallet/getnowblock</code>的结果进行比较，如果相等，则说明本地节点的同步状态是正常的。</p>
-<p>如果要关闭Java-tron，请通过<code>kill -15 进程id</code>来暂停节点。</p>
-<h3 id="niletrx">获取Nile测试网TRX<a class="headerlink" href="#niletrx" title="Permanent link">&para;</a></h3>
-<p>为了能够发送交易，用户的账户中需要持有TRX。在TRON网络主网上，只能通过三种方式获得TRX: 
-1. 超级代表生产区块/为超级代表投票的奖励; 
-2. 另一个TRON网络账户向其转账TRX; 
-3. 从交易所获得。</p>
-<p>在TRON测试网中，TRX没有实际价值, 可以通过 <a href="https://nileex.io/join/getJoinPage">水龙头</a> 免费获得。</p>
-<h3 id="java-tron_2">与Java-tron交互<a class="headerlink" href="#java-tron_2" title="Permanent link">&para;</a></h3>
-<h4 id="wallet-clijava-tron">使用wallet-cli与Java-tron节点进行交互<a class="headerlink" href="#wallet-clijava-tron" title="Permanent link">&para;</a></h4>
-<p>Java-tron对外提供http接口和grpc接口，方便用户与TRON网络进行交互。wallet-cli使用的是grpc接口。</p>
-<h5 id="_2">获取账户信息<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h5>
-<p>在wallet-cli中输入getaccount命令后，它将向Java-tron节点请求账户信息数据，然后将结果展示到终端。
-<div class="highlight"><pre><span></span><code>wallet&gt; getaccount TUoHaVjx7n5xz8LwPRDckgFrDWhMhuSuJM
-</code></pre></div>
-结果为：
-<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;address&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;TUoHaVjx7n5xz8LwPRDckgFrDWhMhuSuJM&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;balance&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">93643857919</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;create_time&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1619681898000</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;latest_opration_time&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1655358327000</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;is_witness&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;asset_issued_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;TestTRC10T&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;latest_consume_free_time&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1652948766000</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;account_resource&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="nt">&quot;latest_consume_time_for_energy&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1655358327000</span><span class="w"></span>
-<span class="w">    </span><span class="p">},</span><span class="w"></span>
-
-<span class="w">        </span><span class="err">......</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-</code></pre></div></p>
-<h5 id="_3">查询账户余额<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h5>
-<p>通过getbalance命令查看一个账户的余额：
-<div class="highlight"><pre><span></span><code>wallet&gt; getbalance
-Balance = 93642857919
-wallet&gt; 
-</code></pre></div></p>
-<h5 id="trx">转账TRX<a class="headerlink" href="#trx" title="Permanent link">&para;</a></h5>
-<p>通过sendcoin命令来转账TRX，输入转入地址，及金额：
-<div class="highlight"><pre><span></span><code>wallet&gt; sendcoin TUznHJfHe6gdYY7gvWmf6bNZHuPHDZtowf 1000000
-{
-    &quot;raw_data&quot;:{
-        &quot;contract&quot;:[
-            {
-                &quot;parameter&quot;:{
-                    &quot;value&quot;:{
-                        &quot;amount&quot;:1000000,
-                        &quot;owner_address&quot;:&quot;TUoHaVjx7n5xz8LwPRDckgFrDWhMhuSuJM&quot;,
-                        &quot;to_address&quot;:&quot;TUznHJfHe6gdYY7gvWmf6bNZHuPHDZtowf&quot;
-                    },
-                    &quot;type_url&quot;:&quot;type.googleapis.com/protocol.TransferContract&quot;
-                },
-                &quot;type&quot;:&quot;TransferContract&quot;
-            }
-        ],
-        &quot;ref_block_bytes&quot;:&quot;cbc3&quot;,
-        &quot;ref_block_hash&quot;:&quot;8581ae7e29258a52&quot;,
-        &quot;expiration&quot;:1656917577000,
-        &quot;timestamp&quot;:1656917518232
-    },
-    &quot;raw_data_hex&quot;:&quot;0a02cbc322088581ae7e29258a5240a89aefbf9c305a67080112630a2d747970652e676f6f676c65617069732e636f6d2f70726f746f636f6c2e5472616e73666572436f6e747261637412320a1541ce8a0cf0c16d48bcf22825f6053248df653c89ca121541d0b69631440f0a494bb51f7eee68ff5c593c00f018c0843d7098cfebbf9c30&quot;
-}
-before sign transaction hex string is 0a85010a02cbc322088581ae7e29258a5240a89aefbf9c305a67080112630a2d747970652e676f6f676c65617069732e636f6d2f70726f746f636f6c2e5472616e73666572436f6e747261637412320a1541ce8a0cf0c16d48bcf22825f6053248df653c89ca121541d0b69631440f0a494bb51f7eee68ff5c593c00f018c0843d7098cfebbf9c30
-Please confirm and input your permission id, if input y or Y means default 0, other non-numeric characters will cancel transaction.
-</code></pre></div></p>
-<p>该命令返回转账TRX的交易，确认无误后，输入<code>y</code>确认，其它字母表示取消这个交易。如果输入<code>y</code>，则接下来根据提示，选择使用哪个账户的私钥进行签名，最后输入密码，完成对该交易的签名，wallet-cli最后会将签名后的交易发送到Java-tron节点，完成交易：
-<div class="highlight"><pre><span></span><code><span class="err">Please</span><span class="w"> </span><span class="err">co</span><span class="kc">nf</span><span class="err">irm</span><span class="w"> </span><span class="err">a</span><span class="kc">n</span><span class="err">d</span><span class="w"> </span><span class="err">i</span><span class="kc">n</span><span class="err">pu</span><span class="kc">t</span><span class="w"> </span><span class="err">your</span><span class="w"> </span><span class="err">permissio</span><span class="kc">n</span><span class="w"> </span><span class="err">id</span><span class="p">,</span><span class="w"> </span><span class="err">i</span><span class="kc">f</span><span class="w"> </span><span class="err">i</span><span class="kc">n</span><span class="err">pu</span><span class="kc">t</span><span class="w"> </span><span class="err">y</span><span class="w"> </span><span class="err">or</span><span class="w"> </span><span class="err">Y</span><span class="w"> </span><span class="err">mea</span><span class="kc">ns</span><span class="w"> </span><span class="err">de</span><span class="kc">fault</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="err">o</span><span class="kc">t</span><span class="err">her</span><span class="w"> </span><span class="kc">n</span><span class="err">o</span><span class="kc">n</span><span class="mi">-</span><span class="kc">nu</span><span class="err">meric</span><span class="w"> </span><span class="err">charac</span><span class="kc">ters</span><span class="w"> </span><span class="err">will</span><span class="w"> </span><span class="err">ca</span><span class="kc">n</span><span class="err">cel</span><span class="w"> </span><span class="kc">transa</span><span class="err">c</span><span class="kc">t</span><span class="err">io</span><span class="kc">n</span><span class="err">.</span><span class="w"></span>
-<span class="err">y</span><span class="w"></span>
-<span class="err">Please</span><span class="w"> </span><span class="err">choose</span><span class="w"> </span><span class="err">your</span><span class="w"> </span><span class="err">key</span><span class="w"> </span><span class="kc">f</span><span class="err">or</span><span class="w"> </span><span class="err">sig</span><span class="kc">n</span><span class="err">.</span><span class="w"></span>
-<span class="err">The</span><span class="w"> </span><span class="mi">1</span><span class="kc">t</span><span class="err">h</span><span class="w"> </span><span class="err">keys</span><span class="kc">t</span><span class="err">ore</span><span class="w"> </span><span class="kc">f</span><span class="err">ile</span><span class="w"> </span><span class="kc">na</span><span class="err">me</span><span class="w"> </span><span class="err">is</span><span class="w"> </span><span class="err">.DS_S</span><span class="kc">t</span><span class="err">ore</span><span class="w"></span>
-<span class="err">The</span><span class="w"> </span><span class="mi">2</span><span class="kc">t</span><span class="err">h</span><span class="w"> </span><span class="err">keys</span><span class="kc">t</span><span class="err">ore</span><span class="w"> </span><span class="kc">f</span><span class="err">ile</span><span class="w"> </span><span class="kc">na</span><span class="err">me</span><span class="w"> </span><span class="err">is</span><span class="w"> </span><span class="err">UTC</span><span class="mi">--2022-07-04</span><span class="err">T</span><span class="mf">06-35-35.304000000</span><span class="err">Z</span><span class="mi">--</span><span class="err">TQXjm</span><span class="mi">2</span><span class="err">J</span><span class="mi">8</span><span class="err">K</span><span class="mi">2</span><span class="err">DKTV</span><span class="mi">49</span><span class="err">Md</span><span class="kc">f</span><span class="err">T</span><span class="mi">2</span><span class="err">a</span><span class="kc">n</span><span class="err">jUehbU</span><span class="mi">3</span><span class="err">WDJz.jso</span><span class="kc">n</span><span class="w"></span>
-<span class="err">The</span><span class="w"> </span><span class="mi">3</span><span class="kc">t</span><span class="err">h</span><span class="w"> </span><span class="err">keys</span><span class="kc">t</span><span class="err">ore</span><span class="w"> </span><span class="kc">f</span><span class="err">ile</span><span class="w"> </span><span class="kc">na</span><span class="err">me</span><span class="w"> </span><span class="err">is</span><span class="w"> </span><span class="err">UTC</span><span class="mi">--2022-06-21</span><span class="err">T</span><span class="mf">09-51-26.367000000</span><span class="err">Z</span><span class="mi">--</span><span class="err">TUoHaVjx</span><span class="mi">7</span><span class="kc">n</span><span class="mi">5</span><span class="err">xz</span><span class="mi">8</span><span class="err">LwPRDckgFrDWhMhuSuJM.jso</span><span class="kc">n</span><span class="w"></span>
-<span class="err">Please</span><span class="w"> </span><span class="err">choose</span><span class="w"> </span><span class="err">be</span><span class="kc">t</span><span class="err">wee</span><span class="kc">n</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="err">a</span><span class="kc">n</span><span class="err">d</span><span class="w"> </span><span class="mi">3</span><span class="w"></span>
-<span class="mi">3</span><span class="w"></span>
-<span class="err">Please</span><span class="w"> </span><span class="err">i</span><span class="kc">n</span><span class="err">pu</span><span class="kc">t</span><span class="w"> </span><span class="err">your</span><span class="w"> </span><span class="err">password.</span><span class="w"></span>
-<span class="err">password</span><span class="p">:</span><span class="w"> </span>
-<span class="err">a</span><span class="kc">fter</span><span class="w"> </span><span class="err">sig</span><span class="kc">n</span><span class="w"> </span><span class="kc">transa</span><span class="err">c</span><span class="kc">t</span><span class="err">io</span><span class="kc">n</span><span class="w"> </span><span class="err">hex</span><span class="w"> </span><span class="err">s</span><span class="kc">tr</span><span class="err">i</span><span class="kc">n</span><span class="err">g</span><span class="w"> </span><span class="err">is</span><span class="w"> </span><span class="mi">0</span><span class="err">a</span><span class="mi">85010</span><span class="err">a</span><span class="mi">02</span><span class="err">cbc</span><span class="mi">322088581</span><span class="err">ae</span><span class="mf">7e29258</span><span class="err">a</span><span class="mi">5240</span><span class="err">db</span><span class="kc">f</span><span class="err">c</span><span class="mi">91</span><span class="err">ca</span><span class="mi">9</span><span class="err">c</span><span class="mi">305</span><span class="err">a</span><span class="mi">67080112630</span><span class="err">a</span><span class="mi">2</span><span class="err">d</span><span class="mf">747970652e676</span><span class="kc">f</span><span class="mi">6</span><span class="kc">f</span><span class="mi">676</span><span class="err">c</span><span class="mf">65617069732e636</span><span class="kc">f</span><span class="mi">6</span><span class="err">d</span><span class="mi">2</span><span class="kc">f</span><span class="mi">70726</span><span class="kc">f</span><span class="mi">746</span><span class="kc">f</span><span class="mi">636</span><span class="kc">f</span><span class="mi">6</span><span class="err">c</span><span class="mf">2e5472616e73666572436</span><span class="kc">f</span><span class="mf">6e747261637412320</span><span class="err">a</span><span class="mi">1541</span><span class="err">ce</span><span class="mi">8</span><span class="err">a</span><span class="mi">0</span><span class="err">c</span><span class="kc">f</span><span class="mi">0</span><span class="err">c</span><span class="mi">16</span><span class="err">d</span><span class="mi">48</span><span class="err">bc</span><span class="kc">f</span><span class="mi">22825</span><span class="kc">f</span><span class="mi">6053248</span><span class="err">d</span><span class="kc">f</span><span class="mi">653</span><span class="err">c</span><span class="mi">89</span><span class="err">ca</span><span class="mi">121541</span><span class="err">d</span><span class="mi">0</span><span class="err">b</span><span class="mi">69631440</span><span class="kc">f</span><span class="mi">0</span><span class="err">a</span><span class="mi">494</span><span class="err">bb</span><span class="mi">51</span><span class="kc">f</span><span class="mf">7eee68</span><span class="kc">ff</span><span class="mi">5</span><span class="err">c</span><span class="mi">593</span><span class="err">c</span><span class="mi">00</span><span class="kc">f</span><span class="mi">018</span><span class="err">c</span><span class="mi">0843</span><span class="err">d</span><span class="mi">7098</span><span class="err">c</span><span class="kc">fe</span><span class="err">bb</span><span class="kc">f</span><span class="mi">9</span><span class="err">c</span><span class="mi">301241241</span><span class="err">a</span><span class="mi">3</span><span class="err">ce</span><span class="mi">4797</span><span class="err">ccc</span><span class="mi">2</span><span class="kc">fe</span><span class="err">d</span><span class="kc">f</span><span class="mi">49</span><span class="err">ae</span><span class="mi">41</span><span class="err">a</span><span class="kc">f</span><span class="mi">28</span><span class="err">b</span><span class="mi">49</span><span class="err">d</span><span class="kc">f</span><span class="mf">1e15</span><span class="err">a</span><span class="mf">476e4948</span><span class="err">a</span><span class="kc">f</span><span class="mi">4</span><span class="err">d</span><span class="kc">f</span><span class="mi">5</span><span class="err">aad</span><span class="kc">f</span><span class="mi">23</span><span class="err">a</span><span class="mf">1e940</span><span class="err">ad</span><span class="mi">5</span><span class="err">cc</span><span class="mi">2133</span><span class="kc">f</span><span class="mi">501</span><span class="err">c</span><span class="mi">08</span><span class="kc">f</span><span class="mi">2</span><span class="err">bab</span><span class="mi">6</span><span class="err">a</span><span class="mi">2231</span><span class="err">cdc</span><span class="mi">82</span><span class="err">a</span><span class="mi">745</span><span class="kc">fe</span><span class="err">d</span><span class="mi">0</span><span class="kc">f</span><span class="err">c</span><span class="mi">6</span><span class="err">a</span><span class="mi">012</span><span class="err">dc</span><span class="mi">19310532</span><span class="err">d</span><span class="mi">9138600</span><span class="w"></span>
-<span class="kc">t</span><span class="err">xid</span><span class="w"> </span><span class="err">is</span><span class="w"> </span><span class="mi">21851</span><span class="err">bc</span><span class="kc">f</span><span class="mi">1</span><span class="kc">faf</span><span class="mi">22</span><span class="err">c</span><span class="mi">99</span><span class="err">a</span><span class="mi">7</span><span class="err">a</span><span class="mi">49</span><span class="err">c</span><span class="mi">4</span><span class="kc">f</span><span class="mi">246</span><span class="err">d</span><span class="mi">709</span><span class="err">c</span><span class="kc">f</span><span class="mi">9</span><span class="kc">f</span><span class="mi">54</span><span class="err">db</span><span class="mi">2</span><span class="kc">f</span><span class="mi">264</span><span class="err">ca</span><span class="mi">145</span><span class="err">adcd</span><span class="mf">464e</span><span class="err">a</span><span class="mi">155</span><span class="err">a</span><span class="mi">4</span><span class="w"></span>
-<span class="err">Se</span><span class="kc">n</span><span class="err">d</span><span class="w"> </span><span class="mi">1000000</span><span class="w"> </span><span class="err">Su</span><span class="kc">n</span><span class="w"> </span><span class="kc">t</span><span class="err">o</span><span class="w"> </span><span class="err">TUz</span><span class="kc">n</span><span class="err">HJ</span><span class="kc">f</span><span class="err">He</span><span class="mi">6</span><span class="err">gdYY</span><span class="mi">7</span><span class="err">gvWm</span><span class="kc">f</span><span class="mi">6</span><span class="err">bNZHuPHDZ</span><span class="kc">t</span><span class="err">ow</span><span class="kc">f</span><span class="w"> </span><span class="err">success</span><span class="kc">ful</span><span class="w"> </span><span class="err">!!</span><span class="w"></span>
-<span class="err">walle</span><span class="kc">t</span><span class="err">&gt;</span><span class="w"> </span>
-</code></pre></div></p>
-<h5 id="id">根据交易id查询交易<a class="headerlink" href="#id" title="Permanent link">&para;</a></h5>
-<p>上面通过sendcoin命令发送了一条转账TRX的交易，在wallet-cli终端打印出了交易的id：<code>0e28724f0963dff35c6c76149524d3ee1073463c6dd0ceb03a592bf2c1b37122</code>，接下来可以通过gettransactionbyid查询交易，也可以通过gettransactioninfobyid查询交易的结果。</p>
-<div class="highlight"><pre><span></span><code>wallet&gt; gettransactionbyid 21851bcf1faf22c99a7a49c4f246d709cf9f54db2f264ca145adcd464ea155a4
-{
-    &quot;ret&quot;:[
-        {
-            &quot;contractRet&quot;:&quot;SUCCESS&quot;
-        }
-    ],
-    &quot;signature&quot;:[
-        &quot;241a3ce4797ccc2fedf49ae41af28b49df1e15a476e4948af4df5aadf23a1e940ad5cc2133f501c08f2bab6a2231cdc82a745fed0fc6a012dc19310532d9138600&quot;
-    ],
-    &quot;txID&quot;:&quot;21851bcf1faf22c99a7a49c4f246d709cf9f54db2f264ca145adcd464ea155a4&quot;,
-    &quot;raw_data&quot;:{
-        &quot;contract&quot;:[
-            {
-                &quot;parameter&quot;:{
-                    &quot;value&quot;:{
-                        &quot;amount&quot;:1000000,
-                        &quot;owner_address&quot;:&quot;TUoHaVjx7n5xz8LwPRDckgFrDWhMhuSuJM&quot;,
-                        &quot;to_address&quot;:&quot;TUznHJfHe6gdYY7gvWmf6bNZHuPHDZtowf&quot;
-                    },
-                    &quot;type_url&quot;:&quot;type.googleapis.com/protocol.TransferContract&quot;
-                },
-                &quot;type&quot;:&quot;TransferContract&quot;
-            }
-        ],
-        &quot;ref_block_bytes&quot;:&quot;cbc3&quot;,
-        &quot;ref_block_hash&quot;:&quot;8581ae7e29258a52&quot;,
-        &quot;expiration&quot;:1656939118171,
-        &quot;timestamp&quot;:1656917518232
-    },
-    &quot;raw_data_hex&quot;:&quot;0a02cbc322088581ae7e29258a5240dbfc91ca9c305a67080112630a2d747970652e676f6f676c65617069732e636f6d2f70726f746f636f6c2e5472616e73666572436f6e747261637412320a1541ce8a0cf0c16d48bcf22825f6053248df653c89ca121541d0b69631440f0a494bb51f7eee68ff5c593c00f018c0843d7098cfebbf9c30&quot;
-}
-wallet&gt; 
-</code></pre></div>
-<div class="highlight"><pre><span></span><code>wallet&gt; gettransactioninfobyid 21851bcf1faf22c99a7a49c4f246d709cf9f54db2f264ca145adcd464ea155a4
-{
-    &quot;id&quot;: &quot;21851bcf1faf22c99a7a49c4f246d709cf9f54db2f264ca145adcd464ea155a4&quot;,
-    &quot;blockNumber&quot;: 27773932,
-    &quot;blockTimeStamp&quot;: 1656917586000,
-    &quot;contractResult&quot;: [
-        &quot;&quot;
-    ],
-    &quot;receipt&quot;: {
-        &quot;net_usage&quot;: 267
-    }
-}
-wallet&gt; 
-</code></pre></div>
-<h4 id="curljava-tron">使用Curl与Java-tron节点进行交互<a class="headerlink" href="#curljava-tron" title="Permanent link">&para;</a></h4>
-<p>上文介绍了如何使用wallet-cli与Java-tron进行交互。与直接发送grpc/http命令相比，该工具提供更友好的交互式命令，使用户可以更方便的向Java-tron发送指令。但是，如何直接发送HTTP请求到Java-tron节点呢？ Curl是一个发送HTTP请求的命令行工具。本章节将说明如何通过Curl检查帐户余额，并发送交易。</p>
-<h5 id="_4">查询账户余额<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h5>
-<p>可以通过节点HTTP接口<code>wallet/getaccount</code>来查询账户的TRX余额信息，返回结果中的balance即为TRX余额，以sun为单位：
-<div class="highlight"><pre><span></span><code> curl -X POST http://127.0.0.1:16887/wallet/getaccount -d 
-     &#39;{&quot;address&quot;: &quot;TUoHaVjx7n5xz8LwPRDckgFrDWhMhuSuJM&quot;,
-       &quot;visible&quot;: true
-     }&#39;
-</code></pre></div>
-结果为：
-<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">&quot;account_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;testacc2&quot;</span><span class="p">,</span><span class="nt">&quot;address&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;TUoHaVjx7n5xz8LwPRDckgFrDWhMhuSuJM&quot;</span><span class="p">,</span><span class="nt">&quot;balance&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1000000000000000</span><span class="p">,</span><span class="nt">&quot;account_resource&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{}}</span><span class="w"></span>
-</code></pre></div></p>
-<h5 id="_5">发送交易<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h5>
-<p>通过http接口发送交易，总共需要三步：
-1. 创建交易
-2. 签名交易
-3. 广播交易</p>
-<p>下面以转账TRX为例来说明如何向Java-tron发送交易。</p>
-<p>通过fullnode HTTP接口<code>wallet/createtransaction</code>创建一个未签名的TRX转账交易：
-<div class="highlight"><pre><span></span><code>curl -X POST  http://127.0.0.1:16887/wallet/createtransaction -d 
-    &#39;{
-        &quot;to_address&quot;: &quot;TUznHJfHe6gdYY7gvWmf6bNZHuPHDZtowf&quot;, 
-        &quot;owner_address&quot;: &quot;TUoHaVjx7n5xz8LwPRDckgFrDWhMhuSuJM&quot;, 
-        &quot;amount&quot;: 10000000,
-        &quot;visible&quot;:true
-    }&#39;
-</code></pre></div>
-返回一个未签名的TRX转账交易：
-<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;visible&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;txID&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;c558bd35978267d8999baf6148703cbc94786f3f2e22893637588ca05437d7f0&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;raw_data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="nt">&quot;contract&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
-<span class="w">            </span><span class="p">{</span><span class="w"></span>
-<span class="w">                </span><span class="nt">&quot;parameter&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">                    </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">                        </span><span class="nt">&quot;amount&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">10000000</span><span class="p">,</span><span class="w"></span>
-<span class="w">                        </span><span class="nt">&quot;owner_address&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;TPswDDCAWhJAZGdHPidFg5nEf8TkNToDX1&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">                        </span><span class="nt">&quot;to_address&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;TUznHJfHe6gdYY7gvWmf6bNZHuPHDZtowf&quot;</span><span class="w"></span>
-<span class="w">                    </span><span class="p">},</span><span class="w"></span>
-<span class="w">                    </span><span class="nt">&quot;type_url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;type.googleapis.com/protocol.TransferContract&quot;</span><span class="w"></span>
-<span class="w">                </span><span class="p">},</span><span class="w"></span>
-<span class="w">                </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;TransferContract&quot;</span><span class="w"></span>
-<span class="w">            </span><span class="p">}</span><span class="w"></span>
-<span class="w">        </span><span class="p">],</span><span class="w"></span>
-<span class="w">        </span><span class="nt">&quot;ref_block_bytes&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;193b&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="nt">&quot;ref_block_hash&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;aaecd88e4e0e7528&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="nt">&quot;expiration&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1656580476000</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1656580418228</span><span class="w"></span>
-<span class="w">    </span><span class="p">},</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;raw_data_hex&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0a02193b2208aaecd88e4e0e752840e098909f9b305a68080112640a2d747970652e676f6f676c65617069732e636f6d2f70726f746f636f6c2e5472616e73666572436f6e747261637412330a154198927ffb9f554dc4a453c64b2e553a02d6df514b121541d0b69631440f0a494bb51f7eee68ff5c593c00f01880ade20470b4d58c9f9b30&quot;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-</code></pre></div>
-然后对该交易进行签名，自建节点可以使用http接口<a href="https://cn.developers.tron.network/reference/gettransactionsign"><code>wallet/gettransactionsign</code></a>对交易进行签名，否则，由于此接口需要填写私钥，因此不建议使用此接口，建议使用离线签名方式。
-<div class="highlight"><pre><span></span><code>curl --location --request POST &#39;http://127.0.0.1:16887/wallet/gettransactionsign&#39; \
---header &#39;Content-Type: application/json&#39; \
---data-raw &#39;{&quot;transaction&quot;:{
-    &quot;visible&quot;: true,
-    &quot;txID&quot;: &quot;c558bd35978267d8999baf6148703cbc94786f3f2e22893637588ca05437d7f0&quot;,
-    &quot;raw_data&quot;: {
-        &quot;contract&quot;: [
-            {
-                &quot;parameter&quot;: {
-                    &quot;value&quot;: {
-                        &quot;amount&quot;: 10000000,
-                        &quot;owner_address&quot;: &quot;TPswDDCAWhJAZGdHPidFg5nEf8TkNToDX1&quot;,
-                        &quot;to_address&quot;: &quot;TUznHJfHe6gdYY7gvWmf6bNZHuPHDZtowf&quot;
-                    },
-                    &quot;type_url&quot;: &quot;type.googleapis.com/protocol.TransferContract&quot;
-                },
-                &quot;type&quot;: &quot;TransferContract&quot;
-            }
-        ],
-        &quot;ref_block_bytes&quot;: &quot;193b&quot;,
-        &quot;ref_block_hash&quot;: &quot;aaecd88e4e0e7528&quot;,
-        &quot;expiration&quot;: 1656580476000,
-        &quot;timestamp&quot;: 1656580418228
-    },
-    &quot;raw_data_hex&quot;: &quot;0a02193b2208aaecd88e4e0e752840e098909f9b305a68080112640a2d747970652e676f6f676c65617069732e636f6d2f70726f746f636f6c2e5472616e73666572436f6e747261637412330a154198927ffb9f554dc4a453c64b2e553a02d6df514b121541d0b69631440f0a494bb51f7eee68ff5c593c00f01880ade20470b4d58c9f9b30&quot;
-},
-&quot;privateKey&quot;:&quot;e62650acb68caf5cd8fe3d03eb3fb9ca37afb72429f68053f9278f73951591ed&quot;}&#39;
-</code></pre></div>
-执行结果为：
-<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;visible&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;signature&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
-<span class="w">        </span><span class="s2">&quot;e12996cfaf52f8b49e64400987f9158a87b1aa809a11a75e01bb230722db97a26204334aea945b1ece0851a89c96459872e56229b0bd725c4f6a0577bfe331c301&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="p">],</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;txID&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;c558bd35978267d8999baf6148703cbc94786f3f2e22893637588ca05437d7f0&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;raw_data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="nt">&quot;contract&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
-<span class="w">            </span><span class="p">{</span><span class="w"></span>
-<span class="w">                </span><span class="nt">&quot;parameter&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">                    </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">                        </span><span class="nt">&quot;amount&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">10000000</span><span class="p">,</span><span class="w"></span>
-<span class="w">                        </span><span class="nt">&quot;owner_address&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;TPswDDCAWhJAZGdHPidFg5nEf8TkNToDX1&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">                        </span><span class="nt">&quot;to_address&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;TUznHJfHe6gdYY7gvWmf6bNZHuPHDZtowf&quot;</span><span class="w"></span>
-<span class="w">                    </span><span class="p">},</span><span class="w"></span>
-<span class="w">                    </span><span class="nt">&quot;type_url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;type.googleapis.com/protocol.TransferContract&quot;</span><span class="w"></span>
-<span class="w">                </span><span class="p">},</span><span class="w"></span>
-<span class="w">                </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;TransferContract&quot;</span><span class="w"></span>
-<span class="w">            </span><span class="p">}</span><span class="w"></span>
-<span class="w">        </span><span class="p">],</span><span class="w"></span>
-<span class="w">        </span><span class="nt">&quot;ref_block_bytes&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;193b&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="nt">&quot;ref_block_hash&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;aaecd88e4e0e7528&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="nt">&quot;expiration&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1656580476000</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1656580418228</span><span class="w"></span>
-<span class="w">    </span><span class="p">},</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;raw_data_hex&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0a02193b2208aaecd88e4e0e752840e098909f9b305a68080112640a2d747970652e676f6f676c65617069732e636f6d2f70726f746f636f6c2e5472616e73666572436f6e747261637412330a154198927ffb9f554dc4a453c64b2e553a02d6df514b121541d0b69631440f0a494bb51f7eee68ff5c593c00f01880ade20470b4d58c9f9b30&quot;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-</code></pre></div>
-最后通过<a href="https://cn.developers.tron.network/reference/broadcasttransaction"><code>wallet/broadcasttransaction</code></a>接口将签名后的交易广播到Java-tron节点，完成TRX转账交易的发送。</p>
-<p><div class="highlight"><pre><span></span><code>curl --location --request POST &#39;http://127.0.0.1:16887/wallet/broadcasttransaction&#39; \
---header &#39;Content-Type: application/json&#39; \
---data-raw &#39;{
-    &quot;visible&quot;: true,
-    &quot;signature&quot;: [
-        &quot;e12996cfaf52f8b49e64400987f9158a87b1aa809a11a75e01bb230722db97a26204334aea945b1ece0851a89c96459872e56229b0bd725c4f6a0577bfe331c301&quot;
-    ],
-    &quot;txID&quot;: &quot;c558bd35978267d8999baf6148703cbc94786f3f2e22893637588ca05437d7f0&quot;,
-    &quot;raw_data&quot;: {
-        &quot;contract&quot;: [
-            {
-                &quot;parameter&quot;: {
-                    &quot;value&quot;: {
-                        &quot;amount&quot;: 10000000,
-                        &quot;owner_address&quot;: &quot;TPswDDCAWhJAZGdHPidFg5nEf8TkNToDX1&quot;,
-                        &quot;to_address&quot;: &quot;TUznHJfHe6gdYY7gvWmf6bNZHuPHDZtowf&quot;
-                    },
-                    &quot;type_url&quot;: &quot;type.googleapis.com/protocol.TransferContract&quot;
-                },
-                &quot;type&quot;: &quot;TransferContract&quot;
-            }
-        ],
-        &quot;ref_block_bytes&quot;: &quot;193b&quot;,
-        &quot;ref_block_hash&quot;: &quot;aaecd88e4e0e7528&quot;,
-        &quot;expiration&quot;: 1656580476000,
-        &quot;timestamp&quot;: 1656580418228
-    },
-    &quot;raw_data_hex&quot;: &quot;0a02193b2208aaecd88e4e0e752840e098909f9b305a68080112640a2d747970652e676f6f676c65617069732e636f6d2f70726f746f636f6c2e5472616e73666572436f6e747261637412330a154198927ffb9f554dc4a453c64b2e553a02d6df514b121541d0b69631440f0a494bb51f7eee68ff5c593c00f01880ade20470b4d58c9f9b30&quot;
-}&#39;
-</code></pre></div>
-执行结果为：
-<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;result&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;txid&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;c558bd35978267d8999baf6148703cbc94786f3f2e22893637588ca05437d7f0&quot;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-</code></pre></div>
-结果返回true，表示交易广播成功。</p>
-<h5 id="id_1">根据交易id查询交易<a class="headerlink" href="#id_1" title="Permanent link">&para;</a></h5>
-<p>通过http接口 <code>wallet/gettransactionbyid</code>来查询交易的内容：
-<div class="highlight"><pre><span></span><code>curl --location --request POST &#39;http://127.0.0.1:16887/wallet/gettransactionbyid&#39; \
---header &#39;Content-Type: application/json&#39; \
---data-raw &#39;{
-     &quot;value&quot;: &quot;c558bd35978267d8999baf6148703cbc94786f3f2e22893637588ca05437d7f0&quot;
-}&#39;
-</code></pre></div>
-查询结果为：
-<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;ret&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
-<span class="w">        </span><span class="p">{</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;contractRet&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;SUCCESS&quot;</span><span class="w"></span>
-<span class="w">        </span><span class="p">}</span><span class="w"></span>
-<span class="w">    </span><span class="p">],</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;signature&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
-<span class="w">        </span><span class="s2">&quot;e12996cfaf52f8b49e64400987f9158a87b1aa809a11a75e01bb230722db97a26204334aea945b1ece0851a89c96459872e56229b0bd725c4f6a0577bfe331c301&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="p">],</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;txID&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;c558bd35978267d8999baf6148703cbc94786f3f2e22893637588ca05437d7f0&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;raw_data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="nt">&quot;contract&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
-<span class="w">            </span><span class="p">{</span><span class="w"></span>
-<span class="w">                </span><span class="nt">&quot;parameter&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">                    </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">                        </span><span class="nt">&quot;amount&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">10000000</span><span class="p">,</span><span class="w"></span>
-<span class="w">                        </span><span class="nt">&quot;owner_address&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;4198927ffb9f554dc4a453c64b2e553a02d6df514b&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">                        </span><span class="nt">&quot;to_address&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;41d0b69631440f0a494bb51f7eee68ff5c593c00f0&quot;</span><span class="w"></span>
-<span class="w">                    </span><span class="p">},</span><span class="w"></span>
-<span class="w">                    </span><span class="nt">&quot;type_url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;type.googleapis.com/protocol.TransferContract&quot;</span><span class="w"></span>
-<span class="w">                </span><span class="p">},</span><span class="w"></span>
-<span class="w">                </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;TransferContract&quot;</span><span class="w"></span>
-<span class="w">            </span><span class="p">}</span><span class="w"></span>
-<span class="w">        </span><span class="p">],</span><span class="w"></span>
-<span class="w">        </span><span class="nt">&quot;ref_block_bytes&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;193b&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="nt">&quot;ref_block_hash&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;aaecd88e4e0e7528&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="nt">&quot;expiration&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1656580476000</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1656580418228</span><span class="w"></span>
-<span class="w">    </span><span class="p">},</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;raw_data_hex&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0a02193b2208aaecd88e4e0e752840e098909f9b305a68080112640a2d747970652e676f6f676c65617069732e636f6d2f70726f746f636f6c2e5472616e73666572436f6e747261637412330a154198927ffb9f554dc4a453c64b2e553a02d6df514b121541d0b69631440f0a494bb51f7eee68ff5c593c00f01880ade20470b4d58c9f9b30&quot;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-</code></pre></div></p>
-<p>通过http接口 <code>wallet/gettransactioninfobyid</code>来查询交易结果及交易回执：</p>
-<p><div class="highlight"><pre><span></span><code>curl --location --request POST &#39;http://127.0.0.1:16887/wallet/gettransactioninfobyid&#39; \
---header &#39;Content-Type: application/json&#39; \
---data-raw &#39;{
-     &quot;value&quot;: &quot;c558bd35978267d8999baf6148703cbc94786f3f2e22893637588ca05437d7f0&quot;
-}&#39;
-</code></pre></div>
-查询结果为：
-<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;c558bd35978267d8999baf6148703cbc94786f3f2e22893637588ca05437d7f0&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;blockNumber&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">27662687</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;blockTimeStamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1656580470000</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;contractResult&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
-<span class="w">        </span><span class="s2">&quot;&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="p">],</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;receipt&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="nt">&quot;net_usage&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">268</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-</code></pre></div></p>
+                <h1 id="java-tron">欢迎访问Java-tron用户手册!<a class="headerlink" href="#java-tron" title="Permanent link">&para;</a></h1>
+<p>Java-tron是用Java编写的TRON网络客户端，完全开源，您可以在Github上下载 <a href="https://github.com/tronprotocol/java-tron">Java-tron源代码</a>。本文将介绍与Java-tron相关的知识，通过本文您将了解到如何使用Java-tron、如何参与Java-tron的开发与维护，具体包含如下几个部分：</p>
+<ul>
+<li><a href="/documentation-zh/getting_started/getting_started_with_javatron/">Java-tron入门</a></li>
+<li><a href="/documentation-zh/using_javatron/installing_javatron/">使用Java-tron</a></li>
+<li><a href="/documentation-zh/introduction/dpos/">核心协议</a></li>
+<li><a href="/documentation-zh/developers/java-tron/">Java-tron开发</a></li>
+<li><a href="/documentation-zh/contracts/compiler/">DAPP开发</a></li>
+<li><a href="/documentation-zh/api/http/">APIs</a></li>
+<li><a href="/documentation-zh/clients/wallet-cli/">Wallet-CLI</a></li>
+</ul>
+<p>关于其它TRON相关知识，请访问官网 <a href="https://tron.network/index?lng=zh">tron.network</a> 或者以下资源链接:</p>
+<ul>
+<li><a href="https://tron.network/static/doc/white_paper_v_2_0.pdf">TRON Whitepaper</a></li>
+<li><a href="https://coin.top/pdf/Architecture/Design_Book_of_TRON_Architecture1.4.pdf">TRON Architecture</a></li>
+<li><a href="https://github.com/tronprotocol/tips">TRON Improvement Proposals (TIPs)</a></li>
+<li><a href="https://cn.developers.tron.network/docs">TRON Developer Hub</a></li>
+</ul>
               
             </div>
-          </div>
-          <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="introduction/" class="btn btn-neutral float-right" title="项目仓库">Next <span class="icon icon-circle-arrow-right"></span></a>
-      
-      
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="getting_started/getting_started_with_javatron/" class="btn btn-neutral float-right" title="入门">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <!-- Copyright etc -->
-    
   </div>
 
-  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
 </footer>
-      
+          
         </div>
       </div>
 
@@ -773,26 +191,34 @@ wallet&gt;
 
   </div>
 
-  <div class="rst-versions" role="note" style="cursor: pointer">
-    <span class="rst-current-version" data-toggle="rst-current-version">
-      
-          <a href="https://github.com/tronprotocol/documentation-zh/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
-      
-      
-      
-        <span style="margin-left: 15px"><a href="introduction/" style="color: #fcfcfc">Next &raquo;</a></span>
-      
-    </span>
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/tronprotocol/documentation-zh" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+    
+      <span><a href="getting_started/getting_started_with_javatron/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
 </div>
     <script>var base_url = '.';</script>
+    <script src="js/theme_extra.js" defer></script>
     <script src="js/theme.js" defer></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
       <script src="search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
 
 </body>
 </html>
 
 <!--
-MkDocs version : 1.0.4
-Build Date UTC : 2022-07-09 13:24:42
+MkDocs version : 1.3.0
+Build Date UTC : 2022-07-24 15:47:54.109840+00:00
 -->

@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://tronprotocol.github.io/documentation-zh/using_javatron/private_network/" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>私链网络 - Java Tron</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\u79c1\u94fe\u7f51\u7edc";
+        var mkdocs_page_input_path = "using_javatron/private_network.md";
+        var mkdocs_page_url = "/documentation-zh/using_javatron/private_network/";
+      </script>
+    
+    <script src="../../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> Java Tron
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">主页</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../getting_started/getting_started_with_javatron/">入门</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">使用Java-tron</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../installing_javatron/">部署Java-tron节点</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../backup_restore/">备份和恢复</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../connecting_to_tron/">连接到TRON网络</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../developers/litefullnode/">轻节点</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">私链网络</a>
+    <ul class="current">
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../architecture/database/">数据库配置</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../architecture/event/">部署事件插件</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../metrics/">节点监控</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">API 接口</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../api/http/">HTTP 接口</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../api/rpc/">RPC 接口</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">核心协议</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../introduction/dpos/">波场共识</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../mechanism-algorithm/sr/">超级代表</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../mechanism-algorithm/account/">账户模型</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../mechanism-algorithm/resource/">资源模型</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../contracts/contract/">智能合约</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../mechanism-algorithm/dex/">去中心化交易所</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../mechanism-algorithm/multi-signatures/">多重签名</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Java-tron开发</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../developers/java-tron/">Java-tron仓库</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../developers/contribution/">如何参与开发</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../developers/run-in-idea/">配置集成开发环境IDEA</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../developers/tips/">TIPs</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../developers/gpg/">GPG Key</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Dapp开发</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../contracts/compiler/">Dapp开发工具</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Wallet-cli</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../clients/wallet-cli/">安装</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">版本发布</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../releases/">一致性检验</a>
+                  </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../glossary/">术语表</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">Java Tron</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" alt="Docs"></a> &raquo;</li>
+          <li>使用Java-tron &raquo;</li><li>私链网络</li>
+    <li class="wy-breadcrumbs-aside">
+        <a href="https://github.com/tronprotocol/documentation-zh/edit/master/docs/using_javatron/private_network.md"
+          class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="_1">私链网络<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<p>搭建私链需要部署至少一个产块的全节点，和任意数量的非产块的全节点用于同步区块和广播交易，本示例中只搭建了一个产块的节点和一个非产块的节点。搭建私链之前，请先安装<code>Oracle JDK 1.8</code>， 然后需要准备至少两个TRON网络地址并保存地址和对应的私钥，可以使用<a href="https://github.com/tronprotocol/wallet-cli">wallet-cli</a>或者<a href="https://www.tronlink.org/cn/">Tronlink</a>来创建地址。</p>
+<h1 id="_2">部署指南<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h1>
+<p>搭建私链节点的流程和搭建主网节点的流程一样，不同点在于节点配置文件内容不同，搭建私链最主要的是要修改配置文件中的配置项，使节点间组成私链网络，可以进行网络发现，区块同步和广播交易。</p>
+<ol>
+<li>
+<p>创建目录</p>
+<p>创建部署目录，建议将两个节点放在不同的目录下。
+  <div class="highlight"><pre><span></span><code>$ mkdir SR
+$ mkdir FullNode
+</code></pre></div></p>
+</li>
+<li>
+<p>获取<a href="https://github.com/tronprotocol/java-tron/releases">FullNode.jar</a></p>
+<p>获取 FullNode.jar，将其分别放到SR和FullNode目录中。
+ <div class="highlight"><pre><span></span><code>$ cp FullNode.jar ./SR
+$ cp FullNode.jar ./FullNode
+</code></pre></div></p>
+</li>
+<li>
+<p>获取节点配置文件<a href="https://github.com/tronprotocol/tron-deployment/blob/master/private_net_config.conf">private_net_config.conf</a>，</p>
+<p>获取节点配置文件 private_net_config.conf，将其分别放到SR和FullNode目录中,并分别修改文件名为：supernode.conf、 fullnode.conf。
+  <div class="highlight"><pre><span></span><code>$ cp private_net_config.conf ./SR/supernode.conf
+$ cp private_net_config.conf ./FullNode/fullnode.conf
+</code></pre></div></p>
+</li>
+<li>
+<p>修改各节点的配置文件</p>
+<p>请根据如下表格中的说明，依次修改节点的各个配置项：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">配置项名称</th>
+<th style="text-align: left;">SR Fullnode配置内容</th>
+<th style="text-align: left;">FullNode配置内容</th>
+<th style="text-align: left;">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">localwitness</td>
+<td style="text-align: left;">witness账户私钥</td>
+<td style="text-align: left;">不需填值</td>
+<td style="text-align: left;">生成区块需要使用私钥签名</td>
+</tr>
+<tr>
+<td style="text-align: left;">genesis.block.witnesses</td>
+<td style="text-align: left;">上面私钥对应的地址</td>
+<td style="text-align: left;">与SR配置值相同</td>
+<td style="text-align: left;">创世块相关的配置，genesis.block需要与SR节点的一样</td>
+</tr>
+<tr>
+<td style="text-align: left;">genesis.block.Assets</td>
+<td style="text-align: left;">给特定账户预置TRX。将预先准备的账户地址写入并随意指定其TRX的余额。可以直接修改原来已有账户的address字段，其它字段不需要修改；或者在末尾添加新账户信息</td>
+<td style="text-align: left;">与SR配置值相同</td>
+<td style="text-align: left;">创世块相关的配置</td>
+</tr>
+<tr>
+<td style="text-align: left;">p2p.version</td>
+<td style="text-align: left;">11111之外的任意正整数</td>
+<td style="text-align: left;">与SR配置值相同</td>
+<td style="text-align: left;">SR 和fullnode需相同，只有相同version的节点才能握手成功</td>
+</tr>
+<tr>
+<td style="text-align: left;">seed.node</td>
+<td style="text-align: left;">不需填值</td>
+<td style="text-align: left;">将ip.list设置为SR的ip地址和SR配置文件中的<code>listen.port</code>端口号</td>
+<td style="text-align: left;">能够让fullnode与SR node建立连接并同步数据</td>
+</tr>
+<tr>
+<td style="text-align: left;">needSyncCheck</td>
+<td style="text-align: left;">false</td>
+<td style="text-align: left;">true</td>
+<td style="text-align: left;">第1个SR设置needSyncCheck为false，其他设置为true</td>
+</tr>
+<tr>
+<td style="text-align: left;">node.discovery.enable</td>
+<td style="text-align: left;">true</td>
+<td style="text-align: left;">true</td>
+<td style="text-align: left;">如果配置成false，则当前节点不会被其他节点发现</td>
+</tr>
+<tr>
+<td style="text-align: left;">block.proposalExpireTime</td>
+<td style="text-align: left;">600000</td>
+<td style="text-align: left;">与SR配置值相同</td>
+<td style="text-align: left;">默认提议生效时间是3天：259200000(ms)，如需快速通过提议，可将该项设置为更小的值，如10分钟，即600000ms</td>
+</tr>
+<tr>
+<td style="text-align: left;">block.maintenanceTimeInterval</td>
+<td style="text-align: left;">300000</td>
+<td style="text-align: left;">与SR配置值相同</td>
+<td style="text-align: left;">维护期时间间隔，默认是6小时: 21600000(ms),如需快速通过提议，可将该项设置为更小的值，如五分钟，即300000ms。</td>
+</tr>
+<tr>
+<td style="text-align: left;">committee.allowSameTokenName</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">允许相同的token name</td>
+</tr>
+<tr>
+<td style="text-align: left;">committee.allowTvmTransferTrc10</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">允许智能合约转账TRC10代币</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>修改配置文件中的端口号，将SR和FullNode的配置成不相同的端口号。注意，如果SR和FullNode运行在一台机器上，此步骤是必须的，否则，可跳过此步。</p>
+<ul>
+<li><code>listen.port</code> ： p2p的监听端口</li>
+<li><code>http</code>端口： Http监听端口</li>
+<li><code>rpc</code> 端口： rpc 监听端口</li>
+</ul>
+</li>
+<li>
+<p>启动节点</p>
+<p>产块的全节点和非产块的全节点，启动命令不同：</p>
+<ul>
+<li>产块的全节点
+  <div class="highlight"><pre><span></span><code>$ java -Xmx6g -XX:+HeapDumpOnOutOfMemoryError -jar FullNode.jar  --witness  -c supernode.conf
+</code></pre></div></li>
+<li>非产块的全节点
+  <div class="highlight"><pre><span></span><code>$ java -Xmx6g -XX:+HeapDumpOnOutOfMemoryError -jar FullNode.jar  -c fullnode.conf
+</code></pre></div></li>
+</ul>
+</li>
+<li>
+<p>修改网络动态参数</p>
+<p>为了跟主网环境一样，需要修改私链网络的动态参数，使其与主网的保持一致，动态参数的修改可通过提议来完成。SR账户可以使用<a href="https://github.com/tronprotocol/wallet-cli">wallet-cli</a>或者节点http接口 <a href="https://cn.developers.tron.network/reference/proposalcreate"><code>wallet/proposalcreate</code></a>创建提案，<a href="https://cn.developers.tron.network/reference/proposalapprove"><code>wallet/proposalapprove</code></a>批准提案。</p>
+<p>下面是根据主网先后通过的提议整理出来的动态参数及值，并通过tronweb创建及批准提议的代码示例。SR可以参考它创建一个提议，来一次性完成所有的私链网络动态参数的修改。</p>
+<div class="highlight"><pre><span></span><code>var TronWeb = require(&#39;tronweb&#39;);
+var tronWeb = new TronWeb({
+        fullHost: &#39;http://localhost:16887&#39;,
+        privateKey: &#39;c741f5c0224020d7ccaf4617a33cc099ac13240f150cf35f496db5bfc7d220dc&#39;
+    })
+
+var unsignedProposal1Txn = await tronWeb.transactionBuilder.createProposal([{&quot;key&quot;:9,&quot;value&quot;:1},{&quot;key&quot;:10,&quot;value&quot;:1},{&quot;key&quot;:11,&quot;value&quot;:280},{&quot;key&quot;:19,&quot;value&quot;:90000000000},{&quot;key&quot;:15,&quot;value&quot;:1},{&quot;key&quot;:18,&quot;value&quot;:1},{&quot;key&quot;:16,&quot;value&quot;:1},{&quot;key&quot;:20,&quot;value&quot;:1},{&quot;key&quot;:26,&quot;value&quot;:1},{&quot;key&quot;:30,&quot;value&quot;:1},{&quot;key&quot;:5,&quot;value&quot;:16000000},{&quot;key&quot;:31,&quot;value&quot;:160000000},{&quot;key&quot;:32,&quot;value&quot;:1},{&quot;key&quot;:39,&quot;value&quot;:1},{&quot;key&quot;:41,&quot;value&quot;:1},{&quot;key&quot;:3,&quot;value&quot;:1000},{&quot;key&quot;:47,&quot;value&quot;:10000000000},{&quot;key&quot;:49,&quot;value&quot;:1},{&quot;key&quot;:13,&quot;value&quot;:80},{&quot;key&quot;:7,&quot;value&quot;:1000000},{&quot;key&quot;:61,&quot;value&quot;:1500},{&quot;key&quot;:63,&quot;value&quot;:1}],&quot;41D0B69631440F0A494BB51F7EEE68FF5C593C00F0&quot;)
+var signedProposal1Txn = await tronWeb.trx.sign(unsignedProposal1Txn, &quot;c741f5c0224020d7ccaf4617a33cc099ac13240f150cf35f496db5bfc7d220dc&quot;);
+var receipt1 = await tronWeb.trx.sendRawTransaction(signedProposal1Txn);
+
+setTimeout(async function() { 
+        console.log(&quot;Vote proposal!&quot;) 
+        var unsignedVoteP1Txn = await tronWeb.transactionBuilder.voteProposal(1, true, tronWeb.defaultAddress.hex)
+        var signedVoteP1Txn = await tronWeb.trx.sign(unsignedVoteP1Txn, &quot;c741f5c0224020d7ccaf4617a33cc099ac13240f150cf35f496db5bfc7d220dc&quot;);
+        var rtn1 = await tronWeb.trx.sendRawTransaction(signedVoteP1Txn);
+    }, 1000)
+</code></pre></div>
+</li>
+</ol>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../../developers/litefullnode/" class="btn btn-neutral float-left" title="轻节点"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../../architecture/database/" class="btn btn-neutral float-right" title="数据库配置">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/tronprotocol/documentation-zh" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../../developers/litefullnode/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../../architecture/database/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme_extra.js" defer></script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+      <script src="../../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

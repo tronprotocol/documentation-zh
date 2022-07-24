@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://tronprotocol.github.io/documentation-zh/using_javatron/metrics/" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>节点监控 - Java Tron</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\u8282\u70b9\u76d1\u63a7";
+        var mkdocs_page_input_path = "using_javatron/metrics.md";
+        var mkdocs_page_url = "/documentation-zh/using_javatron/metrics/";
+      </script>
+    
+    <script src="../../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> Java Tron
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">主页</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../getting_started/getting_started_with_javatron/">入门</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">使用Java-tron</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../installing_javatron/">部署Java-tron节点</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../backup_restore/">备份和恢复</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../connecting_to_tron/">连接到TRON网络</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../developers/litefullnode/">轻节点</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../private_network/">私链网络</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../architecture/database/">数据库配置</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../architecture/event/">部署事件插件</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">节点监控</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#java-tron_1">配置Java-tron</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#java-tron_2">启动Java-tron节点</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#prometheus">部署Prometheus服务</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#grafana">部署Grafana</a>
+    </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">API 接口</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../api/http/">HTTP 接口</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../api/rpc/">RPC 接口</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">核心协议</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../introduction/dpos/">波场共识</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../mechanism-algorithm/sr/">超级代表</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../mechanism-algorithm/account/">账户模型</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../mechanism-algorithm/resource/">资源模型</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../contracts/contract/">智能合约</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../mechanism-algorithm/dex/">去中心化交易所</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../mechanism-algorithm/multi-signatures/">多重签名</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Java-tron开发</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../developers/java-tron/">Java-tron仓库</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../developers/contribution/">如何参与开发</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../developers/run-in-idea/">配置集成开发环境IDEA</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../developers/tips/">TIPs</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../developers/gpg/">GPG Key</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Dapp开发</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../contracts/compiler/">Dapp开发工具</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Wallet-cli</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../clients/wallet-cli/">安装</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">版本发布</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../releases/">一致性检验</a>
+                  </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../glossary/">术语表</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">Java Tron</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" alt="Docs"></a> &raquo;</li>
+          <li>使用Java-tron &raquo;</li><li>节点监控</li>
+    <li class="wy-breadcrumbs-aside">
+        <a href="https://github.com/tronprotocol/documentation-zh/edit/master/docs/using_javatron/metrics.md"
+          class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="java-tron">Java-tron节点指标监控<a class="headerlink" href="#java-tron" title="Permanent link">&para;</a></h1>
+<p>从GreatVoyage-4.5.1(Tertullian)版本开始，节点提供了一系列兼容prometheus协议的接口，使节点部署者可以更方便的监控节点的健康状态。如果您想要监控节点的各项指标，则首先需要部署一个prometheus服务，用于与Java-tron节点通信，通过节点接口获取到节点各项指标数据。然后还需要部署一个可视化工具，如Grafana，用于将prometheus获取到的节点数据，以图像化界面的形式展示出来。下面将详细介绍Java-tron节点监控系统的搭建流程。</p>
+<h2 id="java-tron_1">配置Java-tron<a class="headerlink" href="#java-tron_1" title="Permanent link">&para;</a></h2>
+<p>如需使用Prometheus工具监控Java-tron节点的运行情况，首先需要在节点配置文件中开启prometheus指标监控，并设置http端口号：
+<div class="highlight"><pre><span></span><code>node {
+  ... ...
+  p2p {
+    version = 11111 # 11111: mainnet; 20180622: testnet
+  }
+ ####### add for prometheus start.
+ metrics{
+  prometheus{
+  enable=true 
+  port=&quot;9527&quot;
+  }
+ }
+ ####### add for prometheus end.
+}
+</code></pre></div></p>
+<h2 id="java-tron_2">启动Java-tron节点<a class="headerlink" href="#java-tron_2" title="Permanent link">&para;</a></h2>
+<p>您可以通过如下命令启动Java-tron节点：
+<div class="highlight"><pre><span></span><code>$ java -Xmx24g -XX:+UseConcMarkSweepGC -jar FullNode.jar -c main_net_config.conf
+</code></pre></div></p>
+<h2 id="prometheus">部署Prometheus服务<a class="headerlink" href="#prometheus" title="Permanent link">&para;</a></h2>
+<p><a href="https://prometheus.io/download/">prometheus</a>官方提供了预编译的二进制文件以及docker镜像，您可以直接在官网下载或者在dockerhub上拉取docker镜像，更多的安装与配置说明，请参考<a href="https://prometheus.io/docs/introduction/overview/">prometheus文档</a>。作为简单的部署说明，本文将采用docker镜像部署方式：</p>
+<ol>
+<li>
+<p>安装prometheus</p>
+<p>下载docker后，输入如下命令拉取prometheus镜像：
+<div class="highlight"><pre><span></span><code>$ docker pull prom/prometheus
+</code></pre></div></p>
+</li>
+<li>
+<p>下载Prometheus配置文件</p>
+<p>下面是一个prometheus配置文件模板<code>prometheus.yaml</code>：</p>
+<p><div class="highlight"><pre><span></span><code><span class="nt">global</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">scrape_interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">30s</span><span class="w"></span>
+<span class="w">  </span><span class="nt">scrape_timeout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10s</span><span class="w"></span>
+<span class="w">  </span><span class="nt">evaluation_interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">30s</span><span class="w"></span>
+<span class="nt">scrape_configs</span><span class="p">:</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">job_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">java-tron</span><span class="w"></span>
+<span class="w">  </span><span class="nt">honor_timestamps</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
+<span class="w">  </span><span class="nt">scrape_interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3s</span><span class="w"></span>
+<span class="w">  </span><span class="nt">scrape_timeout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2s</span><span class="w"></span>
+<span class="w">  </span><span class="nt">metrics_path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/metrics</span><span class="w"></span>
+<span class="w">  </span><span class="nt">scheme</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http</span><span class="w"></span>
+<span class="w">  </span><span class="nt">follow_redirects</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
+<span class="w">  </span><span class="nt">static_configs</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">targets</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">127.0.0.1:9527</span><span class="w"></span>
+<span class="w">    </span><span class="nt">labels</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">group</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">group-xxx</span><span class="w"></span>
+<span class="w">      </span><span class="nt">instance</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">xxx-01</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">targets</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">172.0.0.2:9527</span><span class="w"></span>
+<span class="w">    </span><span class="nt">labels</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">group</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">group-xxx</span><span class="w"></span>
+<span class="w">      </span><span class="nt">instance</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">xxx-02</span><span class="w"></span>
+</code></pre></div>
+您可以使用此模板，然后修改配置项 <code>targets</code> ，它用于配置Java-tron节点所在机器的ip和prometheus端口，如您部署了多个节点，可以通过配置多个 <code>targets</code>，来实现对多个节点的监控。</p>
+</li>
+<li>
+<p>启动一个Prometheus容器</p>
+<p>通过如下命令启动一个Prometheus容器，并指定使用上步骤中用户自定义的配置文件<code>/Users/test/deploy/prometheus/prometheus.yaml</code>
+<div class="highlight"><pre><span></span><code>$ docker run --name prometheus <span class="se">\</span>
+    -d -p :9090:9090 <span class="se">\</span>
+    -v  /Users/test/deploy/prometheus/prometheus.yaml:/etc/prometheus/prometheus.yml <span class="se">\</span>
+    prom/prometheus:latest
+</code></pre></div></p>
+<p>容器启动后,您可以通过<code>http://localhost:9090/</code>查看prometheus服务的运行情况。</p>
+<p>点击"Status"-&gt; "Configuration"，查看容器使用的配置文件是否正确：
+<img alt="image" src="https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/metrics_config.png" /></p>
+<p>点击"Status"-&gt; "Targets"，查看各个监控的Java-tron节点状态：
+<img alt="image" src="https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/metrics_targets.png" /></p>
+<p>比如这个示例中，第一个endpoint，状态为<code>UP</code>，表示Prometheus可以正常的抓取该节点的数据。而第二个endpoint，状态为<code>DOWN</code>，表示异常，具体参考"Error"中的描述。</p>
+<p>当监控的Java-tron节点的状态都正常后，您就可以通过Grafana或Promdash等可视化工具监控指标数据了，本文将通过grafana来展示数据。</p>
+</li>
+</ol>
+<h2 id="grafana">部署Grafana<a class="headerlink" href="#grafana" title="Permanent link">&para;</a></h2>
+<p>Grafana可视化工具的部署流程如下：</p>
+<ol>
+<li>
+<p>安装Grafana</p>
+<p>请参考官方文档安装<a href="https://grafana.com/docs/grafana/next/setup-grafana/installation/">Grafana</a>。本文将采用docker部署方式，拉取的image版本为open source版：
+<div class="highlight"><pre><span></span><code>$ docker pull grafana/grafana-oss
+</code></pre></div></p>
+</li>
+<li>
+<p>启动Grafana
+  您可以通过如下docker命令来启动Grafana：
+    <div class="highlight"><pre><span></span><code>$ docker run -d --name=grafana -p 3000:3000 grafana/grafana-oss
+</code></pre></div></p>
+</li>
+<li>
+<p>登录Grafana界面</p>
+<p>启动后，可以通过<code>http://localhost:3000/</code>进入Grafana页面，初始的用户名和密码均是<code>admin</code>，输入后根据提示修改密码，然后就可以进入到主界面了。点击主页面左侧的设置图标，然后选择"Data Sources"配置Grafana的数据源：</p>
+<p><img alt="image" src="https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/metrics_datasource.png" /></p>
+<p>在URL中输入prometheus服务的ip和端口：</p>
+<p><img alt="image" src="https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/metrics_prometheus.png" /></p>
+<p>然后点击页面最下方的"Save &amp; test"按钮，保存设置。点击保存后，Grafana会检测与数据源的连接情况，如果成功通信，则会出现 <code>Data source is working</code> 字样。</p>
+</li>
+<li>
+<p>导入Dashboard</p>
+<p>Grafana的仪表盘需要配置，为了方便Java-tron节点部署者，TRON社区提供了一个较全面的仪表盘配置文件，您可以直接在Grafana dashboard中下载Java-tron仪表盘配置文件 <a href="https://grafana.com/grafana/dashboards/16567">java-tron-template_rev1.json</a>，然后导入到Grafana。</p>
+<p>点击左侧的Dashboards图标，然后选择"+Import"，然后点击"Upload JSON file"导入已下载的仪表盘配置文件：</p>
+<p><img alt="image" src="https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/metrics_import.png" /></p>
+<p>然后您就可以在仪表盘界面看到如下种类的监控信息，并实时监控节点的运行情况了：</p>
+<p><img alt="image" src="https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/metrics_dashboard.png" /></p>
+</li>
+</ol>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../../architecture/event/" class="btn btn-neutral float-left" title="部署事件插件"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../../api/http/" class="btn btn-neutral float-right" title="HTTP 接口">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/tronprotocol/documentation-zh" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../../architecture/event/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../../api/http/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme_extra.js" defer></script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+      <script src="../../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>
