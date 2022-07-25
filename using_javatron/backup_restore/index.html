@@ -40,13 +40,10 @@
       </div>
 
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">入门</span></p>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../..">主页</a>
-                </li>
-              </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../../getting_started/getting_started_with_javatron/">入门</a>
-                </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../getting_started/getting_started_with_javatron/">Java-tron入门</a>
+                  </li>
               </ul>
               <p class="caption"><span class="caption-text">使用Java-tron</span></p>
               <ul class="current">
@@ -152,11 +149,10 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="_1">数据备份和恢复<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
-<h1 id="_2">数据库目录<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h1>
 <p>Java-Tron会将持久化存储的数据写入到数据目录，默认的数据目录为：<code>/output-directory/</code>，如需指定其它目录，可以在java-tron节点启动命令中加入 <code>-d</code> 或者 <code>--output-directory</code> 参数来指定数据存储位置。
 <div class="highlight"><pre><span></span><code>$ java -jar fullnode.jar -d ./outputdir
 </code></pre></div></p>
-<h1 id="_3">数据备份<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h1>
+<h1 id="_2">数据备份<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h1>
 <p>对节点数据进行备份之前，请先关闭节点进程。具体请参考如下步骤：</p>
 <p>首先，使用命令<code>$ ps -ef |grep FullNode.jar |grep -v grep |awk '{print $2}'</code> 获取java-tron的进程id，然后使用命令<code>kill -15 进程id</code> 关闭进程。或者使用如下的停止脚本：</p>
 <div class="highlight"><pre><span></span><code>#!/bin/bash
@@ -175,11 +171,11 @@ done
 <p>然后，当关闭了Java-tron进程后，可通过如下命令进行数据的备份。</p>
 <div class="highlight"><pre><span></span><code>$ tar cvzf output-directory.`date &quot;+%Y%m%d%H%M%S&quot;`.etgz output-directory
 </code></pre></div>
-<h1 id="_4">数据恢复<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h1>
+<h1 id="_3">数据恢复<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h1>
 <p>当恢复数据时，只需将相应的数据拷贝到节点目录下即可。假如数据库备份文件名为<code>output-directory.20220628152402.etgz</code>，则恢复数据库文件的命令为：</p>
 <div class="highlight"><pre><span></span><code>$ tar xzvf output-directory.20220628152402.etgz
 </code></pre></div>
-<h1 id="_5">公共备份数据<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h1>
+<h1 id="_4">公共备份数据<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h1>
 <p>对于主网和nile测试网，由于新节点启动后，需要同步的数据量较大，因此同步数据需要较长的时间。为了方便开发者进行快速的节点部署，社区定期提供数据快照。数据快照是TRON网络节点某一时刻的数据库备份的压缩文件，开发者可以通过下载并使用数据快照加快节点同步过程。</p>
 <h3 id="fullnode">FullNode数据快照<a class="headerlink" href="#fullnode" title="Permanent link">&para;</a></h3>
 <p>下表为Fullnode数据快照的下载地址，请根据所在地和节点数据库类型，以及是否需要查询历史内部交易等需求选择适合的数据快照。</p>
@@ -239,7 +235,7 @@ done
 </tbody>
 </table>
 <p>小提示：如果用户已经有Fullnode的全量数据，可以使用<a href="../../developers/litefullnode/#lite-fullnode-tool">Lite FullNode工具</a>自行将fullnode数据切分成Lite fullnode数据。</p>
-<h3 id="_6">数据快照的使用<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<h3 id="_5">数据快照的使用<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
 <p>无论是Fullnode数据快照还是lite Fullnode数据快照，使用步骤相同，具体如下：</p>
 <ol>
 <li>根据自己需求下载相应压缩备份数据库。</li>
