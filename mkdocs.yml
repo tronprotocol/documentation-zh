@@ -3,8 +3,8 @@ site_url: https://tronprotocol.github.io/documentation-zh/
 repo_url: https://github.com/tronprotocol/documentation-zh
 
 nav:
-    - 主页: index.md
-    - 入门: getting_started/getting_started_with_javatron.md
+    - 入门: 
+        - Java-tron入门: getting_started/getting_started_with_javatron.md
     - 使用Java-tron:
         - 部署Java-tron节点: using_javatron/installing_javatron.md
         - 备份和恢复: using_javatron/backup_restore.md

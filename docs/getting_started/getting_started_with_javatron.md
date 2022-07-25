@@ -1,4 +1,5 @@
 # Java-tron入门
+
 本文主要说明如何启动Java-tron节点，并通过命令行工具wallet-cli执行基本命令与Java-tron节点进行交互。关于Java-tron的安装，您可以直接下载可运行文件，也可以通过源代码构建，具体步骤可以参考[安装和构建](../using_javatron/installing_javatron.md)页面。本教程是基于Java-tron和相关开发工具已经成功安装的基础上进行介绍的。
 
 本文涵盖了使用Java-tron的基础，这包括生成帐户、加入TRON nile测试网络、在帐户之间发送TRX。文档中也使用了wallet-cli，wallet-cli是TRON网络的一个命令行工具，该工具提供用户交互式命令，使用它可以更方便的与Java-tron进行交互。
@@ -6,7 +7,8 @@
 
 Java-tron是用Java编写的TRON网络客户端，这意味着运行Java-tron的计算机会变成一个TRON网络节点。TRON网络是一个分布式网络，信息在节点之间共享，而不是由中央服务器管理。超级代表的节点在生成新的区块后，会将区块发送给其它节点。每个节点在接收到一个新的区块时，都会对其进行校验，校验通过后将其添加到自己的数据库中。Java-tron使用每个区块提供的信息来更新其“状态”——TRON网络上每个账户的余额。TRON网络上有两种类型的帐户:外部拥有的帐户和合约帐户。合约帐户在收到交易时执行合约代码。外部账户是用户在本地管理的帐户，以便签署和提交交易。每个外部账户都是一个公私密钥对，其中公钥用于为用户派生一个唯一的地址，而私钥用于保护帐户和安全签署消息。因此，为了使用TRON网络，首先需要生成外部账户(以下简称“帐户”)。本教程将指导用户如何创建一个帐户，存入TRX代币，并转账TRX。
 
-### 生成账户
+
+# 生成账户
 有多种方法来生成TRON网络帐户，这里将演示如何使用wallet-cli生成帐户。帐户是一对密钥(公钥和私钥)。
 
 在终端中通过命令`java -jar wallet-cli.jar`来启动一个wallet-cli：
@@ -35,7 +37,7 @@ Register a wallet successful, keystore file name is UTC--2022-07-04T06-35-35.304
 wallet> 
 ```
 
-### 登录wallet-cli
+# 登录wallet-cli
 注册完成后，输入login命令登录wallet-cli。
 ```
 wallet> login
@@ -63,7 +65,7 @@ wallet>
 然后可以通过backupwallet命令，根据提示输入密码后，查看账户的私钥，建议保存好私钥。
 
 
-### 启动Java-tron节点
+# 启动Java-tron节点
 Java-tron是TRON网络客户端，它使计算机可以连接到TRON网络中。 本教程中的网络指的是TRON nile测试网。 要启动Java-tron，请首先获取Java-tron可执行文件，请参考[安装和部署](../using_javatron/installing_javatron.md)章节，然后通过如下命令，启动Java-tron。
 ```
 $  java -Xmx24g -XX:+UseConcMarkSweepGC -jar FullNode.jar -c nile_net_config.conf
@@ -116,7 +118,7 @@ $ curl http://127.0.0.1:16887/wallet/getnodeinfo
 
 如果要关闭Java-tron，请通过`kill -15 进程id`来暂停节点。
 
-### 获取Nile测试网TRX
+# 获取Nile测试网TRX
 为了能够发送交易，用户的账户中需要持有TRX。在TRON网络主网上，只能通过三种方式获得TRX: 
 1. 超级代表生产区块/为超级代表投票的奖励; 
 2. 另一个TRON网络账户向其转账TRX; 
@@ -124,17 +126,17 @@ $ curl http://127.0.0.1:16887/wallet/getnodeinfo
 
 在TRON测试网中，TRX没有实际价值, 可以通过 [水龙头](https://nileex.io/join/getJoinPage) 免费获得。
 
-### 与Java-tron交互
+# 与Java-tron交互
 
-#### 使用wallet-cli与Java-tron节点进行交互
+## 使用wallet-cli与Java-tron节点进行交互
 Java-tron对外提供http接口和grpc接口，方便用户与TRON网络进行交互。wallet-cli使用的是grpc接口。
-##### 获取账户信息
+### 获取账户信息
 在wallet-cli中输入getaccount命令后，它将向Java-tron节点请求账户信息数据，然后将结果展示到终端。
 ```
 wallet> getaccount TUoHaVjx7n5xz8LwPRDckgFrDWhMhuSuJM
 ```
 结果为：
-```json
+```
 {
 	"address": "TUoHaVjx7n5xz8LwPRDckgFrDWhMhuSuJM",
 	"balance": 93643857919,
@@ -151,7 +153,7 @@ wallet> getaccount TUoHaVjx7n5xz8LwPRDckgFrDWhMhuSuJM
 }
 
 ```
-##### 查询账户余额
+### 查询账户余额
 通过getbalance命令查看一个账户的余额：
 ```
 wallet> getbalance
@@ -159,7 +161,7 @@ Balance = 93642857919
 wallet> 
 ```
 
-##### 转账TRX
+### 转账TRX
 通过sendcoin命令来转账TRX，输入转入地址，及金额：
 ```
 wallet> sendcoin TUznHJfHe6gdYY7gvWmf6bNZHuPHDZtowf 1000000
@@ -207,7 +209,7 @@ Send 1000000 Sun to TUznHJfHe6gdYY7gvWmf6bNZHuPHDZtowf successful !!
 wallet> 
 ```
 
-##### 根据交易id查询交易
+### 根据交易id查询交易
 上面通过sendcoin命令发送了一条转账TRX的交易，在wallet-cli终端打印出了交易的id：`0e28724f0963dff35c6c76149524d3ee1073463c6dd0ceb03a592bf2c1b37122`，接下来可以通过gettransactionbyid查询交易，也可以通过gettransactioninfobyid查询交易的结果。
 
 ```
@@ -264,10 +266,10 @@ wallet>
 ```
 
 
-#### 使用Curl与Java-tron节点进行交互
+## 使用Curl与Java-tron节点进行交互
 上文介绍了如何使用wallet-cli与Java-tron进行交互。与直接发送grpc/http命令相比，该工具提供更友好的交互式命令，使用户可以更方便的向Java-tron发送指令。但是，如何直接发送HTTP请求到Java-tron节点呢？ Curl是一个发送HTTP请求的命令行工具。本章节将说明如何通过Curl检查帐户余额，并发送交易。
 
-##### 查询账户余额
+### 查询账户余额
 可以通过节点HTTP接口`wallet/getaccount`来查询账户的TRX余额信息，返回结果中的balance即为TRX余额，以sun为单位：
 ```
  curl -X POST http://127.0.0.1:16887/wallet/getaccount -d 
@@ -276,12 +278,13 @@ wallet>
      }'
 ```
 结果为：
-```json
+```
 {"account_name": "testacc2","address": "TUoHaVjx7n5xz8LwPRDckgFrDWhMhuSuJM","balance": 1000000000000000,"account_resource": {}}
 ```
 
-##### 发送交易
+### 发送交易
 通过http接口发送交易，总共需要三步：
+
 1. 创建交易
 2. 签名交易
 3. 广播交易
@@ -299,7 +302,7 @@ curl -X POST  http://127.0.0.1:16887/wallet/createtransaction -d
     }'
 ```
 返回一个未签名的TRX转账交易：
-```json
+```
 {
     "visible": true,
     "txID": "c558bd35978267d8999baf6148703cbc94786f3f2e22893637588ca05437d7f0",
@@ -326,6 +329,7 @@ curl -X POST  http://127.0.0.1:16887/wallet/createtransaction -d
 }
 ```
 然后对该交易进行签名，自建节点可以使用http接口[`wallet/gettransactionsign`](https://cn.developers.tron.network/reference/gettransactionsign)对交易进行签名，否则，由于此接口需要填写私钥，因此不建议使用此接口，建议使用离线签名方式。
+
 ```
 curl --location --request POST 'http://127.0.0.1:16887/wallet/gettransactionsign' \
 --header 'Content-Type: application/json' \
@@ -355,8 +359,11 @@ curl --location --request POST 'http://127.0.0.1:16887/wallet/gettransactionsign
 },
 "privateKey":"e62650acb68caf5cd8fe3d03eb3fb9ca37afb72429f68053f9278f73951591ed"}'
 ```
+
 执行结果为：
-```json
+
+
+```
 {
     "visible": true,
     "signature": [
@@ -385,7 +392,7 @@ curl --location --request POST 'http://127.0.0.1:16887/wallet/gettransactionsign
     "raw_data_hex": "0a02193b2208aaecd88e4e0e752840e098909f9b305a68080112640a2d747970652e676f6f676c65617069732e636f6d2f70726f746f636f6c2e5472616e73666572436f6e747261637412330a154198927ffb9f554dc4a453c64b2e553a02d6df514b121541d0b69631440f0a494bb51f7eee68ff5c593c00f01880ade20470b4d58c9f9b30"
 }
 ```
-最后通过[`wallet/broadcasttransaction`](https://cn.developers.tron.network/reference/broadcasttransaction)接口将签名后的交易广播到Java-tron节点，完成TRX转账交易的发送。
+最后，通过[`wallet/broadcasttransaction`](https://cn.developers.tron.network/reference/broadcasttransaction)接口将签名后的交易广播到Java-tron节点，完成TRX转账交易的发送。
 
 ```
 curl --location --request POST 'http://127.0.0.1:16887/wallet/broadcasttransaction' \
@@ -419,7 +426,8 @@ curl --location --request POST 'http://127.0.0.1:16887/wallet/broadcasttransacti
 }'
 ```
 执行结果为：
-```json
+
+```
 {
     "result": true,
     "txid": "c558bd35978267d8999baf6148703cbc94786f3f2e22893637588ca05437d7f0"
@@ -427,7 +435,7 @@ curl --location --request POST 'http://127.0.0.1:16887/wallet/broadcasttransacti
 ```
 结果返回true，表示交易广播成功。
 
-##### 根据交易id查询交易
+### 根据交易id查询交易
 通过http接口 `wallet/gettransactionbyid`来查询交易的内容：
 ```
 curl --location --request POST 'http://127.0.0.1:16887/wallet/gettransactionbyid' \
@@ -437,7 +445,8 @@ curl --location --request POST 'http://127.0.0.1:16887/wallet/gettransactionbyid
 }'
 ```
 查询结果为：
-```json
+
+```
 {
     "ret": [
         {
@@ -482,7 +491,7 @@ curl --location --request POST 'http://127.0.0.1:16887/wallet/gettransactioninfo
 }'
 ```
 查询结果为：
-```json
+```
 {
     "id": "c558bd35978267d8999baf6148703cbc94786f3f2e22893637588ca05437d7f0",
     "blockNumber": 27662687,
