@@ -6,13 +6,13 @@ nav:
     - 入门: 
         - Java-tron入门: getting_started/getting_started_with_javatron.md
     - 使用Java-tron:
-        - 部署Java-tron节点: using_javatron/installing_javatron.md
+        - 部署Java-tron: using_javatron/installing_javatron.md
         - 备份和恢复: using_javatron/backup_restore.md
-        - 连接到TRON网络: using_javatron/connecting_to_tron.md
         - 轻节点: developers/litefullnode.md
         - 私链网络: using_javatron/private_network.md
+        - 事件插件: architecture/event.md
         - 数据库配置: architecture/database.md
-        - 部署事件插件: architecture/event.md
+        - 网络配置: using_javatron/connecting_to_tron.md
         - 节点监控: using_javatron/metrics.md
     - API 接口:
         - HTTP 接口: api/http.md
