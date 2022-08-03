@@ -85,7 +85,7 @@ java-tron项目分支只有master、develop、`release-*`、`feature-*`、`hotfi
 * Push代码
 
     从你自己的仓库向`tronprotocol/java-tron`提交一个推送代码请求 Pull Request（PR）。建议选择红框的选项，将tronprotocol的分支选成base分支，将个人的Fork仓库的分支选成compare分支。
-    ![](https://codimd.s3.shivering-isles.com/demo/uploads/e24435ab42e4287d9369a2136.png)
+    ![image](https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/javatron_pr.png)
 
 
 
