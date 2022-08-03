@@ -26,10 +26,9 @@ nav:
         - 去中心化交易所: mechanism-algorithm/dex.md
         - 多重签名: mechanism-algorithm/multi-signatures.md
     - Java-tron开发:
-        - Java-tron仓库: developers/java-tron.md
-        - 如何参与开发: developers/contribution.md
-        - 配置集成开发环境IDEA: developers/run-in-idea.md
+        - 开发者指南: developers/java-tron.md
         - TIPs: developers/tips.md
+        - 配置集成开发环境IDEA: developers/run-in-idea.md
         - GPG Key: developers/gpg.md
     - Dapp开发:
         - Dapp开发工具: contracts/compiler.md
