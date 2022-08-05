@@ -3,18 +3,18 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://tronprotocol.github.io/documentation-zh/developers/litefullnode/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://tronprotocol.github.io/documentation-zh/developers/issue-workflow/" />
       <link rel="shortcut icon" href="../../img/favicon.ico" />
-    <title>轻节点 - Java Tron</title>
+    <title>ISSUE工作流程 - Java Tron</title>
     <link rel="stylesheet" href="../../css/theme.css" />
     <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
     
       <script>
         // Current page data
-        var mkdocs_page_name = "\u8f7b\u8282\u70b9";
-        var mkdocs_page_input_path = "developers/litefullnode.md";
-        var mkdocs_page_url = "/documentation-zh/developers/litefullnode/";
+        var mkdocs_page_name = "ISSUE\u5de5\u4f5c\u6d41\u7a0b";
+        var mkdocs_page_input_path = "developers/issue-workflow.md";
+        var mkdocs_page_url = "/documentation-zh/developers/issue-workflow/";
       </script>
     
     <script src="../../js/jquery-3.6.0.min.js" defer></script>
@@ -46,14 +46,12 @@
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">使用Java-tron</span></p>
-              <ul class="current">
+              <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../../using_javatron/installing_javatron/">部署Java-tron</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../../using_javatron/backup_restore/">备份和恢复</a>
                   </li>
-                  <li class="toctree-l1 current"><a class="reference internal current" href="./">轻节点</a>
-    <ul class="current">
-    </ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../litefullnode/">轻节点</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../../using_javatron/private_network/">私链网络</a>
                   </li>
@@ -91,12 +89,20 @@
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Java-tron开发</span></p>
-              <ul>
+              <ul class="current">
                   <li class="toctree-l1"><a class="reference internal" href="../java-tron/">开发者指南</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tips/">TIPs工作流程</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../issue-workflow/">ISSUE工作流程</a>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">ISSUE工作流程</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#issue_1">提交ISSUE</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_1">处理流程</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#issue_2">ISSUE标签</a>
+    </li>
+    </ul>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../run-in-idea/">配置集成开发环境IDEA</a>
                   </li>
@@ -136,9 +142,9 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="../.." class="icon icon-home" alt="Docs"></a> &raquo;</li>
-          <li>使用Java-tron &raquo;</li><li>轻节点</li>
+          <li>Java-tron开发 &raquo;</li><li>ISSUE工作流程</li>
     <li class="wy-breadcrumbs-aside">
-        <a href="https://github.com/tronprotocol/documentation-zh/edit/master/docs/developers/litefullnode.md"
+        <a href="https://github.com/tronprotocol/documentation-zh/edit/master/docs/developers/issue-workflow.md"
           class="icon icon-github"> Edit on GitHub</a>
     </li>
   </ul>
@@ -148,75 +154,82 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="_1">轻节点<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
-<p>Lite FullNode和普通的FullNode运行同样的代码，所不同的是Lite FullNode只基于状态数据快照进行启动，状态数据快照只包含所有的账户状态数据和最近的256个区块的历史数据。而且在节点运行过程中，只存储和状态数据快照相关的数据，而不保存区块和交易的历史数据。因此Lite Fullnode具有占用磁盘空间小，启动速度块的优点，但它不提供历史区块和交易数据查询，仅提供部分全节点的HTTP API 和GRPC API，其中不支持的API请参考<a href="https://github.com/tronprotocol/java-tron/blob/develop/framework/src/main/java/org/tron/core/services/filter/LiteFnQueryHttpFilter.java">HTTP</a>，<a href="https://github.com/tronprotocol/java-tron/blob/develop/framework/src/main/java/org/tron/core/services/filter/LiteFnQueryGrpcInterceptor.java">GRPC</a>，这些API可以通过在配置文件中配置 <code>openHistoryQueryWhenLiteFN = true</code>来强制打开，但不推荐这样做。</p>
-<p>因此，如果开发者只需要使用节点进行区块同步，处理和广播交易，那么Lite Fullnoe将是更好的选择。</p>
-<p>轻节点的部署步骤和全节点相同，不同的是需要获取到轻节点数据库，您可以直接从公共备份数据中下载轻节点数据快照，并直接使用；也可以通过轻节点工具将全节点的数据库转换成轻节点的数据库。下面将详细介绍轻节点工具的使用。</p>
-<h1 id="_2">轻节点工具<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h1>
-<p>Lite FullNode工具用于将全节点（FullNode）的数据切分成快照数据集（Snapshot dataset）和历史数据集（History dataset）两部分。</p>
+                <h1 id="issue">ISSUE工作流程<a class="headerlink" href="#issue" title="Permanent link">&para;</a></h1>
+<p>我们鼓励社区贡献者参与Java-tron issue 的提出与讨论，您可以将您遇到的问题或者想法通过issue的形式提出，也可以参与issue的讨论或者帮助给出解决办法。您的每一次提问或者留言都在推动Java-tron向更好的方向发展，我们感谢您为Java-tron所做的贡献。</p>
+<h2 id="issue_1">提交ISSUE<a class="headerlink" href="#issue_1" title="Permanent link">&para;</a></h2>
+<p>如果您遇到了java-tron相关的问题或发现了相关bug，欢迎提交一个Issue，但请遵循以下规则:</p>
 <ul>
-<li><code>Snapshot dataset</code>: 用于快速启动Lite FullNode节点的必要数据集。</li>
-<li><code>History dataset</code>: 用于历史数据查询的归档数据集。</li>
+<li>
+<p>搜索现有问题</p>
+<p>请检查是否有人已经报告了您的问题或请求了您的想法，这样不但可以快速的解决您遇到的问题，而且还避免了重复的问题。</p>
+</li>
+<li>
+<p>提交Issue</p>
+<p>请选择您要报告的Issue类型，并根据模板要求填写Issue内容。</p>
+<ul>
+<li><code>Ask a question</code> - 请详细阐明您遇到的问题、期望的结果和实际看到的结果，这样可以让社区参与者更好的了解您的问题，更快的给出解决办法。</li>
+<li><code>Report a bug</code> - 除了阐明问题、期望的结果和看到的结果之外，还应说明bug的复现步骤，并附上出现问题时的java-tron log以及调用栈。</li>
+<li><code>Request a feature</code> - 请阐明为什么需要该功能、该功能的用例、实现方案，以及您是否愿意实现该功能。</li>
 </ul>
-<p>使用本工具进行任何操作之前，需要首先停止当前运行的FullNode节点。 本工具提供了根据当前<code>最新区块高度</code>(latest_block_number)将完整数据切分成两个数据集的功能。通过快照数据集启动的轻节点不支持查询此区块高度之前的历史数据。本工具还提供了将历史数据集同快照数据集合并的功能。</p>
-<p>更多的设计思想，请参考: <a href="https://github.com/tronprotocol/tips/issues/128">TIP-128</a>。</p>
-<h2 id="lite-fullnode">Lite Fullnode工具的获取<a class="headerlink" href="#lite-fullnode" title="Permanent link">&para;</a></h2>
-<p>可以通过编译java-tron源代码来获取 LiteFullNodeTool.jar，步骤如下：</p>
+</li>
+</ul>
+<h2 id="_1">处理流程<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>Issue的处理流程如下：</p>
 <ol>
-<li>获取java-tron源码
-    <div class="highlight"><pre><span></span><code>$ git clone https://github.com/tronprotocol/java-tron.git
-$ git checkout -t origin/master
-</code></pre></div></li>
-<li>
-<p>编译
-    <div class="highlight"><pre><span></span><code>$ cd java-tron
-$ ./gradlew clean build -x test
-</code></pre></div></p>
-<p>编译完成之后，<code>LiteFullNodeTool.jar</code>会生成在 <code>java-tron/build/libs/</code> 目录下。</p>
-</li>
+<li>标记Issue - 我们每周举行一次会议，对Issue进行分类，并使用合适的标签标记Issue。</li>
+<li>分配Issue - 将Issue分配给一位或者几位社区核心开发者，核心开发者会参与Issue的调查和讨论。</li>
+<li>社区讨论 - 所有的社区参与者均可参与Issue的调查与讨论，并将想法或者意见写到评论里，从社区讨论的中我们会得到问题的解决方案。</li>
+<li>关闭Issue - Issue提交者可以随时关闭Issue，当问题得到了解决，或者长时间未得到社区讨论，我们会关闭该Issue，Issue提交者或其他用户也可以根据需要重新打开该Issue。</li>
 </ol>
-<h2 id="lite-fullnode_1">Lite Fullnode工具的使用<a class="headerlink" href="#lite-fullnode_1" title="Permanent link">&para;</a></h2>
-<h3 id="_3">选项<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
-<p>此工具提供了快照数据集和历史数据集独立的拆分功能和合并功能。</p>
+<h2 id="issue_2">ISSUE标签<a class="headerlink" href="#issue_2" title="Permanent link">&para;</a></h2>
+<p>根据Issue特征使用如下标签：</p>
 <ul>
-<li><code>--operation | -o</code>: [ split | merge ]  此选项用于指定使用拆分功能还是合并功能。</li>
-<li><code>--type | -t</code>: [ snapshot | history ]  此选项只能同<code>-o split</code>配合使用。 <code>snapshot</code> 指示切分为快照数据集，<code>history</code>指示切分为历史数据集。 </li>
-<li><code>--fn-data-path</code>: FullNode数据库的目录。</li>
-<li><code>--dataset-path</code>: 切分完成的数据集输出目录。 当操作类型是 <code>split</code>时, <code>dataset-path</code> 用于指示切分完成的快照数据集输出目录或者历史数据集输出目录；当操作类型是 <code>merge</code>时， <code>dataset-path</code>指示历史数据集的输出目录。</li>
+<li>topic<ul>
+<li><code>topic: Block/Transaction</code></li>
+<li><code>topic: Build</code></li>
+<li><code>topic: Consensus</code></li>
+<li><code>topic: DB</code></li>
+<li><code>topic: Deployment</code></li>
+<li><code>topic: Documentation</code></li>
+<li><code>topic: Event subscribe</code></li>
+<li><code>topic: gRPC/HTTP api</code></li>
+<li><code>topic: Net</code></li>
+<li><code>topic: Performance</code></li>
+<li><code>topic: Resource manage</code></li>
+<li><code>topic: Shielded Transaction</code></li>
+<li><code>topic: Smart contract</code></li>
+<li><code>topic: Solidity</code></li>
+<li><code>topic: Testnet/Privatenet</code></li>
 </ul>
-<h3 id="_4">例子<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
-<p>通过默认的配置文件启动全节点时，将在当前启动目录下生成一个<code>output-directory</code>目录，在<code>output-directory</code> 目录的<code>database</code>子目录就是将要被切分的数据库。 </p>
+</li>
+<li>
+<p>type</p>
 <ul>
-<li>
-<p><strong>切分快照数据集</strong></p>
-<p>首先, 停止FullNode并执行命令:</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># 简单起见，将快照数据集存放在`/tmp`目录下</span>
-java -jar LiteFullNodeTool.jar -o split -t snapshot --fn-data-path output-directory/database --dataset-path /tmp
-</code></pre></div>
-<p>命令执行完毕之后，将在<code>/tmp</code>目录下生成<code>snapshot</code>目录, 将此目录的名字修改为<code>database</code>，并拷贝到Lite FullNode的运行目录output-directory之下。 </p>
+<li><code>type: Announcement</code></li>
+<li><code>type: Bug</code></li>
+<li><code>type: Enhancement</code></li>
+<li><code>type: Feature Request</code></li>
+<li><code>type: Manual</code></li>
+<li><code>type: Other</code></li>
+<li><code>type: Question</code></li>
+</ul>
 </li>
 <li>
-<p><strong>切分历史数据集</strong></p>
-<p>如果需要查询历史数据，历史数据集必须被生成并合并到微节点数据库中。</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># 简单起见，将历史数据集存放在`/tmp`目录下</span>
-java -jar LiteFullNodeTool.jar -o split -t <span class="nb">history</span> --fn-data-path output-directory/database --dataset-path /tmp
-</code></pre></div>
-<p>命令执行完毕之后，将在<code>/tmp</code>目录下生成<code>history</code>目录，将此目录拷贝到Lite FullNode运行目录output-directory之下，注意需要确保有足够的硬盘空间来存储历史数据集。</p>
+<p>resolution</p>
+<ul>
+<li><code>resolution: Duplicated</code></li>
+<li><code>resolution: Needs More Information</code></li>
+<li><code>resolution: Wontfix</code></li>
+</ul>
 </li>
-<li>
-<p><strong>合并历史数据集和快照数据集</strong></p>
-<p>历史数据集和快照数据集中都保存了一个info.properties文件，用于记录数据拆分时的区块高度。需要注意的是，两个数据集进行合并时，历史数据集的区块高度必须大于等于快照数据集的区块高度。通过merge操作将历史数据集同快照数据集进行合并之后，微节点将成为一个真正的全节点。</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># 简单起见，假设历史数据集存放在了`/tmp`目录下</span>
-java -jar LiteFullNodeTool.jar -o merge --fn-data-path output-directory/database --dataset-path /tmp/history
-</code></pre></div>
-</li>
+<li><code>improvement</code></li>
 </ul>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../../using_javatron/backup_restore/" class="btn btn-neutral float-left" title="备份和恢复"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../../using_javatron/private_network/" class="btn btn-neutral float-right" title="私链网络">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../tips/" class="btn btn-neutral float-left" title="TIPs工作流程"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../run-in-idea/" class="btn btn-neutral float-right" title="配置集成开发环境IDEA">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -243,10 +256,10 @@ java -jar LiteFullNodeTool.jar -o merge --fn-data-path output-directory/database
         </span>
     
     
-      <span><a href="../../using_javatron/backup_restore/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../tips/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
-      <span><a href="../../using_javatron/private_network/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="../run-in-idea/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>

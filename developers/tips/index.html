@@ -5,14 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://tronprotocol.github.io/documentation-zh/developers/tips/" />
       <link rel="shortcut icon" href="../../img/favicon.ico" />
-    <title>TIPs - Java Tron</title>
+    <title>TIPs工作流程 - Java Tron</title>
     <link rel="stylesheet" href="../../css/theme.css" />
     <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
     
       <script>
         // Current page data
-        var mkdocs_page_name = "TIPs";
+        var mkdocs_page_name = "TIPs\u5de5\u4f5c\u6d41\u7a0b";
         var mkdocs_page_input_path = "developers/tips.md";
         var mkdocs_page_url = "/documentation-zh/developers/tips/";
       </script>
@@ -90,19 +90,37 @@
               </ul>
               <p class="caption"><span class="caption-text">Java-tron开发</span></p>
               <ul class="current">
-                  <li class="toctree-l1"><a class="reference internal" href="../java-tron/">Java-tron仓库</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../java-tron/">开发者指南</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../contribution/">如何参与开发</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../run-in-idea/">配置集成开发环境IDEA</a>
-                  </li>
-                  <li class="toctree-l1 current"><a class="reference internal current" href="./">TIPs</a>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">TIPs工作流程</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#pr">提交一个PR</a>
+    <li class="toctree-l2"><a class="reference internal" href="#tip_1">TIP类型</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#tip_1">TIP状态</a>
+    <li class="toctree-l2"><a class="reference internal" href="#tip_2">TIP工作流程</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#tip_3">TIP状态</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#tip_4">TIP的组成</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#tip_5">TIP标题</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#tip_6">TIP主体内容</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_1">链接外部资源</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#tips">链接其它TIPs</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_2">辅助文件</a>
     </li>
     </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../issue-workflow/">ISSUE工作流程</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../run-in-idea/">配置集成开发环境IDEA</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../gpg/">GPG Key</a>
                   </li>
@@ -140,7 +158,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="../.." class="icon icon-home" alt="Docs"></a> &raquo;</li>
-          <li>Java-tron开发 &raquo;</li><li>TIPs</li>
+          <li>Java-tron开发 &raquo;</li><li>TIPs工作流程</li>
     <li class="wy-breadcrumbs-aside">
         <a href="https://github.com/tronprotocol/documentation-zh/edit/master/docs/developers/tips.md"
           class="icon icon-github"> Edit on GitHub</a>
@@ -152,55 +170,94 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="tip">波场优化提议(TIP)<a class="headerlink" href="#tip" title="Permanent link">&para;</a></h1>
-<p>波场优化提议(TIP) 描述了波场平台的标准，包括协议说明、客户端接口、合约标准等等。</p>
-<p>TIPS仓库路径是：<a href="https://github.com/tronprotocol/TIPs">https://github.com/tronprotocol/TIPs</a></p>
-<h2 id="pr">提交一个PR<a class="headerlink" href="#pr" title="Permanent link">&para;</a></h2>
+                <h1 id="tip">波场改进提案(TIP)<a class="headerlink" href="#tip" title="Permanent link">&para;</a></h1>
+<p>TRON Improvement Proposals(TIPs)是TRON网络改进提议，TIPs记录了TRON改进的整个过程，包括社区提出建议、讨论、采纳的过程记录。一个TIP是一个关于提议的设计文档，包含提议的基本原理和技术规范，社区用户可以通过阅读TIP文档了解提议的详细信息。 TIP是TRON社区治理的基本单位，任何人都可以自由提议，社区参与者会进行讨论，以确定是否应该将其发展为通用标准或纳入网络升级。TIP提出者负责在社区内鼓励其他开发者参与讨论，建立对该TIP的共识，同时还需要记录不同意见。 </p>
+<h2 id="tip_1">TIP类型<a class="headerlink" href="#tip_1" title="Permanent link">&para;</a></h2>
+<p>TIPs主要分为<code>Standard Track</code>和<code>Informational</code>两种:</p>
+<ul>
+<li>
+<p><code>Standard Track</code> :  描述影响波场实现的更改，如区块或交易有效性规则的更改、拟议的应用程序标准，或影响波场应用程序互操作性的任何改动。<code>Standard Track</code> TIPs还可以细分为以下几类：</p>
+<ul>
+<li><code>Core</code>: 需要共识分叉来实现的TIP，也有一些不需要共识，但需要核心开发者讨论的TIP</li>
+<li><code>Networking</code>: 对网络协议的改进</li>
+<li><code>Interface</code>: 对API/RPC规范和标准的改进</li>
+<li><code>TRC</code>：应用级标准，包括合约标准，如TRC-20</li>
+<li><code>TVM</code>：对TRON虚拟机的改进</li>
+</ul>
+</li>
+<li>
+<p><code>Informational</code>: 描述有关TRON的设计问题，或向波场社区提供一般性的指导或信息，但不提出新特性</p>
+</li>
+</ul>
+<h2 id="tip_2">TIP工作流程<a class="headerlink" href="#tip_2" title="Permanent link">&para;</a></h2>
+<p>在提交TIP之前，需要创建一个TIP issue供其他人讨论，，然后将issue链接添加到TIP标题中，TIP issue的格式与TIP内容一致，提交TIP流程如下：</p>
 <ol>
-<li>
-<p>首先fork远程项目到本地；</p>
-</li>
-<li>
-<p>在本地仓库新建一个TIP。请参照<a href="https://github.com/tronprotocol/TIPs/blob/master/template.md">TIP模板</a>。</p>
-</li>
-<li>
-<p>提交一个PR到波场TIPs仓库。</p>
-</li>
+<li>Fork Github <a href="https://github.com/tronprotocol/TIPs">TIPs仓库</a></li>
+<li>请参照 <a href="https://github.com/tronprotocol/TIPs/blob/master/template.md">TIP模板</a>，在您的fork仓库中新建一个TIP</li>
+<li>提交一个 Pull Request 到波场TIPs仓库。</li>
 </ol>
-<p>你提交的第一个TIP PR应该是最终TIP的一个草案，必须要符合我们要求的格式。我们会审核你提交的TIP，并且会为之分配一个编号。请确保在TIP页头中附上论坛的地址或者一个公开的GitHub议题地址来让用户进行讨论。</p>
-<p>当你认为你的TIP已经成熟完善并且准备越过草稿阶段，你应该：</p>
+<p>请您严格按照 <a href="https://github.com/tronprotocol/TIPs/blob/master/template.md">模板</a> 要求使用<code>markdown</code>编写TIP，并确保在 TIP 标题中附上了TIP Issue链接或一个讨论论坛的地址，以使社区参与者可以对该提议进行充分的讨论。如果一个TIP是关于java-tron的新特性的开发，并且存在该新特性的开发PR，您需要在TIP和java-tron的PR中，互相引用彼此的github链接，以使新特性的需求分析和开发代码可追溯。</p>
+<p>对于一个新的TIP，它的第一个PR提交后，该TIP处于草案版<code>Draft</code>状态，编辑者会审核该TIP，使其满足一定的格式标准，在合并之前会为之分配一个TIP编号。</p>
+<p>当您认为该TIP已经成熟完善并且准备越过<code>Draft</code>阶段，您应该：</p>
 <ul>
-<li>
-<p>涉及核心类型标准化的TIP，你需要联系波场核心开发人员把你的提议讨论加入到下次会议内容里，从而可以讨论你的提议。如果核心开发者决定采纳你的提议，TIP编辑者会更新你的TIP状态为”已采纳“。</p>
-</li>
-<li>
-<p>对于其他类型的TIP，打开一个PR并且把你的TIP状态改为'最终版'。TIP编辑者会审核你的草稿并且询问是否有人反对将你的提议状态改为最终版。如果TIP编辑者不认可你的内容，他们可能会关闭你的PR，并且要求你继续修改草案内容。</p>
-</li>
+<li>对于核心TIP，您需要联系波场核心开发人员将您的提议加入到下次核心开发者会议内容里，从而可以讨论您的提议。如果核心开发者决定采纳您的提议，TIP编辑者会更新您的TIP状态为已采纳<code>Accepted</code>。</li>
+<li>对于其他类型的TIP，您可以提交一个PR，将该TIP的状态改为最终版<code>Final (non-Core)</code>，然后TIP编辑者会审核您的草案并且询问是否有人反对将您的提议状态改为最终版，如果TIP编辑者认为该TIP还不能达成初步的共识，他们可能会关闭您的PR，并且要求您继续修改草案内容。</li>
 </ul>
-<h2 id="tip_1">TIP状态<a class="headerlink" href="#tip_1" title="Permanent link">&para;</a></h2>
+<h3 id="tip_3">TIP状态<a class="headerlink" href="#tip_3" title="Permanent link">&para;</a></h3>
+<p>一个TIP可能经历如下的状态：</p>
 <ul>
-<li>
-<p><strong>草案版</strong>: 提议处于快速迭代与修改期</p>
-</li>
-<li>
-<p><strong>待审核</strong>: 提议已经完成初始迭代并且可以被他人审核</p>
-</li>
-<li>
-<p><strong>已采纳</strong>: 核心类型标准化的提议已被核心开发人员采纳</p>
-</li>
-<li>
-<p><strong>最终版 (非核心)</strong>: 非核心类型标准化的提议已经完善，不需要再做修改</p>
-</li>
-<li>
-<p><strong>最终版（核心）</strong>: 核心类型标准化的提议已经完善，不需要再做修改</p>
-</li>
+<li><code>Draft</code>: 草案版，提议处于快速迭代与修改期</li>
+<li><code>Last Call</code>: 待审核，提议已经完成初始迭代并且可以被他人审核</li>
+<li><code>Accepted</code>: 当核心TIP的提出者已经解决了所要求的技术变更，并且该TIP处于<code>Last Call</code>状态至少2周，那么核心开发者需要决定是否将该TIP作为硬分叉的一部分加入到客户端的开发（此过程不属于TIP流程中的一部分）决定做出后，该TIP将进入<code>Final</code>状态。</li>
+<li><code>Final (non-Core)</code>: 非核心类型TIP已处于<code>Last Call</code>状态至少2周，并且所有更改均已完成。</li>
+<li><code>Final (Core)</code>: 核心开发者决定实现该TIP，将在接下来的版本中包含该TIP或已经在某个发布的版本中实现了该TIP。</li>
+<li><code>Active</code>: 如果一个TIP可能永远不会被完成，那么它的状态可以为<code>Active</code></li>
+<li><code>Abandoned</code>:一个TIP已经不再被它的提交者跟踪维护，或者它可能不再是技术上的首选</li>
+<li><code>Rejected</code>:破坏功能的TIP或被核心开发者拒绝的不会实现的<code>Core</code> TIP</li>
+<li><code>Superseded</code>:之前是Final状态，但现在不再被认为是最优的方案</li>
+<li><code>Deferred</code>:现在不被采纳，将来可能会被采纳的TIP</li>
 </ul>
+<h2 id="tip_4">TIP的组成<a class="headerlink" href="#tip_4" title="Permanent link">&para;</a></h2>
+<p>TIP 由标题序言和主体内容组成。</p>
+<h3 id="tip_5">TIP标题<a class="headerlink" href="#tip_5" title="Permanent link">&para;</a></h3>
+<p>TIP标题包含TIP编号、简短的描述性标题(限制为最多44个字符)、作者详细信息、讨论链接、TIP状态、TIP类型、创建时间等，具体格式请参考：
+<div class="highlight"><pre><span></span><code>---
+tip: &lt;to be assigned&gt;
+title: &lt;TIP title&gt;
+author: &lt;a list of the author&#39;s or authors&#39; name(s) and/or username(s), or name(s) and email(s), e.g. (use with the parentheses or triangular brackets): FirstName LastName (@GitHubUsername), FirstName LastName &lt;foo@bar.com&gt;, FirstName (@GitHubUsername) and GitHubUsername (@GitHubUsername)&gt;
+discussions-to: &lt;URL&gt;
+status: &lt;Draft | Last Call | Accepted | Final | Deferred&gt;
+type: &lt;Standards Track (Core, Networking, Interface, TRC, VM) | Informational&gt;
+category (*only required for Standard Track): &lt;Core | Networking | Interface | TRC | VM&gt;
+created: &lt;date created on, in ISO 8601 (yyyy-mm-dd) format&gt;
+requires (*optional): &lt;TIP number(s)&gt;
+replaces (*optional): &lt;TIP number(s)&gt;
+---  
+</code></pre></div></p>
+<h3 id="tip_6">TIP主体内容<a class="headerlink" href="#tip_6" title="Permanent link">&para;</a></h3>
+<p>TIP主体应包括以下部分:</p>
+<ul>
+<li><code>Simple Summary</code>：对TIP的简短描述。</li>
+<li><code>Abstract</code> ： 摘要，是一个简短的技术总结，是<code>Specification</code>部分的一个简洁、易理解的版本。人们可以通过只阅读<code>Abstract</code>来了解该TIP的主要功能。</li>
+<li><code>Motivation</code>: (可选) 动机是TIP的一个重要部分，在<code>Motivation</code>中应该清楚地解释为什么现有的协议规范不足以处理该TIP所解决的问题。如果动机明显，这一部分可以省略。</li>
+<li><code>Specification</code>：技术规范是描述新特性的语法和语义，并且应该足够详细</li>
+<li><code>Rationale</code>：基本原理是描述设计的动机，以及为什么做出如此设计决策。它用来对<code>Specification</code>做补充。同时，<code>Rationale</code>还要描述其它的备选设计方案和相关工作，即它应包括对在TIP讨论过程中提出的重要反对意见或关注事项的说明。</li>
+<li><code>Backwards Compatibility</code> ：(可选) 如果TIP的改动会引入向后不兼容的问题，那么TIP中应该包含<code>Backwards Compatibility</code>，来描述这些不兼容及其影响。TIP必须说明打算如何处理这些不兼容。</li>
+<li><code>Test Cases</code> ：(可选) 对于影响共识的TIP来说，必须包含实现代码相关的测试用例。非核心TIP可省略此部分。</li>
+<li><code>Implementation</code>：该部分内容可以在TIP被赋予<code>Accepted</code>状态之前不填写，但必须在TIP被赋予<code>Final</code>状态之前完成。当涉及到许多API细节的讨论时，“大体的共识和可运行的代码"是有必要的。</li>
+</ul>
+<h2 id="_1">链接外部资源<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>由于外部资源可能随时变化，比如链接失效、内容移动或修改，因此，TIP中不应该包括外部资源的链接。</p>
+<h2 id="tips">链接其它TIPs<a class="headerlink" href="#tips" title="Permanent link">&para;</a></h2>
+<p>TIP 中可以引用其它TIPs，对其它TIP的引用应遵循 <code>TIP-N</code> 格式，其中 <code>N</code> 是所引用的TIP编号，并且需附上引用链接，链接必须是相对路径，这样才能使链接在TIP GitHub仓库以及各个Forks等处有效。例如，您可以使用<code>[TIP-1](/tips/TIP-1)</code>对<code>TIP-1</code>进行引用。</p>
+<h2 id="_2">辅助文件<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>图像、图表和其它辅助文件应该存放在TIP仓库的<code>assets</code>文件夹的子目录中，例如:<code>assets/TIP-N/</code> (N为TIP编号)。在TIP中链接图片时应使用相对路径，如：<code>../assets/TIP -1/image.png</code>。</p>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../run-in-idea/" class="btn btn-neutral float-left" title="配置集成开发环境IDEA"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../gpg/" class="btn btn-neutral float-right" title="GPG Key">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../java-tron/" class="btn btn-neutral float-left" title="开发者指南"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../issue-workflow/" class="btn btn-neutral float-right" title="ISSUE工作流程">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -227,10 +284,10 @@
         </span>
     
     
-      <span><a href="../run-in-idea/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../java-tron/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
-      <span><a href="../gpg/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="../issue-workflow/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>
