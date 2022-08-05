@@ -27,7 +27,8 @@ nav:
         - 多重签名: mechanism-algorithm/multi-signatures.md
     - Java-tron开发:
         - 开发者指南: developers/java-tron.md
-        - TIPs: developers/tips.md
+        - TIPs工作流程: developers/tips.md
+        - ISSUE工作流程: developers/issue-workflow.md
         - 配置集成开发环境IDEA: developers/run-in-idea.md
         - GPG Key: developers/gpg.md
     - Dapp开发:
