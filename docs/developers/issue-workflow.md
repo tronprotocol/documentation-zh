@@ -1,7 +1,7 @@
-# ISSUE工作流程
+# Issue工作流程
 我们鼓励社区贡献者参与Java-tron issue 的提出与讨论，您可以将您遇到的问题或者想法通过issue的形式提出，也可以参与issue的讨论或者帮助给出解决办法。您的每一次提问或者留言都在推动Java-tron向更好的方向发展，我们感谢您为Java-tron所做的贡献。
 
-## 提交ISSUE
+## 提交Issue
 如果您遇到了java-tron相关的问题或发现了相关bug，欢迎提交一个Issue，但请遵循以下规则:
 
 * 搜索现有问题
@@ -27,7 +27,7 @@ Issue的处理流程如下：
 4.  关闭Issue - Issue提交者可以随时关闭Issue，当问题得到了解决，或者长时间未得到社区讨论，我们会关闭该Issue，Issue提交者或其他用户也可以根据需要重新打开该Issue。
 
     
-## ISSUE标签
+## Issue标签
 根据Issue特征使用如下标签：
 
 * topic

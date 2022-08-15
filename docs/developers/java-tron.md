@@ -46,7 +46,7 @@ java-tron项目分支只有master、develop、`release-*`、`feature-*`、`hotfi
 
 * Fork Java-tron代码仓库
 
-    从 [https://github.com/tronprotocol/java-tron](https://github.com/tronprotocol/java-tron) 项目中Fork一个新的repository到自己个人的代码仓库中:
+    从 [https://github.com/tronprotocol/java-tron](https://github.com/tronprotocol/java-tron) 项目中Fork一个新的repository到自己个人的代码仓库中，然后使用如下命令将代码克隆到本地:
     
     ```
     $ git clone https://github.com/yourname/java-tron.git
