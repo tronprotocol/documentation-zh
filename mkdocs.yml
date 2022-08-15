@@ -16,7 +16,7 @@ nav:
         - 节点监控: using_javatron/metrics.md
     - API 接口:
         - HTTP 接口: api/http.md
-        - RPC 接口: api/rpc.md
+        - gRPC 接口: api/rpc.md
     - 核心协议:
         - 波场共识: introduction/dpos.md
         - 超级代表: mechanism-algorithm/sr.md
@@ -28,7 +28,7 @@ nav:
     - Java-tron开发:
         - 开发者指南: developers/java-tron.md
         - TIPs工作流程: developers/tips.md
-        - ISSUE工作流程: developers/issue-workflow.md
+        - Issue工作流程: developers/issue-workflow.md
         - 配置集成开发环境IDEA: developers/run-in-idea.md
         - GPG Key: developers/gpg.md
     - Dapp开发:
