@@ -29,7 +29,7 @@ nav:
         - 开发者指南: developers/java-tron.md
         - TIPs工作流程: developers/tips.md
         - Issue工作流程: developers/issue-workflow.md
-        - 配置集成开发环境IDEA: developers/run-in-idea.md
+        - 配置IDE开发环境: developers/run-in-idea.md
         - GPG Key: developers/gpg.md
     - Dapp开发:
         - Dapp开发工具: contracts/compiler.md
