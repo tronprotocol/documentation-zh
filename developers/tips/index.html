@@ -68,7 +68,7 @@
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../../api/http/">HTTP 接口</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../api/rpc/">RPC 接口</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../../api/rpc/">gRPC 接口</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">核心协议</span></p>
@@ -94,31 +94,31 @@
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="./">TIPs工作流程</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#tip_1">TIP类型</a>
+    <li class="toctree-l2"><a class="reference internal" href="#tip">TIP类型</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#tip_2">TIP工作流程</a>
+    <li class="toctree-l2"><a class="reference internal" href="#tip_1">TIP工作流程</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#tip_3">TIP状态</a>
+    <li class="toctree-l3"><a class="reference internal" href="#tip_2">TIP状态</a>
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#tip_4">TIP的组成</a>
+    <li class="toctree-l2"><a class="reference internal" href="#tip_3">TIP的组成</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#tip_5">TIP标题</a>
+    <li class="toctree-l3"><a class="reference internal" href="#tip_4">TIP标题</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#tip_6">TIP主体内容</a>
+    <li class="toctree-l3"><a class="reference internal" href="#tip_5">TIP主体内容</a>
     </li>
         </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#_1">链接外部资源</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#tips">链接其它TIPs</a>
+    <li class="toctree-l2"><a class="reference internal" href="#tips_1">链接其它TIPs</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#_2">辅助文件</a>
     </li>
     </ul>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../issue-workflow/">ISSUE工作流程</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../issue-workflow/">Issue工作流程</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../run-in-idea/">配置集成开发环境IDEA</a>
                   </li>
@@ -170,9 +170,9 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="tip">波场改进提案(TIP)<a class="headerlink" href="#tip" title="Permanent link">&para;</a></h1>
+                <h1 id="tips">波场改进提案(TIPs)<a class="headerlink" href="#tips" title="Permanent link">&para;</a></h1>
 <p>TRON Improvement Proposals(TIPs)是TRON网络改进提议，TIPs记录了TRON改进的整个过程，包括社区提出建议、讨论、采纳的过程记录。一个TIP是一个关于提议的设计文档，包含提议的基本原理和技术规范，社区用户可以通过阅读TIP文档了解提议的详细信息。 TIP是TRON社区治理的基本单位，任何人都可以自由提议，社区参与者会进行讨论，以确定是否应该将其发展为通用标准或纳入网络升级。TIP提出者负责在社区内鼓励其他开发者参与讨论，建立对该TIP的共识，同时还需要记录不同意见。 </p>
-<h2 id="tip_1">TIP类型<a class="headerlink" href="#tip_1" title="Permanent link">&para;</a></h2>
+<h2 id="tip">TIP类型<a class="headerlink" href="#tip" title="Permanent link">&para;</a></h2>
 <p>TIPs主要分为<code>Standard Track</code>和<code>Informational</code>两种:</p>
 <ul>
 <li>
@@ -189,7 +189,7 @@
 <p><code>Informational</code>: 描述有关TRON的设计问题，或向波场社区提供一般性的指导或信息，但不提出新特性</p>
 </li>
 </ul>
-<h2 id="tip_2">TIP工作流程<a class="headerlink" href="#tip_2" title="Permanent link">&para;</a></h2>
+<h2 id="tip_1">TIP工作流程<a class="headerlink" href="#tip_1" title="Permanent link">&para;</a></h2>
 <p>在提交TIP之前，需要创建一个TIP issue供其他人讨论，，然后将issue链接添加到TIP标题中，TIP issue的格式与TIP内容一致，提交TIP流程如下：</p>
 <ol>
 <li>Fork Github <a href="https://github.com/tronprotocol/TIPs">TIPs仓库</a></li>
@@ -203,7 +203,7 @@
 <li>对于核心TIP，您需要联系波场核心开发人员将您的提议加入到下次核心开发者会议内容里，从而可以讨论您的提议。如果核心开发者决定采纳您的提议，TIP编辑者会更新您的TIP状态为已采纳<code>Accepted</code>。</li>
 <li>对于其他类型的TIP，您可以提交一个PR，将该TIP的状态改为最终版<code>Final (non-Core)</code>，然后TIP编辑者会审核您的草案并且询问是否有人反对将您的提议状态改为最终版，如果TIP编辑者认为该TIP还不能达成初步的共识，他们可能会关闭您的PR，并且要求您继续修改草案内容。</li>
 </ul>
-<h3 id="tip_3">TIP状态<a class="headerlink" href="#tip_3" title="Permanent link">&para;</a></h3>
+<h3 id="tip_2">TIP状态<a class="headerlink" href="#tip_2" title="Permanent link">&para;</a></h3>
 <p>一个TIP可能经历如下的状态：</p>
 <ul>
 <li><code>Draft</code>: 草案版，提议处于快速迭代与修改期</li>
@@ -217,9 +217,9 @@
 <li><code>Superseded</code>:之前是Final状态，但现在不再被认为是最优的方案</li>
 <li><code>Deferred</code>:现在不被采纳，将来可能会被采纳的TIP</li>
 </ul>
-<h2 id="tip_4">TIP的组成<a class="headerlink" href="#tip_4" title="Permanent link">&para;</a></h2>
+<h2 id="tip_3">TIP的组成<a class="headerlink" href="#tip_3" title="Permanent link">&para;</a></h2>
 <p>TIP 由标题序言和主体内容组成。</p>
-<h3 id="tip_5">TIP标题<a class="headerlink" href="#tip_5" title="Permanent link">&para;</a></h3>
+<h3 id="tip_4">TIP标题<a class="headerlink" href="#tip_4" title="Permanent link">&para;</a></h3>
 <p>TIP标题包含TIP编号、简短的描述性标题(限制为最多44个字符)、作者详细信息、讨论链接、TIP状态、TIP类型、创建时间等，具体格式请参考：
 <div class="highlight"><pre><span></span><code>---
 tip: &lt;to be assigned&gt;
@@ -234,7 +234,7 @@ requires (*optional): &lt;TIP number(s)&gt;
 replaces (*optional): &lt;TIP number(s)&gt;
 ---  
 </code></pre></div></p>
-<h3 id="tip_6">TIP主体内容<a class="headerlink" href="#tip_6" title="Permanent link">&para;</a></h3>
+<h3 id="tip_5">TIP主体内容<a class="headerlink" href="#tip_5" title="Permanent link">&para;</a></h3>
 <p>TIP主体应包括以下部分:</p>
 <ul>
 <li><code>Simple Summary</code>：对TIP的简短描述。</li>
@@ -248,7 +248,7 @@ replaces (*optional): &lt;TIP number(s)&gt;
 </ul>
 <h2 id="_1">链接外部资源<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
 <p>由于外部资源可能随时变化，比如链接失效、内容移动或修改，因此，TIP中不应该包括外部资源的链接。</p>
-<h2 id="tips">链接其它TIPs<a class="headerlink" href="#tips" title="Permanent link">&para;</a></h2>
+<h2 id="tips_1">链接其它TIPs<a class="headerlink" href="#tips_1" title="Permanent link">&para;</a></h2>
 <p>TIP 中可以引用其它TIPs，对其它TIP的引用应遵循 <code>TIP-N</code> 格式，其中 <code>N</code> 是所引用的TIP编号，并且需附上引用链接，链接必须是相对路径，这样才能使链接在TIP GitHub仓库以及各个Forks等处有效。例如，您可以使用<code>[TIP-1](/tips/TIP-1)</code>对<code>TIP-1</code>进行引用。</p>
 <h2 id="_2">辅助文件<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <p>图像、图表和其它辅助文件应该存放在TIP仓库的<code>assets</code>文件夹的子目录中，例如:<code>assets/TIP-N/</code> (N为TIP编号)。在TIP中链接图片时应使用相对路径，如：<code>../assets/TIP -1/image.png</code>。</p>
@@ -257,7 +257,7 @@ replaces (*optional): &lt;TIP number(s)&gt;
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
         <a href="../java-tron/" class="btn btn-neutral float-left" title="开发者指南"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../issue-workflow/" class="btn btn-neutral float-right" title="ISSUE工作流程">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../issue-workflow/" class="btn btn-neutral float-right" title="Issue工作流程">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>

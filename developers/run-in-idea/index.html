@@ -68,7 +68,7 @@
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../../api/http/">HTTP 接口</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../api/rpc/">RPC 接口</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../../api/rpc/">gRPC 接口</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">核心协议</span></p>
@@ -94,29 +94,17 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tips/">TIPs工作流程</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../issue-workflow/">ISSUE工作流程</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../issue-workflow/">Issue工作流程</a>
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="./">配置集成开发环境IDEA</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#idea">一、配置集成开发环境IDEA</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#idea_1">IDEA配置</a>
+    <li class="toctree-l2"><a class="reference internal" href="#intelij-idea">配置InteliJ IDEA</a>
     </li>
-        </ul>
+    <li class="toctree-l2"><a class="reference internal" href="#_1">配置代码风格检查插件</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_1">二、部署指南</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#1">1.创建目录</a>
+    <li class="toctree-l2"><a class="reference internal" href="#java-tron">编译Java-tron</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#2">2.克隆最新的代码</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#3master">3.切换master分支</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#4">4.编译代码</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#5fullnode">5.启动FullNode节点</a>
-    </li>
-        </ul>
+    <li class="toctree-l2"><a class="reference internal" href="#_2">运行和调试</a>
     </li>
     </ul>
                   </li>
@@ -168,58 +156,75 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="ideafullnode">使用IDEA运行FullNode节点<a class="headerlink" href="#ideafullnode" title="Permanent link">&para;</a></h1>
-<p>该文档旨在方便有一定经验的开发者在集成开发环境IDEA中运行FullNode节点
-<strong>以下内容针对java-tron的master分支</strong></p>
-<h2 id="idea">一、配置集成开发环境IDEA<a class="headerlink" href="#idea" title="Permanent link">&para;</a></h2>
-<h3 id="idea_1">IDEA配置<a class="headerlink" href="#idea_1" title="Permanent link">&para;</a></h3>
+                <h1 id="intelij-ide">配置InteliJ IDE开发环境<a class="headerlink" href="#intelij-ide" title="Permanent link">&para;</a></h1>
+<p>对于Java开发，为了降低开发难度，提高开发效率，开发者应首先选择并配置一款Java集成开发环境，如IntelliJ IDEA、NetBeans或者Eclipse等，本文将以InteliJ IDEA举例来介绍如何配置Java-tron集成开发环境。</p>
+<p>本文介绍在InteliJ IDEA中配置Java-tron集成开发环境。Java-tron节点支持部署在 <code>Linux</code> 或 <code>MacOS</code> 操作系统上，并且依赖<code>Oracle JDK 1.8</code> ，不支持其它版本的JDK。在配置InteliJ IDE开发环境前，请确保如下前置条件：</p>
 <ul>
-<li>
-<p>Oracle JDK 1.8 <strong>当前不支持OpenJDK</strong></p>
-</li>
+<li>在<code>Linux</code> 或 <code>MacOS</code> 操作系统上配置开发环境</li>
+<li>系统安装了<code>Oracle JDK 1.8</code>、<code>git</code>、<a href="https://www.jetbrains.com/idea/download/#section=mac">InteliJ IDEA</a></li>
+</ul>
+<h2 id="intelij-idea">配置InteliJ IDEA<a class="headerlink" href="#intelij-idea" title="Permanent link">&para;</a></h2>
+<p>InteliJ IDEA 配置步骤如下：</p>
+<ul>
 <li>
 <p>安装Lombok插件</p>
+<p>在[IDEA]-&gt;[Preferences]-&gt;[Plugins] 中搜索<code>lombok</code> 安装插件，<code>Lombok</code>通过加注解的方式让Java-tron代码更加简洁。</p>
+</li>
+<li>
+<p>打开<code>Enable annotation processing</code>配置项
+      <img alt="image" src="https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/IDE_annotation.png" /></p>
+</li>
+<li>
+<p>检查JDK版本，确保InteliJ IDEA中使用的是<code>Oracle JDK 1.8</code>
+      <img alt="image" src="https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/IDE_JDK.png" /></p>
+</li>
+<li>
+<p>下载Java-tron源码</p>
+<p>将Java-tron源代码克隆到本地，并且切换到<code>develop</code>分支。
+<div class="highlight"><pre><span></span><code>$ git clone https://github.com/tronprotocol/java-tron.git
+$ git checkout -t origin/develop
+</code></pre></div></p>
 </li>
 </ul>
-<p><img alt="image" src="https://raw.githubusercontent.com/cathy-lishipu/documentation-zh/idea_instruction/images/lombok.png" /></p>
+<h2 id="_1">配置代码风格检查插件<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>Java-tron代码风格需要符合<code>Google check style</code> 规范。在IDEA中，可以使用<code>Checkstyle</code> 插件检查代码是否符合<code>Google check style</code>规范。插件的安装及配置流程如下：</p>
 <ul>
-<li>将Compiler下Annotation Processors中的Enable annotation processing前打勾</li>
+<li>
+<p>在[IDEA]-&gt;[Preferences]-&gt;[Plugins] 中搜索<code>checkstyle</code>安装插件
+    <img alt="image" src="https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/IDE_checkstyle.png" /></p>
+</li>
+<li>
+<p>代码风格配置</p>
+<p>首先下载<a href="https://github.com/tronprotocol/java-tron/blob/develop/config/checkstyle/checkStyleAll.xml">Java-tron代码风格检查配置文件</a>，然后在Checkstyle配置页面中，点击"+“，选择使用刚刚下载的"checkStyleAll.xml”，添加完成后，可以在"Configuration Files"列表中看到此文件，最后点击"Apply"完成配置。
+<img alt="image" src="https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/IDE_checkStyleAll.png" /></p>
+<p>配置完成<code>Checkstyle</code>插件后，就可以使用<code>Checkstyle</code>检查代码了。<code>Checkstyle</code>可以对某个模块或者整个工程做检查，也可以对单个文件做检查，在文件编辑器的右键菜单中选择"Check Current File"，checkstyle就会对该文件进行检查了。如果检测出代码问题，则需根据提示依次修改。当没有代码问题时，才可以提交代码。</p>
+<p><img alt="image" src="https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/IDE_stylecheck.png" /></p>
+</li>
 </ul>
-<p><img alt="image" src="https://raw.githubusercontent.com/cathy-lishipu/documentation-zh/idea_instruction/images/annnotation.png" /></p>
-<h2 id="_1">二、部署指南<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<h3 id="1">1.创建目录<a class="headerlink" href="#1" title="Permanent link">&para;</a></h3>
-<p><em>/deploy</em></p>
-<div class="highlight"><pre><span></span><code>mkdir deploy
+<h2 id="java-tron">编译Java-tron<a class="headerlink" href="#java-tron" title="Permanent link">&para;</a></h2>
+<p>您可以使用终端，在Java-tron工程目录下，通过如下命令编译Java-tron：</p>
+<p><div class="highlight"><pre><span></span><code>$ ./gradlew clean build
 </code></pre></div>
-<h3 id="2">2.克隆最新的代码<a class="headerlink" href="#2" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>git clone https://github.com/tronprotocol/java-tron
-</code></pre></div>
-<h3 id="3master">3.切换master分支<a class="headerlink" href="#3master" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="nb">cd</span> java-tron
-git checkout -t origin/master
-</code></pre></div>
-<h3 id="4">4.编译代码<a class="headerlink" href="#4" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>./gradlew build
-</code></pre></div>
-<p>编译过程可能需要一定时间，请耐心等待。
-若编译成功，你可以看到类似如下信息：</p>
-<p><img alt="image" src="https://raw.githubusercontent.com/cathy-lishipu/documentation-zh/idea_instruction/images/build_success_test.png" /></p>
-<p>如果不想执行单元测试任务，可运行如下命令：</p>
-<div class="highlight"><pre><span></span><code>./gradlew build -x <span class="nb">test</span>
-</code></pre></div>
-<h3 id="5fullnode">5.启动FullNode节点<a class="headerlink" href="#5fullnode" title="Permanent link">&para;</a></h3>
-<p>编译成功后，可通过java-tron/src/main/java/org/tron/program/FullNode.java路径找到主函数文件，启动一个全节点。</p>
-<p><img alt="image" src="https://raw.githubusercontent.com/cathy-lishipu/documentation-zh/idea_instruction/images/start.png" /></p>
-<p>启动后可查看日志验证是否启动成功，日志路径为：/deploy/java-tron/logs/tron.log。
-若启动成功，可看到如下日志：</p>
-<p><img alt="image" src="https://raw.githubusercontent.com/cathy-lishipu/documentation-zh/idea_instruction/images/start_success.png" /></p>
-<p>使用tail -f /logs/tron.log命令可查看实时日志，如下：</p>
-<p><img alt="image" src="https://raw.githubusercontent.com/cathy-lishipu/documentation-zh/idea_instruction/images/start_successed.png" /></p>
+上面的编译命令会执行所有测试用例，可以使用<code>-x test</code>跳过测试用例的执行过程：
+<div class="highlight"><pre><span></span><code>$ ./gradlew clean build -x test
+</code></pre></div></p>
+<p>您也可以在IDEA中使用图形化方式编译Java-tron：在IDEA中打开Java-tron工程，点击"Build" -&gt; "Build Project" 编译工程。</p>
+<h2 id="_2">运行和调试<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>在运行Java-tron之前，需要创建一个工作目录，用于存放节点运行时产生的数据库文件及日志文件。
+<div class="highlight"><pre><span></span><code>$ mkdir /Users/javatrondeploy
+</code></pre></div></p>
+<p>在"Run/Debug Configurations"配置面板中，指定运行Java-tron的JDK版本为<code>java 8</code>，然后再配置运行Java-tron的命令行参数，比如通过<code>-c</code>参数指定节点配置文件为<code>config.conf</code>。</p>
+<p>"Working directory"配置成之前创建的Java-tron的工作目录，Java-tron启动时会在该目录下寻找<code>config.conf</code>配置文件，请确保<code>config.conf</code>已经放到该目录下。
+<img alt="image" src="https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/IDE_RunDebug.png" /></p>
+<p>设置完成后，点击"Apply"按钮完成配置。然后您就可以在IDEA中点击"Run"-&gt;"Run FullNode" 启动Java-tron节点，或者点击"Run"-&gt;"Debug FullNode"以debug模式启动节点。节点启动后，Java-tron日志存储在Working Directory配置的工作目录下。
+<img alt="image" src="https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/IDE_runjavatron.png" /></p>
+<p>如果想要调试Java-tron代码，可以在Java-tron代码中打断点，然后以debug模式启动，这样就可以逐行跟踪调试代码了。
+<img alt="image" src="https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/IDE_debug.png" /></p>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../issue-workflow/" class="btn btn-neutral float-left" title="ISSUE工作流程"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../issue-workflow/" class="btn btn-neutral float-left" title="Issue工作流程"><span class="icon icon-circle-arrow-left"></span> Previous</a>
         <a href="../gpg/" class="btn btn-neutral float-right" title="GPG Key">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
