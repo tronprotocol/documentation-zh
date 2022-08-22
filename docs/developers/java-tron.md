@@ -178,7 +178,7 @@ Pull Request应遵循如下规范：
 
 消息体使用祈使句，动词开头，第一人称现在时。主体应该包括代码修改的动机，并与修改之前进行对比。下面是一个PR commit的例子：
 ```
-feat(block): Optimize the block-producing logic
+feat(block): optimize the block-producing logic
 
 1. increase the priority that block producing thread acquires synchronization lock
 2. add the interruption exception handling in block-producing thread
