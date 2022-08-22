@@ -61,14 +61,14 @@ storage {
 
 ### 执行数据库迁移
 
-执行后会显示当前迁移进度
+执行后会显示当前迁移进度。
 
 ```bash
 $ java -jar Toolkit.jar db mv -c main_net_config.conf -d /data/tron/output-directory
 ```
 
 ### 重新启动 FullNode 服务
-迁移完成后，重新启动Java-tron节点
+迁移完成后，重新启动Java-tron节点。
 ```
 # FullNode
 $ nohup java -Xms9G -Xmx9G -XX:ReservedCodeCacheSize=256m \
