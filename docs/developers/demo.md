@@ -17,16 +17,16 @@ $ git remote add upstream https://github.com/tronprotocol/java-tron.git
 开发新功能之前，应先将个人Fork的仓库和上游仓库进行同步：
     
 ```
-git fetch upstream 
-git checkout develop 
-git merge upstream/develop --no-ff
+$ git fetch upstream 
+$ git checkout develop 
+$ git merge upstream/develop --no-ff
 ```
 
 ## 创建新分支
 从自己仓库的develop分支拉出一个新的分支用于本地开发，请参考[分支命名规范](../java-tron/#_8)，在本例中，新分支的名称为：`feature/add-new-http-demo`。
 
 ```
-git checkout -b feature/add-new-http-demo develop
+$ git checkout -b feature/add-new-http-demo develop
 ```
 
 ## 代码实现
