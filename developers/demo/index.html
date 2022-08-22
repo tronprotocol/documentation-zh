@@ -190,13 +190,13 @@ $ git remote add upstream https://github.com/tronprotocol/java-tron.git
 </code></pre></div>
 <h2 id="_2">同步仓库<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <p>开发新功能之前，应先将个人Fork的仓库和上游仓库进行同步：</p>
-<div class="highlight"><pre><span></span><code>git fetch upstream 
-git checkout develop 
-git merge upstream/develop --no-ff
+<div class="highlight"><pre><span></span><code>$ git fetch upstream 
+$ git checkout develop 
+$ git merge upstream/develop --no-ff
 </code></pre></div>
 <h2 id="_3">创建新分支<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
 <p>从自己仓库的develop分支拉出一个新的分支用于本地开发，请参考<a href="../java-tron/#_8">分支命名规范</a>，在本例中，新分支的名称为：<code>feature/add-new-http-demo</code>。</p>
-<div class="highlight"><pre><span></span><code>git checkout -b feature/add-new-http-demo develop
+<div class="highlight"><pre><span></span><code>$ git checkout -b feature/add-new-http-demo develop
 </code></pre></div>
 <h2 id="_4">代码实现<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
 <p>在IDEA中打开Java-tron工程。在<code>java-tron/framework/src/main/java/org/tron/core/services/http</code>目录下新建一个servlet用于处理HTTP请求：SetPeerServlet.java，该文件中应包含两个函数<code>doGet</code>和<code>doPost</code>。<code>doGet</code>用于处理http get请求，<code>doPost</code>用于处理http post请求。如果不支持其中某种类型的请求，方法内容为空即可。

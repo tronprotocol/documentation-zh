@@ -327,10 +327,10 @@ git commit -m &#39;commit message&#39;
 <li>避免无意义的commit，推荐大家学习git rebase命令的使用</li>
 </ol>
 <p>消息体使用祈使句，动词开头，第一人称现在时。主体应该包括代码修改的动机，并与修改之前进行对比。下面是一个PR commit的例子：
-<div class="highlight"><pre><span></span><code>feat(block): optimize product block
+<div class="highlight"><pre><span></span><code>feat(block): optimize the block-producing logic
 
-1. optimize the block production threads
-2. improve transaction entry speed
+1. increase the priority that block producing thread acquires synchronization lock
+2. add the interruption exception handling in block-producing thread
 
 Closes #1234
 </code></pre></div>

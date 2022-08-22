@@ -216,11 +216,11 @@
 </code></pre></div>
 <code>name</code>是数据库名称,<code>path</code>是数据库迁移的目的目录，工具会将<code>name</code>指定的数据库迁移到<code>path</code>指定的目录，然后会在原来的路径下创建一个软链接指向<code>path</code>目录，<code>FullNode</code>启动后会根据软链接寻找到<code>path</code>目录。</p>
 <h3 id="_6">执行数据库迁移<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
-<p>执行后会显示当前迁移进度</p>
+<p>执行后会显示当前迁移进度。</p>
 <div class="highlight"><pre><span></span><code>$ java -jar Toolkit.jar db mv -c main_net_config.conf -d /data/tron/output-directory
 </code></pre></div>
 <h3 id="fullnode_1">重新启动 FullNode 服务<a class="headerlink" href="#fullnode_1" title="Permanent link">&para;</a></h3>
-<p>迁移完成后，重新启动Java-tron节点
+<p>迁移完成后，重新启动Java-tron节点。
 <div class="highlight"><pre><span></span><code># FullNode
 $ nohup java -Xms9G -Xmx9G -XX:ReservedCodeCacheSize=256m \
                 -XX:MetaspaceSize=256m -XX:MaxMetaspaceSize=512m \
