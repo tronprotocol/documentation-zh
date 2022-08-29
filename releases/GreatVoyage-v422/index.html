@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://tronprotocol.github.io/documentation-zh/releases/GreatVoyage-v422/" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>GreatVoyage-v4.2.2 - Java Tron</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "GreatVoyage-v4.2.2";
+        var mkdocs_page_input_path = "releases/GreatVoyage-v422.md";
+        var mkdocs_page_url = "/documentation-zh/releases/GreatVoyage-v422/";
+      </script>
+    
+    <script src="../../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> Java Tron
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">入门</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../getting_started/getting_started_with_javatron/">Java-tron入门</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">使用Java-tron</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../using_javatron/installing_javatron/">部署Java-tron</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../using_javatron/backup_restore/">备份和恢复</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../developers/litefullnode/">轻节点</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../using_javatron/private_network/">私链网络</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../architecture/event/">事件插件</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../architecture/database/">数据库配置</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../using_javatron/connecting_to_tron/">网络配置</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../using_javatron/metrics/">节点监控</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="#">工具</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../using_javatron/toolkit/">数据库迁移</a>
+                </li>
+                <li class="toctree-l2"><a class="" href="../../using_javatron/litefullnode-tool.md">轻节点工具</a>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">API 接口</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../api/http/">HTTP 接口</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../api/rpc/">gRPC 接口</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">核心协议</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../introduction/dpos/">波场共识</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../mechanism-algorithm/sr/">超级代表</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../mechanism-algorithm/account/">账户模型</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../mechanism-algorithm/resource/">资源模型</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../contracts/contract/">智能合约</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../mechanism-algorithm/dex/">去中心化交易所</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../mechanism-algorithm/multi-signatures/">多重签名</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Java-tron开发</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../developers/java-tron/">开发者指南</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../developers/tips/">TIPs工作流程</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../developers/issue-workflow/">Issue工作流程</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../developers/run-in-idea/">配置IDE开发环境</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../developers/demo/">开发示例</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../developers/gpg/">GPG Key</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Dapp开发</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../contracts/compiler/">Dapp开发工具</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Wallet-cli</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../clients/wallet-cli/">安装</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">版本发布</span></p>
+              <ul class="current">
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">历史版本</a>
+    <ul class="current">
+                <li class="toctree-l2"><a class="reference internal" href="../GreatVoyage-v452/">GreatVoyage-v4.5.2</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../GreatVoyage-v451/">GreatVoyage-v4.5.1</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../GreatVoyage-v446/">GreatVoyage-v4.4.6</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../GreatVoyage-v445/">GreatVoyage-v4.4.5</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../GreatVoyage-v444/">GreatVoyage-v4.4.4</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../GreatVoyage-v442/">GreatVoyage-v4.4.2</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../GreatVoyage-v440/">GreatVoyage-v4.4.0</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../GreatVoyage-v430/">GreatVoyage-v4.3.0</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../GreatVoyage-v4221/">GreatVoyage-v4.2.2.1</a>
+                </li>
+                <li class="toctree-l2 current"><a class="reference internal current" href="./">GreatVoyage-v4.2.2</a>
+    <ul class="current">
+    </ul>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../GreatVoyage-v420/">GreatVoyage-v4.2.0</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../GreatVoyage-v413/">GreatVoyage-v4.1.3</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../GreatVoyage-v412/">GreatVoyage-v4.1.2</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../GreatVoyage-v411/">GreatVoyage-v4.1.1</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../GreatVoyage-v400/">GreatVoyage-v4.0.0</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../Odyssey-v37/">Odyssey-v3.7</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../Odyssey-v365/">Odyssey-v3.6.5</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../">一致性检验</a>
+                  </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../glossary/">术语表</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">Java Tron</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" alt="Docs"></a> &raquo;</li>
+          <li>版本发布 &raquo;</li>
+          <li>历史版本 &raquo;</li><li>GreatVoyage-v4.2.2</li>
+    <li class="wy-breadcrumbs-aside">
+        <a href="https://github.com/tronprotocol/documentation-zh/edit/master/docs/releases/GreatVoyage-v422.md"
+          class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="greatvoyage-422lucretius">GreatVoyage-4.2.2(Lucretius)<a class="headerlink" href="#greatvoyage-422lucretius" title="Permanent link">&para;</a></h1>
+<p>GreatVoyage-v4.2.2(Lucretius)版本引入了3个重要的优化更新，区块处理的优化有效得提高区块的执行速度，从而大幅提高TRON网络的性能，高效的HTTP/RPC查询和更高性能TVM将为TRON DAPP用户带来更好的体验，进一步繁荣波场生态。</p>
+<h1 id="_1">核心协议<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<h2 id="1">1、优化区块处理。<a class="headerlink" href="#1" title="Permanent link">&para;</a></h2>
+<p>在GreatVoyage-v4.2.2(Lucretius)之前的版本中，区块处理过程中为了获取witness列表，执行了多次数据库查询和反序列化操作，这部分操作占用了近1/3的区块处理时间。</p>
+<p>GreatVoyage-v4.2.2(Lucretius)版本简化了witness的查询，区块处理过程只需一次查询即可获取witness列表，经过测试，本次优化大幅提升了区块处理性能。</p>
+<ul>
+<li>TIP： <a href="https://github.com/tronprotocol/tips/blob/master/tip-269.md">TIP-269</a></li>
+<li>源代码:  <a href="https://github.com/tronprotocol/java-tron/pull/3827">#3827</a></li>
+</ul>
+<h2 id="2">2、优化数据查询。<a class="headerlink" href="#2" title="Permanent link">&para;</a></h2>
+<p>在GreatVoyage-v4.2.2(Lucretius)之前的版本中，多个HTTP或RPC对链上数据的查询是互斥的，如果有查询请求正在处理，新的查询请求会等待之前的请求完成以后才会被处理。</p>
+<p>实际上，查询数据的方法中并没有使用到共享数据, 所以并不需要加锁操作。本次优化去除了查询过程中不必要的同步锁，大幅提高了节点内部查询、HTTP和RPC的查询请求性能。</p>
+<ul>
+<li>TIP： <a href="https://github.com/tronprotocol/tips/blob/master/tip-281.md">TIP-281</a></li>
+<li>源代码:  <a href="https://github.com/tronprotocol/java-tron/pull/3830">#3830</a></li>
+</ul>
+<h2 id="3abi">3、优化智能合约ABI的存储。<a class="headerlink" href="#3abi" title="Permanent link">&para;</a></h2>
+<p>在GreatVoyage-v4.2.2(Lucretius)之前的版本中，一个智能合约的ABI数据和这个智能合约的其他数据是一起存储在合约数据库中， TVM的一些高频指令(SLOAD,SSTORE等等)会从合约数据库读取一个智能合约的所有数据，然而合约的执行并不会使用到这些ABI数据，所以频繁的读取会降低这些指令的执行性能。</p>
+<p>GreatVoyage-v4.2.2(Lucretius)版本将智能合约的ABI数据从合约数据库中转存到一个专门的ABI数据库中，合约执行过程中将不再读取ABI数据，从而大幅提高TVM的执行性能。</p>
+<ul>
+<li>TIP： <a href="https://github.com/tronprotocol/tips/blob/master/tip-268.md">TIP-268</a></li>
+<li>源代码:  <a href="https://github.com/tronprotocol/java-tron/pull/3836">#3836</a></li>
+</ul>
+<h1 id="_2">其他变更<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h1>
+<h2 id="1batchvalidatesign">1、优化系统合约<code>BatchValidateSign</code>的初始化流程。<a class="headerlink" href="#1batchvalidatesign" title="Permanent link">&para;</a></h2>
+<ul>
+<li>源代码:  <a href="https://github.com/tronprotocol/java-tron/pull/3836">#3836</a></li>
+</ul>
+<p>--- <em>Truths kindle light for truths.</em>
+ 
+<p align="right"> --- Lucretius</p>
+</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../GreatVoyage-v4221/" class="btn btn-neutral float-left" title="GreatVoyage-v4.2.2.1"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../GreatVoyage-v420/" class="btn btn-neutral float-right" title="GreatVoyage-v4.2.0">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/tronprotocol/documentation-zh" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../GreatVoyage-v4221/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../GreatVoyage-v420/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme_extra.js" defer></script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+      <script src="../../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>
