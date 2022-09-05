@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://tronprotocol.github.io/documentation-zh/developers/code-structure/" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>概述 - Java Tron</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\u6982\u8ff0";
+        var mkdocs_page_input_path = "developers/code-structure.md";
+        var mkdocs_page_url = "/documentation-zh/developers/code-structure/";
+      </script>
+    
+    <script src="../../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> Java Tron
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">入门</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../getting_started/getting_started_with_javatron/">Java-tron入门</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">使用Java-tron</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../using_javatron/installing_javatron/">部署Java-tron</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../using_javatron/backup_restore/">备份和恢复</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../litefullnode/">轻节点</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../using_javatron/private_network/">私链网络</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../architecture/event/">事件插件</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../architecture/database/">数据库配置</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../using_javatron/connecting_to_tron/">网络配置</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../using_javatron/metrics/">节点监控</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="#">工具</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../using_javatron/toolkit/">数据库迁移</a>
+                </li>
+                <li class="toctree-l2"><a class="" href="../../using_javatron/litefullnode-tool.md">轻节点工具</a>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">API 接口</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../api/http/">HTTP 接口</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../api/rpc/">gRPC 接口</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">核心协议</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../introduction/dpos/">波场共识</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../mechanism-algorithm/sr/">超级代表</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../mechanism-algorithm/account/">账户模型</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../mechanism-algorithm/resource/">资源模型</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../contracts/contract/">智能合约</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../mechanism-algorithm/dex/">去中心化交易所</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../mechanism-algorithm/multi-signatures/">多重签名</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Java-tron开发</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../java-tron/">开发者指南</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tips/">TIPs工作流程</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../issue-workflow/">Issue工作流程</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../run-in-idea/">配置IDE开发环境</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../demo/">开发示例</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">核心模块</a>
+    <ul class="current">
+                <li class="toctree-l2 current"><a class="reference internal current" href="./">概述</a>
+    <ul class="current">
+    <li class="toctree-l3"><a class="reference internal" href="#protocol">protocol</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#common">common</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#chainbase">chainbase</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#consensus">consensus</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#actuator">actuator</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#crypto">crypto</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#framework">framework</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_1">总结</a>
+    </li>
+    </ul>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Dapp开发</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../contracts/compiler/">Dapp开发工具</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Wallet-cli</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../clients/wallet-cli/">安装</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">版本发布</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="#">历史版本</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../releases/GreatVoyage-v452/">GreatVoyage-v4.5.2</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../releases/GreatVoyage-v451/">GreatVoyage-v4.5.1</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../releases/GreatVoyage-v446/">GreatVoyage-v4.4.6</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../releases/GreatVoyage-v445/">GreatVoyage-v4.4.5</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../releases/GreatVoyage-v444/">GreatVoyage-v4.4.4</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../releases/GreatVoyage-v442/">GreatVoyage-v4.4.2</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../releases/GreatVoyage-v440/">GreatVoyage-v4.4.0</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../releases/GreatVoyage-v430/">GreatVoyage-v4.3.0</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../releases/GreatVoyage-v4221/">GreatVoyage-v4.2.2.1</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../releases/GreatVoyage-v422/">GreatVoyage-v4.2.2</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../releases/GreatVoyage-v420/">GreatVoyage-v4.2.0</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../releases/GreatVoyage-v413/">GreatVoyage-v4.1.3</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../releases/GreatVoyage-v412/">GreatVoyage-v4.1.2</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../releases/GreatVoyage-v411/">GreatVoyage-v4.1.1</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../releases/GreatVoyage-v400/">GreatVoyage-v4.0.0</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../releases/Odyssey-v37/">Odyssey-v3.7</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../releases/Odyssey-v365/">Odyssey-v3.6.5</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../releases/">一致性检验</a>
+                  </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../glossary/">术语表</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">Java Tron</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" alt="Docs"></a> &raquo;</li>
+          <li>Java-tron开发 &raquo;</li>
+          <li>核心模块 &raquo;</li><li>概述</li>
+    <li class="wy-breadcrumbs-aside">
+        <a href="https://github.com/tronprotocol/documentation-zh/edit/master/docs/developers/code-structure.md"
+          class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="java-tron">Java-tron代码结构<a class="headerlink" href="#java-tron" title="Permanent link">&para;</a></h1>
+<p>Java-tron是基于Java语言开发的TRON网络客户端，它实现了TRON白皮书中所提到的所有功能，包括共识机制、密码学、数据库、TVM虚拟机、网络管理等。我们可以通过启动Java-tron来运行一个TRON网络节点。在本文中，我们将详细描述Java-tron的代码结构，介绍其各个功能模块的作用，便于开发者后续的代码分析与开发。</p>
+<p>Java-tron采用模块化的代码结构，代码结构清晰，易于维护与扩展。Java-tron 目前分为7个模块：<a href="#protocol">protocol</a>、<a href="#common">common</a>、<a href="#chainbase">chainbase</a>、<a href="#consensus">consensus</a>、<a href="#actuator">actuator</a>、<a href="#crypto">crypto</a>、<a href="#framework">framework</a>，下面分别介绍各个模块的功能及其代码组织结构。</p>
+<h2 id="protocol">protocol<a class="headerlink" href="#protocol" title="Permanent link">&para;</a></h2>
+<p>对于区块链这种分布式网络，简洁高效的数据交互协议非常重要，protocol模块定义了：</p>
+<ul>
+<li>节点间通信协议</li>
+<li>节点内部模块间的通信协议</li>
+<li>对外提供的服务协议</li>
+</ul>
+<p>上述协议采用了<a href="https://developers.google.com/protocol-buffers"><code>Google Protobuf</code></a>数据交互格式，相比于JSON和XML，<code>Google Protobuf</code>格式更高效和灵活，可以通过ProtoBuf编译器为定义的协议文件生成特定语言的序列化和反序列化的源代码。Protobuf是 java-tron 实现跨语言跨平台的基础。</p>
+<p><a href="https://github.com/tronprotocol/java-tron/tree/develop/protocol">protocol</a> 模块的代码路径为<code>https://github.com/tronprotocol/java-tron/tree/develop/protocol</code>，其目录结构如下：
+<div class="highlight"><pre><span></span><code>|-- protos
+    |-- api
+    |   |-- api.proto
+    |   |-- zksnark.proto
+    |-- core
+        |-- Discover.proto
+        |-- Tron.proto
+        |-- TronInventoryItems.proto
+        |-- contract
+</code></pre></div></p>
+<ul>
+<li><code>protos/api/</code> - Java-tron节点对外提供的gRPC接口及数据结构</li>
+<li><code>protos/core/</code> - 节点间及节点内部各个模块间通信的数据结构<ul>
+<li><code>Discover.proto</code> - 节点发现相关的数据结构</li>
+<li><code>TronInventoryItems.proto</code> - 节点间区块传输相关数据结构</li>
+<li><code>contract/</code> - 合约相关的数据结构</li>
+<li><code>Tron.proto</code> - 其它重要的数据结构定义，其中包括账户、区块、交易、资源、超级代表、投票、提案相关的数据结构。</li>
+</ul>
+</li>
+</ul>
+<h2 id="common">common<a class="headerlink" href="#common" title="Permanent link">&para;</a></h2>
+<p>common模块对公共组件和一些工具类进行了封装，比如异常处理、指标监控工具等，以方便其他模块调用。</p>
+<p><a href="https://github.com/tronprotocol/java-tron/tree/develop/common">common</a> 模块的代码路径为<code>https://github.com/tronprotocol/java-tron/tree/develop/common</code>, 其目录结构如下：</p>
+<div class="highlight"><pre><span></span><code>|-- /common/src/main/java/org/tron
+    |-- common
+    |   |-- args
+    |   |-- config
+    |   |-- entity
+    |   |-- logsfilter
+    |   |-- overlay
+    |   |-- parameter
+    |   |-- prometheus
+    |   |-- runtime
+    |   |-- setting
+    |   |-- utils
+    |-- core
+        |-- config
+        |-- db
+        |-- db2
+        |-- exception
+</code></pre></div>
+<ul>
+<li><code>common/prometheus</code> - prometheus指标监控</li>
+<li><code>common/utils</code> - 基础数据类型封装类</li>
+<li><code>core/config</code> - 节点配置相关类</li>
+<li><code>core/exception</code> - 所有的TRON网络异常处理相关类</li>
+</ul>
+<h2 id="chainbase">chainbase<a class="headerlink" href="#chainbase" title="Permanent link">&para;</a></h2>
+<p>chainbase 模块是数据库层面的抽象，像 PoW、PoS、DPoS 这类基于概率性的共识算法不可避免的会以一定的概率发生切链，因此 chainbase 定义了一个支持可回退数据库的接口标准，该接口要求数据库实现状态回滚机制、checkpoint容灾机制等。</p>
+<p>另外 chainbase 模块具有良好的接口抽象设计，任何满足接口实现的数据库都可以作为区块链的底层存储，赋予开发者更多的灵活性，LevelDB和RocksDB是默认提供的两种具体实现。</p>
+<p><a href="https://github.com/tronprotocol/java-tron/tree/develop/chainbase">chainbase</a> 模块的代码路径为<code>https://github.com/tronprotocol/java-tron/tree/develop/chainbase</code>，其目录结构如下：
+<div class="highlight"><pre><span></span><code>|-- chainbase.src.main.java.org.tron
+    |-- common
+    |   |-- bloom
+    |   |-- error
+    |   |-- overlay
+    |   |-- runtime
+    |   |-- storage
+    |   |   |-- leveldb
+    |   |   |-- rocksdb
+    |   |-- utils
+    |   |-- zksnark
+    |-- core
+        |-- actuator
+        |-- capsule
+        |-- db
+        |   |-- RevokingDatabase.java
+        |   |-- TronStoreWithRevoking.java
+        |   |-- ......
+        |-- db2
+        |   |-- common
+        |   |-- core
+        |       |-- SnapshotManager.java
+        |       |-- ......
+        |-- net
+        |-- service
+        |-- store
+</code></pre></div></p>
+<ul>
+<li><code>common/</code> - 公共组件，比如异常处理类、工具类<ul>
+<li><code>storage/leveldb/</code> 实现了使用LevelDB作为底层存储数据库</li>
+<li><code>storage/rocksdb/</code> 实现了使用RocksDB作为底层存储数据库</li>
+</ul>
+</li>
+<li>
+<p><code>core/</code> - chainbase模块核心代码</p>
+<ul>
+<li>
+<p><code>capsule/</code> </p>
+<p>各个数据结构的封装类，比如AccountCapsule，BlockCapsule等，AccountCapsule为Account数据结构的封装类，提供了账户数据的修改与查询；BlockCapsule为Block数据结构的封装类，提供了区块数据的修改与查询。</p>
+</li>
+<li>
+<p><code>store/</code> </p>
+<p>各个数据库，比如<code>AccountStore</code>，<code>ProposalStore</code>等。<code>AccountStore</code>是账户数据库，数据库名称为<code>account</code>，存储了TRON网络中的所有账户信息；<code>ProposalStore</code>是提案数据库，数据库名称为<code>proposal</code>，存储了TRON网络中的所有提案信息。</p>
+</li>
+<li>
+<p><code>db/</code> 和 <code>db2/</code> </p>
+<p>实现了可回退数据库，其中包含了两种可回退数据库：位于<code>db/</code>目录下<code>AbstractRevokingStore</code>和位于<code>db2/</code> 目录下<code>SnapshotManager</code>。<code>SnapshotManager</code>相比与<code>AbstractRevokingStore</code>，数据回退更稳定，并支持底层数据库的扩展，因此Java-tron采用<code>SnapshotManager</code>可回退数据库，其中的几个重要接口及实现类如下：</p>
+<ul>
+<li><code>RevokingDatabase.java</code> 是数据库容器的接口，用于所有可回退数据库的管理，<code>SnapshotManager</code> 是该接口的一个实现</li>
+<li><code>TronStoreWithRevoking.java</code> 是支持可回退的数据库的基类，所有的可回退数据库都是它的具体实现，比如<code>BlockStore</code>，<code>TransactionStore</code>等</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="consensus">consensus<a class="headerlink" href="#consensus" title="Permanent link">&para;</a></h2>
+<p>共识机制是区块链中非常重要的模块，常见的有 PoW、PoS、DPoS、PBFT 等，联盟链以及其他一些可信网络中也会采用 Paxos、Raft 等共识机制，共识的选择需要和业务场景相匹配，比如对共识效率敏感实时游戏类就不适合采用 PoW，而对实时性要求极高的交易所来说 PBFT 可能是首选。所以支持可替换的共识是非常有必要的，同时也是实现特定应用区块链的重要一环，consensus 模块最终目标是能够让应用开发者能够像配置参数那样简单的切换共识机制。</p>
+<p><a href="https://github.com/tronprotocol/java-tron/tree/develop/consensus">consensus</a> 模块的代码路径为<code>https://github.com/tronprotocol/java-tron/tree/develop/consensus</code>，其目录结构如下：
+<div class="highlight"><pre><span></span><code>|-- consensus/src/main/java/org/tron/consensus
+    |-- Consensus.java
+    |-- ConsensusDelegate.java
+    |-- base
+    |   |-- ConsensusInterface.java
+    |   |-- ......
+    |-- dpos
+    |-- pbft
+</code></pre></div>
+<a href="https://github.com/tronprotocol/java-tron/tree/develop/consensus">consensus</a> 模块将共识过程抽象成几个重要的部分，定义在 ConsensusInterface 接口中：</p>
+<ol>
+<li><code>start</code> - 启动共识服务，可以自定制启动参数</li>
+<li><code>stop</code> - 停止共识服务</li>
+<li><code>receiveBlock</code> - 定义接收区块的共识逻辑</li>
+<li><code>validBlock</code> - 定义验证区块的共识逻辑</li>
+<li><code>applyBlock</code> - 定义处理区块的共识逻辑</li>
+</ol>
+<p>目前Java-tron基于 ConsensusInterface 接口实现了DPOS共识和PBFT共识，分别位于<code>dpos/</code>和<code>pbft/</code>目录下，开发者也可以根据自身业务需求实现 ConsensusInterface 接口，来自定义共识机制。</p>
+<h2 id="actuator">actuator<a class="headerlink" href="#actuator" title="Permanent link">&para;</a></h2>
+<p>以太坊初创性的引入了虚拟机并定义了智能合约这种开发方式，但对于一些复杂的应用，智能合约不够灵活且受限于性能，这也是 Java-tron 提供创建应用链的一个原因。为此 Java-tron 独立出来了 actuator 模块，该模块为应用开发者提供一种新的开发范式：可以将应用代码直接植入链中而不再将应用代码跑在虚拟机中。</p>
+<p>actuator是交易的执行器，可以将应用看成是不同交易类型组成的交易集，每类交易都由对应的 actuator 负责执行。</p>
+<p><a href="https://github.com/tronprotocol/java-tron/tree/develop/actuator">actuator</a> 模块的代码路径为<code>https://github.com/tronprotocol/java-tron/tree/develop/actuator</code>，其目录结构如下：
+<div class="highlight"><pre><span></span><code>|-- actuator/src/main/java/org/tron/core
+    |-- actuator
+    |   |-- AbstractActuator.java
+    |   |-- ActuatorCreator.java
+    |   |-- ActuatorFactory.java
+    |   |-- TransferActuator.java
+    |   |-- VMActuator.java
+    |   |-- ......
+    |-- utils
+    |-- vm
+</code></pre></div></p>
+<ul>
+<li><code>actuator/</code> - TRON网络中各种类型交易的执行器，定义了不同类型交易的处理逻辑，比如<code>TransferActuator</code>是转账TRX交易的处理类，<code>FreezeBalanceActuator</code>是质押TRX获取资源交易的处理类</li>
+<li><code>utils/</code> - 执行交易所需的工具类</li>
+<li><code>vm/</code> - 虚拟机相关代码</li>
+</ul>
+<p>actuator模块定义的 Actuator 接口有4个方法：
+* <code>execute</code> - 负责交易具体需要执行的动作，可以是状态修改、流程跳转、逻辑判断
+* <code>validate</code> - 负责验证交易的正确性
+* <code>getOwnerAddress</code> - 获取交易发起方的地址
+* <code>calcFee</code> - 定义交易手续费计算逻辑</p>
+<p>开发者也可以根据自身业务实现 Actuator 接口，来实现自定义交易类型的处理。</p>
+<h2 id="crypto">crypto<a class="headerlink" href="#crypto" title="Permanent link">&para;</a></h2>
+<p>crypto是一个相对独立的模块，但也是非常重要的模块，Java-tron中的数据安全几乎全由该模块来保证，目前支持SM2和ECKey加密算法。</p>
+<p><a href="https://github.com/tronprotocol/java-tron/tree/develop/crypto">crypto</a>模块的路径为<code>https://github.com/tronprotocol/java-tron/tree/develop/crypto</code>，其目录结构如下：
+<div class="highlight"><pre><span></span><code>|-- crypto/src/main/java/org/tron/common/crypto
+    |-- Blake2bfMessageDigest.java
+    |-- ECKey.java
+    |-- Hash.java
+    |-- SignInterface.java
+    |-- SignUtils.java
+    |-- SignatureInterface.java
+    |-- cryptohash
+    |-- jce
+    |-- sm2
+    |-- zksnark
+</code></pre></div></p>
+<ul>
+<li><code>sm2</code>和<code>jce</code> - 提供SM2和ECKey加密算法和签名算法</li>
+<li><code>zksnark</code> - 提供零知识证明算法</li>
+</ul>
+<h2 id="framework">framework<a class="headerlink" href="#framework" title="Permanent link">&para;</a></h2>
+<p>framework是 java-tron 的核心模块，也是节点的入口，framework 模块负责各个模块的初始化及业务逻辑的跳转，framework包含了节点对外提供的服务，P2P网络相关的节点发现与管理流程、区块广播及处理流程。</p>
+<p><a href="https://github.com/tronprotocol/java-tron/tree/develop/framework">framework</a>模块的代码路径为<code>https://github.com/tronprotocol/java-tron/tree/develop/framework</code>，其目录结构如下：</p>
+<div class="highlight"><pre><span></span><code>|-- framework/src/main/java/org/tron
+    |-- common
+    |   |-- application
+    |   |-- backup
+    |   |-- logsfilter
+    |   |-- net
+    |   |-- overlay
+    |   |   |-- client
+    |   |   |-- discover
+    |   |   |-- message
+    |   |   |-- server
+    |   |-- runtime
+    |   |-- zksnark
+    |-- core
+    |   |-- Wallet.java
+    |   |-- capsule
+    |   |-- config
+    |   |-- consensus
+    |   |-- db
+    |   |-- metrics
+    |   |-- net
+    |   |-- services
+    |   |-- trie
+    |   |-- zen
+    |-- keystore
+    |-- program
+    |   |-- FullNode.java
+    |-- tool
+</code></pre></div>
+<ul>
+<li><code>program/FullNode.java</code>  - 它是程序的入口点，初始化对外的HTTP、gRPC和json-rpc接口服务</li>
+<li><code>core/services</code> - 定义了对外提供的服务，其子目录<code>http/</code>包含了所有的http接口处理类，<code>json-rpc/</code> 包含了所有的json-rpc接口处理类</li>
+<li><code>common/overlay/discover</code> - 节点发现逻辑</li>
+<li><code>common/overlay/server</code> - 节点管理及节点间区块同步逻辑</li>
+<li><code>core/net</code> - 消息处理，其子目录<code>/service</code> 为交易及区块广播、区块抓取及同步逻辑</li>
+<li><code>core/db/Manager.java</code> - 交易及区块校验并处理逻辑</li>
+</ul>
+<h2 id="_1">总结<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>本文主要介绍了Java-tron的代码结构，以及各个功能模块的作用、位置及目录结构，通过本文您会对Java-tron的整体结构及关键接口有了大致的了解，方便后续的代码分析和开发。</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../demo/" class="btn btn-neutral float-left" title="开发示例"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../../contracts/compiler/" class="btn btn-neutral float-right" title="Dapp开发工具">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/tronprotocol/documentation-zh" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../demo/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../../contracts/compiler/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme_extra.js" defer></script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+      <script src="../../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>
