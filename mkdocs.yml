@@ -34,7 +34,8 @@ nav:
         - Issue工作流程: developers/issue-workflow.md
         - 配置IDE开发环境: developers/run-in-idea.md
         - 开发示例: developers/demo.md
-        - GPG Key: developers/gpg.md
+        - 核心模块:
+            - 概述: developers/code-structure.md
     - Dapp开发:
         - Dapp开发工具: contracts/compiler.md
     - Wallet-cli: 
