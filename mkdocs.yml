@@ -36,6 +36,7 @@ nav:
         - 开发示例: developers/demo.md
         - 核心模块:
             - 概述: developers/code-structure.md
+            - Chainbase: developers/chainbase.md
     - Dapp开发:
         - Dapp开发工具: contracts/compiler.md
     - Wallet-cli: 
