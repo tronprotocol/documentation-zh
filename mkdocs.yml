@@ -37,6 +37,7 @@ nav:
         - 核心模块:
             - 概述: developers/code-structure.md
             - Chainbase: developers/chainbase.md
+            - 网络: developers/network.md
     - Dapp开发:
         - Dapp开发工具: contracts/compiler.md
     - Wallet-cli: 
