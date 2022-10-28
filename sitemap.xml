@@ -41,6 +41,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://tronprotocol.github.io/documentation-zh/clients/wallet-cli-command/</loc>
+         <lastmod>2022-10-28</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://tronprotocol.github.io/documentation-zh/clients/wallet-cli/</loc>
          <lastmod>2022-10-28</lastmod>
          <changefreq>daily</changefreq>
