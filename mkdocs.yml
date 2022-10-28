@@ -41,7 +41,8 @@ nav:
     - Dapp开发:
         - Dapp开发工具: contracts/compiler.md
     - Wallet-cli: 
-        - 用户手册: clients/wallet-cli.md
+        - 什么是Wallet-Cli: clients/wallet-cli.md
+        - Wallet命令: clients/wallet-cli-command.md
     - 版本发布:
         - 历史版本:
             - GreatVoyage-v4.5.2: releases/GreatVoyage-v452.md
