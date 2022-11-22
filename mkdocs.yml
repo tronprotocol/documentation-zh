@@ -45,6 +45,7 @@ nav:
         - Wallet命令: clients/wallet-cli-command.md
     - 版本发布:
         - 历史版本:
+            - GreatVoyage-v4.6.0: releases/GreatVoyage-v460.md
             - GreatVoyage-v4.5.2: releases/GreatVoyage-v452.md
             - GreatVoyage-v4.5.1: releases/GreatVoyage-v451.md
             - GreatVoyage-v4.4.6: releases/GreatVoyage-v446.md
