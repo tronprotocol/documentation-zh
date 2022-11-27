@@ -122,7 +122,10 @@ LiteFullNodeTool.jar是java-tron的轻节点工具， 主要功能是将全节�
 * 源代码：[https://github.com/tronprotocol/java-tron/pull/4607](https://github.com/tronprotocol/java-tron/pull/4607)
 
 
+### 5. 优化eth_getBlockByHash和eth_getBlockByNumber 接口的返回值
+为了更好地兼容Ethereum的JsonRPC 2.0协议接口，GreatVoyage-v4.6.0(Socrates)版本将eth_getBlockByHash和eth_getBlockByNumber 接口返回值中`timestamp`字段的单位从毫秒改为秒， 使接口返回值格式与Ethereum Geth完全兼容。
 
+* 源代码：[https://github.com/tronprotocol/java-tron/pull/4642](https://github.com/tronprotocol/java-tron/pull/4642) 
 
 --- 
 
