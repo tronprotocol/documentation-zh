@@ -163,6 +163,8 @@
     </li>
     <li class="toctree-l4"><a class="reference internal" href="#4">4. 优化轻节点工具</a>
     </li>
+    <li class="toctree-l4"><a class="reference internal" href="#5-eth_getblockbyhasheth_getblockbynumber">5. 优化eth_getBlockByHash和eth_getBlockByNumber 接口的返回值</a>
+    </li>
         </ul>
     </li>
     </ul>
@@ -332,6 +334,11 @@ VIRTUAL MACHINE OPTIONS:
 <p>LiteFullNodeTool.jar是java-tron的轻节点工具， 主要功能是将全节点数据库转化为轻节点数据库，GreatVoyage-v4.6.0(Socrates)版本优化了该工具，提升了工具的便捷性和稳定性。</p>
 <ul>
 <li>源代码：<a href="https://github.com/tronprotocol/java-tron/pull/4607">https://github.com/tronprotocol/java-tron/pull/4607</a></li>
+</ul>
+<h3 id="5-eth_getblockbyhasheth_getblockbynumber">5. 优化eth_getBlockByHash和eth_getBlockByNumber 接口的返回值<a class="headerlink" href="#5-eth_getblockbyhasheth_getblockbynumber" title="Permanent link">&para;</a></h3>
+<p>为了更好地兼容Ethereum的JsonRPC 2.0协议接口，GreatVoyage-v4.6.0(Socrates)版本将eth_getBlockByHash和eth_getBlockByNumber 接口返回值中<code>timestamp</code>字段的单位从毫秒改为秒， 使接口返回值格式与Ethereum Geth完全兼容。</p>
+<ul>
+<li>源代码：<a href="https://github.com/tronprotocol/java-tron/pull/4642">https://github.com/tronprotocol/java-tron/pull/4642</a> </li>
 </ul>
 <hr />
 <p><em>To move the world we must move ourselves.</em> </p>
