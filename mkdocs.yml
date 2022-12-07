@@ -32,6 +32,7 @@ nav:
         - 开发者指南: developers/java-tron.md
         - TIPs工作流程: developers/tips.md
         - Issue工作流程: developers/issue-workflow.md
+        - 治理流程: developers/governance.md
         - 配置IDE开发环境: developers/run-in-idea.md
         - 开发示例: developers/demo.md
         - 核心模块:
@@ -44,6 +45,7 @@ nav:
         - 什么是Wallet-Cli: clients/wallet-cli.md
         - Wallet命令: clients/wallet-cli-command.md
     - 版本发布:
+        - 升级指南: releases/upgrade-instruction.md
         - 历史版本:
             - GreatVoyage-v4.6.0: releases/GreatVoyage-v460.md
             - GreatVoyage-v4.5.2: releases/GreatVoyage-v452.md
