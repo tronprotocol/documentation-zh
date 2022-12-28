@@ -45,7 +45,7 @@ nav:
         - 什么是Wallet-Cli: clients/wallet-cli.md
         - Wallet命令: clients/wallet-cli-command.md
     - 版本发布:
-        - 升级指南: releases/upgrade-instruction.md
+        - 新版本部署手册: releases/upgrade-instruction.md
         - 历史版本:
             - GreatVoyage-v4.6.0: releases/GreatVoyage-v460.md
             - GreatVoyage-v4.5.2: releases/GreatVoyage-v452.md
