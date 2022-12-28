@@ -3,18 +3,18 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://tronprotocol.github.io/documentation-zh/releases/GreatVoyage-v4221/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://tronprotocol.github.io/documentation-zh/releases/upgrade-instruction/" />
       <link rel="shortcut icon" href="../../img/favicon.ico" />
-    <title>GreatVoyage-v4.2.2.1 - Java Tron</title>
+    <title>新版本部署手册 - Java Tron</title>
     <link rel="stylesheet" href="../../css/theme.css" />
     <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
     
       <script>
         // Current page data
-        var mkdocs_page_name = "GreatVoyage-v4.2.2.1";
-        var mkdocs_page_input_path = "releases/GreatVoyage-v4221.md";
-        var mkdocs_page_url = "/documentation-zh/releases/GreatVoyage-v4221/";
+        var mkdocs_page_name = "\u65b0\u7248\u672c\u90e8\u7f72\u624b\u518c";
+        var mkdocs_page_input_path = "releases/upgrade-instruction.md";
+        var mkdocs_page_url = "/documentation-zh/releases/upgrade-instruction/";
       </script>
     
     <script src="../../js/jquery-3.6.0.min.js" defer></script>
@@ -135,10 +135,32 @@
               </ul>
               <p class="caption"><span class="caption-text">版本发布</span></p>
               <ul class="current">
-                  <li class="toctree-l1"><a class="reference internal" href="../upgrade-instruction/">新版本部署手册</a>
-                  </li>
-                  <li class="toctree-l1 current"><a class="reference internal current" href="#">历史版本</a>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">新版本部署手册</a>
     <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#_1">新版本部署步骤</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#1">1.准备新版本可执行文件</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#2java-tron">2.关闭Java-tron进程</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#3">3.备份</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#4">4.替换旧文件</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#5">5.启动节点</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#6">6. 等待节点同步完成</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#7">7. 新版本部署完成</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_2">主备节点升级指南</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="#">历史版本</a>
+    <ul>
                 <li class="toctree-l2"><a class="reference internal" href="../GreatVoyage-v460/">GreatVoyage-v4.6.0</a>
                 </li>
                 <li class="toctree-l2"><a class="reference internal" href="../GreatVoyage-v452/">GreatVoyage-v4.5.2</a>
@@ -157,9 +179,7 @@
                 </li>
                 <li class="toctree-l2"><a class="reference internal" href="../GreatVoyage-v430/">GreatVoyage-v4.3.0</a>
                 </li>
-                <li class="toctree-l2 current"><a class="reference internal current" href="./">GreatVoyage-v4.2.2.1</a>
-    <ul class="current">
-    </ul>
+                <li class="toctree-l2"><a class="reference internal" href="../GreatVoyage-v4221/">GreatVoyage-v4.2.2.1</a>
                 </li>
                 <li class="toctree-l2"><a class="reference internal" href="../GreatVoyage-v422/">GreatVoyage-v4.2.2</a>
                 </li>
@@ -200,10 +220,9 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="../.." class="icon icon-home" alt="Docs"></a> &raquo;</li>
-          <li>版本发布 &raquo;</li>
-          <li>历史版本 &raquo;</li><li>GreatVoyage-v4.2.2.1</li>
+          <li>版本发布 &raquo;</li><li>新版本部署手册</li>
     <li class="wy-breadcrumbs-aside">
-        <a href="https://github.com/tronprotocol/documentation-zh/edit/master/docs/releases/GreatVoyage-v4221.md"
+        <a href="https://github.com/tronprotocol/documentation-zh/edit/master/docs/releases/upgrade-instruction.md"
           class="icon icon-github"> Edit on GitHub</a>
     </li>
   </ul>
@@ -213,25 +232,113 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="greatvoyage-4221epictetus">GreatVoyage-4.2.2.1(Epictetus)<a class="headerlink" href="#greatvoyage-4221epictetus" title="Permanent link">&para;</a></h1>
-<p>GreatVoyage-v4.2.2.1(Epictetus) 版本已发布， 主要新功能和修改如下：</p>
-<h1 id="_1">核心协议<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
-<h2 id="1pending-transaction">1、优化<code>pending transaction</code>的处理逻辑。<a class="headerlink" href="#1pending-transaction" title="Permanent link">&para;</a></h2>
-<p>在GreatVoyage-v4.2.2.1(Epictetus) 之前的版本中，如果节点如果开启了事件订阅服务，会有小概率发生节点同步异常的问题。</p>
-<p>GreatVoyage-v4.2.2.1(Epictetus) 版本对<code>pending transaction</code>的处理逻辑进行了优化，修复了该同步异常的问题，提升了事件订阅服务的稳定性。</p>
+                <h1 id="java-tron">Java-tron新版本部署手册<a class="headerlink" href="#java-tron" title="Permanent link">&para;</a></h1>
+<p>对于强制升级的版本，请严格按照本指南进行新版本的部署。对于非强制升级的版本，可根据需求自行选择是否部署。</p>
+<p>请参考<a href="#_1">新版本部署步骤</a>进行升级，如果您部署了主备节点，请按照<a href="#_2">主备节点部署指南</a>的流程进行升级。</p>
+<h2 id="_1">新版本部署步骤<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>您的 FullNode,  产块的 FullNode 均需按照该本说明升级到最新版本，步骤如下：</p>
+<h3 id="1">1.准备新版本可执行文件<a class="headerlink" href="#1" title="Permanent link">&para;</a></h3>
+<p>您可以直接下载Java-tron可执行文件，也可以下载最新版本的代码，然后编译，以获取新版本可执行文件。请在Java-tron运行目录以外的其它文件目录下，下载最新版本的代码或者jar包：</p>
 <ul>
-<li>源代码:  <a href="https://github.com/tronprotocol/java-tron/pull/3874">#3874</a></li>
+<li>
+<p>方式一：下载已发布的可执行文件</p>
+<p>在release页面 <a href="https://github.com/tronprotocol/java-tron/releases">https://github.com/tronprotocol/java-tron/releases</a> 直接下载最新版本的FullNode.jar可执行文件。</p>
+<p>在使用之前，请首先对文件签名进行校验，以确保该JAR文件的一致性和完整性，校验步骤请参考<a href="https://tronprotocol.github.io/documentation-zh/releases/">Java-tron一致性校验</a>。</p>
+</li>
+<li>
+<p>方式二：编译源码</p>
+<p>下载对应版本源码，并切换到新版本的分支。
+<div class="highlight"><pre><span></span><code>$ git clone https://github.com/tronprotocol/java-tron.git
+$ git checkout -b relase_vx.x.x
+</code></pre></div></p>
+<p>编译程序：在新版本代码目录，执行如下命令进行编译，编译完成的可执行文件生成在<code>build/libs</code> 目录中。
+<div class="highlight"><pre><span></span><code>$ ./gradlew clean build -x test
+</code></pre></div></p>
+</li>
 </ul>
-<p>GreatVoyage-v4.2.2.1(Epictetus) 版本引入的更新优化了<code>pending transaction</code>的处理逻辑，将大幅提升事件订阅服务的稳定性，将为TRON用户带来更好的体验，进一步繁荣波场生态。</p>
-<hr />
-<p><em>No great thing is created suddenly.</em> </p>
-<p align="right"> --- Epictetus</p>
+<h3 id="2java-tron">2.关闭Java-tron进程<a class="headerlink" href="#2java-tron" title="Permanent link">&para;</a></h3>
+<p>停止节点进程：</p>
+<ul>
+<li>
+<p>首先通过如下命令获取节点进程ID
+    <div class="highlight"><pre><span></span><code>$ ps -ef | grep java
+</code></pre></div></p>
+</li>
+<li>
+<p>停止节点进程
+    <div class="highlight"><pre><span></span><code>$ kill -15 获取的进程id
+</code></pre></div></p>
+</li>
+</ul>
+<h3 id="3">3.备份<a class="headerlink" href="#3" title="Permanent link">&para;</a></h3>
+<p>请依次备份升级前的可执行文件、数据库、配置文件。备份数据用于当升级中遇到问题导致新版本部署不成功时，可以恢复到老版本。</p>
+<ul>
+<li>备份当前的可执行文件
+    <div class="highlight"><pre><span></span><code>$ mv $JAVA_TRON.jar $JAVA_TRON.jar.`date &quot;+%Y%m%d%H%M%S&quot;`
+</code></pre></div></li>
+<li>备份当前数据库output-directory
+    <div class="highlight"><pre><span></span><code>$ tar cvzf output-directory.`date &quot;+%Y%m%d%H%M%S&quot;`.etgz output-directory
+</code></pre></div></li>
+<li>备份当前配置文件
+    <div class="highlight"><pre><span></span><code>$ mv $config.conf $config.conf.`date &quot;+%Y%m%d%H%M%S&quot;`
+</code></pre></div></li>
+</ul>
+<h3 id="4">4.替换旧文件<a class="headerlink" href="#4" title="Permanent link">&para;</a></h3>
+<p>准备好新版本可执行文件，并备份好原节点数据后，请根据如下步骤替换旧文件：</p>
+<ol>
+<li>将上步骤获取的最新版本jar包拷贝到Java-tron工作目录，以替换旧的可执行文件。</li>
+<li>用最新的配置文件覆盖旧的配置文件，如需修改配置，比如添加keystore file、私钥等，请自行修改。</li>
+</ol>
+<p>注意：对于数据库文件，可以使用Java-tron工作目录下的原有数据库文件，也可以选择使用<a href="https://tronprotocol.github.io/documentation-zh/using_javatron/backup_restore/#_4">数据库备份快照</a>。</p>
+<h3 id="5">5.启动节点<a class="headerlink" href="#5" title="Permanent link">&para;</a></h3>
+<p>超级代表的产块的全节点和其它普通的全节点，启动命令不同，请根据实际情况选择启动命令：</p>
+<ul>
+<li>
+<p>对于超级代表的产块的全节点，启动命令为：
+    <div class="highlight"><pre><span></span><code>nohup java -Xmx24g -XX:+UseConcMarkSweepGC  -jar FullNode.jar  -p  private key --witness -c main_net_config.conf &lt;/dev/null &amp;&gt;/dev/null &amp;
+</code></pre></div>
+    注意：私钥的设置不一定要使用如上命令行参数的方式，如果使用keystore file方式或者在配置文件中配置私钥的方式，请按照原先的方式设置即可。</p>
+</li>
+<li>
+<p>对于普通的全节点，启动命令为：
+    <div class="highlight"><pre><span></span><code>nohup java -Xmx24g -XX:+UseConcMarkSweepGC -jar FullNode.jar -c   main_net_config.conf &lt;/dev/null &amp;&gt;/dev/null &amp;
+</code></pre></div></p>
+</li>
+</ul>
+<h3 id="6">6. 等待节点同步完成<a class="headerlink" href="#6" title="Permanent link">&para;</a></h3>
+<p>节点成功启动后，请耐心等待节点区块同步。</p>
+<h3 id="7">7. 新版本部署完成<a class="headerlink" href="#7" title="Permanent link">&para;</a></h3>
+<p>节点同步到网络最新区块后，才表示该节点本次新版本部署完成。</p>
+<p>当升级中遇到任何问题，导致新版本部署不成功，请使用第三步中备份的数据，恢复到老版本，并及时在Github或社区中反馈，以尽快帮助您完成新版本的部署。</p>
+<h2 id="_2">主备节点升级指南<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>主备节点的升级，请按照如下步骤进行：</p>
+<ol>
+<li>
+<p>升级备份节点</p>
+<p>请按照<a href="#_1">新版本部署步骤</a>先对备份节点进行升级。</p>
+</li>
+<li>
+<p>停止主节点</p>
+<p>备份节点成功升级部署了新版本后，请等待备份节点同步完成后，再关停主节点，这时备份节点会自动接替主节点，成为active node。</p>
+</li>
+<li>
+<p>升级主节点</p>
+<p>如果备份节点正常工作，则按照<a href="#_1">新版本部署步骤</a>升级主节点。否则，关停备份节点，并启动主节点。如果出现错误，请联系TRON的技术人员，发送备份节点的日志以分析原因。</p>
+</li>
+<li>
+<p>关停备份节点</p>
+<p>等待主节点升级并同步完成后，再关停备份节点。备份节点关闭后，主节点将重新接手成为active node。</p>
+</li>
+<li>
+<p>开启备份节点</p>
+</li>
+</ol>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../GreatVoyage-v430/" class="btn btn-neutral float-left" title="GreatVoyage-v4.3.0"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../GreatVoyage-v422/" class="btn btn-neutral float-right" title="GreatVoyage-v4.2.2">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../../clients/wallet-cli-command/" class="btn btn-neutral float-left" title="Wallet命令"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../GreatVoyage-v460/" class="btn btn-neutral float-right" title="GreatVoyage-v4.6.0">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -258,10 +365,10 @@
         </span>
     
     
-      <span><a href="../GreatVoyage-v430/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../../clients/wallet-cli-command/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
-      <span><a href="../GreatVoyage-v422/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="../GreatVoyage-v460/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>
