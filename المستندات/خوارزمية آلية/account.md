@@ -40,7 +40,7 @@ ALPHABET = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"
 2. 签名示例数据
 
 ```shell
-    priKey:::8e812436a0e3323166e1f0e8ba79e19e217b2c4a53c970d4cca0cfb1078979df       
+    priKey ::: 2f4c0dc2f60afe60e34cd1704781138639b786a907460dbe68412d8b55761a42       
     pubKey::04a5bb3b28466f578e6e93fbfd5f75cee1ae86033aa4bbea690e3312c087181eb366f9a1d1d6a437a9bf9fc65ec853b9fd60fa322be3997c47144eb20da658b3d1       
     hash:::159817a085f113d099d3d93c051410e9bfe043cc5c20e43aa9a083bf73660145       
     r:::38b7dac5ee932ac1bf2bc62c05b792cd93c3b4af61dc02dbb4b93dacb758123f       
