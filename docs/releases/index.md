@@ -4,11 +4,11 @@ Java-tron签名校验就是通过签名验证来检查所获得的Java-tron可�
 
 2023年1月3日之后发布的Java-tron新版本采用GPG方式进行签名和验签，2023年1月3日之前发布的版本采用指定TRON账户的公私钥方式进行签名和验签。
 
-* 2023年1月3号之后发布的版本： [GPG验签流程](#gpg)
-* 2023年1月3号之前发布的版本： [公钥验签流程](#_3)
+* 2023年1月3号之后发布的版本： [GPG签名验证流程](#gpg)
+* 2023年1月3号之前发布的版本： [TRON地址签名验证流程](#tron)
 
 
-## GPG验签流程
+## GPG签名验证流程
 java-tron可执行文件及其签名文件一起发布，您可在[这里](https://github.com/tronprotocol/java-tron/releases)获取，请按照如下流程进行2023年1月3日之后发布的Java-tron版本的签名验证。
 
 ### 安装GPG
@@ -57,7 +57,7 @@ gpg:       没有证据表明此签名属于其声称的所有者。
 ```
 验证失败，则会显示`已损坏的签名，来自于 “build_tron <build@tron.network>”`字样。 
     
-## 公钥验签流程
+## TRON地址签名验证流程
 2023年1月3号之前发布的Java-tron版本均是由 TRON 账户 `TKeAcHxgErbVXrG3N3TZiSV6AT566BHTj2` 对发布包进行签名。签名步骤为：首先为发布包的可执行文件生成sha256哈希值，然后使用该TRON账户的私钥对sha256哈希值进行签名。sha256哈希值可在[历史版本签名信息](#_6)章节中查看，也可在[https://github.com/tronprotocol/java-tron/releases](https://github.com/tronprotocol/java-tron/releases)页面查看；签名结果请在[历史版本签名信息](#_6)章节中查看。
 
 
