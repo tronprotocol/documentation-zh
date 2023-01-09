@@ -1,42 +1,103 @@
-# 版本发布
+# Java-tron发布包签名校验
+Java-tron签名校验就是通过签名验证来检查所获得的Java-tron可执行文件的可靠性及完整性。签名验证需要知道三个信息：要验证的可执行文件，文件的签名，以及为文件签名的私钥所对应的公钥。签名验证就是根据所获得的可执行文件的内容和签名，逆向推导出签名对应的公钥，然后与TRON发布的公钥进行比较，如果一致，说明您得到的Java-tron可执行文件是TRON发布的、完整的文件。
 
-## 二进制一致性检验
 
-自版本 3.7 之后的所有发布文件将由 Tron 账户 `TKeAcHxgErbVXrG3N3TZiSV6AT566BHTj2` 对文件一致性进行签名。
+2023年1月3日之后发布的Java-tron新版本采用GPG方式进行签名和验签，2023年1月3日之前发布的版本采用指定TRON账户的公私钥方式进行签名和验签。
 
-### 签名验证
+* 2023年1月3号之后发布的版本： [GPG验签流程](#gpg)
+* 2023年1月3号之前发布的版本： [公钥验签流程](#_3)
 
-这里介绍如何通过 tronweb 验证签名。
 
-```js
-const Trx = require('tronweb').Trx;
+## GPG验签流程
+java-tron可执行文件及其签名文件一起发布，您可在[这里](https://github.com/tronprotocol/java-tron/releases)获取，请按照如下流程进行2023年1月3日之后发布的Java-tron版本的签名验证。
 
-console.log(Trx.verifySignature(SHA256, ADDRESS, SIGNATURE));
+### 安装GPG
+
+如果已经安装了GPG，请跳过此步，如果没有安装过，请参照如下命令安装，在 MacOS 上:
+```
+$ brew install gpg
+```
+在 Debian、Ubuntu 或其他 Linux 发行版上：
+```
+$ sudo apt install gpg
+```
+### 导入公钥
+如果您之前导入过公钥，请跳过此步骤，公钥导入一次即可。
+    
+您先从[这里](https://github.com/tronprotocol/java-tron)获取Java-tron 发布包GPG签名的公钥Hash和uid。
+```
+pub: 1254 F859 D2B1 BD9F 66E7 107D F859 BCB4 4A28 290B
+uid: build@tron.network
+```
+根据公钥Hash将公钥从GPG公钥服务器导入到本地，命令为：
+```
+$  gpg --recv-keys 1254F859D2B1BD9F66E7107DF859BCB44A28290B
+```
+如果导入成功，您将看到如下字样：
+```
+gpg: 密钥 785FB96D2C7C3CA5：公钥 “build_tron <build@tron.network>” 已导入
+gpg: 处理的总数：1
+gpg: 已导入：1
+```
+        
+### 验签
+例如，某个版本的可执行文件为`FullNode.jar`，签名文件为 `FullNode.jar.sig`，则验签命令为：
+```
+$ gpg --verify FullNode.jar.sig FullNode.jar
+```
+如果签名验证通过，则返回如下字样：
+```
+gpg: 签名建立于 五  1/ 6 12:21:51 2023 CST
+gpg:               使用 RSA 密钥 1254F859D2B1BD9F66E7107DF859BCB44A28290B
+gpg: 完好的签名，来自于 “build_tron <build@tron.network>” [未知]
+gpg: 警告：此密钥未被受信任签名认证！
+gpg:       没有证据表明此签名属于其声称的所有者。    
+主密钥指纹： 07B2 3298 AEA4 E006 BD9A  42DE 785F B96D 2C7C 3CA5
+子密钥指纹： 1254 F859 D2B1 BD9F 66E7  107D F859 BCB4 4A28 290B
+```
+验证失败，则会显示`已损坏的签名，来自于 “build_tron <build@tron.network>”`字样。 
+    
+## 公钥验签流程
+2023年1月3号之前发布的Java-tron版本均是由 TRON 账户 `TKeAcHxgErbVXrG3N3TZiSV6AT566BHTj2` 对发布包进行签名。签名步骤为：首先为发布包的可执行文件生成sha256哈希值，然后使用该TRON账户的私钥对sha256哈希值进行签名。sha256哈希值可在[历史版本签名信息](#_6)章节中查看，也可在[https://github.com/tronprotocol/java-tron/releases](https://github.com/tronprotocol/java-tron/releases)页面查看；签名结果请在[历史版本签名信息](#_6)章节中查看。
+
+
+[tronweb](https://developers.tron.network/docs/tronweb-1)提供`Trx.verifySignature`接口来验证签名，验证通过则返回true，否则，返回false, 请按照如下流程进行验证。
+### 安装tronweb
+如果已经安装了tronweb，请跳过此步，如果没有安装过，请参照如下命令安装
+```
+npm install -g tronweb
+```
+### 验证发布包的完整性
+通过检查发布包的Hash值与发布信息中Hash值来比较确认发布包的完整性，以[Odyssey-3.7](https://github.com/tronprotocol/java-tron/releases/tag/Odyssey-v3.7)版本为例：
+
+* 发布包文件名为： `FullNode.jar` 
+* 发布包的SHA256为： `2fca93b09da4ac62641e03838e77fce99b4711ddb0c09aa91656c80fc9556d2e`
+* 签名为：  `21435e32131feb6d00ba8048df04e112e02569ec851064d8ecad2d4dd5da44b7628ddce16823dadfff6fd683fc58cee74964970621a845ee459e2c96a750de551b`
+
+MacOS系统执行以下代码进行验证
+```shell
+$ sha256sum FullNode.jar  
+```
+在 Debian、Ubuntu 和其他 Debian 衍生版系统执行以下代码进行验证：
+```
+$ shasum -a 256 FullNode.jar (macOS)
 ```
 
-例如 `FullNode.jar` 发布时附带 SHA256 hash `2fca93b09da4ac62641e03838e77fce99b4711ddb0c09aa91656c80fc9556d2e`,
-并提供 Tron 签名  `21435e32131feb6d00ba8048df04e112e02569ec851064d8ecad2d4dd5da44b7628ddce16823dadfff6fd683fc58cee74964970621a845ee459e2c96a750de551b`.
+### 检查发布包签名
 
-验证已发布文件的完整性：
 
-```shell
-# 首先验证 sha256 哈希值
 
-sha256sum FullNode.jar  # or shasum -a 256 FullNode.jar (macOS)
-# 2fca93b09da4ac62641e03838e77fce99b4711ddb0c09aa91656c80fc9556d2e  FullNode.jar
-
-# 然后检查 Tron 签名
-
-npm install -g tronweb
+执行以下命令验证发布包的签名：
+```js
+# Trx.verifySignature(SHA256, ADDRESS, SIGNATURE));
 node -e 'console.log(require("tronweb").Trx.verifySignature(
     "2fca93b09da4ac62641e03838e77fce99b4711ddb0c09aa91656c80fc9556d2e",
     "TKeAcHxgErbVXrG3N3TZiSV6AT566BHTj2",
     "21435e32131feb6d00ba8048df04e112e02569ec851064d8ecad2d4dd5da44b7628ddce16823dadfff6fd683fc58cee74964970621a845ee459e2c96a750de551b"
   ))'
-# true
 ```
 
-### 版本签名
+### 历史版本签名信息
 
 - Odyssey-3.7
 
