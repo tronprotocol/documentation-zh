@@ -137,6 +137,8 @@
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../../releases/upgrade-instruction/">新版本部署手册</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../releases/">一致性检验</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="#">历史版本</a>
     <ul>
                 <li class="toctree-l2"><a class="reference internal" href="../../releases/GreatVoyage-v460/">GreatVoyage-v4.6.0</a>
@@ -177,8 +179,6 @@
                 </li>
     </ul>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../releases/">一致性检验</a>
-                  </li>
               </ul>
               <ul>
                 <li class="toctree-l1"><a class="reference internal" href="../../glossary/">术语表</a>
@@ -216,29 +216,29 @@
 <ul>
 <li>通证名称</li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="kt">string</span><span class="w"> </span><span class="k">public </span><span class="nv">constant</span><span class="w"> </span>name<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;TRONEuropeRewardCoin&quot;</span><span class="p">;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="kt">string</span><span class="w"> </span><span class="k">public </span><span class="nv">constant</span><span class="w"> </span>name<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;TRONEuropeRewardCoin&quot;</span><span class="p">;</span>
 </code></pre></div>
 <ul>
 <li>通证缩写</li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="kt">string</span><span class="w"> </span><span class="k">public </span><span class="nv">constant</span><span class="w"> </span>symbol<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;TERC&quot;</span><span class="p">;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="kt">string</span><span class="w"> </span><span class="k">public </span><span class="nv">constant</span><span class="w"> </span>symbol<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;TERC&quot;</span><span class="p">;</span>
 </code></pre></div>
 <ul>
 <li>通证精度</li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="kt">uint8</span><span class="w"> </span><span class="k">public </span><span class="nv">constant</span><span class="w"> </span>decimals<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m m-Decimal">6</span><span class="p">;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="kt">uint8</span><span class="w"> </span><span class="k">public </span><span class="nv">constant</span><span class="w"> </span>decimals<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m m-Decimal">6</span><span class="p">;</span>
 </code></pre></div>
 <h3 id="6">6 个必选项<a class="headerlink" href="#6" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="k">contract</span><span class="w"> </span><span class="ni">TRC20</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="kt">function</span><span class="w"> </span><span class="nv">totalSupply</span><span class="p">()</span><span class="w"> </span><span class="kt">constant</span><span class="w"> </span><span class="kt">returns</span><span class="w"> </span><span class="p">(</span><span class="kt">uint</span><span class="w"> </span><span class="nv">theTotalSupply</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="kt">function</span><span class="w"> </span><span class="nv">balanceOf</span><span class="p">(</span><span class="kt">address</span><span class="w"> </span><span class="nv">_owner</span><span class="p">)</span><span class="w"> </span><span class="kt">constant</span><span class="w"> </span><span class="kt">returns</span><span class="w"> </span><span class="p">(</span><span class="kt">uint</span><span class="w"> </span><span class="nv">balance</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="kt">function</span><span class="w"> </span><span class="nv">transfer</span><span class="p">(</span><span class="kt">address</span><span class="w"> </span><span class="nv">_to</span><span class="p">,</span><span class="w"> </span><span class="kt">uint</span><span class="w"> </span><span class="nv">_value</span><span class="p">)</span><span class="w"> </span><span class="kt">returns</span><span class="w"> </span><span class="p">(</span><span class="kt">bool</span><span class="w"> </span><span class="nv">success</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="kt">function</span><span class="w"> </span><span class="nv">transferFrom</span><span class="p">(</span><span class="kt">address</span><span class="w"> </span><span class="nv">_from</span><span class="p">,</span><span class="w"> </span><span class="kt">address</span><span class="w"> </span><span class="nv">_to</span><span class="p">,</span><span class="w"> </span><span class="kt">uint</span><span class="w"> </span><span class="nv">_value</span><span class="p">)</span><span class="w"> </span><span class="kt">returns</span><span class="w"> </span><span class="p">(</span><span class="kt">bool</span><span class="w"> </span><span class="nv">success</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="kt">function</span><span class="w"> </span><span class="nv">approve</span><span class="p">(</span><span class="kt">address</span><span class="w"> </span><span class="nv">_spender</span><span class="p">,</span><span class="w"> </span><span class="kt">uint</span><span class="w"> </span><span class="nv">_value</span><span class="p">)</span><span class="w"> </span><span class="kt">returns</span><span class="w"> </span><span class="p">(</span><span class="kt">bool</span><span class="w"> </span><span class="nv">success</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="kt">function</span><span class="w"> </span><span class="nv">allowance</span><span class="p">(</span><span class="kt">address</span><span class="w"> </span><span class="nv">_owner</span><span class="p">,</span><span class="w"> </span><span class="kt">address</span><span class="w"> </span><span class="nv">_spender</span><span class="p">)</span><span class="w"> </span><span class="kt">constant</span><span class="w"> </span><span class="kt">returns</span><span class="w"> </span><span class="p">(</span><span class="kt">uint</span><span class="w"> </span><span class="nv">remaining</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="kt">event</span><span class="w"> </span><span class="nv">Transfer</span><span class="p">(</span><span class="kt">address</span><span class="w"> </span><span class="nv">indexed</span><span class="w"> </span>_from<span class="p">,</span><span class="w"> </span><span class="kt">address</span><span class="w"> </span><span class="nv">indexed</span><span class="w"> </span>_to<span class="p">,</span><span class="w"> </span><span class="kt">uint</span><span class="w"> </span><span class="nv">_value</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="kt">event</span><span class="w"> </span><span class="nv">Approval</span><span class="p">(</span><span class="kt">address</span><span class="w"> </span><span class="nv">indexed</span><span class="w"> </span>_owner<span class="p">,</span><span class="w"> </span><span class="kt">address</span><span class="w"> </span><span class="nv">indexed</span><span class="w"> </span>_spender<span class="p">,</span><span class="w"> </span><span class="kt">uint</span><span class="w"> </span><span class="nv">_value</span><span class="p">);</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">contract</span><span class="w"> </span><span class="ni">TRC20</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">function</span><span class="w"> </span><span class="nv">totalSupply</span><span class="p">()</span><span class="w"> </span><span class="kt">constant</span><span class="w"> </span><span class="kt">returns</span><span class="w"> </span><span class="p">(</span><span class="kt">uint</span><span class="w"> </span><span class="nv">theTotalSupply</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">function</span><span class="w"> </span><span class="nv">balanceOf</span><span class="p">(</span><span class="kt">address</span><span class="w"> </span><span class="nv">_owner</span><span class="p">)</span><span class="w"> </span><span class="kt">constant</span><span class="w"> </span><span class="kt">returns</span><span class="w"> </span><span class="p">(</span><span class="kt">uint</span><span class="w"> </span><span class="nv">balance</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">function</span><span class="w"> </span><span class="nv">transfer</span><span class="p">(</span><span class="kt">address</span><span class="w"> </span><span class="nv">_to</span><span class="p">,</span><span class="w"> </span><span class="kt">uint</span><span class="w"> </span><span class="nv">_value</span><span class="p">)</span><span class="w"> </span><span class="kt">returns</span><span class="w"> </span><span class="p">(</span><span class="kt">bool</span><span class="w"> </span><span class="nv">success</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">function</span><span class="w"> </span><span class="nv">transferFrom</span><span class="p">(</span><span class="kt">address</span><span class="w"> </span><span class="nv">_from</span><span class="p">,</span><span class="w"> </span><span class="kt">address</span><span class="w"> </span><span class="nv">_to</span><span class="p">,</span><span class="w"> </span><span class="kt">uint</span><span class="w"> </span><span class="nv">_value</span><span class="p">)</span><span class="w"> </span><span class="kt">returns</span><span class="w"> </span><span class="p">(</span><span class="kt">bool</span><span class="w"> </span><span class="nv">success</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">function</span><span class="w"> </span><span class="nv">approve</span><span class="p">(</span><span class="kt">address</span><span class="w"> </span><span class="nv">_spender</span><span class="p">,</span><span class="w"> </span><span class="kt">uint</span><span class="w"> </span><span class="nv">_value</span><span class="p">)</span><span class="w"> </span><span class="kt">returns</span><span class="w"> </span><span class="p">(</span><span class="kt">bool</span><span class="w"> </span><span class="nv">success</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">function</span><span class="w"> </span><span class="nv">allowance</span><span class="p">(</span><span class="kt">address</span><span class="w"> </span><span class="nv">_owner</span><span class="p">,</span><span class="w"> </span><span class="kt">address</span><span class="w"> </span><span class="nv">_spender</span><span class="p">)</span><span class="w"> </span><span class="kt">constant</span><span class="w"> </span><span class="kt">returns</span><span class="w"> </span><span class="p">(</span><span class="kt">uint</span><span class="w"> </span><span class="nv">remaining</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">event</span><span class="w"> </span><span class="nv">Transfer</span><span class="p">(</span><span class="kt">address</span><span class="w"> </span><span class="nv">indexed</span><span class="w"> </span>_from<span class="p">,</span><span class="w"> </span><span class="kt">address</span><span class="w"> </span><span class="nv">indexed</span><span class="w"> </span>_to<span class="p">,</span><span class="w"> </span><span class="kt">uint</span><span class="w"> </span><span class="nv">_value</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">event</span><span class="w"> </span><span class="nv">Approval</span><span class="p">(</span><span class="kt">address</span><span class="w"> </span><span class="nv">indexed</span><span class="w"> </span>_owner<span class="p">,</span><span class="w"> </span><span class="kt">address</span><span class="w"> </span><span class="nv">indexed</span><span class="w"> </span>_spender<span class="p">,</span><span class="w"> </span><span class="kt">uint</span><span class="w"> </span><span class="nv">_value</span><span class="p">);</span>
+<span class="p">}</span>
 </code></pre></div>
 <ul>
 <li>totalSupply()</li>
@@ -266,70 +266,70 @@
 <p>这个方法用来查询可供第三方转账的查询账户的通证余额。</p>
 <h3 id="2">2 个事件函数<a class="headerlink" href="#2" title="Permanent link">&para;</a></h3>
 <p>当通证被成功转账后，会触发转账事件。</p>
-<div class="highlight"><pre><span></span><code><span class="kt">event</span><span class="w"> </span><span class="nv">Transfer</span><span class="p">(</span><span class="kt">address</span><span class="w"> </span><span class="nv">indexed</span><span class="w"> </span>_from<span class="p">,</span><span class="w"> </span><span class="kt">address</span><span class="w"> </span><span class="nv">indexed</span><span class="w"> </span>_to<span class="p">,</span><span class="w"> </span><span class="kt">uint256</span><span class="w"> </span><span class="nv">_value</span><span class="p">)</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="kt">event</span><span class="w"> </span><span class="nv">Transfer</span><span class="p">(</span><span class="kt">address</span><span class="w"> </span><span class="nv">indexed</span><span class="w"> </span>_from<span class="p">,</span><span class="w"> </span><span class="kt">address</span><span class="w"> </span><span class="nv">indexed</span><span class="w"> </span>_to<span class="p">,</span><span class="w"> </span><span class="kt">uint256</span><span class="w"> </span><span class="nv">_value</span><span class="p">)</span>
 </code></pre></div>
 <p>当approval()方法被成功调用后，会触发Approval事件。</p>
-<div class="highlight"><pre><span></span><code><span class="kt">event</span><span class="w"> </span><span class="nv">Approval</span><span class="p">(</span><span class="kt">address</span><span class="w"> </span><span class="nv">indexed</span><span class="w"> </span>_owner<span class="p">,</span><span class="w"> </span><span class="kt">address</span><span class="w"> </span><span class="nv">indexed</span><span class="w"> </span>_spender<span class="p">,</span><span class="w"> </span><span class="kt">uint256</span><span class="w"> </span><span class="nv">_value</span><span class="p">)</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="kt">event</span><span class="w"> </span><span class="nv">Approval</span><span class="p">(</span><span class="kt">address</span><span class="w"> </span><span class="nv">indexed</span><span class="w"> </span>_owner<span class="p">,</span><span class="w"> </span><span class="kt">address</span><span class="w"> </span><span class="nv">indexed</span><span class="w"> </span>_spender<span class="p">,</span><span class="w"> </span><span class="kt">uint256</span><span class="w"> </span><span class="nv">_value</span><span class="p">)</span>
 </code></pre></div>
 <h2 id="_2">合约示例<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><span class="k">pragma solidity</span><span class="w"> </span><span class="o">^</span><span class="k">0.4.16</span><span class="p">;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">pragma solidity</span><span class="w"> </span><span class="o">^</span><span class="k">0.4.16</span><span class="p">;</span>
 
-interface<span class="w"> </span>tokenRecipient<span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="kt">function</span><span class="w"> </span><span class="nv">receiveApproval</span><span class="p">(</span><span class="kt">address</span><span class="w"> </span><span class="nv">_from</span><span class="p">,</span><span class="w"> </span><span class="kt">uint256</span><span class="w"> </span><span class="nv">_value</span><span class="p">,</span><span class="w"> </span><span class="kt">address</span><span class="w"> </span><span class="nv">_token</span><span class="p">,</span><span class="w"> </span><span class="kt">bytes</span><span class="w"> </span><span class="nv">_extraData</span><span class="p">)</span><span class="w"> </span><span class="kt">external</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+interface<span class="w"> </span>tokenRecipient<span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="kt">function</span><span class="w"> </span><span class="nv">receiveApproval</span><span class="p">(</span><span class="kt">address</span><span class="w"> </span><span class="nv">_from</span><span class="p">,</span><span class="w"> </span><span class="kt">uint256</span><span class="w"> </span><span class="nv">_value</span><span class="p">,</span><span class="w"> </span><span class="kt">address</span><span class="w"> </span><span class="nv">_token</span><span class="p">,</span><span class="w"> </span><span class="kt">bytes</span><span class="w"> </span><span class="nv">_extraData</span><span class="p">)</span><span class="w"> </span><span class="kt">external</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 
-<span class="k">contract</span><span class="w"> </span><span class="ni">TokenTRC20</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="k">contract</span><span class="w"> </span><span class="ni">TokenTRC20</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="c1">// Public variables of the token</span>
-<span class="w">    </span><span class="kt">string</span><span class="w"> </span><span class="k">public </span><span class="nv">name</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="kt">string</span><span class="w"> </span><span class="k">public </span><span class="nv">symbol</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="kt">uint8</span><span class="w"> </span><span class="k">public </span><span class="nv">decimals</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m m-Decimal">18</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="kt">string</span><span class="w"> </span><span class="k">public </span><span class="nv">name</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">string</span><span class="w"> </span><span class="k">public </span><span class="nv">symbol</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">uint8</span><span class="w"> </span><span class="k">public </span><span class="nv">decimals</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m m-Decimal">18</span><span class="p">;</span>
 <span class="w">    </span><span class="c1">// 18 decimals is the strongly suggested default, avoid changing it</span>
-<span class="w">    </span><span class="kt">uint256</span><span class="w"> </span><span class="k">public </span><span class="nv">totalSupply</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="kt">uint256</span><span class="w"> </span><span class="k">public </span><span class="nv">totalSupply</span><span class="p">;</span>
 
 <span class="w">    </span><span class="c1">// This creates an array with all balances</span>
-<span class="w">    </span><span class="kt">mapping</span><span class="w"> </span><span class="p">(</span><span class="kt">address</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="kt">uint256</span><span class="p">)</span><span class="w"> </span><span class="kt">public</span><span class="w"> </span>balanceOf<span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="kt">mapping</span><span class="w"> </span><span class="p">(</span><span class="kt">address</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="kt">mapping</span><span class="w"> </span><span class="p">(</span><span class="kt">address</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="kt">uint256</span><span class="p">))</span><span class="w"> </span><span class="kt">public</span><span class="w"> </span>allowance<span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="kt">mapping</span><span class="w"> </span><span class="p">(</span><span class="kt">address</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="kt">uint256</span><span class="p">)</span><span class="w"> </span><span class="kt">public</span><span class="w"> </span>balanceOf<span class="p">;</span>
+<span class="w">    </span><span class="kt">mapping</span><span class="w"> </span><span class="p">(</span><span class="kt">address</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="kt">mapping</span><span class="w"> </span><span class="p">(</span><span class="kt">address</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="kt">uint256</span><span class="p">))</span><span class="w"> </span><span class="kt">public</span><span class="w"> </span>allowance<span class="p">;</span>
 
 <span class="w">    </span><span class="c1">// This generates a public event on the blockchain that will notify clients</span>
-<span class="w">    </span><span class="kt">event</span><span class="w"> </span><span class="nv">Transfer</span><span class="p">(</span><span class="kt">address</span><span class="w"> </span><span class="nv">indexed</span><span class="w"> </span>from<span class="p">,</span><span class="w"> </span><span class="kt">address</span><span class="w"> </span><span class="nv">indexed</span><span class="w"> </span>to<span class="p">,</span><span class="w"> </span><span class="kt">uint256</span><span class="w"> </span><span class="nv">value</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="kt">event</span><span class="w"> </span><span class="nv">Transfer</span><span class="p">(</span><span class="kt">address</span><span class="w"> </span><span class="nv">indexed</span><span class="w"> </span>from<span class="p">,</span><span class="w"> </span><span class="kt">address</span><span class="w"> </span><span class="nv">indexed</span><span class="w"> </span>to<span class="p">,</span><span class="w"> </span><span class="kt">uint256</span><span class="w"> </span><span class="nv">value</span><span class="p">);</span>
 
 <span class="w">    </span><span class="c1">// This notifies clients about the amount burnt</span>
-<span class="w">    </span><span class="kt">event</span><span class="w"> </span><span class="nv">Burn</span><span class="p">(</span><span class="kt">address</span><span class="w"> </span><span class="nv">indexed</span><span class="w"> </span>from<span class="p">,</span><span class="w"> </span><span class="kt">uint256</span><span class="w"> </span><span class="nv">value</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="kt">event</span><span class="w"> </span><span class="nv">Burn</span><span class="p">(</span><span class="kt">address</span><span class="w"> </span><span class="nv">indexed</span><span class="w"> </span>from<span class="p">,</span><span class="w"> </span><span class="kt">uint256</span><span class="w"> </span><span class="nv">value</span><span class="p">);</span>
 
 <span class="w">    </span><span class="cm">/**</span>
 <span class="cm">     * Constructor function</span>
 <span class="cm">     *</span>
 <span class="cm">     * Initializes contract with initial supply tokens to the creator of the contract</span>
-<span class="cm">     */</span><span class="w"></span>
-<span class="w">    </span><span class="kt">function</span><span class="w"> </span><span class="nv">TokenTRC20</span><span class="p">(</span><span class="w"></span>
-<span class="w">        </span><span class="kt">uint256</span><span class="w"> </span><span class="nv">initialSupply</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="kt">string</span><span class="w"> </span><span class="nv">tokenName</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="kt">string</span><span class="w"> </span><span class="nv">tokenSymbol</span><span class="w"></span>
-<span class="w">    </span><span class="p">)</span><span class="w"> </span><span class="kt">public</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="cm">     */</span>
+<span class="w">    </span><span class="kt">function</span><span class="w"> </span><span class="nv">TokenTRC20</span><span class="p">(</span>
+<span class="w">        </span><span class="kt">uint256</span><span class="w"> </span><span class="nv">initialSupply</span><span class="p">,</span>
+<span class="w">        </span><span class="kt">string</span><span class="w"> </span><span class="nv">tokenName</span><span class="p">,</span>
+<span class="w">        </span><span class="kt">string</span><span class="w"> </span><span class="nv">tokenSymbol</span>
+<span class="w">    </span><span class="p">)</span><span class="w"> </span><span class="kt">public</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span>totalSupply<span class="w"> </span><span class="o">=</span><span class="w"> </span>initialSupply<span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="m m-Decimal">10</span><span class="w"> </span><span class="o">**</span><span class="w"> </span><span class="kt">uint256</span><span class="p">(</span>decimals<span class="p">);</span><span class="w">  </span><span class="c1">// Update total supply with the decimal amount</span>
 <span class="w">        </span>balanceOf<span class="p">[</span><span class="k">msg.sender</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>totalSupply<span class="p">;</span><span class="w">                </span><span class="c1">// Give the creator all initial tokens</span>
 <span class="w">        </span>name<span class="w"> </span><span class="o">=</span><span class="w"> </span>tokenName<span class="p">;</span><span class="w">                                   </span><span class="c1">// Set the name for display purposes</span>
 <span class="w">        </span>symbol<span class="w"> </span><span class="o">=</span><span class="w"> </span>tokenSymbol<span class="p">;</span><span class="w">                               </span><span class="c1">// Set the symbol for display purposes</span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span>
 
 <span class="w">    </span><span class="cm">/**</span>
 <span class="cm">     * Internal transfer, only can be called by this contract</span>
-<span class="cm">     */</span><span class="w"></span>
-<span class="w">    </span><span class="kt">function</span><span class="w"> </span><span class="nv">_transfer</span><span class="p">(</span><span class="kt">address</span><span class="w"> </span><span class="nv">_from</span><span class="p">,</span><span class="w"> </span><span class="kt">address</span><span class="w"> </span><span class="nv">_to</span><span class="p">,</span><span class="w"> </span><span class="kt">uint</span><span class="w"> </span><span class="nv">_value</span><span class="p">)</span><span class="w"> </span><span class="kt">internal</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="cm">     */</span>
+<span class="w">    </span><span class="kt">function</span><span class="w"> </span><span class="nv">_transfer</span><span class="p">(</span><span class="kt">address</span><span class="w"> </span><span class="nv">_from</span><span class="p">,</span><span class="w"> </span><span class="kt">address</span><span class="w"> </span><span class="nv">_to</span><span class="p">,</span><span class="w"> </span><span class="kt">uint</span><span class="w"> </span><span class="nv">_value</span><span class="p">)</span><span class="w"> </span><span class="kt">internal</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="c1">// Prevent transfer to 0x0 address. Use burn() instead</span>
-<span class="w">        </span><span class="kt">require</span><span class="p">(</span>_to<span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mh">0x0</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="kt">require</span><span class="p">(</span>_to<span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mh">0x0</span><span class="p">);</span>
 <span class="w">        </span><span class="c1">// Check if the sender has enough</span>
-<span class="w">        </span><span class="kt">require</span><span class="p">(</span>balanceOf<span class="p">[</span>_from<span class="p">]</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span>_value<span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="kt">require</span><span class="p">(</span>balanceOf<span class="p">[</span>_from<span class="p">]</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span>_value<span class="p">);</span>
 <span class="w">        </span><span class="c1">// Check for overflows</span>
-<span class="w">        </span><span class="kt">require</span><span class="p">(</span>balanceOf<span class="p">[</span>_to<span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span>_value<span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span>balanceOf<span class="p">[</span>_to<span class="p">]);</span><span class="w"></span>
+<span class="w">        </span><span class="kt">require</span><span class="p">(</span>balanceOf<span class="p">[</span>_to<span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span>_value<span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span>balanceOf<span class="p">[</span>_to<span class="p">]);</span>
 <span class="w">        </span><span class="c1">// Save this for an assertion in the future</span>
-<span class="w">        </span><span class="kt">uint</span><span class="w"> </span><span class="nv">previousBalances</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>balanceOf<span class="p">[</span>_from<span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span>balanceOf<span class="p">[</span>_to<span class="p">];</span><span class="w"></span>
+<span class="w">        </span><span class="kt">uint</span><span class="w"> </span><span class="nv">previousBalances</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>balanceOf<span class="p">[</span>_from<span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span>balanceOf<span class="p">[</span>_to<span class="p">];</span>
 <span class="w">        </span><span class="c1">// Subtract from the sender</span>
-<span class="w">        </span>balanceOf<span class="p">[</span>_from<span class="p">]</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span>_value<span class="p">;</span><span class="w"></span>
+<span class="w">        </span>balanceOf<span class="p">[</span>_from<span class="p">]</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span>_value<span class="p">;</span>
 <span class="w">        </span><span class="c1">// Add the same to the recipient</span>
-<span class="w">        </span>balanceOf<span class="p">[</span>_to<span class="p">]</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span>_value<span class="p">;</span><span class="w"></span>
-<span class="w">        </span>emit<span class="w"> </span>Transfer<span class="p">(</span>_from<span class="p">,</span><span class="w"> </span>_to<span class="p">,</span><span class="w"> </span>_value<span class="p">);</span><span class="w"></span>
+<span class="w">        </span>balanceOf<span class="p">[</span>_to<span class="p">]</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span>_value<span class="p">;</span>
+<span class="w">        </span>emit<span class="w"> </span>Transfer<span class="p">(</span>_from<span class="p">,</span><span class="w"> </span>_to<span class="p">,</span><span class="w"> </span>_value<span class="p">);</span>
 <span class="w">        </span><span class="c1">// Asserts are used to use static analysis to find bugs in your code. They should never fail</span>
-<span class="w">        </span>assert<span class="p">(</span>balanceOf<span class="p">[</span>_from<span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span>balanceOf<span class="p">[</span>_to<span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span>previousBalances<span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">        </span>assert<span class="p">(</span>balanceOf<span class="p">[</span>_from<span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span>balanceOf<span class="p">[</span>_to<span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span>previousBalances<span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
 
 <span class="w">    </span><span class="cm">/**</span>
 <span class="cm">     * Transfer tokens</span>
@@ -338,10 +338,10 @@ interface<span class="w"> </span>tokenRecipient<span class="w"> </span><span cla
 <span class="cm">     *</span>
 <span class="cm">     * @param _to The address of the recipient</span>
 <span class="cm">     * @param _value the amount to send</span>
-<span class="cm">     */</span><span class="w"></span>
-<span class="w">    </span><span class="kt">function</span><span class="w"> </span><span class="nv">transfer</span><span class="p">(</span><span class="kt">address</span><span class="w"> </span><span class="nv">_to</span><span class="p">,</span><span class="w"> </span><span class="kt">uint256</span><span class="w"> </span><span class="nv">_value</span><span class="p">)</span><span class="w"> </span><span class="kt">public</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span>_transfer<span class="p">(</span><span class="k">msg.sender</span><span class="p">,</span><span class="w"> </span>_to<span class="p">,</span><span class="w"> </span>_value<span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="cm">     */</span>
+<span class="w">    </span><span class="kt">function</span><span class="w"> </span><span class="nv">transfer</span><span class="p">(</span><span class="kt">address</span><span class="w"> </span><span class="nv">_to</span><span class="p">,</span><span class="w"> </span><span class="kt">uint256</span><span class="w"> </span><span class="nv">_value</span><span class="p">)</span><span class="w"> </span><span class="kt">public</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span>_transfer<span class="p">(</span><span class="k">msg.sender</span><span class="p">,</span><span class="w"> </span>_to<span class="p">,</span><span class="w"> </span>_value<span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
 
 <span class="w">    </span><span class="cm">/**</span>
 <span class="cm">     * Transfer tokens from other address</span>
@@ -351,13 +351,13 @@ interface<span class="w"> </span>tokenRecipient<span class="w"> </span><span cla
 <span class="cm">     * @param _from The address of the sender</span>
 <span class="cm">     * @param _to The address of the recipient</span>
 <span class="cm">     * @param _value the amount to send</span>
-<span class="cm">     */</span><span class="w"></span>
-<span class="w">    </span><span class="kt">function</span><span class="w"> </span><span class="nv">transferFrom</span><span class="p">(</span><span class="kt">address</span><span class="w"> </span><span class="nv">_from</span><span class="p">,</span><span class="w"> </span><span class="kt">address</span><span class="w"> </span><span class="nv">_to</span><span class="p">,</span><span class="w"> </span><span class="kt">uint256</span><span class="w"> </span><span class="nv">_value</span><span class="p">)</span><span class="w"> </span><span class="kt">public</span><span class="w"> </span><span class="kt">returns</span><span class="w"> </span><span class="p">(</span><span class="kt">bool</span><span class="w"> </span><span class="nv">success</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="cm">     */</span>
+<span class="w">    </span><span class="kt">function</span><span class="w"> </span><span class="nv">transferFrom</span><span class="p">(</span><span class="kt">address</span><span class="w"> </span><span class="nv">_from</span><span class="p">,</span><span class="w"> </span><span class="kt">address</span><span class="w"> </span><span class="nv">_to</span><span class="p">,</span><span class="w"> </span><span class="kt">uint256</span><span class="w"> </span><span class="nv">_value</span><span class="p">)</span><span class="w"> </span><span class="kt">public</span><span class="w"> </span><span class="kt">returns</span><span class="w"> </span><span class="p">(</span><span class="kt">bool</span><span class="w"> </span><span class="nv">success</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="kt">require</span><span class="p">(</span>_value<span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span>allowance<span class="p">[</span>_from<span class="p">][</span><span class="k">msg.sender</span><span class="p">]);</span><span class="w">     </span><span class="c1">// Check allowance</span>
-<span class="w">        </span>allowance<span class="p">[</span>_from<span class="p">][</span><span class="k">msg.sender</span><span class="p">]</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span>_value<span class="p">;</span><span class="w"></span>
-<span class="w">        </span>_transfer<span class="p">(</span>_from<span class="p">,</span><span class="w"> </span>_to<span class="p">,</span><span class="w"> </span>_value<span class="p">);</span><span class="w"></span>
-<span class="w">        </span><span class="kt">return</span><span class="w"> </span><span class="kt">true</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">        </span>allowance<span class="p">[</span>_from<span class="p">][</span><span class="k">msg.sender</span><span class="p">]</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span>_value<span class="p">;</span>
+<span class="w">        </span>_transfer<span class="p">(</span>_from<span class="p">,</span><span class="w"> </span>_to<span class="p">,</span><span class="w"> </span>_value<span class="p">);</span>
+<span class="w">        </span><span class="kt">return</span><span class="w"> </span><span class="kt">true</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
 
 <span class="w">    </span><span class="cm">/**</span>
 <span class="cm">     * Set allowance for other address</span>
@@ -366,12 +366,12 @@ interface<span class="w"> </span>tokenRecipient<span class="w"> </span><span cla
 <span class="cm">     *</span>
 <span class="cm">     * @param _spender The address authorized to spend</span>
 <span class="cm">     * @param _value the max amount they can spend</span>
-<span class="cm">     */</span><span class="w"></span>
-<span class="w">    </span><span class="kt">function</span><span class="w"> </span><span class="nv">approve</span><span class="p">(</span><span class="kt">address</span><span class="w"> </span><span class="nv">_spender</span><span class="p">,</span><span class="w"> </span><span class="kt">uint256</span><span class="w"> </span><span class="nv">_value</span><span class="p">)</span><span class="w"> </span><span class="kt">public</span><span class="w"></span>
-<span class="w">        </span><span class="kt">returns</span><span class="w"> </span><span class="p">(</span><span class="kt">bool</span><span class="w"> </span><span class="nv">success</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span>allowance<span class="p">[</span><span class="k">msg.sender</span><span class="p">][</span>_spender<span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>_value<span class="p">;</span><span class="w"></span>
-<span class="w">        </span><span class="kt">return</span><span class="w"> </span><span class="kt">true</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="cm">     */</span>
+<span class="w">    </span><span class="kt">function</span><span class="w"> </span><span class="nv">approve</span><span class="p">(</span><span class="kt">address</span><span class="w"> </span><span class="nv">_spender</span><span class="p">,</span><span class="w"> </span><span class="kt">uint256</span><span class="w"> </span><span class="nv">_value</span><span class="p">)</span><span class="w"> </span><span class="kt">public</span>
+<span class="w">        </span><span class="kt">returns</span><span class="w"> </span><span class="p">(</span><span class="kt">bool</span><span class="w"> </span><span class="nv">success</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span>allowance<span class="p">[</span><span class="k">msg.sender</span><span class="p">][</span>_spender<span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>_value<span class="p">;</span>
+<span class="w">        </span><span class="kt">return</span><span class="w"> </span><span class="kt">true</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
 
 <span class="w">    </span><span class="cm">/**</span>
 <span class="cm">     * Set allowance for other address and notify</span>
@@ -381,16 +381,16 @@ interface<span class="w"> </span>tokenRecipient<span class="w"> </span><span cla
 <span class="cm">     * @param _spender The address authorized to spend</span>
 <span class="cm">     * @param _value the max amount they can spend</span>
 <span class="cm">     * @param _extraData some extra information to send to the approved contract</span>
-<span class="cm">     */</span><span class="w"></span>
-<span class="w">    </span><span class="kt">function</span><span class="w"> </span><span class="nv">approveAndCall</span><span class="p">(</span><span class="kt">address</span><span class="w"> </span><span class="nv">_spender</span><span class="p">,</span><span class="w"> </span><span class="kt">uint256</span><span class="w"> </span><span class="nv">_value</span><span class="p">,</span><span class="w"> </span><span class="kt">bytes</span><span class="w"> </span><span class="nv">_extraData</span><span class="p">)</span><span class="w"></span>
-<span class="w">        </span><span class="kt">public</span><span class="w"></span>
-<span class="w">        </span><span class="kt">returns</span><span class="w"> </span><span class="p">(</span><span class="kt">bool</span><span class="w"> </span><span class="nv">success</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span>tokenRecipient<span class="w"> </span>spender<span class="w"> </span><span class="o">=</span><span class="w"> </span>tokenRecipient<span class="p">(</span>_spender<span class="p">);</span><span class="w"></span>
-<span class="w">        </span><span class="kt">if</span><span class="w"> </span><span class="p">(</span>approve<span class="p">(</span>_spender<span class="p">,</span><span class="w"> </span>_value<span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">            </span>spender<span class="p">.</span>receiveApproval<span class="p">(</span><span class="k">msg.sender</span><span class="p">,</span><span class="w"> </span>_value<span class="p">,</span><span class="w"> </span><span class="kt">this</span><span class="p">,</span><span class="w"> </span>_extraData<span class="p">);</span><span class="w"></span>
-<span class="w">            </span><span class="kt">return</span><span class="w"> </span><span class="kt">true</span><span class="p">;</span><span class="w"></span>
-<span class="w">        </span><span class="p">}</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="cm">     */</span>
+<span class="w">    </span><span class="kt">function</span><span class="w"> </span><span class="nv">approveAndCall</span><span class="p">(</span><span class="kt">address</span><span class="w"> </span><span class="nv">_spender</span><span class="p">,</span><span class="w"> </span><span class="kt">uint256</span><span class="w"> </span><span class="nv">_value</span><span class="p">,</span><span class="w"> </span><span class="kt">bytes</span><span class="w"> </span><span class="nv">_extraData</span><span class="p">)</span>
+<span class="w">        </span><span class="kt">public</span>
+<span class="w">        </span><span class="kt">returns</span><span class="w"> </span><span class="p">(</span><span class="kt">bool</span><span class="w"> </span><span class="nv">success</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span>tokenRecipient<span class="w"> </span>spender<span class="w"> </span><span class="o">=</span><span class="w"> </span>tokenRecipient<span class="p">(</span>_spender<span class="p">);</span>
+<span class="w">        </span><span class="kt">if</span><span class="w"> </span><span class="p">(</span>approve<span class="p">(</span>_spender<span class="p">,</span><span class="w"> </span>_value<span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span>spender<span class="p">.</span>receiveApproval<span class="p">(</span><span class="k">msg.sender</span><span class="p">,</span><span class="w"> </span>_value<span class="p">,</span><span class="w"> </span><span class="kt">this</span><span class="p">,</span><span class="w"> </span>_extraData<span class="p">);</span>
+<span class="w">            </span><span class="kt">return</span><span class="w"> </span><span class="kt">true</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
 
 <span class="w">    </span><span class="cm">/**</span>
 <span class="cm">     * Destroy tokens</span>
@@ -398,14 +398,14 @@ interface<span class="w"> </span>tokenRecipient<span class="w"> </span><span cla
 <span class="cm">     * Remove `_value` tokens from the system irreversibly</span>
 <span class="cm">     *</span>
 <span class="cm">     * @param _value the amount of money to burn</span>
-<span class="cm">     */</span><span class="w"></span>
-<span class="w">    </span><span class="kt">function</span><span class="w"> </span><span class="nv">burn</span><span class="p">(</span><span class="kt">uint256</span><span class="w"> </span><span class="nv">_value</span><span class="p">)</span><span class="w"> </span><span class="kt">public</span><span class="w"> </span><span class="kt">returns</span><span class="w"> </span><span class="p">(</span><span class="kt">bool</span><span class="w"> </span><span class="nv">success</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="cm">     */</span>
+<span class="w">    </span><span class="kt">function</span><span class="w"> </span><span class="nv">burn</span><span class="p">(</span><span class="kt">uint256</span><span class="w"> </span><span class="nv">_value</span><span class="p">)</span><span class="w"> </span><span class="kt">public</span><span class="w"> </span><span class="kt">returns</span><span class="w"> </span><span class="p">(</span><span class="kt">bool</span><span class="w"> </span><span class="nv">success</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="kt">require</span><span class="p">(</span>balanceOf<span class="p">[</span><span class="k">msg.sender</span><span class="p">]</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span>_value<span class="p">);</span><span class="w">   </span><span class="c1">// Check if the sender has enough</span>
 <span class="w">        </span>balanceOf<span class="p">[</span><span class="k">msg.sender</span><span class="p">]</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span>_value<span class="p">;</span><span class="w">            </span><span class="c1">// Subtract from the sender</span>
 <span class="w">        </span>totalSupply<span class="w"> </span><span class="o">-=</span><span class="w"> </span>_value<span class="p">;</span><span class="w">                      </span><span class="c1">// Updates totalSupply</span>
-<span class="w">        </span>emit<span class="w"> </span>Burn<span class="p">(</span><span class="k">msg.sender</span><span class="p">,</span><span class="w"> </span>_value<span class="p">);</span><span class="w"></span>
-<span class="w">        </span><span class="kt">return</span><span class="w"> </span><span class="kt">true</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">        </span>emit<span class="w"> </span>Burn<span class="p">(</span><span class="k">msg.sender</span><span class="p">,</span><span class="w"> </span>_value<span class="p">);</span>
+<span class="w">        </span><span class="kt">return</span><span class="w"> </span><span class="kt">true</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
 
 <span class="w">    </span><span class="cm">/**</span>
 <span class="cm">     * Destroy tokens from other account</span>
@@ -414,17 +414,17 @@ interface<span class="w"> </span>tokenRecipient<span class="w"> </span><span cla
 <span class="cm">     *</span>
 <span class="cm">     * @param _from the address of the sender</span>
 <span class="cm">     * @param _value the amount of money to burn</span>
-<span class="cm">     */</span><span class="w"></span>
-<span class="w">    </span><span class="kt">function</span><span class="w"> </span><span class="nv">burnFrom</span><span class="p">(</span><span class="kt">address</span><span class="w"> </span><span class="nv">_from</span><span class="p">,</span><span class="w"> </span><span class="kt">uint256</span><span class="w"> </span><span class="nv">_value</span><span class="p">)</span><span class="w"> </span><span class="kt">public</span><span class="w"> </span><span class="kt">returns</span><span class="w"> </span><span class="p">(</span><span class="kt">bool</span><span class="w"> </span><span class="nv">success</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="cm">     */</span>
+<span class="w">    </span><span class="kt">function</span><span class="w"> </span><span class="nv">burnFrom</span><span class="p">(</span><span class="kt">address</span><span class="w"> </span><span class="nv">_from</span><span class="p">,</span><span class="w"> </span><span class="kt">uint256</span><span class="w"> </span><span class="nv">_value</span><span class="p">)</span><span class="w"> </span><span class="kt">public</span><span class="w"> </span><span class="kt">returns</span><span class="w"> </span><span class="p">(</span><span class="kt">bool</span><span class="w"> </span><span class="nv">success</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="kt">require</span><span class="p">(</span>balanceOf<span class="p">[</span>_from<span class="p">]</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span>_value<span class="p">);</span><span class="w">                </span><span class="c1">// Check if the targeted balance is enough</span>
 <span class="w">        </span><span class="kt">require</span><span class="p">(</span>_value<span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span>allowance<span class="p">[</span>_from<span class="p">][</span><span class="k">msg.sender</span><span class="p">]);</span><span class="w">    </span><span class="c1">// Check allowance</span>
 <span class="w">        </span>balanceOf<span class="p">[</span>_from<span class="p">]</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span>_value<span class="p">;</span><span class="w">                         </span><span class="c1">// Subtract from the targeted balance</span>
 <span class="w">        </span>allowance<span class="p">[</span>_from<span class="p">][</span><span class="k">msg.sender</span><span class="p">]</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span>_value<span class="p">;</span><span class="w">             </span><span class="c1">// Subtract from the sender&#39;s allowance</span>
 <span class="w">        </span>totalSupply<span class="w"> </span><span class="o">-=</span><span class="w"> </span>_value<span class="p">;</span><span class="w">                              </span><span class="c1">// Update totalSupply</span>
-<span class="w">        </span>emit<span class="w"> </span>Burn<span class="p">(</span>_from<span class="p">,</span><span class="w"> </span>_value<span class="p">);</span><span class="w"></span>
-<span class="w">        </span><span class="kt">return</span><span class="w"> </span><span class="kt">true</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">        </span>emit<span class="w"> </span>Burn<span class="p">(</span>_from<span class="p">,</span><span class="w"> </span>_value<span class="p">);</span>
+<span class="w">        </span><span class="kt">return</span><span class="w"> </span><span class="kt">true</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
 </code></pre></div>
               
             </div>

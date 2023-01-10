@@ -139,6 +139,8 @@
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../../releases/upgrade-instruction/">新版本部署手册</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../releases/">一致性检验</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="#">历史版本</a>
     <ul>
                 <li class="toctree-l2"><a class="reference internal" href="../../releases/GreatVoyage-v460/">GreatVoyage-v4.6.0</a>
@@ -178,8 +180,6 @@
                 <li class="toctree-l2"><a class="reference internal" href="../../releases/Odyssey-v365/">Odyssey-v3.6.5</a>
                 </li>
     </ul>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../releases/">一致性检验</a>
                   </li>
               </ul>
               <ul>
@@ -237,18 +237,18 @@ java -jar build/libs/DBConvert.jar  #执行数据转换指令
 <p><strong>src_db_path</strong>:指定LevelDB数据库路径源，默认是 output-directory/database</p>
 <p><strong>dst_db_path</strong>:指定RocksDB数据库路径，默认是 output-directory-dst/database</p>
 <p>例如，如果节点是像这样的脚本运行的:</p>
-<div class="highlight"><pre><span></span><code>nohup java -jar FullNode.jar -d your_database_dir <span class="p">&amp;</span>
+<div class="highlight"><pre><span></span><code>nohup<span class="w"> </span>java<span class="w"> </span>-jar<span class="w"> </span>FullNode.jar<span class="w"> </span>-d<span class="w"> </span>your_database_dir<span class="w"> </span><span class="p">&amp;</span>
 </code></pre></div>
 <p>那么，你应该这样运行数据转换工具DBConvert.jar:</p>
-<div class="highlight"><pre><span></span><code>java -jar build/libs/DBConvert.jar  your_database_dir/database  output-directory-dst/database
+<div class="highlight"><pre><span></span><code>java<span class="w"> </span>-jar<span class="w"> </span>build/libs/DBConvert.jar<span class="w">  </span>your_database_dir/database<span class="w">  </span>output-directory-dst/database
 </code></pre></div>
 <p>注意：必须停止节点的运行，然后再运行数据转换脚本。
   如果不希望节点停止时间太长，可以在节点停止后先将leveldb数据目录output-directory拷贝一份到新的目录下，然后恢复节点的运行。</p>
 <p>在新目录的上级目录中执行DBConvert.jar并指定参数<code>src_db_path</code>和<code>dst_db_path</code> 。
   例如:</p>
-<div class="highlight"><pre><span></span><code>cp -rf output-directory /tmp/output-directory
-<span class="nb">cd</span> /tmp
-java -jar DBConvert.jar output-directory/database  output-directory-dst/database
+<div class="highlight"><pre><span></span><code>cp<span class="w"> </span>-rf<span class="w"> </span>output-directory<span class="w"> </span>/tmp/output-directory
+<span class="nb">cd</span><span class="w"> </span>/tmp
+java<span class="w"> </span>-jar<span class="w"> </span>DBConvert.jar<span class="w"> </span>output-directory/database<span class="w">  </span>output-directory-dst/database
 </code></pre></div>
 <p>整个的数据转换过程可能需要10个小时左右。</p>
 <h3 id="4-rocksdbleveldb">4. rocksdb与leveldb的对比<a class="headerlink" href="#4-rocksdbleveldb" title="Permanent link">&para;</a></h3>

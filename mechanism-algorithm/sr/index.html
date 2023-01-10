@@ -171,6 +171,8 @@
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../../releases/upgrade-instruction/">新版本部署手册</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../releases/">一致性检验</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="#">历史版本</a>
     <ul>
                 <li class="toctree-l2"><a class="reference internal" href="../../releases/GreatVoyage-v460/">GreatVoyage-v4.6.0</a>
@@ -210,8 +212,6 @@
                 <li class="toctree-l2"><a class="reference internal" href="../../releases/Odyssey-v365/">Odyssey-v3.6.5</a>
                 </li>
     </ul>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../releases/">一致性检验</a>
                   </li>
               </ul>
               <ul>
@@ -258,9 +258,9 @@
 <ul>
 <li>示例：</li>
 </ul>
-<div class="highlight"><pre><span></span><code>freezebalance <span class="m">10</span>,000,000 <span class="m">3</span> <span class="c1"># 质押了10TRX，获取了10单位TRON Power(TP)</span>
-votewitness witness1 <span class="m">4</span> witness2 <span class="m">6</span> <span class="c1"># 同时给witness1投了4票，给witness2投了6票</span>
-votewitness witness1 <span class="m">3</span> witness2 <span class="m">7</span> <span class="c1"># 同时给witness1投了3票，给witness2投了7票</span>
+<div class="highlight"><pre><span></span><code>freezebalance<span class="w"> </span><span class="m">10</span>,000,000<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="c1"># 质押了10TRX，获取了10单位TRON Power(TP)</span>
+votewitness<span class="w"> </span>witness1<span class="w"> </span><span class="m">4</span><span class="w"> </span>witness2<span class="w"> </span><span class="m">6</span><span class="w"> </span><span class="c1"># 同时给witness1投了4票，给witness2投了6票</span>
+votewitness<span class="w"> </span>witness1<span class="w"> </span><span class="m">3</span><span class="w"> </span>witness2<span class="w"> </span><span class="m">7</span><span class="w"> </span><span class="c1"># 同时给witness1投了3票，给witness2投了7票</span>
 </code></pre></div>
 <p>以上命令的最终结果是给witness1投了3票，给witness2投了7票</p>
 <h3 id="witnesses">Witnesses分红<a class="headerlink" href="#witnesses" title="Permanent link">&para;</a></h3>
@@ -474,17 +474,17 @@ value0_N: 新参数值
 <ul>
 <li>示例：</li>
 </ul>
-<div class="highlight"><pre><span></span><code>approveProposal id is_or_not_add_approval
-id: 提议Id，根据提议创建时间递增
-is_or_not_add_approval: 赞成或取消赞成
+<div class="highlight"><pre><span></span><code>approveProposal<span class="w"> </span>id<span class="w"> </span>is_or_not_add_approval
+id:<span class="w"> </span>提议Id，根据提议创建时间递增
+is_or_not_add_approval:<span class="w"> </span>赞成或取消赞成
 </code></pre></div>
 <h3 id="54">5.4 取消提议<a class="headerlink" href="#54" title="Permanent link">&para;</a></h3>
 <p>提议创建者，能够在提议生效前，取消提议。</p>
 <ul>
 <li>示例：</li>
 </ul>
-<div class="highlight"><pre><span></span><code>deleteProposal proposalId
-id: 提议Id，根据提议创建时间递增
+<div class="highlight"><pre><span></span><code>deleteProposal<span class="w"> </span>proposalId
+id:<span class="w"> </span>提议Id，根据提议创建时间递增
 </code></pre></div>
 <h3 id="55">5.5 查询提议<a class="headerlink" href="#55" title="Permanent link">&para;</a></h3>
 <p>以下接口可以查询提议，包括：</p>

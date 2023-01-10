@@ -137,6 +137,8 @@
               <ul class="current">
                   <li class="toctree-l1"><a class="reference internal" href="../upgrade-instruction/">新版本部署手册</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../">一致性检验</a>
+                  </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="#">历史版本</a>
     <ul class="current">
                 <li class="toctree-l2 current"><a class="reference internal current" href="./">GreatVoyage-v4.6.0</a>
@@ -209,8 +211,6 @@
                 </li>
     </ul>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../">一致性检验</a>
-                  </li>
               </ul>
               <ul>
                 <li class="toctree-l1"><a class="reference internal" href="../../glossary/">术语表</a>
@@ -263,7 +263,7 @@
 <li>源代码：<a href="https://github.com/tronprotocol/java-tron/pull/4758">https://github.com/tronprotocol/java-tron/pull/4758</a> </li>
 </ul>
 <h3 id="3">3. 优化投票奖励计算算法<a class="headerlink" href="#3" title="Permanent link">&para;</a></h3>
-<p>TRON网络中很多选民会累积很长时间的奖励再进行提取，两次提取奖励之间的间隔很长，在GreatVoyage-v4.6.0(Socrates)之前的版本中，如果用户提交了提取奖励的交易， 该交易会依次计算并累加距离上一次提取奖励之间的每一个维护期获得奖励，所以距离上次一次提取奖励的时间越长，本次提取奖励的交易执行越耗时。因此，GreatVoyage-v4.6.0(Socrates)版本优化了投票奖励计算方法，不再累加每个维护期的奖励，而是将上一个维护期记录的奖励总数减去上一次提取奖励交易所在维护期记录的奖励总和，就可以得到未提取的奖励总和。该方法实现了常量时间内计算出未提取的奖励总数，极大的提高了计算效率，加快了奖励计算相关交易的执行速度，从而提升网络的吞吐量。</p>
+<p>TRON网络中很多选民会累积很长时间的奖励再进行提取，两次提取奖励之间的间隔很长，在GreatVoyage-v4.6.0(Socrates)之前的版本中，如果用户提交了提取奖励的交易， 该交易会依次计算并累加距离上一次提取奖励之间的每一个维护期获得奖励，所以距离上一次提取奖励的时间越长，本次提取奖励的交易执行越耗时。因此，GreatVoyage-v4.6.0(Socrates)版本优化了投票奖励计算方法，不再累加每个维护期的奖励，而是将上一个维护期记录的奖励总数减去上一次提取奖励交易所在维护期记录的奖励总和，就可以得到未提取的奖励总和。该方法实现了常量时间内计算出未提取的奖励总数，极大的提高了计算效率，加快了奖励计算相关交易的执行速度，从而提升网络的吞吐量。</p>
 <p>投票奖励算法的优化是TRON网络的一个动态参数，GreatVoyage-v4.6.0(Socrates)部署之后默认是关闭状态，可以通过发起提案投票的方式开启。</p>
 <ul>
 <li>TIP: <a href="https://github.com/tronprotocol/tips/issues/465">https://github.com/tronprotocol/tips/issues/465</a> </li>
@@ -351,7 +351,7 @@ VIRTUAL MACHINE OPTIONS:
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../upgrade-instruction/" class="btn btn-neutral float-left" title="新版本部署手册"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../" class="btn btn-neutral float-left" title="一致性检验"><span class="icon icon-circle-arrow-left"></span> Previous</a>
         <a href="../GreatVoyage-v452/" class="btn btn-neutral float-right" title="GreatVoyage-v4.5.2">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
@@ -379,7 +379,7 @@ VIRTUAL MACHINE OPTIONS:
         </span>
     
     
-      <span><a href="../upgrade-instruction/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
       <span><a href="../GreatVoyage-v452/" style="color: #fcfcfc">Next &raquo;</a></span>

@@ -155,6 +155,8 @@
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../../releases/upgrade-instruction/">新版本部署手册</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../releases/">一致性检验</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="#">历史版本</a>
     <ul>
                 <li class="toctree-l2"><a class="reference internal" href="../../releases/GreatVoyage-v460/">GreatVoyage-v4.6.0</a>
@@ -194,8 +196,6 @@
                 <li class="toctree-l2"><a class="reference internal" href="../../releases/Odyssey-v365/">Odyssey-v3.6.5</a>
                 </li>
     </ul>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../releases/">一致性检验</a>
                   </li>
               </ul>
               <ul>
@@ -273,7 +273,7 @@
 <code>name</code>是数据库名称,<code>path</code>是数据库迁移的目的目录，工具会将<code>name</code>指定的数据库迁移到<code>path</code>指定的目录，然后会在原来的路径下创建一个软链接指向<code>path</code>目录，<code>FullNode</code>启动后会根据软链接寻找到<code>path</code>目录。</p>
 <h3 id="_6">执行数据库迁移<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
 <p>执行后会显示当前迁移进度。</p>
-<div class="highlight"><pre><span></span><code>$ java -jar Toolkit.jar db mv -c main_net_config.conf -d /data/tron/output-directory
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>java<span class="w"> </span>-jar<span class="w"> </span>Toolkit.jar<span class="w"> </span>db<span class="w"> </span>mv<span class="w"> </span>-c<span class="w"> </span>main_net_config.conf<span class="w"> </span>-d<span class="w"> </span>/data/tron/output-directory
 </code></pre></div>
 <h3 id="fullnode_1">重新启动 FullNode 服务<a class="headerlink" href="#fullnode_1" title="Permanent link">&para;</a></h3>
 <p>迁移完成后，重新启动Java-tron节点。

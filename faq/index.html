@@ -137,6 +137,8 @@
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../releases/upgrade-instruction/">新版本部署手册</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../releases/">一致性检验</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="#">历史版本</a>
     <ul>
                 <li class="toctree-l2"><a class="reference internal" href="../releases/GreatVoyage-v460/">GreatVoyage-v4.6.0</a>
@@ -176,8 +178,6 @@
                 <li class="toctree-l2"><a class="reference internal" href="../releases/Odyssey-v365/">Odyssey-v3.6.5</a>
                 </li>
     </ul>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../releases/">一致性检验</a>
                   </li>
               </ul>
               <ul>
@@ -344,8 +344,8 @@
 <p>请查阅 <a href="../mechanism-algorithm/resource/">资源模型</a>.</p>
 <h4 id="_12">怎么计算交易带宽消耗？<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h4>
 <p><code>Transaction</code> pb 结构去除 <code>ret</code> 字段，然后再加上 64 字节。</p>
-<div class="highlight"><pre><span></span><code><span class="n">Transaction</span><span class="w"> </span><span class="n">transaction</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="na">get</span><span class="p">();</span><span class="w"></span>
-<span class="kt">long</span><span class="w"> </span><span class="n">bytesSize</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">transaction</span><span class="p">.</span><span class="na">toBuilder</span><span class="p">().</span><span class="na">clearRet</span><span class="p">().</span><span class="na">build</span><span class="p">().</span><span class="na">getSerializedSize</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">64</span><span class="p">;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="n">Transaction</span><span class="w"> </span><span class="n">transaction</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="na">get</span><span class="p">();</span>
+<span class="kt">long</span><span class="w"> </span><span class="n">bytesSize</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">transaction</span><span class="p">.</span><span class="na">toBuilder</span><span class="p">().</span><span class="na">clearRet</span><span class="p">().</span><span class="na">build</span><span class="p">().</span><span class="na">getSerializedSize</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">64</span><span class="p">;</span>
 </code></pre></div>
 <p>参考 <a href="https://github.com/tronprotocol/documentation/issues/370">tronprotocol/documentation#370</a>.</p>
 <h2 id="api">API 使用<a class="headerlink" href="#api" title="Permanent link">&para;</a></h2>
@@ -424,7 +424,7 @@
 <p>步骤如下：</p>
 <p>下载<a href="https://github.com/tronprotocol/java-tron/blob/develop/src/main/resources/logback.xml">logback.xml</a></p>
 <p>取消注释掉以下内容：</p>
-<div class="highlight"><pre><span></span><code>appender name=&quot;STDOUT&quot; class=&quot;ch.qos.logback.core.ConsoleAppender&quot;
+<div class="highlight"><pre><span></span><code>appender<span class="w"> </span>name=&quot;STDOUT&quot;<span class="w"> </span>class=&quot;ch.qos.logback.core.ConsoleAppender&quot;
 </code></pre></div>
 <p>在 <code>root level="INFO"</code> 下</p>
 <ul>
@@ -437,23 +437,23 @@
 </code></pre></div>
 <h4 id="_24">如何修改日志级别？<a class="headerlink" href="#_24" title="Permanent link">&para;</a></h4>
 <p>日志级别在 <code>logback.xml</code> 中定义。通过修改 <code>root level=</code> 来改变输出的日志级别。</p>
-<div class="highlight"><pre><span></span><code><span class="nt">&lt;root</span> <span class="na">level=</span><span class="s">&quot;ERROR&quot;</span><span class="nt">&gt;</span>
-    <span class="cm">&lt;!--&lt;appender-ref ref=&quot;STDOUT&quot;/&gt;--&gt;</span>
-    <span class="nt">&lt;appender-ref</span> <span class="na">ref=</span><span class="s">&quot;ASYNC&quot;</span><span class="nt">/&gt;</span>
-  <span class="nt">&lt;/root&gt;</span>
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;root</span><span class="w"> </span><span class="na">level=</span><span class="s">&quot;ERROR&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="cm">&lt;!--&lt;appender-ref ref=&quot;STDOUT&quot;/&gt;--&gt;</span>
+<span class="w">    </span><span class="nt">&lt;appender-ref</span><span class="w"> </span><span class="na">ref=</span><span class="s">&quot;ASYNC&quot;</span><span class="nt">/&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/root&gt;</span>
 
-  <span class="nt">&lt;logger</span> <span class="na">name=</span><span class="s">&quot;app&quot;</span> <span class="na">level=</span><span class="s">&quot;ERROR&quot;</span><span class="nt">/&gt;</span>
-  <span class="nt">&lt;logger</span> <span class="na">name=</span><span class="s">&quot;net&quot;</span> <span class="na">level=</span><span class="s">&quot;ERROR&quot;</span><span class="nt">/&gt;</span>
-  <span class="nt">&lt;logger</span> <span class="na">name=</span><span class="s">&quot;backup&quot;</span> <span class="na">level=</span><span class="s">&quot;ERROR&quot;</span><span class="nt">/&gt;</span>
-  <span class="nt">&lt;logger</span> <span class="na">name=</span><span class="s">&quot;discover&quot;</span> <span class="na">level=</span><span class="s">&quot;ERROR&quot;</span><span class="nt">/&gt;</span>
-  <span class="nt">&lt;logger</span> <span class="na">name=</span><span class="s">&quot;crypto&quot;</span> <span class="na">level=</span><span class="s">&quot;ERROR&quot;</span><span class="nt">/&gt;</span>
-  <span class="nt">&lt;logger</span> <span class="na">name=</span><span class="s">&quot;utils&quot;</span> <span class="na">level=</span><span class="s">&quot;ERROR&quot;</span><span class="nt">/&gt;</span>
-  <span class="nt">&lt;logger</span> <span class="na">name=</span><span class="s">&quot;actuator&quot;</span> <span class="na">level=</span><span class="s">&quot;ERROR&quot;</span><span class="nt">/&gt;</span>
-  <span class="nt">&lt;logger</span> <span class="na">name=</span><span class="s">&quot;API&quot;</span> <span class="na">level=</span><span class="s">&quot;ERROR&quot;</span><span class="nt">/&gt;</span>
-  <span class="nt">&lt;logger</span> <span class="na">name=</span><span class="s">&quot;witness&quot;</span> <span class="na">level=</span><span class="s">&quot;ERROR&quot;</span><span class="nt">/&gt;</span>
-  <span class="nt">&lt;logger</span> <span class="na">name=</span><span class="s">&quot;DB&quot;</span> <span class="na">level=</span><span class="s">&quot;ERROR&quot;</span><span class="nt">/&gt;</span>
-  <span class="nt">&lt;logger</span> <span class="na">name=</span><span class="s">&quot;capsule&quot;</span> <span class="na">level=</span><span class="s">&quot;ERROR&quot;</span><span class="nt">/&gt;</span>
-  <span class="nt">&lt;logger</span> <span class="na">name=</span><span class="s">&quot;VM&quot;</span> <span class="na">level=</span><span class="s">&quot;ERROR&quot;</span><span class="nt">/&gt;</span>
+<span class="w">  </span><span class="nt">&lt;logger</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;app&quot;</span><span class="w"> </span><span class="na">level=</span><span class="s">&quot;ERROR&quot;</span><span class="nt">/&gt;</span>
+<span class="w">  </span><span class="nt">&lt;logger</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;net&quot;</span><span class="w"> </span><span class="na">level=</span><span class="s">&quot;ERROR&quot;</span><span class="nt">/&gt;</span>
+<span class="w">  </span><span class="nt">&lt;logger</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;backup&quot;</span><span class="w"> </span><span class="na">level=</span><span class="s">&quot;ERROR&quot;</span><span class="nt">/&gt;</span>
+<span class="w">  </span><span class="nt">&lt;logger</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;discover&quot;</span><span class="w"> </span><span class="na">level=</span><span class="s">&quot;ERROR&quot;</span><span class="nt">/&gt;</span>
+<span class="w">  </span><span class="nt">&lt;logger</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;crypto&quot;</span><span class="w"> </span><span class="na">level=</span><span class="s">&quot;ERROR&quot;</span><span class="nt">/&gt;</span>
+<span class="w">  </span><span class="nt">&lt;logger</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;utils&quot;</span><span class="w"> </span><span class="na">level=</span><span class="s">&quot;ERROR&quot;</span><span class="nt">/&gt;</span>
+<span class="w">  </span><span class="nt">&lt;logger</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;actuator&quot;</span><span class="w"> </span><span class="na">level=</span><span class="s">&quot;ERROR&quot;</span><span class="nt">/&gt;</span>
+<span class="w">  </span><span class="nt">&lt;logger</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;API&quot;</span><span class="w"> </span><span class="na">level=</span><span class="s">&quot;ERROR&quot;</span><span class="nt">/&gt;</span>
+<span class="w">  </span><span class="nt">&lt;logger</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;witness&quot;</span><span class="w"> </span><span class="na">level=</span><span class="s">&quot;ERROR&quot;</span><span class="nt">/&gt;</span>
+<span class="w">  </span><span class="nt">&lt;logger</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;DB&quot;</span><span class="w"> </span><span class="na">level=</span><span class="s">&quot;ERROR&quot;</span><span class="nt">/&gt;</span>
+<span class="w">  </span><span class="nt">&lt;logger</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;capsule&quot;</span><span class="w"> </span><span class="na">level=</span><span class="s">&quot;ERROR&quot;</span><span class="nt">/&gt;</span>
+<span class="w">  </span><span class="nt">&lt;logger</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;VM&quot;</span><span class="w"> </span><span class="na">level=</span><span class="s">&quot;ERROR&quot;</span><span class="nt">/&gt;</span>
 </code></pre></div>
 <h4 id="_25">在私有网络环境下，我如何设置我的资产？<a class="headerlink" href="#_25" title="Permanent link">&para;</a></h4>
 <p>在私有网络环境下，你可以通过修改配置文件来设置你初始账户的资产。配置文件如下：</p>

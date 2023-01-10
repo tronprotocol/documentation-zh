@@ -163,6 +163,8 @@
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../../releases/upgrade-instruction/">新版本部署手册</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../releases/">一致性检验</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="#">历史版本</a>
     <ul>
                 <li class="toctree-l2"><a class="reference internal" href="../../releases/GreatVoyage-v460/">GreatVoyage-v4.6.0</a>
@@ -202,8 +204,6 @@
                 <li class="toctree-l2"><a class="reference internal" href="../../releases/Odyssey-v365/">Odyssey-v3.6.5</a>
                 </li>
     </ul>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../releases/">一致性检验</a>
                   </li>
               </ul>
               <ul>
@@ -256,14 +256,14 @@ $ git merge upstream/develop --no-ff
 </code></pre></div>
 <h2 id="_4">代码实现<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
 <p>在IDEA中打开Java-tron工程。在<code>java-tron/framework/src/main/java/org/tron/core/services/http</code>目录下新建一个servlet用于处理HTTP请求：SetPeerServlet.java，该文件中应包含两个函数<code>doGet</code>和<code>doPost</code>。<code>doGet</code>用于处理http get请求，<code>doPost</code>用于处理http post请求。如果不支持其中某种类型的请求，方法内容为空即可。
-<div class="highlight"><pre><span></span><code><span class="nd">@Component</span><span class="w"></span>
-<span class="nd">@Slf4j</span><span class="p">(</span><span class="n">topic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;API&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">SetPeerServlet</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">HttpServlet</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nd">@Component</span>
+<span class="nd">@Slf4j</span><span class="p">(</span><span class="n">topic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;API&quot;</span><span class="p">)</span>
+<span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">SetPeerServlet</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">HttpServlet</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="kd">protected</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">doGet</span><span class="p">(</span><span class="n">HttpServletRequest</span><span class="w"> </span><span class="n">request</span><span class="p">,</span><span class="w"> </span><span class="n">HttpServletResponse</span><span class="w"> </span><span class="n">response</span><span class="p">)</span><span class="w"> </span>
-<span class="w">    </span><span class="p">{}</span><span class="w"></span>
+<span class="w">    </span><span class="p">{}</span>
 <span class="w">    </span><span class="kd">protected</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">doPost</span><span class="p">(</span><span class="n">HttpServletRequest</span><span class="w"> </span><span class="n">request</span><span class="p">,</span><span class="w"> </span><span class="n">HttpServletResponse</span><span class="w"> </span><span class="n">response</span><span class="p">)</span><span class="w"> </span>
-<span class="w">    </span><span class="p">{}</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">{}</span>
+<span class="p">}</span>
 </code></pre></div></p>
 <p>在该示例中setPeer请求应该通过post方式发送，因此需要在<code>doPost</code>方法中添加处理逻辑，<code>doGet</code>方法内容为空。</p>
 <p><code>doPost</code>方法的逻辑为：</p>
@@ -272,37 +272,37 @@ $ git merge upstream/develop --no-ff
 <li>通过addPeer方法将peer信息添加到信任节点列表中</li>
 <li>将addPeer的处理结果返回给前端用户</li>
 </ol>
-<div class="highlight"><pre><span></span><code><span class="nd">@Component</span><span class="w"></span>
-<span class="nd">@Slf4j</span><span class="p">(</span><span class="n">topic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;API&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">SetPeerServlet</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">HttpServlet</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="nd">@Autowired</span><span class="w"></span>
-<span class="w">  </span><span class="kd">private</span><span class="w"> </span><span class="n">ChannelManager</span><span class="w"> </span><span class="n">channelManager</span><span class="p">;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nd">@Component</span>
+<span class="nd">@Slf4j</span><span class="p">(</span><span class="n">topic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;API&quot;</span><span class="p">)</span>
+<span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">SetPeerServlet</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">HttpServlet</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nd">@Autowired</span>
+<span class="w">  </span><span class="kd">private</span><span class="w"> </span><span class="n">ChannelManager</span><span class="w"> </span><span class="n">channelManager</span><span class="p">;</span>
 
-<span class="w">  </span><span class="kd">protected</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">doPost</span><span class="p">(</span><span class="n">HttpServletRequest</span><span class="w"> </span><span class="n">request</span><span class="p">,</span><span class="w"> </span><span class="n">HttpServletResponse</span><span class="w"> </span><span class="n">response</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">try</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">      </span><span class="n">PostParams</span><span class="w"> </span><span class="n">params</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PostParams</span><span class="p">.</span><span class="na">getPostParams</span><span class="p">(</span><span class="n">request</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="kd">protected</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">doPost</span><span class="p">(</span><span class="n">HttpServletRequest</span><span class="w"> </span><span class="n">request</span><span class="p">,</span><span class="w"> </span><span class="n">HttpServletResponse</span><span class="w"> </span><span class="n">response</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="n">PostParams</span><span class="w"> </span><span class="n">params</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PostParams</span><span class="p">.</span><span class="na">getPostParams</span><span class="p">(</span><span class="n">request</span><span class="p">);</span>
 
-<span class="w">      </span><span class="n">JSONObject</span><span class="w"> </span><span class="n">jsonObject</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">JSONObject</span><span class="p">.</span><span class="na">parseObject</span><span class="p">(</span><span class="n">params</span><span class="p">.</span><span class="na">getParams</span><span class="p">());</span><span class="w"></span>
-<span class="w">      </span><span class="n">String</span><span class="w"> </span><span class="n">peerIpPort</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">String</span><span class="p">.</span><span class="na">valueOf</span><span class="p">(</span><span class="n">jsonObject</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="s">&quot;peer&quot;</span><span class="p">));</span><span class="w"></span>
+<span class="w">      </span><span class="n">JSONObject</span><span class="w"> </span><span class="n">jsonObject</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">JSONObject</span><span class="p">.</span><span class="na">parseObject</span><span class="p">(</span><span class="n">params</span><span class="p">.</span><span class="na">getParams</span><span class="p">());</span>
+<span class="w">      </span><span class="n">String</span><span class="w"> </span><span class="n">peerIpPort</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">String</span><span class="p">.</span><span class="na">valueOf</span><span class="p">(</span><span class="n">jsonObject</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="s">&quot;peer&quot;</span><span class="p">));</span>
 
-<span class="w">      </span><span class="kt">boolean</span><span class="w"> </span><span class="n">res</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">addPeer</span><span class="p">(</span><span class="n">peerIpPort</span><span class="p">);</span><span class="w"></span>
-<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">res</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="n">response</span><span class="p">.</span><span class="na">getWriter</span><span class="p">().</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Success to set trusted peer:&quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">peerIpPort</span><span class="p">);</span><span class="w"></span>
-<span class="w">      </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="n">response</span><span class="p">.</span><span class="na">getWriter</span><span class="p">().</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Fail to set the trusted peer:&quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">peerIpPort</span><span class="p">);</span><span class="w"></span>
-<span class="w">      </span><span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="kt">boolean</span><span class="w"> </span><span class="n">res</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">addPeer</span><span class="p">(</span><span class="n">peerIpPort</span><span class="p">);</span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">res</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">response</span><span class="p">.</span><span class="na">getWriter</span><span class="p">().</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Success to set trusted peer:&quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">peerIpPort</span><span class="p">);</span>
+<span class="w">      </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">response</span><span class="p">.</span><span class="na">getWriter</span><span class="p">().</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Fail to set the trusted peer:&quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">peerIpPort</span><span class="p">);</span>
+<span class="w">      </span><span class="p">}</span>
 
-<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">Exception</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">      </span><span class="n">logger</span><span class="p">.</span><span class="na">error</span><span class="p">(</span><span class="s">&quot;Exception occurs when setting peer: {}&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="na">getMessage</span><span class="p">());</span><span class="w"></span>
-<span class="w">      </span><span class="k">try</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="n">response</span><span class="p">.</span><span class="na">getWriter</span><span class="p">().</span><span class="na">println</span><span class="p">(</span><span class="n">Util</span><span class="p">.</span><span class="na">printErrorMsg</span><span class="p">(</span><span class="n">e</span><span class="p">));</span><span class="w"></span>
-<span class="w">      </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">IOException</span><span class="w"> </span><span class="n">ioe</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="n">logger</span><span class="p">.</span><span class="na">error</span><span class="p">(</span><span class="s">&quot;IOException occurs when setting peer: {}&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">ioe</span><span class="p">.</span><span class="na">getMessage</span><span class="p">());</span><span class="w"></span>
-<span class="w">      </span><span class="p">}</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="w">  </span><span class="p">}</span><span class="w"></span>
-<span class="w">  </span><span class="p">......</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">Exception</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="n">logger</span><span class="p">.</span><span class="na">error</span><span class="p">(</span><span class="s">&quot;Exception occurs when setting peer: {}&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="na">getMessage</span><span class="p">());</span>
+<span class="w">      </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">response</span><span class="p">.</span><span class="na">getWriter</span><span class="p">().</span><span class="na">println</span><span class="p">(</span><span class="n">Util</span><span class="p">.</span><span class="na">printErrorMsg</span><span class="p">(</span><span class="n">e</span><span class="p">));</span>
+<span class="w">      </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">IOException</span><span class="w"> </span><span class="n">ioe</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">logger</span><span class="p">.</span><span class="na">error</span><span class="p">(</span><span class="s">&quot;IOException occurs when setting peer: {}&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">ioe</span><span class="p">.</span><span class="na">getMessage</span><span class="p">());</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="p">......</span>
+<span class="p">}</span>
 </code></pre></div>
 <p>将添加信任节点的处理逻辑单独放在<code>addPeer</code>方法中，这样不但可以使代码逻辑更加清晰，而且更易于测试。</p>
 <p><code>addPeer</code>函数的逻辑为：</p>
@@ -312,43 +312,43 @@ $ git merge upstream/develop --no-ff
 <li>确保添加的信任节点不是自己</li>
 <li>将节点加入到自己的信任节点列表中</li>
 </ol>
-<p><div class="highlight"><pre><span></span><code><span class="w">  </span><span class="kt">boolean</span><span class="w"> </span><span class="nf">addPeer</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">peerIP</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">try</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">peerIP</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="n">Node</span><span class="w"> </span><span class="n">node</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Node</span><span class="p">.</span><span class="na">instanceOf</span><span class="p">(</span><span class="n">peerIP</span><span class="p">);</span><span class="w"></span>
-<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="n">CommonParameter</span><span class="p">.</span><span class="na">PARAMETER</span><span class="p">.</span><span class="na">nodeDiscoveryBindIp</span><span class="p">.</span><span class="na">equals</span><span class="p">(</span><span class="n">node</span><span class="p">.</span><span class="na">getHost</span><span class="p">())</span><span class="w"></span>
-<span class="w">                </span><span class="o">||</span><span class="w"> </span><span class="n">CommonParameter</span><span class="p">.</span><span class="na">PARAMETER</span><span class="p">.</span><span class="na">nodeExternalIp</span><span class="p">.</span><span class="na">equals</span><span class="p">(</span><span class="n">node</span><span class="p">.</span><span class="na">getHost</span><span class="p">())</span><span class="w"></span>
-<span class="w">                </span><span class="o">||</span><span class="w"> </span><span class="n">Constant</span><span class="p">.</span><span class="na">LOCAL_HOST</span><span class="p">.</span><span class="na">equals</span><span class="p">(</span><span class="n">node</span><span class="p">.</span><span class="na">getHost</span><span class="p">()))</span><span class="w"></span>
-<span class="w">                </span><span class="o">||</span><span class="w"> </span><span class="n">CommonParameter</span><span class="p">.</span><span class="na">PARAMETER</span><span class="p">.</span><span class="na">nodeListenPort</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">node</span><span class="p">.</span><span class="na">getPort</span><span class="p">())</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<p><div class="highlight"><pre><span></span><code><span class="w">  </span><span class="kt">boolean</span><span class="w"> </span><span class="nf">addPeer</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">peerIP</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">peerIP</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">Node</span><span class="w"> </span><span class="n">node</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Node</span><span class="p">.</span><span class="na">instanceOf</span><span class="p">(</span><span class="n">peerIP</span><span class="p">);</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="n">CommonParameter</span><span class="p">.</span><span class="na">PARAMETER</span><span class="p">.</span><span class="na">nodeDiscoveryBindIp</span><span class="p">.</span><span class="na">equals</span><span class="p">(</span><span class="n">node</span><span class="p">.</span><span class="na">getHost</span><span class="p">())</span>
+<span class="w">                </span><span class="o">||</span><span class="w"> </span><span class="n">CommonParameter</span><span class="p">.</span><span class="na">PARAMETER</span><span class="p">.</span><span class="na">nodeExternalIp</span><span class="p">.</span><span class="na">equals</span><span class="p">(</span><span class="n">node</span><span class="p">.</span><span class="na">getHost</span><span class="p">())</span>
+<span class="w">                </span><span class="o">||</span><span class="w"> </span><span class="n">Constant</span><span class="p">.</span><span class="na">LOCAL_HOST</span><span class="p">.</span><span class="na">equals</span><span class="p">(</span><span class="n">node</span><span class="p">.</span><span class="na">getHost</span><span class="p">()))</span>
+<span class="w">                </span><span class="o">||</span><span class="w"> </span><span class="n">CommonParameter</span><span class="p">.</span><span class="na">PARAMETER</span><span class="p">.</span><span class="na">nodeListenPort</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">node</span><span class="p">.</span><span class="na">getPort</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
 
-<span class="w">          </span><span class="n">InetAddress</span><span class="w"> </span><span class="n">address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">InetSocketAddress</span><span class="p">(</span><span class="n">node</span><span class="p">.</span><span class="na">getHost</span><span class="p">(),</span><span class="w"> </span><span class="n">node</span><span class="p">.</span><span class="na">getPort</span><span class="p">()).</span><span class="na">getAddress</span><span class="p">();</span><span class="w"></span>
-<span class="w">          </span><span class="n">channelManager</span><span class="p">.</span><span class="na">getTrustNodes</span><span class="p">().</span><span class="na">put</span><span class="p">(</span><span class="n">address</span><span class="p">,</span><span class="w"> </span><span class="n">node</span><span class="p">);</span><span class="w"></span>
-<span class="w">          </span><span class="k">return</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span><span class="w"></span>
-<span class="w">        </span><span class="p">}</span><span class="w"></span>
-<span class="w">      </span><span class="p">}</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">Exception</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">      </span><span class="n">logger</span><span class="p">.</span><span class="na">error</span><span class="p">(</span><span class="s">&quot;addPeer error - {}&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="na">getMessage</span><span class="p">());</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span><span class="w"></span>
-<span class="w">  </span><span class="p">}</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">          </span><span class="n">InetAddress</span><span class="w"> </span><span class="n">address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">InetSocketAddress</span><span class="p">(</span><span class="n">node</span><span class="p">.</span><span class="na">getHost</span><span class="p">(),</span><span class="w"> </span><span class="n">node</span><span class="p">.</span><span class="na">getPort</span><span class="p">()).</span><span class="na">getAddress</span><span class="p">();</span>
+<span class="w">          </span><span class="n">channelManager</span><span class="p">.</span><span class="na">getTrustNodes</span><span class="p">().</span><span class="na">put</span><span class="p">(</span><span class="n">address</span><span class="p">,</span><span class="w"> </span><span class="n">node</span><span class="p">);</span>
+<span class="w">          </span><span class="k">return</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">Exception</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="n">logger</span><span class="p">.</span><span class="na">error</span><span class="p">(</span><span class="s">&quot;addPeer error - {}&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="na">getMessage</span><span class="p">());</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
 </code></pre></div>
 完成SetPeerServlet的实现，还需要将其注册到节点HTTP API服务列表中，<a href="https://github.com/tronprotocol/java-tron/blob/develop/framework/src/main/java/org/tron/core/services/http/FullNodeHttpApiService.java">FullNodeHttpApiService</a> 是节点HTTP API服务的注册入口。</p>
 <p>在<code>FullNodeHttpApiService</code>类的<code>start</code>函数中调用<code>context.addServlet</code>方法将SetPeerServlet注册到服务列表中，HTTP 接口的名字定义为<code>/wallet/setpeer</code>。</p>
-<p><div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">FullNodeHttpApiService</span><span class="w"> </span><span class="kd">implements</span><span class="w"> </span><span class="n">Service</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="p">......</span><span class="w"></span>
-<span class="w">    </span><span class="nd">@Autowired</span><span class="w"></span>
-<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">SetPeerServlet</span><span class="w"> </span><span class="n">setPeerServlet</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="p">.......</span><span class="w"></span>
+<p><div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">FullNodeHttpApiService</span><span class="w"> </span><span class="kd">implements</span><span class="w"> </span><span class="n">Service</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="p">......</span>
+<span class="w">    </span><span class="nd">@Autowired</span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">SetPeerServlet</span><span class="w"> </span><span class="n">setPeerServlet</span><span class="p">;</span>
+<span class="w">    </span><span class="p">.......</span>
 
-<span class="w">    </span><span class="nd">@Override</span><span class="w"></span>
-<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">start</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="p">......</span><span class="w"></span>
-<span class="w">        </span><span class="n">context</span><span class="p">.</span><span class="na">addServlet</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">ServletHolder</span><span class="p">(</span><span class="n">setPeerServlet</span><span class="p">),</span><span class="w"> </span><span class="s">&quot;/wallet/setpeer&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="w">        </span><span class="p">.......</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="nd">@Override</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">start</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="p">......</span>
+<span class="w">        </span><span class="n">context</span><span class="p">.</span><span class="na">addServlet</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">ServletHolder</span><span class="p">(</span><span class="n">setPeerServlet</span><span class="p">),</span><span class="w"> </span><span class="s">&quot;/wallet/setpeer&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="p">.......</span>
+<span class="w">    </span><span class="p">}</span>
 
-<span class="p">}</span><span class="w"></span>
+<span class="p">}</span>
 </code></pre></div>
 然后可以对以上代码进行调试，在IDEA中启动Java-tron节点，在终端中通过Curl命令访问节点：</p>
 <p><div class="highlight"><pre><span></span><code>$ curl --location --request POST &#39;http://127.0.0.1:16667/wallet/setpeer&#39; \
@@ -387,52 +387,52 @@ $ git merge upstream/develop --no-ff
 <li>@After或者@BeforeClass修饰的函数，用于处理测试用例执行完成后的数据清理工作</li>
 <li>@Test修饰的测试方法</li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">demoTest</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">demoTest</span><span class="w"> </span><span class="p">{</span>
 
-<span class="w">  </span><span class="nd">@Before</span><span class="w"></span>
-<span class="w">  </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">init</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="c1">// Initialization work before test case execution</span><span class="w"></span>
-<span class="w">  </span><span class="p">}</span><span class="w"></span>
-<span class="w">  </span><span class="nd">@After</span><span class="w"></span>
-<span class="w">  </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">destroy</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">      </span><span class="c1">// Destroy work after test case execution</span><span class="w"></span>
+<span class="w">  </span><span class="nd">@Before</span>
+<span class="w">  </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">init</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Initialization work before test case execution</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="nd">@After</span>
+<span class="w">  </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">destroy</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="c1">// Destroy work after test case execution</span>
 
-<span class="w">  </span><span class="p">}</span><span class="w"></span>
-<span class="w">  </span><span class="nd">@Test</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="nd">@Test</span>
 <span class="w">  </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">testDemoMethod</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span>
-<span class="w">  </span><span class="p">}</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
 </code></pre></div>
 <p>对于本文示例，应在<code>framework/src/test/java/org/tron/core/services/http/</code>目录下新建一个文件：SetPeerServletTest.java 来编写测试用例。</p>
-<div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">SetPeerServletTest</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="kd">private</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="n">TronApplicationContext</span><span class="w"> </span><span class="n">context</span><span class="p">;</span><span class="w"></span>
-<span class="w">  </span><span class="kd">private</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="n">Application</span><span class="w"> </span><span class="n">appT</span><span class="p">;</span><span class="w"></span>
-<span class="w">  </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="n">ChannelManager</span><span class="w"> </span><span class="n">channelManager</span><span class="p">;</span><span class="w"></span>
-<span class="w">  </span><span class="nd">@Before</span><span class="w"></span>
-<span class="w">  </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">init</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">SetPeerServletTest</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">private</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="n">TronApplicationContext</span><span class="w"> </span><span class="n">context</span><span class="p">;</span>
+<span class="w">  </span><span class="kd">private</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="n">Application</span><span class="w"> </span><span class="n">appT</span><span class="p">;</span>
+<span class="w">  </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="n">ChannelManager</span><span class="w"> </span><span class="n">channelManager</span><span class="p">;</span>
+<span class="w">  </span><span class="nd">@Before</span>
+<span class="w">  </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">init</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
 
-<span class="w">    </span><span class="n">Args</span><span class="p">.</span><span class="na">setParam</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">String</span><span class="o">[]</span><span class="p">{},</span><span class="w"> </span><span class="n">Constant</span><span class="p">.</span><span class="na">TEST_CONF</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="n">context</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">TronApplicationContext</span><span class="p">(</span><span class="n">DefaultConfig</span><span class="p">.</span><span class="na">class</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="n">channelManager</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">context</span><span class="p">.</span><span class="na">getBean</span><span class="p">(</span><span class="n">ChannelManager</span><span class="p">.</span><span class="na">class</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="n">appT</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ApplicationFactory</span><span class="p">.</span><span class="na">create</span><span class="p">(</span><span class="n">context</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="n">appT</span><span class="p">.</span><span class="na">initServices</span><span class="p">(</span><span class="n">Args</span><span class="p">.</span><span class="na">getInstance</span><span class="p">());</span><span class="w"></span>
-<span class="w">    </span><span class="n">appT</span><span class="p">.</span><span class="na">startServices</span><span class="p">();</span><span class="w"></span>
-<span class="w">    </span><span class="n">appT</span><span class="p">.</span><span class="na">startup</span><span class="p">();</span><span class="w"></span>
+<span class="w">    </span><span class="n">Args</span><span class="p">.</span><span class="na">setParam</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">String</span><span class="o">[]</span><span class="p">{},</span><span class="w"> </span><span class="n">Constant</span><span class="p">.</span><span class="na">TEST_CONF</span><span class="p">);</span>
+<span class="w">    </span><span class="n">context</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">TronApplicationContext</span><span class="p">(</span><span class="n">DefaultConfig</span><span class="p">.</span><span class="na">class</span><span class="p">);</span>
+<span class="w">    </span><span class="n">channelManager</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">context</span><span class="p">.</span><span class="na">getBean</span><span class="p">(</span><span class="n">ChannelManager</span><span class="p">.</span><span class="na">class</span><span class="p">);</span>
+<span class="w">    </span><span class="n">appT</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ApplicationFactory</span><span class="p">.</span><span class="na">create</span><span class="p">(</span><span class="n">context</span><span class="p">);</span>
+<span class="w">    </span><span class="n">appT</span><span class="p">.</span><span class="na">initServices</span><span class="p">(</span><span class="n">Args</span><span class="p">.</span><span class="na">getInstance</span><span class="p">());</span>
+<span class="w">    </span><span class="n">appT</span><span class="p">.</span><span class="na">startServices</span><span class="p">();</span>
+<span class="w">    </span><span class="n">appT</span><span class="p">.</span><span class="na">startup</span><span class="p">();</span>
 
-<span class="w">  </span><span class="p">}</span><span class="w"></span>
-<span class="w">  </span><span class="nd">@After</span><span class="w"></span>
-<span class="w">  </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">destroy</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">Args</span><span class="p">.</span><span class="na">clearParam</span><span class="p">();</span><span class="w"></span>
-<span class="w">    </span><span class="n">appT</span><span class="p">.</span><span class="na">shutdownServices</span><span class="p">();</span><span class="w"></span>
-<span class="w">    </span><span class="n">appT</span><span class="p">.</span><span class="na">shutdown</span><span class="p">();</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="nd">@After</span>
+<span class="w">  </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">destroy</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">Args</span><span class="p">.</span><span class="na">clearParam</span><span class="p">();</span>
+<span class="w">    </span><span class="n">appT</span><span class="p">.</span><span class="na">shutdownServices</span><span class="p">();</span>
+<span class="w">    </span><span class="n">appT</span><span class="p">.</span><span class="na">shutdown</span><span class="p">();</span>
 
-<span class="w">  </span><span class="p">}</span><span class="w"></span>
-<span class="w">  </span><span class="nd">@Test</span><span class="w"></span>
-<span class="w">  </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">testAddPeer</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">SetPeerServlet</span><span class="w"> </span><span class="n">setPeerServlet</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">SetPeerServlet</span><span class="p">();</span><span class="w"></span>
-<span class="w">    </span><span class="n">Assert</span><span class="p">.</span><span class="na">assertFalse</span><span class="p">(</span><span class="n">setPeerServlet</span><span class="p">.</span><span class="na">addPeer</span><span class="p">(</span><span class="s">&quot;127.0.0.1&quot;</span><span class="p">));</span><span class="w"></span>
-<span class="w">  </span><span class="p">}</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="nd">@Test</span>
+<span class="w">  </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">testAddPeer</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">SetPeerServlet</span><span class="w"> </span><span class="n">setPeerServlet</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">SetPeerServlet</span><span class="p">();</span>
+<span class="w">    </span><span class="n">Assert</span><span class="p">.</span><span class="na">assertFalse</span><span class="p">(</span><span class="n">setPeerServlet</span><span class="p">.</span><span class="na">addPeer</span><span class="p">(</span><span class="s">&quot;127.0.0.1&quot;</span><span class="p">));</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
 </code></pre></div>
 <h2 id="checkstyle">CheckStyle代码风格检查<a class="headerlink" href="#checkstyle" title="Permanent link">&para;</a></h2>
 <p>逐个检查修改的文件，在右键菜单中选择<code>Check Current File</code>，如果检查出代码风格问题，请根据提示逐个修改。

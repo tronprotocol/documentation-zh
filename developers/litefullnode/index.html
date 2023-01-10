@@ -139,6 +139,8 @@
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../../releases/upgrade-instruction/">新版本部署手册</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../releases/">一致性检验</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="#">历史版本</a>
     <ul>
                 <li class="toctree-l2"><a class="reference internal" href="../../releases/GreatVoyage-v460/">GreatVoyage-v4.6.0</a>
@@ -178,8 +180,6 @@
                 <li class="toctree-l2"><a class="reference internal" href="../../releases/Odyssey-v365/">Odyssey-v3.6.5</a>
                 </li>
     </ul>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../releases/">一致性检验</a>
                   </li>
               </ul>
               <ul>
@@ -255,7 +255,7 @@ $ ./gradlew clean build -x test
 <p><strong>切分快照数据集</strong></p>
 <p>首先, 停止FullNode并执行命令:</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># 简单起见，将快照数据集存放在`/tmp`目录下</span>
-java -jar LiteFullNodeTool.jar -o split -t snapshot --fn-data-path output-directory/database --dataset-path /tmp
+java<span class="w"> </span>-jar<span class="w"> </span>LiteFullNodeTool.jar<span class="w"> </span>-o<span class="w"> </span>split<span class="w"> </span>-t<span class="w"> </span>snapshot<span class="w"> </span>--fn-data-path<span class="w"> </span>output-directory/database<span class="w"> </span>--dataset-path<span class="w"> </span>/tmp
 </code></pre></div>
 <p>命令执行完毕之后，将在<code>/tmp</code>目录下生成<code>snapshot</code>目录, 将此目录的名字修改为<code>database</code>，并拷贝到Lite FullNode的运行目录output-directory之下。 </p>
 </li>
@@ -263,7 +263,7 @@ java -jar LiteFullNodeTool.jar -o split -t snapshot --fn-data-path output-direct
 <p><strong>切分历史数据集</strong></p>
 <p>如果需要查询历史数据，历史数据集必须被生成并合并到微节点数据库中。</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># 简单起见，将历史数据集存放在`/tmp`目录下</span>
-java -jar LiteFullNodeTool.jar -o split -t <span class="nb">history</span> --fn-data-path output-directory/database --dataset-path /tmp
+java<span class="w"> </span>-jar<span class="w"> </span>LiteFullNodeTool.jar<span class="w"> </span>-o<span class="w"> </span>split<span class="w"> </span>-t<span class="w"> </span><span class="nb">history</span><span class="w"> </span>--fn-data-path<span class="w"> </span>output-directory/database<span class="w"> </span>--dataset-path<span class="w"> </span>/tmp
 </code></pre></div>
 <p>命令执行完毕之后，将在<code>/tmp</code>目录下生成<code>history</code>目录，将此目录拷贝到Lite FullNode运行目录output-directory之下，注意需要确保有足够的硬盘空间来存储历史数据集。</p>
 </li>
@@ -271,7 +271,7 @@ java -jar LiteFullNodeTool.jar -o split -t <span class="nb">history</span> --fn-
 <p><strong>合并历史数据集和快照数据集</strong></p>
 <p>历史数据集和快照数据集中都保存了一个info.properties文件，用于记录数据拆分时的区块高度。需要注意的是，两个数据集进行合并时，历史数据集的区块高度必须大于等于快照数据集的区块高度。通过merge操作将历史数据集同快照数据集进行合并之后，微节点将成为一个真正的全节点。</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># 简单起见，假设历史数据集存放在了`/tmp`目录下</span>
-java -jar LiteFullNodeTool.jar -o merge --fn-data-path output-directory/database --dataset-path /tmp/history
+java<span class="w"> </span>-jar<span class="w"> </span>LiteFullNodeTool.jar<span class="w"> </span>-o<span class="w"> </span>merge<span class="w"> </span>--fn-data-path<span class="w"> </span>output-directory/database<span class="w"> </span>--dataset-path<span class="w"> </span>/tmp/history
 </code></pre></div>
 </li>
 </ul>

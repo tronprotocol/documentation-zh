@@ -165,6 +165,8 @@
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../../releases/upgrade-instruction/">新版本部署手册</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../releases/">一致性检验</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="#">历史版本</a>
     <ul>
                 <li class="toctree-l2"><a class="reference internal" href="../../releases/GreatVoyage-v460/">GreatVoyage-v4.6.0</a>
@@ -204,8 +206,6 @@
                 <li class="toctree-l2"><a class="reference internal" href="../../releases/Odyssey-v365/">Odyssey-v3.6.5</a>
                 </li>
     </ul>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../releases/">一致性检验</a>
                   </li>
               </ul>
               <ul>
@@ -282,11 +282,11 @@ contract DataStore {
 <h3 id="wallet-cli">通过Wallet-cli部署智能合约<a class="headerlink" href="#wallet-cli" title="Permanent link">&para;</a></h3>
 <p>下载Wallet-Cli，文件然后编译。</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># 下载源代码</span>
-git clone https://github.com/tronprotocol/wallet-cli
-<span class="nb">cd</span>  wallet-cli
+git<span class="w"> </span>clone<span class="w"> </span>https://github.com/tronprotocol/wallet-cli
+<span class="nb">cd</span><span class="w">  </span>wallet-cli
 <span class="c1"># 编译</span>
-./gradlew build
-<span class="nb">cd</span>  build/libs
+./gradlew<span class="w"> </span>build
+<span class="nb">cd</span><span class="w">  </span>build/libs
 </code></pre></div>
 <p>注意：
 wallet-cli 默认的配置会连接本地127.0.0.1:50051的 fullnode，如果开发者需要连接不同的其他节点或者端口可在 config.conf 文件中进行修改</p>

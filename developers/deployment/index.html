@@ -137,6 +137,8 @@
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../../releases/upgrade-instruction/">新版本部署手册</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../releases/">一致性检验</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="#">历史版本</a>
     <ul>
                 <li class="toctree-l2"><a class="reference internal" href="../../releases/GreatVoyage-v460/">GreatVoyage-v4.6.0</a>
@@ -176,8 +178,6 @@
                 <li class="toctree-l2"><a class="reference internal" href="../../releases/Odyssey-v365/">Odyssey-v3.6.5</a>
                 </li>
     </ul>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../releases/">一致性检验</a>
                   </li>
               </ul>
               <ul>
@@ -232,26 +232,26 @@
 <ol>
 <li>编译java-tron项目</li>
 </ol>
-<div class="highlight"><pre><span></span><code><span class="nb">cd</span> /deploy/java-tron
-./gradlew build
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>/deploy/java-tron
+./gradlew<span class="w"> </span>build
 </code></pre></div>
 <ol>
 <li>复制FullNode.jar和SolidityNode.jar以及相应的配置文件到各自的目录</li>
 </ol>
-<div class="highlight"><pre><span></span><code>download your needed configuration file from https://github.com/tronprotocol/TronDeployment.
+<div class="highlight"><pre><span></span><code>download<span class="w"> </span>your<span class="w"> </span>needed<span class="w"> </span>configuration<span class="w"> </span>file<span class="w"> </span>from<span class="w"> </span>https://github.com/tronprotocol/TronDeployment.
 
-main_net_config.conf is the configuration <span class="k">for</span> MainNet, and test_net_config.conf is the configuration <span class="k">for</span> TestNet.
+main_net_config.conf<span class="w"> </span>is<span class="w"> </span>the<span class="w"> </span>configuration<span class="w"> </span><span class="k">for</span><span class="w"> </span>MainNet,<span class="w"> </span>and<span class="w"> </span>test_net_config.conf<span class="w"> </span>is<span class="w"> </span>the<span class="w"> </span>configuration<span class="w"> </span><span class="k">for</span><span class="w"> </span>TestNet.
 
-please rename the configuration file to <span class="sb">`</span>config.conf<span class="sb">`</span> and use this config.conf to start FullNode and SoliditNode.
+please<span class="w"> </span>rename<span class="w"> </span>the<span class="w"> </span>configuration<span class="w"> </span>file<span class="w"> </span>to<span class="w"> </span><span class="sb">`</span>config.conf<span class="sb">`</span><span class="w"> </span>and<span class="w"> </span>use<span class="w"> </span>this<span class="w"> </span>config.conf<span class="w"> </span>to<span class="w"> </span>start<span class="w"> </span>FullNode<span class="w"> </span>and<span class="w"> </span>SoliditNode.
 
-cp build/libs/FullNode.jar ../fullnode
+cp<span class="w"> </span>build/libs/FullNode.jar<span class="w"> </span>../fullnode
 
-cp build/libs/SolidityNode.jar ../soliditynode
+cp<span class="w"> </span>build/libs/SolidityNode.jar<span class="w"> </span>../soliditynode
 </code></pre></div>
 <ol>
 <li>用以下命令运行FullNode</li>
 </ol>
-<div class="highlight"><pre><span></span><code>java -jar FullNode.jar -c config.conf // make sure that your config.conf is downloaded from https://github.com/tronprotocol/TronDeployment
+<div class="highlight"><pre><span></span><code>java<span class="w"> </span>-jar<span class="w"> </span>FullNode.jar<span class="w"> </span>-c<span class="w"> </span>config.conf<span class="w"> </span>//<span class="w"> </span>make<span class="w"> </span>sure<span class="w"> </span>that<span class="w"> </span>your<span class="w"> </span>config.conf<span class="w"> </span>is<span class="w"> </span>downloaded<span class="w"> </span>from<span class="w"> </span>https://github.com/tronprotocol/TronDeployment
 </code></pre></div>
 <ol>
 <li>配置SolidityNode配置文件</li>
@@ -265,14 +265,14 @@ cp build/libs/SolidityNode.jar ../soliditynode
 <ol>
 <li>用以下命令运行SolidityNode</li>
 </ol>
-<div class="highlight"><pre><span></span><code>java -jar SolidityNode.jar -c config.conf //make sure that your config.conf is downloaded from https://github.com/tronprotocol/TronDeployment
+<div class="highlight"><pre><span></span><code>java<span class="w"> </span>-jar<span class="w"> </span>SolidityNode.jar<span class="w"> </span>-c<span class="w"> </span>config.conf<span class="w"> </span>//make<span class="w"> </span>sure<span class="w"> </span>that<span class="w"> </span>your<span class="w"> </span>config.conf<span class="w"> </span>is<span class="w"> </span>downloaded<span class="w"> </span>from<span class="w"> </span>https://github.com/tronprotocol/TronDeployment
 </code></pre></div>
 <ol>
 <li>在公链环境中运行超级节点</li>
 </ol>
-<div class="highlight"><pre><span></span><code>java -jar FullNode.jar -p your private key --witness -c your config.conf<span class="o">(</span>Example：/data/java-tron/config.conf<span class="o">)</span>
+<div class="highlight"><pre><span></span><code>java<span class="w"> </span>-jar<span class="w"> </span>FullNode.jar<span class="w"> </span>-p<span class="w"> </span>your<span class="w"> </span>private<span class="w"> </span>key<span class="w"> </span>--witness<span class="w"> </span>-c<span class="w"> </span>your<span class="w"> </span>config.conf<span class="o">(</span>Example：/data/java-tron/config.conf<span class="o">)</span>
 Example:
-java -jar FullNode.jar -p 650950B193DDDDB35B6E48912DD28F7AB0E7140C1BFDEFD493348F02295BD812 --witness -c /data/java-tron/config.conf
+java<span class="w"> </span>-jar<span class="w"> </span>FullNode.jar<span class="w"> </span>-p<span class="w"> </span>650950B193DDDDB35B6E48912DD28F7AB0E7140C1BFDEFD493348F02295BD812<span class="w"> </span>--witness<span class="w"> </span>-c<span class="w"> </span>/data/java-tron/config.conf
 </code></pre></div>
 <p>这与运行一个个人测试网相似，除了<code>config.conf</code>中的IP不一样。</p>
 <ol>
@@ -285,10 +285,10 @@ java -jar FullNode.jar -p 650950B193DDDDB35B6E48912DD28F7AB0E7140C1BFDEFD493348F
 <li>The first Super Node start, needSyncCheck should be set false</li>
 <li>Set p2p version to 61</li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="nb">cd</span> build/libs
-java -jar FullNode.jar -p your private key --witness -c your config.conf <span class="o">(</span>Example：/data/java-tron/config.conf<span class="o">)</span>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>build/libs
+java<span class="w"> </span>-jar<span class="w"> </span>FullNode.jar<span class="w"> </span>-p<span class="w"> </span>your<span class="w"> </span>private<span class="w"> </span>key<span class="w"> </span>--witness<span class="w"> </span>-c<span class="w"> </span>your<span class="w"> </span>config.conf<span class="w"> </span><span class="o">(</span>Example：/data/java-tron/config.conf<span class="o">)</span>
 Example:
-java -jar FullNode.jar -p 650950B193DDDDB35B6E48912DD28F7AB0E7140C1BFDEFD493348F02295BD812 --witness -c /data/java-tron/config.conf
+java<span class="w"> </span>-jar<span class="w"> </span>FullNode.jar<span class="w"> </span>-p<span class="w"> </span>650950B193DDDDB35B6E48912DD28F7AB0E7140C1BFDEFD493348F02295BD812<span class="w"> </span>--witness<span class="w"> </span>-c<span class="w"> </span>/data/java-tron/config.conf
 </code></pre></div>
 <h2 id="_4">日志与网络连接验证<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
 <p>日志位于<code>/deploy/\*/logs/tron.log</code>。 使用<code>tail -f /logs/tron.log/</code>命令来查看块同步日志。</p>
@@ -303,16 +303,16 @@ java -jar FullNode.jar -p 650950B193DDDDB35B6E48912DD28F7AB0E7140C1BFDEFD493348F
 <p>创建stop.sh文件，使用命令<code>kill -15</code>关闭FullNode.jar（或者SolidityNode.jar）。
 修改pid=<code>ps -ef |grep FullNode.jar |grep -v grep |awk '{print $2}'</code>来找到正确的pid。</p>
 <div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
-<span class="k">while</span> true<span class="p">;</span> <span class="k">do</span>
-  <span class="nv">pid</span><span class="o">=</span><span class="sb">`</span>ps -ef <span class="p">|</span>grep FullNode.jar <span class="p">|</span>grep -v grep <span class="p">|</span>awk <span class="s1">&#39;{print $2}&#39;</span><span class="sb">`</span>
-  <span class="k">if</span> <span class="o">[</span> -n <span class="s2">&quot;</span><span class="nv">$pid</span><span class="s2">&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
-    <span class="nb">kill</span> -15 <span class="nv">$pid</span>
-    <span class="nb">echo</span> <span class="s2">&quot;The java-tron process is exiting, it may take some time, forcing the exit may cause damage to the database, please wait patiently...&quot;</span>
-    sleep <span class="m">1</span>
-  <span class="k">else</span>
-    <span class="nb">echo</span> <span class="s2">&quot;java-tron killed successfully!&quot;</span>
-    <span class="nb">break</span>
-  <span class="k">fi</span>
+<span class="k">while</span><span class="w"> </span>true<span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">  </span><span class="nv">pid</span><span class="o">=</span><span class="sb">`</span>ps<span class="w"> </span>-ef<span class="w"> </span><span class="p">|</span>grep<span class="w"> </span>FullNode.jar<span class="w"> </span><span class="p">|</span>grep<span class="w"> </span>-v<span class="w"> </span>grep<span class="w"> </span><span class="p">|</span>awk<span class="w"> </span><span class="s1">&#39;{print $2}&#39;</span><span class="sb">`</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-n<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$pid</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span><span class="nb">kill</span><span class="w"> </span>-15<span class="w"> </span><span class="nv">$pid</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;The java-tron process is exiting, it may take some time, forcing the exit may cause damage to the database, please wait patiently...&quot;</span>
+<span class="w">    </span>sleep<span class="w"> </span><span class="m">1</span>
+<span class="w">  </span><span class="k">else</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;java-tron killed successfully!&quot;</span>
+<span class="w">    </span><span class="nb">break</span>
+<span class="w">  </span><span class="k">fi</span>
 <span class="k">done</span>
 </code></pre></div>
 <h2 id="_6">快速部署节点<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
@@ -321,56 +321,56 @@ java -jar FullNode.jar -p 650950B193DDDDB35B6E48912DD28F7AB0E7140C1BFDEFD493348F
 <p>脚本可以再Linux/MacOS上使用，不支持Windows系统。
 只支持FullNode与SolidityNode的部署。</p>
 <h3 id="_8">下载运行脚本<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>wget https://raw.githubusercontent.com/tronprotocol/TronDeployment/master/deploy_tron.sh -O deploy_tron.sh
+<div class="highlight"><pre><span></span><code>wget<span class="w"> </span>https://raw.githubusercontent.com/tronprotocol/TronDeployment/master/deploy_tron.sh<span class="w"> </span>-O<span class="w"> </span>deploy_tron.sh
 </code></pre></div>
 <h3 id="_9">参数含义<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>bash deploy_tron.sh --app <span class="o">[</span>FullNode<span class="p">|</span>SolidityNode<span class="o">]</span> --net <span class="o">[</span>mainnet<span class="p">|</span>testnet<span class="p">|</span>privatenet<span class="o">]</span> --db <span class="o">[</span>keep<span class="p">|</span>remove<span class="p">|</span>backup<span class="o">]</span> --heap-size &lt;heapsize&gt;
+<div class="highlight"><pre><span></span><code>bash<span class="w"> </span>deploy_tron.sh<span class="w"> </span>--app<span class="w"> </span><span class="o">[</span>FullNode<span class="p">|</span>SolidityNode<span class="o">]</span><span class="w"> </span>--net<span class="w"> </span><span class="o">[</span>mainnet<span class="p">|</span>testnet<span class="p">|</span>privatenet<span class="o">]</span><span class="w"> </span>--db<span class="w"> </span><span class="o">[</span>keep<span class="p">|</span>remove<span class="p">|</span>backup<span class="o">]</span><span class="w"> </span>--heap-size<span class="w"> </span>&lt;heapsize&gt;
 
---app Optional, Running application. The default node is Fullnode and it could be FullNode or SolidityNode.
---net Optional, Connecting network. The default network is mainnet and it could be mainnet, testnet.
---db  Optional, The way of data processing could be keep, remove and backup. Default is keep. If you launch two different networks, like from mainnet to testnet or from testnet to mainnet, you need to delete database.
---trust-node  Optional, It only works when deploying SolidityNode. Default is <span class="m">127</span>.0.0.1:50051. The specified gRPC service of Fullnode, like <span class="m">127</span>.0.0.1:50051 or <span class="m">13</span>.125.249.129:50051.
---rpc-port  Optional, Port of grpc. Default is <span class="m">50051</span>. If you deploy SolidityNode and FullNode on the same host，you need to configure different ports.
---commit  Optional, commitid of project.
---branch  Optional, branch of project.  Mainnet default is latest release and Testnet default is master.
---heap-size  Optional, jvm option: Xmx. The default heap-size is <span class="m">0</span>.8 * memory size.
---work_space  Optional, default is current directory.
+--app<span class="w"> </span>Optional,<span class="w"> </span>Running<span class="w"> </span>application.<span class="w"> </span>The<span class="w"> </span>default<span class="w"> </span>node<span class="w"> </span>is<span class="w"> </span>Fullnode<span class="w"> </span>and<span class="w"> </span>it<span class="w"> </span>could<span class="w"> </span>be<span class="w"> </span>FullNode<span class="w"> </span>or<span class="w"> </span>SolidityNode.
+--net<span class="w"> </span>Optional,<span class="w"> </span>Connecting<span class="w"> </span>network.<span class="w"> </span>The<span class="w"> </span>default<span class="w"> </span>network<span class="w"> </span>is<span class="w"> </span>mainnet<span class="w"> </span>and<span class="w"> </span>it<span class="w"> </span>could<span class="w"> </span>be<span class="w"> </span>mainnet,<span class="w"> </span>testnet.
+--db<span class="w">  </span>Optional,<span class="w"> </span>The<span class="w"> </span>way<span class="w"> </span>of<span class="w"> </span>data<span class="w"> </span>processing<span class="w"> </span>could<span class="w"> </span>be<span class="w"> </span>keep,<span class="w"> </span>remove<span class="w"> </span>and<span class="w"> </span>backup.<span class="w"> </span>Default<span class="w"> </span>is<span class="w"> </span>keep.<span class="w"> </span>If<span class="w"> </span>you<span class="w"> </span>launch<span class="w"> </span>two<span class="w"> </span>different<span class="w"> </span>networks,<span class="w"> </span>like<span class="w"> </span>from<span class="w"> </span>mainnet<span class="w"> </span>to<span class="w"> </span>testnet<span class="w"> </span>or<span class="w"> </span>from<span class="w"> </span>testnet<span class="w"> </span>to<span class="w"> </span>mainnet,<span class="w"> </span>you<span class="w"> </span>need<span class="w"> </span>to<span class="w"> </span>delete<span class="w"> </span>database.
+--trust-node<span class="w">  </span>Optional,<span class="w"> </span>It<span class="w"> </span>only<span class="w"> </span>works<span class="w"> </span>when<span class="w"> </span>deploying<span class="w"> </span>SolidityNode.<span class="w"> </span>Default<span class="w"> </span>is<span class="w"> </span><span class="m">127</span>.0.0.1:50051.<span class="w"> </span>The<span class="w"> </span>specified<span class="w"> </span>gRPC<span class="w"> </span>service<span class="w"> </span>of<span class="w"> </span>Fullnode,<span class="w"> </span>like<span class="w"> </span><span class="m">127</span>.0.0.1:50051<span class="w"> </span>or<span class="w"> </span><span class="m">13</span>.125.249.129:50051.
+--rpc-port<span class="w">  </span>Optional,<span class="w"> </span>Port<span class="w"> </span>of<span class="w"> </span>grpc.<span class="w"> </span>Default<span class="w"> </span>is<span class="w"> </span><span class="m">50051</span>.<span class="w"> </span>If<span class="w"> </span>you<span class="w"> </span>deploy<span class="w"> </span>SolidityNode<span class="w"> </span>and<span class="w"> </span>FullNode<span class="w"> </span>on<span class="w"> </span>the<span class="w"> </span>same<span class="w"> </span>host，you<span class="w"> </span>need<span class="w"> </span>to<span class="w"> </span>configure<span class="w"> </span>different<span class="w"> </span>ports.
+--commit<span class="w">  </span>Optional,<span class="w"> </span>commitid<span class="w"> </span>of<span class="w"> </span>project.
+--branch<span class="w">  </span>Optional,<span class="w"> </span>branch<span class="w"> </span>of<span class="w"> </span>project.<span class="w">  </span>Mainnet<span class="w"> </span>default<span class="w"> </span>is<span class="w"> </span>latest<span class="w"> </span>release<span class="w"> </span>and<span class="w"> </span>Testnet<span class="w"> </span>default<span class="w"> </span>is<span class="w"> </span>master.
+--heap-size<span class="w">  </span>Optional,<span class="w"> </span>jvm<span class="w"> </span>option:<span class="w"> </span>Xmx.<span class="w"> </span>The<span class="w"> </span>default<span class="w"> </span>heap-size<span class="w"> </span>is<span class="w"> </span><span class="m">0</span>.8<span class="w"> </span>*<span class="w"> </span>memory<span class="w"> </span>size.
+--work_space<span class="w">  </span>Optional,<span class="w"> </span>default<span class="w"> </span>is<span class="w"> </span>current<span class="w"> </span>directory.
 </code></pre></div>
 <h3 id="fullnode_1">部署FullNode<a class="headerlink" href="#fullnode_1" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>wget https://raw.githubusercontent.com/tronprotocol/TronDeployment/master/deploy_tron.sh -O deploy_tron.sh
-bash deploy_tron.sh
+<div class="highlight"><pre><span></span><code>wget<span class="w"> </span>https://raw.githubusercontent.com/tronprotocol/TronDeployment/master/deploy_tron.sh<span class="w"> </span>-O<span class="w"> </span>deploy_tron.sh
+bash<span class="w"> </span>deploy_tron.sh
 </code></pre></div>
 <h3 id="soliditynode_1">部署SolidityNode<a class="headerlink" href="#soliditynode_1" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>wget https://raw.githubusercontent.com/tronprotocol/TronDeployment/master/deploy_tron.sh -O deploy_tron.sh
+<div class="highlight"><pre><span></span><code>wget<span class="w"> </span>https://raw.githubusercontent.com/tronprotocol/TronDeployment/master/deploy_tron.sh<span class="w"> </span>-O<span class="w"> </span>deploy_tron.sh
 <span class="c1"># User can self-configure the IP and Port of GRPC service in the turst-node field of SolidityNode. trust-node is the fullnode you just deploy.</span>
-bash deploy_tron.sh --app SolidityNode --trust-node &lt;grpc-ip:grpc-port&gt;
+bash<span class="w"> </span>deploy_tron.sh<span class="w"> </span>--app<span class="w"> </span>SolidityNode<span class="w"> </span>--trust-node<span class="w"> </span>&lt;grpc-ip:grpc-port&gt;
 </code></pre></div>
 <h3 id="fullnodesoliditynode">FullNode和SolidityNode部署在同一主机上<a class="headerlink" href="#fullnodesoliditynode" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="c1"># You need to configure different gRPC ports on the same host because gRPC port is available on SolidityNode and FullNodeConfigure and it cannot be set as default value 50051. In this case the default value of rpc port is set as 50041.</span>
-wget https://raw.githubusercontent.com/tronprotocol/TronDeployment/master/deploy_tron.sh -O deploy_tron.sh
-bash deploy_tron.sh --app FullNode
-bash deploy_tron.sh --app SolidityNode --rpc-port <span class="m">50041</span>
+wget<span class="w"> </span>https://raw.githubusercontent.com/tronprotocol/TronDeployment/master/deploy_tron.sh<span class="w"> </span>-O<span class="w"> </span>deploy_tron.sh
+bash<span class="w"> </span>deploy_tron.sh<span class="w"> </span>--app<span class="w"> </span>FullNode
+bash<span class="w"> </span>deploy_tron.sh<span class="w"> </span>--app<span class="w"> </span>SolidityNode<span class="w"> </span>--rpc-port<span class="w"> </span><span class="m">50041</span>
 </code></pre></div>
 <h2 id="grpc-gateway">Grpc Gateway部署<a class="headerlink" href="#grpc-gateway" title="Permanent link">&para;</a></h2>
 <h3 id="_10">前提<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
 <p>请参照：<a href="https://github.com/tronprotocol/grpc-gateway">https://github.com/tronprotocol/grpc-gateway</a>
 安装Golang, Protoc, 并且设置$GOPATH环境变量。</p>
 <h3 id="_11">下载运行脚本<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>wget https://raw.githubusercontent.com/tronprotocol/TronDeployment/master/deploy_grpc_gateway.sh -O deploy_grpc_gateway.sh
+<div class="highlight"><pre><span></span><code>wget<span class="w"> </span>https://raw.githubusercontent.com/tronprotocol/TronDeployment/master/deploy_grpc_gateway.sh<span class="w"> </span>-O<span class="w"> </span>deploy_grpc_gateway.sh
 </code></pre></div>
 <h3 id="_12">参数含义<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>bash deploy_grpc_gateway.sh --rpchost <span class="o">[</span>rpc host ip<span class="o">]</span> --rpcport <span class="o">[</span>rpc port number<span class="o">]</span> --httpport <span class="o">[</span>http port number<span class="o">]</span>
+<div class="highlight"><pre><span></span><code>bash<span class="w"> </span>deploy_grpc_gateway.sh<span class="w"> </span>--rpchost<span class="w"> </span><span class="o">[</span>rpc<span class="w"> </span>host<span class="w"> </span>ip<span class="o">]</span><span class="w"> </span>--rpcport<span class="w"> </span><span class="o">[</span>rpc<span class="w"> </span>port<span class="w"> </span>number<span class="o">]</span><span class="w"> </span>--httpport<span class="w"> </span><span class="o">[</span>http<span class="w"> </span>port<span class="w"> </span>number<span class="o">]</span>
 
---rpchost The fullnode or soliditynode IP where the grpc service is provided. Default value is <span class="s2">&quot;localhost&quot;</span>.
---rpcport The fullnode or soliditynode port number grpc service is consuming. Default value is <span class="m">50051</span>.
---httpport The port intends to provide http service provided by grpc gateway. Default value is <span class="m">18890</span>.
+--rpchost<span class="w"> </span>The<span class="w"> </span>fullnode<span class="w"> </span>or<span class="w"> </span>soliditynode<span class="w"> </span>IP<span class="w"> </span>where<span class="w"> </span>the<span class="w"> </span>grpc<span class="w"> </span>service<span class="w"> </span>is<span class="w"> </span>provided.<span class="w"> </span>Default<span class="w"> </span>value<span class="w"> </span>is<span class="w"> </span><span class="s2">&quot;localhost&quot;</span>.
+--rpcport<span class="w"> </span>The<span class="w"> </span>fullnode<span class="w"> </span>or<span class="w"> </span>soliditynode<span class="w"> </span>port<span class="w"> </span>number<span class="w"> </span>grpc<span class="w"> </span>service<span class="w"> </span>is<span class="w"> </span>consuming.<span class="w"> </span>Default<span class="w"> </span>value<span class="w"> </span>is<span class="w"> </span><span class="m">50051</span>.
+--httpport<span class="w"> </span>The<span class="w"> </span>port<span class="w"> </span>intends<span class="w"> </span>to<span class="w"> </span>provide<span class="w"> </span>http<span class="w"> </span>service<span class="w"> </span>provided<span class="w"> </span>by<span class="w"> </span>grpc<span class="w"> </span>gateway.<span class="w"> </span>Default<span class="w"> </span>value<span class="w"> </span>is<span class="w"> </span><span class="m">18890</span>.
 </code></pre></div>
 <h3 id="_13">示例<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h3>
 <p>使用默认配置：</p>
-<div class="highlight"><pre><span></span><code>bash deploy_grpc_gateway.sh
+<div class="highlight"><pre><span></span><code>bash<span class="w"> </span>deploy_grpc_gateway.sh
 </code></pre></div>
 <p>使用自定义配置：</p>
-<div class="highlight"><pre><span></span><code>bash deploy_grpc_gateway.sh --rpchost <span class="m">127</span>.0.0.1 --rpcport <span class="m">50052</span> --httpport <span class="m">18891</span>
+<div class="highlight"><pre><span></span><code>bash<span class="w"> </span>deploy_grpc_gateway.sh<span class="w"> </span>--rpchost<span class="w"> </span><span class="m">127</span>.0.0.1<span class="w"> </span>--rpcport<span class="w"> </span><span class="m">50052</span><span class="w"> </span>--httpport<span class="w"> </span><span class="m">18891</span>
 </code></pre></div>
 <h2 id="_14">事件订阅部署<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h2>
 <ul>
@@ -442,61 +442,61 @@ bash deploy_tron.sh --app SolidityNode --rpc-port <span class="m">50041</span>
  </em><em>注意</em>*: 如果服务器地址不是127.0.0.1, 请在config/server.properties文件中设置listeners=PLAINTEXT://:9092，advertised.listeners to PLAINTEXT://host_ip:9092</p>
 <h3 id="kafka">安装Kafka<a class="headerlink" href="#kafka" title="Permanent link">&para;</a></h3>
 <p><strong>Mac环境</strong>:</p>
-<div class="highlight"><pre><span></span><code>brew install kafka
+<div class="highlight"><pre><span></span><code>brew<span class="w"> </span>install<span class="w"> </span>kafka
 </code></pre></div>
 <p><strong>Linux环境</strong>:</p>
-<div class="highlight"><pre><span></span><code><span class="nb">cd</span> /usr/local
-wget http://archive.apache.org/dist/kafka/0.10.2.2/kafka_2.10-0.10.2.2.tgz
-tar -xzvf kafka_2.10-0.10.2.2.tgz
-mv kafka_2.10-0.10.2.2 kafka
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>/usr/local
+wget<span class="w"> </span>http://archive.apache.org/dist/kafka/0.10.2.2/kafka_2.10-0.10.2.2.tgz
+tar<span class="w"> </span>-xzvf<span class="w"> </span>kafka_2.10-0.10.2.2.tgz
+mv<span class="w"> </span>kafka_2.10-0.10.2.2<span class="w"> </span>kafka
 
-add <span class="s2">&quot;export PATH=</span><span class="nv">$PATH</span><span class="s2">:/usr/local/kafka/bin&quot;</span> to end of /etc/profile
-<span class="nb">source</span> /etc/profile
+add<span class="w"> </span><span class="s2">&quot;export PATH=</span><span class="nv">$PATH</span><span class="s2">:/usr/local/kafka/bin&quot;</span><span class="w"> </span>to<span class="w"> </span>end<span class="w"> </span>of<span class="w"> </span>/etc/profile
+<span class="nb">source</span><span class="w"> </span>/etc/profile
 
 
-kafka-server-start.sh /usr/local/kafka/config/server.properties <span class="p">&amp;</span>
+kafka-server-start.sh<span class="w"> </span>/usr/local/kafka/config/server.properties<span class="w"> </span><span class="p">&amp;</span>
 </code></pre></div>
 <p><strong>注意</strong>: 请确保Kafka的版本与build.gradle中eventplugin项目的版本一致。</p>
 <h3 id="kafka_1">运行Kafka<a class="headerlink" href="#kafka_1" title="Permanent link">&para;</a></h3>
 <p><strong>Mac环境</strong>:</p>
-<div class="highlight"><pre><span></span><code>zookeeper-server-start /usr/local/etc/kafka/zookeeper.properties <span class="p">&amp;</span> kafka-server-start /usr/local/etc/kafka/server.properties
+<div class="highlight"><pre><span></span><code>zookeeper-server-start<span class="w"> </span>/usr/local/etc/kafka/zookeeper.properties<span class="w"> </span><span class="p">&amp;</span><span class="w"> </span>kafka-server-start<span class="w"> </span>/usr/local/etc/kafka/server.properties
 </code></pre></div>
 <p><strong>Linux环境</strong>:</p>
-<div class="highlight"><pre><span></span><code>zookeeper-server-start.sh /usr/local/kafka/config/zookeeper.properties <span class="p">&amp;</span>
-Sleep about <span class="m">3</span> seconds
-kafka-server-start.sh /usr/local/kafka/config/server.properties <span class="p">&amp;</span>
+<div class="highlight"><pre><span></span><code>zookeeper-server-start.sh<span class="w"> </span>/usr/local/kafka/config/zookeeper.properties<span class="w"> </span><span class="p">&amp;</span>
+Sleep<span class="w"> </span>about<span class="w"> </span><span class="m">3</span><span class="w"> </span>seconds
+kafka-server-start.sh<span class="w"> </span>/usr/local/kafka/config/server.properties<span class="w"> </span><span class="p">&amp;</span>
 </code></pre></div>
 <h3 id="configconf">创建主题接受事件，主题的定义位于config.conf文件中<a class="headerlink" href="#configconf" title="Permanent link">&para;</a></h3>
 <p><strong>Mac环境</strong>:</p>
-<div class="highlight"><pre><span></span><code>kafka-topics --create --zookeeper localhost:2181 --replication-factor <span class="m">1</span> --partitions <span class="m">1</span> --topic block
-kafka-topics --create --zookeeper localhost:2181 --replication-factor <span class="m">1</span> --partitions <span class="m">1</span> --topic transaction
-kafka-topics --create --zookeeper localhost:2181 --replication-factor <span class="m">1</span> --partitions <span class="m">1</span> --topic contractlog
-kafka-topics --create --zookeeper localhost:2181 --replication-factor <span class="m">1</span> --partitions <span class="m">1</span> --topic contractevent
+<div class="highlight"><pre><span></span><code>kafka-topics<span class="w"> </span>--create<span class="w"> </span>--zookeeper<span class="w"> </span>localhost:2181<span class="w"> </span>--replication-factor<span class="w"> </span><span class="m">1</span><span class="w"> </span>--partitions<span class="w"> </span><span class="m">1</span><span class="w"> </span>--topic<span class="w"> </span>block
+kafka-topics<span class="w"> </span>--create<span class="w"> </span>--zookeeper<span class="w"> </span>localhost:2181<span class="w"> </span>--replication-factor<span class="w"> </span><span class="m">1</span><span class="w"> </span>--partitions<span class="w"> </span><span class="m">1</span><span class="w"> </span>--topic<span class="w"> </span>transaction
+kafka-topics<span class="w"> </span>--create<span class="w"> </span>--zookeeper<span class="w"> </span>localhost:2181<span class="w"> </span>--replication-factor<span class="w"> </span><span class="m">1</span><span class="w"> </span>--partitions<span class="w"> </span><span class="m">1</span><span class="w"> </span>--topic<span class="w"> </span>contractlog
+kafka-topics<span class="w"> </span>--create<span class="w"> </span>--zookeeper<span class="w"> </span>localhost:2181<span class="w"> </span>--replication-factor<span class="w"> </span><span class="m">1</span><span class="w"> </span>--partitions<span class="w"> </span><span class="m">1</span><span class="w"> </span>--topic<span class="w"> </span>contractevent
 </code></pre></div>
 <p><strong>Linux环境</strong>:</p>
-<div class="highlight"><pre><span></span><code>kafka-topics.sh  --create --zookeeper localhost:2181 --replication-factor <span class="m">1</span> --partitions <span class="m">1</span> --topic block
-kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor <span class="m">1</span> --partitions <span class="m">1</span> --topic transaction
-kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor <span class="m">1</span> --partitions <span class="m">1</span> --topic contractlog
-kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor <span class="m">1</span> --partitions <span class="m">1</span> --topic contractevent
+<div class="highlight"><pre><span></span><code>kafka-topics.sh<span class="w">  </span>--create<span class="w"> </span>--zookeeper<span class="w"> </span>localhost:2181<span class="w"> </span>--replication-factor<span class="w"> </span><span class="m">1</span><span class="w"> </span>--partitions<span class="w"> </span><span class="m">1</span><span class="w"> </span>--topic<span class="w"> </span>block
+kafka-topics.sh<span class="w"> </span>--create<span class="w"> </span>--zookeeper<span class="w"> </span>localhost:2181<span class="w"> </span>--replication-factor<span class="w"> </span><span class="m">1</span><span class="w"> </span>--partitions<span class="w"> </span><span class="m">1</span><span class="w"> </span>--topic<span class="w"> </span>transaction
+kafka-topics.sh<span class="w"> </span>--create<span class="w"> </span>--zookeeper<span class="w"> </span>localhost:2181<span class="w"> </span>--replication-factor<span class="w"> </span><span class="m">1</span><span class="w"> </span>--partitions<span class="w"> </span><span class="m">1</span><span class="w"> </span>--topic<span class="w"> </span>contractlog
+kafka-topics.sh<span class="w"> </span>--create<span class="w"> </span>--zookeeper<span class="w"> </span>localhost:2181<span class="w"> </span>--replication-factor<span class="w"> </span><span class="m">1</span><span class="w"> </span>--partitions<span class="w"> </span><span class="m">1</span><span class="w"> </span>--topic<span class="w"> </span>contractevent
 </code></pre></div>
 <h3 id="kafka_2">Kafka用户<a class="headerlink" href="#kafka_2" title="Permanent link">&para;</a></h3>
 <p><strong>Mac环境</strong>:</p>
-<div class="highlight"><pre><span></span><code>kafka-console-consumer --bootstrap-server localhost:9092  --topic block
-kafka-console-consumer --bootstrap-server localhost:9092  --topic transaction
-kafka-console-consumer --bootstrap-server localhost:9092  --topic contractlog
-kafka-console-consumer --bootstrap-server localhost:9092  --topic contractevent
+<div class="highlight"><pre><span></span><code>kafka-console-consumer<span class="w"> </span>--bootstrap-server<span class="w"> </span>localhost:9092<span class="w">  </span>--topic<span class="w"> </span>block
+kafka-console-consumer<span class="w"> </span>--bootstrap-server<span class="w"> </span>localhost:9092<span class="w">  </span>--topic<span class="w"> </span>transaction
+kafka-console-consumer<span class="w"> </span>--bootstrap-server<span class="w"> </span>localhost:9092<span class="w">  </span>--topic<span class="w"> </span>contractlog
+kafka-console-consumer<span class="w"> </span>--bootstrap-server<span class="w"> </span>localhost:9092<span class="w">  </span>--topic<span class="w"> </span>contractevent
 </code></pre></div>
 <p><strong>Linux环境</strong>:</p>
-<div class="highlight"><pre><span></span><code>kafka-console-consumer.sh --zookeeper localhost:2181 --topic block
-kafka-console-consumer.sh --zookeeper localhost:2181 --topic transaction
-kafka-console-consumer.sh --zookeeper localhost:2181 --topic contractlog
-kafka-console-consumer.sh --zookeeper localhost:2181 --topic contractevent
+<div class="highlight"><pre><span></span><code>kafka-console-consumer.sh<span class="w"> </span>--zookeeper<span class="w"> </span>localhost:2181<span class="w"> </span>--topic<span class="w"> </span>block
+kafka-console-consumer.sh<span class="w"> </span>--zookeeper<span class="w"> </span>localhost:2181<span class="w"> </span>--topic<span class="w"> </span>transaction
+kafka-console-consumer.sh<span class="w"> </span>--zookeeper<span class="w"> </span>localhost:2181<span class="w"> </span>--topic<span class="w"> </span>contractlog
+kafka-console-consumer.sh<span class="w"> </span>--zookeeper<span class="w"> </span>localhost:2181<span class="w"> </span>--topic<span class="w"> </span>contractevent
 </code></pre></div>
 <h3 id="java-tron">在Java-tron中加载插件<a class="headerlink" href="#java-tron" title="Permanent link">&para;</a></h3>
 <ul>
 <li>add --es to command line, for example:</li>
 </ul>
-<div class="highlight"><pre><span></span><code> java -jar FullNode.jar -p privatekey -c config.conf --es
+<div class="highlight"><pre><span></span><code><span class="w"> </span>java<span class="w"> </span>-jar<span class="w"> </span>FullNode.jar<span class="w"> </span>-p<span class="w"> </span>privatekey<span class="w"> </span>-c<span class="w"> </span>config.conf<span class="w"> </span>--es
 </code></pre></div>
 <h3 id="_16">事件订阅过滤<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h3>
 <p>事件订阅过滤参数在config.conf文件中设置：</p>
@@ -555,12 +555,12 @@ kafka-console-consumer.sh --zookeeper localhost:2181 --topic contractevent
 <li>wiredTigerCacheSizeGB, must be configured to prevent OOM</li>
 </ul>
 <h4 id="mongodb_1">运行MongoDB<a class="headerlink" href="#mongodb_1" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code>mongod  --config /etc/mongodb/mgdb.conf
+<div class="highlight"><pre><span></span><code>mongod<span class="w">  </span>--config<span class="w"> </span>/etc/mongodb/mgdb.conf
 </code></pre></div>
 <h4 id="_22">创建管理员账户<a class="headerlink" href="#_22" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code>- mongo
-- use admin
-- db.createUser<span class="o">({</span>user:<span class="s2">&quot;root&quot;</span>,pwd:<span class="s2">&quot;admin&quot;</span>,roles:<span class="o">[{</span>role:<span class="s2">&quot;root&quot;</span>,db:<span class="s2">&quot;admin&quot;</span><span class="o">}]})</span>
+<div class="highlight"><pre><span></span><code>-<span class="w"> </span>mongo
+-<span class="w"> </span>use<span class="w"> </span>admin
+-<span class="w"> </span>db.createUser<span class="o">({</span>user:<span class="s2">&quot;root&quot;</span>,pwd:<span class="s2">&quot;admin&quot;</span>,roles:<span class="o">[{</span>role:<span class="s2">&quot;root&quot;</span>,db:<span class="s2">&quot;admin&quot;</span><span class="o">}]})</span>
 </code></pre></div>
 <h4 id="_23">创建事件日志以及所有者账户<a class="headerlink" href="#_23" title="Permanent link">&para;</a></h4>
 <ul>
@@ -572,7 +572,7 @@ kafka-console-consumer.sh --zookeeper localhost:2181 --topic contractevent
 <p>database: eventlog, username:tron, password: 123456</p>
 </blockquote>
 <h4 id="_24">防火墙策略<a class="headerlink" href="#_24" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code>iptables -A INPUT -p tcp -m state --state NEW -m tcp --dport <span class="m">27017</span> -j ACCEPT
+<div class="highlight"><pre><span></span><code>iptables<span class="w"> </span>-A<span class="w"> </span>INPUT<span class="w"> </span>-p<span class="w"> </span>tcp<span class="w"> </span>-m<span class="w"> </span>state<span class="w"> </span>--state<span class="w"> </span>NEW<span class="w"> </span>-m<span class="w"> </span>tcp<span class="w"> </span>--dport<span class="w"> </span><span class="m">27017</span><span class="w"> </span>-j<span class="w"> </span>ACCEPT
 </code></pre></div>
 <h4 id="mongo">远程连接mongo<a class="headerlink" href="#mongo" title="Permanent link">&para;</a></h4>
 <ul>
@@ -587,15 +587,15 @@ kafka-console-consumer.sh --zookeeper localhost:2181 --topic contractevent
 <li>db.block.find({blockNumber: {$lt: 1000}});  // 返回区块高度小于1000的数据</li>
 </ul>
 <h4 id="_26">设置数据库索引<a class="headerlink" href="#_26" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="nb">cd</span> /<span class="o">{</span>projectPath<span class="o">}</span>
-sh insertIndex.sh
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>/<span class="o">{</span>projectPath<span class="o">}</span>
+sh<span class="w"> </span>insertIndex.sh
 </code></pre></div>
 <h2 id="_27">事件订阅数据查询服务部署<a class="headerlink" href="#_27" title="Permanent link">&para;</a></h2>
 <h3 id="_28">下载代码<a class="headerlink" href="#_28" title="Permanent link">&para;</a></h3>
 <p>git clone https://github.com/tronprotocol/tron-eventquery.git
 cd troneventquery</p>
 <h3 id="_29">编译<a class="headerlink" href="#_29" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>mvn package
+<div class="highlight"><pre><span></span><code>mvn<span class="w"> </span>package
 </code></pre></div>
 <p>代码编译成功后，在/troneventquery目录下会生成troneventquery.jar文件。</p>
 <p>需要创建一个config.conf配置文件用来设置mongodb的配置属性，我们在/troneventquery/config.conf中提供了个示例，如果有需要可以进行修改。</p>
