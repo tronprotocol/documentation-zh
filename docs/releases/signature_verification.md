@@ -31,7 +31,7 @@ uid: build@tron.network
 ```
 根据公钥Hash将公钥从GPG公钥服务器导入到本地，命令为：
 ```
-$  gpg --recv-keys 1254F859D2B1BD9F66E7107DF859BCB44A28290B
+$  gpg --recv-keys "1254 F859 D2B1 BD9F 66E7 107D F859 BCB4 4A28 290B"
 ```
 如果导入成功，您将看到如下字样：
 ```
