@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://tronprotocol.github.io/documentation-zh/releases/GreatVoyage-v470/" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>GreatVoyage-v4.7.0 - Java Tron</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "GreatVoyage-v4.7.0";
+        var mkdocs_page_input_path = "releases/GreatVoyage-v470.md";
+        var mkdocs_page_url = "/documentation-zh/releases/GreatVoyage-v470/";
+      </script>
+    
+    <script src="../../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> Java Tron
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">入门</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../getting_started/getting_started_with_javatron/">Java-tron入门</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">使用Java-tron</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../using_javatron/installing_javatron/">部署Java-tron</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../using_javatron/backup_restore/">备份和恢复</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../developers/litefullnode/">轻节点</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../using_javatron/private_network/">私链网络</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../architecture/event/">事件插件</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../architecture/database/">数据库配置</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../using_javatron/connecting_to_tron/">网络配置</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../using_javatron/metrics/">节点监控</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="#">工具</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../using_javatron/toolkit/">数据库迁移</a>
+                </li>
+                <li class="toctree-l2"><a class="" href="../../using_javatron/litefullnode-tool.md">轻节点工具</a>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">API 接口</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../api/http/">HTTP 接口</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../api/rpc/">gRPC 接口</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">核心协议</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../introduction/dpos/">波场共识</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../mechanism-algorithm/sr/">超级代表</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../mechanism-algorithm/account/">账户模型</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../mechanism-algorithm/resource/">资源模型</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../contracts/contract/">智能合约</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../mechanism-algorithm/dex/">去中心化交易所</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../mechanism-algorithm/multi-signatures/">多重签名</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Java-tron开发</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../developers/java-tron/">开发者指南</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../developers/tips/">TIPs工作流程</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../developers/issue-workflow/">Issue工作流程</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../developers/governance/">治理流程</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../developers/run-in-idea/">配置IDE开发环境</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../developers/demo/">开发示例</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="#">核心模块</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../developers/code-structure/">概述</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../developers/chainbase/">Chainbase</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../developers/network/">网络</a>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Dapp开发</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../contracts/compiler/">Dapp开发工具</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Wallet-cli</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../clients/wallet-cli/">什么是Wallet-Cli</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../clients/wallet-cli-command/">Wallet命令</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">版本发布</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../upgrade-instruction/">新版本部署手册</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../signature_verification/">一致性检验</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">历史版本</a>
+    <ul class="current">
+                <li class="toctree-l2 current"><a class="reference internal current" href="./">GreatVoyage-v4.7.0</a>
+    <ul class="current">
+    <li class="toctree-l3"><a class="reference internal" href="#_1">核心协议</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#1-stake-20">1. Stake 2.0 质押模型</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#2">2. 优化数据库查询性能</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#3">3. 优化区块生产流程</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#4-hash">4. 增加交易hash缓存</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#5-libp2p">5. libp2p集成</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#tvm">TVM</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#1-stake20tvm">1. 新增Stake2.0相关的TVM指令和预编译合约</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#2_1">2. 动态能量模型</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#3-chainid">3. 优化chainId指令的返回值</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#api">API</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#1-stake-20api">1. 新增Stake 2.0相关API</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#2_2">2. 新增预估能量接口</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_2">其它变更</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#1">1. 优化编译参数</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#2_3">2. 优化节点自动停止功能</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#3-v1">3. 删除数据库V1版本相关代码</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#4">4. 优化数据库日志输出</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#5-snapshot">5. snapshot 最大落盘数量可配置</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#6-toolkitjar">6. Toolkit.jar工具箱集成</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../GreatVoyage-v460/">GreatVoyage-v4.6.0</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../GreatVoyage-v452/">GreatVoyage-v4.5.2</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../GreatVoyage-v451/">GreatVoyage-v4.5.1</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../GreatVoyage-v446/">GreatVoyage-v4.4.6</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../GreatVoyage-v445/">GreatVoyage-v4.4.5</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../GreatVoyage-v444/">GreatVoyage-v4.4.4</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../GreatVoyage-v442/">GreatVoyage-v4.4.2</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../GreatVoyage-v440/">GreatVoyage-v4.4.0</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../GreatVoyage-v430/">GreatVoyage-v4.3.0</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../GreatVoyage-v4221/">GreatVoyage-v4.2.2.1</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../GreatVoyage-v422/">GreatVoyage-v4.2.2</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../GreatVoyage-v420/">GreatVoyage-v4.2.0</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../GreatVoyage-v413/">GreatVoyage-v4.1.3</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../GreatVoyage-v412/">GreatVoyage-v4.1.2</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../GreatVoyage-v411/">GreatVoyage-v4.1.1</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../GreatVoyage-v400/">GreatVoyage-v4.0.0</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../Odyssey-v37/">Odyssey-v3.7</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../Odyssey-v365/">Odyssey-v3.6.5</a>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../glossary/">术语表</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">Java Tron</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" alt="Docs"></a> &raquo;</li>
+          <li>版本发布 &raquo;</li>
+          <li>历史版本 &raquo;</li><li>GreatVoyage-v4.7.0</li>
+    <li class="wy-breadcrumbs-aside">
+        <a href="https://github.com/tronprotocol/documentation-zh/edit/master/docs/releases/GreatVoyage-v470.md"
+          class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="greatvoyage-v470aristotle">GreatVoyage-v4.7.0(Aristotle)<a class="headerlink" href="#greatvoyage-v470aristotle" title="Permanent link">&para;</a></h1>
+<p>GreatVoyage-v4.7.0(Aristotle)版本引入了多个重要的优化和更新，全新的质押机制Stake 2.0, 提高了资源模型的灵活性和质押系统的稳定性；动态能量模型，有助于促进生态的均衡发展；二级缓存机制优化了数据库读取性能，提高了交易执行性能，提升了网络吞吐量；使用libp2p库作为Java-tron P2P网络模块，使代码结构更加清晰，并且降低代码耦合性；优化日志输出，将LevelDB和RocksDB的日志重定向到Java-tron日志文件；将更多工具包集成的toolkit工具箱，为用户带来更便捷的开发体验。</p>
+<p>下面是详细介绍。</p>
+<h2 id="_1">核心协议<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h3 id="1-stake-20">1. Stake 2.0 质押模型<a class="headerlink" href="#1-stake-20" title="Permanent link">&para;</a></h3>
+<p>GreatVoyage-v4.7.0(Aristotle)版本引入一种全新的质押模型Stake 2.0，旨在建立一种更为灵活，高效，稳定的质押系统。相比于目前的Stake1.0质押模型， Stake 2.0在下面几个方面进行了提升：</p>
+<ul>
+<li>
+<p>质押和资源代理分离</p>
+<p>在Stake 1.0中，质押和资源代理合并在一条指令中，质押指令中指定资源接受者，完成质押后，资源会代理给指定的资源接收者。解质押和解代理也是合并在解质押指令中，如果想要取消资源代理，就必须将对应的TRX解质押。Stake 2.0将质押和资源代理分离成2条指令，用户首先执行质押指令，完成质押后资源首先被分配给质押者，之后再执行代理指令将资源代理其他人。 解质押和资源解代理也是分离成2条指令，用户想要取消对一个地址的资源代理， 无需解质押即可直接执行解代理操作，然后可以根据需要再次将资源代理给其他人。将质押和资源代理操作分离，简化了用户的操作，降低了操作的复杂度。</p>
+</li>
+<li>
+<p>资源的碎片化管理</p>
+<p>在Stake 1.0中，一次解质押操作，会解质押所有质押的TRX，无法完成指定数量的TRX解质押。Stake 2.0中优化了这一点，我们可以指定任意数量的TRX进行解质押，只要这个指定的数量小于等于质押量。Stake 1.0中，取消对某一个地址的某种资源代理，只能一次全部取消，无法指定数量进行取消。Stake 2.0中进行了优化，我们可以根据需要只取消一部分，提高了资源管理的灵活性。</p>
+</li>
+<li>
+<p>解质押时间和解压后资产延迟到账</p>
+<p>在Stake 1.0中，质押TRX之后，我们需要等待3天后才能解质押，解质押后，资金立刻到达用户的账户中。在Stake 2.0中，完成TRX质押后，可随时解质押，但需要等待N天，N天后，用户可以将解质押后的资金提取到自己的账户，N是TRON网络参数。当TRX市场产生剧烈波动时，由于资金延迟到账，将不再会引发大量的质押或解质押操作，提高了质押模型的稳定性，同时也不会引起大量的资金涌入市场加剧市场波动，有助于网络参与者对整个网络流通总量形成更稳定的预期。</p>
+</li>
+<li>
+<p>TVM集成质押和资源管理</p>
+<p>Stake 2.0中，TVM虚拟机集成了质押和网络资源管理相关的指令，用户可以在智能合约中执行TRX质押和解质押操作，也可以在智能合约中执行资源代理和解代理操作。</p>
+</li>
+</ul>
+<p>更多关于Stake 2.0请参考： <a href="https://coredevs.medium.com/what-is-stake-2-0-e04f59b948a6">What is Stake 2.0?</a></p>
+<p>新的质押机制Stake 2.0是TRON网络中的一个动态参数，GreatVoyage-v4.7.0(Aristotle)部署之后默认为关闭状态，可以通过发起提案投票的方式开启。</p>
+<ul>
+<li>TIP: <a href="https://github.com/tronprotocol/tips/issues/467">https://github.com/tronprotocol/tips/issues/467</a> </li>
+<li>源代码：<a href="https://github.com/tronprotocol/java-tron/pull/4838">https://github.com/tronprotocol/java-tron/pull/4838</a> </li>
+</ul>
+<h3 id="2">2. 优化数据库查询性能<a class="headerlink" href="#2" title="Permanent link">&para;</a></h3>
+<p>Java-tron采用内存和磁盘数据库的方式进行数据存储，固化的区块数据会保存在多个磁盘数据库中，未被固化的数据保存在内存中，当一个区块被固化后，会将相应的内存数据写入到磁盘数据库。在查询数据时，首先查询内存中的数据，如果没有找到，再查询磁盘数据库。而磁盘数据库查询是比较耗时的，因此，GreatVoyage-v4.7.0(Aristotle)版本优化了数据库查询性能，在进行底层磁盘数据库操作之前，增加了二级缓存。在将数据写入磁盘的同时，也将数据写入到二级缓存。当需要查询磁盘数据库时，如果二级缓存中存在要查询的数据，则直接返回，而无需再查询磁盘数据库。二级缓存减少了查询磁盘数据库的次数，提高了交易执行速度，提升了网络吞吐量。</p>
+<ul>
+<li>源代码：<a href="https://github.com/tronprotocol/java-tron/pull/4740">https://github.com/tronprotocol/java-tron/pull/4740</a> </li>
+</ul>
+<h3 id="3">3. 优化区块生产流程<a class="headerlink" href="#3" title="Permanent link">&para;</a></h3>
+<p>节点进行区块生产时会依次校验和执行可以打包进区块的所有交易，而每一次的交易验证和执行，都会涉及到区块数据的获取，比如区块号、区块大小、区块内的交易信息等。在GreatVoyage-v4.7.0(Aristotle)之前的版本中，节点打包交易时，在验证和执行每一笔交易过程中，区块数据都是被重新计算的，这其中包含了许多重复的计算。</p>
+<p>为了提高节点打包交易效率，GreatVoyage-v4.7.0(Aristotle)版本优化了区块生产流程，只计算一次区块数据并仅在必要时更新数据，从而大幅减少了区块数据计算的次数，提高了区块打包效率。</p>
+<ul>
+<li>源代码：<a href="https://github.com/tronprotocol/java-tron/pull/4756">https://github.com/tronprotocol/java-tron/pull/4756</a> </li>
+</ul>
+<h3 id="4-hash">4. 增加交易hash缓存<a class="headerlink" href="#4-hash" title="Permanent link">&para;</a></h3>
+<p>节点在处理区块时，会多次用到交易哈希值，而在GreatVoyage-v4.7.0(Aristotle)之前的版本中，交易哈希值都是随用随计算，而交易哈希值的计算比较耗时，从而导致区块处理较慢，因此，GreatVoyage-v4.7.0(Aristotle)版本增加了交易hash缓存，使用时直接从缓存中获取，只有当交易数据发生改变时，才重新计算交易哈希。交易hash的缓存，减少了不必要的交易哈希计算，提高了区块处理速度。</p>
+<ul>
+<li>源代码：<a href="https://github.com/tronprotocol/java-tron/pull/4792">https://github.com/tronprotocol/java-tron/pull/4792</a>   </li>
+</ul>
+<h3 id="5-libp2p">5. libp2p集成<a class="headerlink" href="#5-libp2p" title="Permanent link">&para;</a></h3>
+<p>从GreatVoyage-v4.7.0(Aristotle)版本开始，将直接使用模块的libp2p库作为Java-tron 的P2P网络模块，而不再使用原来的p2p模块，使代码结构更加清晰，代码耦合性更低，更易于维护。</p>
+<ul>
+<li>源代码：<a href="https://github.com/tronprotocol/java-tron/pull/4791">https://github.com/tronprotocol/java-tron/pull/4791</a> </li>
+</ul>
+<h2 id="tvm">TVM<a class="headerlink" href="#tvm" title="Permanent link">&para;</a></h2>
+<h3 id="1-stake20tvm">1. 新增Stake2.0相关的TVM指令和预编译合约<a class="headerlink" href="#1-stake20tvm" title="Permanent link">&para;</a></h3>
+<p>GreatVoyage-v4.7.0(Aristotle)引入了Stake2.0，TVM将同步支持Stake 2.0质押、资源代理相关指令，用户可以通过智能合约进行质押和资源代理操作，进一步丰富了TRON网络智能合约的应用场景。TVM增加了从0xda至0xdf 总共6个指令:</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>TVM指令</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0xda</td>
+<td>FREEZEBALANCEV2</td>
+<td>执行与系统合约FreezeBalanceV2相同的操作</td>
+</tr>
+<tr>
+<td>0xdb</td>
+<td>UNFREEZEBALANCEV2</td>
+<td>执行与系统合约UnfreezeBalanceV2相同的操作</td>
+</tr>
+<tr>
+<td>0xdc</td>
+<td>CANCELALLUNFREEZEV2</td>
+<td>取消所有解质押操作</td>
+</tr>
+<tr>
+<td>0xdd</td>
+<td>WITHDRAWEXPIREUNFREEZE</td>
+<td>执行与系统合约WithdrawExpireUnfreeze相同的操作</td>
+</tr>
+<tr>
+<td>0xde</td>
+<td>DELEGATERESOURCE</td>
+<td>执行与系统合约DelegateResource相同的操作</td>
+</tr>
+<tr>
+<td>0xdf</td>
+<td>UNDELEGATERESOURCE</td>
+<td>执行与系统合约UnDelegateResource相同的操作</td>
+</tr>
+</tbody>
+</table>
+<p>TVM增加了从0x100000b至0x1000015 总共11个预编译合约：</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>预编译合约</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0x100000b</td>
+<td>GetChainParameter</td>
+<td>查询特定的网络参数</td>
+</tr>
+<tr>
+<td>0x100000c</td>
+<td>AvailableUnfreezeV2Size</td>
+<td>查询给定地址的可解冻队列长度</td>
+</tr>
+<tr>
+<td>0x100000d</td>
+<td>UnfreezableBalanceV2</td>
+<td>查询指定资源类型下，目标地址可解质押的余额数量(单位:sun)</td>
+</tr>
+<tr>
+<td>0x100000e</td>
+<td>ExpireUnfreezeBalanceV2</td>
+<td>查询目标地址，在指定时间戳的可提取本金数量</td>
+</tr>
+<tr>
+<td>0x100000f</td>
+<td>DelegatableResource</td>
+<td>查询指定资源类型下，目标地址的可代理资源数量(单位:sun)</td>
+</tr>
+<tr>
+<td>0x1000010</td>
+<td>ResourceV2</td>
+<td>查询指定资源类型下，某地址代理给目标地址的资源数量(单位:sun)</td>
+</tr>
+<tr>
+<td>0x1000011</td>
+<td>CheckUnDelegateResource</td>
+<td>查询指定资源类型下，是否可以回收已代理给目标地址的指定数量的资源，并返回资源未使用数量(单位:sun)、已使用数量(单位:sun)和恢复时间</td>
+</tr>
+<tr>
+<td>0x1000012</td>
+<td>ResourceUsage</td>
+<td>查询指定资源类型下，目标地址的资源已使用量(单位:sun)和恢复时间</td>
+</tr>
+<tr>
+<td>0x1000013</td>
+<td>TotalResource</td>
+<td>查询指定资源类型下，目标地址的资源总量(单位:sun)</td>
+</tr>
+<tr>
+<td>0x1000014</td>
+<td>TotalDelegatedResource</td>
+<td>查询指定资源类型下，目标地址所代理出去的资源总量(单位:sun)</td>
+</tr>
+<tr>
+<td>0x1000015</td>
+<td>TotalAcquiredResource</td>
+<td>查询指定资源类型下，目标地址所获取的资源总量(单位:sun)</td>
+</tr>
+</tbody>
+</table>
+<p>Stake 2.0是TRON网络中的一个动态参数，GreatVoyage-v4.7.0(Aristotle)部署之后默认为关闭状态，可以通过发起提案投票的方式开启。</p>
+<ul>
+<li>TIP: <a href="https://github.com/tronprotocol/tips/issues/467">https://github.com/tronprotocol/tips/issues/467</a> </li>
+<li>源代码: <a href="https://github.com/tronprotocol/java-tron/pull/4872">https://github.com/tronprotocol/java-tron/pull/4872</a> </li>
+</ul>
+<h3 id="2_1">2. 动态能量模型<a class="headerlink" href="#2_1" title="Permanent link">&para;</a></h3>
+<p>动态能量模型是一种根据合约已知的能量使用情况来动态调整合约未来的能量消耗的方案，如果一个合约在一个周期内使用过多的资源，则下一个周期中该合约将增加一定百分比的惩罚性消耗，用户向该合约发送相同的交易将产生更多的能量消耗量。当合约合理使用资源时，用户调用该合约所产生的能源消耗将逐渐恢复正常，通过这个机制，让能源资源在链上的分配更加合理，防止网络资源过度集中在少数合约上。</p>
+<p>更多关于动态能量模型的原理请参考：<a href="https://coredevs.medium.com/introduction-to-dynamic-energy-model-31917419b61a">Introduction to Dynamic Energy Model</a>。</p>
+<p>动态能量模型是TRON网络中的一个动态参数，GreatVoyage-v4.7.0(Aristotle)部署之后默认为关闭状态，可以通过发起提案投票的方式开启。</p>
+<ul>
+<li>TIP: <a href="https://github.com/tronprotocol/tips/issues/491">https://github.com/tronprotocol/tips/issues/491</a> </li>
+<li>源代码: <a href="https://github.com/tronprotocol/java-tron/pull/4873">https://github.com/tronprotocol/java-tron/pull/4873</a> </li>
+</ul>
+<h3 id="3-chainid">3. 优化chainId指令的返回值<a class="headerlink" href="#3-chainid" title="Permanent link">&para;</a></h3>
+<p>从 GreatVoyage-v4.7.0(Aristotle)版本开始，将chainid指令的返回值从创世块区块哈希改成创世块区块哈希的最后四个字节，使chainid指令返回值与Java-tron json-rpc <code>eth_chainId</code> API的返回值一致。</p>
+<p>优化chainId指令返回值是TRON网络的一个动态参数，GreatVoyage-v4.7.0(Aristotle)部署之后默认为关闭状态，可以通过发起提案投票的方式开启。</p>
+<ul>
+<li>TIP: <a href="https://github.com/tronprotocol/tips/issues/474">https://github.com/tronprotocol/tips/issues/474</a> </li>
+<li>源代码: <a href="https://github.com/tronprotocol/java-tron/pull/4863">https://github.com/tronprotocol/java-tron/pull/4863</a> </li>
+</ul>
+<h2 id="api">API<a class="headerlink" href="#api" title="Permanent link">&para;</a></h2>
+<h2 id="1-stake-20api">1. 新增Stake 2.0相关API<a class="headerlink" href="#1-stake-20api" title="Permanent link">&para;</a></h2>
+<p>GreatVoyage-v4.7.0(Aristotle)版本新增了10个 API 以支持Stake 2.0质押模型：</p>
+<table>
+<thead>
+<tr>
+<th>API</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>/wallet/freezebalancev2</td>
+<td>质押TRX以获取资源</td>
+</tr>
+<tr>
+<td>/wallet/unfreezebalancev2</td>
+<td>解质押</td>
+</tr>
+<tr>
+<td>/wallet/delegateresource</td>
+<td>将资源代理给其他账户</td>
+</tr>
+<tr>
+<td>/wallet/undelegateresource</td>
+<td>取消资源代理</td>
+</tr>
+<tr>
+<td>/wallet/withdrawexpireunfreeze</td>
+<td>提取已过锁定期的本金</td>
+</tr>
+<tr>
+<td>/wallet/getavailableunfreezecount</td>
+<td>查询解质押剩余次数</td>
+</tr>
+<tr>
+<td>/wallet/getcanwithdrawunfreezeamount</td>
+<td>查询在指定时间戳的可提取本金数量</td>
+</tr>
+<tr>
+<td>/wallet/getcandelegatedmaxsize</td>
+<td>查询最大可代理指定类型资源的数量（单位:sun）</td>
+</tr>
+<tr>
+<td>/wallet/getdelegatedresourcev2</td>
+<td>查询某地址代理给目标地址的资源情况(单位:sun)</td>
+</tr>
+<tr>
+<td>/wallet/getdelegatedresourceaccountindexv2</td>
+<td>查询账户的资源代理情况：包括为该账户代理资源的所有地址，和该账户将资源代理出去的所有地址</td>
+</tr>
+</tbody>
+</table>
+<p>新增API的详细使用说明请参考： <a href="https://coredevs.medium.com/what-is-stake-2-0-e04f59b948a6">What is Stake 2.0?</a></p>
+<ul>
+<li>TIP: <a href="https://github.com/tronprotocol/tips/issues/467">https://github.com/tronprotocol/tips/issues/467</a> </li>
+<li>源代码：<a href="https://github.com/tronprotocol/java-tron/pull/4838">https://github.com/tronprotocol/java-tron/pull/4838</a> </li>
+</ul>
+<h2 id="2_2">2. 新增预估能量接口<a class="headerlink" href="#2_2" title="Permanent link">&para;</a></h2>
+<p>在GreatVoyage-v4.7.0(Aristotle)之前的版本中，可以通过<code>/wallet/triggerconstantcontract</code>接口预估执行智能合约交易所需的能量消耗量，然后根据预估的消耗量来设置交易的<code>feelimit</code>参数。但由于某些智能合约交易可能存在对其他智能合约的调用，这时有可能出现预估<code>feelimit</code>参数不准确的情况。</p>
+<p>因此，GreatVoyage-v4.7.0(Aristotle)版本新增了一个能量预估接口<code>/wallet/estimateenergy</code>，利用该接口预估的<code>feelimit</code>在任何情况下都是可靠的。该接口返回值中的<code>energy_required</code>字段表示这笔智能合约调用交易执行成功所需要的能量预估量，用户根据该字段来计算<code>feelimit</code>参数：<code>feelimit</code> = <code>energy_required</code> * 能量单价， 当前能量单价是420sun 。</p>
+<p>如果由于某种原因导致预估接口执行失败时，<code>energy_required</code>字段值为0，在返回值中将不显示该字段，这时可以通过<code>result</code>字段查看预估失败原因。</p>
+<p>新版本部署成功后，该接口默认为关闭状态，打开该接口需要节点配置文件中同时开启<code>vm.estimateEnergy</code>和<code>vm.supportConstant</code>这两个配置项。<code>vm.estimateEnergy</code>和<code>vm.supportConstant</code>的默认值均为false。</p>
+<ul>
+<li>源代码: <a href="https://github.com/tronprotocol/java-tron/pull/4873">https://github.com/tronprotocol/java-tron/pull/4873</a> </li>
+</ul>
+<h2 id="_2">其它变更<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h3 id="1">1. 优化编译参数<a class="headerlink" href="#1" title="Permanent link">&para;</a></h3>
+<p>GreatVoyage-v4.7.0(Aristotle)版本优化了Gradle编译参数，将JVM堆内存最小值设置成1G，以加快Java-tron gradle编译速度。</p>
+<ul>
+<li>源代码：  <a href="https://github.com/tronprotocol/java-tron/pull/4837">https://github.com/tronprotocol/java-tron/pull/4837</a> </li>
+</ul>
+<h3 id="2_3">2. 优化节点自动停止功能<a class="headerlink" href="#2_3" title="Permanent link">&para;</a></h3>
+<p>为了方便节点部署者进行数据备份或数据统计，从GreatVoyage-v4.5.1(Tertullian)版本开始，节点支持在特定的条件下停止运行，用户可以通过节点配置文件设置节点停止的条件，在满足设置的条件时，节点将停止运行。支持3个停止条件同时设置，满足任意个条件即停止节点。这三个条件包括区块时间、区块高度以和节点从启动到停止需要同步的区块数量， 但是由于允许同时设置多个停止条件，当用户只需要一个条件时，需要在配置文件中注释掉其他2个条件配置项，因此，如果用户忘记注释，可能出现节点停止在非预期的区块上。但实际并没有需要同时设置多个条件的应用场景，所以，GreatVoyage-v4.7.0(Aristotle)版本优化了节点自动停止功能，可选的配置参数不变，但是仅允许同时设置一个有效参数，如果节点部署者设置了多个参数，节点将报错并退出运行。该优化极大的简化了用户使用的复杂度。</p>
+<ul>
+<li>源代码：  <a href="https://github.com/tronprotocol/java-tron/pull/4853">https://github.com/tronprotocol/java-tron/pull/4853</a>
+<a href="https://github.com/tronprotocol/java-tron/pull/4858">https://github.com/tronprotocol/java-tron/pull/4858</a> </li>
+</ul>
+<h3 id="3-v1">3. 删除数据库V1版本相关代码<a class="headerlink" href="#3-v1" title="Permanent link">&para;</a></h3>
+<p>在GreatVoyage-v4.7.0(Aristotle)之前的版本中，数据库有两个版本v1和v2，用户可以通过配置项<code>db.version</code>选择使用的版本，由于v2版本采用内存+磁盘数据库模式、支持底层数据库的扩展、异常情况下数据的正确恢复功能等，相对与v1版本, v2优势非常明显。 因此，为了使代码结构更加清晰，从GreatVoyage-v4.7.0(Aristotle)开始，删除了数据库v1版本相关的代码，以及数据库版本配置项<code>db.version</code>。用户无需再进行数据库版本配置，直接使用v2版本的数据库，降低了配置节点的复杂度。</p>
+<ul>
+<li>源代码：  <a href="https://github.com/tronprotocol/java-tron/pull/4836">https://github.com/tronprotocol/java-tron/pull/4836</a></li>
+</ul>
+<h3 id="4">4. 优化数据库日志输出<a class="headerlink" href="#4" title="Permanent link">&para;</a></h3>
+<p>在GreatVoyage-v4.7.0(Aristotle)之前的版本中，节点日志中不包含LevelDB 或者 RocksDB 本身输出的底层日志，排查数据库读写问题比较困难。因此，GreatVoyage-v4.7.0(Aristotle)版本优化了数据库日志，将LevelDB或者RocksDB数据模块的底层日志的输出重定向到节点日志文件中，简化的了数据库故障排查的难度，提高了节点运维的效率。</p>
+<ul>
+<li>源代码:  <a href="https://github.com/tronprotocol/java-tron/pull/4833">https://github.com/tronprotocol/java-tron/pull/4833</a> </li>
+</ul>
+<h3 id="5-snapshot">5. snapshot 最大落盘数量可配置<a class="headerlink" href="#5-snapshot" title="Permanent link">&para;</a></h3>
+<p>新加入到网络的节点需要从其他节点同步区块数据，节点将同步过来的区块数据首先保存在内存中，然后再存储到磁盘。在GreatVoyage-v4.7.0(Aristotle)之前的版本中，当节点追块时，一次落盘操作会将500个区块的数据从内存写入到磁盘，因此，内存中会保留超过500个区块的数据，并且各个区块数据通过链表关联。在查询数据时，先依次在500多个区块中查找，当找不到所要查询的数据时，再查询磁盘数据库，但遍历500多个区块数据降低了数据查询效率。</p>
+<p>因此，从GreatVoyage-v4.7.0(Aristotle)版本开始，支持snapshot落盘数量可配置，通过<code>storage.snapshot.maxFlushCount</code>配置项设置一次落盘的最大区块数量，以使数据库查询效率最大化，提高区块处理速度。如果不设置，则snapshot最大落盘数量为默认值1。</p>
+<ul>
+<li>源代码：<a href="https://github.com/tronprotocol/java-tron/pull/4834">https://github.com/tronprotocol/java-tron/pull/4834</a> </li>
+</ul>
+<h3 id="6-toolkitjar">6. Toolkit.jar工具箱集成<a class="headerlink" href="#6-toolkitjar" title="Permanent link">&para;</a></h3>
+<p><code>DBConvert.jar</code>是数据库数据转换工具， 它可以将LevelDB数据转换为RocksDB数据；<code>LiteFullNodeTool.jar</code>是轻节点工具，可以将全节点数据转换成轻节点数据。从 GreatVoyage-v4.7.0(Aristotle)版本开始，将<code>DBConvert.jar</code> 和<code>LiteFullNodeTool.jar</code>集成到了<code>Toolkit.jar</code>工具箱中，并对<code>Toolkit.jar</code>工具箱新增数据库拷贝功能，以实现快速的节点数据库拷贝。未来Java-tron周边的工具将逐步都集成到<code>Toolkit.jar</code>工具箱中，以便于工具维护和开发者使用。<code>Toolkit.jar</code>工具箱新增功能的使用命令如下：</p>
+<div class="highlight"><pre><span></span><code>// 将LevelDB数据转换为RocksDB数据
+$ java -jar Toolkit.jar db convert -h
+// 将全节点数据转换成轻节点数据
+$ java -jar Toolkit.jar db lite -h
+// 数据库拷贝
+$ java -jar Toolkit.jar db copy -h
+</code></pre></div>
+<ul>
+<li>源代码: <a href="https://github.com/tronprotocol/java-tron/pull/4813">https://github.com/tronprotocol/java-tron/pull/4813</a> </li>
+</ul>
+<hr />
+<p><em>Courage is the first of human qualities because it is the quality which guarantees the others.</em> </p>
+<p align="right"> --- Aristotle</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../signature_verification/" class="btn btn-neutral float-left" title="一致性检验"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../GreatVoyage-v460/" class="btn btn-neutral float-right" title="GreatVoyage-v4.6.0">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/tronprotocol/documentation-zh" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../signature_verification/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../GreatVoyage-v460/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme_extra.js" defer></script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+      <script src="../../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>
