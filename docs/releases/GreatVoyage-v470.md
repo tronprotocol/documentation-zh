@@ -150,6 +150,20 @@ GreatVoyage-v4.7.0(Aristotle)版本新增了10个 API 以支持Stake 2.0质押�
 
 新版本部署成功后，该接口默认为关闭状态，打开该接口需要节点配置文件中同时开启`vm.estimateEnergy`和`vm.supportConstant`这两个配置项。`vm.estimateEnergy`和`vm.supportConstant`的默认值均为false。
 
+`/wallet/triggerconstantcontract`接口调用示例如下：
+
+```
+curl --location --request POST 'https://api.nileex.io/wallet/estimateenergy' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+     "owner_address": "TUoHaVjx7n5xz8LwPRDckgFrDWhMhuSuJM",
+     "contract_address": "TXLAQ63Xg1NAzckPwKHvzw7CSEmLMEqcdj",
+     "function_selector": "transfer(address,uint256)",
+     "parameter": "0000000000000000000000002EEF13ADA48F286066F9066CE84A9AD686A3EA480000000000000000000000000000000000000000000000000000000000000004",
+     "visible": true
+}'
+```
+
 
 * 源代码: [https://github.com/tronprotocol/java-tron/pull/4873](https://github.com/tronprotocol/java-tron/pull/4873) 
 
