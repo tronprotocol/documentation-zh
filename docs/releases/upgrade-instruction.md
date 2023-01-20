@@ -15,7 +15,7 @@
     
     在release页面 [https://github.com/tronprotocol/java-tron/releases](https://github.com/tronprotocol/java-tron/releases) 直接下载最新版本的FullNode.jar可执行文件。
     
-    在使用之前，请首先对文件签名进行校验，以确保该JAR文件的一致性和完整性，校验步骤请参考[Java-tron一致性校验](https://tronprotocol.github.io/documentation-zh/releases/)。
+    在使用之前，请首先对文件签名进行校验，以确保该JAR文件的一致性和完整性，校验步骤请参考[Java-tron一致性校验](https://tronprotocol.github.io/documentation-zh/releases/signature_verification/)。
     
     
 * 方式二：编译源码
