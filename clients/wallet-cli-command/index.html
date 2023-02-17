@@ -172,6 +172,26 @@
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#getdelegatedresource">GetDelegatedResource</a>
     </li>
+    <li class="toctree-l3"><a class="reference internal" href="#freezebalancev2">freezeBalanceV2</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#unfreezebalancev2">unfreezeBalanceV2</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#delegateresource">delegateResource</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#undelegateresource">unDelegateResource</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#withdrawexpireunfreeze">withdrawExpireUnfreeze</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#getavailableunfreezecount">getavailableunfreezecount</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#getcanwithdrawunfreezeamount">getcanwithdrawunfreezeamount</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#getcandelegatedmaxsize">getcandelegatedmaxsize</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#getdelegatedresourcev2">getdelegatedresourcev2</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#getdelegatedresourceaccountindexv2">getdelegatedresourceaccountindexv2</a>
+    </li>
     <li class="toctree-l3"><a class="reference internal" href="#getaccountnet">GetAccountNet</a>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#getaccountresource">GetAccountResource</a>
@@ -221,6 +241,10 @@
     <li class="toctree-l3"><a class="reference internal" href="#deploycontract">DeployContract</a>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#triggercontract">TriggerContract</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#triggerconstantcontract">TriggerConstantContract</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#estimateenergy">EstimateEnergy</a>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#getcontract">GetContract</a>
     </li>
@@ -473,7 +497,7 @@ Please<span class="w"> </span>choose<span class="w"> </span>between<span class="
 ChangePassword<span class="w"> </span>successful<span class="w"> </span>!!
 </code></pre></div></p>
 <h3 id="importwallet">ImportWallet<a class="headerlink" href="#importwallet" title="Permanent link">&para;</a></h3>
-<p>在导入钱包时，需先为即将倒入的私钥设置一个密码，之后再导入私钥，提示成功后，将会在<code>wallet-cli/wallet</code>路径下生成一个记录该钱包的json文件，请看示例：
+<p>在导入钱包时，需先为即将导入的私钥设置一个密码，之后再导入私钥，提示成功后，将会在<code>wallet-cli/wallet</code>路径下生成一个记录该钱包的json文件，请看示例：
 <div class="highlight"><pre><span></span><code>wallet&gt;<span class="w"> </span>importwallet
 Please<span class="w"> </span>input<span class="w"> </span>password.
 password:<span class="w"> </span>
@@ -648,6 +672,16 @@ UpdateAccountPermission<span class="w"> </span>successful<span class="w"> </span
 <li><a href="#freezebalance">freezeBalance</a></li>
 <li><a href="#unfreezebalance">unfreezeBalance</a></li>
 <li><a href="#getdelegatedresource">getDelegatedResource</a></li>
+<li><a href="#freezebalancev2">freezeBalanceV2</a></li>
+<li><a href="#unfreezebalancev2">unfreezeBalanceV2</a></li>
+<li><a href="#delegateresource">delegateResource</a></li>
+<li><a href="#undelegateresource">unDelegateResource</a></li>
+<li><a href="#withdrawexpireunfreeze">withdrawExpireUnfreeze</a></li>
+<li><a href="#getavailableunfreezecount">getAvailableUnfreezeCount</a></li>
+<li><a href="#getcanwithdrawunfreezeamount">getCanWithdrawUnfreezeAmount</a></li>
+<li><a href="#getcandelegatedmaxsize">getCanDelegatedMaxSize</a></li>
+<li><a href="#getdelegatedresourcev2">getDelegatedResourceV2</a></li>
+<li><a href="#getdelegatedresourceaccountindexv2">getDelegatedResourceAccountIndexV2</a></li>
 <li><a href="#getaccountnet">GetAccountNet</a></li>
 <li><a href="#getaccountresource">GetAccountResource</a></li>
 </ul>
@@ -746,6 +780,290 @@ UnfreezeBalance<span class="w"> </span>successful<span class="w"> </span>!!!
 <span class="w">            </span><span class="s2">&quot;frozen_balance_for_energy&quot;</span>:<span class="w"> </span><span class="m">1000000</span>,
 <span class="w">            </span><span class="s2">&quot;expire_time_for_energy&quot;</span>:<span class="w"> </span><span class="m">1656660447000</span>
 <span class="w">        </span><span class="o">}</span>
+<span class="w">    </span><span class="o">]</span>
+<span class="o">}</span>
+</code></pre></div>
+<h3 id="freezebalancev2">freezeBalanceV2<a class="headerlink" href="#freezebalancev2" title="Permanent link">&para;</a></h3>
+<p>Stake 2.0质押接口，通过质押一定数量的TRX可以获得<code>带宽</code>或者<code>能量</code>以及<code>TRON Power</code>（投票权）。质押资产的单位是sun。
+<div class="highlight"><pre><span></span><code>wallet&gt;<span class="w"> </span>freezeBalanceV2<span class="w"> </span><span class="o">[</span>OwnerAddress<span class="o">]</span><span class="w"> </span>frozen_balance<span class="w"> </span>ResourceCode<span class="o">(</span><span class="m">0</span><span class="w"> </span>BANDWIDTH,1<span class="w"> </span>ENERGY,2<span class="w"> </span>TRON_POWER<span class="o">)</span>
+</code></pre></div></p>
+<ul>
+<li><code>OwnerAddress</code> 是交易发起人的地址，为选填，不填则默认为当前登录账户地址。</li>
+<li><code>frozen_balance</code> 是所冻结TRX的数值,单位为<code>sun</code>, 最小冻结值为1000000sun。。</li>
+<li><code>ResourceCode</code> 用来指示要获取资源的类型, 0为<code>带宽</code>，1为<code>能量</code>。</li>
+</ul>
+<p>示例:
+<div class="highlight"><pre><span></span><code>wallet&gt;<span class="w"> </span>freezeBalanceV2<span class="w"> </span><span class="m">1000000</span><span class="w"> </span><span class="m">1</span>
+<span class="o">{</span>
+<span class="w">    </span><span class="s2">&quot;raw_data&quot;</span>:<span class="o">{</span>
+<span class="w">        </span><span class="s2">&quot;contract&quot;</span>:<span class="o">[</span>
+<span class="w">            </span><span class="o">{</span>
+<span class="w">                </span><span class="s2">&quot;parameter&quot;</span>:<span class="o">{</span>
+<span class="w">                    </span><span class="s2">&quot;value&quot;</span>:<span class="o">{</span>
+<span class="w">                        </span><span class="s2">&quot;resource&quot;</span>:<span class="s2">&quot;ENERGY&quot;</span>,
+<span class="w">                        </span><span class="s2">&quot;frozen_balance&quot;</span>:1000000,
+<span class="w">                        </span><span class="s2">&quot;owner_address&quot;</span>:<span class="s2">&quot;TUoHaVjx7n5xz8LwPRDckgFrDWhMhuSuJM&quot;</span>
+<span class="w">                    </span><span class="o">}</span>,
+<span class="w">                    </span><span class="s2">&quot;type_url&quot;</span>:<span class="s2">&quot;type.googleapis.com/protocol.FreezeBalanceV2Contract&quot;</span>
+<span class="w">                </span><span class="o">}</span>,
+<span class="w">                </span><span class="s2">&quot;type&quot;</span>:<span class="s2">&quot;FreezeBalanceV2Contract&quot;</span>
+<span class="w">            </span><span class="o">}</span>
+<span class="w">        </span><span class="o">]</span>,
+<span class="w">        </span><span class="s2">&quot;ref_block_bytes&quot;</span>:<span class="s2">&quot;00bb&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;ref_block_hash&quot;</span>:<span class="s2">&quot;0c237850e9e3c216&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;expiration&quot;</span>:1676620524000,
+<span class="w">        </span><span class="s2">&quot;timestamp&quot;</span>:1676620465372
+<span class="w">    </span><span class="o">}</span>,
+<span class="w">    </span><span class="s2">&quot;raw_data_hex&quot;</span>:<span class="s2">&quot;0a0200bb22080c237850e9e3c21640e0d3fbf2e5305a59083612550a34747970652e676f6f676c65617069732e636f6d2f70726f746f636f6c2e467265657a6542616c616e63655632436f6e7472616374121d0a1541ce8a0cf0c16d48bcf22825f6053248df653c89ca10c0843d180170dc89f8f2e530&quot;</span>
+<span class="o">}</span>
+before<span class="w"> </span>sign<span class="w"> </span>transaction<span class="w"> </span>hex<span class="w"> </span>string<span class="w"> </span>is<span class="w"> </span>0a770a0200bb22080c237850e9e3c21640e0d3fbf2e5305a59083612550a34747970652e676f6f676c65617069732e636f6d2f70726f746f636f6c2e467265657a6542616c616e63655632436f6e7472616374121d0a1541ce8a0cf0c16d48bcf22825f6053248df653c89ca10c0843d180170dc89f8f2e530
+Please<span class="w"> </span>confirm<span class="w"> </span>and<span class="w"> </span>input<span class="w"> </span>your<span class="w"> </span>permission<span class="w"> </span>id,<span class="w"> </span><span class="k">if</span><span class="w"> </span>input<span class="w"> </span>y<span class="w"> </span>or<span class="w"> </span>Y<span class="w"> </span>means<span class="w"> </span>default<span class="w"> </span><span class="m">0</span>,<span class="w"> </span>other<span class="w"> </span>non-numeric<span class="w"> </span>characters<span class="w"> </span>will<span class="w"> </span>cancel<span class="w"> </span>transaction.
+y
+Please<span class="w"> </span>choose<span class="w"> </span>your<span class="w"> </span>key<span class="w"> </span><span class="k">for</span><span class="w"> </span>sign.
+The<span class="w"> </span>1th<span class="w"> </span>keystore<span class="w"> </span>file<span class="w"> </span>name<span class="w"> </span>is<span class="w"> </span>UTC--2023-02-17T02-53-57.163000000Z--THLJLytz6UHwpmDFi5RC43D44dmnh4ZTeL.json
+The<span class="w"> </span>2th<span class="w"> </span>keystore<span class="w"> </span>file<span class="w"> </span>name<span class="w"> </span>is<span class="w"> </span>UTC--2023-02-17T07-40-47.121000000Z--TUoHaVjx7n5xz8LwPRDckgFrDWhMhuSuJM.json
+Please<span class="w"> </span>choose<span class="w"> </span>between<span class="w"> </span><span class="m">1</span><span class="w"> </span>and<span class="w"> </span><span class="m">2</span>
+<span class="m">2</span>
+Please<span class="w"> </span>input<span class="w"> </span>your<span class="w"> </span>password.
+password:
+after<span class="w"> </span>sign<span class="w"> </span>transaction<span class="w"> </span>hex<span class="w"> </span>string<span class="w"> </span>is<span class="w"> </span>0a770a0200bb22080c237850e9e3c21640dbb89efde5305a59083612550a34747970652e676f6f676c65617069732e636f6d2f70726f746f636f6c2e467265657a6542616c616e63655632436f6e7472616374121d0a1541ce8a0cf0c16d48bcf22825f6053248df653c89ca10c0843d180170dc89f8f2e53012419e46cc7b6706ee6a14a541df5f9c518fae9a71ac7a7cc484c48386eb0997a8ab10c41e09feb905c5cc370fe1d15968d22cec2fd2cdc5916adfd3a78c52f8d47000
+txid<span class="w"> </span>is<span class="w"> </span>1743aa098f5e10ac8b68ccbf0ca6b5f1364a63485e442e6cb03fd33e3331e3fb
+freezeBalanceV2<span class="w"> </span>successful<span class="w"> </span>!!!
+</code></pre></div></p>
+<h3 id="unfreezebalancev2">unfreezeBalanceV2<a class="headerlink" href="#unfreezebalancev2" title="Permanent link">&para;</a></h3>
+<p>Stake2.0 解质押API：解锁质押的TRX, 释放所相应数量的带宽和能量，同时回收相应数量的投票权(TP)。</p>
+<div class="highlight"><pre><span></span><code>wallet&gt;<span class="w"> </span>unfreezeBalanceV2<span class="w"> </span><span class="o">[</span>OwnerAddress<span class="o">]</span><span class="w"> </span>unfreezeBalance<span class="w"> </span>ResourceCode<span class="o">(</span><span class="m">0</span><span class="w"> </span>BANDWIDTH,1<span class="w"> </span>ENERGY,2<span class="w"> </span>TRON_POWER<span class="o">)</span>
+</code></pre></div>
+<ul>
+<li><code>OwnerAddress</code> 是交易发起人的地址。可选，默认为wallet-cli登录地址。</li>
+<li><code>unfreezeBalance</code> 解质押TRX数量。</li>
+<li><code>ResourceCode</code> 用来指示所冻结资源的种类，0为<code>带宽</code>，1为<code>能量</code>。 </li>
+</ul>
+<p>示例：</p>
+<div class="highlight"><pre><span></span><code>wallet&gt;<span class="w"> </span>unfreezeBalanceV2<span class="w"> </span><span class="m">1000000</span><span class="w">  </span><span class="m">1</span>
+<span class="o">{</span>
+<span class="w">    </span><span class="s2">&quot;raw_data&quot;</span>:<span class="o">{</span>
+<span class="w">        </span><span class="s2">&quot;contract&quot;</span>:<span class="o">[</span>
+<span class="w">            </span><span class="o">{</span>
+<span class="w">                </span><span class="s2">&quot;parameter&quot;</span>:<span class="o">{</span>
+<span class="w">                    </span><span class="s2">&quot;value&quot;</span>:<span class="o">{</span>
+<span class="w">                        </span><span class="s2">&quot;resource&quot;</span>:<span class="s2">&quot;ENERGY&quot;</span>,
+<span class="w">                        </span><span class="s2">&quot;owner_address&quot;</span>:<span class="s2">&quot;TUoHaVjx7n5xz8LwPRDckgFrDWhMhuSuJM&quot;</span>,
+<span class="w">                        </span><span class="s2">&quot;unfreeze_balance&quot;</span>:1000000
+<span class="w">                    </span><span class="o">}</span>,
+<span class="w">                    </span><span class="s2">&quot;type_url&quot;</span>:<span class="s2">&quot;type.googleapis.com/protocol.UnfreezeBalanceV2Contract&quot;</span>
+<span class="w">                </span><span class="o">}</span>,
+<span class="w">                </span><span class="s2">&quot;type&quot;</span>:<span class="s2">&quot;UnfreezeBalanceV2Contract&quot;</span>
+<span class="w">            </span><span class="o">}</span>
+<span class="w">        </span><span class="o">]</span>,
+<span class="w">        </span><span class="s2">&quot;ref_block_bytes&quot;</span>:<span class="s2">&quot;0132&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;ref_block_hash&quot;</span>:<span class="s2">&quot;0772c1a1727e2ef0&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;expiration&quot;</span>:1676620887000,
+<span class="w">        </span><span class="s2">&quot;timestamp&quot;</span>:1676620829314
+<span class="w">    </span><span class="o">}</span>,
+<span class="w">    </span><span class="s2">&quot;raw_data_hex&quot;</span>:<span class="s2">&quot;0a02013222080772c1a1727e2ef040d8e791f3e5305a5b083712570a36747970652e676f6f676c65617069732e636f6d2f70726f746f636f6c2e556e667265657a6542616c616e63655632436f6e7472616374121d0a1541ce8a0cf0c16d48bcf22825f6053248df653c89ca10c0843d18017082a58ef3e530&quot;</span>
+<span class="o">}</span>
+before<span class="w"> </span>sign<span class="w"> </span>transaction<span class="w"> </span>hex<span class="w"> </span>string<span class="w"> </span>is<span class="w"> </span>0a790a02013222080772c1a1727e2ef040d8e791f3e5305a5b083712570a36747970652e676f6f676c65617069732e636f6d2f70726f746f636f6c2e556e667265657a6542616c616e63655632436f6e7472616374121d0a1541ce8a0cf0c16d48bcf22825f6053248df653c89ca10c0843d18017082a58ef3e530
+Please<span class="w"> </span>confirm<span class="w"> </span>and<span class="w"> </span>input<span class="w"> </span>your<span class="w"> </span>permission<span class="w"> </span>id,<span class="w"> </span><span class="k">if</span><span class="w"> </span>input<span class="w"> </span>y<span class="w"> </span>or<span class="w"> </span>Y<span class="w"> </span>means<span class="w"> </span>default<span class="w"> </span><span class="m">0</span>,<span class="w"> </span>other<span class="w"> </span>non-numeric<span class="w"> </span>characters<span class="w"> </span>will<span class="w"> </span>cancel<span class="w"> </span>transaction.
+y
+Please<span class="w"> </span>choose<span class="w"> </span>your<span class="w"> </span>key<span class="w"> </span><span class="k">for</span><span class="w"> </span>sign.
+The<span class="w"> </span>1th<span class="w"> </span>keystore<span class="w"> </span>file<span class="w"> </span>name<span class="w"> </span>is<span class="w"> </span>UTC--2023-02-17T02-53-57.163000000Z--THLJLytz6UHwpmDFi5RC43D44dmnh4ZTeL.json
+The<span class="w"> </span>2th<span class="w"> </span>keystore<span class="w"> </span>file<span class="w"> </span>name<span class="w"> </span>is<span class="w"> </span>UTC--2023-02-17T07-40-47.121000000Z--TUoHaVjx7n5xz8LwPRDckgFrDWhMhuSuJM.json
+Please<span class="w"> </span>choose<span class="w"> </span>between<span class="w"> </span><span class="m">1</span><span class="w"> </span>and<span class="w"> </span><span class="m">2</span>
+<span class="m">2</span>
+Please<span class="w"> </span>input<span class="w"> </span>your<span class="w"> </span>password.
+password:
+after<span class="w"> </span>sign<span class="w"> </span>transaction<span class="w"> </span>hex<span class="w"> </span>string<span class="w"> </span>is<span class="w"> </span>0a790a02013222080772c1a1727e2ef040ecd2b4fde5305a5b083712570a36747970652e676f6f676c65617069732e636f6d2f70726f746f636f6c2e556e667265657a6542616c616e63655632436f6e7472616374121d0a1541ce8a0cf0c16d48bcf22825f6053248df653c89ca10c0843d18017082a58ef3e530124111bac22e9bc35e1a78c13796893e9f2b81dc99eb26d9ce7a95d0c6a0a9b5588739c52b999acd370b255d178f57bf2abef8881891f23e042ddf83c3551b8bd98e01
+txid<span class="w"> </span>is<span class="w"> </span>f9e114347ea89c5d722d20226817bc41c8a39ea36be756ba216cf450ab3f1fb3
+unfreezeBalanceV2<span class="w"> </span>successful<span class="w"> </span>!!!
+</code></pre></div>
+<h3 id="delegateresource">delegateResource<a class="headerlink" href="#delegateresource" title="Permanent link">&para;</a></h3>
+<p>Stake 2.0 资源代理API：将带宽或者能量资源代理给其它账户。
+<div class="highlight"><pre><span></span><code>wallet&gt;<span class="w"> </span>delegateResource<span class="w"> </span><span class="o">[</span>OwnerAddress<span class="o">]</span><span class="w"> </span>balance<span class="w"> </span>ResourceCode<span class="o">(</span><span class="m">0</span><span class="w"> </span>BANDWIDTH,1<span class="w"> </span>ENERGY<span class="o">)</span>,<span class="w"> </span>ReceiverAddress<span class="w"> </span><span class="o">[</span>lock<span class="o">]</span>
+</code></pre></div></p>
+<ul>
+<li><code>OwnerAddress</code> 是交易发起人的地址。可选，默认为wallet-cli登录地址。</li>
+<li><code>balance</code> 代理的TRX数量。</li>
+<li><code>ResourceCode</code> 用来指示代理资源的种类，0为<code>带宽</code>，1为<code>能量</code>。 </li>
+<li><code>ReceiverAddress</code> 资源接收者地址。 </li>
+<li><code>lock</code> 用来指示是否将该资源代理锁定三天，可选，默认值为0，0为不锁定，1为锁定。 </li>
+</ul>
+<p>示例：</p>
+<div class="highlight"><pre><span></span><code>wallet&gt;<span class="w"> </span>delegateResource<span class="w"> </span><span class="m">1000000</span><span class="w">  </span><span class="m">1</span><span class="w"> </span>TZ4UXDV5ZhNW7fb2AMSbgfAEZ7hWsnYS2g<span class="w"> </span><span class="m">0</span>
+<span class="o">{</span>
+<span class="w">    </span><span class="s2">&quot;raw_data&quot;</span>:<span class="o">{</span>
+<span class="w">        </span><span class="s2">&quot;contract&quot;</span>:<span class="o">[</span>
+<span class="w">            </span><span class="o">{</span>
+<span class="w">                </span><span class="s2">&quot;parameter&quot;</span>:<span class="o">{</span>
+<span class="w">                    </span><span class="s2">&quot;value&quot;</span>:<span class="o">{</span>
+<span class="w">                        </span><span class="s2">&quot;balance&quot;</span>:1000000,
+<span class="w">                        </span><span class="s2">&quot;resource&quot;</span>:<span class="s2">&quot;ENERGY&quot;</span>,
+<span class="w">                        </span><span class="s2">&quot;receiver_address&quot;</span>:<span class="s2">&quot;TZ4UXDV5ZhNW7fb2AMSbgfAEZ7hWsnYS2g&quot;</span>,
+<span class="w">                        </span><span class="s2">&quot;owner_address&quot;</span>:<span class="s2">&quot;TUoHaVjx7n5xz8LwPRDckgFrDWhMhuSuJM&quot;</span>
+<span class="w">                    </span><span class="o">}</span>,
+<span class="w">                    </span><span class="s2">&quot;type_url&quot;</span>:<span class="s2">&quot;type.googleapis.com/protocol.DelegateResourceContract&quot;</span>
+<span class="w">                </span><span class="o">}</span>,
+<span class="w">                </span><span class="s2">&quot;type&quot;</span>:<span class="s2">&quot;DelegateResourceContract&quot;</span>
+<span class="w">            </span><span class="o">}</span>
+<span class="w">        </span><span class="o">]</span>,
+<span class="w">        </span><span class="s2">&quot;ref_block_bytes&quot;</span>:<span class="s2">&quot;020c&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;ref_block_hash&quot;</span>:<span class="s2">&quot;54e32e95d11894f8&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;expiration&quot;</span>:1676621547000,
+<span class="w">        </span><span class="s2">&quot;timestamp&quot;</span>:1676621487525
+<span class="w">    </span><span class="o">}</span>,
+<span class="w">    </span><span class="s2">&quot;raw_data_hex&quot;</span>:<span class="s2">&quot;0a02020c220854e32e95d11894f840f88bbaf3e5305a710839126d0a35747970652e676f6f676c65617069732e636f6d2f70726f746f636f6c2e44656c65676174655265736f75726365436f6e747261637412340a1541ce8a0cf0c16d48bcf22825f6053248df653c89ca100118c0843d221541fd49eda0f23ff7ec1d03b52c3a45991c24cd440e70a5bbb6f3e530&quot;</span>
+<span class="o">}</span>
+before<span class="w"> </span>sign<span class="w"> </span>transaction<span class="w"> </span>hex<span class="w"> </span>string<span class="w"> </span>is<span class="w"> </span>0a8f010a02020c220854e32e95d11894f840f88bbaf3e5305a710839126d0a35747970652e676f6f676c65617069732e636f6d2f70726f746f636f6c2e44656c65676174655265736f75726365436f6e747261637412340a1541ce8a0cf0c16d48bcf22825f6053248df653c89ca100118c0843d221541fd49eda0f23ff7ec1d03b52c3a45991c24cd440e70a5bbb6f3e530
+Please<span class="w"> </span>confirm<span class="w"> </span>and<span class="w"> </span>input<span class="w"> </span>your<span class="w"> </span>permission<span class="w"> </span>id,<span class="w"> </span><span class="k">if</span><span class="w"> </span>input<span class="w"> </span>y<span class="w"> </span>or<span class="w"> </span>Y<span class="w"> </span>means<span class="w"> </span>default<span class="w"> </span><span class="m">0</span>,<span class="w"> </span>other<span class="w"> </span>non-numeric<span class="w"> </span>characters<span class="w"> </span>will<span class="w"> </span>cancel<span class="w"> </span>transaction.
+y
+Please<span class="w"> </span>choose<span class="w"> </span>your<span class="w"> </span>key<span class="w"> </span><span class="k">for</span><span class="w"> </span>sign.
+The<span class="w"> </span>1th<span class="w"> </span>keystore<span class="w"> </span>file<span class="w"> </span>name<span class="w"> </span>is<span class="w"> </span>UTC--2023-02-17T02-53-57.163000000Z--THLJLytz6UHwpmDFi5RC43D44dmnh4ZTeL.json
+The<span class="w"> </span>2th<span class="w"> </span>keystore<span class="w"> </span>file<span class="w"> </span>name<span class="w"> </span>is<span class="w"> </span>UTC--2023-02-17T07-40-47.121000000Z--TUoHaVjx7n5xz8LwPRDckgFrDWhMhuSuJM.json
+Please<span class="w"> </span>choose<span class="w"> </span>between<span class="w"> </span><span class="m">1</span><span class="w"> </span>and<span class="w"> </span><span class="m">2</span>
+<span class="m">2</span>
+Please<span class="w"> </span>input<span class="w"> </span>your<span class="w"> </span>password.
+password:
+after<span class="w"> </span>sign<span class="w"> </span>transaction<span class="w"> </span>hex<span class="w"> </span>string<span class="w"> </span>is<span class="w"> </span>0a8f010a02020c220854e32e95d11894f84093e9dcfde5305a710839126d0a35747970652e676f6f676c65617069732e636f6d2f70726f746f636f6c2e44656c65676174655265736f75726365436f6e747261637412340a1541ce8a0cf0c16d48bcf22825f6053248df653c89ca100118c0843d221541fd49eda0f23ff7ec1d03b52c3a45991c24cd440e70a5bbb6f3e5301241414de060e9c104bb45d745e22b7b7a30b4a89a2635c62aab152fff5d2f10b7443023a9aa487be86652b74974ff6a7d82d3dbf94cea9ac1e0a7e48e682175e3f601
+txid<span class="w"> </span>is<span class="w"> </span>0917002d0068dde7ad4ffe46e75303d11192e17bfa78934a5f867c5ae20720ec
+delegateResource<span class="w"> </span>successful<span class="w"> </span>!!!
+</code></pre></div>
+<h3 id="undelegateresource">unDelegateResource<a class="headerlink" href="#undelegateresource" title="Permanent link">&para;</a></h3>
+<p>Stake 2.0 取消资源代理API：取消为目标地址代理的带宽或者能量。
+<div class="highlight"><pre><span></span><code>wallet&gt;<span class="w"> </span>unDelegateResource<span class="w"> </span><span class="o">[</span>OwnerAddress<span class="o">]</span><span class="w"> </span>balance<span class="w"> </span>ResourceCode<span class="o">(</span><span class="m">0</span><span class="w"> </span>BANDWIDTH,1<span class="w"> </span>ENERGY<span class="o">)</span>,<span class="w"> </span>ReceiverAddress
+</code></pre></div></p>
+<ul>
+<li><code>OwnerAddress</code> 是交易发起人的地址。可选，默认为wallet-cli登录地址。</li>
+<li><code>balance</code> 解代理的TRX数量。</li>
+<li><code>ResourceCode</code> 用来指示解除代理资源的种类，0为<code>带宽</code>，1为<code>能量</code>。 </li>
+<li><code>ReceiverAddress</code> 资源接收者地址。 </li>
+</ul>
+<p>示例：</p>
+<div class="highlight"><pre><span></span><code>wallet&gt;<span class="w"> </span>unDelegateResource<span class="w"> </span><span class="m">1000000</span><span class="w">  </span><span class="m">1</span><span class="w"> </span>TZ4UXDV5ZhNW7fb2AMSbgfAEZ7hWsnYS2g
+<span class="o">{</span>
+<span class="w">    </span><span class="s2">&quot;raw_data&quot;</span>:<span class="o">{</span>
+<span class="w">        </span><span class="s2">&quot;contract&quot;</span>:<span class="o">[</span>
+<span class="w">            </span><span class="o">{</span>
+<span class="w">                </span><span class="s2">&quot;parameter&quot;</span>:<span class="o">{</span>
+<span class="w">                    </span><span class="s2">&quot;value&quot;</span>:<span class="o">{</span>
+<span class="w">                        </span><span class="s2">&quot;balance&quot;</span>:1000000,
+<span class="w">                        </span><span class="s2">&quot;resource&quot;</span>:<span class="s2">&quot;ENERGY&quot;</span>,
+<span class="w">                        </span><span class="s2">&quot;receiver_address&quot;</span>:<span class="s2">&quot;TZ4UXDV5ZhNW7fb2AMSbgfAEZ7hWsnYS2g&quot;</span>,
+<span class="w">                        </span><span class="s2">&quot;owner_address&quot;</span>:<span class="s2">&quot;TUoHaVjx7n5xz8LwPRDckgFrDWhMhuSuJM&quot;</span>
+<span class="w">                    </span><span class="o">}</span>,
+<span class="w">                    </span><span class="s2">&quot;type_url&quot;</span>:<span class="s2">&quot;type.googleapis.com/protocol.UnDelegateResourceContract&quot;</span>
+<span class="w">                </span><span class="o">}</span>,
+<span class="w">                </span><span class="s2">&quot;type&quot;</span>:<span class="s2">&quot;UnDelegateResourceContract&quot;</span>
+<span class="w">            </span><span class="o">}</span>
+<span class="w">        </span><span class="o">]</span>,
+<span class="w">        </span><span class="s2">&quot;ref_block_bytes&quot;</span>:<span class="s2">&quot;0251&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;ref_block_hash&quot;</span>:<span class="s2">&quot;68ac15256c213e71&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;expiration&quot;</span>:1676621754000,
+<span class="w">        </span><span class="s2">&quot;timestamp&quot;</span>:1676621695001
+<span class="w">    </span><span class="o">}</span>,
+<span class="w">    </span><span class="s2">&quot;raw_data_hex&quot;</span>:<span class="s2">&quot;0a020251220868ac15256c213e714090ddc6f3e5305a73083a126f0a37747970652e676f6f676c65617069732e636f6d2f70726f746f636f6c2e556e44656c65676174655265736f75726365436f6e747261637412340a1541ce8a0cf0c16d48bcf22825f6053248df653c89ca100118c0843d221541fd49eda0f23ff7ec1d03b52c3a45991c24cd440e709990c3f3e530&quot;</span>
+<span class="o">}</span>
+before<span class="w"> </span>sign<span class="w"> </span>transaction<span class="w"> </span>hex<span class="w"> </span>string<span class="w"> </span>is<span class="w"> </span>0a91010a020251220868ac15256c213e714090ddc6f3e5305a73083a126f0a37747970652e676f6f676c65617069732e636f6d2f70726f746f636f6c2e556e44656c65676174655265736f75726365436f6e747261637412340a1541ce8a0cf0c16d48bcf22825f6053248df653c89ca100118c0843d221541fd49eda0f23ff7ec1d03b52c3a45991c24cd440e709990c3f3e530
+Please<span class="w"> </span>confirm<span class="w"> </span>and<span class="w"> </span>input<span class="w"> </span>your<span class="w"> </span>permission<span class="w"> </span>id,<span class="w"> </span><span class="k">if</span><span class="w"> </span>input<span class="w"> </span>y<span class="w"> </span>or<span class="w"> </span>Y<span class="w"> </span>means<span class="w"> </span>default<span class="w"> </span><span class="m">0</span>,<span class="w"> </span>other<span class="w"> </span>non-numeric<span class="w"> </span>characters<span class="w"> </span>will<span class="w"> </span>cancel<span class="w"> </span>transaction.
+y
+Please<span class="w"> </span>choose<span class="w"> </span>your<span class="w"> </span>key<span class="w"> </span><span class="k">for</span><span class="w"> </span>sign.
+The<span class="w"> </span>1th<span class="w"> </span>keystore<span class="w"> </span>file<span class="w"> </span>name<span class="w"> </span>is<span class="w"> </span>UTC--2023-02-17T02-53-57.163000000Z--THLJLytz6UHwpmDFi5RC43D44dmnh4ZTeL.json
+The<span class="w"> </span>2th<span class="w"> </span>keystore<span class="w"> </span>file<span class="w"> </span>name<span class="w"> </span>is<span class="w"> </span>UTC--2023-02-17T07-40-47.121000000Z--TUoHaVjx7n5xz8LwPRDckgFrDWhMhuSuJM.json
+Please<span class="w"> </span>choose<span class="w"> </span>between<span class="w"> </span><span class="m">1</span><span class="w"> </span>and<span class="w"> </span><span class="m">2</span>
+<span class="m">2</span>
+Please<span class="w"> </span>input<span class="w"> </span>your<span class="w"> </span>password.
+password:
+after<span class="w"> </span>sign<span class="w"> </span>transaction<span class="w"> </span>hex<span class="w"> </span>string<span class="w"> </span>is<span class="w"> </span>0a91010a020251220868ac15256c213e7140febde9fde5305a73083a126f0a37747970652e676f6f676c65617069732e636f6d2f70726f746f636f6c2e556e44656c65676174655265736f75726365436f6e747261637412340a1541ce8a0cf0c16d48bcf22825f6053248df653c89ca100118c0843d221541fd49eda0f23ff7ec1d03b52c3a45991c24cd440e709990c3f3e530124102ebde16d1abaccd976f8ead4b5acf92b05f7d9796c28ca6a26b4e51442e638e5e33e598bb03732da24dc761a39b9d307c045b55323128dc9b07510ffc48933a01
+txid<span class="w"> </span>is<span class="w"> </span>537a3f4461ab55c705b77503bc42f469bfc22c0cb8588b8f3641ab40117ebfd8
+unDelegateResource<span class="w"> </span>successful<span class="w"> </span>!!!
+</code></pre></div>
+<h3 id="withdrawexpireunfreeze">withdrawExpireUnfreeze<a class="headerlink" href="#withdrawexpireunfreeze" title="Permanent link">&para;</a></h3>
+<p>Stake 2.0 提取质押本金API：提取已过锁定期的解质押的本金。</p>
+<div class="highlight"><pre><span></span><code>wallet&gt;<span class="w"> </span>withdrawExpireUnfreeze<span class="w"> </span><span class="o">[</span>OwnerAddress<span class="o">]</span>
+</code></pre></div>
+<ul>
+<li><code>OwnerAddress</code> 是交易发起人的地址。可选，默认为wallet-cli登录地址。</li>
+</ul>
+<p>示例：</p>
+<div class="highlight"><pre><span></span><code>wallet&gt;<span class="w"> </span>withdrawExpireUnfreeze<span class="w"> </span>
+</code></pre></div>
+<h3 id="getavailableunfreezecount">getavailableunfreezecount<a class="headerlink" href="#getavailableunfreezecount" title="Permanent link">&para;</a></h3>
+<p>Stake 2.0 API: 查询当下解质押剩余次数。</p>
+<div class="highlight"><pre><span></span><code>wallet&gt;<span class="w"> </span>getavailableunfreezecount<span class="w"> </span><span class="o">[</span>OwnerAddress<span class="o">]</span>
+</code></pre></div>
+<ul>
+<li><code>OwnerAddress</code> 是交易发起人的地址。可选，默认为wallet-cli登录地址。</li>
+</ul>
+<p>示例：</p>
+<div class="highlight"><pre><span></span><code>wallet&gt;<span class="w"> </span>GetAvailableUnfreezeCount
+<span class="o">{</span>
+<span class="w">    </span><span class="s2">&quot;count&quot;</span>:<span class="w"> </span><span class="m">30</span>
+<span class="o">}</span>
+</code></pre></div>
+<h3 id="getcanwithdrawunfreezeamount">getcanwithdrawunfreezeamount<a class="headerlink" href="#getcanwithdrawunfreezeamount" title="Permanent link">&para;</a></h3>
+<p>Stake 2.0 API: 查询在某时间点可以提取的解质押本金数量。</p>
+<div class="highlight"><pre><span></span><code>wallet&gt;<span class="w"> </span>getcanwithdrawunfreezeamount<span class="w"> </span>ownerAddress<span class="w"> </span>timestamp
+</code></pre></div>
+<ul>
+<li><code>OwnerAddress</code> 是交易发起人的地址。可选，默认为wallet-cli登录地址。</li>
+<li><code>timestamp</code> 查询的提现时间戳，以毫秒为单位。</li>
+</ul>
+<p>示例：</p>
+<div class="highlight"><pre><span></span><code>wallet&gt;<span class="w"> </span>getcanwithdrawunfreezeamount<span class="w"> </span><span class="m">1776621695001</span>
+<span class="o">{</span>
+<span class="w">    </span><span class="s2">&quot;amount&quot;</span>:<span class="w"> </span><span class="m">4000000</span>
+<span class="o">}</span>
+</code></pre></div>
+<h3 id="getcandelegatedmaxsize">getcandelegatedmaxsize<a class="headerlink" href="#getcandelegatedmaxsize" title="Permanent link">&para;</a></h3>
+<p>Stake 2.0 API: 查询在某时间点可以提取的解质押本金数量。</p>
+<div class="highlight"><pre><span></span><code>wallet&gt;<span class="w"> </span>getcandelegatedmaxsize<span class="w"> </span>ownerAddress<span class="w"> </span><span class="nb">type</span>
+</code></pre></div>
+<ul>
+<li><code>OwnerAddress</code> 是交易发起人的地址。可选，默认为wallet-cli登录地址。</li>
+<li><code>type</code> 查询的资源类型，0为带宽，1为能量。</li>
+</ul>
+<p>示例：</p>
+<div class="highlight"><pre><span></span><code>wallet&gt;<span class="w"> </span>getcandelegatedmaxsize<span class="w"> </span><span class="m">1</span>
+<span class="o">{</span>
+<span class="w">    </span><span class="s2">&quot;max_size&quot;</span>:<span class="w"> </span><span class="m">11000000</span>
+<span class="o">}</span>
+</code></pre></div>
+<h3 id="getdelegatedresourcev2">getdelegatedresourcev2<a class="headerlink" href="#getdelegatedresourcev2" title="Permanent link">&para;</a></h3>
+<p>Stake 2.0 API：查询某地址代理给目标地址的资源情况。</p>
+<div class="highlight"><pre><span></span><code>wallet&gt;<span class="w"> </span>getdelegatedresourcev2<span class="w"> </span>fromAddress<span class="w"> </span>toAddress
+</code></pre></div>
+<ul>
+<li><code>fromAddress</code> 资源代理地址。</li>
+<li><code>toAddress</code> 资源接收地址。</li>
+</ul>
+<p>示例：</p>
+<div class="highlight"><pre><span></span><code>wallet&gt;<span class="w"> </span>getdelegatedresourcev2<span class="w">  </span>TUoHaVjx7n5xz8LwPRDckgFrDWhMhuSuJM<span class="w"> </span>TZ4UXDV5ZhNW7fb2AMSbgfAEZ7hWsnYS2g
+<span class="o">{</span>
+<span class="w">    </span><span class="s2">&quot;delegatedResource&quot;</span>:<span class="w"> </span><span class="o">[</span>
+<span class="w">        </span><span class="o">{</span>
+<span class="w">            </span><span class="s2">&quot;from&quot;</span>:<span class="w"> </span><span class="s2">&quot;TUoHaVjx7n5xz8LwPRDckgFrDWhMhuSuJM&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;to&quot;</span>:<span class="w"> </span><span class="s2">&quot;TZ4UXDV5ZhNW7fb2AMSbgfAEZ7hWsnYS2g&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;frozen_balance_for_bandwidth&quot;</span>:<span class="w"> </span><span class="m">7000000</span>,
+<span class="w">            </span><span class="s2">&quot;frozen_balance_for_energy&quot;</span>:<span class="w"> </span><span class="m">3000000</span>
+<span class="w">        </span><span class="o">}</span>
+<span class="w">    </span><span class="o">]</span>
+<span class="o">}</span>
+</code></pre></div>
+<h3 id="getdelegatedresourceaccountindexv2">getdelegatedresourceaccountindexv2<a class="headerlink" href="#getdelegatedresourceaccountindexv2" title="Permanent link">&para;</a></h3>
+<p>Stake 2.0 API：查询某地址的资源委托索引。返回两个列表，一个是该帐户将资源委托给的地址列表(toAddress)，另一个是将资源委托给该帐户的地址列表(fromAddress)</p>
+<div class="highlight"><pre><span></span><code>wallet&gt;<span class="w"> </span>getdelegatedresourceaccountindexv2<span class="w"> </span>ownerAddress
+</code></pre></div>
+<ul>
+<li><code>OwnerAddress</code> 查询的地址。</li>
+</ul>
+<p>示例：</p>
+<div class="highlight"><pre><span></span><code>wallet&gt;<span class="w"> </span>getdelegatedresourceaccountindexv2<span class="w"> </span>TUoHaVjx7n5xz8LwPRDckgFrDWhMhuSuJM
+<span class="o">{</span>
+<span class="w">    </span><span class="s2">&quot;account&quot;</span>:<span class="w"> </span><span class="s2">&quot;TUoHaVjx7n5xz8LwPRDckgFrDWhMhuSuJM&quot;</span>,
+<span class="w">    </span><span class="s2">&quot;fromAccounts&quot;</span>:<span class="w"> </span><span class="o">[</span>
+<span class="w">        </span><span class="s2">&quot;TUznHJfHe6gdYY7gvWmf6bNZHuPHDZtowf&quot;</span>
+<span class="w">    </span><span class="o">]</span>,
+<span class="w">    </span><span class="s2">&quot;toAccounts&quot;</span>:<span class="w"> </span><span class="o">[</span>
+<span class="w">        </span><span class="s2">&quot;TZ4UXDV5ZhNW7fb2AMSbgfAEZ7hWsnYS2g&quot;</span>
 <span class="w">    </span><span class="o">]</span>
 <span class="o">}</span>
 </code></pre></div>
@@ -1170,6 +1488,8 @@ The block contains 4 transactions
 <ul>
 <li><a href="#deploycontract">DeployContract</a></li>
 <li><a href="#triggercontract">TriggerContract</a></li>
+<li><a href="#triggerconstantcontract">TriggerConstantContract</a></li>
+<li><a href="#estimateenergy">EstimateEnergy</a></li>
 <li><a href="#getcontract">GetContract</a></li>
 <li><a href="#updateenergylimit">UpdateEnergyLimit</a></li>
 <li><a href="#updatesetting">UpdateSetting</a></li>
@@ -1220,12 +1540,13 @@ The block contains 4 transactions
 <div class="highlight"><pre><span></span><code>wallet&gt; TriggerContract [ownerAddress] [contractAddress] [method] [args] [isHex] [fee_limit] [value] [token_value] [token_id]
 </code></pre></div></p>
 <ul>
-<li><code>OwnerAddress</code> 为合约拥有者地址，如若不填，则默认为当前登陆账户地址。</li>
+<li><code>OwnerAddress</code> 调用者地址，如若不填，则默认为当前登陆账户地址。</li>
 <li><code>ContractAddress</code> 为智能合约地址。</li>
 <li><code>method</code> 为调用函数或者参数的名称，请参考下面的例子。</li>
 <li><code>args</code> 为一个占位参数, 可以传入'#'代替如若<code>method</code> 不需要额外的参数。</li>
 <li><code>isHex</code> 决定了<code>method</code>和<code>args</code>的格式是否是hex string。</li>
 <li><code>fee_limit</code> 用来设置单笔交易所能消耗的TRX的上限。</li>
+<li><code>value</code> 传入的TRX的数额.</li>
 <li><code>token_value</code> 为TRC-10 token的数额.</li>
 <li><code>token_id</code> 为TRC-10 token的ID, 如果没有, 可以传入‘#’代替.</li>
 </ul>
@@ -1252,6 +1573,70 @@ The block contains 4 transactions
 <span class="w">    </span><span class="o">}</span>,
 <span class="w">    </span><span class="s2">&quot;result&quot;</span>:<span class="w"> </span><span class="s2">&quot;FAILED&quot;</span>,
 <span class="w">    </span><span class="s2">&quot;resMessage&quot;</span>:<span class="w"> </span><span class="s2">&quot;REVERT opcode executed&quot;</span>
+<span class="o">}</span>
+</code></pre></div></p>
+<h3 id="triggerconstantcontract">TriggerConstantContract<a class="headerlink" href="#triggerconstantcontract" title="Permanent link">&para;</a></h3>
+<p>既可以调用合约只读函数(view 或 pure修饰的函数)，用于合约数据查询；也可以调用合约非只读函数，用于预判交易是否可以执行成功或者预估交易的能量消耗。</p>
+<div class="highlight"><pre><span></span><code>wallet&gt; TriggerConstantContract ownerAddress(use # if you own) contractAddress method args isHex [value token_value token_id(e.g: TRXTOKEN, use # if don&#39;t provided)]
+</code></pre></div>
+<ul>
+<li><code>ownerAddress</code> 调用者地址，如是当前登陆账户地址，请输入#。</li>
+<li><code>contractAddress</code> 智能合约地址。</li>
+<li><code>method</code> 调用的合约函数。</li>
+<li><code>args</code> 合约调用传入的参数, 如若<code>method</code> 不需要额外的参数，请输入#。</li>
+<li><code>isHex</code> <code>args</code>的格式是否是hex string。</li>
+<li><code>value</code> 传入的TRX的数额. 可选，如果没有, 可以传入‘#’代替。</li>
+<li><code>token_value</code> 为TRC-10 token的数额。可选，如果没有, 可以传入‘#’代替。</li>
+<li><code>token_id</code> 为TRC-10 token的ID, 可选，如果没有, 可以传入‘#’代替。</li>
+</ul>
+<p>示例：
+<div class="highlight"><pre><span></span><code>wallet&gt;<span class="w"> </span>TriggerConstantContract<span class="w"> </span>TTGhREx2pDSxFX555NWz1YwGpiBVPvQA7e<span class="w">  </span>TVSvjZdyDSNocHm7dP3jvCmMNsCnMTPa5W<span class="w"> </span>transfer<span class="o">(</span>address,uint256<span class="o">)</span><span class="w"> </span>0000000000000000000000002ce5de57373427f799cc0a3dd03b841322514a8c00000000000000000000000000000000000000000000000000038d7ea4c68000<span class="w"> </span><span class="nb">true</span>
+
+transfer<span class="o">(</span>address,uint256<span class="o">)</span>:a9059cbb
+Execution<span class="w"> </span><span class="nv">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="s2">&quot;constant_result&quot;</span>:<span class="w"> </span><span class="o">[</span>
+<span class="w">        </span><span class="s2">&quot;0000000000000000000000000000000000000000000000000000000000000001&quot;</span>
+<span class="w">    </span><span class="o">]</span>,
+<span class="w">    </span><span class="s2">&quot;result&quot;</span>:<span class="w"> </span><span class="o">{</span>
+<span class="w">        </span><span class="s2">&quot;result&quot;</span>:<span class="w"> </span><span class="nb">true</span>
+<span class="w">    </span><span class="o">}</span>,
+<span class="w">    </span><span class="s2">&quot;energy_used&quot;</span>:<span class="w"> </span><span class="m">13253</span>,
+<span class="w">    </span><span class="s2">&quot;logs&quot;</span>:<span class="w"> </span><span class="o">[</span>
+<span class="w">        </span><span class="o">{</span>
+<span class="w">            </span><span class="s2">&quot;address&quot;</span>:<span class="w"> </span><span class="s2">&quot;LUijWGF4iFrT7hV37Q2Q45DU5TUBvVZb7&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;topics&quot;</span>:<span class="w"> </span><span class="o">[</span>
+<span class="w">                </span><span class="s2">&quot;ddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef&quot;</span>,
+<span class="w">                </span><span class="s2">&quot;000000000000000000000000bdc8ee51fdd1b1e01d71f836481828f88463c838&quot;</span>,
+<span class="w">                </span><span class="s2">&quot;0000000000000000000000002ce5de57373427f799cc0a3dd03b841322514a8c&quot;</span>
+<span class="w">            </span><span class="o">]</span>,
+<span class="w">            </span><span class="s2">&quot;data&quot;</span>:<span class="w"> </span><span class="s2">&quot;00000000000000000000000000000000000000000000000000038d7ea4c68000&quot;</span>
+<span class="w">        </span><span class="o">}</span>
+<span class="w">    </span><span class="o">]</span>
+<span class="o">}</span>
+</code></pre></div></p>
+<h3 id="estimateenergy">EstimateEnergy<a class="headerlink" href="#estimateenergy" title="Permanent link">&para;</a></h3>
+<p>为智能合约交易预估能量消耗。 estimateEnergy 是可选接口, 有些 FullNode 节点可能没有开启该接口，因此，如若调用 estimateEnergy 接口时捕获到节点不支持此功能的错误信息 (this node does not support estimate energy)，建议继续使用 triggerconstantcontract 接口预估能量消耗。</p>
+<div class="highlight"><pre><span></span><code>wallet&gt; EstimateEnergy ownerAddress contractAddress method args isHex [value token_value token_id]
+</code></pre></div>
+<ul>
+<li><code>ownerAddress</code> 调用者地址，如是当前登陆账户地址，请输入#。</li>
+<li><code>contractAddress</code> 智能合约地址。</li>
+<li><code>method</code> 调用的合约函数。</li>
+<li><code>args</code> 合约调用传入的参数, 如若<code>method</code> 不需要额外的参数，请输入#。</li>
+<li><code>isHex</code> <code>args</code>的格式是否是hex string。</li>
+<li><code>value</code> 传入的TRX的数额. 可选，如果没有, 可以传入‘#’代替。</li>
+<li><code>token_value</code> 为TRC-10 token的数额。可选，如果没有, 可以传入‘#’代替。</li>
+<li><code>token_id</code> 为TRC-10 token的ID, 可选，如果没有, 可以传入‘#’代替。</li>
+</ul>
+<p>示例：
+<div class="highlight"><pre><span></span><code>wallet&gt;<span class="w"> </span>EstimateEnergy<span class="w"> </span>TTGhREx2pDSxFX555NWz1YwGpiBVPvQA7e<span class="w">  </span>TVSvjZdyDSNocHm7dP3jvCmMNsCnMTPa5W<span class="w"> </span>transfer<span class="o">(</span>address,uint256<span class="o">)</span><span class="w"> </span>0000000000000000000000002ce5de57373427f799cc0a3dd03b841322514a8c00000000000000000000000000000000000000000000000000038d7ea4c68000<span class="w"> </span><span class="nb">true</span>
+
+transfer<span class="o">(</span>address,uint256<span class="o">)</span>:a9059cbb
+Estimate<span class="w"> </span>energy<span class="w"> </span><span class="nv">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="s2">&quot;result&quot;</span>:<span class="w"> </span><span class="o">{</span>
+<span class="w">        </span><span class="s2">&quot;result&quot;</span>:<span class="w"> </span><span class="nb">true</span>
+<span class="w">    </span><span class="o">}</span>,
+<span class="w">    </span><span class="s2">&quot;energy_required&quot;</span>:<span class="w"> </span><span class="m">14910</span>
 <span class="o">}</span>
 </code></pre></div></p>
 <h3 id="getcontract">GetContract<a class="headerlink" href="#getcontract" title="Permanent link">&para;</a></h3>
