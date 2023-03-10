@@ -42,7 +42,7 @@ Bandwidth Points是一个账户1天内能够使用的总字节数。一定时间
 
 如果交易是Token转账，Bandwidth Points消耗如下：
 
-1. 依次验证 发行Token资产总的免费Bandwidth Points是否足够消耗，转账发起者的Token剩余免费Bandwidth Points是否足够消耗，Token发行者质押TRX获取Bandwidth Points剩余量是否足够消耗。如果满足则扣除Token发行者的Bandwidth Points，任意一个不满足则进入下一步
+1. 依次验证 发行Token资产总的免费Bandwidth Points是否足够消耗，转账发起者的Token剩余免费Bandwidth Points是否足够消耗，Token发行者质押TRX获取Bandwidth Points剩余量是否足够消耗。如果满足则扣除Token发行者质押获取的Bandwidth Points，任意一个不满足则进入下一步
 2. 尝试消耗交易发起者质押获取的Bandwidth Points。如果交易发起者Bandwidth Points不足，则进入下一步
 3. 尝试消耗交易发起者的免费Bandwidth Points。如果免费Bandwidth Points也不足，则进入下一步
 4. 尝试消耗交易发起者的TRX，交易的字节数 * 1000 sun
