@@ -5,14 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://tronprotocol.github.io/documentation-zh/architecture/event/" />
       <link rel="shortcut icon" href="../../img/favicon.ico" />
-    <title>事件插件 - Java Tron</title>
+    <title>使用事件插件 - Java Tron</title>
     <link rel="stylesheet" href="../../css/theme.css" />
     <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
     
       <script>
         // Current page data
-        var mkdocs_page_name = "\u4e8b\u4ef6\u63d2\u4ef6";
+        var mkdocs_page_name = "\u4f7f\u7528\u4e8b\u4ef6\u63d2\u4ef6";
         var mkdocs_page_input_path = "architecture/event.md";
         var mkdocs_page_url = "/documentation-zh/architecture/event/";
       </script>
@@ -55,18 +55,26 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../../using_javatron/private_network/">私链网络</a>
                   </li>
-                  <li class="toctree-l1 current"><a class="reference internal current" href="./">事件插件</a>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">事件订阅</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#_1">简介</a>
+                <li class="toctree-l2 current"><a class="reference internal current" href="./">使用事件插件</a>
+    <ul class="current">
+    <li class="toctree-l3"><a class="reference internal" href="#tip">TIP</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_2">新功能</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_2">事件类型</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#github">Github 项目</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_3">新功能</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_3">事件订阅相关插件部署</a>
+    <li class="toctree-l3"><a class="reference internal" href="#github">Github 项目</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_4">事件订阅数据查询</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_4">事件订阅相关插件部署</a>
     </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_5">事件订阅数据查询</a>
+    </li>
+    </ul>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../using_javatron/builtin_message_queue/">使用内置消息队列</a>
+                </li>
     </ul>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../database/">数据库配置</a>
@@ -214,7 +222,8 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="../.." class="icon icon-home" alt="Docs"></a> &raquo;</li>
-          <li>使用Java-tron &raquo;</li><li>事件插件</li>
+          <li>使用Java-tron &raquo;</li>
+          <li>事件订阅 &raquo;</li><li>使用事件插件</li>
     <li class="wy-breadcrumbs-aside">
         <a href="https://github.com/tronprotocol/documentation-zh/edit/master/docs/architecture/event.md"
           class="icon icon-github"> Edit on GitHub</a>
@@ -226,9 +235,10 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="tron">Tron 事件订阅机制<a class="headerlink" href="#tron" title="Permanent link">&para;</a></h1>
-<h2 id="_1">简介<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+                <h1 id="_1">使用事件插件进行事件订阅<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<h2 id="tip">TIP<a class="headerlink" href="#tip" title="Permanent link">&para;</a></h2>
 <p>TIP: <a href="https://github.com/tronprotocol/TIPs/issues/12">https://github.com/tronprotocol/TIPs/issues/12</a></p>
+<h2 id="_2">事件类型<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <p>波场事件订阅支持四种类型的事件：</p>
 <ul>
 <li>交易相关事件</li>
@@ -280,7 +290,7 @@ toBlock: 结束区块索引<br />
 contractAddress: 合约地址<br />
 contractTopics: 合约主题  </p>
 <p><strong>注意</strong>: 不支持历史数据查询</p>
-<h2 id="_2">新功能<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h2 id="_3">新功能<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
 <ol>
 <li>
 <p>支持事件插件，kafka &amp; mongodb 插件已经发布，开发者可以按照需求自定义插件。</p>
@@ -297,12 +307,12 @@ contractTopics: 合约主题  </p>
 <li><a href="https://github.com/tronprotocol/event-plugin">事件订阅</a></li>
 <li><a href="https://github.com/tronprotocol/tron-eventquery">事件订阅数据查询</a></li>
 </ul>
-<h2 id="_3">事件订阅相关插件部署<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<h2 id="_4">事件订阅相关插件部署<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="https://tronprotocol.github.io/documentation-zh/developers/deployment/#kafka">kafka部署</a></li>
 <li><a href="https://tronprotocol.github.io/documentation-zh/developers/deployment/#mongo">mongo部署</a></li>
 </ul>
-<h2 id="_4">事件订阅数据查询<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<h2 id="_5">事件订阅数据查询<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
 <p>事件订阅数据查询服务实现了事件订阅模型。</p>
 <p>查看更多信息，请查阅<a href="https://github.com/tronprotocol/TIPs/issues/12">https://github.com/tronprotocol/TIPs/issues/12</a></p>
 <ul>
@@ -314,7 +324,7 @@ contractTopics: 合约主题  </p>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
         <a href="../../using_javatron/private_network/" class="btn btn-neutral float-left" title="私链网络"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../database/" class="btn btn-neutral float-right" title="数据库配置">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../../using_javatron/builtin_message_queue/" class="btn btn-neutral float-right" title="使用内置消息队列">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -344,7 +354,7 @@ contractTopics: 合约主题  </p>
       <span><a href="../../using_javatron/private_network/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
-      <span><a href="../database/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="../../using_javatron/builtin_message_queue/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>
