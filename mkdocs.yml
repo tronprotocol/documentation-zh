@@ -10,7 +10,9 @@ nav:
         - 备份和恢复: using_javatron/backup_restore.md
         - 轻节点: developers/litefullnode.md
         - 私链网络: using_javatron/private_network.md
-        - 事件插件: architecture/event.md
+        - 事件订阅:
+            - 使用事件插件: architecture/event.md
+            - 使用内置消息队列: using_javatron/builtin_message_queue.md
         - 数据库配置: architecture/database.md
         - 网络配置: using_javatron/connecting_to_tron.md
         - 节点监控: using_javatron/metrics.md
