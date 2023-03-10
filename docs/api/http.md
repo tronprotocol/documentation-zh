@@ -15,8 +15,9 @@
 | getsignweight                 |  setaccountid                      | scanandmarknotebyivk                         |
 | addtransactionsign            |  getaccountbyid                    | scannotebyovk                                |
 | gettransactioninfobyblocknum  |  accountpermissionupdate           | getrcm                                       |
-|                               |  getdelegatedresource              | getmerkletreevoucherinfo                     |
-|                               |  getdelegatedresourceaccountindex  | isspend                                      |
+| gettransactionfrompending     |  getdelegatedresource              | getmerkletreevoucherinfo                     |
+| gettransactionlistfrompending |  getdelegatedresourceaccountindex  | isspend                                      |
+| getpendingsize                |                                    |
 |    **block**                  |  freezebalance                     | createspendauthsig                           |
 | getnowblock                   |  unfreezebalance                   | createshieldnullifier                        |
 | getblockbynum                 |  unfreezeasset                     | getshieldtransactionhash                     |
@@ -55,7 +56,7 @@
 |  getapprovedlist                 | updatesetting           |                                 |
 
 
- 
+
 
 |   market                       |  others                 |                       |
 |--------------------------------|-------------------------|-----------------------|
@@ -1161,7 +1162,7 @@ demo: curl -X POST  http://127.0.0.1:8090/wallet/getaccountbalance -d
 '{
     "account_identifier": {
         "address": "TLLM21wteSPs4hKjbxgmH1L6poyMjeTbHm"
-    }, 
+    },
     "block_identifier": {
         "hash": "0000000000010c4a732d1e215e87466271e425c86945783c3d3f122bfa5affd9",
         "number": 68682
@@ -1714,7 +1715,7 @@ demo: curl -X GET  http://127.0.0.1:8090/wallet/getnewshieldedaddress
 wallet/createshieldedcontractparameters
 作用：创建匿名TRC20合约交易的相关参数，包括mint, transfer和burn三种类型
 demo: curl -X POST  http://127.0.0.1:8090/wallet/createshieldedcontractparameters -d
-'{  
+'{
      "ask": "0f63eabdfe2bbfe08012f6bb2db024e6809c16e8ed055aa41a6095424f192005",
      "nsk": "cd43d722fd4b6b01f19449ea826c3e935609648520fcc2a95c0026f0fa9ee404",
      "ovk": "1797de3b7f33cafffe3fe18c6b43ec6760add2ad81b10978d1fca5290497ede9",
@@ -1826,7 +1827,7 @@ shielded_TRC20_contract_address: 匿名TRC20合约地址
 - wallet/gettriggerinputforshieldedtrc20contract
 作用: 对于没有授权签名的匿名TRC-20合约参数，生成触发合约的输入数据
 demo: curl -X POST  http://127.0.0.1:8090/wallet/gettriggerinputforshieldedtrc20contract -d
-'{  
+'{
       "shielded_TRC20_Parameters": {"spend_description": [{"value_commitment": "e3fcc8609ff6a4b00b77a00ef624f305cec5f55cc7312ff5526d0b3057f2ef9e","anchor": "4c9cbebece033dc1d253b93e4a3682187daae4f905515761d10287b801e69816","nullifier": "74edce8798a3976ee41e045bb666f3a121c27235b0f1b44b3456d2c84bc725dc","rk": "9dcf4254aa7c4fb7c8bc6956d4b0c7c6c87c37a2552e7bf4e60c12cb5bc6c8cd","zkproof": "9926045cd1442a7d20153e6abda9f77a6526895f0a29a57cb1bc76ef6b7cacef2d0f4c94aa97c3acacdb95cabb065057b7edb4cbea098149a8aa7114a6a6b340c58007ac64b64e592eb18fdd299de5962a2a32ab0caebb2ab198704c751a9d0e143d68a50257d7c9e2230a7420fa46450299fd167141367e201726532d8e815413d8571d6c8c12937674dec92caf1f4583ebe560ac4c7eba290deee0a1c0da5f72c0b9df89fb3b338c683b654b3dc2373a4c2a4fef7f4fa489b44405fb7d2bfb"}],"binding_signature": "11e949887d9ec92eb32c78f0bc48afdc9a16a2ecbd5a0eca1be070fb900eeda347918bd6e9521d4baf1f74963bee0c1956559623a9e7cbc886941b227341ea06","message_hash": "7e6a00736c4f9e0036cb74c7fa3b1e3cd8f6bf0f038edeb03b668c4c5536a357","parameter_type": "burn"},
       "spend_authority_signature": [
         {
@@ -1839,99 +1840,123 @@ demo: curl -X POST  http://127.0.0.1:8090/wallet/gettriggerinputforshieldedtrc20
 参数说明:
 shielded_TRC20_Parameters: 生成的匿名TRC-20合约参数
 spend_authority_signature: 授权签名
-amount: 交易金额  
-transparent_to_address: 接收者地址. 
+amount: 交易金额
+transparent_to_address: 接收者地址.
 返回值: 触发TRC-20合约的输入数据
 
 
-wallet/marketsellasset    
-作用：创建订单 
-demo: curl -X POST  http://127.0.0.1:8090/wallet/marketsellasset -d 
+wallet/marketsellasset
+作用：创建订单
+demo: curl -X POST  http://127.0.0.1:8090/wallet/marketsellasset -d
 '{
     "owner_address": "4184894b42f66dce8cb84aec2ed11604c991351ac8",
     "sell_token_id": "5f",
     "sell_token_quantity": 100,
     "buy_token_id": "31303030303031",
     "buy_token_quantity": 200
-}'  
+}'
 
 参数说明：
-owner_address：订单发起者地址，默认为hexString格式  
-sell_token_id：卖出asset的id，默认为hexString格式      
-sell_token_quantity：卖出asset的数量            
-buy_token_id：买入asset的id，默认为hexString格式          
-buy_token_quantity：最少买入的asset的数量          
-返回值：交易对象  
+owner_address：订单发起者地址，默认为hexString格式
+sell_token_id：卖出asset的id，默认为hexString格式
+sell_token_quantity：卖出asset的数量
+buy_token_id：买入asset的id，默认为hexString格式
+buy_token_quantity：最少买入的asset的数量
+返回值：交易对象
 
 
-wallet/marketcancelorder    
+wallet/marketcancelorder
 作用：取消订单
-demo: curl -X POST  http://127.0.0.1:8090/wallet/marketcancelorder -d 
+demo: curl -X POST  http://127.0.0.1:8090/wallet/marketcancelorder -d
 '{
     "owner_address": "4184894b42f66dce8cb84aec2ed11604c991351ac8",
     "order_id": "0a7af584a53b612bcff1d0fc86feab05f69bc4528f26a4433bb344d453bd6eeb"
-}'   
+}'
 参数说明：
-owner_address：订单发起者地址，默认为hexString格式  
-order_id：取消订单的id        
-返回值：交易对象  
+owner_address：订单发起者地址，默认为hexString格式
+order_id：取消订单的id
+返回值：交易对象
 
-wallet/getmarketorderbyaccount    
+wallet/getmarketorderbyaccount
 作用：查询账户拥有的订单
-demo: curl -X POST  http://127.0.0.1:8090/wallet/getmarketorderbyaccount -d 
+demo: curl -X POST  http://127.0.0.1:8090/wallet/getmarketorderbyaccount -d
 '{
-    "value": "4184894b42f66dce8cb84aec2ed11604c991351ac8" 
-}'   
+    "value": "4184894b42f66dce8cb84aec2ed11604c991351ac8"
+}'
 参数说明：
-value：地址，默认为hexString格式      
-返回值：订单列表   
+value：地址，默认为hexString格式
+返回值：订单列表
 
-wallet/getmarketpairlist     
+wallet/getmarketpairlist
 作用：查询存在的所有交易对
-demo: curl -X get  http://127.0.0.1:8090/wallet/getmarketpairlist  
-参数说明：    
-无  
+demo: curl -X get  http://127.0.0.1:8090/wallet/getmarketpairlist
+参数说明：
+无
 返回值：交易对列表
- 
-wallet/getmarketorderlistbypair   
+
+wallet/getmarketorderlistbypair
 作用：查询某交易对的所有订单
-demo: curl -X POST  http://127.0.0.1:8090/wallet/getmarketorderlistbypair -d 
+demo: curl -X POST  http://127.0.0.1:8090/wallet/getmarketorderlistbypair -d
 '{
     "sell_token_id": "5f" ,
     "buy_token_id": "31303030303031"
-}'   
+}'
 参数说明：
-sell_token_id：卖出asset的id，默认为hexString格式           
-buy_token_id：买入asset的id，默认为hexString格式          
-返回值：订单列表 
+sell_token_id：卖出asset的id，默认为hexString格式
+buy_token_id：买入asset的id，默认为hexString格式
+返回值：订单列表
 
-wallet/getmarketpricebypair    
+wallet/getmarketpricebypair
 作用：查询某交易对的所有价格
-demo: curl -X POST  http://127.0.0.1:8090/wallet/getmarketpricebypair -d 
+demo: curl -X POST  http://127.0.0.1:8090/wallet/getmarketpricebypair -d
 '{
-    "sell_token_id": "5f" 
-    "buy_token_id": "31303030303031" 
-}'   
+    "sell_token_id": "5f"
+    "buy_token_id": "31303030303031"
+}'
 参数说明：
-sell_token_id：卖出asset的id，默认为hexString格式         
-buy_token_id：买入asset的id，默认为hexString格式       
-返回值：价格列表 
+sell_token_id：卖出asset的id，默认为hexString格式
+buy_token_id：买入asset的id，默认为hexString格式
+返回值：价格列表
 
-wallet/getmarketorderbyid    
+wallet/getmarketorderbyid
 作用：查询订单
-demo: curl -X POST  http://127.0.0.1:8090/wallet/getmarketorderbyid -d 
+demo: curl -X POST  http://127.0.0.1:8090/wallet/getmarketorderbyid -d
 '{
    "value": "orderid"
-}'   
+}'
 参数说明：
-value：order id，默认为hexString格式               
+value：order id，默认为hexString格式
 返回值：订单
 
-wallet/getburntrx     
+wallet/getburntrx
 作用：查询烧掉的trx总量
-demo: curl -X get  http://127.0.0.1:8090/wallet/getburntrx  
-参数说明：    
-无  
+demo: curl -X get  http://127.0.0.1:8090/wallet/getburntrx
+参数说明：
+无
 返回值：烧掉的trx总量
-  
+
+wallet/gettransactionfrompending
+作用：查询pending pool中的交易信息
+demo: curl -X POST  http://127.0.0.1:8090/wallet/gettransactionfrompending -d
+'{
+  "value": "txId"
+}'
+参数说明：
+value: 交易id，默认为hexString格式
+返回值：交易的详细信息
+
+wallet/gettransactionlistfrompending
+作用：查询pending pool交易列表id
+demo: curl -X get  http://127.0.0.1:8090/wallet/gettransactionlistfrompending
+参数说明：
+无
+返回值：pending pool交易列表id
+
+wallet/getpendingsize
+作用：查询pending pool大小
+demo: curl -X get  http://127.0.0.1:8090/wallet/getpendingsize
+参数说明：
+无
+返回值：pending pool 大小
+
 ```
