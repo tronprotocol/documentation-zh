@@ -1,10 +1,11 @@
 
-# Tron 事件订阅机制
+# 使用事件插件进行事件订阅
 
-## 简介
+## TIP
 
 TIP: [https://github.com/tronprotocol/TIPs/issues/12](https://github.com/tronprotocol/TIPs/issues/12)
 
+## 事件类型
 波场事件订阅支持四种类型的事件：
 
 - 交易相关事件
