@@ -239,6 +239,7 @@ rpc GetPaginatedAssetIssueList (PaginatedMessage) returns (AssetIssueList) {}
 Nodes: FullNode and SolidityNode
 
 **37.&nbsp;To sign a transaction**
+Sign the transaction with privatekey, it is recommended to sign transactions offline.
 ```protobuf
 rpc GetTransactionSign (TransactionSign) returns (Transaction) {}
 ```
@@ -255,6 +256,7 @@ Nodes: Fullnode
 rpc EasyTransfer (EasyTransferMessage) returns (EasyTransferResponse) {}
 ```
 Nodes: FullNode
+Note: This interface has been deprecated.
 
 **40.&nbsp;Deploy a smart contract**
 ```protobuf

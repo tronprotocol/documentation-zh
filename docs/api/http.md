@@ -450,7 +450,7 @@ amount是转账数量
 返回值：转账合约
 
 /wallet/gettransactionsign
-作用：对交易签名，该api有泄漏private key的风险，请确保在安全的环境中调用该api
+作用：使用私钥签名交易。建议使用离线方式签名交易。
 demo: curl -X POST  http://127.0.0.1:8090/wallet/gettransactionsign -d '{
 "transaction" : {"txID":"454f156bf1256587ff6ccdbc56e64ad0c51e4f8efea5490dcbc720ee606bc7b8","raw_data":{"contract":[{"parameter":{"value":{"amount":1000,"owner_address":"41e552f6487585c2b58bc2c9bb4492bc1f17132cd0","to_address":"41d1e7a6bc354106cb410e65ff8b181c600ff14292"},"type_url":"type.googleapis.com/protocol.TransferContract"},"type":"TransferContract"}],"ref_block_bytes":"267e","ref_block_hash":"9a447d222e8de9f2","expiration":1530893064000,"timestamp":1530893006233}}, "privateKey": "your private key"
 }'
@@ -596,7 +596,7 @@ amount是token转账数量
 - 当前的asset_name为token名称。当委员会通过AllowSameTokenName提议后asset_name改为token ID的String类型。
 
 wallet/easytransfer
-作用：快捷转账，该api存在泄漏密码的风险，请确保在安全的环境中调用该api。调用该api前请先调用createAddress生成地址。
+作用：快捷转账，该接口已被废弃。
 demo：curl -X POST http://127.0.0.1:8090/wallet/easytransfer -d '{
 "passPhrase": "your password",
 "toAddress": "41e552f6487585c2b58bc2c9bb4492bc1f17132cd0",
@@ -610,7 +610,7 @@ amount是转账trx数量
 对应的Transaction和广播是否成功的状态
 
 wallet/easytransferasset
-作用：快捷转账，该api存在泄漏密码的风险，请确保在安全的环境中调用该api。调用该api前请先调用createAddress生成地址。
+作用：快捷转账TRC10代币，该接口已被废弃。
 demo：curl -X POST http://127.0.0.1:8090/wallet/easytransferasset -d '{
 "passPhrase": "your password",
 "toAddress": "41e552f6487585c2b58bc2c9bb4492bc1f17132cd0",
@@ -626,7 +626,7 @@ amount是转账通证数量,单位是通证的最小单位
 对应的Transaction和广播是否成功的状态
 
 wallet/createaddress
-作用：通过密码创建地址，该api存在泄漏密码的风险，请确保在安全的环境中调用该api。
+作用：通过密码创建地址，该接口已被废弃。
 demo：curl -X POST http://127.0.0.1:8090/wallet/createaddress -d '{"value": "3230313271756265696a696e67"}'
 参数说明：value是用户密码，默认为hexString格式
 返回值：一个地址
@@ -905,17 +905,16 @@ demo: curl -X POST  http://127.0.0.1:8090/wallet/getnextmaintenancetime
 返回值：下次统计投票时间的毫秒数。
 
 wallet/easytransferbyprivate
-作用：快捷转账
+作用：快捷转账，该接口已被废弃。
 demo: curl -X POST  http://127.0.0.1:8090/wallet/easytransferbyprivate -d '{"privateKey": "D95611A9AF2A2A45359106222ED1AFED48853D9A44DEFF8DC7913F5CBA727366", "toAddress":"4112E621D5577311998708F4D7B9F71F86DAE138B5","amount":10000}'
 参数说明：
    privateKey：私钥，默认为hexString格式
    toAddress：转入账户地址，默认为hexString格式
    amount：转账的drop数量。
 返回值：交易，含执行结果。
-警告：该api有泄漏private key的风险，请确保在安全的环境中调用该api。
 
 wallet/easytransferassetbyprivate
-作用：快捷转账
+作用：快捷转账，该接口已被废弃。
 demo: curl -X POST  http://127.0.0.1:8090/wallet/easytransferassetbyprivate -d '{"privateKey": "D95611A9AF2A2A45359106222ED1AFED48853D9A44DEFF8DC7913F5CBA727366", "toAddress":"4112E621D5577311998708F4D7B9F71F86DAE138B5",
 "assetId": "1000001",
 "amount":10000}'
@@ -925,14 +924,13 @@ demo: curl -X POST  http://127.0.0.1:8090/wallet/easytransferassetbyprivate -d '
    assetId：通证ID。
    amount：转账的通证数量，单位是通证的最小单位。
 返回值：交易，含执行结果。
-警告：该api有泄漏private key的风险，请确保在安全的环境中调用该api。
 
 wallet/generateaddress
-作用：生成私钥和地址
+作用：创建一个随机的私钥和地址。该接口已被废弃，建议使用离线方式创建地址。
 demo: curl -X POST  http://127.0.0.1:8090/wallet/generateaddress
 参数说明：无
 返回值：地址和私钥
-警告：该api有泄漏private key的风险，请确保在安全的环境中调用该api。
+
 
 wallet/validateaddress
 作用：检查地址是否正确
@@ -1225,7 +1223,7 @@ contract_address：合约地址,默认为hexString
 返回值:交易对象
 
 wallet/addtransactionsign
-作用：给交易签名，支持多重签名
+作用：给交易签名，支持多重签名。(Trongrid已禁用此接口服务，请使用自建节点提供的接口)
 demo: curl -X POST  http://127.0.0.1:8090/wallet/addtransactionsign -d '{
     "transaction": {
         "visible": true,
