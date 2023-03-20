@@ -1223,7 +1223,7 @@ contract_address：合约地址,默认为hexString
 返回值:交易对象
 
 wallet/addtransactionsign
-作用：给交易签名，支持多重签名。(Trongrid已禁用此接口服务，请使用自建节点提供的接口)
+作用：给交易签名，支持多重签名。建议使用离线方式添加签名。
 demo: curl -X POST  http://127.0.0.1:8090/wallet/addtransactionsign -d '{
     "transaction": {
         "visible": true,
