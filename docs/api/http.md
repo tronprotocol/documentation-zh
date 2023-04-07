@@ -657,7 +657,7 @@ asset_name是token的名称，默认为hexString格式
 - 当前的asset_name为token名称。当委员会通过AllowSameTokenName提议后asset_name改为token ID的String类型。
 
 wallet/freezebalance
-作用：质押trx，获取带宽，获取投票权
+作用：质押trx，获取带宽，获取投票权。该接口已废弃，请使用freezebalancev2进行质押。
 demo：curl -X POST http://127.0.0.1:8090/wallet/freezebalance -d '{
 "owner_address":"41e472f387585c2b58bc2c9bb4492bc1f17342cd1",
 "frozen_balance": 10000,
@@ -676,7 +676,7 @@ receiverAddress表示受委托账户的地址，默认为hexString格式
 【注意】资源委托功能需要委员会开启
 
 wallet/unfreezebalance
-作用：解锁已经结束质押期的trx，会同时失去这部分trx带来的带宽和投票权
+作用：解锁Stake1.0阶段质押的，并已经结束质押期的trx，会同时失去这部分trx带来的带宽和投票权
 demo：curl -X POST http://127.0.0.1:8090/wallet/unfreezebalance -d '{
 "owner_address":"41e472f387585c2b58bc2c9bb4492bc1f17342cd1",
 "resource": "BANDWIDTH",

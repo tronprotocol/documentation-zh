@@ -475,3 +475,26 @@ Nodes: FullNode and SolidityNode
 rpc FreezeBalanceV2 (FreezeBalanceV2Contract) returns (TransactionExtention) {}
 ```
 Nodes: FullNode
+**77.&nbsp;UnFreeze TRX**
+```protobuf
+rpc UnfreezeBalanceV2 (UnfreezeBalanceV2Contract) returns (TransactionExtention) {}
+```
+Nodes: FullNode
+
+**78.&nbsp;Withdraw Staked TRX**
+```protobuf
+rpc WithdrawExpireUnfreeze (WithdrawExpireUnfreezeContract) returns (TransactionExtention) {}
+```
+Nodes: FullNode
+
+**79.&nbsp;Delegate Resource**
+```protobuf
+rpc DelegateResource (DelegateResourceContract) returns (TransactionExtention) {}
+```
+Nodes: FullNode
+
+**80.&nbsp;UnDelegate Resource**
+```protobuf
+rpc UnDelegateResource (UnDelegateResourceContract) returns (TransactionExtention) {}
+```
+Nodes: FullNode
