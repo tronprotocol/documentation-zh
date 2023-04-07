@@ -174,7 +174,7 @@ actuator是交易的执行器，可以将应用看成是不同交易类型组成
     |-- vm
 ```
 
-* `actuator/` - TRON网络中各种类型交易的执行器，定义了不同类型交易的处理逻辑，比如`TransferActuator`是转账TRX交易的处理类，`FreezeBalanceActuator`是质押TRX获取资源交易的处理类
+* `actuator/` - TRON网络中各种类型交易的执行器，定义了不同类型交易的处理逻辑，比如`TransferActuator`是转账TRX交易的处理类，`FreezeBalanceV2Actuator`是质押TRX获取资源交易的处理类
 * `utils/` - 执行交易所需的工具类
 * `vm/` - 虚拟机相关代码
 
