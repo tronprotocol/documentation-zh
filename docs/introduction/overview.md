@@ -35,7 +35,7 @@ MainNet的配置请参照:
 + 示例：
 
 ```shell
-freezebalance 10,000,000 3 # 质押了10TRX，获取了10单位TRON Power(TP)
+freezebalancev2 10,000,000 3 # 质押了10TRX，获取了10单位TRON Power(TP)
 votewitness witness1 4 witness2 6 # 同时给witness1投了4票，给witness2投了6票
 votewitness witness1 3 witness2 7 # 同时给witness1投了3票，给witness2投了7票
 ```
@@ -601,10 +601,10 @@ function assignAddress() public view {
 
 质押获取Energy，即将持有的trx锁定，无法进行交易，作为抵押，并以此获得免费使用Energy的权利。具体计算与全网所有账户质押有关，可参考相关部分计算。
 
-##### FreezeBalance 质押获得能量
+##### 质押获得能量
 
 ```shell
-freezeBalance frozen_balance frozen_duration [ResourceCode:0 BANDWIDTH,1 ENERGY]
+freezeBalancev2 frozen_balance [ResourceCode:0 BANDWIDTH,1 ENERGY]
 ```
 
 通过质押TRX获取的Energy， 额度 = 为获取Energy质押的TRX / 整个网络为获取Energy质押的TRX 总额 * 50_000_000_000。
@@ -633,7 +633,7 @@ B: 10_000_000_000 且energy_limit 为10_000_000_000
 
 ```
 
-##### FreezeBalance 恢复能量
+##### 恢复能量
 
 所消耗的能量会在24小时内平滑减少至0。
 

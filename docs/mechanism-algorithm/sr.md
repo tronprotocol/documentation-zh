@@ -23,7 +23,7 @@
 + 示例：
 
 ```shell
-freezebalance 10,000,000 3 # 质押了10TRX，获取了10单位TRON Power(TP)
+freezebalancev2 10,000,000 3 # 质押了10TRX，获取了10单位TRON Power(TP)
 votewitness witness1 4 witness2 6 # 同时给witness1投了4票，给witness2投了6票
 votewitness witness1 3 witness2 7 # 同时给witness1投了3票，给witness2投了7票
 ```

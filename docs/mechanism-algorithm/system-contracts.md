@@ -163,7 +163,7 @@
    `owner_address`：合约持有人地址。
    `account_name`： 账户名称。
 
-## 10.质押资产 FreezeBalanceContract
+## 10.Stake1.0质押 FreezeBalanceContract
 
 ```protobuf
       message FreezeBalanceContract {
@@ -181,7 +181,7 @@
    `resource`： 质押TRX获取资源的类型。
    `receiver_address`：接收资源的账户。
 
-## 11.资产 UnfreezeBalanceContract
+## 11.解质押Stake1.0阶段质押的资产 UnfreezeBalanceContract
 
 ```protobuf
       message UnfreezeBalanceContract {
@@ -496,3 +496,85 @@
    `owner_address`：合约持有人地址。
    `contract_address`：需要调整的合约地址。
    `origin_energy_limit`：调整后智能合约部署者提供的能量上限值。
+
+## 31.质押资产 FreezeBalanceV2Contract
+
+```protobuf
+     message FreezeBalanceV2Contract {
+      bytes owner_address = 1;
+      int64 frozen_balance = 2;
+      ResourceCode resource = 3;
+      }
+```
+
+   `owner_address`：质押者地址。
+   `frozen_balance`：质押资产的数量。
+   `resource`： 质押TRX获取资源的类型。
+
+## 32.解质押资产 UnfreezeBalanceV2Contract
+
+```protobuf
+      message UnfreezeBalanceV2Contract {
+       bytes owner_address = 1;
+       int64 unfreeze_balance = 2;
+       ResourceCode resource = 3;
+      }
+```
+
+   `owner_address`：解质押者地址。
+   `unfreeze_balance`：解质押数额。
+   `resource`： 解锁资源的类型。
+   
+
+## 33.提取解质押本金 WithdrawExpireUnfreezeContract
+
+```protobuf
+      message WithdrawExpireUnfreezeContract {
+        bytes owner_address = 1;
+      }
+```
+
+   `owner_address`：提取本金账户地址。
+   
+## 34.资源代理 DelegateResourceContract
+
+```protobuf
+      message DelegateResourceContract {
+      bytes owner_address = 1;
+      ResourceCode resource = 2;
+      int64 balance = 3;
+      bytes receiver_address = 4;
+      bool  lock = 5;
+      }
+```
+
+   `owner_address`：代理人地址。
+   `resource`： 代理的资源的类型。
+   `balance`： 代理的资源的份额，单位为sun。
+   `receiver_address`：资源接收者地址。
+   `lock`：是否将代理操作锁定3天。
+   
+   
+## 35.取消资源代理 UnDelegateResourceContract
+
+```protobuf
+      message UnDelegateResourceContract {
+      bytes owner_address = 1;
+      ResourceCode resource = 2;
+      int64 balance = 3;
+      bytes receiver_address = 4;
+      }
+```
+
+   `owner_address`：解代理发起地址
+   `resource`： 解锁资源的类型。
+   `balance`：解代理资源份额。
+   `receiver_address`：资源接收地址。
+   
+
+
+
+
+
+
+

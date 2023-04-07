@@ -182,6 +182,7 @@ rpc getTransactionsToThis (Account) returns (NumberMessage) {}
 Nodes: SolidityNode
 
 **28.&nbsp;Freeze TRX**
+该接口已废弃。
 ```protobuf
 rpc FreezeBalance (FreezeBalanceContract) returns (Transaction) {}
 ```
@@ -420,67 +421,120 @@ Nodes: FullNode, SolidityNode
 Nodes: FullNode
 
 **66.&nbsp;Create an market order**
-Interface statement:
+
+```
 rpc MarketSellAsset (MarketSellAssetContract) returns (TransactionExtention) {};
+```
 Nodes: FullNode
+ 
+**67.&nbsp;Cancel the order**      
 
-**67.&nbsp;Cancel the order**
-Interface statement:
+```    
 rpc MarketCancelOrder (MarketCancelOrderContract) returns (TransactionExtention) {};
-Nodes: FullNode
+```
+Nodes: FullNode 
 
-**68.&nbsp;Get all orders for the account**
-Interface statement:
+**68.&nbsp;Get all orders for the account**      
+   
+```
 rpc GetMarketOrderByAccount (BytesMessage) returns (MarketOrderList) {};
-Nodes: FullNode
+```
+Nodes: FullNode 
 
-**69.&nbsp;Get all trading pairs**
-Interface statement:
+**69.&nbsp;Get all trading pairs**      
+   
+```
 rpc GetMarketPairList (EmptyMessage) returns (MarketOrderPairList) {};
-Nodes: FullNode
+```
+Nodes: FullNode 
 
-**70.&nbsp;Get all orders for the trading pair**
-Interface statement:
+**70.&nbsp;Get all orders for the trading pair**      
+   
+```
 rpc GetMarketOrderListByPair (MarketOrderPair) returns (MarketOrderList) {};
-Nodes: FullNode
+```
+Nodes: FullNode 
 
-**71.&nbsp;Get all prices for the trading pair**
-Interface statement:
+**71.&nbsp;Get all prices for the trading pair**      
+   
+```
 rpc GetMarketPriceByPair (MarketOrderPair) returns (MarketPriceList) {};
-Nodes: FullNode
+```
+Nodes: FullNode 
 
-**72.&nbsp;Get order by id**
-Interface statement:
-rpc GetMarketOrderById (BytesMessage) returns (MarketOrder) {};
-Nodes: FullNode
+**72.&nbsp;Get order by id**      
 
-**73.&nbsp;perform a historical balance lookup**
-Interface statement:
-rpc GetAccountBalance (AccountBalanceRequest) returns (AccountBalanceResponse){};
-Nodes: FullNode
+```
+rpc GetMarketOrderById (BytesMessage) returns (MarketOrder) {}; 
+```
+Nodes: FullNode 
+    
+**73.&nbsp;perform a historical balance lookup**      
+ 
+```
+rpc GetAccountBalance (AccountBalanceRequest) returns (AccountBalanceResponse){}; 
+```
+Nodes: FullNode 
 
-**74.&nbsp;fetch all balance-changing transactions in a block**
-Interface statement:
-rpc GetBlockBalanceTrace (BlockBalanceTrace.BlockIdentifier) returns (BlockBalanceTrace) {};
-Nodes: FullNode
+**74.&nbsp;fetch all balance-changing transactions in a block**      
+ 
+```
+rpc GetBlockBalanceTrace (BlockBalanceTrace.BlockIdentifier) returns (BlockBalanceTrace) {}; 
+```
+Nodes: FullNode 
 
-**75.&nbsp;get the burn trx amount**
-Interface statement:
-rpc GetBurnTrx (EmptyMessage) returns (NumberMessage) {};
+**75.&nbsp;get the burn trx amount**      
+ 
+```
+rpc GetBurnTrx (EmptyMessage) returns (NumberMessage) {}; 
+```
 Nodes: FullNode and SolidityNode
 
-**76.&nbsp;Query transaction information in the pending pool**
-Interface statement:
+**76.&nbsp;Freeze TRX**
+```protobuf
+rpc FreezeBalanceV2 (FreezeBalanceV2Contract) returns (TransactionExtention) {}
+```
+Nodes: FullNode
+
+**77.&nbsp;UnFreeze TRX**
+```protobuf
+rpc UnfreezeBalanceV2 (UnfreezeBalanceV2Contract) returns (TransactionExtention) {}
+```
+Nodes: FullNode
+
+**78.&nbsp;Withdraw Staked TRX**
+```protobuf
+rpc WithdrawExpireUnfreeze (WithdrawExpireUnfreezeContract) returns (TransactionExtention) {}
+```
+Nodes: FullNode
+
+**79.&nbsp;Delegate Resource**
+```protobuf
+rpc DelegateResource (DelegateResourceContract) returns (TransactionExtention) {}
+```
+Nodes: FullNode
+
+**80.&nbsp;UnDelegate Resource**
+```protobuf
+rpc UnDelegateResource (UnDelegateResourceContract) returns (TransactionExtention) {}
+```
+Nodes: FullNode
+
+
+**81.&nbsp;Query transaction information in the pending pool**
+```
 rpc GetTransactionFromPending (BytesMessage) returns (Transaction) {};
+```
 Nodes: FullNode
 
-**77.&nbsp;Query the pending pool transaction id list**
-Interface statement:
+**82.&nbsp;Query the pending pool transaction id list**
+```
 rpc GetTransactionListFromPending (EmptyMessage) returns (TransactionIdList) {};
+```
 Nodes: FullNode
 
-**78.&nbsp;Query the size of the pending pool**
-Interface statement:
+**83.&nbsp;Query the size of the pending pool**
+```
 rpc GetPendingSize (EmptyMessage) returns (NumberMessage) {};
 Nodes: FullNode
-
+```
