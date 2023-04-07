@@ -180,7 +180,7 @@ TestNet的配置请参照:
 <ul>
 <li>示例：</li>
 </ul>
-<div class="highlight"><pre><span></span><code>freezebalance<span class="w"> </span><span class="m">10</span>,000,000<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="c1"># 质押了10TRX，获取了10单位TRON Power(TP)</span>
+<div class="highlight"><pre><span></span><code>freezebalancev2<span class="w"> </span><span class="m">10</span>,000,000<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="c1"># 质押了10TRX，获取了10单位TRON Power(TP)</span>
 votewitness<span class="w"> </span>witness1<span class="w"> </span><span class="m">4</span><span class="w"> </span>witness2<span class="w"> </span><span class="m">6</span><span class="w"> </span><span class="c1"># 同时给witness1投了4票，给witness2投了6票</span>
 votewitness<span class="w"> </span>witness1<span class="w"> </span><span class="m">3</span><span class="w"> </span>witness2<span class="w"> </span><span class="m">7</span><span class="w"> </span><span class="c1"># 同时给witness1投了3票，给witness2投了7票</span>
 </code></pre></div>
@@ -613,8 +613,8 @@ transfer/send/call/callcode/delegatecall函数调用转账</p>
 <p>智能合约运行时执行每一条指令都需要消耗一定的系统资源，资源的多少用Energy的值来衡量。</p>
 <h4 id="531-energy">5.3.1 Energy的获取<a class="headerlink" href="#531-energy" title="Permanent link">&para;</a></h4>
 <p>质押获取Energy，即将持有的trx锁定，无法进行交易，作为抵押，并以此获得免费使用Energy的权利。具体计算与全网所有账户质押有关，可参考相关部分计算。</p>
-<h5 id="freezebalance">FreezeBalance 质押获得能量<a class="headerlink" href="#freezebalance" title="Permanent link">&para;</a></h5>
-<div class="highlight"><pre><span></span><code>freezeBalance<span class="w"> </span>frozen_balance<span class="w"> </span>frozen_duration<span class="w"> </span><span class="o">[</span>ResourceCode:0<span class="w"> </span>BANDWIDTH,1<span class="w"> </span>ENERGY<span class="o">]</span>
+<h5 id="_4">质押获得能量<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h5>
+<div class="highlight"><pre><span></span><code>freezeBalancev2<span class="w"> </span>frozen_balance<span class="w"> </span><span class="o">[</span>ResourceCode:0<span class="w"> </span>BANDWIDTH,1<span class="w"> </span>ENERGY<span class="o">]</span>
 </code></pre></div>
 <p>通过质押TRX获取的Energy， 额度 = 为获取Energy质押的TRX / 整个网络为获取Energy质押的TRX 总额 * 50_000_000_000。
 也就是所有用户按质押TRX平分固定额度的Energy。</p>
@@ -637,7 +637,7 @@ B: 20_000_000_000 且energy_limit调整为20_000_000_000
 
 B: 10_000_000_000 且energy_limit 为10_000_000_000
 </code></pre></div>
-<h5 id="freezebalance_1">FreezeBalance 恢复能量<a class="headerlink" href="#freezebalance_1" title="Permanent link">&para;</a></h5>
+<h5 id="_5">恢复能量<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h5>
 <p>所消耗的能量会在24小时内平滑减少至0。</p>
 <p>示例：</p>
 <div class="highlight"><pre><span></span><code>在某一时刻A的Energy已使用量为72_000_000 Energy
@@ -660,7 +660,7 @@ B: 10_000_000_000 且energy_limit 为10_000_000_000
 <p>4). 一个恶意合约，如果最终执行超时，或者因bug合约崩溃，则会扣除该合约允许的所有energy；</p>
 <p>5). 开发者可能会承担一定比例的Energy消耗（比如承担90%）。但是，当开发者账户的Energy不足以支付时，剩余部分完全由调用者承担。在feeLimit限制范围内，如调用者的Energy不足，则会燃烧等价值的trx。[2]</p>
 <p>开发者通常会有充足的Energy，以鼓励低成本调用；调用者在估算feeLimit时，可以假设开发者能够承担其承诺比例的Energy，如果一次调用因为feeLimit不足而失败，可以再适当扩大。</p>
-<h5 id="_4">示例<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h5>
+<h5 id="_6">示例<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h5>
 <p>下面将以一个合约C的执行，来具体举例，如何估算feeLimit：</p>
 <ul>
 <li>假设合约C上一次成功执行时，消耗了18000 Energy，那么预估本次执行消耗的Energy上限为20000 Energy；[3]</li>
@@ -758,9 +758,9 @@ Assert-style异常的介绍详见<a href="https://github.com/tronprotocol/Docume
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-<h5 id="_5">启动私有链<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h5>
+<h5 id="_7">启动私有链<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h5>
 <p>确保前提条件中，私有链已经在本地部署完成。可以检查FullNode/logs/tron.log中，是否有持续产块的log信息出现：“Produce block successfully”</p>
-<h5 id="_6">开发智能合约<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h5>
+<h5 id="_8">开发智能合约<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h5>
 <p>把上述代码复制到remix中编译，调试，确保代码的逻辑是自己需要的，编译通过，没有错误</p>
 <h5 id="simplewebcompilerabibytecode">在SimpleWebCompiler编译得到ABI和ByteCode<a class="headerlink" href="#simplewebcompilerabibytecode" title="Permanent link">&para;</a></h5>
 <p>因为波场的编译器与以太坊的编译略有差异，正在与Remix集成中，所以临时采用改方案获取ABI和ByteCode，而不是通过Remix直接获取ABI和ByteCode。
@@ -931,7 +931,7 @@ demo：curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"
 <h3 id="81">8.1 资源模型介绍<a class="headerlink" href="#81" title="Permanent link">&para;</a></h3>
 <p>TRON网络中的资源有4种：带宽，CPU，存储和内存。得益于波场独有的内存模型，TRON网络中的内存资源几乎是无限的。
 TRON网络引入了Bandwidth point 和 Energy 两种资源概念。其中Bandwidth Point表示带宽资源，Energy表示CPU和存储资源。</p>
-<h4 id="_7">注意<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h4>
+<h4 id="_9">注意<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h4>
 <ul>
 <li>普通交易仅消耗Bandwidth points</li>
 <li>智能合约的操作不仅要消耗Bandwidth points，还会消耗Energy</li>

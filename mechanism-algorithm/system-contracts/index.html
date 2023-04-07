@@ -284,7 +284,7 @@
 </code></pre></div>
 <p><code>owner_address</code>：合约持有人地址。
    <code>account_name</code>： 账户名称。</p>
-<h2 id="10-freezebalancecontract">10.质押资产 FreezeBalanceContract<a class="headerlink" href="#10-freezebalancecontract" title="Permanent link">&para;</a></h2>
+<h2 id="10stake10-freezebalancecontract">10.Stake1.0质押 FreezeBalanceContract<a class="headerlink" href="#10stake10-freezebalancecontract" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><span class="w">      </span><span class="kd">message</span><span class="w"> </span><span class="nc">FreezeBalanceContract</span><span class="w"> </span><span class="p">{</span>
 <span class="w">       </span><span class="kt">bytes</span><span class="w"> </span><span class="na">owner_address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
 <span class="w">       </span><span class="kt">int64</span><span class="w"> </span><span class="na">frozen_balance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
@@ -298,7 +298,7 @@
    <code>frozen_duration</code>：质押资产的时间段。
    <code>resource</code>： 质押TRX获取资源的类型。
    <code>receiver_address</code>：接收资源的账户。</p>
-<h2 id="11-unfreezebalancecontract">11.资产 UnfreezeBalanceContract<a class="headerlink" href="#11-unfreezebalancecontract" title="Permanent link">&para;</a></h2>
+<h2 id="11stake10-unfreezebalancecontract">11.解质押Stake1.0阶段质押的资产 UnfreezeBalanceContract<a class="headerlink" href="#11stake10-unfreezebalancecontract" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><span class="w">      </span><span class="kd">message</span><span class="w"> </span><span class="nc">UnfreezeBalanceContract</span><span class="w"> </span><span class="p">{</span>
 <span class="w">       </span><span class="kt">bytes</span><span class="w"> </span><span class="na">owner_address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
 <span class="w">       </span><span class="n">ResourceCode</span><span class="w"> </span><span class="na">resource</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
@@ -539,6 +539,58 @@
    <code>owner_address</code>：合约持有人地址。
    <code>contract_address</code>：需要调整的合约地址。
    <code>origin_energy_limit</code>：调整后智能合约部署者提供的能量上限值。</p>
+<h2 id="31-freezebalancev2contract">31.质押资产 FreezeBalanceV2Contract<a class="headerlink" href="#31-freezebalancev2contract" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="w">     </span><span class="kd">message</span><span class="w"> </span><span class="nc">FreezeBalanceV2Contract</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="kt">bytes</span><span class="w"> </span><span class="na">owner_address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">      </span><span class="kt">int64</span><span class="w"> </span><span class="na">frozen_balance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="w">      </span><span class="n">ResourceCode</span><span class="w"> </span><span class="na">resource</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+<span class="w">      </span><span class="p">}</span>
+</code></pre></div>
+<p><code>owner_address</code>：质押者地址。
+   <code>frozen_balance</code>：质押资产的数量。
+   <code>resource</code>： 质押TRX获取资源的类型。</p>
+<h2 id="32-unfreezebalancev2contract">32.解质押资产 UnfreezeBalanceV2Contract<a class="headerlink" href="#32-unfreezebalancev2contract" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="w">      </span><span class="kd">message</span><span class="w"> </span><span class="nc">UnfreezeBalanceV2Contract</span><span class="w"> </span><span class="p">{</span>
+<span class="w">       </span><span class="kt">bytes</span><span class="w"> </span><span class="na">owner_address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">       </span><span class="kt">int64</span><span class="w"> </span><span class="na">unfreeze_balance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="w">       </span><span class="n">ResourceCode</span><span class="w"> </span><span class="na">resource</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+<span class="w">      </span><span class="p">}</span>
+</code></pre></div>
+<p><code>owner_address</code>：解质押者地址。
+   <code>unfreeze_balance</code>：解质押数额。
+   <code>resource</code>： 解锁资源的类型。</p>
+<h2 id="33-withdrawexpireunfreezecontract">33.提取解质押本金 WithdrawExpireUnfreezeContract<a class="headerlink" href="#33-withdrawexpireunfreezecontract" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="w">      </span><span class="kd">message</span><span class="w"> </span><span class="nc">WithdrawExpireUnfreezeContract</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">bytes</span><span class="w"> </span><span class="na">owner_address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">      </span><span class="p">}</span>
+</code></pre></div>
+<p><code>owner_address</code>：提取本金账户地址。</p>
+<h2 id="34-delegateresourcecontract">34.资源代理 DelegateResourceContract<a class="headerlink" href="#34-delegateresourcecontract" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="w">      </span><span class="kd">message</span><span class="w"> </span><span class="nc">DelegateResourceContract</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="kt">bytes</span><span class="w"> </span><span class="na">owner_address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">      </span><span class="n">ResourceCode</span><span class="w"> </span><span class="na">resource</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="w">      </span><span class="kt">int64</span><span class="w"> </span><span class="na">balance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+<span class="w">      </span><span class="kt">bytes</span><span class="w"> </span><span class="na">receiver_address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
+<span class="w">      </span><span class="kt">bool</span><span class="w">  </span><span class="na">lock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span>
+<span class="w">      </span><span class="p">}</span>
+</code></pre></div>
+<p><code>owner_address</code>：代理人地址。
+   <code>resource</code>： 代理的资源的类型。
+   <code>balance</code>： 代理的资源的份额，单位为sun。
+   <code>receiver_address</code>：资源接收者地址。
+   <code>lock</code>：是否将代理操作锁定3天。</p>
+<h2 id="35-undelegateresourcecontract">35.取消资源代理 UnDelegateResourceContract<a class="headerlink" href="#35-undelegateresourcecontract" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="w">      </span><span class="kd">message</span><span class="w"> </span><span class="nc">UnDelegateResourceContract</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="kt">bytes</span><span class="w"> </span><span class="na">owner_address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">      </span><span class="n">ResourceCode</span><span class="w"> </span><span class="na">resource</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="w">      </span><span class="kt">int64</span><span class="w"> </span><span class="na">balance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+<span class="w">      </span><span class="kt">bytes</span><span class="w"> </span><span class="na">receiver_address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
+<span class="w">      </span><span class="p">}</span>
+</code></pre></div>
+<p><code>owner_address</code>：解代理发起地址
+   <code>resource</code>： 解锁资源的类型。
+   <code>balance</code>：解代理资源份额。
+   <code>receiver_address</code>：资源接收地址。</p>
               
             </div>
           </div><footer>
