@@ -526,7 +526,7 @@
    `resource`： 解锁资源的类型。
    
 
-## 33.提取解质押本金 UnfreezeBalanceV2Contract
+## 33.提取解质押本金 WithdrawExpireUnfreezeContract
 
 ```protobuf
       message WithdrawExpireUnfreezeContract {
@@ -536,7 +536,7 @@
 
    `owner_address`：提取本金账户地址。
    
-## 34.资源代理 UnfreezeBalanceV2Contract
+## 34.资源代理 DelegateResourceContract
 
 ```protobuf
       message DelegateResourceContract {
@@ -555,7 +555,7 @@
    `lock`：是否将代理操作锁定3天。
    
    
-## 35.取消资源代理 UnfreezeBalanceV2Contract
+## 35.取消资源代理 UnDelegateResourceContract
 
 ```protobuf
       message UnDelegateResourceContract {
