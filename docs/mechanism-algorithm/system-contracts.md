@@ -551,7 +551,7 @@
    `owner_address`：代理人地址。
    `resource`： 代理的资源的类型。
    `balance`： 代理的资源的份额，单位为sun。
-   `receiver_address`：资源接收者数额。
+   `receiver_address`：资源接收者地址。
    `lock`：是否将代理操作锁定3天。
    
    
