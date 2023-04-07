@@ -182,6 +182,7 @@ rpc getTransactionsToThis (Account) returns (NumberMessage) {}
 Nodes: SolidityNode
 
 **28.&nbsp;Freeze TRX**
+该接口已废弃。
 ```protobuf
 rpc FreezeBalance (FreezeBalanceContract) returns (Transaction) {}
 ```
@@ -469,3 +470,8 @@ Interface statement:
 rpc GetBurnTrx (EmptyMessage) returns (NumberMessage) {}; 
 Nodes: FullNode and SolidityNode
 
+**76.&nbsp;Freeze TRX**
+```protobuf
+rpc FreezeBalanceV2 (FreezeBalanceV2Contract) returns (TransactionExtention) {}
+```
+Nodes: FullNode

@@ -293,7 +293,7 @@ UpdateAccountPermission successful !!!
 - [GetAccountNet](#getaccountnet)
 - [GetAccountResource](#getaccountresource)
 ### freezeBalance
-通过质押一定数量的TRX可以获得`带宽`，`能量`以及`TRON Power`（投票权）。用户同样也可以通过质押TRX来为别人提供`带宽`和`能量`。质押资产的单位是sun。
+通过质押一定数量的TRX可以获得`带宽`，`能量`以及`TRON Power`（投票权）。用户同样也可以通过质押TRX来为别人提供`带宽`和`能量`。质押资产的单位是sun。该接口已废弃，请使用freezeBalanceV2接口质押TRX。
 ```shell
 wallet> freezeBalance [OwnerAddress] [frozen_balance] [frozen_duration] [ResourceCode:0 BANDWIDTH, 1 ENERGY] [receiverAddress]
 ```

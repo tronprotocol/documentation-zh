@@ -17,18 +17,26 @@
 | gettransactioninfobyblocknum  |  accountpermissionupdate           | getrcm                                       |
 |                               |  getdelegatedresource              | getmerkletreevoucherinfo                     |
 |                               |  getdelegatedresourceaccountindex  | isspend                                      |
-|    **block**                  |  freezebalance                     | createspendauthsig                           |
-| getnowblock                   |  unfreezebalance                   | createshieldnullifier                        |
-| getblockbynum                 |  unfreezeasset                     | getshieldtransactionhash                     |
-| getblockbyid                  |  withdrawbalance                   | createshieldedtransaction                    |
-| getblockbylimitnext           |  votewitnessaccount                | createshieldedtransaction<br>withoutspendauthsig |
-| getblockbylatestnum           |  updatewitness                     | getnewshieldedaddress                        |
-| getblockbalance               |  createwitness                     |                                              |
+|                    |  freezebalancev2                   | createspendauthsig                           |
+|                    |  unfreezebalance                   | createshieldnullifier                        |
+|                  |  unfreezeasset                     | getshieldtransactionhash                     |
+|                   |  withdrawbalance                   | createshieldedtransaction                    |
+|            |  votewitnessaccount                | createshieldedtransaction<br>withoutspendauthsig |
+|            |  updatewitness                     | getnewshieldedaddress                        |
+|                |  createwitness                     |                                              |
 |                               |  getbrokerage                      |                                              |
 |                               |  getreward                         |                                              |
 |                               |  updateBrokerage                   |                                              |
 |                               |  getaccountbalance                 |                                              |
-
+|                               |  unfreezebalancev2                 |                                              |
+|                               |  delegateresource                 |                                              |
+|                               |  undelegateresource                 |                                              |
+|                               |  withdrawexpireunfreeze                 |                                              |
+|                               |  getavailableunfreezecount                 |                                              |
+|                               |  getcanwithdrawunfreezeamount                 |                                              |
+|                               |  getcandelegatedmaxsize                 |                                              |
+|                               |  getdelegatedresourcev2                 |                                              |
+|                               |  getdelegatedresourceaccountindexv2                 |                                              |
 
 
 |   asset                        |  exchange               | transfer                        |
@@ -57,14 +65,14 @@
 
  
 
-|   market                       |  others                 |                       |
+|   market                       |  others                 |      block                   |
 |--------------------------------|-------------------------|-----------------------|
-|  marketsellasset               |broadcasttransaction     |                       |
-|  marketcancelorder             |broadcasthex             |                       |
-|  getmarketorderbyaccount       |listnodes                |                       |
-|  getmarketpairlist             |listwitnesses            |                       |
-|  getmarketorderlistbypair      |getnextmaintenancetime   |                       |
-|  getmarketpricebypair          |getnodeinfo              |                       |
+|  marketsellasset               |broadcasttransaction     |         getnowblock              |
+|  marketcancelorder             |broadcasthex             |         getblockbynum              |
+|  getmarketorderbyaccount       |listnodes                |         getblockbyid              |
+|  getmarketpairlist             |listwitnesses            |         getblockbylatestnum              |
+|  getmarketorderlistbypair      |getnextmaintenancetime   |         getblockbylimitnext              |
+|  getmarketpricebypair          |getnodeinfo              |         getblockbalance              |
 |  getmarketorderbyid            |getchainparameters       |                       |
 |                                |getburntrx               |                       |
 

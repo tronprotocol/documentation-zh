@@ -2,12 +2,19 @@
 
 ## 资源模型介绍
 
-TRON网络中的资源有4种：带宽，CPU，存储和内存。得益于波场独有的内存模型，TRON网络中的内存资源几乎是无限的。
-TRON网络引入了Bandwidth point 和 Energy 两种资源概念。其中Bandwidth Point表示带宽资源，Energy表示CPU和存储资源。
+投票权、带宽和能量是TRON网络中的重要系统资源。其中投票权用于给超级代表投票；带宽是衡量保存在区块链数据库中的交易字节大小的单位，交易越大，消耗的带宽资源会越多。能量是衡量在TRON网络上TVM虚拟机执行特定操作所需的计算量的单位,由于智能合约交易都需要计算资源来执行，因此每笔智能合约交易都需要付费。
+
+下文我们把投票权也称为TP、带宽也称为Bandwidth Points，能量也称为Energy。
 
 !!! note
     - 普通交易仅消耗Bandwidth points
     - 智能合约的操作不仅要消耗Bandwidth points，还会消耗Energy
+
+## 投票权
+
+任何账户在给超级代表投票前，都需要先获得投票权，即TRON Power(TP)。投票权可以通过质押TRX来获取。质押TRX除了可以获得带宽或者能量外，还将同时获得投票权，选民质押1TRX，将获得1TP。关于如何质押请参考[在TRON网络上质押](#tron)章节。
+
+选民可以分批多次质押，多次质押获取到的投票权会被累加到选民账户内，选民可以通过`wallet/getaccountresource`接口查询账户拥有的投票权总数以及已使用的投票权数量。
 
 ## 带宽
 
@@ -71,10 +78,10 @@ $$
 
 质押获取Energy，即将持有的trx锁定，无法进行交易，作为抵押，并以此获得免费使用Energy的权利。具体计算与全网所有账户质押有关，可参考相关部分计算。
 
-#### FreezeBalance 质押获得能量
+#### 质押获得能量
 
 ```text
-freezeBalance frozen_balance frozen_duration [ResourceCode:0 BANDWIDTH,1 ENERGY]
+freezeBalanceV2 frozen_balance [ResourceCode:0 BANDWIDTH,1 ENERGY]
 ```
 
 通过质押TRX获取的Energy， 额度 = 为获取Energy质押的TRX / 整个网络为获取Energy质押的TRX 总额 * 50_000_000_000。
@@ -103,7 +110,7 @@ B: 10_000_000_000 且energy_limit 为10_000_000_000
 
 ```
 
-#### FreezeBalance 恢复能量
+#### 能量的恢复
 
 所消耗的能量会在24小时内平滑减少至0。
 
@@ -228,22 +235,72 @@ Assert-style异常的介绍详见[异常介绍](https://github.com/tronprotocol/
 
 为避免造成不必要的损失consume_user_resource_percent建议值是10-100。
 
-## 资源委托
+## 在TRON网络上质押
 
-在TRON中，一个账户可以通过质押TRX来获取带宽和能量。同时，也可以把质押TRX获取的带宽或者能量委托（delegate）给其他地址。
-此时，主账号拥有质押的TRX以及相应的投票权，受委托账户拥有质押获取的资源（带宽或者能量）。
-和普通质押一样，委托资源也至少质押3天。
 
-资源委托的命令如下：
+### 如何质押获取系统资源
 
-```text
-freezeBalance frozen_balance frozen_duration [ResourceCode:0 BANDWIDTH,1 ENERGY] [receiverAddress]
+能量和带宽资源由帐户所有者通过质押来获取，请使用`wallet/freezebalancev2`HTTP API完成质押操作、或者使用[Stake2.0 Solidity API](https://cn.developers.tron.network/docs/stake-20-solidity-api)通过合约完成质押操作。
 
-frozen_balance是质押的TRX数量（单位为sun）
-frozen_duration为质押的天数（目前固定为3天）
-ResourceCode表示要获取的资源是带宽还是能量
-receiverAddress表示受委托账户的地址
+TRON通过质押机制分配网络资源。质押TRX除了可以获取带宽或者能量资源外，还将同时获得与质押量等量的投票权（TRON Power，简称TP），质押1TRX，获得1TP。质押获取到的带宽或者能量资源用于支付交易费用，获取到的投票权用于给超级代表投票以获取投票奖励。
+
+解质押操作会释放对应的资源。
+
+### 如何代理资源
+
+账户在通过质押获取到能量或者带宽资源后，可以通过代理操作`delegateresource`将资源代理给其它地址，也可以通过取消代理操作`undelegateresource`收回分配出去的资源，代理资源需要注意以下情况：
+
+- 只有能量和带宽可以被代理给其他地址，投票权无法被代理
+- 只有Stake2.0 质押获取且未使用的资源可以代理给其它地址
+- 只能代理给一个已激活的外部账户地址，不能代理给合约地址
+
+可以通过`wallet/getcandelegatedmaxsize`接口查询账户某种资源的可供代理份额。代理资源时可采用`时间锁`，如果采用了时间锁，完成资源代理后，需要等待3天后才能取消对该地址的资源代理， 锁定期间，如果用户对同一个地址再次进行了资源代理，将重置3天等待时间。如果不采用时间锁，资源代理后，可立刻取消代理。
+
+### 如何解质押
+
+完成TRX质押后可随时解质押，解质押后需要等待14天，才可以将解质押的本金提取到自己的账户中，14天是TRON网络[第70号参数](https://tronscan.org/#/sr/committee)，可以被网络治理提议投票修改。请使用 `unfreezebalancev2` API完成解质押操作。
+
+可多次分批解质押，但只允许最多同时进行32笔解质押操作，也就说当用户发起第一笔解质押，在这笔解质押的资金达到可提取状态之前，只能再发起31笔解质押操作。可通过`getavailableunfreezecount`接口查询剩余解质押次数。
+
+已经代理出去的资源对应的TRX不可被解质押，解质押除了会失去等量的资源份额外，还将失去等量的TP资源。
+
+在执行解质押时，如果存在未领取的投票奖励，会自动将投票奖励提取到账户内，如果存在已过锁定期的之前解质押的本金，那么本次解质押操作还将同时将已过锁定期的解质押本金提取到账户内，可通过`gettransactioninfobyid` API 查询一笔交易中提取到的投票奖励`withdraw_amount` 及提取到的已过锁定期的本金数量`withdraw_expire_amount` 。
+
+#### 投票权资源回收
+
+解锁在Stake2.0阶段质押的TRX后，会失去等量的投票权，系统优先回收账户内空闲的投票权，只有空闲的投票权不够回收时， 才会根据需要撤销一部分账户投票，如果用户投票给了多个超级代表， 将按照比例从每个超级代表撤销一定数量的投票，并将对应的投票权回收。从每个SR撤销的投数的计算公式为：
+
 ```
+从当前超级代表撤销的票数 = 总撤票数 * (给当前超级代表的投票数 / 该账户总投票数)
+```
+
+
+
+举个例子，假设A总共质押了2,000TRX，并获取到2,000 TRON Powner，其中的1000 TRON Power投票给了2个超级代表，分别为600票和400票，账户中剩余1000 TRON Power。此时，A解质押1,500TRX，这意味着需要从A账户中回收1,500 TRON Powner, 在这种情况下，会优先回收A账户中空闲的1000 TRON Power，另外会分别从2个超级代表撤销300票和200票，然后回收这500 TRON Powner。这里撤票的计算方式如下：
+
+- 超级代表1撤票数 = 500 \* (600 / 1,000) = 300
+- 超级代表2撤票数 = 500 \* (400 / 1,000) = 200
+
+目前TRON网络使用的是Stake2.0质押机制，但Stake1.0 质押获得的资源和投票继续有效，在Stake 1.0质押的TRX，仍然可以通过 Stake1.0 API `wallet/unfreezebalance`赎回，但需要注意的是，如果解质押Stake 1.0质押的TRX，会撤销账户所有的投票。
+
+### API
+
+下表为质押模型相关接口及其说明：
+
+| API                                                                                 | 描述                       |
+| ----------------------------------------------------------------------------------- | ------------------------ |
+| wallet/freezebalancev2                                     | 质押                       |
+| wallet/unfreezebalancev2                                  | 解质押                      |
+| wallet/delegateresource                                   | 资源代理                     |
+| wallet/undelegateresource                                 | 取消资源代理                   |
+| wallet/withdrawexpireunfreeze                        | 提取已过锁定期的解质押本金            |
+| wallet/getavailableunfreezecount               | 查看剩余解质押次数                |
+| wallet/getcanwithdrawunfreezeamount            | 查看可提取的已过锁定期的解质押本金        |
+| wallet/getcandelegatedmaxsize                        | 查看可代理的资源份额数量             |
+| wallet/getdelegatedresourcev2                        | 查看某地址代理给目标地址的资源情况        |
+| wallet/getdelegatedresourceaccountindexv2 | 查看某地址资源代理情况与资源被代理情况      |
+| wallet/getaccount                                        | 查看账户质押情况、资源份额、解质押情况、投票情况 |
+| wallet/getaccountresource                              | 查看资源总量、已使用量、可用数量         |
 
 ## 其他交易费
 
@@ -253,8 +310,7 @@ receiverAddress表示受委托账户的地址
 |发行token|1024 TRX|
 |创建account|1 TRX|
 |创建exchange|1024 TRX|
+|更新账户权限|100 TRX|
+|交易备注|1 TRX|
+|多签交易|1 TRX|
 
-[^1]: 根据tron各节点的情况，每次执行消耗的Energy可能会有小幅度的浮动。
-[^2]: tron可能会视后续公链的情况，调整这一策略。
-[^3]: 预估的下一次执行所需Energy上限，应该略大于上一次实际消耗的Energy。
-[^4]: 4 trx = 10^5 energy 为目前的燃烧trx的比例，后续Tron可能会根据全网拥塞情况调整，调整后，将通知到全网的节点。
