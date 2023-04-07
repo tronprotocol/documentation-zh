@@ -1939,5 +1939,104 @@ demo: curl -X get  http://127.0.0.1:8090/wallet/getburntrx
 参数说明：    
 无  
 返回值：烧掉的trx总量
-  
+
+wallet/freezebalancev2
+
+作用：质押TRX
+
+demo: curl -X POST http://127.0.0.1:8090/wallet/freezebalancev2 -d
+'{
+    "owner_address": "41e472f387585c2b58bc2c9bb4492bc1f17342cd1",
+    "frozen_balance": 10000,
+    "resource": "BANDWIDTH"
+}'
+
+参数说明： 
+owner_address: 质押TRX 账号的地址, HEX 格式或 Base58check 格式
+frozen_balance: 质押TRX 的数量, 单位为sun
+resource: 质押TRX 获取资源的类型, 可以是 BANDWIDTH 或者 ENERGY
+permission_id: 可选参数，多重签名时使用
+
+返回值：未签名的交易对象
+
+- wallet/unfreezebalancev2
+
+作用： 解锁通过Stake2.0机制质押的TRX, 释放所相应数量的带宽和能量，同时回收相应数量的投票权(TP)
+
+demo: curl -X POST http://127.0.0.1:8090/wallet/unfreezebalancev2 -d
+'{
+    "owner_address": "41e472f387585c2b58bc2c9bb4492bc1f17342cd1",
+    "unfreeze_balance": 1000000,
+    "resource": "BANDWIDTH"
+}'
+
+参数说明：
+owner_address: 解锁TRX 账号的地址, HEX 格式或 Base58check 格式
+resource: 资源类型, BANDWIDTH 或者 ENERGY
+unfreeze_balance: 解质押的TRX数量，单位为sun
+permission_id: 可选参数，多重签名时使用
+
+返回值：未签名的交易对象
+
+wallet/delegateresource
+
+作用： 将带宽或者能量资源代理给其它账户
+
+demo: curl -X POST http://127.0.0.1:8090/wallet/delegateresource -d
+'{
+    "owner_address": "41e472f387585c2b58bc2c9bb4492bc1f17342cd1",
+    "receiver_address": "41d1e7a6bc354106cb410e65ff8b181c600ff14292",
+    "balance": 1000000,
+    "resource": "BANDWIDTH",
+    "lock": false
+}'
+
+参数说明：
+owner_address: 交易发起者账号的地址, HEX 格式或 Base58check 格式
+receiver_address: 资源的接收账户地址, HEX 格式或 Base58check 格式
+balance: 代理balance数量的TRX所对应的资源给目标地址, 单位为sun
+resource: 代理的资源类型, BANDWIDTH 或者 ENERGY
+lock: true表示为该资源代理操作设置三天的锁定期，即资源代理给目标地址后的三天内不可以取消对其的资源代理，如果锁定期内，再次代理资源给同一目标地址，则锁定期将重新设置为3天。false表示本次资源代理没有锁定期，可随时取消对目标地址的资源代理
+permission_id: 可选参数，多重签名时使用
+
+返回值：未签名的交易对象
+
+wallet/undelegateresource
+
+作用： 取消为目标地址代理的带宽或者能量
+
+demo: curl -X POST http://127.0.0.1:8090/wallet/undelegateresource -d
+'{
+    "owner_address": "41e472f387585c2b58bc2c9bb4492bc1f17342cd1",
+    "receiver_address": "41d1e7a6bc354106cb410e65ff8b181c600ff14292",
+    "balance": 1000000,
+    "resource": "BANDWIDTH"
+}'
+
+参数说明：
+owner_address: 交易发起者账号的地址, HEX 格式或 Base58check 格式
+receiver_address: 资源的接收账户地址, 也就是取消为该地址的资源代理。 HEX 格式或 Base58check 格式
+balance: 取消代理 balance数量的TRX所对应的资源, 单位为sun
+resource: 取消代理的资源类型, BANDWIDTH 或者 ENERGY
+permission_id: 可选参数，多重签名时使用
+
+返回值：未签名的交易对象
+
+wallet/withdrawexpireunfreeze
+
+作用：Withdraw unfrozen balance in Stake2.0, the user can call this API to get back their funds after executing /wallet/unfreezebalancev2 transaction and waiting N days, N is a network parameter
+
+demo: curl -X POST http://127.0.0.1:8090/wallet/withdrawexpireunfreeze -d
+'{
+    "owner_address": "41e472f387585c2b58bc2c9bb4492bc1f17342cd1",
+}'
+
+参数说明：
+owner_address: 交易发起者账号的地址, HEX 格式或 Base58check 格式
+permission_id: 可选参数，多重签名时使用
+
+返回值：未签名的交易对象
+
+
 ```
+
