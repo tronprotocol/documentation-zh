@@ -30,7 +30,7 @@
 Bandwidth Points的获取分两种：
 
 - 通过质押TRX获取的Bandwidth Points， 额度 = 为获取Bandwidth Points质押的TRX / 整个网络为获取Bandwidth Points质押的TRX 总额 * 43_200_000_000. 也就是所有用户按质押TRX平分固定额度的Bandwidth Points.
-- 每个账号每天有固定免费额度的带宽，为5000.
+- 每个账号每天有固定免费额度的带宽，为1500.
 
 ### 2. Bandwith Points的消耗
 
@@ -49,7 +49,7 @@ Bandwidth Points是一个账户1天内能够使用的总字节数。一定时间
 
 如果交易是Token转账，Bandwidth Points消耗如下：
 
-1. 依次验证 发行Token资产总的免费Bandwidth Points是否足够消耗，转账发起者的Token剩余免费Bandwidth Points是否足够消耗，Token发行者质押TRX获取Bandwidth Points剩余量是否足够消耗。如果满足则扣除Token发行者的Bandwidth Points，任意一个不满足则进入下一步
+1. 依次验证 发行Token资产总的免费Bandwidth Points是否足够消耗，转账发起者的Token剩余免费Bandwidth Points是否足够消耗，Token发行者质押TRX获取Bandwidth Points剩余量是否足够消耗。如果满足则扣除Token发行者质押获取的Bandwidth Points，任意一个不满足则进入下一步
 2. 尝试消耗交易发起者质押获取的Bandwidth Points。如果交易发起者Bandwidth Points不足，则进入下一步
 3. 尝试消耗交易发起者的免费Bandwidth Points。如果免费Bandwidth Points也不足，则进入下一步
 4. 尝试消耗交易发起者的TRX，交易的字节数 * 1000 sun
@@ -84,7 +84,7 @@ $$
 freezeBalanceV2 frozen_balance [ResourceCode:0 BANDWIDTH,1 ENERGY]
 ```
 
-通过质押TRX获取的Energy， 额度 = 为获取Energy质押的TRX / 整个网络为获取Energy质押的TRX 总额 * 50_000_000_000。
+通过质押TRX获取的Energy， 额度 = 为获取Energy质押的TRX / 整个网络为获取Energy质押的TRX 总额 * 90_000_000_000。
 也就是所有用户按质押TRX平分固定额度的Energy。
 
 示例：

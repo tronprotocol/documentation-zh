@@ -420,15 +420,15 @@ Nodes: FullNode, SolidityNode
 ```
 Nodes: FullNode
 
-**66.&nbsp;Create an market order**      
-Interface statement:
-```protobuf    
+**66.&nbsp;Create an market order**
+
+```
 rpc MarketSellAsset (MarketSellAssetContract) returns (TransactionExtention) {};
 ```
 Nodes: FullNode
  
 **67.&nbsp;Cancel the order**      
-Interface statement:
+
 ```    
 rpc MarketCancelOrder (MarketCancelOrderContract) returns (TransactionExtention) {};
 ```
@@ -463,7 +463,7 @@ rpc GetMarketPriceByPair (MarketOrderPair) returns (MarketPriceList) {};
 Nodes: FullNode 
 
 **72.&nbsp;Get order by id**      
-Interface statement: 
+
 ```
 rpc GetMarketOrderById (BytesMessage) returns (MarketOrder) {}; 
 ```
@@ -519,3 +519,22 @@ Nodes: FullNode
 rpc UnDelegateResource (UnDelegateResourceContract) returns (TransactionExtention) {}
 ```
 Nodes: FullNode
+
+
+**81.&nbsp;Query transaction information in the pending pool**
+```
+rpc GetTransactionFromPending (BytesMessage) returns (Transaction) {};
+```
+Nodes: FullNode
+
+**82.&nbsp;Query the pending pool transaction id list**
+```
+rpc GetTransactionListFromPending (EmptyMessage) returns (TransactionIdList) {};
+```
+Nodes: FullNode
+
+**83.&nbsp;Query the size of the pending pool**
+```
+rpc GetPendingSize (EmptyMessage) returns (NumberMessage) {};
+Nodes: FullNode
+```
