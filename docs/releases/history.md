@@ -1,5 +1,68 @@
 
 # History
+
+## GreatVoyage-v4.7.1.1(Pittacus)
+
+GreatVoyage-v4.7.1.1(Pittacus)版本优化了多个API接口，并且移除了涉及敏感信息的API。
+
+下面是详细介绍。
+
+
+### API 
+#### 1. 删除涉及敏感信息的API
+
+GreatVoyage-v4.7.1.1(Pittacus)之前的版本提供了签名和地址创建相关的API， 由于这些API的输入或输出包含了私钥，所以在网络中传输存在安全隐患。目前TRON生态的公共API服务提供商均关闭这些API，例如TronGrid、Anker、GetBlock等。开发者文档中之前已经将这些API标记成已废弃, 并建议通过SDK使用离线方式签名交易和创建地址。
+
+GreatVoyage-v4.7.1.1(Pittacus)版本正式将这些API移除：
+
+* HTTP
+    * `createaddress`: 根据指定的密码创建地址
+    * `generateaddress`: 随机创建地址
+    * `easytransfer`：使用账户密码转账TRX
+    * `easytransferbyprivate`：使用私钥转账TRX
+    * `easytransferasset`: 使用账户密码转账TRC10代币
+    * `easytransferassetbyprivate`：使用私钥转账TRC10代币
+    * `gettransactionsign`：使用私钥签名交易
+    * `addtransactionsign`：使用私钥签名交易，主要用于为多签交易签名
+* gRPC
+    * `CreateAddress`: 根据指定的密码创建地址
+    * `GenerateAddress`: 随机创建地址
+    * `EasyTransfer`：使用账户密码转账TRX
+    * `EasyTransferByPrivate`：使用私钥转账TRX
+    * `EasyTransferAsset`: 使用账户密码转账TRC10代币
+    * `EasyTransferAssetByPrivate`：使用私钥转账TRC10代币
+    * `GetTransactionSign`：使用私钥签名交易
+    * `GetTransactionSign2`：使用私钥签名交易
+    * `AddSign`：使用私钥签名交易，主要用于为多签交易签名
+
+
+
+TIP: [https://github.com/tronprotocol/tips/issues/534](https://github.com/tronprotocol/tips/issues/534)
+
+源代码：[https://github.com/tronprotocol/java-tron/pull/5096](https://github.com/tronprotocol/java-tron/pull/5096)    
+
+#### 2. 优化资源代理信息查询接口
+`/wallet/getdelegatedresourcev2`接口可以查询一个地址代理给其它地址的资源情况，而[资源代理](https://cn.developers.tron.network/reference/delegateresource)可以选择是否锁定，给同一个地址的2笔代理，其中一笔可以选择锁定，另外一笔选择不锁定，所以`/wallet/getdelegatedresourcev2`接口会返回两组信息：锁定的资源代理数据和非锁定的资源代理数据。在GreatVoyage-v4.7.1.1(Pittacus)之前的版本中，如果一个地址给另外一个地址代理的资源全部是锁定的，那么非锁定资源代理数据为0，则在这种情况下，接口可能也会将非锁定资源代理数据（0值）返回，GreatVoyage-v4.7.1.1(Pittacus)版本优化了`/wallet/getdelegatedresourcev2`接口，只返回代理资源数量非0的数据，使得返回的数据更加简洁清晰。
+
+源代码:  [https://github.com/tronprotocol/java-tron/pull/5123](https://github.com/tronprotocol/java-tron/pull/5123) 
+
+
+### 其它变更
+
+
+#### 1. 优化交易收据中origin_energy_usage字段的更新逻辑
+TRON网络支持合约部署者分摊一部分合约调用成本，为了方便用户查询合约交易的能量消耗情况，交易收据除了记录交易的总能量消耗量`energy_usage_total`字段，还会记录合约部署者分摊的能量数量`origin_energy_usage`字段，`energy_usage_total`包含了`origin_energy_usage`。在GreatVoyage-v4.7.1.1(Pittacus)之前的版本中，在极少数情况下会出现通过/wallet/gettransactioninfobyid查询到`energy_usage_total`字段为0，而`origin_energy_usage`字段不为0的情况，因此，GreatVoyage-v4.7.1.1(Pittacus)版本优化了交易收据中`origin_energy_usage`的更新逻辑，保证查询合约部署者的能量的准确性。
+
+
+源代码：  [https://github.com/tronprotocol/java-tron/pull/5120](https://github.com/tronprotocol/java-tron/pull/5120)   
+
+
+--- 
+
+*Whatever you do, do it well.* 
+<p align="right"> ---Pittacus</p>
+
+
 ## GreatVoyage-v4.7.1(Sartre)
 
 GreatVoyage-v4.7.1(Sartre)版本引入了多个重要的优化和更新，优化的区块同步逻辑，提高了区块同步的稳定性；优化的节点IP设置，提高了节点的可用性；优化的节点日志模块，提高节点的可维护性。
