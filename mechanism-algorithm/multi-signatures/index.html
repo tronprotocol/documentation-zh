@@ -131,19 +131,17 @@
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#_8">其他新增接口</a>
         <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#_9">增加签名</a>
+    <li class="toctree-l4"><a class="reference internal" href="#_9">查询已签名地址</a>
     </li>
-    <li class="toctree-l4"><a class="reference internal" href="#_10">查询已签名地址</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#_11">查询交易签名权重</a>
+    <li class="toctree-l4"><a class="reference internal" href="#_10">查询交易签名权重</a>
     </li>
         </ul>
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_12">其他</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_11">其他</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#_13">支持多重签名后，创建账户时有什么变化？</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_12">支持多重签名后，创建账户时有什么变化？</a>
     </li>
         </ul>
     </li>
@@ -442,23 +440,18 @@ n+1、验证多重签名的权重之和大于域值则接受交易，否则拒�
 <p><a href="https://github.com/tronprotocol/wallet-cli/blob/multi_sign_V2/src/main/java/org/tron/demo/MultiSignDemo.java">多重签名示例</a></p>
 <h3 id="_8">其他新增接口<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
 <p>接口详细说明，请查看Tron-http.md与波场钱包RPC-API.md</p>
-<h4 id="_9">增加签名<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w">  </span>http://127.0.0.1:8090/wallet/addtransactionsign<span class="w"> </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;transaction&quot;: &quot;TransferContract&quot;, &quot;privateKey&quot;: &quot;permissionkey1&quot;}&#39;</span>
-
-rpc<span class="w"> </span>AddSign<span class="w"> </span><span class="o">(</span>TransactionSign<span class="o">)</span><span class="w"> </span>returns<span class="w"> </span><span class="o">(</span>TransactionExtention<span class="o">)</span><span class="w"> </span><span class="o">{}</span>
-</code></pre></div>
-<h4 id="_10">查询已签名地址<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h4>
+<h4 id="_9">查询已签名地址<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code>curl -X POST  http://127.0.0.1:8090/wallet/getapprovedlist -d &#39;{&quot;transaction&quot;}&#39;
 
 rpc GetTransactionApprovedList(Transaction) returns (TransactionApprovedList) { }
 </code></pre></div>
-<h4 id="_11">查询交易签名权重<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h4>
+<h4 id="_10">查询交易签名权重<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w">  </span>http://127.0.0.1:8090/wallet/getsignweight<span class="w"> </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;transaction&quot;}&#39;</span>
 
 rpc<span class="w"> </span>GetTransactionSignWeight<span class="w"> </span><span class="o">(</span>Transaction<span class="o">)</span><span class="w"> </span>returns<span class="w"> </span><span class="o">(</span>TransactionSignWeight<span class="o">)</span><span class="w"> </span><span class="o">{}</span>
 </code></pre></div>
-<h2 id="_12">其他<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h2>
-<h3 id="_13">支持多重签名后，创建账户时有什么变化？<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h3>
+<h2 id="_11">其他<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h2>
+<h3 id="_12">支持多重签名后，创建账户时有什么变化？<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
 <p>在升级到V3.5版本后，并且多重签名提议生效后，创建账户时将自动生成owner-permission以及一个active-permission，
 其中owner-permission中仅包含一个key，权限及阈值都为1。active-permission中也包含一个key，权限及阈值都为1，并且
 operations为"7fff1fc0033e0000000000000000000000000000000000000000000000000000"，表示支持除
