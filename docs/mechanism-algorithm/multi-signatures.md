@@ -284,13 +284,6 @@ n+1、验证多重签名的权重之和大于域值则接受交易，否则拒�
 
 接口详细说明，请查看Tron-http.md与波场钱包RPC-API.md
 
-#### 增加签名
-
-```shell
-curl -X POST  http://127.0.0.1:8090/wallet/addtransactionsign -d '{"transaction": "TransferContract", "privateKey": "permissionkey1"}'
-
-rpc AddSign (TransactionSign) returns (TransactionExtention) {}
-```
 
 #### 查询已签名地址
 

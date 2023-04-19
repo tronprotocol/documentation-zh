@@ -114,22 +114,12 @@ Import a wallet successful, keystore file name is UTC--2022-06-28T06-51-56.15400
 ## 链上账户
 下面是账户地址相关命令：
 
-- [GenerateAddress](#generateaddress)
 - [GetAccount](#getaccount)
 - [GetAddress](#getaddress)
 - [GetBalance](#getbalance)
 - [UpdateAccountPermission](#updateaccountpermission)
 
-### GenerateAddress
-使用该命令生成一个新的钱包地址和它的私钥
-```shell
-wallet> generateaddress
-{
-	"address": "TQAvi6bemLa1t1irdV1KuaSC5vKc2EswTj",
-	"privateKey": "610a8a809114a96140e1cb040a7813afc74603e58c3d7824c3f68ccc642c297e"
-}
-```
-**注意** 生成的地址及其私钥不会被保存，如需使用请单独留存。
+
 ### GetAccount
 使用地址获得账户相关信息，可以查询账户余额，创建时间及分配权限的情况等
 ```shell

@@ -5,16 +5,16 @@
 | transaction                   |  account                           |   shielded transactions                      |
 |-------------------------------|------------------------------------|----------------------------------------------|
 | createtransaction             |  updateaccount                     | getexpandedspendingkey                       |
-| gettransactionsign            |  createaccount                     | getakfromask                                 |
-| gettransactionbyid            |  createaddress                     | getnkfromnsk                                 |
+| gettransactioninfobyblocknum            |  createaccount                     | getakfromask                                 |
+| gettransactionbyid            |  getdelegatedresourceaccountindexv2                     | getnkfromnsk                                 |
 | gettransactioninfobyid        |  getaccountnet                     | getspendingkey                               |
 | gettransactioncountbyblocknum |  getaccount                        | getdiversifier                               |
-| getdeferredtransactionbyid    |  generateaddress                   | getincomingviewingkey                        |
+| getdeferredtransactionbyid    |  getdelegatedresourcev2                   | getincomingviewingkey                        |
 | canceldeferredtransactionbyid |  validateaddress                   | getzenpaymentaddress                         |
 | getdeferredtransactioninfobyid|  getaccountresource                | scannotebyivk                                |
 | getsignweight                 |  setaccountid                      | scanandmarknotebyivk                         |
-| addtransactionsign            |  getaccountbyid                    | scannotebyovk                                |
-| gettransactioninfobyblocknum  |  accountpermissionupdate           | getrcm                                       |
+|             |  getaccountbyid                    | scannotebyovk                                |
+|   |  accountpermissionupdate           | getrcm                                       |
 |                               |  getdelegatedresource              | getmerkletreevoucherinfo                     |
 |                               |  getdelegatedresourceaccountindex  | isspend                                      |
 |                    |  freezebalancev2                   | createspendauthsig                           |
@@ -35,17 +35,16 @@
 |                               |  getavailableunfreezecount                 |                                              |
 |                               |  getcanwithdrawunfreezeamount                 |                                              |
 |                               |  getcandelegatedmaxsize                 |                                              |
-|                               |  getdelegatedresourcev2                 |                                              |
-|                               |  getdelegatedresourceaccountindexv2                 |                                              |
+
 
 
 |   asset                        |  exchange               | transfer                        |
 |--------------------------------|-------------------------|---------------------------------|
-|  createassetissue              | exchangecreate          | easytransferbyprivate           |
-|  participateassetissue         | exchangeinject          | easytransferassetbyprivate      |
-|  getassetissuebyaccount        | exchangewithdraw        | transferasset                   |
-|  getassetissuebyname           | exchangetransaction     | easytransfer                    |
-|  getassetissuelistbyname       | getexchangebyid         | easytransferasset               |
+|  createassetissue              | exchangecreate          |  transferasset         |
+|  participateassetissue         | exchangeinject          |       |
+|  getassetissuebyaccount        | exchangewithdraw        |                    |
+|  getassetissuebyname           | exchangetransaction     |                     |
+|  getassetissuelistbyname       | getexchangebyid         |                |
 |  getassetissuelist             | getpaginatedexchangelist|                                 |
 |  getpaginatedassetissuelist    | getpaginatedexchangelist|                                 |
 |  getassetissuebyid             | listexchanges           |                                 |
@@ -456,13 +455,6 @@ amount是转账数量
 可选参数Permission_id，多重签名时使用，设置交易多重签名时使用的permissionId
 返回值：转账合约
 
-/wallet/gettransactionsign
-作用：使用私钥签名交易。建议使用离线方式签名交易。
-demo: curl -X POST  http://127.0.0.1:8090/wallet/gettransactionsign -d '{
-"transaction" : {"txID":"454f156bf1256587ff6ccdbc56e64ad0c51e4f8efea5490dcbc720ee606bc7b8","raw_data":{"contract":[{"parameter":{"value":{"amount":1000,"owner_address":"41e552f6487585c2b58bc2c9bb4492bc1f17132cd0","to_address":"41d1e7a6bc354106cb410e65ff8b181c600ff14292"},"type_url":"type.googleapis.com/protocol.TransferContract"},"type":"TransferContract"}],"ref_block_bytes":"267e","ref_block_hash":"9a447d222e8de9f2","expiration":1530893064000,"timestamp":1530893006233}}, "privateKey": "your private key"
-}'
-参数说明：transaction是通过http api创建的合约，privateKey是用户private key
-返回值：签名之后的transaction
 
 wallet/broadcasttransaction
 作用：对签名后的transaction进行广播
@@ -602,41 +594,6 @@ amount是token转账数量
 【注意】
 - 当前的asset_name为token名称。当委员会通过AllowSameTokenName提议后asset_name改为token ID的String类型。
 
-wallet/easytransfer
-作用：快捷转账，该接口已被废弃。
-demo：curl -X POST http://127.0.0.1:8090/wallet/easytransfer -d '{
-"passPhrase": "your password",
-"toAddress": "41e552f6487585c2b58bc2c9bb4492bc1f17132cd0",
-"amount":100
-}'
-参数说明：
-passPhrase是用户密码，默认为hexString格式
-toAddress是转入地址，默认为hexString格式
-amount是转账trx数量
-返回值：
-对应的Transaction和广播是否成功的状态
-
-wallet/easytransferasset
-作用：快捷转账TRC10代币，该接口已被废弃。
-demo：curl -X POST http://127.0.0.1:8090/wallet/easytransferasset -d '{
-"passPhrase": "your password",
-"toAddress": "41e552f6487585c2b58bc2c9bb4492bc1f17132cd0",
-"assetId": "1000001",
-"amount":100
-}'
-参数说明：
-passPhrase是用户密码，默认为hexString格式
-toAddress是转入地址，默认为hexString格式
-assetId是通证的ID
-amount是转账通证数量,单位是通证的最小单位
-返回值：
-对应的Transaction和广播是否成功的状态
-
-wallet/createaddress
-作用：通过密码创建地址，该接口已被废弃。
-demo：curl -X POST http://127.0.0.1:8090/wallet/createaddress -d '{"value": "3230313271756265696a696e67"}'
-参数说明：value是用户密码，默认为hexString格式
-返回值：一个地址
 
 wallet/participateassetissue
 作用：参与token发行
@@ -910,33 +867,6 @@ wallet/getnextmaintenancetime
 demo: curl -X POST  http://127.0.0.1:8090/wallet/getnextmaintenancetime
 参数说明：无
 返回值：下次统计投票时间的毫秒数。
-
-wallet/easytransferbyprivate
-作用：快捷转账，该接口已被废弃。
-demo: curl -X POST  http://127.0.0.1:8090/wallet/easytransferbyprivate -d '{"privateKey": "D95611A9AF2A2A45359106222ED1AFED48853D9A44DEFF8DC7913F5CBA727366", "toAddress":"4112E621D5577311998708F4D7B9F71F86DAE138B5","amount":10000}'
-参数说明：
-   privateKey：私钥，默认为hexString格式
-   toAddress：转入账户地址，默认为hexString格式
-   amount：转账的drop数量。
-返回值：交易，含执行结果。
-
-wallet/easytransferassetbyprivate
-作用：快捷转账，该接口已被废弃。
-demo: curl -X POST  http://127.0.0.1:8090/wallet/easytransferassetbyprivate -d '{"privateKey": "D95611A9AF2A2A45359106222ED1AFED48853D9A44DEFF8DC7913F5CBA727366", "toAddress":"4112E621D5577311998708F4D7B9F71F86DAE138B5",
-"assetId": "1000001",
-"amount":10000}'
-参数说明：
-   privateKey：私钥，默认为hexString格式
-   toAddress：转入账户地址，默认为hexString格式
-   assetId：通证ID。
-   amount：转账的通证数量，单位是通证的最小单位。
-返回值：交易，含执行结果。
-
-wallet/generateaddress
-作用：创建一个随机的私钥和地址。该接口已被废弃，建议使用离线方式创建地址。
-demo: curl -X POST  http://127.0.0.1:8090/wallet/generateaddress
-参数说明：无
-返回值：地址和私钥
 
 
 wallet/validateaddress
@@ -1229,38 +1159,6 @@ owner_address：创建合约的账户地址，默认为hexString格式
 contract_address：合约地址,默认为hexString
 返回值:交易对象
 
-wallet/addtransactionsign
-作用：给交易签名，支持多重签名。建议使用离线方式添加签名。
-demo: curl -X POST  http://127.0.0.1:8090/wallet/addtransactionsign -d '{
-    "transaction": {
-        "visible": true,
-        "txID": "752cece5a68e40e30eaeeb4c5844b3f4b004d23485ccef42e0609a9a90eeb675",
-        "raw_data": {
-            "contract": [{
-                "parameter": {
-                    "value": {
-                        "data": "a9059cbb0000000000000000000000415a523b449890854c8fc460ab602df9f31fe4293f00000000000000000000000000000000000000000000000000000000000001f4",
-                        "owner_address": "TRGhNNfnmgLegT4zHNjEqDSADjgmnHvubJ",
-                        "contract_address": "TVf6sdWWu8zvmtcWfZerMDefoptiVhbhXC"
-                    },
-                    "type_url": "type.googleapis.com/protocol.TriggerSmartContract"
-                },
-                "type": "TriggerSmartContract"
-            }],
-            "ref_block_bytes": "0883",
-            "ref_block_hash": "84c32fcee77f6be7",
-            "expiration": 1556449785000,
-            "fee_limit": 10000,
-            "timestamp": 1556449725625
-        },
-        "raw_data_hex": "0a020883220884c32fcee77f6be740a8e98b9da62d5aae01081f12a9010a31747970652e676f6f676c65617069732e636f6d2f70726f746f636f6c2e54726967676572536d617274436f6e747261637412740a1541a7d8a35b260395c14aa456297662092ba3b76fc0121541d7f5e9b3b997006444c1646ecfae6549b5737e622244a9059cbb0000000000000000000000415a523b449890854c8fc460ab602df9f31fe4293f00000000000000000000000000000000000000000000000000000000000001f470b999889da62d9001904e"
-    },
-    "privateKey": "950139607044677436d29ff1ea2900c9402f783a91547cdc47cf706f1129c76a"
-    }'
-参数说明：
-transaction：交易对象
-privateKey： owner_address对应的私钥，hexString格式，存在泄漏私钥的风险。
-返回值:签名后的交易对象
 
 wallet/getsignweight
 作用：查询多重签名的交易的相关信息

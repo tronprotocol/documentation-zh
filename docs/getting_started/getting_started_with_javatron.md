@@ -328,70 +328,8 @@ curl -X POST  http://127.0.0.1:16887/wallet/createtransaction -d
     "raw_data_hex": "0a02193b2208aaecd88e4e0e752840e098909f9b305a68080112640a2d747970652e676f6f676c65617069732e636f6d2f70726f746f636f6c2e5472616e73666572436f6e747261637412330a154198927ffb9f554dc4a453c64b2e553a02d6df514b121541d0b69631440f0a494bb51f7eee68ff5c593c00f01880ade20470b4d58c9f9b30"
 }
 ```
-然后对该交易进行签名，自建节点可以使用http接口[`wallet/gettransactionsign`](https://cn.developers.tron.network/reference/gettransactionsign)对交易进行签名，否则，由于此接口需要填写私钥，因此不建议使用此接口，建议使用离线签名方式。
+然后使用SDK对该交易进行签名。
 
-```
-curl --location --request POST 'http://127.0.0.1:16887/wallet/gettransactionsign' \
---header 'Content-Type: application/json' \
---data-raw '{"transaction":{
-    "visible": true,
-    "txID": "c558bd35978267d8999baf6148703cbc94786f3f2e22893637588ca05437d7f0",
-    "raw_data": {
-        "contract": [
-            {
-                "parameter": {
-                    "value": {
-                        "amount": 10000000,
-                        "owner_address": "TPswDDCAWhJAZGdHPidFg5nEf8TkNToDX1",
-                        "to_address": "TUznHJfHe6gdYY7gvWmf6bNZHuPHDZtowf"
-                    },
-                    "type_url": "type.googleapis.com/protocol.TransferContract"
-                },
-                "type": "TransferContract"
-            }
-        ],
-        "ref_block_bytes": "193b",
-        "ref_block_hash": "aaecd88e4e0e7528",
-        "expiration": 1656580476000,
-        "timestamp": 1656580418228
-    },
-    "raw_data_hex": "0a02193b2208aaecd88e4e0e752840e098909f9b305a68080112640a2d747970652e676f6f676c65617069732e636f6d2f70726f746f636f6c2e5472616e73666572436f6e747261637412330a154198927ffb9f554dc4a453c64b2e553a02d6df514b121541d0b69631440f0a494bb51f7eee68ff5c593c00f01880ade20470b4d58c9f9b30"
-},
-"privateKey":"e62650acb68caf5cd8fe3d03eb3fb9ca37afb72429f68053f9278f73951591ed"}'
-```
-
-执行结果为：
-
-
-```
-{
-    "visible": true,
-    "signature": [
-        "e12996cfaf52f8b49e64400987f9158a87b1aa809a11a75e01bb230722db97a26204334aea945b1ece0851a89c96459872e56229b0bd725c4f6a0577bfe331c301"
-    ],
-    "txID": "c558bd35978267d8999baf6148703cbc94786f3f2e22893637588ca05437d7f0",
-    "raw_data": {
-        "contract": [
-            {
-                "parameter": {
-                    "value": {
-                        "amount": 10000000,
-                        "owner_address": "TPswDDCAWhJAZGdHPidFg5nEf8TkNToDX1",
-                        "to_address": "TUznHJfHe6gdYY7gvWmf6bNZHuPHDZtowf"
-                    },
-                    "type_url": "type.googleapis.com/protocol.TransferContract"
-                },
-                "type": "TransferContract"
-            }
-        ],
-        "ref_block_bytes": "193b",
-        "ref_block_hash": "aaecd88e4e0e7528",
-        "expiration": 1656580476000,
-        "timestamp": 1656580418228
-    },
-    "raw_data_hex": "0a02193b2208aaecd88e4e0e752840e098909f9b305a68080112640a2d747970652e676f6f676c65617069732e636f6d2f70726f746f636f6c2e5472616e73666572436f6e747261637412330a154198927ffb9f554dc4a453c64b2e553a02d6df514b121541d0b69631440f0a494bb51f7eee68ff5c593c00f01880ade20470b4d58c9f9b30"
-}
-```
 最后，通过[`wallet/broadcasttransaction`](https://cn.developers.tron.network/reference/broadcasttransaction)接口将签名后的交易广播到Java-tron节点，完成TRX转账交易的发送。
 
 ```
