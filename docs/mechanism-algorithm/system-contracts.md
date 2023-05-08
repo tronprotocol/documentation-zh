@@ -475,7 +475,7 @@
 ```
 
 * `owner_address`：合约持有人地址。
-* `account_address`：需要清除ABI的合约。
+* `contract_address`：需要清除ABI的合约。
 
 ## 29. 更新分红比例合约
 
