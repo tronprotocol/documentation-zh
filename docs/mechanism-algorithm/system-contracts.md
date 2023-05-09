@@ -1,5 +1,9 @@
 # 系统合约
 
+
+TRON网络支持多种不同类型的交易，比如TRX转账交易、TRC10转账交易、创建智能合约交易、触发智能合约交易、质押TRX交易等等。创建不同类型的交易，需要调用不同的API接口， 例如部署合约交易的类型是`CreateSmartContract`，需要调用`wallet/deploycontractAPI`来创建交易；质押TRX获取资源交易的类型是`FreezeBalanceV2Contract`，需要调用 `wallet/freezebalancev2API`来创建交易，我们将这些不同的交易类型的实现统称为系统合约，下面为系统合约类型及其包含的内容：
+
+
 ## 1.创建账户 AccountCreateContract
 
 ```protobuf
