@@ -2108,20 +2108,7 @@ curl -X POST  http://127.0.0.1:8090/wallet/scanshieldedtrc20notesbyovk -d
 
 #### wallet/isshieldedtrc20contractnotespent
 作用：查询匿名TRC20合约的note是否已被花费
-```
-curl -X POST  http://127.0.0.1:8090/wallet/scanshieldedtrc20notesbyovk -d
-'{
-   "note": {
-       "value": 40,
-       "payment_address":"ztron1768kf7dy4qquefp46szk978d65eeua66yhr4zv260c0uzj68t3tfjl3en9lhyyfxalv4jus30xs",
-       "rcm": "296070782a94c6936b0b4f6daf8d7c7605a4374fe595b96148dc0f4b59015d0d"
-    },
-    "ak": "8072d9110c9de9d9ade33d5d0f5890a7aa65b0cde42af7816d187297caf2fd64",
-    "nk": "590bf33f93f792be659fd404df91e75c3b08d38d4e08ee226c3f5219cf598f14",
-    "position": 272,
-    "shielded_TRC20_contract_address": "41274fc7464fadac5c00c893c58bce6c39bf59e4c7"
-}'
-```
+
 参数说明：
 
 - `note`：Note信息
