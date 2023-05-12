@@ -815,21 +815,21 @@ curl -X POST  http://127.0.0.1:8090/wallet/getchainparameters
 返回值：区块链委员会可以设置的所有参数
 
 #### wallet/getenergyprices
-作用：查询所有交易对
+作用：查询能量单价历史
 ```
 curl -X POST  http://127.0.0.1:8090/wallet/getenergyprices
 ```
 返回值：所有历史能量单价信息。每次单价变动以逗号分隔，冒号前为毫秒时间戳，冒号后为以sun为单位的能量单价。
 
 #### wallet/getbandwidthprices
-作用：查询所有交易对
+作用：查询带宽单价历史
 ```
 curl -X POST  http://127.0.0.1:8090/wallet/getbandwidthprices
 ```
 返回值：所有历史带宽单价信息。每次单价变动以逗号分隔，冒号前为毫秒时间戳，冒号后为以sun为单位的带宽单价。
 
 #### wallet/getburntrx
-作用：查询所有交易对
+作用：查询燃烧的TRX数量
 ```
 curl -X POST  http://127.0.0.1:8090/wallet/getburntrx
 ```
