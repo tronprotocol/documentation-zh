@@ -943,7 +943,7 @@ curl -X POST  http://127.0.0.1:8090/wallet/updatesetting -d '{"owner_address": "
 #### wallet/updateenergylimit
 作用：更新合约的origin_energy_limit
 ```
-curl -X POST  http://127.0.0.1:8090/wallet/updatesetting -d '{"owner_address": "419844f7600e018fd0d710e2145351d607b3316ce9", "contract_address": "41c6600433381c731f22fc2b9f864b14fe518b322f", "origin_energy_limit": 7}'
+curl -X POST  http://127.0.0.1:8090/wallet/updateenergylimit -d '{"owner_address": "419844f7600e018fd0d710e2145351d607b3316ce9", "contract_address": "41c6600433381c731f22fc2b9f864b14fe518b322f", "origin_energy_limit": 7}'
 ```
 参数说明：
 
