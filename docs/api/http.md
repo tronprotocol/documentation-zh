@@ -808,7 +808,7 @@ curl  http://127.0.0.1:8090/wallet/getnodeinfo
 返回值：节点当前状态的相关信息
 
 #### wallet/getchainparameters
-作用：查询所有交易对
+作用：查询TRON网络动态参数
 ```
 curl -X POST  http://127.0.0.1:8090/wallet/getchainparameters
 ```
