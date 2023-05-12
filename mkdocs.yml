@@ -24,6 +24,7 @@ nav:
         - 账户模型: mechanism-algorithm/account.md
         - 资源模型: mechanism-algorithm/resource.md
         - 智能合约: contracts/contract.md
+        - 系统合约: mechanism-algorithm/system-contracts.md
         - 去中心化交易所: mechanism-algorithm/dex.md
         - 多重签名: mechanism-algorithm/multi-signatures.md
     - Java-tron开发: 
