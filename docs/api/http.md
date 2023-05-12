@@ -780,7 +780,7 @@ curl -X POST  http://127.0.0.1:8090/wallet/gettransactioncountbyblocknum -d '{"n
 返回值：transaction的个数.
 
 #### wallet/gettransactioninfobyblocknum
-作用：查询特定block上transaction的个数
+作用：获取特定区块的所有交易 Info 信息
 ```
 curl -X POST  http://127.0.0.1:8090/wallet/gettransactioninfobyblocknum -d '{"num" : 100}'
 ```
