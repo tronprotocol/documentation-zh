@@ -3,7 +3,7 @@
 
 |  名称 |版本号  | 发布日期 | 包含的TIP | 版本说明 | 技术解读 |
 | -------- | -------- | -------- | -------- | -------- | -------- |
-|  TBD    |  GreatVoyage-v4.7.2    |  TBD    |   TBD    |  [TBD](https://github.com/tronprotocol/pm/issues/42)   |  TBD    |
+|  Periander    |  GreatVoyage-v4.7.2    |  2023-7-1    |  [TIP-541](https://github.com/tronprotocol/tips/issues/541) <br> [TIP-542](https://github.com/tronprotocol/tips/issues/542) <br> [TIP-543](https://github.com/tronprotocol/tips/issues/543) <br> [TIP-544](https://github.com/tronprotocol/tips/issues/544) <br> [TIP-555](https://github.com/tronprotocol/tips/issues/555) <br> [TIP-547](https://github.com/tronprotocol/tips/issues/547) <br> [TIP-548](https://github.com/tronprotocol/tips/issues/548) <br> [TIP-549](https://github.com/tronprotocol/tips/issues/549) <br> [TIP-550](https://github.com/tronprotocol/tips/issues/550)    |  [Release Note](https://github.com/tronprotocol/java-tron/releases/tag/GreatVoyage-v4.7.2)   |   [Specs](#greatvoyage-v472periander)   |
 |  Pittacus    |  GreatVoyage-v4.7.1.1    |  2023-4-17    |   [TIP-534](https://github.com/tronprotocol/tips/blob/master/tip-534.md)    |  [Release Note](https://github.com/tronprotocol/java-tron/releases/tag/GreatVoyage-v4.7.1.1)    |  [Specs](#greatvoyage-v4711pittacus)    |
 |  Sartre    |   GreatVoyage-v4.7.1   |  2023-2-27    |  N/A    |   [Release Note](https://github.com/tronprotocol/java-tron/releases/tag/GreatVoyage-v4.7.1)   |  [Specs](#greatvoyage-v471sartre)     |
 |  Aristotle    | GreatVoyage-v4.7.0.1     |  2023-1-20    |[TIP-467](https://github.com/tronprotocol/tips/blob/master/tip-467.md) <br>[TIP-474](https://github.com/tronprotocol/tips/blob/master/tip-474.md) <br>[TIP-491](https://github.com/tronprotocol/tips/blob/master/tip-491.md) |  [Release Note](https://github.com/tronprotocol/java-tron/releases/tag/GreatVoyage-v4.7.0.1)    |  [Specs](#greatvoyage-v4701aristotle)    |
@@ -74,7 +74,340 @@
 |   N/A   | Exodus-v1.0    |  2017-12-28    |  N/A    |      [Release Note](https://github.com/tronprotocol/java-tron/releases/tag/Exodus-v1.0)    |  N/A   |
 
 
+## GreatVoyage-v4.7.2(Periander)
+Periander版本引入了多个重要的优化和更新，增加2个治理提案来对Stake 2.0进行易用性优化，大幅提高了波场质押机制的灵活性；增加1个治理提案来实现EIP-3855 `PUSH0`指令，确保了波场和以太坊在虚拟机层面的兼容性的同时，还可以降低波场智能合约的使用成本；更友好的智能合约调用访问接口，提高了智能合约开发的便利性；P2P网络模块全面升级，支持IPV6网络协议、基于DNS的节点发现、报文压缩等等，大幅提升波场网络基础设施的性能。
 
+
+下面是详细介绍。
+
+### 核心协议
+#### 1. libp2p 升级到v1.2.0
+libp2p是Java-tron核心开发者开发的Java版本开源P2P协议框架，任何人都能基于libp2p开发分布式应用，Java-tron底层的P2P网络就是基于libp2p实现的，为了进一步提高Java-tron的底层网络性能，Periander版本将libp2p依赖库从v0.1.4版本升级到v1.2.0版本，libp2p v1.2.0具备如下新特性：
+
+* 支持IPV6协议
+
+    IPV6协议是替代IPV4的下一代互联网IP协议，解决IPV4地址枯竭问题的同时，在网络性能方面也有所提升，目前主流的服务器操作系统均同时支持IPV4和IPV6，因此libp2p v1.2.0双协议栈的支持，不仅能够提高Java-tron的网络性能，还使得仅支持IPV4的节点、仅支持IPV6的节点、既支持IPV4又支持IPV6的节点均可以加入到TRON网络。   
+
+    该功能默认为关闭状态，需要通过节点配置项`node.enableIpv6 = true`开启。
+
+    * TIP: [https://github.com/tronprotocol/tips/blob/master/tip-549.md](https://github.com/tronprotocol/tips/blob/master/tip-549.md) 
+
+* 支持通过DNS进行节点发现
+
+    libp2p v1.2.0 新增通过DNS进行节点发现的功能，使得节点不但可以使用Kademlia算法，还可以使用DNS机制进行节点发现，节点将支持发布节点到DNS服务和使用DNS进行节点发现两个功能，无论哪个功能，均需通过节点配置项开启，具体的配置信息如下：
+
+    **DNS节点发布**
+    
+    节点支持将已知的节点发布到DNS服务，以供其它节点使用，节点发布可以选择动态发布或者静态发布方式。动态发布是节点周期的将K桶中的远端节点IP发布到DNS。静态发布就是一次性将`dns.staticNodes`配置项中的节点发布到DNS服务，后期不更新。如果`dns.staticNodes`不为空，就是静态发布方式，否则是动态发布方式。
+
+    ```
+    node.dns {
+        # enable or disable dns publish, default false
+        publish = true
+        
+        # dns domain to publish nodes, required if publish is enable
+        dnsDomain = "..."
+
+        # dns private key used to publish, required if publish is enable, hex string of length 64
+        dnsPrivate = "..."
+        
+        # dns server to publish, required if publish is enable, only ”aws” or “aliyun” is support
+        serverType = "..."
+    
+        # access key id of aws or aliyun api, required if publish is enable, string
+        accessKeyId = "..."
+
+        # access key secret of aws or aliyun api, required if publish is enable, string
+        accessKeySecret = "..."
+
+        # if publish is enable and serverType is aliyun, it's endpoint of aws dns server, string
+        aliyunDnsEndpoint = "..."
+    
+        # if publish is enable and serverType is aws, it's region of aws api, such as "eu-south-1", string
+        awsRegion = "..."
+        # if publish is enable and serverType is aws, it's host zone id of aws's domain, string
+        awsHostZoneId = "..."
+        
+        # static nodes to published on dns
+        staticNodes = [
+            # Sample entries:
+            # "ip:port",
+            # "ip:port"
+  	    ]
+        
+        # the range is from 1 to 5
+        maxMergeSize = 2
+        
+        changeThreshold = 0.001
+    }
+    ```
+
+    **使用DNS进行节点发现**
+
+    使用DNS进行节点发现需要配置如下配置项：
+    ```
+    node.dns {
+     # dns urls to get nodes, url format tree://{pubkey}@{domain}, default empty
+     treeUrls = [......]
+    }
+    ```
+
+
+
+    * TIP: [https://github.com/tronprotocol/tips/blob/master/tip-548.md](https://github.com/tronprotocol/tips/blob/master/tip-548.md) 
+
+* 新增节点可连接性预检测功能
+
+
+    在libp2p v0.1.4版本中，节点是根据远端节点更新时间的先后顺序来选择是否与其建立连接并同步数据，而在实际场景中，可能会因为某些原因被对方拒绝连接，从而影响到数据同步。为了提高节点间建立连接的效率，libp2p v1.2.0版本新增远端节点可连接性预检测功能，使节点可以提前探测出对方节点是否可以接受连接，节点提前尝试与对方节点建立TCP连接，以了解对方节点是否在线，如果TCP连接建立完成，则通过一对交互报文来获取对方节点的相关信息，其中包括libp2p版本号、最大连接数、当前连接数等，从而可以知道该对方节点是否还能接受连接。远端节点可连接性预检测功能可以避免进行无效连接请求，大幅提高了节点建立连接的效率。
+
+    该功能默认为关闭状态，需要通过节点配置项`node.nodeDetectEnable`开启。
+
+    * TIP:  [https://github.com/tronprotocol/tips/blob/master/tip-547.md](https://github.com/tronprotocol/tips/blob/master/tip-547.md) 
+
+* 新增报文压缩功能
+
+    libp2p v1.2.0新增TCP报文压缩功能，传输前，节点对TCP报文进行压缩，收到压缩的报文后，节点对其进行解压。经测试，报文压缩与解压的耗时较短，不到1ms，而该功能使报文传输对网络带宽的占用明显减少，可节省40%左右的带宽。
+
+    * TIP: [https://github.com/tronprotocol/tips/blob/master/tip-550.md](https://github.com/tronprotocol/tips/blob/master/tip-550.md) 
+    * 源代码：[https://github.com/tronprotocol/java-tron/pull/5017](https://github.com/tronprotocol/java-tron/pull/5017)   
+
+
+#### 2. Stake 2.0支持取消解质押
+在Periander之前的版本中，用户通过HTTP API发起Stake 2.0 解质押交易后，需要等待14天的锁定期后才能提取对应的资金，用户在锁定期间无法取消解质押。
+Periander版本优化了Stake 2.0质押机制，允许用户取消已经发起但未完成的解质押。取消解质押时，会将所有未完成的解质押本金重新质押，获取的资源类型与之前质押时相同。已经超过14天锁定期的解质押无法被取消，且这部分本金会被自动提取到账户。
+该功能是TRON网络的第77号参数，需要通过治理投票的方式开启。开启后，节点将支持新的交易类型，用户可以通过`wallet/cancelallunfreezev2` API来创建取消解质押交易。
+```
+curl -X POST http://127.0.0.1:8090/wallet/cancelallunfreezev2 -d \
+'{
+  "owner_address": "TZ4UXDV5ZhNW7fb2AMSbgfAEZ7hWsnYS2g",
+  "visible": true
+}'
+```
+
+* TIP: [https://github.com/tronprotocol/tips/blob/master/tip-541.md](https://github.com/tronprotocol/tips/blob/master/tip-541.md) 
+* 源代码：[https://github.com/tronprotocol/java-tron/pull/5230](https://github.com/tronprotocol/java-tron/pull/5230) 
+[https://github.com/tronprotocol/java-tron/pull/5260](https://github.com/tronprotocol/java-tron/pull/5260) 
+[https://github.com/tronprotocol/java-tron/pull/5279](https://github.com/tronprotocol/java-tron/pull/5279) 
+
+
+#### 3. 资源代理支持自定义锁定期 
+
+在Periander之前的版本中，用户代理资源时，可以选择是否锁定，当使用锁定方式代理资源后，3天内不可以取消对目标地址的资源代理, 这更加有利于用户参与资源租赁市场。
+
+Periander版本对资源锁定做了进一步优化，将锁定时间从当前的固定值3天改为可配置，用户可以根据需求设定代理锁定的时间。
+
+该功能是TRON网络的第78号参数，需要通过治理投票的方式开启，开启时需要指定一个最大时间参数，表示用户指定的代理锁定时间最大不能超过这个时间。开启后，`wallet/delegateresource`API将新增一个`lock_period`参数:
+
+```
+curl -X POST http://127.0.0.1:8090/wallet/delegateresource -d \
+'{
+  "owner_address": "TZ4UXDV5ZhNW7fb2AMSbgfAEZ7hWsnYS2g",
+  "receiver_address": "TPswDDCAWhJAZGdHPidFg5nEf8TkNToDX1",
+  "balance": 1000000,
+  "resource": "ENERGY",
+  "lock": true,
+  "lock_period": 86400,
+  "visible": true
+}'
+```
+
+* `lock`：是否采用时间锁
+* `lock_period`： 锁定时间，`lock`为`true`时，该字段有效，锁定期没有结束之前，用户不能取消代理。`lock_period`以区块个数为单位，表示从交易执行时刻开始锁定多少个区块的时间，每个区块时间是3秒，上述`86400`表示锁定259200秒（3天）。`lock_period`最大不能超过最大锁定期(第78号网络参数值)。
+
+
+`lock_period`的默认值是86400，即3天，当`lock` 为`true`时，如果`lock_period`没有设置，或者设置为0，`lock_period`会被默认设置为86400，这样能够确保该功能生效前后的兼容性。
+
+
+另外锁定期最小不能低于之前为目标地址代理该种类型资源的的剩余锁定时间，例如用户A代理了100能量份额给B，`lock_period`设置为`57600`(2天),1天后剩余锁定时间为`28800`，这时A再次以锁定方式代理能量给B时，`lock_period`最少应该设置为`28800`(1天)，否则创建代理交易时会抛出`The lock period for ENERGY this time cannot be less than the remaining time[xxx ms] of the last lock period for ENERGY!`异常错误。
+
+
+
+* TIP: [https://github.com/tronprotocol/tips/blob/master/tip-542.md](https://github.com/tronprotocol/tips/blob/master/tip-542.md) 
+* 源代码：[https://github.com/tronprotocol/java-tron/pull/5255](https://github.com/tronprotocol/java-tron/pull/5255)   
+
+#### 4. 优化有效节点获取策略
+当节点所连接的远端节点的最新区块都比自己低时，节点将无法同步区块，也无法广播交易，我们将这种节点称之为”孤岛节点”，孤岛节点其实是没有获取到有效的对等节点。
+
+为了使节点能够连接到有效的对等节点，Periander版本优化了节点获取策略，增加了孤岛节点检测，如果节点发现其处于孤岛状态，则查找头块比本地头块高的节点并与之建立连接，该策略避免了节点长时间处于孤岛状态，保证了节点可以快速的补充有效连接，使其可以获取到新的区块并广播交易，提高了节点的稳定性。
+
+该功能默认为关闭状态，需要通过设置节点配置项`node.effectiveCheckEnable`开启。
+
+
+* 源代码：[https://github.com/tronprotocol/java-tron/pull/5088](https://github.com/tronprotocol/java-tron/pull/5088)  
+
+### TVM
+#### 1. 实现EIP-3855 PUSH0指令
+以太坊的上海分叉中包含了EIP-3855,  向以太坊虚拟机(EVM)添加了一个名为 `PUSH0` 的新指令，作用是降低智能合约交易的 gas 成本。Periander对EIP-3855进行了兼容，增加了`PUSH0`指令,  这一方面能够确保波场和以太坊在虚拟机层面的兼容性，另外一方面也可以降低波场智能合约的使用成本。
+该功能是TRON网络的第76号参数，Periander部署之后默认为关闭状态，可以通过发起提案投票的方式开启。
+
+* TIP: [https://github.com/tronprotocol/tips/blob/master/tip-543.md](https://github.com/tronprotocol/tips/blob/master/tip-543.md) 
+* 源代码：[https://github.com/tronprotocol/java-tron/pull/5175](https://github.com/tronprotocol/java-tron/pull/5175) 
+
+### API
+
+#### 1. 增加接口全局流量控制
+限制API流量不但可以有效的分配有限的节点资源，而且可以保证节点的稳定运行。在Periander之前的版本中，流量控制都是针对单一接口的，可以设置某接口的每秒最大访问次数、某IP对该接口每秒最大访问次数、该接口允许的并发访问次数，但是缺乏对全部接口的整体流量限制。
+
+Periander版本在保留了原来的对单独接口的流量控制功能外，又增加了接口全局流量控制，通过`rate.limiter.global.qps`配置项可以限制所有HTTP、GRPC和JSON-RPC接口的整体流量，通过`rate.limiter.global.ip.qps`配置项可以限制一个IP地址对本节点所有接口的访问速率。
+
+```
+# 对所有接口进行QPS限流
+rate.limiter.global.qps =10  
+# 对同一IP地址对节点所有接口访问进行QPS限流
+rate.limiter.global.ip.qps = 5  
+```
+
+* 源代码：[https://github.com/tronprotocol/java-tron/pull/5093](https://github.com/tronprotocol/java-tron/pull/5093)   
+
+
+#### 2. 优化智能合约调用相关HTTP接口
+Periander版本优化了智能合约调用相关HTTP接口 triggersmartcontract 、 triggerconstantcontract 和 estimateenergy，新增了`call_data`参数。该优化不但实现了直接通过交易中的`data`数据进行合约调用，而且还使得triggerconstantcontract 、estimateenergy接口可以预估智能合约部署交易的能量消耗，大幅提高了智能合约开发的便利性。
+
+* 使用`function_selector`和`parameter`进行合约调用
+    
+    ```
+    curl --request POST \
+     --url https://api.shasta.trongrid.io/wallet/triggersmartcontract \
+     --header 'accept: application/json' \
+     --header 'content-type: application/json' \
+     --data '
+    {
+        "owner_address": "TZ4UXDV5ZhNW7fb2AMSbgfAEZ7hWsnYS2g",
+      "contract_address": "TG3XXyExBkPp9nzdajDZsozEu4BkaSJozs",
+      "function_selector": "balanceOf(address)",
+      "parameter": "000000000000000000000000a614f803b6fd780986a42c78ec9c7f77e6ded13c",
+      "visible": true
+    }
+    '
+    ```
+
+* 使用`call_data`进行合约调用
+    ```
+    curl --request POST \
+     --url https://api.shasta.trongrid.io/wallet/triggersmartcontract \
+     --header 'accept: application/json' \
+     --header 'content-type: application/json' \
+     --data '
+    {
+      "owner_address": "TZ4UXDV5ZhNW7fb2AMSbgfAEZ7hWsnYS2g",
+      "contract_address": "TG3XXyExBkPp9nzdajDZsozEu4BkaSJozs",
+      "call_data": "70a08231000000000000000000000000a614f803b6fd780986a42c78ec9c7f77e6ded13c",
+      "visible": true
+    }'
+    ```
+* 预估合约部署交易的能量消耗
+
+    ```
+    curl --request POST \
+     --url https://api.shasta.trongrid.io/wallet/triggerconstantcontract \
+     --header 'accept: application/json' \
+     --header 'content-type: application/json' \
+     --data '
+    {
+      "owner_address": "TZ4UXDV5ZhNW7fb2AMSbgfAEZ7hWsnYS2g",
+      "call_data": "608060405234801561001057600080fd5b50d3801561001d57600080fd5b50d2801561002a57600080fd5b506101c18061003a6000396000f3fe608060405234801561001057600080fd5b50d3801561001d57600080fd5b50d2801561002a57600080fd5b50600436106100455760003560e01c8063f8b2cb4f1461004a575b600080fd5b610064600480360381019061005f919061012a565b61007a565b6040516100719190610170565b60405180910390f35b60008173ffffffffffffffffffffffffffffffffffffffff16319050919050565b600080fd5b600074ffffffffffffffffffffffffffffffffffffffffff82169050919050565b6100ca816100a0565b81146100d557600080fd5b50565b600073ffffffffffffffffffffffffffffffffffffffff82169050919050565b6000610103826100d8565b9050919050565b600081359050610119816100c1565b610122816100f8565b905092915050565b6000602082840312156101405761013f61009b565b5b600061014e8482850161010a565b91505092915050565b6000819050919050565b61016a81610157565b82525050565b60006020820190506101856000830184610161565b9291505056fea26474726f6e58221220839f9be3efc349a3efd6bb491d0bee7bc34d86313c73f6e6eeddc4719ec69c0064736f6c63430008120033",
+      "visible": true
+    }'
+    ```
+
+
+* TIP:  [https://github.com/tronprotocol/tips/blob/master/tip-544.md](https://github.com/tronprotocol/tips/blob/master/tip-544.md) 
+* 源代码：[https://github.com/tronprotocol/java-tron/pull/5079](https://github.com/tronprotocol/java-tron/pull/5079)     
+
+#### 3. 优化getStorageAt接口
+在Periander之前的版本中，对于`create2`指令创建的合约，无法通过getStorageAt接口查询合约数据。这是由于使用create指令和create2指令创建的合约，其合约数据在底层存储中的索引构造方式不同。Periande版本优化了getStorageAt接口，该接口会根据合约的创建方式，选择对应的方法构造索引，以保证getStorageAt接口的可用性。
+
+
+* 源代码：  [https://github.com/tronprotocol/java-tron/pull/5061](https://github.com/tronprotocol/java-tron/pull/5061)    
+
+
+### 其它变更
+#### 1. 优化事件订阅中的事件转发逻辑
+Java-tron支持事件订阅功能，在Periander之前的版本中，如果用户订阅了固化交易事件，则当节点接收到新的区块后，会将当前的最新固化块中的交易信息发送给订阅者。如果大多数SR节点所在的网络出现抖动，使得它们不能及时的同步和生产区块，在这种情况下，根据节点的最新固化块计算逻辑，其最新固化块高度将不能保证严格递增，使得在事件转发时获取的最新固化块，可能不是上一次转发给订阅者的固化块的下一个区块，导致少转发数据的发生。由于该问题复现的条件非常严格，在主网中基本不会出现。但为了避免在测试网或者私链中出现该问题，Periander版本优化了事件订阅中的事件转发逻辑，记录了上一次转发的固化块高度，在节点接收到新的区块后，会依次将上一次转发的固化块之后的区块到当前的最新固化块信息发送到订阅者，确保了数据转发的完整性。
+
+
+* 源代码：  [https://github.com/tronprotocol/java-tron/pull/5031](https://github.com/tronprotocol/java-tron/pull/5031)   
+
+
+#### 2. 支持动态加载`node.active` 和 `node.passive`配置项
+
+Java-tron支持通过`node.active` 和 `node.passive`配置节点的可信节点，节点会主动与`node.active` 中的节点连接，并接受`node.passive`中节点的连接请求。通过配置可信节点可以解决节点无有效连接、或者连接数较少的问题，但是在Periander之前的版本中，更改配置文件需要先停止节点，更新完成后，再重新启动节点。而重启节点对于某些应用来说有一定的影响，因此，从Periander版本开始支持`node.active` 和 `node.passive`配置项动态加载，使得不用重启节点，即可完成可信节点的更改，提高了节点的稳定性。
+
+该功能默认为关闭状态，需要通过修改如下节点配置项开启。
+```
+node.dynamicConfig.enable=true
+node.dynamicConfig.checkInterval = 600
+```
+* 源代码:  [https://github.com/tronprotocol/java-tron/pull/5090](https://github.com/tronprotocol/java-tron/pull/5090) 
+
+#### 3. 优化区块同步逻辑
+
+Periander版本优化了区块同步逻辑，通过锁机制确保了区块获取线程与区块同步线程、获取区块摘要线程与切链线程并发执行的正确性，提高了区块同步及节点连接的稳定性。
+
+* 源代码:  [https://github.com/tronprotocol/java-tron/pull/5094](https://github.com/tronprotocol/java-tron/pull/5094) 
+[https://github.com/tronprotocol/java-tron/pull/5097](https://github.com/tronprotocol/java-tron/pull/5097) 
+[https://github.com/tronprotocol/java-tron/pull/5102](https://github.com/tronprotocol/java-tron/pull/5102) 
+
+#### 4. HTTP请求规范化
+
+节点支持关闭指定的HTTP API，节点部署者可以通过`node.disabledApi`配置项配置节点要停止提供服务的接口。在Periander之前的版本中，接口即便被加入到了`node.disabledApi`列表中，但对于非规范的URL请求，节点仍然会予以响应，Periander版本对请求的URL进行了规范化处理，以确保`node.disabledApi`列表的有效性。
+
+```
+node.disabledApi= [
+   "getaccount",
+    "getnowblock2"
+]
+
+```
+* 源代码:  [https://github.com/tronprotocol/java-tron/pull/5085](https://github.com/tronprotocol/java-tron/pull/5085) 
+
+#### 5. 优化区块同步逻辑
+当节点向某节点请求区块后，如果在一定时间内内没有接收到区块，则认为超时，然后会再选择其它满足条件的节点，并向其请求该区块，选择节点的其中一个条件是节点的`区块获取延迟`低于`区块超时时间`。因此，过低的`区块超时时间`可能会使节点无法找到其它远端节点，从而导致区块同步慢或停止同步。
+
+为了提高在网络不稳定情况下的区块同步性能，Periander版本将节点获取区块的超时时间的默认值从200ms提高到了500ms，不仅扩大了节点选择的范围，而且提高了成功获取区块的概率，大幅提升区块同步效率。节点部署者也可以通过`node.fetchBlock.timeout` 配置项调整超时时间。
+
+* 源代码:  [https://github.com/tronprotocol/java-tron/pull/5106](https://github.com/tronprotocol/java-tron/pull/5106)   
+
+#### 6. 增加新的节点启动方式
+
+为了方便节点部署者进行数据备份或数据统计，节点支持在特定的条件下停止运行，用户可以通过节点配置文件设置节点停止的条件，当满足设置的条件时，节点将停止同步并退出运行。但在Periander之前的版本中，节点仅支持停止在特定条件下，而在停止后不支持接口查询服务，使得用户无法调用接口来了解系统的状态。因此，Periander版本增加了一种新的节点启动方式，以支持在不启动网络模块的情况下提供数据查询服务，当节点成功停止在特定条件后，用户可以通过在启动命令中添加`-p2p-disable true`参数，来启动节点，这时，节点将不启动网络模块，不进行节点发现与区块同步，但会提供接口查询服务，从而方便用户查询当前的系统状态。启动命令请参考：
+
+```
+java -jar FullNode.jar -c config.conf --p2p-disable true 
+```
+
+
+* 源代码:  [https://github.com/tronprotocol/java-tron/pull/5011](https://github.com/tronprotocol/java-tron/pull/5011)  
+
+#### 7. 升级JUnit依赖库到v4.13.2 
+Periander版本升级了单元测试框架，将JUnit依赖库从v4.12升级到v4.13.2。
+
+* 源代码: [https://github.com/tronprotocol/java-tron/pull/5244](https://github.com/tronprotocol/java-tron/pull/5244) 
+
+#### 8. 增加JSON-RPC相关监控指标
+Periander版本新增JSON-RPC接口延迟监控指标，使节点部署者可以监控所有类型接口的延迟情况。
+
+* 源代码: [https://github.com/tronprotocol/java-tron/pull/5222](https://github.com/tronprotocol/java-tron/pull/5222) 
+
+ 
+#### 9. 优化数据库模块
+在Periander之前的版本中，对于使用LevelDB作为存储引擎的节点，在启动时，如果检测到LevelDB数据库损坏，则会尝试修复数据。该功能虽然可以修复数据，但却无法保证数据的完整性。因此，Periander版本优化了数据库模块，移除了LevelDB数据自动修复功能，使得当节点检测到数据库损坏时，立刻报错退出，避免了无效同步。
+
+* 源代码：[https://github.com/tronprotocol/java-tron/pull/5223](https://github.com/tronprotocol/java-tron/pull/5223) 
+
+#### 10. 优化checkpoint v2自动修复功能
+为了解决因异常宕机导致的节点数据库损坏问题，从GreatVoyage-v4.6.0(Socrates)版本开始，引入了Checkpoint V2机制，V2机制会在磁盘中保存多个checkpoint，对应多个已固化的区块数据，用于当节点数据库损坏时，可以在节点重启时恢复数据。该功能需要周期的清理已过期的checkpoint，而由于删除过期的checkpoint操作并非原子操作，这将导致在机器异常宕机时，可能出现过期checkpoint并没有被完全删除的情况，即可能存在损坏的checkpoint，因此，Periander版本优化了checkpoint v2自动修复功能，在恢复数据时，跳过所有已过期的checkpoint，避免了使用损坏的checkpoint来修复数据的情况，提高了节点的稳定性。
+
+
+
+* 源代码：[https://github.com/tronprotocol/java-tron/pull/5224](https://github.com/tronprotocol/java-tron/pull/5224)
+
+
+--- 
+
+*Forethought in all things.* 
+<p align="right"> ---Periander</p>
 
 ## GreatVoyage-v4.7.1.1(Pittacus)
 
