@@ -934,7 +934,7 @@ curl -X POST  http://127.0.0.1:8090/wallet/triggersmartcontract -d '{"contract_a
 #### wallet/triggerconstantcontract
 作用：调用常量合约，产生的交易不上链
 ```
-curl -X POST  http://127.0.0.1:8090/wallet/triggerconstantcontract -d '{"contract_address":"4189139CB1387AF85E3D24E212A008AC974967E561","function_selector":"set(uint256,uint256)","parameter":"00000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000002","fee_limit":10,"call_value":100,"owner_address":"41D1E7A6BC354106CB410E65FF8B181C600FF14292"}'
+curl -X POST  http://127.0.0.1:8090/wallet/triggerconstantcontract -d '{"contract_address":"4189139CB1387AF85E3D24E212A008AC974967E561","function_selector":"set(uint256,uint256)","parameter":"00000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000002","call_value":100,"owner_address":"41D1E7A6BC354106CB410E65FF8B181C600FF14292"}'
 ```
 参数说明：
 
@@ -942,7 +942,6 @@ curl -X POST  http://127.0.0.1:8090/wallet/triggerconstantcontract -d '{"contrac
 - `function_selector`，函数签名，不能有空格
 - `parameter`：调用参数[1,2]的虚拟机格式，使用remix提供的js工具，将合约调用者调用的参数数组[1,2]转化为虚拟机所需要的参数格式
 - `data`：合约字节码或者与智能合约进行交互的数据，包括所调用的合约函数和参数。可以选择通过该字段，也可以选择通过function_selector和parameter进行合约交互，当data与function_selector同时存在时，优先使用function_selector
-- `fee_limit`：最大消耗的SUN（1TRX = 1,000,000SUN）
 - `owner_address`：发起triggercontract的账户地址，默认为hexString格式
 - `call_value`：本次调用往合约转账的SUN（1TRX = 1,000,000SUN）
 - `call_token_value`:本次调用往合约中转账10币的数量，如果不设置token_id，这项设置为0或者不设置
