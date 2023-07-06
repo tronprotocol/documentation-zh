@@ -124,6 +124,8 @@
     </li>
     <li class="toctree-l4"><a class="reference internal" href="#walletunfreezebalancev2">wallet/unfreezebalancev2</a>
     </li>
+    <li class="toctree-l4"><a class="reference internal" href="#walletcancelallunfreezev2">wallet/cancelallunfreezev2</a>
+    </li>
     <li class="toctree-l4"><a class="reference internal" href="#walletdelegateresource">wallet/delegateresource</a>
     </li>
     <li class="toctree-l4"><a class="reference internal" href="#walletundelegateresource">wallet/undelegateresource</a>
@@ -830,6 +832,7 @@
 <li><a href="#walletgetdelegatedresourceaccountindex">wallet/getdelegatedresourceaccountindex</a></li>
 <li><a href="#walletfreezebalancev2">wallet/freezebalancev2</a></li>
 <li><a href="#walletunfreezebalancev2">wallet/unfreezebalancev2</a></li>
+<li><a href="#walletcancelallunfreezev2">wallet/cancelallunfreezev2</a></li>
 <li><a href="#walletdelegateresource">wallet/delegateresource</a></li>
 <li><a href="#walletundelegateresource">wallet/undelegateresource</a></li>
 <li><a href="#walletwithdrawexpireunfreeze">wallet/withdrawexpireunfreeze</a></li>
@@ -932,6 +935,19 @@
 <li><code>permission_id</code>: 可选参数，多重签名时使用</li>
 </ul>
 <p>返回值：未签名的交易对象</p>
+<h4 id="walletcancelallunfreezev2">wallet/cancelallunfreezev2<a class="headerlink" href="#walletcancelallunfreezev2" title="Permanent link">&para;</a></h4>
+<p>作用： 取消所有未完成的解质押，将过期的解质押金额提取到账户余额中，将未过期的解质押金额重新质押</p>
+<div class="highlight"><pre><span></span><code>curl -X POST http://127.0.0.1:8090/wallet/cancelallunfreezev2 -d
+&#39;{
+    &quot;owner_address&quot;: &quot;41e472f387585c2b58bc2c9bb4492bc1f17342cd1&quot;
+}&#39;
+</code></pre></div>
+<p>参数：</p>
+<ul>
+<li><code>owner_address</code>: 账户地址, HEX 格式或 Base58check 格式</li>
+<li><code>permission_id</code>: 可选参数，多重签名时使用</li>
+</ul>
+<p>返回值：未签名的交易对象</p>
 <h4 id="walletdelegateresource">wallet/delegateresource<a class="headerlink" href="#walletdelegateresource" title="Permanent link">&para;</a></h4>
 <p>作用： 将带宽或者能量资源代理给其它账户</p>
 <div class="highlight"><pre><span></span><code>curl -X POST http://127.0.0.1:8090/wallet/delegateresource -d
@@ -950,6 +966,7 @@
 <li><code>balance</code>: 代理balance数量的TRX所对应的资源给目标地址, 单位为sun</li>
 <li><code>resource</code>: 代理的资源类型, BANDWIDTH 或者 ENERGY</li>
 <li><code>lock</code>: true表示为该资源代理操作设置三天的锁定期，即资源代理给目标地址后的三天内不可以取消对其的资源代理，如果锁定期内，再次代理资源给同一目标地址，则锁定期将重新设置为3天。false表示本次资源代理没有锁定期，可随时取消对目标地址的资源代理</li>
+<li><code>lock_period</code>: 锁定周期，以区块时间（3s）为单位，表示锁定多少个区块的时间，当lock为true时，该字段有效。如果代理锁定期为1天，则lock_period为：28800</li>
 <li><code>permission_id</code>: 可选参数，多重签名时使用</li>
 </ul>
 <p>返回值：未签名的交易对象</p>
@@ -1283,6 +1300,7 @@
 <li><code>contract_address</code>，默认为hexString格式</li>
 <li><code>function_selector</code>，函数签名，不能有空格</li>
 <li><code>parameter</code>：调用参数[1,2]的虚拟机格式，使用remix提供的js工具，将合约调用者调用的参数数组[1,2]转化为虚拟机所需要的参数格式</li>
+<li><code>data</code>：与智能合约进行交互的数据，包括所调用的合约函数和参数。可以选择通过该字段，也可以选择通过function_selector和parameter进行合约交互，当data与function_selector同时存在时，使用function_selector进行合约交互</li>
 <li><code>fee_limit</code>：最大消耗的SUN（1TRX = 1,000,000SUN）</li>
 <li><code>call_value</code>：本次调用往合约转账的SUN（1TRX = 1,000,000SUN）</li>
 <li><code>owner_address</code>：发起triggercontract的账户地址，默认为hexString格式</li>
@@ -1293,16 +1311,18 @@
 <p>返回值：TransactionExtention, TransactionExtention中包含未签名的交易Transaction</p>
 <h4 id="wallettriggerconstantcontract">wallet/triggerconstantcontract<a class="headerlink" href="#wallettriggerconstantcontract" title="Permanent link">&para;</a></h4>
 <p>作用：调用常量合约，产生的交易不上链
-<div class="highlight"><pre><span></span><code>curl -X POST  http://127.0.0.1:8090/wallet/triggerconstantcontract -d &#39;{&quot;contract_address&quot;:&quot;4189139CB1387AF85E3D24E212A008AC974967E561&quot;,&quot;function_selector&quot;:&quot;set(uint256,uint256)&quot;,&quot;parameter&quot;:&quot;00000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000002&quot;,&quot;fee_limit&quot;:10,&quot;call_value&quot;:100,&quot;owner_address&quot;:&quot;41D1E7A6BC354106CB410E65FF8B181C600FF14292&quot;}&#39;
+<div class="highlight"><pre><span></span><code>curl -X POST  http://127.0.0.1:8090/wallet/triggerconstantcontract -d &#39;{&quot;contract_address&quot;:&quot;4189139CB1387AF85E3D24E212A008AC974967E561&quot;,&quot;function_selector&quot;:&quot;set(uint256,uint256)&quot;,&quot;parameter&quot;:&quot;00000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000002&quot;,&quot;call_value&quot;:100,&quot;owner_address&quot;:&quot;41D1E7A6BC354106CB410E65FF8B181C600FF14292&quot;}&#39;
 </code></pre></div>
 参数说明：</p>
 <ul>
 <li><code>contract_address</code>，默认为hexString格式</li>
 <li><code>function_selector</code>，函数签名，不能有空格</li>
 <li><code>parameter</code>：调用参数[1,2]的虚拟机格式，使用remix提供的js工具，将合约调用者调用的参数数组[1,2]转化为虚拟机所需要的参数格式</li>
-<li><code>fee_limit</code>：最大消耗的SUN（1TRX = 1,000,000SUN）</li>
+<li><code>data</code>：合约字节码或者与智能合约进行交互的数据，包括所调用的合约函数和参数。可以选择通过该字段，也可以选择通过function_selector和parameter进行合约交互，当data与function_selector同时存在时，优先使用function_selector</li>
 <li><code>owner_address</code>：发起triggercontract的账户地址，默认为hexString格式</li>
-<li><code>Permission_id</code>可选参数，多重签名时使用，设置交易多重签名时使用的permissionId</li>
+<li><code>call_value</code>：本次调用往合约转账的SUN（1TRX = 1,000,000SUN）</li>
+<li><code>call_token_value</code>:本次调用往合约中转账10币的数量，如果不设置token_id，这项设置为0或者不设置</li>
+<li><code>token_id</code>:本次调用往合约中转账10币的id，如果没有，不需要设置</li>
 </ul>
 <p>返回值：TransactionExtention, TransactionExtention中包含未签名的交易Transaction</p>
 <h4 id="walletupdatesetting">wallet/updatesetting<a class="headerlink" href="#walletupdatesetting" title="Permanent link">&para;</a></h4>
@@ -1356,9 +1376,12 @@
 <li><code>contract_address</code>，默认为hexString格式</li>
 <li><code>function_selector</code>，函数签名，不能有空格</li>
 <li><code>parameter</code>：调用参数[1,2]的虚拟机格式，使用remix提供的js工具，将合约调用者调用的参数数组[1,2]转化为虚拟机所需要的参数格式</li>
+<li><code>data</code>：合约字节码或者与智能合约进行交互的数据，包括所调用的合约函数和参数。可以选择通过该字段，也可以选择通过function_selector和parameter进行合约交互，当data与function_selector同时存在时，优先使用function_selector</li>
 <li><code>fee_limit</code>：最大消耗的SUN（1TRX = 1,000,000SUN）</li>
 <li><code>owner_address</code>：发起triggercontract的账户地址，默认为hexString格式</li>
-<li><code>Permission_id</code>可选参数，多重签名时使用，设置交易多重签名时使用的permissionId</li>
+<li><code>call_value</code>：本次调用往合约转账的SUN（1TRX = 1,000,000SUN）</li>
+<li><code>call_token_value</code>:本次调用往合约中转账10币的数量，如果不设置token_id，这项设置为0或者不设置</li>
+<li><code>token_id</code>:本次调用往合约中转账10币的id，如果没有，不需要设置</li>
 </ul>
 <p>返回值：能量预估值</p>
 <h3 id="trc10">TRC10通证<a class="headerlink" href="#trc10" title="Permanent link">&para;</a></h3>
