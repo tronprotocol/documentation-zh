@@ -322,6 +322,7 @@ curl -X POST  http://127.0.0.1:8090/wallet/getapprovedlist -d '{
 - [wallet/getdelegatedresourceaccountindex](#walletgetdelegatedresourceaccountindex)
 - [wallet/freezebalancev2](#walletfreezebalancev2)
 - [wallet/unfreezebalancev2](#walletunfreezebalancev2)
+- [wallet/cancelallunfreezev2](#walletcancelallunfreezev2)
 - [wallet/delegateresource](#walletdelegateresource)
 - [wallet/undelegateresource](#walletundelegateresource)
 - [wallet/withdrawexpireunfreeze](#walletwithdrawexpireunfreeze)
@@ -452,6 +453,25 @@ curl -X POST http://127.0.0.1:8090/wallet/unfreezebalancev2 -d
 
 返回值：未签名的交易对象
 
+#### wallet/cancelallunfreezev2
+
+作用： 取消所有未完成的解质押，将过期的解质押金额提取到账户余额中，将未过期的解质押金额重新质押
+
+```
+curl -X POST http://127.0.0.1:8090/wallet/cancelallunfreezev2 -d
+'{
+    "owner_address": "41e472f387585c2b58bc2c9bb4492bc1f17342cd1"
+}'
+```
+
+参数：
+
+- `owner_address`: 账户地址, HEX 格式或 Base58check 格式
+- `permission_id`: 可选参数，多重签名时使用
+
+返回值：未签名的交易对象
+
+
 #### wallet/delegateresource
 
 作用： 将带宽或者能量资源代理给其它账户
@@ -474,6 +494,7 @@ curl -X POST http://127.0.0.1:8090/wallet/delegateresource -d
 - `balance`: 代理balance数量的TRX所对应的资源给目标地址, 单位为sun
 - `resource`: 代理的资源类型, BANDWIDTH 或者 ENERGY
 - `lock`: true表示为该资源代理操作设置三天的锁定期，即资源代理给目标地址后的三天内不可以取消对其的资源代理，如果锁定期内，再次代理资源给同一目标地址，则锁定期将重新设置为3天。false表示本次资源代理没有锁定期，可随时取消对目标地址的资源代理
+- `lock_period`: 锁定周期，以区块时间（3s）为单位，表示锁定多少个区块的时间，当lock为true时，该字段有效。如果代理锁定期为1天，则lock_period为：28800
 - `permission_id`: 可选参数，多重签名时使用
 
 返回值：未签名的交易对象
@@ -899,6 +920,7 @@ curl -X POST  http://127.0.0.1:8090/wallet/triggersmartcontract -d '{"contract_a
 - `contract_address`，默认为hexString格式
 - `function_selector`，函数签名，不能有空格
 - `parameter`：调用参数[1,2]的虚拟机格式，使用remix提供的js工具，将合约调用者调用的参数数组[1,2]转化为虚拟机所需要的参数格式
+- `data`：与智能合约进行交互的数据，包括所调用的合约函数和参数。可以选择通过该字段，也可以选择通过function_selector和parameter进行合约交互，当data与function_selector同时存在时，使用function_selector进行合约交互
 - `fee_limit`：最大消耗的SUN（1TRX = 1,000,000SUN）
 - `call_value`：本次调用往合约转账的SUN（1TRX = 1,000,000SUN）
 - `owner_address`：发起triggercontract的账户地址，默认为hexString格式
@@ -919,9 +941,13 @@ curl -X POST  http://127.0.0.1:8090/wallet/triggerconstantcontract -d '{"contrac
 - `contract_address`，默认为hexString格式
 - `function_selector`，函数签名，不能有空格
 - `parameter`：调用参数[1,2]的虚拟机格式，使用remix提供的js工具，将合约调用者调用的参数数组[1,2]转化为虚拟机所需要的参数格式
+- `data`：合约字节码或者与智能合约进行交互的数据，包括所调用的合约函数和参数。可以选择通过该字段，也可以选择通过function_selector和parameter进行合约交互，当data与function_selector同时存在时，优先使用function_selector
 - `fee_limit`：最大消耗的SUN（1TRX = 1,000,000SUN）
 - `owner_address`：发起triggercontract的账户地址，默认为hexString格式
-- `Permission_id`可选参数，多重签名时使用，设置交易多重签名时使用的permissionId
+- `call_value`：本次调用往合约转账的SUN（1TRX = 1,000,000SUN）
+- `call_token_value`:本次调用往合约中转账10币的数量，如果不设置token_id，这项设置为0或者不设置
+- `token_id`:本次调用往合约中转账10币的id，如果没有，不需要设置
+
 
 返回值：TransactionExtention, TransactionExtention中包含未签名的交易Transaction
 
@@ -987,9 +1013,12 @@ curl -X POST  http://127.0.0.1:8090/wallet/estimateenergy -d '{
 - `contract_address`，默认为hexString格式
 - `function_selector`，函数签名，不能有空格
 - `parameter`：调用参数[1,2]的虚拟机格式，使用remix提供的js工具，将合约调用者调用的参数数组[1,2]转化为虚拟机所需要的参数格式
+- `data`：合约字节码或者与智能合约进行交互的数据，包括所调用的合约函数和参数。可以选择通过该字段，也可以选择通过function_selector和parameter进行合约交互，当data与function_selector同时存在时，优先使用function_selector
 - `fee_limit`：最大消耗的SUN（1TRX = 1,000,000SUN）
 - `owner_address`：发起triggercontract的账户地址，默认为hexString格式
-- `Permission_id`可选参数，多重签名时使用，设置交易多重签名时使用的permissionId
+- `call_value`：本次调用往合约转账的SUN（1TRX = 1,000,000SUN）
+- `call_token_value`:本次调用往合约中转账10币的数量，如果不设置token_id，这项设置为0或者不设置
+- `token_id`:本次调用往合约中转账10币的id，如果没有，不需要设置
 
 返回值：能量预估值
 
