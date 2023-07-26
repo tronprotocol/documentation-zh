@@ -14,7 +14,7 @@ nav:
         - 数据库配置: architecture/database.md
         - 网络配置: using_javatron/connecting_to_tron.md
         - 节点监控: using_javatron/metrics.md
-        - 工具: using_javatron/toolkit.md
+        - 节点维护工具: using_javatron/toolkit.md
     - API 接口:
         - HTTP 接口: api/http.md
         - gRPC 接口: api/rpc.md

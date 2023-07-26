@@ -1996,8 +1996,8 @@ curl -X POST  http://127.0.0.1:8090/wallet/getshieldtransactionhash -d
 返回值：一笔匿名交易的hash
 
 #### wallet/createshieldedtransaction
-作用：创建匿名交易
-请参照：[示例](Tron-shielded-transaction.md)
+作用：创建匿名交易，请参照：[示例](../mechanism-algorithm/shielded-transaction.md)
+
 参数说明：
 
 - `transparent_from_address`：透明发送者的地址
