@@ -30,7 +30,7 @@
 Bandwidth Points的获取分两种：
 
 - 通过质押TRX获取的Bandwidth Points， 额度 = 为获取Bandwidth Points质押的TRX / 整个网络为获取Bandwidth Points质押的TRX 总额 * 43_200_000_000. 也就是所有用户按质押TRX平分固定额度的Bandwidth Points.
-- 每个账号每天有固定免费额度的带宽，为1500.
+- 每个账号每天有固定免费额度的带宽，为600。
 
 ### 2. Bandwith Points的消耗
 
