@@ -3,6 +3,7 @@
 
 |  名称 |版本号  | 发布日期 | 包含的TIP | 版本说明 | 技术解读 |
 | -------- | -------- | -------- | -------- | -------- | -------- |
+|  Chilon    |  GreatVoyage-v4.7.3    |  2023-10-25    |  [TIP-586](https://github.com/tronprotocol/tips/blob/master/tip-586.md) <br> [TIP-592](https://github.com/tronprotocol/tips/blob/master/tip-592.md)   |  [Release Note](https://github.com/tronprotocol/java-tron/releases/tag/GreatVoyage-v4.7.3)   |   [Specs](#greatvoyage-v473chilon)   |
 |  Periander    |  GreatVoyage-v4.7.2    |  2023-7-1    |  [TIP-541](https://github.com/tronprotocol/tips/issues/541) <br> [TIP-542](https://github.com/tronprotocol/tips/issues/542) <br> [TIP-543](https://github.com/tronprotocol/tips/issues/543) <br> [TIP-544](https://github.com/tronprotocol/tips/issues/544) <br> [TIP-555](https://github.com/tronprotocol/tips/issues/555) <br> [TIP-547](https://github.com/tronprotocol/tips/issues/547) <br> [TIP-548](https://github.com/tronprotocol/tips/issues/548) <br> [TIP-549](https://github.com/tronprotocol/tips/issues/549) <br> [TIP-550](https://github.com/tronprotocol/tips/issues/550)    |  [Release Note](https://github.com/tronprotocol/java-tron/releases/tag/GreatVoyage-v4.7.2)   |   [Specs](#greatvoyage-v472periander)   |
 |  Pittacus    |  GreatVoyage-v4.7.1.1    |  2023-4-17    |   [TIP-534](https://github.com/tronprotocol/tips/blob/master/tip-534.md)    |  [Release Note](https://github.com/tronprotocol/java-tron/releases/tag/GreatVoyage-v4.7.1.1)    |  [Specs](#greatvoyage-v4711pittacus)    |
 |  Sartre    |   GreatVoyage-v4.7.1   |  2023-2-27    |  N/A    |   [Release Note](https://github.com/tronprotocol/java-tron/releases/tag/GreatVoyage-v4.7.1)   |  [Specs](#greatvoyage-v471sartre)     |
@@ -72,6 +73,184 @@
 |   N/A   | Odyssey-v1.0.4    |  2018-4-13    |  N/A    |      [Release Note](https://github.com/tronprotocol/java-tron/releases/tag/Odyssey-v1.0.4)    |  N/A   |
 |   N/A   | Odyssey-v1.0.3    |  2018-4-5    |  N/A    |      [Release Note](https://github.com/tronprotocol/java-tron/releases/tag/Odyssey-v1.0.3)    |  N/A   |
 |   N/A   | Exodus-v1.0    |  2017-12-28    |  N/A    |      [Release Note](https://github.com/tronprotocol/java-tron/releases/tag/Exodus-v1.0)    |  N/A   |
+
+
+## GreatVoyage-v4.7.3(Chilon)
+
+Chilon版本是一个非强制升级版本，引入了多个重要的优化和更新，更丰富的gRPC接口及更快的节点启动速度，为用户带来更友好的开发体验，优化的节点间的断连策略及同步流程，提高了节点之间连接的稳定性；优化的交易处理逻辑和数据库查询性能，提高了交易打包效率，提升了网络吞吐量。
+
+下面是详细介绍。
+
+
+### 核心协议
+
+#### 1. 新增资源价格、交易备注费用查询接口的gRPC实现
+
+Chilon 新增三个gRPC接口，用户可通过`getBandwidthPrices` API获取历史带宽单价，通过`getEnergyPrices` API获取历史能量单价，通过`getMemoFee`获取交易备注费用，进一步提高开发者的体验。
+
+
+TIP: [https://github.com/tronprotocol/tips/blob/master/tip-586.md](https://github.com/tronprotocol/tips/blob/master/tip-586.md) 
+
+源代码：[https://github.com/tronprotocol/java-tron/pull/5412](https://github.com/tronprotocol/java-tron/pull/5412)  
+#### 2. 补充节点间连接断开的原因
+
+当节点处理消息失败时，可能会触发断开与某个远端节点的连接，但在Chilon之前的版本中，在某些情况下，节点断开与对方节点的连接时，并未告知对方节点连接断开的原因，这不利于对方节点分析排查问题。
+
+Chilon版本优化了节点间连接断开逻辑，新增两个断连原因，使节点在断开连接之前，均会发送断连原因给对方节点，以便于节点连接问题的高效处理。
+
+TIP: [https://github.com/tronprotocol/tips/blob/master/tip-592.md](https://github.com/tronprotocol/tips/blob/master/tip-592.md)  
+
+源代码：[https://github.com/tronprotocol/java-tron/pull/5392](https://github.com/tronprotocol/java-tron/pull/5392)  
+#### 3. 丢弃来自作恶节点的交易
+
+对于广播过来的交易，节点要判断是否处理该交易，在Chilon之前的版本中，判断依据是交易是否来自于已断开连接的远端节点，如果是，则丢弃该交易。然而，要不要执行来自某个远端节点的交易，不应以是否与对方节点保持着连接作为判断依据，而应以对方节点是否为作恶节点作为判断依据。因此，Chilon版本优化了交易处理逻辑，不再丢弃来自已断开节点的交易，而是只丢弃曾经发送过非法交易的节点广播来的交易，提高了交易广播及打包效率。
+
+
+源代码：[https://github.com/tronprotocol/java-tron/pull/5440](https://github.com/tronprotocol/java-tron/pull/5440) 
+
+
+
+#### 4. 增强Stake 2.0代码可读性
+
+Chilon版本规范了Stake 2.0相关代码，复杂方法简单化，提高了代码的简洁性与可读性。
+
+
+源代码：[https://github.com/tronprotocol/java-tron/pull/5426 ](https://github.com/tronprotocol/java-tron/pull/5426) 
+
+
+#### 5. 交易缓存布隆过滤器持久化
+节点启动时，会从数据库中读取最近65536个区块的交易，以构建交易缓存布隆过滤器，用于在后续验证交易时，进行重复交易判断。在Chilon之前的版本中，交易缓存的加载耗时占节点启动耗时的70%以上，占据了大部分节点启动时间。为了提高交易缓存的加载速度，Chilon版本对交易缓存布隆过滤器进行了持久化处理。当节点正常退出运行时，会将交易缓存布隆过滤器相关数据存储到磁盘，则节点重启时，将无需读取最近区块中的交易信息，而是直接将布隆过滤器数据加载的内存，加快了交易缓存布隆过滤器的初始化进程，大大提高了节点启动速度。
+该功能默认为关闭状态，需要通过节点配置项`storage.txCache.initOptimization = true`开启。
+
+源代码：[https://github.com/tronprotocol/java-tron/pull/5394 ](https://github.com/tronprotocol/java-tron/pull/5394) [https://github.com/tronprotocol/java-tron/pull/5491 ](https://github.com/tronprotocol/java-tron/pull/5491) [https://github.com/tronprotocol/java-tron/pull/5505 ](https://github.com/tronprotocol/java-tron/pull/5505) [https://github.com/tronprotocol/java-tron/pull/5523 ](https://github.com/tronprotocol/java-tron/pull/5523) [https://github.com/tronprotocol/java-tron/pull/5543 ](https://github.com/tronprotocol/java-tron/pull/5543) 
+
+
+#### 6. 修复区块清单生成过程中由于并发导致的问题
+
+在Chilon之前的版本中，当一个节点A向节点B请求同步区块时，首先发送自己的链摘要给节点B，B收到后，结合本地链，生成并返回节点A的缺失区块清单。清单的生成过程为：首先，从节点A的链摘要中找到两个节点的最大共同块高，然后，将从最大共同块高开始的若干个区块的ID加入到节点A缺失的区块清单列表中。由于缺失区块清单的生成与切链是并发执行的，所以如果在生成缺失区块清单时发生了切链，则可能出现得到最大共同块高后，获取不到相应的区块id，使得生成的缺失区块清单与节点A的链摘要不匹配，从而导致节点连接被断开的发生。
+
+Chilon版本优化了缺失区块清单的生成逻辑，当获取不到之前计算的最高共同区块的ID时，节点将进行重试，以保证返回的清单中包含最高共同区块信息，提高了节点间连接的稳定性。
+
+
+源代码：[https://github.com/tronprotocol/java-tron/pull/5393 ](https://github.com/tronprotocol/java-tron/pull/5393) [https://github.com/tronprotocol/java-tron/pull/5532](https://github.com/tronprotocol/java-tron/pull/5532)  
+#### 7. 优化服务关闭逻辑 
+
+在Chilon之前的版本中，服务被关闭时，可能出现异常报错的情况。Chilon版本优化了服务关闭逻辑，当使用`kill -15`命令关闭服务时，可以确保各种类型资源释放顺序的准确性，以使节点可以正常退出运行。
+
+
+源代码：[https://github.com/tronprotocol/java-tron/pull/5410](ttps://github.com/tronprotocol/java-tron/pull/5410)  [https://github.com/tronprotocol/java-tron/pull/5425 ](ttps://github.com/tronprotocol/java-tron/pull/5425) [https://github.com/tronprotocol/java-tron/pull/5421](https://github.com/tronprotocol/java-tron/pull/5421)  [https://github.com/tronprotocol/java-tron/pull/5429 ](https://github.com/tronprotocol/java-tron/pull/5429) [https://github.com/tronprotocol/java-tron/pull/5447 ](https://github.com/tronprotocol/java-tron/pull/5447) 
+  
+
+
+### API
+
+#### 1. HTTP接口监控优化
+
+Chilon版本优化了HTTP接口监控指标，不再统计对节点不支持的API的请求，使成功或失败的HTTP接口请求的统计数据更加精准。
+
+源代码：[https://github.com/tronprotocol/java-tron/pull/5332](https://github.com/tronprotocol/java-tron/pull/5332)  
+#### 2. 新增http/gRPC接口流量控制默认值配置 
+Java-tron支持接口限流，默认单个接口的qps为1000，节点部署者也可以对单个接口进行各自流量限制，但在Chilon之前的版本中，不支持修改每个接口的默认qps，如果要将所有接口的qps都设置2000，则需要分别为每个接口进行限流配置。Chilon版本新增了接口限流的默认配置`rate.limiter.global.api.qps`，只需这一个配置即可更改所有接口的流量限制，简化了配置的复杂度。
+
+```
+rate.limiter.global.api.qps = 1000
+```
+
+源代码：[https://github.com/tronprotocol/java-tron/pull/5502](https://github.com/tronprotocol/java-tron/pull/5502)  
+#### 3. HTTP 接口参数解析优化
+
+在Chilon之前的版本中，对于涉及奖励查询的接口，如果传入了无效参数或非JSON格式的参数请求，则节点将抛出异常。Chilon版本优化了http接口参数解析逻辑，对传入了错误格式的请求，返回0值或者错误信息。
+
+
+源代码：[https://github.com/tronprotocol/java-tron/pull/5367](https://github.com/tronprotocol/java-tron/pull/5367)   [https://github.com/tronprotocol/java-tron/pull/5483](https://github.com/tronprotocol/java-tron/pull/5483)  
+
+#### 4. 新增资源单价相关solidity接口
+
+Chilon版本新增资源单价相关solidity接口：`/walletsolidity/getbandwidthprices` 和 `/walletsolidity/getenergyprices`。
+
+
+源代码：[https://github.com/tronprotocol/java-tron/pull/5412](https://github.com/tronprotocol/java-tron/pull/5412)  [https://github.com/tronprotocol/java-tron/pull/5451](https://github.com/tronprotocol/java-tron/pull/5451)  
+[https://github.com/tronprotocol/java-tron/pull/5437](https://github.com/tronprotocol/java-tron/pull/5437)   
+
+
+#### 5. 优化部分HTTP 接口的处理逻辑
+
+Chilon版本优化了部分http接口：`/wallet/getavailableunfreezecount`、`/wallet/getcanwithdrawunfreezeamount`、`/wallet/getcandelegatedmaxsize`和`/wallet/getavailableunfreezecount`，使其对get和post方式的请求处理一致，包括参数校验及返回值。
+
+源代码：[https://github.com/tronprotocol/java-tron/pull/5408](https://github.com/tronprotocol/java-tron/pull/5408)  
+
+
+
+### 其它变更
+
+#### 1. 在获取交易时增加对过期交易的检查
+Chilon版本增加了对其收到的广播清单中过期交易的检查，对于清单中已经超时的交易，不再向其远端节点进行请求，避免了由于交易处理失败导致的节点连接被断开，提高了节点连接稳定性。
+
+
+源代码：[https://github.com/tronprotocol/java-tron/pull/5460](https://github.com/tronprotocol/java-tron/pull/5460)  
+
+#### 2. 修复getHeadBlockId返回异常值问题
+节点在同步区块过程中，需要通过getHeadBlockId方法获取最新区块的BlockId，而在Chilon之前的版本中，BlockId的获取是通过最新区块的区块号和区块哈希值得到的，但由于最新区块数据获取线程与更新线程的并发执行，可能导致在最新区块的区块号和哈希值没有更新完毕的情况下，getHeadBlockId就开始获取最新区块的BlockId，使得getHeadBlockId方法有可能返回异常的BlockId值。Chilon版本优化了最新区块的BlockId获取逻辑，getHeadBlockId只通过最新区块的哈希值来获取BlockId，保证了区块id获取的正确性。
+
+
+源代码：[https://github.com/tronprotocol/java-tron/pull/5403](https://github.com/tronprotocol/java-tron/pull/5403)  
+
+
+
+
+
+
+
+#### 3. 删除不再使用的网络参数
+
+Chilon版本删除了4个不再使用的网络参数，其中涉及如下三个配置项，简化了用户使用的复杂度。
+
+```
+node.discovery.public.home.node
+node.discovery.ping.timeout
+node.p2p.pingInterval
+```
+
+源代码：[https://github.com/tronprotocol/java-tron/pull/5441](https://github.com/tronprotocol/java-tron/pull/5441)  
+
+#### 4. 调用libp2p获取节点外部IP
+
+在Chilon之前的版本中，节点在启动时，重复的获取了外部IP，由Java-tron和lib2p2各执行了一次IP获取。为了提高节点启动速度，Chilon版本优化了外部IP获取逻辑，节点在启动时，直接调用libp2p来获取外部IP，并且可以直接赋值外部IP给libp2p使其无需重复获取。
+
+
+源代码：[https://github.com/tronprotocol/java-tron/pull/5407](https://github.com/tronprotocol/java-tron/pull/5407)  
+
+#### 5. 新增事件订阅服务对质押相关交易的地址解析
+
+Chilon版本优化了事件订阅服务，新增对质押相关交易中地址的解析，使事件订阅者可以获得质押、资源代理等交易中的地址信息。
+
+
+源代码：[https://github.com/tronprotocol/java-tron/pull/5419](https://github.com/tronprotocol/java-tron/pull/5419)  
+#### 6. 调整验签线程数的默认值为最大可用CPU核数
+在Chilon之前的版本中，节点默认使用系统的CPU核数的1/2进行并行签名验证，为了提高节点同步及处理区块的性能，Chilon版本将签名验证时使用的线程数的默认值更改为全部的CPU核数，以使验签性能最大化。节点部署者也可以通过`node.validateSignThreadNum`配置项调整验签线程数。
+
+
+源代码：[https://github.com/tronprotocol/java-tron/pull/5396](https://github.com/tronprotocol/java-tron/pull/5396)  
+#### 7. 迁移LiteFullNode工具相关单测到 plugins 模块
+
+在Chilon之前的版本中，轻节点工具相关代码已经被整合到plugins模块中的toolkit工具箱中，Chilon版本进行了进一步的整合工作，将轻节点工具相关测试用例从framework模块移动到plugins模块，不但使代码结构更加清晰，而且提升了测试用例的执行效率。
+
+
+源代码：[https://github.com/tronprotocol/java-tron/pull/5475](https://github.com/tronprotocol/java-tron/pull/5475)  [https://github.com/tronprotocol/java-tron/pull/5482](https://github.com/tronprotocol/java-tron/pull/5482)  
+
+
+#### 8. 提高properties数据库查询性能
+
+在区块处理过程中，节点对 `properties` 数据库访问较频繁，更好的 `properties` 数据库查询性能将提升区块的处理速度，而由于properties数据量较小而且更新不频繁，所以Chilon版本对`properties`数据库查询进行了优化，将其中的全部数据加载到第一级缓存中，以使数据查询性能最大化，从而提高交易处理能力。
+
+
+源代码：[https://github.com/tronprotocol/java-tron/pull/5378 ](https://github.com/tronprotocol/java-tron/pull/5378) 
+
+
+--- 
+
+*Do not desire impossible.* 
+<p align="right"> ---Chilon</p>
 
 
 ## GreatVoyage-v4.7.2(Periander)

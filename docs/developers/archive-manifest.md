@@ -22,21 +22,21 @@
 
 ### 获取方式
 - 通过编译
-  在java-tron 下，执行 ``./gradlew build`` ，在 `build/libs/`下可找到ArchiveManifest.jar。
+  在java-tron 下，执行 ``./gradlew build`` ，在 `build/libs/`下可找到Toolkit.jar。
 - 直接下载
   [下载链接](https://github.com/tronprotocol/java-tron/releases)
 
 ### 使用步骤
 
-- 1. 停止FullNode 服务。
-- 2. 执行 ArchiveManifest 插件。
-- 3. 启动 FullNode 服务。
+1. 停止FullNode 服务。
+2. 执行命令
+3. 启动 FullNode 服务。
 
-> Note: ``步骤 ii`` 不是每次必需，但是为了优化体验，建议每次执行。
 
 ### 使用说明
 
 FullNode 运行之后，默认数据库目录：`output-directory`  ，优化插件会处理 `output-directory/database`目录。
+
 以下“单独使用” 和 “集成启动脚本” 这两种使用方式，开发者可以根据自己实际情况 任选一种即可。
 
 ####  1. 单独使用
@@ -48,22 +48,25 @@ FullNode 运行之后，默认数据库目录：`output-directory`  ，优化插
 查找 pid: `ps -ef |grep FullNode.jar |grep -v grep |awk '{print $2}'`。
 
 
-##### 步骤二： 执行 ArchiveManifest 插件
+##### 步骤二： 执行命令
 
 ```shell
 #完整命令
-java -jar ArchiveManifest.jar -b batchSize -d databaseDirectory -m manifestSize
+java -jar Toolkit.jar -b batchSize -d databaseDirectory -m manifestSize
 #示例
-   java -jar ArchiveManifest.jar #1. 使用默认参数
-   java -jar ArchiveManifest.jar -d /tmp/db/database #2. 指定数据库目录为/tmp/db/database
-   java -jar ArchiveManifest.jar -b 64000 #3. 指定优化Manifest时，应用version时批处理大小为64000
-   java -jar ArchiveManifest.jar -m 128 #4. 指定当Manifest超过128M时，才进行优化处理
-
+   #1. 使用默认参数
+   java -jar Toolkit.jar
+   #2. 指定数据库目录为/tmp/db/database 
+   java -jar Toolkit.jar -d /tmp/db/database 
+   #3. 指定优化Manifest时，应用version时批处理大小为64000
+   java -jar Toolkit.jar -b 64000 
+   #4. 指定当Manifest超过128M时，才进行优化处理
+   java -jar Toolkit.jar -m 128 
 ```
 
 命令执行完毕之后，将在`./logs`目录下生成`archive.log`日志, 可查看此次归整情况
 
-> Note: 执行完成后，如果成功 日志会显示如下类似内容，运行一般在120s内，视FullNode服务持续运行时长决定，失败会有相应的错误信息
+Note: 执行完成后，如果成功 日志会显示如下类似内容，运行一般在120s内，视FullNode服务持续运行时长决定，失败会有相应的错误信息
 >
 > `[main] [archive](ArchiveManifest.java:144) DatabaseDirectory:output-directory/database, maxManifestSize:0, maxBatchSize:80000,database reopen use 80 seconds total.`
 
@@ -111,7 +114,7 @@ rebuildManifest() {
 
 buildManifest() {
 
- ARCHIVE_JAR='ArchiveManifest.jar'
+ ARCHIVE_JAR='Toolkit.jar'
 
  java -jar $ARCHIVE_JAR $ALL_OPT
 
@@ -245,7 +248,7 @@ stopService
 
 checkPath
 
-#2.执行 ArchiveManifest 插件
+#2.执行插件
 if [[ 0 ==  $? ]] ; then
  rebuildManifest
 else
