@@ -63,7 +63,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../../using_javatron/metrics/">节点监控</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../using_javatron/toolkit/">工具</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../../using_javatron/toolkit/">节点维护工具</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">API 接口</span></p>
@@ -177,50 +177,39 @@
 <h3 id="_4">获取方式<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
 <ul>
 <li>通过编译
-  在java-tron 下，执行 <code>./gradlew build</code> ，在 <code>build/libs/</code>下可找到ArchiveManifest.jar。</li>
+  在java-tron 下，执行 <code>./gradlew build</code> ，在 <code>build/libs/</code>下可找到Toolkit.jar。</li>
 <li>直接下载
   <a href="https://github.com/tronprotocol/java-tron/releases">下载链接</a></li>
 </ul>
 <h3 id="_5">使用步骤<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
-<ul>
-<li>
 <ol>
 <li>停止FullNode 服务。</li>
-</ol>
-</li>
-<li>
-<ol>
-<li>执行 ArchiveManifest 插件。</li>
-</ol>
-</li>
-<li>
-<ol>
+<li>执行命令</li>
 <li>启动 FullNode 服务。</li>
 </ol>
-</li>
-</ul>
-<blockquote>
-<p>Note: <code>步骤 ii</code> 不是每次必需，但是为了优化体验，建议每次执行。</p>
-</blockquote>
 <h3 id="_6">使用说明<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
-<p>FullNode 运行之后，默认数据库目录：<code>output-directory</code>  ，优化插件会处理 <code>output-directory/database</code>目录。
-以下“单独使用” 和 “集成启动脚本” 这两种使用方式，开发者可以根据自己实际情况 任选一种即可。</p>
+<p>FullNode 运行之后，默认数据库目录：<code>output-directory</code>  ，优化插件会处理 <code>output-directory/database</code>目录。</p>
+<p>以下“单独使用” 和 “集成启动脚本” 这两种使用方式，开发者可以根据自己实际情况 任选一种即可。</p>
 <h4 id="1">1. 单独使用<a class="headerlink" href="#1" title="Permanent link">&para;</a></h4>
 <h5 id="fullnode">步骤一： 停止FullNode 服务<a class="headerlink" href="#fullnode" title="Permanent link">&para;</a></h5>
 <p>使用命令<code>kill -15</code>关闭FullNode.jar</p>
 <p>查找 pid: <code>ps -ef |grep FullNode.jar |grep -v grep |awk '{print $2}'</code>。</p>
-<h5 id="archivemanifest">步骤二： 执行 ArchiveManifest 插件<a class="headerlink" href="#archivemanifest" title="Permanent link">&para;</a></h5>
+<h5 id="_7">步骤二： 执行命令<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h5>
 <div class="highlight"><pre><span></span><code><span class="c1">#完整命令</span>
-java<span class="w"> </span>-jar<span class="w"> </span>ArchiveManifest.jar<span class="w"> </span>-b<span class="w"> </span>batchSize<span class="w"> </span>-d<span class="w"> </span>databaseDirectory<span class="w"> </span>-m<span class="w"> </span>manifestSize
+java<span class="w"> </span>-jar<span class="w"> </span>Toolkit.jar<span class="w"> </span>-b<span class="w"> </span>batchSize<span class="w"> </span>-d<span class="w"> </span>databaseDirectory<span class="w"> </span>-m<span class="w"> </span>manifestSize
 <span class="c1">#示例</span>
-<span class="w">   </span>java<span class="w"> </span>-jar<span class="w"> </span>ArchiveManifest.jar<span class="w"> </span><span class="c1">#1. 使用默认参数</span>
-<span class="w">   </span>java<span class="w"> </span>-jar<span class="w"> </span>ArchiveManifest.jar<span class="w"> </span>-d<span class="w"> </span>/tmp/db/database<span class="w"> </span><span class="c1">#2. 指定数据库目录为/tmp/db/database</span>
-<span class="w">   </span>java<span class="w"> </span>-jar<span class="w"> </span>ArchiveManifest.jar<span class="w"> </span>-b<span class="w"> </span><span class="m">64000</span><span class="w"> </span><span class="c1">#3. 指定优化Manifest时，应用version时批处理大小为64000</span>
-<span class="w">   </span>java<span class="w"> </span>-jar<span class="w"> </span>ArchiveManifest.jar<span class="w"> </span>-m<span class="w"> </span><span class="m">128</span><span class="w"> </span><span class="c1">#4. 指定当Manifest超过128M时，才进行优化处理</span>
+<span class="w">   </span><span class="c1">#1. 使用默认参数</span>
+<span class="w">   </span>java<span class="w"> </span>-jar<span class="w"> </span>Toolkit.jar
+<span class="w">   </span><span class="c1">#2. 指定数据库目录为/tmp/db/database </span>
+<span class="w">   </span>java<span class="w"> </span>-jar<span class="w"> </span>Toolkit.jar<span class="w"> </span>-d<span class="w"> </span>/tmp/db/database<span class="w"> </span>
+<span class="w">   </span><span class="c1">#3. 指定优化Manifest时，应用version时批处理大小为64000</span>
+<span class="w">   </span>java<span class="w"> </span>-jar<span class="w"> </span>Toolkit.jar<span class="w"> </span>-b<span class="w"> </span><span class="m">64000</span><span class="w"> </span>
+<span class="w">   </span><span class="c1">#4. 指定当Manifest超过128M时，才进行优化处理</span>
+<span class="w">   </span>java<span class="w"> </span>-jar<span class="w"> </span>Toolkit.jar<span class="w"> </span>-m<span class="w"> </span><span class="m">128</span><span class="w"> </span>
 </code></pre></div>
 <p>命令执行完毕之后，将在<code>./logs</code>目录下生成<code>archive.log</code>日志, 可查看此次归整情况</p>
-<blockquote>
 <p>Note: 执行完成后，如果成功 日志会显示如下类似内容，运行一般在120s内，视FullNode服务持续运行时长决定，失败会有相应的错误信息</p>
+<blockquote>
 <p><code>[main] [archive](ArchiveManifest.java:144) DatabaseDirectory:output-directory/database, maxManifestSize:0, maxBatchSize:80000,database reopen use 80 seconds total.</code></p>
 </blockquote>
 <h5 id="fullnode_1">步骤三：启动 FullNode 服务<a class="headerlink" href="#fullnode_1" title="Permanent link">&para;</a></h5>
@@ -261,7 +250,7 @@ rebuildManifest<span class="o">()</span><span class="w"> </span><span class="o">
 
 buildManifest<span class="o">()</span><span class="w"> </span><span class="o">{</span>
 
-<span class="w"> </span><span class="nv">ARCHIVE_JAR</span><span class="o">=</span><span class="s1">&#39;ArchiveManifest.jar&#39;</span>
+<span class="w"> </span><span class="nv">ARCHIVE_JAR</span><span class="o">=</span><span class="s1">&#39;Toolkit.jar&#39;</span>
 
 <span class="w"> </span>java<span class="w"> </span>-jar<span class="w"> </span><span class="nv">$ARCHIVE_JAR</span><span class="w"> </span><span class="nv">$ALL_OPT</span>
 
@@ -395,7 +384,7 @@ stopService
 
 checkPath
 
-<span class="c1">#2.执行 ArchiveManifest 插件</span>
+<span class="c1">#2.执行插件</span>
 <span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="nv">0</span><span class="w"> </span><span class="o">==</span><span class="w">  </span><span class="nv">$?</span><span class="w"> </span><span class="o">]]</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
 <span class="w"> </span>rebuildManifest
 <span class="k">else</span>

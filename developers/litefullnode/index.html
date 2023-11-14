@@ -53,6 +53,10 @@
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="./">轻节点</a>
     <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#_2">轻节点部署</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_3">轻节点维护</a>
+    </li>
     </ul>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../../using_javatron/private_network/">私链网络</a>
@@ -65,7 +69,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../../using_javatron/metrics/">节点监控</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../using_javatron/toolkit/">工具</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../../using_javatron/toolkit/">节点维护工具</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">API 接口</span></p>
@@ -163,68 +167,12 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="_1">轻节点<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
-<p>Lite FullNode和普通的FullNode运行同样的代码，所不同的是Lite FullNode只基于状态数据快照进行启动，状态数据快照只包含所有的账户状态数据和最近的256个区块的历史数据。而且在节点运行过程中，只存储和状态数据快照相关的数据，而不保存区块和交易的历史数据。因此Lite Fullnode具有占用磁盘空间小，启动速度块的优点，但它不提供历史区块和交易数据查询，仅提供部分全节点的HTTP API 和GRPC API，其中不支持的API请参考<a href="https://github.com/tronprotocol/java-tron/blob/develop/framework/src/main/java/org/tron/core/services/filter/LiteFnQueryHttpFilter.java">HTTP</a>，<a href="https://github.com/tronprotocol/java-tron/blob/develop/framework/src/main/java/org/tron/core/services/filter/LiteFnQueryGrpcInterceptor.java">GRPC</a>，这些API可以通过在配置文件中配置 <code>openHistoryQueryWhenLiteFN = true</code>来强制打开，但不推荐这样做。</p>
-<p>因此，如果开发者只需要使用节点进行区块同步，处理和广播交易，那么Lite Fullnoe将是更好的选择。</p>
-<p>轻节点的部署步骤和全节点相同，不同的是需要获取到轻节点数据库，您可以直接从公共备份数据中下载轻节点数据快照，并直接使用；也可以通过轻节点工具将全节点的数据库转换成轻节点的数据库。下面将详细介绍轻节点工具的使用。</p>
-<h1 id="_2">轻节点工具<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h1>
-<p>Lite FullNode工具用于将全节点（FullNode）的数据切分成快照数据集（Snapshot dataset）和历史数据集（History dataset）两部分。</p>
-<ul>
-<li><code>Snapshot dataset</code>: 用于快速启动Lite FullNode节点的必要数据集。</li>
-<li><code>History dataset</code>: 用于历史数据查询的归档数据集。</li>
-</ul>
-<p>使用本工具进行任何操作之前，需要首先停止当前运行的FullNode节点。 本工具提供了根据当前<code>最新区块高度</code>(latest_block_number)将完整数据切分成两个数据集的功能。通过快照数据集启动的轻节点不支持查询此区块高度之前的历史数据。本工具还提供了将历史数据集同快照数据集合并的功能。</p>
-<p>更多的设计思想，请参考: <a href="https://github.com/tronprotocol/tips/issues/128">TIP-128</a>。</p>
-<h2 id="lite-fullnode">Lite Fullnode工具的获取<a class="headerlink" href="#lite-fullnode" title="Permanent link">&para;</a></h2>
-<p>可以通过编译java-tron源代码来获取 LiteFullNodeTool.jar，步骤如下：</p>
-<ol>
-<li>获取java-tron源码
-    <div class="highlight"><pre><span></span><code>$ git clone https://github.com/tronprotocol/java-tron.git
-$ git checkout -t origin/master
-</code></pre></div></li>
-<li>
-<p>编译
-    <div class="highlight"><pre><span></span><code>$ cd java-tron
-$ ./gradlew clean build -x test
-</code></pre></div></p>
-<p>编译完成之后，<code>LiteFullNodeTool.jar</code>会生成在 <code>java-tron/build/libs/</code> 目录下。</p>
-</li>
-</ol>
-<h2 id="lite-fullnode_1">Lite Fullnode工具的使用<a class="headerlink" href="#lite-fullnode_1" title="Permanent link">&para;</a></h2>
-<h3 id="_3">选项<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
-<p>此工具提供了快照数据集和历史数据集独立的拆分功能和合并功能。</p>
-<ul>
-<li><code>--operation | -o</code>: [ split | merge ]  此选项用于指定使用拆分功能还是合并功能。</li>
-<li><code>--type | -t</code>: [ snapshot | history ]  此选项只能同<code>-o split</code>配合使用。 <code>snapshot</code> 指示切分为快照数据集，<code>history</code>指示切分为历史数据集。 </li>
-<li><code>--fn-data-path</code>: FullNode数据库的目录。</li>
-<li><code>--dataset-path</code>: 切分完成的数据集输出目录。 当操作类型是 <code>split</code>时, <code>dataset-path</code> 用于指示切分完成的快照数据集输出目录或者历史数据集输出目录；当操作类型是 <code>merge</code>时， <code>dataset-path</code>指示历史数据集的输出目录。</li>
-</ul>
-<h3 id="_4">例子<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
-<p>通过默认的配置文件启动全节点时，将在当前启动目录下生成一个<code>output-directory</code>目录，在<code>output-directory</code> 目录的<code>database</code>子目录就是将要被切分的数据库。 </p>
-<ul>
-<li>
-<p><strong>切分快照数据集</strong></p>
-<p>首先, 停止FullNode并执行命令:</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># 简单起见，将快照数据集存放在`/tmp`目录下</span>
-java<span class="w"> </span>-jar<span class="w"> </span>LiteFullNodeTool.jar<span class="w"> </span>-o<span class="w"> </span>split<span class="w"> </span>-t<span class="w"> </span>snapshot<span class="w"> </span>--fn-data-path<span class="w"> </span>output-directory/database<span class="w"> </span>--dataset-path<span class="w"> </span>/tmp
-</code></pre></div>
-<p>命令执行完毕之后，将在<code>/tmp</code>目录下生成<code>snapshot</code>目录, 将此目录的名字修改为<code>database</code>，并拷贝到Lite FullNode的运行目录output-directory之下。 </p>
-</li>
-<li>
-<p><strong>切分历史数据集</strong></p>
-<p>如果需要查询历史数据，历史数据集必须被生成并合并到微节点数据库中。</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># 简单起见，将历史数据集存放在`/tmp`目录下</span>
-java<span class="w"> </span>-jar<span class="w"> </span>LiteFullNodeTool.jar<span class="w"> </span>-o<span class="w"> </span>split<span class="w"> </span>-t<span class="w"> </span><span class="nb">history</span><span class="w"> </span>--fn-data-path<span class="w"> </span>output-directory/database<span class="w"> </span>--dataset-path<span class="w"> </span>/tmp
-</code></pre></div>
-<p>命令执行完毕之后，将在<code>/tmp</code>目录下生成<code>history</code>目录，将此目录拷贝到Lite FullNode运行目录output-directory之下，注意需要确保有足够的硬盘空间来存储历史数据集。</p>
-</li>
-<li>
-<p><strong>合并历史数据集和快照数据集</strong></p>
-<p>历史数据集和快照数据集中都保存了一个info.properties文件，用于记录数据拆分时的区块高度。需要注意的是，两个数据集进行合并时，历史数据集的区块高度必须大于等于快照数据集的区块高度。通过merge操作将历史数据集同快照数据集进行合并之后，微节点将成为一个真正的全节点。</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># 简单起见，假设历史数据集存放在了`/tmp`目录下</span>
-java<span class="w"> </span>-jar<span class="w"> </span>LiteFullNodeTool.jar<span class="w"> </span>-o<span class="w"> </span>merge<span class="w"> </span>--fn-data-path<span class="w"> </span>output-directory/database<span class="w"> </span>--dataset-path<span class="w"> </span>/tmp/history
-</code></pre></div>
-</li>
-</ul>
+<p>Lite FullNode和普通的FullNode运行同样的代码，所不同的是Lite FullNode只基于状态数据快照进行启动，状态数据快照只包含所有的账户状态数据和最近的65536个区块的历史数据。状态数据快照空间占用较小，约为全节点数据的3%，所以，Lite Fullnode具有占用磁盘空间小，启动速度块的优点。但它默认不提供节点历史区块和交易数据查询，仅提供部分全节点的HTTP API 和GRPC API，其中不支持的API请参考<a href="https://github.com/tronprotocol/java-tron/blob/develop/framework/src/main/java/org/tron/core/services/filter/LiteFnQueryHttpFilter.java">HTTP</a>，<a href="https://github.com/tronprotocol/java-tron/blob/develop/framework/src/main/java/org/tron/core/services/filter/LiteFnQueryGrpcInterceptor.java">GRPC</a>，但这些API可以在配置文件中通过配置 <code>openHistoryQueryWhenLiteFN = true</code>来打开，但由于轻节点启动后，其保存的数据与全节点完全相同，所以该配置项打开后，节点就支持查询节点启动后同步过来的区块数据了，但仍然不支持查询节点启动前的区块数据。</p>
+<p>因此，如果开发者只需要使用节点进行区块同步，处理和广播交易，或者仅需查询节点启动后同步过来的区块及交易，那么Lite Fullnoe将是更好的选择。</p>
+<h2 id="_2">轻节点部署<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>轻节点的部署步骤及启动命令和全节点相同，请参考<a href="../../using_javatron/installing_javatron/">部署说明</a>来部署轻节点，唯一不同的是数据库，您需要获取到轻节点数据库，可以直接从<a href="../../using_javatron/backup_restore/#lite-fullnode">公共备份数据</a>中下载轻节点数据快照，并直接使用；也可以通过<a href="../../using_javatron/toolkit/#_6">轻节点数据剪裁工具</a>将全节点的数据库转换成轻节点的数据库。</p>
+<h2 id="_3">轻节点维护<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p>由于轻节点启动后，会保存与全节点同样的数据，所以轻节点虽然在启动时数据量非常小，但是后期的数据膨胀速度与全节点相同，因此可能需要定期剪裁数据。裁剪轻节点数据也是使用<a href="../../using_javatron/toolkit/#_6">轻节点数据剪裁工具</a>将轻节点数据切分成快照数据集，即得到裁剪后的轻节点数据。</p>
               
             </div>
           </div><footer>
