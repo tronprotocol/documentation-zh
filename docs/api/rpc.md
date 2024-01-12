@@ -529,6 +529,7 @@ Nodes: FullNode
 rpc GetBandwidthPrices (EmptyMessage) returns (PricesResponseMessage) {}
 ```
 Nodes: FullNode
+
 **83.&nbsp; Get energy unit price**
 ```protobuf
 rpc GetEnergyPrices (EmptyMessage) returns (PricesResponseMessage) {}

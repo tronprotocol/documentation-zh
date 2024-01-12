@@ -3,6 +3,7 @@
 
 |  名称 |版本号  | 发布日期 | 包含的TIP | 版本说明 | 技术解读 |
 | -------- | -------- | -------- | -------- | -------- | -------- |
+|  Solon    |  GreatVoyage-v4.7.3.1    |  2024-1-12    |  N/A   |  [Release Note](https://github.com/tronprotocol/java-tron/releases/tag/GreatVoyage-v4.7.3.1)   |   [Specs](#greatvoyage-v4731solon)   |
 |  Chilon    |  GreatVoyage-v4.7.3    |  2023-10-25    |  [TIP-586](https://github.com/tronprotocol/tips/blob/master/tip-586.md) <br> [TIP-592](https://github.com/tronprotocol/tips/blob/master/tip-592.md)   |  [Release Note](https://github.com/tronprotocol/java-tron/releases/tag/GreatVoyage-v4.7.3)   |   [Specs](#greatvoyage-v473chilon)   |
 |  Periander    |  GreatVoyage-v4.7.2    |  2023-7-1    |  [TIP-541](https://github.com/tronprotocol/tips/issues/541) <br> [TIP-542](https://github.com/tronprotocol/tips/issues/542) <br> [TIP-543](https://github.com/tronprotocol/tips/issues/543) <br> [TIP-544](https://github.com/tronprotocol/tips/issues/544) <br> [TIP-555](https://github.com/tronprotocol/tips/issues/555) <br> [TIP-547](https://github.com/tronprotocol/tips/issues/547) <br> [TIP-548](https://github.com/tronprotocol/tips/issues/548) <br> [TIP-549](https://github.com/tronprotocol/tips/issues/549) <br> [TIP-550](https://github.com/tronprotocol/tips/issues/550)    |  [Release Note](https://github.com/tronprotocol/java-tron/releases/tag/GreatVoyage-v4.7.2)   |   [Specs](#greatvoyage-v472periander)   |
 |  Pittacus    |  GreatVoyage-v4.7.1.1    |  2023-4-17    |   [TIP-534](https://github.com/tronprotocol/tips/blob/master/tip-534.md)    |  [Release Note](https://github.com/tronprotocol/java-tron/releases/tag/GreatVoyage-v4.7.1.1)    |  [Specs](#greatvoyage-v4711pittacus)    |
@@ -74,6 +75,33 @@
 |   N/A   | Odyssey-v1.0.3    |  2018-4-5    |  N/A    |      [Release Note](https://github.com/tronprotocol/java-tron/releases/tag/Odyssey-v1.0.3)    |  N/A   |
 |   N/A   | Exodus-v1.0    |  2017-12-28    |  N/A    |      [Release Note](https://github.com/tronprotocol/java-tron/releases/tag/Exodus-v1.0)    |  N/A   |
 
+## GreatVoyage-v4.7.3.1(Solon)
+
+Solon版本是一个非强制升级版本，引入了两个变更，更稳定的HTTP接口以及轻节点数据剪裁工具，为用户带来更友好的开发体验。
+
+下面是详细介绍。
+
+
+### 其它变更
+
+#### 1. 更稳定的 /wallet/getnodeinfo 接口
+
+在Solon之前的版本中，极小概率可能出现调用 /wallet/getnodeinfo 接口时触发异常，这是由于区块数据对象序列化并发所导致，因此，Solon版本优化了区块数据对象的序列化逻辑，保证了区块数据获取的正确性，使 /wallet/getnodeinfo 接口更加稳定。
+
+源代码：[https://github.com/tronprotocol/java-tron/pull/5594](https://github.com/tronprotocol/java-tron/pull/5594)  
+
+#### 2. 优化轻节点数据剪裁工具
+
+为了解决因异常宕机导致的节点数据库损坏问题，从Socrates版本开始，引入了Checkpoint V2机制，会在磁盘中保存多个checkpoint，对应多个已固化的区块数据，用于当节点数据库损坏时，可以在节点重启时恢复数据。而轻节点数据剪裁工具也应兼容checkpoint v2版本，当节点异常停止时，也可以使用剪裁工具恢复数据并完成数据的剪裁，因此，Solon优化了工具箱中的轻节点数据剪裁工具，当发现使用的是checkpoint v2时,会从v2版本的checkpoint数据库中查询数据，使得即使是节点异常停止时的数据，工具也可以恢复并剪裁数据，提高了轻节点数据剪裁工具的可用性。
+
+
+源代码：[https://github.com/tronprotocol/java-tron/pull/5658](https://github.com/tronprotocol/java-tron/pull/5658)  
+
+
+--- 
+
+*Do not counsel what is most pleasant, but what is best.* 
+<p align="right"> ---Solon</p>
 
 ## GreatVoyage-v4.7.3(Chilon)
 
