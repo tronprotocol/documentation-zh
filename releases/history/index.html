@@ -129,13 +129,25 @@
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="./">历史版本</a>
     <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#greatvoyage-v4731solon">GreatVoyage-v4.7.3.1(Solon)</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#_1">其它变更</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#1-walletgetnodeinfo">1. 更稳定的 /wallet/getnodeinfo 接口</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#2">2. 优化轻节点数据剪裁工具</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
     <li class="toctree-l2"><a class="reference internal" href="#greatvoyage-v473chilon">GreatVoyage-v4.7.3(Chilon)</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#_1">核心协议</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_2">核心协议</a>
         <ul>
     <li class="toctree-l4"><a class="reference internal" href="#1-grpc">1. 新增资源价格、交易备注费用查询接口的gRPC实现</a>
     </li>
-    <li class="toctree-l4"><a class="reference internal" href="#2">2. 补充节点间连接断开的原因</a>
+    <li class="toctree-l4"><a class="reference internal" href="#2_1">2. 补充节点间连接断开的原因</a>
     </li>
     <li class="toctree-l4"><a class="reference internal" href="#3">3. 丢弃来自作恶节点的交易</a>
     </li>
@@ -163,7 +175,7 @@
     </li>
         </ul>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#_2">其它变更</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_3">其它变更</a>
         <ul>
     <li class="toctree-l4"><a class="reference internal" href="#1">1. 在获取交易时增加对过期交易的检查</a>
     </li>
@@ -187,7 +199,7 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#greatvoyage-v472periander">GreatVoyage-v4.7.2(Periander)</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#_3">核心协议</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_4">核心协议</a>
         <ul>
     <li class="toctree-l4"><a class="reference internal" href="#1-libp2p-v120">1. libp2p 升级到v1.2.0</a>
     </li>
@@ -215,7 +227,7 @@
     </li>
         </ul>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#_4">其它变更</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_5">其它变更</a>
         <ul>
     <li class="toctree-l4"><a class="reference internal" href="#1_2">1. 优化事件订阅中的事件转发逻辑</a>
     </li>
@@ -247,11 +259,11 @@
         <ul>
     <li class="toctree-l4"><a class="reference internal" href="#1-api">1. 删除涉及敏感信息的API</a>
     </li>
-    <li class="toctree-l4"><a class="reference internal" href="#2_1">2. 优化资源代理信息查询接口</a>
+    <li class="toctree-l4"><a class="reference internal" href="#2_2">2. 优化资源代理信息查询接口</a>
     </li>
         </ul>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#_5">其它变更</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_6">其它变更</a>
         <ul>
     <li class="toctree-l4"><a class="reference internal" href="#1-origin_energy_usage">1. 优化交易收据中origin_energy_usage字段的更新逻辑</a>
     </li>
@@ -261,11 +273,11 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#greatvoyage-v471sartre">GreatVoyage-v4.7.1(Sartre)</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#_6">核心协议</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_7">核心协议</a>
         <ul>
     <li class="toctree-l4"><a class="reference internal" href="#1-ip">1. 优化节点IP设置</a>
     </li>
-    <li class="toctree-l4"><a class="reference internal" href="#2_2">2. 优化区块同步逻辑</a>
+    <li class="toctree-l4"><a class="reference internal" href="#2_3">2. 优化区块同步逻辑</a>
     </li>
         </ul>
     </li>
@@ -277,11 +289,11 @@
     </li>
         </ul>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#_7">其它变更</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_8">其它变更</a>
         <ul>
     <li class="toctree-l4"><a class="reference internal" href="#1_3">1. 优化轻节点检测逻辑</a>
     </li>
-    <li class="toctree-l4"><a class="reference internal" href="#2_3">2. 优化数据库日志输出</a>
+    <li class="toctree-l4"><a class="reference internal" href="#2_4">2. 优化数据库日志输出</a>
     </li>
         </ul>
     </li>
@@ -289,11 +301,11 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#greatvoyage-v4701aristotle">GreatVoyage-v4.7.0.1(Aristotle)</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#_8">核心协议</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_9">核心协议</a>
         <ul>
     <li class="toctree-l4"><a class="reference internal" href="#1-stake-20">1. Stake 2.0 质押模型</a>
     </li>
-    <li class="toctree-l4"><a class="reference internal" href="#2_4">2. 优化数据库查询性能</a>
+    <li class="toctree-l4"><a class="reference internal" href="#2_5">2. 优化数据库查询性能</a>
     </li>
     <li class="toctree-l4"><a class="reference internal" href="#3_4">3. 优化区块生产流程</a>
     </li>
@@ -307,7 +319,7 @@
         <ul>
     <li class="toctree-l4"><a class="reference internal" href="#1-stake20tvm">1. 新增Stake2.0相关的TVM指令和预编译合约</a>
     </li>
-    <li class="toctree-l4"><a class="reference internal" href="#2_5">2. 动态能量模型</a>
+    <li class="toctree-l4"><a class="reference internal" href="#2_6">2. 动态能量模型</a>
     </li>
     <li class="toctree-l4"><a class="reference internal" href="#3-chainid">3. 优化chainId指令的返回值</a>
     </li>
@@ -317,15 +329,15 @@
         <ul>
     <li class="toctree-l4"><a class="reference internal" href="#1-stake-20api">1. 新增Stake 2.0相关API</a>
     </li>
-    <li class="toctree-l4"><a class="reference internal" href="#2_6">2. 新增预估能量接口</a>
+    <li class="toctree-l4"><a class="reference internal" href="#2_7">2. 新增预估能量接口</a>
     </li>
         </ul>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#_9">其它变更</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_10">其它变更</a>
         <ul>
     <li class="toctree-l4"><a class="reference internal" href="#1_4">1. 优化编译参数</a>
     </li>
-    <li class="toctree-l4"><a class="reference internal" href="#2_7">2. 优化节点自动停止功能</a>
+    <li class="toctree-l4"><a class="reference internal" href="#2_8">2. 优化节点自动停止功能</a>
     </li>
     <li class="toctree-l4"><a class="reference internal" href="#3-v1">3. 删除数据库V1版本相关代码</a>
     </li>
@@ -341,11 +353,11 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#greatvoyage-v460socrates">GreatVoyage-v4.6.0(Socrates)</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#_10">核心协议</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_11">核心协议</a>
         <ul>
     <li class="toctree-l4"><a class="reference internal" href="#1_5">1.  优化资源代理关系的存储结构</a>
     </li>
-    <li class="toctree-l4"><a class="reference internal" href="#2_8">2. 交易备注收费</a>
+    <li class="toctree-l4"><a class="reference internal" href="#2_9">2. 交易备注收费</a>
     </li>
     <li class="toctree-l4"><a class="reference internal" href="#3_5">3. 优化投票奖励计算算法</a>
     </li>
@@ -357,7 +369,7 @@
     </li>
         </ul>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#_11">其它变更</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_12">其它变更</a>
         <ul>
     <li class="toctree-l4"><a class="reference internal" href="#1-archivemanifestjartoolkitjar">1. 集成ArchiveManifest.jar到Toolkit.jar工具包</a>
     </li>
@@ -375,11 +387,11 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#greatvoyage-v452aurelius">GreatVoyage-v4.5.2(Aurelius)</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#_12">核心协议</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_13">核心协议</a>
         <ul>
     <li class="toctree-l4"><a class="reference internal" href="#1_6">1. 优化区块处理逻辑</a>
     </li>
-    <li class="toctree-l4"><a class="reference internal" href="#2_9">2. 优化交易缓存机制</a>
+    <li class="toctree-l4"><a class="reference internal" href="#2_10">2. 优化交易缓存机制</a>
     </li>
     <li class="toctree-l4"><a class="reference internal" href="#3-p2p">3. 优化P2P节点连接策略</a>
     </li>
@@ -399,7 +411,7 @@
     </li>
         </ul>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#_13">其它变更</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_14">其它变更</a>
         <ul>
     <li class="toctree-l4"><a class="reference internal" href="#1_7">1. 优化区块同步逻辑</a>
     </li>
@@ -413,7 +425,7 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#greatvoyage-v451tertullian">GreatVoyage-v4.5.1(Tertullian)</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#_14">核心协议</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_15">核心协议</a>
         <ul>
     <li class="toctree-l4"><a class="reference internal" href="#1_8">1. 优化交易缓存的加载</a>
     </li>
@@ -443,7 +455,7 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#greatvoyage-v446david">GreatVoyage-v4.4.6(David)</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#_15">其它变更</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_16">其它变更</a>
         <ul>
     <li class="toctree-l4"><a class="reference internal" href="#1-fastjson">1. 更新fastjson依赖库到最新版本</a>
     </li>
@@ -453,7 +465,7 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#greatvoyage-445cicero">GreatVoyage-4.4.5(Cicero)</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#_16">其它变更</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_17">其它变更</a>
         <ul>
     <li class="toctree-l4"><a class="reference internal" href="#1_9">1. 优化节点查询接口</a>
     </li>
@@ -463,11 +475,11 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#greatvoyage-444plotinus">GreatVoyage-4.4.4(Plotinus)</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#_17">核心协议</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_18">核心协议</a>
         <ul>
     <li class="toctree-l4"><a class="reference internal" href="#1_10">1. 优化节点启动时间</a>
     </li>
-    <li class="toctree-l4"><a class="reference internal" href="#2_10">2. 优化内存使用</a>
+    <li class="toctree-l4"><a class="reference internal" href="#2_11">2. 优化内存使用</a>
     </li>
     <li class="toctree-l4"><a class="reference internal" href="#3_8">3. 优化产块线程</a>
     </li>
@@ -479,11 +491,11 @@
     </li>
         </ul>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#_18">其它变更</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_19">其它变更</a>
         <ul>
     <li class="toctree-l4"><a class="reference internal" href="#1_11">1. 优化节点日志存储</a>
     </li>
-    <li class="toctree-l4"><a class="reference internal" href="#2_11">2. 优化网络服务关闭逻辑</a>
+    <li class="toctree-l4"><a class="reference internal" href="#2_12">2. 优化网络服务关闭逻辑</a>
     </li>
     <li class="toctree-l4"><a class="reference internal" href="#3-java-tron">3. 改进Java-tron升级机制</a>
     </li>
@@ -505,7 +517,7 @@
     </li>
         </ul>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#_19">其它变更</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_20">其它变更</a>
         <ul>
     <li class="toctree-l4"><a class="reference internal" href="#1-leveldb">1. LevelDB数据库性能优化</a>
     </li>
@@ -515,7 +527,7 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#greatvoyage-440rousseau">GreatVoyage-4.4.0(Rousseau)</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#_20">核心协议</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_21">核心协议</a>
         <ul>
     <li class="toctree-l4"><a class="reference internal" href="#1_12">1. 优化区块广播</a>
     </li>
@@ -547,7 +559,7 @@
     </li>
         </ul>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#_21">其它变更</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_22">其它变更</a>
         <ul>
     <li class="toctree-l4"><a class="reference internal" href="#1-bttc">1. 升级事件插件以支持BTTC</a>
     </li>
@@ -561,7 +573,7 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#greatvoyage-430bacon">GreatVoyage-4.3.0(Bacon)</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#_22">核心协议</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_23">核心协议</a>
         <ul>
     <li class="toctree-l4"><a class="reference internal" href="#1_13">1. 账户每天的免费带宽额度可配置</a>
     </li>
@@ -585,7 +597,7 @@
     </li>
         </ul>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#_23">其它变更</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_24">其它变更</a>
         <ul>
     <li class="toctree-l4"><a class="reference internal" href="#1-bouncycastle">1. 更新BouncyCastle为加密算法程序库</a>
     </li>
@@ -605,7 +617,7 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#greatvoyage-4221epictetus">GreatVoyage-4.2.2.1(Epictetus)</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#_24">核心协议</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_25">核心协议</a>
         <ul>
     <li class="toctree-l4"><a class="reference internal" href="#1pending-transaction">1、优化pending transaction的处理逻辑。</a>
     </li>
@@ -615,17 +627,17 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#greatvoyage-422lucretius">GreatVoyage-4.2.2(Lucretius)</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#_25">核心协议</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_26">核心协议</a>
         <ul>
     <li class="toctree-l4"><a class="reference internal" href="#1_15">1、优化区块处理。</a>
     </li>
-    <li class="toctree-l4"><a class="reference internal" href="#2_12">2、优化数据查询。</a>
+    <li class="toctree-l4"><a class="reference internal" href="#2_13">2、优化数据查询。</a>
     </li>
     <li class="toctree-l4"><a class="reference internal" href="#3abi">3、优化智能合约ABI的存储。</a>
     </li>
         </ul>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#_26">其他变更</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_27">其他变更</a>
         <ul>
     <li class="toctree-l4"><a class="reference internal" href="#1batchvalidatesign">1、优化系统合约BatchValidateSign的初始化流程。</a>
     </li>
@@ -635,7 +647,7 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#greatvoyage-420plato">GreatVoyage-4.2.0(Plato)</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#_27">核心协议</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_28">核心协议</a>
         <ul>
     <li class="toctree-l4"><a class="reference internal" href="#1_16">1、资源模型优化。</a>
     </li>
@@ -647,7 +659,7 @@
     </li>
         </ul>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#_28">其他变更</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_29">其他变更</a>
         <ul>
     <li class="toctree-l4"><a class="reference internal" href="#1_17">1、优化区块同步逻辑</a>
     </li>
@@ -657,7 +669,7 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#greatvoyage-413thales">GreatVoyage-4.1.3(Thales)</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#_29">核心协议</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_30">核心协议</a>
         <ul>
     <li class="toctree-l4"><a class="reference internal" href="#1sr">1.对待打包的交易进行排序，SR优先打包费用较高的交易</a>
     </li>
@@ -673,11 +685,11 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#great-voyage-v412">Great Voyage - v4.1.2</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#_30">一、核心协议</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_31">一、核心协议</a>
         <ul>
     <li class="toctree-l4"><a class="reference internal" href="#1out_of_timesr">1、将燃烧带宽/燃烧能量（OUT_OF_TIME除外）的手续费转为SR产块奖励。</a>
     </li>
-    <li class="toctree-l4"><a class="reference internal" href="#2_13">2、新增账户历史余额查询功能。</a>
+    <li class="toctree-l4"><a class="reference internal" href="#2_14">2、新增账户历史余额查询功能。</a>
     </li>
     <li class="toctree-l4"><a class="reference internal" href="#3_11">3、黑洞账户优化。</a>
     </li>
@@ -691,7 +703,7 @@
     </li>
         </ul>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#_31">三、其他变更</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_32">三、其他变更</a>
         <ul>
     <li class="toctree-l4"><a class="reference internal" href="#1jitpack-java-tron">1、使用jitpack仓库提供依赖支持，方便开发者的项目使用 java-tron 作为依赖。</a>
     </li>
@@ -701,55 +713,55 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#greatvoyage-v411">GreatVoyage-v4.1.1</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#_32">核心协议</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_33">核心协议</a>
         <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#_33">新的共识协议</a>
+    <li class="toctree-l4"><a class="reference internal" href="#_34">新的共识协议</a>
     </li>
-    <li class="toctree-l4"><a class="reference internal" href="#_34">新的节点类型</a>
+    <li class="toctree-l4"><a class="reference internal" href="#_35">新的节点类型</a>
     </li>
         </ul>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#tvm_9">TVM</a>
         <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#_35">对以太坊的伊斯坦布尔升级进行兼容</a>
+    <li class="toctree-l4"><a class="reference internal" href="#_36">对以太坊的伊斯坦布尔升级进行兼容</a>
     </li>
         </ul>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#_36">机制</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_37">机制</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#_37">其他变更</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_38">其他变更</a>
     </li>
         </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#greatvoyage-v400">GreatVoyage-v4.0.0</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#_38">注意</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_39">注意</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#_39">新功能</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_40">新功能</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#_40">更新</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_41">更新</a>
     </li>
         </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#odyssey-v37">Odyssey-v3.7</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#_41">模块化</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_42">模块化</a>
         <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#_42">框架</a>
+    <li class="toctree-l4"><a class="reference internal" href="#_43">框架</a>
     </li>
-    <li class="toctree-l4"><a class="reference internal" href="#_43">协议</a>
+    <li class="toctree-l4"><a class="reference internal" href="#_44">协议</a>
     </li>
-    <li class="toctree-l4"><a class="reference internal" href="#_44">共识</a>
+    <li class="toctree-l4"><a class="reference internal" href="#_45">共识</a>
     </li>
-    <li class="toctree-l4"><a class="reference internal" href="#_45">加密</a>
+    <li class="toctree-l4"><a class="reference internal" href="#_46">加密</a>
     </li>
-    <li class="toctree-l4"><a class="reference internal" href="#_46">执行器</a>
+    <li class="toctree-l4"><a class="reference internal" href="#_47">执行器</a>
     </li>
-    <li class="toctree-l4"><a class="reference internal" href="#_47">内存数据库</a>
+    <li class="toctree-l4"><a class="reference internal" href="#_48">内存数据库</a>
     </li>
         </ul>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#_48">固化块的新事件订阅触发器</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_49">固化块的新事件订阅触发器</a>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#http-api">新增两个HTTP API</a>
     </li>
@@ -761,7 +773,7 @@
         <ul>
     <li class="toctree-l3"><a class="reference internal" href="#1_19">1、新的抵押机制</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#2_14">2、更加公平高效的股权分红机制</a>
+    <li class="toctree-l3"><a class="reference internal" href="#2_15">2、更加公平高效的股权分红机制</a>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#3_12">3、更加合理的激励机制</a>
     </li>
@@ -817,6 +829,14 @@
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>Solon</td>
+<td>GreatVoyage-v4.7.3.1</td>
+<td>2024-1-12</td>
+<td>N/A</td>
+<td><a href="https://github.com/tronprotocol/java-tron/releases/tag/GreatVoyage-v4.7.3.1">Release Note</a></td>
+<td><a href="#greatvoyage-v4731solon">Specs</a></td>
+</tr>
 <tr>
 <td>Chilon</td>
 <td>GreatVoyage-v4.7.3</td>
@@ -1379,15 +1399,29 @@
 </tr>
 </tbody>
 </table>
+<h2 id="greatvoyage-v4731solon">GreatVoyage-v4.7.3.1(Solon)<a class="headerlink" href="#greatvoyage-v4731solon" title="Permanent link">&para;</a></h2>
+<p>Solon版本是一个非强制升级版本，引入了两个变更，更稳定的HTTP接口以及轻节点数据剪裁工具，为用户带来更友好的开发体验。</p>
+<p>下面是详细介绍。</p>
+<h3 id="_1">其它变更<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
+<h4 id="1-walletgetnodeinfo">1. 更稳定的 /wallet/getnodeinfo 接口<a class="headerlink" href="#1-walletgetnodeinfo" title="Permanent link">&para;</a></h4>
+<p>在Solon之前的版本中，极小概率可能出现调用 /wallet/getnodeinfo 接口时触发异常，这是由于区块数据对象序列化并发所导致，因此，Solon版本优化了区块数据对象的序列化逻辑，保证了区块数据获取的正确性，使 /wallet/getnodeinfo 接口更加稳定。</p>
+<p>源代码：<a href="https://github.com/tronprotocol/java-tron/pull/5594">https://github.com/tronprotocol/java-tron/pull/5594</a>  </p>
+<h4 id="2">2. 优化轻节点数据剪裁工具<a class="headerlink" href="#2" title="Permanent link">&para;</a></h4>
+<p>为了解决因异常宕机导致的节点数据库损坏问题，从Socrates版本开始，引入了Checkpoint V2机制，会在磁盘中保存多个checkpoint，对应多个已固化的区块数据，用于当节点数据库损坏时，可以在节点重启时恢复数据。而轻节点数据剪裁工具也应兼容checkpoint v2版本，当节点异常停止时，也可以使用剪裁工具恢复数据并完成数据的剪裁，因此，Solon优化了工具箱中的轻节点数据剪裁工具，当发现使用的是checkpoint v2时,会从v2版本的checkpoint数据库中查询数据，使得即使是节点异常停止时的数据，工具也可以恢复并剪裁数据，提高了轻节点数据剪裁工具的可用性。</p>
+<p>源代码：<a href="https://github.com/tronprotocol/java-tron/pull/5658">https://github.com/tronprotocol/java-tron/pull/5658</a>  </p>
+<hr />
+<p><em>Do not counsel what is most pleasant, but what is best.</em> </p>
+<p align="right"> ---Solon</p>
+
 <h2 id="greatvoyage-v473chilon">GreatVoyage-v4.7.3(Chilon)<a class="headerlink" href="#greatvoyage-v473chilon" title="Permanent link">&para;</a></h2>
 <p>Chilon版本是一个非强制升级版本，引入了多个重要的优化和更新，更丰富的gRPC接口及更快的节点启动速度，为用户带来更友好的开发体验，优化的节点间的断连策略及同步流程，提高了节点之间连接的稳定性；优化的交易处理逻辑和数据库查询性能，提高了交易打包效率，提升了网络吞吐量。</p>
 <p>下面是详细介绍。</p>
-<h3 id="_1">核心协议<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
+<h3 id="_2">核心协议<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
 <h4 id="1-grpc">1. 新增资源价格、交易备注费用查询接口的gRPC实现<a class="headerlink" href="#1-grpc" title="Permanent link">&para;</a></h4>
 <p>Chilon 新增三个gRPC接口，用户可通过<code>getBandwidthPrices</code> API获取历史带宽单价，通过<code>getEnergyPrices</code> API获取历史能量单价，通过<code>getMemoFee</code>获取交易备注费用，进一步提高开发者的体验。</p>
 <p>TIP: <a href="https://github.com/tronprotocol/tips/blob/master/tip-586.md">https://github.com/tronprotocol/tips/blob/master/tip-586.md</a> </p>
 <p>源代码：<a href="https://github.com/tronprotocol/java-tron/pull/5412">https://github.com/tronprotocol/java-tron/pull/5412</a>  </p>
-<h4 id="2">2. 补充节点间连接断开的原因<a class="headerlink" href="#2" title="Permanent link">&para;</a></h4>
+<h4 id="2_1">2. 补充节点间连接断开的原因<a class="headerlink" href="#2_1" title="Permanent link">&para;</a></h4>
 <p>当节点处理消息失败时，可能会触发断开与某个远端节点的连接，但在Chilon之前的版本中，在某些情况下，节点断开与对方节点的连接时，并未告知对方节点连接断开的原因，这不利于对方节点分析排查问题。</p>
 <p>Chilon版本优化了节点间连接断开逻辑，新增两个断连原因，使节点在断开连接之前，均会发送断连原因给对方节点，以便于节点连接问题的高效处理。</p>
 <p>TIP: <a href="https://github.com/tronprotocol/tips/blob/master/tip-592.md">https://github.com/tronprotocol/tips/blob/master/tip-592.md</a>  </p>
@@ -1428,7 +1462,7 @@
 <h4 id="5-http">5. 优化部分HTTP 接口的处理逻辑<a class="headerlink" href="#5-http" title="Permanent link">&para;</a></h4>
 <p>Chilon版本优化了部分http接口：<code>/wallet/getavailableunfreezecount</code>、<code>/wallet/getcanwithdrawunfreezeamount</code>、<code>/wallet/getcandelegatedmaxsize</code>和<code>/wallet/getavailableunfreezecount</code>，使其对get和post方式的请求处理一致，包括参数校验及返回值。</p>
 <p>源代码：<a href="https://github.com/tronprotocol/java-tron/pull/5408">https://github.com/tronprotocol/java-tron/pull/5408</a>  </p>
-<h3 id="_2">其它变更<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<h3 id="_3">其它变更<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
 <h4 id="1">1. 在获取交易时增加对过期交易的检查<a class="headerlink" href="#1" title="Permanent link">&para;</a></h4>
 <p>Chilon版本增加了对其收到的广播清单中过期交易的检查，对于清单中已经超时的交易，不再向其远端节点进行请求，避免了由于交易处理失败导致的节点连接被断开，提高了节点连接稳定性。</p>
 <p>源代码：<a href="https://github.com/tronprotocol/java-tron/pull/5460">https://github.com/tronprotocol/java-tron/pull/5460</a>  </p>
@@ -1464,7 +1498,7 @@ node.p2p.pingInterval
 <h2 id="greatvoyage-v472periander">GreatVoyage-v4.7.2(Periander)<a class="headerlink" href="#greatvoyage-v472periander" title="Permanent link">&para;</a></h2>
 <p>Periander版本引入了多个重要的优化和更新，增加2个治理提案来对Stake 2.0进行易用性优化，大幅提高了波场质押机制的灵活性；增加1个治理提案来实现EIP-3855 <code>PUSH0</code>指令，确保了波场和以太坊在虚拟机层面的兼容性的同时，还可以降低波场智能合约的使用成本；更友好的智能合约调用访问接口，提高了智能合约开发的便利性；P2P网络模块全面升级，支持IPV6网络协议、基于DNS的节点发现、报文压缩等等，大幅提升波场网络基础设施的性能。</p>
 <p>下面是详细介绍。</p>
-<h3 id="_3">核心协议<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<h3 id="_4">核心协议<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
 <h4 id="1-libp2p-v120">1. libp2p 升级到v1.2.0<a class="headerlink" href="#1-libp2p-v120" title="Permanent link">&para;</a></h4>
 <p>libp2p是Java-tron核心开发者开发的Java版本开源P2P协议框架，任何人都能基于libp2p开发分布式应用，Java-tron底层的P2P网络就是基于libp2p实现的，为了进一步提高Java-tron的底层网络性能，Periander版本将libp2p依赖库从v0.1.4版本升级到v1.2.0版本，libp2p v1.2.0具备如下新特性：</p>
 <ul>
@@ -1676,7 +1710,7 @@ rate.limiter.global.ip.qps = 5
 <ul>
 <li>源代码：  <a href="https://github.com/tronprotocol/java-tron/pull/5061">https://github.com/tronprotocol/java-tron/pull/5061</a>    </li>
 </ul>
-<h3 id="_4">其它变更<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<h3 id="_5">其它变更<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
 <h4 id="1_2">1. 优化事件订阅中的事件转发逻辑<a class="headerlink" href="#1_2" title="Permanent link">&para;</a></h4>
 <p>Java-tron支持事件订阅功能，在Periander之前的版本中，如果用户订阅了固化交易事件，则当节点接收到新的区块后，会将当前的最新固化块中的交易信息发送给订阅者。如果大多数SR节点所在的网络出现抖动，使得它们不能及时的同步和生产区块，在这种情况下，根据节点的最新固化块计算逻辑，其最新固化块高度将不能保证严格递增，使得在事件转发时获取的最新固化块，可能不是上一次转发给订阅者的固化块的下一个区块，导致少转发数据的发生。由于该问题复现的条件非常严格，在主网中基本不会出现。但为了避免在测试网或者私链中出现该问题，Periander版本优化了事件订阅中的事件转发逻辑，记录了上一次转发的固化块高度，在节点接收到新的区块后，会依次将上一次转发的固化块之后的区块到当前的最新固化块信息发送到订阅者，确保了数据转发的完整性。</p>
 <ul>
@@ -1775,10 +1809,10 @@ node.dynamicConfig.checkInterval = 600
 </ul>
 <p>TIP: <a href="https://github.com/tronprotocol/tips/issues/534">https://github.com/tronprotocol/tips/issues/534</a></p>
 <p>源代码：<a href="https://github.com/tronprotocol/java-tron/pull/5096">https://github.com/tronprotocol/java-tron/pull/5096</a>    </p>
-<h4 id="2_1">2. 优化资源代理信息查询接口<a class="headerlink" href="#2_1" title="Permanent link">&para;</a></h4>
+<h4 id="2_2">2. 优化资源代理信息查询接口<a class="headerlink" href="#2_2" title="Permanent link">&para;</a></h4>
 <p><code>/wallet/getdelegatedresourcev2</code>接口可以查询一个地址代理给其它地址的资源情况，而<a href="https://cn.developers.tron.network/reference/delegateresource">资源代理</a>可以选择是否锁定，给同一个地址的2笔代理，其中一笔可以选择锁定，另外一笔选择不锁定，所以<code>/wallet/getdelegatedresourcev2</code>接口会返回两组信息：锁定的资源代理数据和非锁定的资源代理数据。在GreatVoyage-v4.7.1.1(Pittacus)之前的版本中，如果一个地址给另外一个地址代理的资源全部是锁定的，那么非锁定资源代理数据为0，则在这种情况下，接口可能也会将非锁定资源代理数据（0值）返回，GreatVoyage-v4.7.1.1(Pittacus)版本优化了<code>/wallet/getdelegatedresourcev2</code>接口，只返回代理资源数量非0的数据，使得返回的数据更加简洁清晰。</p>
 <p>源代码:  <a href="https://github.com/tronprotocol/java-tron/pull/5123">https://github.com/tronprotocol/java-tron/pull/5123</a> </p>
-<h3 id="_5">其它变更<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<h3 id="_6">其它变更<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
 <h4 id="1-origin_energy_usage">1. 优化交易收据中origin_energy_usage字段的更新逻辑<a class="headerlink" href="#1-origin_energy_usage" title="Permanent link">&para;</a></h4>
 <p>TRON网络支持合约部署者分摊一部分合约调用成本，为了方便用户查询合约交易的能量消耗情况，交易收据除了记录交易的总能量消耗量<code>energy_usage_total</code>字段，还会记录合约部署者分摊的能量数量<code>origin_energy_usage</code>字段，<code>energy_usage_total</code>包含了<code>origin_energy_usage</code>。在GreatVoyage-v4.7.1.1(Pittacus)之前的版本中，在极少数情况下会出现通过/wallet/gettransactioninfobyid查询到<code>energy_usage_total</code>字段为0，而<code>origin_energy_usage</code>字段不为0的情况，因此，GreatVoyage-v4.7.1.1(Pittacus)版本优化了交易收据中<code>origin_energy_usage</code>的更新逻辑，保证查询合约部署者的能量的准确性。</p>
 <p>源代码：  <a href="https://github.com/tronprotocol/java-tron/pull/5120">https://github.com/tronprotocol/java-tron/pull/5120</a>   </p>
@@ -1789,11 +1823,11 @@ node.dynamicConfig.checkInterval = 600
 <h2 id="greatvoyage-v471sartre">GreatVoyage-v4.7.1(Sartre)<a class="headerlink" href="#greatvoyage-v471sartre" title="Permanent link">&para;</a></h2>
 <p>GreatVoyage-v4.7.1(Sartre)版本引入了多个重要的优化和更新，优化的区块同步逻辑，提高了区块同步的稳定性；优化的节点IP设置，提高了节点的可用性；优化的节点日志模块，提高节点的可维护性。</p>
 <p>下面是详细介绍。</p>
-<h3 id="_6">核心协议<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<h3 id="_7">核心协议<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
 <h4 id="1-ip">1. 优化节点IP设置<a class="headerlink" href="#1-ip" title="Permanent link">&para;</a></h4>
 <p>节点启动时会获取节点的本地IP, 然后利用该IP与网路中的其他节点进行通信。如果节点无法访问外网，则将无法获取到本地IP，这时节点会将其本地IP设置为默认值0.0.0.0，而全0地址将使得节点无法与局域网内的其他节点正常通信，GreatVoyage-v4.7.1(Sartre)版本更改了节点默认IP，如果节点无法获取本地IP， 会将其本地IP设置为127.0.0.1，使得节点即便在没有连接外网的情况下，依然可以和局域网内的其它节点正常通信。</p>
 <p>源代码：<a href="https://github.com/tronprotocol/java-tron/pull/4990">https://github.com/tronprotocol/java-tron/pull/4990</a>  </p>
-<h4 id="2_2">2. 优化区块同步逻辑<a class="headerlink" href="#2_2" title="Permanent link">&para;</a></h4>
+<h4 id="2_3">2. 优化区块同步逻辑<a class="headerlink" href="#2_3" title="Permanent link">&para;</a></h4>
 <p>在区块同步过程中，节点会维护一个区块请求列表，包含了已经向其他节点发送请求的所有区块的ID。当本节点和节点A连接极小概率异常断开时，会将向节点A正在请求的区块ID从请求列表中删除，此后节点会认为自己并没有请求过该区块，然后重新向节点B请求该区块，并将区块ID再次加入到请求列表中。而本节点在和节点A的连接断开之前，可能节点A已经向本节点发送了区块，断开连接后收到了该区块，由于发现是来自已断开节点A的区块，会丢弃该区块并将区块ID从请求列表中再次删除，导致本节点将再一次向节点B发送相同区块的请求。而当节点B收到重复的区块请求时，会认为是非法报文，断开与本节点的连接。</p>
 <p>为了提高在并发场景下区块同步的效率，GreatVoyage-v4.7.1(Sartre)版本优化了区块请求列表的更新机制，列表中同时保存区块ID和节点信息，上述场景中，收到来自于已断开节点A区块后，将不会把向节点B请求的同一个区块ID从请求列表中删除，确保不会与节点B断开连接，从而提升区块同步的稳定性。</p>
 <p>源代码：<a href="https://github.com/tronprotocol/java-tron/pull/4995">https://github.com/tronprotocol/java-tron/pull/4995</a> </p>
@@ -1807,11 +1841,11 @@ node.dynamicConfig.checkInterval = 600
 <p>源代码：<a href="https://github.com/tronprotocol/java-tron/pull/4997">https://github.com/tronprotocol/java-tron/pull/4997</a> </p>
 <h4 id="2-api">2. 优化资源代理关系查询API<a class="headerlink" href="#2-api" title="Permanent link">&para;</a></h4>
 <p>GreatVoyage-v4.7.1(Sartre)版本优化了资源代理关系查询API，增加了对接口参数的检验，使接口更加稳定。</p>
-<h3 id="_7">其它变更<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<h3 id="_8">其它变更<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
 <h4 id="1_3">1. 优化轻节点检测逻辑<a class="headerlink" href="#1_3" title="Permanent link">&para;</a></h4>
 <p>在GreatVoyage-v4.7.1(Sartre)之前的版本，节点的不同模块检测当前节点是否为轻节点的逻辑是不一样的，GreatVoyage-v4.7.1(Sartre)版本统一了轻节点判断逻辑，使代码更加简洁。</p>
 <p>源代码：<a href="https://github.com/tronprotocol/java-tron/pull/4986">https://github.com/tronprotocol/java-tron/pull/4986</a> </p>
-<h4 id="2_3">2. 优化数据库日志输出<a class="headerlink" href="#2_3" title="Permanent link">&para;</a></h4>
+<h4 id="2_4">2. 优化数据库日志输出<a class="headerlink" href="#2_4" title="Permanent link">&para;</a></h4>
 <p><strong>数据库日志</strong></p>
 <p>GreatVoyage-v4.7.0.1(Aristotle)版本开始，将LevelDB或者RocksDB数据库的日志重定向到节点日志文件中，简化了数据库故障排查的难度，GreatVoyage-v4.7.1(Sartre)版本进一步优化日志模块，将数据库日志输出到一个单独的db.log文件中，以使节点日志更加清晰。</p>
 <p>源代码:  <a href="https://github.com/tronprotocol/java-tron/pull/4985">https://github.com/tronprotocol/java-tron/pull/4985</a> <a href="https://github.com/tronprotocol/java-tron/pull/5001">https://github.com/tronprotocol/java-tron/pull/5001</a> <a href="https://github.com/tronprotocol/java-tron/pull/5010">https://github.com/tronprotocol/java-tron/pull/5010</a></p>
@@ -1828,7 +1862,7 @@ node.dynamicConfig.checkInterval = 600
 <h2 id="greatvoyage-v4701aristotle">GreatVoyage-v4.7.0.1(Aristotle)<a class="headerlink" href="#greatvoyage-v4701aristotle" title="Permanent link">&para;</a></h2>
 <p>GreatVoyage-v4.7.0.1(Aristotle)版本引入了多个重要的优化和更新，全新的质押机制Stake 2.0, 提高了资源模型的灵活性和质押系统的稳定性；动态能量模型，有助于促进生态的均衡发展；二级缓存机制优化了数据库读取性能，提高了交易执行性能，提升了网络吞吐量；使用libp2p库作为Java-tron P2P网络模块，使代码结构更加清晰，并且降低代码耦合性；优化日志输出，将LevelDB和RocksDB的日志重定向到Java-tron日志文件；将更多工具包集成的toolkit工具箱，为用户带来更便捷的开发体验。</p>
 <p>下面是详细介绍。</p>
-<h3 id="_8">核心协议<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<h3 id="_9">核心协议<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
 <h4 id="1-stake-20">1. Stake 2.0 质押模型<a class="headerlink" href="#1-stake-20" title="Permanent link">&para;</a></h4>
 <p>GreatVoyage-v4.7.0.1(Aristotle)版本引入一种全新的质押模型Stake 2.0，旨在建立一种更为灵活，高效，稳定的质押系统。相比于目前的Stake1.0质押模型， Stake 2.0在下面几个方面进行了提升：</p>
 <ul>
@@ -1855,7 +1889,7 @@ node.dynamicConfig.checkInterval = 600
 <li>TIP: <a href="https://github.com/tronprotocol/tips/issues/467">https://github.com/tronprotocol/tips/issues/467</a> </li>
 <li>源代码：<a href="https://github.com/tronprotocol/java-tron/pull/4838">https://github.com/tronprotocol/java-tron/pull/4838</a> </li>
 </ul>
-<h4 id="2_4">2. 优化数据库查询性能<a class="headerlink" href="#2_4" title="Permanent link">&para;</a></h4>
+<h4 id="2_5">2. 优化数据库查询性能<a class="headerlink" href="#2_5" title="Permanent link">&para;</a></h4>
 <p>Java-tron采用内存和磁盘数据库的方式进行数据存储，固化的区块数据会保存在多个磁盘数据库中，未被固化的数据保存在内存中，当一个区块被固化后，会将相应的内存数据写入到磁盘数据库。在查询数据时，首先查询内存中的数据，如果没有找到，再查询磁盘数据库。而磁盘数据库查询是比较耗时的，因此，GreatVoyage-v4.7.0.1(Aristotle)版本优化了数据库查询性能，在进行底层磁盘数据库操作之前，增加了二级缓存。在将数据写入磁盘的同时，也将数据写入到二级缓存。当需要查询磁盘数据库时，如果二级缓存中存在要查询的数据，则直接返回，而无需再查询磁盘数据库。二级缓存减少了查询磁盘数据库的次数，提高了交易执行速度，提升了网络吞吐量。</p>
 <ul>
 <li>源代码：<a href="https://github.com/tronprotocol/java-tron/pull/4740">https://github.com/tronprotocol/java-tron/pull/4740</a> </li>
@@ -1992,7 +2026,7 @@ node.dynamicConfig.checkInterval = 600
 <li>TIP: <a href="https://github.com/tronprotocol/tips/issues/467">https://github.com/tronprotocol/tips/issues/467</a> </li>
 <li>源代码: <a href="https://github.com/tronprotocol/java-tron/pull/4872">https://github.com/tronprotocol/java-tron/pull/4872</a> </li>
 </ul>
-<h4 id="2_5">2. 动态能量模型<a class="headerlink" href="#2_5" title="Permanent link">&para;</a></h4>
+<h4 id="2_6">2. 动态能量模型<a class="headerlink" href="#2_6" title="Permanent link">&para;</a></h4>
 <p>动态能量模型是一种根据合约已知的能量使用情况来动态调整合约未来的能量消耗的方案，如果一个合约在一个周期内使用过多的资源，则下一个周期中该合约将增加一定百分比的惩罚性消耗，用户向该合约发送相同的交易将产生更多的能量消耗量。当合约合理使用资源时，用户调用该合约所产生的能源消耗将逐渐恢复正常，通过这个机制，让能源资源在链上的分配更加合理，防止网络资源过度集中在少数合约上。</p>
 <p>更多关于动态能量模型的原理请参考：<a href="https://coredevs.medium.com/introduction-to-dynamic-energy-model-31917419b61a">Introduction to Dynamic Energy Model</a>。</p>
 <p>动态能量模型是TRON网络中的一个动态参数，GreatVoyage-v4.7.0.1(Aristotle)部署之后默认为关闭状态，可以通过发起提案投票的方式开启。</p>
@@ -2065,7 +2099,7 @@ node.dynamicConfig.checkInterval = 600
 <li>TIP: <a href="https://github.com/tronprotocol/tips/issues/467">https://github.com/tronprotocol/tips/issues/467</a> </li>
 <li>源代码：<a href="https://github.com/tronprotocol/java-tron/pull/4838">https://github.com/tronprotocol/java-tron/pull/4838</a> </li>
 </ul>
-<h4 id="2_6">2. 新增预估能量接口<a class="headerlink" href="#2_6" title="Permanent link">&para;</a></h4>
+<h4 id="2_7">2. 新增预估能量接口<a class="headerlink" href="#2_7" title="Permanent link">&para;</a></h4>
 <p>在GreatVoyage-v4.7.0.1(Aristotle)之前的版本中，可以通过<code>/wallet/triggerconstantcontract</code>接口预估执行智能合约交易所需的能量消耗量，然后根据预估的消耗量来设置交易的<code>feelimit</code>参数。但由于某些智能合约交易可能存在对其他智能合约的调用，这时有可能出现预估<code>feelimit</code>参数不准确的情况。</p>
 <p>因此，GreatVoyage-v4.7.0.1(Aristotle)版本新增了一个能量预估接口<code>/wallet/estimateenergy</code>，利用该接口预估的<code>feelimit</code>在任何情况下都是可靠的。该接口返回值中的<code>energy_required</code>字段表示这笔智能合约调用交易执行成功所需要的能量预估量，用户根据该字段来计算<code>feelimit</code>参数：<code>feelimit</code> = <code>energy_required</code> * 能量单价， 当前能量单价是420sun 。</p>
 <p>如果由于某种原因导致预估接口执行失败时，<code>energy_required</code>字段值为0，在返回值中将不显示该字段，这时可以通过<code>result</code>字段查看预估失败原因。</p>
@@ -2084,13 +2118,13 @@ node.dynamicConfig.checkInterval = 600
 <ul>
 <li>源代码: <a href="https://github.com/tronprotocol/java-tron/pull/4873">https://github.com/tronprotocol/java-tron/pull/4873</a> </li>
 </ul>
-<h3 id="_9">其它变更<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
+<h3 id="_10">其它变更<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
 <h4 id="1_4">1. 优化编译参数<a class="headerlink" href="#1_4" title="Permanent link">&para;</a></h4>
 <p>GreatVoyage-v4.7.0.1(Aristotle)版本优化了Gradle编译参数，将JVM堆内存最小值设置成1G，以加快Java-tron gradle编译速度。</p>
 <ul>
 <li>源代码：  <a href="https://github.com/tronprotocol/java-tron/pull/4837">https://github.com/tronprotocol/java-tron/pull/4837</a> </li>
 </ul>
-<h4 id="2_7">2. 优化节点自动停止功能<a class="headerlink" href="#2_7" title="Permanent link">&para;</a></h4>
+<h4 id="2_8">2. 优化节点自动停止功能<a class="headerlink" href="#2_8" title="Permanent link">&para;</a></h4>
 <p>为了方便节点部署者进行数据备份或数据统计，从GreatVoyage-v4.5.1(Tertullian)版本开始，节点支持在特定的条件下停止运行，用户可以通过节点配置文件设置节点停止的条件，在满足设置的条件时，节点将停止运行。支持3个停止条件同时设置，满足任意个条件即停止节点。这三个条件包括区块时间、区块高度以和节点从启动到停止需要同步的区块数量， 但是由于允许同时设置多个停止条件，当用户只需要一个条件时，需要在配置文件中注释掉其他2个条件配置项，因此，如果用户忘记注释，可能出现节点停止在非预期的区块上。但实际并没有需要同时设置多个条件的应用场景，所以，GreatVoyage-v4.7.0.1(Aristotle)版本优化了节点自动停止功能，可选的配置参数不变，但是仅允许同时设置一个有效参数，如果节点部署者设置了多个参数，节点将报错并退出运行。该优化极大的简化了用户使用的复杂度。</p>
 <ul>
 <li>源代码：  <a href="https://github.com/tronprotocol/java-tron/pull/4853">https://github.com/tronprotocol/java-tron/pull/4853</a>
@@ -2131,7 +2165,7 @@ $ java -jar Toolkit.jar db copy -h
 <h2 id="greatvoyage-v460socrates">GreatVoyage-v4.6.0(Socrates)<a class="headerlink" href="#greatvoyage-v460socrates" title="Permanent link">&para;</a></h2>
 <p>GreatVoyage-v4.6.0(Socrates)版本引入了多个重要的优化和更新，优化的数据库检查点机制，提高了节点运行的稳定性；优化的资源代理关系存储结构，以及新的投票奖励计算模型，加快了交易的执行速度，提高了网络吞吐量；增加备注收费的提案，提高带备注交易的成本来减少低价值交易的数量，提升波场网络的安全性和可靠性。集成的toolkit工具包、新增的网络相关prometheus指标、新增的help命令行选项，为用户带来更便捷的开发体验。</p>
 <p>下面是详细介绍。</p>
-<h3 id="_10">核心协议<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
+<h3 id="_11">核心协议<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h3>
 <h4 id="1_5">1.  优化资源代理关系的存储结构<a class="headerlink" href="#1_5" title="Permanent link">&para;</a></h4>
 <p>TRON网络中，账户可以通过质押将资源代理给其它账户，也可以接受其它账户为自己的资源代理，因此，每个账户都需要维护一个代理关系的记录，包含该账户代理出去的所有账户地址，和为自己代理资源的所有账户地址。</p>
 <p>在GreatVoyage-v4.6.0(Socrates)之前的版本中，代理关系以列表的形式存储，当执行资源代理操作时，需要首先在列表中查找是否已经存在该代理账户，如果已经存在，则不需要添加到列表，只有当不存在时才将地址添加到列表中。如果某账户给多个其它账户代理了资源或者多个其它账户为自己代理了资源，那么该账户中的代理关系列表的长度将非常大，当执行涉及该账户的资源代理交易时，对列表的查找操作将非常耗时，导致交易执行时间很长。因此，GreatVoyage-v4.6.0(Socrates)版本优化了资源代理关系的存储结构，将代理关系存储结构从数组改为键值对，以实现在常量时间内完成对其数据的读取和更改，极大的加快了代理相关交易的执行速度，提高网络吞吐量。</p>
@@ -2140,7 +2174,7 @@ $ java -jar Toolkit.jar db copy -h
 <li>TIP: <a href="https://github.com/tronprotocol/tips/issues/476">https://github.com/tronprotocol/tips/issues/476</a> </li>
 <li>源代码：<a href="https://github.com/tronprotocol/java-tron/pull/4788">https://github.com/tronprotocol/java-tron/pull/4788</a> </li>
 </ul>
-<h4 id="2_8">2. 交易备注收费<a class="headerlink" href="#2_8" title="Permanent link">&para;</a></h4>
+<h4 id="2_9">2. 交易备注收费<a class="headerlink" href="#2_9" title="Permanent link">&para;</a></h4>
 <p>从GreatVoyage-v4.6.0(Socrates)版本开始，将对交易中的备注收取额外的费用，备注收费将提高带备注交易的成本，减少低价值交易的数量，提升波场网络的安全性和可靠性。</p>
 <p>备注费用是TRON网络的一个动态参数，GreatVoyage-v4.6.0(Socrates)部署之后默认为0，单位是 sun， 可以通过发起提案投票指定一个非0值来开启，例如设置为1000000， 表示带备注的交易需要额外消耗1 TRX费用。</p>
 <ul>
@@ -2176,7 +2210,7 @@ $ java -jar Toolkit.jar db copy -h
 <ul>
 <li>源代码：<a href="https://github.com/tronprotocol/java-tron/pull/4620">https://github.com/tronprotocol/java-tron/pull/4620</a> <a href="https://github.com/tronprotocol/java-tron/pull/4622">https://github.com/tronprotocol/java-tron/pull/4622</a> </li>
 </ul>
-<h3 id="_11">其它变更<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h3>
+<h3 id="_12">其它变更<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
 <h4 id="1-archivemanifestjartoolkitjar">1. 集成ArchiveManifest.jar到Toolkit.jar工具包<a class="headerlink" href="#1-archivemanifestjartoolkitjar" title="Permanent link">&para;</a></h4>
 <p>ArchiveManifest.jar是一个独立的LevelDB启动优化工具， 可以优化 LevelDB manifest的文件大小，从而减少内存占用，大幅提升节点启动速度。从 GreatVoyage-v4.6.0(Socrates)版本开始，将ArchiveManifest.jar工具集成到了Toolkit.jar工具中，未来Java-tron周边的工具将逐步都集成到Toolkit.jar工具箱中，以便于工具维护和开发者使用。</p>
 <ul>
@@ -2235,12 +2269,12 @@ VIRTUAL MACHINE OPTIONS:
 
 <h2 id="greatvoyage-v452aurelius">GreatVoyage-v4.5.2(Aurelius)<a class="headerlink" href="#greatvoyage-v452aurelius" title="Permanent link">&para;</a></h2>
 <p>GreatVoyage-v4.5.2(Aurelius)版本引入了多个重要的优化更新，优化的交易缓存机制，大幅减少了内存占用，提高了节点性能；优化的对等节点连接策略，提高了对等节点间建立连接的效率，加快了节点同步进程；优化的区块生产及处理逻辑，提高了节点稳定性；新增的数据库存储分区工具，减轻了数据存储压力；新增的区块头查询API以及历史带宽单价查询API，为用户带来更便捷的开发体验。</p>
-<h3 id="_12">核心协议<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
+<h3 id="_13">核心协议<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h3>
 <h4 id="1_6">1. 优化区块处理逻辑<a class="headerlink" href="#1_6" title="Permanent link">&para;</a></h4>
 <p>在GreatVoyage-v4.5.2(Aurelius)之前的版本中，区块生产、区块处理及交易处理等线程共同竞争同步锁，而在高并发，并且交易执行时间较长的情况下，区块生产或者区块处理线程获取到同步锁所需要的时间较长，从而导致小概率丢块事件的发生。为了提高节点稳定性，GreatVoyage-v4.5.2(Aurelius)版本优化了区块处理逻辑中的同步锁，仅允许一个交易处理线程与区块生产或处理线程竞争同步锁，并且当交易处理线程发现有区块相关线程在等待同步锁时，会主动退让，这大大提高了区块生产和区块处理线程获取到同步锁的概率，保证了节点高吞吐、稳定的运行。</p>
 <p>TIP: https://github.com/tronprotocol/tips/blob/master/tip-428.md
 源代码: https://github.com/tronprotocol/java-tron/pull/4551 </p>
-<h4 id="2_9">2. 优化交易缓存机制<a class="headerlink" href="#2_9" title="Permanent link">&para;</a></h4>
+<h4 id="2_10">2. 优化交易缓存机制<a class="headerlink" href="#2_10" title="Permanent link">&para;</a></h4>
 <p>节点使用交易缓存来判断新收到交易是否是重复交易，在GreatVoyage-v4.5.2(Aurelius)之前的版本中，交易缓存是一个hashmap数据结构，该结构会保存最近65536个区块中的交易，hashmap会为每一条交易单独分配内存，因此，在节点运行过程中，交易缓存占据了约2G内存空间，而且由于频繁的内存申请会触发频繁的JVM垃圾回收，也间接影响着节点的性能。为此，GreatVoyage-v4.5.2(Aurelius)版本优化了交易缓存的实现，采用布隆过滤器代替hashmap，布隆过滤器使用固定且极小的内存空间来记录最近的历史交易，极大的减少了交易缓存对内存的占用，提高了节点性能。</p>
 <p>TIP: https://github.com/tronprotocol/tips/blob/master/tip-440.md
 源代码：https://github.com/tronprotocol/java-tron/pull/4538  </p>
@@ -2268,7 +2302,7 @@ https://github.com/tronprotocol/java-tron/pull/4552 </p>
 <h4 id="2-api_1">2. 新增历史带宽单价查询API<a class="headerlink" href="#2-api_1" title="Permanent link">&para;</a></h4>
 <p>根据带宽消耗规则，如果交易发起者账户通过质押获得的带宽或者免费带宽不足时，将燃烧TRX来支付带宽费用，这时，在交易记录中仅记录带宽费用，而不记录带宽消耗量，为了了解历史交易的带宽消耗量，从GreatVoyage-v4.5.2(Aurelius)版本开始，新增历史带宽单价查询API <code>/wallet/getbandwidthprices</code>，用户可以通过该接口获取到带宽代价的历史记录，从而可以计算出历史交易的带宽消耗量。</p>
 <p>源代码：https://github.com/tronprotocol/java-tron/pull/4556 </p>
-<h3 id="_13">其它变更<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h3>
+<h3 id="_14">其它变更<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h3>
 <h4 id="1_7">1. 优化区块同步逻辑<a class="headerlink" href="#1_7" title="Permanent link">&para;</a></h4>
 <p>GreatVoyage-v4.5.2(Aurelius)版本优化了区块同步逻辑，避免了在同步区块过程中不必要的节点断连，提高了节点稳定性。</p>
 <p>源代码：https://github.com/tronprotocol/java-tron/pull/4542 
@@ -2286,7 +2320,7 @@ https://github.com/tronprotocol/java-tron/pull/4556 </p>
 
 <h2 id="greatvoyage-v451tertullian">GreatVoyage-v4.5.1(Tertullian)<a class="headerlink" href="#greatvoyage-v451tertullian" title="Permanent link">&para;</a></h2>
 <p>GreatVoyage-v4.5.1(Tertullian)版本引入多个重要的优化更新，优化的交易缓存加载流程，加快了节点启动速度；优化的获取区块逻辑和轻节点同步逻辑，提升了节点的稳定性；优化的账户资产结构和TVM存储结构，提升了交易的处理速度，从而进一步提高了节点的性能；支持prometheus协议接口为用户带来更便捷的开发体验，有助于进一步繁荣波场生态。</p>
-<h3 id="_14">核心协议<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h3>
+<h3 id="_15">核心协议<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h3>
 <h4 id="1_8">1. 优化交易缓存的加载<a class="headerlink" href="#1_8" title="Permanent link">&para;</a></h4>
 <p>GreatVoyage-v4.5.1(Tertullian)之前版本，从节点启动到区块同步需要较长的时间，其中交易缓存的加载占用了大部分的节点启动时间。交易缓存被节点用来判断一个交易是否是重复的交易，因此在节点启动过程中，需要将交易缓存从数据库加载到内存，而在GreatVoyage-v4.5.1(Tertullian)之前的版本中，交易缓存的加载是以交易为存储单元进行数据库读取的，因此读取的数据量较大，整个读取过程较耗时。</p>
 <p>为了加快节点启动速度，GreatVoyage-v4.5.1(Tertullian)版本优化了交易缓存的加载方式，通过以区块为存储单元进行数据库读取，减少了数据库读取的次数，提高了交易缓存加载的效率，提升了节点启动的速度。</p>
@@ -2329,7 +2363,7 @@ https://github.com/tronprotocol/java-tron/pull/4556 </p>
 
 <h2 id="greatvoyage-v446david">GreatVoyage-v4.4.6(David)<a class="headerlink" href="#greatvoyage-v446david" title="Permanent link">&para;</a></h2>
 <p>GreatVoyage-v4.4.6(David)更新了使用的fastjson依赖库版本，保证了使用fastjson的安全性。</p>
-<h3 id="_15">其它变更<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h3>
+<h3 id="_16">其它变更<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h3>
 <h4 id="1-fastjson">1. 更新fastjson依赖库到最新版本<a class="headerlink" href="#1-fastjson" title="Permanent link">&para;</a></h4>
 <p>由于fastjson1.2.80及之前的版本存在安全漏洞，因此，GreatVoyage-v4.4.6(David)版本将fastjson依赖库的版本更新到1.2.83，并且开启fastjson的<code>safemode</code>模式，保证了使用fastjson的安全性。</p>
 <p>源代码：https://github.com/tronprotocol/java-tron/pull/4393 </p>
@@ -2339,7 +2373,7 @@ https://github.com/tronprotocol/java-tron/pull/4556 </p>
 
 <h2 id="greatvoyage-445cicero">GreatVoyage-4.4.5(Cicero)<a class="headerlink" href="#greatvoyage-445cicero" title="Permanent link">&para;</a></h2>
 <p>GreatVoyage-v4.4.5(Cicero)版本优化了节点的查询接口，使其过滤掉无效字段，保证了接口解析数据的稳定性。</p>
-<h3 id="_16">其它变更<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h3>
+<h3 id="_17">其它变更<a class="headerlink" href="#_17" title="Permanent link">&para;</a></h3>
 <h4 id="1_9">1. 优化节点查询接口<a class="headerlink" href="#1_9" title="Permanent link">&para;</a></h4>
 <p>GreatVoyage-v4.5.0(Cicero)版本优化了节点的查询接口，在解析获取到的数据时，节点将过滤掉无效字段，保证接口数据的正常返回。</p>
 <p>源代码: https://github.com/tronprotocol/java-tron/pull/4349 </p>
@@ -2349,12 +2383,12 @@ https://github.com/tronprotocol/java-tron/pull/4556 </p>
 
 <h2 id="greatvoyage-444plotinus">GreatVoyage-4.4.4(Plotinus)<a class="headerlink" href="#greatvoyage-444plotinus" title="Permanent link">&para;</a></h2>
 <p>GreatVoyage-v4.4.4(Plotinus)版本引入多个重要的优化更新，降低了节点对内存的占用；加快了节点启动速度；优化的网络服务、产块线程，提升了节点的稳定性；改进的版本升级机制，实现了更高效的分散治理；TVM支持多版本程序执行器，使其更好的兼容EVM，为用户带来更便捷的开发体验，有助于进一步繁荣波场生态。</p>
-<h3 id="_17">核心协议<a class="headerlink" href="#_17" title="Permanent link">&para;</a></h3>
+<h3 id="_18">核心协议<a class="headerlink" href="#_18" title="Permanent link">&para;</a></h3>
 <h4 id="1_10">1. 优化节点启动时间<a class="headerlink" href="#1_10" title="Permanent link">&para;</a></h4>
 <p>GreatVoyage-v4.4.4(Plotinus)之前的版本，节点从启动到区块同步，需要执行约一分钟左右，区块同步线程首先会延迟30s来等待P2P线程发现其他远端节点， 然后与发现的节点建立TCP链接，最后进行区块同步，而这段延迟时间占据了大部分的启动时间。实际上每一次新发现的节点都会被持久化到本地，所以第二次节点启动时无需花额外时间去等待节点发现，完全可以使用之前持久化到本地的节点进行TCP连接, 因此从GreatVoyage-v4.4.4(Plotinus)版本开始，将等待节点发现的时间从30s降低到100ms, 以提升节点启动的速度。</p>
 <p>TIP: https://github.com/tronprotocol/tips/blob/master/tip-366.md 
 源代码: https://github.com/tronprotocol/java-tron/pull/4254  </p>
-<h4 id="2_10">2. 优化内存使用<a class="headerlink" href="#2_10" title="Permanent link">&para;</a></h4>
+<h4 id="2_11">2. 优化内存使用<a class="headerlink" href="#2_11" title="Permanent link">&para;</a></h4>
 <p>节点在广播交易时，为了避免重复广播，会将相应的交易存储到广播数据缓存池中, 但是由于JVM的回收策略限制，旧的缓存数据不能被及时删除，直至缓存池被占满才会触发旧数据回收，因此，容量较大的缓存池将极大的占用内存。在GreatVoyage-v4.4.4(Plotinus)之前的版本中，交易缓存池大小为100000笔。为了及时释放过期交易所占内存，GreatVoyage-v4.4.4(Plotinus)版本将交易缓存池大小更改为20000笔，以减少内存占用。</p>
 <p>TIP: https://github.com/tronprotocol/tips/blob/master/tip-362.md 
 源代码: https://github.com/tronprotocol/java-tron/pull/4250 </p>
@@ -2366,11 +2400,11 @@ https://github.com/tronprotocol/java-tron/pull/4556 </p>
 <p>为了使TRON网络未来能够支持多种类型的智能合约交易，GreatVoyage-v4.4.4(Plotinus)将TVM代码进行了重构，能够支持根据智能合约的版本信息，选择其对应的指令集来解释执行该版本的智能合约的字节码。</p>
 <p>源代码：https://github.com/tronprotocol/java-tron/pull/4257 
                  https://github.com/tronprotocol/java-tron/pull/4259 </p>
-<h3 id="_18">其它变更<a class="headerlink" href="#_18" title="Permanent link">&para;</a></h3>
+<h3 id="_19">其它变更<a class="headerlink" href="#_19" title="Permanent link">&para;</a></h3>
 <h4 id="1_11">1. 优化节点日志存储<a class="headerlink" href="#1_11" title="Permanent link">&para;</a></h4>
 <p>GreatVoyage-v4.4.4(Plotinus)版本修改了节点日志保留的时间，从3天增加到7天，以方便用户排查问题。</p>
 <p>源代码：https://github.com/tronprotocol/java-tron/pull/4245 </p>
-<h4 id="2_11">2. 优化网络服务关闭逻辑<a class="headerlink" href="#2_11" title="Permanent link">&para;</a></h4>
+<h4 id="2_12">2. 优化网络服务关闭逻辑<a class="headerlink" href="#2_12" title="Permanent link">&para;</a></h4>
 <p>GreatVoyage-v4.4.4(Plotinus)版本优化了网络服务关闭逻辑，先关闭同步服务，再关闭TCP连接服务，以确保所有P2P连接相关服务安全退出。</p>
 <p>源代码：https://github.com/tronprotocol/java-tron/pull/4220 </p>
 <h4 id="3-java-tron">3. 改进Java-tron升级机制<a class="headerlink" href="#3-java-tron" title="Permanent link">&para;</a></h4>
@@ -2392,7 +2426,7 @@ https://github.com/tronprotocol/java-tron/pull/4556 </p>
 <p>从GreatVoyage-v4.4.2(Augustinus)版本开始，对于兼容以太坊网络的JSON-RPC API，新增了log filter相关的APIs。</p>
 <p>TIP: https://github.com/tronprotocol/tips/issues/343 
 源代码：https://github.com/tronprotocol/java-tron/pull/4153 </p>
-<h3 id="_19">其它变更<a class="headerlink" href="#_19" title="Permanent link">&para;</a></h3>
+<h3 id="_20">其它变更<a class="headerlink" href="#_20" title="Permanent link">&para;</a></h3>
 <h4 id="1-leveldb">1. LevelDB数据库性能优化<a class="headerlink" href="#1-leveldb" title="Permanent link">&para;</a></h4>
 <p>从GreatVoyage-v4.4.2(Augustinus)版本开始，根据数据库的读写频繁程度，对各个LevelDB数据库进行个性化参数设置，大幅提升数据库的性能。
 源代码：https://github.com/tronprotocol/java-tron/pull/4154 </p>
@@ -2402,7 +2436,7 @@ https://github.com/tronprotocol/java-tron/pull/4556 </p>
 
 <h2 id="greatvoyage-440rousseau">GreatVoyage-4.4.0(Rousseau)<a class="headerlink" href="#greatvoyage-440rousseau" title="Permanent link">&para;</a></h2>
 <p>GreatVoyage-v4.4.0(Rousseau)版本引入了多个重要的更新：区块广播的优化将使区块可以更快的广播到全网；<code>dynamic store</code>的查询性能优化以及数据库参数的优化将大幅提升区块处理速度，进而提升java-tron的性能；节点API定制化使得节点配置更加灵活以适应不同的应用场景；TVM也将更好的兼容EVM并适配以太坊London升级，全新的JSON-RPC API将为开发者们带来更好的开发体验，帮助开发者们更容易的加入到波场生态，促进波场生态繁荣。</p>
-<h3 id="_20">核心协议<a class="headerlink" href="#_20" title="Permanent link">&para;</a></h3>
+<h3 id="_21">核心协议<a class="headerlink" href="#_21" title="Permanent link">&para;</a></h3>
 <h4 id="1_12">1. 优化区块广播<a class="headerlink" href="#1_12" title="Permanent link">&para;</a></h4>
 <p>在GreatVoyage-v4.4.0(Rousseau)之前的版本中，区块处理的逻辑是：验证区块-&gt;处理区块-&gt;广播区块。但由于区块处理时间较长，广播区块时有延迟。为了加快区块广播，GreatVoyage-v4.4.0(Rousseau)版本将区块处理逻辑更改为：验证区块-&gt;广播区块-&gt;处理区块，以使区块可以快速广播至全网。</p>
 <p>TIP: https://github.com/tronprotocol/tips/blob/master/tip-289.md 
@@ -2449,7 +2483,7 @@ https://github.com/tronprotocol/java-tron/pull/4556 </p>
 -  <code>callvalue</code>和 <code>tokenvalue</code> 非零值将不会产生执行异常
 - <code>TransactionExtention</code> 中增加事件列表和内部交易列表 </p>
 <p>源代码： https://github.com/tronprotocol/java-tron/pull/4032 </p>
-<h3 id="_21">其它变更<a class="headerlink" href="#_21" title="Permanent link">&para;</a></h3>
+<h3 id="_22">其它变更<a class="headerlink" href="#_22" title="Permanent link">&para;</a></h3>
 <h4 id="1-bttc">1. 升级事件插件以支持<code>BTTC</code><a class="headerlink" href="#1-bttc" title="Permanent link">&para;</a></h4>
 <p>GreatVoyage-v4.4.0(Rousseau)中升级了事件插件，升级后的事件插件将支持<code>BTTC</code>。</p>
 <p>源代码：https://github.com/tronprotocol/java-tron/pull/4067 </p>
@@ -2466,7 +2500,7 @@ https://github.com/tronprotocol/java-tron/pull/4556 </p>
 
 <h2 id="greatvoyage-430bacon">GreatVoyage-4.3.0(Bacon)<a class="headerlink" href="#greatvoyage-430bacon" title="Permanent link">&para;</a></h2>
 <p>GreatVoyage-v4.3.0(Bacon)版本引入多个重要的优化更新，<code>FREE_NET_LIMIT</code> 和 <code>TOTAL_NET_LIMIT</code> 的可配置化有助于TRON社区完成更好的链上治理；全新的TVM指令和ABI类型使智能合约的使用场景更加丰富；全新的加密算法库提高了TRON网络的安全性；Account数据存储、交易验证流程的优化提升了交易处理速度和区块验证速度，从而大幅提高TRON网络的性能；节点启动速度的优化将为用户带来更好的体验，进一步繁荣波场生态。</p>
-<h3 id="_22">核心协议<a class="headerlink" href="#_22" title="Permanent link">&para;</a></h3>
+<h3 id="_23">核心协议<a class="headerlink" href="#_23" title="Permanent link">&para;</a></h3>
 <h4 id="1_13">1. 账户每天的免费带宽额度可配置<a class="headerlink" href="#1_13" title="Permanent link">&para;</a></h4>
 <p>在GreatVoyage-v4.3.0(Bacon)之前的版本中，账户每天的免费带宽额度固定为5000。GreatVoyage-v4.3.0(Bacon)版本增加了#61提案 <code>FREE_NET_LIMIT</code>，使免费带宽额度可配置。超级代表和超级合伙人可针对61号提案发起投票请求来修改<code>FREE_NET_LIMIT</code>，<code>FREE_NET_LIMIT</code>的范围是[0, 100,000]</p>
 <ul>
@@ -2516,7 +2550,7 @@ GreatVoyage-v4.3.0(Bacon)版本为<code>TransactionExtention</code>新增<code>e
 <ul>
 <li>源代码：https://github.com/tronprotocol/java-tron/pull/3940 </li>
 </ul>
-<h3 id="_23">其它变更<a class="headerlink" href="#_23" title="Permanent link">&para;</a></h3>
+<h3 id="_24">其它变更<a class="headerlink" href="#_24" title="Permanent link">&para;</a></h3>
 <h4 id="1-bouncycastle">1. 更新BouncyCastle为加密算法程序库<a class="headerlink" href="#1-bouncycastle" title="Permanent link">&para;</a></h4>
 <p>由于SpongyCastle已经不再被维护，从GreatVoyage-v4.3.0(Bacon)版本开始，采用Bouncy Castle作为加密算法的程序库。</p>
 <ul>
@@ -2556,7 +2590,7 @@ GreatVoyage-v4.3.0(Bacon)引入了leveldb 启动优化插件，插件优化了ma
 
 <h2 id="greatvoyage-4221epictetus">GreatVoyage-4.2.2.1(Epictetus)<a class="headerlink" href="#greatvoyage-4221epictetus" title="Permanent link">&para;</a></h2>
 <p>GreatVoyage-v4.2.2.1(Epictetus) 版本已发布， 主要新功能和修改如下：</p>
-<h3 id="_24">核心协议<a class="headerlink" href="#_24" title="Permanent link">&para;</a></h3>
+<h3 id="_25">核心协议<a class="headerlink" href="#_25" title="Permanent link">&para;</a></h3>
 <h4 id="1pending-transaction">1、优化<code>pending transaction</code>的处理逻辑。<a class="headerlink" href="#1pending-transaction" title="Permanent link">&para;</a></h4>
 <p>在GreatVoyage-v4.2.2.1(Epictetus) 之前的版本中，如果节点如果开启了事件订阅服务，会有小概率发生节点同步异常的问题。</p>
 <p>GreatVoyage-v4.2.2.1(Epictetus) 版本对<code>pending transaction</code>的处理逻辑进行了优化，修复了该同步异常的问题，提升了事件订阅服务的稳定性。</p>
@@ -2570,7 +2604,7 @@ GreatVoyage-v4.3.0(Bacon)引入了leveldb 启动优化插件，插件优化了ma
 
 <h2 id="greatvoyage-422lucretius">GreatVoyage-4.2.2(Lucretius)<a class="headerlink" href="#greatvoyage-422lucretius" title="Permanent link">&para;</a></h2>
 <p>GreatVoyage-v4.2.2(Lucretius)版本引入了3个重要的优化更新，区块处理的优化有效得提高区块的执行速度，从而大幅提高TRON网络的性能，高效的HTTP/RPC查询和更高性能TVM将为TRON DAPP用户带来更好的体验，进一步繁荣波场生态。</p>
-<h3 id="_25">核心协议<a class="headerlink" href="#_25" title="Permanent link">&para;</a></h3>
+<h3 id="_26">核心协议<a class="headerlink" href="#_26" title="Permanent link">&para;</a></h3>
 <h4 id="1_15">1、优化区块处理。<a class="headerlink" href="#1_15" title="Permanent link">&para;</a></h4>
 <p>在GreatVoyage-v4.2.2(Lucretius)之前的版本中，区块处理过程中为了获取witness列表，执行了多次数据库查询和反序列化操作，这部分操作占用了近1/3的区块处理时间。</p>
 <p>GreatVoyage-v4.2.2(Lucretius)版本简化了witness的查询，区块处理过程只需一次查询即可获取witness列表，经过测试，本次优化大幅提升了区块处理性能。</p>
@@ -2578,7 +2612,7 @@ GreatVoyage-v4.3.0(Bacon)引入了leveldb 启动优化插件，插件优化了ma
 <li>TIP： <a href="https://github.com/tronprotocol/tips/blob/master/tip-269.md">TIP-269</a></li>
 <li>源代码:  <a href="https://github.com/tronprotocol/java-tron/pull/3827">#3827</a></li>
 </ul>
-<h4 id="2_12">2、优化数据查询。<a class="headerlink" href="#2_12" title="Permanent link">&para;</a></h4>
+<h4 id="2_13">2、优化数据查询。<a class="headerlink" href="#2_13" title="Permanent link">&para;</a></h4>
 <p>在GreatVoyage-v4.2.2(Lucretius)之前的版本中，多个HTTP或RPC对链上数据的查询是互斥的，如果有查询请求正在处理，新的查询请求会等待之前的请求完成以后才会被处理。</p>
 <p>实际上，查询数据的方法中并没有使用到共享数据, 所以并不需要加锁操作。本次优化去除了查询过程中不必要的同步锁，大幅提高了节点内部查询、HTTP和RPC的查询请求性能。</p>
 <ul>
@@ -2592,7 +2626,7 @@ GreatVoyage-v4.3.0(Bacon)引入了leveldb 启动优化插件，插件优化了ma
 <li>TIP： <a href="https://github.com/tronprotocol/tips/blob/master/tip-268.md">TIP-268</a></li>
 <li>源代码:  <a href="https://github.com/tronprotocol/java-tron/pull/3836">#3836</a></li>
 </ul>
-<h3 id="_26">其他变更<a class="headerlink" href="#_26" title="Permanent link">&para;</a></h3>
+<h3 id="_27">其他变更<a class="headerlink" href="#_27" title="Permanent link">&para;</a></h3>
 <h4 id="1batchvalidatesign">1、优化系统合约<code>BatchValidateSign</code>的初始化流程。<a class="headerlink" href="#1batchvalidatesign" title="Permanent link">&para;</a></h4>
 <ul>
 <li>源代码:  <a href="https://github.com/tronprotocol/java-tron/pull/3836">#3836</a></li>
@@ -2603,7 +2637,7 @@ GreatVoyage-v4.3.0(Bacon)引入了leveldb 启动优化插件，插件优化了ma
 </p>
 <h2 id="greatvoyage-420plato">GreatVoyage-4.2.0(Plato)<a class="headerlink" href="#greatvoyage-420plato" title="Permanent link">&para;</a></h2>
 <p>GreatVoyage-4.2.0(Plato)版本引入了2个重要的更新，资源模型的优化将大福提升波场网络资源使用率，使资源获取方式更加合理。全新的TVM指令使智能合约的使用场景更加丰富，将进一步丰富波场生态。</p>
-<h3 id="_27">核心协议<a class="headerlink" href="#_27" title="Permanent link">&para;</a></h3>
+<h3 id="_28">核心协议<a class="headerlink" href="#_28" title="Permanent link">&para;</a></h3>
 <h4 id="1_16">1、资源模型优化。<a class="headerlink" href="#1_16" title="Permanent link">&para;</a></h4>
 <p>GreatVoyage-4.2.0(Plato)版本之前，用户通过质押TRX获取大额投票权的同时，也获得了大量的能量和带宽，而这部分资源的使用率极低，大多数处于闲置状态，增加了开发者们获取资源的成本，为了提高资源的利用率，GreatVoyage-4.2.0(Plato)版本提出了一种新的资源优化模型，质押TRX只获得带宽，能量，投票权三种资源中的一种，用户可以根据自己的需求获取相应的资源，从而提升资源的利用率。</p>
 <ul>
@@ -2625,7 +2659,7 @@ GreatVoyage-v4.3.0(Bacon)引入了leveldb 启动优化插件，插件优化了ma
   * TVM的质押指令目前可以获取带宽和能量，对于投票权，需要在TVM支持投票指令以后才可以获取并使用。
   * Freeze/Unfreeze指令中的接收地址/目标地址都必须是<code>address payable</code> 类型，且接收地址/目标地址不能是合约地址（合约自身地址除外）。
   * 如果调用合约给未激活地址代理资源会自动激活目标账户，同时额外扣除25,000能量作为账户激活成本。</p>
-<h3 id="_28">其他变更<a class="headerlink" href="#_28" title="Permanent link">&para;</a></h3>
+<h3 id="_29">其他变更<a class="headerlink" href="#_29" title="Permanent link">&para;</a></h3>
 <h4 id="1_17">1、优化区块同步逻辑<a class="headerlink" href="#1_17" title="Permanent link">&para;</a></h4>
 <ul>
 <li>源代码：<a href="https://github.com/tronprotocol/java-tron/pull/3732">#3732</a></li>
@@ -2636,7 +2670,7 @@ GreatVoyage-v4.3.0(Bacon)引入了leveldb 启动优化插件，插件优化了ma
 
 <h2 id="greatvoyage-413thales">GreatVoyage-4.1.3(Thales)<a class="headerlink" href="#greatvoyage-413thales" title="Permanent link">&para;</a></h2>
 <p>GreatVoyage-4.1.3(Thales)版本主要有以下新功能和修改：</p>
-<h3 id="_29">核心协议<a class="headerlink" href="#_29" title="Permanent link">&para;</a></h3>
+<h3 id="_30">核心协议<a class="headerlink" href="#_30" title="Permanent link">&para;</a></h3>
 <h4 id="1sr">1.对待打包的交易进行排序，SR优先打包费用较高的交易<a class="headerlink" href="#1sr" title="Permanent link">&para;</a></h4>
 <p>在GreatVoyage-4.1.2及之前版本中，SR打包交易是按照交易到达的时间顺序进行的，这很容易受到低交易费用的攻击。</p>
 <p>本次优化后，出块节点根据费用对待打包的交易进行排序，然后优先打包费用较高的交易， 防止低交易费用攻击。</p>
@@ -2651,14 +2685,14 @@ GreatVoyage-v4.3.0(Bacon)引入了leveldb 启动优化插件，插件优化了ma
 <p>Great Voyage-v4.1.3 (Thales) 版本的交易打包逻辑的优化将有效减少低费用攻击，极大提升TRON公链的安全性。</p>
 <h2 id="great-voyage-v412">Great Voyage - v4.1.2<a class="headerlink" href="#great-voyage-v412" title="Permanent link">&para;</a></h2>
 <p>GreatVoyage-4.1.2版本发布， 本次升级主要有以下新功能和修改：</p>
-<h3 id="_30">一、核心协议<a class="headerlink" href="#_30" title="Permanent link">&para;</a></h3>
+<h3 id="_31">一、核心协议<a class="headerlink" href="#_31" title="Permanent link">&para;</a></h3>
 <h4 id="1out_of_timesr">1、将燃烧带宽/燃烧能量（OUT_OF_TIME除外）的手续费转为SR产块奖励。<a class="headerlink" href="#1out_of_timesr" title="Permanent link">&para;</a></h4>
 <p>该功能开启后，燃烧带宽/燃烧能量（OUT_OF_TIME除外）的手续费将转入到TRANSACTION_FEE_POOL，在块中所有交易处理完成后，按照SR设定的比例转发给当前产块SR及该SR的投票者。同时在transactioninfo中，增加packingFee字段，用于表示当前产块SR和该SR的投票者可获取的费用。</p>
 <ul>
 <li>TIP：<a href="https://github.com/tronprotocol/tips/issues/196">TIP-196</a></li>
 <li>源代码:  <a href="https://github.com/tronprotocol/java-tron/pull/3532">#3532</a></li>
 </ul>
-<h4 id="2_13">2、新增账户历史余额查询功能。<a class="headerlink" href="#2_13" title="Permanent link">&para;</a></h4>
+<h4 id="2_14">2、新增账户历史余额查询功能。<a class="headerlink" href="#2_14" title="Permanent link">&para;</a></h4>
 <p>账户历史余额查询功能可以方便开发者查询账户在特定区块高度的余额信息，开发者可以通过以下两个API获取到账户的历史余额信息。</p>
 <ul>
 <li>/wallet/getaccountbalance ：获取账户在特定区块高度的余额</li>
@@ -2689,25 +2723,25 @@ GreatVoyage-v4.3.0(Bacon)引入了leveldb 启动优化插件，插件优化了ma
 <li>TIP： <a href="https://github.com/tronprotocol/tips/issues/204">TIP-204</a> </li>
 <li>源代码：  <a href="https://github.com/tronprotocol/java-tron/pull/3534">#3534</a></li>
 </ul>
-<h3 id="_31">三、其他变更<a class="headerlink" href="#_31" title="Permanent link">&para;</a></h3>
+<h3 id="_32">三、其他变更<a class="headerlink" href="#_32" title="Permanent link">&para;</a></h3>
 <h4 id="1jitpack-java-tron">1、使用jitpack仓库提供依赖支持，方便开发者的项目使用 java-tron 作为依赖。<a class="headerlink" href="#1jitpack-java-tron" title="Permanent link">&para;</a></h4>
 <ul>
 <li>源代码： <a href="https://github.com/tronprotocol/java-tron/pull/3554">#3554</a></li>
 </ul>
 <h2 id="greatvoyage-v411">GreatVoyage-v4.1.1<a class="headerlink" href="#greatvoyage-v411" title="Permanent link">&para;</a></h2>
 <p>GreatVoyage-4.1.1版本发布， 本次升级主要有以下新功能和修改：</p>
-<h3 id="_32">核心协议<a class="headerlink" href="#_32" title="Permanent link">&para;</a></h3>
-<h4 id="_33">新的共识协议<a class="headerlink" href="#_33" title="Permanent link">&para;</a></h4>
+<h3 id="_33">核心协议<a class="headerlink" href="#_33" title="Permanent link">&para;</a></h3>
+<h4 id="_34">新的共识协议<a class="headerlink" href="#_34" title="Permanent link">&para;</a></h4>
 <p>新的共识机制将波场现有的DPOS共识同PBFT共识机制进行结合，在区块固化阶段采用PBFT的三阶段投票机制进行确认。波场区块从生产出来到固化确认的时间将从原来的19个区块时间（1个区块时间为3s）缩短至平均1～2个区块时间，区块确认速度大幅提升。
 - TIP: <a href="https://github.com/tronprotocol/tips/blob/master/tp/ticp/ticp-optimized-pbft/ticp-Optimized-PBFT.md">TICP-Optimized-PBFT</a> 
 - 源代码: <a href="https://github.com/tronprotocol/java-tron/pull/3082">#3082</a> </p>
-<h4 id="_34">新的节点类型<a class="headerlink" href="#_34" title="Permanent link">&para;</a></h4>
+<h4 id="_35">新的节点类型<a class="headerlink" href="#_35" title="Permanent link">&para;</a></h4>
 <p>在现有FullNode的基础上新增了一种节点类型：Lite FullNode。Lite FullNode和普通的FullNode运行同样的代码，所不同的是Lite FullNode是基于状态数据快照进行启动，状态数据快照包含所有的状态数据和最近的256个区块的历史数据。
 状态数据快照可以通过执行LiteFullNodeTool.jar进行获得（请参考：<a href="https://tronprotocol.github.io/documentation-zh/developers/litefullnode/">如何使用LiteFullNode Tool</a>）。
 - TIP: <a href="https://github.com/tronprotocol/tips/blob/master/tip-128.md">TIP-128</a> 
 - 源代码: <a href="https://github.com/tronprotocol/java-tron/pull/3031">#3031</a> </p>
 <h3 id="tvm_9">TVM<a class="headerlink" href="#tvm_9" title="Permanent link">&para;</a></h3>
-<h4 id="_35">对以太坊的伊斯坦布尔升级进行兼容<a class="headerlink" href="#_35" title="Permanent link">&para;</a></h4>
+<h4 id="_36">对以太坊的伊斯坦布尔升级进行兼容<a class="headerlink" href="#_36" title="Permanent link">&para;</a></h4>
 <p>a. 增加新的指令CHAINID，用于获取当前链的创世区块id，防止交易在不同链上潜在的重放攻击风险。
 - TIP: <a href="https://github.com/tronprotocol/tips/blob/master/tip-174.md">TIP-174</a>
 - 源代码: <a href="https://github.com/tronprotocol/java-tron/pull/3351">#3351</a> </p>
@@ -2719,11 +2753,11 @@ TIP: <a href="https://github.com/tronprotocol/tips/blob/master/tip-175.md">TIP-1
 修改预编译合约指令BN128Pairing消耗的能量费用，从(80000 * pairs + 100000) energy降低为(34000 * pairs + 45000) energy。
 TIP: <a href="https://github.com/tronprotocol/tips/blob/master/tip-176.md">TIP-176</a> 
 源代码: <a href="https://github.com/tronprotocol/java-tron/pull/3351">#3351</a> </p>
-<h3 id="_36">机制<a class="headerlink" href="#_36" title="Permanent link">&para;</a></h3>
+<h3 id="_37">机制<a class="headerlink" href="#_37" title="Permanent link">&para;</a></h3>
 <p>1、增加了两个新的系统合约MarketSellAssetContract和MarketCancelOrderContract用于支持TRX、TRC10资产在链上去中心化交易所进行交易。
 - TIP: <a href="https://github.com/tronprotocol/tips/blob/master/tip-127.md">TIP-127</a>
 - 源代码: <a href="https://github.com/tronprotocol/java-tron/pull/3302">#3302</a> </p>
-<h3 id="_37">其他变更<a class="headerlink" href="#_37" title="Permanent link">&para;</a></h3>
+<h3 id="_38">其他变更<a class="headerlink" href="#_38" title="Permanent link">&para;</a></h3>
 <p>1、增加了多个节点性能指标数据。
 - 源代码: <a href="https://github.com/tronprotocol/java-tron/pull/3350">#3350</a> </p>
 <p>2、在原有的transactionInfo接口中增加了市场订单详情的信息。
@@ -2739,9 +2773,9 @@ TIP: <a href="https://github.com/tronprotocol/tips/blob/master/tip-176.md">TIP-1
 <li>匿名地址到公开地址交易(burn)： z-addr到t-addr的交易，z-addr的信息是隐藏的，t-addr的信息是公开的。</li>
 </ul>
 <p>为支持匿名 TRC20 合约，TVM 中添加了四个新零知识指令（<code>verifyMintProof</code>, <code>verifyTransferProof</code>, <code>verifyBurnProof</code>  及  <code>pedersenHash</code>），可以为任意 TRC20 合约提供隐私保护。</p>
-<h3 id="_38">注意<a class="headerlink" href="#_38" title="Permanent link">&para;</a></h3>
+<h3 id="_39">注意<a class="headerlink" href="#_39" title="Permanent link">&para;</a></h3>
 <p>该版本为强制升级</p>
-<h3 id="_39">新功能<a class="headerlink" href="#_39" title="Permanent link">&para;</a></h3>
+<h3 id="_40">新功能<a class="headerlink" href="#_40" title="Permanent link">&para;</a></h3>
 <ul>
 <li>在 TVM 中添加 4 项新指令（<code>verifyMintProof</code>, <code>verifyTransferProof</code>, <code>verifyBurnProof</code> 和 <code>pedersenHash</code>）以支持基于零知识证明的TRC20 匿名交易（#3172）。</li>
 <li><code>verifyMintProof</code>: 用于验证 mint 函数的零知识证明。</li>
@@ -2778,32 +2812,32 @@ TIP: <a href="https://github.com/tronprotocol/tips/blob/master/tip-176.md">TIP-1
 <ul>
 <li><a href="https://github.com/tronprotocol/tips/blob/master/tip-138.md">TIP-138</a>: 在波场虚拟机中实现 Pedersen 哈希计算指令，以支持匿名TRC-20合约（#3172）。</li>
 </ul>
-<h3 id="_40">更新<a class="headerlink" href="#_40" title="Permanent link">&para;</a></h3>
+<h3 id="_41">更新<a class="headerlink" href="#_41" title="Permanent link">&para;</a></h3>
 <ul>
 <li>修复从 DB 获取交易信息时 <code>getTransactioninfoByBlkNum</code>异常，增加检查 getInstance 是否为空值（#3165）。</li>
 </ul>
 <h2 id="odyssey-v37">Odyssey-v3.7<a class="headerlink" href="#odyssey-v37" title="Permanent link">&para;</a></h2>
 <p>奥德赛 3.7 版本为非强制升级，包含以下新功能和改进。</p>
-<h3 id="_41">模块化<a class="headerlink" href="#_41" title="Permanent link">&para;</a></h3>
+<h3 id="_42">模块化<a class="headerlink" href="#_42" title="Permanent link">&para;</a></h3>
 <p>奥德赛 3.7 进行了代码组织结构的模块化工作，方便开发者对模块进行自定义开发。几个主要模块如下：</p>
-<h4 id="_42">框架<a class="headerlink" href="#_42" title="Permanent link">&para;</a></h4>
+<h4 id="_43">框架<a class="headerlink" href="#_43" title="Permanent link">&para;</a></h4>
 <p>作为核心模块，框架模块既是区块链的入口，也将其他所有模块紧密地连接在一起。换言之，框架模块负责各个模块的初始化和模块之间的通信。</p>
-<h4 id="_43">协议<a class="headerlink" href="#_43" title="Permanent link">&para;</a></h4>
+<h4 id="_44">协议<a class="headerlink" href="#_44" title="Permanent link">&para;</a></h4>
 <p>去中心化波场协议可由任何团队实现，不受编程语言限制。所有遵循波场协议的客户端都能相互通信。
 简洁高效的数据传输协议对分布式网络来说至关重要，对区块链而言则更甚。因此，该协议是基于谷歌（Google）的优质开源软件协议 Protocol Buffers 实现的。 
 协议所定义的区块链具体业务逻辑包括：
 - 消息的数据格式，包括区块、交易、提议、见证人、投票、账户、交易所等等。
 - 区块链节点间的通信协议，包括节点发现协议、节点数据同步协议、节点打分协议等。
 - 区块链为外部系统或客户端提供的接口协议。</p>
-<h4 id="_44">共识<a class="headerlink" href="#_44" title="Permanent link">&para;</a></h4>
+<h4 id="_45">共识<a class="headerlink" href="#_45" title="Permanent link">&para;</a></h4>
 <p>共识机制是区块链的重要组成部分。波场区块链采用 DPoS 作为核心共识机制，长期以来运行稳定。但是，要想将 Java-tron 改造成为强大的基础设施，支持搭建用于实际应用场景的区块链，我们就必须为其装备可替换的共识模块。 区块链开发者应选取最适合具体应用情景的共识机制。利用可替换的共识模块，我们的终极目标是使共识机制可以通过设置一些必要参数来决定。除此之外，只要实现几个必要的接口，开发者即可自定义共识模块。</p>
-<h4 id="_45">加密<a class="headerlink" href="#_45" title="Permanent link">&para;</a></h4>
+<h4 id="_46">加密<a class="headerlink" href="#_46" title="Permanent link">&para;</a></h4>
 <p>作为区块链的核心模块之一，加密是区块链数据安全的基础， 应用于公钥和私钥的推论、交易验证和零知识证明等。Java-tron 对加密模块进行了抽象化，并支持替换加密算法，可以根据不同的业务需求选择合适的加密算法。</p>
-<h4 id="_46">执行器<a class="headerlink" href="#_46" title="Permanent link">&para;</a></h4>
+<h4 id="_47">执行器<a class="headerlink" href="#_47" title="Permanent link">&para;</a></h4>
 <p>执行器是用于处理各种交易的核心模块。众所周知，波场区块链上的每一笔交易都包含一个合约。总体而言，波场区块链共有两种合约：系统合约和智能合约。大量应用程序通过智能合约实现，在区块链的内部虚拟机中运行。然而，智能合约在功能性和灵活性方面仍受限制，无法满足复杂应用程序的要求。自定义的执行器则为应用程序开发者提供了一种全新的开发方式。他们可以选择将应用程序的代码植入链内，而不用在虚拟机上运行。</p>
-<h4 id="_47">内存数据库<a class="headerlink" href="#_47" title="Permanent link">&para;</a></h4>
+<h4 id="_48">内存数据库<a class="headerlink" href="#_48" title="Permanent link">&para;</a></h4>
 <p>内存数据库专为区块链数据储存而设计。节点始终认为最长链是正确的区块链，并会持续将其延长。除非采用类似 PBFT 的确定性共识算法，目前区块链领域的常见做法是切换到最长链。因此，支持数据回滚是内存数据库模块最突出的功能。该模块中定义了几个设计精细的抽象接口，开发者可以自由选择存储引擎，实现对应的接口。现有的两个实现方案是 LevelDB 和 RocksDB。</p>
-<h3 id="_48">固化块的新事件订阅触发器<a class="headerlink" href="#_48" title="Permanent link">&para;</a></h3>
+<h3 id="_49">固化块的新事件订阅触发器<a class="headerlink" href="#_49" title="Permanent link">&para;</a></h3>
 <p>添加了用于更新固化块的订阅触发器，该触发器触发了固化块更新事件到消息队列，以便用户可以及时获取最新的固化块信息。固化块是指不可撤销的区块。所以，当一个区块变成固化块后，打包在该区块内的交易即被区块链接受。</p>
 <h3 id="http-api">新增两个HTTP API<a class="headerlink" href="#http-api" title="Permanent link">&para;</a></h3>
 <p><strong>gettransactioninfobyblocknum</strong></p>
@@ -2834,7 +2868,7 @@ TransactionInfoList transactionInfoList = blockingStubFull.getTransactionInfoByB
 <p>本次奥德赛v3.6.5升级主要有以下新功能和修改：</p>
 <h3 id="1_19">1、新的抵押机制<a class="headerlink" href="#1_19" title="Permanent link">&para;</a></h3>
 <p>新的抵押机制提供了为SR设置佣金的功能，SR可以自行设置佣金比例，这样用户在为SR投票时可以进行参考，同时SR的佣金比例可以在链上进行查询，将使用户获得的投票奖励数额更加透明。另外，新的抵押机制为下一步进行更加复杂的共识机制和激励计划提供了实现基础。</p>
-<h3 id="2_14">2、更加公平高效的股权分红机制<a class="headerlink" href="#2_14" title="Permanent link">&para;</a></h3>
+<h3 id="2_15">2、更加公平高效的股权分红机制<a class="headerlink" href="#2_15" title="Permanent link">&para;</a></h3>
 <p>股权收益的分发从原来的部分去中心化方式变为完全去中心化的方式。一方面，股权收益的分发完全在区块链上进行，完全保证分发过程受到链的监督，是完全去中心化的；另一方面，减少了不必要的股权分红交易，从而减少了带宽消耗，波场网络的运行将更有效率。</p>
 <h3 id="3_12">3、更加合理的激励机制<a class="headerlink" href="#3_12" title="Permanent link">&para;</a></h3>
 <p>出块奖励从原来的32TRX调整为16TRX，投票奖励从原来的16TRX提升为160TRX，这样大大促进了社区用户参与投票的热情，增加波场生态用户的锁仓率。同时结合新的股权分红机制，保证用户能够切实收到股权收益。</p>
