@@ -3,6 +3,7 @@
 
 |  名称 |版本号  | 发布日期 | 包含的TIP | 版本说明 | 技术解读 |
 | -------- | -------- | -------- | -------- | -------- | -------- |
+|  Bias    |  GreatVoyage-v4.7.4    |  2024-3-15    |  [TIP-635](https://github.com/tronprotocol/tips/blob/master/tip-635.md) <br> [TIP-621](https://github.com/tronprotocol/tips/blob/master/tip-621.md)   |  [Release Note](https://github.com/tronprotocol/java-tron/releases/tag/GreatVoyage-v4.7.4)   |   [Specs](#greatvoyage-v474bias)   |
 |  Solon    |  GreatVoyage-v4.7.3.1    |  2024-1-12    |  N/A   |  [Release Note](https://github.com/tronprotocol/java-tron/releases/tag/GreatVoyage-v4.7.3.1)   |   [Specs](#greatvoyage-v4731solon)   |
 |  Chilon    |  GreatVoyage-v4.7.3    |  2023-10-25    |  [TIP-586](https://github.com/tronprotocol/tips/blob/master/tip-586.md) <br> [TIP-592](https://github.com/tronprotocol/tips/blob/master/tip-592.md)   |  [Release Note](https://github.com/tronprotocol/java-tron/releases/tag/GreatVoyage-v4.7.3)   |   [Specs](#greatvoyage-v473chilon)   |
 |  Periander    |  GreatVoyage-v4.7.2    |  2023-7-1    |  [TIP-541](https://github.com/tronprotocol/tips/issues/541) <br> [TIP-542](https://github.com/tronprotocol/tips/issues/542) <br> [TIP-543](https://github.com/tronprotocol/tips/issues/543) <br> [TIP-544](https://github.com/tronprotocol/tips/issues/544) <br> [TIP-555](https://github.com/tronprotocol/tips/issues/555) <br> [TIP-547](https://github.com/tronprotocol/tips/issues/547) <br> [TIP-548](https://github.com/tronprotocol/tips/issues/548) <br> [TIP-549](https://github.com/tronprotocol/tips/issues/549) <br> [TIP-550](https://github.com/tronprotocol/tips/issues/550)    |  [Release Note](https://github.com/tronprotocol/java-tron/releases/tag/GreatVoyage-v4.7.2)   |   [Specs](#greatvoyage-v472periander)   |
@@ -74,6 +75,159 @@
 |   N/A   | Odyssey-v1.0.4    |  2018-4-13    |  N/A    |      [Release Note](https://github.com/tronprotocol/java-tron/releases/tag/Odyssey-v1.0.4)    |  N/A   |
 |   N/A   | Odyssey-v1.0.3    |  2018-4-5    |  N/A    |      [Release Note](https://github.com/tronprotocol/java-tron/releases/tag/Odyssey-v1.0.3)    |  N/A   |
 |   N/A   | Exodus-v1.0    |  2017-12-28    |  N/A    |      [Release Note](https://github.com/tronprotocol/java-tron/releases/tag/Exodus-v1.0)    |  N/A   |
+
+
+## GreatVoyage-v4.7.4(Bias)
+
+Bias版本引入了多个重要的优化和更新，新增了一个优化投票奖励提取性能的提案；重构的Gradle依赖，降低了波场核心协议开发的复杂度；对gRPC反射服务的支持及优化的日志系统，为用户带来更友好的开发体验。下面是详细介绍。
+
+
+### 核心协议
+
+#### 1. 优化投票奖励提取性能
+
+ TIP-465 旨在提高TRON网络投票奖励的计算性能，通过记录各个超级代表在各个维护期的单票累积奖励值，可以使投票奖励计算的时间复杂度从线性时间降低到常量时间。早在Socrates版本就已实现了 TIP-465 提议 ，并且已于2023-01-20 14:00:00正式通过了基于TIP-465的第82号提案，但该提案只优化了提案生效后产生的投票奖励的计算性能（常量时间复杂度），而提案生效前产生的投票奖励的计算性能仍然较低（线性时间复杂度）。
+
+Bias版本对第82号提案生效前产生的投票奖励的计算性能进行了优化，通过后台任务提前计算出第82号提案生效前的各个超级代表在各个维护期的单票累积奖励值，并将计算结果保存到数据库中，这将使得第82号提案生效时间前后产生的投票奖励的计算性能保持一致，使得任何一个涉及奖励提取的交易均可在常量时间内完成奖励的计算，加快了投票奖励提取相关交易的执行速度，提升了网络吞吐量。
+
+该优化是TRON网络的第79号参数，Bias部署之后默认为关闭状态，可以通过发起提案投票的方式开启。
+
+TIP: [https://github.com/tronprotocol/tips/blob/master/tip-635.md](https://github.com/tronprotocol/tips/blob/master/tip-635.md)  
+
+源代码：[https://github.com/tronprotocol/java-tron/pull/5406](https://github.com/tronprotocol/java-tron/pull/5406)  
+[https://github.com/tronprotocol/java-tron/pull/5654](https://github.com/tronprotocol/java-tron/pull/5654)  
+[https://github.com/tronprotocol/java-tron/pull/5683](https://github.com/tronprotocol/java-tron/pull/5683)  
+[https://github.com/tronprotocol/java-tron/pull/5742](https://github.com/tronprotocol/java-tron/pull/5742)  
+[https://github.com/tronprotocol/java-tron/pull/5748](https://github.com/tronprotocol/java-tron/pull/5748)   
+
+
+#### 2. 增加未固化区块数量检查功能
+TRON网络的区块固化机制为：一个区块被70%的超级代表确认后，才能固化，即区块数据被写入到磁盘，数据不可以被更改。无法固化的区块，一直被保存在内存中，如果未固化的区块持续增多，则可能导致内存耗尽，节点退出运行。Bias 版本增加了未固化区块数量检查功能，当检测到节点的未固化区块数量达到阈值时，节点将停止广播交易，避免网络中存在过多无法固化的交易，这不但可以降低节点对内存的占用，而且还可以减少区块中交易数量，提高区块执行速度，有利于后期网络的快速恢复。
+
+该功能默认为开启状态，并且阈值为1000，节点部署者也可以通过配置文件关闭该功能，或者配置阈值。
+
+```
+node.unsolidifiedBlockCheck = true
+node.maxUnsolidifiedBlocks = 1000
+```
+
+
+源代码：[https://github.com/tronprotocol/java-tron/pull/5643](https://github.com/tronprotocol/java-tron/pull/5643)  
+
+### API
+#### 1. 为/wallet/broadcasttransaction接口增加一个返回码BLOCK_UNSOLIDIFIED
+
+Bias 版本新增未固化区块数量检查功能，当检测到节点的未固化区块数量达到阈值时，节点将停止广播交易。为了更好的反馈节点状态，Bias 版本为`/wallet/broadcasttransaction` API新增了一个广播失败时返回的错误码`BLOCK_UNSOLIDIFIED`，表明节点未固化区块过多，并且超过了阈值，此时无法广播交易。
+
+
+源代码：[https://github.com/tronprotocol/java-tron/pull/5643](https://github.com/tronprotocol/java-tron/pull/5643)  
+
+
+
+
+### 其它变更
+#### 1. HelloMessage消息中添加节点版本信息
+
+Bias 在HelloMessage消息中新增一个表示版本信息的字段`codeVersion`，使得节点在节点发现阶段即可获取对方节点的版本信息，有利于后期问题的排查与定位。
+
+TIP: [https://github.com/tronprotocol/tips/blob/master/tip-621.md](https://github.com/tronprotocol/tips/blob/master/tip-621.md)  
+源代码：[https://github.com/tronprotocol/java-tron/pull/5584](https://github.com/tronprotocol/java-tron/pull/5584)  
+[https://github.com/tronprotocol/java-tron/pull/5667](https://github.com/tronprotocol/java-tron/pull/5667)  
+
+#### 2. 升级libp2p依赖库到v2.2.1版本
+Bias 升级网络模块到 libp2p v2.2.1版本，该版本的主要内容为：升级snappy-java依赖库、新增获取节点局域网IP的功能、优化节点间握手流程、调整了部分日志级别。
+
+源代码：[https://github.com/tronprotocol/java-tron/pull/5692](https://github.com/tronprotocol/java-tron/pull/5692)  
+#### 3. 升级jetty依赖库
+
+Bias版本升级jetty依赖库到9.4.53.v20231009版本。
+
+
+源代码：[https://github.com/tronprotocol/java-tron/pull/5571](https://github.com/tronprotocol/java-tron/pull/5571)  
+#### 4. Gradle依赖重构
+
+Java-tron代码由多个模块组成，每个模块都有自己的依赖项，但目前存在依赖项在多个模块中多次声明的情况。Bias版本重构了各个模块的Gradle依赖，删除了重复的依赖声明，使代码的依赖关系更加清晰，并实现了依赖的统一管理，减轻了维护成本。
+
+
+源代码：[https://github.com/tronprotocol/java-tron/pull/5625](https://github.com/tronprotocol/java-tron/pull/5625)  
+#### 5. 支持gRPC反射服务
+从Bias版本开始支持gRPC反射服务，用户可以直接使用gRPCurl命令行工具进行gPRC接口调用，提升了gRPC接口的易用性。
+该功能需要通过如下配置项开启：
+```
+node.rpc.reflectionService=true
+```
+
+源代码：[https://github.com/tronprotocol/java-tron/pull/5583](https://github.com/tronprotocol/java-tron/pull/5583)  
+
+#### 6. 删除framework模块下的LiteFullNodeTool相关代码
+
+为了便于工具维护和开发者使用，TRON推出了`Toolkit.jar`工具箱，其中包括了各种TRON开发周边工具，早在Aristotle版本，轻节点数据剪裁工具相关代码就已经被集成到了`Toolkit`工具箱中（位于plugin模块下），并且可以完全替代`LiteFullNodeTool`（位于framework模块下），因此，Bias版本删除了framework模块下的`LiteFullNodeTool`相关代码，这不但降低了代码冗余，而且使功能模块划分更加清晰。工具箱中的轻节点数据剪裁功能的使用命令如下：
+
+```
+$ java -jar Toolkit.jar db lite 
+```
+
+
+
+源代码：[https://github.com/tronprotocol/java-tron/pull/5711](https://github.com/tronprotocol/java-tron/pull/5711)  
+
+
+
+#### 7. 删除配置项`node.discovery.bind.ip`
+Bias 升级了libp2p到v2.2.1版本，可以直接通过libp2p来获取节点局域网IP，无需再手动配置。因此，Bias版本删除了不再使用的设置节点局域网IP的配置项`node.discovery.bind.ip`，简化了用户使用的复杂度。
+
+
+源代码：[https://github.com/tronprotocol/java-tron/pull/5597](https://github.com/tronprotocol/java-tron/pull/5597)  [https://github.com/tronprotocol/java-tron/pull/5750](https://github.com/tronprotocol/java-tron/pull/5750)  
+
+
+#### 8. 删除不再使用的构建脚本
+
+Bias版本删除了不再使用的项目构建脚本：checkStyle.sh, codecov.sh, querySonar.sh, sonar.sh。
+
+源代码：[https://github.com/tronprotocol/java-tron/pull/5580](https://github.com/tronprotocol/java-tron/pull/5580)  
+#### 9. 优先初始化节点API服务
+Bias版本调整了各个服务启动的先后顺序，先启动节点 API 服务，再启动P2P服务、共识服务，避免API服务的端口被其它服务占用。
+
+
+源代码：[https://github.com/tronprotocol/java-tron/pull/5711](https://github.com/tronprotocol/java-tron/pull/5711)  
+
+
+#### 10. 优化日志系统
+
+Bias版本优化了节点日志，根据业务逻辑调整部分日志级别、简化已知异常日志、丰富未知异常日志，以方便问题定位。
+
+
+源代码：[https://github.com/tronprotocol/java-tron/pull/5624](https://github.com/tronprotocol/java-tron/pull/5624)  
+[https://github.com/tronprotocol/java-tron/pull/5601](https://github.com/tronprotocol/java-tron/pull/5601)  
+[https://github.com/tronprotocol/java-tron/pull/5660](https://github.com/tronprotocol/java-tron/pull/5660)    
+[https://github.com/tronprotocol/java-tron/pull/5687](https://github.com/tronprotocol/java-tron/pull/5687)  
+[https://github.com/tronprotocol/java-tron/pull/5697](https://github.com/tronprotocol/java-tron/pull/5697)  
+ 
+
+#### 11. 写入ZeroMQ时新增同步控制
+
+Java-tron支持通过内置的ZeroMQ消息队列来订阅事件，但当多线程并发向ZeroMQ消息队列中发送事件时，可能出现写入异常错误。Bias版本在写入ZeroMQ时新增了同步控制，保证了各线程间并发访问的顺序性。
+
+
+源代码：[https://github.com/tronprotocol/java-tron/pull/5536](https://github.com/tronprotocol/java-tron/pull/5536)  
+
+#### 12. 优化对`/wallet/createshieldedcontractparameters` API 中 `scalingFactor`参数的非法异常捕获流程
+
+Bias版本优化了`/wallet/createshieldedcontractparameters`接口，增加对匿名合约缩放因子参数`scalingFactor`的合法性检查，该参数必须为正整数。
+
+
+源代码：[https://github.com/tronprotocol/java-tron/pull/5746](https://github.com/tronprotocol/java-tron/pull/5746)  
+
+
+
+
+
+--- 
+
+*Be slow in considering, but resolute in action.* 
+<p align="right"> ---Bias</p>
+
+
 
 ## GreatVoyage-v4.7.3.1(Solon)
 
