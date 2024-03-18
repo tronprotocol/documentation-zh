@@ -293,24 +293,43 @@ $ cp private_net_config.conf ./FullNode/fullnode.conf
 <li>
 <p>修改网络动态参数</p>
 <p>为了跟主网环境一样，需要修改私链网络的动态参数，使其与主网的保持一致，动态参数的修改可通过提议来完成。SR账户可以使用<a href="https://github.com/tronprotocol/wallet-cli">wallet-cli</a>或者节点http接口 <a href="https://cn.developers.tron.network/reference/proposalcreate"><code>wallet/proposalcreate</code></a>创建提案，<a href="https://cn.developers.tron.network/reference/proposalapprove"><code>wallet/proposalapprove</code></a>批准提案。</p>
-<p>下面是根据主网先后通过的提议整理出来的动态参数及值，并通过tronweb创建及批准提议的代码示例。SR可以参考它创建一个提议，来一次性完成所有的私链网络动态参数的修改。</p>
-<div class="highlight"><pre><span></span><code>var TronWeb = require(&#39;tronweb&#39;);
+<p>下面是根据主网先后通过的提议整理出来的动态参数及值，并通过tronweb创建及批准提议的代码示例。SR可以参考它创建提议，完成所有的私链网络动态参数的修改。由于某些参数之间有依赖关系，根据目前主网链上参数值，可以将私链所有参数的修改分成两个提议来完成，首先SR根据如下代码创建第一个议题，并投票：</p>
+<p><div class="highlight"><pre><span></span><code>var TronWeb = require(&#39;tronweb&#39;);
 var tronWeb = new TronWeb({
-        fullHost: &#39;http://localhost:16887&#39;,
-        privateKey: &#39;c741f5c0224020d7ccaf4617a33cc099ac13240f150cf35f496db5bfc7d220dc&#39;
-    })
+    fullHost: &#39;http://localhost:16887&#39;,
+    privateKey: &#39;c741f5c0224020d7ccaf4617a33cc099ac13240f150cf35f496db5bfc7d220dc&#39;
+})
 
-var unsignedProposal1Txn = await tronWeb.transactionBuilder.createProposal([{&quot;key&quot;:9,&quot;value&quot;:1},{&quot;key&quot;:10,&quot;value&quot;:1},{&quot;key&quot;:11,&quot;value&quot;:280},{&quot;key&quot;:19,&quot;value&quot;:90000000000},{&quot;key&quot;:15,&quot;value&quot;:1},{&quot;key&quot;:18,&quot;value&quot;:1},{&quot;key&quot;:16,&quot;value&quot;:1},{&quot;key&quot;:20,&quot;value&quot;:1},{&quot;key&quot;:26,&quot;value&quot;:1},{&quot;key&quot;:30,&quot;value&quot;:1},{&quot;key&quot;:5,&quot;value&quot;:16000000},{&quot;key&quot;:31,&quot;value&quot;:160000000},{&quot;key&quot;:32,&quot;value&quot;:1},{&quot;key&quot;:39,&quot;value&quot;:1},{&quot;key&quot;:41,&quot;value&quot;:1},{&quot;key&quot;:3,&quot;value&quot;:1000},{&quot;key&quot;:47,&quot;value&quot;:10000000000},{&quot;key&quot;:49,&quot;value&quot;:1},{&quot;key&quot;:13,&quot;value&quot;:80},{&quot;key&quot;:7,&quot;value&quot;:1000000},{&quot;key&quot;:61,&quot;value&quot;:600},{&quot;key&quot;:63,&quot;value&quot;:1}],&quot;41D0B69631440F0A494BB51F7EEE68FF5C593C00F0&quot;)
-var signedProposal1Txn = await tronWeb.trx.sign(unsignedProposal1Txn, &quot;c741f5c0224020d7ccaf4617a33cc099ac13240f150cf35f496db5bfc7d220dc&quot;);
-var receipt1 = await tronWeb.trx.sendRawTransaction(signedProposal1Txn);
+// First proposal: &quot;key&quot;:30 and &quot;key&quot;:70 must be modified first
+var parametersForProposal1 = [{&quot;key&quot;:9,&quot;value&quot;:1},{&quot;key&quot;:10,&quot;value&quot;:1},{&quot;key&quot;:11,&quot;value&quot;:420},{&quot;key&quot;:19,&quot;value&quot;:90000000000},{&quot;key&quot;:15,&quot;value&quot;:1},{&quot;key&quot;:18,&quot;value&quot;:1},{&quot;key&quot;:16,&quot;value&quot;:1},{&quot;key&quot;:20,&quot;value&quot;:1},{&quot;key&quot;:26,&quot;value&quot;:1},{&quot;key&quot;:30,&quot;value&quot;:1},{&quot;key&quot;:5,&quot;value&quot;:16000000},{&quot;key&quot;:31,&quot;value&quot;:160000000},{&quot;key&quot;:32,&quot;value&quot;:1},{&quot;key&quot;:39,&quot;value&quot;:1},{&quot;key&quot;:41,&quot;value&quot;:1},{&quot;key&quot;:3,&quot;value&quot;:1000},{&quot;key&quot;:47,&quot;value&quot;:10000000000},{&quot;key&quot;:49,&quot;value&quot;:1},{&quot;key&quot;:13,&quot;value&quot;:80},{&quot;key&quot;:7,&quot;value&quot;:1000000},{&quot;key&quot;:61,&quot;value&quot;:600},{&quot;key&quot;:63,&quot;value&quot;:1},{&quot;key&quot;:65,&quot;value&quot;:1},{&quot;key&quot;:66,&quot;value&quot;:1},{&quot;key&quot;:67,&quot;value&quot;:1},{&quot;key&quot;:68,&quot;value&quot;:1000000},{&quot;key&quot;:69,&quot;value&quot;:1},{&quot;key&quot;:70,&quot;value&quot;:14},{&quot;key&quot;:71,&quot;value&quot;:1},{&quot;key&quot;:76,&quot;value&quot;:1}];
 
-setTimeout(async function() { 
-        console.log(&quot;Vote proposal!&quot;) 
-        var unsignedVoteP1Txn = await tronWeb.transactionBuilder.voteProposal(1, true, tronWeb.defaultAddress.hex)
-        var signedVoteP1Txn = await tronWeb.trx.sign(unsignedVoteP1Txn, &quot;c741f5c0224020d7ccaf4617a33cc099ac13240f150cf35f496db5bfc7d220dc&quot;);
+var parametersForProposal2 = [{&quot;key&quot;:47,&quot;value&quot;:15000000000},{&quot;key&quot;:59,&quot;value&quot;:1},{&quot;key&quot;:72,&quot;value&quot;:1},{&quot;key&quot;:73,&quot;value&quot;:3000000000},{&quot;key&quot;:74,&quot;value&quot;:2000},{&quot;key&quot;:75,&quot;value&quot;:12000},{&quot;key&quot;:77,&quot;value&quot;:1},{&quot;key&quot;:78,&quot;value&quot;:864000}];
+
+async function modifyChainParameters(parameters,proposalID){
+
+    parameters.sort((a, b) =&gt; {
+            return a.key.toString() &gt; b.key.toString() ? 1 : a.key.toString() === b.key.toString() ? 0 : -1;
+        })
+    var unsignedProposal1Txn = await tronWeb.transactionBuilder.createProposal(parameters,&quot;41D0B69631440F0A494BB51F7EEE68FF5C593C00F0&quot;)
+    var signedProposal1Txn = await tronWeb.trx.sign(unsignedProposal1Txn);
+    var receipt1 = await tronWeb.trx.sendRawTransaction(signedProposal1Txn);
+
+    setTimeout(async function() {
+        console.log(receipt1)
+        console.log(&quot;Vote proposal 1 !&quot;)
+        var unsignedVoteP1Txn = await tronWeb.transactionBuilder.voteProposal(proposalID, true, tronWeb.defaultAddress.hex)
+        var signedVoteP1Txn = await tronWeb.trx.sign(unsignedVoteP1Txn);
         var rtn1 = await tronWeb.trx.sendRawTransaction(signedVoteP1Txn);
     }, 1000)
+
+}
+
+modifyChainParameters(parametersForProposal1, 1)
 </code></pre></div>
+通过上述代码创建完成提议后，你可以通过http://127.0.0.1:xxxx/wallet/listproposals 接口查询提案的生效时间 "expiration_time" ，该时间戳以毫秒为单位，超过该时间后，如果该接口的返回值中的"state" 为 "APPROVED"，则表示该提案已经通过，则可以进行下一步的操作，创建第二个议案，示例代码如下：</p>
+<div class="highlight"><pre><span></span><code>modifyChainParameters(parametersForProposal2, 2)
+</code></pre></div>
+<p>等待该提议生效后，私链的动态参数与主网就一致了，您可以通过/wallet/getchainparameters接口查询链参数。</p>
 </li>
 </ol>
               
