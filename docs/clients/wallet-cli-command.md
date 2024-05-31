@@ -2033,7 +2033,7 @@ The reward is : 0
 ```
 wallet> updateBrokerage [OwnerAddress] [brokerage]
 ```
-`OwnerAddress`  为witness的地址，base58格式。`brokerage` 为要改成的比例，1-100之间。
+`OwnerAddress`  为witness的地址，base58格式。`brokerage` 为要改成的比例，0-100之间。
 
 示例：
 ```shell

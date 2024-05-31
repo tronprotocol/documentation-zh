@@ -3,6 +3,7 @@
 
 |  名称 |版本号  | 发布日期 | 包含的TIP | 版本说明 | 技术解读 |
 | -------- | -------- | -------- | -------- | -------- | -------- |
+|  Cleobulus    |  GreatVoyage-v4.7.5    |  2024-5-30    |  [TIP-653](https://github.com/tronprotocol/tips/blob/master/tip-653.md)   |  [Release Note](https://github.com/tronprotocol/java-tron/releases/tag/GreatVoyage-v4.7.5)   |   [Specs](#greatvoyage-v475cleobulus)   |
 |  Bias    |  GreatVoyage-v4.7.4    |  2024-3-15    |  [TIP-635](https://github.com/tronprotocol/tips/blob/master/tip-635.md) <br> [TIP-621](https://github.com/tronprotocol/tips/blob/master/tip-621.md)   |  [Release Note](https://github.com/tronprotocol/java-tron/releases/tag/GreatVoyage-v4.7.4)   |   [Specs](#greatvoyage-v474bias)   |
 |  Solon    |  GreatVoyage-v4.7.3.1    |  2024-1-12    |  N/A   |  [Release Note](https://github.com/tronprotocol/java-tron/releases/tag/GreatVoyage-v4.7.3.1)   |   [Specs](#greatvoyage-v4731solon)   |
 |  Chilon    |  GreatVoyage-v4.7.3    |  2023-10-25    |  [TIP-586](https://github.com/tronprotocol/tips/blob/master/tip-586.md) <br> [TIP-592](https://github.com/tronprotocol/tips/blob/master/tip-592.md)   |  [Release Note](https://github.com/tronprotocol/java-tron/releases/tag/GreatVoyage-v4.7.3)   |   [Specs](#greatvoyage-v473chilon)   |
@@ -75,6 +76,55 @@
 |   N/A   | Odyssey-v1.0.4    |  2018-4-13    |  N/A    |      [Release Note](https://github.com/tronprotocol/java-tron/releases/tag/Odyssey-v1.0.4)    |  N/A   |
 |   N/A   | Odyssey-v1.0.3    |  2018-4-5    |  N/A    |      [Release Note](https://github.com/tronprotocol/java-tron/releases/tag/Odyssey-v1.0.3)    |  N/A   |
 |   N/A   | Exodus-v1.0    |  2017-12-28    |  N/A    |      [Release Note](https://github.com/tronprotocol/java-tron/releases/tag/Exodus-v1.0)    |  N/A   |
+
+## GreatVoyage-v4.7.5(Cleobulus)
+
+Cleobulus版本引入了多个重要的优化和更新，新增调整部分 TVM 操作码能量成本的提案，使能量成本更加合理；增强的交易及区块检查逻辑，提高了系统的容错能力；优化的线程间同步逻辑，提高了数据一致性。下面是详细介绍。
+
+### 核心协议
+
+#### 1. 优化区块同步和生产逻辑
+Cleobulus版本优化了产块逻辑，在获取到产块锁之后，再检查是否具备产块条件，以避免前后状态不一致，提高了TRON网络的稳定性。
+
+Cleobulus版本增强了区块检查逻辑，所有节点增加对区块大小和区块时间的检查。
+
+源代码：[https://github.com/tronprotocol/java-tron/pull/5833](https://github.com/tronprotocol/java-tron/pull/5833)  [https://github.com/tronprotocol/java-tron/pull/5830](https://github.com/tronprotocol/java-tron/pull/5830)  
+
+#### 2. 加强创建账户类交易的大小检查
+
+Cleobulus版本优化了账户创建相关逻辑，加强了账户创建类交易的大小检查， 并增加了第82号TRON网络参数，来设置创建账户类交易所允许的最大字节数，该参数的取值范围为[500, 10000]，初始值为1000，后期可以通过发起提案投票的方式修改。
+
+源代码：[https://github.com/tronprotocol/java-tron/pull/5835](https://github.com/tronprotocol/java-tron/pull/5835)  
+
+### TVM
+#### 1. 调整 TVM中个别操作码的能量成本
+Cleobulus版本基于各个操作码实际执行所需的资源和时间情况，调整了 `VOTEWITNESS` 和 `SUICIDE` 操作码的能量成本，以使能量消耗更加合理。
+
+该优化是TRON网络的第81号参数，Cleobulus部署之后默认为关闭状态，可以通过发起提案投票的方式开启。
+
+TIP: [https://github.com/tronprotocol/tips/blob/master/tip-653.md](https://github.com/tronprotocol/tips/blob/master/tip-653.md)    
+源代码：[https://github.com/tronprotocol/java-tron/pull/5837](https://github.com/tronprotocol/java-tron/pull/5837)  
+
+### 其它变更
+#### 1. 优化线程间的同步逻辑
+
+Cleobulus版本优化了请求区块相关逻辑，在打印日志时不再读取fetchBlockInfo数据，提高了多线程对fetchBlockInfo对象的并发访问的稳定性。
+
+Cleobulus版本优化了同步区块处理逻辑，无论syncBlockToFetch队列是否为空，节点均能正常处理区块数据，提高了区块同步效率。
+
+源代码：[https://github.com/tronprotocol/java-tron/pull/5831](https://github.com/tronprotocol/java-tron/pull/5831)  
+[https://github.com/tronprotocol/java-tron/pull/5832](https://github.com/tronprotocol/java-tron/pull/5832)  
+
+#### 2. 删除冗余逻辑
+Cleobulus版本删除了区块处理过程中的冗余逻辑，提高了代码的可读性和可维护性。
+
+源代码：[https://github.com/tronprotocol/java-tron/pull/5834](https://github.com/tronprotocol/java-tron/pull/5834)  
+
+--- 
+
+*Seek virtue and eschew vice.* 
+<p align="right"> ---Cleobulus</p>
+
 
 
 ## GreatVoyage-v4.7.4(Bias)
