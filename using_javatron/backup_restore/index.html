@@ -217,11 +217,6 @@ done
 <td>http://52.77.31.45/saveInternalTx/</td>
 <td>LevelDB数据，包含内部交易（截止2023-6-13 约1496G）</td>
 </tr>
-<tr>
-<td>TronGrid社区提供的数据源</td>
-<td>https://backup.trongrid.io/</td>
-<td>LevelDB数据，包含内部交易 (截止2023-6-13 约1603G)</td>
-</tr>
 </tbody>
 </table>
 <p>注意：LevelDB和RocksDB的数据不允许混用。FullNode的数据库类型通过配置文件的配置项<code>db.engine</code> 进行指定，可选值为<code>LEVELDB</code>或者<code>ROCKSDB</code>。</p>
