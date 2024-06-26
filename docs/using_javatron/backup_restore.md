@@ -53,7 +53,6 @@ $ tar xzvf output-directory.20220628152402.etgz
 | 官方数据源(美洲:美国弗吉尼亚)   | http://3.219.199.168/     | LevelDB数据，不包含内部交易 (截止2023-6-13 约1314G)    |
 | 官方数据源(亚洲:新加坡)     | http://52.77.31.45/     | LevelDB数据，不包含内部交易的数据 (截止2023-6-13 约1321G)    |
 | 官方数据源(亚洲:新加坡)     | http://52.77.31.45/saveInternalTx/     | LevelDB数据，包含内部交易（截止2023-6-13 约1496G）    |
-| TronGrid社区提供的数据源     | https://backup.trongrid.io/     | LevelDB数据，包含内部交易 (截止2023-6-13 约1603G)   |
 
 注意：LevelDB和RocksDB的数据不允许混用。FullNode的数据库类型通过配置文件的配置项`db.engine` 进行指定，可选值为`LEVELDB`或者`ROCKSDB`。
 
