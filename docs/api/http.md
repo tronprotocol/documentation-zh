@@ -1,6 +1,13 @@
 # HTTP API 接口
 本章节介绍节点的HTTP API及其用法。
 
+!!! 注意
+    尽管波场（TRON）通过将 HTTP API 的 Content-Type 设置为 application/json 避免了 XSS 攻击，但仍有一些 API 没有输入验证。为了更好地保护用户数据安全，我们建议您在使用 API 的任何数据之前，先对其进行正确编码。
+    
+    以下是一种典型的 XSS 防护方法：对来自 API 的所有数据在 HTML 中进行编码。使用诸如 `encodeURIComponent()` 或 `escape()` 等方法对数据进行编码，这可以将特殊字符转换为其 HTML 实体，防止浏览器将其解释为 HTML 代码。
+    
+    请务必为来自 API 的所有数据实施 XSS 防护，以确保用户数据的安全。我们了解您可能需要有关 XSS 防护的更多信息。建议您参考以下资源：[OWASP XSS Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html)。
+
 首先，对HTTP API中地址格式的选择进行说明：TRON网络账户地址格式有两种：HexString格式和Base58格式。节点HTTP API支持地址格式选择，用户可以通过visible参数设置地址格式，默认值为false，参数及返回值中的地址格式均为hex格式，当visible设置为true时，参数及返回值中的地址格式均为Base58格式。如果参数格式与visible设置不匹配，将会报错。设置方式：
 
 - 对于GET方式请求接口或者不需要参数的查询接口，通过在url中增加参数`visible=true`
