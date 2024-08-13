@@ -13,6 +13,7 @@ TIP: [https://github.com/tronprotocol/TIPs/issues/12](https://github.com/tronpro
 
 订阅的内容：
 
+```
 transactionId: 交易哈希  
 blockHash: 区块哈希  
 blockNumber: 区块高度  
@@ -20,21 +21,25 @@ energyUsage: 此次调用中，合约调用者消耗的Energy的总量
 energyFee: 此次调用中，合约调用者消耗的Energy中，需要TRX支付的数目(SUN为单位)  
 originEnergyUsage: 此次调用中，合约开发者消耗的Energy的总量  
 energyUsageTotal: 此次调用中，合约调用者和合约开发者消耗的Energy的总量  
+```
 
 - 区块相关事件
 
 订阅的内容：
 
+```
 blockHash: 区块哈希  
 blockNumber: 区块高度  
 transactionSize: 区块中包含的交易的数目  
 latestSolidifiedBlockNumber: 最新的固化块的高度  
 transactionList: 交易哈希列表  
+```
 
 - 合约事件相关
 
 订阅的内容：
 
+```
 transactionId: 交易哈希  
 contractAddress: 合约地址  
 callerAddress: 合约调用者地址  
@@ -43,11 +48,13 @@ blockTimestamp: 区块时间戳
 eventSignature: 事件签名  
 topicMap: the map of topic in solidity language  
 data: the data information in solidity language  
+```
 
 - 合约日志事件相关
 
 订阅的内容：
 
+```
 transactionId: 交易哈希  
 contractAddress: 合约地址  
 callerAddress: 合约调用者地址  
@@ -56,15 +63,20 @@ blockTimestamp: 区块时间戳
 contractTopics: the list of topic in solidity language  
 data: the data information in solidity language  
 removed: 'true'代表日志已经被移除  
+```
 
 合约事件与合约日志事件订阅支持过滤功能：
 
+```
 fromBlock: 起始区块索引  
 toBlock: 结束区块索引  
 contractAddress: 合约地址  
 contractTopics: 合约主题  
+```
 
-**注意**: 不支持历史数据查询
+!!! 注意
+    1. 不支持历史数据查询
+    2. 在对非固化的事件进行订阅时，请务必以`blockNumber` 和 `blockHash` 两个参数为准，以验证收到的事件是有效的。在发生网络连接不稳定等特殊情况下造成的切链，会出现事件重组的情况，导致部分事件失效。
 
 ### 新功能
 
