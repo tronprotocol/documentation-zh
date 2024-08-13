@@ -200,52 +200,63 @@
 <li>交易相关事件</li>
 </ul>
 <p>订阅的内容：</p>
-<p>transactionId: 交易哈希<br />
-blockHash: 区块哈希<br />
-blockNumber: 区块高度<br />
-energyUsage: 此次调用中，合约调用者消耗的Energy的总量<br />
-energyFee: 此次调用中，合约调用者消耗的Energy中，需要TRX支付的数目(SUN为单位)<br />
-originEnergyUsage: 此次调用中，合约开发者消耗的Energy的总量<br />
-energyUsageTotal: 此次调用中，合约调用者和合约开发者消耗的Energy的总量  </p>
+<div class="highlight"><pre><span></span><code>transactionId: 交易哈希  
+blockHash: 区块哈希  
+blockNumber: 区块高度  
+energyUsage: 此次调用中，合约调用者消耗的Energy的总量  
+energyFee: 此次调用中，合约调用者消耗的Energy中，需要TRX支付的数目(SUN为单位)  
+originEnergyUsage: 此次调用中，合约开发者消耗的Energy的总量  
+energyUsageTotal: 此次调用中，合约调用者和合约开发者消耗的Energy的总量  
+</code></pre></div>
 <ul>
 <li>区块相关事件</li>
 </ul>
 <p>订阅的内容：</p>
-<p>blockHash: 区块哈希<br />
-blockNumber: 区块高度<br />
-transactionSize: 区块中包含的交易的数目<br />
-latestSolidifiedBlockNumber: 最新的固化块的高度<br />
-transactionList: 交易哈希列表  </p>
+<div class="highlight"><pre><span></span><code>blockHash: 区块哈希  
+blockNumber: 区块高度  
+transactionSize: 区块中包含的交易的数目  
+latestSolidifiedBlockNumber: 最新的固化块的高度  
+transactionList: 交易哈希列表  
+</code></pre></div>
 <ul>
 <li>合约事件相关</li>
 </ul>
 <p>订阅的内容：</p>
-<p>transactionId: 交易哈希<br />
-contractAddress: 合约地址<br />
-callerAddress: 合约调用者地址<br />
-blockNumber: 合约事件所在的区块高度<br />
-blockTimestamp: 区块时间戳<br />
-eventSignature: 事件签名<br />
-topicMap: the map of topic in solidity language<br />
-data: the data information in solidity language  </p>
+<div class="highlight"><pre><span></span><code>transactionId: 交易哈希  
+contractAddress: 合约地址  
+callerAddress: 合约调用者地址  
+blockNumber: 合约事件所在的区块高度  
+blockTimestamp: 区块时间戳  
+eventSignature: 事件签名  
+topicMap: the map of topic in solidity language  
+data: the data information in solidity language  
+</code></pre></div>
 <ul>
 <li>合约日志事件相关</li>
 </ul>
 <p>订阅的内容：</p>
-<p>transactionId: 交易哈希<br />
-contractAddress: 合约地址<br />
-callerAddress: 合约调用者地址<br />
-blockNumber: 合约事件所在的区块高度<br />
-blockTimestamp: 区块时间戳<br />
-contractTopics: the list of topic in solidity language<br />
-data: the data information in solidity language<br />
-removed: 'true'代表日志已经被移除  </p>
+<div class="highlight"><pre><span></span><code>transactionId: 交易哈希  
+contractAddress: 合约地址  
+callerAddress: 合约调用者地址  
+blockNumber: 合约事件所在的区块高度  
+blockTimestamp: 区块时间戳  
+contractTopics: the list of topic in solidity language  
+data: the data information in solidity language  
+removed: &#39;true&#39;代表日志已经被移除  
+</code></pre></div>
 <p>合约事件与合约日志事件订阅支持过滤功能：</p>
-<p>fromBlock: 起始区块索引<br />
-toBlock: 结束区块索引<br />
-contractAddress: 合约地址<br />
-contractTopics: 合约主题  </p>
-<p><strong>注意</strong>: 不支持历史数据查询</p>
+<div class="highlight"><pre><span></span><code>fromBlock: 起始区块索引  
+toBlock: 结束区块索引  
+contractAddress: 合约地址  
+contractTopics: 合约主题  
+</code></pre></div>
+<div class="admonition 注意">
+<p class="admonition-title">注意</p>
+<ol>
+<li>不支持历史数据查询</li>
+<li>在对非固化的事件进行订阅时，请务必以<code>blockNumber</code> 和 <code>blockHash</code> 两个参数为准，以验证收到的事件是有效的。在发生网络连接不稳定等特殊情况下造成的切链，会出现事件重组的情况，导致部分事件失效。</li>
+</ol>
+</div>
 <h3 id="_4">新功能<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
 <ol>
 <li>
