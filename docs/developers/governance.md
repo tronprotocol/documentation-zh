@@ -22,7 +22,7 @@ TRON网络的治理是通过修改 [网络参数](https://tronscan.org/#/sr/comm
 ### 标题
 我们希望TRON生态所有用户都能参与到网络治理中，为了能够在社区进行更好的宣传，建议您为提议投票进行命名，并将名称写在标题的最前面，下面是一个示例：
 ```
-Palma Upgrade：proposal to change the unit price of energy to 420 sun
+Palma Upgrade：proposal to change the unit price of energy to 210 sun
 ```
 
 ### 主体内容

@@ -1105,7 +1105,7 @@ GreatVoyage-v4.7.0.1(Aristotle)版本新增了10个 API 以支持Stake 2.0质押
 
 在GreatVoyage-v4.7.0.1(Aristotle)之前的版本中，可以通过`/wallet/triggerconstantcontract`接口预估执行智能合约交易所需的能量消耗量，然后根据预估的消耗量来设置交易的`feelimit`参数。但由于某些智能合约交易可能存在对其他智能合约的调用，这时有可能出现预估`feelimit`参数不准确的情况。
 
-因此，GreatVoyage-v4.7.0.1(Aristotle)版本新增了一个能量预估接口`/wallet/estimateenergy`，利用该接口预估的`feelimit`在任何情况下都是可靠的。该接口返回值中的`energy_required`字段表示这笔智能合约调用交易执行成功所需要的能量预估量，用户根据该字段来计算`feelimit`参数：`feelimit` = `energy_required` * 能量单价， 当前能量单价是420sun 。
+因此，GreatVoyage-v4.7.0.1(Aristotle)版本新增了一个能量预估接口`/wallet/estimateenergy`，利用该接口预估的`feelimit`在任何情况下都是可靠的。该接口返回值中的`energy_required`字段表示这笔智能合约调用交易执行成功所需要的能量预估量，用户根据该字段来计算`feelimit`参数：`feelimit` = `energy_required` * 能量单价， 当前能量单价是210sun 。
 
 如果由于某种原因导致预估接口执行失败时，`energy_required`字段值为0，在返回值中将不显示该字段，这时可以通过`result`字段查看预估失败原因。
 
