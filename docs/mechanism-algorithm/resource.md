@@ -88,7 +88,7 @@ Bandwidth Points是一个账户1天内能够使用的总字节数。一定时间
 freezeBalanceV2 frozen_balance [ResourceCode:0 BANDWIDTH,1 ENERGY]
 ```
 
-通过质押TRX获取的Energy 额度 = 为获取Energy质押的TRX / 整个网络为获取Energy质押的TRX 总额 * 150_000_000_000。
+通过质押TRX获取的Energy 额度 = 为获取Energy质押的TRX / 整个网络为获取Energy质押的TRX 总额 * 180_000_000_000。
 
 也就是所有用户按质押的TRX数量平分固定额度的Energy，示例：
 
@@ -97,19 +97,19 @@ freezeBalanceV2 frozen_balance [ResourceCode:0 BANDWIDTH,1 ENERGY]
 
 二人质押获得的可用Energy分别是
 
-A: 75_000_000_000 且energy_limit 为75_000_000_000
+A: 75_000_000_000 且energy_limit 为90_000_000_000
 
-B: 75_000_000_000 且energy_limit 为75_000_000_000
+B: 75_000_000_000 且energy_limit 为90_000_000_000
 
 当第三人C质押1TRX时。
 
 三人质押获得的可用Energy调整为
 
-A: 60_000_000_000 且energy_limit调整为60_000_000_000
+A: 60_000_000_000 且energy_limit调整为72_000_000_000
 
-B: 60_000_000_000 且energy_limit调整为60_000_000_000
+B: 60_000_000_000 且energy_limit调整为72_000_000_000
 
-B: 30_000_000_000 且energy_limit 为30_000_000_000
+B: 30_000_000_000 且energy_limit 为36_000_000_000
 
 ```
 
