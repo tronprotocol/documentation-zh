@@ -3,6 +3,7 @@
 
 |  名称 |版本号  | 发布日期 | 包含的TIP | 版本说明 | 技术解读 |
 | -------- | -------- | -------- | -------- | -------- | -------- |
+|  Anaximander    |  GreatVoyage-v4.7.6    |  2024-10-04    |  N/A   |  [Release Note](https://github.com/tronprotocol/java-tron/releases/tag/GreatVoyage-v4.7.6)   |   [Specs](#greatvoyage-v476anaximander)   |
 |  Cleobulus    |  GreatVoyage-v4.7.5    |  2024-5-30    |  [TIP-653](https://github.com/tronprotocol/tips/blob/master/tip-653.md)   |  [Release Note](https://github.com/tronprotocol/java-tron/releases/tag/GreatVoyage-v4.7.5)   |   [Specs](#greatvoyage-v475cleobulus)   |
 |  Bias    |  GreatVoyage-v4.7.4    |  2024-3-15    |  [TIP-635](https://github.com/tronprotocol/tips/blob/master/tip-635.md) <br> [TIP-621](https://github.com/tronprotocol/tips/blob/master/tip-621.md)   |  [Release Note](https://github.com/tronprotocol/java-tron/releases/tag/GreatVoyage-v4.7.4)   |   [Specs](#greatvoyage-v474bias)   |
 |  Solon    |  GreatVoyage-v4.7.3.1    |  2024-1-12    |  N/A   |  [Release Note](https://github.com/tronprotocol/java-tron/releases/tag/GreatVoyage-v4.7.3.1)   |   [Specs](#greatvoyage-v4731solon)   |
@@ -76,6 +77,74 @@
 |   N/A   | Odyssey-v1.0.4    |  2018-4-13    |  N/A    |      [Release Note](https://github.com/tronprotocol/java-tron/releases/tag/Odyssey-v1.0.4)    |  N/A   |
 |   N/A   | Odyssey-v1.0.3    |  2018-4-5    |  N/A    |      [Release Note](https://github.com/tronprotocol/java-tron/releases/tag/Odyssey-v1.0.3)    |  N/A   |
 |   N/A   | Exodus-v1.0    |  2017-12-28    |  N/A    |      [Release Note](https://github.com/tronprotocol/java-tron/releases/tag/Exodus-v1.0)    |  N/A   |
+
+## GreatVoyage-v4.7.6(Anaximander)
+
+Anaximander版本引入了多个重要的优化和更新，优化的单元测试任务，提高了测试用例执行的稳定性；新增的TCP、UDP流量统计，进一步完善了节点监控数据；优化的远端节点空闲判断逻辑，提升了区块同步的稳定性；优化的节点连接随机断开逻辑，提高了节点网络健壮性。下面是详细介绍。
+
+### 其它变更
+
+#### 1. 优化节点HTTP请求监控指标的统计逻辑
+
+Java-tron支持节点监控，并提供各项指标数据。Anaximander版本优化了节点HTTP请求监控指标的统计逻辑，在统计来自各个映射地址的请求数据时，保证了多线程并发访问时的数据一致性。
+
+源代码：[https://github.com/tronprotocol/java-tron/pull/5920](https://github.com/tronprotocol/java-tron/pull/5920)  
+
+#### 2. 提高单元测试任务执行的稳定性
+Anaximander版本优化了单元测试任务，通过使用gradle `test-retry` 插件使得执行失败的单测任务得以重新执行；通过@Ignore注释以跳过暂时不用且不稳定的测试用例。该优化提高了测试任务执行的稳定性。
+
+源代码：[https://github.com/tronprotocol/java-tron/pull/5916](https://github.com/tronprotocol/java-tron/pull/5916)  [https://github.com/tronprotocol/java-tron/pull/5927](https://github.com/tronprotocol/java-tron/pull/5927)  
+
+#### 3. 新增TCP 流出量监控指标和UDP 流入量统计
+Anaximander版本新增节点TCP 流出量监控指标，并为`/monitor/getstatsinfo` 接口增加一个 UDP 流入统计量，进一步完善了节点监控数据。
+
+源代码：[https://github.com/tronprotocol/java-tron/pull/5942](https://github.com/tronprotocol/java-tron/pull/5942)    
+
+
+#### 4. 优化远端节点空闲判断逻辑
+Anaximander版本优化了在区块同步过程中的判断远端节点是否空闲的相关逻辑，使得区块同步不受广播获取区块/交易（交易/区块广播流程）相关过程的影响，提升了区块同步效率，提高了节点间连接的稳定性。
+
+
+源代码：[https://github.com/tronprotocol/java-tron/pull/5921](https://github.com/tronprotocol/java-tron/pull/5921)   
+
+
+#### 5. 优化节点排序逻辑
+Anaximander版本优化了节点排序方法，增加异常捕获，提高了节点间建立连接的效率。
+
+源代码：[https://github.com/tronprotocol/java-tron/pull/5923](https://github.com/tronprotocol/java-tron/pull/5923)  
+
+
+
+#### 6. 优化请求区块清单消息的检查逻辑
+
+Anaximander版本优化了对来自peer节点的请求获取区块清单消息的验证逻辑，请求的区块号不能超过链清单消息中的最大区块号，使节点得以及时发现非法消息，并断开与对方节点的连接，同时更丰富的节点日志，有利于节点间连接问题的排查与定位。
+
+
+源代码：[https://github.com/tronprotocol/java-tron/pull/5922](https://github.com/tronprotocol/java-tron/pull/5922)   
+
+#### 7. 优化区块处理逻辑
+Anaximander版本优化了区块处理逻辑，在处理广播过来的区块后，及时更新与各个远端节点共同拥有的区块的区块 ID 及区块号，以便更好的了解远端节点状态。
+
+源代码：[https://github.com/tronprotocol/java-tron/pull/5925](https://github.com/tronprotocol/java-tron/pull/5925)   
+
+
+
+#### 8. 优化节点连接随机断开逻辑
+当节点所连接的远端节点的最新区块都比自己低时，节点将无法同步区块，也无法广播交易，我们将这种节点称之为”孤岛节点”，孤岛节点其实是没有获取到有效的对等节点。为了防止节点进入孤岛状态，Anaximander版本优化了节点连接的随机断开逻辑，断开长时间不活跃的节点，增加有效连接的数量，提高了节点网络健壮性。
+
+
+源代码：[https://github.com/tronprotocol/java-tron/pull/5924](https://github.com/tronprotocol/java-tron/pull/5924)   [https://github.com/tronprotocol/java-tron/pull/5944](https://github.com/tronprotocol/java-tron/pull/5944)  
+[https://github.com/tronprotocol/java-tron/pull/5956](https://github.com/tronprotocol/java-tron/pull/5956)  
+[https://github.com/tronprotocol/java-tron/pull/5984](https://github.com/tronprotocol/java-tron/pull/5984)  
+
+
+
+--- 
+
+*Nature is eternal and does not age.* 
+<p align="right"> ---Anaximander</p>
+
+
 
 ## GreatVoyage-v4.7.5(Cleobulus)
 
