@@ -288,25 +288,25 @@
 <h4 id="_6">质押获得能量<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code>freezeBalanceV2 frozen_balance [ResourceCode:0 BANDWIDTH,1 ENERGY]
 </code></pre></div>
-<p>通过质押TRX获取的Energy 额度 = 为获取Energy质押的TRX / 整个网络为获取Energy质押的TRX 总额 * 150_000_000_000。</p>
+<p>通过质押TRX获取的Energy 额度 = 为获取Energy质押的TRX / 整个网络为获取Energy质押的TRX 总额 * 180_000_000_000。</p>
 <p>也就是所有用户按质押的TRX数量平分固定额度的Energy，示例：</p>
 <div class="highlight"><pre><span></span><code>如全网只有两个人A，B分别质押2TRX，2TRX。
 
 二人质押获得的可用Energy分别是
 
-A: 75_000_000_000 且energy_limit 为75_000_000_000
+A: 75_000_000_000 且energy_limit 为90_000_000_000
 
-B: 75_000_000_000 且energy_limit 为75_000_000_000
+B: 75_000_000_000 且energy_limit 为90_000_000_000
 
 当第三人C质押1TRX时。
 
 三人质押获得的可用Energy调整为
 
-A: 60_000_000_000 且energy_limit调整为60_000_000_000
+A: 60_000_000_000 且energy_limit调整为72_000_000_000
 
-B: 60_000_000_000 且energy_limit调整为60_000_000_000
+B: 60_000_000_000 且energy_limit调整为72_000_000_000
 
-B: 30_000_000_000 且energy_limit 为30_000_000_000
+B: 30_000_000_000 且energy_limit 为36_000_000_000
 </code></pre></div>
 <h4 id="_7">能量的消耗<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h4>
 <p>在执行合约时，逐条指令计算并扣除账户能量，账户能量消耗的优先级如下：</p>
