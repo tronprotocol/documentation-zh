@@ -2042,7 +2042,7 @@ wallet> updateBrokerage TZ7U1WVBRLZ2umjizxqz3XfearEHhXKX7h 30
 
 
 ## 去中心化交易所
-交易对的价格浮动和交易情况遵循[Bancor Agreement](https://storage.googleapis.com/website-bancor/2018/04/01ba8253-bancor_protocol_whitepaper_en.pdf)。
+交易对的价格浮动和交易情况遵循[Bancor Agreement](https://cryptopapers.info/assets/pdf/bancor.pdf)。
 
 下面是账户地址相关命令：
 
