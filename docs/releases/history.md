@@ -3,6 +3,7 @@
 
 |  名称 |版本号  | 发布日期 | 包含的TIP | 版本说明 | 技术解读 |
 | -------- | -------- | -------- | -------- | -------- | -------- |
+|  Epicurus    |  GreatVoyage-v4.7.7    |  2024-11-29    |  [TIP-697](https://github.com/tronprotocol/tips/issues/697)  |  [Release Note](https://github.com/tronprotocol/java-tron/releases/tag/GreatVoyage-v4.7.7)   |   [Specs](#greatvoyage-477epicurus)   |
 |  Anaximander    |  GreatVoyage-v4.7.6    |  2024-10-04    |  N/A   |  [Release Note](https://github.com/tronprotocol/java-tron/releases/tag/GreatVoyage-v4.7.6)   |   [Specs](#greatvoyage-v476anaximander)   |
 |  Cleobulus    |  GreatVoyage-v4.7.5    |  2024-5-30    |  [TIP-653](https://github.com/tronprotocol/tips/blob/master/tip-653.md)   |  [Release Note](https://github.com/tronprotocol/java-tron/releases/tag/GreatVoyage-v4.7.5)   |   [Specs](#greatvoyage-v475cleobulus)   |
 |  Bias    |  GreatVoyage-v4.7.4    |  2024-3-15    |  [TIP-635](https://github.com/tronprotocol/tips/blob/master/tip-635.md) <br> [TIP-621](https://github.com/tronprotocol/tips/blob/master/tip-621.md)   |  [Release Note](https://github.com/tronprotocol/java-tron/releases/tag/GreatVoyage-v4.7.4)   |   [Specs](#greatvoyage-v474bias)   |
@@ -78,6 +79,53 @@
 |   N/A   | Odyssey-v1.0.3    |  2018-4-5    |  N/A    |      [Release Note](https://github.com/tronprotocol/java-tron/releases/tag/Odyssey-v1.0.3)    |  N/A   |
 |   N/A   | Exodus-v1.0    |  2017-12-28    |  N/A    |      [Release Note](https://github.com/tronprotocol/java-tron/releases/tag/Exodus-v1.0)    |  N/A   |
 
+## GreatVoyage-4.7.7(Epicurus)
+Epicurus版本引入了多个重要的优化和更新，新增一个升级浮点计算幂运算库的提案，扩展 TRON 硬件兼容性，为用户提供更灵活的硬件平台选择，节省运行成本；优化事件订阅处理逻辑，保证事件获取的完整性，为用户带来更友好的开发体验；适配 GRPC 异步调用模式，进一步完善节点监控系统。下面是详细介绍。
+
+### 核心协议
+#### 1. 将浮点类型的幂运算库从java.lang.Math升级到java.lang.StrictMath
+
+为了Java-tron后续支持多平台，兼容新的JDK版本，Epicurus版本将浮点类型的幂运算库从 java.lang.Math 切换到 java.lang.StrictMath，以确保跨平台计算的一致性。
+
+注意，该优化是TRON网络的第87号参数，Epicurus部署之后默认为关闭状态，可以通过发起提案投票的方式开启。
+
+
+TIP: https://github.com/tronprotocol/tips/issues/697 
+
+源代码：https://github.com/tronprotocol/java-tron/pull/6098 
+
+### 其它变更
+#### 1. 优化事件订阅处理逻辑
+
+Java-tron提供事件订阅服务，开发者可以通过事件插件从节点订阅特定事件。针对区块事件，当节点收到一个新区块后，如果成功验证并处理该区块，则会将该区块数据保存在内存数据库中，同时如果有新的固化区块，会将固化区块数据写入到磁盘数据库。如果节点部署者订阅了区块事件，则在完成上述区块处理步骤后，会进行事件发送相关逻辑，即，将最新区块事件、最新固化区块事件发送给事件插件。但在Epicurus之前的版本中，区块处理与事件发送采用了同一个异常捕获逻辑：将新接收的区块数据从内存数据库中移除，并抛出异常。这将导致当区块处理正常，而事件服务发生异常时，新区块数据仍被删除，从而可能暂时影响区块同步。
+
+Epicurus版本优化了事件订阅处理逻辑，对区块事件发送逻辑单独进行异常捕获，当事件服务发生异常时，输出错误日志，节点退出运行，以使节点部署者可以及时了解节点异常情况，保证事件获取的完整性。
+
+
+源代码：https://github.com/tronprotocol/java-tron/pull/6096 
+
+#### 2. 调整主备服务资源释放顺序
+
+Epicurus版本调整了主备服务的资源释放顺序，先关闭主备节点通讯信道，再关闭线程池，以确保开启主备功能的节点可以通过`kill -15`命令优雅退出。
+
+源代码：https://github.com/tronprotocol/java-tron/pull/6095 
+
+
+#### 3. 优化GRPC接口调用耗时统计方法
+Epicurus版本优化了GRPC接口调用的耗时统计方法，以适配GRPC异步调用模式：新增一个服务端拦截器，用于记录GRPC调用的起始时间，并监听GRPC调用的结束事件，以准确的计算出GRPC接口异步调用耗时。
+
+
+源代码：https://github.com/tronprotocol/java-tron/pull/6097 
+
+
+
+Not what we have but what we enjoy, constitutes our abundance.
+
+<p align="right">---Epicurus</p>
+
+---
+
+
 ## GreatVoyage-v4.7.6(Anaximander)
 
 Anaximander版本引入了多个重要的优化和更新，优化的单元测试任务，提高了测试用例执行的稳定性；新增的TCP、UDP流量统计，进一步完善了节点监控数据；优化的远端节点空闲判断逻辑，提升了区块同步的稳定性；优化的节点连接随机断开逻辑，提高了节点网络健壮性。下面是详细介绍。
@@ -139,12 +187,12 @@ Anaximander版本优化了区块处理逻辑，在处理广播过来的区块后
 
 
 
---- 
+
 
 *Nature is eternal and does not age.* 
 <p align="right"> ---Anaximander</p>
 
-
+--- 
 
 ## GreatVoyage-v4.7.5(Cleobulus)
 
