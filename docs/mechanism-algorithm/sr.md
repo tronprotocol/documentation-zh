@@ -13,7 +13,7 @@
 
  投票需要TRON Power(TP)，你的TRON Power(TP)的多少由当前质押资金决定。TRON Power(TP)的计算方法：每质押1TRX，就可以获得1单位TRON Power(TP)。
 
- TRON网络中的每一个账户都具有选举权，可以通过投票选出自己认同的超级代表了。
+ TRON网络中的每一个账户都具有选举权，可以通过投票选出自己认同的超级代表。
 
  在解锁后，你没有了质押的资产，相应地失去了所有的TRON Power(TP)，因此以前的投票会失效。你可以通过重新质押并投票来避免投票失效。
 
@@ -31,13 +31,13 @@ votewitness witness1 3 witness2 7 # 同时给witness1投了3票，给witness2投
 
 ### Witnesses分红
 
-默认比例是20%，witnesses可以调整该值。
+默认比例是20%，超级代表和超级代表合伙人可以通过wallet/getBrokerage接口查询佣金比例, 也可以通过wallet/updateBrokerage接口修改佣金比例。
 
 如果一个witness获得20%的奖励，那么剩余的80%奖励会被分配给投票者。如果分红比例设置为100%，那么只有witness可以获得奖励；相反，如果设置为0，那么只有投票者会获得奖励。
 
 ## 3. 超级代表的奖励
 
-### 票数奖励
+### 投票奖励
 
 票数奖励是每生成一个区块奖励160TRX，总奖励数是4,608,000 TRX / 天。
 
@@ -76,43 +76,7 @@ votewitness witness1 3 witness2 7 # 同时给witness1投了3票，给witness2投
 
 只有超级代表（SR）、合伙人（Partner）和候选人（Candidates）对应账户具有提议权。
 
-允许修改的网络动态参数以及编号如下( [min,max] )：
-{0,1}：1代表‘通过’或者‘激活’，0代表否。
-
-|  #    | Command  |  Value  |
-|  ----  | ----    | ---- |
-|  0     | getMaintenanceTimeInterval <br> (修改超级代表调整时间间隔)	| 6  Hours <br> [3 * 27, 24 * 3600] s |
-|  1     | getAccountUpgradeCost <br> (修改账户升级为超级代表的费用) | 9999  TRX <br> [0, 100000000000] TRX |
-|  2     | getCreateAccountFee <br> (修改创建账户费用) | 0.1  TRX <br> [0, 100000000000] TRX |
-|  3     | getTransactionFee <br> (修改TRX抵扣带宽的费用) | 140  Sun/Byte <br> [0, 100000000000] TRX |
-|  4     | getAssetIssueFee <br> (修改资产发行费用) | 1024  TRX <br> [0, 100000000000] TRX|
-|  5     | getWitnessPayPerBlock <br> (修改超级代表出块奖励) | 16 TRX <br> [0, 100000000000] TRX |
-|  6     | getWitnessStandbyAllowance <br> (修改分给前127名超级代表候选人的奖励) | 115200  TRX <br> [0, 100000000000] TRX |
-|  7     | getCreateNewAccountFeeInSystemContract <br> (修改系统创建账户的费用) | 1 TRX  |
-|  8     | getCreateNewAccountBandwidthRate <br> (提议7、8，组合使用，用于修改创建账户时对资源或TRX的消耗) | 1&nbsp;Bandwith/Byte |
-|  9     | getAllowCreationOfContracts <br> (控制虚拟机功能的开启 ) | 1 <br> {0, 1} |
-|  10	 | getRemoveThePowerOfTheGr <br> (用于清除GR的创世票数) |	1 <br> {0, 1}|
-|  11	 | getEnergyFee <br> (修改能量费用) | 140 Sun <br> [0, 100000000000] TRX |
-|  12	 | getExchangeCreateFee <br> (修改创建交易对的费用) | 1024 TRX <br> [0, 100000000000] TRX |
-|  13	 | getMaxCpuTimeOfOneTx <br> (修改交易最长执行时间) | 50 ms <br> [0, 1000] ms |
-|  14	 | getAllowUpdateAccountName <br> (允许用户更改昵称以及昵称同名) | 0 <br> {0, 1} |
-|  15	 | getAllowSameTokenName <br> (允许创建相同名称的token) | 1 <br> {0, 1} |
-|  16	 | getAllowDelegateResource <br> (控制资源代理功能的开启) | 1 <br> {0, 1} |
-|  18	 | getAllowTvmTransferTrc10 <br> (允许智能合约调用TRC10 token的接口) | 1 <br> {0, 1} |
-|  19	 | getTotalEnergyCurrentLimit <br> (修改ENERGY总量) | 50000000000 |
-|  20	 | getAllowMultiSign <br> (允许开启多重签名) | 1 <br> {0, 1} |
-|  21	 | getAllowAdaptiveEnergy <br> (允许ENERGY总量自适应调整) | 0 <br> {0, 1} |
-|  22	 | getUpdateAccountPermissionFee <br> (修改账户权限费用) | 100 TRX |
-|  23	 | getMultiSignFee <br> (修改多重签名费用) | 1 TRX |
-|  24	 | getAllowProtoFilterNum <br> (允许更新protobuf的数字) | 0 <br> {0, 1} |
-|  26	 | getAllowTvmConstantinople <br> (允许TVM支持君士坦丁堡更新) | 1 <br> {0, 1} |
-|  27	 | getAllowShieldedTransaction <br> (允许匿名交易开启) | 0 <br> {0, 1} |
-|  28	 | getShieldedTransactionFee <br> (修改匿名交易手续费) | 10 TRX <br> [0, 10000] TRX |
-|  29	 | getAdaptiveResourceLimitMultiplier <br> (用于修改动态能量最大值) | 1000 <br> [1, 10000] |
-|  30    | getChangeDelegation <br> (修改更换委托机制) | 1 <br> {0, 1} |
-|  31    | getWitness127PayPerBlock <br> (修改票数排名奖励) | 160  TRX <br> [0, 100000000000] TRX |
-|  32    | getAllowTvmSolidity059 <br> (允许虚拟机支持0.5.9版本的Solidity编译器) | 0 <br> {0, 1} |
-|  33    | getAdaptiveResourceLimitTargetRatio <br> (修改能量目标值) | 10 <br> [1, 1000] |
+TRON网络动态参数及其编号请参考[这里](https://tronscan.org/#/sr/committee)。
 
 + 示例：
 
@@ -122,7 +86,6 @@ id0_N: 参数编号
 value0_N: 新参数值
 ```
 
-注：Tron网络中，1 TRX = 1_000_000 SUN。
 
 ### 5.3 对提议进行投票
 

@@ -2,8 +2,7 @@
 
 ## 背景
 
-**注意：V3.5版本后支持**
-目前TRON的所有交易签名，都是用的同一个私钥完成。没有权限分级，也不能实现多人共同控制账户。因此，设计并实现多重签名功能，每个权限可以对应多个私钥。
+多重签名功能允许权限分级，每个权限可以对应多个私钥。这使得实现账户的多人联合控制成为可能。
 
 [Tron multi-signatures TIP](https://github.com/tronprotocol/tips/blob/master/tip-16.md)
 
@@ -13,7 +12,7 @@
 
 ### 结构说明
 
-#### Account修改
+#### Account
 
 ```protobuf
 message Account {
@@ -24,9 +23,9 @@ message Account {
 }
 ```
 
-在账户结构中新增三个权限属性，分别是 owner_permission、witness_permission 和 active_permission，其中 active_permission 是个列表，可以指定最多8个。
+在账户结构中有三个权限属性，分别是 owner_permission、witness_permission 和 active_permission，其中 active_permission 是个列表，可以指定最多8个。
 
-#### ContractType修改
+#### ContractType
 
 ```protobuf
 message Transaction {
@@ -39,8 +38,7 @@ message Transaction {
   }
 }
 ```
-
-新增一种交易类型 AccountPermissionUpdateContract，用于更新账户权限。
+AccountPermissionUpdateContract类型的交易，用于更新账户权限。
 
 #### AccountPermissionUpdateContract
 
@@ -58,7 +56,7 @@ message AccountPermissionUpdateContract {
 `witness`：修改后的 witness 权限（如果是 witness ）
 `actives`：修改后的 actives 权限
 
-该接口是覆盖原账户权限，因此，如果只想修改owner权限，witness（如果是witnss账户）及actives的也需要设置。
+注意：该接口是覆盖原账户权限，因此，如果只想修改owner权限，witness（如果是witnss账户）及actives的也需要设置。
 
 #### Permission
 
@@ -102,7 +100,7 @@ message Key {
 `address`：拥有该权限的地址
 `weight`：该地址对该权限拥有权重
 
-#### Transaction修改
+#### Transaction
 
 ```protobuf
 message Transaction {
@@ -243,7 +241,6 @@ http://{{host}}:{{port}}/wallet/accountpermissionupdate
   }]
 }
 
-参数字段的定义及限制，请查看"2.1 结构说明"。
 
 ```
 
@@ -280,9 +277,7 @@ n+1、验证多重签名的权重之和大于域值则接受交易，否则拒�
 
 [多重签名示例](https://github.com/tronprotocol/wallet-cli/blob/multi_sign_V2/src/main/java/org/tron/demo/MultiSignDemo.java)
 
-### 其他新增接口
-
-接口详细说明，请查看Tron-http.md与波场钱包RPC-API.md
+### 其他相关接口
 
 
 #### 查询已签名地址
@@ -300,13 +295,3 @@ curl -X POST  http://127.0.0.1:8090/wallet/getsignweight -d '{"transaction"}'
 
 rpc GetTransactionSignWeight (Transaction) returns (TransactionSignWeight) {}
 ```
-
-## 其他
-
-### 支持多重签名后，创建账户时有什么变化？
-
-在升级到V3.5版本后，并且多重签名提议生效后，创建账户时将自动生成owner-permission以及一个active-permission，
-其中owner-permission中仅包含一个key，权限及阈值都为1。active-permission中也包含一个key，权限及阈值都为1，并且
-operations为"7fff1fc0033e0000000000000000000000000000000000000000000000000000"，表示支持除
-AccountPermissionUpdateContract以外的所有操作。
-在V3.5版本以后，如果有新增系统合约，新创建的账户的默认operations值会发生变化。已经创建的账户的operations不会发生变化。
