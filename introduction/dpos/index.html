@@ -99,9 +99,7 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#_9">基于提案对参数进行调整</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_10">带宽和能量机制</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_11">附录：参考文档</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_10">附录：参考文档</a>
     </li>
     </ul>
                   </li>
@@ -253,32 +251,8 @@
 <h2 id="_8">激励模型<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
 <p>为了保证区块链系统安全高效地运行，TRON设定激励模型，用于鼓励更多的节点加入到波场网络，从而扩大网络规模。波场网络每生成一个区块，都会授予16个TRX的区块奖励给生产该区块的超级代表，还会授予160个TRX的投票奖励给所有超级代表和超级合伙人(票数排名第28～127名的超级代表候选人也叫超级代表合伙人)，他们根据获得的投票数按比例瓜分投票奖励。同时，超级代表及合伙人还会将获得的奖励按照其设定的佣金比例扣除后，将剩余部分按照选民投票比例分发给选民。</p>
 <h2 id="_9">基于提案对参数进行调整<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
-<p>DPOS的一个重要的特性是任何系统参数的调整都可以通过链上的提案发起，记账人通过对提案的投票来决定提案是否生效。这样的好处是在链上新增加一些特性不需要进行硬分叉升级，波场目前能够支持的系统参数调整有：</p>
-<p>1.两个维护期之间的时间间隔</p>
-<p>2.申请成为记账候选人花费的TRX的数量</p>
-<p>3.激活一个账号需要花费的TRX的数量</p>
-<p>4.每笔交易中1个字节需要的带宽费用</p>
-<p>5.在波场中发行资产需要花费的TRX的数量</p>
-<p>6.witness生产每个区块的奖励</p>
-<p>7.所有记账人（包括记账候选人）得票数在前127名按得票比例将要获得的TRX奖励总数</p>
-<p>8.通过系统合约激活账号需要花费的TRX的数量</p>
-<p>9.激活一个账号需要花费的带宽数量</p>
-<p>10.能量和Sun的兑换关系</p>
-<p>11.创建基于TRC-10的token去中心化交易对需要花费的TRX的数量</p>
-<p>12.单笔交易执行允许花费的最大cpu时间</p>
-<p>13.是否允许修改账号名称</p>
-<p>14.是否允许发行同名的资产</p>
-<p>15.是否允许资源委托</p>
-<p>16.波场区块链系统中的能量上限值</p>
-<p>17.是否允许在智能合约中转移TRC-10资产</p>
-<p>18.是否允许开启能量上限动态调整</p>
-<p>19.是否允许多重签名</p>
-<p>20.账号权限更新需要花费的TRX数量</p>
-<p>21.多重签名交易需要花费的TRX数量</p>
-<p>22.是否对block和transaction的protobuf消息是否开启校验</p>
-<h2 id="_10">带宽和能量机制<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h2>
-<p>待补充</p>
-<h2 id="_11">附录：参考文档<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h2>
+<p>DPOS的一个重要的特性是任何系统参数的调整都可以通过链上的提案发起，记账人通过对提案的投票来决定提案是否生效，这样的好处是在链上新增加一些特性不需要进行硬分叉升级。目前TRON网络的动态参数及其值，以及过往的提案，请参考<a href="https://tronscan.org/#/sr/committee">这里</a>。</p>
+<h2 id="_10">附录：参考文档<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="https://www.coinbureau.com/education/delegated-proof-stake-dpos/">Delegated Proof of Stake (DPoS) – Total Beginners Guide</a></li>
 <li><a href="https://www.nichanank.com/blog/2018/6/4/consensus-algorithms-pos-dpos">Consensus Algorithms: Proof-of-Stake &amp; Cryptoeconomics</a></li>

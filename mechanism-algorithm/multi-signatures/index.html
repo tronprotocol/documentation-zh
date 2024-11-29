@@ -97,9 +97,9 @@
         <ul>
     <li class="toctree-l3"><a class="reference internal" href="#_4">结构说明</a>
         <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#account">Account修改</a>
+    <li class="toctree-l4"><a class="reference internal" href="#account">Account</a>
     </li>
-    <li class="toctree-l4"><a class="reference internal" href="#contracttype">ContractType修改</a>
+    <li class="toctree-l4"><a class="reference internal" href="#contracttype">ContractType</a>
     </li>
     <li class="toctree-l4"><a class="reference internal" href="#accountpermissionupdatecontract">AccountPermissionUpdateContract</a>
     </li>
@@ -107,7 +107,7 @@
     </li>
     <li class="toctree-l4"><a class="reference internal" href="#key">Key</a>
     </li>
-    <li class="toctree-l4"><a class="reference internal" href="#transaction">Transaction修改</a>
+    <li class="toctree-l4"><a class="reference internal" href="#transaction">Transaction</a>
     </li>
         </ul>
     </li>
@@ -131,19 +131,13 @@
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#_7">执行合约</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#_8">其他新增接口</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_8">其他相关接口</a>
         <ul>
     <li class="toctree-l4"><a class="reference internal" href="#_9">查询已签名地址</a>
     </li>
     <li class="toctree-l4"><a class="reference internal" href="#_10">查询交易签名权重</a>
     </li>
         </ul>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_11">其他</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#_12">支持多重签名后，创建账户时有什么变化？</a>
     </li>
         </ul>
     </li>
@@ -220,13 +214,12 @@
               
                 <h1 id="_1">多重签名<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
 <h2 id="_2">背景<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
-<p><strong>注意：V3.5版本后支持</strong>
-目前TRON的所有交易签名，都是用的同一个私钥完成。没有权限分级，也不能实现多人共同控制账户。因此，设计并实现多重签名功能，每个权限可以对应多个私钥。</p>
+<p>多重签名功能允许权限分级，每个权限可以对应多个私钥。这使得实现账户的多人联合控制成为可能。</p>
 <p><a href="https://github.com/tronprotocol/tips/blob/master/tip-16.md">Tron multi-signatures TIP</a></p>
 <h2 id="_3">概念说明<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
 <p>该方案共包含三种权限级别，owner、witness以及active权限，其中owner权限具有执行所有合约的权限，witness权限用于超级代表出块，active是自定义权限(可以组合权限集合)，以下将详细说明。</p>
 <h3 id="_4">结构说明<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
-<h4 id="account">Account修改<a class="headerlink" href="#account" title="Permanent link">&para;</a></h4>
+<h4 id="account">Account<a class="headerlink" href="#account" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="kd">message</span><span class="w"> </span><span class="nc">Account</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="o">...</span>
 <span class="w">  </span><span class="n">Permission</span><span class="w"> </span><span class="na">owner_permission</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">31</span><span class="p">;</span>
@@ -234,9 +227,9 @@
 <span class="w">  </span><span class="k">repeated</span><span class="w"> </span><span class="n">Permission</span><span class="w"> </span><span class="na">active_permission</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">33</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
-<p>在账户结构中新增三个权限属性，分别是 owner_permission、witness_permission 和 active_permission，其中 active_permission 是个列表，可以指定最多8个。</p>
-<h4 id="contracttype">ContractType修改<a class="headerlink" href="#contracttype" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="kd">message</span><span class="w"> </span><span class="nc">Transaction</span><span class="w"> </span><span class="p">{</span>
+<p>在账户结构中有三个权限属性，分别是 owner_permission、witness_permission 和 active_permission，其中 active_permission 是个列表，可以指定最多8个。</p>
+<h4 id="contracttype">ContractType<a class="headerlink" href="#contracttype" title="Permanent link">&para;</a></h4>
+<p><div class="highlight"><pre><span></span><code><span class="kd">message</span><span class="w"> </span><span class="nc">Transaction</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="kd">message</span><span class="w"> </span><span class="nc">Contract</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="kd">enum</span><span class="w"> </span><span class="n">ContractType</span><span class="w"> </span><span class="p">{</span>
 <span class="w">      </span><span class="na">AccountCreateContract</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
@@ -246,7 +239,7 @@
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-<p>新增一种交易类型 AccountPermissionUpdateContract，用于更新账户权限。</p>
+AccountPermissionUpdateContract类型的交易，用于更新账户权限。</p>
 <h4 id="accountpermissionupdatecontract">AccountPermissionUpdateContract<a class="headerlink" href="#accountpermissionupdatecontract" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="kd">message</span><span class="w"> </span><span class="nc">AccountPermissionUpdateContract</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="kt">bytes</span><span class="w"> </span><span class="na">owner_address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
@@ -259,7 +252,7 @@
 <code>owner</code>：修改后的 owner 权限
 <code>witness</code>：修改后的 witness 权限（如果是 witness ）
 <code>actives</code>：修改后的 actives 权限</p>
-<p>该接口是覆盖原账户权限，因此，如果只想修改owner权限，witness（如果是witnss账户）及actives的也需要设置。</p>
+<p>注意：该接口是覆盖原账户权限，因此，如果只想修改owner权限，witness（如果是witnss账户）及actives的也需要设置。</p>
 <h4 id="permission">Permission<a class="headerlink" href="#permission" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="kd">message</span><span class="w"> </span><span class="nc">Permission</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="kd">enum</span><span class="w"> </span><span class="n">PermissionType</span><span class="w"> </span><span class="p">{</span>
@@ -294,7 +287,7 @@
 </code></pre></div>
 <p><code>address</code>：拥有该权限的地址
 <code>weight</code>：该地址对该权限拥有权重</p>
-<h4 id="transaction">Transaction修改<a class="headerlink" href="#transaction" title="Permanent link">&para;</a></h4>
+<h4 id="transaction">Transaction<a class="headerlink" href="#transaction" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="kd">message</span><span class="w"> </span><span class="nc">Transaction</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="o">...</span>
 <span class="w">  </span><span class="kt">int32</span><span class="w"> </span><span class="na">Permission_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span>
@@ -411,8 +404,6 @@ localwitness = [
 <span class="w">    </span><span class="p">]</span>
 <span class="w">  </span><span class="p">}]</span>
 <span class="p">}</span>
-
-<span class="err">参数字段的定义及限制，请查看</span><span class="s2">&quot;2.1 结构说明&quot;</span><span class="err">。</span>
 </code></pre></div>
 <h3 id="activeoperations">active权限中operations的计算示例<a class="headerlink" href="#activeoperations" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
@@ -440,8 +431,7 @@ n、最后一个完成签名的用户，将交易广播到节点。
 n+1、验证多重签名的权重之和大于域值则接受交易，否则拒绝交易</p>
 <p>代码示例：</p>
 <p><a href="https://github.com/tronprotocol/wallet-cli/blob/multi_sign_V2/src/main/java/org/tron/demo/MultiSignDemo.java">多重签名示例</a></p>
-<h3 id="_8">其他新增接口<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
-<p>接口详细说明，请查看Tron-http.md与波场钱包RPC-API.md</p>
+<h3 id="_8">其他相关接口<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
 <h4 id="_9">查询已签名地址<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code>curl -X POST  http://127.0.0.1:8090/wallet/getapprovedlist -d &#39;{&quot;transaction&quot;}&#39;
 
@@ -452,13 +442,6 @@ rpc GetTransactionApprovedList(Transaction) returns (TransactionApprovedList) { 
 
 rpc<span class="w"> </span>GetTransactionSignWeight<span class="w"> </span><span class="o">(</span>Transaction<span class="o">)</span><span class="w"> </span>returns<span class="w"> </span><span class="o">(</span>TransactionSignWeight<span class="o">)</span><span class="w"> </span><span class="o">{}</span>
 </code></pre></div>
-<h2 id="_11">其他<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h2>
-<h3 id="_12">支持多重签名后，创建账户时有什么变化？<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
-<p>在升级到V3.5版本后，并且多重签名提议生效后，创建账户时将自动生成owner-permission以及一个active-permission，
-其中owner-permission中仅包含一个key，权限及阈值都为1。active-permission中也包含一个key，权限及阈值都为1，并且
-operations为"7fff1fc0033e0000000000000000000000000000000000000000000000000000"，表示支持除
-AccountPermissionUpdateContract以外的所有操作。
-在V3.5版本以后，如果有新增系统合约，新创建的账户的默认operations值会发生变化。已经创建的账户的operations不会发生变化。</p>
               
             </div>
           </div><footer>

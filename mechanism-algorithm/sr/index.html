@@ -89,7 +89,7 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#3">3. 超级代表的奖励</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#_2">票数奖励</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_2">投票奖励</a>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#_3">出块奖励</a>
     </li>
@@ -201,7 +201,7 @@
 <p>投票统计每6小时统计一次，超级代表和超级合伙人也就每6个小时变更一次。</p>
 <h2 id="2">2. 选举超级代表<a class="headerlink" href="#2" title="Permanent link">&para;</a></h2>
 <p>投票需要TRON Power(TP)，你的TRON Power(TP)的多少由当前质押资金决定。TRON Power(TP)的计算方法：每质押1TRX，就可以获得1单位TRON Power(TP)。</p>
-<p>TRON网络中的每一个账户都具有选举权，可以通过投票选出自己认同的超级代表了。</p>
+<p>TRON网络中的每一个账户都具有选举权，可以通过投票选出自己认同的超级代表。</p>
 <p>在解锁后，你没有了质押的资产，相应地失去了所有的TRON Power(TP)，因此以前的投票会失效。你可以通过重新质押并投票来避免投票失效。</p>
 <p>注意: 波场网络只记录你最后一次投票的状态，也就是说你的每一次投票都会覆盖以前所有的投票效果</p>
 <ul>
@@ -213,10 +213,10 @@ votewitness<span class="w"> </span>witness1<span class="w"> </span><span class="
 </code></pre></div>
 <p>以上命令的最终结果是给witness1投了3票，给witness2投了7票</p>
 <h3 id="witnesses">Witnesses分红<a class="headerlink" href="#witnesses" title="Permanent link">&para;</a></h3>
-<p>默认比例是20%，witnesses可以调整该值。</p>
+<p>默认比例是20%，超级代表和超级代表合伙人可以通过wallet/getBrokerage接口查询佣金比例, 也可以通过wallet/updateBrokerage接口修改佣金比例。</p>
 <p>如果一个witness获得20%的奖励，那么剩余的80%奖励会被分配给投票者。如果分红比例设置为100%，那么只有witness可以获得奖励；相反，如果设置为0，那么只有投票者会获得奖励。</p>
 <h2 id="3">3. 超级代表的奖励<a class="headerlink" href="#3" title="Permanent link">&para;</a></h2>
-<h3 id="_2">票数奖励<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<h3 id="_2">投票奖励<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
 <p>票数奖励是每生成一个区块奖励160TRX，总奖励数是4,608,000 TRX / 天。</p>
 <p>对每一个SR与Partner，每天获得的票数奖励 = 4,608,000 * ( 获得的票数 /  总票数) x 20%  TRX</p>
 <h3 id="_3">出块奖励<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
@@ -236,179 +236,7 @@ votewitness<span class="w"> </span>witness1<span class="w"> </span><span class="
 当提议获得18个代表及以上的赞成票时，该提议获得通过，并在下个维护期内进行网络参数修改。</p>
 <h3 id="52">5.2 创建提议<a class="headerlink" href="#52" title="Permanent link">&para;</a></h3>
 <p>只有超级代表（SR）、合伙人（Partner）和候选人（Candidates）对应账户具有提议权。</p>
-<p>允许修改的网络动态参数以及编号如下( [min,max] )：
-{0,1}：1代表‘通过’或者‘激活’，0代表否。</p>
-<table>
-<thead>
-<tr>
-<th>#</th>
-<th>Command</th>
-<th>Value</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>0</td>
-<td>getMaintenanceTimeInterval <br> (修改超级代表调整时间间隔)</td>
-<td>6  Hours <br> [3 * 27, 24 * 3600] s</td>
-</tr>
-<tr>
-<td>1</td>
-<td>getAccountUpgradeCost <br> (修改账户升级为超级代表的费用)</td>
-<td>9999  TRX <br> [0, 100000000000] TRX</td>
-</tr>
-<tr>
-<td>2</td>
-<td>getCreateAccountFee <br> (修改创建账户费用)</td>
-<td>0.1  TRX <br> [0, 100000000000] TRX</td>
-</tr>
-<tr>
-<td>3</td>
-<td>getTransactionFee <br> (修改TRX抵扣带宽的费用)</td>
-<td>140  Sun/Byte <br> [0, 100000000000] TRX</td>
-</tr>
-<tr>
-<td>4</td>
-<td>getAssetIssueFee <br> (修改资产发行费用)</td>
-<td>1024  TRX <br> [0, 100000000000] TRX</td>
-</tr>
-<tr>
-<td>5</td>
-<td>getWitnessPayPerBlock <br> (修改超级代表出块奖励)</td>
-<td>16 TRX <br> [0, 100000000000] TRX</td>
-</tr>
-<tr>
-<td>6</td>
-<td>getWitnessStandbyAllowance <br> (修改分给前127名超级代表候选人的奖励)</td>
-<td>115200  TRX <br> [0, 100000000000] TRX</td>
-</tr>
-<tr>
-<td>7</td>
-<td>getCreateNewAccountFeeInSystemContract <br> (修改系统创建账户的费用)</td>
-<td>1 TRX</td>
-</tr>
-<tr>
-<td>8</td>
-<td>getCreateNewAccountBandwidthRate <br> (提议7、8，组合使用，用于修改创建账户时对资源或TRX的消耗)</td>
-<td>1&nbsp;Bandwith/Byte</td>
-</tr>
-<tr>
-<td>9</td>
-<td>getAllowCreationOfContracts <br> (控制虚拟机功能的开启 )</td>
-<td>1 <br> {0, 1}</td>
-</tr>
-<tr>
-<td>10</td>
-<td>getRemoveThePowerOfTheGr <br> (用于清除GR的创世票数)</td>
-<td>1 <br> {0, 1}</td>
-</tr>
-<tr>
-<td>11</td>
-<td>getEnergyFee <br> (修改能量费用)</td>
-<td>140 Sun <br> [0, 100000000000] TRX</td>
-</tr>
-<tr>
-<td>12</td>
-<td>getExchangeCreateFee <br> (修改创建交易对的费用)</td>
-<td>1024 TRX <br> [0, 100000000000] TRX</td>
-</tr>
-<tr>
-<td>13</td>
-<td>getMaxCpuTimeOfOneTx <br> (修改交易最长执行时间)</td>
-<td>50 ms <br> [0, 1000] ms</td>
-</tr>
-<tr>
-<td>14</td>
-<td>getAllowUpdateAccountName <br> (允许用户更改昵称以及昵称同名)</td>
-<td>0 <br> {0, 1}</td>
-</tr>
-<tr>
-<td>15</td>
-<td>getAllowSameTokenName <br> (允许创建相同名称的token)</td>
-<td>1 <br> {0, 1}</td>
-</tr>
-<tr>
-<td>16</td>
-<td>getAllowDelegateResource <br> (控制资源代理功能的开启)</td>
-<td>1 <br> {0, 1}</td>
-</tr>
-<tr>
-<td>18</td>
-<td>getAllowTvmTransferTrc10 <br> (允许智能合约调用TRC10 token的接口)</td>
-<td>1 <br> {0, 1}</td>
-</tr>
-<tr>
-<td>19</td>
-<td>getTotalEnergyCurrentLimit <br> (修改ENERGY总量)</td>
-<td>50000000000</td>
-</tr>
-<tr>
-<td>20</td>
-<td>getAllowMultiSign <br> (允许开启多重签名)</td>
-<td>1 <br> {0, 1}</td>
-</tr>
-<tr>
-<td>21</td>
-<td>getAllowAdaptiveEnergy <br> (允许ENERGY总量自适应调整)</td>
-<td>0 <br> {0, 1}</td>
-</tr>
-<tr>
-<td>22</td>
-<td>getUpdateAccountPermissionFee <br> (修改账户权限费用)</td>
-<td>100 TRX</td>
-</tr>
-<tr>
-<td>23</td>
-<td>getMultiSignFee <br> (修改多重签名费用)</td>
-<td>1 TRX</td>
-</tr>
-<tr>
-<td>24</td>
-<td>getAllowProtoFilterNum <br> (允许更新protobuf的数字)</td>
-<td>0 <br> {0, 1}</td>
-</tr>
-<tr>
-<td>26</td>
-<td>getAllowTvmConstantinople <br> (允许TVM支持君士坦丁堡更新)</td>
-<td>1 <br> {0, 1}</td>
-</tr>
-<tr>
-<td>27</td>
-<td>getAllowShieldedTransaction <br> (允许匿名交易开启)</td>
-<td>0 <br> {0, 1}</td>
-</tr>
-<tr>
-<td>28</td>
-<td>getShieldedTransactionFee <br> (修改匿名交易手续费)</td>
-<td>10 TRX <br> [0, 10000] TRX</td>
-</tr>
-<tr>
-<td>29</td>
-<td>getAdaptiveResourceLimitMultiplier <br> (用于修改动态能量最大值)</td>
-<td>1000 <br> [1, 10000]</td>
-</tr>
-<tr>
-<td>30</td>
-<td>getChangeDelegation <br> (修改更换委托机制)</td>
-<td>1 <br> {0, 1}</td>
-</tr>
-<tr>
-<td>31</td>
-<td>getWitness127PayPerBlock <br> (修改票数排名奖励)</td>
-<td>160  TRX <br> [0, 100000000000] TRX</td>
-</tr>
-<tr>
-<td>32</td>
-<td>getAllowTvmSolidity059 <br> (允许虚拟机支持0.5.9版本的Solidity编译器)</td>
-<td>0 <br> {0, 1}</td>
-</tr>
-<tr>
-<td>33</td>
-<td>getAdaptiveResourceLimitTargetRatio <br> (修改能量目标值)</td>
-<td>10 <br> [1, 1000]</td>
-</tr>
-</tbody>
-</table>
+<p>TRON网络动态参数及其编号请参考<a href="https://tronscan.org/#/sr/committee">这里</a>。</p>
 <ul>
 <li>示例：</li>
 </ul>
@@ -416,7 +244,6 @@ votewitness<span class="w"> </span>witness1<span class="w"> </span><span class="
 id0_N: 参数编号
 value0_N: 新参数值
 </code></pre></div>
-<p>注：Tron网络中，1 TRX = 1_000_000 SUN。</p>
 <h3 id="53">5.3 对提议进行投票<a class="headerlink" href="#53" title="Permanent link">&para;</a></h3>
 <p>提议仅支持投赞成票，不投票代表不赞同。从提议创建时间开始，3天时间内为提议的有效期。超过该时间范围，该提议如果没有获得足够的
 赞成票，该提议失效。允许取消之前投的赞成票。</p>
