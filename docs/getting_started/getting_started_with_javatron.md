@@ -5,11 +5,11 @@
 本文涵盖了使用Java-tron的基础，这包括生成帐户、加入TRON nile测试网络、在帐户之间发送TRX。文档中也使用了wallet-cli，wallet-cli是TRON网络的一个命令行工具，该工具提供用户交互式命令，使用它可以更方便的与Java-tron进行交互。
 
 
-Java-tron是用Java编写的TRON网络客户端，这意味着运行Java-tron的计算机会变成一个TRON网络节点。TRON网络是一个分布式网络，信息在节点之间共享，而不是由中央服务器管理。超级代表的节点在生成新的区块后，会将区块发送给其它节点。每个节点在接收到一个新的区块时，都会对其进行校验，校验通过后将其添加到自己的数据库中。Java-tron使用每个区块提供的信息来更新其“状态”——TRON网络上每个账户的余额。TRON网络上有两种类型的帐户:外部拥有的帐户和合约帐户。合约帐户在收到交易时执行合约代码。外部账户是用户在本地管理的帐户，以便签署和提交交易。每个外部账户都是一个公私密钥对，其中公钥用于为用户派生一个唯一的地址，而私钥用于保护帐户和安全签署消息。因此，为了使用TRON网络，首先需要生成外部账户(以下简称“帐户”)。本教程将指导用户如何创建一个帐户，存入TRX代币，并转账TRX。
+Java-tron是用Java编写的TRON网络客户端，这意味着运行Java-tron的计算机会变成一个TRON网络节点。TRON网络是一个分布式网络，信息在节点之间共享，而不是由中央服务器管理。超级代表的节点在生成新的区块后，会将区块发送给其它节点。每个节点在接收到一个新的区块时，都会对其进行校验，校验通过后将其添加到自己的数据库中。Java-tron使用每个区块提供的信息来更新其“状态”——TRON网络上每个账户的余额。TRON网络上有两种类型的帐户:外部拥有的帐户和合约帐户。合约帐户在收到交易时执行合约代码。外部账户是用户在本地管理的帐户，以便签署和提交交易，比如通过TronLink钱包创建的账户。每个外部账户都是一个公私密钥对，其中公钥用于为用户派生一个唯一的地址，而私钥用于保护帐户和安全签署消息。因此，为了使用TRON网络，首先需要生成外部账户(以下简称“帐户”)。本教程将指导用户如何创建一个帐户，存入TRX代币，并转账TRX。
 
 
 # 生成账户
-有多种方法来生成TRON网络帐户，这里将演示如何使用wallet-cli生成帐户。帐户是一对密钥(公钥和私钥)。
+有多种方法来生成TRON网络帐户，这里将演示如何使用wallet-cli生成帐户, 参考[安装和部署](../clients/wallet-cli.md)章节。帐户是一对密钥(公钥和私钥)。
 
 在终端中通过命令`java -jar wallet-cli.jar`来启动一个wallet-cli：
 ```
@@ -18,23 +18,23 @@ $ java -jar wallet-cli.jar
 Welcome to Tron Wallet-Cli
 Please type one of the following commands to proceed.
 Login, RegisterWallet or ImportWallet
- 
+
 You may also use the Help command at anytime to display a full list of commands.
- 
-wallet> 
+
+wallet>
 ```
 
 输入命令：registerwallet，然后根据提示输入密码。该命令会生成TRON网络账户,并注册到wallet-cli，也就是wallet-cli会保存此账户的私钥，之后就可以使用该私钥对交易进行签名了。
 ```
 wallet> registerwallet
 Please input password.
-password: 
+password:
 user defined config file doesn't exists, use default config file in jar
 WalletApi getRpcVsersion: 2
 Please input password again.
-password: 
+password:
 Register a wallet successful, keystore file name is UTC--2022-07-04T06-35-35.304000000Z--TQXjm2J8K2DKTV49MdfT2anjUehbU3WDJz.json
-wallet> 
+wallet>
 ```
 
 # 登录wallet-cli
@@ -49,9 +49,9 @@ wallet> login
 Please choose between 1 and 3
 2
 Please input your password.
-password: 
+password:
 Login successful !!!
-wallet> 
+wallet>
 ```
 
 登录后，可以通过getaddress命令查看登录的账户地址：
@@ -59,7 +59,7 @@ wallet>
 wallet> getaddress
 GetAddress successful !!
 address = TQXjm2J8K2DKTV49MdfT2anjUehbU3WDJz
-wallet> 
+wallet>
 ```
 
 然后可以通过backupwallet命令，根据提示输入密码后，查看账户的私钥，建议保存好私钥。
@@ -92,14 +92,14 @@ Java-tron启动后，日志将包括以下内容：
 11:08:42.567 INFO  [TronJClientWorker-1] [DB](Manager.java:1642) solidBlockNumber:23113849
 11:08:42.567 INFO  [TronJClientWorker-1] [net](SyncService.java:179) Get block chain summary, low: 23113867, highNoFork: 23113867, high: 23113867, realHigh: 23113867
 11:08:42.572 INFO  [TronJClientWorker-1] [net](MessageQueue.java:106) Send to /123.56.3.74:18888, type: SYNC_BLOCK_CHAIN
-size: 1, start block: Num:23113867,ID:000000000160b08b510b6c501c980a2567bff1229eed62ca79874c9ca7828e9c 
+size: 1, start block: Num:23113867,ID:000000000160b08b510b6c501c980a2567bff1229eed62ca79874c9ca7828e9c
 11:08:42.631 INFO  [TronJClientWorker-1] [net](MessageQueue.java:121) Receive from /123.56.3.74:18888, type: BLOCK_CHAIN_INVENTORY
 size: 2001, first blockId: Num:23113867,ID:000000000160b08b510b6c501c980a2567bff1229eed62ca79874c9ca7828e9c, end blockId: Num:23115867,ID:000000000160b85b587ef18d00a1905d8022ec0a8fd174f3980b78f6aacf0ede
 
 ......
 
 11:08:43.478 INFO  [pool-49-thread-1] [net](MessageQueue.java:106) Send to /123.56.3.74:18888, type: FETCH_INV_DATA
-invType: BLOCK, size: 100, First hash: 000000000160b08c6eeba60eced4fb13d7c56e46a3c5220a67bb2801a05e5679, End hash: 000000000160b0efd90560e389d1f6e5b3c8d3877709ce375a8e063f5db73af9 
+invType: BLOCK, size: 100, First hash: 000000000160b08c6eeba60eced4fb13d7c56e46a3c5220a67bb2801a05e5679, End hash: 000000000160b0efd90560e389d1f6e5b3c8d3877709ce375a8e063f5db73af9
 11:08:43.502 INFO  [TronJClientWorker-1] [net](MessageQueue.java:121) Receive from /123.56.3.74:18888, type: BLOCK
 Num:23113868,ID:000000000160b08c6eeba60eced4fb13d7c56e46a3c5220a67bb2801a05e5679, trx size: 1
 
@@ -119,14 +119,16 @@ $ curl http://127.0.0.1:16887/wallet/getnodeinfo
 如果要关闭Java-tron，请通过`kill -15 进程id`来暂停节点。
 
 # 获取Nile测试网TRX
-为了能够发送交易，用户的账户中需要持有TRX。在TRON网络主网上，只能通过三种方式获得TRX: 
-1. 超级代表生产区块/为超级代表投票的奖励; 
-2. 另一个TRON网络账户向其转账TRX; 
+为了能够发送交易，用户的账户中需要持有TRX。在TRON网络主网上，只能通过三种方式获得TRX:
+1. 超级代表生产区块/为超级代表投票的奖励;
+2. 另一个TRON网络账户向其转账TRX;
 3. 从交易所获得。
 
 在TRON测试网中，TRX没有实际价值, 可以通过 [水龙头](https://nileex.io/join/getJoinPage) 免费获得。
 
 # 与Java-tron交互
+如果本地不便运行节点，或者节点要长时间同步数据才能获取最新的数据，可以使用TronGrid。TronGrid提供负载均衡的，安全的，可靠的的节点访问API，参考[TronGrid](../clients/tron-grid.md)。
+Nile测试网的TronGrid地址为 https://nile.trongrid.io。其他网络节点或者grpc连接参考[Networks](https://developers.tron.network/docs/networks)。
 
 ## 使用wallet-cli与Java-tron节点进行交互
 Java-tron对外提供http接口和grpc接口，方便用户与TRON网络进行交互。wallet-cli使用的是grpc接口。
@@ -148,7 +150,7 @@ wallet> getaccount TUoHaVjx7n5xz8LwPRDckgFrDWhMhuSuJM
 	"account_resource": {
 		"latest_consume_time_for_energy": 1655358327000
 	},
-    
+
         ......
 }
 
@@ -158,7 +160,7 @@ wallet> getaccount TUoHaVjx7n5xz8LwPRDckgFrDWhMhuSuJM
 ```
 wallet> getbalance
 Balance = 93642857919
-wallet> 
+wallet>
 ```
 
 ### 转账TRX
@@ -202,11 +204,11 @@ The 3th keystore file name is UTC--2022-06-21T09-51-26.367000000Z--TUoHaVjx7n5xz
 Please choose between 1 and 3
 3
 Please input your password.
-password: 
+password:
 after sign transaction hex string is 0a85010a02cbc322088581ae7e29258a5240dbfc91ca9c305a67080112630a2d747970652e676f6f676c65617069732e636f6d2f70726f746f636f6c2e5472616e73666572436f6e747261637412320a1541ce8a0cf0c16d48bcf22825f6053248df653c89ca121541d0b69631440f0a494bb51f7eee68ff5c593c00f018c0843d7098cfebbf9c301241241a3ce4797ccc2fedf49ae41af28b49df1e15a476e4948af4df5aadf23a1e940ad5cc2133f501c08f2bab6a2231cdc82a745fed0fc6a012dc19310532d9138600
 txid is 21851bcf1faf22c99a7a49c4f246d709cf9f54db2f264ca145adcd464ea155a4
 Send 1000000 Sun to TUznHJfHe6gdYY7gvWmf6bNZHuPHDZtowf successful !!
-wallet> 
+wallet>
 ```
 
 ### 根据交易id查询交易
@@ -245,7 +247,7 @@ wallet> gettransactionbyid 21851bcf1faf22c99a7a49c4f246d709cf9f54db2f264ca145adc
 	},
 	"raw_data_hex":"0a02cbc322088581ae7e29258a5240dbfc91ca9c305a67080112630a2d747970652e676f6f676c65617069732e636f6d2f70726f746f636f6c2e5472616e73666572436f6e747261637412320a1541ce8a0cf0c16d48bcf22825f6053248df653c89ca121541d0b69631440f0a494bb51f7eee68ff5c593c00f018c0843d7098cfebbf9c30"
 }
-wallet> 
+wallet>
 
 ```
 
@@ -262,25 +264,40 @@ wallet> gettransactioninfobyid 21851bcf1faf22c99a7a49c4f246d709cf9f54db2f264ca14
 		"net_usage": 267
 	}
 }
-wallet> 
+wallet>
 ```
 
 
 ## 使用Curl与Java-tron节点进行交互
-上文介绍了如何使用wallet-cli与Java-tron进行交互。与直接发送grpc/http命令相比，该工具提供更友好的交互式命令，使用户可以更方便的向Java-tron发送指令。但是，如何直接发送HTTP请求到Java-tron节点呢？ Curl是一个发送HTTP请求的命令行工具。本章节将说明如何通过Curl检查帐户余额，并发送交易。
+上文介绍了如何使用wallet-cli与Java-tron进行交互。与直接发送grpc/http命令相比，该工具提供更友好的交互式命令，使用户可以更方便的向Java-tron发送指令。但是，如何直接发送HTTP请求到Java-tron节点呢？ Curl是一个发送HTTP请求的命令行工具, 可以把curl命令复制到Postman工具里使用。本章节将说明如何通过Curl检查帐户余额，并发送交易。如果本地节点无法访问，请使用TranGrid API.
 
 ### 查询账户余额
-可以通过节点HTTP接口`wallet/getaccount`来查询账户的TRX余额信息，返回结果中的balance即为TRX余额，以sun为单位：
+可以通过节点HTTP接口`wallet/getaccount`来查询账户的TRX余额信息，返回结果中的balance即为TRX余额，以sun为单位。
+
+访问本地节点，注意本地节点如果同步中则可能数据不准确:
 ```
- curl -X POST http://127.0.0.1:16887/wallet/getaccount -d 
-     '{"address": "TUoHaVjx7n5xz8LwPRDckgFrDWhMhuSuJM",
-       "visible": true
-     }'
+curl --location 'http://127.0.0.1:16887/wallet/getaccount' \
+--header 'Content-Type: application/json' \
+--data '{
+    "address": "TUoHaVjx7n5xz8LwPRDckgFrDWhMhuSuJM",
+    "visible": true
+}'
 ```
-结果为：
+参考返回结果数据：
 ```
 {"account_name": "testacc2","address": "TUoHaVjx7n5xz8LwPRDckgFrDWhMhuSuJM","balance": 1000000000000000,"account_resource": {}}
 ```
+
+也可以通过TranGrid访问其他远端节点:
+```
+ curl --location 'https://nile.trongrid.io/wallet/getaccount' \
+--header 'Content-Type: application/json' \
+--data '{
+    "address": "TUoHaVjx7n5xz8LwPRDckgFrDWhMhuSuJM",
+    "visible":"true"
+}'
+```
+
 
 ### 发送交易
 通过http接口发送交易，总共需要三步：
@@ -293,13 +310,14 @@ wallet>
 
 通过fullnode HTTP接口`wallet/createtransaction`创建一个未签名的TRX转账交易：
 ```
-curl -X POST  http://127.0.0.1:16887/wallet/createtransaction -d 
-    '{
-        "to_address": "TUznHJfHe6gdYY7gvWmf6bNZHuPHDZtowf", 
-        "owner_address": "TUoHaVjx7n5xz8LwPRDckgFrDWhMhuSuJM", 
-        "amount": 10000000,
-        "visible":true
-    }'
+curl --location 'http://127.0.0.1:16887/wallet/createtransaction' \
+--header 'Content-Type: application/json' \
+--data '{
+    "to_address": "TUznHJfHe6gdYY7gvWmf6bNZHuPHDZtowf",
+    "owner_address": "TUoHaVjx7n5xz8LwPRDckgFrDWhMhuSuJM",
+    "amount": 10000000,
+    "visible":true
+}'
 ```
 返回一个未签名的TRX转账交易：
 ```
@@ -312,7 +330,7 @@ curl -X POST  http://127.0.0.1:16887/wallet/createtransaction -d
                 "parameter": {
                     "value": {
                         "amount": 10000000,
-                        "owner_address": "TPswDDCAWhJAZGdHPidFg5nEf8TkNToDX1",
+                        "owner_address": "TUoHaVjx7n5xz8LwPRDckgFrDWhMhuSuJM",
                         "to_address": "TUznHJfHe6gdYY7gvWmf6bNZHuPHDZtowf"
                     },
                     "type_url": "type.googleapis.com/protocol.TransferContract"
@@ -376,14 +394,14 @@ curl --location --request POST 'http://127.0.0.1:16887/wallet/broadcasttransacti
 ### 根据交易id查询交易
 通过http接口 `wallet/gettransactionbyid`来查询交易的内容：
 ```
-curl --location --request POST 'http://127.0.0.1:16887/wallet/gettransactionbyid' \
+curl --location 'http://127.0.0.1:16887/wallet/gettransactionbyid' \
 --header 'Content-Type: application/json' \
---data-raw '{
-     "value": "c558bd35978267d8999baf6148703cbc94786f3f2e22893637588ca05437d7f0"
+--data '{
+    "value": "f51f427344460ea484e92a90dc8701a4bbdb57f8b29ce1d7a7dca1bd74a5e1f2",
+    "visible": true
 }'
 ```
-查询结果为：
-
+参考查询结果为：
 ```
 {
     "ret": [
