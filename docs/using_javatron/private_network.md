@@ -31,29 +31,46 @@
       ```
 
 4. 修改各节点的配置文件
-  
-    请根据如下表格中的说明，依次修改节点的各个配置项：
 
-    | 配置项名称 | SR Fullnode配置内容 | FullNode配置内容 | 说明 |
-    | :-------- | :-------- | :-------- | :-------- |
-    | localwitness     | witness账户私钥     | 不需填值     | 生成区块需要使用私钥签名     |
-    | genesis.block.witnesses	     | 上面私钥对应的地址     | 与SR配置值相同 | 创世块相关的配置，genesis.block需要与SR节点的一样    |
-    | genesis.block.Assets     | 给特定账户预置TRX。将预先准备的账户地址写入并随意指定其TRX的余额。可以直接修改原来已有账户的address字段，其它字段不需要修改；或者在末尾添加新账户信息    | 与SR配置值相同     | 创世块相关的配置     |
-    | p2p.version     | 11111之外的任意正整数     | 与SR配置值相同      | SR 和fullnode需相同，只有相同version的节点才能握手成功     |
-    | seed.node     | 不需填值     | 将ip.list设置为SR的ip地址和SR配置文件中的`listen.port`端口号    | 能够让fullnode与SR node建立连接并同步数据     |
-    | needSyncCheck     | false     | true     | 第1个SR设置needSyncCheck为false，其他设置为true      |
-    | node.discovery.enable     | true     | true     | 如果配置成false，则当前节点不会被其他节点发现     |
-    |block.proposalExpireTime|600000 |与SR配置值相同  |默认提议生效时间是3天：259200000(ms)，如需快速通过提议，可将该项设置为更小的值，如10分钟，即600000ms|
-    |block.maintenanceTimeInterval|300000| 与SR配置值相同  | 维护期时间间隔，默认是6小时: 21600000(ms),如需快速通过提议，可将该项设置为更小的值，如五分钟，即300000ms。|
-    |committee.allowSameTokenName |1|1|允许相同的token name|
-    |committee.allowTvmTransferTrc10 | 1|1|允许智能合约转账TRC10代币|
+    请根据如下表格中的说明，依次修改节点的各个配置项，**滑动向右**查看不同节点配置：
 
-    
+    | 配置项名称 | SR Fullnode配置内容                                                                      | FullNode配置内容 | 说明 |
+    | :-------- |:-------------------------------------------------------------------------------------| :-------- | :-------- |
+    | localwitness     | witness账户私钥                                                                          | 不需填值     | 生成区块需要使用私钥签名     |
+    | genesis.block.witnesses	     | 上面私钥对应的地址                                                                            | 与SR配置值相同 | 创世块相关的配置，genesis.block需要与SR节点的一样    |
+    | genesis.block.Assets     | 给特定账户预置TRX。<br/>将预先准备的账户地址写入并随意指定其TRX的余额。<br/>可以直接修改原来已有账户的address字段，其它字段不需要修改；或者在末尾添加新账户信息    | 与SR配置值相同     | 创世块相关的配置     |
+    | p2p.version     | 11111之外的任意正整数                                                                        | 与SR配置值相同      | SR 和fullnode需相同，只有相同version的节点才能握手成功     |
+    | seed.node     | 不需填值                                                                                 | 将ip.list设置为SR的ip地址和SR配置文件中的`listen.port`端口号    | 能够让fullnode与SR node建立连接并同步数据     |
+    | needSyncCheck     | false                                                                                | true     | 第1个SR设置needSyncCheck为false，其他设置为true      |
+    | node.discovery.enable     | true                                                                                 | true     | 如果配置成false，则当前节点不会被其他节点发现     |
+    |block.proposalExpireTime| 600000                                                                               |与SR配置值相同  |默认提议生效时间是3天：259200000(ms)，如需快速通过提议，可将该项设置为更小的值，如10分钟，即600000ms|
+    |block.maintenanceTimeInterval| 300000                                                                               | 与SR配置值相同  | 维护期时间间隔，默认是6小时: 21600000(ms),如需快速通过提议，可将该项设置为更小的值，如五分钟，即300000ms。|
+    |committee.allowSameTokenName | 1                                                                                    |1|允许相同的token name|
+    |committee.allowTvmTransferTrc10 | 1                                                                                    |1|允许智能合约转账TRC10代币|
+
+
 
 5. 修改配置文件中的端口号，将SR和FullNode的配置成不相同的端口号。注意，如果SR和FullNode运行在一台机器上，此步骤是必须的，否则，可跳过此步。
+   在配置文件的node结构下面修改下列参数：
     * `listen.port` ： p2p的监听端口
     * `http`端口： Http监听端口
     * `rpc` 端口： rpc 监听端口
+```
+node {
+  listen.port = 16666
+
+  http {
+      fullNodePort = 16667
+      solidityPort = 16668
+  }
+
+  rpc {
+      port = 16669
+      ...
+  }
+  ...
+ }
+```
 6. 启动节点
 
     产块的全节点和非产块的全节点，启动命令不同：
