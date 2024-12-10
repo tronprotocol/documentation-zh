@@ -12,13 +12,13 @@ $ git checkout -t origin/master
 ```
 
 然后，通过执行如下命令编译Java-tron源代码。参数`-x test`表示跳过执行测试用例，您也可以去掉这个参数，以在编译的过程中执行测试代码，这将使编译时间更长。编译完成之后，FullNode.jar会生成在 `java-tron/build/libs/`目录下。
-  
+
 ```
 $ cd java-tron
 $ ./gradlew clean build -x test
 ```
-    
- 
+
+
 
 # 运行Java-tron节点
 
@@ -46,7 +46,7 @@ Java-tron启动后，日志会输出在文件java-tron/logs/tron.log中，查看
 ... ...
 16:41:32.838 INFO  [peerClient-13] [DB](Manager.java:1936) HeadNumber: 52347923, syncBeginNumber: 52347923, solidBlockNumber: 52347905.
 16:41:32.839 INFO  [peerClient-13] [net](SyncService.java:197) Get block chain summary, low: 52347923, highNoFork: 52347923, high: 52347923, realHigh: 52347923
-16:41:32.839 INFO  [peerClient-13] [net](PeerConnection.java:184) Send peer /82.200.155.164:18888 message type: SYNC_BLOCK_CHAIN
+16:41:32.839 INFO  [peerClient-13] [net](PeerConnection.java:184) Send peer /182.125.127.201:18888 message type: SYNC_BLOCK_CHAIN
 size: 1, start block: Num:52347923,ID:00000000031ec413b7d75adeb141cfb6acf01127436dcd02eafbaf58df07f9e5
 ```
 如果节点启动异常，该日志也会输出错误信息。
