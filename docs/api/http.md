@@ -8,7 +8,10 @@
     
     请务必为来自 API 的所有数据实施 XSS 防护，以确保用户数据的安全。我们了解您可能需要有关 XSS 防护的更多信息。建议您参考以下资源：[OWASP XSS Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html)。
 
-首先，对HTTP API中地址格式的选择进行说明：TRON网络账户地址格式有两种：HexString格式和Base58格式。节点HTTP API支持地址格式选择，用户可以通过visible参数设置地址格式，默认值为false，参数及返回值中的地址格式均为hex格式，当visible设置为true时，参数及返回值中的地址格式均为Base58格式。如果参数格式与visible设置不匹配，将会报错。设置方式：
+首先，对HTTP API中地址格式的选择进行说明：TRON网络账户地址格式有两种：HexString格式和Base58格式。
+像TronLink钱包地址`TUXAoxQ8PwFAtfQet7Akc8HaV5ciC6WkjY`就是Base58格式。可以使用[TranScan](https://nile.tronscan.org/#/tools/code-converter/base58check)工具方便格式之间的转换。
+
+节点HTTP API支持地址格式选择，用户可以通过visible参数设置地址格式，默认值为false，参数及返回值中的地址格式均为hex格式，当visible设置为true时，参数及返回值中的地址格式均为Base58格式。如果参数格式与visible设置不匹配，将会报错。设置方式：
 
 - 对于GET方式请求接口或者不需要参数的查询接口，通过在url中增加参数`visible=true`
 ```text
@@ -16,8 +19,9 @@ http://127.0.0.1:8090/wallet/listexchanges?visible=true
 ```
 - 对于POST方式请求接口，通过在json结构体最外层中增加参数`"visible": true`
 ```json
-curl -X POST http://127.0.0.1:8090/wallet/createtransaction -d
-'{
+curl --location 'http://127.0.0.1:8090/wallet/createtransaction' \
+--header 'Content-Type: application/json' \
+--data '{
     "owner_address": "TRGhNNfnmgLegT4zHNjEqDSADjgmnHvubJ",
     "to_address": "TJCnKsPa7y5okkXvQAidZBzqx3QyQ6sxMW",
     "amount": 1000000,
@@ -63,16 +67,29 @@ FullNode HTTP API分类如下:
 #### wallet/validateaddress
 作用：检查地址是否正确
 ```
-curl -X POST  http://127.0.0.1:8090/wallet/validateaddress -d '{"address": "4189139CB1387AF85E3D24E212A008AC974967E561"}'
+curl -X POST  http://127.0.0.1:8090/wallet/validateaddress
+--header 'Content-Type: application/json'
+-d '{"address": "4189139CB1387AF85E3D24E212A008AC974967E561"}'
 ```
 参数说明：地址，可以是base58checksum、hexString、base64格式
 
 返回值：地址正确或者错误
+```
+{
+    "result": true,
+    "message": "Hex string format"
+}
+```
 
 #### wallet/createaccount
 作用：创建账号，一个已经激活的账号创建一个新账号。如果创建者账号有足够的通过质押TRX获得的带宽，那么创建账户只会消耗带宽，否则，会烧掉0.1个TRX来支付带宽费用，同时需要额外支付 1 TRX的创建费用
 ```
-curl -X POST  http://127.0.0.1:8090/wallet/createaccount -d '{"owner_address":"41d1e7a6bc354106cb410e65ff8b181c600ff14292", "account_address": "41e552f6487585c2b58bc2c9bb4492bc1f17132cd0"}'
+curl -X POST  http://127.0.0.1:8090/wallet/createaccount
+--header 'Content-Type: application/json'
+-d '{
+  "owner_address":"41d1e7a6bc354106cb410e65ff8b181c600ff14292",
+  "account_address": "41e552f6487585c2b58bc2c9bb4492bc1f17132cd0"
+  }'
 ```
 参数：
 
