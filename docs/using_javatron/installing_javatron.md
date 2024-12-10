@@ -35,6 +35,8 @@ $  java -Xmx24g -XX:+UseConcMarkSweepGC -jar FullNode.jar -c main_net_config.con
 * -XX:+UseConcMarkSweepGC  ：指定并行垃圾回收。要放在 -jar 参数前面，不能放在最后面。
 * -Xmx  ：JVM堆所占内存的最大值，可以设置成物理内存的80%。
 
+main_net_config.conf里面的部分配置参考[网络配置](./connecting_to_tron.md)章节。
+
 Java-tron启动后，日志会输出在文件java-tron/logs/tron.log中，查看文件可以看到以下内容显示网络层建立P2P连接，之后节点开始区块同步：
 ```
 16:41:11.229 INFO  [main] [app](Args.java:1143) ************************ Net config ************************
