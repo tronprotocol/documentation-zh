@@ -5,19 +5,6 @@ repo_url: https://github.com/tronprotocol/documentation-zh
 nav:
     - 入门: 
         - Java-tron入门: 'getting_started/getting_started_with_javatron.md'
-    - 使用Java-tron:
-        - 部署Java-tron: using_javatron/installing_javatron.md
-        - 备份和恢复: using_javatron/backup_restore.md
-        - 轻节点: developers/litefullnode.md
-        - 私链网络: using_javatron/private_network.md
-        - 事件订阅: architecture/event.md
-        - 数据库配置: architecture/database.md
-        - 网络配置: using_javatron/connecting_to_tron.md
-        - 节点监控: using_javatron/metrics.md
-        - 节点维护工具: using_javatron/toolkit.md
-    - API 接口:
-        - HTTP 接口: api/http.md
-        - gRPC 接口: api/rpc.md
     - 核心协议:
         - 波场共识: introduction/dpos.md
         - 超级代表: mechanism-algorithm/sr.md
@@ -27,7 +14,20 @@ nav:
         - 系统合约: mechanism-algorithm/system-contracts.md
         - 去中心化交易所: mechanism-algorithm/dex.md
         - 多重签名: mechanism-algorithm/multi-signatures.md
-    - Java-tron开发: 
+    - 使用Java-tron:
+          - 部署Java-tron: using_javatron/installing_javatron.md
+          - 备份和恢复: using_javatron/backup_restore.md
+          - 轻节点: developers/litefullnode.md
+          - 私链网络: using_javatron/private_network.md
+          - 事件订阅: architecture/event.md
+          - 数据库配置: architecture/database.md
+          - 网络配置: using_javatron/connecting_to_tron.md
+          - 节点监控: using_javatron/metrics.md
+          - 节点维护工具: using_javatron/toolkit.md
+    - API 接口:
+        - HTTP 接口: api/http.md
+        - gRPC 接口: api/rpc.md
+    - Java-tron开发:
         - 开发者指南: developers/java-tron.md
         - TIPs工作流程: developers/tips.md
         - Issue工作流程: developers/issue-workflow.md
@@ -35,11 +35,11 @@ nav:
         - 配置IDE开发环境: developers/run-in-idea.md
         - 开发示例: developers/demo.md
         - 核心模块: developers/code-structure.md
-    - Dapp开发:
-        - Dapp开发工具: contracts/compiler.md
-    - Wallet-cli: 
+    - Wallet-cli:
         - 什么是Wallet-Cli: clients/wallet-cli.md
         - Wallet命令: clients/wallet-cli-command.md
+    - Dapp开发:
+          - Dapp开发工具: contracts/compiler.md
     - 版本发布:
         - 新版本部署手册: releases/upgrade-instruction.md
         - 一致性检验: releases/signature_verification.md
