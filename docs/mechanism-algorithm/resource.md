@@ -29,8 +29,18 @@
 
 Bandwidth Points的获取分两种：
 
-- 通过质押TRX获取的Bandwidth Points， 额度 = 为获取Bandwidth Points质押的TRX / 整个网络为获取Bandwidth Points质押的TRX 总额 * 43_200_000_000，也就是所有用户按质押的TRX数量平分固定额度的Bandwidth Points.
-- 每个账号每天有固定免费额度的带宽，为600。
+- 通过质押TRX获取的Bandwidth Points。
+- 每个账号每天有固定免费额度的带宽，目前为600，由61号提案控制。
+
+其中质押获取的带宽计算公式为:
+
+`NetLimit = FrozenBandwidthAmount / TotalNetWeight * TotalNetLimit`
+
+- FrozenBandwidthAmount: 为获取Bandwidth Points质押的TRX
+- TotalNetWeight: 整个网络为获取Bandwidth Points质押的TRX 总额
+- TotalNetLimit = 43_200_000_000
+
+也就是所有用户按质押的TRX数量平分固定额度的Bandwidth Points。
 
 ### 2. Bandwith Points的消耗
 
@@ -61,7 +71,16 @@ Bandwidth Points是一个账户1天内能够使用的总字节数。一定时间
 
 ### 4. 带宽的自动恢复
 
-账户的免费带宽和质押TRX获取的带宽消耗后， 会在24小时内逐步恢复。
+账户的免费带宽和质押TRX获取的带宽消耗后，会在24小时内逐步恢复。
+其中每次计算质押剩余可用带宽的公式为：
+
+`AvailableNetUsage = NetLimit - LastUsage * (CurrentTime - LastUseTime) / RecoveryWindow(24h)`
+
+当 `CurrentTime - LastUseTime >= 24h` 时 `AvailableNetUsage = NetLimit`，
+其中NetLimit的公式就是上面质押获取带宽的计算公式。通过这个公式实现24小时的质押带宽恢复。
+
+如果交易需要消耗质押带宽，当 `AvailableNetUsage >= NewCost `则可顺利消耗质押带宽，并设置新的
+`LastUsage = AvailableNetUsage - NewCost， LastUseTime = CurrentTime`。
 
 ### 5. 账户带宽余额查询
 
