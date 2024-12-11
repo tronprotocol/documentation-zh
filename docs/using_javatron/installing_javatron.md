@@ -12,13 +12,13 @@ $ git checkout -t origin/master
 ```
 
 然后，通过执行如下命令编译Java-tron源代码。参数`-x test`表示跳过执行测试用例，您也可以去掉这个参数，以在编译的过程中执行测试代码，这将使编译时间更长。编译完成之后，FullNode.jar会生成在 `java-tron/build/libs/`目录下。
-  
+
 ```
 $ cd java-tron
 $ ./gradlew clean build -x test
 ```
-    
- 
+
+
 
 # 运行Java-tron节点
 
@@ -31,29 +31,47 @@ Fullnode作为TRON网络的入口点，拥有完整的历史数据，并提供�
 ````
 $  java -Xmx24g -XX:+UseConcMarkSweepGC -jar FullNode.jar -c main_net_config.conf
 ````
-    
+
 * -XX:+UseConcMarkSweepGC  ：指定并行垃圾回收。要放在 -jar 参数前面，不能放在最后面。
-* -Xmx  ：JVM堆的最大值，可以设置成物理内存的80%。
+* -Xmx  ：JVM堆所占内存的最大值，可以设置成物理内存的80%。
+
+main_net_config.conf里面的部分配置参考[网络配置](./connecting_to_tron.md)章节。
+
+Java-tron启动后，日志会输出在文件java-tron/logs/tron.log中，查看文件可以看到以下内容显示网络层建立P2P连接，之后节点开始区块同步：
+```
+16:41:11.229 INFO  [main] [app](Args.java:1143) ************************ Net config ************************
+16:41:11.229 INFO  [main] [app](Args.java:1144) P2P version: 201910292
+16:41:11.229 INFO  [main] [app](Args.java:1145) Bind IP: 192.168.20.101
+16:41:11.229 INFO  [main] [app](Args.java:1146) External IP: 203.12.203.3
+16:41:11.229 INFO  [main] [app](Args.java:1147) Listen port: 18888
+16:41:11.229 INFO  [main] [app](Args.java:1148) Discover enable: true
+... ...
+16:41:32.838 INFO  [peerClient-13] [DB](Manager.java:1936) HeadNumber: 52347923, syncBeginNumber: 52347923, solidBlockNumber: 52347905.
+16:41:32.839 INFO  [peerClient-13] [net](SyncService.java:197) Get block chain summary, low: 52347923, highNoFork: 52347923, high: 52347923, realHigh: 52347923
+16:41:32.839 INFO  [peerClient-13] [net](PeerConnection.java:184) Send peer /182.125.127.201:18888 message type: SYNC_BLOCK_CHAIN
+size: 1, start block: Num:52347923,ID:00000000031ec413b7d75adeb141cfb6acf01127436dcd02eafbaf58df07f9e5
+```
+如果节点启动异常，该日志也会输出错误信息。
 
 ### 启动出块的全节点
 
 将`--witness`参数添加到启动命令中，fullnode将作为出块的全节点运行。出块全节点除了支持fullnode的所有功能，它还支持区块生产和交易打包。请确保您拥有一个超级代表账户，并获得他人的投票，如果票数排在前27名，您需要启动一个出块的全节点参与区块生产。
-  
-将超级代表地址的私钥填写到main_net_config.conf的localwitness列表中，示例如下。但如果不希望使用这种以明文的方式进行私钥指定，可以使用keystore + 密码的方式，请参考[其它说明](#_2)
+
+将超级代表地址的私钥填写到main_net_config.conf的localwitness列表中，示例如下。但如果不希望使用这种以明文的方式进行私钥指定，可以使用keystore + 密码的方式，请参考下面[其它说明](#_3)。
 
 ```
 localwitness = [
     650950B193DDDDB35B6E48912DD28F7AB0E7140C1BFDEFD493348F02295BD812
 ]
 ```
-  
+
 然后执行如下命令来启动节点:
-  
+
 ```
 $ java -Xmx24g -XX:+UseConcMarkSweepGC -jar FullNode.jar --witness -c main_net_config.conf
 ```
 
-**注意**：对于主网和nile测试网，由于新节点启动后，需要同步的数据量较大，因此同步数据需要较长的时间。可以使用 [数据快照](../backup_restore/#_5) 来加快节点同步速度。首先下载最新的数据快照，并将其解压至tron项目的output-directory目录下，然后再启动节点，这样节点将在数据快照的基础上进行同步。
+**注意**：对于主网和nile测试网，由于新节点启动后，需要同步的数据量较大，因此同步数据需要较长的时间。可以使用 [数据快照](../backup_restore/#_5) 来加快节点同步速度，Nile测试网[下载](https://database.nileex.io)。首先下载最新的数据快照，并将其解压至tron项目的output-directory目录下，然后再启动节点，这样节点将在数据快照的基础上进行同步。
 
 # 其它说明
 ### 如何使用keystore+密码的方式指定witness账户私钥
@@ -80,10 +98,10 @@ $ java -Xmx24g -XX:+UseConcMarkSweepGC -jar FullNode.jar --witness -c main_net_c
 安装tcmalloc，然后在启动脚本中添加以下两行，不同的linux发行版tcmalloc的路径略有差异。
 ```
 #!/bin/bash
-  
+
 export LD_PRELOAD="/usr/lib/libtcmalloc.so.4"
 export TCMALLOC_RELEASE_RATE=10
-  
+
 # original start command
 java -jar .....
 ```

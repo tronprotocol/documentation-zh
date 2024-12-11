@@ -58,6 +58,7 @@ $ tar xzvf output-directory.20220628152402.etgz
 
 注意：LevelDB和RocksDB的数据不允许混用。FullNode的数据库类型通过配置文件的配置项`db.engine` 进行指定，可选值为`LEVELDB`或者`ROCKSDB`。
 
+Nile测试网数据下载地址：https://database.nileex.io
 
 
 ### Lite FullNode数据快照

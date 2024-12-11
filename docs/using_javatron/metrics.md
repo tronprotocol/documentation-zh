@@ -21,7 +21,7 @@ node {
 
 ```
 ## 启动Java-tron节点
-您可以通过如下命令启动Java-tron节点：
+您可以通过如下命令启动Java-tron节点, 参考[部署Java-tron](./installing_javatron.md)章节。
 ```
 $ java -Xmx24g -XX:+UseConcMarkSweepGC -jar FullNode.jar -c main_net_config.conf
 ```

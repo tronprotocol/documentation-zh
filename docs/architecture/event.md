@@ -7,7 +7,7 @@
 TIP: [https://github.com/tronprotocol/TIPs/issues/12](https://github.com/tronprotocol/TIPs/issues/12)
 
 ### 事件类型
-波场事件订阅支持四种类型的事件：
+当交易被打包进区块后，波场会对外发送四种类型的事件：
 
 - 交易相关事件
 
