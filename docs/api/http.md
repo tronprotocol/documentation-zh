@@ -102,7 +102,9 @@ curl -X POST  http://127.0.0.1:8090/wallet/createaccount
 #### wallet/getaccount
 作用：查询一个账户的信息
 ```
-curl -X POST  http://127.0.0.1:8090/wallet/getaccount -d '{"address": "41E552F6487585C2B58BC2C9BB4492BC1F17132CD0"}'
+curl -X POST  http://127.0.0.1:8090/wallet/getaccount
+--header 'Content-Type: application/json'
+-d '{"address": "41E552F6487585C2B58BC2C9BB4492BC1F17132CD0"}'
 ```
 参数：`address` 账户地址
 
@@ -111,7 +113,12 @@ curl -X POST  http://127.0.0.1:8090/wallet/getaccount -d '{"address": "41E552F64
 #### wallet/updateaccount
 作用：修改账号名称
 ```
-curl -X POST  http://127.0.0.1:8090/wallet/updateaccount -d '{"account_name": "0x7570646174654e616d6531353330383933343635353139" ,"owner_address":"41d1e7a6bc354106cb410e65ff8b181c600ff14292"}'
+curl -X POST  http://127.0.0.1:8090/wallet/updateaccount
+--header 'Content-Type: application/json'
+-d '{
+"account_name": "0x7570646174654e616d6531353330383933343635353139" ,
+"owner_address":"41d1e7a6bc354106cb410e65ff8b181c600ff14292"
+}'
 ```
 参数：
 
@@ -125,8 +132,9 @@ curl -X POST  http://127.0.0.1:8090/wallet/updateaccount -d '{"account_name": "0
 #### wallet/accountpermissionupdate
 作用：修改账户权限
 ```
-curl -X POST  http://127.0.0.1:8090/wallet/accountpermissionupdate -d
-'{
+curl -X POST  http://127.0.0.1:8090/wallet/accountpermissionupdate
+--header 'Content-Type: application/json'
+-d '{
     "owner_address": "TRGhNNfnmgLegT4zHNjEqDSADjgmnHvubJ",
     "owner": {
         "type": 0,

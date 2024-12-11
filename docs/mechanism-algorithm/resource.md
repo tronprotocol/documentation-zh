@@ -72,7 +72,7 @@ Bandwidth Points是一个账户1天内能够使用的总字节数。一定时间
 ### 4. 带宽的自动恢复
 
 账户的免费带宽和质押TRX获取的带宽消耗后，会在24小时内逐步恢复。
-其中每次计算质押剩余可用带宽的公式为：
+其中每次计算质押剩余可用带宽的等价公式为：
 
 `AvailableNetUsage = NetLimit - LastUsage * (CurrentTime - LastUseTime) / RecoveryWindow(24h)`
 
