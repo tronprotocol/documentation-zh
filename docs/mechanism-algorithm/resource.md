@@ -4,7 +4,7 @@
 
 投票权、带宽和能量是TRON网络中的重要系统资源。其中投票权用于给超级代表投票；带宽是衡量保存在区块链数据库中的交易字节大小的单位，交易越大，消耗的带宽资源会越多。能量是衡量在TRON网络上TVM虚拟机执行特定操作所需的计算量的单位,由于智能合约交易都需要计算资源来执行，因此每笔智能合约交易都需要付费。
 
-下文我们把投票权也称为TP、带宽也称为Bandwidth Points，能量也称为Energy。
+下文我们把投票权也称为TRON Power(TP)、带宽也称为Bandwidth Points，能量也称为Energy。
 
 !!! note
     - 普通交易仅消耗Bandwidth points
@@ -14,16 +14,35 @@
 
 任何账户在给超级代表投票前，都需要先获得投票权，即TRON Power(TP)。投票权可以通过质押TRX来获取。质押TRX除了可以获得带宽或者能量外，还将同时获得投票权，选民质押1TRX，将获得1TP。关于如何质押请参考[在TRON网络上质押](#tron)章节。
 
-选民可以分批多次质押，多次质押获取到的投票权会被累加到选民账户内，选民可以通过`wallet/getaccountresource`接口查询账户拥有的投票权总数以及已使用的投票权数量。
+选民可以分批多次质押，多次质押获取到的投票权会被累加到选民账户内，选民可以通过[wallet/getaccount](../api/http.md/#walletgetaccount)接口查询账户拥有的投票权总数以及已使用的投票权数量。
+
++ 示例接口结果：
+```
+{
+    "address": "TBEJewE3MWBbW9t7F4s875yvMHrhqBAZfB",
+    "votes": [
+        {
+        "vote_address": "TFMehqCGCei9RrJLdM5eRFuwHY4CrYy6Xt",
+        "vote_count": 7003
+        },
+        {
+        "vote_address": "TE8dLwHkMrutMKULTZE41knERrT5XiLVeN",
+        "vote_count": 7003
+        },
+        {
+        "vote_address": "TYcvQx7rFuDgyauJmfxBxj7ppkAsSa3sJe",
+        "vote_count": 7003
+        }
+    ],
+...
+}
+```
 
 ## 带宽
 
 交易以字节数组的形式在网络中传输及存储，一条交易消耗的 Bandwidth Points = 交易字节数 * Bandwidth Points费率。当前 Bandwidth Points费率 = 1.
 
 如一条交易的字节数为200，那么该交易需要消耗 200 Bandwidth Points。
-
-!!! note
-    由于网络中总质押资金以及账户的质押资金随时可能发生变化，因此账户拥有的 Bandwidth Points 不是固定值。
 
 ### 1. Bandwidth Points的来源
 
@@ -42,6 +61,9 @@ Bandwidth Points的获取分两种：
 
 也就是所有用户按质押的TRX数量平分固定额度的Bandwidth Points。
 
+!!! note
+    由于网络中总质押资金以及账户的质押资金随时可能发生变化，因此账户拥有的 Bandwidth Points 不是固定值。
+
 ### 2. Bandwith Points的消耗
 
 除了查询操作，任何交易都需要消耗 bandwidth points。
@@ -56,14 +78,14 @@ Bandwidth Points是一个账户1天内能够使用的总字节数。一定时间
 1. 尝试消耗交易发起者质押获取的Bandwidth Points。如果交易发起者Bandwidth Points不足，则进入下一步
 2. 尝试消耗交易发起者的TRX，这部分烧掉0.1TRX
 
-如果交易是Token转账，Bandwidth Points消耗如下：
+如果交易是TRC-10 Token转账，Bandwidth Points消耗如下：
 
-1. 依次验证 发行Token资产总的免费Bandwidth Points是否足够消耗，转账发起者的Token剩余免费Bandwidth Points是否足够消耗，Token发行者质押TRX获取Bandwidth Points剩余量是否足够消耗。如果满足则扣除Token发行者质押获取的Bandwidth Points，任意一个不满足则进入下一步
+1. 依次验证发行Token资产总的免费Bandwidth Points是否足够消耗，转账发起者的Token剩余免费Bandwidth Points是否足够消耗，Token发行者质押TRX获取Bandwidth Points剩余量是否足够消耗。如果满足则扣除Token发行者质押获取的Bandwidth Points，任意一个不满足则进入下一步
 2. 尝试消耗交易发起者质押获取的Bandwidth Points。如果交易发起者Bandwidth Points不足，则进入下一步
 3. 尝试消耗交易发起者的免费Bandwidth Points。如果免费Bandwidth Points也不足，则进入下一步
 4. 尝试消耗交易发起者的TRX，交易的字节数 * 1000 sun
 
-如果交易普通交易，Bandwidth Points消耗如下：
+如果是其它交易，Bandwidth Points消耗如下：
 
 1. 尝试消耗交易发起者质押获取的Bandwidth Points。如果交易发起者Bandwidth Points不足，则进入下一步
 2. 尝试消耗交易发起者的免费Bandwidth Points。如果免费Bandwidth Points也不足，则进入下一步
