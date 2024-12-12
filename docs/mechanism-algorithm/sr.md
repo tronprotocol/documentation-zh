@@ -81,7 +81,7 @@ SR与Partner的票数奖励以Allowance的方式记录在账户里面，每次�
 - `每次出块获得的Reward =（总投票比例 * 160）* 选民抽成 TRX`
 - `每日获得总奖励 = 总投票比例 * 每天总票数奖励数 * 选民抽成 TRX`
 
-注意：上面的每日获得总奖励公式是在稳定不变的情况下一天获取的奖励，实际情况每6个小时维护期后SR和Partner可能有变动，或者出块失败，奖励应该会变小。
+注意：上面的每日获得总奖励是理论上获取的奖励上限，实际情况每6个小时维护期后SR和Partner可能有变动，或者出块失败，或者账户重新投票，奖励应该会变小。
 
 每次产块后波场的具体计算逻辑是：java-tron会以SR和Partner的账户地址+维护期Cycle为key累加新的分成Reward到代理存储delegationStore。
 然后在维护期结束时，对每个witness计算本维护期Cycle的累积witnessVi = lastCycle witnessVi + (currentCycle reward)/voteCount，
@@ -89,13 +89,13 @@ SR与Partner的票数奖励以Allowance的方式记录在账户里面，每次�
 接口[wallet/getreward](../api/http.md/#walletgetreward)会返回结算过的可领的投票奖励+Allowance（见上面章节）。
 
 ### 奖励领取
-统一通过[wallet/withdrawbalance](../api/http.md/#withdrawbalance)把账户相关的票数, 出块以及投票的奖励领取到账户余额，每24小时限领一次。
+统一通过[wallet/withdrawbalance](../api/http.md/#walletwithdrawbalance)把账户相关的票数, 出块以及投票的奖励领取到账户余额，每24小时限领一次。
 
 ## 5. 委员会
 
 ### 5.1 什么是委员会
 
-委员会用于修改Tron网络动态参数，如出块奖励、交易费用等等。委员会由当前的27个超级代表组成。每个超级代表都具有提议权、对提议的投票权，
+委员会用于修改Tron网络动态参数，如出块奖励、交易费用等等。委员会由当前的27个超级代表组成。每个超级代表都具有提议权、对提议的投票权。从提议创建时间开始，3天时间内为提议的有效期。
 当提议获得18个代表及以上的赞成票时，该提议获得通过，并在下个维护期内进行网络参数修改。
 
 ### 5.2 创建提议
@@ -104,7 +104,7 @@ SR与Partner的票数奖励以Allowance的方式记录在账户里面，每次�
 
 TRON网络动态参数及其编号请参考[这里](https://tronscan.org/#/sr/committee)。
 
-+ 示例：
++ Wallet-Cli指令示例：
 
 ```text
 createproposal id0 value0 ... idN valueN
@@ -118,7 +118,7 @@ value0_N: 新参数值
 提议仅支持投赞成票，不投票代表不赞同。从提议创建时间开始，3天时间内为提议的有效期。超过该时间范围，该提议如果没有获得足够的
 赞成票，该提议失效。允许取消之前投的赞成票。
 
-+ 示例：
++ Wallet-Cli指令示例：
 
 ```shell
 approveProposal id is_or_not_add_approval
@@ -130,7 +130,7 @@ is_or_not_add_approval: 赞成或取消赞成
 
 提议创建者，能够在提议生效前，取消提议。
 
-+ 示例：
++ Wallet-Cli指令示例：
 
 ```shell
 deleteProposal proposalId
@@ -141,8 +141,8 @@ id: 提议Id，根据提议创建时间递增
 
 以下接口可以查询提议，包括：
 
-+ 查询所有提议信息（ListProposals）
-+ 分页查询提议信息（GetPaginatedProposalList）
-+ 查询指定提议信息（GetProposalById）
++ 查询所有提议信息[wallet/listproposals](../api/http.md/#walletlistproposals)
++ 分页查询提议信息[wallet/getpaginatedproposallist](../api/http.md/#walletgetpaginatedproposallist)
++ 查询指定提议信息[wallet/getproposalbyid](../api/http.md/#walletgetproposalbyid)
 
-相关api详情，请查询[Tron HTTP API](../api/http.md).
+相关api详情，请查询[Tron HTTP API](../api/http.md/#_6).
