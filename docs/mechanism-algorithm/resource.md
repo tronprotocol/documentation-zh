@@ -121,17 +121,56 @@ Bandwidth Points是一个账户1天内能够使用的总字节数。一定时间
 
 ### 1. Energy的获取与消耗
 
-质押获取Energy，即将持有的trx锁定，无法进行交易，作为抵押，并以此获得免费使用Energy的权利。具体计算与全网所有账户质押有关，可参考相关部分计算。
+质押获取Energy，即将持有的TRX锁定，无法进行交易，作为抵押，并以此获得免费使用Energy的权利。具体计算与全网所有账户质押有关，可参考下面计算逻辑。
 
 #### 质押获得能量
+
+通过调用接口[wallet/freezebalancev2](../api/http.md/#walletfreezebalancev2)，或下面Wallet-cli指令:
 
 ```text
 freezeBalanceV2 frozen_balance [ResourceCode:0 BANDWIDTH,1 ENERGY]
 ```
 
-通过质押TRX获取的Energy 额度 = 为获取Energy质押的TRX / 整个网络为获取Energy质押的TRX 总额 * 180_000_000_000。
+接口[wallet/getaccount](../api/http.md/#walletgetaccount)可以查询账户当前为获取Energy质押的TRX，示例返回：
+```
+{
+  "address": "TBEJewE3MWBbW9t7F4s875yvMHrhqBAZfB",
+  "balance": 26795494669,
+  "frozenV2": [
+        {
+            "amount": 1002000000 // Bandwith
+        },
+        {
+            "type": "ENERGY",
+            "amount": 20001000000
+        },
+        {
+            "type": "TRON_POWER"
+        }
+  ],
+  ... ...
+}
+```
 
-也就是所有用户按质押的TRX数量平分固定额度的Energy，示例：
+##### 质押获得的能量计算
+通过质押TRX获取的能量公式为：
+`Energy_Limit = 为获取Energy质押的TRX / TotalEnergyWeight * TotalEnergyLimit`
+。
+TotalEnergyWeight：整个网络为获取Energy质押的TRX总额
+其中Total_Energy_Limit = 180000000000，由#19号提议决定，后续数值变动可以查看[Network Parameters](https://tronscan.org/#/sr/committee)。
+也就是所有用户按质押的TRX数量平分固定额度的Energy。
+
+具体账户的能量数值，可以调用接口[wallet/getaccountresource](../api/http.md/#walletgetaccountresource)查看，示例返回：
+```
+{
+    ...
+    "EnergyLimit": 1459402, // Dynamic changed as TotalEnergyWeight changes
+    "TotalEnergyLimit": 180000000000, // Static value follow propsal #19
+    "TotalEnergyWeight": 2466887064
+}
+```
+
+账户获得的Energy Limit是会动态调整的，示例：
 
 ```text
 如全网只有两个人A，B分别质押2TRX，2TRX。
@@ -168,6 +207,12 @@ B: 30_000_000_000 且energy_limit 为36_000_000_000
 #### 能量的恢复
 
 账户的能量资源消耗后，会在24小时内逐步恢复。
+
+其中每次计算质押剩余可用能量的等价公式为：
+
+`EnergyLimit - LastUsage * (CurrentTime - LastUseTime) / RecoveryWindow(24h)`
+当 `CurrentTime - LastUseTime >= 24h` 时 `Account_Left_Energy = EnergyLimit`，
+其中EnergyLimit的公式就是上面质押获取EnergyLimit的计算公式。通过这个公式实现24小时的质押能量恢复。
 
 #### 账户能量余额查询
 

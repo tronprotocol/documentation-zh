@@ -145,4 +145,5 @@ id: 提议Id，根据提议创建时间递增
 + 分页查询提议信息[wallet/getpaginatedproposallist](../api/http.md/#walletgetpaginatedproposallist)
 + 查询指定提议信息[wallet/getproposalbyid](../api/http.md/#walletgetproposalbyid)
 
-相关api详情，请查询[Tron HTTP API](../api/http.md/#_6).
+相关api详情，请查询[Tron HTTP API](../api/http.md/#_6)。
+其他相关参考文档[super-representatives](https://developers.tron.network/docs/super-representatives).

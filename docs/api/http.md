@@ -368,7 +368,9 @@ curl -X POST  http://127.0.0.1:8090/wallet/getapprovedlist -d '{
 #### wallet/getaccountresource
 作用：查询账户的资源信息
 ```
-curl -X POST  http://127.0.0.1:8090/wallet/getaccountresource -d {"address" : "419844f7600e018fd0d710e2145351d607b3316ce9"}
+curl -X POST  http://127.0.0.1:8090/wallet/getaccountresource
+--header 'Content-Type: application/json'
+-d {"address" : "419844f7600e018fd0d710e2145351d607b3316ce9"}
 ```
 参数：
 
@@ -454,7 +456,7 @@ curl -X POST http://127.0.0.1:8090/wallet/freezebalancev2 -d
 }'
 ```
 
-参数： 
+参数：
 
 - `owner_address`: 质押TRX 账号的地址, HEX 格式或 Base58check 格式
 - `frozen_balance`: 质押TRX 的数量, 单位为sun
