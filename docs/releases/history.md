@@ -1402,8 +1402,8 @@ DB OPTIONS:
 -d, --output-directory			Data directory for the databases (default:output-directory)
 
 WITNESS OPTIONS:
--w, --witness    			Is witness node
--p, --private-key			Witness private key
+-w, --witness    			Is a SR node
+-p, --private-key			SR account's private key
 
 VIRTUAL MACHINE OPTIONS:
 --debug			Switch for TVM debug mode. In debug model, TVM will not check for timeout. (default: false)
@@ -1951,9 +1951,9 @@ GreatVoyage-v4.2.2(Lucretius)版本引入了3个重要的优化更新，区块�
 
 ####1、优化区块处理。
 
-在GreatVoyage-v4.2.2(Lucretius)之前的版本中，区块处理过程中为了获取witness列表，执行了多次数据库查询和反序列化操作，这部分操作占用了近1/3的区块处理时间。
+在GreatVoyage-v4.2.2(Lucretius)之前的版本中，区块处理过程中为了获取超级代表列表，执行了多次数据库查询和反序列化操作，这部分操作占用了近1/3的区块处理时间。
 
-GreatVoyage-v4.2.2(Lucretius)版本简化了witness的查询，区块处理过程只需一次查询即可获取witness列表，经过测试，本次优化大幅提升了区块处理性能。
+GreatVoyage-v4.2.2(Lucretius)版本简化了超级代表的查询，区块处理过程只需一次查询即可获取超级代表列表，经过测试，本次优化大幅提升了区块处理性能。
 
 - TIP： [TIP-269](https://github.com/tronprotocol/tips/blob/master/tip-269.md)
 - 源代码:  [#3827](https://github.com/tronprotocol/java-tron/pull/3827)

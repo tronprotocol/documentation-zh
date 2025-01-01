@@ -36,11 +36,11 @@ MainNet的配置请参照:
 
 ```shell
 freezebalancev2 10,000,000 3 # 质押了10TRX，获取了10单位TRON Power(TP)
-votewitness witness1 4 witness2 6 # 同时给witness1投了4票，给witness2投了6票
-votewitness witness1 3 witness2 7 # 同时给witness1投了3票，给witness2投了7票
+votewitness SR1 4 SR2 6 # 同时给SR1投了4票，给SR2投了6票
+votewitness SR1 3 SR2 7 # 同时给SR1投了3票，给SR2投了7票
 ```
 
-以上命令的最终结果是给witness1投了3票，给witness2投了7票
+以上命令的最终结果是给SR1投了3票，给SR2投了7票
 
 ### 2.3 超级代表的奖励
 
@@ -304,7 +304,7 @@ wget https://raw.githubusercontent.com/tronprotocol/tron-deployment/master/priva
 ```shell
 nohup java -Xmx6g -XX:+HeapDumpOnOutOfMemoryError -jar FullNode.jar  -c private_net_config.conf
 命令行参数说明:
---witness: 启动witness功能,由于配置的这个fullnode节点不需要产快，所以此fullnode节点不可以添加这个参数，i.e.: --witness。
+--witness: 启动超级代表产块功能, 因为这个fullnode节点不需要产快，所以此fullnode节点不可以添加这个参数，i.e.: --witness。
 --log-config: 指定日志配置文件路径，i.e.: --log-config logback.xml。
 -c: 指定配置文件路径，i.e.: -c config.conf。
 ```
@@ -1131,7 +1131,7 @@ receiverAddress表示受委托账户的地址，
 
 |交易类型|费用|
 | :------|:------:|
-|创建witness|9999 TRX|
+|申请成为超级代表候选人|9999 TRX|
 |发行token|1024 TRX|
 |创建account|0.1 TRX|
 |创建exchange|1024 TRX|

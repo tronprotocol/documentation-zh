@@ -201,7 +201,7 @@ wallet>UpdateAccountPermission [ownerAddress] [permissions]
 
 * `owner`: 拥有账户的所有权限。
 * `active`: 可以获得账户中的特定权限，如果是witness权限则不包括出块权利。
-* `witness`: 只用于witness, 出块的权利将会被授予其他账户。
+* `witness`: 只用于超级代表, 出块的权利将会被授予其他账户。
 
 **注意** 参数`Permission` 必须按json格式传入且不能换行。如果owner账户不是超级代表，则不要授权witness权限给其他账户。
 
@@ -1956,7 +1956,7 @@ wallet> getproposal 34
 ```
 
 ### Votewitness
-使用该命令为witness投票。投票需要相应的权益, 即`Tron Power`，可以通过质押资产来获得。第一个参数为witness的地址，第二个参数为投票的数量。
+使用该命令为超级代表投票。投票需要相应的投票权, 即`Tron Power`，可以通过质押资产来获得。第一个参数为超级代表的地址，第二个参数为该超级代表投票的数量。
 ```
 wallet> votewitness [witness address] [Tron Power Amount]
 
@@ -1969,15 +1969,15 @@ wallet> votewitness [witness address] [Tron Power Amount]
 ```shell
 wallet> freezeBalance 100000000 3 1 address  # 冻结 10TRX，获得10个单位的Tron Power。
 
-wallet> votewitness [witness1] 4 [witness2] 6  # 为witness1投4票，同时再为witness2投6票
+wallet> votewitness [SR1] 4 [SR2] 6  # 为SR1投4票，同时再为SR2投6票
 
-wallet> votewitness [witness1] 10  # 为witness1投10票
+wallet> votewitness [SR1] 10  # 为SR1投10票
 ```
-示例中的结果为witness1获得10票，witness2获得0票。
+示例中的结果为SR1获得10票，SR2获得0票。
 
 ### ListWitnesses
 
-列出所有witness的信息。
+列出所有超级代表的信息。
 ```shell
 wallet> listwitnesses
 {
@@ -2006,11 +2006,11 @@ wallet> listwitnesses
 ```
 
 ### GetBrokerage
-使用该命令，可以查看witness的出块分成比例。
+使用该命令，可以查看超级代表的出块分成比例。
 
-在为witness投票后，会收到相应的奖励。witness可以调整出块收益的分成比例，默认比例为20%，即收益的20%归witness所有，剩余80%按投票数分配给投票者。
+在为超级代表投票后，会收到相应的奖励。超级代表可以调整出块收益的分成比例，默认比例为20%，即收益的20%归该超级代表所有，剩余80%按投票数分配给投票者。
 
-`OwnerAddress` 为witness的地址，base58格式。
+`OwnerAddress` 为超级代表的地址，base58格式。
 
 示例中，出块奖励的分成为20%，即80%的收益会按权重分配给投票者：
 ```shell
@@ -2021,7 +2021,7 @@ The brokerage is : 20
 ### GetReward
 查询未领取的奖励。
 
-`OwnerAddress` 为witness的地址，base58格式。示例如下：
+`OwnerAddress` 为超级代表的地址，base58格式。示例如下：
 ```shell
 wallet> getreward TSzdGHnhYnQKFF4LKrRLztkjYAvbNoxnQ8
 The reward is : 0
@@ -2029,11 +2029,11 @@ The reward is : 0
 
 
 ### UpdateBrokerage
-该命令由witness发起，调整出块收益的分成比例。
+该命令由超级代表发起，调整出块收益的分成比例。
 ```
 wallet> updateBrokerage [OwnerAddress] [brokerage]
 ```
-`OwnerAddress`  为witness的地址，base58格式。`brokerage` 为要改成的比例，0-100之间。
+`OwnerAddress`  为超级代表的地址，base58格式。`brokerage` 为要改成的比例，0-100之间。
 
 示例：
 ```shell

@@ -1258,7 +1258,7 @@ curl -X POST  http://127.0.0.1:8090/wallet/createwitness -d '{"owner_address":"4
 
 
 #### wallet/updatewitness
-作用：修改witness的url
+作用：修改超级代表的url
 ```
 curl -X POST  http://127.0.0.1:8090/wallet/updatewitness -d '{
 "owner_address":"41d1e7a6bc354106cb410e65ff8b181c600ff14292",
@@ -1271,17 +1271,17 @@ curl -X POST  http://127.0.0.1:8090/wallet/updatewitness -d '{
 - `update_url`是更新的官网的url，默认为hexString格式
 - 可选参数`Permission_id`，多重签名时使用，设置交易多重签名时使用的permissionId
 
-返回值：更新witness的Transaction
+返回值：更新超级代表网址URL的Transaction
 
 
 #### wallet/listwitnesses
-作用：查询所有witness列表
+作用：查询所有超级代表
 ```
 curl -X POST  http://127.0.0.1:8090/wallet/listwitnesses
 ```
 参数说明：无
 
-返回值：witness列表。
+返回值：超级代表列表。
 
 #### wallet/withdrawbalance
 作用：超级代表提现奖励到balance，每24个小时可以提现一次
@@ -1319,17 +1319,17 @@ curl -X POST  http://127.0.0.1:8090/wallet/votewitnessaccount -d '{
 返回值：投票的Transaction
 
 #### wallet/getBrokerage
-作用：查询witness当前Brokerage比例
+作用：查询超级代表当前的Brokerage比例
 ```
 curl -X GET  http://127.0.0.1:8090/wallet/getBrokerage -d '{
 "address":"41E552F6487585C2B58BC2C9BB4492BC1F17132CD0"}'
 ```
 参数说明：`address`是被投票的超级代表的地址，默认为hexString格式
 
-返回值：witness当前Brokerage比例
+返回值：超级代表的当前Brokerage比例
 
 #### wallet/updateBrokerage
-作用：更新witness当前Brokerage比例
+作用：更新超级代表当前的Brokerage比例
 ```
 curl -X POST  http://47.252.81.126:8090/wallet/updateBrokerage  -d '{
 "owner_address":"41E552F6487585C2B58BC2C9BB4492BC1F17132CD0",
@@ -1338,7 +1338,7 @@ curl -X POST  http://47.252.81.126:8090/wallet/updateBrokerage  -d '{
 参数说明：
 
 - `owner_address`是被投票的超级代表的地址，默认为hexString格式
-- `brokerage`是witness想要更新为的Brokerage比例
+- `brokerage`是超级代表想要更新为的Brokerage比例
 
 返回值：更新Brokerage的Transaction
 
