@@ -1958,7 +1958,7 @@ wallet> getproposal 34
 ### Votewitness
 使用该命令为超级代表投票。投票需要相应的投票权, 即`Tron Power`，可以通过质押资产来获得。第一个参数为超级代表的地址，第二个参数为该超级代表投票的数量。
 ```
-wallet> votewitness [witness address] [Tron Power Amount]
+wallet> votewitness [SR address] [Tron Power Amount]
 
 * Tron Power计算规则: 每冻结 1 TRX获得一个单位的Tron Power。
 * 资产解冻后, 所有之前的投票即作废。可以重复冻结资产避免这种情况。
