@@ -56,7 +56,7 @@ $ java -Xmx24g -XX:+UseConcMarkSweepGC -jar FullNode.jar --witness -c main_net_c
 **注意**：对于主网和nile测试网，由于新节点启动后，需要同步的数据量较大，因此同步数据需要较长的时间。可以使用 [数据快照](../backup_restore/#_5) 来加快节点同步速度。首先下载最新的数据快照，并将其解压至tron项目的output-directory目录下，然后再启动节点，这样节点将在数据快照的基础上进行同步。
 
 # 其它说明
-### 如何使用keystore+密码的方式指定witness账户私钥
+### 如何使用keystore+密码的方式指定超级代表账户私钥
 
 1. 这种方式指定私钥，需要在启动节点时进行人机交互，因此请不要使用nohup命令，建议使用会话保持工具，如screen, tmux等。
 2. 注释掉节点配置文件中的localwitness配置项，取消localwitnesskeystore配置项的注释，填入keystore文件的路径，注意keystore文件需要放到启动命令执行的当前目录下或者其子目录下。如当前目录是A，keystore文件的目录是A/B/localwitnesskeystore.json，则需要配置成：

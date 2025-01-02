@@ -53,10 +53,10 @@ message AccountPermissionUpdateContract {
 
 `owner_address`：待修改权限的账户的地址
 `owner`：修改后的 owner 权限
-`witness`：修改后的 witness 权限（如果是 witness ）
+`witness`：修改后的 witness 权限
 `actives`：修改后的 actives 权限
 
-注意：该接口是覆盖原账户权限，因此，如果只想修改owner权限，witness（如果是witnss账户）及actives的也需要设置。
+注意：该接口是覆盖原账户权限，因此，如果只想修改owner权限，witness（如果是超级代表账户）及actives的也需要设置。
 
 #### Permission
 
@@ -124,11 +124,11 @@ Owner权限具有以下特性：
 
 ### Witness权限
 
-超级代表可使用该权限，管理出块节点。非witness账户无该权限。
+超级代表可使用该权限，管理出块节点。非超级代表账户无该权限。
 
 使用场景示例：一个超级代表在云服务器上部署出块程序，为了账户安全，此时可以将出块权限赋予另一个地址。由于该地址仅具有出块权限，无TRX转出权限，即使该服务器上私钥被泄密，也不会出现TRX丢失。
 
-Witness出块节点的配置：
+出块节点的配置：
 1、未修改witness权限时，无需特殊配置。
 2、修改witness权限后的出块节点，需要在重新配置，配置项如下：
 
@@ -136,12 +136,12 @@ Witness出块节点的配置：
 #config.conf
 
 // Optional.The default is empty.
-// It is used when the witness account has set the witnessPermission.
-// When it is not empty, the localWitnessAccountAddress represents the address of the witness account,
-// and the localwitness is configured with the private key of the witnessPermissionAddress in the witness account.
-// When it is empty,the localwitness is configured with the private key of the witness account.
+// It is used when the SR account has set the witnessPermission.
+// When it is not empty, the localWitnessAccountAddress represents the address of the SR account,
+// and the localwitness is configured with the private key of the witnessPermissionAddress in the SR account.
+// When it is empty,the localwitness is configured with the private key of the SR account.
 //可选项，默认为空。
-//用于当witness账户设置了witnessPermission。
+//用于当超级代表账户设置了witnessPermission。
 //当该值不为空时，localWitnessAccountAddress代表witness账户的地址，localwitness是witnessPermission中的地址的私钥。
 //当该值为空时，localwitness配置为witness账户的私钥。
 

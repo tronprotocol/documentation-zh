@@ -23,17 +23,15 @@
 
 ```shell
 freezebalancev2 10,000,000 3 # 质押了10TRX，获取了10单位TRON Power(TP)
-votewitness witness1 4 witness2 6 # 同时给witness1投了4票，给witness2投了6票
-votewitness witness1 3 witness2 7 # 同时给witness1投了3票，给witness2投了7票
+votewitness SR1 4 SR2 6 # 同时给SR1投了4票，给SR2投了6票
+votewitness SR1 3 SR2 7 # 同时给SR1投了3票，给SR2投了7票
 ```
 
-以上命令的最终结果是给witness1投了3票，给witness2投了7票
+以上命令的最终结果是给SR1投了3票，给SR2投了7票
 
-### Witnesses分红
+### 超级代表佣金比例
 
-默认比例是20%，超级代表和超级代表合伙人可以通过wallet/getBrokerage接口查询佣金比例, 也可以通过wallet/updateBrokerage接口修改佣金比例。
-
-如果一个witness获得20%的奖励，那么剩余的80%奖励会被分配给投票者。如果分红比例设置为100%，那么只有witness可以获得奖励；相反，如果设置为0，那么只有投票者会获得奖励。
+默认佣金比例是20%，即超级代表获得20%的奖励，剩余的80%奖励会被分配给投票者，超级代表和超级代表合伙人可以通过wallet/getBrokerage接口查询佣金比例, 也可以通过wallet/updateBrokerage接口修改佣金比例。如果分红比例设置为100%，那么只有超级代表可以获得奖励；相反，如果设置为0，那么只有投票者会获得奖励。
 
 ## 3. 超级代表的奖励
 
@@ -57,13 +55,13 @@ votewitness witness1 3 witness2 7 # 同时给witness1投了3票，给witness2投
 
 ## 4. 投票者的奖励
 
-如果投票给Super Representative：
+如果投票给一个超级代表：
 
-每日获得奖励 =  (((你投给一个witness的票数) *4,608,000 / 总票数)* 80%) + ((460,800 / 27) *80%)* (你投给一个witness的票数) / (一个witness获得的总票数) TRX
+每日获得的奖励 =  (((你投给这个超级代表的票数) *4,608,000 / 总票数)* 80%) + ((460,800 / 27) *80%)* (你投给这个超级代表的票数) / (这个超级代表获得的总票数) TRX
 
-如果你投票给Partner：
+如果你投票给超级代表合伙人：
 
-每日获得奖励 =  (((你投给一个witness的票数) *4,608,000 / 总票数)* 80%) TRX
+每日获得奖励 =  (((你投给这个超级代表合伙人的票数) *4,608,000 / 总票数)* 80%) TRX
 
 ## 5. 委员会
 
