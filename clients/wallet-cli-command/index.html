@@ -545,7 +545,7 @@ GetAddress<span class="w"> </span>successful<span class="w"> </span>!!
 <ul>
 <li><code>owner</code>: 拥有账户的所有权限。</li>
 <li><code>active</code>: 可以获得账户中的特定权限，如果是witness权限则不包括出块权利。</li>
-<li><code>witness</code>: 只用于witness, 出块的权利将会被授予其他账户。</li>
+<li><code>witness</code>: 只用于超级代表, 出块的权利将会被授予其他账户。</li>
 </ul>
 <p><strong>注意</strong> 参数<code>Permission</code> 必须按json格式传入且不能换行。如果owner账户不是超级代表，则不要授权witness权限给其他账户。</p>
 <p>示例：
@@ -2102,8 +2102,8 @@ wallet&gt;<span class="w"> </span>ApproveProposal<span class="w"> </span><span c
 <span class="o">}</span>
 </code></pre></div></p>
 <h3 id="votewitness">Votewitness<a class="headerlink" href="#votewitness" title="Permanent link">&para;</a></h3>
-<p>使用该命令为witness投票。投票需要相应的权益, 即<code>Tron Power</code>，可以通过质押资产来获得。第一个参数为witness的地址，第二个参数为投票的数量。
-<div class="highlight"><pre><span></span><code>wallet&gt; votewitness [witness address] [Tron Power Amount]
+<p>使用该命令为超级代表投票。投票需要相应的投票权, 即<code>Tron Power</code>，可以通过质押资产来获得。第一个参数为超级代表的地址，第二个参数为该超级代表投票的数量。
+<div class="highlight"><pre><span></span><code>wallet&gt; votewitness [SR address] [Tron Power Amount]
 
 * Tron Power计算规则: 每冻结 1 TRX获得一个单位的Tron Power。
 * 资产解冻后, 所有之前的投票即作废。可以重复冻结资产避免这种情况。
@@ -2114,13 +2114,13 @@ wallet&gt;<span class="w"> </span>ApproveProposal<span class="w"> </span><span c
 ```shell
 wallet&gt; freezeBalance 100000000 3 1 address  # 冻结 10TRX，获得10个单位的Tron Power。
 
-wallet&gt; votewitness [witness1] 4 [witness2] 6  # 为witness1投4票，同时再为witness2投6票
+wallet&gt; votewitness [SR1] 4 [SR2] 6  # 为SR1投4票，同时再为SR2投6票
 
-wallet&gt; votewitness [witness1] 10  # 为witness1投10票
+wallet&gt; votewitness [SR1] 10  # 为SR1投10票
 </code></pre></div>
-示例中的结果为witness1获得10票，witness2获得0票。</p>
+示例中的结果为SR1获得10票，SR2获得0票。</p>
 <h3 id="listwitnesses">ListWitnesses<a class="headerlink" href="#listwitnesses" title="Permanent link">&para;</a></h3>
-<p>列出所有witness的信息。
+<p>列出所有超级代表的信息。
 <div class="highlight"><pre><span></span><code>wallet&gt;<span class="w"> </span>listwitnesses
 <span class="o">{</span>
 <span class="w">    </span><span class="s2">&quot;witnesses&quot;</span>:<span class="w"> </span><span class="o">[</span>
@@ -2147,24 +2147,24 @@ wallet&gt; votewitness [witness1] 10  # 为witness1投10票
 ···
 </code></pre></div></p>
 <h3 id="getbrokerage">GetBrokerage<a class="headerlink" href="#getbrokerage" title="Permanent link">&para;</a></h3>
-<p>使用该命令，可以查看witness的出块分成比例。</p>
-<p>在为witness投票后，会收到相应的奖励。witness可以调整出块收益的分成比例，默认比例为20%，即收益的20%归witness所有，剩余80%按投票数分配给投票者。</p>
-<p><code>OwnerAddress</code> 为witness的地址，base58格式。</p>
+<p>使用该命令，可以查看超级代表的出块分成比例。</p>
+<p>在为超级代表投票后，会收到相应的奖励。超级代表可以调整出块收益的分成比例，默认比例为20%，即收益的20%归该超级代表所有，剩余80%按投票数分配给投票者。</p>
+<p><code>OwnerAddress</code> 为超级代表的地址，base58格式。</p>
 <p>示例中，出块奖励的分成为20%，即80%的收益会按权重分配给投票者：
 <div class="highlight"><pre><span></span><code>wallet&gt;<span class="w"> </span>getbrokerage<span class="w"> </span>TSzdGHnhYnQKFF4LKrRLztkjYAvbNoxnQ8
 The<span class="w"> </span>brokerage<span class="w"> </span>is<span class="w"> </span>:<span class="w"> </span><span class="m">20</span>
 </code></pre></div></p>
 <h3 id="getreward">GetReward<a class="headerlink" href="#getreward" title="Permanent link">&para;</a></h3>
 <p>查询未领取的奖励。</p>
-<p><code>OwnerAddress</code> 为witness的地址，base58格式。示例如下：
+<p><code>OwnerAddress</code> 为超级代表的地址，base58格式。示例如下：
 <div class="highlight"><pre><span></span><code>wallet&gt;<span class="w"> </span>getreward<span class="w"> </span>TSzdGHnhYnQKFF4LKrRLztkjYAvbNoxnQ8
 The<span class="w"> </span>reward<span class="w"> </span>is<span class="w"> </span>:<span class="w"> </span><span class="m">0</span>
 </code></pre></div></p>
 <h3 id="updatebrokerage">UpdateBrokerage<a class="headerlink" href="#updatebrokerage" title="Permanent link">&para;</a></h3>
-<p>该命令由witness发起，调整出块收益的分成比例。
+<p>该命令由超级代表发起，调整出块收益的分成比例。
 <div class="highlight"><pre><span></span><code>wallet&gt; updateBrokerage [OwnerAddress] [brokerage]
 </code></pre></div>
-<code>OwnerAddress</code>  为witness的地址，base58格式。<code>brokerage</code> 为要改成的比例，0-100之间。</p>
+<code>OwnerAddress</code>  为超级代表的地址，base58格式。<code>brokerage</code> 为要改成的比例，0-100之间。</p>
 <p>示例：
 <div class="highlight"><pre><span></span><code>wallet&gt;<span class="w"> </span>updateBrokerage<span class="w"> </span>TZ7U1WVBRLZ2umjizxqz3XfearEHhXKX7h<span class="w"> </span><span class="m">30</span>
 </code></pre></div></p>

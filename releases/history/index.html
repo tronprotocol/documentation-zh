@@ -2553,8 +2553,8 @@ DB OPTIONS:
 -d, --output-directory          Data directory for the databases (default:output-directory)
 
 WITNESS OPTIONS:
--w, --witness               Is witness node
--p, --private-key           Witness private key
+-w, --witness               Is a SR node
+-p, --private-key           SR account&#39;s private key
 
 VIRTUAL MACHINE OPTIONS:
 --debug         Switch for TVM debug mode. In debug model, TVM will not check for timeout. (default: false)
@@ -2915,8 +2915,8 @@ GreatVoyage-v4.3.0(Bacon)引入了leveldb 启动优化插件，插件优化了ma
 <p>GreatVoyage-v4.2.2(Lucretius)版本引入了3个重要的优化更新，区块处理的优化有效得提高区块的执行速度，从而大幅提高TRON网络的性能，高效的HTTP/RPC查询和更高性能TVM将为TRON DAPP用户带来更好的体验，进一步繁荣波场生态。</p>
 <h3 id="_33">核心协议<a class="headerlink" href="#_33" title="Permanent link">&para;</a></h3>
 <h4 id="1_19">1、优化区块处理。<a class="headerlink" href="#1_19" title="Permanent link">&para;</a></h4>
-<p>在GreatVoyage-v4.2.2(Lucretius)之前的版本中，区块处理过程中为了获取witness列表，执行了多次数据库查询和反序列化操作，这部分操作占用了近1/3的区块处理时间。</p>
-<p>GreatVoyage-v4.2.2(Lucretius)版本简化了witness的查询，区块处理过程只需一次查询即可获取witness列表，经过测试，本次优化大幅提升了区块处理性能。</p>
+<p>在GreatVoyage-v4.2.2(Lucretius)之前的版本中，区块处理过程中为了获取超级代表列表，执行了多次数据库查询和反序列化操作，这部分操作占用了近1/3的区块处理时间。</p>
+<p>GreatVoyage-v4.2.2(Lucretius)版本简化了超级代表的查询，区块处理过程只需一次查询即可获取超级代表列表，经过测试，本次优化大幅提升了区块处理性能。</p>
 <ul>
 <li>TIP： <a href="https://github.com/tronprotocol/tips/blob/master/tip-269.md">TIP-269</a></li>
 <li>源代码:  <a href="https://github.com/tronprotocol/java-tron/pull/3827">#3827</a></li>

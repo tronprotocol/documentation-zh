@@ -183,10 +183,10 @@ TestNet的配置请参照:
 <li>示例：</li>
 </ul>
 <div class="highlight"><pre><span></span><code>freezebalancev2<span class="w"> </span><span class="m">10</span>,000,000<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="c1"># 质押了10TRX，获取了10单位TRON Power(TP)</span>
-votewitness<span class="w"> </span>witness1<span class="w"> </span><span class="m">4</span><span class="w"> </span>witness2<span class="w"> </span><span class="m">6</span><span class="w"> </span><span class="c1"># 同时给witness1投了4票，给witness2投了6票</span>
-votewitness<span class="w"> </span>witness1<span class="w"> </span><span class="m">3</span><span class="w"> </span>witness2<span class="w"> </span><span class="m">7</span><span class="w"> </span><span class="c1"># 同时给witness1投了3票，给witness2投了7票</span>
+votewitness<span class="w"> </span>SR1<span class="w"> </span><span class="m">4</span><span class="w"> </span>SR2<span class="w"> </span><span class="m">6</span><span class="w"> </span><span class="c1"># 同时给SR1投了4票，给SR2投了6票</span>
+votewitness<span class="w"> </span>SR1<span class="w"> </span><span class="m">3</span><span class="w"> </span>SR2<span class="w"> </span><span class="m">7</span><span class="w"> </span><span class="c1"># 同时给SR1投了3票，给SR2投了7票</span>
 </code></pre></div>
-<p>以上命令的最终结果是给witness1投了3票，给witness2投了7票</p>
+<p>以上命令的最终结果是给SR1投了3票，给SR2投了7票</p>
 <h3 id="23">2.3 超级代表的奖励<a class="headerlink" href="#23" title="Permanent link">&para;</a></h3>
 <ol>
 <li>
@@ -383,7 +383,7 @@ CPU：64核及以上 内存：64G及以上 带宽：500M及以上 硬盘：20T�
 </ol>
 <div class="highlight"><pre><span></span><code>nohup<span class="w"> </span>java<span class="w"> </span>-Xmx6g<span class="w"> </span>-XX:+HeapDumpOnOutOfMemoryError<span class="w"> </span>-jar<span class="w"> </span>FullNode.jar<span class="w">  </span>-c<span class="w"> </span>private_net_config.conf
 命令行参数说明:
---witness:<span class="w"> </span>启动witness功能,由于配置的这个fullnode节点不需要产快，所以此fullnode节点不可以添加这个参数，i.e.:<span class="w"> </span>--witness。
+--witness:<span class="w"> </span>启动超级代表产块功能,<span class="w"> </span>因为这个fullnode节点不需要产快，所以此fullnode节点不可以添加这个参数，i.e.:<span class="w"> </span>--witness。
 --log-config:<span class="w"> </span>指定日志配置文件路径，i.e.:<span class="w"> </span>--log-config<span class="w"> </span>logback.xml。
 -c:<span class="w"> </span>指定配置文件路径，i.e.:<span class="w"> </span>-c<span class="w"> </span>config.conf。
 </code></pre></div>
@@ -1021,7 +1021,7 @@ receiverAddress表示受委托账户的地址，</p>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;">创建witness</td>
+<td style="text-align: left;">申请成为超级代表候选人</td>
 <td style="text-align: center;">9999 TRX</td>
 </tr>
 <tr>

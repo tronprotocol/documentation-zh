@@ -83,15 +83,15 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#2">2. 选举超级代表</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#witnesses">Witnesses分红</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_2">超级代表佣金比例</a>
     </li>
         </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#3">3. 超级代表的奖励</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#_2">投票奖励</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_3">投票奖励</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#_3">出块奖励</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_4">出块奖励</a>
     </li>
         </ul>
     </li>
@@ -208,28 +208,27 @@
 <li>示例：</li>
 </ul>
 <div class="highlight"><pre><span></span><code>freezebalancev2<span class="w"> </span><span class="m">10</span>,000,000<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="c1"># 质押了10TRX，获取了10单位TRON Power(TP)</span>
-votewitness<span class="w"> </span>witness1<span class="w"> </span><span class="m">4</span><span class="w"> </span>witness2<span class="w"> </span><span class="m">6</span><span class="w"> </span><span class="c1"># 同时给witness1投了4票，给witness2投了6票</span>
-votewitness<span class="w"> </span>witness1<span class="w"> </span><span class="m">3</span><span class="w"> </span>witness2<span class="w"> </span><span class="m">7</span><span class="w"> </span><span class="c1"># 同时给witness1投了3票，给witness2投了7票</span>
+votewitness<span class="w"> </span>SR1<span class="w"> </span><span class="m">4</span><span class="w"> </span>SR2<span class="w"> </span><span class="m">6</span><span class="w"> </span><span class="c1"># 同时给SR1投了4票，给SR2投了6票</span>
+votewitness<span class="w"> </span>SR1<span class="w"> </span><span class="m">3</span><span class="w"> </span>SR2<span class="w"> </span><span class="m">7</span><span class="w"> </span><span class="c1"># 同时给SR1投了3票，给SR2投了7票</span>
 </code></pre></div>
-<p>以上命令的最终结果是给witness1投了3票，给witness2投了7票</p>
-<h3 id="witnesses">Witnesses分红<a class="headerlink" href="#witnesses" title="Permanent link">&para;</a></h3>
-<p>默认比例是20%，超级代表和超级代表合伙人可以通过wallet/getBrokerage接口查询佣金比例, 也可以通过wallet/updateBrokerage接口修改佣金比例。</p>
-<p>如果一个witness获得20%的奖励，那么剩余的80%奖励会被分配给投票者。如果分红比例设置为100%，那么只有witness可以获得奖励；相反，如果设置为0，那么只有投票者会获得奖励。</p>
+<p>以上命令的最终结果是给SR1投了3票，给SR2投了7票</p>
+<h3 id="_2">超级代表佣金比例<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<p>默认佣金比例是20%，即超级代表获得20%的奖励，剩余的80%奖励会被分配给投票者，超级代表和超级代表合伙人可以通过wallet/getBrokerage接口查询佣金比例, 也可以通过wallet/updateBrokerage接口修改佣金比例。如果分红比例设置为100%，那么只有超级代表可以获得奖励；相反，如果设置为0，那么只有投票者会获得奖励。</p>
 <h2 id="3">3. 超级代表的奖励<a class="headerlink" href="#3" title="Permanent link">&para;</a></h2>
-<h3 id="_2">投票奖励<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<h3 id="_3">投票奖励<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
 <p>票数奖励是每生成一个区块奖励160TRX，总奖励数是4,608,000 TRX / 天。</p>
 <p>对每一个SR与Partner，每天获得的票数奖励 = 4,608,000 * ( 获得的票数 /  总票数) x 20%  TRX</p>
-<h3 id="_3">出块奖励<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<h3 id="_4">出块奖励<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
 <p>波场协议网络每3秒中会出一个区块，每个区块将给予超级代表16个TRX奖励，每年总计168,192,000 TRX将会被奖励给超级代表。</p>
 <p>超级代表每次出块完成后，出块奖励都会发到超级代表的子账号当中，超级代表不能直接使用这部分资产，但可以查询。 每24h允许一次提取操作。从该子账号转移到超级代表的账户中。</p>
 <p>16 (TRX/区块) * 28,800 (总区块数/day) = 460,800 (TRX/天)</p>
 <p>对每一个SR，每天获得的出块奖励 = (460,800 / 27) x 20%  TRX</p>
 <p>实际奖励可能会比理论上的奖励少，因为出块失败或者维护期切换。</p>
 <h2 id="4">4. 投票者的奖励<a class="headerlink" href="#4" title="Permanent link">&para;</a></h2>
-<p>如果投票给Super Representative：</p>
-<p>每日获得奖励 =  (((你投给一个witness的票数) <em>4,608,000 / 总票数)</em> 80%) + ((460,800 / 27) <em>80%)</em> (你投给一个witness的票数) / (一个witness获得的总票数) TRX</p>
-<p>如果你投票给Partner：</p>
-<p>每日获得奖励 =  (((你投给一个witness的票数) <em>4,608,000 / 总票数)</em> 80%) TRX</p>
+<p>如果投票给一个超级代表：</p>
+<p>每日获得的奖励 =  (((你投给这个超级代表的票数) <em>4,608,000 / 总票数)</em> 80%) + ((460,800 / 27) <em>80%)</em> (你投给这个超级代表的票数) / (这个超级代表获得的总票数) TRX</p>
+<p>如果你投票给超级代表合伙人：</p>
+<p>每日获得奖励 =  (((你投给这个超级代表合伙人的票数) <em>4,608,000 / 总票数)</em> 80%) TRX</p>
 <h2 id="5">5. 委员会<a class="headerlink" href="#5" title="Permanent link">&para;</a></h2>
 <h3 id="51">5.1 什么是委员会<a class="headerlink" href="#51" title="Permanent link">&para;</a></h3>
 <p>委员会用于修改Tron网络动态参数，如出块奖励、交易费用等等。委员会由当前的27个超级代表组成。每个超级代表都具有提议权、对提议的投票权，

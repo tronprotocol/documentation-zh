@@ -1568,7 +1568,7 @@
 </ul>
 <p>返回值：申请超级代表的Transaction</p>
 <h4 id="walletupdatewitness">wallet/updatewitness<a class="headerlink" href="#walletupdatewitness" title="Permanent link">&para;</a></h4>
-<p>作用：修改witness的url
+<p>作用：修改超级代表的url
 <div class="highlight"><pre><span></span><code>curl -X POST  http://127.0.0.1:8090/wallet/updatewitness -d &#39;{
 &quot;owner_address&quot;:&quot;41d1e7a6bc354106cb410e65ff8b181c600ff14292&quot;,
 &quot;update_url&quot;: &quot;007570646174654e616d6531353330363038383733343633&quot;
@@ -1580,13 +1580,13 @@
 <li><code>update_url</code>是更新的官网的url，默认为hexString格式</li>
 <li>可选参数<code>Permission_id</code>，多重签名时使用，设置交易多重签名时使用的permissionId</li>
 </ul>
-<p>返回值：更新witness的Transaction</p>
+<p>返回值：更新超级代表网址URL的Transaction</p>
 <h4 id="walletlistwitnesses">wallet/listwitnesses<a class="headerlink" href="#walletlistwitnesses" title="Permanent link">&para;</a></h4>
-<p>作用：查询所有witness列表
+<p>作用：查询所有超级代表
 <div class="highlight"><pre><span></span><code>curl -X POST  http://127.0.0.1:8090/wallet/listwitnesses
 </code></pre></div>
 参数说明：无</p>
-<p>返回值：witness列表。</p>
+<p>返回值：超级代表列表。</p>
 <h4 id="walletwithdrawbalance">wallet/withdrawbalance<a class="headerlink" href="#walletwithdrawbalance" title="Permanent link">&para;</a></h4>
 <p>作用：超级代表提现奖励到balance，每24个小时可以提现一次</p>
 <p><div class="highlight"><pre><span></span><code>curl -X POST http://127.0.0.1:8090/wallet/withdrawbalance -d &#39;{
@@ -1615,14 +1615,14 @@
 </ul>
 <p>返回值：投票的Transaction</p>
 <h4 id="walletgetbrokerage">wallet/getBrokerage<a class="headerlink" href="#walletgetbrokerage" title="Permanent link">&para;</a></h4>
-<p>作用：查询witness当前Brokerage比例
+<p>作用：查询超级代表当前的Brokerage比例
 <div class="highlight"><pre><span></span><code>curl -X GET  http://127.0.0.1:8090/wallet/getBrokerage -d &#39;{
 &quot;address&quot;:&quot;41E552F6487585C2B58BC2C9BB4492BC1F17132CD0&quot;}&#39;
 </code></pre></div>
 参数说明：<code>address</code>是被投票的超级代表的地址，默认为hexString格式</p>
-<p>返回值：witness当前Brokerage比例</p>
+<p>返回值：超级代表的当前Brokerage比例</p>
 <h4 id="walletupdatebrokerage">wallet/updateBrokerage<a class="headerlink" href="#walletupdatebrokerage" title="Permanent link">&para;</a></h4>
-<p>作用：更新witness当前Brokerage比例
+<p>作用：更新超级代表当前的Brokerage比例
 <div class="highlight"><pre><span></span><code>curl -X POST  http://47.252.81.126:8090/wallet/updateBrokerage  -d &#39;{
 &quot;owner_address&quot;:&quot;41E552F6487585C2B58BC2C9BB4492BC1F17132CD0&quot;,
 &quot;brokerage&quot;:30}&#39;
@@ -1630,7 +1630,7 @@
 参数说明：</p>
 <ul>
 <li><code>owner_address</code>是被投票的超级代表的地址，默认为hexString格式</li>
-<li><code>brokerage</code>是witness想要更新为的Brokerage比例</li>
+<li><code>brokerage</code>是超级代表想要更新为的Brokerage比例</li>
 </ul>
 <p>返回值：更新Brokerage的Transaction</p>
 <h4 id="walletgetreward">wallet/getReward<a class="headerlink" href="#walletgetreward" title="Permanent link">&para;</a></h4>
