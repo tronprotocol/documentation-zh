@@ -1,6 +1,6 @@
 # 数据备份和恢复
 
-Java-Tron会将持久化存储的数据写入到数据目录，默认的数据目录为：`/output-directory/`，如需指定其它目录，可以在java-tron节点启动命令中加入 `-d` 或者 `--output-directory` 参数来指定数据存储位置。
+java-tron会将持久化存储的数据写入到数据目录，默认的数据目录为：`/output-directory/`，如需指定其它目录，可以在java-tron节点启动命令中加入 `-d` 或者 `--output-directory` 参数来指定数据存储位置。
 ```
 $ java -jar fullnode.jar -d ./outputdir
 ```
@@ -25,7 +25,7 @@ while true; do
 done
 ```
 
-然后，当关闭了Java-tron进程后，可通过如下命令进行数据的备份。
+然后，当关闭了java-tron进程后，可通过如下命令进行数据的备份。
 
 ```
 $ tar cvzf output-directory.`date "+%Y%m%d%H%M%S"`.etgz output-directory

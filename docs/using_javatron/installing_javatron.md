@@ -1,17 +1,17 @@
-# 部署Java-Tron节点
-Java-tron节点支持部署在 `Linux` 或 `MacOS` 操作系统上，并且依赖`Oracle JDK 1.8` ，不支持其它版本的JDK。
+# 部署java-tron节点
+java-tron节点支持部署在 `Linux` 或 `MacOS` 操作系统上，并且依赖`Oracle JDK 1.8` ，不支持其它版本的JDK。
 
-运行Java-tron节点需要的最小的硬件配置是 `8核CPU`、`16G内存`、`2T SDD`，推荐的配置是： `16核CPU`、`32G内存`、`2.5T+ SDD`，超级代表产块节点建议 `32核CPU`、`64G内存`。
+运行java-tron节点需要的最小的硬件配置是 `8核CPU`、`16G内存`、`2T SDD`，推荐的配置是： `16核CPU`、`32G内存`、`2.5T+ SDD`，超级代表产块节点建议 `32核CPU`、`64G内存`。
 
 # 编译源码
-首先，通过如下git命令将Java-tron源代码克隆到本地，并且切换到master分支。在执行命令前，请确保已经安装了`git`工具。
+首先，通过如下git命令将java-tron源代码克隆到本地，并且切换到master分支。在执行命令前，请确保已经安装了`git`工具。
 
 ```
 $ git clone https://github.com/tronprotocol/java-tron.git
 $ git checkout -t origin/master
 ```
 
-然后，通过执行如下命令编译Java-tron源代码。参数`-x test`表示跳过执行测试用例，您也可以去掉这个参数，以在编译的过程中执行测试代码，这将使编译时间更长。编译完成之后，FullNode.jar会生成在 `java-tron/build/libs/`目录下。
+然后，通过执行如下命令编译java-tron源代码。参数`-x test`表示跳过执行测试用例，您也可以去掉这个参数，以在编译的过程中执行测试代码，这将使编译时间更长。编译完成之后，FullNode.jar会生成在 `java-tron/build/libs/`目录下。
   
 ```
 $ cd java-tron
@@ -20,9 +20,9 @@ $ ./gradlew clean build -x test
     
  
 
-# 运行Java-tron节点
+# 运行java-tron节点
 
-你可以选择不同的配置文件将Java-tron节点连接到不同的网络中，其中主网全节点配置文件为：[main_net_config.conf](https://github.com/tronprotocol/tron-deployment/blob/master/main_net_config.conf)，其它网络节点配置文件在[这里](https://github.com/tronprotocol/tron-deployment)下载。
+你可以选择不同的配置文件将java-tron节点连接到不同的网络中，其中主网全节点配置文件为：[main_net_config.conf](https://github.com/tronprotocol/tron-deployment/blob/master/main_net_config.conf)，其它网络节点配置文件在[这里](https://github.com/tronprotocol/tron-deployment)下载。
 
 ### 启动全节点
 

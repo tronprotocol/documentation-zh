@@ -55,7 +55,7 @@ votewitness SR1 3 SR2 7 # 同时给SR1投了3票，给SR2投了7票
 
 #### 2.4.1 什么是委员会
 
-委员会用于修改Tron网络动态参数，如出块奖励、交易费用等等。委员会由当前的27个超级代表组成。每个超级代表都具有提议权、对提议的投票权，
+委员会用于修改TRON网络动态参数，如出块奖励、交易费用等等。委员会由当前的27个超级代表组成。每个超级代表都具有提议权、对提议的投票权，
 当提议获得19个代表及以上的赞成票时，该提议获得通过，并在下个维护期内进行网络参数修改。
 
 #### 2.4.2 创建提议
@@ -90,7 +90,7 @@ id0_N: 参数编号
 value0_N: 新参数值
 ```
 
-注：Tron网络中，1 TRX = 1000_000 Sun。
+注：TRON网络中，1 TRX = 1000_000 Sun。
 
 #### 2.4.3 对提议进行投票
 
@@ -122,13 +122,13 @@ id: 提议Id，根据提议创建时间递增
 查询所有提议信息（ListProposals）
 分页查询提议信息（GetPaginatedProposalList）
 查询指定提议信息（GetProposalById）
-相关api详情，请查询[Tron HTTP API](../api/http.md)
+相关api详情，请查询[TRON HTTP API](../api/http.md)
 
 ## 3. 账号模型
 
 ### 3.1 账户模型介绍
 
-Tron采用账户模型。账户的唯一标识为地址address，对账户操作需要验证私钥签名。每个账户拥有TRX、Token余额及智能合约、带宽、能量等各种资源。通过发送交易可以增减TRX或者Token余额，需要消耗带宽；可以发布并拥有智能合约，也可以调用他人发布的智能合约，需要消耗能量。可以申请成为超级代表并被投票，也可以对超级代表进行投票。等等。Tron所有的活动都围绕账户进行。
+TRON采用账户模型。账户的唯一标识为地址address，对账户操作需要验证私钥签名。每个账户拥有TRX、Token余额及智能合约、带宽、能量等各种资源。通过发送交易可以增减TRX或者Token余额，需要消耗带宽；可以发布并拥有智能合约，也可以调用他人发布的智能合约，需要消耗能量。可以申请成为超级代表并被投票，也可以对超级代表进行投票。等等。TRON所有的活动都围绕账户进行。
 
 ### 3.2 创建账号的方式
 
@@ -137,7 +137,7 @@ Tron采用账户模型。账户的唯一标识为地址address，对账户操作
 
 ### 3.3 生成密钥对算法
 
-Tron的签名算法为ECDSA，选用曲线为SECP256K1。其私钥为一个随机数，公钥为椭圆曲线上一个点。生成过程为，首先生成一个随机数d作为私钥，再计算P = d * G作为公钥；其中G为椭圆曲线的基点。
+TRON的签名算法为ECDSA，选用曲线为SECP256K1。其私钥为一个随机数，公钥为椭圆曲线上一个点。生成过程为，首先生成一个随机数d作为私钥，再计算P = d * G作为公钥；其中G为椭圆曲线的基点。
 
 ### 3.4 地址格式说明
 
@@ -208,9 +208,9 @@ CPU：16核 内存：32G 带宽：100M 硬盘：1T
 推荐配置要求：
 CPU：64核及以上 内存：64G及以上 带宽：500M及以上 硬盘：20T及以上
 
-### 4.4 Tron网络结构
+### 4.4 TRON网络结构
 
-Tron网络采用Peer-to-Peer(P2P)的网络架构，网络中的节点地位对等。网络中的节点有SuperNode、FullNode、SolidityNode三种类型，SuperNode主要用于生成区块，FullNode用于同步区块、广播交易，SolidityNode用于同步固化的区块。任何部署运行Tron代码的设备都可以加入Tron网络并作为一个节点，和Tron网络中的其他节点有相同的地位，他们可以创建交易，广播交易，同步区块等，也可以作为SuperNode的候选人参与选举。
+TRON网络采用Peer-to-Peer(P2P)的网络架构，网络中的节点地位对等。网络中的节点有SuperNode、FullNode、SolidityNode三种类型，SuperNode主要用于生成区块，FullNode用于同步区块、广播交易，SolidityNode用于同步固化的区块。任何部署运行TRON代码的设备都可以加入TRON网络并作为一个节点，和TRON网络中的其他节点有相同的地位，他们可以创建交易，广播交易，同步区块等，也可以作为SuperNode的候选人参与选举。
 ![image](https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/network.png)
 
 ### 4.5 一键部署FullNode和SolidityNode
@@ -395,14 +395,14 @@ java -jar DBConvert.jar output-directory/database  output-directory-dst/database
 
 ## 5. 智能合约
 
-### 5.1 Tron智能合约介绍
+### 5.1 TRON智能合约介绍
 
 智能合约是一种能自动执行其条款的计算化交易协议。智能合约和普通合约一样，定义了参与者相关的条款和奖惩机制。一旦合约被启动，便能按照设定的条款执行，并自动检查所承诺的条款实施情形。
-Tron兼容以太坊（Ethereum）上采用Solidity编写的智能合约。当前建议的Solidity语言版本为0.4.24 ~ 0.4.25。合约编写、编译完成后，部署到Tron公链上。部署后的合约，被触发时，就会在公链的各个节点上自动执行。
+TRON兼容以太坊（Ethereum）上采用Solidity编写的智能合约。当前建议的Solidity语言版本为0.4.24 ~ 0.4.25。合约编写、编译完成后，部署到TRON公链上。部署后的合约，被触发时，就会在公链的各个节点上自动执行。
 
-### 5.2 Tron智能合约特性（地址等）
+### 5.2 TRON智能合约特性（地址等）
 
-Tron virtual machine 基于以太坊 solidity 语言实现，兼容以太坊虚拟机的特性，但基于tron自身属性也有部分的区别。
+TRON virtual machine 基于以太坊 solidity 语言实现，兼容以太坊虚拟机的特性，但基于tron自身属性也有部分的区别。
 
 #### 5.2.1 智能合约
 
@@ -525,7 +525,7 @@ transfer/send/call/callcode/delegatecall函数调用转账
 
 ```solidity
 /**
-  *  @dev    convert uint256 (HexString add 0x at beginning) tron address to solidity address type
+  *  @dev    convert uint256 (HexString add 0x at beginning) TRON address to solidity address type
   *  @param  tronAddress uint256 tronAddress, begin with 0x, followed by HexString
   *  @return Solidity address type
   */
@@ -701,7 +701,7 @@ B: 10_000_000_000 且energy_limit 为10_000_000_000
 
 [3] 预估的下一次执行所需Energy上限，应该略大于上一次实际消耗的Energy。
 
-[4] 1 trx = 10^4 energy 为目前的燃烧trx的比例，后续Tron可能会根据全网拥塞情况调整，调整后，将通知到全网的节点。
+[4] 1 trx = 10^4 energy 为目前的燃烧trx的比例，后续TRON可能会根据全网拥塞情况调整，调整后，将通知到全网的节点。
 
 #### 5.3.3 Energy的计算(开发者必读)
 
@@ -944,7 +944,7 @@ triggercontract TTWq4vMEYB2yibAbPV7gQ4mrqTyX92fha6 get(uint256) 1 false 1000000 
 
 ## 7. TRC-10通证
 
-TRON网络支持2种通证，一种是通过智能合约发行的TRC20协议的通证，一种是通过Tron公链内置的TRC10通证。
+TRON网络支持2种通证，一种是通过智能合约发行的TRC20协议的通证，一种是通过TRON公链内置的TRC10通证。
 
 下面对TRC10通证进行说明。
 
@@ -1260,7 +1260,7 @@ buyTokenQuant = （long）balance* (Math.pow(1.0 + (double) supplyQuant / supply
 
 注意：由于网络其他账户发生交易，价格可能发生变化。
 
-相关api详情，请查询[Tron HTTP API](../api/http.md)。
+相关api详情，请查询[TRON HTTP API](../api/http.md)。
 
 ## 10. 多重签名
 

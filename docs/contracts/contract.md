@@ -3,11 +3,11 @@
 ## 波场智能合约介绍
 
 智能合约是一种能自动执行其条款的计算化交易协议。智能合约和普通合约一样，定义了参与者相关的条款和奖惩机制。一旦合约被启动，便能按照设定的条款执行，并自动检查所承诺的条款实施情形。
-Tron兼容以太坊（Ethereum）上采用Solidity编写的智能合约。你可以在[Tron solidity 代码库](https://github.com/tronprotocol/solidity/releases)中了解最新的版本。合约编写、编译完成后，部署到Tron公链上。部署后的合约，被触发时，就会在公链的各个节点上自动执行。
+TRON兼容以太坊（Ethereum）上采用Solidity编写的智能合约。你可以在[TRON solidity 代码库](https://github.com/tronprotocol/solidity/releases)中了解最新的版本。合约编写、编译完成后，部署到TRON公链上。部署后的合约，被触发时，就会在公链的各个节点上自动执行。
 
 ## 波场智能合约特性
 
-Tron virtual machine 基于以太坊 solidity 语言实现，兼容以太坊虚拟机的特性，但基于tron自身属性也有部分的区别。
+TRON virtual machine 基于以太坊 solidity 语言实现，兼容以太坊虚拟机的特性，但基于tron自身属性也有部分的区别。
 
 ### 1. 智能合约
 
@@ -121,7 +121,7 @@ transfer/send/call/callcode/delegatecall函数调用转账
 
 ```solidity
 /**
-  *  @dev    convert uint256 (HexString add 0x at beginning) tron address to solidity address type
+  *  @dev    convert uint256 (HexString add 0x at beginning) TRON address to solidity address type
   *  @param  tronAddress uint256 tronAddress, begin with 0x, followed by HexString
   *  @return Solidity address type
   */

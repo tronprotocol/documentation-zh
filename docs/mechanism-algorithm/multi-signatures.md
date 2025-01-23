@@ -4,7 +4,7 @@
 
 多重签名功能允许权限分级，每个权限可以对应多个私钥。这使得实现账户的多人联合控制成为可能。
 
-[Tron multi-signatures TIP](https://github.com/tronprotocol/tips/blob/master/tip-16.md)
+[TRON multi-signatures TIP](https://github.com/tronprotocol/tips/blob/master/tip-16.md)
 
 ## 概念说明
 

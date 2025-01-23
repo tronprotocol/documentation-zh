@@ -1,4 +1,4 @@
-# Tron virtual machine 调用结果说明
+# TRON virtual machine 调用结果说明
 
 ## 概述
 

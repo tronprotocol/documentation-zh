@@ -1,7 +1,7 @@
 # 数据库配置
-Java-tron数据存储支持使用 LevelDB 或者 RocksDB，默认使用LevelDB。您也可以选择RocksDB，它提供了丰富的配置参数，允许节点根据自身机器配置情况进行调优，节点数据库占用的磁盘空间相比于LevelDB更少，同时RocksDB支持在运行时进行数据备份，备份时间仅需要几秒钟。
+java-tron数据存储支持使用 LevelDB 或者 RocksDB，默认使用LevelDB。您也可以选择RocksDB，它提供了丰富的配置参数，允许节点根据自身机器配置情况进行调优，节点数据库占用的磁盘空间相比于LevelDB更少，同时RocksDB支持在运行时进行数据备份，备份时间仅需要几秒钟。
 
-下面介绍如何将Java-tron节点的存储引擎设置成RocksDB，以及如何进行leveldb和rocksdb的数据转换。
+下面介绍如何将java-tron节点的存储引擎设置成RocksDB，以及如何进行leveldb和rocksdb的数据转换。
 # rocksdb
 
 ### 1. config配置说明

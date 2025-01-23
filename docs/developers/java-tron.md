@@ -1,10 +1,10 @@
 # 开发者指南
 
-非常感谢您帮助我们开发Java-tron源代码！我们欢迎来自任何人对Java-tron给予的的贡献，即使是很小的修复，我们也表示感激。
+非常感谢您帮助我们开发java-tron源代码！我们欢迎来自任何人对java-tron给予的的贡献，即使是很小的修复，我们也表示感激。
 
-GitHub可以用于跟踪问题、贡献代码、提出建议、请求新功能以及管理文档。如果您想参与Java-tron开发，请遵循如下Github代码提交流程：
+GitHub可以用于跟踪问题、贡献代码、提出建议、请求新功能以及管理文档。如果您想参与java-tron开发，请遵循如下Github代码提交流程：
 
-* Fork Java-tron仓库 
+* Fork java-tron仓库 
 * 修改代码 
 * 提交改动 
 * 发送一个pull request
@@ -12,9 +12,9 @@ GitHub可以用于跟踪问题、贡献代码、提出建议、请求新功能�
 
 对于小的修复，您可以直接发送一个pull request (PR)，但请确保PR中包含详细的描述。对于复杂的改动，您需要向[TIP仓库](https://github.com/tronprotocol/tips)提交一个issue，以详细说明您的动机和实现计划等。关于如何提交TIP issue，请参见[TIP规范](../tips/)。
 
-我们鼓励Java-tron开发者尽早提交PR，即使没有完全开发完成，也可以先提交PR，这样可以让其它开发者了解到这个PR对应的TIP Issue已经处于`In Progress`状态。
+我们鼓励java-tron开发者尽早提交PR，即使没有完全开发完成，也可以先提交PR，这样可以让其它开发者了解到这个PR对应的TIP Issue已经处于`In Progress`状态。
 
-Java-tron开发者应基于`develop`分支进行开发并提交PR，审查者将根据[代码审查指南](#_4)对提交的PR进行审查。
+java-tron开发者应基于`develop`分支进行开发并提交PR，审查者将根据[代码审查指南](#_4)对提交的PR进行审查。
 
 
 ## 分支管理
@@ -42,9 +42,9 @@ java-tron项目分支只有master、develop、`release-*`、`feature-*`、`hotfi
     
 ## 代码提交流程
 
-如果您想为Java-tron贡献代码，应该遵循以下步骤：
+如果您想为java-tron贡献代码，应该遵循以下步骤：
 
-* Fork Java-tron代码仓库
+* Fork java-tron代码仓库
 
     从 [https://github.com/tronprotocol/java-tron](https://github.com/tronprotocol/java-tron) 项目中Fork一个新的repository到自己个人的代码仓库中，然后使用如下命令将代码克隆到本地:
     
@@ -90,12 +90,12 @@ java-tron项目分支只有master、develop、`release-*`、`feature-*`、`hotfi
 
 
 ## 代码审查指南
-将代码合并到Java-tron的唯一方法是发送一个pull repuest（PR），而提交的PRs需要被审查通过后，才可以合并到主分支。下面将详细介绍我们对代码提交者和代码审查者的期望。
+将代码合并到java-tron的唯一方法是发送一个pull repuest（PR），而提交的PRs需要被审查通过后，才可以合并到主分支。下面将详细介绍我们对代码提交者和代码审查者的期望。
 
 ### 审查流程
 对于任何PR，我们需要判断是否值得将其包含在主分支中。为了做出决定，我们必须了解这个PR是做什么的。如果PR的提交者对PR没有提供足够的描述内容或PR的代码改动太大，任何人都可以要求PR提交者给予适当的解释与说明。
 
-审查者应该检查PR的代码风格以及功能的完整性，并在GitHub中给予评论。审核者应该一直跟进PR，直至满足要求，然后批准PR。最后由Java-tron维护者将批准的PR合并到主分支。
+审查者应该检查PR的代码风格以及功能的完整性，并在GitHub中给予评论。审核者应该一直跟进PR，直至满足要求，然后批准PR。最后由java-tron维护者将批准的PR合并到主分支。
 
 当与PR提交者沟通时，请注意，要懂得礼貌和尊重。
 

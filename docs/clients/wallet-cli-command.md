@@ -1956,18 +1956,18 @@ wallet> getproposal 34
 ```
 
 ### Votewitness
-使用该命令为超级代表投票。投票需要相应的投票权, 即`Tron Power`，可以通过质押资产来获得。第一个参数为超级代表的地址，第二个参数为该超级代表投票的数量。
+使用该命令为超级代表投票。投票需要相应的投票权, 即`TRON Power`，可以通过质押资产来获得。第一个参数为超级代表的地址，第二个参数为该超级代表投票的数量。
 ```
-wallet> votewitness [SR address] [Tron Power Amount]
+wallet> votewitness [SR address] [TRON Power Amount]
 
-* Tron Power计算规则: 每冻结 1 TRX获得一个单位的Tron Power。
+* TRON Power计算规则: 每冻结 1 TRX获得一个单位的TRON Power。
 * 资产解冻后, 所有之前的投票即作废。可以重复冻结资产避免这种情况。
 
 **注意** TRON 只会记录你的最后一次投票，新的投票会覆盖之前的投票。
 
 示例：
 ```shell
-wallet> freezeBalance 100000000 3 1 address  # 冻结 10TRX，获得10个单位的Tron Power。
+wallet> freezeBalance 100000000 3 1 address  # 冻结 10TRX，获得10个单位的TRON Power。
 
 wallet> votewitness [SR1] 4 [SR2] 6  # 为SR1投4票，同时再为SR2投6票
 
