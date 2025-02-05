@@ -109,7 +109,7 @@ ExchangeWithdraw 1 abc 1000000
 
 交易中token的当前价格信息的计算过程：
 
-假设 first_token 当前的价格为 100 Sun，first_token_balance 为1000_000, second_token_balance 为2000_000，
+假设 first_token 当前的价格为 100 Sun，first_token_balance 为1,000,000, second_token_balance 为2,000,000，
 
 second_token 当前的价格为 first_token * first_token_balance/second_token_balance = 50 Sun
 
@@ -121,7 +121,7 @@ sellTokenQuant是要卖出的first_token的金额
 
 buyTokenQuant是要买入的second_token的金额
 
-supply = 1_000_000_000_000_000_000L
+supply = 1,000,000,000,000,000,000L
 
 supplyQuant = -supply * (1.0 - Math.pow(1.0 + (double) sellTokenQuant/（firstTokenBalance + sellTokenQuant）, 0.0005))
 
