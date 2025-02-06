@@ -2102,7 +2102,7 @@ GreatVoyage-4.1.2版本发布， 本次升级主要有以下新功能和修改�
 
 ####2、将MAX_FEE_LIMIT变更为可配置项。
 
-新版本之后，超级代表和超级合伙人可针对47号提案发起投票请求来修改MAX_FEE_LIMIT， MAX_FEE_LIMIT的范围是[0,10000_000_000].
+新版本之后，超级代表和超级合伙人可针对47号提案发起投票请求来修改MAX_FEE_LIMIT， MAX_FEE_LIMIT的范围是[0,10000000000].
 
 - TIP： [TIP-204](https://github.com/tronprotocol/tips/issues/204) 
 - 源代码：  [#3534](https://github.com/tronprotocol/java-tron/pull/3534)

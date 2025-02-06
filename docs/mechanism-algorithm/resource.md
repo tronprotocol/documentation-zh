@@ -29,7 +29,7 @@
 
 Bandwidth Points的获取分两种：
 
-- 通过质押TRX获取的Bandwidth Points， 额度 = 为获取Bandwidth Points质押的TRX / 整个网络为获取Bandwidth Points质押的TRX 总额 * 43_200_000_000，也就是所有用户按质押的TRX数量平分固定额度的Bandwidth Points.
+- 通过质押TRX获取的Bandwidth Points， 额度 = 为获取Bandwidth Points质押的TRX / 整个网络为获取Bandwidth Points质押的TRX 总额 * 43,200,000,000，也就是所有用户按质押的TRX数量平分固定额度的Bandwidth Points.
 - 每个账号每天有固定免费额度的带宽，为600。
 
 ### 2. Bandwith Points的消耗
@@ -88,7 +88,7 @@ Bandwidth Points是一个账户1天内能够使用的总字节数。一定时间
 freezeBalanceV2 frozen_balance [ResourceCode:0 BANDWIDTH,1 ENERGY]
 ```
 
-通过质押TRX获取的Energy 额度 = 为获取Energy质押的TRX / 整个网络为获取Energy质押的TRX 总额 * 180_000_000_000。
+通过质押TRX获取的Energy 额度 = 为获取Energy质押的TRX / 整个网络为获取Energy质押的TRX 总额 * 180,000,000,000。
 
 也就是所有用户按质押的TRX数量平分固定额度的Energy，示例：
 
@@ -97,19 +97,19 @@ freezeBalanceV2 frozen_balance [ResourceCode:0 BANDWIDTH,1 ENERGY]
 
 二人质押获得的可用Energy分别是
 
-A: 75_000_000_000 且energy_limit 为90_000_000_000
+A: 75,000,000,000 且energy_limit 为90,000,000,000
 
-B: 75_000_000_000 且energy_limit 为90_000_000_000
+B: 75,000,000,000 且energy_limit 为90,000,000,000
 
 当第三人C质押1TRX时。
 
 三人质押获得的可用Energy调整为
 
-A: 60_000_000_000 且energy_limit调整为72_000_000_000
+A: 60,000,000,000 且energy_limit调整为72,000,000,000
 
-B: 60_000_000_000 且energy_limit调整为72_000_000_000
+B: 60,000,000,000 且energy_limit调整为72,000,000,000
 
-B: 30_000_000_000 且energy_limit 为36_000_000_000
+C: 30,000,000,000 且energy_limit 为36,000,000,000
 
 ```
 
@@ -166,10 +166,10 @@ B: 30_000_000_000 且energy_limit 为36_000_000_000
 
 则，feeLimit的预估方法为：
 
-1. A = 20000 energy * 210sun = 4_200_000 sun  = 4.2 trx,
+1. A = 20000 energy * 210sun = 4,200,000 sun  = 4.2 trx,
 2. 开发者承诺承担90%，用户需要承担10%，
 
-那么，建议用户填写的feeLimit为 4_200_000 sun * 10% = 420_000 sun。
+那么，建议用户填写的feeLimit为 4,200,000 sun * 10% = 420,000 sun。
 
 ### 3. Energy的计算(开发者必读)
 
@@ -186,7 +186,7 @@ B: 30_000_000_000 且energy_limit 为36_000_000_000
 下面具体举例，详细描述合约可用Energy的计算方法。
 
 **示例1**
-如果一个账户A的balance是 100 TRX(100_000_000 SUN)，质押 10 TRX 获得了100000 Energy，未质押的balance是 90 TRX。
+如果一个账户A的balance是 100 TRX(100,000,000 SUN)，质押 10 TRX 获得了100000 Energy，未质押的balance是 90 TRX。
 有一个合约C设置的消耗调用者资源的比例是100%，也就是完全由调用者支付所需资源。
 此时A调用了合约C，填写的feeLimit是 30000000(单位是SUN, 30 TRX)。
 那么A此次调用能够使用的Energy是由两部分计算出来的：

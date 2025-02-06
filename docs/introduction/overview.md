@@ -63,13 +63,13 @@ votewitness SR1 3 SR2 7 # 同时给SR1投了3票，给SR2投了7票
 只有超级代表对应账户具有提议权，其他账户无法创建提议。允许修改的网络动态参数以及编号如下( [min,max] )：
 
 - 0: MAINTENANCE_TIME_INTERVAL, [3 * 27* 1000 ,24 * 3600 * 1000] //修改超级代表调整时间间隔，目前为6 * 3600 * 1000ms
-- 1: ACCOUNT_UPGRADE_COST, [0,100 000 000 000 000 000]  //修改账户升级为超级代表的费用，目前为9999_000_000 Sun
-- 2: CREATE_ACCOUNT_FEE, [0,100 000 000 000  000 000] // 修改创建账户费用，目前为100_000Sun
+- 1: ACCOUNT_UPGRADE_COST, [0,100 000 000 000 000 000]  //修改账户升级为超级代表的费用，目前为9,999,000,000 Sun
+- 2: CREATE_ACCOUNT_FEE, [0,100 000 000 000  000 000] // 修改创建账户费用，目前为100,000Sun
 - 3: TRANSACTION_FEE, [0,100 000 000 000 000 000] // 修改TRX抵扣带宽的费用，目前为10Sun/byte
-- 4: ASSET_ISSUE_FEE, [0,100 000 000 000 000 000] // 修改资产发行费用，目前为1024_000_000 Sun
-- 5: WITNESS_PAY_PER_BLOCK, [0,100 000 000 000 000 000] // 修改超级代表出块奖励，目前为32_000_000 Sun
-- 6: WITNESS_STANDBY_ALLOWANCE, [0,100 000 000 000 000 000] // 修改分给前127名超级代表候选人的奖励，115_200_000_000 Sun
-- 7: CREATE_NEW_ACCOUNT_FEE_IN_SYSTEM_CONTRACT, []// 修改系统创建账户的费用，目前为1_000_000 Sun
+- 4: ASSET_ISSUE_FEE, [0,100 000 000 000 000 000] // 修改资产发行费用，目前为1,024,000,000 Sun
+- 5: WITNESS_PAY_PER_BLOCK, [0,100 000 000 000 000 000] // 修改超级代表出块奖励，目前为32,000,000 Sun
+- 6: WITNESS_STANDBY_ALLOWANCE, [0,100 000 000 000 000 000] // 修改分给前127名超级代表候选人的奖励，115,200,000,000 Sun
+- 7: CREATE_NEW_ACCOUNT_FEE_IN_SYSTEM_CONTRACT, []// 修改系统创建账户的费用，目前为1,000,000 Sun
 - 8: CREATE_NEW_ACCOUNT_BANDWIDTH_RATE, // 提议7、8，组合使用，用于修改创建账户时对资源或TRX的消耗
 - 9: ALLOW_CREATION_OF_CONTRACTS, // 用于控制虚拟机功能的开启
 - 10: REMOVE_THE_POWER_OF_THE_GR  // 用于清除GR的创世票数
@@ -90,7 +90,7 @@ id0_N: 参数编号
 value0_N: 新参数值
 ```
 
-注：Tron网络中，1 TRX = 1000_000 Sun。
+注：Tron网络中，1 TRX = 1,000,000 Sun。
 
 #### 2.4.3 对提议进行投票
 
@@ -607,7 +607,7 @@ function assignAddress() public view {
 freezeBalancev2 frozen_balance [ResourceCode:0 BANDWIDTH,1 ENERGY]
 ```
 
-通过质押TRX获取的Energy， 额度 = 为获取Energy质押的TRX / 整个网络为获取Energy质押的TRX 总额 * 50_000_000_000。
+通过质押TRX获取的Energy， 额度 = 为获取Energy质押的TRX / 整个网络为获取Energy质押的TRX 总额 * 50,000,000,000。
 也就是所有用户按质押TRX平分固定额度的Energy。
 
 示例：
@@ -617,19 +617,19 @@ freezeBalancev2 frozen_balance [ResourceCode:0 BANDWIDTH,1 ENERGY]
 
 二人质押获得的可用Energy分别是
 
-A: 25_000_000_000 且energy_limit 为25_000_000_000
+A: 25,000,000,000 且energy_limit 为25,000,000,000
 
-B: 25_000_000_000 且energy_limit 为25_000_000_000
+B: 25,000,000,000 且energy_limit 为25,000,000,000
 
 当第三人C质押1TRX时。
 
 三人质押获得的可用Energy调整为
 
-A: 20_000_000_000 且energy_limit调整为20_000_000_000
+A: 20,000,000,000 且energy_limit调整为20,000,000,000
 
-B: 20_000_000_000 且energy_limit调整为20_000_000_000
+B: 20,000,000,000 且energy_limit调整为20,000,000,000
 
-B: 10_000_000_000 且energy_limit 为10_000_000_000
+C: 10,000,000,000 且energy_limit 为10,000,000,000
 
 ```
 
@@ -640,11 +640,11 @@ B: 10_000_000_000 且energy_limit 为10_000_000_000
 示例：
 
 ```text
-在某一时刻A的Energy已使用量为72_000_000 Energy
+在某一时刻A的Energy已使用量为72,000,000 Energy
 
 在没有其他消耗或质押的操作下：
 
-一小时后A的Energy已使用量为 72_000_000 - (72_000_000 * (60*60/60*60*24)) Energy = 69_000_000 Energy
+一小时后A的Energy已使用量为 72,000,000 - (72,000,000 * (60*60/60*60*24)) Energy = 69,000,000 Energy
 
 24小时后A的Energy已使用量为 0 Energy。
 ```
@@ -683,15 +683,15 @@ B: 10_000_000_000 且energy_limit 为10_000_000_000
 
 则，feeLimit的预估方法为：
 
-1). A = 20000 energy * (1 trx / 400 energy) = 50 trx = 50_000_000 sun,
+1). A = 20000 energy * (1 trx / 400 energy) = 50 trx = 50,000,000 sun,
 
-2). B = 20000 energy * (1 trx / 10000 energy) = 2 trx = 2_000_000 sun，
+2). B = 20000 energy * (1 trx / 10000 energy) = 2 trx = 2,000,000 sun，
 
-3).  取A和B的最大值，为50_000_000 sun，
+3).  取A和B的最大值，为50,000,000 sun，
 
 4).  开发者承诺承担90%，用户需要承担10%，
 
-那么，建议用户填写的feeLimit为 50_000_000 sun * 10% = 5_000_000 sun。
+那么，建议用户填写的feeLimit为 50,000,000 sun * 10% = 5,000,000 sun。
 
 小节附录：
 
@@ -1059,7 +1059,7 @@ TRON网络引入了Bandwidth point 和 Energy 两种资源概念。其中Bandwid
 
 Bandwidth Points的获取分两种：
 
-+ 通过质押TRX获取的Bandwidth Points， 额度 = 为获取Bandwidth Points质押的TRX / 整个网络为获取Bandwidth Points质押的TRX 总额 * 43_200_000_000。
++ 通过质押TRX获取的Bandwidth Points， 额度 = 为获取Bandwidth Points质押的TRX / 整个网络为获取Bandwidth Points质押的TRX 总额 * 43,200,000,000。
 也就是所有用户按质押TRX平分固定额度的Bandwidth Points。
 
 + 每个账号每天有固定免费额度的带宽，该额度由波场网络的第#61号参数定义，用户可在tronscan上查看最新的值（https://tronscan.org/#/sr/committee）。
@@ -1244,7 +1244,7 @@ ExchangeWithdraw 1 abc 1000000
 
 交易中token的当前价格信息的计算过程：
 
-假设 first_token 当前的价格为 100 Sun，first_token_balance 为1000_000,second_token_balance 为2000_000，
+假设 first_token 当前的价格为 100 Sun，first_token_balance 为1,000,000,second_token_balance 为2,000,000，
 second_token 当前的价格为 first_token * first_token_balance/second_token_balance = 50 Sun
 first_token的价格可有"first_token&&TRX"交易对计算获得
 
@@ -1254,7 +1254,7 @@ first_token的价格可有"first_token&&TRX"交易对计算获得
 
 sellTokenQuant是要卖出的first_token的金额
 buyTokenQuant是要买入的second_token的金额
-supply = 1_000_000_000_000_000_000L
+supply = 1,000,000,000,000,000,000L
 supplyQuant = -supply *(1.0 - Math.pow(1.0 + (double) sellTokenQuant/（firstTokenBalance + sellTokenQuant）, 0.0005))
 buyTokenQuant = （long）balance* (Math.pow(1.0 + (double) supplyQuant / supply, 2000.0) - 1.0)
 
