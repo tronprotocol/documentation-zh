@@ -1262,10 +1262,10 @@ buyTokenQuant = （long）balance* (Math.pow(1.0 + (double) supplyQuant / supply
 
 相关api详情，请查询[Tron HTTP API](../api/http.md)。
 
-## 10. 多重签名
+## 10. 账户权限管理
 
 详细信息请参考:
-[波场多重签名](../mechanism-algorithm/multi-signatures.md)
+[账户权限管理](../mechanism-algorithm/multi-signatures.md)
 
 ## 11. 匿名交易
 

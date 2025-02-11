@@ -464,9 +464,9 @@ TRON网络支持多种不同类型的交易，比如TRX转账交易、TRC10转�
 * `zkproof`：交易接收方note存在的零知识证明。
 
 
-## 27.多重签名
+## 27.账户权限管理
 
-  [多重签名](./multi-signatures.md)
+  [账户权限管理](./multi-signatures.md)
 
 ## 28. 清除ABI合约
 
