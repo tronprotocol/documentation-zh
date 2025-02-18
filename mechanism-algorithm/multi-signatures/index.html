@@ -5,14 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://tronprotocol.github.io/documentation-zh/mechanism-algorithm/multi-signatures/" />
       <link rel="shortcut icon" href="../../img/favicon.ico" />
-    <title>多重签名 - Java Tron</title>
+    <title>账户权限管理 - Java Tron</title>
     <link rel="stylesheet" href="../../css/theme.css" />
     <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
     
       <script>
         // Current page data
-        var mkdocs_page_name = "\u591a\u91cd\u7b7e\u540d";
+        var mkdocs_page_name = "\u8d26\u6237\u6743\u9650\u7ba1\u7406";
         var mkdocs_page_input_path = "mechanism-algorithm/multi-signatures.md";
         var mkdocs_page_url = "/documentation-zh/mechanism-algorithm/multi-signatures/";
       </script>
@@ -89,7 +89,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../dex/">去中心化交易所</a>
                   </li>
-                  <li class="toctree-l1 current"><a class="reference internal current" href="./">多重签名</a>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">账户权限管理</a>
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#_2">背景</a>
     </li>
@@ -200,7 +200,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="../.." class="icon icon-home" alt="Docs"></a> &raquo;</li>
-          <li>核心协议 &raquo;</li><li>多重签名</li>
+          <li>核心协议 &raquo;</li><li>账户权限管理</li>
     <li class="wy-breadcrumbs-aside">
         <a href="https://github.com/tronprotocol/documentation-zh/edit/master/docs/mechanism-algorithm/multi-signatures.md"
           class="icon icon-github"> Edit on GitHub</a>
@@ -212,10 +212,9 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="_1">多重签名<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+                <h1 id="_1">账户权限管理<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
 <h2 id="_2">背景<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
-<p>多重签名功能允许权限分级，每个权限可以对应多个私钥。这使得实现账户的多人联合控制成为可能。</p>
-<p><a href="https://github.com/tronprotocol/tips/blob/master/tip-16.md">Tron multi-signatures TIP</a></p>
+<p><a href="https://github.com/tronprotocol/tips/blob/master/tip-16.md">账户权限管理</a>功能允许权限分级，每个权限可以对应多个私钥。这使得实现账户的多人联合控制成为可能。</p>
 <h2 id="_3">概念说明<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
 <p>该方案共包含三种权限级别，owner、witness以及active权限，其中owner权限具有执行所有合约的权限，witness权限用于超级代表出块，active是自定义权限(可以组合权限集合)，以下将详细说明。</p>
 <h3 id="_4">结构说明<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
@@ -248,10 +247,12 @@ AccountPermissionUpdateContract类型的交易，用于更新账户权限。</p>
 <span class="w">  </span><span class="k">repeated</span><span class="w"> </span><span class="n">Permission</span><span class="w"> </span><span class="na">actives</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
-<p><code>owner_address</code>：待修改权限的账户的地址
-<code>owner</code>：修改后的 owner 权限
-<code>witness</code>：修改后的 witness 权限
-<code>actives</code>：修改后的 actives 权限</p>
+<ul>
+<li><code>owner_address</code>：待修改权限的账户的地址</li>
+<li><code>owner</code>：修改后的 owner 权限</li>
+<li><code>witness</code>：修改后的 witness 权限</li>
+<li><code>actives</code>：修改后的 actives 权限</li>
+</ul>
 <p>注意：该接口是覆盖原账户权限，因此，如果只想修改owner权限，witness（如果是超级代表账户）及actives的也需要设置。</p>
 <h4 id="permission">Permission<a class="headerlink" href="#permission" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="kd">message</span><span class="w"> </span><span class="nc">Permission</span><span class="w"> </span><span class="p">{</span>
@@ -269,24 +270,28 @@ AccountPermissionUpdateContract类型的交易，用于更新账户权限。</p>
 <span class="w">  </span><span class="k">repeated</span><span class="w"> </span><span class="n">Key</span><span class="w"> </span><span class="na">keys</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">7</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
-<p><code>PermissionType</code>: 权限类型，目前仅支持三种权限
-<code>id</code>: 值由系统自动设置，Owner id=0, Witness id=1, Active id 从2开始递增分配。在执行合约时，
-通过该id来指定使用哪个权限，如使用owner权限，即将id设置为0。
-<code>permission_name</code>: 权限名称，由用户设定，长度限制为32字节
-<code>threshold</code>: 阈值，只有当参与签名的权重之和超过域值才允许做相应的操作。要求小于Long类型的最大值
-<code>parent_id</code>：目前只能为0
-<code>operations</code>：共32字节（256位），每位代表一个合约的权限，为1时表示拥有该合约的权限。
+<ul>
+<li><code>PermissionType</code>: 权限类型，目前仅支持三种权限</li>
+<li><code>id</code>: 值由系统自动设置，Owner id=0, Witness id=1, Active id 从2开始递增分配。在执行合约时，
+通过该id来指定使用哪个权限，如使用owner权限，即将id设置为0。</li>
+<li><code>permission_name</code>: 权限名称，由用户设定，长度限制为32字节</li>
+<li><code>threshold</code>: 阈值，只有当参与签名的权重之和超过域值才允许做相应的操作。要求小于Long类型的最大值</li>
+<li><code>parent_id</code>：目前只能为0</li>
+<li><code>operations</code>：共32字节（256位），每位代表一个合约的权限，为1时表示拥有该合约的权限。
 如<code>operations=0x0100...00(十六进制),即100...0(二进制)</code>时,查看proto中Transaction.ContractType定义，合约AccountCreateContract的id为0，
-即表示该permission只拥有执行AccountCreateContract的权限，可以使用"active权限中operations的计算示例"计算获得。
-<code>keys</code>：共同拥有该权限的地址及权重，最多允许5个key。</p>
+即表示该permission只拥有执行AccountCreateContract的权限，可以使用"active权限中operations的计算示例"计算获得。</li>
+<li><code>keys</code>：共同拥有该权限的地址及权重，最多允许5个key。</li>
+</ul>
 <h4 id="key">Key<a class="headerlink" href="#key" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="kd">message</span><span class="w"> </span><span class="nc">Key</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="kt">bytes</span><span class="w"> </span><span class="na">address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
 <span class="w">  </span><span class="kt">int64</span><span class="w"> </span><span class="na">weight</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
-<p><code>address</code>：拥有该权限的地址
-<code>weight</code>：该地址对该权限拥有权重</p>
+<ul>
+<li><code>address</code>：拥有该权限的地址</li>
+<li><code>weight</code>：该地址对该权限拥有权重</li>
+</ul>
 <h4 id="transaction">Transaction<a class="headerlink" href="#transaction" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="kd">message</span><span class="w"> </span><span class="nc">Transaction</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="o">...</span>
@@ -297,17 +302,21 @@ AccountPermissionUpdateContract类型的交易，用于更新账户权限。</p>
 不允许为1，因为witness权限仅用于出块，不用于对交易进行签名。</p>
 <h3 id="owner">Owner权限<a class="headerlink" href="#owner" title="Permanent link">&para;</a></h3>
 <p>OwnerPermission是账户的最高权限，用于控制用户的所有权、调整权限结构，Owner权限也可以执行所有合约。</p>
-<p>Owner权限具有以下特性：
-1、拥有OwnerPermission的地址可以修改OwnerPermission。
-2、当OwnerPermission为空时，默认采用该账户的地址具有owner权限。
-3、账户新建时，自动将该账户的地址填充到OwnerPermission中，并默认域值为1，keys中仅包含该账户地址且权重为1。
-4、当执行合约时未指定permissionId时， 默认采用OwnerPermission。</p>
+<p>Owner权限具有以下特性：</p>
+<ol>
+<li>拥有OwnerPermission的地址可以修改OwnerPermission。</li>
+<li>当OwnerPermission为空时，默认采用该账户的地址具有owner权限。</li>
+<li>账户新建时，自动将该账户的地址填充到OwnerPermission中，并默认域值为1，keys中仅包含该账户地址且权重为1。</li>
+<li>当执行合约时未指定permissionId时， 默认采用OwnerPermission。</li>
+</ol>
 <h3 id="witness">Witness权限<a class="headerlink" href="#witness" title="Permanent link">&para;</a></h3>
 <p>超级代表可使用该权限，管理出块节点。非超级代表账户无该权限。</p>
 <p>使用场景示例：一个超级代表在云服务器上部署出块程序，为了账户安全，此时可以将出块权限赋予另一个地址。由于该地址仅具有出块权限，无TRX转出权限，即使该服务器上私钥被泄密，也不会出现TRX丢失。</p>
-<p>出块节点的配置：
-1、未修改witness权限时，无需特殊配置。
-2、修改witness权限后的出块节点，需要在重新配置，配置项如下：</p>
+<p>出块节点的配置：</p>
+<ol>
+<li>未修改witness权限时，无需特殊配置。</li>
+<li>修改witness权限后的出块节点，需要在重新配置，配置项如下：</li>
+</ol>
 <div class="highlight"><pre><span></span><code>#config.conf
 
 // Optional.The default is empty.
@@ -328,25 +337,29 @@ localwitness = [
 </code></pre></div>
 <h3 id="active">Active权限<a class="headerlink" href="#active" title="Permanent link">&para;</a></h3>
 <p>Active权限，用于提供一个权限的组合，比如提供一个只能执行创建账户、转账功能的权限。</p>
-<p>Active权限有以下特性：
-1、拥有OwnerPermission的地址可以修改Active权限
-2、拥有执行AccountPermissionUpdateContract权限的地址也能够修改Active权限
-3、最多支持8个组合。
-4、permission的id从2开始自动递增。
-5、账户新建时，自动创建一个Active权限，并将该账户的地址填充到其中，默认域值为1，keys中仅包含该账户地址且权重为1。</p>
+<p>Active权限有以下特性：</p>
+<ol>
+<li>拥有OwnerPermission的地址可以修改Active权限</li>
+<li>拥有执行AccountPermissionUpdateContract权限的地址也能够修改Active权限</li>
+<li>最多支持8个组合。</li>
+<li>permission的id从2开始自动递增。</li>
+<li>账户新建时，自动创建一个Active权限，并将该账户的地址填充到其中，默认域值为1，keys中仅包含该账户地址且权重为1。</li>
+</ol>
 <h3 id="_5">费用<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
 <ol>
 <li>使用更新账户权限时，即 AccountPermissionUpdate 合约，收取100TRX。</li>
-<li>使用多重签名的交易时，即交易中包括两个及两个以上签名的交易，除交易费用外，另收取1TRX。</li>
+<li>交易中包括两个及两个以上签名时，除交易费用外，另收取1TRX。</li>
 <li>可通过提议，修改以上费用。</li>
 </ol>
 <h2 id="api">API<a class="headerlink" href="#api" title="Permanent link">&para;</a></h2>
 <h3 id="_6">修改权限<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
 <p><code>AccountPermissionUpdateContract</code>，修改权限步骤如下：</p>
-<p>1、使用接口<code>getaccount</code>查询账户，并获取原权限
-2、修改permission
-3、创建合约，签名
-4、发送交易</p>
+<ol>
+<li>使用接口<code>getaccount</code>查询账户，并获取原权限</li>
+<li>修改permission</li>
+<li>创建合约，签名</li>
+<li>发送交易</li>
+</ol>
 <h3 id="http-demo">http-demo<a class="headerlink" href="#http-demo" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="err">h</span><span class="kc">tt</span><span class="err">p</span><span class="p">:</span><span class="c1">//{{host}}:{{port}}/wallet/accountpermissionupdate</span>
 
@@ -422,15 +435,15 @@ localwitness = [
 <span class="p">}</span>
 </code></pre></div>
 <h3 id="_7">执行合约<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
-<p>1、创建交易，与非多重签名交易的构建过程相同
-2、指定Permission_id，默认为0，表示owner-permission, <a href="https://github.com/tronprotocol/wallet-cli/commit/ff9122f2236f1ce19cbb9ba9f0494c8923a3d10c#diff-a63fa7484f62fe1d8fb27276c991a4e3R211">demo</a>
-3、用户A签名，将签名后交易通过其他方式发送给B。
-4、用户B签名，将签名后交易通过其他方式发送给C。
-…
-n、最后一个完成签名的用户，将交易广播到节点。
-n+1、验证多重签名的权重之和大于域值则接受交易，否则拒绝交易</p>
-<p>代码示例：</p>
-<p><a href="https://github.com/tronprotocol/wallet-cli/blob/multi_sign_V2/src/main/java/org/tron/demo/MultiSignDemo.java">多重签名示例</a></p>
+<ol>
+<li>创建交易，与非多重签名交易的构建过程相同</li>
+<li>指定Permission_id，默认为0，表示owner-permission, <a href="https://github.com/tronprotocol/wallet-cli/commit/ff9122f2236f1ce19cbb9ba9f0494c8923a3d10c#diff-a63fa7484f62fe1d8fb27276c991a4e3R211">demo</a></li>
+<li>用户A签名，将签名后交易通过其他方式发送给B。</li>
+<li>用户B签名，将签名后交易通过其他方式发送给C。</li>
+</ol>
+<p>…</p>
+<p>n. 最后一个完成签名的用户，将交易广播到节点。</p>
+<p>n+1. 节点验证所有签名的权重之和，如果大于等于域值则接受交易，否则拒绝交易</p>
 <h3 id="_8">其他相关接口<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
 <h4 id="_9">查询已签名地址<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code>curl -X POST  http://127.0.0.1:8090/wallet/getapprovedlist -d &#39;{&quot;transaction&quot;}&#39;

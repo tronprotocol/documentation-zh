@@ -89,7 +89,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../../mechanism-algorithm/dex/">去中心化交易所</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../mechanism-algorithm/multi-signatures/">多重签名</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../../mechanism-algorithm/multi-signatures/">账户权限管理</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Java-tron开发</span></p>
@@ -538,7 +538,7 @@ GetAddress<span class="w"> </span>successful<span class="w"> </span>!!
 <span class="nv">Balance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2665198240</span>
 </code></pre></div></p>
 <h3 id="updateaccountpermission">UpdateAccountPermission<a class="headerlink" href="#updateaccountpermission" title="Permanent link">&para;</a></h3>
-<p>该命令用于为其他账户赋予当前账户的部分权限，让其他账户可以在该发起账户下完成多种操作以便实现更复杂的功能及更好的管理账户，经常用于多重签名交易等场景。
+<p>该命令用于管理账户权限，为其他账户赋予当前账户的部分权限，让其他账户可以在该发起账户下完成多种操作以便实现更复杂的功能及更好的管理账户。
 <div class="highlight"><pre><span></span><code>wallet&gt;UpdateAccountPermission<span class="w"> </span><span class="o">[</span>ownerAddress<span class="o">]</span><span class="w"> </span><span class="o">[</span>permissions<span class="o">]</span>
 </code></pre></div></p>
 <p>权限分为如下三种： </p>
@@ -1127,10 +1127,10 @@ after<span class="w"> </span>sign<span class="w"> </span>transaction<span class=
 txid<span class="w"> </span>is<span class="w"> </span>ece603ec8ad11578450dc8adf29dd9d9833e733c313fe16a947c8c768f1e4483
 Send<span class="w"> </span><span class="m">10</span><span class="w"> </span>Sun<span class="w"> </span>to<span class="w"> </span>TXBpeye7UQ4dDZEnmGDv4vX37mBYDo1tUE<span class="w"> </span>successful<span class="w"> </span>!!
 </code></pre></div>
-在转账过程中，需要输入<code>permission_id</code>，其默认值为0，此时表示该笔交易只需发起人签名即可。 在上面的例子中，我们输入了“2”，表示使用多重签名完成此笔交易，此时需要拥有<code>actives</code> 权限的两个账户都签名才能完成交易，请参照<a href="#UpdateAccountPermission">UpdateAccountPermission</a> 部分的例子，首先由<code>TB9qhqbev6DpX8mxdf3zDdtSQ6GC6Vb6Ej</code> 完成签名，此时系统会询问是否继续签名，输入“y”之后，再由<code>TXBpeye7UQ4dDZEnmGDv4vX37mBYDo1tUE</code> 完成签名。</p>
+在转账过程中，需要输入<code>permission_id</code>，其默认值为0，此时表示该笔交易只需发起人签名即可。 在上面的例子中，我们输入了“2”，表示需要具有ID为2的权限的账户来签名完成此笔交易，此时需要拥有<code>actives</code> 权限的两个账户都签名才能完成交易，请参照<a href="#UpdateAccountPermission">UpdateAccountPermission</a> 部分的例子，首先由<code>TB9qhqbev6DpX8mxdf3zDdtSQ6GC6Vb6Ej</code> 完成签名，此时系统会询问是否继续签名，输入“y”之后，再由<code>TXBpeye7UQ4dDZEnmGDv4vX37mBYDo1tUE</code> 完成签名。</p>
 <p>两个账户的权重各为1，完成多签的权重阀值为2，此时签名条件达成，交易成功。这个例子为使用同一客户端时如何完成多重签名交易。当使用多个客户端时，请参考下面这个命令。</p>
 <h3 id="addtransactionsign">AddTransactionSign<a class="headerlink" href="#addtransactionsign" title="Permanent link">&para;</a></h3>
-<p>当有多个客户端时，可以使用该命令进行多重签名交易，此时需要交易本体的hex string。</p>
+<p>当有多个客户端时，可以使用该命令为交易添加签名，此时需要交易本体的hex string。</p>
 <p>示例：
 <div class="highlight"><pre><span></span><code>wallet&gt;<span class="w"> </span>addtransactionsign<span class="w"> </span>0a83010a0241aa2208b2d2c13c86e8bd884098acb1cf9a305a65080112610a2d747970652e676f6f676c65617069732e636f6d2f70726f746f636f6c2e5472616e73666572436f6e747261637412300a1541babecec4d9f58f0df77f0728b9c53abb1f21d684121541e8bd653015895947cec33d1670a88cf67ab277b9180a70e8e1adcf9a30
 Please<span class="w"> </span>input<span class="w"> </span>permission<span class="w"> </span>id.

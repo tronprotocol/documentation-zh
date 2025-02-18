@@ -111,7 +111,7 @@
     </li>
     </ul>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../multi-signatures/">多重签名</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../multi-signatures/">账户权限管理</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Java-tron开发</span></p>
@@ -257,13 +257,13 @@ TRON网络规定，所有交易对中的两个token的权重相等，因此它�
 <p>相关api详情，请查询<a href="https://github.com/tronprotocol/Documentation/blob/master/%E4%B8%AD%E6%96%87%E6%96%87%E6%A1%A3/%E6%B3%A2%E5%9C%BA%E5%8D%8F%E8%AE%AE/%E6%B3%A2%E5%9C%BA%E9%92%B1%E5%8C%85RPC-API.md#64-%E6%9F%A5%E8%AF%A2%E6%8C%87%E5%AE%9A%E4%BA%A4%E6%98%93%E5%AF%B9">波场RPC-API说明</a></p>
 <h3 id="2">2. 计算当前价格<a class="headerlink" href="#2" title="Permanent link">&para;</a></h3>
 <p>交易中token的当前价格信息的计算过程：</p>
-<p>假设 first_token 当前的价格为 100 Sun，first_token_balance 为1000_000, second_token_balance 为2000_000，</p>
+<p>假设 first_token 当前的价格为 100 Sun，first_token_balance 为1,000,000, second_token_balance 为2,000,000，</p>
 <p>second_token 当前的价格为 first_token * first_token_balance/second_token_balance = 50 Sun</p>
 <h3 id="3-token">3. 计算交易获得token量<a class="headerlink" href="#3-token" title="Permanent link">&para;</a></h3>
 <p>交易中花费first_token置换获得的second_token的数量的计算过程：</p>
 <p>sellTokenQuant是要卖出的first_token的金额</p>
 <p>buyTokenQuant是要买入的second_token的金额</p>
-<p>supply = 1_000_000_000_000_000_000L</p>
+<p>supply = 1,000,000,000,000,000,000L</p>
 <p>supplyQuant = -supply * (1.0 - Math.pow(1.0 + (double) sellTokenQuant/（firstTokenBalance + sellTokenQuant）, 0.0005))</p>
 <p>buyTokenQuant = （long）balance * (Math.pow(1.0 + (double) supplyQuant / supply, 2000.0) - 1.0)</p>
 <p>注意：由于网络其他账户发生交易，价格可能发生变化。</p>
@@ -273,7 +273,7 @@ TRON网络规定，所有交易对中的两个token的权重相等，因此它�
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
         <a href="../system-contracts/" class="btn btn-neutral float-left" title="系统合约"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../multi-signatures/" class="btn btn-neutral float-right" title="多重签名">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../multi-signatures/" class="btn btn-neutral float-right" title="账户权限管理">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
