@@ -72,10 +72,10 @@
 
     动态参数可以通过[getchainparameters](https://developers.tron.network/reference/wallet-getchainparameters)获取。主网络的当前动态参数和与之相关的提案可以在[这里](https://tronscan.io/#/sr/committee)查看，动态参数在这里被称为网络参数。
 
-    如果您希望私链的动态参数与主网保持一致，也许能够捕获主网最新状态的[dbfork](https://github.com/tronprotocol/tron-docker/tree/main/tools/dbfork)是您感兴趣的。
+    如果您希望私链的动态参数与主网保持一致，也许[dbfork](https://github.com/tronprotocol/tron-docker/tree/main/tools/dbfork)是您更感兴趣的，它可以捕获主网最新状态。
     
-    如果要修改部分网络参数，有两种方法可供选择：
-    * 配置文件
+    如果要修改部分动态参数，有两种方法可供选择：
+    * 配置文件  
       一些动态参数可以通过配置文件直接设置，这些动态参数可以在[此处](https://github.com/tronprotocol/java-tron/blob/develop/common/src/main/java/org/tron/core/Constant.java)查看。下面是一个通过配置文件修改动态参数的示例。
       ```
       committee = {
@@ -87,8 +87,8 @@
         allowTvmTransferTrc10 = 1
       }
       ```
-    * 委员会提案
-      动态参数的修改也可以通过委员会提案来完成，委员会由SR，SR Partner和SR Candidate组成，委员会的任何成员都可以使用[proposalcreate](https://developers.tron.network/reference/proposalcreate)创建提案，之后由SR使用[proposalcreate](https://developers.tron.network/reference/proposalapprove)批准或者否决提案。下面是一个通过提案修改两个动态参数的代码示例。在[proposalcreate](https://developers.tron.network/reference/proposalcreate)中，动态参数用序号表示，动态参数的序号和名称之间的映射可以在[此处](https://developers.tron.network/reference/wallet-getchainparameters)可查看。
+    * 委员会提案  
+      动态参数的修改也可以通过委员会提案来完成，委员会由SR，SR Partner和SR Candidate组成，委员会的任何成员都可以使用[proposalcreate](https://developers.tron.network/reference/proposalcreate)创建提案，之后由SR使用[proposalapprove](https://developers.tron.network/reference/proposalapprove)批准或者否决提案。下面是一个通过提案修改两个动态参数的代码示例。在[proposalcreate](https://developers.tron.network/reference/proposalcreate)中，动态参数用序号表示，动态参数的序号和名称之间的映射可以在[此处](https://developers.tron.network/reference/wallet-getchainparameters)查看。
       ```
       var TronWeb = require('tronweb');
       var tronWeb = new TronWeb({
@@ -120,6 +120,6 @@
       modifyChainParameters(parametersForProposal1, 1)
       ```
 
-      通过上述代码创建提案后，您可以通过[listproposals](https://developers.tron.network/reference/wallet-listproposals)检查提案是否已获批准。当提案过期后，如果接口返回值中的“state”为“APPROVED”，表示提案已获批准。
+      通过上述代码创建提案后，您可以通过[listproposals](https://developers.tron.network/reference/wallet-listproposals)检查提案是否已获批准。当创建的提案过期后，如果上述接口返回值中的“state”为“APPROVED”，表示提案已获批准。
       
-      需要注意的是，具有相互依存关系的动态参数不能包含在同一个提案中，正确的方法是将它们分成不同的提案，并注意它们的顺序。
+      需要注意的是，具有相互依赖关系的动态参数不能包含在同一个提案中，正确的方法是将它们分成不同的提案，并注意它们的顺序。
