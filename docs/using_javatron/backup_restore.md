@@ -66,7 +66,7 @@ TRON网络从GreatVoyage-V4.1.0版本开始，支持Lite FullNode类型的节点
 
 | Lite Fullnode节点数据源 | 下载地址 | 说明 |
 | -------- | -------- | -------- |
-| 官方数据源(美洲:美国弗吉尼亚)   | http://34.143.247.77/    | LevelDB数据，截止2024-8-5 约42G    |
+| 官方数据源(亚洲:新加坡)   | http://34.143.247.77/    | LevelDB数据，截止2024-8-5 约42G    |
 
 小提示：如果用户已经有Fullnode的全量数据，可以使用[Lite FullNode数据剪裁工具](../../using_javatron/toolkit/#_6)自行将fullnode数据切分成Lite fullnode数据。
 
