@@ -192,7 +192,7 @@ Balance = 2665198240
 ```
 
 ### UpdateAccountPermission
-该命令用于为其他账户赋予当前账户的部分权限，让其他账户可以在该发起账户下完成多种操作以便实现更复杂的功能及更好的管理账户，经常用于多重签名交易等场景。
+该命令用于管理账户权限，为其他账户赋予当前账户的部分权限，让其他账户可以在该发起账户下完成多种操作以便实现更复杂的功能及更好的管理账户。
 ```shell
 wallet>UpdateAccountPermission [ownerAddress] [permissions]
 ```
@@ -854,12 +854,12 @@ after sign transaction hex string is 0a85010a029ca12208432ed1fe1357ff7f40a2b3a7f
 txid is ece603ec8ad11578450dc8adf29dd9d9833e733c313fe16a947c8c768f1e4483
 Send 10 Sun to TXBpeye7UQ4dDZEnmGDv4vX37mBYDo1tUE successful !!
 ```
-在转账过程中，需要输入`permission_id`，其默认值为0，此时表示该笔交易只需发起人签名即可。 在上面的例子中，我们输入了“2”，表示使用多重签名完成此笔交易，此时需要拥有`actives` 权限的两个账户都签名才能完成交易，请参照[UpdateAccountPermission](#UpdateAccountPermission) 部分的例子，首先由`TB9qhqbev6DpX8mxdf3zDdtSQ6GC6Vb6Ej` 完成签名，此时系统会询问是否继续签名，输入“y”之后，再由`TXBpeye7UQ4dDZEnmGDv4vX37mBYDo1tUE` 完成签名。
+在转账过程中，需要输入`permission_id`，其默认值为0，此时表示该笔交易只需发起人签名即可。 在上面的例子中，我们输入了“2”，表示需要具有ID为2的权限的账户来签名完成此笔交易，此时需要拥有`actives` 权限的两个账户都签名才能完成交易，请参照[UpdateAccountPermission](#UpdateAccountPermission) 部分的例子，首先由`TB9qhqbev6DpX8mxdf3zDdtSQ6GC6Vb6Ej` 完成签名，此时系统会询问是否继续签名，输入“y”之后，再由`TXBpeye7UQ4dDZEnmGDv4vX37mBYDo1tUE` 完成签名。
 
 两个账户的权重各为1，完成多签的权重阀值为2，此时签名条件达成，交易成功。这个例子为使用同一客户端时如何完成多重签名交易。当使用多个客户端时，请参考下面这个命令。
 
 ### AddTransactionSign
-当有多个客户端时，可以使用该命令进行多重签名交易，此时需要交易本体的hex string。
+当有多个客户端时，可以使用该命令为交易添加签名，此时需要交易本体的hex string。
 
 示例：
 ```shell
