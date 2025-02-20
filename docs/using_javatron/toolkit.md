@@ -1,4 +1,4 @@
-# Java-tron节点维护工具 - Toolkit
+# java-tron节点维护工具 - Toolkit
 
 Toolkit工具箱集成了一系列java-tron周边工具，未来还将向其增加更多的功能，以方便开发者使用。目前Toolkit包括的功能如下：
 
@@ -68,7 +68,7 @@ $ ps -ef |grep FullNode.jar |grep -v grep |awk '{print $2}'`
 
 #### 数据库存储迁移配置
 
-数据库迁移的配置在Java-tron节点配置文件中的 [storage.properties](https://github.com/tronprotocol/tron-deployment/blob/master/main_net_config.conf#L37) 字段。下面以只迁移`block` 和 `trans` 数据库为例，说明如何将部分数据库迁移到其它存储盘：
+数据库迁移的配置在java-tron节点配置文件中的 [storage.properties](https://github.com/tronprotocol/tron-deployment/blob/master/main_net_config.conf#L37) 字段。下面以只迁移`block` 和 `trans` 数据库为例，说明如何将部分数据库迁移到其它存储盘：
 
 ```conf
 storage {
@@ -100,7 +100,7 @@ $ java -jar Toolkit.jar db mv -c main_net_config.conf -d /data/tron/output-direc
 ```
 
 #### 重新启动 FullNode 服务
-迁移完成后，重新启动Java-tron节点。
+迁移完成后，重新启动java-tron节点。
 ```
 # FullNode
 $ nohup java -Xms9G -Xmx9G -XX:ReservedCodeCacheSize=256m \

@@ -1,15 +1,15 @@
-# Java-tron发布包签名校验
-Java-tron签名校验就是通过签名验证来检查所获得的Java-tron可执行文件的可靠性及完整性。签名验证需要知道三个信息：要验证的可执行文件，文件的签名，以及为文件签名的私钥所对应的公钥。签名验证就是根据所获得的可执行文件的内容和签名，逆向推导出签名对应的公钥，然后与TRON发布的公钥进行比较，如果一致，说明您得到的Java-tron可执行文件是TRON发布的、完整的文件。
+# java-tron发布包签名校验
+java-tron签名校验就是通过签名验证来检查所获得的java-tron可执行文件的可靠性及完整性。签名验证需要知道三个信息：要验证的可执行文件，文件的签名，以及为文件签名的私钥所对应的公钥。签名验证就是根据所获得的可执行文件的内容和签名，逆向推导出签名对应的公钥，然后与TRON发布的公钥进行比较，如果一致，说明您得到的java-tron可执行文件是TRON发布的、完整的文件。
 
 
-2023年1月3日之后发布的Java-tron新版本采用GPG方式进行签名和验签，2023年1月3日之前发布的版本采用指定TRON账户的公私钥方式进行签名和验签。
+2023年1月3日之后发布的java-tron新版本采用GPG方式进行签名和验签，2023年1月3日之前发布的版本采用指定TRON账户的公私钥方式进行签名和验签。
 
 * 2023年1月3号之后发布的版本： [GPG签名验证流程](#gpg)
 * 2023年1月3号之前发布的版本： [TRON地址签名验证流程](#tron)
 
 
 ## GPG签名验证流程
-java-tron可执行文件及其签名文件一起发布，您可在[这里](https://github.com/tronprotocol/java-tron/releases)获取，请按照如下流程进行2023年1月3日之后发布的Java-tron版本的签名验证。
+java-tron可执行文件及其签名文件一起发布，您可在[这里](https://github.com/tronprotocol/java-tron/releases)获取，请按照如下流程进行2023年1月3日之后发布的java-tron版本的签名验证。
 
 ### 安装GPG
 
@@ -24,7 +24,7 @@ $ sudo apt install gpg
 ### 导入公钥
 如果您之前导入过公钥，请跳过此步骤，公钥导入一次即可。
     
-您先从[这里](https://github.com/tronprotocol/java-tron)获取Java-tron 发布包GPG签名的公钥Hash和uid。
+您先从[这里](https://github.com/tronprotocol/java-tron)获取java-tron 发布包GPG签名的公钥Hash和uid。
 ```
 pub: 1254 F859 D2B1 BD9F 66E7 107D F859 BCB4 4A28 290B
 uid: build@tron.network
@@ -58,7 +58,7 @@ gpg:       没有证据表明此签名属于其声称的所有者。
 验证失败，则会显示`已损坏的签名，来自于 “build_tron <build@tron.network>”`字样。 
     
 ## TRON地址签名验证流程
-2023年1月3号之前发布的Java-tron版本均是由 TRON 账户 `TKeAcHxgErbVXrG3N3TZiSV6AT566BHTj2` 对发布包进行签名。签名步骤为：首先为发布包的可执行文件生成sha256哈希值，然后使用该TRON账户的私钥对sha256哈希值进行签名。sha256哈希值可在[历史版本签名信息](#_6)章节中查看，也可在[https://github.com/tronprotocol/java-tron/releases](https://github.com/tronprotocol/java-tron/releases)页面查看；签名结果请在[历史版本签名信息](#_6)章节中查看。
+2023年1月3号之前发布的java-tron版本均是由 TRON 账户 `TKeAcHxgErbVXrG3N3TZiSV6AT566BHTj2` 对发布包进行签名。签名步骤为：首先为发布包的可执行文件生成sha256哈希值，然后使用该TRON账户的私钥对sha256哈希值进行签名。sha256哈希值可在[历史版本签名信息](#_6)章节中查看，也可在[https://github.com/tronprotocol/java-tron/releases](https://github.com/tronprotocol/java-tron/releases)页面查看；签名结果请在[历史版本签名信息](#_6)章节中查看。
 
 
 [tronweb](https://developers.tron.network/docs/tronweb-1)提供`Trx.verifySignature`接口来验证签名，验证通过则返回true，否则，返回false, 请按照如下流程进行验证。

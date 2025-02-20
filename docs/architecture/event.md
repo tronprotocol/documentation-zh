@@ -106,10 +106,10 @@ contractTopics: 合约主题
 - [事件订阅数据查询服务http api](https://github.com/tronprotocol/documentation-en/blob/master/docs_without_index/plugin/event-query-http.md)
 
 
-## 使用Java-tron内置的消息队列进行事件订阅
-TRON提供了事件订阅服务，开发者不但可以通过事件插件来获取链上事件，还可以通过[Java-tron 内置的ZeroMQ消息队列](https://github.com/tronprotocol/tips/blob/master/tip-28.md)来订阅事件。所不同的是，事件插件需要额外部署，用来实现事件转储：开发者可以根据需求选择合适的存储工具，如MongoDB，Kafka等，插件帮助完成对订阅的事件的存储工作。而Java-tron内置的ZeroMQ，不需要额外的部署操作，事件订阅者直接连接发布者ip及端口、设置订阅主题，接收订阅的事件即可，但该方式不提供事件存储功能。因此，当开发者希望短期并直接从节点订阅事件，那么使用内置的消息队列将是一个更合适的选择。
+## 使用java-tron内置的消息队列进行事件订阅
+TRON提供了事件订阅服务，开发者不但可以通过事件插件来获取链上事件，还可以通过[java-tron 内置的ZeroMQ消息队列](https://github.com/tronprotocol/tips/blob/master/tip-28.md)来订阅事件。所不同的是，事件插件需要额外部署，用来实现事件转储：开发者可以根据需求选择合适的存储工具，如MongoDB，Kafka等，插件帮助完成对订阅的事件的存储工作。而java-tron内置的ZeroMQ，不需要额外的部署操作，事件订阅者直接连接发布者ip及端口、设置订阅主题，接收订阅的事件即可，但该方式不提供事件存储功能。因此，当开发者希望短期并直接从节点订阅事件，那么使用内置的消息队列将是一个更合适的选择。
 
-本文将详细介绍如何通过Java-tron内置的消息队列来订阅事件。
+本文将详细介绍如何通过java-tron内置的消息队列来订阅事件。
 
 
 ### 配置节点

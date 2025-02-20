@@ -1,8 +1,8 @@
 # 连接到TRON网络
 
-TRON网络主要分为主网，Shasta测试网，Nile测试网以及私网，因此对于Java-Tron客户端软件，可以通过对配置文件中配置项的修改使其连接到任意一个TRON网络中。目前Shasta测试网不支持运行一个节点加入其中，Nile测试网可以支持。
+TRON网络主要分为主网，Shasta测试网，Nile测试网以及私网，因此对于java-tron客户端软件，可以通过对配置文件中配置项的修改使其连接到任意一个TRON网络中。目前Shasta测试网不支持运行一个节点加入其中，Nile测试网可以支持。
 
-您需要设置如下配置项，将Java-tron连接到其中一个TRON网络：
+您需要设置如下配置项，将java-tron连接到其中一个TRON网络：
 
 * `node.p2p.version` ： 用来设置P2P网络id，只有网络id相同的节点才能握手成功。
     * TRON主网：`node.p2p.version=11111`
@@ -14,9 +14,9 @@ TRON网络主要分为主网，Shasta测试网，Nile测试网以及私网，因
 
 
 # 节点发现 
-Java-tron节点在有足够的对等节点之前会不断地尝试与网络上的其他节点建立连接，同时它也会接受来自其他节点的连接。Java-tron使用节点发现协议查找对等点。在发现协议中，节点间交换连接细节，然后建立会话，交换TRON网络数据。
+java-tron节点在有足够的对等节点之前会不断地尝试与网络上的其他节点建立连接，同时它也会接受来自其他节点的连接。java-tron使用节点发现协议查找对等点。在发现协议中，节点间交换连接细节，然后建立会话，交换TRON网络数据。
 
-首先，如果需要Java-tron节点进行节点发现，那么要在节点配置文件中开启节点发现服务：
+首先，如果需要java-tron节点进行节点发现，那么要在节点配置文件中开启节点发现服务：
 
 ```
 node.discovery = {
@@ -71,7 +71,7 @@ seed.node = {
 在某些情况下，不需要开启节点发现进程，比如，运行一个本地测试节点或部署一个具有固定的一些节点的测试网络。这时可以通过将配置项设置成`node.discovery.enable = false`来关闭节点发现进程。
 
 # 连接问题
-有时Java-tron无法连接到对等节点，常见的原因有:
+有时java-tron无法连接到对等节点，常见的原因有:
 
 * 本地时钟错误。参与到TRON网络需要一个精确的时钟。可以使用`sudo ntpdate -s time.nist.gov` 命令重新同步本地时钟。
 * 某些防火墙配置可能会禁止UDP流量，而节点发现服务建立在UDP协议基础之上，因此可以通过配置[`node.active`](#_5)，在节点发现无效的情况下连接到网络。
@@ -145,9 +145,9 @@ $ curl http://127.0.0.1:16887/wallet/getnodeinfo
 私链网络需要将[私链配置文件](https://github.com/tronprotocol/tron-deployment/blob/master/private_net_config.conf)中的配置项`node.p2p.version`配置成一个没有被任何其他现有的公共网络（TRON主网，测试网）使用的值。有关私链搭建的详细说明请参考 [私链网络](../private_network/)。
 
 # 主动连接与被动连接
-Java-tron支持设置其主动连接的节点`node.active`以及被动连接的节点`node.passive`。配置`node.active`和`node.passive`对改善节点的网络连接稳定性有很大的帮助。
+java-tron支持设置其主动连接的节点`node.active`以及被动连接的节点`node.passive`。配置`node.active`和`node.passive`对改善节点的网络连接稳定性有很大的帮助。
 
-当Java-tron启动后，会主动与`node.active`中的对等节点建立连接。
+当java-tron启动后，会主动与`node.active`中的对等节点建立连接。
 
 ```
 node {

@@ -1,9 +1,9 @@
 # 开发示例
-本文将以新增一个`setPeer` HTTP接口为例说明如何参与Java-tron开发。在开发前，请先配置[InteliJ IDE开发环境](../run-in-idea)。
+本文将以新增一个`setPeer` HTTP接口为例说明如何参与java-tron开发。在开发前，请先配置[InteliJ IDE开发环境](../run-in-idea)。
 
-有时由于网络原因，Java-tron节点可能无法连接到对等节点，如果能在节点运行时添加信任节点，这将使节点可以在节点发现无法工作的的情况下也能连接到网络。
+有时由于网络原因，java-tron节点可能无法连接到对等节点，如果能在节点运行时添加信任节点，这将使节点可以在节点发现无法工作的的情况下也能连接到网络。
 
-## Fork Java-tron代码仓库
+## Fork java-tron代码仓库
 
 从 [https://github.com/tronprotocol/java-tron](https://github.com/tronprotocol/java-tron) 项目中Fork一个新的repository到自己个人的代码仓库中，然后使用如下命令将代码克隆到本地:
     
@@ -31,7 +31,7 @@ $ git checkout -b feature/add-new-http-demo develop
 
 ## 代码实现
 
-在IDEA中打开Java-tron工程。在`java-tron/framework/src/main/java/org/tron/core/services/http`目录下新建一个servlet用于处理HTTP请求：SetPeerServlet.java，该文件中应包含两个函数`doGet`和`doPost`。`doGet`用于处理http get请求，`doPost`用于处理http post请求。如果不支持其中某种类型的请求，方法内容为空即可。
+在IDEA中打开java-tron工程。在`java-tron/framework/src/main/java/org/tron/core/services/http`目录下新建一个servlet用于处理HTTP请求：SetPeerServlet.java，该文件中应包含两个函数`doGet`和`doPost`。`doGet`用于处理http get请求，`doPost`用于处理http post请求。如果不支持其中某种类型的请求，方法内容为空即可。
 ```java
 @Component
 @Slf4j(topic = "API")
@@ -139,7 +139,7 @@ public class FullNodeHttpApiService implements Service {
     
 }
 ```
-然后可以对以上代码进行调试，在IDEA中启动Java-tron节点，在终端中通过Curl命令访问节点：
+然后可以对以上代码进行调试，在IDEA中启动java-tron节点，在终端中通过Curl命令访问节点：
 
 ```curl
 $ curl --location --request POST 'http://127.0.0.1:16667/wallet/setpeer' \
@@ -158,10 +158,10 @@ Success to set trusted peer:192.163.3.2:16667
 
 ## 编写单元测试
 
-Java-tron项目的单元测试基于JUnit框架，关于JUnit的用法请参考[JUnit官网](https://junit.org)。下面简单介绍Java-tron单元测试用例规范和常用注解说明。
+java-tron项目的单元测试基于JUnit框架，关于JUnit的用法请参考[JUnit官网](https://junit.org)。下面简单介绍java-tron单元测试用例规范和常用注解说明。
 
-### Java-tron单元测试用例规范
-编写Java-tron单元测试时，请遵守如下规范：
+### java-tron单元测试用例规范
+编写java-tron单元测试时，请遵守如下规范：
 
 * 所有测试类应放在test目录下，并且测试类的包应该和被测试代码包结构保持一致。一般使用 `Test` 作为类名的后缀
 * 测试方法必须使用 @Test 修饰，并且是public void类型，一般用 `test` 作为方法名的前缀

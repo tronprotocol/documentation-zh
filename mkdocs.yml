@@ -1,12 +1,12 @@
-site_name: Java Tron
+site_name: java-tron
 site_url: https://tronprotocol.github.io/documentation-zh/
 repo_url: https://github.com/tronprotocol/documentation-zh
 
 nav:
     - 入门: 
-        - Java-tron入门: 'getting_started/getting_started_with_javatron.md'
-    - 使用Java-tron:
-        - 部署Java-tron: using_javatron/installing_javatron.md
+        - java-tron入门: 'getting_started/getting_started_with_javatron.md'
+    - 使用java-tron:
+        - 部署java-tron: using_javatron/installing_javatron.md
         - 备份和恢复: using_javatron/backup_restore.md
         - 轻节点: developers/litefullnode.md
         - 私链网络: using_javatron/private_network.md

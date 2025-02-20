@@ -381,7 +381,7 @@ kafka-console-consumer.sh --zookeeper localhost:2181 --topic contractlog
 kafka-console-consumer.sh --zookeeper localhost:2181 --topic contractevent
 ```
 
-### 在Java-tron中加载插件
+### 在java-tron中加载插件
 
 * add --es to command line, for example:
 

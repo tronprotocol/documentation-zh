@@ -1,5 +1,5 @@
 
-# Java-tron版本
+# java-tron版本
 
 |  名称 |版本号  | 发布日期 | 包含的TIP | 版本说明 | 技术解读 |
 | -------- | -------- | -------- | -------- | -------- | -------- |
@@ -85,7 +85,7 @@ Epicurus版本引入了多个重要的优化和更新，新增一个升级浮点
 ### 核心协议
 #### 1. 将浮点类型的幂运算库从java.lang.Math升级到java.lang.StrictMath
 
-为了Java-tron后续支持多平台，兼容新的JDK版本，Epicurus版本将浮点类型的幂运算库从 java.lang.Math 切换到 java.lang.StrictMath，以确保跨平台计算的一致性。
+为了java-tron后续支持多平台，兼容新的JDK版本，Epicurus版本将浮点类型的幂运算库从 java.lang.Math 切换到 java.lang.StrictMath，以确保跨平台计算的一致性。
 
 注意，该优化是TRON网络的第87号参数，Epicurus部署之后默认为关闭状态，可以通过发起提案投票的方式开启。
 
@@ -97,7 +97,7 @@ TIP: https://github.com/tronprotocol/tips/issues/697
 ### 其它变更
 #### 1. 优化事件订阅处理逻辑
 
-Java-tron提供事件订阅服务，开发者可以通过事件插件从节点订阅特定事件。针对区块事件，当节点收到一个新区块后，如果成功验证并处理该区块，则会将该区块数据保存在内存数据库中，同时如果有新的固化区块，会将固化区块数据写入到磁盘数据库。如果节点部署者订阅了区块事件，则在完成上述区块处理步骤后，会进行事件发送相关逻辑，即，将最新区块事件、最新固化区块事件发送给事件插件。但在Epicurus之前的版本中，区块处理与事件发送采用了同一个异常捕获逻辑：将新接收的区块数据从内存数据库中移除，并抛出异常。这将导致当区块处理正常，而事件服务发生异常时，新区块数据仍被删除，从而可能暂时影响区块同步。
+java-tron提供事件订阅服务，开发者可以通过事件插件从节点订阅特定事件。针对区块事件，当节点收到一个新区块后，如果成功验证并处理该区块，则会将该区块数据保存在内存数据库中，同时如果有新的固化区块，会将固化区块数据写入到磁盘数据库。如果节点部署者订阅了区块事件，则在完成上述区块处理步骤后，会进行事件发送相关逻辑，即，将最新区块事件、最新固化区块事件发送给事件插件。但在Epicurus之前的版本中，区块处理与事件发送采用了同一个异常捕获逻辑：将新接收的区块数据从内存数据库中移除，并抛出异常。这将导致当区块处理正常，而事件服务发生异常时，新区块数据仍被删除，从而可能暂时影响区块同步。
 
 Epicurus版本优化了事件订阅处理逻辑，对区块事件发送逻辑单独进行异常捕获，当事件服务发生异常时，输出错误日志，节点退出运行，以使节点部署者可以及时了解节点异常情况，保证事件获取的完整性。
 
@@ -134,7 +134,7 @@ Anaximander版本引入了多个重要的优化和更新，优化的单元测试
 
 #### 1. 优化节点HTTP请求监控指标的统计逻辑
 
-Java-tron支持节点监控，并提供各项指标数据。Anaximander版本优化了节点HTTP请求监控指标的统计逻辑，在统计来自各个映射地址的请求数据时，保证了多线程并发访问时的数据一致性。
+java-tron支持节点监控，并提供各项指标数据。Anaximander版本优化了节点HTTP请求监控指标的统计逻辑，在统计来自各个映射地址的请求数据时，保证了多线程并发访问时的数据一致性。
 
 源代码：[https://github.com/tronprotocol/java-tron/pull/5920](https://github.com/tronprotocol/java-tron/pull/5920)  
 
@@ -313,7 +313,7 @@ Bias版本升级jetty依赖库到9.4.53.v20231009版本。
 源代码：[https://github.com/tronprotocol/java-tron/pull/5571](https://github.com/tronprotocol/java-tron/pull/5571)  
 #### 4. Gradle依赖重构
 
-Java-tron代码由多个模块组成，每个模块都有自己的依赖项，但目前存在依赖项在多个模块中多次声明的情况。Bias版本重构了各个模块的Gradle依赖，删除了重复的依赖声明，使代码的依赖关系更加清晰，并实现了依赖的统一管理，减轻了维护成本。
+java-tron代码由多个模块组成，每个模块都有自己的依赖项，但目前存在依赖项在多个模块中多次声明的情况。Bias版本重构了各个模块的Gradle依赖，删除了重复的依赖声明，使代码的依赖关系更加清晰，并实现了依赖的统一管理，减轻了维护成本。
 
 
 源代码：[https://github.com/tronprotocol/java-tron/pull/5625](https://github.com/tronprotocol/java-tron/pull/5625)  
@@ -373,7 +373,7 @@ Bias版本优化了节点日志，根据业务逻辑调整部分日志级别、�
 
 #### 11. 写入ZeroMQ时新增同步控制
 
-Java-tron支持通过内置的ZeroMQ消息队列来订阅事件，但当多线程并发向ZeroMQ消息队列中发送事件时，可能出现写入异常错误。Bias版本在写入ZeroMQ时新增了同步控制，保证了各线程间并发访问的顺序性。
+java-tron支持通过内置的ZeroMQ消息队列来订阅事件，但当多线程并发向ZeroMQ消息队列中发送事件时，可能出现写入异常错误。Bias版本在写入ZeroMQ时新增了同步控制，保证了各线程间并发访问的顺序性。
 
 
 源代码：[https://github.com/tronprotocol/java-tron/pull/5536](https://github.com/tronprotocol/java-tron/pull/5536)  
@@ -499,7 +499,7 @@ Chilon版本优化了HTTP接口监控指标，不再统计对节点不支持的A
 
 源代码：[https://github.com/tronprotocol/java-tron/pull/5332](https://github.com/tronprotocol/java-tron/pull/5332)  
 #### 2. 新增http/gRPC接口流量控制默认值配置 
-Java-tron支持接口限流，默认单个接口的qps为1000，节点部署者也可以对单个接口进行各自流量限制，但在Chilon之前的版本中，不支持修改每个接口的默认qps，如果要将所有接口的qps都设置2000，则需要分别为每个接口进行限流配置。Chilon版本新增了接口限流的默认配置`rate.limiter.global.api.qps`，只需这一个配置即可更改所有接口的流量限制，简化了配置的复杂度。
+java-tron支持接口限流，默认单个接口的qps为1000，节点部署者也可以对单个接口进行各自流量限制，但在Chilon之前的版本中，不支持修改每个接口的默认qps，如果要将所有接口的qps都设置2000，则需要分别为每个接口进行限流配置。Chilon版本新增了接口限流的默认配置`rate.limiter.global.api.qps`，只需这一个配置即可更改所有接口的流量限制，简化了配置的复杂度。
 
 ```
 rate.limiter.global.api.qps = 1000
@@ -564,7 +564,7 @@ node.p2p.pingInterval
 
 #### 4. 调用libp2p获取节点外部IP
 
-在Chilon之前的版本中，节点在启动时，重复的获取了外部IP，由Java-tron和lib2p2各执行了一次IP获取。为了提高节点启动速度，Chilon版本优化了外部IP获取逻辑，节点在启动时，直接调用libp2p来获取外部IP，并且可以直接赋值外部IP给libp2p使其无需重复获取。
+在Chilon之前的版本中，节点在启动时，重复的获取了外部IP，由java-tron和lib2p2各执行了一次IP获取。为了提高节点启动速度，Chilon版本优化了外部IP获取逻辑，节点在启动时，直接调用libp2p来获取外部IP，并且可以直接赋值外部IP给libp2p使其无需重复获取。
 
 
 源代码：[https://github.com/tronprotocol/java-tron/pull/5407](https://github.com/tronprotocol/java-tron/pull/5407)  
@@ -610,11 +610,11 @@ Periander版本引入了多个重要的优化和更新，增加2个治理提案�
 
 ### 核心协议
 #### 1. libp2p 升级到v1.2.0
-libp2p是Java-tron核心开发者开发的Java版本开源P2P协议框架，任何人都能基于libp2p开发分布式应用，Java-tron底层的P2P网络就是基于libp2p实现的，为了进一步提高Java-tron的底层网络性能，Periander版本将libp2p依赖库从v0.1.4版本升级到v1.2.0版本，libp2p v1.2.0具备如下新特性：
+libp2p是java-tron核心开发者开发的Java版本开源P2P协议框架，任何人都能基于libp2p开发分布式应用，java-tron底层的P2P网络就是基于libp2p实现的，为了进一步提高java-tron的底层网络性能，Periander版本将libp2p依赖库从v0.1.4版本升级到v1.2.0版本，libp2p v1.2.0具备如下新特性：
 
 * 支持IPV6协议
 
-    IPV6协议是替代IPV4的下一代互联网IP协议，解决IPV4地址枯竭问题的同时，在网络性能方面也有所提升，目前主流的服务器操作系统均同时支持IPV4和IPV6，因此libp2p v1.2.0双协议栈的支持，不仅能够提高Java-tron的网络性能，还使得仅支持IPV4的节点、仅支持IPV6的节点、既支持IPV4又支持IPV6的节点均可以加入到TRON网络。   
+    IPV6协议是替代IPV4的下一代互联网IP协议，解决IPV4地址枯竭问题的同时，在网络性能方面也有所提升，目前主流的服务器操作系统均同时支持IPV4和IPV6，因此libp2p v1.2.0双协议栈的支持，不仅能够提高java-tron的网络性能，还使得仅支持IPV4的节点、仅支持IPV6的节点、既支持IPV4又支持IPV6的节点均可以加入到TRON网络。   
 
     该功能默认为关闭状态，需要通过节点配置项`node.enableIpv6 = true`开启。
 
@@ -852,7 +852,7 @@ Periander版本优化了智能合约调用相关HTTP接口 triggersmartcontract 
 
 ### 其它变更
 #### 1. 优化事件订阅中的事件转发逻辑
-Java-tron支持事件订阅功能，在Periander之前的版本中，如果用户订阅了固化交易事件，则当节点接收到新的区块后，会将当前的最新固化块中的交易信息发送给订阅者。如果大多数SR节点所在的网络出现抖动，使得它们不能及时的同步和生产区块，在这种情况下，根据节点的最新固化块计算逻辑，其最新固化块高度将不能保证严格递增，使得在事件转发时获取的最新固化块，可能不是上一次转发给订阅者的固化块的下一个区块，导致少转发数据的发生。由于该问题复现的条件非常严格，在主网中基本不会出现。但为了避免在测试网或者私链中出现该问题，Periander版本优化了事件订阅中的事件转发逻辑，记录了上一次转发的固化块高度，在节点接收到新的区块后，会依次将上一次转发的固化块之后的区块到当前的最新固化块信息发送到订阅者，确保了数据转发的完整性。
+java-tron支持事件订阅功能，在Periander之前的版本中，如果用户订阅了固化交易事件，则当节点接收到新的区块后，会将当前的最新固化块中的交易信息发送给订阅者。如果大多数SR节点所在的网络出现抖动，使得它们不能及时的同步和生产区块，在这种情况下，根据节点的最新固化块计算逻辑，其最新固化块高度将不能保证严格递增，使得在事件转发时获取的最新固化块，可能不是上一次转发给订阅者的固化块的下一个区块，导致少转发数据的发生。由于该问题复现的条件非常严格，在主网中基本不会出现。但为了避免在测试网或者私链中出现该问题，Periander版本优化了事件订阅中的事件转发逻辑，记录了上一次转发的固化块高度，在节点接收到新的区块后，会依次将上一次转发的固化块之后的区块到当前的最新固化块信息发送到订阅者，确保了数据转发的完整性。
 
 
 * 源代码：  [https://github.com/tronprotocol/java-tron/pull/5031](https://github.com/tronprotocol/java-tron/pull/5031)   
@@ -860,7 +860,7 @@ Java-tron支持事件订阅功能，在Periander之前的版本中，如果用�
 
 #### 2. 支持动态加载`node.active` 和 `node.passive`配置项
 
-Java-tron支持通过`node.active` 和 `node.passive`配置节点的可信节点，节点会主动与`node.active` 中的节点连接，并接受`node.passive`中节点的连接请求。通过配置可信节点可以解决节点无有效连接、或者连接数较少的问题，但是在Periander之前的版本中，更改配置文件需要先停止节点，更新完成后，再重新启动节点。而重启节点对于某些应用来说有一定的影响，因此，从Periander版本开始支持`node.active` 和 `node.passive`配置项动态加载，使得不用重启节点，即可完成可信节点的更改，提高了节点的稳定性。
+java-tron支持通过`node.active` 和 `node.passive`配置节点的可信节点，节点会主动与`node.active` 中的节点连接，并接受`node.passive`中节点的连接请求。通过配置可信节点可以解决节点无有效连接、或者连接数较少的问题，但是在Periander之前的版本中，更改配置文件需要先停止节点，更新完成后，再重新启动节点。而重启节点对于某些应用来说有一定的影响，因此，从Periander版本开始支持`node.active` 和 `node.passive`配置项动态加载，使得不用重启节点，即可完成可信节点的更改，提高了节点的稳定性。
 
 该功能默认为关闭状态，需要通过修改如下节点配置项开启。
 ```
@@ -1078,7 +1078,7 @@ GreatVoyage-v4.7.0.1(Aristotle)版本开始，将LevelDB或者RocksDB数据库�
 
 ## GreatVoyage-v4.7.0.1(Aristotle)
 
-GreatVoyage-v4.7.0.1(Aristotle)版本引入了多个重要的优化和更新，全新的质押机制Stake 2.0, 提高了资源模型的灵活性和质押系统的稳定性；动态能量模型，有助于促进生态的均衡发展；二级缓存机制优化了数据库读取性能，提高了交易执行性能，提升了网络吞吐量；使用libp2p库作为Java-tron P2P网络模块，使代码结构更加清晰，并且降低代码耦合性；优化日志输出，将LevelDB和RocksDB的日志重定向到Java-tron日志文件；将更多工具包集成的toolkit工具箱，为用户带来更便捷的开发体验。
+GreatVoyage-v4.7.0.1(Aristotle)版本引入了多个重要的优化和更新，全新的质押机制Stake 2.0, 提高了资源模型的灵活性和质押系统的稳定性；动态能量模型，有助于促进生态的均衡发展；二级缓存机制优化了数据库读取性能，提高了交易执行性能，提升了网络吞吐量；使用libp2p库作为java-tron P2P网络模块，使代码结构更加清晰，并且降低代码耦合性；优化日志输出，将LevelDB和RocksDB的日志重定向到java-tron日志文件；将更多工具包集成的toolkit工具箱，为用户带来更便捷的开发体验。
 
 下面是详细介绍。
 
@@ -1114,7 +1114,7 @@ GreatVoyage-v4.7.0.1(Aristotle)版本引入一种全新的质押模型Stake 2.0�
 * 源代码：[https://github.com/tronprotocol/java-tron/pull/4838](https://github.com/tronprotocol/java-tron/pull/4838) 
 
 #### 2. 优化数据库查询性能
-Java-tron采用内存和磁盘数据库的方式进行数据存储，固化的区块数据会保存在多个磁盘数据库中，未被固化的数据保存在内存中，当一个区块被固化后，会将相应的内存数据写入到磁盘数据库。在查询数据时，首先查询内存中的数据，如果没有找到，再查询磁盘数据库。而磁盘数据库查询是比较耗时的，因此，GreatVoyage-v4.7.0.1(Aristotle)版本优化了数据库查询性能，在进行底层磁盘数据库操作之前，增加了二级缓存。在将数据写入磁盘的同时，也将数据写入到二级缓存。当需要查询磁盘数据库时，如果二级缓存中存在要查询的数据，则直接返回，而无需再查询磁盘数据库。二级缓存减少了查询磁盘数据库的次数，提高了交易执行速度，提升了网络吞吐量。
+java-tron采用内存和磁盘数据库的方式进行数据存储，固化的区块数据会保存在多个磁盘数据库中，未被固化的数据保存在内存中，当一个区块被固化后，会将相应的内存数据写入到磁盘数据库。在查询数据时，首先查询内存中的数据，如果没有找到，再查询磁盘数据库。而磁盘数据库查询是比较耗时的，因此，GreatVoyage-v4.7.0.1(Aristotle)版本优化了数据库查询性能，在进行底层磁盘数据库操作之前，增加了二级缓存。在将数据写入磁盘的同时，也将数据写入到二级缓存。当需要查询磁盘数据库时，如果二级缓存中存在要查询的数据，则直接返回，而无需再查询磁盘数据库。二级缓存减少了查询磁盘数据库的次数，提高了交易执行速度，提升了网络吞吐量。
 
 * 源代码：[https://github.com/tronprotocol/java-tron/pull/4740](https://github.com/tronprotocol/java-tron/pull/4740) 
 
@@ -1132,7 +1132,7 @@ Java-tron采用内存和磁盘数据库的方式进行数据存储，固化的�
 
 
 #### 5. libp2p集成
-从GreatVoyage-v4.7.0.1(Aristotle)版本开始，将直接使用模块的libp2p库作为Java-tron 的P2P网络模块，而不再使用原来的p2p模块，使代码结构更加清晰，代码耦合性更低，更易于维护。
+从GreatVoyage-v4.7.0.1(Aristotle)版本开始，将直接使用模块的libp2p库作为java-tron 的P2P网络模块，而不再使用原来的p2p模块，使代码结构更加清晰，代码耦合性更低，更易于维护。
 
 
 * 源代码：[https://github.com/tronprotocol/java-tron/pull/4791](https://github.com/tronprotocol/java-tron/pull/4791) 
@@ -1186,7 +1186,7 @@ Stake 2.0是TRON网络中的一个动态参数，GreatVoyage-v4.7.0.1(Aristotle)
 
 #### 3. 优化chainId指令的返回值
 
-从 GreatVoyage-v4.7.0.1(Aristotle)版本开始，将chainid指令的返回值从创世块区块哈希改成创世块区块哈希的最后四个字节，使chainid指令返回值与Java-tron json-rpc `eth_chainId` API的返回值一致。
+从 GreatVoyage-v4.7.0.1(Aristotle)版本开始，将chainid指令的返回值从创世块区块哈希改成创世块区块哈希的最后四个字节，使chainid指令返回值与java-tron json-rpc `eth_chainId` API的返回值一致。
 
 优化chainId指令返回值是TRON网络的一个动态参数，GreatVoyage-v4.7.0.1(Aristotle)部署之后默认为关闭状态，可以通过发起提案投票的方式开启。
 
@@ -1250,7 +1250,7 @@ curl --location --request POST 'https://api.nileex.io/wallet/estimateenergy' \
 
 
 #### 1. 优化编译参数
-GreatVoyage-v4.7.0.1(Aristotle)版本优化了Gradle编译参数，将JVM堆内存最小值设置成1G，以加快Java-tron gradle编译速度。
+GreatVoyage-v4.7.0.1(Aristotle)版本优化了Gradle编译参数，将JVM堆内存最小值设置成1G，以加快java-tron gradle编译速度。
 
 * 源代码：  [https://github.com/tronprotocol/java-tron/pull/4837](https://github.com/tronprotocol/java-tron/pull/4837) 
 
@@ -1278,7 +1278,7 @@ GreatVoyage-v4.7.0.1(Aristotle)版本优化了Gradle编译参数，将JVM堆内�
 * 源代码：[https://github.com/tronprotocol/java-tron/pull/4834](https://github.com/tronprotocol/java-tron/pull/4834) 
 
 #### 6. Toolkit.jar工具箱集成
-`DBConvert.jar`是数据库数据转换工具， 它可以将LevelDB数据转换为RocksDB数据；`LiteFullNodeTool.jar`是轻节点工具，可以将全节点数据转换成轻节点数据。从 GreatVoyage-v4.7.0.1(Aristotle)版本开始，将`DBConvert.jar` 和`LiteFullNodeTool.jar`集成到了`Toolkit.jar`工具箱中，并对`Toolkit.jar`工具箱新增数据库拷贝功能，以实现快速的节点数据库拷贝。未来Java-tron周边的工具将逐步都集成到`Toolkit.jar`工具箱中，以便于工具维护和开发者使用。`Toolkit.jar`工具箱新增功能的使用命令如下：
+`DBConvert.jar`是数据库数据转换工具， 它可以将LevelDB数据转换为RocksDB数据；`LiteFullNodeTool.jar`是轻节点工具，可以将全节点数据转换成轻节点数据。从 GreatVoyage-v4.7.0.1(Aristotle)版本开始，将`DBConvert.jar` 和`LiteFullNodeTool.jar`集成到了`Toolkit.jar`工具箱中，并对`Toolkit.jar`工具箱新增数据库拷贝功能，以实现快速的节点数据库拷贝。未来java-tron周边的工具将逐步都集成到`Toolkit.jar`工具箱中，以便于工具维护和开发者使用。`Toolkit.jar`工具箱新增功能的使用命令如下：
 
 ```
 // 将LevelDB数据转换为RocksDB数据
@@ -1336,11 +1336,11 @@ TRON网络中很多选民会累积很长时间的奖励再进行提取，两次�
 * 源代码：  [https://github.com/tronprotocol/java-tron/pull/4694](https://github.com/tronprotocol/java-tron/pull/4694) 
 
 #### 4. 升级数据库模块中的Checkpoint机制
-Checkpoint机制是为了防止节点宕机引起数据库损坏而建立的恢复机制，Java-tron采用内存和多磁盘数据库的方式进行数据存储，固化的区块数据会保存在多个业务数据库中。未被固化的数据保存在内存中，当一个区块被固化后，会将相应的内存数据写入到多个业务数据库，但由于多个业务数据库的写入并非原子操作，此时节点由于某种原因意外宕机，那么该区块的数据会无法完成全部落盘，导致节点会因为数据库损坏而无法重启。
+Checkpoint机制是为了防止节点宕机引起数据库损坏而建立的恢复机制，java-tron采用内存和多磁盘数据库的方式进行数据存储，固化的区块数据会保存在多个业务数据库中。未被固化的数据保存在内存中，当一个区块被固化后，会将相应的内存数据写入到多个业务数据库，但由于多个业务数据库的写入并非原子操作，此时节点由于某种原因意外宕机，那么该区块的数据会无法完成全部落盘，导致节点会因为数据库损坏而无法重启。
 
 所以在内存数据写入磁盘之前，先创建Checkpoint检查点，检查点中包含本次需要写入到各个业务数据库的所有数据， 完成检查点创建后，先将检查点数据落盘到一个独立的Checkpoint数据库，然后执行业务数据库落盘操作，Checkpoint数据库始终保留一个最新的固化块数据。如果业务数据库因宕机而损坏，节点重启后会通过之前保存在checkpoint中的区块数据来修复业务数据库。
 
-目前Checkpoint机制可以应对绝多数多宕机的情况，但业务数据库仍然有小概率会因为宕机损坏。目前LevelDB的数据写入均是异步方式, 程序调用LevelDB请求将数据写入磁盘，实际上数据只是被写入到操作系统的高速缓冲中，之后操作系统会根据自己的策略决定真正写入到磁盘的时机。当Java-tron节点完成Checkpoint数据库写入，继续写入业务数据库时，此时发生意外宕机，有可能写入到Checkpoint数据库的数据并没有被操作系统真正写入磁盘，这种情况下，节点会因为Checkpoint数据库没有恢复数据而无法重启。
+目前Checkpoint机制可以应对绝多数多宕机的情况，但业务数据库仍然有小概率会因为宕机损坏。目前LevelDB的数据写入均是异步方式, 程序调用LevelDB请求将数据写入磁盘，实际上数据只是被写入到操作系统的高速缓冲中，之后操作系统会根据自己的策略决定真正写入到磁盘的时机。当java-tron节点完成Checkpoint数据库写入，继续写入业务数据库时，此时发生意外宕机，有可能写入到Checkpoint数据库的数据并没有被操作系统真正写入磁盘，这种情况下，节点会因为Checkpoint数据库没有恢复数据而无法重启。
 
 为了解决这一问题，GreatVoyage-v4.6.0(Socrates)版本增加了V2版本的Checkpoint实现，新的Checkpoint机制会存储多个已固化的区块数据，即便最新的固化块数据因为宕机没有被成功写入到Checkpoint数据库，节点重新后也可以拿历史固化块数据来恢复业务数据库。
 
@@ -1357,7 +1357,7 @@ GreatVoyage-v4.6.0(Socrates)版本优化了主备节点产块的优先级，在�
 * 源代码：[https://github.com/tronprotocol/java-tron/pull/4630](https://github.com/tronprotocol/java-tron/pull/4630) 
 
 #### 6 优化P2P网络模块的Kademlia算法
-Java-tron节点ID是个随机数，每次节点启动都会重新生成，Java-tron的Kademlia算法实现中，会根据节点ID来计算该节点的距离， 然后再根据距离决定将该节点信息放在哪个K桶中。如果K桶中的节点由于某种原因重新启动，节点ID会发生变化，当检测到该节点再次下线，根据最新的节点ID计算的距离，已经无法定位到K桶的位置，导致无法在K桶中删除该节点。这种重启的节点过多，会导致节点K桶中存储了过多无效数据。
+java-tron节点ID是个随机数，每次节点启动都会重新生成，java-tron的Kademlia算法实现中，会根据节点ID来计算该节点的距离， 然后再根据距离决定将该节点信息放在哪个K桶中。如果K桶中的节点由于某种原因重新启动，节点ID会发生变化，当检测到该节点再次下线，根据最新的节点ID计算的距离，已经无法定位到K桶的位置，导致无法在K桶中删除该节点。这种重启的节点过多，会导致节点K桶中存储了过多无效数据。
 
 因此，GreatVoyage-v4.6.0(Socrates)版本优化了Kademlia算法，并采用Hash表来记录已经发现的节点。节点的距离只有在第一次写入K桶的时候计算一次，并赋值给节点的distance字段，然后将节点加入到哈希表中，以后直接通过该字段获取节点距离，即便节点重启后ID发生改变也不会更新Hash表中该节点的距离。当探测到该节点下线后，可以根据节点ip从hash表里找到对应的节点，然后通过节点distance字段获取到该节点的距离，然后从K桶中删除该节点。
 
@@ -1367,7 +1367,7 @@ Java-tron节点ID是个随机数，每次节点启动都会重新生成，Java-t
 ### 其它变更
 #### 1. 集成ArchiveManifest.jar到Toolkit.jar工具包
 
-ArchiveManifest.jar是一个独立的LevelDB启动优化工具， 可以优化 LevelDB manifest的文件大小，从而减少内存占用，大幅提升节点启动速度。从 GreatVoyage-v4.6.0(Socrates)版本开始，将ArchiveManifest.jar工具集成到了Toolkit.jar工具中，未来Java-tron周边的工具将逐步都集成到Toolkit.jar工具箱中，以便于工具维护和开发者使用。
+ArchiveManifest.jar是一个独立的LevelDB启动优化工具， 可以优化 LevelDB manifest的文件大小，从而减少内存占用，大幅提升节点启动速度。从 GreatVoyage-v4.6.0(Socrates)版本开始，将ArchiveManifest.jar工具集成到了Toolkit.jar工具中，未来java-tron周边的工具将逐步都集成到Toolkit.jar工具箱中，以便于工具维护和开发者使用。
 
 * 源代码: [https://github.com/tronprotocol/java-tron/pull/4603](https://github.com/tronprotocol/java-tron/pull/4603)   
 
@@ -1690,8 +1690,8 @@ GreatVoyage-v4.4.4(Plotinus)版本优化了网络服务关闭逻辑，先关闭�
 
 
 
-#### 3. 改进Java-tron升级机制
-对于java-tron的版本升级机制，在GreatVoyage-v4.4.4(Plotinus)之前的版本中需要全部27个超级代表节点完成代码升级，TRON网络才能升级到新版本，而TRON是一个完全去中心化治理的网络，有时候27个超级代表节点无法在某一时间内完成代码升级，使得版本升级过程缓慢。为了实现更高效的去中心化治理，在GreatVoyage-v4.4.4(Plotinus)中，改进了Java-tron的版本升级机制，只需要22个超级代表节点完成代码升级，TRON网络即可升级到新版本。
+#### 3. 改进java-tron升级机制
+对于java-tron的版本升级机制，在GreatVoyage-v4.4.4(Plotinus)之前的版本中需要全部27个超级代表节点完成代码升级，TRON网络才能升级到新版本，而TRON是一个完全去中心化治理的网络，有时候27个超级代表节点无法在某一时间内完成代码升级，使得版本升级过程缓慢。为了实现更高效的去中心化治理，在GreatVoyage-v4.4.4(Plotinus)中，改进了java-tron的版本升级机制，只需要22个超级代表节点完成代码升级，TRON网络即可升级到新版本。
 
 源代码：https://github.com/tronprotocol/java-tron/pull/4218
 
@@ -2245,11 +2245,11 @@ TIP: [TIP-176](https://github.com/tronprotocol/tips/blob/master/tip-176.md)
 - 区块链为外部系统或客户端提供的接口协议。
 
 #### 共识 
-共识机制是区块链的重要组成部分。波场区块链采用 DPoS 作为核心共识机制，长期以来运行稳定。但是，要想将 Java-tron 改造成为强大的基础设施，支持搭建用于实际应用场景的区块链，我们就必须为其装备可替换的共识模块。 区块链开发者应选取最适合具体应用情景的共识机制。利用可替换的共识模块，我们的终极目标是使共识机制可以通过设置一些必要参数来决定。除此之外，只要实现几个必要的接口，开发者即可自定义共识模块。
+共识机制是区块链的重要组成部分。波场区块链采用 DPoS 作为核心共识机制，长期以来运行稳定。但是，要想将 java-tron 改造成为强大的基础设施，支持搭建用于实际应用场景的区块链，我们就必须为其装备可替换的共识模块。 区块链开发者应选取最适合具体应用情景的共识机制。利用可替换的共识模块，我们的终极目标是使共识机制可以通过设置一些必要参数来决定。除此之外，只要实现几个必要的接口，开发者即可自定义共识模块。
 
 
 #### 加密
-作为区块链的核心模块之一，加密是区块链数据安全的基础， 应用于公钥和私钥的推论、交易验证和零知识证明等。Java-tron 对加密模块进行了抽象化，并支持替换加密算法，可以根据不同的业务需求选择合适的加密算法。
+作为区块链的核心模块之一，加密是区块链数据安全的基础， 应用于公钥和私钥的推论、交易验证和零知识证明等。java-tron 对加密模块进行了抽象化，并支持替换加密算法，可以根据不同的业务需求选择合适的加密算法。
 
 #### 执行器
 执行器是用于处理各种交易的核心模块。众所周知，波场区块链上的每一笔交易都包含一个合约。总体而言，波场区块链共有两种合约：系统合约和智能合约。大量应用程序通过智能合约实现，在区块链的内部虚拟机中运行。然而，智能合约在功能性和灵活性方面仍受限制，无法满足复杂应用程序的要求。自定义的执行器则为应用程序开发者提供了一种全新的开发方式。他们可以选择将应用程序的代码植入链内，而不用在虚拟机上运行。

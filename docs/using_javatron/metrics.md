@@ -1,8 +1,8 @@
-# Java-tron节点指标监控
-从GreatVoyage-4.5.1(Tertullian)版本开始，节点提供了一系列兼容prometheus协议的接口，使节点部署者可以更方便的监控节点的健康状态。如果您想要监控节点的各项指标，则首先需要部署一个prometheus服务，用于与Java-tron节点通信，通过节点接口获取到节点各项指标数据。然后还需要部署一个可视化工具，如Grafana，用于将prometheus获取到的节点数据，以图像化界面的形式展示出来。下面将详细介绍Java-tron节点监控系统的搭建流程。
+# java-tron节点指标监控
+从GreatVoyage-4.5.1(Tertullian)版本开始，节点提供了一系列兼容prometheus协议的接口，使节点部署者可以更方便的监控节点的健康状态。如果您想要监控节点的各项指标，则首先需要部署一个prometheus服务，用于与java-tron节点通信，通过节点接口获取到节点各项指标数据。然后还需要部署一个可视化工具，如Grafana，用于将prometheus获取到的节点数据，以图像化界面的形式展示出来。下面将详细介绍java-tron节点监控系统的搭建流程。
 
-## 配置Java-tron
-如需使用Prometheus工具监控Java-tron节点的运行情况，首先需要在节点配置文件中开启prometheus指标监控，并设置http端口号：
+## 配置java-tron
+如需使用Prometheus工具监控java-tron节点的运行情况，首先需要在节点配置文件中开启prometheus指标监控，并设置http端口号：
 ```
 node {
   ... ...
@@ -20,8 +20,8 @@ node {
 }
 
 ```
-## 启动Java-tron节点
-您可以通过如下命令启动Java-tron节点：
+## 启动java-tron节点
+您可以通过如下命令启动java-tron节点：
 ```
 $ java -Xmx24g -XX:+UseConcMarkSweepGC -jar FullNode.jar -c main_net_config.conf
 ```
@@ -65,7 +65,7 @@ $ java -Xmx24g -XX:+UseConcMarkSweepGC -jar FullNode.jar -c main_net_config.conf
           group: group-xxx
           instance: xxx-02
     ```
-    您可以使用此模板，然后修改配置项 `targets` ，它用于配置Java-tron节点所在机器的ip和prometheus端口，如您部署了多个节点，可以通过配置多个 `targets`，来实现对多个节点的监控。
+    您可以使用此模板，然后修改配置项 `targets` ，它用于配置java-tron节点所在机器的ip和prometheus端口，如您部署了多个节点，可以通过配置多个 `targets`，来实现对多个节点的监控。
 
 3. 启动一个Prometheus容器
 
@@ -83,12 +83,12 @@ $ java -Xmx24g -XX:+UseConcMarkSweepGC -jar FullNode.jar -c main_net_config.conf
     点击"Status"-> "Configuration"，查看容器使用的配置文件是否正确：
     ![image](https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/metrics_config.png)
 
-    点击"Status"-> "Targets"，查看各个监控的Java-tron节点状态：
+    点击"Status"-> "Targets"，查看各个监控的java-tron节点状态：
     ![image](https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/metrics_targets.png)
     
     比如这个示例中，第一个endpoint，状态为`UP`，表示Prometheus可以正常的抓取该节点的数据。而第二个endpoint，状态为`DOWN`，表示异常，具体参考"Error"中的描述。
 
-    当监控的Java-tron节点的状态都正常后，您就可以通过Grafana或Promdash等可视化工具监控指标数据了，本文将通过grafana来展示数据。
+    当监控的java-tron节点的状态都正常后，您就可以通过Grafana或Promdash等可视化工具监控指标数据了，本文将通过grafana来展示数据。
 
 ## 部署Grafana
 Grafana可视化工具的部署流程如下：
@@ -119,7 +119,7 @@ Grafana可视化工具的部署流程如下：
 
 4. 导入Dashboard
 
-    Grafana的仪表盘需要配置，为了方便Java-tron节点部署者，TRON社区提供了一个较全面的仪表盘配置文件，您可以直接在Grafana dashboard中下载Java-tron仪表盘配置文件 [java-tron-template_rev1.json](https://grafana.com/grafana/dashboards/16567)，然后导入到Grafana。
+    Grafana的仪表盘需要配置，为了方便java-tron节点部署者，TRON社区提供了一个较全面的仪表盘配置文件，您可以直接在Grafana dashboard中下载java-tron仪表盘配置文件 [java-tron-template_rev1.json](https://grafana.com/grafana/dashboards/16567)，然后导入到Grafana。
 
     点击左侧的Dashboards图标，然后选择"+Import"，然后点击"Upload JSON file"导入已下载的仪表盘配置文件：
     

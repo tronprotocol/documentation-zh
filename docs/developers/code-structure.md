@@ -1,8 +1,8 @@
-# Java-tron核心模块
+# java-tron核心模块
 ## 代码结构
-Java-tron是基于Java语言开发的TRON网络客户端，它实现了TRON白皮书中所提到的所有功能，包括共识机制、密码学、数据库、TVM虚拟机、网络管理等。我们可以通过启动Java-tron来运行一个TRON网络节点。在本文中，我们将详细描述Java-tron的代码结构，介绍其各个功能模块的作用，便于开发者后续的代码分析与开发。
+java-tron是基于Java语言开发的TRON网络客户端，它实现了TRON白皮书中所提到的所有功能，包括共识机制、密码学、数据库、TVM虚拟机、网络管理等。我们可以通过启动java-tron来运行一个TRON网络节点。在本文中，我们将详细描述java-tron的代码结构，介绍其各个功能模块的作用，便于开发者后续的代码分析与开发。
 
-Java-tron采用模块化的代码结构，代码结构清晰，易于维护与扩展。Java-tron 目前分为7个模块：[protocol](#protocol)、[common](#common)、[chainbase](#chainbase)、[consensus](#consensus)、[actuator](#actuator)、[crypto](#crypto)、[framework](#framework)，下面分别介绍各个模块的功能及其代码组织结构。
+java-tron采用模块化的代码结构，代码结构清晰，易于维护与扩展。java-tron 目前分为7个模块：[protocol](#protocol)、[common](#common)、[chainbase](#chainbase)、[consensus](#consensus)、[actuator](#actuator)、[crypto](#crypto)、[framework](#framework)，下面分别介绍各个模块的功能及其代码组织结构。
 
 
 ### protocol
@@ -28,7 +28,7 @@ Java-tron采用模块化的代码结构，代码结构清晰，易于维护与�
         |-- contract
 ```
 
-* `protos/api/` - Java-tron节点对外提供的gRPC接口及数据结构
+* `protos/api/` - java-tron节点对外提供的gRPC接口及数据结构
 * `protos/core/` - 节点间及节点内部各个模块间通信的数据结构
     * `Discover.proto` - 节点发现相关的数据结构
     * `TronInventoryItems.proto` - 节点间区块传输相关数据结构
@@ -123,7 +123,7 @@ chainbase 模块是数据库层面的抽象，像 PoW、PoS、DPoS 这类基于�
 
     * `db/` 和 `db2/` 
 
-        实现了可回退数据库，其中包含了两种可回退数据库：位于`db/`目录下`AbstractRevokingStore`和位于`db2/` 目录下`SnapshotManager`。`SnapshotManager`相比与`AbstractRevokingStore`，数据回退更稳定，并支持底层数据库的扩展，因此Java-tron采用`SnapshotManager`可回退数据库，其中的几个重要接口及实现类如下：
+        实现了可回退数据库，其中包含了两种可回退数据库：位于`db/`目录下`AbstractRevokingStore`和位于`db2/` 目录下`SnapshotManager`。`SnapshotManager`相比与`AbstractRevokingStore`，数据回退更稳定，并支持底层数据库的扩展，因此java-tron采用`SnapshotManager`可回退数据库，其中的几个重要接口及实现类如下：
 
         * `RevokingDatabase.java` 是数据库容器的接口，用于所有可回退数据库的管理，`SnapshotManager` 是该接口的一个实现
         * `TronStoreWithRevoking.java` 是支持可回退的数据库的基类，所有的可回退数据库都是它的具体实现，比如`BlockStore`，`TransactionStore`等
@@ -152,11 +152,11 @@ chainbase 模块是数据库层面的抽象，像 PoW、PoS、DPoS 这类基于�
 4. `validBlock` - 定义验证区块的共识逻辑
 5. `applyBlock` - 定义处理区块的共识逻辑
 
-目前Java-tron基于 ConsensusInterface 接口实现了DPOS共识和PBFT共识，分别位于`dpos/`和`pbft/`目录下，开发者也可以根据自身业务需求实现 ConsensusInterface 接口，来自定义共识机制。
+目前java-tron基于 ConsensusInterface 接口实现了DPOS共识和PBFT共识，分别位于`dpos/`和`pbft/`目录下，开发者也可以根据自身业务需求实现 ConsensusInterface 接口，来自定义共识机制。
 
 ### actuator
 
-以太坊初创性的引入了虚拟机并定义了智能合约这种开发方式，但对于一些复杂的应用，智能合约不够灵活且受限于性能，这也是 Java-tron 提供创建应用链的一个原因。为此 Java-tron 独立出来了 actuator 模块，该模块为应用开发者提供一种新的开发范式：可以将应用代码直接植入链中而不再将应用代码跑在虚拟机中。
+以太坊初创性的引入了虚拟机并定义了智能合约这种开发方式，但对于一些复杂的应用，智能合约不够灵活且受限于性能，这也是 java-tron 提供创建应用链的一个原因。为此 java-tron 独立出来了 actuator 模块，该模块为应用开发者提供一种新的开发范式：可以将应用代码直接植入链中而不再将应用代码跑在虚拟机中。
 
 actuator是交易的执行器，可以将应用看成是不同交易类型组成的交易集，每类交易都由对应的 actuator 负责执行。
 
@@ -188,7 +188,7 @@ actuator模块定义的 Actuator 接口有4个方法：
 开发者也可以根据自身业务实现 Actuator 接口，来实现自定义交易类型的处理。
  
 ### crypto
-crypto是一个相对独立的模块，但也是非常重要的模块，Java-tron中的数据安全几乎全由该模块来保证，目前支持SM2和ECKey加密算法。
+crypto是一个相对独立的模块，但也是非常重要的模块，java-tron中的数据安全几乎全由该模块来保证，目前支持SM2和ECKey加密算法。
 
 [crypto](https://github.com/tronprotocol/java-tron/tree/develop/crypto)模块的路径为`https://github.com/tronprotocol/java-tron/tree/develop/crypto`，其目录结构如下：
 ```
@@ -254,7 +254,7 @@ framework是 java-tron 的核心模块，也是节点的入口，framework 模�
 
 
 ### 总结
-本文主要介绍了Java-tron的代码结构，以及各个功能模块的作用、位置及目录结构，通过本文您会对Java-tron的整体结构及关键接口有了大致的了解，方便后续的代码分析和开发。
+本文主要介绍了java-tron的代码结构，以及各个功能模块的作用、位置及目录结构，通过本文您会对java-tron的整体结构及关键接口有了大致的了解，方便后续的代码分析和开发。
 
 
 ## ChainBase
@@ -263,10 +263,10 @@ framework是 java-tron 的核心模块，也是节点的入口，framework 模�
 
 而实现这样一个不可篡改的分布式账本是一个非常复杂的系统工程，涉及到很多技术领域：比如 p2p 网络、智能合约、数据库、密码学、共识机制等。其中数据库作为底层存储的基础，各个区块链团队都在探索数据库层面的设计与优化。
 
-Java-tron 的数据库模块也称为ChainBase 模块，本文主要介绍一些背景知识，并通过介绍交易处理、状态回滚、数据持久化等逻辑为开发者展现ChainBase 模块的实现细节。
+java-tron 的数据库模块也称为ChainBase 模块，本文主要介绍一些背景知识，并通过介绍交易处理、状态回滚、数据持久化等逻辑为开发者展现ChainBase 模块的实现细节。
 
 ### 预备知识
-数据库是区块链系统中重要的一环，它存储了区块链上的所有数据，是区块链系统正常运行的基础，每个全节点都保存了一份全量的数据，包含区块数据和状态数据，Java-tron 采用 Account 模型来保存用户的账户状态。
+数据库是区块链系统中重要的一环，它存储了区块链上的所有数据，是区块链系统正常运行的基础，每个全节点都保存了一份全量的数据，包含区块数据和状态数据，java-tron 采用 Account 模型来保存用户的账户状态。
 
 #### 账户模型
 目前主流的账户模型有两种：
@@ -397,7 +397,7 @@ java-tron保存了最近还未达成共识的所有区块。当出现分叉链�
 为什么新的区块到来后需要清空pendingTransactionQueue？首先明确一点，pendingTransactionQueue队列负责在生成区块时提供交易数据，也就是说存放的是验证过的可以直接打包进区块的交易，但是因为新的区块也会对账户状态进行变更，可能pendingTransactionQueue里面之前验证没问题的交易在apply新的区块后验证不通过（最简单的例子：新区块某笔交易是账户A花费了一部分token，导致账户A在队列中的某笔交易金额不够支付了）。将交易挪至rePushTransactions后会有后台线程专门负责对该队列中的交易再次验证，如果没有问题就再次放进pendingTransactionQueue，为产生区块提供数据。
 
 
-Java-tron中存在一个session对象，一个session表示的是一个区块对状态的变更，session对象主要用来回滚，比如将状态回滚到上一个区块的状态都需要通过session来操作，如下图所示：
+java-tron中存在一个session对象，一个session表示的是一个区块对状态的变更，session对象主要用来回滚，比如将状态回滚到上一个区块的状态都需要通过session来操作，如下图所示：
 
 
 ![image](https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/chainbase_6.png)
@@ -446,13 +446,13 @@ SnapshotManager 中存在两个变量：size 和 maxSize，size 此处我们简�
 这样就很明显了，如果 size > maxSize，那么说明最开始的 size-maxSize 层的snapshotImpl 对应的区块已经是固化块了，它们可以落盘了，然后会将应该落盘的 snapshotImpl 合并到持久化存储中，这样来确保 snapshotImpl 不会占用过多的内存，而且也保证了固化块能够被及时的持久化存储下来。
 
 #### 数据库原子性
-Java-tron 的数据库存储与其他公链略有区别，例如以太坊持久化层只采用了一个数据库实例，以太坊中的不同类型的数据用前缀加以区分，存储在一个数据库实例中。而 java-tron 目前则将不同业务类型的数据存放在各自的数据库实例中。
+java-tron 的数据库存储与其他公链略有区别，例如以太坊持久化层只采用了一个数据库实例，以太坊中的不同类型的数据用前缀加以区分，存储在一个数据库实例中。而 java-tron 目前则将不同业务类型的数据存放在各自的数据库实例中。
 
 两者实现方式各有千秋，单实例方便维护，能够统一写入，但缺点也较明显，比如随着时间推移单库数据量不断增长，某些业务数据库的频繁访问可能会拖累其他业务的读写性能。
 
 多实例则不存在各个业务数据读写相互影响的问题，且可以根据各自的数据量与性能要求配置不同的参数，达到性能最大化，还可以将数据量较大的库独立拆分出去，以缓解数据膨胀问题。但多数据库实例存在一个严重的问题：并没有原生工具支持多数据库实例之间的原子写入。
 
-Java-tron 为了保证数据库多实例的原子写入，新增了 checkpoint 机制，在多实例落盘前将变更的数据统一写入 checkpoint，若多个数据库实例在写入时发生意外，服务重启时从 checkpoint 中将变更的数据统一恢复，保证写入的原子性。
+java-tron 为了保证数据库多实例的原子写入，新增了 checkpoint 机制，在多实例落盘前将变更的数据统一写入 checkpoint，若多个数据库实例在写入时发生意外，服务重启时从 checkpoint 中将变更的数据统一恢复，保证写入的原子性。
 
 上一节中固化块的 snapshotImpl 写入数据库的过程主要包含了两步：
 

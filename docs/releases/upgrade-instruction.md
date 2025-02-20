@@ -1,4 +1,4 @@
-# Java-tron新版本部署手册
+# java-tron新版本部署手册
 对于强制升级的版本，请严格按照本指南进行新版本的部署。对于非强制升级的版本，可根据需求自行选择是否部署。
 
 请参考[新版本部署步骤](#_1)进行升级，如果您部署了主备节点，请按照[主备节点部署指南](#_2)的流程进行升级。
@@ -9,13 +9,13 @@
 
 ### 1.准备新版本可执行文件
 
-您可以直接下载Java-tron可执行文件，也可以下载最新版本的代码，然后编译，以获取新版本可执行文件。请在Java-tron运行目录以外的其它文件目录下，下载最新版本的代码或者jar包：
+您可以直接下载java-tron可执行文件，也可以下载最新版本的代码，然后编译，以获取新版本可执行文件。请在java-tron运行目录以外的其它文件目录下，下载最新版本的代码或者jar包：
 
 * 方式一：下载已发布的可执行文件
     
     在release页面 [https://github.com/tronprotocol/java-tron/releases](https://github.com/tronprotocol/java-tron/releases) 直接下载最新版本的FullNode.jar可执行文件。
     
-    在使用之前，请首先对文件签名进行校验，以确保该JAR文件的一致性和完整性，校验步骤请参考[Java-tron一致性校验](https://tronprotocol.github.io/documentation-zh/releases/signature_verification/)。
+    在使用之前，请首先对文件签名进行校验，以确保该JAR文件的一致性和完整性，校验步骤请参考[java-tron一致性校验](https://tronprotocol.github.io/documentation-zh/releases/signature_verification/)。
     
     
 * 方式二：编译源码
@@ -32,8 +32,8 @@
     ```
     
 
-### 2.关闭Java-tron进程
-停止节点进程。注意：如果之前没有在本机器上部署过Java-tron节点，请直接跳至第五步。
+### 2.关闭java-tron进程
+停止节点进程。注意：如果之前没有在本机器上部署过java-tron节点，请直接跳至第五步。
 
 * 首先通过如下命令获取节点进程ID
     ```
@@ -66,10 +66,10 @@
 ### 4.替换旧文件
 准备好新版本可执行文件，并备份好原节点数据后，请根据如下步骤替换旧文件：
 
-1. 将上步骤获取的最新版本jar包拷贝到Java-tron工作目录，以替换旧的可执行文件。
+1. 将上步骤获取的最新版本jar包拷贝到java-tron工作目录，以替换旧的可执行文件。
 2. 用最新的配置文件覆盖旧的配置文件，如需修改配置，比如添加keystore file、私钥等，请自行修改。
 
-注意：对于数据库文件，可以使用Java-tron工作目录下的原有数据库文件，也可以选择使用[数据库备份快照](https://tronprotocol.github.io/documentation-zh/using_javatron/backup_restore/#_4)。
+注意：对于数据库文件，可以使用java-tron工作目录下的原有数据库文件，也可以选择使用[数据库备份快照](https://tronprotocol.github.io/documentation-zh/using_javatron/backup_restore/#_4)。
 
 
 ### 5.启动节点
