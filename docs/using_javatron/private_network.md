@@ -87,8 +87,8 @@
         allowTvmTransferTrc10 = 1
       }
       ```
-    * 委员会提案  
-      动态参数的修改也可以通过委员会提案来完成，委员会由SR，SR Partner和SR Candidate组成，委员会的任何成员都可以使用[proposalcreate](https://developers.tron.network/reference/proposalcreate)创建提案，之后由SR使用[proposalapprove](https://developers.tron.network/reference/proposalapprove)批准或者否决提案。下面是一个通过提案修改两个动态参数的代码示例。在[proposalcreate](https://developers.tron.network/reference/proposalcreate)中，动态参数用序号表示，动态参数的序号和名称之间的映射可以在[此处](https://developers.tron.network/reference/wallet-getchainparameters)查看。
+    * 提案  
+      任何witness(SR、SR partner、SR candidate)都有权创建提案，但是只有SR有权对提案进行投票。witness使用[proposalcreate](https://developers.tron.network/reference/proposalcreate)创建提案，之后SR使用[proposalapprove](https://developers.tron.network/reference/proposalapprove)批准提案(仅支持投赞成票，SR不投票意味着不同意该提案)。下面是一个通过提案修改两个动态参数的代码示例。在[proposalcreate](https://developers.tron.network/reference/proposalcreate)中，动态参数用序号表示，动态参数的序号和名称之间的映射可以在[此处](https://developers.tron.network/reference/wallet-getchainparameters)查看。
       ```
       var TronWeb = require('tronweb');
       var tronWeb = new TronWeb({
