@@ -141,6 +141,8 @@ Owner权限具有以下特性：
       yyy // private key of TXXvArisGf7YL9TfUbwYj5i16htm8ZjMUs
     ]
     ```
+    注意：当修改witness权限时，只能向`localwitness`添加一个私钥。
+
     如果witness权限没有修改，其配置文件应如下所示：
     ```
     # config.conf
