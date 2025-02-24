@@ -133,12 +133,12 @@ Owner权限具有以下特性：
 
 - 如果未修改witness权限，无需更改配置文件。
 - 如果修改了witness权限，配置文件中`localwitness`项需进行相应更改，并且必须明确设置`localWitnessAccountAddress`  
-    当以witness身份部署一个节点时，需要将witness账户的私钥填入配置文件的`localwitness`项中，而`localWitnessAccountAddress`无需配置。然而，当修改witness权限时，`localwitness`需要更改为被授权witness权限的账户的私钥，并且必须明确设置`localWitnessAccountAddress`为witness账户的地址。以下是一个配置witness账户[TTxrh32VJveqiYRwbLEX2wLTMFCfbpAUQj](https://tronscan.org/#/address/TTxrh32VJveqiYRwbLEX2wLTMFCfbpAUQj)的示例，该账户将其witness权限授权给账户TXXvArisGf7YL9TfUbwYj5i16htm8ZjMUs。其配置文件应如下所示：
+    当以witness身份部署一个节点时，需要将witness账户的私钥填入配置文件的`localwitness`项中，而`localWitnessAccountAddress`无需配置。然而，当修改witness权限时，`localwitness`需要更改为被授权witness权限的账户的私钥，并且必须明确设置`localWitnessAccountAddress`为witness账户的地址。以下是一个配置witness账户[TCbxHgibJutCjVZUprvexKZZ4Rc6sJ4Xrk](https://nile.tronscan.org/#/address/TCbxHgibJutCjVZUprvexKZZ4Rc6sJ4Xrk)的示例，该账户将其witness权限授权给账户TSwCH45gi2HvtqDYX3Ff39yHeu5moEqQDJ。其配置文件应如下所示：
    ```
     #config.conf
-    localWitnessAccountAddress = TTxrh32VJveqiYRwbLEX2wLTMFCfbpAUQj
+    localWitnessAccountAddress = TCbxHgibJutCjVZUprvexKZZ4Rc6sJ4Xrk
     localwitness = [
-      yyy // private key of TXXvArisGf7YL9TfUbwYj5i16htm8ZjMUs
+      yyy // private key of TSwCH45gi2HvtqDYX3Ff39yHeu5moEqQDJ
     ]
     ```
     注意：当修改witness权限时，只能向`localwitness`添加一个私钥。
@@ -148,7 +148,7 @@ Owner权限具有以下特性：
     # config.conf
     //localWitnessAccountAddress =
     localwitness = [
-      xxx // private key of TTxrh32VJveqiYRwbLEX2wLTMFCfbpAUQj
+      xxx // private key of TCbxHgibJutCjVZUprvexKZZ4Rc6sJ4Xrk
     ]
     ```
 ### Active权限
