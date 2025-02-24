@@ -130,10 +130,20 @@ Owner权限具有以下特性：
 使用场景示例：一个超级代表在云服务器上部署出块程序，为了账户安全，此时可以将出块权限赋予另一个地址。由于该地址仅具有出块权限，无TRX转出权限，即使该服务器上私钥被泄密，也不会出现TRX丢失。
 
 出块节点的配置：
+当以witness身份部署一个节点时，需要将witness账户的私钥填入配置文件的`localwitness`项中，而`localWitnessAccountAddress`无需配置，直接注释，如下所示：
+```
+# config.conf
+//localWitnessAccountAddress =
+localwitness = [
+  xxx // private key of the witness account
+]
+```
 
 - 如果未修改witness权限，无需更改配置文件。
-- 如果修改了witness权限，配置文件中`localwitness`项需进行相应更改，并且必须明确设置`localWitnessAccountAddress`  
-    当以witness身份部署一个节点时，需要将witness账户的私钥填入配置文件的`localwitness`项中，而`localWitnessAccountAddress`无需配置。然而，当修改witness权限时，`localwitness`需要更改为被授权witness权限的账户的私钥，并且必须明确设置`localWitnessAccountAddress`为witness账户的地址。以下是一个配置witness账户[TCbxHgibJutCjVZUprvexKZZ4Rc6sJ4Xrk](https://nile.tronscan.org/#/address/TCbxHgibJutCjVZUprvexKZZ4Rc6sJ4Xrk)的示例，该账户将其witness权限授权给账户TSwCH45gi2HvtqDYX3Ff39yHeu5moEqQDJ。其配置文件应如下所示：
+- 如果修改了witness权限，配置文件需做如下两项修改
+    - `localwitness`需要更改为被授权witness权限的账户的私钥
+    -  必须明确设置`localWitnessAccountAddress`为witness账户的地址  
+    以下是witness账户[TCbxHgibJutCjVZUprvexKZZ4Rc6sJ4Xrk](https://nile.tronscan.org/#/address/TCbxHgibJutCjVZUprvexKZZ4Rc6sJ4Xrk)将其witness权限授权给账户TSwCH45gi2HvtqDYX3Ff39yHeu5moEqQDJ的配置示例：
    ```
     #config.conf
     localWitnessAccountAddress = TCbxHgibJutCjVZUprvexKZZ4Rc6sJ4Xrk
@@ -142,15 +152,8 @@ Owner权限具有以下特性：
     ]
     ```
     注意：当修改witness权限时，只能向`localwitness`添加一个私钥。
+    
 
-    如果witness权限没有修改，其配置文件应如下所示：
-    ```
-    # config.conf
-    //localWitnessAccountAddress =
-    localwitness = [
-      xxx // private key of TCbxHgibJutCjVZUprvexKZZ4Rc6sJ4Xrk
-    ]
-    ```
 ### Active权限
 
 Active权限，用于提供一个权限的组合，比如提供一个只能执行创建账户、转账功能的权限。

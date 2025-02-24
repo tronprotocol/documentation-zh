@@ -6,7 +6,7 @@ TRON采用账户模型，账户的唯一标识为地址（address），对账户
 
 ## 创建账号的方式
 
-1. 首先用[钱包](https://www.tronlink.org/)生成私钥和地址。由已有老账户往目标地址发送TRX或其他Token，并广播到网络后将完成账户创建的流程。
+1. 首先用一个钱包应用(推荐[TronLink](https://www.tronlink.org/))生成一对私钥和地址，然后由已有老账户往新创建的账户发送TRX或其他Token完成账户创建的流程。
 
 2. 通过调用CreateAccount内置合约，完成创建账户
 
