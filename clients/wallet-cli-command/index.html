@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://tronprotocol.github.io/documentation-zh/clients/wallet-cli-command/" />
       <link rel="shortcut icon" href="../../img/favicon.ico" />
-    <title>Wallet命令 - Java Tron</title>
+    <title>Wallet命令 - java-tron</title>
     <link rel="stylesheet" href="../../css/theme.css" />
     <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
@@ -31,7 +31,7 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
     <div class="wy-side-scroll">
       <div class="wy-side-nav-search">
-          <a href="../.." class="icon icon-home"> Java Tron
+          <a href="../.." class="icon icon-home"> java-tron
         </a><div role="search">
   <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
       <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
@@ -42,12 +42,12 @@
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption"><span class="caption-text">入门</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../../getting_started/getting_started_with_javatron/">Java-tron入门</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../../getting_started/getting_started_with_javatron/">java-tron入门</a>
                   </li>
               </ul>
-              <p class="caption"><span class="caption-text">使用Java-tron</span></p>
+              <p class="caption"><span class="caption-text">使用java-tron</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../../using_javatron/installing_javatron/">部署Java-tron</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../../using_javatron/installing_javatron/">部署java-tron</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../../using_javatron/backup_restore/">备份和恢复</a>
                   </li>
@@ -345,7 +345,7 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
       <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../..">Java Tron</a>
+          <a href="../..">java-tron</a>
         
       </nav>
       <div class="wy-nav-content">
@@ -2102,17 +2102,17 @@ wallet&gt;<span class="w"> </span>ApproveProposal<span class="w"> </span><span c
 <span class="o">}</span>
 </code></pre></div></p>
 <h3 id="votewitness">Votewitness<a class="headerlink" href="#votewitness" title="Permanent link">&para;</a></h3>
-<p>使用该命令为超级代表投票。投票需要相应的投票权, 即<code>Tron Power</code>，可以通过质押资产来获得。第一个参数为超级代表的地址，第二个参数为该超级代表投票的数量。
-<div class="highlight"><pre><span></span><code>wallet&gt; votewitness [SR address] [Tron Power Amount]
+<p>使用该命令为超级代表投票。投票需要相应的投票权, 即<code>TRON Power</code>，可以通过质押资产来获得。第一个参数为超级代表的地址，第二个参数为该超级代表投票的数量。
+<div class="highlight"><pre><span></span><code>wallet&gt; votewitness [SR address] [TRON Power Amount]
 
-* Tron Power计算规则: 每冻结 1 TRX获得一个单位的Tron Power。
+* TRON Power计算规则: 每冻结 1 TRX获得一个单位的TRON Power。
 * 资产解冻后, 所有之前的投票即作废。可以重复冻结资产避免这种情况。
 
 **注意** TRON 只会记录你的最后一次投票，新的投票会覆盖之前的投票。
 
 示例：
 ```shell
-wallet&gt; freezeBalance 100000000 3 1 address  # 冻结 10TRX，获得10个单位的Tron Power。
+wallet&gt; freezeBalance 100000000 3 1 address  # 冻结 10TRX，获得10个单位的TRON Power。
 
 wallet&gt; votewitness [SR1] 4 [SR2] 6  # 为SR1投4票，同时再为SR2投6票
 

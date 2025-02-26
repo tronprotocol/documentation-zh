@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://tronprotocol.github.io/documentation-zh/developers/code-structure/" />
       <link rel="shortcut icon" href="../../img/favicon.ico" />
-    <title>核心模块 - Java Tron</title>
+    <title>核心模块 - java-tron</title>
     <link rel="stylesheet" href="../../css/theme.css" />
     <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
@@ -31,7 +31,7 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
     <div class="wy-side-scroll">
       <div class="wy-side-nav-search">
-          <a href="../.." class="icon icon-home"> Java Tron
+          <a href="../.." class="icon icon-home"> java-tron
         </a><div role="search">
   <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
       <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
@@ -42,12 +42,12 @@
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption"><span class="caption-text">入门</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../../getting_started/getting_started_with_javatron/">Java-tron入门</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../../getting_started/getting_started_with_javatron/">java-tron入门</a>
                   </li>
               </ul>
-              <p class="caption"><span class="caption-text">使用Java-tron</span></p>
+              <p class="caption"><span class="caption-text">使用java-tron</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../../using_javatron/installing_javatron/">部署Java-tron</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../../using_javatron/installing_javatron/">部署java-tron</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../../using_javatron/backup_restore/">备份和恢复</a>
                   </li>
@@ -253,7 +253,7 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
       <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../..">Java Tron</a>
+          <a href="../..">java-tron</a>
         
       </nav>
       <div class="wy-nav-content">
@@ -272,10 +272,10 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="java-tron">Java-tron核心模块<a class="headerlink" href="#java-tron" title="Permanent link">&para;</a></h1>
+                <h1 id="java-tron">java-tron核心模块<a class="headerlink" href="#java-tron" title="Permanent link">&para;</a></h1>
 <h2 id="_1">代码结构<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<p>Java-tron是基于Java语言开发的TRON网络客户端，它实现了TRON白皮书中所提到的所有功能，包括共识机制、密码学、数据库、TVM虚拟机、网络管理等。我们可以通过启动Java-tron来运行一个TRON网络节点。在本文中，我们将详细描述Java-tron的代码结构，介绍其各个功能模块的作用，便于开发者后续的代码分析与开发。</p>
-<p>Java-tron采用模块化的代码结构，代码结构清晰，易于维护与扩展。Java-tron 目前分为7个模块：<a href="#protocol">protocol</a>、<a href="#common">common</a>、<a href="#chainbase">chainbase</a>、<a href="#consensus">consensus</a>、<a href="#actuator">actuator</a>、<a href="#crypto">crypto</a>、<a href="#framework">framework</a>，下面分别介绍各个模块的功能及其代码组织结构。</p>
+<p>java-tron是基于Java语言开发的TRON网络客户端，它实现了TRON白皮书中所提到的所有功能，包括共识机制、密码学、数据库、TVM虚拟机、网络管理等。我们可以通过启动java-tron来运行一个TRON网络节点。在本文中，我们将详细描述java-tron的代码结构，介绍其各个功能模块的作用，便于开发者后续的代码分析与开发。</p>
+<p>java-tron采用模块化的代码结构，代码结构清晰，易于维护与扩展。java-tron 目前分为7个模块：<a href="#protocol">protocol</a>、<a href="#common">common</a>、<a href="#chainbase">chainbase</a>、<a href="#consensus">consensus</a>、<a href="#actuator">actuator</a>、<a href="#crypto">crypto</a>、<a href="#framework">framework</a>，下面分别介绍各个模块的功能及其代码组织结构。</p>
 <h3 id="protocol">protocol<a class="headerlink" href="#protocol" title="Permanent link">&para;</a></h3>
 <p>对于区块链这种分布式网络，简洁高效的数据交互协议非常重要，protocol模块定义了：</p>
 <ul>
@@ -296,7 +296,7 @@
         |-- contract
 </code></pre></div></p>
 <ul>
-<li><code>protos/api/</code> - Java-tron节点对外提供的gRPC接口及数据结构</li>
+<li><code>protos/api/</code> - java-tron节点对外提供的gRPC接口及数据结构</li>
 <li><code>protos/core/</code> - 节点间及节点内部各个模块间通信的数据结构<ul>
 <li><code>Discover.proto</code> - 节点发现相关的数据结构</li>
 <li><code>TronInventoryItems.proto</code> - 节点间区块传输相关数据结构</li>
@@ -382,7 +382,7 @@
 </li>
 <li>
 <p><code>db/</code> 和 <code>db2/</code> </p>
-<p>实现了可回退数据库，其中包含了两种可回退数据库：位于<code>db/</code>目录下<code>AbstractRevokingStore</code>和位于<code>db2/</code> 目录下<code>SnapshotManager</code>。<code>SnapshotManager</code>相比与<code>AbstractRevokingStore</code>，数据回退更稳定，并支持底层数据库的扩展，因此Java-tron采用<code>SnapshotManager</code>可回退数据库，其中的几个重要接口及实现类如下：</p>
+<p>实现了可回退数据库，其中包含了两种可回退数据库：位于<code>db/</code>目录下<code>AbstractRevokingStore</code>和位于<code>db2/</code> 目录下<code>SnapshotManager</code>。<code>SnapshotManager</code>相比与<code>AbstractRevokingStore</code>，数据回退更稳定，并支持底层数据库的扩展，因此java-tron采用<code>SnapshotManager</code>可回退数据库，其中的几个重要接口及实现类如下：</p>
 <ul>
 <li><code>RevokingDatabase.java</code> 是数据库容器的接口，用于所有可回退数据库的管理，<code>SnapshotManager</code> 是该接口的一个实现</li>
 <li><code>TronStoreWithRevoking.java</code> 是支持可回退的数据库的基类，所有的可回退数据库都是它的具体实现，比如<code>BlockStore</code>，<code>TransactionStore</code>等</li>
@@ -411,9 +411,9 @@
 <li><code>validBlock</code> - 定义验证区块的共识逻辑</li>
 <li><code>applyBlock</code> - 定义处理区块的共识逻辑</li>
 </ol>
-<p>目前Java-tron基于 ConsensusInterface 接口实现了DPOS共识和PBFT共识，分别位于<code>dpos/</code>和<code>pbft/</code>目录下，开发者也可以根据自身业务需求实现 ConsensusInterface 接口，来自定义共识机制。</p>
+<p>目前java-tron基于 ConsensusInterface 接口实现了DPOS共识和PBFT共识，分别位于<code>dpos/</code>和<code>pbft/</code>目录下，开发者也可以根据自身业务需求实现 ConsensusInterface 接口，来自定义共识机制。</p>
 <h3 id="actuator">actuator<a class="headerlink" href="#actuator" title="Permanent link">&para;</a></h3>
-<p>以太坊初创性的引入了虚拟机并定义了智能合约这种开发方式，但对于一些复杂的应用，智能合约不够灵活且受限于性能，这也是 Java-tron 提供创建应用链的一个原因。为此 Java-tron 独立出来了 actuator 模块，该模块为应用开发者提供一种新的开发范式：可以将应用代码直接植入链中而不再将应用代码跑在虚拟机中。</p>
+<p>以太坊初创性的引入了虚拟机并定义了智能合约这种开发方式，但对于一些复杂的应用，智能合约不够灵活且受限于性能，这也是 java-tron 提供创建应用链的一个原因。为此 java-tron 独立出来了 actuator 模块，该模块为应用开发者提供一种新的开发范式：可以将应用代码直接植入链中而不再将应用代码跑在虚拟机中。</p>
 <p>actuator是交易的执行器，可以将应用看成是不同交易类型组成的交易集，每类交易都由对应的 actuator 负责执行。</p>
 <p><a href="https://github.com/tronprotocol/java-tron/tree/develop/actuator">actuator</a> 模块的代码路径为<code>https://github.com/tronprotocol/java-tron/tree/develop/actuator</code>，其目录结构如下：
 <div class="highlight"><pre><span></span><code>|-- actuator/src/main/java/org/tron/core
@@ -439,7 +439,7 @@
 * <code>calcFee</code> - 定义交易手续费计算逻辑</p>
 <p>开发者也可以根据自身业务实现 Actuator 接口，来实现自定义交易类型的处理。</p>
 <h3 id="crypto">crypto<a class="headerlink" href="#crypto" title="Permanent link">&para;</a></h3>
-<p>crypto是一个相对独立的模块，但也是非常重要的模块，Java-tron中的数据安全几乎全由该模块来保证，目前支持SM2和ECKey加密算法。</p>
+<p>crypto是一个相对独立的模块，但也是非常重要的模块，java-tron中的数据安全几乎全由该模块来保证，目前支持SM2和ECKey加密算法。</p>
 <p><a href="https://github.com/tronprotocol/java-tron/tree/develop/crypto">crypto</a>模块的路径为<code>https://github.com/tronprotocol/java-tron/tree/develop/crypto</code>，其目录结构如下：
 <div class="highlight"><pre><span></span><code>|-- crypto/src/main/java/org/tron/common/crypto
     |-- Blake2bfMessageDigest.java
@@ -498,14 +498,14 @@
 <li><code>core/db/Manager.java</code> - 交易及区块校验并处理逻辑</li>
 </ul>
 <h3 id="_2">总结<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
-<p>本文主要介绍了Java-tron的代码结构，以及各个功能模块的作用、位置及目录结构，通过本文您会对Java-tron的整体结构及关键接口有了大致的了解，方便后续的代码分析和开发。</p>
+<p>本文主要介绍了java-tron的代码结构，以及各个功能模块的作用、位置及目录结构，通过本文您会对java-tron的整体结构及关键接口有了大致的了解，方便后续的代码分析和开发。</p>
 <h2 id="chainbase_1">ChainBase<a class="headerlink" href="#chainbase_1" title="Permanent link">&para;</a></h2>
 <h3 id="_3">概览<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
 <p>众所周知区块链本质上是一个不可篡改的分布式账本，非常适合解决信任的问题，现实中往往利用区块链来进行记账和交易，比如很多应用采用 BTC、ETH、TRX 等数字货币来进行经济活动以保证资金的公开透明。</p>
 <p>而实现这样一个不可篡改的分布式账本是一个非常复杂的系统工程，涉及到很多技术领域：比如 p2p 网络、智能合约、数据库、密码学、共识机制等。其中数据库作为底层存储的基础，各个区块链团队都在探索数据库层面的设计与优化。</p>
-<p>Java-tron 的数据库模块也称为ChainBase 模块，本文主要介绍一些背景知识，并通过介绍交易处理、状态回滚、数据持久化等逻辑为开发者展现ChainBase 模块的实现细节。</p>
+<p>java-tron 的数据库模块也称为ChainBase 模块，本文主要介绍一些背景知识，并通过介绍交易处理、状态回滚、数据持久化等逻辑为开发者展现ChainBase 模块的实现细节。</p>
 <h3 id="_4">预备知识<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
-<p>数据库是区块链系统中重要的一环，它存储了区块链上的所有数据，是区块链系统正常运行的基础，每个全节点都保存了一份全量的数据，包含区块数据和状态数据，Java-tron 采用 Account 模型来保存用户的账户状态。</p>
+<p>数据库是区块链系统中重要的一环，它存储了区块链上的所有数据，是区块链系统正常运行的基础，每个全节点都保存了一份全量的数据，包含区块数据和状态数据，java-tron 采用 Account 模型来保存用户的账户状态。</p>
 <h4 id="_5">账户模型<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h4>
 <p>目前主流的账户模型有两种：</p>
 <ul>
@@ -582,7 +582,7 @@
 <p><img alt="image" src="https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/chainbase_5.png" /></p>
 <p>回滚时需要将pendingTransactionQueue中的交易挪至rePushTransactions，并清空pendingTransactionQueue，详细解释看图。</p>
 <p>为什么新的区块到来后需要清空pendingTransactionQueue？首先明确一点，pendingTransactionQueue队列负责在生成区块时提供交易数据，也就是说存放的是验证过的可以直接打包进区块的交易，但是因为新的区块也会对账户状态进行变更，可能pendingTransactionQueue里面之前验证没问题的交易在apply新的区块后验证不通过（最简单的例子：新区块某笔交易是账户A花费了一部分token，导致账户A在队列中的某笔交易金额不够支付了）。将交易挪至rePushTransactions后会有后台线程专门负责对该队列中的交易再次验证，如果没有问题就再次放进pendingTransactionQueue，为产生区块提供数据。</p>
-<p>Java-tron中存在一个session对象，一个session表示的是一个区块对状态的变更，session对象主要用来回滚，比如将状态回滚到上一个区块的状态都需要通过session来操作，如下图所示：</p>
+<p>java-tron中存在一个session对象，一个session表示的是一个区块对状态的变更，session对象主要用来回滚，比如将状态回滚到上一个区块的状态都需要通过session来操作，如下图所示：</p>
 <p><img alt="image" src="https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/chainbase_6.png" /></p>
 <p>上图图中能看到持久化存储中有很多不同类型的数据库，就是这些数据共同组织成一个完整的区块链，比如区块存储在 khasodb 和 blockStore 中，账户信息存储在 accountStore 中....</p>
 <p>节点维护了一个 session 链表，该链表存储的是区块/交易对应的变更信息，节点可以通过这些变更信息进行回退。上图中 session1 是当前最高区块的对状态的变更，当次接收到一个交易后会产生一个新的 session2 ，后续接收一个交易都会产生一个临时的tmpSession，该交易验证后，tmpSession立马合并到session2中，再次接受到一个新区块之前，所有的交易验证产生的状态变更都会保存在 session2 中，当有新区块到来时，直接执行 session2 的 reset 方法即可将状态回滚到上个区块。</p>
@@ -604,10 +604,10 @@
 <p>SnapshotManager 中存在两个变量：size 和 maxSize，size 此处我们简单理解为目前内存中有多少层 snapshotImpl，maxSIze 则表示目前固化块和最新块高度的差值。</p>
 <p>这样就很明显了，如果 size &gt; maxSize，那么说明最开始的 size-maxSize 层的snapshotImpl 对应的区块已经是固化块了，它们可以落盘了，然后会将应该落盘的 snapshotImpl 合并到持久化存储中，这样来确保 snapshotImpl 不会占用过多的内存，而且也保证了固化块能够被及时的持久化存储下来。</p>
 <h4 id="_19">数据库原子性<a class="headerlink" href="#_19" title="Permanent link">&para;</a></h4>
-<p>Java-tron 的数据库存储与其他公链略有区别，例如以太坊持久化层只采用了一个数据库实例，以太坊中的不同类型的数据用前缀加以区分，存储在一个数据库实例中。而 java-tron 目前则将不同业务类型的数据存放在各自的数据库实例中。</p>
+<p>java-tron 的数据库存储与其他公链略有区别，例如以太坊持久化层只采用了一个数据库实例，以太坊中的不同类型的数据用前缀加以区分，存储在一个数据库实例中。而 java-tron 目前则将不同业务类型的数据存放在各自的数据库实例中。</p>
 <p>两者实现方式各有千秋，单实例方便维护，能够统一写入，但缺点也较明显，比如随着时间推移单库数据量不断增长，某些业务数据库的频繁访问可能会拖累其他业务的读写性能。</p>
 <p>多实例则不存在各个业务数据读写相互影响的问题，且可以根据各自的数据量与性能要求配置不同的参数，达到性能最大化，还可以将数据量较大的库独立拆分出去，以缓解数据膨胀问题。但多数据库实例存在一个严重的问题：并没有原生工具支持多数据库实例之间的原子写入。</p>
-<p>Java-tron 为了保证数据库多实例的原子写入，新增了 checkpoint 机制，在多实例落盘前将变更的数据统一写入 checkpoint，若多个数据库实例在写入时发生意外，服务重启时从 checkpoint 中将变更的数据统一恢复，保证写入的原子性。</p>
+<p>java-tron 为了保证数据库多实例的原子写入，新增了 checkpoint 机制，在多实例落盘前将变更的数据统一写入 checkpoint，若多个数据库实例在写入时发生意外，服务重启时从 checkpoint 中将变更的数据统一恢复，保证写入的原子性。</p>
 <p>上一节中固化块的 snapshotImpl 写入数据库的过程主要包含了两步：</p>
 <ol>
 <li>创建 checkpoint</li>

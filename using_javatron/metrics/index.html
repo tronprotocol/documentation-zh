@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://tronprotocol.github.io/documentation-zh/using_javatron/metrics/" />
       <link rel="shortcut icon" href="../../img/favicon.ico" />
-    <title>节点监控 - Java Tron</title>
+    <title>节点监控 - java-tron</title>
     <link rel="stylesheet" href="../../css/theme.css" />
     <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
@@ -31,7 +31,7 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
     <div class="wy-side-scroll">
       <div class="wy-side-nav-search">
-          <a href="../.." class="icon icon-home"> Java Tron
+          <a href="../.." class="icon icon-home"> java-tron
         </a><div role="search">
   <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
       <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
@@ -42,12 +42,12 @@
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption"><span class="caption-text">入门</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../../getting_started/getting_started_with_javatron/">Java-tron入门</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../../getting_started/getting_started_with_javatron/">java-tron入门</a>
                   </li>
               </ul>
-              <p class="caption"><span class="caption-text">使用Java-tron</span></p>
+              <p class="caption"><span class="caption-text">使用java-tron</span></p>
               <ul class="current">
-                  <li class="toctree-l1"><a class="reference internal" href="../installing_javatron/">部署Java-tron</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../installing_javatron/">部署java-tron</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../backup_restore/">备份和恢复</a>
                   </li>
@@ -63,9 +63,9 @@
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="./">节点监控</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#java-tron_1">配置Java-tron</a>
+    <li class="toctree-l2"><a class="reference internal" href="#java-tron_1">配置java-tron</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#java-tron_2">启动Java-tron节点</a>
+    <li class="toctree-l2"><a class="reference internal" href="#java-tron_2">启动java-tron节点</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#prometheus">部署Prometheus服务</a>
     </li>
@@ -151,14 +151,14 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
       <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../..">Java Tron</a>
+          <a href="../..">java-tron</a>
         
       </nav>
       <div class="wy-nav-content">
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="../.." class="icon icon-home" alt="Docs"></a> &raquo;</li>
-          <li>使用Java-tron &raquo;</li><li>节点监控</li>
+          <li>使用java-tron &raquo;</li><li>节点监控</li>
     <li class="wy-breadcrumbs-aside">
         <a href="https://github.com/tronprotocol/documentation-zh/edit/master/docs/using_javatron/metrics.md"
           class="icon icon-github"> Edit on GitHub</a>
@@ -170,10 +170,10 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="java-tron">Java-tron节点指标监控<a class="headerlink" href="#java-tron" title="Permanent link">&para;</a></h1>
-<p>从GreatVoyage-4.5.1(Tertullian)版本开始，节点提供了一系列兼容prometheus协议的接口，使节点部署者可以更方便的监控节点的健康状态。如果您想要监控节点的各项指标，则首先需要部署一个prometheus服务，用于与Java-tron节点通信，通过节点接口获取到节点各项指标数据。然后还需要部署一个可视化工具，如Grafana，用于将prometheus获取到的节点数据，以图像化界面的形式展示出来。下面将详细介绍Java-tron节点监控系统的搭建流程。</p>
-<h2 id="java-tron_1">配置Java-tron<a class="headerlink" href="#java-tron_1" title="Permanent link">&para;</a></h2>
-<p>如需使用Prometheus工具监控Java-tron节点的运行情况，首先需要在节点配置文件中开启prometheus指标监控，并设置http端口号：
+                <h1 id="java-tron">java-tron节点指标监控<a class="headerlink" href="#java-tron" title="Permanent link">&para;</a></h1>
+<p>从GreatVoyage-4.5.1(Tertullian)版本开始，节点提供了一系列兼容prometheus协议的接口，使节点部署者可以更方便的监控节点的健康状态。如果您想要监控节点的各项指标，则首先需要部署一个prometheus服务，用于与java-tron节点通信，通过节点接口获取到节点各项指标数据。然后还需要部署一个可视化工具，如Grafana，用于将prometheus获取到的节点数据，以图像化界面的形式展示出来。下面将详细介绍java-tron节点监控系统的搭建流程。</p>
+<h2 id="java-tron_1">配置java-tron<a class="headerlink" href="#java-tron_1" title="Permanent link">&para;</a></h2>
+<p>如需使用Prometheus工具监控java-tron节点的运行情况，首先需要在节点配置文件中开启prometheus指标监控，并设置http端口号：
 <div class="highlight"><pre><span></span><code>node {
   ... ...
   p2p {
@@ -189,8 +189,8 @@
  ####### add for prometheus end.
 }
 </code></pre></div></p>
-<h2 id="java-tron_2">启动Java-tron节点<a class="headerlink" href="#java-tron_2" title="Permanent link">&para;</a></h2>
-<p>您可以通过如下命令启动Java-tron节点：
+<h2 id="java-tron_2">启动java-tron节点<a class="headerlink" href="#java-tron_2" title="Permanent link">&para;</a></h2>
+<p>您可以通过如下命令启动java-tron节点：
 <div class="highlight"><pre><span></span><code>$ java -Xmx24g -XX:+UseConcMarkSweepGC -jar FullNode.jar -c main_net_config.conf
 </code></pre></div></p>
 <h2 id="prometheus">部署Prometheus服务<a class="headerlink" href="#prometheus" title="Permanent link">&para;</a></h2>
@@ -229,7 +229,7 @@
 <span class="w">      </span><span class="nt">group</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">group-xxx</span>
 <span class="w">      </span><span class="nt">instance</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">xxx-02</span>
 </code></pre></div>
-您可以使用此模板，然后修改配置项 <code>targets</code> ，它用于配置Java-tron节点所在机器的ip和prometheus端口，如您部署了多个节点，可以通过配置多个 <code>targets</code>，来实现对多个节点的监控。</p>
+您可以使用此模板，然后修改配置项 <code>targets</code> ，它用于配置java-tron节点所在机器的ip和prometheus端口，如您部署了多个节点，可以通过配置多个 <code>targets</code>，来实现对多个节点的监控。</p>
 </li>
 <li>
 <p>启动一个Prometheus容器</p>
@@ -242,10 +242,10 @@
 <p>容器启动后,您可以通过<code>http://localhost:9090/</code>查看prometheus服务的运行情况。</p>
 <p>点击"Status"-&gt; "Configuration"，查看容器使用的配置文件是否正确：
 <img alt="image" src="https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/metrics_config.png" /></p>
-<p>点击"Status"-&gt; "Targets"，查看各个监控的Java-tron节点状态：
+<p>点击"Status"-&gt; "Targets"，查看各个监控的java-tron节点状态：
 <img alt="image" src="https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/metrics_targets.png" /></p>
 <p>比如这个示例中，第一个endpoint，状态为<code>UP</code>，表示Prometheus可以正常的抓取该节点的数据。而第二个endpoint，状态为<code>DOWN</code>，表示异常，具体参考"Error"中的描述。</p>
-<p>当监控的Java-tron节点的状态都正常后，您就可以通过Grafana或Promdash等可视化工具监控指标数据了，本文将通过grafana来展示数据。</p>
+<p>当监控的java-tron节点的状态都正常后，您就可以通过Grafana或Promdash等可视化工具监控指标数据了，本文将通过grafana来展示数据。</p>
 </li>
 </ol>
 <h2 id="grafana">部署Grafana<a class="headerlink" href="#grafana" title="Permanent link">&para;</a></h2>
@@ -273,7 +273,7 @@
 </li>
 <li>
 <p>导入Dashboard</p>
-<p>Grafana的仪表盘需要配置，为了方便Java-tron节点部署者，TRON社区提供了一个较全面的仪表盘配置文件，您可以直接在Grafana dashboard中下载Java-tron仪表盘配置文件 <a href="https://grafana.com/grafana/dashboards/16567">java-tron-template_rev1.json</a>，然后导入到Grafana。</p>
+<p>Grafana的仪表盘需要配置，为了方便java-tron节点部署者，TRON社区提供了一个较全面的仪表盘配置文件，您可以直接在Grafana dashboard中下载java-tron仪表盘配置文件 <a href="https://grafana.com/grafana/dashboards/16567">java-tron-template_rev1.json</a>，然后导入到Grafana。</p>
 <p>点击左侧的Dashboards图标，然后选择"+Import"，然后点击"Upload JSON file"导入已下载的仪表盘配置文件：</p>
 <p><img alt="image" src="https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/metrics_import.png" /></p>
 <p>然后您就可以在仪表盘界面看到如下种类的监控信息，并实时监控节点的运行情况了：</p>

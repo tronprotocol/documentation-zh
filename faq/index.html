@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://tronprotocol.github.io/documentation-zh/faq/" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>波场 FAQ - Java Tron</title>
+    <title>波场 FAQ - java-tron</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
@@ -31,7 +31,7 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
     <div class="wy-side-scroll">
       <div class="wy-side-nav-search">
-          <a href=".." class="icon icon-home"> Java Tron
+          <a href=".." class="icon icon-home"> java-tron
         </a><div role="search">
   <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
       <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
@@ -42,12 +42,12 @@
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption"><span class="caption-text">入门</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../getting_started/getting_started_with_javatron/">Java-tron入门</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../getting_started/getting_started_with_javatron/">java-tron入门</a>
                   </li>
               </ul>
-              <p class="caption"><span class="caption-text">使用Java-tron</span></p>
+              <p class="caption"><span class="caption-text">使用java-tron</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../using_javatron/installing_javatron/">部署Java-tron</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../using_javatron/installing_javatron/">部署java-tron</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../using_javatron/backup_restore/">备份和恢复</a>
                   </li>
@@ -141,7 +141,7 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
       <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="..">Java Tron</a>
+          <a href="..">java-tron</a>
         
       </nav>
       <div class="wy-nav-content">
@@ -338,7 +338,7 @@
 <h3 id="java-tron">java-tron 编译时单元测试没有通过<a class="headerlink" href="#java-tron" title="Permanent link">&para;</a></h3>
 <p>可以用 <code>./gradlew build -x test</code> 命令忽略单元测试。对报错有疑惑，欢迎在 Github 项目提出 Issue.</p>
 <h3 id="_20">如何测试部署是否正常？<a class="headerlink" href="#_20" title="Permanent link">&para;</a></h3>
-<p>Java-tron 没有默认的接口。一旦服务器开始运行，就能够发送 grpc 命令，基于这一点，有几种检验部署是否成功的方法。</p>
+<p>java-tron 没有默认的接口。一旦服务器开始运行，就能够发送 grpc 命令，基于这一点，有几种检验部署是否成功的方法。</p>
 <ul>
 <li>查看日志，确认是否区块同步，或有在出块</li>
 <li>检查 18888/tcp, 18888/udp 端口流量</li>
@@ -468,7 +468,7 @@
 <p>节点有钱包的 RPC 接口，不能直接用命令行调用钱包功能，可以用 <a href="https://github.com/tronprotocol/wallet-cli">wallet-cli</a>
 里的命令行钱包使用 FullNode 的钱包功能。</p>
 <h3 id="_30">为什么我的服务器上区块处理时间非常久？<a class="headerlink" href="#_30" title="Permanent link">&para;</a></h3>
-<p>Java-tron 运行时需要更多的内存来处理交易。</p>
+<p>java-tron 运行时需要更多的内存来处理交易。</p>
 <h3 id="not-sync">Not sync 错误信息表达了什么意思？<a class="headerlink" href="#not-sync" title="Permanent link">&para;</a></h3>
 <p>出现日志</p>
 <div class="highlight"><pre><span></span><code>17:02:42.699 INFO [o.t.c.s.WitnessService] Try Produce Block
