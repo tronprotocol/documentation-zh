@@ -27,7 +27,7 @@ nav:
         - 系统合约: mechanism-algorithm/system-contracts.md
         - 去中心化交易所: mechanism-algorithm/dex.md
         - 账户权限管理: mechanism-algorithm/multi-signatures.md
-    - Java-tron开发: 
+    - java-tron开发: 
         - 开发者指南: developers/java-tron.md
         - TIPs工作流程: developers/tips.md
         - Issue工作流程: developers/issue-workflow.md
