@@ -5,14 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://tronprotocol.github.io/documentation-zh/contracts/tvm/" />
       <link rel="shortcut icon" href="../../img/favicon.ico" />
-    <title>Tron虚拟机TVM - Java Tron</title>
+    <title>TRON虚拟机TVM - java-tron</title>
     <link rel="stylesheet" href="../../css/theme.css" />
     <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Tron\u865a\u62df\u673aTVM";
+        var mkdocs_page_name = "TRON\u865a\u62df\u673aTVM";
         var mkdocs_page_input_path = "contracts/tvm.md";
         var mkdocs_page_url = "/documentation-zh/contracts/tvm/";
       </script>
@@ -31,7 +31,7 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
     <div class="wy-side-scroll">
       <div class="wy-side-nav-search">
-          <a href="../.." class="icon icon-home"> Java Tron
+          <a href="../.." class="icon icon-home"> java-tron
         </a><div role="search">
   <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
       <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
@@ -42,12 +42,12 @@
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption"><span class="caption-text">入门</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../../getting_started/getting_started_with_javatron/">Java-tron入门</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../../getting_started/getting_started_with_javatron/">java-tron入门</a>
                   </li>
               </ul>
-              <p class="caption"><span class="caption-text">使用Java-tron</span></p>
+              <p class="caption"><span class="caption-text">使用java-tron</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../../using_javatron/installing_javatron/">部署Java-tron</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../../using_javatron/installing_javatron/">部署java-tron</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../../using_javatron/backup_restore/">备份和恢复</a>
                   </li>
@@ -141,13 +141,13 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
       <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../..">Java Tron</a>
+          <a href="../..">java-tron</a>
         
       </nav>
       <div class="wy-nav-content">
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
-    <li><a href="../.." class="icon icon-home" alt="Docs"></a> &raquo;</li><li>Tron虚拟机TVM</li>
+    <li><a href="../.." class="icon icon-home" alt="Docs"></a> &raquo;</li><li>TRON虚拟机TVM</li>
     <li class="wy-breadcrumbs-aside">
         <a href="https://github.com/tronprotocol/documentation-zh/edit/master/docs/contracts/tvm.md"
           class="icon icon-github"> Edit on GitHub</a>
@@ -159,10 +159,10 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="trontvm">Tron虚拟机TVM<a class="headerlink" href="#trontvm" title="Permanent link">&para;</a></h1>
-<p>波场虚拟机（Tron Virtual Machine， 简称TVM），是Tron团队为了满足自身生态发展的需求，开发出的轻量级架构、图灵完备的虚拟机， 旨在为全球百万级的开发者提供一个高效、简单、稳定、安全、且容易优化的区块链专用系统。</p>
-<p>TVM能无缝对接现有的开发者生态，并且能满足DPOS共识机制的要求。TVM前期兼容以太坊虚拟机环境。开发者无需学习新的编程语言，就能用 Solidity 等编程语言在熟悉的 Remix 环境中进行智能合约的开发、调试、编译。Tron智能合约编写完毕后，上传到Tron主网当中，在超级代表节点的TVM虚拟机执行，同时保持了对虚拟机外系统环境的隔离性。</p>
-<p>此外，TVM 引进了带宽的概念。不同于以太坊EVM的gas消耗模式，Tron系统中的转账和智能合约的操作是免费的，不需要消耗任何代币，所以原则上在TVM中可执行的计算总量不受代币总量限制。</p>
+                <h1 id="trontvm">TRON虚拟机TVM<a class="headerlink" href="#trontvm" title="Permanent link">&para;</a></h1>
+<p>波场虚拟机（TRON Virtual Machine， 简称TVM），是TRON团队为了满足自身生态发展的需求，开发出的轻量级架构、图灵完备的虚拟机， 旨在为全球百万级的开发者提供一个高效、简单、稳定、安全、且容易优化的区块链专用系统。</p>
+<p>TVM能无缝对接现有的开发者生态，并且能满足DPOS共识机制的要求。TVM前期兼容以太坊虚拟机环境。开发者无需学习新的编程语言，就能用 Solidity 等编程语言在熟悉的 Remix 环境中进行智能合约的开发、调试、编译。TRON智能合约编写完毕后，上传到TRON主网当中，在超级代表节点的TVM虚拟机执行，同时保持了对虚拟机外系统环境的隔离性。</p>
+<p>此外，TVM 引进了带宽的概念。不同于以太坊EVM的gas消耗模式，TRON系统中的转账和智能合约的操作是免费的，不需要消耗任何代币，所以原则上在TVM中可执行的计算总量不受代币总量限制。</p>
 <h2 id="tvm">TVM设计原则<a class="headerlink" href="#tvm" title="Permanent link">&para;</a></h2>
 <ol>
 <li>
@@ -182,7 +182,7 @@
 <p>TVM的带宽消耗模式减少了合约的开发成本。让开发者可以把更多精力放在合约代码的逻辑本身。同时，TVM提供了对开发者友好的一站式的部署、触发、查看智能合约的接口。</p>
 </li>
 </ol>
-<p>Tron Wallet-CLI中添加了以下对接接口，</p>
+<p>TRON Wallet-CLI中添加了以下对接接口，</p>
 <ul>
 <li>deploycontract(password, contractAddress, ABI, code, data, value)</li>
 <li>triggercontract(password, contractAddress, selector, data, value)</li>
@@ -190,12 +190,12 @@
 </ul>
 <p>开发人员可直接调用，完成对智能合约的部署，触发，查看。</p>
 <h2 id="tvm_1">TVM的运行过程<a class="headerlink" href="#tvm_1" title="Permanent link">&para;</a></h2>
-<p><img alt="Tron Virtual Machine的工作流程" src="https://raw.githubusercontent.com/tronprotocol/Documentation/master/images/Virtual_Machine/虚拟机.png" /></p>
-<p>这张图整体描述了Tron Virtual Machine的工作流程：
-Tron智能合约的编译 ---&gt; 虚拟机的执行、计算引擎  ----&gt;虚拟机对外的互操作层</p>
+<p><img alt="TRON Virtual Machine的工作流程" src="https://raw.githubusercontent.com/tronprotocol/Documentation/master/images/Virtual_Machine/虚拟机.png" /></p>
+<p>这张图整体描述了TRON Virtual Machine的工作流程：
+TRON智能合约的编译 ---&gt; 虚拟机的执行、计算引擎  ----&gt;虚拟机对外的互操作层</p>
 <p>简单来说，上面的流程依次是：</p>
 <ol>
-<li>目前Tron虚拟机主要兼容Solidity。编译器将Solidity智能合约翻译成TVM可以识别并执行的字节码。</li>
+<li>目前TRON虚拟机主要兼容Solidity。编译器将Solidity智能合约翻译成TVM可以识别并执行的字节码。</li>
 <li>在虚拟机中，通过一条条的操作指令码实现对虚拟机栈中数据的操作处理，这个过程相当于实现对一个基于堆栈的有限状态机的逻辑处理。</li>
 <li>虚拟机通过互操作模块实现对区块链数据的访问，以及对外部数据的接口层的调用。</li>
 </ol>
@@ -203,16 +203,16 @@ Tron智能合约的编译 ---&gt; 虚拟机的执行、计算引擎  ----&gt;�
 <ol>
 <li>
 <p>构建更加友好的调试工具</p>
-<p>Tron团队将努力构建完善的调试工具，建立用于调试的标准符号格式或是数据格式。提升开发者在TVM的开发、调试效率。</p>
+<p>TRON团队将努力构建完善的调试工具，建立用于调试的标准符号格式或是数据格式。提升开发者在TVM的开发、调试效率。</p>
 </li>
 <li>
 <p>满足更加多样化的任务处理需求</p>
-<p>和以太坊上每个操作消耗gas不同，<del>Tron虚拟机对业务的处理并不收费</del>，每个操作只是先占据带宽，并且在交易后的一段时间后释放。开发者们只用相当小的成本 便可设计更加复杂逻辑的智能合约。我们深信，除了数字货币交易的应用场景外，未来的智能合约也能在游戏开发，金融市场风险建模，科学计算等领域发挥重要作用。Tron虚拟机的设计具有先天的满足多样化任务场景的能力，并且在对处理速度，响应时间，对浮点数的支持上作进一步的优化。</p>
+<p>和以太坊上每个操作消耗gas不同，<del>TRON虚拟机对业务的处理并不收费</del>，每个操作只是先占据带宽，并且在交易后的一段时间后释放。开发者们只用相当小的成本 便可设计更加复杂逻辑的智能合约。我们深信，除了数字货币交易的应用场景外，未来的智能合约也能在游戏开发，金融市场风险建模，科学计算等领域发挥重要作用。TRON虚拟机的设计具有先天的满足多样化任务场景的能力，并且在对处理速度，响应时间，对浮点数的支持上作进一步的优化。</p>
 </li>
 <li>
 <p>增加即时编译速度、整合WebAssembly。</p>
 <p>增加即时编译的速度能够对本地代码进行更优化地编译，更快速地解读运行代码。</p>
-<p>同时，Tron将考虑基于WebAssembly（简称WASM）进一步优化TVM虚拟机。WebAssembly 目前由 Apple、Google、 Microsoft和Mozilla牵头，为突破Web浏览器性能瓶颈而设计，并可由 C/C++ 等语言编译产生。WebAssembly应用在区块链场景上，可以提高基于Web的DApp的性能。实现整合了WASM的TVM，将会满足未来复杂业务场景对接区块链应用的高性能、高吞吐量要求。</p>
+<p>同时，TRON将考虑基于WebAssembly（简称WASM）进一步优化TVM虚拟机。WebAssembly 目前由 Apple、Google、 Microsoft和Mozilla牵头，为突破Web浏览器性能瓶颈而设计，并可由 C/C++ 等语言编译产生。WebAssembly应用在区块链场景上，可以提高基于Web的DApp的性能。实现整合了WASM的TVM，将会满足未来复杂业务场景对接区块链应用的高性能、高吞吐量要求。</p>
 </li>
 </ol>
               

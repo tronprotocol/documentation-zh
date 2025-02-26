@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://tronprotocol.github.io/documentation-zh/using_javatron/connecting_to_tron/" />
       <link rel="shortcut icon" href="../../img/favicon.ico" />
-    <title>网络配置 - Java Tron</title>
+    <title>网络配置 - java-tron</title>
     <link rel="stylesheet" href="../../css/theme.css" />
     <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
@@ -31,7 +31,7 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
     <div class="wy-side-scroll">
       <div class="wy-side-nav-search">
-          <a href="../.." class="icon icon-home"> Java Tron
+          <a href="../.." class="icon icon-home"> java-tron
         </a><div role="search">
   <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
       <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
@@ -42,12 +42,12 @@
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption"><span class="caption-text">入门</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../../getting_started/getting_started_with_javatron/">Java-tron入门</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../../getting_started/getting_started_with_javatron/">java-tron入门</a>
                   </li>
               </ul>
-              <p class="caption"><span class="caption-text">使用Java-tron</span></p>
+              <p class="caption"><span class="caption-text">使用java-tron</span></p>
               <ul class="current">
-                  <li class="toctree-l1"><a class="reference internal" href="../installing_javatron/">部署Java-tron</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../installing_javatron/">部署java-tron</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../backup_restore/">备份和恢复</a>
                   </li>
@@ -143,14 +143,14 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
       <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../..">Java Tron</a>
+          <a href="../..">java-tron</a>
         
       </nav>
       <div class="wy-nav-content">
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="../.." class="icon icon-home" alt="Docs"></a> &raquo;</li>
-          <li>使用Java-tron &raquo;</li><li>网络配置</li>
+          <li>使用java-tron &raquo;</li><li>网络配置</li>
     <li class="wy-breadcrumbs-aside">
         <a href="https://github.com/tronprotocol/documentation-zh/edit/master/docs/using_javatron/connecting_to_tron.md"
           class="icon icon-github"> Edit on GitHub</a>
@@ -163,8 +163,8 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="tron">连接到TRON网络<a class="headerlink" href="#tron" title="Permanent link">&para;</a></h1>
-<p>TRON网络主要分为主网，Shasta测试网，Nile测试网以及私网，因此对于Java-Tron客户端软件，可以通过对配置文件中配置项的修改使其连接到任意一个TRON网络中。目前Shasta测试网不支持运行一个节点加入其中，Nile测试网可以支持。</p>
-<p>您需要设置如下配置项，将Java-tron连接到其中一个TRON网络：</p>
+<p>TRON网络主要分为主网，Shasta测试网，Nile测试网以及私网，因此对于java-tron客户端软件，可以通过对配置文件中配置项的修改使其连接到任意一个TRON网络中。目前Shasta测试网不支持运行一个节点加入其中，Nile测试网可以支持。</p>
+<p>您需要设置如下配置项，将java-tron连接到其中一个TRON网络：</p>
 <ul>
 <li><code>node.p2p.version</code> ： 用来设置P2P网络id，只有网络id相同的节点才能握手成功。<ul>
 <li>TRON主网：<code>node.p2p.version=11111</code></li>
@@ -176,8 +176,8 @@
 <li><code>genesis.block</code>：创世块设置。如果想要加入一个网络中，必须保证创世块的设置与网络中其它节点的相同，否则无法加入到该网络。</li>
 </ul>
 <h1 id="_1">节点发现<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
-<p>Java-tron节点在有足够的对等节点之前会不断地尝试与网络上的其他节点建立连接，同时它也会接受来自其他节点的连接。Java-tron使用节点发现协议查找对等点。在发现协议中，节点间交换连接细节，然后建立会话，交换TRON网络数据。</p>
-<p>首先，如果需要Java-tron节点进行节点发现，那么要在节点配置文件中开启节点发现服务：</p>
+<p>java-tron节点在有足够的对等节点之前会不断地尝试与网络上的其他节点建立连接，同时它也会接受来自其他节点的连接。java-tron使用节点发现协议查找对等点。在发现协议中，节点间交换连接细节，然后建立会话，交换TRON网络数据。</p>
+<p>首先，如果需要java-tron节点进行节点发现，那么要在节点配置文件中开启节点发现服务：</p>
 <div class="highlight"><pre><span></span><code>node.discovery = {
   enable = true
   ...
@@ -224,7 +224,7 @@
 </code></pre></div>
 <p>在某些情况下，不需要开启节点发现进程，比如，运行一个本地测试节点或部署一个具有固定的一些节点的测试网络。这时可以通过将配置项设置成<code>node.discovery.enable = false</code>来关闭节点发现进程。</p>
 <h1 id="_2">连接问题<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h1>
-<p>有时Java-tron无法连接到对等节点，常见的原因有:</p>
+<p>有时java-tron无法连接到对等节点，常见的原因有:</p>
 <ul>
 <li>本地时钟错误。参与到TRON网络需要一个精确的时钟。可以使用<code>sudo ntpdate -s time.nist.gov</code> 命令重新同步本地时钟。</li>
 <li>某些防火墙配置可能会禁止UDP流量，而节点发现服务建立在UDP协议基础之上，因此可以通过配置<a href="#_5"><code>node.active</code></a>，在节点发现无效的情况下连接到网络。</li>
@@ -280,8 +280,8 @@
 <p>对于开发人员来说，他的节点有可能并不需要连接到TRON主网或者TRON公共测试网络，而是需要连接到私有测试网络，因为私链不但对机器配置没有要求，而且在私链网络的沙盒环境下，更容易测试各种功能，可以自由破坏而不需要承担任何后果。</p>
 <p>私链网络需要将<a href="https://github.com/tronprotocol/tron-deployment/blob/master/private_net_config.conf">私链配置文件</a>中的配置项<code>node.p2p.version</code>配置成一个没有被任何其他现有的公共网络（TRON主网，测试网）使用的值。有关私链搭建的详细说明请参考 <a href="../private_network/">私链网络</a>。</p>
 <h1 id="_5">主动连接与被动连接<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h1>
-<p>Java-tron支持设置其主动连接的节点<code>node.active</code>以及被动连接的节点<code>node.passive</code>。配置<code>node.active</code>和<code>node.passive</code>对改善节点的网络连接稳定性有很大的帮助。</p>
-<p>当Java-tron启动后，会主动与<code>node.active</code>中的对等节点建立连接。</p>
+<p>java-tron支持设置其主动连接的节点<code>node.active</code>以及被动连接的节点<code>node.passive</code>。配置<code>node.active</code>和<code>node.passive</code>对改善节点的网络连接稳定性有很大的帮助。</p>
+<p>当java-tron启动后，会主动与<code>node.active</code>中的对等节点建立连接。</p>
 <div class="highlight"><pre><span></span><code>node {
   active = [
     # Active establish connection in any case

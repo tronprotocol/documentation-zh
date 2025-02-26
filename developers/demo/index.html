@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://tronprotocol.github.io/documentation-zh/developers/demo/" />
       <link rel="shortcut icon" href="../../img/favicon.ico" />
-    <title>开发示例 - Java Tron</title>
+    <title>开发示例 - java-tron</title>
     <link rel="stylesheet" href="../../css/theme.css" />
     <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
@@ -31,7 +31,7 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
     <div class="wy-side-scroll">
       <div class="wy-side-nav-search">
-          <a href="../.." class="icon icon-home"> Java Tron
+          <a href="../.." class="icon icon-home"> java-tron
         </a><div role="search">
   <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
       <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
@@ -42,12 +42,12 @@
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption"><span class="caption-text">入门</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../../getting_started/getting_started_with_javatron/">Java-tron入门</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../../getting_started/getting_started_with_javatron/">java-tron入门</a>
                   </li>
               </ul>
-              <p class="caption"><span class="caption-text">使用Java-tron</span></p>
+              <p class="caption"><span class="caption-text">使用java-tron</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../../using_javatron/installing_javatron/">部署Java-tron</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../../using_javatron/installing_javatron/">部署java-tron</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../../using_javatron/backup_restore/">备份和恢复</a>
                   </li>
@@ -106,7 +106,7 @@
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="./">开发示例</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#fork-java-tron">Fork Java-tron代码仓库</a>
+    <li class="toctree-l2"><a class="reference internal" href="#fork-java-tron">Fork java-tron代码仓库</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#_2">同步仓库</a>
     </li>
@@ -116,7 +116,7 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#_5">编写单元测试</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#java-tron">Java-tron单元测试用例规范</a>
+    <li class="toctree-l3"><a class="reference internal" href="#java-tron">java-tron单元测试用例规范</a>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#_6">常用注解说明</a>
     </li>
@@ -167,7 +167,7 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
       <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../..">Java Tron</a>
+          <a href="../..">java-tron</a>
         
       </nav>
       <div class="wy-nav-content">
@@ -187,9 +187,9 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="_1">开发示例<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
-<p>本文将以新增一个<code>setPeer</code> HTTP接口为例说明如何参与Java-tron开发。在开发前，请先配置<a href="../run-in-idea">InteliJ IDE开发环境</a>。</p>
-<p>有时由于网络原因，Java-tron节点可能无法连接到对等节点，如果能在节点运行时添加信任节点，这将使节点可以在节点发现无法工作的的情况下也能连接到网络。</p>
-<h2 id="fork-java-tron">Fork Java-tron代码仓库<a class="headerlink" href="#fork-java-tron" title="Permanent link">&para;</a></h2>
+<p>本文将以新增一个<code>setPeer</code> HTTP接口为例说明如何参与java-tron开发。在开发前，请先配置<a href="../run-in-idea">InteliJ IDE开发环境</a>。</p>
+<p>有时由于网络原因，java-tron节点可能无法连接到对等节点，如果能在节点运行时添加信任节点，这将使节点可以在节点发现无法工作的的情况下也能连接到网络。</p>
+<h2 id="fork-java-tron">Fork java-tron代码仓库<a class="headerlink" href="#fork-java-tron" title="Permanent link">&para;</a></h2>
 <p>从 <a href="https://github.com/tronprotocol/java-tron">https://github.com/tronprotocol/java-tron</a> 项目中Fork一个新的repository到自己个人的代码仓库中，然后使用如下命令将代码克隆到本地:</p>
 <div class="highlight"><pre><span></span><code>$ git clone https://github.com/yourname/java-tron.git
 $ git remote add upstream https://github.com/tronprotocol/java-tron.git
@@ -205,7 +205,7 @@ $ git merge upstream/develop --no-ff
 <div class="highlight"><pre><span></span><code>$ git checkout -b feature/add-new-http-demo develop
 </code></pre></div>
 <h2 id="_4">代码实现<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
-<p>在IDEA中打开Java-tron工程。在<code>java-tron/framework/src/main/java/org/tron/core/services/http</code>目录下新建一个servlet用于处理HTTP请求：SetPeerServlet.java，该文件中应包含两个函数<code>doGet</code>和<code>doPost</code>。<code>doGet</code>用于处理http get请求，<code>doPost</code>用于处理http post请求。如果不支持其中某种类型的请求，方法内容为空即可。
+<p>在IDEA中打开java-tron工程。在<code>java-tron/framework/src/main/java/org/tron/core/services/http</code>目录下新建一个servlet用于处理HTTP请求：SetPeerServlet.java，该文件中应包含两个函数<code>doGet</code>和<code>doPost</code>。<code>doGet</code>用于处理http get请求，<code>doPost</code>用于处理http post请求。如果不支持其中某种类型的请求，方法内容为空即可。
 <div class="highlight"><pre><span></span><code><span class="nd">@Component</span>
 <span class="nd">@Slf4j</span><span class="p">(</span><span class="n">topic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;API&quot;</span><span class="p">)</span>
 <span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">SetPeerServlet</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">HttpServlet</span><span class="w"> </span><span class="p">{</span>
@@ -300,7 +300,7 @@ $ git merge upstream/develop --no-ff
 
 <span class="p">}</span>
 </code></pre></div>
-然后可以对以上代码进行调试，在IDEA中启动Java-tron节点，在终端中通过Curl命令访问节点：</p>
+然后可以对以上代码进行调试，在IDEA中启动java-tron节点，在终端中通过Curl命令访问节点：</p>
 <p><div class="highlight"><pre><span></span><code>$ curl --location --request POST &#39;http://127.0.0.1:16667/wallet/setpeer&#39; \
 --header &#39;Content-Type: application/json&#39; \
 --data-raw &#39;{
@@ -312,9 +312,9 @@ $ git merge upstream/develop --no-ff
 </code></pre></div>
 <p>至此，该功能的代码编写完成，然后需要针对改动编写单元测试。对于简单的改动，可以在开发代码完成之后，再编写单元测试，但对于较大的改动，建议在开发的同时编写单元测试。</p>
 <h2 id="_5">编写单元测试<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
-<p>Java-tron项目的单元测试基于JUnit框架，关于JUnit的用法请参考<a href="https://junit.org">JUnit官网</a>。下面简单介绍Java-tron单元测试用例规范和常用注解说明。</p>
-<h3 id="java-tron">Java-tron单元测试用例规范<a class="headerlink" href="#java-tron" title="Permanent link">&para;</a></h3>
-<p>编写Java-tron单元测试时，请遵守如下规范：</p>
+<p>java-tron项目的单元测试基于JUnit框架，关于JUnit的用法请参考<a href="https://junit.org">JUnit官网</a>。下面简单介绍java-tron单元测试用例规范和常用注解说明。</p>
+<h3 id="java-tron">java-tron单元测试用例规范<a class="headerlink" href="#java-tron" title="Permanent link">&para;</a></h3>
+<p>编写java-tron单元测试时，请遵守如下规范：</p>
 <ul>
 <li>所有测试类应放在test目录下，并且测试类的包应该和被测试代码包结构保持一致。一般使用 <code>Test</code> 作为类名的后缀</li>
 <li>测试方法必须使用 @Test 修饰，并且是public void类型，一般用 <code>test</code> 作为方法名的前缀</li>

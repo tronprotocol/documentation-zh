@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://tronprotocol.github.io/documentation-zh/releases/signature_verification/" />
       <link rel="shortcut icon" href="../../img/favicon.ico" />
-    <title>一致性检验 - Java Tron</title>
+    <title>一致性检验 - java-tron</title>
     <link rel="stylesheet" href="../../css/theme.css" />
     <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
@@ -31,7 +31,7 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
     <div class="wy-side-scroll">
       <div class="wy-side-nav-search">
-          <a href="../.." class="icon icon-home"> Java Tron
+          <a href="../.." class="icon icon-home"> java-tron
         </a><div role="search">
   <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
       <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
@@ -42,12 +42,12 @@
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption"><span class="caption-text">入门</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../../getting_started/getting_started_with_javatron/">Java-tron入门</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../../getting_started/getting_started_with_javatron/">java-tron入门</a>
                   </li>
               </ul>
-              <p class="caption"><span class="caption-text">使用Java-tron</span></p>
+              <p class="caption"><span class="caption-text">使用java-tron</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../../using_javatron/installing_javatron/">部署Java-tron</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../../using_javatron/installing_javatron/">部署java-tron</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../../using_javatron/backup_restore/">备份和恢复</a>
                   </li>
@@ -165,7 +165,7 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
       <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../..">Java Tron</a>
+          <a href="../..">java-tron</a>
         
       </nav>
       <div class="wy-nav-content">
@@ -184,15 +184,15 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="java-tron">Java-tron发布包签名校验<a class="headerlink" href="#java-tron" title="Permanent link">&para;</a></h1>
-<p>Java-tron签名校验就是通过签名验证来检查所获得的Java-tron可执行文件的可靠性及完整性。签名验证需要知道三个信息：要验证的可执行文件，文件的签名，以及为文件签名的私钥所对应的公钥。签名验证就是根据所获得的可执行文件的内容和签名，逆向推导出签名对应的公钥，然后与TRON发布的公钥进行比较，如果一致，说明您得到的Java-tron可执行文件是TRON发布的、完整的文件。</p>
-<p>2023年1月3日之后发布的Java-tron新版本采用GPG方式进行签名和验签，2023年1月3日之前发布的版本采用指定TRON账户的公私钥方式进行签名和验签。</p>
+                <h1 id="java-tron">java-tron发布包签名校验<a class="headerlink" href="#java-tron" title="Permanent link">&para;</a></h1>
+<p>java-tron签名校验就是通过签名验证来检查所获得的java-tron可执行文件的可靠性及完整性。签名验证需要知道三个信息：要验证的可执行文件，文件的签名，以及为文件签名的私钥所对应的公钥。签名验证就是根据所获得的可执行文件的内容和签名，逆向推导出签名对应的公钥，然后与TRON发布的公钥进行比较，如果一致，说明您得到的java-tron可执行文件是TRON发布的、完整的文件。</p>
+<p>2023年1月3日之后发布的java-tron新版本采用GPG方式进行签名和验签，2023年1月3日之前发布的版本采用指定TRON账户的公私钥方式进行签名和验签。</p>
 <ul>
 <li>2023年1月3号之后发布的版本： <a href="#gpg">GPG签名验证流程</a></li>
 <li>2023年1月3号之前发布的版本： <a href="#tron">TRON地址签名验证流程</a></li>
 </ul>
 <h2 id="gpg">GPG签名验证流程<a class="headerlink" href="#gpg" title="Permanent link">&para;</a></h2>
-<p>java-tron可执行文件及其签名文件一起发布，您可在<a href="https://github.com/tronprotocol/java-tron/releases">这里</a>获取，请按照如下流程进行2023年1月3日之后发布的Java-tron版本的签名验证。</p>
+<p>java-tron可执行文件及其签名文件一起发布，您可在<a href="https://github.com/tronprotocol/java-tron/releases">这里</a>获取，请按照如下流程进行2023年1月3日之后发布的java-tron版本的签名验证。</p>
 <h3 id="gpg_1">安装GPG<a class="headerlink" href="#gpg_1" title="Permanent link">&para;</a></h3>
 <p>如果已经安装了GPG，请跳过此步，如果没有安装过，请参照如下命令安装，在 MacOS 上:
 <div class="highlight"><pre><span></span><code>$ brew install gpg
@@ -202,7 +202,7 @@
 </code></pre></div></p>
 <h3 id="_1">导入公钥<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
 <p>如果您之前导入过公钥，请跳过此步骤，公钥导入一次即可。</p>
-<p>您先从<a href="https://github.com/tronprotocol/java-tron">这里</a>获取Java-tron 发布包GPG签名的公钥Hash和uid。
+<p>您先从<a href="https://github.com/tronprotocol/java-tron">这里</a>获取java-tron 发布包GPG签名的公钥Hash和uid。
 <div class="highlight"><pre><span></span><code>pub: 1254 F859 D2B1 BD9F 66E7 107D F859 BCB4 4A28 290B
 uid: build@tron.network
 </code></pre></div>
@@ -229,7 +229,7 @@ gpg:       没有证据表明此签名属于其声称的所有者。
 </code></pre></div>
 验证失败，则会显示<code>已损坏的签名，来自于 “build_tron &lt;build@tron.network&gt;”</code>字样。 </p>
 <h2 id="tron">TRON地址签名验证流程<a class="headerlink" href="#tron" title="Permanent link">&para;</a></h2>
-<p>2023年1月3号之前发布的Java-tron版本均是由 TRON 账户 <code>TKeAcHxgErbVXrG3N3TZiSV6AT566BHTj2</code> 对发布包进行签名。签名步骤为：首先为发布包的可执行文件生成sha256哈希值，然后使用该TRON账户的私钥对sha256哈希值进行签名。sha256哈希值可在<a href="#_6">历史版本签名信息</a>章节中查看，也可在<a href="https://github.com/tronprotocol/java-tron/releases">https://github.com/tronprotocol/java-tron/releases</a>页面查看；签名结果请在<a href="#_6">历史版本签名信息</a>章节中查看。</p>
+<p>2023年1月3号之前发布的java-tron版本均是由 TRON 账户 <code>TKeAcHxgErbVXrG3N3TZiSV6AT566BHTj2</code> 对发布包进行签名。签名步骤为：首先为发布包的可执行文件生成sha256哈希值，然后使用该TRON账户的私钥对sha256哈希值进行签名。sha256哈希值可在<a href="#_6">历史版本签名信息</a>章节中查看，也可在<a href="https://github.com/tronprotocol/java-tron/releases">https://github.com/tronprotocol/java-tron/releases</a>页面查看；签名结果请在<a href="#_6">历史版本签名信息</a>章节中查看。</p>
 <p><a href="https://developers.tron.network/docs/tronweb-1">tronweb</a>提供<code>Trx.verifySignature</code>接口来验证签名，验证通过则返回true，否则，返回false, 请按照如下流程进行验证。</p>
 <h3 id="tronweb">安装tronweb<a class="headerlink" href="#tronweb" title="Permanent link">&para;</a></h3>
 <p>如果已经安装了tronweb，请跳过此步，如果没有安装过，请参照如下命令安装

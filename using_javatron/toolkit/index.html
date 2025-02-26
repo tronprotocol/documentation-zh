@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://tronprotocol.github.io/documentation-zh/using_javatron/toolkit/" />
       <link rel="shortcut icon" href="../../img/favicon.ico" />
-    <title>节点维护工具 - Java Tron</title>
+    <title>节点维护工具 - java-tron</title>
     <link rel="stylesheet" href="../../css/theme.css" />
     <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
@@ -31,7 +31,7 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
     <div class="wy-side-scroll">
       <div class="wy-side-nav-search">
-          <a href="../.." class="icon icon-home"> Java Tron
+          <a href="../.." class="icon icon-home"> java-tron
         </a><div role="search">
   <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
       <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
@@ -42,12 +42,12 @@
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption"><span class="caption-text">入门</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../../getting_started/getting_started_with_javatron/">Java-tron入门</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../../getting_started/getting_started_with_javatron/">java-tron入门</a>
                   </li>
               </ul>
-              <p class="caption"><span class="caption-text">使用Java-tron</span></p>
+              <p class="caption"><span class="caption-text">使用java-tron</span></p>
               <ul class="current">
-                  <li class="toctree-l1"><a class="reference internal" href="../installing_javatron/">部署Java-tron</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../installing_javatron/">部署java-tron</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../backup_restore/">备份和恢复</a>
                   </li>
@@ -189,14 +189,14 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
       <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../..">Java Tron</a>
+          <a href="../..">java-tron</a>
         
       </nav>
       <div class="wy-nav-content">
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="../.." class="icon icon-home" alt="Docs"></a> &raquo;</li>
-          <li>使用Java-tron &raquo;</li><li>节点维护工具</li>
+          <li>使用java-tron &raquo;</li><li>节点维护工具</li>
     <li class="wy-breadcrumbs-aside">
         <a href="https://github.com/tronprotocol/documentation-zh/edit/master/docs/using_javatron/toolkit.md"
           class="icon icon-github"> Edit on GitHub</a>
@@ -208,7 +208,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="java-tron-toolkit">Java-tron节点维护工具 - Toolkit<a class="headerlink" href="#java-tron-toolkit" title="Permanent link">&para;</a></h1>
+                <h1 id="java-tron-toolkit">java-tron节点维护工具 - Toolkit<a class="headerlink" href="#java-tron-toolkit" title="Permanent link">&para;</a></h1>
 <p>Toolkit工具箱集成了一系列java-tron周边工具，未来还将向其增加更多的功能，以方便开发者使用。目前Toolkit包括的功能如下：</p>
 <ul>
 <li><a href="#_1">数据存储分区</a></li>
@@ -260,7 +260,7 @@ java -jar Toolkit.jar db mv -c main_net_config.conf -d /data/tron/output-directo
 <div class="highlight"><pre><span></span><code>$ ps -ef |grep FullNode.jar |grep -v grep |awk &#39;{print $2}&#39;`
 </code></pre></div></p>
 <h4 id="_4">数据库存储迁移配置<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h4>
-<p>数据库迁移的配置在Java-tron节点配置文件中的 <a href="https://github.com/tronprotocol/tron-deployment/blob/master/main_net_config.conf#L37">storage.properties</a> 字段。下面以只迁移<code>block</code> 和 <code>trans</code> 数据库为例，说明如何将部分数据库迁移到其它存储盘：</p>
+<p>数据库迁移的配置在java-tron节点配置文件中的 <a href="https://github.com/tronprotocol/tron-deployment/blob/master/main_net_config.conf#L37">storage.properties</a> 字段。下面以只迁移<code>block</code> 和 <code>trans</code> 数据库为例，说明如何将部分数据库迁移到其它存储盘：</p>
 <p><div class="highlight"><pre><span></span><code>storage {
  ......
   properties = [
@@ -283,7 +283,7 @@ java -jar Toolkit.jar db mv -c main_net_config.conf -d /data/tron/output-directo
 <div class="highlight"><pre><span></span><code>$<span class="w"> </span>java<span class="w"> </span>-jar<span class="w"> </span>Toolkit.jar<span class="w"> </span>db<span class="w"> </span>mv<span class="w"> </span>-c<span class="w"> </span>main_net_config.conf<span class="w"> </span>-d<span class="w"> </span>/data/tron/output-directory
 </code></pre></div>
 <h4 id="fullnode_1">重新启动 FullNode 服务<a class="headerlink" href="#fullnode_1" title="Permanent link">&para;</a></h4>
-<p>迁移完成后，重新启动Java-tron节点。
+<p>迁移完成后，重新启动java-tron节点。
 <div class="highlight"><pre><span></span><code># FullNode
 $ nohup java -Xms9G -Xmx9G -XX:ReservedCodeCacheSize=256m \
                 -XX:MetaspaceSize=256m -XX:MaxMetaspaceSize=512m \
