@@ -36,7 +36,7 @@ message Transaction {
   }
 }
 ```
-ContractType(合约类型)的定义可以在[这里](https://github.com/tronprotocol/java-tron/blob/master/protocol/src/main/protos/core/Tron.proto)查看。ContractType，也可以称为SystemContractType(系统合约类型)，是java-tron支持的交易类型。
+ContractType(合约类型)的定义可以在[这里](https://github.com/tronprotocol/java-tron/blob/master/protocol/src/main/protos/core/Tron.proto)查看。
 AccountPermissionUpdateContract类型的交易，用于更新账户权限。
 
 #### AccountPermissionUpdateContract
