@@ -27,7 +27,7 @@ nav:
         - 系统合约: mechanism-algorithm/system-contracts.md
         - 去中心化交易所: mechanism-algorithm/dex.md
         - 账户权限管理: mechanism-algorithm/multi-signatures.md
-    - Java-tron开发: 
+    - java-tron开发: 
         - 开发者指南: developers/java-tron.md
         - TIPs工作流程: developers/tips.md
         - Issue工作流程: developers/issue-workflow.md
@@ -66,3 +66,22 @@ markdown_extensions:
     - pymdownx.tilde
     - pymdownx.tasklist
     - pymdownx.superfences
+
+plugins:
+  - search
+  - exclude:
+      glob:
+        - clients/tron-grid.md
+        - contracts/trc20.md
+        - contracts/tvm.md
+        - developers/archive-manifest.md
+        - developers/contribution.md
+        - developers/gpg.md
+        - developers/incentives.md
+        - developers/resources.md
+        - faq/index.md
+        - introduction/index.md
+        - introduction/overview.md
+        - mechanism-algorithm/shielded-TRC20-contract.md
+        - mechanism-algorithm/trc10.md
+
