@@ -36,6 +36,7 @@ message Transaction {
   }
 }
 ```
+ContractType(合约类型)的定义可以在[这里](https://github.com/tronprotocol/java-tron/blob/master/protocol/src/main/protos/core/Tron.proto)查看。
 AccountPermissionUpdateContract类型的交易，用于更新账户权限。
 
 #### AccountPermissionUpdateContract
@@ -51,10 +52,10 @@ message AccountPermissionUpdateContract {
 
 * `owner_address`：待修改权限的账户的地址
 * `owner`：修改后的 owner 权限
-* `witness`：修改后的 witness 权限
+* `witness`：修改后的 witness 权限(仅限witness使用)
 * `actives`：修改后的 actives 权限
 
-注意：该接口是覆盖原账户权限，因此，如果只想修改owner权限，witness（如果是超级代表账户）及actives的也需要设置。
+注意：该接口是覆盖原账户权限，因此，如果只想修改owner权限，witness及actives的也需要设置。
 
 #### Permission
 
@@ -75,16 +76,17 @@ message Permission {
 }
 ```
 
-* `PermissionType`: 权限类型，目前仅支持三种权限
-* `id`: 值由系统自动设置，Owner id=0, Witness id=1, Active id 从2开始递增分配。在执行合约时，
-通过该id来指定使用哪个权限，如使用owner权限，即将id设置为0。
-* `permission_name`: 权限名称，由用户设定，长度限制为32字节
-* `threshold`: 阈值，只有当参与签名的权重之和超过域值才允许做相应的操作。要求小于Long类型的最大值
-* `parent_id`：目前只能为0
-* `operations`：共32字节（256位），每位代表一个合约的权限，为1时表示拥有该合约的权限。
-如`operations=0x0100...00(十六进制),即100...0(二进制)`时,查看proto中Transaction.ContractType定义，合约AccountCreateContract的id为0，
-即表示该permission只拥有执行AccountCreateContract的权限，可以使用"active权限中operations的计算示例"计算获得。
-* `keys`：共同拥有该权限的地址及权重，最多允许5个key。
+- `PermissionType`: 权限类型，目前仅支持三种权限
+- `id`: 值由系统自动设置，Owner id=0, Witness id=1, Active id 从2开始递增分配。在执行合约时，通过该id来指定使用哪个权限，如使用owner权限，即将id设置为0
+- `permission_name`: 权限名称，由用户设定，长度限制为32字节
+- `threshold`: 阈值，只有当参与签名的权重之和超过域值才允许做相应的操作
+- `parent_id`：目前只能为0
+- `operations`：active权限使用，一个十六进制编码序列（小端字节序），32字节（256位），每一位代表一个ContractType的权限。第n位表示ID为n的ContractType的权限，其值为1表示拥有执行该ContractType的权限，其值为0则表示没有该权限。
+    为了方便用户阅读，我们从二进制大端字节序开始说明如何计算operations的值。位数从0开始计数，从左到右对应ContractType的ID。将一个大端字节序的二进制序列转换为小端字节序的十六进制序列，即为operations的值。以下是一个示例，展示如何计算允许执行TransferContract（ID=1）和VoteWitnessContract（ID=4）的active权限的operations值。ContractType与其ID的映射关系可参见上述ContractType的定义链接。
+    | Operations Allowed  | Binary Code(big-endian) | Binary Code(little-endian) | Hex Code(little-endian) |
+    | ------------- | ------------- | ------------- | ------------- |
+    | TransferContract(1) & VoteWitnessContract(4)  | 01001000 00000000 00000000 ...  | 00010010 00000000 00000000 ... | 12 00 00 ... |
+- `keys`：共同拥有该权限的地址及权重，最多允许5个key
 
 #### Key
 
@@ -96,7 +98,7 @@ message Key {
 ```
 
 * `address`：拥有该权限的地址
-* `weight`：该地址对该权限拥有权重
+* `weight`：该地址对该权限拥有的权重
 
 #### Transaction
 
@@ -127,31 +129,30 @@ Owner权限具有以下特性：
 
 使用场景示例：一个超级代表在云服务器上部署出块程序，为了账户安全，此时可以将出块权限赋予另一个地址。由于该地址仅具有出块权限，无TRX转出权限，即使该服务器上私钥被泄密，也不会出现TRX丢失。
 
-出块节点的配置：
-
-1. 未修改witness权限时，无需特殊配置。
-2. 修改witness权限后的出块节点，需要在重新配置，配置项如下：
-
-```conf
-#config.conf
-
-// Optional.The default is empty.
-// It is used when the SR account has set the witnessPermission.
-// When it is not empty, the localWitnessAccountAddress represents the address of the SR account,
-// and the localwitness is configured with the private key of the witnessPermissionAddress in the SR account.
-// When it is empty,the localwitness is configured with the private key of the SR account.
-//可选项，默认为空。
-//用于当超级代表账户设置了witnessPermission。
-//当该值不为空时，localWitnessAccountAddress代表witness账户的地址，localwitness是witnessPermission中的地址的私钥。
-//当该值为空时，localwitness配置为witness账户的私钥。
-
-//localWitnessAccountAddress =
-
-localwitness = [
-  f4df789d3210ac881cb900464dd30409453044d2777060a0c391cbdf4c6a4f57
-]
-
+出块节点的配置：当以witness身份部署一个节点时，需要将witness账户的私钥填入配置文件的`localwitness`项中，而`localWitnessAccountAddress`无需配置，直接注释，如下所示：
 ```
+# config.conf
+//localWitnessAccountAddress =
+localwitness = [
+  xxx // private key of the witness account
+]
+```
+
+- 如果未修改witness权限，无需更改配置文件。
+- 如果修改了witness权限，配置文件需做如下两项修改
+    - `localwitness`需要更改为被授权witness权限的账户的私钥
+    -  必须明确设置`localWitnessAccountAddress`为witness账户的地址
+
+    以下是witness账户[TCbxHgibJutCjVZUprvexKZZ4Rc6sJ4Xrk](https://nile.tronscan.org/#/address/TCbxHgibJutCjVZUprvexKZZ4Rc6sJ4Xrk)将其witness权限授权给账户TSwCH45gi2HvtqDYX3Ff39yHeu5moEqQDJ的配置示例：
+   ```
+    #config.conf
+    localWitnessAccountAddress = TCbxHgibJutCjVZUprvexKZZ4Rc6sJ4Xrk
+    localwitness = [
+      yyy // private key of TSwCH45gi2HvtqDYX3Ff39yHeu5moEqQDJ
+    ]
+    ```
+    注意：当修改witness权限时，只能向`localwitness`添加一个私钥。
+    
 
 ### Active权限
 
