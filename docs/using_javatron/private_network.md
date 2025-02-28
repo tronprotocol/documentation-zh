@@ -75,6 +75,7 @@
     如果您希望私链的动态参数与主网保持一致，也许[dbfork](https://github.com/tronprotocol/tron-docker/tree/main/tools/dbfork)是您更感兴趣的，它可以捕获主网最新状态。
     
     如果要修改部分动态参数，有两种方法可供选择：
+
     * 配置文件  
       一些动态参数可以通过配置文件直接设置，这些动态参数可以在[此处](https://github.com/tronprotocol/java-tron/blob/develop/common/src/main/java/org/tron/core/Constant.java)查看。下面是一个通过配置文件修改动态参数的示例。
       ```
@@ -119,7 +120,5 @@
 
       modifyChainParameters(parametersForProposal1, 1)
       ```
-
-      通过上述代码创建提案后，您可以通过[listproposals](https://developers.tron.network/reference/wallet-listproposals)检查提案是否已获批准。当创建的提案过期后，如果上述接口返回值中的“state”为“APPROVED”，表示提案已获批准。
-      
+      通过上述代码创建提案后，您可以通过[listproposals](https://developers.tron.network/reference/wallet-listproposals)检查提案是否已获批准。当创建的提案过期后，如果上述接口返回值中的“state”为“APPROVED”，表示提案已获批准。  
       需要注意的是，具有相互依赖关系的动态参数不能包含在同一个提案中，正确的方法是将它们分成不同的提案，并注意它们的顺序。

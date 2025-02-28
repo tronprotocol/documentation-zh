@@ -83,9 +83,11 @@ message Permission {
 - `parent_id`：目前只能为0
 - `operations`：active权限使用，一个十六进制编码序列（小端字节序），32字节（256位），每一位代表一个ContractType的权限。第n位表示ID为n的ContractType的权限，其值为1表示拥有执行该ContractType的权限，其值为0则表示没有该权限。
     为了方便用户阅读，我们从二进制大端字节序开始说明如何计算operations的值。位数从0开始计数，从左到右对应ContractType的ID。将一个大端字节序的二进制序列转换为小端字节序的十六进制序列，即为operations的值。以下是一个示例，展示如何计算允许执行TransferContract（ID=1）和VoteWitnessContract（ID=4）的active权限的operations值。ContractType与其ID的映射关系可参见上述ContractType的定义链接。
+
     | Operations Allowed  | Binary Code(big-endian) | Binary Code(little-endian) | Hex Code(little-endian) |
     | ------------- | ------------- | ------------- | ------------- |
     | TransferContract(1) & VoteWitnessContract(4)  | 01001000 00000000 00000000 ...  | 00010010 00000000 00000000 ... | 12 00 00 ... |
+
 - `keys`：共同拥有该权限的地址及权重，最多允许5个key
 
 #### Key
@@ -144,7 +146,7 @@ localwitness = [
     -  必须明确设置`localWitnessAccountAddress`为witness账户的地址
 
     以下是witness账户[TCbxHgibJutCjVZUprvexKZZ4Rc6sJ4Xrk](https://nile.tronscan.org/#/address/TCbxHgibJutCjVZUprvexKZZ4Rc6sJ4Xrk)将其witness权限授权给账户TSwCH45gi2HvtqDYX3Ff39yHeu5moEqQDJ的配置示例：
-   ```
+    ```
     #config.conf
     localWitnessAccountAddress = TCbxHgibJutCjVZUprvexKZZ4Rc6sJ4Xrk
     localwitness = [
