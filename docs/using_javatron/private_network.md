@@ -70,7 +70,7 @@
 
 7. 修改网络动态参数
 
-    动态参数可以通过[getchainparameters](https://developers.tron.network/reference/wallet-getchainparameters)获取。主网络的当前动态参数和与之相关的提案可以在[这里](https://tronscan.io/#/sr/committee)查看，动态参数在这里被称为网络参数。
+    动态参数可以通过[getchainparameters](https://developers.tron.network/reference/wallet-getchainparameters)获取。主网络的当前动态参数和与之相关的提案可以在[这里](https://tronscan.org/#/sr/committee)查看，动态参数在这里被称为网络参数。
 
     如果您希望私链的动态参数与主网保持一致，也许[dbfork](https://github.com/tronprotocol/tron-docker/tree/main/tools/dbfork)是您更感兴趣的，它可以捕获主网最新状态。
     
