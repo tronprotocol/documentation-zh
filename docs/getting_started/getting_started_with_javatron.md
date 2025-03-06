@@ -15,7 +15,7 @@ java-tron是用Java编写的TRON网络客户端，这意味着运行java-tron的
 ```
 $ java -jar wallet-cli.jar
 
-Welcome to TRON Wallet-Cli
+Welcome to TRON wallet-cli
 Please type one of the following commands to proceed.
 Login, RegisterWallet or ImportWallet
  
