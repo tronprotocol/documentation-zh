@@ -67,9 +67,9 @@ contract DataStore {
 因为波场的编译器与以太坊的编译略有差异，正在与Remix集成中，所以临时采用改方案获取ABI和ByteCode，而不是通过Remix直接获取ABI和ByteCode。  
 把上述代码复制到SimpleWebCompiler中，点击Compile按钮，获取ABI和ByteCode。
 
-### 通过Wallet-cli部署智能合约
+### 通过wallet-cli部署智能合约
 
-下载Wallet-Cli，文件然后编译。
+下载wallet-cli，文件然后编译。
 
 ```shell
 # 下载源代码
