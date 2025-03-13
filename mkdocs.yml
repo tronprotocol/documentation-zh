@@ -18,6 +18,7 @@ nav:
     - API接口:
         - HTTP 接口: api/http.md
         - gRPC 接口: api/rpc.md
+        - jsonRPC 接口: api/json-rpc.md
     - 核心协议:
         - 波场共识: introduction/dpos.md
         - 超级代表: mechanism-algorithm/sr.md
