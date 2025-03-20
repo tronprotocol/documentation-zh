@@ -4,7 +4,7 @@ repo_url: https://github.com/tronprotocol/documentation-zh
 
 nav:
     - java-tron入门: 
-        - getting_started/getting_started_with_javatron.md
+        - 入门: getting_started/getting_started_with_javatron.md
     - 使用java-tron:
         - 部署: using_javatron/installing_javatron.md
         - 备份和恢复: using_javatron/backup_restore.md
@@ -44,8 +44,8 @@ nav:
         - 新版本部署手册: releases/upgrade-instruction.md
         - 一致性检验: releases/signature_verification.md
         - 历史版本: releases/history.md
-    - 术语表: 
-        - glossary.md
+    - 附录: 
+        - 术语表: glossary.md
 
 
 

@@ -24,7 +24,8 @@
   right: 0;
   top: 50%;
   transform: translateY(-50%);
-  font-size: 0.8em;
+  font-size: 1em;
+  font-weight: 900;
   transition: transform 0.2s ease; /* 添加旋转动画 */
 }
 
@@ -32,3 +33,14 @@
 .md-nav__item.has-children.is-expanded > .md-nav__link::after {
   transform: translateY(-50%) rotate(90deg);
 }
+
+/*设置一级导航字体的颜色以增加和二级导航的区分度*/
+.md-nav--primary .md-nav__item--section > .md-nav__link {
+    color: #444; 
+}
+
+/* 隐藏左侧导航栏的站点名称 此名称有重复*/
+.md-nav__title {
+    display: none;
+}
+
