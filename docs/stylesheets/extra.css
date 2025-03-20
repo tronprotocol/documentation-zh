@@ -44,3 +44,7 @@
     display: none;
 }
 
+.md-sidebar {
+    padding-top: 0; /* 移除顶部内边距 */
+    margin-top: 0;  /* 移除顶部外边距 */
+}
