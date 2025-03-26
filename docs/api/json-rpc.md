@@ -10,13 +10,15 @@ JSON-RPC 是一种无状态、轻量级的远程过程调用（RPC）协议。TR
 
 ### 如何启用或禁用节点的 JSON-RPC 服务
 
-在节点的配置文件中添加以下项，然后启用或禁用它：  
+在节点的[配置文件](https://github.com/tronprotocol/java-tron/blob/develop/framework/src/main/resources/config.conf)中添加以下项，然后启用或禁用它：  
+```
 node.jsonrpc {  
     httpFullNodeEnable = true  
     httpFullNodePort = 50545  
     httpSolidityEnable = true  
     httpSolidityPort = 50555  
 }
+```
 
 ### HEX 值编码
 
