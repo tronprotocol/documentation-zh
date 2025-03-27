@@ -168,18 +168,6 @@ rpc getTransactionsByTimestamp (TimeMessage) returns (TransactionList) {}
 ```
 Nodes: SolidityNode
 
-## Query the transactions initiated by an account
-```protobuf
-rpc getTransactionsFromThis (Account) returns (TransactionList) {}
-```
-Nodes: SolidityNode
-
-## Query the transactions received by an account
-```protobuf
-rpc getTransactionsToThis (Account) returns (NumberMessage) {}
-```
-Nodes: SolidityNode
-
 ## Freeze TRX
 该接口已废弃。
 ```protobuf
@@ -359,35 +347,30 @@ rpc GetNewShieldedAddress (EmptyMessage) returns (ShieldedAddressInfo){}
 Nodes: FullNode
 
 ## Create shielded contract parameters
-
 ```protobuf
 rpc CreateShieldedContractParameters (PrivateShieldedTRC20Parameters) returns (ShieldedTRC20Parameters) {}
 ```
 Nodes: FullNode
 
 ## Create shielded contract parameters without ask
-
 ```protobuf
 rpc CreateShieldedContractParametersWithoutAsk (PrivateShieldedTRC20ParametersWithoutAsk) returns (ShieldedTRC20Parameters) {}
 ```
 Nodes: FullNode
 
 ## Scan shielded TRC20 notes by ivk
-
 ```protobuf
 rpc ScanShieldedTRC20NotesbyIvk (IvkDecryptTRC20Parameters) returns (DecryptNotesTRC20) {}
 ```
 Nodes: FullNode, SolidityNode
 
 ## Scan shielded TRC20 notes by ovk
-
 ```protobuf
 rpc ScanShieldedTRC20NotesbyOvk (OvkDecryptTRC20Parameters) returns (DecryptNotesTRC20) {}
 ```
 Nodes: FullNode, SolidityNode
 
 ## Get the status of shielded TRC20 note of spent or not
-
 ```protobuf
 rpc IsShieldedTRC20ContractNoteSpent (NfTRC20Parameters) returns (NullifierResult) {}
 ```
@@ -400,70 +383,60 @@ Nodes: FullNode, SolidityNode
 Nodes: FullNode
 
 ## Create an market order
-
 ```
 rpc MarketSellAsset (MarketSellAssetContract) returns (TransactionExtention) {};
 ```
 Nodes: FullNode
  
 ## Cancel the order      
-
 ```    
 rpc MarketCancelOrder (MarketCancelOrderContract) returns (TransactionExtention) {};
 ```
 Nodes: FullNode 
 
-## Get all orders for the account      
-   
+## Get all orders for the account        
 ```
 rpc GetMarketOrderByAccount (BytesMessage) returns (MarketOrderList) {};
 ```
 Nodes: FullNode 
 
-## Get all trading pairs      
-   
+## Get all trading pairs         
 ```
 rpc GetMarketPairList (EmptyMessage) returns (MarketOrderPairList) {};
 ```
 Nodes: FullNode 
 
-## Get all orders for the trading pair      
-   
+## Get all orders for the trading pair        
 ```
 rpc GetMarketOrderListByPair (MarketOrderPair) returns (MarketOrderList) {};
 ```
 Nodes: FullNode 
 
-## Get all prices for the trading pair      
-   
+## Get all prices for the trading pair        
 ```
 rpc GetMarketPriceByPair (MarketOrderPair) returns (MarketPriceList) {};
 ```
 Nodes: FullNode 
 
 ## Get order by id      
-
 ```
 rpc GetMarketOrderById (BytesMessage) returns (MarketOrder) {}; 
 ```
 Nodes: FullNode 
     
-## perform a historical balance lookup      
- 
+## perform a historical balance lookup       
 ```
 rpc GetAccountBalance (AccountBalanceRequest) returns (AccountBalanceResponse){}; 
 ```
 Nodes: FullNode 
 
 ## fetch all balance-changing transactions in a block      
- 
 ```
 rpc GetBlockBalanceTrace (BlockBalanceTrace.BlockIdentifier) returns (BlockBalanceTrace) {}; 
 ```
 Nodes: FullNode 
 
-## get the burn trx amount      
- 
+## get the burn trx amount       
 ```
 rpc GetBurnTrx (EmptyMessage) returns (NumberMessage) {}; 
 ```
@@ -499,7 +472,6 @@ rpc UnDelegateResource (UnDelegateResourceContract) returns (TransactionExtentio
 ```
 Nodes: FullNode
 
-
 ## Query transaction information in the pending pool
 ```
 rpc GetTransactionFromPending (BytesMessage) returns (Transaction) {};
@@ -517,6 +489,7 @@ Nodes: FullNode
 rpc GetPendingSize (EmptyMessage) returns (NumberMessage) {};
 Nodes: FullNode
 ```
+
 ##  Cancel UnFreeze
 ```protobuf
 rpc CancelAllUnfreezeV2 (CancelAllUnfreezeV2Contract) returns (TransactionExtention) {}
