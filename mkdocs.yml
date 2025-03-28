@@ -4,7 +4,7 @@ repo_url: https://github.com/tronprotocol/documentation-zh
 
 nav:
     - java-tron入门: 
-        - getting_started/getting_started_with_javatron.md
+        - 入门: getting_started/getting_started_with_javatron.md
     - 使用java-tron:
         - 部署: using_javatron/installing_javatron.md
         - 备份和恢复: using_javatron/backup_restore.md
@@ -45,18 +45,31 @@ nav:
         - 新版本部署手册: releases/upgrade-instruction.md
         - 一致性检验: releases/signature_verification.md
         - 历史版本: releases/history.md
-    - 术语表: 
-        - glossary.md
+    - 附录: 
+        - 术语表: glossary.md
 
 
-theme: 
-    name: readthedocs
-    feature:
-        - navigation.tracing
-        - navigation.expand: false
-        - navigation.tabs
 
+theme:
+  name: material
+  custom_dir: docs/overrides
+  features:
+    - navigation.sections  # 启用左侧导航栏的分组
+    - toc.integrate
+    - search.highlight  # 搜索时高亮匹配内容
+    - search.suggest  # 搜索时显示建议
+    - content.code.annotate  # 代码块注释
+    - content.tooltips  # 内容中的工具提示
+  palette:
+    primary: custom  # 主色调
+    accent: custom  # 强调色
+  font:
+    text: Roboto  # 正文字体
+    code: Roboto Mono  # 代码字体
+ 
 extra_javascript:
+    - javascripts/toc.js
+    - javascripts/nav-toc.js
     - 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML'
 
 extra_css:
@@ -68,14 +81,15 @@ markdown_extensions:
     - codehilite
     - toc:
         permalink: true
-        toc_depth: 4
+        toc_depth: 3
     - pymdownx.arithmatex
     - pymdownx.tilde
     - pymdownx.tasklist
     - pymdownx.superfences
 
 plugins:
-  - search
+  - search:
+     separator: '[\s\u200b\-]'  
   - exclude:
       glob:
         - clients/tron-grid.md
