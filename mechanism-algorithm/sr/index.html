@@ -73,6 +73,8 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../../api/rpc/">gRPC 接口</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../api/json-rpc/">jsonRPC 接口</a>
+                  </li>
               </ul>
               <p class="caption"><span class="caption-text">核心协议</span></p>
               <ul class="current">
@@ -80,35 +82,35 @@
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="./">超级代表</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#1">1. 申请成为超级代表候选人规则</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_2">申请成为超级代表候选人规则</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#2">2. 选举超级代表</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_3">选举超级代表</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#_2">超级代表佣金比例</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_4">超级代表佣金比例</a>
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#3">3. 超级代表的奖励</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_5">超级代表的奖励</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#_3">投票奖励</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_6">投票奖励</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#_4">出块奖励</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_7">出块奖励</a>
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#4">4. 投票者的奖励</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_8">投票者的奖励</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#5">5. 委员会</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_9">委员会</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#51">5.1 什么是委员会</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_10">什么是委员会</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#52">5.2 创建提议</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_11">创建提议</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#53">5.3 对提议进行投票</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_12">对提议进行投票</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#54">5.4 取消提议</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_13">取消提议</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#55">5.5 查询提议</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_14">查询提议</a>
     </li>
         </ul>
     </li>
@@ -197,11 +199,11 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="_1">超级代表与委员会<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
-<h2 id="1">1. 申请成为超级代表候选人规则<a class="headerlink" href="#1" title="Permanent link">&para;</a></h2>
+<h2 id="_2">申请成为超级代表候选人规则<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <p>TRON网络中的区块生产者也叫超级代表，通过投票选举产生。任何账户只需支付9999个TRX就可以申请成为超级代表候选人，参与超级代表竞选。任何账户都可以给超级代表候选人投票。得票前27名的候选人即成为超级代表（SR），具有出块的权利。超级代表需要运行一个TRON节点来参与区块生产，同时也会获得出块奖励和投票奖励，给超级代表投票的选民会获得投票奖励。</p>
 <p>票数排名第28～127名的超级代表候选人也叫超级代表合伙人。超级代表合伙人不参与出块和打包交易，但会获得投票奖励，给超级代表合伙人投票的选民也会获得投票奖励。</p>
 <p>投票统计每6小时统计一次，超级代表和超级合伙人也就每6个小时变更一次。</p>
-<h2 id="2">2. 选举超级代表<a class="headerlink" href="#2" title="Permanent link">&para;</a></h2>
+<h2 id="_3">选举超级代表<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
 <p>投票需要TRON Power(TP)，你的TRON Power(TP)的多少由当前质押资金决定。TRON Power(TP)的计算方法：每质押1TRX，就可以获得1单位TRON Power(TP)。</p>
 <p>TRON网络中的每一个账户都具有选举权，可以通过投票选出自己认同的超级代表。</p>
 <p>在解锁后，你没有了质押的资产，相应地失去了所有的TRON Power(TP)，因此以前的投票会失效。你可以通过重新质押并投票来避免投票失效。</p>
@@ -214,28 +216,28 @@ votewitness<span class="w"> </span>SR1<span class="w"> </span><span class="m">4<
 votewitness<span class="w"> </span>SR1<span class="w"> </span><span class="m">3</span><span class="w"> </span>SR2<span class="w"> </span><span class="m">7</span><span class="w"> </span><span class="c1"># 同时给SR1投了3票，给SR2投了7票</span>
 </code></pre></div>
 <p>以上命令的最终结果是给SR1投了3票，给SR2投了7票</p>
-<h3 id="_2">超级代表佣金比例<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<h3 id="_4">超级代表佣金比例<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
 <p>默认佣金比例是20%，即超级代表获得20%的奖励，剩余的80%奖励会被分配给投票者，超级代表和超级代表合伙人可以通过wallet/getBrokerage接口查询佣金比例, 也可以通过wallet/updateBrokerage接口修改佣金比例。如果分红比例设置为100%，那么只有超级代表可以获得奖励；相反，如果设置为0，那么只有投票者会获得奖励。</p>
-<h2 id="3">3. 超级代表的奖励<a class="headerlink" href="#3" title="Permanent link">&para;</a></h2>
-<h3 id="_3">投票奖励<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<h2 id="_5">超级代表的奖励<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<h3 id="_6">投票奖励<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
 <p>票数奖励是每生成一个区块奖励160TRX，总奖励数是4,608,000 TRX / 天。</p>
 <p>对每一个SR与Partner，每天获得的票数奖励 = 4,608,000 * ( 获得的票数 /  总票数) x 20%  TRX</p>
-<h3 id="_4">出块奖励<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<h3 id="_7">出块奖励<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
 <p>波场协议网络每3秒中会出一个区块，每个区块将给予超级代表16个TRX奖励，每年总计168,192,000 TRX将会被奖励给超级代表。</p>
 <p>超级代表每次出块完成后，出块奖励都会发到超级代表的子账号当中，超级代表不能直接使用这部分资产，但可以查询。 每24h允许一次提取操作。从该子账号转移到超级代表的账户中。</p>
 <p>16 (TRX/区块) * 28,800 (总区块数/day) = 460,800 (TRX/天)</p>
 <p>对每一个SR，每天获得的出块奖励 = (460,800 / 27) x 20%  TRX</p>
 <p>实际奖励可能会比理论上的奖励少，因为出块失败或者维护期切换。</p>
-<h2 id="4">4. 投票者的奖励<a class="headerlink" href="#4" title="Permanent link">&para;</a></h2>
+<h2 id="_8">投票者的奖励<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
 <p>如果投票给一个超级代表：</p>
 <p>每日获得的奖励 =  (((你投给这个超级代表的票数) <em>4,608,000 / 总票数)</em> 80%) + ((460,800 / 27) <em>80%)</em> (你投给这个超级代表的票数) / (这个超级代表获得的总票数) TRX</p>
 <p>如果你投票给超级代表合伙人：</p>
 <p>每日获得奖励 =  (((你投给这个超级代表合伙人的票数) <em>4,608,000 / 总票数)</em> 80%) TRX</p>
-<h2 id="5">5. 委员会<a class="headerlink" href="#5" title="Permanent link">&para;</a></h2>
-<h3 id="51">5.1 什么是委员会<a class="headerlink" href="#51" title="Permanent link">&para;</a></h3>
+<h2 id="_9">委员会<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
+<h3 id="_10">什么是委员会<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
 <p>委员会用于修改TRON网络动态参数，如出块奖励、交易费用等等。委员会由当前的27个超级代表组成。每个超级代表都具有提议权、对提议的投票权，
 当提议获得18个代表及以上的赞成票时，该提议获得通过，并在下个维护期内进行网络参数修改。</p>
-<h3 id="52">5.2 创建提议<a class="headerlink" href="#52" title="Permanent link">&para;</a></h3>
+<h3 id="_11">创建提议<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h3>
 <p>只有超级代表（SR）、合伙人（Partner）和候选人（Candidates）对应账户具有提议权。</p>
 <p>TRON网络动态参数及其编号请参考<a href="https://tronscan.org/#/sr/committee">这里</a>。</p>
 <ul>
@@ -245,7 +247,7 @@ votewitness<span class="w"> </span>SR1<span class="w"> </span><span class="m">3<
 id0_N: 参数编号
 value0_N: 新参数值
 </code></pre></div>
-<h3 id="53">5.3 对提议进行投票<a class="headerlink" href="#53" title="Permanent link">&para;</a></h3>
+<h3 id="_12">对提议进行投票<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
 <p>提议仅支持投赞成票，不投票代表不赞同。从提议创建时间开始，3天时间内为提议的有效期。超过该时间范围，该提议如果没有获得足够的
 赞成票，该提议失效。允许取消之前投的赞成票。</p>
 <ul>
@@ -255,7 +257,7 @@ value0_N: 新参数值
 id:<span class="w"> </span>提议Id，根据提议创建时间递增
 is_or_not_add_approval:<span class="w"> </span>赞成或取消赞成
 </code></pre></div>
-<h3 id="54">5.4 取消提议<a class="headerlink" href="#54" title="Permanent link">&para;</a></h3>
+<h3 id="_13">取消提议<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h3>
 <p>提议创建者，能够在提议生效前，取消提议。</p>
 <ul>
 <li>示例：</li>
@@ -263,7 +265,7 @@ is_or_not_add_approval:<span class="w"> </span>赞成或取消赞成
 <div class="highlight"><pre><span></span><code>deleteProposal<span class="w"> </span>proposalId
 id:<span class="w"> </span>提议Id，根据提议创建时间递增
 </code></pre></div>
-<h3 id="55">5.5 查询提议<a class="headerlink" href="#55" title="Permanent link">&para;</a></h3>
+<h3 id="_14">查询提议<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h3>
 <p>以下接口可以查询提议，包括：</p>
 <ul>
 <li>查询所有提议信息（ListProposals）</li>
