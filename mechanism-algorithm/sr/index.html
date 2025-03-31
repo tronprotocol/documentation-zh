@@ -1,207 +1,1634 @@
-<!DOCTYPE html>
-<html class="writer-html5" lang="en" >
-<head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://tronprotocol.github.io/documentation-zh/mechanism-algorithm/sr/" />
-      <link rel="shortcut icon" href="../../img/favicon.ico" />
-    <title>超级代表 - java-tron</title>
-    <link rel="stylesheet" href="../../css/theme.css" />
-    <link rel="stylesheet" href="../../css/theme_extra.css" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
-        <link href="../../stylesheets/extra.css" rel="stylesheet" />
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
     
-      <script>
-        // Current page data
-        var mkdocs_page_name = "\u8d85\u7ea7\u4ee3\u8868";
-        var mkdocs_page_input_path = "mechanism-algorithm/sr.md";
-        var mkdocs_page_url = "/documentation-zh/mechanism-algorithm/sr/";
-      </script>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://tronprotocol.github.io/documentation-zh/mechanism-algorithm/sr/">
+      
+      
+        <link rel="prev" href="../../introduction/dpos/">
+      
+      
+        <link rel="next" href="../account/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.8">
     
-    <script src="../../js/jquery-3.6.0.min.js" defer></script>
-    <!--[if lt IE 9]>
-      <script src="../../js/html5shiv.min.js"></script>
-    <![endif]-->
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
-      <script>hljs.initHighlightingOnLoad();</script> 
-</head>
+    
+      
+        <title>超级代表 - java-tron</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.8608ea7d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
 
-<body class="wy-body-for-nav" role="document">
 
-  <div class="wy-grid-for-nav">
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
-    <div class="wy-side-scroll">
-      <div class="wy-side-nav-search">
-          <a href="../.." class="icon icon-home"> java-tron
-        </a><div role="search">
-  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
-  </form>
-</div>
-      </div>
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
 
-      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption"><span class="caption-text">java-tron入门</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../../getting_started/getting_started_with_javatron/">java-tron入门</a>
-                  </li>
-              </ul>
-              <p class="caption"><span class="caption-text">使用java-tron</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../../using_javatron/installing_javatron/">部署</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../using_javatron/backup_restore/">备份和恢复</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../developers/litefullnode/">轻节点</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../using_javatron/private_network/">私链网络</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../architecture/event/">事件订阅</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../architecture/database/">数据库配置</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../using_javatron/connecting_to_tron/">网络配置</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../using_javatron/metrics/">节点监控</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../using_javatron/toolkit/">节点维护工具</a>
-                  </li>
-              </ul>
-              <p class="caption"><span class="caption-text">API接口</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../../api/http/">HTTP 接口</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../api/rpc/">gRPC 接口</a>
-                  </li>
-              </ul>
-              <p class="caption"><span class="caption-text">核心协议</span></p>
-              <ul class="current">
-                  <li class="toctree-l1"><a class="reference internal" href="../../introduction/dpos/">波场共识</a>
-                  </li>
-                  <li class="toctree-l1 current"><a class="reference internal current" href="./">超级代表</a>
-    <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#1">1. 申请成为超级代表候选人规则</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#2">2. 选举超级代表</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#_2">超级代表佣金比例</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#3">3. 超级代表的奖励</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#_3">投票奖励</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#_4">出块奖励</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#4">4. 投票者的奖励</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#5">5. 委员会</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#51">5.1 什么是委员会</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#52">5.2 创建提议</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#53">5.3 对提议进行投票</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#54">5.4 取消提议</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#55">5.5 查询提议</a>
-    </li>
-        </ul>
-    </li>
-    </ul>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../account/">账户模型</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../resource/">资源模型</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../contracts/contract/">智能合约</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../system-contracts/">系统合约</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../dex/">去中心化交易所</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../multi-signatures/">账户权限管理</a>
-                  </li>
-              </ul>
-              <p class="caption"><span class="caption-text">java-tron开发</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../../developers/java-tron/">开发者指南</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../developers/tips/">TIPs工作流程</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../developers/issue-workflow/">Issue工作流程</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../developers/governance/">治理流程</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../developers/run-in-idea/">配置IDE开发环境</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../developers/demo/">开发示例</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../developers/code-structure/">核心模块</a>
-                  </li>
-              </ul>
-              <p class="caption"><span class="caption-text">Dapp开发</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../../contracts/compiler/">Dapp开发工具</a>
-                  </li>
-              </ul>
-              <p class="caption"><span class="caption-text">wallet-cli</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../../clients/wallet-cli/">什么是wallet-cli</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../clients/wallet-cli-command/">wallet-cli命令</a>
-                  </li>
-              </ul>
-              <p class="caption"><span class="caption-text">版本发布</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../../releases/upgrade-instruction/">新版本部署手册</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../releases/signature_verification/">一致性检验</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../releases/history/">历史版本</a>
-                  </li>
-              </ul>
-              <p class="caption"><span class="caption-text">术语表</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../../glossary/">术语表</a>
-                  </li>
-              </ul>
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="java-tron" class="md-header__button md-logo" aria-label="java-tron" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            java-tron
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              超级代表
+            
+          </span>
+        </div>
       </div>
     </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../..">java-tron</a>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
         
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
       </nav>
-      <div class="wy-nav-content">
-        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
-  <ul class="wy-breadcrumbs">
-    <li><a href="../.." class="icon icon-home" alt="Docs"></a> &raquo;</li>
-          <li>核心协议 &raquo;</li><li>超级代表</li>
-    <li class="wy-breadcrumbs-aside">
-        <a href="https://github.com/tronprotocol/documentation-zh/edit/master/docs/mechanism-algorithm/sr.md"
-          class="icon icon-github"> Edit on GitHub</a>
-    </li>
-  </ul>
-  <hr/>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
-
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-            <div class="section" itemprop="articleBody">
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/tronprotocol/documentation-zh" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
               
-                <h1 id="_1">超级代表与委员会<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
-<h2 id="1">1. 申请成为超级代表候选人规则<a class="headerlink" href="#1" title="Permanent link">&para;</a></h2>
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="java-tron" class="md-nav__button md-logo" aria-label="java-tron" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    java-tron
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/tronprotocol/documentation-zh" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    java-tron入门
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            java-tron入门
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting_started/getting_started_with_javatron/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    入门
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    使用java-tron
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            使用java-tron
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../using_javatron/installing_javatron/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    部署
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../using_javatron/backup_restore/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    备份和恢复
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developers/litefullnode/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    轻节点
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../using_javatron/private_network/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    私链网络
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/event/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    事件订阅
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/database/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    数据库配置
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../using_javatron/connecting_to_tron/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    网络配置
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../using_javatron/metrics/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    节点监控
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../using_javatron/toolkit/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    节点维护工具
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    API接口
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            API接口
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/http/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    HTTP 接口
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/rpc/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    gRPC 接口
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/json-rpc/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    jsonRPC 接口
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    核心协议
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            核心协议
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../introduction/dpos/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    波场共识
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    超级代表
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    超级代表
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item ">
+  <a href="#_2" class="md-nav__link" >
+    <span class="md-ellipsis">
+      申请成为超级代表候选人规则
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item has-children">
+  <a href="#_3" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
+    <span class="md-ellipsis">
+      选举超级代表
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="选举超级代表" hidden>
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item ">
+  <a href="#_4" class="md-nav__link" >
+    <span class="md-ellipsis">
+      超级代表佣金比例
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item has-children">
+  <a href="#_5" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
+    <span class="md-ellipsis">
+      超级代表的奖励
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="超级代表的奖励" hidden>
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item ">
+  <a href="#_6" class="md-nav__link" >
+    <span class="md-ellipsis">
+      投票奖励
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#_7" class="md-nav__link" >
+    <span class="md-ellipsis">
+      出块奖励
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item ">
+  <a href="#_8" class="md-nav__link" >
+    <span class="md-ellipsis">
+      投票者的奖励
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item has-children">
+  <a href="#_9" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
+    <span class="md-ellipsis">
+      委员会
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="委员会" hidden>
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item ">
+  <a href="#_10" class="md-nav__link" >
+    <span class="md-ellipsis">
+      什么是委员会
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#_11" class="md-nav__link" >
+    <span class="md-ellipsis">
+      创建提议
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#_12" class="md-nav__link" >
+    <span class="md-ellipsis">
+      对提议进行投票
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#_13" class="md-nav__link" >
+    <span class="md-ellipsis">
+      取消提议
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#_14" class="md-nav__link" >
+    <span class="md-ellipsis">
+      查询提议
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../account/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    账户模型
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../resource/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    资源模型
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contracts/contract/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    智能合约
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../system-contracts/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    系统合约
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dex/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    去中心化交易所
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../multi-signatures/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    账户权限管理
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    java-tron开发
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            java-tron开发
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developers/java-tron/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    开发者指南
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developers/tips/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    TIPs工作流程
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developers/issue-workflow/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Issue工作流程
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developers/governance/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    治理流程
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developers/run-in-idea/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    配置IDE开发环境
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developers/demo/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    开发示例
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developers/code-structure/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    核心模块
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Dapp开发
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Dapp开发
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contracts/compiler/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Dapp开发工具
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    wallet-cli
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            wallet-cli
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../clients/wallet-cli/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    什么是wallet-cli
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../clients/wallet-cli-command/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    wallet-cli命令
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    版本发布
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            版本发布
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../releases/upgrade-instruction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    新版本部署手册
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../releases/signature_verification/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    一致性检验
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../releases/history/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    历史版本
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    附录
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            附录
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    术语表
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="_1">超级代表与委员会<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<h2 id="_2">申请成为超级代表候选人规则<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <p>TRON网络中的区块生产者也叫超级代表，通过投票选举产生。任何账户只需支付9999个TRX就可以申请成为超级代表候选人，参与超级代表竞选。任何账户都可以给超级代表候选人投票。得票前27名的候选人即成为超级代表（SR），具有出块的权利。超级代表需要运行一个TRON节点来参与区块生产，同时也会获得出块奖励和投票奖励，给超级代表投票的选民会获得投票奖励。</p>
 <p>票数排名第28～127名的超级代表候选人也叫超级代表合伙人。超级代表合伙人不参与出块和打包交易，但会获得投票奖励，给超级代表合伙人投票的选民也会获得投票奖励。</p>
 <p>投票统计每6小时统计一次，超级代表和超级合伙人也就每6个小时变更一次。</p>
-<h2 id="2">2. 选举超级代表<a class="headerlink" href="#2" title="Permanent link">&para;</a></h2>
+<h2 id="_3">选举超级代表<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
 <p>投票需要TRON Power(TP)，你的TRON Power(TP)的多少由当前质押资金决定。TRON Power(TP)的计算方法：每质押1TRX，就可以获得1单位TRON Power(TP)。</p>
 <p>TRON网络中的每一个账户都具有选举权，可以通过投票选出自己认同的超级代表。</p>
 <p>在解锁后，你没有了质押的资产，相应地失去了所有的TRON Power(TP)，因此以前的投票会失效。你可以通过重新质押并投票来避免投票失效。</p>
@@ -214,28 +1641,28 @@ votewitness<span class="w"> </span>SR1<span class="w"> </span><span class="m">4<
 votewitness<span class="w"> </span>SR1<span class="w"> </span><span class="m">3</span><span class="w"> </span>SR2<span class="w"> </span><span class="m">7</span><span class="w"> </span><span class="c1"># 同时给SR1投了3票，给SR2投了7票</span>
 </code></pre></div>
 <p>以上命令的最终结果是给SR1投了3票，给SR2投了7票</p>
-<h3 id="_2">超级代表佣金比例<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<h3 id="_4">超级代表佣金比例<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
 <p>默认佣金比例是20%，即超级代表获得20%的奖励，剩余的80%奖励会被分配给投票者，超级代表和超级代表合伙人可以通过wallet/getBrokerage接口查询佣金比例, 也可以通过wallet/updateBrokerage接口修改佣金比例。如果分红比例设置为100%，那么只有超级代表可以获得奖励；相反，如果设置为0，那么只有投票者会获得奖励。</p>
-<h2 id="3">3. 超级代表的奖励<a class="headerlink" href="#3" title="Permanent link">&para;</a></h2>
-<h3 id="_3">投票奖励<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<h2 id="_5">超级代表的奖励<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<h3 id="_6">投票奖励<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
 <p>票数奖励是每生成一个区块奖励160TRX，总奖励数是4,608,000 TRX / 天。</p>
 <p>对每一个SR与Partner，每天获得的票数奖励 = 4,608,000 * ( 获得的票数 /  总票数) x 20%  TRX</p>
-<h3 id="_4">出块奖励<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<h3 id="_7">出块奖励<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
 <p>波场协议网络每3秒中会出一个区块，每个区块将给予超级代表16个TRX奖励，每年总计168,192,000 TRX将会被奖励给超级代表。</p>
 <p>超级代表每次出块完成后，出块奖励都会发到超级代表的子账号当中，超级代表不能直接使用这部分资产，但可以查询。 每24h允许一次提取操作。从该子账号转移到超级代表的账户中。</p>
 <p>16 (TRX/区块) * 28,800 (总区块数/day) = 460,800 (TRX/天)</p>
 <p>对每一个SR，每天获得的出块奖励 = (460,800 / 27) x 20%  TRX</p>
 <p>实际奖励可能会比理论上的奖励少，因为出块失败或者维护期切换。</p>
-<h2 id="4">4. 投票者的奖励<a class="headerlink" href="#4" title="Permanent link">&para;</a></h2>
+<h2 id="_8">投票者的奖励<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
 <p>如果投票给一个超级代表：</p>
 <p>每日获得的奖励 =  (((你投给这个超级代表的票数) <em>4,608,000 / 总票数)</em> 80%) + ((460,800 / 27) <em>80%)</em> (你投给这个超级代表的票数) / (这个超级代表获得的总票数) TRX</p>
 <p>如果你投票给超级代表合伙人：</p>
 <p>每日获得奖励 =  (((你投给这个超级代表合伙人的票数) <em>4,608,000 / 总票数)</em> 80%) TRX</p>
-<h2 id="5">5. 委员会<a class="headerlink" href="#5" title="Permanent link">&para;</a></h2>
-<h3 id="51">5.1 什么是委员会<a class="headerlink" href="#51" title="Permanent link">&para;</a></h3>
+<h2 id="_9">委员会<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
+<h3 id="_10">什么是委员会<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
 <p>委员会用于修改TRON网络动态参数，如出块奖励、交易费用等等。委员会由当前的27个超级代表组成。每个超级代表都具有提议权、对提议的投票权，
 当提议获得18个代表及以上的赞成票时，该提议获得通过，并在下个维护期内进行网络参数修改。</p>
-<h3 id="52">5.2 创建提议<a class="headerlink" href="#52" title="Permanent link">&para;</a></h3>
+<h3 id="_11">创建提议<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h3>
 <p>只有超级代表（SR）、合伙人（Partner）和候选人（Candidates）对应账户具有提议权。</p>
 <p>TRON网络动态参数及其编号请参考<a href="https://tronscan.org/#/sr/committee">这里</a>。</p>
 <ul>
@@ -245,7 +1672,7 @@ votewitness<span class="w"> </span>SR1<span class="w"> </span><span class="m">3<
 id0_N: 参数编号
 value0_N: 新参数值
 </code></pre></div>
-<h3 id="53">5.3 对提议进行投票<a class="headerlink" href="#53" title="Permanent link">&para;</a></h3>
+<h3 id="_12">对提议进行投票<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
 <p>提议仅支持投赞成票，不投票代表不赞同。从提议创建时间开始，3天时间内为提议的有效期。超过该时间范围，该提议如果没有获得足够的
 赞成票，该提议失效。允许取消之前投的赞成票。</p>
 <ul>
@@ -255,7 +1682,7 @@ value0_N: 新参数值
 id:<span class="w"> </span>提议Id，根据提议创建时间递增
 is_or_not_add_approval:<span class="w"> </span>赞成或取消赞成
 </code></pre></div>
-<h3 id="54">5.4 取消提议<a class="headerlink" href="#54" title="Permanent link">&para;</a></h3>
+<h3 id="_13">取消提议<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h3>
 <p>提议创建者，能够在提议生效前，取消提议。</p>
 <ul>
 <li>示例：</li>
@@ -263,7 +1690,7 @@ is_or_not_add_approval:<span class="w"> </span>赞成或取消赞成
 <div class="highlight"><pre><span></span><code>deleteProposal<span class="w"> </span>proposalId
 id:<span class="w"> </span>提议Id，根据提议创建时间递增
 </code></pre></div>
-<h3 id="55">5.5 查询提议<a class="headerlink" href="#55" title="Permanent link">&para;</a></h3>
+<h3 id="_14">查询提议<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h3>
 <p>以下接口可以查询提议，包括：</p>
 <ul>
 <li>查询所有提议信息（ListProposals）</li>
@@ -271,55 +1698,63 @@ id:<span class="w"> </span>提议Id，根据提议创建时间递增
 <li>查询指定提议信息（GetProposalById）</li>
 </ul>
 <p>相关api详情，请查询<a href="../../api/http/">TRON HTTP API</a>.</p>
-              
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
             </div>
-          </div><footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../../introduction/dpos/" class="btn btn-neutral float-left" title="波场共识"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../account/" class="btn btn-neutral float-right" title="账户模型">Next <span class="icon icon-circle-arrow-right"></span></a>
-    </div>
-
-  <hr/>
-
-  <div role="contentinfo">
-    <!-- Copyright etc -->
-  </div>
-
-  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
-</footer>
           
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
         </div>
-      </div>
-
-    </section>
-
-  </div>
-
-  <div class="rst-versions" role="note" aria-label="Versions">
-  <span class="rst-current-version" data-toggle="rst-current-version">
-    
-        <span>
-          <a href="https://github.com/tronprotocol/documentation-zh" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
-        </span>
-    
-    
-      <span><a href="../../introduction/dpos/" style="color: #fcfcfc">&laquo; Previous</a></span>
-    
-    
-      <span><a href="../account/" style="color: #fcfcfc">Next &raquo;</a></span>
-    
-  </span>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
 </div>
-    <script>var base_url = '../..';</script>
-    <script src="../../js/theme_extra.js" defer></script>
-    <script src="../../js/theme.js" defer></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
-      <script src="../../search/main.js" defer></script>
-    <script defer>
-        window.onload = function () {
-            SphinxRtdTheme.Navigation.enable(true);
-        };
-    </script>
-
-</body>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.sections", "toc.integrate", "search.highlight", "search.suggest", "content.code.annotate", "content.tooltips"], "search": "../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.c8b220af.min.js"></script>
+      
+        <script src="../../javascripts/toc.js"></script>
+      
+        <script src="../../javascripts/nav-toc.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+      
+    
+  </body>
 </html>

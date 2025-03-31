@@ -1,940 +1,2598 @@
-<!DOCTYPE html>
-<html class="writer-html5" lang="en" >
-<head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://tronprotocol.github.io/documentation-zh/releases/history/" />
-      <link rel="shortcut icon" href="../../img/favicon.ico" />
-    <title>历史版本 - java-tron</title>
-    <link rel="stylesheet" href="../../css/theme.css" />
-    <link rel="stylesheet" href="../../css/theme_extra.css" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
-        <link href="../../stylesheets/extra.css" rel="stylesheet" />
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
     
-      <script>
-        // Current page data
-        var mkdocs_page_name = "\u5386\u53f2\u7248\u672c";
-        var mkdocs_page_input_path = "releases/history.md";
-        var mkdocs_page_url = "/documentation-zh/releases/history/";
-      </script>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://tronprotocol.github.io/documentation-zh/releases/history/">
+      
+      
+        <link rel="prev" href="../signature_verification/">
+      
+      
+        <link rel="next" href="../../glossary/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.8">
     
-    <script src="../../js/jquery-3.6.0.min.js" defer></script>
-    <!--[if lt IE 9]>
-      <script src="../../js/html5shiv.min.js"></script>
-    <![endif]-->
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
-      <script>hljs.initHighlightingOnLoad();</script> 
-</head>
+    
+      
+        <title>历史版本 - java-tron</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.8608ea7d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
 
-<body class="wy-body-for-nav" role="document">
 
-  <div class="wy-grid-for-nav">
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
-    <div class="wy-side-scroll">
-      <div class="wy-side-nav-search">
-          <a href="../.." class="icon icon-home"> java-tron
-        </a><div role="search">
-  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
-  </form>
-</div>
-      </div>
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
 
-      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption"><span class="caption-text">java-tron入门</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../../getting_started/getting_started_with_javatron/">java-tron入门</a>
-                  </li>
-              </ul>
-              <p class="caption"><span class="caption-text">使用java-tron</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../../using_javatron/installing_javatron/">部署</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../using_javatron/backup_restore/">备份和恢复</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../developers/litefullnode/">轻节点</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../using_javatron/private_network/">私链网络</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../architecture/event/">事件订阅</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../architecture/database/">数据库配置</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../using_javatron/connecting_to_tron/">网络配置</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../using_javatron/metrics/">节点监控</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../using_javatron/toolkit/">节点维护工具</a>
-                  </li>
-              </ul>
-              <p class="caption"><span class="caption-text">API接口</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../../api/http/">HTTP 接口</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../api/rpc/">gRPC 接口</a>
-                  </li>
-              </ul>
-              <p class="caption"><span class="caption-text">核心协议</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../../introduction/dpos/">波场共识</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../mechanism-algorithm/sr/">超级代表</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../mechanism-algorithm/account/">账户模型</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../mechanism-algorithm/resource/">资源模型</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../contracts/contract/">智能合约</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../mechanism-algorithm/system-contracts/">系统合约</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../mechanism-algorithm/dex/">去中心化交易所</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../mechanism-algorithm/multi-signatures/">账户权限管理</a>
-                  </li>
-              </ul>
-              <p class="caption"><span class="caption-text">java-tron开发</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../../developers/java-tron/">开发者指南</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../developers/tips/">TIPs工作流程</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../developers/issue-workflow/">Issue工作流程</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../developers/governance/">治理流程</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../developers/run-in-idea/">配置IDE开发环境</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../developers/demo/">开发示例</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../developers/code-structure/">核心模块</a>
-                  </li>
-              </ul>
-              <p class="caption"><span class="caption-text">Dapp开发</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../../contracts/compiler/">Dapp开发工具</a>
-                  </li>
-              </ul>
-              <p class="caption"><span class="caption-text">wallet-cli</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../../clients/wallet-cli/">什么是wallet-cli</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../clients/wallet-cli-command/">wallet-cli命令</a>
-                  </li>
-              </ul>
-              <p class="caption"><span class="caption-text">版本发布</span></p>
-              <ul class="current">
-                  <li class="toctree-l1"><a class="reference internal" href="../upgrade-instruction/">新版本部署手册</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../signature_verification/">一致性检验</a>
-                  </li>
-                  <li class="toctree-l1 current"><a class="reference internal current" href="./">历史版本</a>
-    <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#greatvoyage-477epicurus">GreatVoyage-4.7.7(Epicurus)</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#_1">核心协议</a>
-        <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#1-javalangmathjavalangstrictmath">1. 将浮点类型的幂运算库从java.lang.Math升级到java.lang.StrictMath</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#_2">其它变更</a>
-        <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#1">1. 优化事件订阅处理逻辑</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#2">2. 调整主备服务资源释放顺序</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#3-grpc">3. 优化GRPC接口调用耗时统计方法</a>
-    </li>
-        </ul>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#greatvoyage-v476anaximander">GreatVoyage-v4.7.6(Anaximander)</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#_3">其它变更</a>
-        <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#1-http">1. 优化节点HTTP请求监控指标的统计逻辑</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#2_1">2. 提高单元测试任务执行的稳定性</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#3-tcp-udp">3. 新增TCP 流出量监控指标和UDP 流入量统计</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#4">4. 优化远端节点空闲判断逻辑</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#5">5. 优化节点排序逻辑</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#6">6. 优化请求区块清单消息的检查逻辑</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#7">7. 优化区块处理逻辑</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#8">8. 优化节点连接随机断开逻辑</a>
-    </li>
-        </ul>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#greatvoyage-v475cleobulus">GreatVoyage-v4.7.5(Cleobulus)</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#_4">核心协议</a>
-        <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#1_1">1. 优化区块同步和生产逻辑</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#2_2">2. 加强创建账户类交易的大小检查</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#tvm">TVM</a>
-        <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#1-tvm">1. 调整 TVM中个别操作码的能量成本</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#_5">其它变更</a>
-        <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#1_2">1. 优化线程间的同步逻辑</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#2_3">2. 删除冗余逻辑</a>
-    </li>
-        </ul>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#greatvoyage-v474bias">GreatVoyage-v4.7.4(Bias)</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#_6">核心协议</a>
-        <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#1_3">1. 优化投票奖励提取性能</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#2_4">2. 增加未固化区块数量检查功能</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#api">API</a>
-        <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#1-walletbroadcasttransactionblock_unsolidified">1. 为/wallet/broadcasttransaction接口增加一个返回码BLOCK_UNSOLIDIFIED</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#_7">其它变更</a>
-        <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#1-hellomessage">1. HelloMessage消息中添加节点版本信息</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#2-libp2pv221">2. 升级libp2p依赖库到v2.2.1版本</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#3-jetty">3. 升级jetty依赖库</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#4-gradle">4. Gradle依赖重构</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#5-grpc">5. 支持gRPC反射服务</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#6-frameworklitefullnodetool">6. 删除framework模块下的LiteFullNodeTool相关代码</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#7-nodediscoverybindip">7. 删除配置项node.discovery.bind.ip</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#8_1">8. 删除不再使用的构建脚本</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#9-api">9. 优先初始化节点API服务</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#10">10. 优化日志系统</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#11-zeromq">11. 写入ZeroMQ时新增同步控制</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#12-walletcreateshieldedcontractparameters-api-scalingfactor">12. 优化对/wallet/createshieldedcontractparameters API 中 scalingFactor参数的非法异常捕获流程</a>
-    </li>
-        </ul>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#greatvoyage-v4731solon">GreatVoyage-v4.7.3.1(Solon)</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#_8">其它变更</a>
-        <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#1-walletgetnodeinfo">1. 更稳定的 /wallet/getnodeinfo 接口</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#2_5">2. 优化轻节点数据剪裁工具</a>
-    </li>
-        </ul>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#greatvoyage-v473chilon">GreatVoyage-v4.7.3(Chilon)</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#_9">核心协议</a>
-        <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#1-grpc">1. 新增资源价格、交易备注费用查询接口的gRPC实现</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#2_6">2. 补充节点间连接断开的原因</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#3">3. 丢弃来自作恶节点的交易</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#4-stake-20">4. 增强Stake 2.0代码可读性</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#5_1">5. 交易缓存布隆过滤器持久化</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#6_1">6. 修复区块清单生成过程中由于并发导致的问题</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#7_1">7. 优化服务关闭逻辑</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#api_1">API</a>
-        <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#1-http_1">1. HTTP接口监控优化</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#2-httpgrpc">2. 新增http/gRPC接口流量控制默认值配置</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#3-http">3. HTTP 接口参数解析优化</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#4-solidity">4. 新增资源单价相关solidity接口</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#5-http">5. 优化部分HTTP 接口的处理逻辑</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#_10">其它变更</a>
-        <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#1_4">1. 在获取交易时增加对过期交易的检查</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#2-getheadblockid">2. 修复getHeadBlockId返回异常值问题</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#3_1">3. 删除不再使用的网络参数</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#4-libp2pip">4. 调用libp2p获取节点外部IP</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#5_2">5. 新增事件订阅服务对质押相关交易的地址解析</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#6-cpu">6. 调整验签线程数的默认值为最大可用CPU核数</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#7-litefullnode-plugins">7. 迁移LiteFullNode工具相关单测到 plugins 模块</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#8-properties">8. 提高properties数据库查询性能</a>
-    </li>
-        </ul>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#greatvoyage-v472periander">GreatVoyage-v4.7.2(Periander)</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#_11">核心协议</a>
-        <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#1-libp2p-v120">1. libp2p 升级到v1.2.0</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#2-stake-20">2. Stake 2.0支持取消解质押</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#3_2">3. 资源代理支持自定义锁定期</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#4_1">4. 优化有效节点获取策略</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#tvm_1">TVM</a>
-        <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#1-eip-3855-push0">1. 实现EIP-3855 PUSH0指令</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#api_2">API</a>
-        <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#1_5">1. 增加接口全局流量控制</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#2-http">2. 优化智能合约调用相关HTTP接口</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#3-getstorageat">3. 优化getStorageAt接口</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#_12">其它变更</a>
-        <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#1_6">1. 优化事件订阅中的事件转发逻辑</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#2-nodeactive-nodepassive">2. 支持动态加载node.active 和 node.passive配置项</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#3_3">3. 优化区块同步逻辑</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#4-http">4. HTTP请求规范化</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#5_3">5. 优化区块同步逻辑</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#6_2">6. 增加新的节点启动方式</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#7-junitv4132">7. 升级JUnit依赖库到v4.13.2</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#8-json-rpc">8. 增加JSON-RPC相关监控指标</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#9">9. 优化数据库模块</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#10-checkpoint-v2">10. 优化checkpoint v2自动修复功能</a>
-    </li>
-        </ul>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#greatvoyage-v4711pittacus">GreatVoyage-v4.7.1.1(Pittacus)</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#api_3">API</a>
-        <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#1-api">1. 删除涉及敏感信息的API</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#2_7">2. 优化资源代理信息查询接口</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#_13">其它变更</a>
-        <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#1-origin_energy_usage">1. 优化交易收据中origin_energy_usage字段的更新逻辑</a>
-    </li>
-        </ul>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#greatvoyage-v471sartre">GreatVoyage-v4.7.1(Sartre)</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#_14">核心协议</a>
-        <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#1-ip">1. 优化节点IP设置</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#2_8">2. 优化区块同步逻辑</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#api_4">API</a>
-        <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#1-api_1">1. 优化固化块API列表</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#2-api">2. 优化资源代理关系查询API</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#_15">其它变更</a>
-        <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#1_7">1. 优化轻节点检测逻辑</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#2_9">2. 优化数据库日志输出</a>
-    </li>
-        </ul>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#greatvoyage-v4701aristotle">GreatVoyage-v4.7.0.1(Aristotle)</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#_16">核心协议</a>
-        <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#1-stake-20">1. Stake 2.0 质押模型</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#2_10">2. 优化数据库查询性能</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#3_4">3. 优化区块生产流程</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#4-hash">4. 增加交易hash缓存</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#5-libp2p">5. libp2p集成</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#tvm_2">TVM</a>
-        <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#1-stake20tvm">1. 新增Stake2.0相关的TVM指令和预编译合约</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#2_11">2. 动态能量模型</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#3-chainid">3. 优化chainId指令的返回值</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#api_5">API</a>
-        <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#1-stake-20api">1. 新增Stake 2.0相关API</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#2_12">2. 新增预估能量接口</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#_17">其它变更</a>
-        <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#1_8">1. 优化编译参数</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#2_13">2. 优化节点自动停止功能</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#3-v1">3. 删除数据库V1版本相关代码</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#4_2">4. 优化数据库日志输出</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#5-snapshot">5. snapshot 最大落盘数量可配置</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#6-toolkitjar">6. Toolkit.jar工具箱集成</a>
-    </li>
-        </ul>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#greatvoyage-v460socrates">GreatVoyage-v4.6.0(Socrates)</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#_18">核心协议</a>
-        <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#1_9">1. 优化资源代理关系的存储结构</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#2_14">2. 交易备注收费</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#3_5">3. 优化投票奖励计算算法</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#4-checkpoint">4. 升级数据库模块中的Checkpoint机制</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#5_4">5. 优化超级代表主备节点区块生产的优先级</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#6-p2pkademlia">6 优化P2P网络模块的Kademlia算法</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#_19">其它变更</a>
-        <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#1-archivemanifestjartoolkitjar">1. 集成ArchiveManifest.jar到Toolkit.jar工具包</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#2-prometheus">2. 新增网络模块相关Prometheus指标</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#3-help">3. 新增help命令行选项</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#4_3">4. 优化轻节点工具</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#5-eth_getblockbyhasheth_getblockbynumber">5. 优化eth_getBlockByHash和eth_getBlockByNumber 接口的返回值</a>
-    </li>
-        </ul>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#greatvoyage-v452aurelius">GreatVoyage-v4.5.2(Aurelius)</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#_20">核心协议</a>
-        <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#1_10">1. 优化区块处理逻辑</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#2_15">2. 优化交易缓存机制</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#3-p2p">3. 优化P2P节点连接策略</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#4_4">4. 优化区块打包逻辑</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#5_5">5. 优化切链逻辑</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#6_3">6. 新增数据库存储分区工具</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#api_6">API</a>
-        <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#1-api_2">1. 新增区块头查询API</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#2-api_1">2. 新增历史带宽单价查询API</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#_21">其它变更</a>
-        <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#1_11">1. 优化区块同步逻辑</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#2-eth_estimategaseth_call-api">2. 优化eth_estimateGas和eth_call API</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#3_6">3. 增强接口的容错处理能力</a>
-    </li>
-        </ul>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#greatvoyage-v451tertullian">GreatVoyage-v4.5.1(Tertullian)</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#_22">核心协议</a>
-        <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#1_12">1. 优化交易缓存的加载</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#2-trc-10">2. 优化账户TRC-10资产存储结构</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#3_7">3. 优化轻节点同步逻辑</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#4_5">4. 优化区块广播逻辑</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#5_6">5. 优化区块获取逻辑</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#6-prometheus">6. 支持prometheus协议接口</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#7_2">7. 节点支持在特定状态下停止运行</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#tvm_3">TVM</a>
-        <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#1-tvm_1">1. 调整TVM最大执行时间可设置的上限</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#2-tvm">2. 优化TVM缓存结构</a>
-    </li>
-        </ul>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#greatvoyage-v446david">GreatVoyage-v4.4.6(David)</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#_23">其它变更</a>
-        <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#1-fastjson">1. 更新fastjson依赖库到最新版本</a>
-    </li>
-        </ul>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#greatvoyage-445cicero">GreatVoyage-4.4.5(Cicero)</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#_24">其它变更</a>
-        <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#1_13">1. 优化节点查询接口</a>
-    </li>
-        </ul>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#greatvoyage-444plotinus">GreatVoyage-4.4.4(Plotinus)</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#_25">核心协议</a>
-        <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#1_14">1. 优化节点启动时间</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#2_16">2. 优化内存使用</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#3_8">3. 优化产块线程</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#tvm_4">TVM</a>
-        <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#1-tvm_2">1. TVM支持多版本程序执行器</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#_26">其它变更</a>
-        <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#1_15">1. 优化节点日志存储</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#2_17">2. 优化网络服务关闭逻辑</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#3-java-tron">3. 改进java-tron升级机制</a>
-    </li>
-        </ul>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#greatvoyage-442augustinus">GreatVoyage-4.4.2(Augustinus)</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#tvm_5">TVM</a>
-        <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#1-tvm_3">1. 优化TVM操作码执行模型</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#api_7">API</a>
-        <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#1-eventjson-rpc-api">1. 新增关于Event的JSON-RPC API</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#_27">其它变更</a>
-        <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#1-leveldb">1. LevelDB数据库性能优化</a>
-    </li>
-        </ul>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#greatvoyage-440rousseau">GreatVoyage-4.4.0(Rousseau)</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#_28">核心协议</a>
-        <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#1_16">1. 优化区块广播</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#2-dynamic-store">2. 优化dynamic store的查询性能</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#3_9">3. 优化交易广播接口</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#4_6">4. 优化数据库参数</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#tvm_6">TVM</a>
-        <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#1-tvmevm">1. TVM更好的兼容EVM</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#2-london">2. 对以太坊London升级进行兼容</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#3-constantenergy-limit">3. Constant模式下的energy limit可配置且增大默认值</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#api_8">API</a>
-        <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#1-json-rpc-api">1. 新增JSON-RPC API</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#2-api_2">2. 节点支持禁用特定API</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#3-triggerconstantcontract">3. 优化TriggerConstantContract接口</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#_29">其它变更</a>
-        <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#1-bttc">1. 升级事件插件以支持BTTC</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#2-maxfeelimit">2. 提升MaxFeeLimit的取值范围</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#3-startsh">3. 优化快速启动脚本start.sh</a>
-    </li>
-        </ul>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#greatvoyage-430bacon">GreatVoyage-4.3.0(Bacon)</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#_30">核心协议</a>
-        <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#1_17">1. 账户每天的免费带宽额度可配置</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#2-trx">2. 全网通过质押TRX可获得的带宽总额可配置</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#3-account">3. 优化Account 数据库存储结构</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#tvm_7">TVM</a>
-        <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#1_18">1. 虚拟机中新增投票指令</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#2-abi-error">2. 新增ABI类型 Error</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#api_9">API</a>
-        <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#1-transactionextentionenergy_used">1. TransactionExtention新增energy_used字段</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#_31">其它变更</a>
-        <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#1-bouncycastle">1. 更新BouncyCastle为加密算法程序库</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#2-net_usage">2. 更新新账户创建时net_usage的计算方法</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#3_10">3. 优化区块验证</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#4_7">4. 优化节点启动</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#5_7">5. 优化交易处理流程降低内存使用</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#6-leveldb">6. 新增插件优化leveldb的启动性能</a>
-    </li>
-        </ul>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#greatvoyage-4221epictetus">GreatVoyage-4.2.2.1(Epictetus)</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#_32">核心协议</a>
-        <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#1pending-transaction">1、优化pending transaction的处理逻辑。</a>
-    </li>
-        </ul>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#greatvoyage-422lucretius">GreatVoyage-4.2.2(Lucretius)</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#_33">核心协议</a>
-        <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#1_19">1、优化区块处理。</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#2_18">2、优化数据查询。</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#3abi">3、优化智能合约ABI的存储。</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#_34">其他变更</a>
-        <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#1batchvalidatesign">1、优化系统合约BatchValidateSign的初始化流程。</a>
-    </li>
-        </ul>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#greatvoyage-420plato">GreatVoyage-4.2.0(Plato)</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#_35">核心协议</a>
-        <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#1_20">1、资源模型优化。</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#tvm_8">TVM</a>
-        <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#1freezeunfreeze">1、虚拟机中新增Freeze/Unfreeze 指令。</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#_36">其他变更</a>
-        <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#1_21">1、优化区块同步逻辑</a>
-    </li>
-        </ul>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#greatvoyage-413thales">GreatVoyage-4.1.3(Thales)</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#_37">核心协议</a>
-        <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#1sr">1.对待打包的交易进行排序，SR优先打包费用较高的交易</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#api_10">API</a>
-        <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#1_22">1.新增查询待打包交易列表相关接口</a>
-    </li>
-        </ul>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#great-voyage-v412">Great Voyage - v4.1.2</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#_38">一、核心协议</a>
-        <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#1out_of_timesr">1、将燃烧带宽/燃烧能量（OUT_OF_TIME除外）的手续费转为SR产块奖励。</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#2_19">2、新增账户历史余额查询功能。</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#3_11">3、黑洞账户优化。</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#tvm_9">二、TVM</a>
-        <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#1solidity060">1、对以太坊solidity0.6.0特性进行兼容</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#2max_fee_limit">2、将MAX_FEE_LIMIT变更为可配置项。</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#_39">三、其他变更</a>
-        <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#1jitpack-java-tron">1、使用jitpack仓库提供依赖支持，方便开发者的项目使用 java-tron 作为依赖。</a>
-    </li>
-        </ul>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#greatvoyage-v411">GreatVoyage-v4.1.1</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#_40">核心协议</a>
-        <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#_41">新的共识协议</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#_42">新的节点类型</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#tvm_10">TVM</a>
-        <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#_43">对以太坊的伊斯坦布尔升级进行兼容</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#_44">机制</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#_45">其他变更</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#greatvoyage-v400">GreatVoyage-v4.0.0</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#_46">注意</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#_47">新功能</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#_48">更新</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#odyssey-v37">Odyssey-v3.7</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#_49">模块化</a>
-        <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#_50">框架</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#_51">协议</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#_52">共识</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#_53">加密</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#_54">执行器</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#_55">内存数据库</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#_56">固化块的新事件订阅触发器</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#http-api">新增两个HTTP API</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#rpc">新增一个 RPC 接口</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#odyssey-v365">Odyssey-v3.6.5</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#1_23">1、新的抵押机制</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#2_20">2、更加公平高效的股权分红机制</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#3_12">3、更加合理的激励机制</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#4tvm">4、虚拟机TVM的改进和优化</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#5_8">5、完善能量上限动态调整机制</a>
-    </li>
-        </ul>
-    </li>
-    </ul>
-                  </li>
-              </ul>
-              <p class="caption"><span class="caption-text">术语表</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../../glossary/">术语表</a>
-                  </li>
-              </ul>
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#java-tron" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="java-tron" class="md-header__button md-logo" aria-label="java-tron" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            java-tron
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              历史版本
+            
+          </span>
+        </div>
       </div>
     </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../..">java-tron</a>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
         
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
       </nav>
-      <div class="wy-nav-content">
-        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
-  <ul class="wy-breadcrumbs">
-    <li><a href="../.." class="icon icon-home" alt="Docs"></a> &raquo;</li>
-          <li>版本发布 &raquo;</li><li>历史版本</li>
-    <li class="wy-breadcrumbs-aside">
-        <a href="https://github.com/tronprotocol/documentation-zh/edit/master/docs/releases/history.md"
-          class="icon icon-github"> Edit on GitHub</a>
-    </li>
-  </ul>
-  <hr/>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
-
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-            <div class="section" itemprop="articleBody">
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/tronprotocol/documentation-zh" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
               
-                <h1 id="java-tron">java-tron版本<a class="headerlink" href="#java-tron" title="Permanent link">&para;</a></h1>
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="java-tron" class="md-nav__button md-logo" aria-label="java-tron" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    java-tron
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/tronprotocol/documentation-zh" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    java-tron入门
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            java-tron入门
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting_started/getting_started_with_javatron/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    入门
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    使用java-tron
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            使用java-tron
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../using_javatron/installing_javatron/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    部署
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../using_javatron/backup_restore/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    备份和恢复
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developers/litefullnode/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    轻节点
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../using_javatron/private_network/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    私链网络
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/event/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    事件订阅
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/database/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    数据库配置
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../using_javatron/connecting_to_tron/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    网络配置
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../using_javatron/metrics/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    节点监控
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../using_javatron/toolkit/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    节点维护工具
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    API接口
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            API接口
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/http/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    HTTP 接口
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/rpc/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    gRPC 接口
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/json-rpc/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    jsonRPC 接口
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    核心协议
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            核心协议
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../introduction/dpos/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    波场共识
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mechanism-algorithm/sr/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    超级代表
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mechanism-algorithm/account/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    账户模型
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mechanism-algorithm/resource/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    资源模型
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contracts/contract/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    智能合约
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mechanism-algorithm/system-contracts/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    系统合约
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mechanism-algorithm/dex/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    去中心化交易所
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mechanism-algorithm/multi-signatures/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    账户权限管理
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    java-tron开发
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            java-tron开发
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developers/java-tron/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    开发者指南
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developers/tips/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    TIPs工作流程
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developers/issue-workflow/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Issue工作流程
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developers/governance/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    治理流程
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developers/run-in-idea/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    配置IDE开发环境
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developers/demo/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    开发示例
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developers/code-structure/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    核心模块
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Dapp开发
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Dapp开发
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contracts/compiler/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Dapp开发工具
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    wallet-cli
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            wallet-cli
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../clients/wallet-cli/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    什么是wallet-cli
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../clients/wallet-cli-command/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    wallet-cli命令
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    版本发布
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            版本发布
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../upgrade-instruction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    新版本部署手册
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../signature_verification/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    一致性检验
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    历史版本
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    历史版本
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item has-children">
+  <a href="#greatvoyage-477epicurus" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
+    <span class="md-ellipsis">
+      GreatVoyage-4.7.7(Epicurus)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="GreatVoyage-4.7.7(Epicurus)" hidden>
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item ">
+  <a href="#_1" class="md-nav__link" >
+    <span class="md-ellipsis">
+      核心协议
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#_2" class="md-nav__link" >
+    <span class="md-ellipsis">
+      其它变更
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item has-children">
+  <a href="#greatvoyage-v476anaximander" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
+    <span class="md-ellipsis">
+      GreatVoyage-v4.7.6(Anaximander)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="GreatVoyage-v4.7.6(Anaximander)" hidden>
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item ">
+  <a href="#_3" class="md-nav__link" >
+    <span class="md-ellipsis">
+      其它变更
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item has-children">
+  <a href="#greatvoyage-v475cleobulus" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
+    <span class="md-ellipsis">
+      GreatVoyage-v4.7.5(Cleobulus)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="GreatVoyage-v4.7.5(Cleobulus)" hidden>
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item ">
+  <a href="#_4" class="md-nav__link" >
+    <span class="md-ellipsis">
+      核心协议
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#tvm" class="md-nav__link" >
+    <span class="md-ellipsis">
+      TVM
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#_5" class="md-nav__link" >
+    <span class="md-ellipsis">
+      其它变更
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item has-children">
+  <a href="#greatvoyage-v474bias" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
+    <span class="md-ellipsis">
+      GreatVoyage-v4.7.4(Bias)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="GreatVoyage-v4.7.4(Bias)" hidden>
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item ">
+  <a href="#_6" class="md-nav__link" >
+    <span class="md-ellipsis">
+      核心协议
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#api" class="md-nav__link" >
+    <span class="md-ellipsis">
+      API
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#_7" class="md-nav__link" >
+    <span class="md-ellipsis">
+      其它变更
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item has-children">
+  <a href="#greatvoyage-v4731solon" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
+    <span class="md-ellipsis">
+      GreatVoyage-v4.7.3.1(Solon)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="GreatVoyage-v4.7.3.1(Solon)" hidden>
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item ">
+  <a href="#_8" class="md-nav__link" >
+    <span class="md-ellipsis">
+      其它变更
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item has-children">
+  <a href="#greatvoyage-v473chilon" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
+    <span class="md-ellipsis">
+      GreatVoyage-v4.7.3(Chilon)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="GreatVoyage-v4.7.3(Chilon)" hidden>
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item ">
+  <a href="#_9" class="md-nav__link" >
+    <span class="md-ellipsis">
+      核心协议
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#api_1" class="md-nav__link" >
+    <span class="md-ellipsis">
+      API
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#_10" class="md-nav__link" >
+    <span class="md-ellipsis">
+      其它变更
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item has-children">
+  <a href="#greatvoyage-v472periander" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
+    <span class="md-ellipsis">
+      GreatVoyage-v4.7.2(Periander)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="GreatVoyage-v4.7.2(Periander)" hidden>
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item ">
+  <a href="#_11" class="md-nav__link" >
+    <span class="md-ellipsis">
+      核心协议
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#tvm_1" class="md-nav__link" >
+    <span class="md-ellipsis">
+      TVM
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#api_2" class="md-nav__link" >
+    <span class="md-ellipsis">
+      API
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#_12" class="md-nav__link" >
+    <span class="md-ellipsis">
+      其它变更
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item has-children">
+  <a href="#greatvoyage-v4711pittacus" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
+    <span class="md-ellipsis">
+      GreatVoyage-v4.7.1.1(Pittacus)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="GreatVoyage-v4.7.1.1(Pittacus)" hidden>
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item ">
+  <a href="#api_3" class="md-nav__link" >
+    <span class="md-ellipsis">
+      API
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#_13" class="md-nav__link" >
+    <span class="md-ellipsis">
+      其它变更
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item has-children">
+  <a href="#greatvoyage-v471sartre" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
+    <span class="md-ellipsis">
+      GreatVoyage-v4.7.1(Sartre)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="GreatVoyage-v4.7.1(Sartre)" hidden>
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item ">
+  <a href="#_14" class="md-nav__link" >
+    <span class="md-ellipsis">
+      核心协议
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#api_4" class="md-nav__link" >
+    <span class="md-ellipsis">
+      API
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#_15" class="md-nav__link" >
+    <span class="md-ellipsis">
+      其它变更
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item has-children">
+  <a href="#greatvoyage-v4701aristotle" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
+    <span class="md-ellipsis">
+      GreatVoyage-v4.7.0.1(Aristotle)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="GreatVoyage-v4.7.0.1(Aristotle)" hidden>
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item ">
+  <a href="#_16" class="md-nav__link" >
+    <span class="md-ellipsis">
+      核心协议
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#tvm_2" class="md-nav__link" >
+    <span class="md-ellipsis">
+      TVM
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#api_5" class="md-nav__link" >
+    <span class="md-ellipsis">
+      API
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#_17" class="md-nav__link" >
+    <span class="md-ellipsis">
+      其它变更
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item has-children">
+  <a href="#greatvoyage-v460socrates" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
+    <span class="md-ellipsis">
+      GreatVoyage-v4.6.0(Socrates)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="GreatVoyage-v4.6.0(Socrates)" hidden>
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item ">
+  <a href="#_18" class="md-nav__link" >
+    <span class="md-ellipsis">
+      核心协议
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#_19" class="md-nav__link" >
+    <span class="md-ellipsis">
+      其它变更
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item has-children">
+  <a href="#greatvoyage-v452aurelius" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
+    <span class="md-ellipsis">
+      GreatVoyage-v4.5.2(Aurelius)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="GreatVoyage-v4.5.2(Aurelius)" hidden>
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item ">
+  <a href="#_20" class="md-nav__link" >
+    <span class="md-ellipsis">
+      核心协议
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#api_6" class="md-nav__link" >
+    <span class="md-ellipsis">
+      API
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#_21" class="md-nav__link" >
+    <span class="md-ellipsis">
+      其它变更
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item has-children">
+  <a href="#greatvoyage-v451tertullian" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
+    <span class="md-ellipsis">
+      GreatVoyage-v4.5.1(Tertullian)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="GreatVoyage-v4.5.1(Tertullian)" hidden>
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item ">
+  <a href="#_22" class="md-nav__link" >
+    <span class="md-ellipsis">
+      核心协议
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#tvm_3" class="md-nav__link" >
+    <span class="md-ellipsis">
+      TVM
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item has-children">
+  <a href="#greatvoyage-v446david" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
+    <span class="md-ellipsis">
+      GreatVoyage-v4.4.6(David)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="GreatVoyage-v4.4.6(David)" hidden>
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item ">
+  <a href="#_23" class="md-nav__link" >
+    <span class="md-ellipsis">
+      其它变更
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item has-children">
+  <a href="#greatvoyage-445cicero" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
+    <span class="md-ellipsis">
+      GreatVoyage-4.4.5(Cicero)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="GreatVoyage-4.4.5(Cicero)" hidden>
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item ">
+  <a href="#_24" class="md-nav__link" >
+    <span class="md-ellipsis">
+      其它变更
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item has-children">
+  <a href="#greatvoyage-444plotinus" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
+    <span class="md-ellipsis">
+      GreatVoyage-4.4.4(Plotinus)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="GreatVoyage-4.4.4(Plotinus)" hidden>
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item ">
+  <a href="#_25" class="md-nav__link" >
+    <span class="md-ellipsis">
+      核心协议
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#tvm_4" class="md-nav__link" >
+    <span class="md-ellipsis">
+      TVM
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#_26" class="md-nav__link" >
+    <span class="md-ellipsis">
+      其它变更
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item has-children">
+  <a href="#greatvoyage-442augustinus" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
+    <span class="md-ellipsis">
+      GreatVoyage-4.4.2(Augustinus)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="GreatVoyage-4.4.2(Augustinus)" hidden>
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item ">
+  <a href="#tvm_5" class="md-nav__link" >
+    <span class="md-ellipsis">
+      TVM
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#api_7" class="md-nav__link" >
+    <span class="md-ellipsis">
+      API
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#_27" class="md-nav__link" >
+    <span class="md-ellipsis">
+      其它变更
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item has-children">
+  <a href="#greatvoyage-440rousseau" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
+    <span class="md-ellipsis">
+      GreatVoyage-4.4.0(Rousseau)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="GreatVoyage-4.4.0(Rousseau)" hidden>
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item ">
+  <a href="#_28" class="md-nav__link" >
+    <span class="md-ellipsis">
+      核心协议
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#tvm_6" class="md-nav__link" >
+    <span class="md-ellipsis">
+      TVM
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#api_8" class="md-nav__link" >
+    <span class="md-ellipsis">
+      API
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#_29" class="md-nav__link" >
+    <span class="md-ellipsis">
+      其它变更
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item has-children">
+  <a href="#greatvoyage-430bacon" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
+    <span class="md-ellipsis">
+      GreatVoyage-4.3.0(Bacon)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="GreatVoyage-4.3.0(Bacon)" hidden>
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item ">
+  <a href="#_30" class="md-nav__link" >
+    <span class="md-ellipsis">
+      核心协议
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#tvm_7" class="md-nav__link" >
+    <span class="md-ellipsis">
+      TVM
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#api_9" class="md-nav__link" >
+    <span class="md-ellipsis">
+      API
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#_31" class="md-nav__link" >
+    <span class="md-ellipsis">
+      其它变更
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item has-children">
+  <a href="#greatvoyage-4221epictetus" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
+    <span class="md-ellipsis">
+      GreatVoyage-4.2.2.1(Epictetus)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="GreatVoyage-4.2.2.1(Epictetus)" hidden>
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item ">
+  <a href="#_32" class="md-nav__link" >
+    <span class="md-ellipsis">
+      核心协议
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item has-children">
+  <a href="#greatvoyage-422lucretius" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
+    <span class="md-ellipsis">
+      GreatVoyage-4.2.2(Lucretius)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="GreatVoyage-4.2.2(Lucretius)" hidden>
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item ">
+  <a href="#_33" class="md-nav__link" >
+    <span class="md-ellipsis">
+      核心协议
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#_34" class="md-nav__link" >
+    <span class="md-ellipsis">
+      其他变更
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item has-children">
+  <a href="#greatvoyage-420plato" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
+    <span class="md-ellipsis">
+      GreatVoyage-4.2.0(Plato)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="GreatVoyage-4.2.0(Plato)" hidden>
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item ">
+  <a href="#_35" class="md-nav__link" >
+    <span class="md-ellipsis">
+      核心协议
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#tvm_8" class="md-nav__link" >
+    <span class="md-ellipsis">
+      TVM
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#_36" class="md-nav__link" >
+    <span class="md-ellipsis">
+      其他变更
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item has-children">
+  <a href="#greatvoyage-413thales" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
+    <span class="md-ellipsis">
+      GreatVoyage-4.1.3(Thales)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="GreatVoyage-4.1.3(Thales)" hidden>
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item ">
+  <a href="#_37" class="md-nav__link" >
+    <span class="md-ellipsis">
+      核心协议
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#api_10" class="md-nav__link" >
+    <span class="md-ellipsis">
+      API
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item has-children">
+  <a href="#great-voyage-v412" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
+    <span class="md-ellipsis">
+      Great Voyage - v4.1.2
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Great Voyage - v4.1.2" hidden>
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item ">
+  <a href="#_38" class="md-nav__link" >
+    <span class="md-ellipsis">
+      一、核心协议
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#tvm_9" class="md-nav__link" >
+    <span class="md-ellipsis">
+      二、TVM
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#_39" class="md-nav__link" >
+    <span class="md-ellipsis">
+      三、其他变更
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item has-children">
+  <a href="#greatvoyage-v411" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
+    <span class="md-ellipsis">
+      GreatVoyage-v4.1.1
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="GreatVoyage-v4.1.1" hidden>
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item ">
+  <a href="#_40" class="md-nav__link" >
+    <span class="md-ellipsis">
+      核心协议
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#tvm_10" class="md-nav__link" >
+    <span class="md-ellipsis">
+      TVM
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#_44" class="md-nav__link" >
+    <span class="md-ellipsis">
+      机制
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#_45" class="md-nav__link" >
+    <span class="md-ellipsis">
+      其他变更
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item has-children">
+  <a href="#greatvoyage-v400" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
+    <span class="md-ellipsis">
+      GreatVoyage-v4.0.0
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="GreatVoyage-v4.0.0" hidden>
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item ">
+  <a href="#_46" class="md-nav__link" >
+    <span class="md-ellipsis">
+      注意
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#_47" class="md-nav__link" >
+    <span class="md-ellipsis">
+      新功能
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#_48" class="md-nav__link" >
+    <span class="md-ellipsis">
+      更新
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item has-children">
+  <a href="#odyssey-v37" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
+    <span class="md-ellipsis">
+      Odyssey-v3.7
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Odyssey-v3.7" hidden>
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item ">
+  <a href="#_49" class="md-nav__link" >
+    <span class="md-ellipsis">
+      模块化
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#_56" class="md-nav__link" >
+    <span class="md-ellipsis">
+      固化块的新事件订阅触发器
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#http-api" class="md-nav__link" >
+    <span class="md-ellipsis">
+      新增两个HTTP API
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#rpc" class="md-nav__link" >
+    <span class="md-ellipsis">
+      新增一个 RPC 接口
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item has-children">
+  <a href="#odyssey-v365" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
+    <span class="md-ellipsis">
+      Odyssey-v3.6.5
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Odyssey-v3.6.5" hidden>
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item ">
+  <a href="#1_23" class="md-nav__link" >
+    <span class="md-ellipsis">
+      1、新的抵押机制
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#2_20" class="md-nav__link" >
+    <span class="md-ellipsis">
+      2、更加公平高效的股权分红机制
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#3_12" class="md-nav__link" >
+    <span class="md-ellipsis">
+      3、更加合理的激励机制
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#4tvm" class="md-nav__link" >
+    <span class="md-ellipsis">
+      4、虚拟机TVM的改进和优化
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#5_8" class="md-nav__link" >
+    <span class="md-ellipsis">
+      5、完善能量上限动态调整机制
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    附录
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            附录
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    术语表
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="java-tron">java-tron版本<a class="headerlink" href="#java-tron" title="Permanent link">&para;</a></h1>
 <table>
 <thead>
 <tr>
@@ -3194,55 +4852,63 @@ TransactionInfoList transactionInfoList = blockingStubFull.getTransactionInfoByB
 （6）为SolidityNode和FullNode增加了triggerConstantContract功能，完善和丰富了节点API的功能性。</p>
 <h3 id="5_8">5、完善能量上限动态调整机制<a class="headerlink" href="#5_8" title="Permanent link">&para;</a></h3>
 <p>将单位时间内能量的消耗统计方式由只统计质押的能量消耗调整为统计所有能量的消耗。这样统计的能量消耗数据更加精确有效，为能量上限的调整提供依据，有利于降低用户使用波场区块链网络的成本，提高波场网络的效率。</p>
-              
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
             </div>
-          </div><footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../signature_verification/" class="btn btn-neutral float-left" title="一致性检验"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../../glossary/" class="btn btn-neutral float-right" title="术语表">Next <span class="icon icon-circle-arrow-right"></span></a>
-    </div>
-
-  <hr/>
-
-  <div role="contentinfo">
-    <!-- Copyright etc -->
-  </div>
-
-  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
-</footer>
           
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
         </div>
-      </div>
-
-    </section>
-
-  </div>
-
-  <div class="rst-versions" role="note" aria-label="Versions">
-  <span class="rst-current-version" data-toggle="rst-current-version">
-    
-        <span>
-          <a href="https://github.com/tronprotocol/documentation-zh" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
-        </span>
-    
-    
-      <span><a href="../signature_verification/" style="color: #fcfcfc">&laquo; Previous</a></span>
-    
-    
-      <span><a href="../../glossary/" style="color: #fcfcfc">Next &raquo;</a></span>
-    
-  </span>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
 </div>
-    <script>var base_url = '../..';</script>
-    <script src="../../js/theme_extra.js" defer></script>
-    <script src="../../js/theme.js" defer></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
-      <script src="../../search/main.js" defer></script>
-    <script defer>
-        window.onload = function () {
-            SphinxRtdTheme.Navigation.enable(true);
-        };
-    </script>
-
-</body>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.sections", "toc.integrate", "search.highlight", "search.suggest", "content.code.annotate", "content.tooltips"], "search": "../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.c8b220af.min.js"></script>
+      
+        <script src="../../javascripts/toc.js"></script>
+      
+        <script src="../../javascripts/nav-toc.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+      
+    
+  </body>
 </html>
