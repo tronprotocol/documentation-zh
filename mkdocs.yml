@@ -3,6 +3,7 @@ site_url: https://tronprotocol.github.io/documentation-zh/
 repo_url: https://github.com/tronprotocol/documentation-zh
 
 nav:
+    - Home: index.md
     - java-tron入门: 
         - 入门: getting_started/getting_started_with_javatron.md
     - 使用java-tron:
@@ -55,6 +56,7 @@ theme:
   custom_dir: docs/overrides
   features:
     - navigation.sections  # 启用左侧导航栏的分组
+    - navigation.footer
     - toc.integrate
     - search.highlight  # 搜索时高亮匹配内容
     - search.suggest  # 搜索时显示建议

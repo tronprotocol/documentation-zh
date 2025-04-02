@@ -19,3 +19,6 @@ TestNet的配置请参照:
 
 MainNet的配置请参照:
 [https://github.com/tronprotocol/TronDeployment/blob/master/main_net_config.conf](https://github.com/tronprotocol/TronDeployment/blob/master/main_net_config.conf)
+
+
+<meta http-equiv="refresh" content="0; url=/">
