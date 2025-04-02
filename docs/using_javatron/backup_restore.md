@@ -81,4 +81,4 @@ TRON网络从GreatVoyage-V4.1.0版本开始，支持Lite FullNode类型的节点
   3. 启动节点。节点默认读取output-directory目录，如需指定其他目录，请在节点启动时，添加参数 -d 数据库目录名
 
 ### Nile测试网数据快照
-Nile测试网的数据快照可以在[此处](https://database.nileex.io/)下载，使用方法同主网。
+Nile测试网的数据快照可以在[此处](https://database.nileex.io/)下载，使用方法同[主网](#_6)。
