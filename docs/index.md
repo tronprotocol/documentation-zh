@@ -11,12 +11,6 @@ java-tron是用Java编写的TRON网络客户端，完全开源，您可以在Git
 * [wallet-cli](clients/wallet-cli/)
 * [版本发布](releases/upgrade-instruction/)
 
-以下是和java-tron密切相关的几个项目：
-
-* [tronprotocol/wallet-cli](https://github.com/tronprotocol/wallet-cli) 是官方命令行钱包。
-* [tronprotocol/tips](https://github.com/tronprotocol/tips) 是波场改进提议。
-* [tronprotocol/sun-network](https://github.com/tronprotocol/sun-network) 是波场侧链。
-
 
 关于其它TRON相关知识，请访问官网 [tron.network](https://tron.network/index?lng=zh) 或者以下资源链接:
 
