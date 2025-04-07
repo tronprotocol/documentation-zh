@@ -1220,7 +1220,7 @@ QUANTITY - 过滤器 ID。
 
 **返回值**
 
-参见 [eth_getFilterChanges](/reference/eth_getfilterchanges)。
+参见 [eth_getFilterChanges](#eth_getfilterchanges)。
 
 **示例**
 
@@ -1338,7 +1338,7 @@ Object - 过滤选项，包括以下字段：
 
 **返回值**
 
- 参见 [eth_getFilterChanges](/reference/eth_getfilterchanges)。
+ 参见 [eth_getFilterChanges](#eth_getfilterchanges)。
 
 **示例**
 
