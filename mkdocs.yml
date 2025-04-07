@@ -13,7 +13,7 @@ nav:
         - 私链网络: using_javatron/private_network.md
         - 事件订阅: architecture/event.md
         - 数据库配置: architecture/database.md
-        - 网络配置: using_javatron/connecting_to_tron.md
+        - 网络连接: using_javatron/connecting_to_tron.md
         - 节点监控: using_javatron/metrics.md
         - 节点维护工具: using_javatron/toolkit.md
     - API接口:
