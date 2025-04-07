@@ -36,7 +36,8 @@
 
 /*设置一级导航字体的颜色以增加和二级导航的区分度*/
 .md-nav--primary .md-nav__item--section > .md-nav__link {
-    color: #444; 
+    color: #000;
+    font-size: 1.1em; 
 }
 
 /* 隐藏左侧导航栏的站点名称 此名称有重复*/
@@ -46,5 +47,24 @@
 
 .md-sidebar {
     padding-top: 0; /* 移除顶部内边距 */
-    margin-top: 0;  /* 移除顶部外边距 */
 }
+
+/*Hide Home nav-item*/
+.md-nav--primary > .md-nav__list > li:first-child {
+    display: none;
+}
+
+.md-footer {
+  background-color: var(--md-default-bg-color);
+}
+
+/* add flex alignment */
+.md-footer__link {
+  align-items: center;
+}
+
+/* Override the responsive design part of the footer. */
+@media screen and (max-width: 44.984375em) {
+  .md-footer__link--prev .md-footer__title {
+    display: block;
+  }
