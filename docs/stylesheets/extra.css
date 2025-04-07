@@ -36,7 +36,8 @@
 
 /*设置一级导航字体的颜色以增加和二级导航的区分度*/
 .md-nav--primary .md-nav__item--section > .md-nav__link {
-    color: #444; 
+    color: #000;
+    font-size: 1.1em; 
 }
 
 /* 隐藏左侧导航栏的站点名称 此名称有重复*/
