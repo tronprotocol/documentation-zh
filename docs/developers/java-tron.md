@@ -10,7 +10,7 @@ GitHub可以用于跟踪问题、贡献代码、提出建议、请求新功能�
 * 发送一个pull request
 * 维护者审查并合并到主分支
 
-对于小的修复，您可以直接发送一个pull request (PR)，但请确保PR中包含详细的描述。对于复杂的改动，您需要向[TIP仓库](https://github.com/tronprotocol/tips)提交一个issue，以详细说明您的动机和实现计划等。关于如何提交TIP issue，请参见[TIP规范](../tips/)。
+对于小的修复，您可以直接发送一个pull request (PR)，但请确保PR中包含详细的描述。对于复杂的改动，您需要向[TIP仓库](https://github.com/tronprotocol/tips)提交一个issue，以详细说明您的动机和实现计划等。关于如何提交TIP issue，请参见[TIP规范](tips.md)。
 
 我们鼓励java-tron开发者尽早提交PR，即使没有完全开发完成，也可以先提交PR，这样可以让其它开发者了解到这个PR对应的TIP Issue已经处于`In Progress`状态。
 

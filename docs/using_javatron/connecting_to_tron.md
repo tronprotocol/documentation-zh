@@ -142,7 +142,7 @@ $ curl http://127.0.0.1:16887/wallet/getnodeinfo
 
 对于开发人员来说，他的节点有可能并不需要连接到TRON主网或者TRON公共测试网络，而是需要连接到私有测试网络，因为私链不但对机器配置没有要求，而且在私链网络的沙盒环境下，更容易测试各种功能，可以自由破坏而不需要承担任何后果。
 
-私链网络需要将[私链配置文件](https://github.com/tronprotocol/tron-deployment/blob/master/private_net_config.conf)中的配置项`node.p2p.version`配置成一个没有被任何其他现有的公共网络（TRON主网，测试网）使用的值。有关私链搭建的详细说明请参考 [私链网络](../private_network/)。
+私链网络需要将[私链配置文件](https://github.com/tronprotocol/tron-deployment/blob/master/private_net_config.conf)中的配置项`node.p2p.version`配置成一个没有被任何其他现有的公共网络（TRON主网，测试网）使用的值。有关私链搭建的详细说明请参考 [私链网络](private_network.md)。
 
 # 主动连接与被动连接
 java-tron支持设置其主动连接的节点`node.active`以及被动连接的节点`node.passive`。配置`node.active`和`node.passive`对改善节点的网络连接稳定性有很大的帮助。

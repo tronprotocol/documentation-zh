@@ -290,4 +290,4 @@ Toolkit工具箱支持数据库数据转换功能，可以将LevelDB的数据转
 - `-m | --manifest-size`: manifest文件大小的最小值，manifest文件大小低于此值时，不进行处理，高于该值时才进行批处理，单位:M，默认值:0。
 - `-h | --help`：[ bool ]  此选项用于查看帮助，默认值：false。
 
-注意：使用本工具进行任何操作之前，需要首先停止当前运行的节点。 使用指南请参考[archive manifest](../../developers/archive-manifest/)。
+注意：使用本工具进行任何操作之前，需要首先停止当前运行的节点。 使用指南请参考[archive manifest](../developers/archive-manifest.md)。
