@@ -9,7 +9,7 @@ nav:
     - 使用java-tron:
         - 部署: using_javatron/installing_javatron.md
         - 备份和恢复: using_javatron/backup_restore.md
-        - 轻节点: developers/litefullnode.md
+        - 轻节点: using_javatron/litefullnode.md
         - 私链网络: using_javatron/private_network.md
         - 事件订阅: architecture/event.md
         - 数据库配置: architecture/database.md
