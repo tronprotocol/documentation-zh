@@ -58,7 +58,7 @@ gpg:       没有证据表明此签名属于其声称的所有者。
 验证失败，则会显示`已损坏的签名，来自于 “build_tron <build@tron.network>”`字样。 
     
 ## TRON地址签名验证流程
-2023年1月3号之前发布的java-tron版本均是由 TRON 账户 `TKeAcHxgErbVXrG3N3TZiSV6AT566BHTj2` 对发布包进行签名。签名步骤为：首先为发布包的可执行文件生成sha256哈希值，然后使用该TRON账户的私钥对sha256哈希值进行签名。sha256哈希值可在[历史版本签名信息](#_6)章节中查看，也可在[https://github.com/tronprotocol/java-tron/releases](https://github.com/tronprotocol/java-tron/releases)页面查看；签名结果请在[历史版本签名信息](#_6)章节中查看。
+2023年1月3号之前发布的java-tron版本均是由 TRON 账户 `TKeAcHxgErbVXrG3N3TZiSV6AT566BHTj2` 对发布包进行签名。签名步骤为：首先为发布包的可执行文件生成sha256哈希值，然后使用该TRON账户的私钥对sha256哈希值进行签名。sha256哈希值可在[历史版本签名信息](#_5)章节中查看，也可在[https://github.com/tronprotocol/java-tron/releases](https://github.com/tronprotocol/java-tron/releases)页面查看；签名结果请在[历史版本签名信息](#_5)章节中查看。
 
 
 [tronweb](https://developers.tron.network/docs/tronweb-1)提供`Trx.verifySignature`接口来验证签名，验证通过则返回true，否则，返回false, 请按照如下流程进行验证。

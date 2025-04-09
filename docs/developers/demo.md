@@ -1,5 +1,5 @@
 # 开发示例
-本文将以新增一个`setPeer` HTTP接口为例说明如何参与java-tron开发。在开发前，请先配置[InteliJ IDE开发环境](../run-in-idea)。
+本文将以新增一个`setPeer` HTTP接口为例说明如何参与java-tron开发。在开发前，请先配置[InteliJ IDE开发环境](run-in-idea.md)。
 
 有时由于网络原因，java-tron节点可能无法连接到对等节点，如果能在节点运行时添加信任节点，这将使节点可以在节点发现无法工作的的情况下也能连接到网络。
 
@@ -23,7 +23,7 @@ $ git merge upstream/develop --no-ff
 ```
 
 ## 创建新分支
-从自己仓库的develop分支拉出一个新的分支用于本地开发，请参考[分支命名规范](../java-tron/#_8)，在本例中，新分支的名称为：`feature/add-new-http-demo`。
+从自己仓库的develop分支拉出一个新的分支用于本地开发，请参考[分支命名规范](java-tron.md/#_8)，在本例中，新分支的名称为：`feature/add-new-http-demo`。
 
 ```
 $ git checkout -b feature/add-new-http-demo develop
@@ -247,7 +247,7 @@ public class SetPeerServletTest {
 
 ## 提交代码
 
-代码完成之后提交commit，请参考[commit规范](../java-tron/#commit)。
+代码完成之后提交commit，请参考[commit规范](java-tron.md/#commit)。
 ```
 git add .
 git commit -m 'add a new http api setpeer'
