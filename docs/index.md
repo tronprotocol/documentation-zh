@@ -8,7 +8,7 @@ java-tron是用Java编写的TRON网络客户端，完全开源，您可以在Git
 * [核心协议](mechanism-algorithm/dpos.md)
 * [java-tron开发](developers/java-tron.md)
 * [Dapp开发](contracts/tools.md)
-* [Clients](clients/wallet-cli.md)
+* [客户端](clients/wallet-cli.md)
 * [版本发布](releases/upgrade-instruction.md)
 
 

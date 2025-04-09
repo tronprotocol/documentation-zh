@@ -39,7 +39,7 @@ nav:
         - 核心模块: developers/code-structure.md
     - Dapp开发:
         - 工具: contracts/tools.md
-    - Clients: 
+    - 客户端: 
         - wallet-cli: clients/wallet-cli.md
     - 版本发布:
         - 新版本部署手册: releases/upgrade-instruction.md
