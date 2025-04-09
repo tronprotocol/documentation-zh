@@ -4,7 +4,7 @@
 TRON网络支持多种不同类型的交易，比如TRX转账交易、TRC10转账交易、创建智能合约交易、触发智能合约交易、质押TRX交易等等。创建不同类型的交易，需要调用不同的API接口， 例如部署合约交易的类型是`CreateSmartContract`，需要调用`wallet/deploycontractAPI`来创建交易；质押TRX获取资源交易的类型是`FreezeBalanceV2Contract`，需要调用 `wallet/freezebalancev2API`来创建交易，我们将这些不同的交易类型的实现统称为系统合约，下面为系统合约类型及其包含的内容：
 
 
-## 1.创建账户 AccountCreateContract
+## 创建账户 AccountCreateContract
 
 ```protobuf
     message AccountCreateContract {
@@ -18,7 +18,7 @@ TRON网络支持多种不同类型的交易，比如TRX转账交易、TRC10转�
 * `account_address`： 将要创建的账户地址。
 * `type`：账户类型。0代表普通账户，1代表创世块中初始账号，2代表智能合约账户。
 
-## 2.TRX转账 TransferContract
+## TRX转账 TransferContract
 
 ```protobuf
       message TransferContract {
@@ -33,7 +33,7 @@ TRON网络支持多种不同类型的交易，比如TRX转账交易、TRC10转�
 * `amount`：转账金额，单位为 sun。
 
 
-## 3.TRC-10代币转账 TransferAssetContract
+## TRC-10代币转账 TransferAssetContract
 
 ```protobuf
       message TransferAssetContract {
@@ -49,7 +49,7 @@ TRON网络支持多种不同类型的交易，比如TRX转账交易、TRC10转�
 * `to_address`： 目标账户地址。
 * `amount`：转账代币的数量。
 
-## 4.投票超级节点  VoteWitnessContract
+## 投票超级节点  VoteWitnessContract
 
 ```protobuf
       message VoteWitnessContract {
@@ -68,7 +68,7 @@ TRON网络支持多种不同类型的交易，比如TRX转账交易、TRC10转�
 * `vote_count`：投给超级节点候选人的票数。
 * `support`：是否支持，这里应该是恒为true，暂未使用该参数。
 
-## 5.创建超级节点候选人 WitnessCreateContract
+## 创建超级节点候选人 WitnessCreateContract
 
 ```protobuf
       message WitnessCreateContract {
@@ -80,7 +80,7 @@ TRON网络支持多种不同类型的交易，比如TRX转账交易、TRC10转�
 * `owner_address`：合约持有人地址。
 * `url`：超级节点的网址。
 
-## 6.发布TRC-10代币 AssetIssueContract
+## 发布TRC-10代币 AssetIssueContract
 
 ```protobuf
     message AssetIssueContract {
@@ -126,7 +126,7 @@ TRON网络支持多种不同类型的交易，比如TRX转账交易、TRC10转�
 * `public_free_asset_net_usage`：所有账户使用免费带宽（转移该资产时使用）。
 * `public_latest_free_net_time`：最近一次转移该Token使用免费带宽的时间。
 
-## 7.更新超级节点候选人URL WitnessUpdateContract
+## 更新超级节点候选人URL WitnessUpdateContract
 
 ```protobuf
       message WitnessUpdateContract {
@@ -138,7 +138,7 @@ TRON网络支持多种不同类型的交易，比如TRX转账交易、TRC10转�
 * `owner_address`：合约持有人地址。
 * `update_url`：超级节点网站的url。
 
-## 8.购买TRC-10代币 ParticipateAssetIssueContract
+## 购买TRC-10代币 ParticipateAssetIssueContract
 
 ```protobuf
       message ParticipateAssetIssueContract {
@@ -154,7 +154,7 @@ TRON网络支持多种不同类型的交易，比如TRX转账交易、TRC10转�
 * `asset_name`： 发行Token的id。
 * `amount`：购买发行Token使用TRX的数量，单位是 sun。
 
-## 9.更新账户 AccountUpdateContract
+## 更新账户 AccountUpdateContract
 
 ```protobuf
       // Update account name. Account name is unique now.
@@ -167,7 +167,7 @@ TRON网络支持多种不同类型的交易，比如TRX转账交易、TRC10转�
 * `owner_address`：合约持有人地址。
 * `account_name`： 账户名称。
 
-## 10.（已废弃）Stake1.0质押 FreezeBalanceContract
+## （已废弃）Stake1.0质押 FreezeBalanceContract
 
 
 ```protobuf
@@ -186,7 +186,7 @@ TRON网络支持多种不同类型的交易，比如TRX转账交易、TRC10转�
 * `resource`： 质押TRX获取资源的类型。
 * `receiver_address`：接收资源的账户。
 
-## 11.解质押Stake1.0阶段质押的资产 UnfreezeBalanceContract
+## 解质押Stake1.0阶段质押的资产 UnfreezeBalanceContract
 
 ```protobuf
       message UnfreezeBalanceContract {
@@ -200,7 +200,7 @@ TRON网络支持多种不同类型的交易，比如TRX转账交易、TRC10转�
 * `resource`： 解锁资源的类型。
 * `receiver_address`：接收资源的账户。
 
-## 12.提取奖励 WithdrawBalanceContract
+## 提取奖励 WithdrawBalanceContract
 
 ```protobuf
       message WithdrawBalanceContract {
@@ -210,7 +210,7 @@ TRON网络支持多种不同类型的交易，比如TRX转账交易、TRC10转�
 
 * `owner_address`：合约持有人地址。
 
-## 13.解锁发布的Token UnfreezeAssetContract
+## 解锁发布的Token UnfreezeAssetContract
 
 ```protobuf
       message UnfreezeAssetContract {
@@ -220,7 +220,7 @@ TRON网络支持多种不同类型的交易，比如TRX转账交易、TRC10转�
 
 * `owner_address`：合约持有人地址。
 
-## 14.更新通证参数 UpdateAssetContract
+## 更新通证参数 UpdateAssetContract
 
 ```protobuf
       message UpdateAssetContract {
@@ -238,7 +238,7 @@ TRON网络支持多种不同类型的交易，比如TRX转账交易、TRC10转�
 * `new_limit`：每个调用者可以消耗Bandwidth point的限制。
 * `new_public_limit`： 所有调用者可以消耗Bandwidth points的限制。
 
-## 15.创建提议  ProposalCreateContract
+## 创建提议  ProposalCreateContract
 
 ```protobuf
       message ProposalCreateContract {
@@ -250,7 +250,7 @@ TRON网络支持多种不同类型的交易，比如TRX转账交易、TRC10转�
 * `owner_address`：合约持有人地址。
 * `parameters`： 提议。
 
-## 16.赞成提议 ProposalApproveContract
+## 赞成提议 ProposalApproveContract
 
 ```protobuf
       message ProposalApproveContract {
@@ -264,7 +264,7 @@ TRON网络支持多种不同类型的交易，比如TRX转账交易、TRC10转�
 * `proposal_id`： 提议的Id。
 * `is_add_approval`：是否赞成提议。
 
-## 17.删除提议 ProposalDeleteContract
+## 删除提议 ProposalDeleteContract
 
 ```protobuf
      message ProposalDeleteContract {
@@ -276,7 +276,7 @@ TRON网络支持多种不同类型的交易，比如TRX转账交易、TRC10转�
 * `owner_address`：合约持有人地址。
 * `proposal_id`： 提议ID。
 
-## 18.设置账户ID SetAccountIdContract
+## 设置账户ID SetAccountIdContract
 
 ```protobuf
       // Set account id if the account has no id. Account id is unique and case insensitive.
@@ -289,7 +289,7 @@ TRON网络支持多种不同类型的交易，比如TRX转账交易、TRC10转�
 * `owner_address`：合约持有人地址。
 * `account_id`： 账户Id。
 
-## 19.创建智能合约 CreateSmartContract
+## 创建智能合约 CreateSmartContract
 
 ```protobuf
      message CreateSmartContract {
@@ -305,7 +305,7 @@ TRON网络支持多种不同类型的交易，比如TRX转账交易、TRC10转�
 * `call_token_value`：转入TRC-10数目。
 * `token_id`：转入TRC-10的id。
 
-## 20.触发智能合约 TriggerSmartContract
+## 触发智能合约 TriggerSmartContract
 
 ```protobuf
       message TriggerSmartContract {
@@ -325,7 +325,7 @@ TRON网络支持多种不同类型的交易，比如TRX转账交易、TRC10转�
 * `call_token_value`：转入TRC-10数目。
 * `token_id`：转入TRC-10的id。
 
-## 21.更新合约 UpdateSettingContract
+## 更新合约 UpdateSettingContract
 
 ```protobuf
       message UpdateSettingContract {
@@ -339,7 +339,7 @@ TRON网络支持多种不同类型的交易，比如TRX转账交易、TRC10转�
 * `contract_address`： 合约地址。
 * `consume_user_resource_percent`：将要更新的账户消耗资源的百分比。
 
-## 22.创建交易所 ExchangeCreateContract
+## 创建交易所 ExchangeCreateContract
 
 ```protobuf
       message ExchangeCreateContract {
@@ -357,7 +357,7 @@ TRON网络支持多种不同类型的交易，比如TRX转账交易、TRC10转�
 * `second_token_id`：第2种token的id。
 * `second_token_balance`：第2种token的balance。
 
-## 23.给交易所注资 ExchangeInjectContract
+## 给交易所注资 ExchangeInjectContract
 
 ```protobuf
       message ExchangeInjectContract {
@@ -373,7 +373,7 @@ TRON网络支持多种不同类型的交易，比如TRX转账交易、TRC10转�
 * `token_id`：要注资的token的id。
 * `quant`：要注资的token的金额。
 
-## 24.从交易所撤资 ExchangeWithdrawContract
+## 从交易所撤资 ExchangeWithdrawContract
 
 ```protobuf
       message ExchangeWithdrawContract {
@@ -389,7 +389,7 @@ TRON网络支持多种不同类型的交易，比如TRX转账交易、TRC10转�
 * `token_id`：要撤资的token的id。
 * `quant`：要撤资的token的金额。
 
-## 25.在交易所交易 ExchangeTransactionContract
+## 在交易所交易 ExchangeTransactionContract
 
 ```protobuf
       message ExchangeTransactionContract {
@@ -405,7 +405,7 @@ TRON网络支持多种不同类型的交易，比如TRX转账交易、TRC10转�
 * `token_id`：要卖出的token的id。
 * `quant`：要卖出的token的金额。
 
-## 26.匿名交易 ShieldedTransferContract
+## 匿名交易 ShieldedTransferContract
 
 ```protobuf
     message ShieldedTransferContract {
@@ -464,11 +464,11 @@ TRON网络支持多种不同类型的交易，比如TRX转账交易、TRC10转�
 * `zkproof`：交易接收方note存在的零知识证明。
 
 
-## 27.账户权限管理
+## 账户权限管理
 
   [账户权限管理](./multi-signatures.md)
 
-## 28. 清除ABI合约
+##  清除ABI合约
 
 ```protobuf
      message ClearABIContract {
@@ -481,7 +481,7 @@ TRON网络支持多种不同类型的交易，比如TRX转账交易、TRC10转�
 * `owner_address`：合约持有人地址。
 * `contract_address`：需要清除ABI的合约。
 
-## 29. 更新分红比例合约
+##  更新分红比例合约
 
 ```protobuf
      message UpdateBrokerageContract {
@@ -493,7 +493,7 @@ TRON网络支持多种不同类型的交易，比如TRX转账交易、TRC10转�
 * `owner_address`：合约持有人地址。
 * `brokerage`: 分红比例，从0到100，1代表1%。
 
-## 30. 调整能量上限合约
+##  调整能量上限合约
 
 ```protobuf
      message UpdateEnergyLimitContract {
@@ -506,7 +506,7 @@ TRON网络支持多种不同类型的交易，比如TRX转账交易、TRC10转�
 * `contract_address`：需要调整的合约地址。
 * `origin_energy_limit`：调整后智能合约部署者提供的能量上限值。
 
-## 31.质押资产 FreezeBalanceV2Contract
+## 质押资产 FreezeBalanceV2Contract
 
 ```protobuf
      message FreezeBalanceV2Contract {
@@ -520,7 +520,7 @@ TRON网络支持多种不同类型的交易，比如TRX转账交易、TRC10转�
 * `frozen_balance`：质押资产的数量。
 * `resource`： 质押TRX获取资源的类型。
 
-## 32.解质押资产 UnfreezeBalanceV2Contract
+## 解质押资产 UnfreezeBalanceV2Contract
 
 ```protobuf
       message UnfreezeBalanceV2Contract {
@@ -535,7 +535,7 @@ TRON网络支持多种不同类型的交易，比如TRX转账交易、TRC10转�
 * `resource`： 解锁资源的类型。
    
 
-## 33.提取解质押本金 WithdrawExpireUnfreezeContract
+## 提取解质押本金 WithdrawExpireUnfreezeContract
 
 ```protobuf
       message WithdrawExpireUnfreezeContract {
@@ -545,7 +545,7 @@ TRON网络支持多种不同类型的交易，比如TRX转账交易、TRC10转�
 
 * `owner_address`：提取本金账户地址。
    
-## 34.资源代理 DelegateResourceContract
+## 资源代理 DelegateResourceContract
 
 ```protobuf
       message DelegateResourceContract {
@@ -564,7 +564,7 @@ TRON网络支持多种不同类型的交易，比如TRX转账交易、TRC10转�
 * `lock`：是否将代理操作锁定3天。
    
    
-## 35.取消资源代理 UnDelegateResourceContract
+## 取消资源代理 UnDelegateResourceContract
 
 ```protobuf
       message UnDelegateResourceContract {
