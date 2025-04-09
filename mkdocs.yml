@@ -38,7 +38,7 @@ nav:
         - 开发示例: developers/demo.md
         - 核心模块: developers/code-structure.md
     - Dapp开发:
-        - Dapp开发工具: contracts/compiler.md
+        - 工具: contracts/tools.md
     - wallet-cli: 
         - 什么是wallet-cli: clients/wallet-cli.md
         - wallet-cli命令: clients/wallet-cli-command.md
