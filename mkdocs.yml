@@ -21,7 +21,7 @@ nav:
         - gRPC 接口: api/rpc.md
         - jsonRPC 接口: api/json-rpc.md
     - 核心协议:
-        - 波场共识: introduction/dpos.md
+        - 波场共识: mechanism-algorithm/dpos.md
         - 超级代表: mechanism-algorithm/sr.md
         - 账户模型: mechanism-algorithm/account.md
         - 资源模型: mechanism-algorithm/resource.md
