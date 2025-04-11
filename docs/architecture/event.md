@@ -91,12 +91,12 @@ contractTopics: 合约主题
 - [事件订阅](https://github.com/tronprotocol/event-plugin)
 - [事件订阅数据查询](https://github.com/tronprotocol/tron-eventquery)
 
-### 事件订阅相关插件部署
+#### 事件订阅
 
 - [kafka部署](https://tronprotocol.github.io/documentation-zh/developers/deployment/#kafka)
 - [mongo部署](https://tronprotocol.github.io/documentation-zh/developers/deployment/#mongo)
 
-### 事件订阅数据查询
+#### 事件订阅数据查询
 
 事件订阅数据查询服务实现了事件订阅模型。
 

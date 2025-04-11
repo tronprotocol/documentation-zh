@@ -1,15 +1,15 @@
 # 智能合约
 
-## 波场智能合约介绍
+## 介绍
 
 智能合约是一种能自动执行其条款的计算化交易协议。智能合约和普通合约一样，定义了参与者相关的条款和奖惩机制。一旦合约被启动，便能按照设定的条款执行，并自动检查所承诺的条款实施情形。
 TRON兼容以太坊（Ethereum）上采用Solidity编写的智能合约。你可以在[TRON solidity 代码库](https://github.com/tronprotocol/solidity/releases)中了解最新的版本。合约编写、编译完成后，部署到TRON公链上。部署后的合约，被触发时，就会在公链的各个节点上自动执行。
 
-## 波场智能合约特性
+## 特性
 
 TRON virtual machine 基于以太坊 solidity 语言实现，兼容以太坊虚拟机的特性，但基于tron自身属性也有部分的区别。
 
-### 1. 智能合约
+### 智能合约的定义
 
 波场虚拟机运行的智能合约兼容以太坊智能合约特性，以protobuf的形式定义合约内容：
 
@@ -72,7 +72,7 @@ origin_energy_limit: 开发者设置的在一次合约调用过程中自己消�
 
 通过另外两个grpc message类型 CreateSmartContract 和 TriggerSmartContract 来创建和使用smart contract
 
-### 2. 合约函数的使用
+### 合约函数的使用
 
 * constant function和非constant function
 
@@ -112,7 +112,7 @@ transfer/send/call/callcode/delegatecall函数调用转账
 5）兼容所有以太坊内置函数
 ```
 
-### 3. 合约地址在solidity语言的使用
+### 合约地址在solidity语言的使用
 
 以太坊虚拟机地址为是20字节，而波场虚拟机解析地址为21字节。
 * 地址转换
@@ -164,7 +164,7 @@ function assignAddress() public view {
 
 如果想直接使用string 类型的波场地址（如TLLM21wteSPs4hKjbxgmH1L6poyMjeTbHm）请参考内置函数的两种地址转换方式（见II-4-7,II-4-8）。
 
-### 4. 与以太坊有区别的特殊常量
+### 与以太坊有区别的特殊常量
 
 #### 货币
 

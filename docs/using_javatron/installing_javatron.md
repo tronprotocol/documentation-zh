@@ -3,7 +3,7 @@ java-tron节点支持部署在 `Linux` 或 `MacOS` 操作系统上，并且依�
 
 运行java-tron节点需要的最小的硬件配置是 `8核CPU`、`16G内存`、`2T SDD`，推荐的配置是： `16核CPU`、`32G内存`、`2.5T+ SDD`，超级代表产块节点建议 `32核CPU`、`64G内存`。
 
-# 编译源码
+## 编译源码
 首先，通过如下git命令将java-tron源代码克隆到本地，并且切换到master分支。在执行命令前，请确保已经安装了`git`工具。
 
 ```
@@ -20,7 +20,7 @@ $ ./gradlew clean build -x test
     
  
 
-# 运行java-tron节点
+## 启动java-tron节点
 
 你可以选择不同的配置文件将java-tron节点连接到不同的网络中，其中主网全节点配置文件为：[main_net_config.conf](https://github.com/tronprotocol/tron-deployment/blob/master/main_net_config.conf)，其它网络节点配置文件在[这里](https://github.com/tronprotocol/tron-deployment)下载。
 
@@ -55,8 +55,8 @@ $ java -Xmx24g -XX:+UseConcMarkSweepGC -jar FullNode.jar --witness -c main_net_c
 
 **注意**：对于主网和nile测试网，由于新节点启动后，需要同步的数据量较大，因此同步数据需要较长的时间。可以使用 [数据快照](backup_restore.md/#_5) 来加快节点同步速度。首先下载最新的数据快照，并将其解压至tron项目的output-directory目录下，然后再启动节点，这样节点将在数据快照的基础上进行同步。
 
-# 其它说明
-### 如何使用keystore+密码的方式指定超级代表账户私钥
+### 其它说明
+#### 如何使用keystore+密码的方式指定超级代表账户私钥
 
 1. 这种方式指定私钥，需要在启动节点时进行人机交互，因此请不要使用nohup命令，建议使用会话保持工具，如screen, tmux等。
 2. 注释掉节点配置文件中的localwitness配置项，取消localwitnesskeystore配置项的注释，填入keystore文件的路径，注意keystore文件需要放到启动命令执行的当前目录下或者其子目录下。如当前目录是A，keystore文件的目录是A/B/localwitnesskeystore.json，则需要配置成：
@@ -74,7 +74,7 @@ $ java -Xmx24g -XX:+UseConcMarkSweepGC -jar FullNode.jar --witness -c main_net_c
 
 
 
-### 使用tcmalloc优化内存占用
+#### 使用tcmalloc优化内存占用
 
 为达到内存使用最优化，可以使用 google tcmalloc 替代系统 glibc malloc. 方法如下：
 安装tcmalloc，然后在启动脚本中添加以下两行，不同的linux发行版tcmalloc的路径略有差异。
