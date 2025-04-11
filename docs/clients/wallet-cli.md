@@ -286,22 +286,22 @@ UpdateAccountPermission successful !!!
 ### 账户资源
 下面是账户地址相关命令：
 
-- [freezeBalance](#freezebalance)
-- [unfreezeBalance](#unfreezebalance)
-- [getDelegatedResource](#getdelegatedresource)
-- [freezeBalanceV2](#freezebalancev2)
-- [unfreezeBalanceV2](#unfreezebalancev2)
-- [delegateResource](#delegateresource)
-- [unDelegateResource](#undelegateresource)
-- [withdrawExpireUnfreeze](#withdrawexpireunfreeze)
-- [getAvailableUnfreezeCount](#getavailableunfreezecount)
-- [getCanWithdrawUnfreezeAmount](#getcanwithdrawunfreezeamount)
-- [getCanDelegatedMaxSize](#getcandelegatedmaxsize)
-- [getDelegatedResourceV2](#getdelegatedresourcev2)
-- [getDelegatedResourceAccountIndexV2](#getdelegatedresourceaccountindexv2)
+- [FreezeBalance](#freezebalance)
+- [UnfreezeBalance](#unfreezebalance)
+- [GetDelegatedResource](#getdelegatedresource)
+- [FreezeBalanceV2](#freezebalancev2)
+- [UnfreezeBalanceV2](#unfreezebalancev2)
+- [DelegateResource](#delegateresource)
+- [UndelegateResource](#undelegateresource)
+- [WithdrawExpireUnfreeze](#withdrawexpireunfreeze)
+- [GetAvailableUnfreezeCount](#getavailableunfreezecount)
+- [GetCanWithdrawUnfreezeAmount](#getcanwithdrawunfreezeamount)
+- [GetCanDelegatedMaxsize](#getcandelegatedmaxsize)
+- [GetDelegatedResourceV2](#getdelegatedresourcev2)
+- [GetDelegatedResourceAccountIndexV2](#getdelegatedresourceaccountindexv2)
 - [GetAccountNet](#getaccountnet)
 - [GetAccountResource](#getaccountresource)
-#### freezeBalance
+#### FreezeBalance
 通过质押一定数量的TRX可以获得`带宽`，`能量`以及`TRON Power`（投票权）。用户同样也可以通过质押TRX来为别人提供`带宽`和`能量`。质押资产的单位是sun。该接口已废弃，请使用freezeBalanceV2接口质押TRX。
 ```shell
 wallet> freezeBalance [OwnerAddress] [frozen_balance] [frozen_duration] [ResourceCode:0 BANDWIDTH, 1 ENERGY] [receiverAddress]
@@ -340,7 +340,7 @@ FreezeBalance successful !!!
 ```
 
 
-#### unfreezeBalance
+#### UnfreezeBalance
 ```shell
 wallet>unfreezeBalance [OwnerAddress] ResourceCode(0 BANDWIDTH,1 ENERGY,2 TRON_POWER) [receiverAddress]
 ```
@@ -411,7 +411,7 @@ wallet> getdelegatedresource TSzdGHnhYnQKFF4LKrRLztkjYAvbNoxnQ8 TXBpeye7UQ4dDZEn
 }
 ```
 
-#### freezeBalanceV2
+#### FreezeBalanceV2
 Stake 2.0质押接口，通过质押一定数量的TRX可以获得`带宽`或者`能量`以及`TRON Power`（投票权）。质押资产的单位是sun。
 ```shell
 wallet> freezeBalanceV2 [OwnerAddress] frozen_balance ResourceCode(0 BANDWIDTH,1 ENERGY,2 TRON_POWER)
@@ -461,7 +461,7 @@ txid is 1743aa098f5e10ac8b68ccbf0ca6b5f1364a63485e442e6cb03fd33e3331e3fb
 freezeBalanceV2 successful !!!
 ```
 
-#### unfreezeBalanceV2
+#### UnfreezeBalanceV2
 Stake2.0 解质押API：解锁质押的TRX, 释放所相应数量的带宽和能量，同时回收相应数量的投票权(TP)。
 
 ```shell
@@ -514,7 +514,7 @@ txid is f9e114347ea89c5d722d20226817bc41c8a39ea36be756ba216cf450ab3f1fb3
 unfreezeBalanceV2 successful !!!
 ```
 
-#### delegateResource
+#### DelegateResource
 Stake 2.0 资源代理API：将带宽或者能量资源代理给其它账户。
 ```shell
 wallet> delegateResource [OwnerAddress] balance ResourceCode(0 BANDWIDTH,1 ENERGY), ReceiverAddress [lock]
@@ -569,7 +569,7 @@ txid is 0917002d0068dde7ad4ffe46e75303d11192e17bfa78934a5f867c5ae20720ec
 delegateResource successful !!!
 ```
 
-#### unDelegateResource
+#### UndelegateResource
 Stake 2.0 取消资源代理API：取消为目标地址代理的带宽或者能量。
 ```shell
 wallet> unDelegateResource [OwnerAddress] balance ResourceCode(0 BANDWIDTH,1 ENERGY), ReceiverAddress
@@ -622,7 +622,7 @@ after sign transaction hex string is 0a91010a020251220868ac15256c213e7140febde9f
 txid is 537a3f4461ab55c705b77503bc42f469bfc22c0cb8588b8f3641ab40117ebfd8
 unDelegateResource successful !!!
 ```
-#### withdrawExpireUnfreeze
+#### WithdrawExpireUnfreeze
 Stake 2.0 提取质押本金API：提取已过锁定期的解质押的本金。
 
 ```shell
@@ -638,7 +638,7 @@ wallet> withdrawExpireUnfreeze [OwnerAddress]
 wallet> withdrawExpireUnfreeze 
 ```
 
-#### getavailableunfreezecount
+#### GetAvailableUnfreezeCount
 Stake 2.0 API: 查询当下解质押剩余次数。
 
 ```shell
@@ -656,7 +656,7 @@ wallet> GetAvailableUnfreezeCount
 	"count": 30
 }
 ```
-#### getcanwithdrawunfreezeamount
+#### GetCanWithdrawUnfreezeAmount
 Stake 2.0 API: 查询在某时间点可以提取的解质押本金数量。
 
 ```shell
@@ -675,7 +675,7 @@ wallet> getcanwithdrawunfreezeamount 1776621695001
 }
 ```
 
-#### getcandelegatedmaxsize
+#### GetCanDelegatedMaxsize
 Stake 2.0 API: 查询在某时间点可以提取的解质押本金数量。
 
 ```shell
@@ -693,7 +693,7 @@ wallet> getcandelegatedmaxsize 1
 	"max_size": 11000000
 }
 ```
-#### getdelegatedresourcev2
+#### GetDelegatedResourceV2
 Stake 2.0 API：查询某地址代理给目标地址的资源情况。
 
 ```shell
@@ -718,7 +718,7 @@ wallet> getdelegatedresourcev2  TUoHaVjx7n5xz8LwPRDckgFrDWhMhuSuJM TZ4UXDV5ZhNW7
 	]
 }
 ```
-#### getdelegatedresourceaccountindexv2
+#### GetDelegatedResourceAccountIndexV2
 Stake 2.0 API：查询某地址的资源委托索引。返回两个列表，一个是该帐户将资源委托给的地址列表(toAddress)，另一个是将资源委托给该帐户的地址列表(fromAddress)
 
 ```shell
