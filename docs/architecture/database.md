@@ -10,7 +10,7 @@ java-tron数据存储支持使用 LevelDB 或者 RocksDB，默认使用LevelDB�
  ![image](https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/db_engine.png)
  注意: RocksDB只支持db.version=2, 不支持db.version=1。
  RocksDB支持的优化参数如下：
- ![image](https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/RocksDB_tuning_parameters.png)
+ ![image](https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/rocksdb_tuning_parameters.png)
 
 ### 使用RocksDB数据备份功能
 
