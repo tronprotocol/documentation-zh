@@ -57,7 +57,11 @@ password:
 Login successful !!!
 ```
 #### BackupWallet
-备份钱包时需要输入秘密，成功后将会导出你的私钥, 如下面示例中的“721d63b074f18d41c147e04c952ec93467777a30b6f16745bc47a8eae5076545”：
+备份钱包时需要输入秘密，成功后将会导出你的私钥, 如下面示例中的
+```
+721d63b074f18d41c147e04c952ec93467777a30b6f16745bc47a8eae5076545
+```
+
 ```shell
 wallet> backupwallet
 Please input your password.
@@ -66,7 +70,11 @@ BackupWallet successful !!
 721d63b074f18d41c147e04c952ec93467777a30b6f16745bc47a8eae5076545
 ```
 #### BackupWallet2Base64
-备份钱包时需要输入秘密，成功后将会以base64格式导出你的私钥, 如下面示例中的“ch1jsHTxjUHBR+BMlS7JNGd3ejC28WdFvEeo6uUHZUU=”：
+备份钱包时需要输入秘密，成功后将会以base64格式导出你的私钥, 如下面示例中的
+```
+ch1jsHTxjUHBR+BMlS7JNGd3ejC28WdFvEeo6uUHZUU=
+```
+
 ```shell
 wallet> backupwallet
 Please input your password.
