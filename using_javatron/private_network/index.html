@@ -11,7 +11,7 @@
         <link rel="canonical" href="https://tronprotocol.github.io/documentation-zh/using_javatron/private_network/">
       
       
-        <link rel="prev" href="../../developers/litefullnode/">
+        <link rel="prev" href="../litefullnode/">
       
       
         <link rel="next" href="../../architecture/event/">
@@ -409,7 +409,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../developers/litefullnode/" class="md-nav__link">
+      <a href="../litefullnode/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -440,6 +440,18 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    私链网络
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -450,6 +462,34 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item ">
+  <a href="#_2" class="md-nav__link" >
+    <span class="md-ellipsis">
+      部署指南
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -511,7 +551,7 @@
         
   
   <span class="md-ellipsis">
-    网络配置
+    网络连接
     
   </span>
   
@@ -735,7 +775,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../introduction/dpos/" class="md-nav__link">
+      <a href="../../mechanism-algorithm/dpos/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1161,11 +1201,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../../contracts/compiler/" class="md-nav__link">
+      <a href="../../contracts/tools/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    Dapp开发工具
+    工具
     
   </span>
   
@@ -1209,7 +1249,7 @@
             
   
   <span class="md-ellipsis">
-    wallet-cli
+    客户端
     
   </span>
   
@@ -1220,7 +1260,7 @@
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_8">
             <span class="md-nav__icon md-icon"></span>
-            wallet-cli
+            客户端
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -1235,29 +1275,7 @@
         
   
   <span class="md-ellipsis">
-    什么是wallet-cli
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../clients/wallet-cli-command/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    wallet-cli命令
+    wallet-cli
     
   </span>
   
@@ -1480,7 +1498,7 @@
 
 <h1 id="_1">私链网络<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
 <p>搭建私链需要部署至少一个产块的全节点，和任意数量的非产块的全节点用于同步区块和广播交易，本示例中只搭建了一个产块的节点和一个非产块的节点。搭建私链之前，请先安装<code>Oracle JDK 1.8</code>， 然后需要准备至少两个TRON网络地址并保存地址和对应的私钥，可以使用<a href="https://github.com/tronprotocol/wallet-cli">wallet-cli</a>或者<a href="https://www.tronlink.org/cn/">Tronlink</a>来创建地址。</p>
-<h1 id="_2">部署指南<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h1>
+<h2 id="_2">部署指南<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <p>搭建私链节点的流程和搭建主网节点的流程一样，不同点在于节点配置文件内容不同，搭建私链最主要的是要修改配置文件中的配置项，使节点间组成私链网络，可以进行网络发现，区块同步和广播交易。</p>
 <ol>
 <li>
@@ -1679,7 +1697,7 @@ modifyChainParameters(parametersForProposal1, 1)
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../../developers/litefullnode/" class="md-footer__link md-footer__link--prev" aria-label="Previous: 轻节点">
+          <a href="../litefullnode/" class="md-footer__link md-footer__link--prev" aria-label="Previous: 轻节点">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>

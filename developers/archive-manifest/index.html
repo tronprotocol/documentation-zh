@@ -8,13 +8,9 @@
       
       
       
-        <link rel="canonical" href="https://tronprotocol.github.io/documentation-zh/introduction/dpos/">
+        <link rel="canonical" href="https://tronprotocol.github.io/documentation-zh/developers/archive-manifest/">
       
       
-        <link rel="prev" href="../../api/json-rpc/">
-      
-      
-        <link rel="next" href="../../mechanism-algorithm/sr/">
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
@@ -22,7 +18,7 @@
     
     
       
-        <title>波场共识 - java-tron</title>
+        <title>levelDB 启动优化插件 - java-tron</title>
       
     
     
@@ -74,7 +70,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#dpos" class="md-skip">
+        <a href="#leveldb" class="md-skip">
           Skip to content
         </a>
       
@@ -110,7 +106,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              波场共识
+              levelDB 启动优化插件
             
           </span>
         </div>
@@ -407,7 +403,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../developers/litefullnode/" class="md-nav__link">
+      <a href="../../using_javatron/litefullnode/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -499,7 +495,7 @@
         
   
   <span class="md-ellipsis">
-    网络配置
+    网络连接
     
   </span>
   
@@ -679,8 +675,6 @@
       
   
   
-    
-  
   
   
     
@@ -692,11 +686,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
         
           
           <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
@@ -711,7 +705,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
             核心协议
@@ -722,31 +716,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    波场共识
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../mechanism-algorithm/dpos/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -756,131 +729,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item ">
-  <a href="#_1" class="md-nav__link" >
-    <span class="md-ellipsis">
-      概况
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item ">
-  <a href="#_2" class="md-nav__link" >
-    <span class="md-ellipsis">
-      记账流程
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item ">
-  <a href="#dpos_1" class="md-nav__link" >
-    <span class="md-ellipsis">
-      DPOS概述
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item ">
-  <a href="#_3" class="md-nav__link" >
-    <span class="md-ellipsis">
-      定义
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item ">
-  <a href="#_4" class="md-nav__link" >
-    <span class="md-ellipsis">
-      选举机制
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item has-children">
-  <a href="#_5" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
-    <span class="md-ellipsis">
-      产块机制
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="产块机制" hidden>
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item ">
-  <a href="#_6" class="md-nav__link" >
-    <span class="md-ellipsis">
-      固化块原则
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item ">
-  <a href="#_7" class="md-nav__link" >
-    <span class="md-ellipsis">
-      最长链原则
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item ">
-  <a href="#_8" class="md-nav__link" >
-    <span class="md-ellipsis">
-      激励模型
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item ">
-  <a href="#_9" class="md-nav__link" >
-    <span class="md-ellipsis">
-      基于提案对参数进行调整
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item ">
-  <a href="#_10" class="md-nav__link" >
-    <span class="md-ellipsis">
-      附录：参考文档
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1095,7 +943,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../developers/java-tron/" class="md-nav__link">
+      <a href="../java-tron/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1117,7 +965,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../developers/tips/" class="md-nav__link">
+      <a href="../tips/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1139,7 +987,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../developers/issue-workflow/" class="md-nav__link">
+      <a href="../issue-workflow/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1161,7 +1009,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../developers/governance/" class="md-nav__link">
+      <a href="../governance/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1183,7 +1031,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../developers/run-in-idea/" class="md-nav__link">
+      <a href="../run-in-idea/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1205,7 +1053,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../developers/demo/" class="md-nav__link">
+      <a href="../demo/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1227,7 +1075,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../developers/code-structure/" class="md-nav__link">
+      <a href="../code-structure/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1297,11 +1145,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../../contracts/compiler/" class="md-nav__link">
+      <a href="../../contracts/tools/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    Dapp开发工具
+    工具
     
   </span>
   
@@ -1345,7 +1193,7 @@
             
   
   <span class="md-ellipsis">
-    wallet-cli
+    客户端
     
   </span>
   
@@ -1356,7 +1204,7 @@
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_8">
             <span class="md-nav__icon md-icon"></span>
-            wallet-cli
+            客户端
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -1371,29 +1219,7 @@
         
   
   <span class="md-ellipsis">
-    什么是wallet-cli
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../clients/wallet-cli-command/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    wallet-cli命令
+    wallet-cli
     
   </span>
   
@@ -1614,79 +1440,260 @@
   
 
 
-<h1 id="dpos">波场共识机制 DPoS<a class="headerlink" href="#dpos" title="Permanent link">&para;</a></h1>
-<h2 id="_1">概况<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<p>区块链是一个分布式的记账系统，在一个区块链系统中可以有成千上万的节点，他们各自独立保存一份相同的账本，而新的交易数据想要被写入帐本，需要获得这些节点的认可。在不可信的分布式环境中实现这一目标是一个很复杂的系统工程。区块链系统正常运行，即区块链中各节点总能保存同一份账本，前提是系统中绝大部分的节点是诚实可靠的。为了保证诚实可靠的节点能够共同监督交易数据写入账本，每个区块链系统都需要构建自己的共识，共识就相当于区块链的宪法。共识保证了即便是在不可信的分布式环境下，只要绝大多数节点遵守共识的规定，就一定能获得确定可信结果。因此共识的意义在于，区块链中的诚信节点可以最终达成账本的一致只要他们严格遵守这份共识。</p>
-<p>共识有多种类型，目前使用最多的是POW、POS、DPOS，当然不同的区块链系统中都会有一些特有的具体实现上的不同。本文主要介绍波场的共识就是基于DPOS的，同时向大家说明一下DPOS中的基本组件和机制。</p>
-<h2 id="_2">记账流程<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
-<p>区块链系统的记账人，他们收集区块链网络中新产生的交易，并对这些交易的合法性进行验证，然后把这些交易打包在一个区块中，作为新的一页账记录在账本上，然后将账页在整个区块链网络中进行广播，其他的节点收到新的账页，也会验证账页中交易数据的合法性，并添加到自己的账本中。记账人一直重复这个过程，这样只要区块链系统中新的交易数据都会记录在账本里面。</p>
-<h2 id="dpos_1">DPOS概述<a class="headerlink" href="#dpos_1" title="Permanent link">&para;</a></h2>
-<p>共识的作用是在区块链系统中选出记账人，记账人验证交易数据并进行记账，进而向区块链网络中的其他节点广播新的账目，并获得其他节点对于新账目的认可。DPOS作为共识的一类特定实现是这样的：</p>
-<p>DPOS共识在区块链系统中根据节点获取选票的多少确定出部分节点作为记账。首先区块链系统开始启动运行的时候，会发行一定数量的通证，然后将通证分给区块链系统中的节点，节点可以凭借一部分通证申请成为这个区块链系统记账人的候选人，区块链系统中任何持有通证的节点都可以为这些候选人进行投票，每经过一段时间t会统计所有候选人获得的选票数量，选票数量排在前面的N个节点会成为下一段时间t内的记账人，再经过t的时间，又会重新统计一遍新的记账人，以此类推循环往复。</p>
-<p>下面结合波场中的实现具体说明：</p>
-<h2 id="_3">定义<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<h1 id="leveldb">levelDB 启动优化插件<a class="headerlink" href="#leveldb" title="Permanent link">&para;</a></h1>
+<h2 id="_1">介绍<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>随着levelDB的运行，manifest文件会持续增长，过大的manifest文件不但影响节点启动速度，而且还有可能会导致内存持续增长系统退出的问题。
+为此在<code>GreatVoyage-v4.3.0(Bacon)</code>引入了leveldb 启动优化插件，插件优化了manifest的文件大小以及LevelDB的启动过程，减少了内存占用，提升了节点启动速度。</p>
+<p>使用本工具进行任何操作之前，需要首先停止当前运行的FullNode节点。 此工具提供了根据当前<code>数据库</code>(database)情况,对 manifest 进行重新归整的功能。</p>
+<p>更多的设计思想，请参考: <a href="https://github.com/tronprotocol/tips/issues/298">TIP298</a> 。</p>
+<h2 id="_2">使用<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h3 id="_3">插件选项<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<p>此工具提供了归整manifest 功能</p>
 <ul>
-<li>
-<p>波场：指波场的区块链网络。本文不区分波场、波场区块链、波场区块链系统等概念。</p>
-</li>
-<li>
-<p>波场币：指由波场区块链系统发行并在系统中流转的权益通证，代号是TRX。</p>
-</li>
-<li>
-<p>记账候选人：指波场中有成为记账人资格的节点。</p>
-</li>
-<li>
-<p>记账人：指波场中获得记账资格的节点，通常DPOS共识中将记账人称为超级代表，波场也将记账人称为super node，super representative（简称SR），波场设定记账人的数量是27个。下文不区分记账人、witness、supernode、SR等概念。</p>
-</li>
-<li>
-<p>记账：指验证交易并将交易记录成账目的过程，由于波场中的账目是用区块承载的，因此记账的过程也被称为生产区块，下文不区分记账和生产区块。</p>
-</li>
-<li>
-<p>记账顺序：即出块顺序。按照27个记账人得票多少的降序作为记账顺序。</p>
-</li>
-<li>
-<p>槽位：在TRON中，每3秒钟被计为一个slot，正常情况下每个产块的SR都会在对应的slot时间内产块。因此，TRON 的平均产块间隔为3秒左右。如果因某些原因SR没有产块，则对应的slot会空置，下一个SR会在接下来的slot内产块。遇到维护期时，产块会跳过2个slot。</p>
-</li>
-<li>
-<p>出块轮：波场设定每6个小时作为一个出块轮，称为一个Epoch。每个出块轮最后的2个出块时间是一个维护期。每个出块轮的维护期决定下一个出块轮的出块顺序。</p>
-</li>
-<li>
-<p>维护期：波场设定是2个区块时间，即6秒钟。这段时间用于统计候选人得票数。因为24个小时有4个出块轮，自然就有4个维护期，维护期中不进行区块生产，主要用来确定下个出块轮的出块顺序。</p>
-</li>
+<li><code>-b | --batch-size</code>: [ int ]  此选项用于指定 优化 manifest时一次批处理大小,默认值：80000。</li>
+<li><code>-d | --database-directory</code>: [ string ]  此选项用于指定FullNode数据库父级目录,默认值：output-directory/database。</li>
+<li><code>-m | --manifest-size</code>: [ int ] 此选项用于指定最小需要批处理manifest 文件大小低于此值，不进行处理，单位M，默认值：0。</li>
+<li><code>-h | --help</code>: [ bool ]  此选项用于查看帮助，默认值：false。</li>
 </ul>
-<p><img alt="image" src="https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/sequence.png" /></p>
-<h2 id="_4">选举机制<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
-<p>1、选票</p>
-<p>波场中设定拥有一个TRX就可以拥有一张选票的权利。</p>
-<p>2、投票过程</p>
-<p>波场中设定对候选人的投票过程是一笔特殊类型的交易，节点可以通过生成一笔投票交易对候选人进行投票。</p>
-<p>3、统计票</p>
-<p>每个维护期内，统计一次候选人的票数，将获得票数最多的27个候选人作为下一个出块周期的记账人。</p>
-<h2 id="_5">产块机制<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
-<p>在一个出块轮中，27个记账人按照记账顺序依次生产区块。每个记账人只能在轮到自己产块时进行区块生产，记账人将多笔验证合法的交易数据打包到每个区块之中，同时每个区块都会将上个区块的哈希值（hash）作为本区块的父哈希值（parentHash）填入区块中，同时用自己的私钥对本区块的数据进行签名，将签名结果（witness_signature）也填入区块中，同时被填入区块的还有记账人的地址，区块高度，区块生成的时刻等数据。</p>
-<p>通过每个区块保存了上个区块hash值的方式，从而在逻辑上将区块相互关联了起来，最后组成了一条链的结构。典型的区块链结构示意图如下所示：</p>
-<p><img alt="image" src="https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/blockchain_structure.png" /></p>
-<p>理想情况下，采用DPOS共识的区块链系统的记账过程就是按照事先计算好的记账顺序，由超级代表轮流依序产块（如下图a），但实际情况下，区块链网络是一个分布式的、不可信的复杂系统，体现在 1）由于网络链路环境不佳导致超级代表生产的区块并不会在有效时间内被其他的超级代表收到（如下图b1、b2）；
-2）并不能保证某个超级代表运行始终正常（如图c）；
-3）某些超级代表恶意生产分叉的区块企图将链分叉（如图d）。</p>
-<p><img alt="image" src="https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/longest_chain1.png" /></p>
-<p><img alt="image" src="https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/longest_chain2.png" /></p>
-<p>前文已经提到区块链系统正常运行的基础是系统中绝大部分的节点是诚实可靠的，再进一步探讨这个问题，区块链系统安全的首要保证的是账本的安全，账本既不能被恶意写入不合法的数据，账本在各个节点上保存的副本也应该是一致的。如果从DPOS共识的角度上来看，记账过程是由超级代表完成，因此波场的安全取决于大部分超级代表的可靠性，波场设定了不可逆转区块，也称为固化块。同时为了抵抗少部分记账节点的恶意行为，波场采用基于最长链的原则确认为主链。</p>
-<h3 id="_6">固化块原则<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
-<p>刚生产出来的区块处于未确认状态，只有被27个超级代表中70%以上（即27 * 70% = 19, 向下取整）的超级代表"认可"的区块才被认为是不可逆区块，一般称为固化块，此时固化块中包含的交易已经被整个区块链网络确认。此处对未确认状态区块"认可"的方式是超级代表在其之后生产后继区块，如图d中超级代表C生产的第103块，超级代表E在第103块的基础上生产了104‘,超级代表G、A、B分别生产的第105‘、106’、107‘实质上也是103块的后继区块，故也是对C生产的第103块的认可。可知，当高度为121的区块被生产出来的时候，第103块就成为固化块，因为此时103区块已经有了19个后继区块，此处需要强调的一点是：生产这19个区块的超级代表互不相同，并且和生产第103个区块的超级代表也不同。</p>
-<h3 id="_7">最长链原则<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
-<p>当区块链产生分叉之后，诚实的超级代表总是选择在当前最长的那个分叉链上继续生产区块。</p>
-<h2 id="_8">激励模型<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
-<p>为了保证区块链系统安全高效地运行，TRON设定激励模型，用于鼓励更多的节点加入到波场网络，从而扩大网络规模。波场网络每生成一个区块，都会授予16个TRX的区块奖励给生产该区块的超级代表，还会授予160个TRX的投票奖励给所有超级代表和超级合伙人(票数排名第28～127名的超级代表候选人也叫超级代表合伙人)，他们根据获得的投票数按比例瓜分投票奖励。同时，超级代表及合伙人还会将获得的奖励按照其设定的佣金比例扣除后，将剩余部分按照选民投票比例分发给选民。</p>
-<h2 id="_9">基于提案对参数进行调整<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
-<p>DPOS的一个重要的特性是任何系统参数的调整都可以通过链上的提案发起，记账人通过对提案的投票来决定提案是否生效，这样的好处是在链上新增加一些特性不需要进行硬分叉升级。目前TRON网络的动态参数及其值，以及过往的提案，请参考<a href="https://tronscan.org/#/sr/committee">这里</a>。</p>
-<h2 id="_10">附录：参考文档<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h2>
+<h3 id="_4">获取方式<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
 <ul>
-<li><a href="https://www.coinbureau.com/education/delegated-proof-stake-dpos/">Delegated Proof of Stake (DPoS) – Total Beginners Guide</a></li>
-<li><a href="https://www.nichanank.com/blog/2018/6/4/consensus-algorithms-pos-dpos">Consensus Algorithms: Proof-of-Stake &amp; Cryptoeconomics</a></li>
-<li><a href="http://docs.bitshares.org/en/master/technology/dpos.html#role-of-delegates">Role of Delegates</a></li>
-<li><a href="https://hackernoon.com/what-is-delegated-proof-of-stake-897a2f0558f9">What is Delegated Proof of Stake?</a></li>
+<li>通过编译
+  在java-tron 下，执行 <code>./gradlew build</code> ，在 <code>build/libs/</code>下可找到Toolkit.jar。</li>
+<li>直接下载
+  <a href="https://github.com/tronprotocol/java-tron/releases">下载链接</a></li>
 </ul>
+<h3 id="_5">使用步骤<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<ol>
+<li>停止FullNode 服务。</li>
+<li>执行命令</li>
+<li>启动 FullNode 服务。</li>
+</ol>
+<h3 id="_6">使用说明<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<p>FullNode 运行之后，默认数据库目录：<code>output-directory</code>  ，优化插件会处理 <code>output-directory/database</code>目录。</p>
+<p>以下“单独使用” 和 “集成启动脚本” 这两种使用方式，开发者可以根据自己实际情况 任选一种即可。</p>
+<h4 id="1">1. 单独使用<a class="headerlink" href="#1" title="Permanent link">&para;</a></h4>
+<h5 id="fullnode">步骤一： 停止FullNode 服务<a class="headerlink" href="#fullnode" title="Permanent link">&para;</a></h5>
+<p>使用命令<code>kill -15</code>关闭FullNode.jar</p>
+<p>查找 pid: <code>ps -ef |grep FullNode.jar |grep -v grep |awk '{print $2}'</code>。</p>
+<h5 id="_7">步骤二： 执行命令<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h5>
+<div class="highlight"><pre><span></span><code><span class="c1">#完整命令</span>
+java<span class="w"> </span>-jar<span class="w"> </span>Toolkit.jar<span class="w"> </span>-b<span class="w"> </span>batchSize<span class="w"> </span>-d<span class="w"> </span>databaseDirectory<span class="w"> </span>-m<span class="w"> </span>manifestSize
+<span class="c1">#示例</span>
+<span class="w">   </span><span class="c1">#1. 使用默认参数</span>
+<span class="w">   </span>java<span class="w"> </span>-jar<span class="w"> </span>Toolkit.jar
+<span class="w">   </span><span class="c1">#2. 指定数据库目录为/tmp/db/database </span>
+<span class="w">   </span>java<span class="w"> </span>-jar<span class="w"> </span>Toolkit.jar<span class="w"> </span>-d<span class="w"> </span>/tmp/db/database<span class="w"> </span>
+<span class="w">   </span><span class="c1">#3. 指定优化Manifest时，应用version时批处理大小为64000</span>
+<span class="w">   </span>java<span class="w"> </span>-jar<span class="w"> </span>Toolkit.jar<span class="w"> </span>-b<span class="w"> </span><span class="m">64000</span><span class="w"> </span>
+<span class="w">   </span><span class="c1">#4. 指定当Manifest超过128M时，才进行优化处理</span>
+<span class="w">   </span>java<span class="w"> </span>-jar<span class="w"> </span>Toolkit.jar<span class="w"> </span>-m<span class="w"> </span><span class="m">128</span><span class="w"> </span>
+</code></pre></div>
+<p>命令执行完毕之后，将在<code>./logs</code>目录下生成<code>archive.log</code>日志, 可查看此次归整情况</p>
+<p>Note: 执行完成后，如果成功 日志会显示如下类似内容，运行一般在120s内，视FullNode服务持续运行时长决定，失败会有相应的错误信息</p>
+<blockquote>
+<p><code>[main] [archive](ArchiveManifest.java:144) DatabaseDirectory:output-directory/database, maxManifestSize:0, maxBatchSize:80000,database reopen use 80 seconds total.</code></p>
+</blockquote>
+<h5 id="fullnode_1">步骤三：启动 FullNode 服务<a class="headerlink" href="#fullnode_1" title="Permanent link">&para;</a></h5>
+<div class="highlight"><pre><span></span><code><span class="w"> </span><span class="c1">#FullNode</span>
+nohup<span class="w"> </span>java<span class="w"> </span>-Xmx24g<span class="w"> </span>-XX:+UseConcMarkSweepGC<span class="w"> </span>-jar<span class="w"> </span>FullNode.jar<span class="w"> </span>-c<span class="w"> </span>main_net_config.conf<span class="w"> </span>&lt;/dev/null<span class="w"> </span><span class="p">&amp;</span>&gt;/dev/null<span class="w"> </span><span class="p">&amp;</span>
+<span class="w"> </span><span class="c1">#SR Node</span>
+nohup<span class="w"> </span>java<span class="w"> </span>-Xmx24g<span class="w"> </span>-XX:+UseConcMarkSweepGC<span class="w">  </span>-jar<span class="w"> </span>FullNode.jar<span class="w">  </span>-p<span class="w">  </span>private<span class="w"> </span>key<span class="w"> </span>--witness<span class="w"> </span>-c<span class="w"> </span>main_net_config.conf<span class="w"> </span>&lt;/dev/null<span class="w"> </span><span class="p">&amp;</span>&gt;/dev/null<span class="w"> </span><span class="p">&amp;</span>
+</code></pre></div>
+<h4 id="2">2. 集成启动脚本<a class="headerlink" href="#2" title="Permanent link">&para;</a></h4>
+<p>也可以将此归整插件集成到启动脚本。</p>
+<p><div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+
+<span class="nv">APP</span><span class="o">=</span><span class="nv">$1</span>
+
+<span class="nv">MANIFEST_OPT</span><span class="o">=</span><span class="nv">$2</span>
+
+<span class="nv">ALL_OPT</span><span class="o">=</span><span class="nv">$*</span>
+
+<span class="nv">NEED_REBUILD</span><span class="o">=</span><span class="m">0</span>
+
+<span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="nv">$1</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s1">&#39;--rewrite--manifest&#39;</span><span class="w"> </span><span class="o">]]</span><span class="w">  </span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">   </span><span class="nv">APP</span><span class="o">=</span><span class="s1">&#39;&#39;</span>
+<span class="w">   </span><span class="nv">NEED_REBUILD</span><span class="o">=</span><span class="m">1</span>
+
+<span class="w"> </span><span class="k">elif</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="nv">$2</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s1">&#39;--rewrite--manifest&#39;</span><span class="w"> </span><span class="o">]]</span><span class="w">  </span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">   </span><span class="nv">NEED_REBUILD</span><span class="o">=</span><span class="m">1</span>
+<span class="w"> </span><span class="k">fi</span>
+
+
+rebuildManifest<span class="o">()</span><span class="w"> </span><span class="o">{</span>
+
+<span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="nv">$NEED_REBUILD</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="o">]]</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">   </span>buildManifest
+<span class="w"> </span><span class="k">fi</span>
+
+<span class="o">}</span>
+
+
+buildManifest<span class="o">()</span><span class="w"> </span><span class="o">{</span>
+
+<span class="w"> </span><span class="nv">ARCHIVE_JAR</span><span class="o">=</span><span class="s1">&#39;Toolkit.jar&#39;</span>
+
+<span class="w"> </span>java<span class="w"> </span>-jar<span class="w"> </span><span class="nv">$ARCHIVE_JAR</span><span class="w"> </span><span class="nv">$ALL_OPT</span>
+
+<span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="nv">$?</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+
+<span class="w">     </span><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;rebuild manifest success&#39;</span>
+
+<span class="w"> </span><span class="k">else</span>
+
+<span class="w">     </span><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;rebuild manifest fail, log in logs/archive.log&#39;</span>
+
+<span class="w"> </span><span class="k">fi</span>
+
+<span class="o">}</span>
+
+
+
+<span class="nv">APP</span><span class="o">=</span><span class="si">${</span><span class="nv">APP</span><span class="k">:-</span><span class="s2">&quot;FullNode&quot;</span><span class="si">}</span>
+
+<span class="nv">START_OPT</span><span class="o">=</span><span class="sb">`</span><span class="nb">echo</span><span class="w"> </span><span class="si">${</span><span class="p">@:</span><span class="nv">2</span><span class="si">}</span><span class="sb">`</span>
+
+<span class="nv">JAR_NAME</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$APP</span><span class="s2">.jar&quot;</span>
+
+<span class="nv">MAX_STOP_TIME</span><span class="o">=</span><span class="m">60</span>
+
+<span class="nv">MEM_OPT</span><span class="o">=</span><span class="s1">&#39;&#39;</span>
+
+
+
+
+
+checkpid<span class="o">()</span><span class="w"> </span><span class="o">{</span>
+
+<span class="w"> </span><span class="nv">pid</span><span class="o">=</span><span class="sb">`</span>ps<span class="w"> </span>-ef<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="nv">$JAR_NAME</span><span class="w"> </span><span class="p">|</span>grep<span class="w"> </span>-v<span class="w"> </span>grep<span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;{print $2}&#39;</span><span class="sb">`</span>
+
+<span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="nv">$pid</span>
+
+<span class="o">}</span>
+
+checkPath<span class="o">(){</span>
+<span class="w">  </span><span class="nv">path</span><span class="o">=</span><span class="s1">&#39;output-directory/database&#39;</span>
+<span class="w">  </span><span class="nv">flag</span><span class="o">=</span><span class="m">1</span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span>p<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="si">${</span><span class="nv">ALL_OPT</span><span class="si">}</span>
+<span class="w">  </span><span class="k">do</span>
+<span class="w">     </span><span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="nv">$flag</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">]]</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">        </span><span class="nv">path</span><span class="o">=</span><span class="sb">`</span><span class="nb">echo</span><span class="w"> </span><span class="nv">$p</span><span class="sb">`</span>
+<span class="w">        </span><span class="k">break</span>
+<span class="w">     </span><span class="k">fi</span>
+<span class="w">     </span><span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="nv">$p</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s1">&#39;-d&#39;</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nv">$p</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s1">&#39;--database-directory&#39;</span><span class="w"> </span><span class="o">]]</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">        </span><span class="nv">path</span><span class="o">=</span><span class="s1">&#39;&#39;</span>
+<span class="w">        </span><span class="nv">flag</span><span class="o">=</span><span class="m">0</span>
+<span class="w">     </span><span class="k">fi</span>
+<span class="w">  </span><span class="k">done</span>
+
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span>-z<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">path</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">]]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">     </span><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;-d /path or --database-directory /path&#39;</span>
+<span class="w">     </span><span class="k">return</span><span class="w"> </span><span class="m">1</span>
+<span class="w">  </span><span class="k">fi</span>
+
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span>-d<span class="w"> </span><span class="si">${</span><span class="nv">path</span><span class="si">}</span><span class="w"> </span><span class="o">]]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="m">0</span>
+<span class="w">  </span><span class="k">else</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="nv">$path</span><span class="w"> </span><span class="s1">&#39;not exist&#39;</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="m">1</span>
+<span class="w">  </span><span class="k">fi</span>
+<span class="o">}</span>
+
+
+
+stopService<span class="o">()</span><span class="w"> </span><span class="o">{</span>
+
+<span class="w">  </span><span class="nv">count</span><span class="o">=</span><span class="m">1</span>
+
+<span class="w">  </span><span class="k">while</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="nv">$count</span><span class="w"> </span>-le<span class="w"> </span><span class="nv">$MAX_STOP_TIME</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
+
+<span class="w">    </span>checkpid
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="nv">$pid</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+
+<span class="w">       </span><span class="nb">kill</span><span class="w"> </span>-15<span class="w"> </span><span class="nv">$pid</span>
+
+<span class="w">       </span>sleep<span class="w"> </span><span class="m">1</span>
+
+<span class="w">    </span><span class="k">else</span>
+
+<span class="w">       </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;java-tron stop&quot;</span>
+
+<span class="w">       </span><span class="k">return</span>
+
+<span class="w">    </span><span class="k">fi</span>
+
+<span class="w">    </span><span class="nv">count</span><span class="o">=</span>$<span class="o">[</span><span class="nv">$count</span>+1<span class="o">]</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="nv">$count</span><span class="w"> </span>-eq<span class="w"> </span><span class="nv">$MAX_STOP_TIME</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+
+<span class="w">      </span><span class="nb">kill</span><span class="w"> </span>-9<span class="w"> </span><span class="nv">$pid</span>
+
+<span class="w">      </span>sleep<span class="w"> </span><span class="m">1</span>
+
+<span class="w">    </span><span class="k">fi</span>
+
+<span class="w">  </span><span class="k">done</span>
+
+<span class="o">}</span>
+
+startService<span class="o">()</span><span class="w"> </span><span class="o">{</span>
+<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="sb">`</span>date<span class="sb">`</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>start.log
+
+<span class="w"> </span><span class="nv">total</span><span class="o">=</span><span class="m">16</span>*1024*1024
+
+<span class="w"> </span><span class="nv">xmx</span><span class="o">=</span><span class="sb">`</span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$total</span><span class="s2">/1024/1024*0.6&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>bc<span class="w"> </span><span class="p">|</span>awk<span class="w"> </span>-F.<span class="w"> </span><span class="s1">&#39;{print $1&quot;g&quot;}&#39;</span><span class="sb">`</span>
+
+<span class="w"> </span><span class="nv">directmem</span><span class="o">=</span><span class="sb">`</span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$total</span><span class="s2">/1024/1024*0.1&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>bc<span class="w"> </span><span class="p">|</span>awk<span class="w"> </span>-F.<span class="w"> </span><span class="s1">&#39;{print $1&quot;g&quot;}&#39;</span><span class="sb">`</span>
+
+<span class="w"> </span><span class="nv">logtime</span><span class="o">=</span><span class="sb">`</span>date<span class="w"> </span>+%Y-%m-%d_%H-%M-%S<span class="sb">`</span>
+
+<span class="w"> </span><span class="nb">export</span><span class="w"> </span><span class="nv">LD_PRELOAD</span><span class="o">=</span><span class="s2">&quot;/usr/lib64/libtcmalloc.so&quot;</span>
+
+<span class="w">  </span>nohup<span class="w"> </span>java<span class="w"> </span>-Xms<span class="nv">$xmx</span><span class="w"> </span>-Xmx<span class="nv">$xmx</span><span class="w"> </span>-XX:+UseConcMarkSweepGC<span class="w"> </span>-XX:+PrintGCDetails<span class="w"> </span>-Xloggc:./gc.log<span class="se">\</span>
+<span class="w">  </span>-XX:+PrintGCDateStamps<span class="w"> </span>-XX:+CMSParallelRemarkEnabled<span class="w"> </span>-XX:ReservedCodeCacheSize<span class="o">=</span>256m<span class="w"> </span>-XX:+UseCodeCacheFlushing<span class="se">\</span>
+<span class="w">  </span><span class="nv">$MEM_OPT</span><span class="w"> </span>-XX:MaxDirectMemorySize<span class="o">=</span><span class="nv">$directmem</span><span class="w"> </span>-XX:+HeapDumpOnOutOfMemoryError<span class="w"> </span>-jar<span class="w"> </span><span class="nv">$JAR_NAME</span><span class="w"> </span><span class="nv">$START_OPT</span><span class="w"> </span>-c<span class="w"> </span>config.conf<span class="w">  </span>&gt;&gt;<span class="w"> </span>start.log<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span><span class="w"> </span><span class="p">&amp;</span>
+
+<span class="w"> </span><span class="nv">pid</span><span class="o">=</span><span class="sb">`</span>ps<span class="w"> </span>-ef<span class="w"> </span><span class="p">|</span>grep<span class="w"> </span><span class="nv">$JAR_NAME</span><span class="w"> </span><span class="p">|</span>grep<span class="w"> </span>-v<span class="w"> </span>grep<span class="w"> </span><span class="p">|</span>awk<span class="w"> </span><span class="s1">&#39;{print $2}&#39;</span><span class="sb">`</span>
+
+<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;start java-tron with pid </span><span class="nv">$pid</span><span class="s2"> on </span><span class="nv">$HOSTNAME</span><span class="s2">&quot;</span>
+
+<span class="o">}</span>
+
+<span class="c1">#1.停止 FullNode 服务</span>
+stopService
+
+checkPath
+
+<span class="c1">#2.执行插件</span>
+<span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="nv">0</span><span class="w"> </span><span class="o">==</span><span class="w">  </span><span class="nv">$?</span><span class="w"> </span><span class="o">]]</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w"> </span>rebuildManifest
+<span class="k">else</span>
+<span class="w"> </span><span class="nb">exit</span><span class="w"> </span>-1
+<span class="k">fi</span>
+
+sleep<span class="w"> </span><span class="m">5</span>
+<span class="c1">#3.启动 FullNode 服务</span>
+startService
+</code></pre></div>
+启动示例</p>
+<blockquote>
+<p>Note: 将上述脚本保存为start.sh，在以上脚本中 <code>--rewrite--manifest</code> 参数 固定在第一个参数或者第二个参数</p>
+<p>OPTIONS</p>
+<div class="codehilite"><pre><span></span><code>       --rewrite--manifest       开启数据库优化插件，开启此项后 以上插件选项的`-d -m -b -h` 才会生效
+</code></pre></div>
+
+</blockquote>
+<div class="highlight"><pre><span></span><code><span class="c1">#完整命令</span>
+./start.sh<span class="w"> </span><span class="o">[</span>FullNode<span class="p">|</span>SolidityNode<span class="o">]</span><span class="w"> </span><span class="o">[</span>--rewrite--manifest<span class="o">]</span><span class="w"> </span><span class="o">[</span>-b<span class="w"> </span>batchSize<span class="o">]</span><span class="w"> </span><span class="o">[</span>-d<span class="w"> </span>databaseDirectory<span class="o">]</span><span class="w"> </span><span class="o">[</span>-m<span class="w"> </span>manifestSize<span class="o">]</span>
+<span class="c1">#示例</span>
+<span class="w">   </span>./start.sh<span class="w"> </span><span class="c1">#1. 不使用插件，启动FullNode.jar 服务</span>
+<span class="w">   </span>./start.sh<span class="w"> </span>SolidityNode<span class="w"> </span><span class="c1">#2. 不使用插件，启动SolidityNode.jar 服务</span>
+<span class="w">   </span>./start.sh<span class="w"> </span>FullNode<span class="w"> </span>--rewrite--manifest<span class="w"> </span><span class="c1">#3. 使用默认参数执行优化插件，并启动FullNode.jar 服务</span>
+<span class="w">   </span>./start.sh<span class="w"> </span>--rewrite--manifest<span class="w"> </span>-d<span class="w"> </span>/tmp/db/database<span class="w"> </span><span class="c1">#4. 指定数据库目录为/tmp/db/database,执行优化插件， 并启动FullNode.jar 服务</span>
+<span class="w">   </span>./start.sh<span class="w"> </span>--rewrite--manifest<span class="w"> </span>-b<span class="w"> </span><span class="m">64000</span><span class="w"> </span><span class="c1">#5. 指定优化Manifest时，应用version时批处理大小为64000, 并启动FullNode.jar 服务</span>
+<span class="w">   </span>./start.sh<span class="w"> </span>--rewrite--manifest<span class="w"> </span>-m<span class="w"> </span><span class="m">128</span><span class="w"> </span><span class="c1">#6. 指定当Manifest超过128M时，才进行优化处理，并启动FullNode.jar 服务</span>
+</code></pre></div>
 
 
 
@@ -1702,44 +1709,6 @@
 		  <hr class="content-footer-divider">  <!-- 添加的水平线 -->
       	    	  <footer class="md-footer">
   
-    
-      
-      <nav class="md-footer__inner md-grid" aria-label="Footer" >
-        
-          
-          <a href="../../api/json-rpc/" class="md-footer__link md-footer__link--prev" aria-label="Previous: jsonRPC 接口">
-            <div class="md-footer__button md-icon">
-              
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
-            </div>
-            <div class="md-footer__title">
-              <span class="md-footer__direction">
-                Previous
-              </span>
-              <div class="md-ellipsis">
-                jsonRPC 接口
-              </div>
-            </div>
-          </a>
-        
-        
-          
-          <a href="../../mechanism-algorithm/sr/" class="md-footer__link md-footer__link--next" aria-label="Next: 超级代表">
-            <div class="md-footer__title">
-              <span class="md-footer__direction">
-                Next
-              </span>
-              <div class="md-ellipsis">
-                超级代表
-              </div>
-            </div>
-            <div class="md-footer__button md-icon">
-              
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
-            </div>
-          </a>
-        
-      </nav>
     
   
   <!--div class="md-footer-meta md-typeset">
