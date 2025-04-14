@@ -407,7 +407,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../developers/litefullnode/" class="md-nav__link">
+      <a href="../../using_javatron/litefullnode/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -499,7 +499,7 @@
         
   
   <span class="md-ellipsis">
-    网络配置
+    网络连接
     
   </span>
   
@@ -723,7 +723,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../introduction/dpos/" class="md-nav__link">
+      <a href="../../mechanism-algorithm/dpos/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1149,11 +1149,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../../contracts/compiler/" class="md-nav__link">
+      <a href="../../contracts/tools/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    Dapp开发工具
+    工具
     
   </span>
   
@@ -1197,7 +1197,7 @@
             
   
   <span class="md-ellipsis">
-    wallet-cli
+    客户端
     
   </span>
   
@@ -1208,7 +1208,7 @@
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_8">
             <span class="md-nav__icon md-icon"></span>
-            wallet-cli
+            客户端
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -1223,29 +1223,7 @@
         
   
   <span class="md-ellipsis">
-    什么是wallet-cli
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../clients/wallet-cli-command/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    wallet-cli命令
+    wallet-cli
     
   </span>
   
@@ -1647,7 +1625,7 @@ gpg:       没有证据表明此签名属于其声称的所有者。
 </code></pre></div>
 验证失败，则会显示<code>已损坏的签名，来自于 “build_tron &lt;build@tron.network&gt;”</code>字样。 </p>
 <h2 id="tron">TRON地址签名验证流程<a class="headerlink" href="#tron" title="Permanent link">&para;</a></h2>
-<p>2023年1月3号之前发布的java-tron版本均是由 TRON 账户 <code>TKeAcHxgErbVXrG3N3TZiSV6AT566BHTj2</code> 对发布包进行签名。签名步骤为：首先为发布包的可执行文件生成sha256哈希值，然后使用该TRON账户的私钥对sha256哈希值进行签名。sha256哈希值可在<a href="#_6">历史版本签名信息</a>章节中查看，也可在<a href="https://github.com/tronprotocol/java-tron/releases">https://github.com/tronprotocol/java-tron/releases</a>页面查看；签名结果请在<a href="#_6">历史版本签名信息</a>章节中查看。</p>
+<p>2023年1月3号之前发布的java-tron版本均是由 TRON 账户 <code>TKeAcHxgErbVXrG3N3TZiSV6AT566BHTj2</code> 对发布包进行签名。签名步骤为：首先为发布包的可执行文件生成sha256哈希值，然后使用该TRON账户的私钥对sha256哈希值进行签名。sha256哈希值可在<a href="#_5">历史版本签名信息</a>章节中查看，也可在<a href="https://github.com/tronprotocol/java-tron/releases">https://github.com/tronprotocol/java-tron/releases</a>页面查看；签名结果请在<a href="#_5">历史版本签名信息</a>章节中查看。</p>
 <p><a href="https://developers.tron.network/docs/tronweb-1">tronweb</a>提供<code>Trx.verifySignature</code>接口来验证签名，验证通过则返回true，否则，返回false, 请按照如下流程进行验证。</p>
 <h3 id="tronweb">安装tronweb<a class="headerlink" href="#tronweb" title="Permanent link">&para;</a></h3>
 <p>如果已经安装了tronweb，请跳过此步，如果没有安装过，请参照如下命令安装

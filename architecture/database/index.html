@@ -409,7 +409,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../developers/litefullnode/" class="md-nav__link">
+      <a href="../../using_javatron/litefullnode/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -484,6 +484,18 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    数据库配置
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -494,6 +506,76 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item has-children">
+  <a href="#rocksdb" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
+    <span class="md-ellipsis">
+      RocksDB
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="RocksDB" hidden>
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item ">
+  <a href="#config" class="md-nav__link" >
+    <span class="md-ellipsis">
+      config配置说明
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#rocksdb_1" class="md-nav__link" >
+    <span class="md-ellipsis">
+      使用RocksDB数据备份功能
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#leveldbrocksdb" class="md-nav__link" >
+    <span class="md-ellipsis">
+      LevelDB转换为RocksDB
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item ">
+  <a href="#leveldb" class="md-nav__link" >
+    <span class="md-ellipsis">
+      LevelDB
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -511,7 +593,7 @@
         
   
   <span class="md-ellipsis">
-    网络配置
+    网络连接
     
   </span>
   
@@ -735,7 +817,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../introduction/dpos/" class="md-nav__link">
+      <a href="../../mechanism-algorithm/dpos/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1161,11 +1243,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../../contracts/compiler/" class="md-nav__link">
+      <a href="../../contracts/tools/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    Dapp开发工具
+    工具
     
   </span>
   
@@ -1209,7 +1291,7 @@
             
   
   <span class="md-ellipsis">
-    wallet-cli
+    客户端
     
   </span>
   
@@ -1220,7 +1302,7 @@
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_8">
             <span class="md-nav__icon md-icon"></span>
-            wallet-cli
+            客户端
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -1235,29 +1317,7 @@
         
   
   <span class="md-ellipsis">
-    什么是wallet-cli
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../clients/wallet-cli-command/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    wallet-cli命令
+    wallet-cli
     
   </span>
   
@@ -1480,20 +1540,20 @@
 
 <h1 id="_1">数据库配置<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
 <p>java-tron数据存储支持使用 LevelDB 或者 RocksDB，默认使用LevelDB。您也可以选择RocksDB，它提供了丰富的配置参数，允许节点根据自身机器配置情况进行调优，节点数据库占用的磁盘空间相比于LevelDB更少，同时RocksDB支持在运行时进行数据备份，备份时间仅需要几秒钟。</p>
-<p>下面介绍如何将java-tron节点的存储引擎设置成RocksDB，以及如何进行leveldb和rocksdb的数据转换。</p>
-<h1 id="rocksdb">rocksdb<a class="headerlink" href="#rocksdb" title="Permanent link">&para;</a></h1>
-<h3 id="1-config">1. config配置说明<a class="headerlink" href="#1-config" title="Permanent link">&para;</a></h3>
-<p>使用rocksdb作为数据存储引擎，需要将db.engine配置项设置为"ROCKSDB"
+<p>下面介绍如何将java-tron节点的存储引擎设置成RocksDB，以及如何进行LevelDB和RocksDB的数据转换。</p>
+<h2 id="rocksdb">RocksDB<a class="headerlink" href="#rocksdb" title="Permanent link">&para;</a></h2>
+<h3 id="config">config配置说明<a class="headerlink" href="#config" title="Permanent link">&para;</a></h3>
+<p>使用RocksDB作为数据存储引擎，需要将db.engine配置项设置为"ROCKSDB"
  <img alt="image" src="https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/db_engine.png" />
- 注意: rocksdb只支持db.version=2, 不支持db.version=1。
- rocksdb支持的优化参数如下：
+ 注意: RocksDB只支持db.version=2, 不支持db.version=1。
+ RocksDB支持的优化参数如下：
  <img alt="image" src="https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/rocksdb_tuning_parameters.png" /></p>
-<h3 id="2-rocksdb">2. 使用rocksdb数据备份功能<a class="headerlink" href="#2-rocksdb" title="Permanent link">&para;</a></h3>
-<p>选择rocksdb作为数据存储引擎，可以使用其提供的运行时数据备份功能。
+<h3 id="rocksdb_1">使用RocksDB数据备份功能<a class="headerlink" href="#rocksdb_1" title="Permanent link">&para;</a></h3>
+<p>选择RocksDB作为数据存储引擎，可以使用其提供的运行时数据备份功能。
  <img alt="image" src="https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/db_backup.png" />
  注意: FullNode可以使用数据备份功能；为了不影响SuperNode的产块性能，数据备份功能不支持SuperNode，但是SuperNode的备份服务节点可以使用此功能。</p>
-<h3 id="3-leveldbrocksdb">3. leveldb数据转换为rocksdb数据<a class="headerlink" href="#3-leveldbrocksdb" title="Permanent link">&para;</a></h3>
-<p>leveldb和rocksdb的数据存储架构并不兼容，请确保节点始终使用同一种数据引擎。我们提供了数据转换脚本，用于将leveldb数据转换到rocksdb数据。
+<h3 id="leveldbrocksdb">LevelDB转换为RocksDB<a class="headerlink" href="#leveldbrocksdb" title="Permanent link">&para;</a></h3>
+<p>LevelDB和RocksDB的数据存储架构并不兼容，请确保节点始终使用同一种数据引擎。我们提供了数据转换脚本，用于将LevelDB数据转换到RocksDB数据。
   使用方法：</p>
 <div class="highlight"><pre><span></span><code>cd 源代码根目录
 ./gradlew build   #编译源代码
@@ -1509,7 +1569,7 @@ java -jar build/libs/DBConvert.jar  #执行数据转换指令
 <div class="highlight"><pre><span></span><code>java<span class="w"> </span>-jar<span class="w"> </span>build/libs/DBConvert.jar<span class="w">  </span>your_database_dir/database<span class="w">  </span>output-directory-dst/database
 </code></pre></div>
 <p>注意：必须停止节点的运行，然后再运行数据转换脚本。
-  如果不希望节点停止时间太长，可以在节点停止后先将leveldb数据目录output-directory拷贝一份到新的目录下，然后恢复节点的运行。</p>
+  如果不希望节点停止时间太长，可以在节点停止后先将LevelDB数据目录output-directory拷贝一份到新的目录下，然后恢复节点的运行。</p>
 <p>在新目录的上级目录中执行DBConvert.jar并指定参数<code>src_db_path</code>和<code>dst_db_path</code> 。
   例如:</p>
 <div class="highlight"><pre><span></span><code>cp<span class="w"> </span>-rf<span class="w"> </span>output-directory<span class="w"> </span>/tmp/output-directory
@@ -1517,9 +1577,8 @@ java -jar build/libs/DBConvert.jar  #执行数据转换指令
 java<span class="w"> </span>-jar<span class="w"> </span>DBConvert.jar<span class="w"> </span>output-directory/database<span class="w">  </span>output-directory-dst/database
 </code></pre></div>
 <p>整个的数据转换过程可能需要10个小时左右。</p>
-<h3 id="4-rocksdbleveldb">4. rocksdb与leveldb的对比<a class="headerlink" href="#4-rocksdbleveldb" title="Permanent link">&para;</a></h3>
-<p>你可以查看以下文档获取详细的信息：
-<a href="https://github.com/tronprotocol/documentation/blob/master/TRX_CN/Rocksdb_vs_Leveldb.md">rocksdb与leveldb对比</a></p>
+<h2 id="leveldb">LevelDB<a class="headerlink" href="#leveldb" title="Permanent link">&para;</a></h2>
+<p>关于RocksDB与LevelDB之间的差异，详见见<a href="https://github.com/tronprotocol/documentation/blob/master/TRX_CN/Rocksdb_vs_Leveldb.md">链接</a></p>
 
 
 
@@ -1557,13 +1616,13 @@ java<span class="w"> </span>-jar<span class="w"> </span>DBConvert.jar<span class
         
         
           
-          <a href="../../using_javatron/connecting_to_tron/" class="md-footer__link md-footer__link--next" aria-label="Next: 网络配置">
+          <a href="../../using_javatron/connecting_to_tron/" class="md-footer__link md-footer__link--next" aria-label="Next: 网络连接">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                网络配置
+                网络连接
               </div>
             </div>
             <div class="md-footer__button md-icon">
