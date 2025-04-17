@@ -21,6 +21,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     // 折叠 TOC
                     tocParentItem.classList.remove('md-nav__item--active');
+		    window.scrollTo({
+			top: 0,
+			//behavior: 'smooth' // if necessary, enable smooth jump
+	            });
+
 		    // 不阻止默认行为，允许页面跳转
                     // 在默认行为完成后执行自定义事件
                     //setTimeout(() => {

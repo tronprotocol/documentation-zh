@@ -12,6 +12,6 @@ function toggleChildren(event) {
       nav.hidden = true;
       listItem.classList.remove('is-expanded'); // 移除 is-expanded 类名
     }
-    event.preventDefault(); // 阻止默认跳转行为
+    //event.preventDefault(); // 阻止默认跳转行为
   }
 }
