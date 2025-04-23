@@ -87,7 +87,4 @@ DPOS的一个重要的特性是任何系统参数的调整都可以通过链上�
 
 ## 参考文档
 
-- [Delegated Proof of Stake (DPoS) – Total Beginners Guide](https://www.coinbureau.com/education/delegated-proof-stake-dpos/)
-- [Consensus Algorithms: Proof-of-Stake & Cryptoeconomics](https://www.nichanank.com/blog/2018/6/4/consensus-algorithms-pos-dpos)
-- [Role of Delegates](http://docs.bitshares.org/en/master/technology/dpos.html#role-of-delegates)
-- [What is Delegated Proof of Stake?](https://hackernoon.com/what-is-delegated-proof-of-stake-897a2f0558f9)
+- [The Basics of TRON’s DPoS Consensus Algorithm](https://medium.com/tronnetwork/the-basics-of-trons-dpos-consensus-algorithm-db12c52f1e03)
