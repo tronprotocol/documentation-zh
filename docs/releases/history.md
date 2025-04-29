@@ -122,7 +122,8 @@ TVM 将同步支持以太坊 Cancun 升级相关 BLOBHASH、BLOBBASEFEE 指令:
 | 0x4a  | BLOBBASEFEE  | 获取当前块的 Blob 交易 base fee；目前默认返回 0   |
 
 
-`BLOBHASH` 和 `BLOBBASEFEE` 指令是以太坊中 Blob 交易的相关指令，目前 `BLOBHASH`、`BLOBBASEFEE` 在TVM中只是引入，返回值都是 0。
+`BLOBHASH` 和 `BLOBBASEFEE` 指令是以太坊中 Blob 交易的相关指令，目前 `BLOBHASH`、`BLOBBASEFEE` 在TVM中只是引入，返回值都是 0。同时，由于 TRON 当前尚未支持 Blob 类型的交易，因此用于进行 KZG 验证的预编译合约在 Kant 版本中尚未实现。
+
 注意，该功能是 TRON 网络的第 89 号参数，Kant 部署之后默认值为 0，即未开启状态，可以通过发起提案投票的方式开启，一旦开启将不允许再关闭。
 
 
