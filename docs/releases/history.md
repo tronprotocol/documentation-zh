@@ -97,8 +97,8 @@ TVM 将同步支持以太坊 Cancun 升级相关 TLOAD、TSTORE 指令。
 注意，该功能由 TRON 网络的第 83 号参数控制。Kant 部署后默认关闭（值为 0），需通过提案投票的方式开启，且开启后不可关闭。
 
 
-TIP: [https://github.com/tronprotocol/tips/blob/master/tip-650.md](https://github.com/tronprotocol/tips/blob/master/tip-650.md) 
-源代码： [https://github.com/tronprotocol/java-tron/pull/6185](https://github.com/tronprotocol/java-tron/pull/6185)  
+* TIP: [https://github.com/tronprotocol/tips/blob/master/tip-650.md](https://github.com/tronprotocol/tips/blob/master/tip-650.md) 
+* 源代码： [https://github.com/tronprotocol/java-tron/pull/6185](https://github.com/tronprotocol/java-tron/pull/6185)  
 [https://github.com/tronprotocol/java-tron/pull/6195](https://github.com/tronprotocol/java-tron/pull/6195)  
 [https://github.com/tronprotocol/java-tron/pull/6214](https://github.com/tronprotocol/java-tron/pull/6214)  
  
@@ -114,10 +114,8 @@ TVM 将同步支持以太坊 Cancun 升级相关 MCOPY 指令。
 
 注意，该功能是 TRON 网络的第 83 号参数，Kant 部署之后默认值为 0，即未开启状态，可以通过发起提案投票的方式开启，一旦开启将不允许再关闭。
 
-
-
-TIP: [https://github.com/tronprotocol/tips/blob/master/tip-651.md](https://github.com/tronprotocol/tips/blob/master/tip-651.md) 
-源代码： [https://github.com/tronprotocol/java-tron/pull/6185](https://github.com/tronprotocol/java-tron/pull/6185)  [https://github.com/tronprotocol/java-tron/pull/6194](https://github.com/tronprotocol/java-tron/pull/6194)  
+* TIP: [https://github.com/tronprotocol/tips/blob/master/tip-651.md](https://github.com/tronprotocol/tips/blob/master/tip-651.md) 
+* 源代码： [https://github.com/tronprotocol/java-tron/pull/6185](https://github.com/tronprotocol/java-tron/pull/6185)  [https://github.com/tronprotocol/java-tron/pull/6194](https://github.com/tronprotocol/java-tron/pull/6194)  
 
 ##### 3. TIP-745: TVM 实现 EIP-4844 指令和 EIP-7516 指令
 TVM 将同步支持以太坊 Cancun 升级相关 BLOBHASH、BLOBBASEFEE 指令:
