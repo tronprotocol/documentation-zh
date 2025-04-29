@@ -83,9 +83,8 @@
 ## GreatVoyage-4.8.0(Kant)
 Kant版本引入了多个重要的优化和更新，主要包括支持以太坊Cancun升级；增强共识层校验等，下面是详细介绍。
 
-### 新特性
-#### 支持 以太坊 Cancun 升级
-##### 1. TIP-650：TVM 实现 EIP-1153 瞬时存储指令
+### 支持 以太坊 Cancun 升级
+#### 1. TIP-650：TVM 实现 EIP-1153 瞬时存储指令
 TVM 将同步支持以太坊 Cancun 升级相关 TLOAD、TSTORE 指令。
 | ID | TVM指令 | 描述 |
 | -------- | -------- | -------- |
@@ -102,7 +101,7 @@ TVM 将同步支持以太坊 Cancun 升级相关 TLOAD、TSTORE 指令。
  
 
 
-##### 2. TIP-651：TVM 实现 EIP-5656 内存复制指令
+#### 2. TIP-651：TVM 实现 EIP-5656 内存复制指令
 TVM 将同步支持以太坊 Cancun 升级相关 MCOPY 指令。
 | ID | TVM指令 | 描述 |
 | -------- | -------- | -------- |
@@ -115,7 +114,7 @@ TVM 将同步支持以太坊 Cancun 升级相关 MCOPY 指令。
 * TIP: [https://github.com/tronprotocol/tips/blob/master/tip-651.md](https://github.com/tronprotocol/tips/blob/master/tip-651.md) 
 * 源代码： [https://github.com/tronprotocol/java-tron/pull/6185](https://github.com/tronprotocol/java-tron/pull/6185)  [https://github.com/tronprotocol/java-tron/pull/6194](https://github.com/tronprotocol/java-tron/pull/6194)  
 
-##### 3. TIP-745: TVM 实现 EIP-4844 指令和 EIP-7516 指令
+#### 3. TIP-745: TVM 实现 EIP-4844 指令和 EIP-7516 指令
 TVM 将同步支持以太坊 Cancun 升级相关 BLOBHASH、BLOBBASEFEE 指令:
 | ID | TVM指令 | 描述 |
 | -------- | -------- | -------- |
@@ -173,6 +172,11 @@ TVM 将同步支持以太坊 Cancun 升级相关 BLOBHASH、BLOBBASEFEE 指令:
 * 源代码： [https://github.com/tronprotocol/java-tron/pull/6173](https://github.com/tronprotocol/java-tron/pull/6173) 
 
 
+### TVM
+#### 1. TIP-652: 弃用 SELFDESTRUCT 指令 
+注意：虽然 TIP-652 本身没有更改 `SELFDESTRUCT` 操作码的行为，但已正式宣布客户端开发人员将在未来升级中对其进行更改。因此，向用户暴露了 `SELFDESTRUCT` 操作码的应用，需务必警示用户 `SELFDESTRUCT` 即将发生语义变化。
+
+TIP: [https://github.com/tronprotocol/tips/blob/master/tip-652.md](https://github.com/tronprotocol/tips/blob/master/tip-652.md) 
 
 ### Net
 #### 1. 优化区块同步逻辑
