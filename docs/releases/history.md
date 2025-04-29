@@ -3,6 +3,7 @@
 
 |  名称 |版本号  | 发布日期 | 包含的TIP | 版本说明 | 技术解读 |
 | -------- | -------- | -------- | -------- | -------- | -------- |
+|  Kant    |  GreatVoyage-v4.8.0    |  2025-04-29    |  [TIP-650](https://github.com/tronprotocol/tips/blob/master/tip-650.md) <br> [TIP-651](https://github.com/tronprotocol/tips/blob/master/tip-651.md) <br> [TIP-694](https://github.com/tronprotocol/tips/blob/master/tip-694.md) <br> [TIP-697](https://github.com/tronprotocol/tips/blob/master/tip-697.md) <br> [TIP-745](https://github.com/tronprotocol/tips/blob/master/tip-745.md)  |  [Release Note](https://github.com/tronprotocol/java-tron/releases/tag/GreatVoyage-v4.8.0)   |   [Specs](#greatvoyage-480kant)   |
 |  Epicurus    |  GreatVoyage-v4.7.7    |  2024-11-29    |  [TIP-697](https://github.com/tronprotocol/tips/issues/697)  |  [Release Note](https://github.com/tronprotocol/java-tron/releases/tag/GreatVoyage-v4.7.7)   |   [Specs](#greatvoyage-477epicurus)   |
 |  Anaximander    |  GreatVoyage-v4.7.6    |  2024-10-04    |  N/A   |  [Release Note](https://github.com/tronprotocol/java-tron/releases/tag/GreatVoyage-v4.7.6)   |   [Specs](#greatvoyage-v476anaximander)   |
 |  Cleobulus    |  GreatVoyage-v4.7.5    |  2024-5-30    |  [TIP-653](https://github.com/tronprotocol/tips/blob/master/tip-653.md)   |  [Release Note](https://github.com/tronprotocol/java-tron/releases/tag/GreatVoyage-v4.7.5)   |   [Specs](#greatvoyage-v475cleobulus)   |
@@ -78,6 +79,256 @@
 |   N/A   | Odyssey-v1.0.4    |  2018-4-13    |  N/A    |      [Release Note](https://github.com/tronprotocol/java-tron/releases/tag/Odyssey-v1.0.4)    |  N/A   |
 |   N/A   | Odyssey-v1.0.3    |  2018-4-5    |  N/A    |      [Release Note](https://github.com/tronprotocol/java-tron/releases/tag/Odyssey-v1.0.3)    |  N/A   |
 |   N/A   | Exodus-v1.0    |  2017-12-28    |  N/A    |      [Release Note](https://github.com/tronprotocol/java-tron/releases/tag/Exodus-v1.0)    |  N/A   |
+
+## GreatVoyage-4.8.0(Kant)
+Kant版本引入了多个重要的优化和更新，主要包括支持以太坊Cancun升级；增强共识层校验等，下面是详细介绍。
+
+### 支持 以太坊 Cancun 升级
+#### 1. TIP-650：TVM 实现 EIP-1153 瞬时存储指令
+TVM 将同步支持以太坊 Cancun 升级相关 TLOAD、TSTORE 指令。
+| ID | TVM指令 | 描述 |
+| -------- | -------- | -------- |
+| 0x5c    | TLOAD    | 瞬时存储的读取操作    |
+| 0x5d   | TSTORE   | 瞬时存储的写入操作    |
+
+瞬时存储是介于永久存储（storage）和内存（memory）之间的临时存储机制，旨在提供一种在整个交易期间生效，且更节省 gas 的存储解决方案。瞬时存储的数据在交易结束时将被自动清除。
+
+注意，该功能由 TRON 网络的第 83 号参数控制。Kant 部署后默认关闭（值为 0），需通过提案投票的方式开启，且开启后不可关闭。
+
+
+* TIP: [https://github.com/tronprotocol/tips/blob/master/tip-650.md](https://github.com/tronprotocol/tips/blob/master/tip-650.md) 
+* 源代码： [https://github.com/tronprotocol/java-tron/pull/6185](https://github.com/tronprotocol/java-tron/pull/6185) [https://github.com/tronprotocol/java-tron/pull/6195](https://github.com/tronprotocol/java-tron/pull/6195) [https://github.com/tronprotocol/java-tron/pull/6214](https://github.com/tronprotocol/java-tron/pull/6214)  
+ 
+
+
+#### 2. TIP-651：TVM 实现 EIP-5656 内存复制指令
+TVM 将同步支持以太坊 Cancun 升级相关 MCOPY 指令。
+| ID | TVM指令 | 描述 |
+| -------- | -------- | -------- |
+| 0x5e   | MCOPY  | 内存复制操作   |
+
+内存复制是将内存中的数据从原始位置复制到目标位置的一种操作，旨在降低内存区域复制过程的资源成本，提高复制效率。
+
+注意，该功能是 TRON 网络的第 83 号参数，Kant 部署之后默认值为 0，即未开启状态，可以通过发起提案投票的方式开启，一旦开启将不允许再关闭。
+
+* TIP: [https://github.com/tronprotocol/tips/blob/master/tip-651.md](https://github.com/tronprotocol/tips/blob/master/tip-651.md) 
+* 源代码： [https://github.com/tronprotocol/java-tron/pull/6185](https://github.com/tronprotocol/java-tron/pull/6185)  [https://github.com/tronprotocol/java-tron/pull/6194](https://github.com/tronprotocol/java-tron/pull/6194)  
+
+#### 3. TIP-745: TVM 实现 EIP-4844 指令和 EIP-7516 指令
+TVM 将同步支持以太坊 Cancun 升级相关 BLOBHASH、BLOBBASEFEE 指令:
+| ID | TVM指令 | 描述 |
+| -------- | -------- | -------- |
+| 0x49   | BLBOHASH   | 获取当前交易指定 index 对应的 Blob hash 值；目前默认返回 0   |
+| 0x4a  | BLOBBASEFEE  | 获取当前块的 Blob 交易 base fee；目前默认返回 0   |
+
+
+`BLOBHASH` 和 `BLOBBASEFEE` 指令是以太坊中 Blob 交易的相关指令，目前 `BLOBHASH`、`BLOBBASEFEE` 在TVM中只是引入，返回值都是 0。
+注意，该功能是 TRON 网络的第 89 号参数，Kant 部署之后默认值为 0，即未开启状态，可以通过发起提案投票的方式开启，一旦开启将不允许再关闭。
+
+
+
+* TIP: [https://github.com/tronprotocol/tips/blob/master/tip-745.md](https://github.com/tronprotocol/tips/blob/master/tip-745.md) 
+* 源代码： [https://github.com/tronprotocol/java-tron/pull/6232](https://github.com/tronprotocol/java-tron/pull/6232) [https://github.com/tronprotocol/java-tron/pull/6247](https://github.com/tronprotocol/java-tron/pull/6247) [https://github.com/tronprotocol/java-tron/pull/6270](https://github.com/tronprotocol/java-tron/pull/6270) [https://github.com/tronprotocol/java-tron/pull/6283](https://github.com/tronprotocol/java-tron/pull/6283) 
+
+
+
+### 核心协议
+#### 1. 增强共识层校验
+
+##### 1.1 TIP-694：在共识层增加对交易超限的校验
+
+在 Kant 之前的版本中，已经多次对交易验证进行了优化，但都是在交易广播阶段，Kant 版本增强了在共识层的交易验证，进一步提高交易处理的一致性和有效性。
+
+* 加强创建账户类交易的大小检查：除去交易结果和签名，其大小不能超过创建账户类交易所允许的最大字节数（No.82参数值）。
+* 加强交易大小的验证：交易主体内容是否超限。
+* 限制交易结果列表：确保与合约数量保持一致，目前合约数量只能为1。
+* 检查交易过期时间：交易的到期时间应大于下一个区块的 slot 时间。
+
+注意，该优化是 TRON 网络的第 88 号参数，Kant 部署之后默认为关闭状态，可以通过发起提案投票的方式开启。
+
+* TIP: [https://github.com/tronprotocol/tips/blob/master/tip-694.md](https://github.com/tronprotocol/tips/blob/master/tip-694.md) 
+* 源代码： [https://github.com/tronprotocol/java-tron/pull/6172](https://github.com/tronprotocol/java-tron/pull/6172)  [https://github.com/tronprotocol/java-tron/pull/6221](https://github.com/tronprotocol/java-tron/pull/6221) 
+
+##### 1.2 增强维护期产块相关校验
+
+由于维护期期间是用来选举新一轮的超级代表，以及处理提案的，所以超级代表不应在此期间生产区块，但在 Kant 之前的版本中，如果 SR 在维护期生产了区块，则该区块是有可能被校验通过的。Kant 版本修改了产块逻辑和区块验证逻辑，不允许SR在维护期产块，即使产块了，也会校验失败。
+
+注意，该优化是 TRON 网络的第 88 号参数，Kant 部署之后默认为关闭状态，可以通过发起提案投票的方式开启。
+
+* 源代码： [https://github.com/tronprotocol/java-tron/pull/6187](https://github.com/tronprotocol/java-tron/pull/6187)
+
+##### 1.3 增强区块头校验 
+
+区块时间为一个区块被生产出的时间，被记录在区块头中。由于 TRON 网络的区块 slot 时间是 3s，所以区块时间应该是严格的 3s 的整数倍。
+
+注意，该优化是 TRON 网络的第 88 号参数，Kant 部署之后默认为关闭状态，可以通过发起提案投票的方式开启。
+
+* 源代码： [https://github.com/tronprotocol/java-tron/pull/6186](https://github.com/tronprotocol/java-tron/pull/6186) 
+
+##### 1.4 优化 SR 选举的排序算法
+在 Kant 之前的版本中，当多个 SR 的票数相同时，系统根据 SR 地址的 Hash 值来决定排序顺序。但由于 Hash 运算存在碰撞风险，而且在极端情况下还会影响排序性能，因此，Kant 版本对超级代表排序规则进行了优化，将排序方式改为更直观、稳定的 地址字典序（也就是按地址的英文字母和数字顺序排列）。这种方式不仅避免了 hash 碰撞带来的性能问题，同时也让排序规则更加透明、可预测。
+
+
+* 源代码： [https://github.com/tronprotocol/java-tron/pull/6173](https://github.com/tronprotocol/java-tron/pull/6173) 
+
+
+### TVM
+#### 1. TIP-652: 弃用 SELFDESTRUCT 指令 
+注意：虽然 TIP-652 本身没有更改 `SELFDESTRUCT` 操作码的行为，但已正式宣布客户端开发人员将在未来升级中对其进行更改。因此，向用户暴露了 `SELFDESTRUCT` 操作码的应用，需务必警示用户 `SELFDESTRUCT` 即将发生语义变化。
+
+TIP: [https://github.com/tronprotocol/tips/blob/master/tip-652.md](https://github.com/tronprotocol/tips/blob/master/tip-652.md) 
+
+### Net
+#### 1. 优化区块同步逻辑
+Kant 版本针对区块同步逻辑进行了两项关键优化，显著提升了同步效率：
+
+##### 1.1 优化 P2P 协议，丢弃已经固化的区块清单，以避免浪费网络带宽
+Kant 版本优化了同步请求机制，不再向远端节点请求同步已固化的区块数据，避免重复请求已存在的数据，减少浪费资源，从而提升同步效率。
+
+* 源代码： [https://github.com/tronprotocol/java-tron/pull/6184](https://github.com/tronprotocol/java-tron/pull/6184) 
+
+##### 1.2 加快区块同步任务的调度频率，提高区块同步效率
+Kant 版本调整了区块同步任务的调度频率，从原来的 1秒 执行一次，改为 100 毫秒执行一次，显著加快了区块处理速度，进一步提高了区块同步效率。
+
+* 源代码： [https://github.com/tronprotocol/java-tron/pull/6183](https://github.com/tronprotocol/java-tron/pull/6183)   
+
+#### 2. 加强交易有效性校验，提前丢弃 contracts 个数为 0 的交易
+Kant 版本加强了交易有效性校验，对于接收到的交易消息，如果交易中 contracts 个数为 0，则节点会丢弃该交易，并断开与发送方的连接。
+
+* 源代码： [https://github.com/tronprotocol/java-tron/pull/6181](https://github.com/tronprotocol/java-tron/pull/6181)   
+
+
+
+### 其它变更
+#### 1. 提供新版事件服务框架（V2.0）
+在 Kant 之前的版本中，事件服务框架（V1.0）不但不支持处理历史区块中的事件，而且事件处理参杂在区块处理逻辑中，如果事件服务发生异常，可能导致区块处理失败，从而影响区块广播和同步。
+
+Kant 版本提供了新版事件服务框架（V2.0），从线程上隔离了事件服务和区块处理，避免了由于事件服务异常导致的节点无法正常运行。同时 V2.0 支持从本地历史区块开始处理事件，用户可以通过 `event.subscribe.startSyncBlockNum` 配置项来设置事件的起始区块高度，当配置项的值小于等于 0 时，表示关闭该功能。否则，表示开启。
+
+注意：在重启节点时，请留意`startSyncBlockNum`是否配置正确，因为节点启动后，会从`startSyncBlockNum`指定的区块高度开始同步历史事件。
+
+目前保留了原版的事件服务框架，应用方可以逐步迁移到新框架。Kant 部署后，默认使用 V1.0  版本，如果应用方想使用 V2.0 版本，可以通过如下配置项进行更改。
+
+```
+event.subscribe.version = 1  // 1 means v2.0 , 0 means v1.0
+```
+
+* 源代码：[https://github.com/tronprotocol/java-tron/pull/6256](https://github.com/tronprotocol/java-tron/pull/6256) [https://github.com/tronprotocol/java-tron/pull/6245](https://github.com/tronprotocol/java-tron/pull/6245) [https://github.com/tronprotocol/java-tron/pull/6234](https://github.com/tronprotocol/java-tron/pull/6234) [https://github.com/tronprotocol/java-tron/pull/6227](https://github.com/tronprotocol/java-tron/pull/6227) [https://github.com/tronprotocol/java-tron/pull/6223](https://github.com/tronprotocol/java-tron/pull/6223) [https://github.com/tronprotocol/java-tron/pull/6206](https://github.com/tronprotocol/java-tron/pull/6206) [https://github.com/tronprotocol/java-tron/pull/6192](https://github.com/tronprotocol/java-tron/pull/6192) 
+
+#### 2. 统一替换 `java.math` 依赖库为跨平台一致的 `java.strictMath`
+为进一步提升 Java-tron 的跨平台兼容性，并为后续支持更多硬件平台（包括 ARM 架构）奠定坚实基础。现将数学运算库从 `java.lang.Math` 迁移到 `java.lang.StrictMath`，确保跨平台计算结果的一致性。
+
+* TIP: [https://github.com/tronprotocol/tips/blob/master/tip-697.md](https://github.com/tronprotocol/tips/blob/master/tip-697.md)
+* 源代码： [https://github.com/tronprotocol/java-tron/pull/6182](https://github.com/tronprotocol/java-tron/pull/6182) [https://github.com/tronprotocol/java-tron/pull/6210](https://github.com/tronprotocol/java-tron/pull/6210) 
+
+
+#### 3. 优化节点退出与启动逻辑
+##### 3.1 优化节点退出逻辑
+Kant 版本在保持功能不变的情况下，统一了进程退出的代码逻辑，提升了代码一致性和系统稳定性。
+
+* 源代码： [https://github.com/tronprotocol/java-tron/pull/6170](https://github.com/tronprotocol/java-tron/pull/6170) [https://github.com/tronprotocol/java-tron/pull/6177](https://github.com/tronprotocol/java-tron/pull/6177) [https://github.com/tronprotocol/java-tron/pull/6205](https://github.com/tronprotocol/java-tron/pull/6205) 
+
+##### 3.2 优化节点启动逻辑
+Kant 版本在节点启动阶段，加强了服务完整性校验，当核心服务（API，P2P，Prometheus，事件插件等）启动失败时，节点将立即退出，避免关键服务没有一同启动，提升节点稳定性。
+同时 Kant 还为 API 服务新增如下 4个配置项（默认全部开启），节点部署者可以选择关闭或开启节点 API 服务。
+
+
+```
+node.rpc.enable = true
+node.rpc.solidityEnable = true
+node.rpc.PBFTEnable = true
+node.http.PBFTEnable = true
+```
+* 源代码： [https://github.com/tronprotocol/java-tron/pull/5857](https://github.com/tronprotocol/java-tron/pull/5857) [https://github.com/tronprotocol/java-tron/pull/6228](https://github.com/tronprotocol/java-tron/pull/6228) [https://github.com/tronprotocol/java-tron/pull/6233](https://github.com/tronprotocol/java-tron/pull/6233)
+
+#### 4. 依赖库安全升级
+为提升系统安全性，Kant 对多个底层依赖库进行了版本更新，并移除了不再使用的组件，具体包括：更新了` jcommander`、`pf4j`、`grpc`、`logback`、`libp2p` 依赖库到安全稳定版本，移除了不再使用的 `quartz` 定时任务框架。
+
+* 源代码： [https://github.com/tronprotocol/java-tron/pull/6180](https://github.com/tronprotocol/java-tron/pull/6180) [https://github.com/tronprotocol/java-tron/pull/6207](https://github.com/tronprotocol/java-tron/pull/6207) [https://github.com/tronprotocol/java-tron/pull/6257](https://github.com/tronprotocol/java-tron/pull/6257) 
+
+#### 5. 升级 gradle 到 v7.6.4，开启依赖的完整性验证
+Kant 版本将 gradle 升级到 v7.6.4，并开启了第三方依赖 Jar 包的安全校验。在打包生成 Jar 文件时，系统会自动检查所有引用的外部依赖，确保它们来源可信、没有被篡改，避免将存在安全风险的 Jar 包引入到最终产品中。这一改动可以有效防止供应链攻击，进一步提升整个项目的构建安全性。
+
+* 源代码： [https://github.com/tronprotocol/java-tron/pull/5869](https://github.com/tronprotocol/java-tron/pull/5869) [https://github.com/tronprotocol/java-tron/pull/5903](https://github.com/tronprotocol/java-tron/pull/5903) [https://github.com/tronprotocol/java-tron/pull/6229](https://github.com/tronprotocol/java-tron/pull/6229) 
+
+#### 6. 修复启动时可能出现的空指针问题
+Kant 版本修复了节点启动过程中偶发的空指针异常问题，确保共识服务启动完成后再启动网络服务，避免启动失败。
+
+* 源代码： [https://github.com/tronprotocol/java-tron/pull/6216](https://github.com/tronprotocol/java-tron/pull/6216)
+
+#### 7. 记录 CANCELALLUNFREEZEV2 操作码生成的内部交易详情
+
+从 Kant 版本开始，对于开启保存内部交易的节点，在执行包含 `CANCELALLUNFREEZEV2` 指令的交易时，会记录对各种资源的取消解质押的数量，例如 {"BANDWIDTH":100,"ENERGY":100,"TRON_POWER":0}。
+
+
+* 源代码： [https://github.com/tronprotocol/java-tron/pull/6191](https://github.com/tronprotocol/java-tron/pull/6191)
+
+
+### API 
+#### 1. 增强对 Ethereum JSON-RPC 接口的兼容性
+##### 1.1 在 JSON-RPC 查询时，支持仅查询已经固化的数据
+针对 JSON-RPC 接口，Kant 增加了对 "finalized" 标签的支持，使得部分以区块号为参数的接口，可以直接传入 "finalized"，以查询最新固化块信息，进一步增强对以太坊 JSON-RPC 接口的兼容性。
+
+支持以 "finalized" 作为参数值的接口包括：
+
+* eth_getBlockTransactionCountByNumber
+* eth_getBlockByNumber
+* eth_getTransactionByBlockNumberAndIndex
+* eth_getLogs
+
+
+不支持 "finalized" 作为参数值的接口包括：
+
+* eth_getBalance
+* eth_getCode
+* eth_getStorageAt
+* eth_call
+* eth_newFilter
+
+
+* 源代码： [https://github.com/tronprotocol/java-tron/pull/6007](https://github.com/tronprotocol/java-tron/pull/6007) [https://github.com/tronprotocol/java-tron/pull/6238](https://github.com/tronprotocol/java-tron/pull/6238) [https://github.com/tronprotocol/java-tron/pull/6239](https://github.com/tronprotocol/java-tron/pull/6239)
+
+##### 1.2 在 JSON-RPC 查询 log 时，新增区块范围和 topics 数量的限制
+Kant 版本针对 JSON-RPC 事件查询相关接口引入了查询限制机制，通过以下两个配置项进行控制：
+
+* `maxBlockRange`：指定日志查询所允许的最大区块范围跨度，默认值为 `5000`。在调用相关接口时，起始区块与结束区块之间的范围不得超过该值。
+* `maxSubTopics`：限制可设置的 sub topic 的最大数量，默认值为 `1000`，即调用接口时最多允许指定 1000 个 sub topic。
+
+注意，以上配置项的取值需为大于 0 的正整数。若配置值小于或等于 0，则视为未启用对应限制，相关接口将不进行该项校验。
+
+```
+node.jsonrpc.maxBlockRange = 5000
+node.jsonrpc.maxSubTopics = 1000
+```
+支持`maxBlockRange`的接口：
+* eth_getLogs
+
+支持`maxSubTopics`的接口：
+* eth_getLogs
+* eth_newFilter
+
+
+* 源代码：[https://github.com/tronprotocol/java-tron/pull/6271](https://github.com/tronprotocol/java-tron/pull/6271)  [https://github.com/tronprotocol/java-tron/pull/6275](https://github.com/tronprotocol/java-tron/pull/6275) 
+
+##### 1.3 优化 eth_getLogs 在 hash 碰撞的小概率情况下的数据检索问题
+
+Kant 版本优化了 eth_getLogs 处理逻辑，修复了在小概率发生 hash 碰撞的情况下，eth_getLogs 接口查询不到数据的问题，提升了接口的稳定性。
+
+* 源代码：[https://github.com/tronprotocol/java-tron/pull/6203](https://github.com/tronprotocol/java-tron/pull/6203)
+
+
+#### 2. 在匿名交易的构建 API 中，增加了对付款地址 (payment address) 不能为空的校验 
+Kant 版本在匿名交易的构建 API 中，增加了对付款地址 (payment address) 不能为空的校验，当校验不通过时，返回错误原因，提升了用户交互体验。
+
+
+* 源代码：[https://github.com/tronprotocol/java-tron/pull/6174](https://github.com/tronprotocol/java-tron/pull/6174)
+
+
+Science is organized knowledge. Wisdom is organized life.
+<p align="right">---Immanuel Kant</p>
+
+
+
 
 ## GreatVoyage-4.7.7(Epicurus)
 Epicurus版本引入了多个重要的优化和更新，新增一个升级浮点计算幂运算库的提案，扩展 TRON 硬件兼容性，为用户提供更灵活的硬件平台选择，节省运行成本；优化事件订阅处理逻辑，保证事件获取的完整性，为用户带来更友好的开发体验；适配 GRPC 异步调用模式，进一步完善节点监控系统。下面是详细介绍。
