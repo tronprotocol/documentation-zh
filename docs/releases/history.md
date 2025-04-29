@@ -166,7 +166,7 @@ TVM 将同步支持以太坊 Cancun 升级相关 BLOBHASH、BLOBBASEFEE 指令:
 
 * 源代码： [https://github.com/tronprotocol/java-tron/pull/6186](https://github.com/tronprotocol/java-tron/pull/6186) 
 
-#####1.4 优化 SR 选举的排序算法
+##### 1.4 优化 SR 选举的排序算法
 在 Kant 之前的版本中，当多个 SR 的票数相同时，系统根据 SR 地址的 Hash 值来决定排序顺序。但由于 Hash 运算存在碰撞风险，而且在极端情况下还会影响排序性能，因此，Kant 版本对超级代表排序规则进行了优化，将排序方式改为更直观、稳定的 地址字典序（也就是按地址的英文字母和数字顺序排列）。这种方式不仅避免了 hash 碰撞带来的性能问题，同时也让排序规则更加透明、可预测。
 
 
@@ -175,7 +175,7 @@ TVM 将同步支持以太坊 Cancun 升级相关 BLOBHASH、BLOBBASEFEE 指令:
 
 
 ### Net
-####1. 优化区块同步逻辑
+#### 1. 优化区块同步逻辑
 Kant 版本针对区块同步逻辑进行了两项关键优化，显著提升了同步效率：
 
 ##### 1.1 优化 P2P 协议，丢弃已经固化的区块清单，以避免浪费网络带宽
