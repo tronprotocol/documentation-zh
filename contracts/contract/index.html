@@ -1604,14 +1604,16 @@ TRON兼容以太坊（Ethereum）上采用Solidity编写的智能合约。你可
 <span class="p">}</span>
 </code></pre></div>
 
-<p>origin_address: 合约创建者地址
-contract_address: 合约地址
-abi:合约所有函数的接口信息
-bytecode：合约字节码
-call_value：随合约调用传入的trx金额
-consume_user_resource_percent：开发者设置的调用者的资源扣费百分比
-name：合约名称
-origin_energy_limit: 开发者设置的在一次合约调用过程中自己消耗的energy的上限，必须大于0。对于之前老的合约，deploy的时候没有提供设置该值的参数，会存成0，但是会按照1000万energy上限计算，开发者可以通过updateEnergyLimit接口重新设置该值，设置新值时也必须大于0</p>
+<ul>
+<li>origin_address: 合约创建者地址</li>
+<li>contract_address: 合约地址</li>
+<li>abi:合约所有函数的接口信息</li>
+<li>bytecode：合约字节码</li>
+<li>call_value：随合约调用传入的trx金额</li>
+<li>consume_user_resource_percent：开发者设置的调用者的资源扣费百分比</li>
+<li>name：合约名称</li>
+<li>origin_energy_limit: 开发者设置的在一次合约调用过程中自己消耗的energy的上限，必须大于0。对于之前老的合约，deploy的时候没有提供设置该值的参数，会存成0，但是会按照1000万energy上限计算，开发者可以通过updateEnergyLimit接口重新设置该值，设置新值时也必须大于0</li>
+</ul>
 <p>通过另外两个grpc message类型 CreateSmartContract 和 TriggerSmartContract 来创建和使用smart contract</p>
 <h3 id="_5">合约函数的使用<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
 <ul>
