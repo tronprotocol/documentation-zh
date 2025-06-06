@@ -6,17 +6,47 @@ java-tron数据存储支持使用 LevelDB 或者 RocksDB，默认使用LevelDB�
 
 ### config配置说明
 
- 使用RocksDB作为数据存储引擎，需要将db.engine配置项设置为"ROCKSDB"
- ![image](https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/db_engine.png)
- 注意: RocksDB只支持db.version=2, 不支持db.version=1。
- RocksDB支持的优化参数如下：
- ![image](https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/rocksdb_tuning_parameters.png)
+使用RocksDB作为数据存储引擎，需要将db.engine配置项设置为"ROCKSDB":
+
+```
+storage {
+ # Directory for storing persistent data
+ db.engine = "ROCKSDB",
+ db.sync = false,
+ db.directory = "database",
+ index.directory = "index",
+ transHistory.switch = "on",
+```
+
+RocksDB支持的优化参数如下：
+```
+dbSettings = {
+    levelNumber = 7
+    //compactThreads = 32
+    blocksize = 64  // n * KB
+    maxBytesForLevelBase = 256  // n * MB
+    maxBytesForLevelMultiplier = 10
+    level0FileNumCompactionTrigger = 4
+    targetFileSizeBase = 256  // n * MB
+    targetFileSizeMultiplier = 1
+}
+```
 
 ### 使用RocksDB数据备份功能
 
- 选择RocksDB作为数据存储引擎，可以使用其提供的运行时数据备份功能。
- ![image](https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/db_backup.png)
- 注意: FullNode可以使用数据备份功能；为了不影响SuperNode的产块性能，数据备份功能不支持SuperNode，但是SuperNode的备份服务节点可以使用此功能。
+选择RocksDB作为数据存储引擎，可以使用其提供的运行时数据备份功能:
+
+```
+backup = {
+  enable = false  // indicate whether enable the backup plugin
+  propPath = "prop.properties" // record which bak directory is valid
+  bak1path = "bak1/database" // you must set two backup directories to prevent application halt unexpected(e.g. kill -9).
+  bak2path = "bak2/database"
+  frequency = 10000   // indicate backup db once every 10000 blocks processed.
+}
+```
+
+注意: FullNode可以使用数据备份功能；为了不影响SuperNode的产块性能，数据备份功能不支持SuperNode，但是SuperNode的备份服务节点可以使用此功能。
 
 ### LevelDB转换为RocksDB
 
