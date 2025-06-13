@@ -43,11 +43,12 @@ votewitness SR1 3 SR2 7 # 同时给SR1投了3票，给SR2投了7票
 | **相关链上参数序号** | #5 (要求#30链参数激活) | #31 (要求#30链参数激活) |
 | **相关链上参数名** | getWitnessPayPerBlock | getWitness127PayPerBlock |
 | **奖励发放对象** | 产块的SR、SR的投票者 | SR和SR合伙人、SR和SR合伙人的投票者 |
-| **奖励发放时间** | SR: 每产完一个块<br>SR的投票者：投票者发起以下4种交易之一触发奖励:<br><span style="margin-left: 1em;">VoteWitnessContract<br><span style="margin-left: 1em;">WithdrawBalanceContract<br><span style="margin-left: 1em;">UnfreezeBalanceContract<br><span style="margin-left: 1em;">UnfreezeBalanceV2Contract | SR和SR合伙人: 同SR，SR和SR合伙人的投票者：同SR的投票者 |
-| **具体的奖励值** | SR:8 * brokerageRate<br>SR的每个投票者：8 * (1-brokerageRate) * 投票数量/SR获得的总投票数量 | 每个SR和SR合伙人：(128 * brokerageRate)/127，SR和SR合伙人的每个投票者：128 * (1-brokerageRate) * 投票数量/（SR和SR合伙人获得的总投票数量）|
+| **奖励发放时间** | SR: 每产完一个块<br>SR的投票者：投票者发起以下4种交易之一触发奖励:<br><span style="margin-left: 1em;">VoteWitnessContract<br><span style="margin-left: 1em;">WithdrawBalanceContract<br><span style="margin-left: 1em;">UnfreezeBalanceContract<br><span style="margin-left: 1em;">UnfreezeBalanceV2Contract | SR和SR合伙人: 每产完一个块<br>SR和SR合伙人的投票者：投票者发起以下4种交易之一触发奖励:<br><span style="margin-left: 1em;">VoteWitnessContract<br><span style="margin-left: 1em;">WithdrawBalanceContract<br><span style="margin-left: 1em;">UnfreezeBalanceContract<br><span style="margin-left: 1em;">UnfreezeBalanceV2Contract |
+| **具体的奖励值** | SR:8 * brokerageRate<br>SR的每个投票者：8 * (1-brokerageRate) * 投票数量/SR获得的总投票数量 | 每个SR和SR合伙人：(128 * brokerageRate)/127<br>SR和SR合伙人的每个投票者：128 * (1-brokerageRate) * 投票数量/（SR和SR合伙人获得的总投票数量）|
 
 **注意** ：
 
+- 链上参数序号和参数名可以在[这儿](https://tronscan.org/#/sr/committee )查看
 - brokerageRate：佣金比例
 - SR和SR的合伙人：前127位的witness。
 - 如果投票者投票给SR，那么它既有产块奖励，也有投票奖励，但是产块奖励只有其投票的SR产块时才有。如果投票者投票给SR合伙人，那么它只有投票奖励。
