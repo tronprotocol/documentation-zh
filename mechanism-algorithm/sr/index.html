@@ -803,18 +803,27 @@
   
 </li>
       
-        <li class="md-nav__item has-children">
-  <a href="#_3" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
+        <li class="md-nav__item ">
+  <a href="#_3" class="md-nav__link" >
     <span class="md-ellipsis">
       选举超级代表
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="选举超级代表" hidden>
+</li>
+      
+        <li class="md-nav__item has-children">
+  <a href="#_4" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
+    <span class="md-ellipsis">
+      奖励
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="奖励" hidden>
       <ul class="md-nav__list">
         
           <li class="md-nav__item ">
-  <a href="#_4" class="md-nav__link" >
+  <a href="#_5" class="md-nav__link" >
     <span class="md-ellipsis">
       超级代表佣金比例
     </span>
@@ -822,34 +831,10 @@
   
 </li>
         
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item has-children">
-  <a href="#_5" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
-    <span class="md-ellipsis">
-      超级代表的奖励
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="超级代表的奖励" hidden>
-      <ul class="md-nav__list">
-        
           <li class="md-nav__item ">
   <a href="#_6" class="md-nav__link" >
     <span class="md-ellipsis">
-      投票奖励
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item ">
-  <a href="#_7" class="md-nav__link" >
-    <span class="md-ellipsis">
-      出块奖励
+      产块奖励和投票奖励
     </span>
   </a>
   
@@ -860,17 +845,8 @@
   
 </li>
       
-        <li class="md-nav__item ">
-  <a href="#_8" class="md-nav__link" >
-    <span class="md-ellipsis">
-      投票者的奖励
-    </span>
-  </a>
-  
-</li>
-      
         <li class="md-nav__item has-children">
-  <a href="#_9" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
+  <a href="#_7" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
     <span class="md-ellipsis">
       委员会
     </span>
@@ -880,7 +856,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item ">
-  <a href="#_10" class="md-nav__link" >
+  <a href="#_8" class="md-nav__link" >
     <span class="md-ellipsis">
       什么是委员会
     </span>
@@ -889,7 +865,7 @@
 </li>
         
           <li class="md-nav__item ">
-  <a href="#_11" class="md-nav__link" >
+  <a href="#_9" class="md-nav__link" >
     <span class="md-ellipsis">
       创建提议
     </span>
@@ -898,7 +874,7 @@
 </li>
         
           <li class="md-nav__item ">
-  <a href="#_12" class="md-nav__link" >
+  <a href="#_10" class="md-nav__link" >
     <span class="md-ellipsis">
       对提议进行投票
     </span>
@@ -907,7 +883,7 @@
 </li>
         
           <li class="md-nav__item ">
-  <a href="#_13" class="md-nav__link" >
+  <a href="#_11" class="md-nav__link" >
     <span class="md-ellipsis">
       取消提议
     </span>
@@ -916,7 +892,7 @@
 </li>
         
           <li class="md-nav__item ">
-  <a href="#_14" class="md-nav__link" >
+  <a href="#_12" class="md-nav__link" >
     <span class="md-ellipsis">
       查询提议
     </span>
@@ -1640,32 +1616,64 @@ votewitness<span class="w"> </span>SR1<span class="w"> </span><span class="m">4<
 votewitness<span class="w"> </span>SR1<span class="w"> </span><span class="m">3</span><span class="w"> </span>SR2<span class="w"> </span><span class="m">7</span><span class="w"> </span><span class="c1"># 同时给SR1投了3票，给SR2投了7票</span>
 </code></pre></div>
 <p>以上命令的最终结果是给SR1投了3票，给SR2投了7票</p>
-<h3 id="_4">超级代表佣金比例<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<h2 id="_4">奖励<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<h3 id="_5">超级代表佣金比例<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
 <p>默认佣金比例是20%，即超级代表获得20%的奖励，剩余的80%奖励会被分配给投票者，超级代表和超级代表合伙人可以通过wallet/getBrokerage接口查询佣金比例, 也可以通过wallet/updateBrokerage接口修改佣金比例。如果分红比例设置为100%，那么只有超级代表可以获得奖励；相反，如果设置为0，那么只有投票者会获得奖励。</p>
-<h2 id="_5">超级代表的奖励<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
-<p>以下计算都是基于佣金比例等于20%的情形。</p>
-<h3 id="_6">投票奖励<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
-<p>票数奖励是每生成一个区块奖励160TRX，总奖励数是4,608,000 TRX / 天。</p>
-<p>对每一个SR与Partner，每天获得的票数奖励 = 4,608,000 * ( 获得的票数 /  总票数) x 20%  TRX</p>
-<h3 id="_7">出块奖励<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
-<p>波场协议网络每3秒中会出一个区块，每个区块将给予超级代表16个TRX奖励，每年总计168,192,000 TRX将会被奖励给超级代表。</p>
-<p>超级代表每次出块完成后，出块奖励都会发到超级代表的子账号当中，超级代表不能直接使用这部分资产，但可以查询。 每24h允许一次提取操作。从该子账号转移到超级代表的账户中。</p>
-<p>每天总的出块奖励 = 16 (TRX/区块) * 28,800 (总区块数/day) = 460,800 (TRX/天)</p>
-<p>对每一个SR，每天获得的出块奖励 = (460,800 / 27) x 20%  TRX</p>
-<p>实际奖励可能会比理论上的奖励少，因为出块失败或者维护期切换。</p>
-<h2 id="_8">投票者的奖励<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
-<p>如果投票给一个超级代表，会同时拥有出块奖励和投票奖励：</p>
-<p>出块奖励 = ((你投给这个超级代表的票数 / 这个超级代表获得的总票数) * ((460,800 / 27) * 80%)) TRX</p>
-<p>投票奖励 = ((你投给这个超级代表的票数 / 总票数) * 4,608,000 * 80%) TRX</p>
-<p>投票者每日获得的奖励 =  出块奖励 + 投票奖励</p>
-<p>如果你投票给超级代表合伙人，只有投票奖励：</p>
-<p>投票者每日获得奖励 =  ((你投给这个超级代表合伙人的票数 / 总票数) * 4,608,000 * 80%)TRX</p>
-<p><strong>注意：</strong> 上述的<strong>总票数</strong>指的是超级代表（SR）和超级代表合伙人（SR Partner）的票数之和，不包含超级代表候选人（SR Candiate）的票数</p>
-<h2 id="_9">委员会<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
-<h3 id="_10">什么是委员会<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
+<h3 id="_6">产块奖励和投票奖励<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<p>奖励可分为产块奖励和投票奖励，二者之间的差别如下所示：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"></th>
+<th style="text-align: left;"><strong>产块奖励</strong></th>
+<th style="text-align: left;"><strong>投票奖励</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>奖励总数</strong></td>
+<td style="text-align: left;">链上参数，可以通过提案修改，目前是8 TRX</td>
+<td style="text-align: left;">链上参数，可以通过提案修改，目前是128 TRX</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>相关链上参数序号</strong></td>
+<td style="text-align: left;">#5 (要求#30链参数激活)</td>
+<td style="text-align: left;">#31 (要求#30链参数激活)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>相关链上参数名</strong></td>
+<td style="text-align: left;">getWitnessPayPerBlock</td>
+<td style="text-align: left;">getWitness127PayPerBlock</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>奖励发放对象</strong></td>
+<td style="text-align: left;">产块的SR、SR的投票者</td>
+<td style="text-align: left;">SR和SR合伙人、SR和SR合伙人的投票者</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>奖励发放时间</strong></td>
+<td style="text-align: left;">SR: 每产完一个块<br>SR的投票者：投票者发起以下4种交易之一触发奖励:<br>- VoteWitnessContract<br>- WithdrawBalanceContract<br>- UnfreezeBalanceContract<br>- UnfreezeBalanceV2Contract</td>
+<td style="text-align: left;">SR和SR合伙人: 每产完一个块<br>SR和SR合伙人的投票者：投票者发起以下4种交易之一触发奖励:<br>- VoteWitnessContract<br>- WithdrawBalanceContract<br>- UnfreezeBalanceContract<br>- UnfreezeBalanceV2Contract</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>具体的奖励值</strong></td>
+<td style="text-align: left;">SR:8 * brokerageRate<br>SR的每个投票者：8 * (1-brokerageRate) * 投票数量/SR获得的总投票数量</td>
+<td style="text-align: left;">每个SR和SR合伙人：(128 * brokerageRate)/127<br>SR和SR合伙人的每个投票者：128 * (1-brokerageRate) * 投票数量/（SR和SR合伙人获得的总投票数量）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>注意</strong> ：</p>
+<ul>
+<li>链上参数序号和参数名可以在<a href="https://tronscan.org/#/sr/committee">这儿</a>查看</li>
+<li>brokerageRate：佣金比例</li>
+<li>SR和SR的合伙人：前127位的witness。</li>
+<li>如果投票者投票给SR，那么它既有产块奖励，也有投票奖励，但是产块奖励只有其投票的SR产块时才有。如果投票者投票给SR合伙人，那么它只有投票奖励。</li>
+</ul>
+<h2 id="_7">委员会<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<h3 id="_8">什么是委员会<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
 <p>委员会用于修改TRON网络动态参数，如出块奖励、交易费用等等。委员会由当前的27个超级代表组成。每个超级代表都具有提议权和对提议的投票权，
 当提议获得至少18个代表的赞成票时，该提议获得通过，并在下个维护期内进行网络参数修改。</p>
-<h3 id="_11">创建提议<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h3>
+<h3 id="_9">创建提议<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
 <p>除超级代表（SR）外，超级代表合伙人（SR Partner）和超级代表候选人（SR Candidate）也具有提议权, 并且只有它们拥有这个权利。</p>
 <p>TRON网络动态参数及其编号请参考<a href="https://tronscan.org/#/sr/committee">这里</a>。</p>
 <ul>
@@ -1675,7 +1683,7 @@ votewitness<span class="w"> </span>SR1<span class="w"> </span><span class="m">3<
 id0_N: 参数编号
 value0_N: 新参数值
 </code></pre></div>
-<h3 id="_12">对提议进行投票<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
+<h3 id="_10">对提议进行投票<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
 <p>提议仅支持投赞成票，不投票代表不赞同。从提议创建时间开始，3天时间内为提议的有效期。超过该时间范围，该提议如果没有获得足够的
 赞成票，该提议失效。允许取消之前投的赞成票。</p>
 <ul>
@@ -1685,7 +1693,7 @@ value0_N: 新参数值
 id:<span class="w"> </span>提议Id，根据提议创建时间递增
 is_or_not_add_approval:<span class="w"> </span>赞成或取消赞成
 </code></pre></div>
-<h3 id="_13">取消提议<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h3>
+<h3 id="_11">取消提议<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h3>
 <p>提议创建者，能够在提议生效前，取消提议。</p>
 <ul>
 <li>示例：</li>
@@ -1693,7 +1701,7 @@ is_or_not_add_approval:<span class="w"> </span>赞成或取消赞成
 <div class="highlight"><pre><span></span><code>deleteProposal<span class="w"> </span>proposalId
 id:<span class="w"> </span>提议Id，根据提议创建时间递增
 </code></pre></div>
-<h3 id="_14">查询提议<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h3>
+<h3 id="_12">查询提议<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
 <p>以下接口可以查询提议，包括：</p>
 <ul>
 <li>查询所有提议信息（ListProposals）</li>

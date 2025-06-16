@@ -1543,15 +1543,38 @@
 <p>下面介绍如何将java-tron节点的存储引擎设置成RocksDB，以及如何进行LevelDB和RocksDB的数据转换。</p>
 <h2 id="rocksdb">RocksDB<a class="headerlink" href="#rocksdb" title="Permanent link">&para;</a></h2>
 <h3 id="config">config配置说明<a class="headerlink" href="#config" title="Permanent link">&para;</a></h3>
-<p>使用RocksDB作为数据存储引擎，需要将db.engine配置项设置为"ROCKSDB"
- <img alt="image" src="https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/db_engine.png" />
- 注意: RocksDB只支持db.version=2, 不支持db.version=1。
- RocksDB支持的优化参数如下：
- <img alt="image" src="https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/rocksdb_tuning_parameters.png" /></p>
+<p>使用RocksDB作为数据存储引擎，需要将db.engine配置项设置为"ROCKSDB":</p>
+<div class="highlight"><pre><span></span><code>storage {
+ # Directory for storing persistent data
+ db.engine = &quot;ROCKSDB&quot;,
+ db.sync = false,
+ db.directory = &quot;database&quot;,
+ index.directory = &quot;index&quot;,
+ transHistory.switch = &quot;on&quot;,
+</code></pre></div>
+<p>RocksDB支持的优化参数如下：
+<div class="highlight"><pre><span></span><code>dbSettings = {
+    levelNumber = 7
+    //compactThreads = 32
+    blocksize = 64  // n * KB
+    maxBytesForLevelBase = 256  // n * MB
+    maxBytesForLevelMultiplier = 10
+    level0FileNumCompactionTrigger = 4
+    targetFileSizeBase = 256  // n * MB
+    targetFileSizeMultiplier = 1
+}
+</code></pre></div></p>
 <h3 id="rocksdb_1">使用RocksDB数据备份功能<a class="headerlink" href="#rocksdb_1" title="Permanent link">&para;</a></h3>
-<p>选择RocksDB作为数据存储引擎，可以使用其提供的运行时数据备份功能。
- <img alt="image" src="https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/db_backup.png" />
- 注意: FullNode可以使用数据备份功能；为了不影响SuperNode的产块性能，数据备份功能不支持SuperNode，但是SuperNode的备份服务节点可以使用此功能。</p>
+<p>选择RocksDB作为数据存储引擎，可以使用其提供的运行时数据备份功能:</p>
+<div class="highlight"><pre><span></span><code>backup = {
+  enable = false  // indicate whether enable the backup plugin
+  propPath = &quot;prop.properties&quot; // record which bak directory is valid
+  bak1path = &quot;bak1/database&quot; // you must set two backup directories to prevent application halt unexpected(e.g. kill -9).
+  bak2path = &quot;bak2/database&quot;
+  frequency = 10000   // indicate backup db once every 10000 blocks processed.
+}
+</code></pre></div>
+<p>注意: FullNode可以使用数据备份功能；为了不影响SuperNode的产块性能，数据备份功能不支持SuperNode，但是SuperNode的备份服务节点可以使用此功能。</p>
 <h3 id="leveldbrocksdb">LevelDB转换为RocksDB<a class="headerlink" href="#leveldbrocksdb" title="Permanent link">&para;</a></h3>
 <p>LevelDB和RocksDB的数据存储架构并不兼容，请确保节点始终使用同一种数据引擎。我们提供了数据转换脚本，用于将LevelDB数据转换到RocksDB数据。
   使用方法：</p>
