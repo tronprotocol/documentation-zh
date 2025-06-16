@@ -44,7 +44,7 @@ votewitness SR1 3 SR2 7 # 同时给SR1投了3票，给SR2投了7票
 | **相关链上参数名** | getWitnessPayPerBlock | getWitness127PayPerBlock |
 | **奖励发放对象** | 产块的SR、SR的投票者 | SR和SR合伙人、SR和SR合伙人的投票者 |
 | **奖励发放时间** | SR: 每产完一个块<br>SR的投票者：投票者发起以下4种交易之一触发奖励:<br>- VoteWitnessContract<br>- WithdrawBalanceContract<br>- UnfreezeBalanceContract<br>- UnfreezeBalanceV2Contract | SR和SR合伙人: 每产完一个块<br>SR和SR合伙人的投票者：投票者发起以下4种交易之一触发奖励:<br>- VoteWitnessContract<br>- WithdrawBalanceContract<br>- UnfreezeBalanceContract<br>- UnfreezeBalanceV2Contract |
-| **具体的奖励值** | SR:8 * brokerageRate<br>SR的投票者：8 * (1-brokerageRate) * 投票数量/SR获得的总投票数量 | SR/SR合伙人：128 * brokerageRate * (该SR/SR合伙人获得的投票数量) / (所有SR和SR合伙人获得的总投票数量)<br>SR/SR合伙人的投票者：128 * (1-brokerageRate) * 投票数量 / (所有SR和SR合伙人获得的总投票数量)|
+| **具体的奖励值** | SR:8 * brokerageRate<br>SR的投票者：8 * (1-brokerageRate) * (该投票者的投票数量) / (该SR获得的总投票数量) | SR/SR合伙人：128 * brokerageRate * (该SR/SR合伙人获得的投票数量) / (所有SR和SR合伙人获得的总投票数量)<br>SR/SR合伙人的投票者：128 * (1-brokerageRate) * (该投票者的投票数量) / (所有SR和SR合伙人获得的总投票数量)|
 
 **注意** ：
 
