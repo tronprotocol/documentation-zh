@@ -46,7 +46,7 @@ backup = {
 }
 ```
 
-注意: FullNode可以使用数据备份功能；为了不影响SuperNode的产块性能，数据备份功能不支持SuperNode，但是SuperNode的备份服务节点可以使用此功能。
+**注意：** FullNode可以使用数据备份功能；为了不影响SuperNode的产块性能，数据备份功能不支持SuperNode，但是SuperNode的备份服务节点可以使用此功能。
 
 ### LevelDB转换为RocksDB
 
@@ -59,7 +59,7 @@ cd 源代码根目录
 java -jar build/libs/DBConvert.jar  #执行数据转换指令
 ```
 
-  注意：如果节点的数据存储目录是自定义的，运行DBConvert.jar时添加下面2个可选参数。
+**注意：** 如果节点的数据存储目录是自定义的，运行DBConvert.jar时添加下面2个可选参数。
 
   **src_db_path**:指定LevelDB数据库路径源，默认是 output-directory/database
 
@@ -77,10 +77,10 @@ nohup java -jar FullNode.jar -d your_database_dir &
 java -jar build/libs/DBConvert.jar  your_database_dir/database  output-directory-dst/database
 ```
 
-  注意：必须停止节点的运行，然后再运行数据转换脚本。
-  如果不希望节点停止时间太长，可以在节点停止后先将LevelDB数据目录output-directory拷贝一份到新的目录下，然后恢复节点的运行。
+**注意：** 必须停止节点的运行，然后再运行数据转换脚本。
+如果不希望节点停止时间太长，可以在节点停止后先将LevelDB数据目录output-directory拷贝一份到新的目录下，然后恢复节点的运行。
 
-  在新目录的上级目录中执行DBConvert.jar并指定参数`src_db_path`和`dst_db_path` 。
+在新目录的上级目录中执行DBConvert.jar并指定参数`src_db_path`和`dst_db_path` 。
   例如:
 
 ```shell
