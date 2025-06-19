@@ -405,7 +405,7 @@ TRON网络支持多种不同类型的交易，比如TRX转账交易、TRC10转�
 * `exchange_id`： 交易对的id。
 * `token_id`：要卖出的token的id。
 * `quant`：要卖出的token的数量。
-* `expected`：期望买入token的数量
+* `expected`：期望买入token的数量，如果计算出来的实际可以买到的token数量小于这个值，则交易失败。
 
 ## 匿名交易 ShieldedTransferContract
 
