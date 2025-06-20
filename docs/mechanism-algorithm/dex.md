@@ -33,7 +33,7 @@ ExchangeCreate abc 10000000 _ 1000000000000
 
 任何账户都可以在任何交易对中进行交易。交易量和价格完全遵循Bancor协议。也就是说，一个账户在交易时，交易的对象是exchange。交易是即时的，不需要挂单和抢单，只要有足够的token，就可以交易成功。
 
-交易的合约是ExchangeTransactionContract，该合约有3个参数：
+交易的合约是ExchangeTransactionContract，该合约有4个参数：
 
 - exchange_id，交易对的id，TRON网络会根据交易对创建时间顺序给每个交易对唯一的id
 - token_id，要卖出的token的id
