@@ -2123,7 +2123,7 @@
 <li><code>owner_address</code>：合约持有人地址。</li>
 <li><code>exchange_id</code>： 交易对的id。</li>
 <li><code>token_id</code>：要注资的token的id。</li>
-<li><code>quant</code>：要注资的token的金额。</li>
+<li><code>quant</code>：要注资的token的数量。</li>
 </ul>
 <h2 id="exchangewithdrawcontract">从交易所撤资 ExchangeWithdrawContract<a class="headerlink" href="#exchangewithdrawcontract" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><span class="w">      </span><span class="kd">message</span><span class="w"> </span><span class="nc">ExchangeWithdrawContract</span><span class="w"> </span><span class="p">{</span>
@@ -2137,7 +2137,7 @@
 <li><code>owner_address</code>：合约持有人地址。</li>
 <li><code>exchange_id</code>： 交易对的id。</li>
 <li><code>token_id</code>：要撤资的token的id。</li>
-<li><code>quant</code>：要撤资的token的金额。</li>
+<li><code>quant</code>：要撤资的token的数量。</li>
 </ul>
 <h2 id="exchangetransactioncontract">在交易所交易 ExchangeTransactionContract<a class="headerlink" href="#exchangetransactioncontract" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><span class="w">      </span><span class="kd">message</span><span class="w"> </span><span class="nc">ExchangeTransactionContract</span><span class="w"> </span><span class="p">{</span>
@@ -2145,13 +2145,15 @@
 <span class="w">       </span><span class="kt">int64</span><span class="w"> </span><span class="na">exchange_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
 <span class="w">       </span><span class="kt">bytes</span><span class="w"> </span><span class="na">token_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
 <span class="w">       </span><span class="kt">int64</span><span class="w"> </span><span class="na">quant</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
+<span class="w">       </span><span class="kt">int64</span><span class="w"> </span><span class="na">expected</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span>
 <span class="w">     </span><span class="p">}</span>
 </code></pre></div>
 <ul>
 <li><code>owner_address</code>：合约持有人地址。</li>
 <li><code>exchange_id</code>： 交易对的id。</li>
 <li><code>token_id</code>：要卖出的token的id。</li>
-<li><code>quant</code>：要卖出的token的金额。</li>
+<li><code>quant</code>：要卖出的token的数量。</li>
+<li><code>expected</code>：期望买入token的数量，如果计算出来的实际可以买到的token数量小于这个值，则交易失败。</li>
 </ul>
 <h2 id="shieldedtransfercontract">匿名交易 ShieldedTransferContract<a class="headerlink" href="#shieldedtransfercontract" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><span class="w">    </span><span class="kd">message</span><span class="w"> </span><span class="nc">ShieldedTransferContract</span><span class="w"> </span><span class="p">{</span>

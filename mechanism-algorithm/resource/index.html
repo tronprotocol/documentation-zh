@@ -1715,7 +1715,7 @@
 <h3 id="1-bandwidth-points">1. Bandwidth Points的来源<a class="headerlink" href="#1-bandwidth-points" title="Permanent link">&para;</a></h3>
 <p>Bandwidth Points的获取分两种：</p>
 <ul>
-<li>通过质押TRX获取的Bandwidth Points， 额度 = 为获取Bandwidth Points质押的TRX / 整个网络为获取Bandwidth Points质押的TRX 总额 * 43,200,000,000，也就是所有用户按质押的TRX数量平分固定额度的Bandwidth Points.</li>
+<li>通过质押TRX获取的Bandwidth Points， 额度 = (为获取Bandwidth Points质押的TRX / 整个网络为获取Bandwidth Points质押的TRX 总额) * (Bandwidth Points上界)，也就是所有用户按质押的TRX数量平分固定额度的Bandwidth Points(Bandwidth Points上界)。Bandwidth Points上界是<a href="https://tronscan.io/#/sr/committee">#62</a>网络参数，可通过提案修改，目前的值是43,200,000,000。</li>
 <li>每个账号每天有固定免费额度的带宽，为600。</li>
 </ul>
 <h3 id="2-bandwith-points">2. Bandwith Points的消耗<a class="headerlink" href="#2-bandwith-points" title="Permanent link">&para;</a></h3>
@@ -1755,25 +1755,22 @@
 <h4 id="_6">质押获得能量<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code>freezeBalanceV2 frozen_balance [ResourceCode:0 BANDWIDTH,1 ENERGY]
 </code></pre></div>
-<p>通过质押TRX获取的Energy 额度 = 为获取Energy质押的TRX / 整个网络为获取Energy质押的TRX 总额 * 180,000,000,000。</p>
-<p>也就是所有用户按质押的TRX数量平分固定额度的Energy，示例：</p>
+<p>通过质押TRX获取的Energy 额度 = (为获取Energy质押的TRX / 整个网络为获取Energy质押的TRX 总额) * 能量上界，也就是所有用户按质押的TRX数量平分固定额度的Energy能量(能量上界)。能量上界是<a href="https://tronscan.io/#/sr/committee">#19</a>网络参数，可通过提案修改，目前的值是180,000,000,000，对应的提案是<a href="https://tronscan.io/#/proposal/97">#97</a> 。示例：</p>
 <div class="highlight"><pre><span></span><code>如全网只有两个人A，B分别质押2TRX，2TRX。
 
-二人质押获得的可用Energy分别是
+二人质押获得的可用Energy分别是：
 
-A: 75,000,000,000 且energy_limit 为90,000,000,000
+A: 90,000,000,000
 
-B: 75,000,000,000 且energy_limit 为90,000,000,000
+B: 90,000,000,000
 
-当第三人C质押1TRX时。
+当第三人C质押1TRX时，三人质押获得的可用Energy调整为：
 
-三人质押获得的可用Energy调整为
+A: 72,000,000,000
 
-A: 60,000,000,000 且energy_limit调整为72,000,000,000
+B: 72,000,000,000
 
-B: 60,000,000,000 且energy_limit调整为72,000,000,000
-
-C: 30,000,000,000 且energy_limit 为36,000,000,000
+C: 36,000,000,000
 </code></pre></div>
 <h4 id="_7">能量的消耗<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h4>
 <p>在执行合约时，逐条指令计算并扣除账户能量，账户能量消耗的优先级如下：</p>
