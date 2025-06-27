@@ -2172,7 +2172,7 @@ GreatVoyage-v4.3.0(Bacon)引入了leveldb 启动优化插件，插件优化了ma
 
 * TIP： https://github.com/tronprotocol/tips/blob/master/tip-298.md 
 * 源代码： https://github.com/tronprotocol/java-tron/pull/3925
-* 插件使用指南： https://github.com/tronprotocol/documentation-zh/blob/master/docs/developers/archive-manifest.md 
+* 插件使用指南：https://tronprotocol.github.io/documentation-zh/using_javatron/toolkit/#leveldb  
 
 *Knowledge is power.* 
 <p align="right"> --- Francis Bacon </p>

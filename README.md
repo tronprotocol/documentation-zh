@@ -4,4 +4,6 @@
 
 ## 社区
 
-- [文档 Telegram](https://t.me/troncoredevscommunity)
+- [Core Devs Community](https://t.me/troncoredevscommunity)
+- [Tron Official Developer Group](https://t.me/TronOfficialDevelopersGroupEn)
+
