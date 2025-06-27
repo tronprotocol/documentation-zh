@@ -29,7 +29,7 @@
 
 Bandwidth Points的获取分两种：
 
-- 通过质押TRX获取的Bandwidth Points， 额度 = 为获取Bandwidth Points质押的TRX / 整个网络为获取Bandwidth Points质押的TRX 总额 * 43,200,000,000，也就是所有用户按质押的TRX数量平分固定额度的Bandwidth Points.
+- 通过质押TRX获取的Bandwidth Points， 额度 = (为获取Bandwidth Points质押的TRX / 整个网络为获取Bandwidth Points质押的TRX 总额) * (Bandwidth Points上界)，也就是所有用户按质押的TRX数量平分固定额度的Bandwidth Points(Bandwidth Points上界)。Bandwidth Points上界是[#62](https://tronscan.io/#/sr/committee)网络参数，可通过提案修改，目前的值是43,200,000,000。
 - 每个账号每天有固定免费额度的带宽，为600。
 
 ### 2. Bandwith Points的消耗
@@ -88,28 +88,24 @@ Bandwidth Points是一个账户1天内能够使用的总字节数。一定时间
 freezeBalanceV2 frozen_balance [ResourceCode:0 BANDWIDTH,1 ENERGY]
 ```
 
-通过质押TRX获取的Energy 额度 = 为获取Energy质押的TRX / 整个网络为获取Energy质押的TRX 总额 * 180,000,000,000。
-
-也就是所有用户按质押的TRX数量平分固定额度的Energy，示例：
+通过质押TRX获取的Energy 额度 = (为获取Energy质押的TRX / 整个网络为获取Energy质押的TRX 总额) * 能量上界，也就是所有用户按质押的TRX数量平分固定额度的Energy能量(能量上界)。能量上界是[#19](https://tronscan.io/#/sr/committee)网络参数，可通过提案修改，目前的值是180,000,000,000，对应的提案是[#97](https://tronscan.io/#/proposal/97) 。示例：
 
 ```text
 如全网只有两个人A，B分别质押2TRX，2TRX。
 
-二人质押获得的可用Energy分别是
+二人质押获得的可用Energy分别是：
 
-A: 75,000,000,000 且energy_limit 为90,000,000,000
+A: 90,000,000,000
 
-B: 75,000,000,000 且energy_limit 为90,000,000,000
+B: 90,000,000,000
 
-当第三人C质押1TRX时。
+当第三人C质押1TRX时，三人质押获得的可用Energy调整为：
 
-三人质押获得的可用Energy调整为
+A: 72,000,000,000
 
-A: 60,000,000,000 且energy_limit调整为72,000,000,000
+B: 72,000,000,000
 
-B: 60,000,000,000 且energy_limit调整为72,000,000,000
-
-C: 30,000,000,000 且energy_limit 为36,000,000,000
+C: 36,000,000,000
 
 ```
 
