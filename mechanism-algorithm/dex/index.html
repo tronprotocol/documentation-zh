@@ -1598,7 +1598,7 @@ TRON网络规定，所有交易对中的两个token的权重相等，因此它�
 如果创建者没有足够的abc和TRX，则交易对创建失败；否则创建者账户中立即扣除相应的abc和TRX，交易对创建成功，可以开始交易。</p>
 <h2 id="_4">交易<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
 <p>任何账户都可以在任何交易对中进行交易。交易量和价格完全遵循Bancor协议。也就是说，一个账户在交易时，交易的对象是exchange。交易是即时的，不需要挂单和抢单，只要有足够的token，就可以交易成功。</p>
-<p>交易的合约是ExchangeTransactionContract，该合约有3个参数：</p>
+<p>交易的合约是ExchangeTransactionContract，该合约有4个参数：</p>
 <ul>
 <li>exchange_id，交易对的id，TRON网络会根据交易对创建时间顺序给每个交易对唯一的id</li>
 <li>token_id，要卖出的token的id</li>
