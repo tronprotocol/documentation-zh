@@ -29,8 +29,8 @@
 
 Bandwidth Points的获取分两种：
 
-- 通过质押TRX获取的Bandwidth Points， 额度 = (为获取Bandwidth Points质押的TRX / 整个网络为获取Bandwidth Points质押的TRX 总额) * (Bandwidth Points上界)，也就是所有用户按质押的TRX数量平分固定额度的Bandwidth Points(Bandwidth Points上界)。Bandwidth Points上界是[#62](https://tronscan.io/#/sr/committee)网络参数，可通过提案修改，目前的值是43,200,000,000。
-- 每个账号每天有固定免费额度的带宽，为600。
+- 通过质押TRX获取的Bandwidth Points额度 = (为获取Bandwidth Points质押的TRX / 整个网络为获取Bandwidth Points质押的TRX 总额) * (Bandwidth Points上界)，也就是所有用户按质押的TRX数量平分固定额度的Bandwidth Points(Bandwidth Points上界)。Bandwidth Points上界是[#62](https://tronscan.io/#/sr/committee)网络参数，可通过提案修改，目前的值是43,200,000,000。
+- 每个账号每天有固定免费额度的带宽，免费额度是[#61](https://tronscan.io/#/sr/committee)网络参数，可通过提案修改，目前的值是600。
 
 ### 2. Bandwith Points的消耗
 
