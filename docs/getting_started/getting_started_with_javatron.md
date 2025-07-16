@@ -26,7 +26,9 @@ TRON 网络上有两种主要类型的帐户:
 
 有多种方法来生成TRON网络帐户，这里将演示如何使用wallet-cli生成帐户。帐户是一对密钥(公钥和私钥)。
 
-在终端中通过命令`java -jar wallet-cli.jar`来启动一个wallet-cli：
+1.1 生成账户
+首先，在您的终端中通过命令`java -jar wallet-cli.jar`启动一个 `wallet-cli`：
+
 ```
 $ java -jar wallet-cli.jar
 
@@ -38,8 +40,8 @@ You may also use the Help command at anytime to display a full list of commands.
  
 wallet> 
 ```
+输入 `registerwallet` 命令，并根据提示设置一个安全的密码。此命令会生成一个新的 TRON 网络账户，并注册到 `wallet-cli`，即将其加密后的**私钥**存储在 `wallet-cli` 的本地密钥库中，以便后续使用该私钥对交易进行签名。
 
-输入命令：registerwallet，然后根据提示输入密码。该命令会生成TRON网络账户,并注册到wallet-cli，也就是wallet-cli会保存此账户的私钥，之后就可以使用该私钥对交易进行签名了。
 ```
 wallet> registerwallet
 Please input password.
@@ -51,14 +53,12 @@ password:
 Register a wallet successful, keystore file name is UTC--2022-07-04T06-35-35.304000000Z--TQXjm2J8K2DKTV49MdfT2anjUehbU3WDJz.json
 wallet> 
 ```
-
-## 登录wallet-cli
-注册完成后，输入login命令登录wallet-cli。
+1.2 登录并查看账户详情
+注册成功后，使用 `login` 命令登录 `wallet-cli`。
 ```
 wallet> login
 ```
-
-选择要登录的账户，然后输入密码，密码输入正确后，会看到"Login successful !!!"字样，表示登录成功。
+选择您希望登录的账户序号并输入密码。看到 `Login successful !!!` 提示即表示登录成功。
 
 ```
 Please choose between 1 and 3
@@ -68,14 +68,14 @@ password:
 Login successful !!!
 wallet> 
 ```
-
-登录后，可以通过getaddress命令查看登录的账户地址：
+登录后，使用 `getaddress` 命令查看您的账户地址。
 ```
 wallet> getaddress
 GetAddress successful !!
 address = TQXjm2J8K2DKTV49MdfT2anjUehbU3WDJz
 wallet> 
 ```
+**提示**：建议您备份私钥。使用 `backupwallet` 命令并输入密码即可查看账户的私钥。请务必将私钥存放在一个绝对安全的地方。
 
 然后可以通过backupwallet命令，根据提示输入密码后，查看账户的私钥，建议保存好私钥。
 
