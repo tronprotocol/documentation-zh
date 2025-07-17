@@ -1,11 +1,11 @@
 # Java-tron 快速入门
 
 本指南将引导您完成一系列 `java-tron` 的基础操作。您将学习如何：
-- 启动一个 `java-tron` 节点：将您的计算机接入 TRON 网络。
-- 创建并管理您的账户：使用命令行工具 `wallet-cli` 生成新账户并获取免费的测试币。
-- 与网络交互并验证结果：学习通过 `wallet-cli` 或直接调用 API 发起一笔转账，并根据交易 ID 查询链上结果，确认操作成功。
+- 启动一个 `java-tron` 节点，将您的计算机接入 TRON 网络
+- 使用命令行工具 `wallet-cli` 生成新账户并获取免费的测试币
+- 学习通过 `wallet-cli` 或使用 `cURL` 直接调用 API 发起一笔转账，并根据交易 ID 查询链上结果
 
-执行本教程中的操作前，请确保已安装 `java-tron` 及相关的开发工具。如果您尚未安装，请参考[安装和构建](../using_javatron/installing_javatron.md)页面，其中说明了如何直接下载可运行文件或通过源代码进行构建。
+执行本教程中的操作前，请确保已安装 `java-tron` 及相关的开发工具。如果您尚未安装，请参考[部署](../using_javatron/installing_javatron.md)页面了解具体步骤。
 
 ## 核心概念
 
@@ -496,7 +496,9 @@ curl --location --request POST 'http://127.0.0.1:16887/wallet/gettransactioninfo
     }
 }
 ```
+恭喜您完成了 `java-tron` 的入门之旅！您已经亲手操作并掌握了创建账户、运行节点和发送交易等核心技能。
 
-
-
+这仅仅是一个开始。基于今天所学，您可以继续探索更高级的主题，例如：
+- 深入了解波场的[资源模型](..mechanism-algorithm/resource/.md)
+- 探索完整的 [API 参考文档](api/http)，发现更多可能性
 
