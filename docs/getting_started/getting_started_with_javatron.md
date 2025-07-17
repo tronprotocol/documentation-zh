@@ -1,13 +1,13 @@
 # Java-tron 快速入门
 
 本指南将引导您完成一系列 `java-tron` 的基础操作。您将学习如何：
-- 启动一个 `java-tron` 节点；
-- 使用命令行工具 `wallet-cli` 与 `java-tron` 节点进行交互；
-- 执行关键操作，例如创建账户和发送 TRX。
+- 启动一个 `java-tron` 节点：将您的计算机接入 TRON 网络。
+- 创建并管理您的账户：使用命令行工具 `wallet-cli` 生成新账户并获取免费的测试币。
+- 与网络交互并验证结果：学习通过 `wallet-cli` 或直接调用 API 发起一笔转账，并根据交易 ID 查询链上结果，确认操作成功。
 
 执行本教程中的操作前，请确保已安装 `java-tron` 及相关的开发工具。如果您尚未安装，请参考[安装和构建](../using_javatron/installing_javatron.md)页面，其中说明了如何直接下载可运行文件或通过源代码进行构建。
 
-# 核心概念
+## 核心概念
 
 `java-tron` 是用 Java 语言编写的波场（TRON）网络客户端，运行 `java-tron` 会将您的计算机转变为一个 TRON 网络节点。TRON 网络是一个分布式网络，信息在节点之间共享，而非通过中心化服务器管理。当超级代表（Super Representative）的节点产出一个新区块后，会将其广播至网络中的其它节点。每个节点在接收到新区块时会对其进行校验，校验通过后便将其存入本地数据库。
 
@@ -19,11 +19,11 @@ TRON 网络上有两种主要类型的帐户:
 
 要开始与波场网络交互，您首先需要创建一个外部账户（以下简称“帐户”）。
 
-## 第一步：创建并访问您的账户
+## 创建并访问您的账户
 
 虽然创建波场账户有多种方式，但本指南将演示如何使用 `wallet-cli` 这一便捷的命令行工具来完成。帐户是一对密钥（公钥和私钥）。
 
-1.1 生成账户
+### 生成账户
 
 首先，在您的终端中通过命令`java -jar wallet-cli.jar`启动一个 `wallet-cli`：
 
@@ -51,7 +51,7 @@ password:
 Register a wallet successful, keystore file name is UTC--2022-07-04T06-35-35.304000000Z--TQXjm2J8K2DKTV49MdfT2anjUehbU3WDJz.json
 wallet> 
 ```
-1.2 登录并查看账户详情
+### 登录并查看账户详情
 
 注册成功后，使用 `login` 命令登录 `wallet-cli`。
 ```
@@ -77,7 +77,7 @@ wallet>
 **重要提示**：我们建议您备份私钥，以保障资产安全。使用 `backupwallet` 命令，按提示输入密码即可查看账户的私钥。请务必将私钥存放在一个绝对安全的地方。
 
 
-## 第二步：运行一个 Java-tron 节点
+## 启动并运行一个 Java-tron 节点
 
 现在，您需要启动一个 `java-tron` 节点以连接到 TRON 网络。本教程将连接到 TRON Nile 测试网。
 
@@ -138,7 +138,7 @@ $ curl http://127.0.0.1:16887/wallet/getnodeinfo
 
 如果要关闭 `java-tron`，请通过`kill -15 <进程ID>`来暂停节点。
 
-## 第三步：为您的账户充值 TRX
+## 为您的账户充值 TRX
 为了能在 TRON 网络上发送交易，您的账户中需要持有 TRX。
 - 在 TRON 网络主网上，您可通过以下三种方式获取 TRX:
   1. 作为超级代表获得出块奖励，或通过为超级代表投票获得奖励;
@@ -146,11 +146,11 @@ $ curl http://127.0.0.1:16887/wallet/getnodeinfo
   3. 从加密货币交易所获得。
 - 在 Nile 测试网中，TRX 没有实际价值, 您可以通过 [水龙头](https://nileex.io/join/getJoinPage) 免费获取。
 
-## 第四步：与 TRON 网络交互
+## 与 TRON 网络交互
 
-`java-tron` 节点提供了 HTTP 和 gRPC 接口，方便开发者与 TRON 网络交互。以下将介绍两种常用的交互方式。
+您的 `java-tron` 节点是您与 TRON 网络交互的窗口，它通过 HTTP 和 gRPC 提供了强大的 API 接口。本章节将介绍如何通过 `wallet-cli` 和 `cURL` 这两种工具，向您的节点发送指令来完成链上操作。
 
-### 方式一：使用 wallet-cli 与 Java-tron 节点交互 (推荐)
+### 方式一：使用 wallet-cli (推荐)
 
 `wallet-cli` 封装了 gRPC 接口，提供了对开发者更友好的交互式命令。
 
@@ -187,7 +187,7 @@ wallet>
 ```
 
 #### 转账 TRX
-使用 `sendcoin <接收方地址> <转账金额>` 命令发起一笔转账。金额单位为 sun（1 TRX = 1,000,000 sun）。
+使用 `sendcoin <接收方地址> <转账金额>` 命令发起一笔 TRX 转账。金额单位为 sun（1 TRX = 1,000,000 sun）。
 ```
 wallet> sendcoin TUznHJfHe6gdYY7gvWmf6bNZHuPHDZtowf 1000000
 {
@@ -241,12 +241,11 @@ wallet>
 
 当您发送一笔交易后，`wallet-cli` 终端会返回一个唯一的交易ID（txid）。通过这个 `txid`，您可以查询到关于这笔交易的所有信息。
 
-1. 查看交易内容（`gettransactionbyid`）
-使用 `gettransactionbyid <txid>` 查看交易的原始内容。
+1. 使用 `gettransactionbyid <txid>` 查看交易的原始内容：
 ```
 wallet> gettransactionbyid 21851bcf1faf22c99a7a49c4f246d709cf9f54db2f264ca145adcd464ea155a4
 ```
-结果解读：返回的 JSON 数据包含了交易的所有细节，例如合约类型 (`TransferContract`)、转账金额、发送方和接收方地址等。`"contractRet":"SUCCESS"` 表示这笔交易的合约在语法上是正确的。
+返回的 JSON 数据包含了交易的所有细节，例如合约类型 (`TransferContract`)、转账金额、发送方和接收方地址等。`"contractRet":"SUCCESS"` 表示这笔交易的合约在语法上是正确的。
 
 ```
 {
@@ -283,15 +282,11 @@ wallet> gettransactionbyid 21851bcf1faf22c99a7a49c4f246d709cf9f54db2f264ca145adc
 wallet> 
 
 ```
-2. 查看交易结果 (`gettransactioninfobyid`)
-使用 `gettransactioninfobyid <txid>` 查看交易的处理结果和回执信息，即交易是否已经被打包进区块，执行的结果和资源消耗情况。
+2. 使用 `gettransactioninfobyid <txid>` 查看交易的处理结果和回执信息（即交易是否已经被打包进区块，执行的结果和资源消耗情况）：
 ```
 wallet> gettransactioninfobyid 21851bcf1faf22c99a7a49c4f246d709cf9f54db2f264ca145adcd464ea155a4
 ```
-结果解读:
-返回的 JSON 数据告诉我们这笔交易的关键结果信息。
-- `blockNumber`: 表示交易在哪一个区块高度被确认。如果这个值存在，说明交易已成功上链。
-- `receipt`: 包含了这笔交易消耗的资源，如带宽 (`net_usage`)。
+在返回的结果中，最重要的字段是 `blockNumber`，它表示交易在哪一个区块高度被确认。如果这个值存在，说明交易已成功上链。此外，`receipt` 对象则记录了该交易消耗的带宽（`net_usage`）等资源。
 ```
 {
 	"id": "21851bcf1faf22c99a7a49c4f246d709cf9f54db2f264ca145adcd464ea155a4",
@@ -307,7 +302,7 @@ wallet> gettransactioninfobyid 21851bcf1faf22c99a7a49c4f246d709cf9f54db2f264ca14
 wallet> 
 ```
 
-### 方式二：使用 cURL 与 Java-tron 节点交互（直接调用 HTTP API）
+### 方式二：使用 cURL（直接调用 HTTP API）
 
 虽然 `wallet-cli` 提供了友好的交互式命令，但对于更进阶的开发者或在自动化脚本场景中，直接通过 HTTP API 与 `java-tron` 节点交互会更加灵活高效。本章节将展示如何使用 `cURL` (一个发送 HTTP 请求的命令行工具)，调用 `java-tron` 节点的 HTTP API, 来实现查询账户余额、发送交易等核心功能。
 
@@ -390,7 +385,7 @@ curl -X POST  http://127.0.0.1:16887/wallet/createtransaction -d
 
 3. 广播交易
 
-最后一步，我们将已签名的交易广播出去。请调用  [`wallet/broadcasttransaction`](https://cn.developers.tron.network/reference/broadcasttransaction) 接口，并在其请求体中填入第一步获取的交易对象和第二步生成的签名哈希。提交后，节点会验证签名，然后将交易广播至整个波场网络等待打包确认，至此便完成了整个转账流程。
+最后一步，我们将已签名的交易广播出去。调用  [`wallet/broadcasttransaction`](https://cn.developers.tron.network/reference/broadcasttransaction) 接口，并在其请求体中填入第一步获取的交易对象和第二步生成的签名哈希。提交后，节点会验证签名，然后将交易广播至整个 TRON 网络等待打包确认，至此便完成了整个转账流程。
 
 ```
 curl --location --request POST 'http://127.0.0.1:16887/wallet/broadcasttransaction' \
@@ -435,7 +430,7 @@ curl --location --request POST 'http://127.0.0.1:16887/wallet/broadcasttransacti
 
 通过 HTTP API 查询已广播的交易，原理与 `wallet-cli` 相同。
 
-通过 HTTP 接口 `wallet/gettransactionbyid` 获取已广播交易的完整数据。在请求体中，通过 `value` 字段传入您要查询的 `txid`：
+1. 通过 HTTP 接口 `wallet/gettransactionbyid` 获取已广播交易的完整数据。在请求体中，通过 `value` 字段传入您要查询的 `txid`：
 
 ```
 curl --location --request POST 'http://127.0.0.1:16887/wallet/gettransactionbyid' \
@@ -478,7 +473,7 @@ curl --location --request POST 'http://127.0.0.1:16887/wallet/gettransactionbyid
     "raw_data_hex": "0a02193b2208aaecd88e4e0e752840e098909f9b305a68080112640a2d747970652e676f6f676c65617069732e636f6d2f70726f746f636f6c2e5472616e73666572436f6e747261637412330a154198927ffb9f554dc4a453c64b2e553a02d6df514b121541d0b69631440f0a494bb51f7eee68ff5c593c00f01880ade20470b4d58c9f9b30"
 }
 ```
-通过 http 接口 `wallet/gettransactioninfobyid` 来查询交易结果及交易回执。同样，在请求体中传入目标 `txid`：
+2. 通过 http 接口 `wallet/gettransactioninfobyid` 查看交易的处理结果和回执信息（即交易是否已经被打包进区块，执行的结果和资源消耗情况）。在请求体中传入目标 `txid`：
 
 ```
 curl --location --request POST 'http://127.0.0.1:16887/wallet/gettransactioninfobyid' \
@@ -487,7 +482,7 @@ curl --location --request POST 'http://127.0.0.1:16887/wallet/gettransactioninfo
      "value": "c558bd35978267d8999baf6148703cbc94786f3f2e22893637588ca05437d7f0"
 }'
 ```
-返回结果中的 `blockNumber` 字段是交易成功的关键凭证，而 `receipt` 字段则提供了详细的执行回执。
+返回结果中的 `blockNumber` 字段是交易成功的关键凭证，只要这个字段有值，就代表您的交易已成功上链且不可逆转。而 `receipt` 字段则提供了详细的执行回执。
 ```
 {
     "id": "c558bd35978267d8999baf6148703cbc94786f3f2e22893637588ca05437d7f0",
