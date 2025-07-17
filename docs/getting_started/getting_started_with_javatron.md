@@ -24,6 +24,7 @@ TRON 网络上有两种主要类型的帐户:
 虽然创建波场账户有多种方式，但本指南将演示如何使用 `wallet-cli` 这一便捷的命令行工具来完成。帐户是一对密钥（公钥和私钥）。
 
 1.1 生成账户
+
 首先，在您的终端中通过命令`java -jar wallet-cli.jar`启动一个 `wallet-cli`：
 
 ```
@@ -51,6 +52,7 @@ Register a wallet successful, keystore file name is UTC--2022-07-04T06-35-35.304
 wallet> 
 ```
 1.2 登录并查看账户详情
+
 注册成功后，使用 `login` 命令登录 `wallet-cli`。
 ```
 wallet> login
