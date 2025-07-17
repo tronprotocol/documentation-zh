@@ -78,16 +78,17 @@ wallet>
 
 
 ## 第二步：运行一个 Java-tron 节点
-java-tron 是TRON网络客户端，它使计算机可以连接到TRON网络中。 本教程中的网络指的是TRON nile测试网。 要启动java-tron，请首先获取java-tron可执行文件，请参考[安装和部署](../using_javatron/installing_javatron.md)章节，然后通过如下命令，启动java-tron。
 
 现在，您需要启动一个 `java-tron` 节点以连接到 TRON 网络。本教程将连接到 TRON Nile 测试网。
 
-请使用以下命令启动节点。其中 `-Xmx24g` 标志为 JVM 分配了 24GB 内存，您可以根据自己机器的配置进行调整。
+请使用以下命令启动节点。其中 `-Xmx24g` 标志为 JVM 分配了 24GB 内存，您可以根据自己机器的配置进行调整。（提示：在运行此命令前，请确保您已根据引言部分的说明，完成了 `java-tron` 的安装。）
 
 ```
 $  java -Xmx24g -XX:+UseConcMarkSweepGC -jar FullNode.jar -c nile_net_config.conf
 ```
+
 `java-tron` 节点启动后，您将在日志中看到类似以下的配置信息：
+
 ```
 11:07:58.758 INFO  [main] [app](Args.java:1143) ************************ Net config ************************
 11:07:58.758 INFO  [main] [app](Args.java:1144) P2P version: 201910292
@@ -97,11 +98,7 @@ $  java -Xmx24g -XX:+UseConcMarkSweepGC -jar FullNode.jar -c nile_net_config.con
 11:07:58.758 INFO  [main] [app](Args.java:1148) Discover enable: true
 ```
 
-上述日志表明java-tron已经启动并连接到了nile测试网，然后它将寻找可以连接的对等节点。一旦它找到了对等节点，就可以向它们请求区块了，日志也证实了这一点：
-
-接下来，节点会开始寻找网络中的其他对等节点并同步区块。以下日志表明节点已成功连接并开始同步数据：
-
-这些日志表明java-tron按照预期运行着。
+上述日志表明 `java-tron` 已经启动并连接到了 Nile 测试网。接下来，节点会开始寻找网络中可连接的其他对等节点（peer），并通过持续向它们请求区块来同步整个链上数据。成功连接上的对等节点即为“活跃对等节点” (active peer)。以下日志表明节点已成功连接并开始同步数据：
 
 ```
 11:08:42.547 INFO  [TronJClientWorker-1] [net](Channel.java:116) Finish handshake with /123.56.3.74:18888.
@@ -130,14 +127,14 @@ Num:23113869,ID:000000000160b08d231e450ae1993a72ba19eb8f3c748fa70d105dadd0c9fd5f
 Num:23113870,ID:000000000160b08e37cb9951d31a4233f106c7e77e0535c597dbb6a16f163699, trx size: 0
 ```
 
-您可通过向此 `java-tron` 节点发送如下 HTTP 请求，来判断节点是否已经启动，以及查看节点的状态：
+您可通过向此 `java-tron` 节点发送如下 HTTP 请求，来验证节点是否已成功启动，并查看其当前状态：
 ```
 $ curl http://127.0.0.1:16887/wallet/getnodeinfo
 ```
-如果节点日志中没有报告任何错误消息，则一切正常。为了让用户与TRON网络交互，java-tron节点必须是运行着，并且处于同步正常的状态。节点是否与网络中其它节点保持同步，可以通过在Tronscan查询当前的区块高度，并与本地java-tron节点`/wallet/getnowblock`的结果进行比较，如果相等，则说明本地节点的同步状态是正常的。
 
-要确保您的节点已与网络完全同步，可以将本地节点的区块高度（通过 wallet/getnowblock API 获取）与 Tronscan 区块浏览器上的最新区块高度进行比较。如果两者一致，则表示节点同步正常。
-
+要与 TRON 网络进行交互，您的 `java-tron` 节点必须保持运行，并处于同步正常的状态。您可以分两步来验证节点是否正常：
+- 基础检查：确认节点日志中没有持续报错。
+- 同步验证：要确保您的节点已与网络完全同步，可将您本地节点的区块高度（通过 `/wallet/getnowblock` API 获取）与 [Tronscan](https://tronscan.org/) 区块浏览器上查询的最新区块高度进行比较。如果两者一致，则表示您本地节点的同步状态正常。
 
 如果要关闭 `java-tron`，请通过`kill -15 <进程ID>`来暂停节点。
 
