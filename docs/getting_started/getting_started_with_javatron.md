@@ -1,4 +1,4 @@
-# java-tron 快速入门
+# Java-tron 快速入门
 
 本指南将引导您完成一系列 `java-tron` 的基础操作。您将学习如何：
 - 启动一个 `java-tron` 节点；
@@ -146,23 +146,16 @@ $ curl http://127.0.0.1:16887/wallet/getnodeinfo
   3. 从加密货币交易所获得。
 - 在 Nile 测试网中，TRX 没有实际价值, 您可以通过 [水龙头](https://nileex.io/join/getJoinPage) 免费获取。
 
-## 第四步：与 java-tron 交互
+## 第四步：与 TRON 网络交互
 
-### 使用wallet-cli与java-tron节点进行交互
-java-tron对外提供http接口和grpc接口，方便用户与TRON网络进行交互。wallet-cli使用的是grpc接口。
-#### 获取账户信息
-在wallet-cli中输入getaccount命令后，它将向java-tron节点请求账户信息数据，然后将结果展示到终端。
+`java-tron` 节点提供了 HTTP 和 gRPC 接口，方便开发者与 TRON 网络交互。以下将介绍两种常用的交互方式。
 
+### 方式一：使用 wallet-cli 与 java-tron 节点进行交互 (推荐)
 
+`wallet-cli` 封装了 gRPC 接口，提供了对开发者更友好的交互式命令。
 
-java-tron 节点提供了 HTTP 和 gRPC 接口，方便开发者与波场网络交互。以下将介绍两种常用的交互方式。
-
-方式一：使用 wallet-cli (推荐)
-wallet-cli 封装了 gRPC 接口，提供了对开发者更友好的交互式命令。
-查询账户信息
-使用 getaccount <address> 命令查询指定地址的详细信息。
-
-
+#### 查询账户信息
+您可以使用 `getaccount <地址>` 命令查询指定地址的详细信息。执行该命令时，`wallet-cli` 会在后台向 `java-tron` 节点发送请求，然后将获取到的账户数据呈现在终端界面。
 
 ```
 wallet> getaccount TUoHaVjx7n5xz8LwPRDckgFrDWhMhuSuJM
@@ -193,7 +186,7 @@ Balance = 93642857919
 wallet> 
 ```
 
-#### 转账TRX
+#### 转账 TRX
 使用 `sendcoin <接收方地址> <转账金额>` 命令发起一笔转账。金额单位为 sun（1 TRX = 1,000,000 sun）。
 ```
 wallet> sendcoin TUznHJfHe6gdYY7gvWmf6bNZHuPHDZtowf 1000000
@@ -222,11 +215,10 @@ wallet> sendcoin TUznHJfHe6gdYY7gvWmf6bNZHuPHDZtowf 1000000
 before sign transaction hex string is 0a85010a02cbc322088581ae7e29258a5240a89aefbf9c305a67080112630a2d747970652e676f6f676c65617069732e636f6d2f70726f746f636f6c2e5472616e73666572436f6e747261637412320a1541ce8a0cf0c16d48bcf22825f6053248df653c89ca121541d0b69631440f0a494bb51f7eee68ff5c593c00f018c0843d7098cfebbf9c30
 Please confirm and input your permission id, if input y or Y means default 0, other non-numeric characters will cancel transaction.
 ```
-
-该命令返回转账TRX的交易，确认无误后，输入`y`确认，其它字母表示取消这个交易。如果输入`y`，则接下来根据提示，选择使用哪个账户的私钥进行签名，最后输入密码，完成对该交易的签名，wallet-cli最后会将签名后的交易发送到java-tron节点，完成交易：
-
-wallet-cli 会构建并显示交易详情。输入 y 确认，然后选择用于签名的账户并输入密码，交易便会被签名并广播至网络。
-
+此命令会返回一个待确认的交易。请按以下步骤完成签名和广播：
+1. 确认交易: 核对交易详情无误后，输入 `y` 并按回车键（输入其他任意字符则会取消交易）。
+2. 选择签名账户: 根据界面提示，选择用于给这笔交易签名的账户（即扣款账户）。
+3. 输入密码授权: 输入所选账户的密码，`wallet-cli` 将会完成签名，并将交易广播至 `java-tron` 节点，完成交易。
 
 ```
 Please confirm and input your permission id, if input y or Y means default 0, other non-numeric characters will cancel transaction.
@@ -323,15 +315,15 @@ wallet>
 ```
 
 #### 发送交易
-通过http接口发送交易，总共需要三步：
+通过 HTTP 接口发送交易，总共需要三步：
 
 1. 创建交易
 2. 签名交易
 3. 广播交易
 
-下面以转账TRX为例来说明如何向java-tron发送交易。
+下面以转账 TRX 为例来说明如何向 java-tron 发送交易。
 
-通过fullnode HTTP接口`wallet/createtransaction`创建一个未签名的TRX转账交易：
+通过 fullnode HTTP 接口`wallet/createtransaction`创建一个未签名的TRX转账交易：
 ```
 curl -X POST  http://127.0.0.1:16887/wallet/createtransaction -d 
     '{
@@ -341,7 +333,7 @@ curl -X POST  http://127.0.0.1:16887/wallet/createtransaction -d
         "visible":true
     }'
 ```
-返回一个未签名的TRX转账交易：
+返回一个未签名的 TRX 转账交易：
 ```
 {
     "visible": true,
@@ -368,9 +360,9 @@ curl -X POST  http://127.0.0.1:16887/wallet/createtransaction -d
     "raw_data_hex": "0a02193b2208aaecd88e4e0e752840e098909f9b305a68080112640a2d747970652e676f6f676c65617069732e636f6d2f70726f746f636f6c2e5472616e73666572436f6e747261637412330a154198927ffb9f554dc4a453c64b2e553a02d6df514b121541d0b69631440f0a494bb51f7eee68ff5c593c00f01880ade20470b4d58c9f9b30"
 }
 ```
-然后使用SDK对该交易进行签名。
+然后使用 SDK 对该交易进行签名。
 
-最后，通过[`wallet/broadcasttransaction`](https://cn.developers.tron.network/reference/broadcasttransaction)接口将签名后的交易广播到java-tron节点，完成TRX转账交易的发送。
+最后，通过[`wallet/broadcasttransaction`](https://cn.developers.tron.network/reference/broadcasttransaction)接口将签名后的交易广播到 java-tron 节点，完成 TRX 转账交易的发送。
 
 ```
 curl --location --request POST 'http://127.0.0.1:16887/wallet/broadcasttransaction' \
