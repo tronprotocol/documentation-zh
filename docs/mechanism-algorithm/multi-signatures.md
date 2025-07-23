@@ -165,9 +165,9 @@ Active权限有以下特性：
 1. 拥有OwnerPermission的地址可以修改Active权限
 2. 拥有执行AccountPermissionUpdateContract权限的地址也能够修改Active权限
 3. 最多支持8个组合。
-4. permission的id从2开始自动递增。
-5. 账户新建时，自动创建一个Active权限，并将该账户的地址填充到其中，默认域值为1，keys中仅包含该账户地址且权重为1。
-6. 使用Active权限发起交易时，必须显示的设置permissionId，如下是一个具有Active权限的账户通过`trident`发起资源代理的交易示例，该Active权限对应的permissionId=2:
+4. 账户新建时，自动创建一个Active权限，并将该账户的地址填充到其中，默认域值为1，keys中仅包含该账户地址且权重为1。
+5. permissionId从2开始自动递增。
+6. 使用Active权限发起交易时，必须显式的设置permissionId，如下是一个具有Active权限的账户通过`trident`发起资源代理交易的示例，该Active权限对应的permissionId=2:
 ```
 package org.example;
 
