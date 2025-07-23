@@ -55,8 +55,8 @@ $ java -Xmx24g -XX:+UseConcMarkSweepGC -jar FullNode.jar --witness -c main_net_c
 
 **注意**：对于主网和nile测试网，由于新节点启动后，需要同步的数据量较大，因此同步数据需要较长的时间。可以使用 [数据快照](backup_restore.md/#_5) 来加快节点同步速度。首先下载最新的数据快照，并将其解压至tron项目的output-directory目录下，然后再启动节点，这样节点将在数据快照的基础上进行同步。
 
-### 备份出块的全节点
-为了在出块的全节点发生异常时尽可能的降低对出块的影响，可以备份出块的全节点。当一个具有出块权限的账户部署大于等于两个节点时，需要完善配置文件中的`node.backup`，`node.backup`的配置项说明如下：
+### 主从模式的出块全节点
+为了提高出块全节点的可靠性，可以部署多个相同账户的出块全节点，形成主从模式。当一个具有出块权限的账户部署大于等于两个节点时，需要完善各节点配置文件中的`node.backup`，`node.backup`的配置项说明如下：
 ```
 node.backup {
   # udp listen port, each member should have the same configuration
