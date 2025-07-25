@@ -55,6 +55,73 @@ $ java -Xmx24g -XX:+UseConcMarkSweepGC -jar FullNode.jar --witness -c main_net_c
 
 **注意**：对于主网和nile测试网，由于新节点启动后，需要同步的数据量较大，因此同步数据需要较长的时间。可以使用 [数据快照](backup_restore.md/#_5) 来加快节点同步速度。首先下载最新的数据快照，并将其解压至tron项目的output-directory目录下，然后再启动节点，这样节点将在数据快照的基础上进行同步。
 
+### 主从模式的出块全节点
+为了提高出块全节点的可靠性，可以部署多个相同账户的出块全节点，形成主从模式。当一个具有出块权限的账户部署大于等于两个节点时，需要完善各节点配置文件中的`node.backup`，`node.backup`的配置项说明如下：
+```
+node.backup {
+  # udp listen port, each member should have the same configuration
+  port = 10001
+
+  # my priority, each member should use different priority
+  priority = 8
+
+  # time interval to send keepAlive message, each member should have the same configuration unit: ms
+  keepAliveInterval = 3000
+
+  # peer's ip list, can't contain myself
+  members = [
+    # "ip",
+    # "ip"
+  ]
+}
+```
+比如，某个具有出块权限的账户部署了3个节点，三个节点的ip分别为192.168.0.100，192.168.0.101，192.168.0.102，那么他们的`node.backup`配置需如下所示：
+
+- ip为192.168.0.100的配置
+```
+node.backup {
+  port = 10001
+  priority = 8
+  keepAliveInterval = 3000
+  members = [
+    "192.168.0.101",
+    "192.168.0.102"
+  ]
+}
+```
+
+- ip为192.168.0.101的配置
+```
+node.backup {
+  port = 10001
+  priority = 7
+  keepAliveInterval = 3000
+  members = [
+    "192.168.0.100",
+    "192.168.0.102"
+  ]
+}
+```
+
+- ip为192.168.0.102的配置
+```
+node.backup {
+  port = 10001
+  priority = 6
+  keepAliveInterval = 3000
+  members = [
+    "192.168.0.100",
+    "192.168.0.101"
+  ]
+}
+```
+
+**注意**：
+
+- 节点只有同步到最新状态时才会启动备份服务，最新状态的定义为：（节点的系统时间 - 最新同步成功的区块时间） < 区块生产间隔（每个slot的时间，当前为3s）
+- 当一个priority高的节点出现故障失去主节点的身份，别的从节点竞争获得主节点的位置，在该priority高的节点恢复正常、重新具备出块的条件时，其不会自动获得主节点的身份，需要等到当前的主节点发生故障之后才能重新竞争获得。
+- 主从切换需要的时间：当主节点发生故障，从节点切换为主节点的时间最少需要2*keepAliveTimeout，其中keepAliveTimeout=keepAliveInterval * 6。需要2个keepAliveTimeout是因为从节点切换为主节点中间需要经过预备状态(INIT)的过渡，即从节点(SLAVER) -> 预备节点(INIT) -> 主节点(MASTER)。
+
 ### 其它说明
 #### 如何使用keystore+密码的方式指定超级代表账户私钥
 
