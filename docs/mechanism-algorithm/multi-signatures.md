@@ -165,8 +165,79 @@ Active权限有以下特性：
 1. 拥有OwnerPermission的地址可以修改Active权限
 2. 拥有执行AccountPermissionUpdateContract权限的地址也能够修改Active权限
 3. 最多支持8个组合。
-4. permission的id从2开始自动递增。
-5. 账户新建时，自动创建一个Active权限，并将该账户的地址填充到其中，默认域值为1，keys中仅包含该账户地址且权重为1。
+4. 账户新建时，自动创建一个Active权限，并将该账户的地址填充到其中，默认域值为1，keys中仅包含该账户地址且权重为1。
+5. permissionId从2开始自动递增。
+6. 使用Active权限发起交易时，必须显式的设置permissionId，如下是一个具有Active权限的账户通过`trident`发起资源代理交易的示例，该Active权限对应的permissionId=2:
+```
+package org.example;
+
+import org.tron.trident.core.ApiWrapper;
+import org.tron.trident.proto.Chain;
+import org.tron.trident.proto.Contract.DelegateResourceContract;
+import org.tron.trident.proto.Response;
+import org.tron.trident.utils.Convert;
+
+public class Main {
+
+  public static void main(String[] args) {
+    System.out.println("Hello world!");
+
+    String agentPrivateKey = "your private key";
+    String ownerAddress = "xxx";
+    String receiverAddress = "yyy";
+    long trxAmount = 10;
+    int resourceType = 0;
+    int permissionId = 2;
+
+    try {
+      ApiWrapper api = new ApiWrapper("grpc.trongrid.io:50051", "grpc.trongrid.io:50052", agentPrivateKey);
+      long amountSun = Convert.toSun(String.valueOf(trxAmount), Convert.Unit.TRX).longValue();
+
+      DelegateResourceContract contract = DelegateResourceContract.newBuilder()
+          .setOwnerAddress(api.parseAddress(ownerAddress))
+          .setReceiverAddress(api.parseAddress(receiverAddress))
+          .setBalance(amountSun)
+          .setResourceValue(resourceType)
+          .setLock(false)
+          .build();
+
+      // create transaction extension
+      Response.TransactionExtention txnExt = api.createTransactionExtention(
+          contract,
+          Chain.Transaction.Contract.ContractType.DelegateResourceContract
+      );
+
+      // get raw
+      Chain.Transaction.raw.Builder rawBuilder = txnExt.getTransaction().getRawData().toBuilder();
+
+      // set permission
+      Chain.Transaction.Contract.Builder contractBuilder = rawBuilder.getContractBuilder(0)
+          .setPermissionId(permissionId);
+
+      // reset contract
+      rawBuilder.setContract(0, contractBuilder.build());
+
+      Chain.Transaction unsignedTxn = txnExt.getTransaction().toBuilder()
+          .setRawData(rawBuilder.build())
+          .build();
+
+      // sign transaction
+      Chain.Transaction signedTxn = api.signTransaction(unsignedTxn);
+
+      Response.TransactionSignWeight transactionSignWeight = api.getTransactionSignWeight(signedTxn);
+      Response.TransactionApprovedList transactionApprovedList = api.getTransactionApprovedList(signedTxn);
+
+      System.out.println("transaction weight: " + transactionSignWeight);
+      System.out.println("transaction approve list: " + transactionApprovedList);
+
+    } catch (Exception e) {
+      System.err.println("API init: " + e.getMessage());
+      return;
+    }
+  }
+}
+```
+
 
 ### 费用
 
