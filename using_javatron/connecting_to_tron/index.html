@@ -1563,23 +1563,23 @@
 }
 </code></pre></div>
 <p>然后，对于加入到TRON网络的新节点，可以通过配置<code>种子节点</code>使当前节点更容易的连接到对等节点，然后再通过对等节点获取到其它节点的地址信息。一般将种子节点设置成稳定在线的全节点，对于TRON主网，可以使用社区公共节点作为种子节点，例如:</p>
-<div class="highlight"><pre><span></span><code>seed.node = {
+<p><div class="highlight"><pre><span></span><code>seed.node = {
   # List of the seed nodes
   # Seed nodes are stable full nodes
 
   ip.list = [
     &quot;3.225.171.164:18888&quot;,
-    &quot;52.53.189.99:18888&quot;,
-    &quot;18.196.99.16:18888&quot;,
-    &quot;34.253.187.192:18888&quot;,
+    &quot;52.8.46.215:18888&quot;,
+    &quot;3.79.71.167:18888&quot;,
+    &quot;108.128.110.16:18888&quot;,
     &quot;18.133.82.227:18888&quot;,
-    &quot;35.180.51.163:18888&quot;,
-    &quot;54.252.224.209:18888&quot;,
+    &quot;35.180.81.133:18888&quot;,
+    &quot;13.210.151.5:18888&quot;,
     &quot;18.231.27.82:18888&quot;,
-    &quot;52.15.93.92:18888&quot;,
-    &quot;34.220.77.106:18888&quot;,
+    &quot;3.12.212.122:18888&quot;,
+    &quot;52.24.128.7:18888&quot;,
     &quot;15.207.144.3:18888&quot;,
-    &quot;13.124.62.58:18888&quot;,    
+    &quot;3.39.38.55:18888&quot;,    
     &quot;54.151.226.240:18888&quot;,
     &quot;35.174.93.198:18888&quot;,
     &quot;18.210.241.149:18888&quot;,
@@ -1601,11 +1601,12 @@
   ]
 }
 </code></pre></div>
+如果想要获取最新的seed，可以在官方的<a href="https://github.com/tronprotocol/tron-deployment/blob/master/main_net_config.conf">配置文件</a>查看。</p>
 <p>在某些情况下，不需要开启节点发现进程，比如，运行一个本地测试节点或部署一个具有固定的一些节点的测试网络。这时可以通过将配置项设置成<code>node.discovery.enable = false</code>来关闭节点发现进程。</p>
 <h2 id="_2">节点连接数量限制<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
-<p><code>node.maxActiveNodes</code>表示节点与其它节点的最大连接数量，默认值是30。设置更大的值可以使节点能够建立更多的连接，加入网络的效率更高，同时广播的效率也更高，但是，相对的维护连接需要的带宽也更高，性能消耗也更大，因此，请根据实际情况设置。
+<p><code>node.maxConnections</code>表示节点与其它节点的最大连接数量，默认值是30。设置更大的值可以使节点能够建立更多的连接，加入网络的效率更高，同时广播的效率也更高，但是，相对的维护连接需要的带宽也更高，性能消耗也更大，因此，请根据实际情况设置。<br />
 <div class="highlight"><pre><span></span><code>node {
-    maxActiveNodes = 30
+    maxConnections = 30
 }
 </code></pre></div></p>
 <h2 id="_3">主动连接与被动连接<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
