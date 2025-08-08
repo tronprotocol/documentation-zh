@@ -39,7 +39,7 @@ $  java -Xmx24g -XX:+UseConcMarkSweepGC -jar FullNode.jar -c main_net_config.con
 
 将`--witness`参数添加到启动命令中，fullnode将作为出块的全节点运行。出块全节点除了支持fullnode的所有功能，它还支持区块生产和交易打包。请确保您拥有一个超级代表账户，并获得他人的投票，如果票数排在前27名，您需要启动一个出块的全节点参与区块生产。
   
-将超级代表地址的私钥填写到main_net_config.conf的localwitness列表中，示例如下。但如果不希望使用这种以明文的方式进行私钥指定，可以使用keystore + 密码的方式，请参考[其它说明](#_2)
+将超级代表地址的私钥填写到main_net_config.conf的localwitness列表中，示例如下。但如果不希望使用这种以明文的方式进行私钥指定，可以使用keystore + 密码的方式，请参考[其它说明](#_5)
 
 ```
 localwitness = [
@@ -125,21 +125,28 @@ node.backup {
 ### 其它说明
 #### 如何使用keystore+密码的方式指定超级代表账户私钥
 
-1. 这种方式指定私钥，需要在启动节点时进行人机交互，因此请不要使用nohup命令，建议使用会话保持工具，如screen, tmux等。
-2. 注释掉节点配置文件中的localwitness配置项，取消localwitnesskeystore配置项的注释，填入keystore文件的路径，注意keystore文件需要放到启动命令执行的当前目录下或者其子目录下。如当前目录是A，keystore文件的目录是A/B/localwitnesskeystore.json，则需要配置成：
+1. 更改配置文件
+    - 注释掉节点配置文件中的`localwitness`配置项
+    - 取消`localwitnesskeystore`配置项的注释，填入keystore文件的路径，注意keystore文件需要放到启动命令执行的当前目录下或者其子目录下。如当前目录是A，keystore文件的目录是A/B/localwitnesskeystore.json，则需要配置成：
     ```
     localwitnesskeystore = [
-          "B/localwitnesskeystore.json"
+      "B/localwitnesskeystore.json"
     ]
     ```
-    注：可以使用[wallet-cli](https://github.com/tronprotocol/wallet-cli.git)项目的registerwallet命令生成 keystore + 密码。
-3. 启动出块的全节点
-    ```
-      $ java -Xmx24g -XX:+UseConcMarkSweepGC -jar FullNode.jar --witness -c main_net_config.conf
-    ```
-4. 正确的输入密码，完成节点启动。
+**注**：可以使用[wallet-cli](https://github.com/tronprotocol/wallet-cli.git)项目的`RegisterWallet`命令生成 keystore文件和密码。
 
-
+2. 启动节点
+    - 不使用nohup命令，人机交互的方式启动节点，需要手动输入密码
+        1. 启动出块的全节点
+        ```
+          $ java -Xmx24g -XX:+UseConcMarkSweepGC -jar FullNode.jar --witness -c main_net_config.conf
+        ```
+        2. 正确的输入密码，完成节点启动。
+    
+    - 使用nohup命令，直接在命令行中通过`--password`传入密码
+        ```
+          $ nohup java -Xmx24g -XX:+UseConcMarkSweepGC -jar FullNode.jar --witness -c main_net_config.conf --password "密码" > start.log 2>&1 &
+        ```
 
 #### 使用tcmalloc优化内存占用
 
