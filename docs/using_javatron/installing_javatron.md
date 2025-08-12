@@ -58,7 +58,7 @@ cd java-tron
 * 主网全节点配置文件：[main_net_config.conf](https://github.com/tronprotocol/tron-deployment/blob/master/main_net_config.conf)
 * 其他网络节点配置文件：
     * Nile 测试网：https://nileex.io/
-    * 私链网络：https://github.com/tronprotocol/tron-deployment
+    * 私链网络：https://github.com/tronprotocol/tron-deployment/blob/master/private_net_config.conf
 
 ### 启动全节点 (FullNode)
 
