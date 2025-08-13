@@ -843,36 +843,51 @@
   
 </li>
       
-        <li class="md-nav__item ">
-  <a href="#_5" class="md-nav__link" >
+        <li class="md-nav__item has-children">
+  <a href="#tron" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
     <span class="md-ellipsis">
-      地址格式说明
+      TRON地址的生成
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="TRON地址的生成" hidden>
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item ">
+  <a href="#base58check" class="md-nav__link" >
+    <span class="md-ellipsis">
+      Base58Check计算过程
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#tron_1" class="md-nav__link" >
+    <span class="md-ellipsis">
+      TRON地址特性
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
         <li class="md-nav__item has-children">
-  <a href="#_6" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
+  <a href="#_5" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
     <span class="md-ellipsis">
-      签名说明
+      签名
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="签名说明" hidden>
+    <nav class="md-nav" aria-label="签名" hidden>
       <ul class="md-nav__list">
         
           <li class="md-nav__item ">
-  <a href="#_7" class="md-nav__link" >
-    <span class="md-ellipsis">
-      步骤
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item ">
-  <a href="#_8" class="md-nav__link" >
+  <a href="#_6" class="md-nav__link" >
     <span class="md-ellipsis">
       算法
     </span>
@@ -881,7 +896,7 @@
 </li>
         
           <li class="md-nav__item ">
-  <a href="#_9" class="md-nav__link" >
+  <a href="#_7" class="md-nav__link" >
     <span class="md-ellipsis">
       示例
     </span>
@@ -891,6 +906,48 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item has-children">
+  <a href="#_8" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
+    <span class="md-ellipsis">
+      验签
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="验签" hidden>
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item ">
+  <a href="#_9" class="md-nav__link" >
+    <span class="md-ellipsis">
+      算法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#_10" class="md-nav__link" >
+    <span class="md-ellipsis">
+      示例
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item ">
+  <a href="#_11" class="md-nav__link" >
+    <span class="md-ellipsis">
+      账户发起交易
+    </span>
+  </a>
   
 </li>
       
@@ -1579,53 +1636,99 @@
 </ol>
 <p>如果账户有足够的通过质押TRX获得的带宽，那么创建账户只会消耗带宽，否则，创建账户会烧掉0.1个TRX。</p>
 <h2 id="_4">生成密钥对算法<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
-<p>TRON的签名算法为ECDSA，选用曲线为SECP256K1。其私钥为一个随机数，公钥为椭圆曲线上一个点。生成过程为，首先生成一个随机数d作为私钥，再计算P = d * G作为公钥；其中G为椭圆曲线的基点。</p>
-<h2 id="_5">地址格式说明<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
-<p>用公钥P作为输入，计算SHA3得到结果H, 这里公钥长度为64字节，SHA3选用Keccak256。
-取H的最后20字节，在前面填充一个字节0x41得到address。
-对address进行basecheck计算得到最终地址，所有地址的第一个字符为T。
-其中basecheck的计算过程为：首先对address计算sha256得到h1，再对h1计算sha256得到h2，取其前4字节作为check填充到address之后得到address||check，对其进行base58编码得到最终结果。
-我们用的字符映射表为：
-ALPHABET = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"</p>
-<h2 id="_6">签名说明<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
-<h3 id="_7">步骤<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<p>TRON的签名算法为ECDSA，选用曲线为SECP256K1。其私钥为一个随机数，公钥为椭圆曲线上一个点。生成过程为：首先生成一个随机数<code>d</code>作为私钥，再计算<code>P = d × G</code>作为公钥，其中<code>G</code>为椭圆曲线的基点，基点是公开的。</p>
+<p>私钥是一个32字节的大数，公钥由2个32字节的大数组成，分别是上述<code>P</code>点的横坐标和纵坐标。</p>
+<h2 id="tron">TRON地址的生成<a class="headerlink" href="#tron" title="Permanent link">&para;</a></h2>
 <ol>
-<li>取交易的rawdata，转成byte[]格式。</li>
-<li>对rawdata进行sha256运算。</li>
-<li>用交易每个合约中地址对应的私钥（现在一般就是一个合约，一个私钥），对sha256的结果进行签名。</li>
-<li>把签名结果添加到交易中。</li>
+<li>用公钥<code>P</code>作为输入，计算SHA3得到结果<code>H</code>，SHA3选用Keccak256。</li>
+<li>取<code>H</code>的最后20字节，在前面填充一个字节<code>0x41</code>得到<code>address</code>。</li>
+<li>对<code>address</code>进行base58check计算得到最终地址。</li>
 </ol>
-<h3 id="_8">算法<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<h3 id="base58check">Base58Check计算过程<a class="headerlink" href="#base58check" title="Permanent link">&para;</a></h3>
 <ol>
-<li>ECDSA算法，SECP256K。</li>
-<li>签名示例数据</li>
+<li>
+<p>计算校验码</p>
+<ol>
+<li>对<code>address</code>进行SHA256哈希运算，得到<code>h1</code>  </li>
+<li>对<code>h1</code>再次进行SHA256运算，得到<code>h2</code>  </li>
+<li>取<code>h2</code>的前4字节作为校验码<code>check</code></li>
 </ol>
-<div class="highlight"><pre><span></span><code><span class="w">    </span>priKey:::8e812436a0e3323166e1f0e8ba79e19e217b2c4a53c970d4cca0cfb1078979df<span class="w">       </span>
-<span class="w">    </span>pubKey::04a5bb3b28466f578e6e93fbfd5f75cee1ae86033aa4bbea690e3312c087181eb366f9a1d1d6a437a9bf9fc65ec853b9fd60fa322be3997c47144eb20da658b3d1<span class="w">       </span>
-<span class="w">    </span>hash:::159817a085f113d099d3d93c051410e9bfe043cc5c20e43aa9a083bf73660145<span class="w">       </span>
-<span class="w">    </span>r:::38b7dac5ee932ac1bf2bc62c05b792cd93c3b4af61dc02dbb4b93dacb758123f<span class="w">       </span>
-<span class="w">    </span>s:::08bf123eabe77480787d664ca280dc1f20d9205725320658c39c6c143fd5642d<span class="w">       </span>
-<span class="w">    </span>v:::0
+</li>
+<li>
+<p>拼接数据<br />
+将<code>check</code>拼接到<code>address</code>之后，得到<code>address||check</code></p>
+</li>
+<li>
+<p>Base58编码<br />
+对<code>address||check</code>进行Base58编码，Base58的字符表为：<code>"123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"</code>  ，排除了易混淆字符：<code>0</code>(阿拉伯数字0) 、<code>O</code>(大写字母O)、<code>I</code>(大写字母I)、<code>l</code>(小写字母l)。</p>
+</li>
+</ol>
+<h3 id="tron_1">TRON地址特性<a class="headerlink" href="#tron_1" title="Permanent link">&para;</a></h3>
+<p>Base58编码原理是将以256为基数的大整数转换为以58为基数表示，再映射到字符表。由于<code>address||check</code>首字节固定为<code>0x41</code>，其十进制值<code>N</code>满足：<code>65 × 256²⁴ ≤ N &lt; 66 × 256²⁴</code>。</p>
+<ul>
+<li>长度为<code>34</code>位：由于<code>58³⁴ &gt; 66 × 256²⁴</code>表明<code>34</code>位足够，<code>58³³ &lt; 65 × 256²⁴</code>表明<code>33</code>位不够，所以所以长度只能是<code>34</code>位</li>
+<li>首字母为<code>T</code>：首先长度已经确定是<code>34</code>位，并且由于<code>27 × 58³³ &gt; 66 × 256²⁴</code>表明第一位必须小于27， <code>26 × 58³³ &lt; 65 × 256²⁴</code>表明第一位必须大于等于26，所以最高位只能是<code>26</code>，而<code>26</code>对应base58字符表的<code>T</code>(<code>0</code>对应<code>'1'</code>)</li>
+</ul>
+<h2 id="_5">签名<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<h3 id="_6">算法<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p>取交易的rawdata，转成byte[]格式，记为<code>data</code></p>
+</li>
+<li>
+<p>对<code>data</code>进行sha256运算得到交易的hash值，记为<code>hash</code>。</p>
+</li>
+<li>
+<p>用交易合约中的地址对应的私钥<code>d</code>，对<code>hash</code>进行签名，签名算法为ECDSA算法（选用的曲线为SECP256K1）。签名结果包含<code>r</code>，<code>s</code>，<code>v</code>三个值：  </p>
+<ol>
+<li>计算<code>r</code>值：随机生成一个临时私钥<code>k</code>，计算临时公钥<code>K = k × G</code>（<code>G</code>：曲线基点），<code>r = K_x mod n</code>，即<code>K</code>的横坐标模<code>n</code>，其中<code>n</code>是曲线阶数（<code>n</code>和<code>G</code>满足<code>n × G = O</code>，<code>O</code>是有限域上椭圆曲线群的零点）。<code>r</code>为32个字节。</li>
+<li>计算<code>s</code>值：先计算临时私钥<code>k</code>对n的模逆<code>k⁻¹</code>，即<code>k⁻¹</code>满足<code>k⁻¹ × k = 1 mod n</code>，再通过交易的<code>hash</code>、用户的私钥<code>d</code>、<code>r</code>值计算<code>s</code>值，<code>s = (k⁻¹ × (hash + d × r)) mod n</code>。<code>s</code>为32个字节。</li>
+<li>计算<code>v</code>值：<code>v</code>值是恢复标志符，由于<code>r</code>值有取模运算以及椭圆曲线的对称性，如果只有<code>r</code>值，一个<code>r</code>最多可以恢复出四个<code>K</code>。<code>v</code>值的取值范围是<code>0、1、2、3</code>四个整数，历史上为了和以太坊保持一致，最后的<code>v</code>值会在<code>0、1、2、3</code>的基础上再加<code>27</code>，即最后<code>v</code>值的取值范围是<code>27、28、29、30</code>。有了确定的<code>v</code>，就可以恢复出唯一的<code>K</code>。<code>v</code>为1个字节。  </li>
+</ol>
+</li>
+<li>
+<p>将签名结果<code>r</code>，<code>s</code>，<code>v</code>拼接后添加到交易中，拼接顺序为<code>v || r || s</code>。</p>
+</li>
+</ol>
+<h3 id="_7">示例<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>public static Transaction sign(Transaction transaction, ECKey myKey) {
+    Transaction.Builder transactionBuilderSigned = transaction.toBuilder();
+    byte[] hash = sha256(transaction.getRawData().toByteArray());
+    ECDSASignature signature = myKey.sign(hash);
+    ByteString bsSign = ByteString.copyFrom(signature.toByteArray());
+    transactionBuilderSigned.addSignature(bsSign);
+}
 </code></pre></div>
-<p>注意：签名结果应该是65字节。 r 32字节， s 32字节，v 1个字节。</p>
+<h2 id="_8">验签<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
+<p>全节点(Fullnode)收到交易后会进行验签，由<code>hash</code> 和 <code>r</code>、<code>s</code>、<code>v</code>恢复出公钥(<a href="#_4">生成密钥对算法</a>中的<code>P</code>)，再通过base58check编码生成一个TRON地址，与合约中的地址进行比较，相同则验签通过。</p>
+<h3 id="_9">算法<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
 <ol>
-<li>fullnode节点收到交易后会进行验签，由hash 和 r、s、v计算出一个地址，与合约中的地址进行比较，相同则为验签通过。</li>
+<li>
+<p>恢复公钥点<code>K</code>：通过签名中的<code>v</code>和<code>r</code>可以唯一恢复出临时公钥点<code>K</code>。</p>
+</li>
+<li>
+<p>推导公钥<code>P</code>：      </p>
+<ol>
+<li>已知签名方程：<br />
+<code>s = k⁻¹(hash + d × r) mod n</code>  </li>
+<li>两边同乘<code>k</code>：<br />
+<code>s × k = (hash + d × r) mod n</code>  </li>
+<li>两边再同乘曲线的基点<code>G</code>（利用<code>K = k × G</code>和<code>P = d × G</code>）：  <br />
+<code>s × K = hash × G + r × P</code>  </li>
+<li>因<code>s</code>、<code>K</code>、<code>hash</code>、<code>G</code>、<code>r</code>均已知，可求得<code>P</code></li>
 </ol>
-<h3 id="_9">示例<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="n">Transaction</span><span class="w"> </span><span class="nf">sign</span><span class="p">(</span><span class="n">Transaction</span><span class="w"> </span><span class="n">transaction</span><span class="p">,</span><span class="w"> </span><span class="n">ECKey</span><span class="w"> </span><span class="n">myKey</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">Transaction</span><span class="p">.</span><span class="na">Builder</span><span class="w"> </span><span class="n">transactionBuilderSigned</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">transaction</span><span class="p">.</span><span class="na">toBuilder</span><span class="p">();</span>
-<span class="w">    </span><span class="kt">byte</span><span class="o">[]</span><span class="w"> </span><span class="n">hash</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sha256</span><span class="p">(</span><span class="n">transaction</span><span class="p">.</span><span class="na">getRawData</span><span class="p">().</span><span class="na">toByteArray</span><span class="p">());</span>
-<span class="w">    </span><span class="n">List</span><span class="o">&lt;</span><span class="n">Contract</span><span class="o">&gt;</span><span class="w"> </span><span class="n">listContract</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">transaction</span><span class="p">.</span><span class="na">getRawData</span><span class="p">().</span><span class="na">getContractList</span><span class="p">();</span>
-
-<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">listContract</span><span class="p">.</span><span class="na">size</span><span class="p">();</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="n">ECDSASignature</span><span class="w"> </span><span class="n">signature</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">myKey</span><span class="p">.</span><span class="na">sign</span><span class="p">(</span><span class="n">hash</span><span class="p">);</span>
-<span class="w">      </span><span class="n">ByteString</span><span class="w"> </span><span class="n">bsSign</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ByteString</span><span class="p">.</span><span class="na">copyFrom</span><span class="p">(</span><span class="n">signature</span><span class="p">.</span><span class="na">toByteArray</span><span class="p">());</span>
-
-<span class="w">      </span><span class="c1">//Each contract may be signed with a different private key in the future.</span>
-<span class="w">      </span><span class="n">transactionBuilderSigned</span><span class="p">.</span><span class="na">addSignature</span><span class="p">(</span><span class="n">bsSign</span><span class="p">);</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="w">  </span><span class="p">}</span>
-</code></pre></div>
+</li>
+<li>
+<p>生成TRON地址：同<a href="#tron">TRON地址的生成</a></p>
+</li>
+<li>
+<p>地址验证：比对生成的TRON地址与交易合约中的地址是否一致。</p>
+</li>
+</ol>
+<h3 id="_10">示例<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
+<p>验证签名由全节点进行，<a href="https://github.com/tronprotocol/java-tron/blob/master/crypto/src/main/java/org/tron/common/crypto/ECKey.java">ECDSA算法的验签</a>可参考java-tron，核心函数为<code>signatureToAddress</code>。</p>
+<h2 id="_11">账户发起交易<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h2>
+<p>以上是TRON账户模型的理论知识，对于开发者，账户发起交易(构建/签名/广播)建议使用官方sdk(Trident/TronWeb)，详细信息见<a href="https://developers.tron.network/docs/create-offline-transactions-with-trident-and-tronweb">开发者文档</a>。</p>
 
 
 
