@@ -35,14 +35,14 @@
 
 1. 首先，通过 `git` 命令将 `java-tron` 源代码克隆到本地，并切换到 `master` 分支：
 
-```shell!
+```shell
 git clone https://github.com/tronprotocol/java-tron.git
 git checkout -t origin/master
 ```
 
 2. 然后，执行以下命令编译 `java-tron` 源代码：
 
-```shell!
+```shell
 cd java-tron
 ./gradlew clean build -x test
 ```
@@ -237,7 +237,7 @@ node.backup {
 
     * 在您的节点启动脚本中添加以下两行。请注意，不同 Linux 发行版上 `libtcmalloc.so.4` 的路径可能略有差异。
 
-    ```bash!
+    ```bash
     #!/bin/bash
 
     export LD_PRELOAD="/usr/lib/libtcmalloc.so.4" # 根据 您的系统调整路径
@@ -249,21 +249,22 @@ node.backup {
 
     * **Ubuntu 20.04 LTS / Ubuntu 18.04 LTS / Debian stable**:
 
-    ```bash!
+    ```bash
     export LD_PRELOAD="/usr/lib/x86_64-linux-gnu/libtcmalloc.so.4"
     export TCMALLOC_RELEASE_RATE=10
     ```
 
     * **Ubuntu 16.04 LTS**:
 
-    ```bash!
+    ```bash
     export LD_PRELOAD="/usr/lib/libtcmalloc.so.4"
     export TCMALLOC_RELEASE_RATE=10
     ```
 
     * **CentOS 7**:
 
-    ```bash!
+    ```bash
     export LD_PRELOAD="/usr/lib64/libtcmalloc.so.4"
     export TCMALLOC_RELEASE_RATE=10
     ```
+  
