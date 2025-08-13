@@ -7,18 +7,21 @@
 ## 硬件配置要求
 
 运行 `java-tron` 节点所需的最小硬件配置如下：
+
 * **CPU**: 8 核
 * **内存**: 16 GB
 * **SSD**: 3 TB
 * **网络带宽**：100 Mbps
 
 推荐的配置是：
+
 * **CPU**: 16 核
 * **内存**: 32 GB
 * **SSD**: 3.5 TB+
 * **网络带宽**：100 Mbps
 
 对于作为**产块节点**的超级代表 (SR)，建议配置：
+
 * **CPU**: 32 核
 * **内存**: 64 GB
 * **SSD**: 3.5 TB+
@@ -50,15 +53,14 @@ cd java-tron
 * 参数 `-x test` 表示跳过执行测试用例。您也可以去除此参数以在编译过程中执行测试代码，但这会延长编译时间。
 * 编译完成后，`FullNode.jar` 文件将生成在 `java-tron/build/libs/` 目录下。
 
-
 ## 启动 `java-tron` 节点
 
 您可以选择不同的配置文件将 `java-tron` 节点连接到不同的 TRON 网络:
 
 * 主网全节点配置文件：[main_net_config.conf](https://github.com/tronprotocol/tron-deployment/blob/master/main_net_config.conf)
 * 其他网络节点配置文件：
-    * Nile 测试网：https://nileex.io/
-    * 私链网络：https://github.com/tronprotocol/tron-deployment/blob/master/private_net_config.conf
+  * Nile 测试网：https://nileex.io/
+  * 私链网络：https://github.com/tronprotocol/tron-deployment/blob/master/private_net_config.conf
 
 ### 启动全节点 (FullNode)
 
@@ -79,8 +81,9 @@ java -Xmx24g -XX:+UseConcMarkSweepGC -jar FullNode.jar -c main_net_config.conf
 在上述全节点启动命令中添加 `--witness` 参数，`FullNode` 将作为**出块节点** (SR Node) 运行。出块节点除了支持全节点的所有功能外，还支持区块生产和交易打包。
 
 **重要提示**:
+
 * 请确保您拥有一个超级代表 (SR) 账户并获得了足够的投票。如果您获得了前 27 名的投票，您需要启动一个 SR 节点来参与区块生产。
-    * 请注意，即使您的节点未进入前 27 名，使用`--witness`参数启动的节点仍会作为一个普通节点运行；一旦排名进入前 27 名，它就能立即开始出块。
+  * 请注意，即使您的节点未进入前 27 名，使用`--witness`参数启动的节点仍会作为一个普通节点运行；一旦排名进入前 27 名，它就能立即开始出块。
 * 将 SR 代表账户的**私钥**填写到 `main_net_config.conf` 的 `localwitness` 列表中。
 
 以下是 `localwitness` 配置示例：
@@ -101,7 +104,7 @@ java -Xmx24g -XX:+UseConcMarkSweepGC -jar FullNode.jar --witness -c main_net_con
 
 为了提高出块全节点的可靠性，可以部署多个相同账户的出块全节点，形成主从模式。当一个具有出块权限的账户部署大于等于两个节点时，需要完善各节点配置文件中的`node.backup`。`node.backup`的配置项说明如下：
 
-```
+```ini
 node.backup {
   # udp listen port, each member should have the same configuration
   port = 10001
@@ -119,10 +122,12 @@ node.backup {
   ]
 }
 ```
+
 比如，某个具有出块权限的账户部署了3个节点，三个节点的ip分别为192.168.0.100，192.168.0.101，192.168.0.102，那么他们的`node.backup`配置需如下所示：
 
-- ip为192.168.0.100的配置
-```
+* ip为192.168.0.100的配置
+  
+```ini
 node.backup {
   port = 10001
   priority = 8
@@ -134,8 +139,9 @@ node.backup {
 }
 ```
 
-- ip为192.168.0.101的配置
-```
+* ip为192.168.0.101的配置
+
+```ini
 node.backup {
   port = 10001
   priority = 7
@@ -147,8 +153,9 @@ node.backup {
 }
 ```
 
-- ip为192.168.0.102的配置
-```
+* ip为192.168.0.102的配置
+
+```ini
 node.backup {
   port = 10001
   priority = 6
@@ -166,7 +173,6 @@ node.backup {
 * 当一个priority高的节点出现故障失去主节点的身份，别的从节点竞争获得主节点的位置，在该priority高的节点恢复正常、重新具备出块的条件时，其不会自动获得主节点的身份，需要等到当前的主节点发生故障之后才能重新竞争获得。
 * 主从切换需要的时间：当主节点发生故障，从节点切换为主节点的时间最少需要2*keepAliveTimeout，其中keepAliveTimeout=keepAliveInterval * 6。需要2个keepAliveTimeout是因为从节点切换为主节点中间需要经过预备状态(INIT)的过渡，即从节点(SLAVER) -> 预备节点(INIT) -> 主节点(MASTER)。
 
-
 ## 优化与注意事项
 
 ### 加快节点数据同步
@@ -174,6 +180,7 @@ node.backup {
 对于主网和 Nile 测试网，新节点启动后需要同步的数据量较大，将花费较长时间。您可以使用 [数据快照](https://tronprotocol.github.io/documentation-zh/using_javatron/backup_restore/#_5) 来加快节点同步速度。
 
 操作步骤如下：
+
 1. 下载最新的数据快照。
 2. 将其解压至 `tron` 项目的 `output-directory` 目录下。
 3. 启动节点，节点将在数据快照的基础上继续同步。
@@ -188,24 +195,25 @@ node.backup {
     * 注意，`keystore` 文件需要放置在启动命令执行的当前目录或其子目录下。
         * 例如，如果当前目录是 `A`，`keystore` 文件的路径是 `A/B/localwitnesskeystore.json`，则配置应为：
 
-    ```json
-    localwitnesskeystore = [
-      "B/localwitnesskeystore.json"
-    ]
-    ```
-        
+        ```json
+        localwitnesskeystore = ["B/localwitnesskeystore.json"]
+        ```
+
     * 您可以使用 `wallet-cli` 项目的 `registerwallet` 命令生成 `keystore` 文件和密码。
 
-2. **启动出块节点**:
+1. **启动出块节点**:
 
     * **不使用 `nohup` 命令，人机交互的方式启动节点（推荐）**
         * **注意事项**: 此方式在启动节点时需要人机交互输入密码。建议使用会话保持工具，例如 `screen` 或 `tmux`。
+
         ```shell
         java -Xmx24g -XX:+UseConcMarkSweepGC -jar FullNode.jar --witness -c main_net_config.conf
         ```
+
         * 在节点启动过程中，系统会提示您输入密码。正确输入密码后，节点将完成启动。
 
     * **使用 `nohup` 命令，直接在命令行中通过 `--password` 传入密码**
+
         ```shell
         nohup java -Xmx24g -XX:+UseConcMarkSweepGC -jar FullNode.jar --witness -c main_net_config.conf --password "密码" > start.log 2>&1 &
         ```
@@ -216,11 +224,11 @@ node.backup {
 
 1. **安装 `tcmalloc`**:
     * **Ubuntu 20.04 LTS / Ubuntu 18.04 LTS / Debian stable**:
-    
+
     ```shell
     sudo apt install libgoogle-perftools4
     ```
-    
+
     * **Ubuntu 16.04 LTS**:
 
     ```shell
