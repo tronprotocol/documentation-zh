@@ -74,7 +74,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#dpos" class="md-skip">
+        <a href="#tron-dpos" class="md-skip">
           Skip to content
         </a>
       
@@ -772,19 +772,34 @@
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
-        <li class="md-nav__item ">
-  <a href="#_1" class="md-nav__link" >
+        <li class="md-nav__item has-children">
+  <a href="#_1" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
     <span class="md-ellipsis">
       概述
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="概述" hidden>
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item ">
+  <a href="#dpos" class="md-nav__link" >
+    <span class="md-ellipsis">
+      DPoS 共识机制
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
         <li class="md-nav__item ">
   <a href="#_2" class="md-nav__link" >
     <span class="md-ellipsis">
-      定义
+      核心概念定义
     </span>
   </a>
   
@@ -793,23 +808,56 @@
         <li class="md-nav__item ">
   <a href="#_3" class="md-nav__link" >
     <span class="md-ellipsis">
-      记账流程
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item ">
-  <a href="#_4" class="md-nav__link" >
-    <span class="md-ellipsis">
-      超级节点选举机制
+      超级代表的产块流程
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item has-children">
-  <a href="#_5" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
+  <a href="#_4" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
+    <span class="md-ellipsis">
+      超级代表的选举机制
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="超级代表的选举机制" hidden>
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item ">
+  <a href="#_5" class="md-nav__link" >
+    <span class="md-ellipsis">
+      选票
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#_6" class="md-nav__link" >
+    <span class="md-ellipsis">
+      投票过程
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#_7" class="md-nav__link" >
+    <span class="md-ellipsis">
+      统计选票
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item has-children">
+  <a href="#_8" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
     <span class="md-ellipsis">
       产块机制
     </span>
@@ -819,7 +867,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item ">
-  <a href="#_6" class="md-nav__link" >
+  <a href="#_9" class="md-nav__link" >
     <span class="md-ellipsis">
       固化块原则
     </span>
@@ -828,7 +876,7 @@
 </li>
         
           <li class="md-nav__item ">
-  <a href="#_7" class="md-nav__link" >
+  <a href="#_10" class="md-nav__link" >
     <span class="md-ellipsis">
       最长链原则
     </span>
@@ -842,7 +890,7 @@
 </li>
       
         <li class="md-nav__item ">
-  <a href="#_8" class="md-nav__link" >
+  <a href="#_11" class="md-nav__link" >
     <span class="md-ellipsis">
       激励模型
     </span>
@@ -851,16 +899,16 @@
 </li>
       
         <li class="md-nav__item ">
-  <a href="#_9" class="md-nav__link" >
+  <a href="#_12" class="md-nav__link" >
     <span class="md-ellipsis">
-      基于提案对参数进行调整
+      基于提案的参数调整
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item ">
-  <a href="#_10" class="md-nav__link" >
+  <a href="#_13" class="md-nav__link" >
     <span class="md-ellipsis">
       参考文档
     </span>
@@ -1583,78 +1631,124 @@
   
 
 
-<h1 id="dpos">波场共识机制 DPoS<a class="headerlink" href="#dpos" title="Permanent link">&para;</a></h1>
+<h1 id="tron-dpos">TRON DPoS 共识机制<a class="headerlink" href="#tron-dpos" title="Permanent link">&para;</a></h1>
 <h2 id="_1">概述<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<p>区块链是一个分布式的记账系统，在一个区块链系统中可以有成千上万的节点，他们各自独立保存一份相同的账本，而新的交易数据想要被写入帐本，需要获得这些节点的认可。在不可信的分布式环境中实现这一目标是一个很复杂的系统工程。区块链系统正常运行，即区块链中各节点总能保存同一份账本，前提是系统中绝大部分的节点是诚实可靠的。为了保证诚实可靠的节点能够共同监督交易数据写入账本，每个区块链系统都需要构建自己的共识，共识就相当于区块链的宪法。共识保证了即便是在不可信的分布式环境下，只要绝大多数节点遵守共识的规定，就一定能获得确定可信结果。因此共识的意义在于，区块链中的诚信节点可以最终达成账本的一致只要他们严格遵守这份共识。</p>
-<p>共识有多种类型，目前使用最多的是POW、POS、DPOS，当然不同的区块链系统中都会有一些特有的具体实现上的不同。本文主要介绍波场的共识就是基于DPOS的，同时向大家说明一下DPOS中的基本组件和机制。</p>
-<p>DPoS共识的作用是在区块链系统中选出记账人，记账人验证交易数据并进行记账，进而向区块链网络中的其他节点广播新的账目，并获得其他节点对于新账目的认可。DPOS作为共识的一类特定实现是这样的：</p>
-<p>DPOS共识在区块链系统中根据节点获取选票的多少确定出部分节点作为记账。首先区块链系统开始启动运行的时候，会发行一定数量的通证，然后将通证分给区块链系统中的节点，节点可以凭借一部分通证申请成为这个区块链系统记账人的候选人，区块链系统中任何持有通证的节点都可以为这些候选人进行投票，每经过一段时间t会统计所有候选人获得的选票数量，选票数量排在前面的N个节点会成为下一段时间t内的记账人，再经过t的时间，又会重新统计一遍新的记账人，以此类推循环往复。</p>
-<p>下面结合波场中的实现具体说明：</p>
-<h2 id="_2">定义<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>区块链作为一种分布式账本系统，拥有遍布全球的数千甚至上万个独立节点，它们各自维护一份相同的账本副本。要将新的交易数据写入这个共享账本，必须获得这些节点的普遍认可。在固有的不可信分布式环境中实现这一目标，是一个复杂的系统工程。</p>
+<p>区块链系统能够正常运行（即所有节点能够持续维护一份一致的账本），前提是系统中绝大多数节点是诚实可靠的。为了确保诚实节点能够共同监督交易数据的写入，每个区块链系统都需要建立自己的<strong>共识机制</strong>。</p>
+<p>共识机制就像区块链的“宪法”，它保证了即便在不可信的分布式环境下，只要绝大多数节点遵守共识规定，系统就能达成确定且可信的结果。因此，共识机制的意义在于，它使区块链中的诚实节点能够最终就账本内容达成一致。</p>
+<p>目前主流的共识机制包括工作量证明（PoW）、权益证明（PoS）和委托权益证明（DPoS）。每种机制在不同的区块链系统中都有其独特的具体实现。本文将重点介绍 <strong>TRON 网络</strong>所采用的 DPoS 共识机制，并详细阐述其核心组件和运作原理。</p>
+<h3 id="dpos">DPoS 共识机制<a class="headerlink" href="#dpos" title="Permanent link">&para;</a></h3>
+<p>DPoS 共识机制在区块链系统中的核心作用是选举出<strong>超级代表（Super Representative，简称 SR）</strong>，即网络的指定区块生产者（或出块节点/Block Producer）。这些 SR 负责验证交易数据并将其记录到账本中，随后将包含新账目的区块广播至全网，并获得其他节点的认可。</p>
+<p>在 DPoS 共识中，系统会根据节点获得的选票数量来选定一部分节点作为区块生产者。整个选举流程具体如下：</p>
+<ol>
+<li>初始准备: 当区块链系统启动时，会发行一定数量的<strong>通证</strong>（例如 TRON 的 TRX）。</li>
+<li>成为候选人: 节点可以消耗一部分通证来申请成为区块生产者候选人。</li>
+<li>社区投票: 网络中任何持有通证的节点都可以为这些候选人投票。</li>
+<li>计票选举: 每经过一个预设的时间周期（例如 <code>t</code>），系统会统计所有候选人的得票数量，得票数排名前 <code>N</code> 的节点将成为下一个时间周期内的区块生产者。</li>
+<li>周期轮换: 时间周期结束后，系统会重新统计并选出新的区块生产者，如此循环往复。</li>
+</ol>
+<p>下面将结合 TRON 网络中的具体实现进行详细说明。</p>
+<h2 id="_2">核心概念定义<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>概念</th>
+<th>定义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TRON</td>
+<td>TRON 区块链网络。本文不区分 TRON、TRON 区块链、TRON 区块链系统等概念。</td>
+</tr>
+<tr>
+<td>TRX</td>
+<td>由 TRON 区块链系统发行并在系统中流通的权益通证，代号为 <strong>TRX</strong>。</td>
+</tr>
+<tr>
+<td>超级代表 (SR）</td>
+<td>TRON 网络中获得区块生产资格的节点。TRON 设定区块生产者的数量为 <strong>27 个</strong>。下文不区分区块生产者、记账人、Witness、SuperNode、SR 等概念。</td>
+</tr>
+<tr>
+<td>超级代表候选人</td>
+<td>TRON 网络中具备成为区块生产者资格的节点。</td>
+</tr>
+<tr>
+<td>超级代表合伙人（Super Representative Partner / SRP）</td>
+<td>得票数排名第 <strong>28</strong> 至 <strong>127</strong> 名的超级代表候选人被称为<strong>超级代表合伙人</strong>。他们不参与区块生产或交易打包，但可以获得投票奖励。投票给超级代表合伙人的选民也将获得投票奖励。</td>
+</tr>
+<tr>
+<td>生产区块 / 记账</td>
+<td>指验证交易并将交易记录为账目的过程。由于 TRON 中的账目由区块承载，因此记账过程也被称为<strong>生产区块</strong>，SR 也被称为<strong>区块生产者（Block Producer）</strong>。下文不区分生产区块和记账。</td>
+</tr>
+<tr>
+<td>出块顺序（记账顺序）</td>
+<td>27 个区块生产者按照得票数量从高到低进行排序，以此确定其生产区块的顺序。</td>
+</tr>
+<tr>
+<td>槽位（Slot）</td>
+<td>在 TRON 网络中，每 <strong>3 秒钟</strong>被计为一个槽位。正常情况下，每个生产区块的 SR 都会在对应的槽位时间内完成出块。因此，TRON 的平均出块间隔约为 3 秒。如果因故 SR 未能产块，则对应的槽位会空置，下一个 SR 会在接下来的槽位内生产区块。在维护期，产块会跳过 2 个槽位。</td>
+</tr>
+<tr>
+<td>出块轮（Epoch）</td>
+<td>TRON 设定每 <strong>6 小时</strong>为一个出块轮，称为一个 <strong>Epoch</strong>。每个出块轮的最后两个出块时间是<strong>维护期</strong>。每个出块轮的维护期将决定下一个出块轮的出块顺序。</td>
+</tr>
+<tr>
+<td>维护期</td>
+<td>TRON 设定为 <strong>2 个区块时间</strong>，即 <strong>6 秒钟</strong>。此时间段用于统计候选人的得票数。由于 24 小时有 4 个出块轮，因此自然有 4 个维护期。维护期内不进行区块生产，主要用于确定下一个出块轮的生产顺序。</td>
+</tr>
+</tbody>
+</table>
+<p><img alt="维护期" src="https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/sequence.png" /></p>
+<h2 id="_3">超级代表的产块流程<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p>TRON 区块链系统中的 SR 持续执行以下流程：</p>
+<ol>
+<li><strong>收集交易：</strong> SR 收集区块链网络中新产生的交易。</li>
+<li><strong>验证交易：</strong> 对这些交易的合法性进行验证。</li>
+<li><strong>打包区块：</strong> 将验证通过的交易打包在一个<strong>区块</strong>中，作为新的一页账记录到账本上。</li>
+<li><strong>广播区块：</strong> 将新生成的区块在整个区块链网络中进行广播。</li>
+<li><strong>其他节点验证：</strong> 其他节点接收到新区块后，也会验证其中交易数据的合法性，并将其添加到自己的账本中。</li>
+</ol>
+<p>SR 持续重复此过程，确保 TRON 系统中所有新的交易数据都被及时记录到账本中。</p>
+<h2 id="_4">超级代表的选举机制<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<h3 id="_5">选票<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<p>在为 SR 投票之前，账户需要获得<strong>投票权</strong>，即 <strong>TRON Power (TP)</strong>。投票权通过<strong>质押 TRX</strong> 获得。除了获取带宽或能量，质押 TRX 还会同时为用户带来投票权。每质押 <strong>1 TRX</strong>，用户将获得 <strong>1 TP</strong>。</p>
+<p>账户在解除 TRX 质押后，会失去相应数量的 TP，并且其当前进行的投票也将失效。选票每 <strong>6 小时</strong>统计一次，超级代表和超级代表合伙人也会每 6 小时更新一次。如果在选票统计前，一个账户进行了多次投票，TRON 网络只会记录该账户的<strong>最新一次投票</strong>，之前的投票将被覆盖。</p>
+<h3 id="_6">投票过程<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<p>在 TRON 中，对候选人的投票被定义为一种特殊类型的<strong>交易</strong>。节点可以通过生成一笔投票交易来为候选人投票。</p>
+<h3 id="_7">统计选票<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<p>每个<strong>维护期</strong>内，系统会统计一次所有候选人的得票数，并将获得票数最多的 <strong>27 个</strong>候选人选定为下一个出块周期的 SR。</p>
+<h2 id="_8">产块机制<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
+<p>在一个<strong>出块轮</strong>中，27 个 SR 将按照<strong>产块顺序</strong>依次生产区块。每个 SR 只能在轮到自己产块时进行区块生产。</p>
+<p>SR 将多笔验证合法的交易数据打包到每个区块中。同时，每个区块都会将上一个区块的 <strong>哈希值</strong>（<code>hash</code>）作为本区块的<strong>父哈希值</strong>（<code>parentHash</code>）填入。此外，SR 还会使用自己的私钥对本区块的数据进行签名，将<strong>签名结果</strong>（<code>witness_signature</code>）以及 SR 的地址、区块高度、区块生成时间等数据一并填入区块。</p>
+<p>通过这种方式，每个区块都保存了上一个区块的哈希值，从而在逻辑上将区块相互关联起来，最终形成了区块链的链式结构。典型的区块链结构示意图如下：</p>
+<p><img alt="blockchain_structure" src="https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/blockchain_structure.png" /></p>
+<p>理想情况下，采用 DPoS 共识的区块链系统记账过程应严格按照预先计算好的记账顺序，由超级代表轮流依序产块（如下图 a）。然而，实际的区块链网络是一个分布式、不可信的复杂系统，可能出现以下情况：</p>
+<ol>
+<li><strong>网络延迟：</strong> 由于网络链路环境不佳，超级代表生产的区块可能无法在有效时间内被其他超级代表收到（如下图 b1、b2）。</li>
+<li><strong>节点故障：</strong> 某些超级代表可能无法始终正常运行（如下图 c）。</li>
+<li><strong>恶意行为：</strong> 少数超级代表可能恶意生产分叉区块，试图分裂主链（如下图 d）。</li>
+</ol>
+<p><img alt="longest_chain1" src="https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/longest_chain1.png" />
+<img alt="longest_chain2" src="https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/longest_chain2.png" /></p>
+<p>如前文所述，区块链系统正常运行的基础是系统中绝大部分节点是诚实可靠的。进一步探讨这个问题，区块链系统安全的首要保证是账本的安全：账本既不能被恶意写入不合法数据，账本在各个节点上保存的副本也应该保持一致。从 DPoS 共识的角度来看，记账过程由超级代表完成，因此 TRON 的安全性取决于大多数超级代表的可靠性。</p>
+<p>TRON 设定了<strong>不可逆转区块</strong>（或称<strong>固化块</strong>）机制，同时为了抵抗少数 SR 的恶意行为，TRON 采用基于<strong>最长链原则</strong>来确认主链。</p>
+<h3 id="_9">固化块原则<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
+<p>新生产出的区块初始处于未确认状态。当一个区块被至少 <strong>70%</strong>（即 <span class="arithmatex"><span class="MathJax_Preview">27 \times 70\% \approx 19</span><script type="math/tex">27 \times 70\% \approx 19</script></span> 个，向上取整）的超级代表认可后，该区块被认为是<strong>不可逆区块</strong>，通常称为<strong>固化块</strong>。此时，固化块中包含的交易已被整个区块链网络确认。</p>
+<p>此处对未确认状态区块的“认可”方式是：其他超级代表在该区块之后生产后续区块。例如，如图 d 所示，当超级代表 C 生产了第 103 块后，超级代表 E 在第 103 块的基础上生产了第 104' 块，超级代表 G、A、B 分别生产了第 105'、106'、107' 块，这些实质上都是第 103 块的后续区块，因此也是对 C 生产的第 103 块的认可。</p>
+<p>由此可知，当高度为 121 的区块被生产出来时，第 103 块就成为了固化块，因为它此时已经有了 19 个后续区块。需要强调的是：生产这 19 个区块的超级代表必须<strong>互不相同</strong>，并且与生产第 103 个区块的超级代表也<strong>不同</strong>。</p>
+<h3 id="_10">最长链原则<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
+<p>当区块链发生分叉时，诚实的超级代表总是会选择在当前<strong>最长</strong>的分叉链上继续生产区块。</p>
+<h2 id="_11">激励模型<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h2>
+<p>为了保证 TRON 区块链系统安全高效地运行，TRON 设计了激励模型，以鼓励更多节点加入 TRON 网络，从而扩大网络规模。</p>
 <ul>
-<li>
-<p>波场：指波场的区块链网络。本文不区分波场、波场区块链、波场区块链系统等概念。</p>
-</li>
-<li>
-<p>波场币：指由波场区块链系统发行并在系统中流转的权益通证，代号是TRX。</p>
-</li>
-<li>
-<p>记账候选人：指波场中有成为记账人资格的节点。</p>
-</li>
-<li>
-<p>记账人：指波场中获得记账资格的节点，通常DPOS共识中将记账人称为超级代表，波场也将记账人称为super node，super representative（简称SR），波场设定记账人的数量是27个。下文不区分记账人、witness、supernode、SR等概念。</p>
-</li>
-<li>
-<p>记账：指验证交易并将交易记录成账目的过程，由于波场中的账目是用区块承载的，因此记账的过程也被称为生产区块，下文不区分记账和生产区块。</p>
-</li>
-<li>
-<p>记账顺序：即出块顺序。按照27个记账人得票多少的降序作为记账顺序。</p>
-</li>
-<li>
-<p>槽位：在TRON中，每3秒钟被计为一个slot，正常情况下每个产块的SR都会在对应的slot时间内产块。因此，TRON 的平均产块间隔为3秒左右。如果因某些原因SR没有产块，则对应的slot会空置，下一个SR会在接下来的slot内产块。遇到维护期时，产块会跳过2个slot。</p>
-</li>
-<li>
-<p>出块轮：波场设定每6个小时作为一个出块轮，称为一个Epoch。每个出块轮最后的2个出块时间是一个维护期。每个出块轮的维护期决定下一个出块轮的出块顺序。</p>
-</li>
-<li>
-<p>维护期：波场设定是2个区块时间，即6秒钟。这段时间用于统计候选人得票数。因为24个小时有4个出块轮，自然就有4个维护期，维护期中不进行区块生产，主要用来确定下个出块轮的出块顺序。</p>
-</li>
+<li><strong>区块生产奖励：</strong> TRON 网络每成功生产一个区块，会向该区块的生产者（即对应的超级代表）奖励 <strong>8 TRX</strong>。该超级代表在根据其设定的佣金比例扣除佣金后，会将剩余部分根据投票者的投票权重分配给支持他们的选民。</li>
+<li><strong>投票奖励：</strong> 随着每个区块的产生，TRON 网络还会向所有超级代表和超级代表合伙人额外奖励 <strong>128 TRX</strong>。这笔奖励将根据他们各自获得的投票比例进行分配。同样，超级代表和超级代表合伙人在根据其设定的佣金比例扣除佣金后，会将剩余的投票奖励根据选民的投票权重分发给对应的选民。</li>
 </ul>
-<p><img alt="image" src="https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/sequence.png" /></p>
-<h2 id="_3">记账流程<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
-<p>区块链系统的记账人，他们收集区块链网络中新产生的交易，并对这些交易的合法性进行验证，然后把这些交易打包在一个区块中，作为新的一页账记录在账本上，然后将账页在整个区块链网络中进行广播，其他的节点收到新的账页，也会验证账页中交易数据的合法性，并添加到自己的账本中。记账人一直重复这个过程，这样只要区块链系统中新的交易数据都会记录在账本里面。</p>
-<h2 id="_4">超级节点选举机制<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
-<ul>
-<li>选票</li>
-</ul>
-<p>波场中设定拥有一个TRX就可以拥有一张选票的权利。</p>
-<ul>
-<li>投票过程</li>
-</ul>
-<p>波场中设定对候选人的投票过程是一笔特殊类型的交易，节点可以通过生成一笔投票交易对候选人进行投票。</p>
-<ul>
-<li>统计票</li>
-</ul>
-<p>每个维护期内，统计一次候选人的票数，将获得票数最多的27个候选人作为下一个出块周期的记账人。</p>
-<h2 id="_5">产块机制<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
-<p>在一个出块轮中，27个记账人按照记账顺序依次生产区块。每个记账人只能在轮到自己产块时进行区块生产，记账人将多笔验证合法的交易数据打包到每个区块之中，同时每个区块都会将上个区块的哈希值（hash）作为本区块的父哈希值（parentHash）填入区块中，同时用自己的私钥对本区块的数据进行签名，将签名结果（witness_signature）也填入区块中，同时被填入区块的还有记账人的地址，区块高度，区块生成的时刻等数据。</p>
-<p>通过每个区块保存了上个区块hash值的方式，从而在逻辑上将区块相互关联了起来，最后组成了一条链的结构。典型的区块链结构示意图如下所示：</p>
-<p><img alt="image" src="https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/blockchain_structure.png" /></p>
-<p>理想情况下，采用DPOS共识的区块链系统的记账过程就是按照事先计算好的记账顺序，由超级代表轮流依序产块（如下图a），但实际情况下，区块链网络是一个分布式的、不可信的复杂系统，体现在 1）由于网络链路环境不佳导致超级代表生产的区块并不会在有效时间内被其他的超级代表收到（如下图b1、b2）；
-2）并不能保证某个超级代表运行始终正常（如图c）；
-3）某些超级代表恶意生产分叉的区块企图将链分叉（如图d）。</p>
-<p><img alt="image" src="https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/longest_chain1.png" /></p>
-<p><img alt="image" src="https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/longest_chain2.png" /></p>
-<p>前文已经提到区块链系统正常运行的基础是系统中绝大部分的节点是诚实可靠的，再进一步探讨这个问题，区块链系统安全的首要保证的是账本的安全，账本既不能被恶意写入不合法的数据，账本在各个节点上保存的副本也应该是一致的。如果从DPOS共识的角度上来看，记账过程是由超级代表完成，因此波场的安全取决于大部分超级代表的可靠性，波场设定了不可逆转区块，也称为固化块。同时为了抵抗少部分记账节点的恶意行为，波场采用基于最长链的原则确认为主链。</p>
-<h3 id="_6">固化块原则<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
-<p>刚生产出来的区块处于未确认状态，至少被27个超级代表中的70%（27 * 70 = 19，向上取整)认可的区块才被认为是不可逆区块，一般称为固化块，此时固化块中包含的交易已经被整个区块链网络确认。此处对未确认状态区块"认可"的方式是超级代表在其之后生产后继区块，如图d中超级代表C生产的第103块，超级代表E在第103块的基础上生产了104‘,超级代表G、A、B分别生产的第105‘、106’、107‘实质上也是103块的后继区块，故也是对C生产的第103块的认可。可知，当高度为121的区块被生产出来的时候，第103块就成为固化块，因为此时103区块已经有了19个后继区块，此处需要强调的一点是：生产这19个区块的超级代表互不相同，并且和生产第103个区块的超级代表也不同。</p>
-<h3 id="_7">最长链原则<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
-<p>当区块链产生分叉之后，诚实的超级代表总是选择在当前最长的那个分叉链上继续生产区块。</p>
-<h2 id="_8">激励模型<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
-<p>为了保证区块链系统安全高效地运行，TRON设定激励模型，用于鼓励更多的节点加入到波场网络，从而扩大网络规模。波场网络每生成一个区块，都会授予16个TRX的区块奖励给生产该区块的超级代表，还会授予160个TRX的投票奖励给所有超级代表和超级合伙人(票数排名第28～127名的超级代表候选人也叫超级代表合伙人)，他们根据获得的投票数按比例瓜分投票奖励。同时，超级代表及合伙人还会将获得的奖励按照其设定的佣金比例扣除后，将剩余部分按照选民投票比例分发给选民。</p>
-<h2 id="_9">基于提案对参数进行调整<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
-<p>DPOS的一个重要的特性是任何系统参数的调整都可以通过链上的提案发起，记账人通过对提案的投票来决定提案是否生效，这样的好处是在链上新增加一些特性不需要进行硬分叉升级。目前TRON网络的动态参数及其值，以及过往的提案，请参考<a href="https://tronscan.org/#/sr/committee">这里</a>。</p>
-<h2 id="_10">参考文档<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h2>
+<h2 id="_12">基于提案的参数调整<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h2>
+<p>DPoS 的一个重要特性是，任何系统参数的调整都可以通过<strong>链上提案</strong>发起。SR 通过对提案的投票来决定提案是否生效。这种机制的好处在于，在链上调整参数时，<strong>无需进行硬分叉升级</strong>。</p>
+<p>目前 TRON 网络的动态参数及其值，以及过往的提案记录，请参考 <a href="https://tronscan.org/#/sr/committee">TRONSCAN 委员会页面</a>。</p>
+<h2 id="_13">参考文档<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="https://medium.com/tronnetwork/the-basics-of-trons-dpos-consensus-algorithm-db12c52f1e03">The Basics of TRON’s DPoS Consensus Algorithm</a></li>
 </ul>
