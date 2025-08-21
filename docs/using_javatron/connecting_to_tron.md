@@ -13,19 +13,19 @@ TRON网络主要分为主网，Shasta测试网，Nile测试网以及私网，因
 
 
 ## 节点发现 
-java-tron节点在有足够的对等节点之前会不断地尝试与网络上的其他节点建立连接，同时它也会接受来自其他节点的连接。java-tron使用节点发现协议查找对等点。在发现协议中，节点间交换连接细节，然后建立会话，交换TRON网络数据。
-
-首先，如果需要java-tron节点进行节点发现，那么要在节点配置文件中开启节点发现服务：
+节点发现通过配置文件开启和关闭，一般开启，相关配置项如下：
 
 ```
 node.discovery = {
-  enable = true
-  ...
+  enable = true 
 }
 ```
 
-然后，对于加入到TRON网络的新节点，可以通过配置`种子节点`使当前节点更容易的连接到对等节点，然后再通过对等节点获取到其它节点的地址信息。一般将种子节点设置成稳定在线的全节点，对于TRON主网，可以使用社区公共节点作为种子节点，例如:
+java-tron使用Kademlia 协议发现其他节点。节点发现需要引导节点(bootstrap节点)，通过引导节点发现TRON网络中的其他节点。引导节点由两部分组成，一部分是种子节点，一部分是配置的主动连接节点，详情见[主动连接](#_4)。
 
+种子节点也由两部分组成：
+
+- 配置的seed.node：
 ```
 seed.node = {
   # List of the seed nodes
@@ -66,11 +66,32 @@ seed.node = {
 }
 
 ```
-如果想要获取最新的seed，可以在官方的[配置文件](https://github.com/tronprotocol/tron-deployment/blob/master/main_net_config.conf)查看。
+如果想要获取最新的seed.node，可以在官方的[配置文件](https://github.com/tronprotocol/tron-deployment/blob/master/main_net_config.conf)查看。
 
-在某些情况下，不需要开启节点发现进程，比如，运行一个本地测试节点或部署一个具有固定的一些节点的测试网络。这时可以通过将配置项设置成`node.discovery.enable = false`来关闭节点发现进程。
+- 从数据库中读取的持久化节点。持久化节点是在节点运行期间连接良好的节点，持久化节点需要开启节点持久化服务。持久化节点一般在节点重启时用到。相关配置项：
+```
+node.discovery = {
+  persist = true
+}
+```
 
-## 节点连接数量限制
+种子节点仅作为引导节点，节点不会主动去连接这些种子节点。
+
+节点发现基于udp协议，绑定的默认端口是18888，也可以绑定其他端口，比如19999，但是不建议这么做。相关配置项：
+```
+node {
+  listen.port = 18888
+}
+```
+如果绑定的是其他节点，比如19999，也可以正常工作，但是整个网络拓扑就会变成如下图所示：
+
+![image](https://raw.githubusercontent.com/King31T/documentation-zh/network_connecting/images/network_topology1.png)
+
+在某些情况下，不需要开启节点发现，比如，运行一个本地测试节点或部署一个具有固定的一些节点的测试网络。这时可以通过将配置项设置成`node.discovery.enable = false`来关闭节点发现进程，也可以通过关闭udp 18888端口来实现。
+
+## 节点连接
+
+### 节点连接数量
 `node.maxConnections`表示节点与其它节点的最大连接数量，默认值是30。设置更大的值可以使节点能够建立更多的连接，加入网络的效率更高，同时广播的效率也更高，但是，相对的维护连接需要的带宽也更高，性能消耗也更大，因此，请根据实际情况设置。  
 ```
 node {
@@ -78,11 +99,10 @@ node {
 }
 ```
 
-## 主动连接与被动连接
-java-tron支持设置其主动连接的节点`node.active`以及被动连接的节点`node.passive`。配置`node.active`和`node.passive`对改善节点的网络连接稳定性有很大的帮助。
+### 主动连接
+主动连接的来源来自于四部分：
 
-当java-tron启动后，会主动与`node.active`中的对等节点建立连接。
-
+- 配置的主动节点(最高优先级)，不依赖于节点发现，即使节点发现没有开启，当前节点也会主动向这些节点发起连接。相关配置项：
 ```
 node {
   active = [
@@ -92,9 +112,26 @@ node {
     # "ip:port"
   ]
  }
+``` 
+- 检测过的节点(高优先级)，需要开启节点检测服务，节点检测是对上述节点发现获取到的可连接节点进行进一步检测，检测内容包括对方节点的响应速度、剩余的连接数等。一般不启用节点检测，默认false，相关配置项：
 ```
+#Whether to enable the node detection function, default false
+#nodeDetectEnable = false
+```
+- 节点发现获取到的可连接节点(中优先级)
+- DNS节点(最低优先级/备用)，DNS树获取的备用节点，需要配置treeUrls，在前三种来源不足时使用，一般不会使用到。相关配置项(一般不配置)：
+```
+dns {
+  # dns urls to get nodes, url format tree://{pubkey}@{domain}, default empty
+  treeUrls = [
+    #"tree://AKMQMNAJJBL73LXWPXDI4I5ZWWIZ4AWO34DWQ636QOBBXNFXH3LQS@main.trondisco.net",
+  ]
+}
+```
+可以看到，目前主动连接的节点来源只有两类，一类是配置的主动节点，一类是节点发现获取到的可连接节点。
 
-当`node.passive`中的节点主动与当前节点建立连接时，当前节点都会无条件的接受。
+### 被动连接
+当`node.passive`配置中的节点主动与当前节点建立连接时，当前节点都会无条件的接受。
 
 ```
 node {
@@ -106,6 +143,12 @@ node {
   ]
  }
 ```
+
+另外，节点在发现其他节点的同时也会被其他节点发现，所以，被动连接的来源除了上述配置的节点，还来源于其他节点。
+
+节点连接基于tcp协议，被动连接绑定的端口和节点发现绑定的端口是一样的，如果一个节点不想有被动连接，可以通过关闭tcp 18888端口实现。如果某个节点关闭了被动连接，整个网络拓扑会变成如下图所示：
+
+![image](https://raw.githubusercontent.com/King31T/documentation-zh/network_connecting/images/network_topology2.png)
 
 ## 日志与网络连接验证
 java-tron 节点日志为节点目录下的`/logs/tron.log`。在节点安装目录下，可以使用如下命令查看节点最新日志，以了解节点区块同步情况：
