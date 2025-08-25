@@ -90,7 +90,7 @@ java -Xmx24g -XX:+UseConcMarkSweepGC -jar FullNode.jar -c main_net_config.conf
 
 ```json
 localwitness = [
-    650950B193DDDDB35B6E48912DD28F7AB0E7140C1BFDEFD493348F02295BD812
+    650950B1...295BD812
 ]
 ```
 
