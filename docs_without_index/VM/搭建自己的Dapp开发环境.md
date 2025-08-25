@@ -14,7 +14,7 @@ Version 0.1
 
 该私有链的产块节点的地址：TPL66VK2gCXNCD7EJg9pgJRfqcRazjhUZY
 
-Witness私钥：da146374a75310b9666e834ee4ad0866d6f4035967bfc76217c5a495fff9f0d0
+Witness私钥：da146374...fff9f0d0
 
 注意：如果要支持constant的请求，需要在配置文件config.conf中填写：supportConstant = true，默认是false。
 
@@ -93,7 +93,7 @@ java -jar wallet-cli.jar
 ```shell
 importwallet
 <输入你自己的设定的钱包密码2次>
-<输入私钥：da146374a75310b9666e834ee4ad0866d6f4035967bfc76217c5a495fff9f0d0>
+<输入私钥：da146374...fff9f0d0>
 login
 <输入你自己的设定的钱包密码>
 getbalance

@@ -77,7 +77,7 @@ java -jar SolidityNode.jar -c config.conf //make sure that your config.conf is d
 ```shell
 java -jar FullNode.jar -p your private key --witness -c your config.conf(Example：/data/java-tron/config.conf)
 Example:
-java -jar FullNode.jar -p 650950B193DDDDB35B6E48912DD28F7AB0E7140C1BFDEFD493348F02295BD812 --witness -c /data/java-tron/config.conf
+java -jar FullNode.jar -p 650950B1...295BD812 --witness -c /data/java-tron/config.conf
 ```
 
 这与运行一个个人测试网相似，除了`config.conf`中的IP不一样。
@@ -95,7 +95,7 @@ java -jar FullNode.jar -p 650950B193DDDDB35B6E48912DD28F7AB0E7140C1BFDEFD493348F
 cd build/libs
 java -jar FullNode.jar -p your private key --witness -c your config.conf (Example：/data/java-tron/config.conf)
 Example:
-java -jar FullNode.jar -p 650950B193DDDDB35B6E48912DD28F7AB0E7140C1BFDEFD493348F02295BD812 --witness -c /data/java-tron/config.conf
+java -jar FullNode.jar -p 650950B1...295BD812 --witness -c /data/java-tron/config.conf
 ```
 
 ## 日志与网络连接验证

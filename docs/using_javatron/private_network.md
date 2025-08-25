@@ -94,7 +94,7 @@
       var TronWeb = require('tronweb');
       var tronWeb = new TronWeb({
           fullHost: 'http://localhost:16887',
-          privateKey: 'c741f5c0224020d7ccaf4617a33cc099ac13240f150cf35f496db5bfc7d220dc'
+          privateKey: 'c741f5c0...c7d220dc'
       })
 
       var parametersForProposal1 = [{"key":9,"value":1},{"key":10,"value":1}];

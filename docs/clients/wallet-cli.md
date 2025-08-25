@@ -59,7 +59,7 @@ Login successful !!!
 #### BackupWallet
 备份钱包时需要输入秘密，成功后将会导出你的私钥, 如下面示例中的
 ```
-721d63b074f18d41c147e04c952ec93467777a30b6f16745bc47a8eae5076545
+721d63b0...e5076545
 ```
 
 ```shell
@@ -67,12 +67,12 @@ wallet> backupwallet
 Please input your password.
 password: 
 BackupWallet successful !!
-721d63b074f18d41c147e04c952ec93467777a30b6f16745bc47a8eae5076545
+721d63b0...e5076545
 ```
 #### BackupWallet2Base64
 备份钱包时需要输入秘密，成功后将会以base64格式导出你的私钥, 如下面示例中的
 ```
-ch1jsHTxjUHBR+BMlS7JNGd3ejC28WdFvEeo6uUHZUU=
+ch1j...ZUU=
 ```
 
 ```shell
@@ -80,7 +80,7 @@ wallet> backupwallet
 Please input your password.
 password: 
 BackupWallet successful !!
-ch1jsHTxjUHBR+BMlS7JNGd3ejC28WdFvEeo6uUHZUU=
+ch1j...ZUU=
 ```
 #### ChangePassword
 使用本命令来更改密码
@@ -110,7 +110,7 @@ password:
 Please input password again.
 password: 
 Please input private key. Max retry time:3
-bd1ff0f4f852db45316bf08755bf6eee45d0678bfbf852a00020a13d42a1fb5b
+bd1ff0f4...42a1fb5b
 Import a wallet successful, keystore file name is UTC--2022-06-28T06-52-56.928000000Z--TB9qhqbev6DpX8mxdf3zDdtSQ6GC6Vb6Ej.json
 ```
 #### ImportWalletByBase64
@@ -122,7 +122,7 @@ password:
 Please input password again.
 password: 
 Please input private key by base64. Max retry time:3
-vR/w9PhS20Uxa/CHVb9u7kXQZ4v7+FKgACChPUKh+1s=   
+...your private key...  
 Import a wallet successful, keystore file name is UTC--2022-06-28T06-51-56.154000000Z--TB9qhqbev6DpX8mxdf3zDdtSQ6GC6Vb6Ej.json
 
 ```
@@ -143,7 +143,7 @@ Import a wallet successful, keystore file name is UTC--2022-06-28T06-51-56.15400
 wallet> generateaddress
 {
 	"address": "TQAvi6bemLa1t1irdV1KuaSC5vKc2EswTj",
-	"privateKey": "610a8a809114a96140e1cb040a7813afc74603e58c3d7824c3f68ccc642c297e"
+	"privateKey": "610a8a80...642c297e"
 }
 ```
 **注意：** 生成的地址及其私钥不会被保存，如需使用请单独留存。
