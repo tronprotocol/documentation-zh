@@ -57,10 +57,11 @@ cd java-tron
 
 您可以选择不同的配置文件将 `java-tron` 节点连接到不同的 TRON 网络:
 
-* 主网全节点配置文件：[main_net_config.conf](https://github.com/tronprotocol/tron-deployment/blob/master/main_net_config.conf)
+* 主网全节点配置文件：[main_net_config.conf](https://github.com/tronprotocol/java-tron/blob/master/framework/src/main/resources/config.conf)
 * 其他网络节点配置文件：
+
   * Nile 测试网：https://nileex.io/
-  * 私链网络：https://github.com/tronprotocol/tron-deployment/blob/master/private_net_config.conf
+  * 私链网络：请参考[私链网络](https://tronprotocol.github.io/documentation-zh/using_javatron/private_network/)
 
 ### 启动全节点 (FullNode)
 
