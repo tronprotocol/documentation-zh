@@ -24,10 +24,10 @@
 
 3. 获取节点配置文件[config.conf](https://github.com/tronprotocol/java-tron/blob/master/framework/src/main/resources/config.conf)。在搭建私链网络节点时，请将p2p.version的值修改为非11111和20180622的任意值。该配置位于[此处](https://github.com/tronprotocol/java-tron/blob/master/framework/src/main/resources/config.conf#L185)。
 
-    获取节点配置文件 private_net_config.conf，将其分别放到SR和FullNode目录中,并分别修改文件名为：supernode.conf、 fullnode.conf。
+    获取节点配置文件 config.conf，将其分别放到SR和FullNode目录中,并分别修改文件名为：supernode.conf、 fullnode.conf。
       ```
-      $ cp private_net_config.conf ./SR/supernode.conf
-      $ cp private_net_config.conf ./FullNode/fullnode.conf
+      $ cp config.conf ./SR/supernode.conf
+      $ cp config.conf ./FullNode/fullnode.conf
       ```
 
 4. 修改各节点的配置文件
