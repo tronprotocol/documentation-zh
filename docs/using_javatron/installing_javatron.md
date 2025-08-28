@@ -57,10 +57,11 @@ cd java-tron
 
 您可以选择不同的配置文件将 `java-tron` 节点连接到不同的 TRON 网络:
 
-* 主网全节点配置文件：[main_net_config.conf](https://github.com/tronprotocol/tron-deployment/blob/master/main_net_config.conf)
+* 主网全节点配置文件：[config.conf](https://github.com/tronprotocol/java-tron/blob/master/framework/src/main/resources/config.conf)
 * 其他网络节点配置文件：
+
   * Nile 测试网：https://nileex.io/
-  * 私链网络：https://github.com/tronprotocol/tron-deployment/blob/master/private_net_config.conf
+  * 私链网络：请参考[私链网络](https://tronprotocol.github.io/documentation-zh/using_javatron/private_network/)
 
 ### 启动全节点 (FullNode)
 
@@ -69,7 +70,7 @@ cd java-tron
 以下是启动**主网全节点**的命令，通过 `-c` 参数指定配置文件：
 
 ```shell
-java -Xmx24g -XX:+UseConcMarkSweepGC -jar FullNode.jar -c main_net_config.conf
+java -Xmx24g -XX:+UseConcMarkSweepGC -jar FullNode.jar -c config.conf
 ```
 
 * `-XX:+UseConcMarkSweepGC`: 指定并发标记-清除 (CMS) 垃圾回收器。此参数必须放在 `-jar` 参数之前。
@@ -84,20 +85,20 @@ java -Xmx24g -XX:+UseConcMarkSweepGC -jar FullNode.jar -c main_net_config.conf
 
 * 请确保您拥有一个超级代表 (SR) 账户并获得了足够的投票。如果您获得了前 27 名的投票，您需要启动一个 SR 节点来参与区块生产。
   * 请注意，即使您的节点未进入前 27 名，使用`--witness`参数启动的节点仍会作为一个普通节点运行；一旦排名进入前 27 名，它就能立即开始出块。
-* 将 SR 代表账户的**私钥**填写到 `main_net_config.conf` 的 `localwitness` 列表中。
+* 将 SR 代表账户的**私钥**填写到 `config.conf` 的 `localwitness` 列表中。
 
 以下是 `localwitness` 配置示例：
 
 ```json
 localwitness = [
-    650950B193DDDDB35B6E48912DD28F7AB0E7140C1BFDEFD493348F02295BD812
+    650950B1...295BD812
 ]
 ```
 
 然后执行以下命令来启动出块节点：
 
 ```shell
-java -Xmx24g -XX:+UseConcMarkSweepGC -jar FullNode.jar --witness -c main_net_config.conf
+java -Xmx24g -XX:+UseConcMarkSweepGC -jar FullNode.jar --witness -c config.conf
 ```
 
 ### 主从模式的出块全节点
@@ -207,7 +208,7 @@ node.backup {
         * **注意事项**: 此方式在启动节点时需要人机交互输入密码。建议使用会话保持工具，例如 `screen` 或 `tmux`。
 
         ```shell
-        java -Xmx24g -XX:+UseConcMarkSweepGC -jar FullNode.jar --witness -c main_net_config.conf
+        java -Xmx24g -XX:+UseConcMarkSweepGC -jar FullNode.jar --witness -c config.conf
         ```
 
         * 在节点启动过程中，系统会提示您输入密码。正确输入密码后，节点将完成启动。
@@ -215,7 +216,7 @@ node.backup {
     * **使用 `nohup` 命令，直接在命令行中通过 `--password` 传入密码**
 
         ```shell
-        nohup java -Xmx24g -XX:+UseConcMarkSweepGC -jar FullNode.jar --witness -c main_net_config.conf --password "密码" > start.log 2>&1 &
+        nohup java -Xmx24g -XX:+UseConcMarkSweepGC -jar FullNode.jar --witness -c config.conf --password "密码" > start.log 2>&1 &
         ```
 
 ### 使用 `tcmalloc` 优化内存占用

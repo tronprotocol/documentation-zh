@@ -853,7 +853,7 @@ java -jar wallet-cli.jar
 ```shell
 importwallet
 <输入你自己的设定的钱包密码2次>
-<输入私钥：da146374a75310b9666e834ee4ad0866d6f4035967bfc76217c5a495fff9f0d0>
+<输入私钥：da146374...fff9f0d0>
 login
 <输入你自己的设定的钱包密码>
 getbalance
