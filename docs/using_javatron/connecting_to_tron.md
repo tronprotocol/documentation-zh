@@ -250,7 +250,7 @@ seed.node = {
 
 ```
 如果网卡支持ipv6，可以使用上述列表中的ipv6地址格式的种子节点，将注释符`#`去掉即可。
-如果想要获取最新的seed.node，可以在官方的[配置文件](https://github.com/tronprotocol/tron-deployment/blob/master/main_net_config.conf)查看。
+如果想要获取最新的seed.node，可以在官方的[配置文件](https://github.com/tronprotocol/java-tron/blob/master/framework/src/main/resources/config.conf)查看。
 
 - 从数据库中读取的持久化节点。持久化节点是在节点运行期间连接良好的节点，持久化节点需要开启节点持久化服务。持久化节点一般在节点重启时用到。相关配置项：
 ```
@@ -271,7 +271,7 @@ node {
   ...
 }
 ```
-如果绑定的是其他节点，比如19999，也可以正常工作，但是整个网络拓扑就会变成如下图所示：
+如果绑定的是其他端口，比如19999，也可以正常工作，但是整个网络拓扑就会变成如下图所示：
 
 ![image](https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/network_topology1.png)
 
