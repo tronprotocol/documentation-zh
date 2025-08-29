@@ -1652,15 +1652,19 @@ git<span class="w"> </span>checkout<span class="w"> </span>-t<span class="w"> </
 <h2 id="java-tron_3">启动 <code>java-tron</code> 节点<a class="headerlink" href="#java-tron_3" title="Permanent link">&para;</a></h2>
 <p>您可以选择不同的配置文件将 <code>java-tron</code> 节点连接到不同的 TRON 网络:</p>
 <ul>
-<li>主网全节点配置文件：<a href="https://github.com/tronprotocol/tron-deployment/blob/master/main_net_config.conf">main_net_config.conf</a></li>
-<li>其他网络节点配置文件：</li>
-<li>Nile 测试网：https://nileex.io/</li>
-<li>私链网络：https://github.com/tronprotocol/tron-deployment/blob/master/private_net_config.conf</li>
+<li>主网全节点配置文件：<a href="https://github.com/tronprotocol/java-tron/blob/master/framework/src/main/resources/config.conf">config.conf</a></li>
+<li>
+<p>其他网络节点配置文件：</p>
+</li>
+<li>
+<p>Nile 测试网：https://nileex.io/</p>
+</li>
+<li>私链网络：请参考<a href="https://tronprotocol.github.io/documentation-zh/using_javatron/private_network/">私链网络</a></li>
 </ul>
 <h3 id="fullnode">启动全节点 (FullNode)<a class="headerlink" href="#fullnode" title="Permanent link">&para;</a></h3>
 <p><strong>全节点</strong> (FullNode) 作为 TRON 网络的入口点，拥有完整的历史数据，并提供对外访问的 HTTP API、 gRPC API 和 JSON-RPC API。您可以通过全节点与 TRON 网络进行交互，例如资产转移、智能合约部署、智能合约交互等。</p>
 <p>以下是启动<strong>主网全节点</strong>的命令，通过 <code>-c</code> 参数指定配置文件：</p>
-<div class="highlight"><pre><span></span><code>java<span class="w"> </span>-Xmx24g<span class="w"> </span>-XX:+UseConcMarkSweepGC<span class="w"> </span>-jar<span class="w"> </span>FullNode.jar<span class="w"> </span>-c<span class="w"> </span>main_net_config.conf
+<div class="highlight"><pre><span></span><code>java<span class="w"> </span>-Xmx24g<span class="w"> </span>-XX:+UseConcMarkSweepGC<span class="w"> </span>-jar<span class="w"> </span>FullNode.jar<span class="w"> </span>-c<span class="w"> </span>config.conf
 </code></pre></div>
 <ul>
 <li><code>-XX:+UseConcMarkSweepGC</code>: 指定并发标记-清除 (CMS) 垃圾回收器。此参数必须放在 <code>-jar</code> 参数之前。</li>
@@ -1673,15 +1677,15 @@ git<span class="w"> </span>checkout<span class="w"> </span>-t<span class="w"> </
 <ul>
 <li>请确保您拥有一个超级代表 (SR) 账户并获得了足够的投票。如果您获得了前 27 名的投票，您需要启动一个 SR 节点来参与区块生产。</li>
 <li>请注意，即使您的节点未进入前 27 名，使用<code>--witness</code>参数启动的节点仍会作为一个普通节点运行；一旦排名进入前 27 名，它就能立即开始出块。</li>
-<li>将 SR 代表账户的<strong>私钥</strong>填写到 <code>main_net_config.conf</code> 的 <code>localwitness</code> 列表中。</li>
+<li>将 SR 代表账户的<strong>私钥</strong>填写到 <code>config.conf</code> 的 <code>localwitness</code> 列表中。</li>
 </ul>
 <p>以下是 <code>localwitness</code> 配置示例：</p>
 <div class="highlight"><pre><span></span><code><span class="err">localwi</span><span class="kc">tness</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="p">[</span>
-<span class="w">    </span><span class="mi">650950</span><span class="err">B</span><span class="mi">193</span><span class="err">DDDDB</span><span class="mi">35</span><span class="err">B</span><span class="mf">6E48912</span><span class="err">DD</span><span class="mi">28</span><span class="err">F</span><span class="mi">7</span><span class="err">AB</span><span class="mf">0E7140</span><span class="err">C</span><span class="mi">1</span><span class="err">BFDEFD</span><span class="mi">493348</span><span class="err">F</span><span class="mi">02295</span><span class="err">BD</span><span class="mi">812</span>
+<span class="w">    </span><span class="mi">650950</span><span class="err">B</span><span class="mf">1...295</span><span class="err">BD</span><span class="mi">812</span>
 <span class="p">]</span>
 </code></pre></div>
 <p>然后执行以下命令来启动出块节点：</p>
-<div class="highlight"><pre><span></span><code>java<span class="w"> </span>-Xmx24g<span class="w"> </span>-XX:+UseConcMarkSweepGC<span class="w"> </span>-jar<span class="w"> </span>FullNode.jar<span class="w"> </span>--witness<span class="w"> </span>-c<span class="w"> </span>main_net_config.conf
+<div class="highlight"><pre><span></span><code>java<span class="w"> </span>-Xmx24g<span class="w"> </span>-XX:+UseConcMarkSweepGC<span class="w"> </span>-jar<span class="w"> </span>FullNode.jar<span class="w"> </span>--witness<span class="w"> </span>-c<span class="w"> </span>config.conf
 </code></pre></div>
 <h3 id="_3">主从模式的出块全节点<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
 <p>为了提高出块全节点的可靠性，可以部署多个相同账户的出块全节点，形成主从模式。当一个具有出块权限的账户部署大于等于两个节点时，需要完善各节点配置文件中的<code>node.backup</code>。<code>node.backup</code>的配置项说明如下：</p>
@@ -1786,7 +1790,7 @@ git<span class="w"> </span>checkout<span class="w"> </span>-t<span class="w"> </
 <ul>
 <li><strong>注意事项</strong>: 此方式在启动节点时需要人机交互输入密码。建议使用会话保持工具，例如 <code>screen</code> 或 <code>tmux</code>。</li>
 </ul>
-<div class="highlight"><pre><span></span><code>java<span class="w"> </span>-Xmx24g<span class="w"> </span>-XX:+UseConcMarkSweepGC<span class="w"> </span>-jar<span class="w"> </span>FullNode.jar<span class="w"> </span>--witness<span class="w"> </span>-c<span class="w"> </span>main_net_config.conf
+<div class="highlight"><pre><span></span><code>java<span class="w"> </span>-Xmx24g<span class="w"> </span>-XX:+UseConcMarkSweepGC<span class="w"> </span>-jar<span class="w"> </span>FullNode.jar<span class="w"> </span>--witness<span class="w"> </span>-c<span class="w"> </span>config.conf
 </code></pre></div>
 <ul>
 <li>在节点启动过程中，系统会提示您输入密码。正确输入密码后，节点将完成启动。</li>
@@ -1794,7 +1798,7 @@ git<span class="w"> </span>checkout<span class="w"> </span>-t<span class="w"> </
 </li>
 <li>
 <p><strong>使用 <code>nohup</code> 命令，直接在命令行中通过 <code>--password</code> 传入密码</strong></p>
-<div class="highlight"><pre><span></span><code>nohup<span class="w"> </span>java<span class="w"> </span>-Xmx24g<span class="w"> </span>-XX:+UseConcMarkSweepGC<span class="w"> </span>-jar<span class="w"> </span>FullNode.jar<span class="w"> </span>--witness<span class="w"> </span>-c<span class="w"> </span>main_net_config.conf<span class="w"> </span>--password<span class="w"> </span><span class="s2">&quot;密码&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>start.log<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span><span class="w"> </span><span class="p">&amp;</span>
+<div class="highlight"><pre><span></span><code>nohup<span class="w"> </span>java<span class="w"> </span>-Xmx24g<span class="w"> </span>-XX:+UseConcMarkSweepGC<span class="w"> </span>-jar<span class="w"> </span>FullNode.jar<span class="w"> </span>--witness<span class="w"> </span>-c<span class="w"> </span>config.conf<span class="w"> </span>--password<span class="w"> </span><span class="s2">&quot;密码&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>start.log<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span><span class="w"> </span><span class="p">&amp;</span>
 </code></pre></div>
 </li>
 </ul>

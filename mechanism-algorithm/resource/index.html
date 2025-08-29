@@ -1778,7 +1778,7 @@ C: 36,000,000,000
 <li>质押TRX获取的能量</li>
 <li>燃烧TRX</li>
 </ul>
-<p>首先会消耗交易发起者质押TRX获取的能量，如果消耗完这部分能量后还不够，会继续燃烧账户的TRX来支付交易所需的能量资源，按照每一个能量0.00021TRX的单价来支付。</p>
+<p>首先会消耗交易发起者质押TRX获取的能量，如果消耗完这部分能量后还不够，会继续燃烧账户的TRX来支付交易所需的能量资源，按照每一个能量0.0001 TRX的单价来支付。</p>
 <p>如果合约中途由于抛出revert异常而退出，则仅扣除已经执行的指令所对应的能量，但是对于异常合约，比如合约执行超时，或因bug异常退出，会扣除本次交易最大可用的能量，用户可以通过设置交易的fee_limit参数来限定这笔交易最多可以消耗的能量费用上限。</p>
 <h4 id="_8">能量的恢复<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h4>
 <p>账户的能量资源消耗后，会在24小时内逐步恢复。</p>
@@ -1805,15 +1805,15 @@ C: 36,000,000,000
 下面将以一个合约C的执行，来具体举例，如何估算feeLimit：</p>
 <ul>
 <li>假设合约C上一次成功执行时，消耗了18000 Energy，那么预估本次执行消耗的Energy上限为20000 Energy；</li>
-<li>燃烧trx时，由于能量单价目前为210sun，所以 21 trx固定可以兑换100000 Energy；</li>
+<li>燃烧trx时，由于能量单价目前为100sun，所以 10 trx固定可以兑换100000 Energy；</li>
 <li>假设开发者承诺承担90%的Energy，而且开发者账户有充足的Energy；</li>
 </ul>
 <p>则，feeLimit的预估方法为：</p>
 <ol>
-<li>A = 20000 energy * 210sun = 4,200,000 sun  = 4.2 trx,</li>
+<li>A = 20000 energy * 100sun = 2,000,000 sun  = 2 trx,</li>
 <li>开发者承诺承担90%，用户需要承担10%，</li>
 </ol>
-<p>那么，建议用户填写的feeLimit为 4,200,000 sun * 10% = 420,000 sun。</p>
+<p>那么，建议用户填写的feeLimit为 2,000,000 sun * 10% = 200,000 sun。</p>
 <h3 id="3-energy">3. Energy的计算(开发者必读)<a class="headerlink" href="#3-energy" title="Permanent link">&para;</a></h3>
 <p>在讨论本章节前，需要了解：</p>
 <ol>
@@ -1841,10 +1841,10 @@ C: 36,000,000,000
 </li>
 <li>
 <p>按照能量单价换算出来的Energy</p>
-<p>如果feeLimit大于质押剩余Energy价值的TRX，那么需要使用balance中的TRX来换算。能量单价是： 1 Energy = 210 sun, feeLimit还有(30 - 10) TRX = 20 TRX，则这部分可用的Energy是 20 TRX / 210 sun = 95238 Energy</p>
+<p>如果feeLimit大于质押剩余Energy价值的TRX，那么需要使用balance中的TRX来换算。能量单价是： 1 Energy = 100 sun, feeLimit还有(30 - 10) TRX = 20 TRX，则这部分可用的Energy是 20 TRX / 100 sun = 200000 Energy</p>
 </li>
 </ul>
-<p>所以，A此次调用能够使用的Energy是 (100000 + 95238) = 195238 Energy</p>
+<p>所以，A此次调用能够使用的Energy是 (100000 + 200000) = 3000000 Energy</p>
 <p>如果合约执行成功，没有发生任何异常，则会扣除合约运行实际消耗的Energy，一般都远远小于此次调用能够使用的Energy。如果发生了Assert-style异常，则会消耗feeLimit对应的所有的Energy。</p>
 <p>Assert-style异常的介绍详见<a href="https://github.com/tronprotocol/Documentation/blob/master/%E4%B8%AD%E6%96%87%E6%96%87%E6%A1%A3/%E8%99%9A%E6%8B%9F%E6%9C%BA/%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86.md">异常介绍</a></p>
 <p><strong>示例2</strong><br />
@@ -1860,7 +1860,7 @@ C: 36,000,000,000
 </li>
 <li>
 <p>从调用者A的balance中，按照固定比例换算出来的Energy （Y Energy）</p>
-<p>如果feeLimit大于质押剩余Energy价值的TRX，那么需要使用A的balance中的TRX来换算。能量单价是： 1 Energy = 210 sun, feeLimit还有(200 - 10) TRX = 190 TRX，但是A的balance只有90 TRX，按90TRX来计算可用的energy为 90 TRX / 210 SUN = 428571 Energy。</p>
+<p>如果feeLimit大于质押剩余Energy价值的TRX，那么需要使用A的balance中的TRX来换算。能量单价是： 1 Energy = 100 sun, feeLimit还有(200 - 10) TRX = 190 TRX，但是A的balance只有90 TRX，按90TRX来计算可用的energy为 90 TRX / 100 sun = 900000 Energy。</p>
 </li>
 <li>
 <p>开发者D质押剩余的Energy (Z Energy)</p>
@@ -1926,7 +1926,7 @@ C: 36,000,000,000
 <p>完成TRX质押后可随时解质押，解质押后需要等待14天，才可以将解质押的本金提取到自己的账户中，14天是TRON网络<a href="https://tronscan.org/#/sr/committee">第70号参数</a>，可以被网络治理提议投票修改。请使用 <code>unfreezebalancev2</code> API完成解质押操作。</p>
 <p>可多次分批解质押，但只允许最多同时进行32笔解质押操作，也就说当用户发起第一笔解质押，在这笔解质押的资金达到可提取状态之前，只能再发起31笔解质押操作。可通过<code>getavailableunfreezecount</code>接口查询剩余解质押次数。</p>
 <p>已经代理出去的资源对应的TRX不可被解质押，解质押除了会失去等量的资源份额外，还将失去等量的TP资源。</p>
-<p>在执行解质押时，如果存在未领取的投票奖励，会自动将投票奖励提取到账户内，如果存在已过锁定期的之前解质押的本金，那么本次解质押操作还将同时将已过锁定期的解质押本金提取到账户内，可通过<code>gettransactioninfobyid</code> API 查询一笔交易中提取到的投票奖励<code>withdraw_amount</code> 及提取到的已过锁定期的本金数量<code>withdraw_expire_amount</code> 。</p>
+<p>在执行解质押时，如果存在已过锁定期的之前解质押的本金，那么本次解质押操作还将同时将已过锁定期的解质押本金提取到账户内，可通过<code>gettransactioninfobyid</code> API 查询一笔交易中提取到的已过锁定期的本金数量<code>withdraw_expire_amount</code> 。</p>
 <h4 id="_15">投票权资源回收<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h4>
 <p>解锁在Stake2.0阶段质押的TRX后，会失去等量的投票权，系统优先回收账户内空闲的投票权，只有空闲的投票权不够回收时， 才会根据需要撤销一部分账户投票，如果用户投票给了多个超级代表， 将按照比例从每个超级代表撤销一定数量的投票，并将对应的投票权回收。从每个SR撤销的投数的计算公式为：</p>
 <div class="highlight"><pre><span></span><code>从当前超级代表撤销的票数 = 总撤票数 * (给当前超级代表的投票数 / 该账户总投票数)

@@ -1516,10 +1516,10 @@ $ cp FullNode.jar ./FullNode
 </code></pre></div></p>
 </li>
 <li>
-<p>获取节点配置文件<a href="https://github.com/tronprotocol/tron-deployment/blob/master/private_net_config.conf">private_net_config.conf</a>，</p>
-<p>获取节点配置文件 private_net_config.conf，将其分别放到SR和FullNode目录中,并分别修改文件名为：supernode.conf、 fullnode.conf。
-  <div class="highlight"><pre><span></span><code>$ cp private_net_config.conf ./SR/supernode.conf
-$ cp private_net_config.conf ./FullNode/fullnode.conf
+<p>获取节点配置文件<a href="https://github.com/tronprotocol/java-tron/blob/master/framework/src/main/resources/config.conf">config.conf</a>。在搭建私链网络节点时，请将p2p.version的值修改为非11111和20180622的任意值。该配置位于<a href="https://github.com/tronprotocol/java-tron/blob/master/framework/src/main/resources/config.conf#L185">此处</a>。</p>
+<p>获取节点配置文件 config.conf，将其分别放到SR和FullNode目录中,并分别修改文件名为：supernode.conf、 fullnode.conf。
+  <div class="highlight"><pre><span></span><code>$ cp config.conf ./SR/supernode.conf
+$ cp config.conf ./FullNode/fullnode.conf
 </code></pre></div></p>
 </li>
 <li>
@@ -1646,7 +1646,7 @@ $ cp private_net_config.conf ./FullNode/fullnode.conf
   <div class="highlight"><pre><span></span><code>var TronWeb = require(&#39;tronweb&#39;);
 var tronWeb = new TronWeb({
     fullHost: &#39;http://localhost:16887&#39;,
-    privateKey: &#39;c741f5c0224020d7ccaf4617a33cc099ac13240f150cf35f496db5bfc7d220dc&#39;
+    privateKey: &#39;c741f5c0...c7d220dc&#39;
 })
 
 var parametersForProposal1 = [{&quot;key&quot;:9,&quot;value&quot;:1},{&quot;key&quot;:10,&quot;value&quot;:1}];

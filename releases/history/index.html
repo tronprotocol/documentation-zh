@@ -4345,7 +4345,7 @@ node.dynamicConfig.checkInterval = 600
 </ul>
 <h4 id="2_12">2. 新增预估能量接口<a class="headerlink" href="#2_12" title="Permanent link">&para;</a></h4>
 <p>在GreatVoyage-v4.7.0.1(Aristotle)之前的版本中，可以通过<code>/wallet/triggerconstantcontract</code>接口预估执行智能合约交易所需的能量消耗量，然后根据预估的消耗量来设置交易的<code>feelimit</code>参数。但由于某些智能合约交易可能存在对其他智能合约的调用，这时有可能出现预估<code>feelimit</code>参数不准确的情况。</p>
-<p>因此，GreatVoyage-v4.7.0.1(Aristotle)版本新增了一个能量预估接口<code>/wallet/estimateenergy</code>，利用该接口预估的<code>feelimit</code>在任何情况下都是可靠的。该接口返回值中的<code>energy_required</code>字段表示这笔智能合约调用交易执行成功所需要的能量预估量，用户根据该字段来计算<code>feelimit</code>参数：<code>feelimit</code> = <code>energy_required</code> * 能量单价， 当前能量单价是210sun 。</p>
+<p>因此，GreatVoyage-v4.7.0.1(Aristotle)版本新增了一个能量预估接口<code>/wallet/estimateenergy</code>，利用该接口预估的<code>feelimit</code>在任何情况下都是可靠的。该接口返回值中的<code>energy_required</code>字段表示这笔智能合约调用交易执行成功所需要的能量预估量，用户根据该字段来计算<code>feelimit</code>参数：<code>feelimit</code> = <code>energy_required</code> * 能量单价， 当前能量单价是100sun 。</p>
 <p>如果由于某种原因导致预估接口执行失败时，<code>energy_required</code>字段值为0，在返回值中将不显示该字段，这时可以通过<code>result</code>字段查看预估失败原因。</p>
 <p>新版本部署成功后，该接口默认为关闭状态，打开该接口需要节点配置文件中同时开启<code>vm.estimateEnergy</code>和<code>vm.supportConstant</code>这两个配置项。<code>vm.estimateEnergy</code>和<code>vm.supportConstant</code>的默认值均为false。</p>
 <p><code>/wallet/triggerconstantcontract</code>接口调用示例如下：</p>
