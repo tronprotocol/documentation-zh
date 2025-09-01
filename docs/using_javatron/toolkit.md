@@ -2,10 +2,10 @@
 
 TRON Toolkit 是一个集成了多种 `java-tron` 周边工具的实用程序，旨在简化节点维护和管理任务。未来，我们将持续为其添加更多功能，以提升开发者的使用体验。目前，Toolkit 提供了以下核心功能：
 
-* [数据存储分区](#_3) - 解决链上数据增长带来的存储压力
-* [轻节点数据裁剪](#_10) - 轻节点数据定期剪裁
-* [数据拷贝](#_13) - 实现数据库快速拷贝
-* [数据转换](#_15) - 支持 LevelDB 到 RocksDB 的数据库格式转换
+* [数据存储分区](#_2) - 解决链上数据增长带来的存储压力
+* [轻节点数据裁剪](#_5) - 轻节点数据定期剪裁
+* [数据拷贝](#_11) - 实现数据库快速拷贝
+* [数据转换](#_13) - 支持 LevelDB 到 RocksDB 的数据库格式转换
 * [LevelDB启动优化](#leveldb) - 加快数据库类型为LevelDB的节点启动速度
 
 本文将详细介绍如何获取和使用 TRON Toolkit。
@@ -21,14 +21,12 @@ TRON Toolkit 是一个集成了多种 `java-tron` 周边工具的实用程序，
    $ git checkout -t origin/master
    ```
 2. **编译项目**：
-
-
    ```
    $ cd java-tron
    $ ./gradlew clean build -x test
    ```
 
-    编译成功后，`Toolkit.jar` 文件将生成在 `java-tron/build/libs/` 目录下。
+编译成功后，`Toolkit.jar` 文件将生成在 `java-tron/build/libs/` 目录下。
 
 ## 数据存储分区工具
 随着 TRON 链上数据的持续增长（目前主网全节点数据已达 2TB，每日增长约 1.2GB），节点的数据存储压力日益增大。为了解决单个磁盘容量不足的问题，TRON Toolkit 引入了**数据库存储分区工具**。该工具允许您根据配置将部分数据库迁移到其他存储盘，从而在磁盘空间不足时，无需更换原有磁盘，只需增加新的存储设备即可。
@@ -53,10 +51,10 @@ java -jar Toolkit.jar db mv -c config.conf -d /data/tron/output-directory
 
 请按照以下步骤使用数据库存储分区工具：
 
-1. [停止 FullNode 服务](#fullnode)
-2. [配置数据库存储迁移](#_4)
-3. [执行数据库迁移](#_5)
-4. [重新启动 FullNode 服务](#fullnode_1)
+1. [停止 FullNode 服务](#1-fullnode)
+2. [配置数据库存储迁移](#2)
+3. [执行数据库迁移](#3)
+4. [重新启动 FullNode 服务](#4-fullnode)
 
 
 #### 1. 停止 FullNode 服务
@@ -187,9 +185,9 @@ TRON Toolkit 提供了**数据裁剪工具**，主要用于生成和管理轻节
 首先，停止节点，然后执行以下命令：
 
 
-```shell
-    # 简单起见，将快照数据集存放在`/tmp`目录下
-    java -jar Toolkit.jar db lite -o split -t snapshot --fn-data-path output-directory/database --dataset-path /tmp
+```
+# 简单起见，将快照数据集存放在`/tmp`目录下
+java -jar Toolkit.jar db lite -o split -t snapshot --fn-data-path output-directory/database --dataset-path /tmp
 ```
 
 * `--fn-data-path`： 待剪裁数据目录，即节点数据目录
