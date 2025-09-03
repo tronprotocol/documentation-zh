@@ -14,7 +14,7 @@ java-tron是用Java编写的TRON网络客户端，完全开源，您可以在Git
 
 关于其它TRON相关知识，请访问官网 [tron.network](https://tron.network/index?lng=zh) 或者以下资源链接:
 
-* [TRON Whitepaper](https://tron.network/static/doc/white_paper_v_2_0.pdf)
+* [TRON Whitepaper](https://tron.network/static/doc/white_paper_v_2_1.pdf)
 * [TRON Improvement Proposals (TIPs)](https://github.com/tronprotocol/tips)
 * [TRON Developer Hub](https://developers.tron.network/)
 

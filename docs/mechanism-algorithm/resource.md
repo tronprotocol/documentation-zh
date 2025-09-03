@@ -116,7 +116,7 @@ C: 36,000,000,000
 * 质押TRX获取的能量
 * 燃烧TRX
 
-首先会消耗交易发起者质押TRX获取的能量，如果消耗完这部分能量后还不够，会继续燃烧账户的TRX来支付交易所需的能量资源，按照每一个能量0.00021TRX的单价来支付。
+首先会消耗交易发起者质押TRX获取的能量，如果消耗完这部分能量后还不够，会继续燃烧账户的TRX来支付交易所需的能量资源，按照每一个能量0.0001 TRX的单价来支付。
 
 如果合约中途由于抛出revert异常而退出，则仅扣除已经执行的指令所对应的能量，但是对于异常合约，比如合约执行超时，或因bug异常退出，会扣除本次交易最大可用的能量，用户可以通过设置交易的fee_limit参数来限定这笔交易最多可以消耗的能量费用上限。
 
@@ -157,15 +157,15 @@ C: 36,000,000,000
 下面将以一个合约C的执行，来具体举例，如何估算feeLimit：
 
 - 假设合约C上一次成功执行时，消耗了18000 Energy，那么预估本次执行消耗的Energy上限为20000 Energy；
-- 燃烧trx时，由于能量单价目前为210sun，所以 21 trx固定可以兑换100000 Energy；
+- 燃烧trx时，由于能量单价目前为100sun，所以 10 trx固定可以兑换100000 Energy；
 - 假设开发者承诺承担90%的Energy，而且开发者账户有充足的Energy；
 
 则，feeLimit的预估方法为：
 
-1. A = 20000 energy * 210sun = 4,200,000 sun  = 4.2 trx,
+1. A = 20000 energy * 100sun = 2,000,000 sun  = 2 trx,
 2. 开发者承诺承担90%，用户需要承担10%，
 
-那么，建议用户填写的feeLimit为 4,200,000 sun * 10% = 420,000 sun。
+那么，建议用户填写的feeLimit为 2,000,000 sun * 10% = 200,000 sun。
 
 ### 3. Energy的计算(开发者必读)
 
@@ -193,9 +193,9 @@ C: 36,000,000,000
 
 - 按照能量单价换算出来的Energy
 
-    如果feeLimit大于质押剩余Energy价值的TRX，那么需要使用balance中的TRX来换算。能量单价是： 1 Energy = 210 sun, feeLimit还有(30 - 10) TRX = 20 TRX，则这部分可用的Energy是 20 TRX / 210 sun = 95238 Energy
+    如果feeLimit大于质押剩余Energy价值的TRX，那么需要使用balance中的TRX来换算。能量单价是： 1 Energy = 100 sun, feeLimit还有(30 - 10) TRX = 20 TRX，则这部分可用的Energy是 20 TRX / 100 sun = 200000 Energy
 
-所以，A此次调用能够使用的Energy是 (100000 + 95238) = 195238 Energy
+所以，A此次调用能够使用的Energy是 (100000 + 200000) = 3000000 Energy
 
 如果合约执行成功，没有发生任何异常，则会扣除合约运行实际消耗的Energy，一般都远远小于此次调用能够使用的Energy。如果发生了Assert-style异常，则会消耗feeLimit对应的所有的Energy。
 
@@ -214,7 +214,7 @@ Assert-style异常的介绍详见[异常介绍](https://github.com/tronprotocol/
 
 - 从调用者A的balance中，按照固定比例换算出来的Energy （Y Energy）
 
-    如果feeLimit大于质押剩余Energy价值的TRX，那么需要使用A的balance中的TRX来换算。能量单价是： 1 Energy = 210 sun, feeLimit还有(200 - 10) TRX = 190 TRX，但是A的balance只有90 TRX，按90TRX来计算可用的energy为 90 TRX / 210 SUN = 428571 Energy。
+    如果feeLimit大于质押剩余Energy价值的TRX，那么需要使用A的balance中的TRX来换算。能量单价是： 1 Energy = 100 sun, feeLimit还有(200 - 10) TRX = 190 TRX，但是A的balance只有90 TRX，按90TRX来计算可用的energy为 90 TRX / 100 sun = 900000 Energy。
 
 - 开发者D质押剩余的Energy (Z Energy)
 
@@ -309,7 +309,7 @@ TRON通过质押机制分配网络资源。质押TRX除了可以获取带宽或�
 
 已经代理出去的资源对应的TRX不可被解质押，解质押除了会失去等量的资源份额外，还将失去等量的TP资源。
 
-在执行解质押时，如果存在未领取的投票奖励，会自动将投票奖励提取到账户内，如果存在已过锁定期的之前解质押的本金，那么本次解质押操作还将同时将已过锁定期的解质押本金提取到账户内，可通过`gettransactioninfobyid` API 查询一笔交易中提取到的投票奖励`withdraw_amount` 及提取到的已过锁定期的本金数量`withdraw_expire_amount` 。
+在执行解质押时，如果存在已过锁定期的之前解质押的本金，那么本次解质押操作还将同时将已过锁定期的解质押本金提取到账户内，可通过`gettransactioninfobyid` API 查询一笔交易中提取到的已过锁定期的本金数量`withdraw_expire_amount` 。
 
 #### 投票权资源回收
 
