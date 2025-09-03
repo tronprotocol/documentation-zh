@@ -1,1768 +1,2347 @@
-# Wallet-cli
+# wallet-cli
+## 简介
+wallet-cli是一个支持TRON网络的交互式命令行钱包，用于在安全的本地环境中签名和广播交易，也可以获取链上数据。wallet-cli支持密钥管理，您可以将私钥导入钱包中，wallet-cli会使用对称加密算法加密您的私钥，并存储到一个keystore文件中。wallet-cli本地不存储链上数据，它采用gRPC的方式与某一个java-tron节点进行通信，您需要在配置文件中配置需要链接的java-tron节点，下图是使用wallet-cli签名和广播TRX转账交易的流程：
+![](https://i.imgur.com/NRKmZmE.png)
 
-## 使用指南
+用户首先运行`Login`命令解锁钱包，然后运行`SendCoin`命令发送TRX，wallet-cli会本地构建和签名交易，然后将调用java-tron节点的BroadcastTransaction gRPC API将交易广播的网络中，广播成功后java-tron节点会返回交易hash给wallet-cli，wallet-cli将交易hash展示给用户。
 
-### 下载命令行钱包
+安装和运行: [wallet-cli](https://github.com/tronprotocol/wallet-cli)
 
-git clone [https://github.com/tronprotocol/wallet-cli](https://github.com/tronprotocol/wallet-cli)
+## 命令
+下面是wallet-cli钱包支持的命令分类:
 
-### 编辑 config.conf 在 src/main/resources 目录下
+- [密钥管理](#_1)
+- [链上账户](#_2)
+- [账户资源](#_3)
+- [交易](#_4)
+- [查询链上数据](#_5)
+- [智能合约](#_6)
+- [TRC-10资产](#trc-10)
+- [治理](#_7)
+- [去中心化交易所](#_8)
+### 密钥管理
+下面是账户地址相关命令：
 
-```config
-net {
- type = mainnet
- #type = testnet
+- [RegisterWallet](#registerwallet)
+- [Login](#login)
+- [BackupWallet](#backupwallet)
+- [BackupWallet2Base64](#backupwallet2base64)
+- [ChangePassword](#changepassword)
+- [ImportWallet](#importwallet)
+- [ImportWalletByBase64](#importwalletbybase64)
+
+#### RegisterWallet
+注册时，需要先为账户设置密码，之后带有账户信息的json文件将会生成在`wallet-cli/wallet`路径中。账户地址即是文件名中base58格式的部分，如下面示例中的“TWyDBTHsWJFhgywWkTNW7vh7jSUxeBaiAw”：
+```shell
+wallet> RegisterWallet 
+Please input password.
+password: 
+Please input password again.
+password: 
+Register a wallet successful, keystore file name is UTC--2022-06-27T07-37-47.601000000Z--TWyDBTHsWJFhgywWkTNW7vh7jSUxeBaiAw.json
+```
+#### Login
+当钱包注册完成后，可以使用Login命令登陆钱包。选择你想要登陆的钱包地址，再输入密码完成登陆。
+```shell
+wallet> login
+use user defined config file in current dir
+The 1th keystore file name is UTC--2022-06-28T06-52-56.928000000Z--TB9qhqbev6DpX8mxdf3zDdtSQ6GC6Vb6Ej.json
+The 2th keystore file name is .DS_Store
+The 3th keystore file name is UTC--2022-06-22T08-31-57.735000000Z--TBnPDbw99BLzPUZuW8Rrcc3RGGQT3cnSfF.json
+The 4th keystore file name is UTC--2022-04-06T09-43-20.710000000Z--TSzdGHnhYnQKFF4LKrRLztkjYAvbNoxnQ8.json
+The 5th keystore file name is UTC--2022-04-07T09-03-38.307000000Z--TXBpeye7UQ4dDZEnmGDv4vX37mBYDo1tUE.json
+Please choose between 1 and 5
+4
+Please input your password.
+password: 
+Login successful !!!
+```
+#### BackupWallet
+备份钱包时需要输入秘密，成功后将会导出你的私钥, 如下面示例中的
+```
+721d63b0...e5076545
+```
+
+```shell
+wallet> backupwallet
+Please input your password.
+password: 
+BackupWallet successful !!
+721d63b0...e5076545
+```
+#### BackupWallet2Base64
+备份钱包时需要输入秘密，成功后将会以base64格式导出你的私钥, 如下面示例中的
+```
+ch1j...ZUU=
+```
+
+```shell
+wallet> backupwallet
+Please input your password.
+password: 
+BackupWallet successful !!
+ch1j...ZUU=
+```
+#### ChangePassword
+使用本命令来更改密码
+```shell
+wallet> changepassword
+Please input old password.
+password: 
+Please input new password.
+Please input password.
+password: 
+Please input password again.
+password: 
+The 1th keystore file name is .DS_Store
+The 2th keystore file name is UTC--2022-06-27T10-58-59.306000000Z--TBnPDbw99BLzPUZuW8Rrcc3RGGQT3cnSfF.json
+Please choose between 1 and 2
+2
+ChangePassword successful !!
+```
+
+
+#### ImportWallet
+在导入钱包时，需先为即将导入的私钥设置一个密码，之后再导入私钥，提示成功后，将会在`wallet-cli/wallet`路径下生成一个记录该钱包的json文件，请看示例：
+```shell
+wallet> importwallet
+Please input password.
+password: 
+Please input password again.
+password: 
+Please input private key. Max retry time:3
+bd1ff0f4...42a1fb5b
+Import a wallet successful, keystore file name is UTC--2022-06-28T06-52-56.928000000Z--TB9qhqbev6DpX8mxdf3zDdtSQ6GC6Vb6Ej.json
+```
+#### ImportWalletByBase64
+在导入钱包时，需先为即将倒入的私钥设置一个密码，之后再导入base64格式的私钥，提示成功后，将会在`wallet-cli/wallet`路径下生成一个记录该钱包的json文件。
+```shell
+wallet> importwalletbybase64
+Please input password.
+password: 
+Please input password again.
+password: 
+Please input private key by base64. Max retry time:3
+...your private key...  
+Import a wallet successful, keystore file name is UTC--2022-06-28T06-51-56.154000000Z--TB9qhqbev6DpX8mxdf3zDdtSQ6GC6Vb6Ej.json
+
+```
+
+
+### 链上账户
+下面是账户地址相关命令：
+
+- [GenerateAddress](#generateaddress)
+- [GetAccount](#getaccount)
+- [GetAddress](#getaddress)
+- [GetBalance](#getbalance)
+- [UpdateAccountPermission](#updateaccountpermission)
+
+#### GenerateAddress
+使用该命令生成一个新的钱包地址和它的私钥
+```shell
+wallet> generateaddress
+{
+	"address": "TQAvi6bemLa1t1irdV1KuaSC5vKc2EswTj",
+	"privateKey": "610a8a80...642c297e"
+}
+```
+**注意：** 生成的地址及其私钥不会被保存，如需使用请单独留存。
+#### GetAccount
+使用地址获得账户相关信息，可以查询账户余额，创建时间及分配权限的情况等
+```shell
+wallet> getaccount [address]
+```
+示例：
+```shell
+wallet> getaccount TSzdGHnhYnQKFF4LKrRLztkjYAvbNoxnQ8
+{
+	"address": "TSzdGHnhYnQKFF4LKrRLztkjYAvbNoxnQ8",
+	"balance": 2665198240,
+	"create_time": 1650363711000,
+	"latest_opration_time": 1653578769000,
+	"latest_consume_free_time": 1651228080000,
+	"account_resource": {
+		"latest_consume_time_for_energy": 1653578769000
+	},
+	"owner_permission": {
+		"permission_name": "owner",
+		"threshold": 1,
+		"keys": [
+			{
+				"address": "TSzdGHnhYnQKFF4LKrRLztkjYAvbNoxnQ8",
+				"weight": 1
+			}
+		]
+	},
+	"active_permission": [
+		{
+			"type": "Active",
+			"id": 2,
+			"permission_name": "active",
+			"threshold": 1,
+			"operations": "7fff1fc0033e3b00000000000000000000000000000000000000000000000000",
+			"keys": [
+				{
+					"address": "TSzdGHnhYnQKFF4LKrRLztkjYAvbNoxnQ8",
+					"weight": 1
+				}
+			]
+		}
+	]
 }
 
-fullnode = {
-  ip.list = [
-    "fullnode ip : port"
-  ]
+```
+#### GetAddress
+
+使用该命令立即获得当前登陆账户的地址
+```shell
+wallet> getaddress
+GetAddress successful !!
+address = TSzdGHnhYnQKFF4LKrRLztkjYAvbNoxnQ8
+```
+
+#### GetBalance
+使用该命令查询当前登陆账户的余额
+```shell
+wallet> getbalance
+Balance = 2665198240
+```
+
+#### UpdateAccountPermission
+该命令用于管理账户权限，为其他账户赋予当前账户的部分权限，让其他账户可以在该发起账户下完成多种操作以便实现更复杂的功能及更好的管理账户。
+```shell
+wallet>UpdateAccountPermission [ownerAddress] [permissions]
+```
+
+权限分为如下三种： 
+
+* `owner`: 拥有账户的所有权限。
+* `active`: 可以获得账户中的特定权限，如果是witness权限则不包括出块权利。
+* `witness`: 只用于超级代表, 出块的权利将会被授予其他账户。
+
+**注意** 参数`Permission` 必须按json格式传入且不能换行。如果owner账户不是超级代表，则不要授权witness权限给其他账户。
+
+示例：
+```shell
+wallet> updateaccountpermission TSzdGHnhYnQKFF4LKrRLztkjYAvbNoxnQ8 {"owner_permission":{"keys":[{"address":"TSzdGHnhYnQKFF4LKrRLztkjYAvbNoxnQ8","weight":1}],"threshold":1,"type":0,"permission_name":"owner"},"active_permissions":[{"operations":"7fff1fc0033e0000000000000000000000000000000000000000000000000000","keys":[{"address":"TB9qhqbev6DpX8mxdf3zDdtSQ6GC6Vb6Ej","weight":1},{"address":"TXBpeye7UQ4dDZEnmGDv4vX37mBYDo1tUE","weight":1}],"threshold":2,"type":2,"permission_name":"active12323"}]}
+{
+	"raw_data":{
+		"contract":[
+			{
+				"parameter":{
+					"value":{
+						"owner":{
+							"keys":[
+								{
+									"address":"TSzdGHnhYnQKFF4LKrRLztkjYAvbNoxnQ8",
+									"weight":1
+								}
+							],
+							"threshold":1,
+							"permission_name":"owner"
+						},
+						"owner_address":"TSzdGHnhYnQKFF4LKrRLztkjYAvbNoxnQ8",
+						"actives":[
+							{
+								"operations":"7fff1fc0033e0000000000000000000000000000000000000000000000000000",
+								"keys":[
+									{
+										"address":"TB9qhqbev6DpX8mxdf3zDdtSQ6GC6Vb6Ej",
+										"weight":1
+									},
+									{
+										"address":"TXBpeye7UQ4dDZEnmGDv4vX37mBYDo1tUE",
+										"weight":1
+									}
+								],
+								"threshold":2,
+								"type":"Active",
+								"permission_name":"active12323"
+							}
+						]
+					},
+					"type_url":"type.googleapis.com/protocol.AccountPermissionUpdateContract"
+				},
+				"type":"AccountPermissionUpdateContract"
+			}
+		],
+		"ref_block_bytes":"4e88",
+		"ref_block_hash":"11a47859be13f689",
+		"expiration":1656423231000,
+		"timestamp":1656423171818
+	},
+	"raw_data_hex":"0a024e88220811a47859be13f6894098dc92d49a305aee01082e12e9010a3c747970652e676f6f676c65617069732e636f6d2f70726f746f636f6c2e4163636f756e745065726d697373696f6e557064617465436f6e747261637412a8010a1541babecec4d9f58f0df77f0728b9c53abb1f21d68412241a056f776e657220013a190a1541babecec4d9f58f0df77f0728b9c53abb1f21d6841001226908021a0b6163746976653132333233200232207fff1fc0033e00000000000000000000000000000000000000000000000000003a190a15410cfaec7164cbfe78dbb8d8fba7e23b4d745ed81310013a190a1541e8bd653015895947cec33d1670a88cf67ab277b9100170ea8d8fd49a30"
 }
-
-# soliditynode = {
-#   ip.list = [
-#     "solidity ip : port"
-#   ]
-# } // note: solidity node is optional
+before sign transaction hex string is 0a8d020a024e88220811a47859be13f6894098dc92d49a305aee01082e12e9010a3c747970652e676f6f676c65617069732e636f6d2f70726f746f636f6c2e4163636f756e745065726d697373696f6e557064617465436f6e747261637412a8010a1541babecec4d9f58f0df77f0728b9c53abb1f21d68412241a056f776e657220013a190a1541babecec4d9f58f0df77f0728b9c53abb1f21d6841001226908021a0b6163746976653132333233200232207fff1fc0033e00000000000000000000000000000000000000000000000000003a190a15410cfaec7164cbfe78dbb8d8fba7e23b4d745ed81310013a190a1541e8bd653015895947cec33d1670a88cf67ab277b9100170ea8d8fd49a30
+Please confirm and input your permission id, if input y or Y means default 0, other non-numeric characters will cancel transaction.
+y
+Please choose your key for sign.
+The 1th keystore file name is UTC--2022-06-28T06-52-56.928000000Z--TB9qhqbev6DpX8mxdf3zDdtSQ6GC6Vb6Ej.json
+The 2th keystore file name is .DS_Store
+The 3th keystore file name is UTC--2022-04-06T09-43-20.710000000Z--TSzdGHnhYnQKFF4LKrRLztkjYAvbNoxnQ8.json
+The 4th keystore file name is UTC--2022-04-07T09-03-38.307000000Z--TXBpeye7UQ4dDZEnmGDv4vX37mBYDo1tUE.json
+Please choose between 1 and 4
+3
+Please input your password.
+password: 
+after sign transaction hex string is 0a8d020a024e88220811a47859be13f6894096bcb5de9a305aee01082e12e9010a3c747970652e676f6f676c65617069732e636f6d2f70726f746f636f6c2e4163636f756e745065726d697373696f6e557064617465436f6e747261637412a8010a1541babecec4d9f58f0df77f0728b9c53abb1f21d68412241a056f776e657220013a190a1541babecec4d9f58f0df77f0728b9c53abb1f21d6841001226908021a0b6163746976653132333233200232207fff1fc0033e00000000000000000000000000000000000000000000000000003a190a15410cfaec7164cbfe78dbb8d8fba7e23b4d745ed81310013a190a1541e8bd653015895947cec33d1670a88cf67ab277b9100170ea8d8fd49a301241881b00f8e8828d9347469fcbcec730093841c2363561243b7162a9669439266049ab82f20f97a136adc88feff0a4d5aa57b11f762eaa7e05105d27ec5d55a33900
+txid is 3dce7f18f6cf6962c38904678947b3b32f9e94ba6460874679d8ed063bb1c0eb
+UpdateAccountPermission successful !!!
 ```
 
-### 编译与运行命令行钱包
 
-打开命令行窗口：
+### 账户资源
+下面是账户地址相关命令：
 
+- [FreezeBalance](#freezebalance)
+- [UnfreezeBalance](#unfreezebalance)
+- [GetDelegatedResource](#getdelegatedresource)
+- [FreezeBalanceV2](#freezebalancev2)
+- [UnfreezeBalanceV2](#unfreezebalancev2)
+- [DelegateResource](#delegateresource)
+- [UndelegateResource](#undelegateresource)
+- [WithdrawExpireUnfreeze](#withdrawexpireunfreeze)
+- [GetAvailableUnfreezeCount](#getavailableunfreezecount)
+- [GetCanWithdrawUnfreezeAmount](#getcanwithdrawunfreezeamount)
+- [GetCanDelegatedMaxsize](#getcandelegatedmaxsize)
+- [GetDelegatedResourceV2](#getdelegatedresourcev2)
+- [GetDelegatedResourceAccountIndexV2](#getdelegatedresourceaccountindexv2)
+- [GetAccountNet](#getaccountnet)
+- [GetAccountResource](#getaccountresource)
+#### FreezeBalance
+通过质押一定数量的TRX可以获得`带宽`，`能量`以及`TRON Power`（投票权）。用户同样也可以通过质押TRX来为别人提供`带宽`和`能量`。质押资产的单位是sun。该接口已废弃，请使用freezeBalanceV2接口质押TRX。
 ```shell
-cd wallet-cli
-./gradlew build
-./gradlew run
+wallet> freezeBalance [OwnerAddress] [frozen_balance] [frozen_duration] [ResourceCode:0 BANDWIDTH, 1 ENERGY] [receiverAddress]
 ```
 
-### 运行命令行钱包jar包
-
-```shell
-cd wallet-cli
-./gradlew build
-cd build/libs
-java -jar wallet-cli.jar
-```
-
-### 命令行钱包如何连接java-tron
-
-命令行钱包通过grpc协议连接java-tron。
-运行java-tron的节点可以本地或者远程部署。
-可以在config.conf文件中设置要连接的java-tron节点的ip。
-
-## 使用示例
-
-### 命令行钱包支持的命令行
-
-- RegisterWallet
-
-RegisterWallet Password
-
-在本地注册一个钱包账户。生成一对基于椭圆曲线数学得到的秘钥。通过输入的密码得到一个AES秘钥，然后用AES算法加密并本地保存私钥。账户的地址是由公钥经过sha3-256计算并取前20字节得到。所有需要用到私钥签名的操作，都需要输入密码。
-
-- ImportWallet
-
-ImportWallet Password PrivateKey
-
-- ImportwalletByBase64
-
-ImportWallet Password PrivateKey
-
-- ChangePassword
-
-ChangePassword oldPassword newPassword
-
-- Login
-
-Login Password
-
-- Logout
-
-Logout
-
-- BackupWallet
-
-BackupWallet
-
-Private key will be returned.
-
-- BackupWallet2Base64
-
-BackupWallet2Base64
-
-返回Base64格式的私钥。
-
-- ChangePassword
-
-ChangePassword oldPassword newPassword
-
-- GenerateAddress
-
-GenerateAddress
-
-返回一对地址与私钥。
-
-- CreateAccount
-
-CreateAccount Address
-
-需要花费0.1 TRX.
-
-- GetAddress
-
-GetAddress
-
-返回当前登录账号的地址。
-
-- GetAccount
-
-GetAccount Address
-
-- GetBalance
-
-GetBalance
-
-返回登录账号的TRX余额。
-
-- GetAccountbyId
-
-GetAccountbyId accountId
-
-- SetAccountId
-
-SetAccountId AccountId
-
-- UpdateAccount
-
-UpdateAccount AccountName
-
-只有账户的名称可以被更新。
-
-- GetAccountNet
-
-GetAccountNet Address
-
-- GetAccountResource
-
-GetAccountResource Address
-
-- GetDelegatedResource
-
-GetDelegatedResource fromAddress toAddress
-
-- GetDelegatedResourceAccountIndex
-
-GetDelegatedResourceAccountIndex address
-
-- GetAssetissueByAccount
-
-GetAssetissueByAccount Address
-
-- GetAssetIssueByName
-
-GetAssetIssueByName AssetName
-
-- GetAssetIssueListbyName
-
-GetAssetIssueListbyName AssetName
-
-- GetAssetIssuebyId
-
-GetAssetIssuebyId AssetId
-
-- UpdateAsset
-
-UpdateAsset newLimit newPublicLimit description url
-
-- ParticipateAssetIssue
-
-ParticipateAssetIssue ToAddress AssetName Amount
-
-- AssetIssue
-
-AssetIssue AssetName TotalSupply TrxNum AssetNum Precision StartDate EndDate Description Url FreeNetLimitPerAccount PublicFreeNetLimit FrozenAmount0 FrozenDays0 ... FrozenAmountN FrozenDaysN
-
-- ListAssetIssuePaginated
-
-ListAssetIssuePaginated offset limit
-
-以分页的形式返回通证列表。
-
-offset: 起始通证的索引
-limit: 每页显示的数目
-
-- Listassetissue
-
-Listassetissue
-
-返回所有发行的通证。
-
-- TransferAsset
-
-TransferAsset ToAddress AssertName Amount
-
-This is used to transfer tokens.
-
-- SendCoin
-
-SendCoin ToAddress Amount
-
-用来发送TRX。
-
-- CreateWitness
-
-CreateWitness Url
-
-申请成为超级代表，需要花费 1024 TRX。
-
-Url: 超级代表的官网地址
-
-- UpdateWitness
-
-UpdateWitness Url
-
-更新超级代表账户的官网地址。
-
-- VoteWitness
-
-VoteWitness Address0 Count0 ... AddressN CountN
-
-- FreezeBalance
-
-FreezeBalance frozen_balance frozen_duration [ResourceCode:0 BANDWIDTH, 1 ENERGY] [receiverAddress]
-
-- UnfreezeBalance
-
-UnfreezeBalance [ResourceCode:0 BANDWIDTH, 1 ENERGY] [receiverAddress]
-
-- WithdrawBalance
-
-WithdrawBalance
-
-- Listwitnesses
-
-Listwitnesses
-
-- CreateProposal
-
-CreateProposal id0 value0 ... idN valueN
-
-- ApproveProposal
-
-ApproveProposal id is_or_not_add_approval
-
-- DeleteProposal
-
-DeleteProposal proposalId
-
-- ListProposals
-
-ListProposals
-
-- ListProposalsPaginated
-
-ListProposalsPaginated offset limit
-
-以分页的形式返回提议列表。
-
-offset: 起始提议的索引
-limit: 每页显示的数目
-
-- GetProposal
-
-GetProposal proposalId
-
-- GetChainParameters
-
-GetChainParameters
-
-查询公链上用来创建提议使用的参数。
-
-- GetNextMaintenanceTime
-
-GetNextMaintenanceTime
-
-查询下一个维护期的时间。
-
-- ExchangeCreate
-
-ExchangeCreate first_token_id first_token_balance second_token_id second_token_balance
-
-基于班科协议创建一个交易对。
-
-- ExchangeInject
-
-ExchangeInject exchange_id token_id quant
-
-为交易对注资。
-
-- ExchangeWithdraw
-
-ExchangeWithdraw exchange_id token_id quant
-
-从交易对提现。
-
-- ExchangeTransaction
-
-ExchangeTransaction exchange_id token_id quant expected
-
-- ListExchanges
-
-ListExchanges
-
-查询所有的交易对。
-
-- ListExchangesPaginated
-
-ListExchangesPaginated offset limit
-
-以分页的形式返回交易对列表。
-
-offset: 起始交易对的索引
-limit: 每页显示的数目
-
-- GetExchange
-
-GetExchange exchangeId
-
-- GetTransactionCountbyBlockNum
-
-GetTransactionCountbyBlockNum number
-
-- GetTotalTransaction
-
-GetTotalTransaction
-
-- GetTransactionsfromThis
-
-GetTransactionsfromThis Address offset limit
-
-以分页的形式返回交易列表。
-
-offset: 起始交易的索引
-limit: 每页显示的数目
-
-- GetTransactionstoThis
-
-GetTransactionstoThis Address offset limit
-
-以分页的形式返回交易列表。
-
-offset: 起始交易的索引
-limit: 每页显示的数目
-
-- GetTransactionbyId
-
-GetTransactionbyId txId
-
-- GetTransactionInfobyId
-
-GetTransactionInfobyId txId
-
-- GetBlockbyId
-
-GetBlockbyId blockId
-
-- GetBlockbyLimitNext
-
-GetBlockbyLimitNext start_block_id and end_block_id
-
-- GetBlockbyLatestNum
-
-GetBlockbyLatestNum
-
-- DeployContract
-
-DeployContract contractName ABI byteCode constructor params isHex fee_limit consume_user_resource_percent origin_energy_limit value token_value token_id(e.g: TRXTOKEN, use # if not provided)
-
-注意: Please append the param for constructor tightly with byteCode without any space
-
-- TriggerContract
-
-TriggerContract contractAddress method args isHex
-
-- TriggerConstantContract
-
-TriggerConstantContract contractAddress method args isHex fee_limit value token_value token_id(e.g: TRXTOKEN, use # if not provided)
-
-- ClearContractabi
-
-ClearContractabi contract_address
-
-- GetContract
-
-GetContract contractAddress
-
-- UpdateSetting
-
-UpdateSetting contract_address consume_user_resource_percent
-
-- UpdateEnergyLimit
-
-UpdateEnergyLimit contract_address energy_limit
-
-- UpdateAccountPermission
-
-UpdateAccountPermission ownerAddress permissions
-
-- GetTransactionSignWeight
-
-GetTransactionSignWeight transaction_hex
-
-- GetTransactionApprovedList
-
-GetTransactionApprovedList transaction_hex
-
-- AddTransactionSign
-
-AddTransactionSign transaction_hex
-
-- BroadcastTransaction
-
-BroadcastTransaction transaction_hex
-
-- TestTransaction
-
-TestTransaction ToAddress assertName times [interval]
-
-- ListNodes
-
-ListNodes
-
-查询与连接节点相关联的节点
-
-- Getblock
-
-Getblock [BlockNum]
-
-- BuyStorage
-
-BuyStorage quantity
-
-- BuyStorageBytes
-
-BuyStorageBytes bytes
-
-- SellStorage
-
-SellStorage quantity
-
-- Shielded Transaction Related
-
-[Shielded Transaction Related](#shieldedTx)
-
-- Exit
-
-Exit
-
-Exit wallet-cli
-
-- Quit
-
-Quit
-
-Quit wallet-cli
-
-- Help
-
-Help
-
-输入任意命令后，可以查看更多提示。
-
-### 命令行操作流程示例
-
-```shell
-cd wallet-cli
-./gradlew build
-./gradlew run
-RegisterWallet 123456      (password = 123456)
-login 123456
-getAddress                 (Print 'address = f286522619d962e6f93235ca27b2cb67a9e5c27b', backup it)
-BackupWallet 123456        (Print 'priKey = 22be575f19b9ac6e94c7646a19a4c89e06fe99e2c054bd242c0af2b6282a65e9', backup it) (BackupWallet2Base64 option)
-getbalance                 (Print 'Balance = 0')
-
-getbalance
-
-assetIssue 123456 testAssetIssue00001 10000000000000000 1 100 2018-4-1 2018-4-30 1 just-test https://github.com/tronprotocol/wallet-cli/
-getaccount  f286522619d962e6f93235ca27b2cb67a9e5c27b
-(Print balance: 9999900000
-asset {
-  key: "testAssetIssue00001"
-  value: 10000000000000000
-})
-(cost trx 1000 trx for assetIssue)
-(You can query the trx balance and other asset balances for any account )
-TransferAsset 123456 649DDB4AB82D558AD6809C7AB2BA43D1D1054B3F testAssetIssue00001 10000
-```
-
-### 如何质押/解锁TRX
+* `OwnerAddress` 是交易发起人的地址，为选填，不填则默认为当前登录账户地址。
+* `frozen_balance` 是所冻结TRX的数值,单位为`sun`, 最小冻结值为1000000sun。
+* `frozen_duration` 冻结天数, 目前只能设置为3天, 就是说3天之后才可解冻。
+* `ResourceCode` 用来指示所冻结资源的种类，0为`带宽`，1为`能量`。 
+* `receiverAddress` 为资源接受人的地址。
+
+`ResourceCode` 与 `receiverAddress`  为选填， `ResourceCode` 如若不填，默认值为0，即选择类型为`带宽`，`receiverAddress` 如若不填，则默认为`OwnerAddress` 使用。
 
 示例:
-
-```text
-freezeBalance frozen_balance frozen_duration [ResourceCode:0 BANDWIDTH, 1 ENERGY] [receiverAddress]
-
-freezeBalance 100000000 3 1 address
-frozen_balance: The amount of frozen funds，the unit is SUN. The minimum value is 1000000 SUN (1 TRX)
-frozen_duration: Freeze time, this value is currently only allowed for 3 days
-
-
-unfreezeBalance  [ResourceCode:0 BANDWIDTH, 1 ENERGY] [receiverAddress]
-
-```
-
-通过质押TRX可以获取带宽或者能量。
-
-### 如何投票
-
-每一个质押的TRX代表一个投票权
-
-**注意：** 波场网络只会统计你的最近一次的投票。
-
-示例：
-
 ```shell
-VoteWitness Address0 Count0 ... AddressN CountN
-
-freezeBalance 100000000 3 1 address  // Freeze 10 TRX and acquire 10 units of shares
-
-votewitness witness1 4 witness2 6   // Cast 4 votes for witness1 and 6 votes for witness2 at the same time.
-
-votewitness witness1 10   // Voted 10 votes for witness1.
-```
-
-以上示例的最终执行结果是：10票会投给witness1，0票投给witness2。
-
-### 如何发行TRC-10通证
-
-每个账户只能发行一个TRC-10通证。
-
-a. 发行通证
-
-```shell
-Command:
-
-AssetIssue AssetName TotalSupply TrxNum AssetNum Precision StartDate EndDate Description Url FreeNetLimitPerAccount PublicFreeNetLimit FrozenAmount0 FrozenDays0 ... FrozenAmountN FrozenDaysN
-
-AssetName: The name of the issued TRC10 token
-TotalSupply: Total issuing amount = account balance of the issuer at the time of issuance + all the frozen amount, before asset transfer and the issuance.
-TrxNum,AssetNum: these two parameters determine the exchange rate between the issued token and the minimum unit of TRX (sun) when the token is issued.
-FreeNetLimitPerAccount: The maximum amount of bandwidth an account is allowed to use. Token issuers can freeze TRX to obtain bandwidth (TransferAssetContract only)
-PublicFreeNetLimit: The maximum amount of bandwidth issuing accounts are allowed user. Token issuers can freeze REX to obtain bandwidth (TransferAssetContract only).
-StartDate,EndDate: The start and end date of token issuance. Within this period time, other users can participate in token issuance.
-FrozenAmount0 FrozenDays0: Amount and time of token freeze. FrozenAmount0 must be bigger than 0, FrozenDays0 must be bigger than 1 and smaller than 3653.
-```
-
-示例：
-
-```shell
-AssetIssue TestTRX 100000 1 1 2 "2019-04-04 11:48:00" "2019-04-05" "just for test" www.test.com
-100 100000 10000 10 10000 1
-View published information:
-GetAssetIssueByAccount TRGhNNfnmgLegT4zHNjEqDSADjgmnHvubJ
-11:50:02.688 INFO  [main] [Client](Client.java: 361)
-assetIssue 0 :::
-[
-Id: 1000001
-Owner_address: TRGhNNfnmgLegT4zHNjEqDSADjgmnHvubJ
-Name: TestTRX
-Order: 0
-Total_supply: 100000
-Trx_num: 1
-Num: 1
-Precision 2
-Start_time: Thu Apr 04 11:48:00 CST 2019
-End_time: Fri Apr 05 00:00:00 CST 2019
-Vote_score: 0
-Description: just for test
-Url: www.test.com
-Free asset net limit: 100
-Public free asset net limit: 100000
-Public free asset net usage: 0
-Public latest free net time: 0
-Frozen_supply
+wallet> freezeBalance TWyDBTHsWJFhgywWkTNW7vh7jSUxeBaiAw 1000000 3 1 TCrkRWJuHP4VgQF3xwLNBAjVVXvxRRGpbA
 {
-  Amount: 10000
-  Frozen_days: 1
+	"raw_data":{
+		...
+	},
+	"raw_data_hex":"0a02a9b822081db2070d39d2316640c095dda19a305a70080b126c0a32747970652e676f6f676c65617069732e636f6d2f70726f746f636f6c2e467265657a6542616c616e6365436f6e747261637412360a1541e65aca838a9e15dd81bd9532d2ad61300e58cf7110c0843d180350017a15411fafb1e96dfe4f609e2259bfaf8c77b60c535b9370c6c8d9a19a30"
 }
-Frozen_supply
-{
-  Amount: 10000
-  Frozen_days: 10
-}
-]
-```
-
-b. 更新TRC-10通证参数
-
-UpdateAsset FreeNetLimitPerAccount PublicFreeNetLimit Description Url
-Specific meaning of the parameters is the same with that of AssetIssue
-
-示例：
-
-```shell
-UpdateAsset 1000 1000000 "change description" www.changetest.com
-
-View the modified information:
-GetAssetIssueByAccount TRGhNNfnmgLegT4zHNjEqDSADjgmnHvubJ
-11:52:16.677 INFO  [main] [Client](Client.java: 361)
-assetIssue 0 :::
-[
-Id: 1000001
-Owner_address: TRGhNNfnmgLegT4zHNjEqDSADjgmnHvubJ
-Name: TestTRX
-Order: 0
-Total_supply: 100000
-Trx_num: 1
-Num: 1
-Precision 2
-Start_time: Thu Apr 04 11:48:00 CST 2019
-End_time: Fri Apr 05 00:00:00 CST 2019
-Vote_score: 0
-description: change description
-url: www.changetest.com
-Free asset net limit: 1000
-public free asset net limit: 1000000
-Public free asset net usage: 0
-public latest free net time: 0
-Frozen_supply
-{
-  Amount: 10000
-  Frozen_days: 1
-}
-Frozen_supply
-{
-  Amount: 10000
-  Frozen_days: 10
-}
-]
-```
-
-c. TRC-10通证转账
-
-TransferAsset ToAddress AssertName Amount
-
-ToAddress: 目标账户地址
-AssertName: 通证的id，例如：1000001
-Amount: 转账数目
-
-示例：
-
-```shell
-TransferAsset TN3zfjYUmMFK3ZsHSsrdJoNRtGkQmZLBLz 1000001 1000
-View target account information after the transfer:
-getaccount TN3zfjYUmMFK3ZsHSsrdJoNRtGkQmZLBLz
-11:54:33.118 INFO  [main] [Client](Client.java:260)
-address: TN3zfjYUmMFK3ZsHSsrdJoNRtGkQmZLBLz
-...
-assetV2
-{
-  id: 1000001
-  balance: 1000
-  latest_asset_operation_timeV2: null
-  free_asset_net_usageV2: 0
-}
-...
-}
-```
-
-d. 参与TRC-10通证
-
-ParticipateAssetIssue ToAddress AssetName Amount
-
-ToAddress: 通证发行账户地址
-AssertName: 通证的id，例如：1000001
-Amount: 参与数目
-
-只有在通证参与有效期期间执行此命令，才能有效参与通证。
-
-示例：
-
-```shell
-ParticipateAssetIssue TRGhNNfnmgLegT4zHNjEqDSADjgmnHvubJ 1000001 1000
-
-View remaining balance:
-getaccount TJCnKsPa7y5okkXvQAidZBzqx3QyQ6sxMW
-11:59:57.558 INFO  [main] [Client](Client.java:260)
-address: TJCnKsPa7y5okkXvQAidZBzqx3QyQ6sxMW
-...
-assetV2
-{
-  id: 1000001
-  balance: 1000
-  latest_asset_operation_timeV2: null
-  free_asset_net_usageV2: 0
-}
-...
-}
-```
-
-e. 解锁TRC-10通证
-
-只有过了质押期后，才能解锁。
-
-UnfreezeAsset
-
-f. 获得TRC-10通证的信息
-
-ListAssetIssue:
-获得所有已发行的通证信息
-GetAssetIssueByAccount Address:
-根据发行通证的账户获得通证信息
-GetAssetIssueById AssetId:
-根据通证ID获得通证信息
-GetAssetIssueListByName AssetName:
-通过通证名称获得通证信息
-
-### 如何发起一个提案
-
-任何提案都只能由委员会成员发起。
-
-a. 创建一个提案
-
-createProposal id0 value0 ... idN valueN
-id0: 提案id。每个提案id否对应着相应的波场网络参数。在[http://tronscan.org/#/sr/committee](http://tronscan.org/#/sr/committee)可以查看详细信息。
-Value0: 提案的修改值
-
-示例：
-
-```shell
-createProposal 4 1000
-View initiated proposal:
-listproposals
-12:20:50.288 INFO  [main] [Client](Client.java:1043)
-proposal 0 :::
-[
-id: 1
-state: PENDING
-createTime: 1554351564000
-expirationTime: 1554616800000
-parametersMap: {4=1000}
-approvalsList: [
-]]
-The corresponding id is 1
-```
-
-b. 同意/反对 提案
-
-approveProposal id is_or_not_add_approval
-id: 提案id
-is_or_not_add_approval: true代表同意，false代表反对
-
-示例：
-
-```shell
-ApproveProposal 1 true              in favor of the offer
-ApproveProposal 1 false             Cancel the approved proposal
-```
-
-c. 撤销提案
-
-DeleteProposal proposalId
-proposalId: 提案id
-
-只有发起者才能撤销自己发起的提案。
-
-示例：
-
-```shell
-DeleteProposal 1
-```
-
-d. 获得提案信息
-
-ListProposals:
-获得所有提案列表
-ListProposalsPaginated offset limit:
-以分页的形式获得提案列表
-GetProposal id:
-通过提案id获得提案信息
-
-### 去中心化交易所
-
-去中心化交易所基于班科协议开发。
-
-a. 创建交易对
-
-exchangeCreate first_token_id first_token_balance second_token_id second_token_balance
-First_token_id, first_token_balance: 第一个通证的id以及数目
-second_token_id, second_token_balance: 第二个通证的id以及数目
-
-TRX对应的id为“ _ ”
-
-示例：
-
-```shell
-exchangeCreate 1000001 10000 _ 10000
-Create trading pairs with the IDs of 1000001 and TRX, the amount is 10000 for both.
-```
-
-b. 注资
-
-exchangeInject exchange_id token_id quant
-exchange_id: 需要注资的交易对id
-token_id,quant: 需要注资的通证id以及数目
-
-当为一个通证注资时，为了维持交易对的价格不变，相应比例数目的另一个通证也会被注资。
-
-c. 交易
-
-exchangeTransaction exchange_id token_id quant expected
-exchange_id: 交易对id
-token_id, quant: 卖出的通证id以及数目
-expected: 期望得到的另一个通证的最小数目
-
-示例：
-
-```shell
-ExchangeTransaction 1 1000001 100 80
-It is expected to acquire the 80 TRX by exchanging 1000001 from the transaction pair ID of 1, and
- the amount is 100 (equivalent to selling token10, the ID is 1000001, the amount is 100).
-```
-
-d. 撤资
-
-exchangeWithdraw exchange_id token_id quant
-Exchange_id: 需要撤资的交易对id
-Token_id,quant: 撤资的通证id以及数目
-
-当撤资一个通证时，为了维持交易对的价格不变，相应比例数目的另一个通证也会被撤资。
-
-e. 获得交易对信息
-
-ListExchanges:
-获得所有交易对列表
-ListexchangesPaginated offset limit:
-以分页的形式获得交易对列表
-
-### 使用多重签名
-
-多重签名允许多个用户管理同一个波场账户。
-提供三种类型的账户权限：
-owner: 账户所有者权限
-active: 账户操作权限
-witness: 超级代表权限
-
-示例：
-
-```shell
-Updateaccountpermission TRGhNNfnmgLegT4zHNjEqDSADjgmnHvubJ {"owner_permission":{"type":0,
-"permission_name":"owner","threshold":1,"keys":[{"address":"TRGhNNfnmgLegT4zHNjEqDSADjgmnHvubJ",
-"weight":1}]},"witness_permission":{"type":1,"permission_name":"owner","threshold":1,
-"keys":[{"address":"TRGhNNfnmgLegT4zHNjEqDSADjgmnHvubJ","weight":1}]},
-"active_permissions":[{"type":2,"permission_name":"active12323","threshold":2,
-"operations":"7fff1fc0033e0000000000000000000000000000000000000000000000000000",
-"keys":[{"address":"TNhXo1GbRNCuorvYu5JFWN3m2NYr9QQpVR","weight":1},
-{"address":"TKwhcDup8L2PH5r6hxp5CQvQzZqJLmKvZP","weight":1}]}]}
-The account TRGhNNfnmgLegT4zHNjEqDSADjgmnHvubJ gives the owner access to itself, active access to
- TNhXo1GbRNCuorvYu5JFWN3m2NYr9QQpVR and TKwhcDup8L2PH5r6hxp5CQvQzZqJLmKvZP. Active access will
- need signatures from both accounts in order to take effect.
-If the account is not a witness, it's not necessary to set witness_permission, otherwise an error
- will occur.
-```
-
-对交易签名：
-
-SendCoin TJCnKsPa7y5okkXvQAidZBzqx3QyQ6sxMW 10000000000000000
-will show "Please confirm and input your permission id, if input y or Y means default 0, other
-non-numeric characters will cancell transaction."
-This will require the transfer authorization of active access. Enter: 2
-Then select accounts and put in local password, i.e. TNhXo1GbRNCuorvYu5JFWN3m2NYr9QQpVR needs a
-private key TNhXo1GbRNCuorvYu5JFWN3m2NYr9QQpVR to sign a transaction.
-Select another account and enter the local password. i.e. TKwhcDup8L2PH5r6hxp5CQvQzZqJLmKvZP will
- need a private key of TKwhcDup8L2PH5r6hxp5CQvQzZqJLmKvZP to sign a transaction.
-The weight of each account is 1, threshold of access is 2. When the requirements are met, users
-will be notified with “Send 10000000000000000 drop to TJCnKsPa7y5okkXvQAidZBzqx3QyQ6sxMW
-successful !!”。
-This is how multiple accounts user multi-signature when using the same cli.
-Use the instruction addTransactionSign according to the obtained transaction hex string if
-signing at multiple cli. After signing, the users will need to broadcast final transactions
-manually.
-
-查询签名权重：
-
-```shell
-getTransactionSignWeight
-0a8c010a020318220860e195d3609c86614096eadec79d2d5a6e080112680a2d747970652e676f6f676c65617069732e636f6d2f70726f746f636f6c2e5472616e73666572436f6e747261637412370a1541a7d8a35b260395c14aa456297662092ba3b76fc01215415a523b449890854c8fc460ab602df9f31fe4293f18808084fea6dee11128027094bcb8bd9d2d1241c18ca91f1533ecdd83041eb0005683c4a39a2310ec60456b1f0075b4517443cf4f601a69788f001d4bc03872e892a5e25c618e38e7b81b8b1e69d07823625c2b0112413d61eb0f8868990cfa138b19878e607af957c37b51961d8be16168d7796675384e24043d121d01569895fcc7deb37648c59f538a8909115e64da167ff659c26101
-The information displays as follows:
-14:56:30.574 INFO  [main] [Client](Client.java:1764) permission:
-{
-permission_type: Active
-permission_id: 2
-permission_name: active12323
-threshold: 2
-parent_id: 0
-operations: 7fff1fc0033e0000000000000000000000000000000000000000000000000000
-keys:
-[
-address: TNhXo1GbRNCuorvYu5JFWN3m2NYr9QQpVR
-weight: 1
-address: TKwhcDup8L2PH5r6hxp5CQvQzZqJLmKvZP
-weight: 1
-]
-}
-current_weight: 2
-result:
-{
-code: ENOUGH_PERMISSION
-}
-approved_list:
-[
-TKwhcDup8L2PH5r6hxp5CQvQzZqJLmKvZP
-TNhXo1GbRNCuorvYu5JFWN3m2NYr9QQpVR
-]
-transaction:
-{
-txid:
-7da63b6a1f008d03ef86fa871b24a56a501a8bbf15effd7aca635de6c738df4b
-raw_data:
-{
-ref_block_bytes: 0318
-ref_block_hash: 60e195d3609c8661
-contract:
-{
-contract 0 :::
-[
-contract_type: TransferContract
-owner_address: TRGhNNfnmgLegT4zHNjEqDSADjgmnHvubJ
-to_address: TJCnKsPa7y5okkXvQAidZBzqx3QyQ6sxMW
-amount: 10000000000000000
-]
-
-}
-timestamp: Mon Apr 01 14:55:06 CST 2019
-fee_limit: 0
-}
-signature:
-{
-signature 0
-:c18ca91f1533ecdd83041eb0005683c4a39a2310ec60456b1f0075b4517443cf4f601a69788f001d4bc03872e892a5e25c618e38e7b81b8b1e69d07823625c2b01
-signature 1
-:3d61eb0f8868990cfa138b19878e607af957c37b51961d8be16168d7796675384e24043d121d01569895fcc7deb37648c59f538a8909115e64da167ff659c26101
-}
-}
-```
-
-查询一个交易的签名列表：
-
-```shell
-getTransactionApprovedList
-0a8c010a020318220860e195d3609c86614096eadec79d2d5a6e080112680a2d747970652e676f6f676c65617069732e636f6d2f70726f746f636f6c2e5472616e73666572436f6e747261637412370a1541a7d8a35b260395c14aa456297662092ba3b76fc01215415a523b449890854c8fc460ab602df9f31fe4293f18808084fea6dee11128027094bcb8bd9d2d1241c18ca91f1533ecdd83041eb0005683c4a39a2310ec60456b1f0075b4517443cf4f601a69788f001d4bc03872e892a5e25c618e38e7b81b8b1e69d07823625c2b0112413d61eb0f8868990cfa138b19878e607af957c37b51961d8be16168d7796675384e24043d121d01569895fcc7deb37648c59f538a8909115e64da167ff659c26101
-14:57:37.807 INFO  [main] [Client](Client.java:1784) result:
-{
-code: SUCCESS
-}
-approved_list:
-[
-TKwhcDup8L2PH5r6hxp5CQvQzZqJLmKvZP
-TNhXo1GbRNCuorvYu5JFWN3m2NYr9QQpVR
-]
-transaction:
-{
-txid:
-7da63b6a1f008d03ef86fa871b24a56a501a8bbf15effd7aca635de6c738df4b
-raw_data:
-{
-ref_block_bytes: 0318
-ref_block_hash: 60e195d3609c8661
-contract:
-{
-contract 0 :::
-[
-contract_type: TransferContract
-owner_address: TRGhNNfnmgLegT4zHNjEqDSADjgmnHvubJ
-to_address: TJCnKsPa7y5okkXvQAidZBzqx3QyQ6sxMW
-amount: 10000000000000000
-]
-
-}
-timestamp: Mon Apr 01 14:55:06 CST 2019
-fee_limit: 0
-}
-signature:
-{
-signature 0
-:c18ca91f1533ecdd83041eb0005683c4a39a2310ec60456b1f0075b4517443cf4f601a69788f001d4bc03872e892a5e25c618e38e7b81b8b1e69d07823625c2b01
-signature 1
-:3d61eb0f8868990cfa138b19878e607af957c37b51961d8be16168d7796675384e24043d121d01569895fcc7deb37648c59f538a8909115e64da167ff659c26101
-}
-}
-```
-
-### 使用智能合约
-
-a. 部署智能合约
-
-DeployContract contractName ABI byteCode constructor params isHex fee_limit
-consume_user_resource_percent origin_energy_limit value token_value token_id <library:address,
-library:address,...>
-contractName: 合约名称
-ABI: 合约ABI
-byteCode: 合约byteCode
-constructor,params,isHex:智能合约参数
-fee_limit: 消耗TRX的限制
-consume_user_resource_percent: 消耗用户的资源的比例，[0, 100]
-origin_energy_limit: 最多消耗开发者的能量上限
-value: 转给合约的TRX数目
-token_value: 转给合约的通证数目
-token_id: 通证id
-
-示例：
-
-```shell
-deployContract normalcontract544 [{"constant":false,"inputs":[{"name":"i","type":"uint256"}],
-"name":"findArgsByIndexTest","outputs":[{"name":"z","type":"uint256"}],"payable":false,
-"stateMutability":"nonpayable","type":"function"}]
-608060405234801561001057600080fd5b50610134806100206000396000f3006080604052600436106100405763ffffffff7c0100000000000000000000000000000000000000000000000000000000600035041663329000b58114610045575b600080fd5b34801561005157600080fd5b5061005d60043561006f565b60408051918252519081900360200190f35b604080516003808252608082019092526000916060919060208201838038833901905050905060018160008151811015156100a657fe5b602090810290910101528051600290829060019081106100c257fe5b602090810290910101528051600390829060029081106100de57fe5b6020908102909101015280518190849081106100f657fe5b906020019060200201519150509190505600a165627a7a72305820b24fc247fdaf3644b3c4c94fcee380aa610ed83415061ff9e65d7fa94a5a50a00029  # # false 1000000000 75 50000 0 0 #
-Get the result of the contract execution with the getTransactionInfoById command:
-getTransactionInfoById 4978dc64ff746ca208e51780cce93237ee444f598b24d5e9ce0da885fb3a3eb9
-14:13:40.627 INFO  [main] [Client](Client.java:1326) txid:
-4978dc64ff746ca208e51780cce93237ee444f598b24d5e9ce0da885fb3a3eb9
-fee:
-6170500
-blockNumber:
-26
-blockTimeStamp:
-1554703977000
-result:
-SUCCESS
-resMessage:
-
-contractResult:
-6080604052600436106100405763ffffffff7c0100000000000000000000000000000000000000000000000000000000600035041663329000b58114610045575b600080fd5b34801561005157600080fd5b5061005d60043561006f565b60408051918252519081900360200190f35b604080516003808252608082019092526000916060919060208201838038833901905050905060018160008151811015156100a657fe5b602090810290910101528051600290829060019081106100c257fe5b602090810290910101528051600390829060029081106100de57fe5b6020908102909101015280518190849081106100f657fe5b906020019060200201519150509190505600a165627a7a72305820b24fc247fdaf3644b3c4c94fcee380aa610ed83415061ff9e65d7fa94a5a50a00029
-contractAddress:
-TGdtALTPZ1FWQcc5MW7aK3o1ASaookkJxG
-logList:
-
-receipt:
-EnergyUsage:
-0
-EnergyFee(SUN):
-6170500
-OriginEnergyUsage:
-0
-EnergyUsageTotal:
-61705
-NetUsage:
-704
-NetFee:
-0
-```
-
-b. 触发合约
-
-TriggerContract contractAddress method args isHex fee_limit value token_value token_id
-contractAddress: 合约地址
-method: 调用方法
-args: 调用方法的参数
-isHex: 方法和参数的格式
-fee_limit: 允许消耗的最大TRX数目
-value: 转给合约的TRX数目
-token_value: 转给合约的通证数目
-token_id: 通证id
-
-示例：
-
-```shell
-triggerContract TGdtALTPZ1FWQcc5MW7aK3o1ASaookkJxG findArgsByIndexTest(uint256) 0 false
-1000000000 0 0 #
-Get the result of the contract execution with the getTransactionInfoById command:
-getTransactionInfoById 7d9c4e765ea53cf6749d8a89ac07d577141b93f83adc4015f0b266d8f5c2dec4
-14:27:50.055 INFO  [main] [Client](Client.java:1326) txid:
-7d9c4e765ea53cf6749d8a89ac07d577141b93f83adc4015f0b266d8f5c2dec4
-fee:
-54400
-blockNumber:
-318
-blockTimeStamp:
-1554704853000
-result:
-SUCCESS
-resMessage:
-
-contractResult:
-0000000000000000000000000000000000000000000000000000000000000001
-contractAddress:
-TGdtALTPZ1FWQcc5MW7aK3o1ASaookkJxG
-logList:
-
-receipt:
-EnergyUsage:
-0
-EnergyFee(SUN):
-54400
-OriginEnergyUsage:
-0
-EnergyUsageTotal:
-544
-NetUsage:
-314
-NetFee:
-0
-```
-
-c. 查询合约详情
-
-GetContract contractAddress
-contractAddress:    smart contarct address
-
-示例：
-
-```shell
-GetContract  TGdtALTPZ1FWQcc5MW7aK3o1ASaookkJxG
-contract :entrys {
-  name: "findArgsByIndexTest"
-  inputs {
-    name: "i"
-    type: "uint256"
-  }
-  outputs {
-    name: "z"
-    type: "uint256"
-  }
-  type: Function
-  stateMutability: Nonpayable
-}
-
-contract owner:TRGhNNfnmgLegT4zHNjEqDSADjgmnHvubJ
-contract ConsumeUserResourcePercent:75
-contract energy limit:50000
-```
-
-d. 更新合约参数
-
-UpdateEnergyLimit contract_address energy_limit Update parameter energy_limit
-UpdateSetting contract_address consume_user_resource_percent  Update parameter
-consume_user_resource_percent
-
-### 使用匿名交易
-
-1. 创建匿名账户
-
-generateshieldedaddress number
-number: 生成匿名账户的数目，默认为1
-
-示例：
-
-```shell
-generateshieldedaddress 2
-10:11:02.482 INFO  [main] [Client](Client.java:1914) ShieldedAddress list:
-10:11:02.526 INFO  [main] [Client](Client.java:1919) ztron1ghdy60hya8y72deu0q0r25qfl60unmue6889m3xfc3296a5ut6jcyafzhtp9nlutndukufzap4h
-10:11:02.567 INFO  [main] [Client](Client.java:1919) ztron1hn9r3wmytavslztwmlzvuzk3dqpdhwcmda2d0deyu5pwv32dp78saaslyt82w0078y6uzfg8x6w
-10:11:02.567 INFO  [main] [Client](Client.java:1923) GenerateShieldedAddress successful !!
-```
-
-2. 查看本地匿名账户
-
-listshieldedaddress
-
-示例：
-
-```shell
-listshieldedaddress
-10:11:55.370 INFO  [main] [Client](Client.java:1928) ShieldedAddress :
-10:11:55.371 INFO  [main] [Client](Client.java:1930) ztron16j06s3p5gvp2jde4vh7w3ug3zz3m62zkyfu86s7ara5lafhp22p9wr3gz0lcdm3pvt7qx0aftu4
-10:11:55.371 INFO  [main] [Client](Client.java:1930) ztron1ghdy60hya8y72deu0q0r25qfl60unmue6889m3xfc3296a5ut6jcyafzhtp9nlutndukufzap4h
-10:11:55.371 INFO  [main] [Client](Client.java:1930) ztron1hn9r3wmytavslztwmlzvuzk3dqpdhwcmda2d0deyu5pwv32dp78saaslyt82w0078y6uzfg8x6w
-```
-
-3. 转账
-
-SendShieldedCoin publicFromAddress fromAmount shieldedInputNum input1 input2 input3 ... publicToAddress toAmount shieldedOutputNum shieldedAddress1 amount1 memo1 shieldedAddress2 amount2 memo2 ...
-
-publicFromAddress: 透明发送者地址。如果不需要，置为null。
-fromAmount: 从透明账户转出的资产数目。如果publicFromAddress为null，fromAmount必须为0。
-shieldedInputNum: 输入的notes数目。最大为1，最小为0。
-input: 要花费的note的索引，可以通过调用`listshieldednote`获得。如果shieldedInputNum是0，那么无需设置。
-publicToAddress: 透明接受者地址。如果不需要，设置为null。
-toAmount: 转入到透明账户的资产数目。如果publicToAddres为null，toAmount必须为0.
-shieldedOutputNum: 输出note的数目。最大为2，最小为0。
-shieldedAddress1: 匿名地址。
-amount1: 转到匿名地址的资产数目。
-memo1: 交易备注信息。最大512字节。如果不需要，置为null。
-
-示例：
-
-从透明地址到匿名地址
-
-```shell
-sendshieldedcoin TRGhNNfnmgLegT4zHNjEqDSADjgmnHvubJ 210000000 0 null 0 2 ztron16j06s3p5gvp2jde4vh7w3ug3zz3m62zkyfu86s7ara5lafhp22p9wr3gz0lcdm3pvt7qx0aftu4 100000000 test1 ztron1ghdy60hya8y72deu0q0r25qfl60unmue6889m3xfc3296a5ut6jcyafzhtp9nlutndukufzap4h 100000000 null
-Receive txid = 4ce5656a13049df00abc7fb3ce78d54c78944d3cbbdfdb29f288e1df5fdf67e1
-transaction hex string is hash:
-259979e238ea70d76802a77c6fb50810a94a198e4ae7b8a5d51ae6b1a0d18fb9
-txid:
-4ce5656a13049df00abc7fb3ce78d54c78944d3cbbdfdb29f288e1df5fdf67e1
-raw_data:
-{
-ref_block_bytes: 04ac
-ref_block_hash: eb00771525105249
-contract:
-{
-contract 0 :::
-[
-contract_type: ShieldedTransferContract
-transparent_from_address: TRGhNNfnmgLegT4zHNjEqDSADjgmnHvubJ
-from_amount: 210000000
-receive_description:
-[
-{
-value_commitment:de75bc31efea3a115c387d70721cb0f9aecfec2474f27475abcb980886ad0d3d
-note_commitment:3b89783436db7d908b0639a4da16ffe16be3af123dcac2d7bbd34c0e6d7d6544
-epk:13905055444c524ada9730e591360fef353e7badfd5111aa483d2c18ff1aa325
-c_enc:283bad882abc89bf5726535ccbbcb279ff6858bc5882c32380117ea693dfeb145377b4509e9d8ac7211519af29a07f95dd3c92c937352e12c33c8f23a1eab8669a7f4a0b87ae0173e47e2b63488f7568e3960101b9b30be87f7e8ccae954fab14776dfaf7157eddaf92e76385b3c03364a14689e661e225f13414e3a2930bb03b374e6afe01e3e1109963d9cf2a89598226f4617fda887390bf96227befcf13769ca733ed8b5966fcf4e24142399530b86dd2b310760eb5be40aeb617a8f417532417c7a6c1dabcf511be38545ff37be77a7868a9bcefed6d64c906975e55172f23e2bd5e5fad01fe881b43df1bc5305b01f6790929f06aa2ff76edd22d7f07a076a1df670424dd49b0f9736f2e732e69b46ee533dc9772a960c81f57555a98367554d2baece36155dd8cf8fc62b9474117bcf8eb9a7905e4b143d64c168ae2490d811749aaccc44f9a91a2630cb90bfc922e2b49a3083f18e2b227fc1db9c91a725c17bb5400b769c0c5c80c0083a3e0a8f00e72565b927ba4a95d6d79187219fb836282ebac38671929ac232739ee1a35b21e51ff01dd3d6de1a3a1a0b42ca8b1ae435f124860c2d9ecd5835ad0e94dd33a36edbd37ed2e581e28cc0d6740945dc5f71f9310fbabcd881036f3ccfb7524e7877de54c295577f43c7551accab575b9bcde331ee529d69e40540414f179d914c8b7c62e0e11547d3687d837bd129af855902f647a6eca89d83a4b4442e8b44d87839d0c95a79727ffed286ac78a512b20a03c8e5aeb7c997bd24e8e61a74cd6824afe1f844c14e52958f72896c91214d46
-c_out:28084dab0df35e91f297508e71de534ed8ea9aaa5f9c2c5e8fcc472552107581c58a11fbfb500c05d3b75472e770e4aec9dafa97a4e11a0a145ee4f58eeb996e4d0b8f90a29480f43be490e6119989ef
-zkproof:8eed2aef1edf5d000f8bcdbb1bc228fa6ea4ca1e237da41dde6e49057398ca9db4f785f0327ff87cd2685594ab637c0989604856571d6b2373c949796d52a432094bce27d445e1ec751203480803c19c1ddd5b435f88c27a90700296f2d5473d11234dde23740cd532987b7e7a5eb129f67f63f2b64b07f980856d19dee4965ef2c8d9cea30778db888e0500d04d910d990fb2de69d5062a5e9bababfd54d23376c9aa53c6359551bd296658be04dc1392b1d30ea2d8572862deb1e9402d5d6c
-},{
-value_commitment:c43166a68ea4585bd99a28f2b22be8c9acf35874ab19d94314eb7972a89723a4
-note_commitment:93f76ff28e95094e2bbd3f3b8a0680bdfdc4f06cf67abb59d6cf6bb2a30ffb13
-epk:28aeccd4e7c6ec30db5c8cfa0f0c530ade45a0e0802ae77279d35b1cf086f947
-c_enc:6c62fde60d4c0cc48e84b1b023c6664332a244d8a2e650f41f323b9d05c0637959796b9ef6c3dabee35c81a409e8d5279197af772eddf3fd609822393d2e17fc215f09da41ebd991407b9b206e93fcdbbb3ccf53dcdacdb9759460cb35bd00e281ba2ebd6f04af46c3872b12bccb7b70f61397d27dbfee5e508ca02451047b25520307831ceb7cb39ea35305dae84b3a9a5871ade0f364a35b7214b1b7bb4e5b2bd80ab83740d3e00e57218e499ee2763fa683f9e2118eb7dab943cfac6cef8fd36d37e91cf08459d1077813d506040fa8b6c5cf76a75c7cf0a476a8eb36ad428db29a31d0eadcca7f70f8768a6893991899ba0a3f469ef5f0a8feb0877e4557a2ca1d41ca944db3de4d13125b82dabcbbf36624308eaff2055109446777ca592a3c4f62a9823cd53de6993d5edeaef7e9cd471fd7bc0973e46732c5dbc2f642504fb6fe840c99c012f2dcf035495237f2451dc7e708bf4e22010e86fe21c30aac0e9f3ad31feee69849d6eafeba8337690e163bb22c8d9aff2c55865663af5d4dd23132a7d6d9748dbdc86d71cf773a0a1a2768ce8da9e6fbecda29ab2eb1ad75705ab1fb448cd6c2987b814d759462e4930e124b48838319f5907f33911cb80a583e91c552d1d41de91ed02aba232b9a53331260c8061ae354646e96fde0818d695b7aa058d0ac09fb4f92cb412e218f4e9f9771c1cd067023e844c96ac188db8869c50b1297010d9c21dbce60d815a1c936170df77e057a13b4798f39f5bfc36f5acf36728ea7e017ab5fc39a06e2bbd42ad3118a8c2e5531fb6ae63adf525591ed1a
-c_out:ecf81a290d80573434d45024a8050a0d51c6e74f4ac2c539f6d68694b367a3568ba9187872d9b648fd4dcc9a01de7b2c8d1036d7b2e37b57d89c8df37e26be4bad0728e2922915901339b8a908fb2a56
-zkproof:8b6ca51f29b66e7cc833e1b602f954d3ccc6ed80cf727ce0e4bd74500b32635d909fb7dda7be7d0807b93318e81108c4a1d2c4dc73e7b393b5cc66e18fb7a49d665f3bde62b1832ec01fabecdf8fa77668b78db3679376938820ada3ccf23f540c1fa1c32b4c3303c0ac72351da080c0bab70b8effdc304089601feb613f0c11b57822474a788479ca7322b6d3f606fea2208d45ff3c1f893617f628304ba6765a4eeb1ac52a0e666373e5c746ddc48a781331eff4e465f8993c1bbaafd25d3b
-}
-]
-binding_signature: 1c9732654d45f51fd2cadf1baf0d85a50f55f08d181ef08eb704392d5ee03bc4bc77d56e26b706ab88cae85f6ac608abd2e16b2242653c90e058a3c8a3d23108
-]
-
-}
-timestamp: Fri Jul 19 10:28:20 CST 2019
-fee_limit: 0
-}
-
-txid:
-4ce5656a13049df00abc7fb3ce78d54c78944d3cbbdfdb29f288e1df5fdf67e1
-raw_data:
-{
-ref_block_bytes: 04ac
-ref_block_hash: eb00771525105249
-contract:
-{
-contract 0 :::
-[
-contract_type: ShieldedTransferContract
-transparent_from_address: TRGhNNfnmgLegT4zHNjEqDSADjgmnHvubJ
-from_amount: 210000000
-receive_description:
-[
-{
-value_commitment:de75bc31efea3a115c387d70721cb0f9aecfec2474f27475abcb980886ad0d3d
-note_commitment:3b89783436db7d908b0639a4da16ffe16be3af123dcac2d7bbd34c0e6d7d6544
-epk:13905055444c524ada9730e591360fef353e7badfd5111aa483d2c18ff1aa325
-c_enc:283bad882abc89bf5726535ccbbcb279ff6858bc5882c32380117ea693dfeb145377b4509e9d8ac7211519af29a07f95dd3c92c937352e12c33c8f23a1eab8669a7f4a0b87ae0173e47e2b63488f7568e3960101b9b30be87f7e8ccae954fab14776dfaf7157eddaf92e76385b3c03364a14689e661e225f13414e3a2930bb03b374e6afe01e3e1109963d9cf2a89598226f4617fda887390bf96227befcf13769ca733ed8b5966fcf4e24142399530b86dd2b310760eb5be40aeb617a8f417532417c7a6c1dabcf511be38545ff37be77a7868a9bcefed6d64c906975e55172f23e2bd5e5fad01fe881b43df1bc5305b01f6790929f06aa2ff76edd22d7f07a076a1df670424dd49b0f9736f2e732e69b46ee533dc9772a960c81f57555a98367554d2baece36155dd8cf8fc62b9474117bcf8eb9a7905e4b143d64c168ae2490d811749aaccc44f9a91a2630cb90bfc922e2b49a3083f18e2b227fc1db9c91a725c17bb5400b769c0c5c80c0083a3e0a8f00e72565b927ba4a95d6d79187219fb836282ebac38671929ac232739ee1a35b21e51ff01dd3d6de1a3a1a0b42ca8b1ae435f124860c2d9ecd5835ad0e94dd33a36edbd37ed2e581e28cc0d6740945dc5f71f9310fbabcd881036f3ccfb7524e7877de54c295577f43c7551accab575b9bcde331ee529d69e40540414f179d914c8b7c62e0e11547d3687d837bd129af855902f647a6eca89d83a4b4442e8b44d87839d0c95a79727ffed286ac78a512b20a03c8e5aeb7c997bd24e8e61a74cd6824afe1f844c14e52958f72896c91214d46
-c_out:28084dab0df35e91f297508e71de534ed8ea9aaa5f9c2c5e8fcc472552107581c58a11fbfb500c05d3b75472e770e4aec9dafa97a4e11a0a145ee4f58eeb996e4d0b8f90a29480f43be490e6119989ef
-zkproof:8eed2aef1edf5d000f8bcdbb1bc228fa6ea4ca1e237da41dde6e49057398ca9db4f785f0327ff87cd2685594ab637c0989604856571d6b2373c949796d52a432094bce27d445e1ec751203480803c19c1ddd5b435f88c27a90700296f2d5473d11234dde23740cd532987b7e7a5eb129f67f63f2b64b07f980856d19dee4965ef2c8d9cea30778db888e0500d04d910d990fb2de69d5062a5e9bababfd54d23376c9aa53c6359551bd296658be04dc1392b1d30ea2d8572862deb1e9402d5d6c
-},{
-value_commitment:c43166a68ea4585bd99a28f2b22be8c9acf35874ab19d94314eb7972a89723a4
-note_commitment:93f76ff28e95094e2bbd3f3b8a0680bdfdc4f06cf67abb59d6cf6bb2a30ffb13
-epk:28aeccd4e7c6ec30db5c8cfa0f0c530ade45a0e0802ae77279d35b1cf086f947
-c_enc:6c62fde60d4c0cc48e84b1b023c6664332a244d8a2e650f41f323b9d05c0637959796b9ef6c3dabee35c81a409e8d5279197af772eddf3fd609822393d2e17fc215f09da41ebd991407b9b206e93fcdbbb3ccf53dcdacdb9759460cb35bd00e281ba2ebd6f04af46c3872b12bccb7b70f61397d27dbfee5e508ca02451047b25520307831ceb7cb39ea35305dae84b3a9a5871ade0f364a35b7214b1b7bb4e5b2bd80ab83740d3e00e57218e499ee2763fa683f9e2118eb7dab943cfac6cef8fd36d37e91cf08459d1077813d506040fa8b6c5cf76a75c7cf0a476a8eb36ad428db29a31d0eadcca7f70f8768a6893991899ba0a3f469ef5f0a8feb0877e4557a2ca1d41ca944db3de4d13125b82dabcbbf36624308eaff2055109446777ca592a3c4f62a9823cd53de6993d5edeaef7e9cd471fd7bc0973e46732c5dbc2f642504fb6fe840c99c012f2dcf035495237f2451dc7e708bf4e22010e86fe21c30aac0e9f3ad31feee69849d6eafeba8337690e163bb22c8d9aff2c55865663af5d4dd23132a7d6d9748dbdc86d71cf773a0a1a2768ce8da9e6fbecda29ab2eb1ad75705ab1fb448cd6c2987b814d759462e4930e124b48838319f5907f33911cb80a583e91c552d1d41de91ed02aba232b9a53331260c8061ae354646e96fde0818d695b7aa058d0ac09fb4f92cb412e218f4e9f9771c1cd067023e844c96ac188db8869c50b1297010d9c21dbce60d815a1c936170df77e057a13b4798f39f5bfc36f5acf36728ea7e017ab5fc39a06e2bbd42ad3118a8c2e5531fb6ae63adf525591ed1a
-c_out:ecf81a290d80573434d45024a8050a0d51c6e74f4ac2c539f6d68694b367a3568ba9187872d9b648fd4dcc9a01de7b2c8d1036d7b2e37b57d89c8df37e26be4bad0728e2922915901339b8a908fb2a56
-zkproof:8b6ca51f29b66e7cc833e1b602f954d3ccc6ed80cf727ce0e4bd74500b32635d909fb7dda7be7d0807b93318e81108c4a1d2c4dc73e7b393b5cc66e18fb7a49d665f3bde62b1832ec01fabecdf8fa77668b78db3679376938820ada3ccf23f540c1fa1c32b4c3303c0ac72351da080c0bab70b8effdc304089601feb613f0c11b57822474a788479ca7322b6d3f606fea2208d45ff3c1f893617f628304ba6765a4eeb1ac52a0e666373e5c746ddc48a781331eff4e465f8993c1bbaafd25d3b
-}
-]
-binding_signature: 1c9732654d45f51fd2cadf1baf0d85a50f55f08d181ef08eb704392d5ee03bc4bc77d56e26b706ab88cae85f6ac608abd2e16b2242653c90e058a3c8a3d23108
-]
-
-}
-timestamp: Fri Jul 19 10:28:20 CST 2019
-fee_limit: 0
-}
-
-Please confirm and input your permission id, if input y or Y means default 0, other non-numeric characters will cancell transaction.
+before sign transaction hex string is 0a8e010a02a9b822081db2070d39d2316640c095dda19a305a70080b126c0a32747970652e676f6f676c65617069732e636f6d2f70726f746f636f6c2e467265657a6542616c616e6365436f6e747261637412360a1541e65aca838a9e15dd81bd9532d2ad61300e58cf7110c0843d180350017a15411fafb1e96dfe4f609e2259bfaf8c77b60c535b9370c6c8d9a19a30
+Please confirm and input your permission id, if input y or Y means default 0, other non-numeric characters will cancel transaction.
+y
 Please choose your key for sign.
-The 1th keystore file name is UTC--2019-07-11T07-48-10.599000000Z--TK46L2BNfbmbScnAnaqgZuobkSBVyNsvTM.json
-The 2th keystore file name is UTC--2018-11-20T07-47-52.297000000Z--TRGhNNfnmgLegT4zHNjEqDSADjgmnHvubJ.json
-The 3th keystore file name is UTC--2019-05-30T08-27-49.302000000Z--TJCnKsPa7y5okkXvQAidZBzqx3QyQ6sxMW.json
-The 4th keystore file name is TN3zfjYUmMFK3ZsHSsrdJoNRtGkQmZLBLz.json
-The 5th keystore file name is UTC--2018-11-06T10-10-46.581000000Z--TJCnKsPa7y5okkXvQAidZBzqx3QyQ6sxMW.json
-The 6th keystore file name is UTC--2019-04-03T06-49-12.385000000Z--TNPFQFsKQBtSSXFA5epobUtHekN3xKC249.json
-The 7th keystore file name is UTC--2018-11-20T04-37-05.116000000Z--TKwhcDup8L2PH5r6hxp5CQvQzZqJLmKvZP.json
-The 8th keystore file name is UTC--2019-04-03T04-06-04.912000000Z--TDLGnqBSjqSeSbwF9KvNaZe7fnZm7VX4h3.json
-The 9th keystore file name is UTC--2018-11-20T07-49-24.311000000Z--TNhXo1GbRNCuorvYu5JFWN3m2NYr9QQpVR.json
-The 10th keystore file name is UTC--2019-05-28T11-16-34.827000000Z--TDQE4yb3E7dvDjouvu8u7GgSnMZbxAEumV.json
-The 11th keystore file name is UTC--2019-06-26T11-04-08.686000000Z--TJCnKsPa7y5okkXvQAidZBzqx3QyQ6sxMW.json
-The 12th keystore file name is UTC--2019-04-03T06-45-07.727000000Z--TAC5D6vMq1t7Hie2nYEbBoGYngDMLrbAFM.json
-The 13th keystore file name is UTC--2019-04-22T09-45-00.67000000Z--TT1smsmhxype64boboU8xTuNZVCKP1w6qT.json
-The 14th keystore file name is UTC--2019-06-10T07-33-39.349000000Z--TLYUrci5Qw5fUPho2GvFv38kAK4QSmdhhN.json
-Please choose between 1 and 14
+The 1th keystore file name is UTC--2022-06-22T08-21-05.158000000Z--TDQgNvjrE6RH749f8aFGyJqEEGyhV4BDEU.json
+The 2th keystore file name is UTC--2022-06-27T07-37-47.601000000Z--TWyDBTHsWJFhgywWkTNW7vh7jSUxeBaiAw.json
+Please choose between 1 and 2
 2
 Please input your password.
-1qa@WS#ED
-current transaction hex string is 0ac6100a0204ac2208eb0077152510524940b0e0bfc0c02d5aa710083312a2100a35747970652e676f6f676c65617069732e636f6d2f70726f746f636f6c2e536869656c6465645472616e73666572436f6e747261637412e80f0a1541a7d8a35b260395c14aa456297662092ba3b76fc01080b1916422c2070a20de75bc31efea3a115c387d70721cb0f9aecfec2474f27475abcb980886ad0d3d12203b89783436db7d908b0639a4da16ffe16be3af123dcac2d7bbd34c0e6d7d65441a2013905055444c524ada9730e591360fef353e7badfd5111aa483d2c18ff1aa32522c404283bad882abc89bf5726535ccbbcb279ff6858bc5882c32380117ea693dfeb145377b4509e9d8ac7211519af29a07f95dd3c92c937352e12c33c8f23a1eab8669a7f4a0b87ae0173e47e2b63488f7568e3960101b9b30be87f7e8ccae954fab14776dfaf7157eddaf92e76385b3c03364a14689e661e225f13414e3a2930bb03b374e6afe01e3e1109963d9cf2a89598226f4617fda887390bf96227befcf13769ca733ed8b5966fcf4e24142399530b86dd2b310760eb5be40aeb617a8f417532417c7a6c1dabcf511be38545ff37be77a7868a9bcefed6d64c906975e55172f23e2bd5e5fad01fe881b43df1bc5305b01f6790929f06aa2ff76edd22d7f07a076a1df670424dd49b0f9736f2e732e69b46ee533dc9772a960c81f57555a98367554d2baece36155dd8cf8fc62b9474117bcf8eb9a7905e4b143d64c168ae2490d811749aaccc44f9a91a2630cb90bfc922e2b49a3083f18e2b227fc1db9c91a725c17bb5400b769c0c5c80c0083a3e0a8f00e72565b927ba4a95d6d79187219fb836282ebac38671929ac232739ee1a35b21e51ff01dd3d6de1a3a1a0b42ca8b1ae435f124860c2d9ecd5835ad0e94dd33a36edbd37ed2e581e28cc0d6740945dc5f71f9310fbabcd881036f3ccfb7524e7877de54c295577f43c7551accab575b9bcde331ee529d69e40540414f179d914c8b7c62e0e11547d3687d837bd129af855902f647a6eca89d83a4b4442e8b44d87839d0c95a79727ffed286ac78a512b20a03c8e5aeb7c997bd24e8e61a74cd6824afe1f844c14e52958f72896c91214d462a5028084dab0df35e91f297508e71de534ed8ea9aaa5f9c2c5e8fcc472552107581c58a11fbfb500c05d3b75472e770e4aec9dafa97a4e11a0a145ee4f58eeb996e4d0b8f90a29480f43be490e6119989ef32c0018eed2aef1edf5d000f8bcdbb1bc228fa6ea4ca1e237da41dde6e49057398ca9db4f785f0327ff87cd2685594ab637c0989604856571d6b2373c949796d52a432094bce27d445e1ec751203480803c19c1ddd5b435f88c27a90700296f2d5473d11234dde23740cd532987b7e7a5eb129f67f63f2b64b07f980856d19dee4965ef2c8d9cea30778db888e0500d04d910d990fb2de69d5062a5e9bababfd54d23376c9aa53c6359551bd296658be04dc1392b1d30ea2d8572862deb1e9402d5d6c22c2070a20c43166a68ea4585bd99a28f2b22be8c9acf35874ab19d94314eb7972a89723a4122093f76ff28e95094e2bbd3f3b8a0680bdfdc4f06cf67abb59d6cf6bb2a30ffb131a2028aeccd4e7c6ec30db5c8cfa0f0c530ade45a0e0802ae77279d35b1cf086f94722c4046c62fde60d4c0cc48e84b1b023c6664332a244d8a2e650f41f323b9d05c0637959796b9ef6c3dabee35c81a409e8d5279197af772eddf3fd609822393d2e17fc215f09da41ebd991407b9b206e93fcdbbb3ccf53dcdacdb9759460cb35bd00e281ba2ebd6f04af46c3872b12bccb7b70f61397d27dbfee5e508ca02451047b25520307831ceb7cb39ea35305dae84b3a9a5871ade0f364a35b7214b1b7bb4e5b2bd80ab83740d3e00e57218e499ee2763fa683f9e2118eb7dab943cfac6cef8fd36d37e91cf08459d1077813d506040fa8b6c5cf76a75c7cf0a476a8eb36ad428db29a31d0eadcca7f70f8768a6893991899ba0a3f469ef5f0a8feb0877e4557a2ca1d41ca944db3de4d13125b82dabcbbf36624308eaff2055109446777ca592a3c4f62a9823cd53de6993d5edeaef7e9cd471fd7bc0973e46732c5dbc2f642504fb6fe840c99c012f2dcf035495237f2451dc7e708bf4e22010e86fe21c30aac0e9f3ad31feee69849d6eafeba8337690e163bb22c8d9aff2c55865663af5d4dd23132a7d6d9748dbdc86d71cf773a0a1a2768ce8da9e6fbecda29ab2eb1ad75705ab1fb448cd6c2987b814d759462e4930e124b48838319f5907f33911cb80a583e91c552d1d41de91ed02aba232b9a53331260c8061ae354646e96fde0818d695b7aa058d0ac09fb4f92cb412e218f4e9f9771c1cd067023e844c96ac188db8869c50b1297010d9c21dbce60d815a1c936170df77e057a13b4798f39f5bfc36f5acf36728ea7e017ab5fc39a06e2bbd42ad3118a8c2e5531fb6ae63adf525591ed1a2a50ecf81a290d80573434d45024a8050a0d51c6e74f4ac2c539f6d68694b367a3568ba9187872d9b648fd4dcc9a01de7b2c8d1036d7b2e37b57d89c8df37e26be4bad0728e2922915901339b8a908fb2a5632c0018b6ca51f29b66e7cc833e1b602f954d3ccc6ed80cf727ce0e4bd74500b32635d909fb7dda7be7d0807b93318e81108c4a1d2c4dc73e7b393b5cc66e18fb7a49d665f3bde62b1832ec01fabecdf8fa77668b78db3679376938820ada3ccf23f540c1fa1c32b4c3303c0ac72351da080c0bab70b8effdc304089601feb613f0c11b57822474a788479ca7322b6d3f606fea2208d45ff3c1f893617f628304ba6765a4eeb1ac52a0e666373e5c746ddc48a781331eff4e465f8993c1bbaafd25d3b2a401c9732654d45f51fd2cadf1baf0d85a50f55f08d181ef08eb704392d5ee03bc4bc77d56e26b706ab88cae85f6ac608abd2e16b2242653c90e058a3c8a3d2310870f8a2bcc0c02d1241f1e90556d1ef91c26c01261c30c79a20a2a14a68196956bb1d0375179c897a143eaf5f357df22f21b556b17e12335ae01c9929bda86dcf101367407e0d115de401
-10:28:26.914 INFO  [main] [Client](Client.java:2040) SendShieldedCoin successful !!
+password: 
+after sign transaction hex string is 0a8e010a02a9b822081db2070d39d2316640e0f7ffab9a305a70080b126c0a32747970652e676f6f676c65617069732e636f6d2f70726f746f636f6c2e467265657a6542616c616e6365436f6e747261637412360a1541e65aca838a9e15dd81bd9532d2ad61300e58cf7110c0843d180350017a15411fafb1e96dfe4f609e2259bfaf8c77b60c535b9370c6c8d9a19a301241c45742648e6970e01b242c9b6eca2549c8721b860ced71abd331b9fe925f3c0f184768e0d2e3b580ce787cc6f67d186a0d583226fdb69c2cc8cfc6ec42e389f600
+txid is f45cb5ae425796a492d4a9ecac8d60fd48bf78dbcdbe1d92725047c5dfbffba2
+FreezeBalance successful !!!
 ```
 
-从匿名地址到匿名地址
+
+#### UnfreezeBalance
+```shell
+wallet>unfreezeBalance [OwnerAddress] ResourceCode(0 BANDWIDTH,1 ENERGY,2 TRON_POWER) [receiverAddress]
+```
+
+* `OwnerAddress` 是交易发起人的地址。
+* `ResourceCode` 用来指示所冻结资源的种类，0为`带宽`，1为`能量`。 
+* `receiverAddress` 为资源接受人的地址。
 
 示例：
 
 ```shell
-listshieldednote
-Unspend note list like:
-1 ztron1ghdy60hya8y72deu0q0r25qfl60unmue6889m3xfc3296a5ut6jcyafzhtp9nlutndukufzap4h 100000000 4ce5656a13049df00abc7fb3ce78d54c78944d3cbbdfdb29f288e1df5fdf67e1 1 UnSpend
-0 ztron16j06s3p5gvp2jde4vh7w3ug3zz3m62zkyfu86s7ara5lafhp22p9wr3gz0lcdm3pvt7qx0aftu4 100000000 4ce5656a13049df00abc7fb3ce78d54c78944d3cbbdfdb29f288e1df5fdf67e1 0 UnSpend test1
+wallet> unfreezebalance TSzdGHnhYnQKFF4LKrRLztkjYAvbNoxnQ8 1 TXBpeye7UQ4dDZEnmGDv4vX37mBYDo1tUE
+{
+	"raw_data":{
+		"contract":[
+			{
+				"parameter":{
+					"value":{
+						"resource":"ENERGY",
+						"receiver_address":"TXBpeye7UQ4dDZEnmGDv4vX37mBYDo1tUE",
+						"owner_address":"TSzdGHnhYnQKFF4LKrRLztkjYAvbNoxnQ8"
+					},
+					"type_url":"type.googleapis.com/protocol.UnfreezeBalanceContract"
+				},
+				"type":"UnfreezeBalanceContract"
+			}
+		],
+		"ref_block_bytes":"c8b7",
+		"ref_block_hash":"8842722f2845274d",
+		"expiration":1656915213000,
+		"timestamp":1656915154748
+	},
+	"raw_data_hex":"0a02c8b722088842722f2845274d40c8f5debe9c305a6c080c12680a34747970652e676f6f676c65617069732e636f6d2f70726f746f636f6c2e556e667265657a6542616c616e6365436f6e747261637412300a1541babecec4d9f58f0df77f0728b9c53abb1f21d68450017a1541e8bd653015895947cec33d1670a88cf67ab277b970bcaedbbe9c30"
+}
+before sign transaction hex string is 0a8a010a02c8b722088842722f2845274d40c8f5debe9c305a6c080c12680a34747970652e676f6f676c65617069732e636f6d2f70726f746f636f6c2e556e667265657a6542616c616e6365436f6e747261637412300a1541babecec4d9f58f0df77f0728b9c53abb1f21d68450017a1541e8bd653015895947cec33d1670a88cf67ab277b970bcaedbbe9c30
+Please confirm and input your permission id, if input y or Y means default 0, other non-numeric characters will cancel transaction.
+y               
+Please choose your key for sign.
+The 1th keystore file name is UTC--2022-06-28T06-52-56.928000000Z--TB9qhqbev6DpX8mxdf3zDdtSQ6GC6Vb6Ej.json
+The 2th keystore file name is .DS_Store
+The 3th keystore file name is UTC--2022-04-06T09-43-20.710000000Z--TSzdGHnhYnQKFF4LKrRLztkjYAvbNoxnQ8.json
+The 4th keystore file name is UTC--2022-04-07T09-03-38.307000000Z--TXBpeye7UQ4dDZEnmGDv4vX37mBYDo1tUE.json
+Please choose between 1 and 4
+3
+Please input your password.
+password: 
+after sign transaction hex string is 0a8a010a02c8b722088842722f2845274d40e8dd81c99c305a6c080c12680a34747970652e676f6f676c65617069732e636f6d2f70726f746f636f6c2e556e667265657a6542616c616e6365436f6e747261637412300a1541babecec4d9f58f0df77f0728b9c53abb1f21d68450017a1541e8bd653015895947cec33d1670a88cf67ab277b970bcaedbbe9c301241593a94650274df29619a6a6946258ea32a22f24a33445f943e3d72cd7d9b8ce7234d188f4bf3a6f0c90cb60af36fc77dc8d376afac9ed840f36dfd68c429fb7e00
+txid is 3ea58b3ac2cb05868e70d40f58916312d927c40fd1e4c549554dc3e520c1efde
+UnfreezeBalance successful !!!
+```
+#### GetDelegatedResource 
+```shell
+wallet>getdelegatedresource [fromAddress] [toAddress]
+```
+该命令用于查询账户资源质押的情况。`fromAddress` 为资源所有方地址，`toAddress` 为受益方地址。
 
-sendshieldedcoin null 0 1 0 null 0 1 ztron1hn9r3wmytavslztwmlzvuzk3dqpdhwcmda2d0deyu5pwv32dp78saaslyt82w0078y6uzfg8x6w 90000000 test2
-address ztron16j06s3p5gvp2jde4vh7w3ug3zz3m62zkyfu86s7ara5lafhp22p9wr3gz0lcdm3pvt7qx0aftu4
-value 100000000
-rcm 224463fbba4ef49a4e547d5b7fe608ebd9ec717591db2f6b6644a862a5528b07
-trxId 4ce5656a13049df00abc7fb3ce78d54c78944d3cbbdfdb29f288e1df5fdf67e1
-index 0
-memo test1
-Receive txid = 840b127fea05f7f86c43ad9fb5fe7fa27e977465cea4e4ae25e59e0de75ad99e
-transaction hex string is hash:
-69ef6fa21da0d1633187a0c55c1ba20f323e88ba8e27e52ece452860c9726e9f
-txid:
-06b55fc27f7ec649396706d149d18a0bb003347bdd7f489e3d47205da9cee802
-raw_data:
+```shell
+wallet> getdelegatedresource TSzdGHnhYnQKFF4LKrRLztkjYAvbNoxnQ8 TXBpeye7UQ4dDZEnmGDv4vX37mBYDo1tUE
 {
-ref_block_bytes: 05d8
-ref_block_hash: d5877abdc498f58f
-contract:
+	"delegatedResource": [
+		{
+			"from": "TSzdGHnhYnQKFF4LKrRLztkjYAvbNoxnQ8",
+			"to": "TXBpeye7UQ4dDZEnmGDv4vX37mBYDo1tUE",
+			"frozen_balance_for_energy": 1000000,
+			"expire_time_for_energy": 1656660447000
+		}
+	]
+}
+```
+
+#### FreezeBalanceV2
+Stake 2.0质押接口，通过质押一定数量的TRX可以获得`带宽`或者`能量`以及`TRON Power`（投票权）。质押资产的单位是sun。
+```shell
+wallet> freezeBalanceV2 [OwnerAddress] frozen_balance ResourceCode(0 BANDWIDTH,1 ENERGY,2 TRON_POWER)
+```
+
+* `OwnerAddress` 是交易发起人的地址，为选填，不填则默认为当前登录账户地址。
+* `frozen_balance` 是所冻结TRX的数值,单位为`sun`, 最小冻结值为1000000sun。。
+* `ResourceCode` 用来指示要获取资源的类型, 0为`带宽`，1为`能量`。
+
+示例:
+```shell
+wallet> freezeBalanceV2 1000000 1
 {
-contract 0 :::
+	"raw_data":{
+		"contract":[
+			{
+				"parameter":{
+					"value":{
+						"resource":"ENERGY",
+						"frozen_balance":1000000,
+						"owner_address":"TUoHaVjx7n5xz8LwPRDckgFrDWhMhuSuJM"
+					},
+					"type_url":"type.googleapis.com/protocol.FreezeBalanceV2Contract"
+				},
+				"type":"FreezeBalanceV2Contract"
+			}
+		],
+		"ref_block_bytes":"00bb",
+		"ref_block_hash":"0c237850e9e3c216",
+		"expiration":1676620524000,
+		"timestamp":1676620465372
+	},
+	"raw_data_hex":"0a0200bb22080c237850e9e3c21640e0d3fbf2e5305a59083612550a34747970652e676f6f676c65617069732e636f6d2f70726f746f636f6c2e467265657a6542616c616e63655632436f6e7472616374121d0a1541ce8a0cf0c16d48bcf22825f6053248df653c89ca10c0843d180170dc89f8f2e530"
+}
+before sign transaction hex string is 0a770a0200bb22080c237850e9e3c21640e0d3fbf2e5305a59083612550a34747970652e676f6f676c65617069732e636f6d2f70726f746f636f6c2e467265657a6542616c616e63655632436f6e7472616374121d0a1541ce8a0cf0c16d48bcf22825f6053248df653c89ca10c0843d180170dc89f8f2e530
+Please confirm and input your permission id, if input y or Y means default 0, other non-numeric characters will cancel transaction.
+y
+Please choose your key for sign.
+The 1th keystore file name is UTC--2023-02-17T02-53-57.163000000Z--THLJLytz6UHwpmDFi5RC43D44dmnh4ZTeL.json
+The 2th keystore file name is UTC--2023-02-17T07-40-47.121000000Z--TUoHaVjx7n5xz8LwPRDckgFrDWhMhuSuJM.json
+Please choose between 1 and 2
+2
+Please input your password.
+password:
+after sign transaction hex string is 0a770a0200bb22080c237850e9e3c21640dbb89efde5305a59083612550a34747970652e676f6f676c65617069732e636f6d2f70726f746f636f6c2e467265657a6542616c616e63655632436f6e7472616374121d0a1541ce8a0cf0c16d48bcf22825f6053248df653c89ca10c0843d180170dc89f8f2e53012419e46cc7b6706ee6a14a541df5f9c518fae9a71ac7a7cc484c48386eb0997a8ab10c41e09feb905c5cc370fe1d15968d22cec2fd2cdc5916adfd3a78c52f8d47000
+txid is 1743aa098f5e10ac8b68ccbf0ca6b5f1364a63485e442e6cb03fd33e3331e3fb
+freezeBalanceV2 successful !!!
+```
+
+#### UnfreezeBalanceV2
+Stake2.0 解质押API：解锁质押的TRX, 释放所相应数量的带宽和能量，同时回收相应数量的投票权(TP)。
+
+```shell
+wallet> unfreezeBalanceV2 [OwnerAddress] unfreezeBalance ResourceCode(0 BANDWIDTH,1 ENERGY,2 TRON_POWER)
+```
+
+* `OwnerAddress` 是交易发起人的地址。可选，默认为wallet-cli登录地址。
+* `unfreezeBalance` 解质押TRX数量。
+* `ResourceCode` 用来指示所冻结资源的种类，0为`带宽`，1为`能量`。 
+
+
+示例：
+
+```shell
+wallet> unfreezeBalanceV2 1000000  1
+{
+	"raw_data":{
+		"contract":[
+			{
+				"parameter":{
+					"value":{
+						"resource":"ENERGY",
+						"owner_address":"TUoHaVjx7n5xz8LwPRDckgFrDWhMhuSuJM",
+						"unfreeze_balance":1000000
+					},
+					"type_url":"type.googleapis.com/protocol.UnfreezeBalanceV2Contract"
+				},
+				"type":"UnfreezeBalanceV2Contract"
+			}
+		],
+		"ref_block_bytes":"0132",
+		"ref_block_hash":"0772c1a1727e2ef0",
+		"expiration":1676620887000,
+		"timestamp":1676620829314
+	},
+	"raw_data_hex":"0a02013222080772c1a1727e2ef040d8e791f3e5305a5b083712570a36747970652e676f6f676c65617069732e636f6d2f70726f746f636f6c2e556e667265657a6542616c616e63655632436f6e7472616374121d0a1541ce8a0cf0c16d48bcf22825f6053248df653c89ca10c0843d18017082a58ef3e530"
+}
+before sign transaction hex string is 0a790a02013222080772c1a1727e2ef040d8e791f3e5305a5b083712570a36747970652e676f6f676c65617069732e636f6d2f70726f746f636f6c2e556e667265657a6542616c616e63655632436f6e7472616374121d0a1541ce8a0cf0c16d48bcf22825f6053248df653c89ca10c0843d18017082a58ef3e530
+Please confirm and input your permission id, if input y or Y means default 0, other non-numeric characters will cancel transaction.
+y
+Please choose your key for sign.
+The 1th keystore file name is UTC--2023-02-17T02-53-57.163000000Z--THLJLytz6UHwpmDFi5RC43D44dmnh4ZTeL.json
+The 2th keystore file name is UTC--2023-02-17T07-40-47.121000000Z--TUoHaVjx7n5xz8LwPRDckgFrDWhMhuSuJM.json
+Please choose between 1 and 2
+2
+Please input your password.
+password:
+after sign transaction hex string is 0a790a02013222080772c1a1727e2ef040ecd2b4fde5305a5b083712570a36747970652e676f6f676c65617069732e636f6d2f70726f746f636f6c2e556e667265657a6542616c616e63655632436f6e7472616374121d0a1541ce8a0cf0c16d48bcf22825f6053248df653c89ca10c0843d18017082a58ef3e530124111bac22e9bc35e1a78c13796893e9f2b81dc99eb26d9ce7a95d0c6a0a9b5588739c52b999acd370b255d178f57bf2abef8881891f23e042ddf83c3551b8bd98e01
+txid is f9e114347ea89c5d722d20226817bc41c8a39ea36be756ba216cf450ab3f1fb3
+unfreezeBalanceV2 successful !!!
+```
+
+#### DelegateResource
+Stake 2.0 资源代理API：将带宽或者能量资源代理给其它账户。
+```shell
+wallet> delegateResource [OwnerAddress] balance ResourceCode(0 BANDWIDTH,1 ENERGY), ReceiverAddress [lock]
+```
+
+* `OwnerAddress` 是交易发起人的地址。可选，默认为wallet-cli登录地址。
+* `balance` 代理的TRX数量。
+* `ResourceCode` 用来指示代理资源的种类，0为`带宽`，1为`能量`。 
+* `ReceiverAddress` 资源接收者地址。 
+* `lock` 用来指示是否将该资源代理锁定三天，可选，默认值为0，0为不锁定，1为锁定。 
+
+
+示例：
+
+```shell
+wallet> delegateResource 1000000  1 TZ4UXDV5ZhNW7fb2AMSbgfAEZ7hWsnYS2g 0
+{
+	"raw_data":{
+		"contract":[
+			{
+				"parameter":{
+					"value":{
+						"balance":1000000,
+						"resource":"ENERGY",
+						"receiver_address":"TZ4UXDV5ZhNW7fb2AMSbgfAEZ7hWsnYS2g",
+						"owner_address":"TUoHaVjx7n5xz8LwPRDckgFrDWhMhuSuJM"
+					},
+					"type_url":"type.googleapis.com/protocol.DelegateResourceContract"
+				},
+				"type":"DelegateResourceContract"
+			}
+		],
+		"ref_block_bytes":"020c",
+		"ref_block_hash":"54e32e95d11894f8",
+		"expiration":1676621547000,
+		"timestamp":1676621487525
+	},
+	"raw_data_hex":"0a02020c220854e32e95d11894f840f88bbaf3e5305a710839126d0a35747970652e676f6f676c65617069732e636f6d2f70726f746f636f6c2e44656c65676174655265736f75726365436f6e747261637412340a1541ce8a0cf0c16d48bcf22825f6053248df653c89ca100118c0843d221541fd49eda0f23ff7ec1d03b52c3a45991c24cd440e70a5bbb6f3e530"
+}
+before sign transaction hex string is 0a8f010a02020c220854e32e95d11894f840f88bbaf3e5305a710839126d0a35747970652e676f6f676c65617069732e636f6d2f70726f746f636f6c2e44656c65676174655265736f75726365436f6e747261637412340a1541ce8a0cf0c16d48bcf22825f6053248df653c89ca100118c0843d221541fd49eda0f23ff7ec1d03b52c3a45991c24cd440e70a5bbb6f3e530
+Please confirm and input your permission id, if input y or Y means default 0, other non-numeric characters will cancel transaction.
+y
+Please choose your key for sign.
+The 1th keystore file name is UTC--2023-02-17T02-53-57.163000000Z--THLJLytz6UHwpmDFi5RC43D44dmnh4ZTeL.json
+The 2th keystore file name is UTC--2023-02-17T07-40-47.121000000Z--TUoHaVjx7n5xz8LwPRDckgFrDWhMhuSuJM.json
+Please choose between 1 and 2
+2
+Please input your password.
+password:
+after sign transaction hex string is 0a8f010a02020c220854e32e95d11894f84093e9dcfde5305a710839126d0a35747970652e676f6f676c65617069732e636f6d2f70726f746f636f6c2e44656c65676174655265736f75726365436f6e747261637412340a1541ce8a0cf0c16d48bcf22825f6053248df653c89ca100118c0843d221541fd49eda0f23ff7ec1d03b52c3a45991c24cd440e70a5bbb6f3e5301241414de060e9c104bb45d745e22b7b7a30b4a89a2635c62aab152fff5d2f10b7443023a9aa487be86652b74974ff6a7d82d3dbf94cea9ac1e0a7e48e682175e3f601
+txid is 0917002d0068dde7ad4ffe46e75303d11192e17bfa78934a5f867c5ae20720ec
+delegateResource successful !!!
+```
+
+#### UndelegateResource
+Stake 2.0 取消资源代理API：取消为目标地址代理的带宽或者能量。
+```shell
+wallet> unDelegateResource [OwnerAddress] balance ResourceCode(0 BANDWIDTH,1 ENERGY), ReceiverAddress
+```
+
+* `OwnerAddress` 是交易发起人的地址。可选，默认为wallet-cli登录地址。
+* `balance` 解代理的TRX数量。
+* `ResourceCode` 用来指示解除代理资源的种类，0为`带宽`，1为`能量`。 
+* `ReceiverAddress` 资源接收者地址。 
+
+
+示例：
+
+```shell
+wallet> unDelegateResource 1000000  1 TZ4UXDV5ZhNW7fb2AMSbgfAEZ7hWsnYS2g
+{
+	"raw_data":{
+		"contract":[
+			{
+				"parameter":{
+					"value":{
+						"balance":1000000,
+						"resource":"ENERGY",
+						"receiver_address":"TZ4UXDV5ZhNW7fb2AMSbgfAEZ7hWsnYS2g",
+						"owner_address":"TUoHaVjx7n5xz8LwPRDckgFrDWhMhuSuJM"
+					},
+					"type_url":"type.googleapis.com/protocol.UnDelegateResourceContract"
+				},
+				"type":"UnDelegateResourceContract"
+			}
+		],
+		"ref_block_bytes":"0251",
+		"ref_block_hash":"68ac15256c213e71",
+		"expiration":1676621754000,
+		"timestamp":1676621695001
+	},
+	"raw_data_hex":"0a020251220868ac15256c213e714090ddc6f3e5305a73083a126f0a37747970652e676f6f676c65617069732e636f6d2f70726f746f636f6c2e556e44656c65676174655265736f75726365436f6e747261637412340a1541ce8a0cf0c16d48bcf22825f6053248df653c89ca100118c0843d221541fd49eda0f23ff7ec1d03b52c3a45991c24cd440e709990c3f3e530"
+}
+before sign transaction hex string is 0a91010a020251220868ac15256c213e714090ddc6f3e5305a73083a126f0a37747970652e676f6f676c65617069732e636f6d2f70726f746f636f6c2e556e44656c65676174655265736f75726365436f6e747261637412340a1541ce8a0cf0c16d48bcf22825f6053248df653c89ca100118c0843d221541fd49eda0f23ff7ec1d03b52c3a45991c24cd440e709990c3f3e530
+Please confirm and input your permission id, if input y or Y means default 0, other non-numeric characters will cancel transaction.
+y
+Please choose your key for sign.
+The 1th keystore file name is UTC--2023-02-17T02-53-57.163000000Z--THLJLytz6UHwpmDFi5RC43D44dmnh4ZTeL.json
+The 2th keystore file name is UTC--2023-02-17T07-40-47.121000000Z--TUoHaVjx7n5xz8LwPRDckgFrDWhMhuSuJM.json
+Please choose between 1 and 2
+2
+Please input your password.
+password:
+after sign transaction hex string is 0a91010a020251220868ac15256c213e7140febde9fde5305a73083a126f0a37747970652e676f6f676c65617069732e636f6d2f70726f746f636f6c2e556e44656c65676174655265736f75726365436f6e747261637412340a1541ce8a0cf0c16d48bcf22825f6053248df653c89ca100118c0843d221541fd49eda0f23ff7ec1d03b52c3a45991c24cd440e709990c3f3e530124102ebde16d1abaccd976f8ead4b5acf92b05f7d9796c28ca6a26b4e51442e638e5e33e598bb03732da24dc761a39b9d307c045b55323128dc9b07510ffc48933a01
+txid is 537a3f4461ab55c705b77503bc42f469bfc22c0cb8588b8f3641ab40117ebfd8
+unDelegateResource successful !!!
+```
+#### WithdrawExpireUnfreeze
+Stake 2.0 提取质押本金API：提取已过锁定期的解质押的本金。
+
+```shell
+wallet> withdrawExpireUnfreeze [OwnerAddress]
+```
+
+* `OwnerAddress` 是交易发起人的地址。可选，默认为wallet-cli登录地址。
+
+
+示例：
+
+```shell
+wallet> withdrawExpireUnfreeze 
+```
+
+#### GetAvailableUnfreezeCount
+Stake 2.0 API: 查询当下解质押剩余次数。
+
+```shell
+wallet> getavailableunfreezecount [OwnerAddress]
+```
+
+* `OwnerAddress` 是交易发起人的地址。可选，默认为wallet-cli登录地址。
+
+
+示例：
+
+```shell
+wallet> GetAvailableUnfreezeCount
+{
+	"count": 30
+}
+```
+#### GetCanWithdrawUnfreezeAmount
+Stake 2.0 API: 查询在某时间点可以提取的解质押本金数量。
+
+```shell
+wallet> getcanwithdrawunfreezeamount ownerAddress timestamp
+```
+
+* `OwnerAddress` 是交易发起人的地址。可选，默认为wallet-cli登录地址。
+* `timestamp` 查询的提现时间戳，以毫秒为单位。
+
+示例：
+
+```shell
+wallet> getcanwithdrawunfreezeamount 1776621695001
+{
+	"amount": 4000000
+}
+```
+
+#### GetCanDelegatedMaxsize
+Stake 2.0 API: 查询在某时间点可以提取的解质押本金数量。
+
+```shell
+wallet> getcandelegatedmaxsize ownerAddress type
+```
+
+* `OwnerAddress` 是交易发起人的地址。可选，默认为wallet-cli登录地址。
+* `type` 查询的资源类型，0为带宽，1为能量。
+
+示例：
+
+```shell
+wallet> getcandelegatedmaxsize 1
+{
+	"max_size": 11000000
+}
+```
+#### GetDelegatedResourceV2
+Stake 2.0 API：查询某地址代理给目标地址的资源情况。
+
+```shell
+wallet> getdelegatedresourcev2 fromAddress toAddress
+```
+
+* `fromAddress` 资源代理地址。
+* `toAddress` 资源接收地址。
+
+示例：
+
+```shell
+wallet> getdelegatedresourcev2  TUoHaVjx7n5xz8LwPRDckgFrDWhMhuSuJM TZ4UXDV5ZhNW7fb2AMSbgfAEZ7hWsnYS2g
+{
+	"delegatedResource": [
+		{
+			"from": "TUoHaVjx7n5xz8LwPRDckgFrDWhMhuSuJM",
+			"to": "TZ4UXDV5ZhNW7fb2AMSbgfAEZ7hWsnYS2g",
+			"frozen_balance_for_bandwidth": 7000000,
+			"frozen_balance_for_energy": 3000000
+		}
+	]
+}
+```
+#### GetDelegatedResourceAccountIndexV2
+Stake 2.0 API：查询某地址的资源委托索引。返回两个列表，一个是该帐户将资源委托给的地址列表(toAddress)，另一个是将资源委托给该帐户的地址列表(fromAddress)
+
+```shell
+wallet> getdelegatedresourceaccountindexv2 ownerAddress
+```
+
+* `OwnerAddress` 查询的地址。
+
+示例：
+
+```shell
+wallet> getdelegatedresourceaccountindexv2 TUoHaVjx7n5xz8LwPRDckgFrDWhMhuSuJM
+{
+	"account": "TUoHaVjx7n5xz8LwPRDckgFrDWhMhuSuJM",
+	"fromAccounts": [
+		"TUznHJfHe6gdYY7gvWmf6bNZHuPHDZtowf"
+	],
+	"toAccounts": [
+		"TZ4UXDV5ZhNW7fb2AMSbgfAEZ7hWsnYS2g"
+	]
+}
+```
+
+#### GetAccountNet
+该命令用于查询账户内的带宽使用情况
+
+示例：
+```shell
+wallet> getaccountnet TSzdGHnhYnQKFF4LKrRLztkjYAvbNoxnQ8
+{
+	"freeNetUsed": 262,
+	"freeNetLimit": 1500,
+	"TotalNetLimit": 43200000000,
+	"TotalNetWeight": 8725123062
+}
+```
+
+#### GetAccountResource
+该命令用于查询账户的带宽和能量使用情况
+
+示例：
+```shell
+wallet> getaccountresource TSzdGHnhYnQKFF4LKrRLztkjYAvbNoxnQ8
+{
+	"freeNetUsed": 262,
+	"freeNetLimit": 1500,
+	"TotalNetLimit": 43200000000,
+	"TotalNetWeight": 8725123062,
+	"tronPowerLimit": 1,
+	"TotalEnergyLimit": 90000000000,
+	"TotalEnergyWeight": 328098231
+}
+```
+
+
+### 交易
+下面是账户地址相关命令：
+
+- [SendCoin](#sendcoin)
+- [AddTransactionSign](#addtransactionsign)
+- [BroadcastTransaction](#broadcasttransaction)
+- [GetTransactionApprovedList](#gettransactionapprovedlist)
+
+#### SendCoin
+```
+> sendcoin [toAddress] [amount]
+```
+`toAddress`为目标地址，`amount` 为转账数额。下面是一个多签交易例子，其中的签名各账户的授权情况为[UpdateAccountPermission](#updateaccountpermission)部分的例子中实际的授权情况,请参考：
+```shell
+wallet> sendcoin TXBpeye7UQ4dDZEnmGDv4vX37mBYDo1tUE 10
+{
+	"raw_data":{
+		"contract":[
+	···
+	"raw_data_hex":"0a029ca12208432ed1fe1357ff7f40c0c484f19a305a65080112610a2d747970652e676f6f676c65617069732e636f6d2f70726f746f636f6c2e5472616e73666572436f6e747261637412300a1541babecec4d9f58f0df77f0728b9c53abb1f21d684121541e8bd653015895947cec33d1670a88cf67ab277b9180a708a8481f19a30"
+}
+before sign transaction hex string is 0a83010a029ca12208432ed1fe1357ff7f40c0c484f19a305a65080112610a2d747970652e676f6f676c65617069732e636f6d2f70726f746f636f6c2e5472616e73666572436f6e747261637412300a1541babecec4d9f58f0df77f0728b9c53abb1f21d684121541e8bd653015895947cec33d1670a88cf67ab277b9180a708a8481f19a30
+Please confirm and input your permission id, if input y or Y means default 0, other non-numeric characters will cancel transaction.
+2
+Please choose your key for sign.
+The 1th keystore file name is UTC--2022-06-28T06-52-56.928000000Z--TB9qhqbev6DpX8mxdf3zDdtSQ6GC6Vb6Ej.json
+The 2th keystore file name is .DS_Store
+The 3th keystore file name is UTC--2022-04-06T09-43-20.710000000Z--TSzdGHnhYnQKFF4LKrRLztkjYAvbNoxnQ8.json
+The 4th keystore file name is UTC--2022-04-07T09-03-38.307000000Z--TXBpeye7UQ4dDZEnmGDv4vX37mBYDo1tUE.json
+Please choose between 1 and 4
+1
+Please input your password.
+password: 
+Current signWeight is:
+{
+	"result":{
+		"code":"NOT_ENOUGH_PERMISSION"
+	},
+	"approved_list":[
+		"TB9qhqbev6DpX8mxdf3zDdtSQ6GC6Vb6Ej"
+	],
+	"permission":{
+		"operations":"7fff1fc0033e0000000000000000000000000000000000000000000000000000",
+		"keys":[
+			{
+				"address":"TB9qhqbev6DpX8mxdf3zDdtSQ6GC6Vb6Ej",
+				"weight":1
+			},
+			{
+				"address":"TXBpeye7UQ4dDZEnmGDv4vX37mBYDo1tUE",
+				"weight":1
+			}
+		],
+		"threshold":2,
+		"id":2,
+		"type":"Active",
+		"permission_name":"active12323"
+	},
+	"current_weight":1,
+	"transaction":{
+		"result":{
+			"result":true
+		},
+		"txid":"ece603ec8ad11578450dc8adf29dd9d9833e733c313fe16a947c8c768f1e4483",
+		"transaction":{
+			"signature":[
+				"990001e909e638bbaa5de9b392121971d25cabde1391f5e164cd8a14608812df01a273e867c2329b8adb233599c5d353c435e789c777fd3e0b9fe83f0737a91101"
+			],
+			"txID":"ece603ec8ad11578450dc8adf29dd9d9833e733c313fe16a947c8c768f1e4483",
+			"raw_data":···,
+			"raw_data_hex":"0a029ca12208432ed1fe1357ff7f40a2b3a7fb9a305a67080112610a2d747970652e676f6f676c65617069732e636f6d2f70726f746f636f6c2e5472616e73666572436f6e747261637412300a1541babecec4d9f58f0df77f0728b9c53abb1f21d684121541e8bd653015895947cec33d1670a88cf67ab277b9180a2802708a8481f19a30"
+		}
+	}
+}
+Please confirm if continue add signature enter y or Y, else any other
+y
+Please choose your key for sign.
+The 1th keystore file name is UTC--2022-06-28T06-52-56.928000000Z--TB9qhqbev6DpX8mxdf3zDdtSQ6GC6Vb6Ej.json
+The 2th keystore file name is .DS_Store
+The 3th keystore file name is UTC--2022-04-06T09-43-20.710000000Z--TSzdGHnhYnQKFF4LKrRLztkjYAvbNoxnQ8.json
+The 4th keystore file name is UTC--2022-04-07T09-03-38.307000000Z--TXBpeye7UQ4dDZEnmGDv4vX37mBYDo1tUE.json
+Please choose between 1 and 4
+4
+Please input your password.
+password: 
+after sign transaction hex string is 0a85010a029ca12208432ed1fe1357ff7f40a2b3a7fb9a305a67080112610a2d747970652e676f6f676c65617069732e636f6d2f70726f746f636f6c2e5472616e73666572436f6e747261637412300a1541babecec4d9f58f0df77f0728b9c53abb1f21d684121541e8bd653015895947cec33d1670a88cf67ab277b9180a2802708a8481f19a301241990001e909e638bbaa5de9b392121971d25cabde1391f5e164cd8a14608812df01a273e867c2329b8adb233599c5d353c435e789c777fd3e0b9fe83f0737a91101124141ba3ffe9c7bb1ed184df8bf635d8c987982b2f4b22c447666ac82726f4a97cb2ef4d3fabd64137b8d59239bd7173c74264733ed140ccd04934a88c438de1cab00
+txid is ece603ec8ad11578450dc8adf29dd9d9833e733c313fe16a947c8c768f1e4483
+Send 10 Sun to TXBpeye7UQ4dDZEnmGDv4vX37mBYDo1tUE successful !!
+```
+在转账过程中，需要输入`permission_id`，其默认值为0，此时表示该笔交易只需发起人签名即可。 在上面的例子中，我们输入了“2”，表示需要具有ID为2的权限的账户来签名完成此笔交易，此时需要拥有`actives` 权限的两个账户都签名才能完成交易，请参照[UpdateAccountPermission](#updateaccountpermission) 部分的例子，首先由`TB9qhqbev6DpX8mxdf3zDdtSQ6GC6Vb6Ej` 完成签名，此时系统会询问是否继续签名，输入“y”之后，再由`TXBpeye7UQ4dDZEnmGDv4vX37mBYDo1tUE` 完成签名。
+
+两个账户的权重各为1，完成多签的权重阀值为2，此时签名条件达成，交易成功。这个例子为使用同一客户端时如何完成多重签名交易。当使用多个客户端时，请参考下面这个命令。
+
+#### AddTransactionSign
+当有多个客户端时，可以使用该命令为交易添加签名，此时需要交易本体的hex string。
+
+示例：
+```shell
+wallet> addtransactionsign 0a83010a0241aa2208b2d2c13c86e8bd884098acb1cf9a305a65080112610a2d747970652e676f6f676c65617069732e636f6d2f70726f746f636f6c2e5472616e73666572436f6e747261637412300a1541babecec4d9f58f0df77f0728b9c53abb1f21d684121541e8bd653015895947cec33d1670a88cf67ab277b9180a70e8e1adcf9a30
+Please input permission id.
+0
+Please choose your key for sign.
+The 1th keystore file name is UTC--2022-06-28T06-52-56.928000000Z--TB9qhqbev6DpX8mxdf3zDdtSQ6GC6Vb6Ej.json
+The 2th keystore file name is .DS_Store
+The 3th keystore file name is UTC--2022-04-06T09-43-20.710000000Z--TSzdGHnhYnQKFF4LKrRLztkjYAvbNoxnQ8.json
+The 4th keystore file name is UTC--2022-04-07T09-03-38.307000000Z--TXBpeye7UQ4dDZEnmGDv4vX37mBYDo1tUE.json
+Please choose between 1 and 4
+3
+Please input your password.
+password: 
+{
+	"signature":[
+		"dbfe007bb44e8db164f4c0cf9b586a8d6a65f0612c4d9ec5350adeae6cd97c7874e7254bbf4156b545a90c34e48c8f28bdb5c8f9258514233b9201b2844d7f9201"
+	],
+	"txID":"6e1d2460796f717b701e355734ac0e4e8b32e14c24ce569a60ad3f63afe46c87",
+	"raw_data":{
+		"contract":[
+			{
+				"parameter":{
+					"value":{
+						"amount":10,
+						"owner_address":"TSzdGHnhYnQKFF4LKrRLztkjYAvbNoxnQ8",
+						"to_address":"TXBpeye7UQ4dDZEnmGDv4vX37mBYDo1tUE"
+					},
+					"type_url":"type.googleapis.com/protocol.TransferContract"
+				},
+				"type":"TransferContract"
+			}
+		],
+		"ref_block_bytes":"41aa",
+		"ref_block_hash":"b2d2c13c86e8bd88",
+		"expiration":1656434882649,
+		"timestamp":1656413188328
+	},
+	"raw_data_hex":"0a0241aa2208b2d2c13c86e8bd8840d9f0d9d99a305a65080112610a2d747970652e676f6f676c65617069732e636f6d2f70726f746f636f6c2e5472616e73666572436f6e747261637412300a1541babecec4d9f58f0df77f0728b9c53abb1f21d684121541e8bd653015895947cec33d1670a88cf67ab277b9180a70e8e1adcf9a30"
+}
+Transaction hex string is 0a83010a0241aa2208b2d2c13c86e8bd8840d9f0d9d99a305a65080112610a2d747970652e676f6f676c65617069732e636f6d2f70726f746f636f6c2e5472616e73666572436f6e747261637412300a1541babecec4d9f58f0df77f0728b9c53abb1f21d684121541e8bd653015895947cec33d1670a88cf67ab277b9180a70e8e1adcf9a301241dbfe007bb44e8db164f4c0cf9b586a8d6a65f0612c4d9ec5350adeae6cd97c7874e7254bbf4156b545a90c34e48c8f28bdb5c8f9258514233b9201b2844d7f9201
+```
+
+
+**注意** 签名后，各方需要使用下面的命令手动完成交易广播。
+
+#### BroadcastTransaction
+
+要使用交易本体hex string完成交易广播时，请使用本命令。
+```shell
+wallet> broadcasttransaction 0a83010a0241aa2208b2d2c13c86e8bd8840d9f0d9d99a305a65080112610a2d747970652e676f6f676c65617069732e636f6d2f70726f746f636f6c2e5472616e73666572436f6e747261637412300a1541babecec4d9f58f0df77f0728b9c53abb1f21d684121541e8bd653015895947cec33d1670a88cf67ab277b9180a70e8e1adcf9a301241dbfe007bb44e8db164f4c0cf9b586a8d6a65f0612c4d9ec5350adeae6cd97c7874e7254bbf4156b545a90c34e48c8f28bdb5c8f9258514233b9201b2844d7f9201
+BroadcastTransaction successful !!!
+```
+
+#### GetTransactionApprovedList
+通过交易本体hex string使用本命令可以查看签名列表
+
+示例：
+```shell
+wallet> getTransactionApprovedList
+0a8c010a020318220860e195d3609c86614096eadec79d2d5a6e080112680a2d747970652e676f6f676c65617069732e636f6d2f70726f746f636f6c2e5472616e73666572436f6e747261637412370a1541a7d8a35b260395c14aa456297662092ba3b76fc01215415a523b449890854c8fc460ab602df9f31fe4293f18808084fea6dee11128027094bcb8bd9d2d1241c18ca91f1533ecdd83041eb0005683c4a39a2310ec60456b1f0075b4517443cf4f601a69788f001d4bc03872e892a5e25c618e38e7b81b8b1e69d07823625c2b0112413d61eb0f8868990cfa138b19878e607af957c37b51961d8be16168d7796675384e24043d121d01569895fcc7deb37648c59f538a8909115e64da167ff659c26101
+{
+	"result":{
+		
+	},
+	"approved_list":[
+		"TSzdGHnhYnQKFF4LKrRLztkjYAvbNoxnQ8"
+	],
+	"transaction":{
+		"result":{
+			"result":true
+		},
+		"txid":"6e1d2460796f717b701e355734ac0e4e8b32e14c24ce569a60ad3f63afe46c87",
+		"transaction":{
+			"signature":[
+				"dbfe007bb44e8db164f4c0cf9b586a8d6a65f0612c4d9ec5350adeae6cd97c7874e7254bbf4156b545a90c34e48c8f28bdb5c8f9258514233b9201b2844d7f9201"
+			],
+			"txID":"6e1d2460796f717b701e355734ac0e4e8b32e14c24ce569a60ad3f63afe46c87",
+			"raw_data":{
+				"contract":[
+					{
+						"parameter":{
+							"value":{
+								"amount":10,
+								"owner_address":"TSzdGHnhYnQKFF4LKrRLztkjYAvbNoxnQ8",
+								"to_address":"TXBpeye7UQ4dDZEnmGDv4vX37mBYDo1tUE"
+							},
+							"type_url":"type.googleapis.com/protocol.TransferContract"
+						},
+						"type":"TransferContract"
+					}
+				],
+				"ref_block_bytes":"41aa",
+				"ref_block_hash":"b2d2c13c86e8bd88",
+				"expiration":1656434882649,
+				"timestamp":1656413188328
+			},
+			"raw_data_hex":"0a0241aa2208b2d2c13c86e8bd8840d9f0d9d99a305a65080112610a2d747970652e676f6f676c65617069732e636f6d2f70726f746f636f6c2e5472616e73666572436f6e747261637412300a1541babecec4d9f58f0df77f0728b9c53abb1f21d684121541e8bd653015895947cec33d1670a88cf67ab277b9180a70e8e1adcf9a30"
+		}
+	}
+}
+
+```
+
+
+
+
+### 查询链上数据
+下面是账户地址相关命令：
+
+- [GetNextMaintenanceTime](#getnextmaintenancetime)
+- [ListNodes](#listnodes)
+- [GetBlock](#getblock)
+- [GetBlockById](#getblockbyid)
+- [GetBlockByLatestNum](#getblockbylatestnum)
+- [GetBlockByLimitNext](#getblockbylimitnext)
+- [GetTransactionById](#gettransactionbyid)
+- [GetTransactionCountByBlockNum](#gettransactioncountbyblocknum)
+- [GetTransactionInfoById](#gettransactioninfobyid)
+- [GetTransactionInfoByBlockNum](#gettransactioninfobyblocknum)
+- [GetTransactionSignWeight](#gettransactionsignweight)
+
+
+
+#### GetNextMaintenanceTime
+
+使用该命令查询下一个维护时间
+```
+wallet> GetNextMaintenanceTime
+Next maintenance time is : 2022-06-29 16:40:00
+```
+#### ListNodes
+
+使用该命令列出其他节点的地址和端口信息
+```
+wallet> listnodes
+IP::1.23.456.789
+Port::12345
+IP::2.345.67.89
+Port::12345
+IP::345.678.901.234
+Port::12345
+···
+```
+#### GetBlock
+
+使用该命令通过区块高度查询区块，如不输入区块高度，则默认查询最新区块。
+```shell
+wallet> getblock
+Get current block !!!
+{
+	"block_header":{
+		"raw_data":{
+			"number":27774469,
+			"txTrieRoot":"0000000000000000000000000000000000000000000000000000000000000000",
+			"witness_address":"TQuzjxWcqHSh1xDUw4wmMFmCcLjz4wSCBp",
+			"parentHash":"0000000001a7ce048eb88d7c3c5e9c5f8e93a6cc568f47140e243d00d0f9280a",
+			"version":24,
+			"timestamp":1656919215000
+		},
+		"witness_signature":"3af25276891b1cf7f9f72e63ad956b50e5819fb3fa6f0b6393ed092e53a90a5438620b92b5d499e0068c6775b723e3c90677157b3e9f7b8933d1e863716145f500"
+	}
+}
+```
+#### GetBlockById
+
+通过区块哈希查询区块信息
+```
+wallet> getblockbyid [blockID]
+```
+示例：
+```shell
+wallet> getblockbyid 0000000001a7cd54ee2b302cfd443cccec78e55a31902d2e7ea47e737c1a5ede
+{
+	"block_header":{
+		"raw_data":{
+			"number":27774292,
+			"txTrieRoot":"a60f8cb160d06d5279cb463925274e18fec37f0414c4d8fdc4fb2299ccb0a8bf",
+			"witness_address":"TGsdxpHNJaxsVNFFdb4R6Rib1TsKGon2Wp",
+			"parentHash":"0000000001a7cd53685867286b17fa0f2389e1d3026bea0a0019c5fc37f873cb",
+			"version":24,
+			"timestamp":1656918678000
+		},
+		"witness_signature":"a93db1a8d989c6637d587369de2872a008f14d1df8f0aaeda8a54c324a44c269367ea31daf623834fd6a4ef3f6150ab8d370adff1df6c0e8c96af9cf34408d5600"
+	},
+	···
+
+```
+#### GetBlockByLatestNum
+
+获取最近的n个区块的信息，n 必须满足 0 < n < 100。
+```
+wallet> getblockbylatestnum [n]
+```
+#### GetBlockByLimitNext
+
+通过区块高度查询区间内的区块信息。`startBlock`为区间开始的区块高度，`endBLock`为区间结束的区块高度。
+```
+wallet> GetBlockByLimitNext [startBlock, endBlock]
+```
+示例：
+```shell
+wallet> getblockbylimitnext 27774670 27774674
 [
-contract_type: ShieldedTransferContract
-spend_description:
+	{
+		"block_header":{
+			"raw_data":{
+				"number":27774670,
+				"txTrieRoot":"0eb9ba48deda22fafa613c0aefa6d3e0b21261ad82a126ce99a6b80e8b68045c",
+				"witness_address":"TVKfvNUMcZdZbxhPLb2CkQ4nyUUhvwhv1b",
+				"parentHash":"0000000001a7cecd7a2cdc58fdfd2edbfeaeb530958879bf1a299cc30043cd0b",
+				"version":24,
+				"timestamp":1656919824000
+			},
+			"witness_signature":"ee6653289e24edd24d70f4975e12934573d6e798a2a5c5e26e0b13bc6d25138c49a0f55fb0e9a5c503622b5877811403577a5e278528293d05c5f0b9d5d5542401"
+		},
+···
+```
+#### GetTransactionById
+
+通过交易哈希查询交易信息。
+
+```shell
+wallet> GetTransactionById [transactionID]
+```
+`transactionID`是交易哈希，示例如下：
+```shell
+wallet> gettransactionbyid 86f09e0152cae9424685411439601c93f9a0ee484ab6e4184cb02294e85cdf89
+{
+	"ret":[
+		{
+			"contractRet":"SUCCESS"
+		}
+	],
+	"signature":[
+		"26b70d14ca08de644c4b1d8b71952ff57078a36719497bb188040ba589a808c7c896deb82fadcaad7d68be3d1d02bd2e490227ca90cc8b050f750aa10df6105300"
+	],
+	"txID":"86f09e0152cae9424685411439601c93f9a0ee484ab6e4184cb02294e85cdf89",
+	"raw_data":{
+···
+```
+#### GetTransactionCountByBlockNum
+
+通过区块高度查询该区块内有多少笔交易。比如下例中，区块高度为27633562。
+```
+wallet> gettransactioncountbyblocknum 27633562
+The block contains 4 transactions
+```
+
+#### GetTransactionInfoById
+
+使用该命令通过交易哈希获取交易详情，通常用于查看智能合约的触发情况。
+
+示例：
+```shell
+wallet> gettransactioninfobyid 6e1d2460796f717b701e355734ac0e4e8b32e14c24ce569a60ad3f63afe46c87
+{
+	"id": "6e1d2460796f717b701e355734ac0e4e8b32e14c24ce569a60ad3f63afe46c87",
+	"blockNumber": 27609041,
+	"blockTimeStamp": 1656417906000,
+	"contractResult": [
+		""
+	],
+	"receipt": {
+		"net_usage": 265
+	}
+}
+```
+
+#### GetTransactionInfoByBlockNum
+
+通过区块高度查询该区块内交易的详情，`blockNum`为区块高度。
+```
+wallet> gettransactioninfobyblocknum [blockNum]
+```
+示例：
+```shell
+wallet> gettransactioninfobyblocknum 27775479
 [
-{
-value_commitment:d972b1946f3884732f0c1d67d447ab6aa2128cc70fc44f7ec664c257361e7638
-anchor:efe6dd711e8dc619a892b3a3f8b0e86bb51e867718e34e8e5c483e45ba1d1f13
-nullifier:8a5185c92d707bde700aad36ae54966cb9bc747cacc422425e41c176f3c7294c
-rk:1fd62d517815b8f717b86d93cd1c6cd196c6ac6be785a8043cbd860264908fc3
-zkproof:975a3ea4d6682945ad6d036401027cff7ec26b554ece18bc42e69acdbeb3742daa1a556d2b707dee5cfd6ab391e35705a7fef815c69cb76974c7519f82c8115110aa9ce702dcc0dd07322ea07bdffdfa7947b90f2beb50308fb4640352c7e4fd07ae8d23f77dec6ee7f0ef538064002b5e6b3a35b781d64080adb0a244afa86d06811c145551516948c834343a85a938942b3b538d8ba5d1d765a7cf3bb16a1a4f211bb1dff93ca85b16f814cf0939f64cfa89dcd833cb31a726b689e0d4b4d4
-spend_authority_signature:5caaa268628276ef71a709e31c9cc5ab1160ba6ab82be0064fbaa31fc372ab4f311dd2ccb50e5d908522acea4cd512241aed7c54bdf65bc76fbba27d8451dc03
-}
-]
-receive_description:
-[
-{
-value_commitment:9e9bd0ff2d6c1dfa134dd7c834426c3158a1c0b1780cd7cfd4fdf3a055ff2e50
-note_commitment:7ffbb461e35abd8c7505e71399ad2d2d41749af8b567043940cee496790e773f
-epk:ef92ed5d2725ffc92fb02fa632bc4b68b246600149e2207d69c7209d4fbb88bf
-c_enc:b462cecb440db4cb994a9f2877f812972bd93f127f8c0b6e0909532ba013f70c7953146a7d22149f96b04c23a820f0cbb422ccdb01f676c4345230c67325f1de1bba5f8bd88db21db6c86f7da7765dbbe9b389326cab3deaaa59ea903c3d2db50394e6d431e193ff37ecd164cd3b9579904cc79096acdc7b1c47d91142d0d5beea48bcfbc540aa78ef02f3fb8ba68a1ee0705abc1aaa07200a02a7c9aaa930649de0adf8f90b6acd349136b550a3b1adbad913fef482b73914f5511e758ec280d463b2df8c89c127b0c127bc1e8b68f5dca0682684c9c2a560015593762ee6e401ce6aac23c97de7f636d01b27dc4caa1bff8c98a36342661ff26e41826601d0945aefb9d86b94382fb912e8f32cb2c8990101765aa9e78cbe6c48c2ee3c0fd4df3050cb1395f98d3335b01a5f8bdbfefd3a445ab91cd69f30b1ed5da2c7b0c4ef732cc1e33951714bcce6d2f580711d86a7663defdd09998237282c710de15db31dbbcfe043efad8ee55f9c5de779553a173a7b87bb062412d061c20ebf46f918024e460bf9f7a9650986eb9962478e5c069ae8bc7c01d6399e60d0154f956d0b7613d774d2e8b8bde3d4b1cf5ed46edfec663017a70312eb04ee68baaae9c0779d782031fad6f99a37981db699fdcfa29fdc5e0628b73209b8fef58ca70581f90899c756a0b2911caab7685b9cdaf7da3a02a258df8d8fe16a939f2c601e39ec795faa1c7d06e00e9c2dbc9181f9a97dde5fc23053a2753262d7c570eca6e104bf0e308de99d0e04dab9130a4b3fb1fec21f75f4d1096270130199664e39687d3cc777
-c_out:fcb1be9acda155d265301b76eb6dd199dad759af298746bfd6588844affb7c53c702b4915978483c28a5753d3a02a91d1769874d7b5b5e55288aa1420b90b9eb71f21a25fb653f41352cb9cf762f1a77
-zkproof:a5229d0065d15720421f5dc95236521aa5a1f676ed695892a6c5e6cb504f72712ac2b462a78b7b57543bd7939a74550eb978c343080926480d1119e9b299ed07a943f8cdc937f5f68e3b1fdd17cffb8e81225ef867ffbdf288b61947e4cf69d70b8cf697fc77bd8132c1ed9d8b816a07a285e6b77955ac6d9b8009094875ce531abac0443486aba986afd61bc6d1e05484390f1444de7d54f6af5d8bba38106a2262e9c74d86d981388ea1cba44280e0d993e21b358bbc7a80f13e4236cdb62e
-}
-]
-binding_signature: 87e087f3eb8455a327c9621787bf6fbf592a3d6307bfee7e5ac7282e5c50c9556f8feb4cbe21d33e22b4d6c40046419be88cc3acd6ebae781945aea904627e02
-]
-
-}
-timestamp: Fri Jul 19 10:43:38 CST 2019
-fee_limit: 0
-}
-
-txid:
-840b127fea05f7f86c43ad9fb5fe7fa27e977465cea4e4ae25e59e0de75ad99e
-raw_data:
-{
-ref_block_bytes: 05d8
-ref_block_hash: d5877abdc498f58f
-contract:
-{
-contract 0 :::
-[
-contract_type: ShieldedTransferContract
-spend_description:
-[
-{
-value_commitment:d972b1946f3884732f0c1d67d447ab6aa2128cc70fc44f7ec664c257361e7638
-anchor:efe6dd711e8dc619a892b3a3f8b0e86bb51e867718e34e8e5c483e45ba1d1f13
-nullifier:8a5185c92d707bde700aad36ae54966cb9bc747cacc422425e41c176f3c7294c
-rk:1fd62d517815b8f717b86d93cd1c6cd196c6ac6be785a8043cbd860264908fc3
-zkproof:975a3ea4d6682945ad6d036401027cff7ec26b554ece18bc42e69acdbeb3742daa1a556d2b707dee5cfd6ab391e35705a7fef815c69cb76974c7519f82c8115110aa9ce702dcc0dd07322ea07bdffdfa7947b90f2beb50308fb4640352c7e4fd07ae8d23f77dec6ee7f0ef538064002b5e6b3a35b781d64080adb0a244afa86d06811c145551516948c834343a85a938942b3b538d8ba5d1d765a7cf3bb16a1a4f211bb1dff93ca85b16f814cf0939f64cfa89dcd833cb31a726b689e0d4b4d4
-spend_authority_signature:5caaa268628276ef71a709e31c9cc5ab1160ba6ab82be0064fbaa31fc372ab4f311dd2ccb50e5d908522acea4cd512241aed7c54bdf65bc76fbba27d8451dc03
-}
-]
-receive_description:
-[
-{
-value_commitment:9e9bd0ff2d6c1dfa134dd7c834426c3158a1c0b1780cd7cfd4fdf3a055ff2e50
-note_commitment:7ffbb461e35abd8c7505e71399ad2d2d41749af8b567043940cee496790e773f
-epk:ef92ed5d2725ffc92fb02fa632bc4b68b246600149e2207d69c7209d4fbb88bf
-c_enc:b462cecb440db4cb994a9f2877f812972bd93f127f8c0b6e0909532ba013f70c7953146a7d22149f96b04c23a820f0cbb422ccdb01f676c4345230c67325f1de1bba5f8bd88db21db6c86f7da7765dbbe9b389326cab3deaaa59ea903c3d2db50394e6d431e193ff37ecd164cd3b9579904cc79096acdc7b1c47d91142d0d5beea48bcfbc540aa78ef02f3fb8ba68a1ee0705abc1aaa07200a02a7c9aaa930649de0adf8f90b6acd349136b550a3b1adbad913fef482b73914f5511e758ec280d463b2df8c89c127b0c127bc1e8b68f5dca0682684c9c2a560015593762ee6e401ce6aac23c97de7f636d01b27dc4caa1bff8c98a36342661ff26e41826601d0945aefb9d86b94382fb912e8f32cb2c8990101765aa9e78cbe6c48c2ee3c0fd4df3050cb1395f98d3335b01a5f8bdbfefd3a445ab91cd69f30b1ed5da2c7b0c4ef732cc1e33951714bcce6d2f580711d86a7663defdd09998237282c710de15db31dbbcfe043efad8ee55f9c5de779553a173a7b87bb062412d061c20ebf46f918024e460bf9f7a9650986eb9962478e5c069ae8bc7c01d6399e60d0154f956d0b7613d774d2e8b8bde3d4b1cf5ed46edfec663017a70312eb04ee68baaae9c0779d782031fad6f99a37981db699fdcfa29fdc5e0628b73209b8fef58ca70581f90899c756a0b2911caab7685b9cdaf7da3a02a258df8d8fe16a939f2c601e39ec795faa1c7d06e00e9c2dbc9181f9a97dde5fc23053a2753262d7c570eca6e104bf0e308de99d0e04dab9130a4b3fb1fec21f75f4d1096270130199664e39687d3cc777
-c_out:fcb1be9acda155d265301b76eb6dd199dad759af298746bfd6588844affb7c53c702b4915978483c28a5753d3a02a91d1769874d7b5b5e55288aa1420b90b9eb71f21a25fb653f41352cb9cf762f1a77
-zkproof:a5229d0065d15720421f5dc95236521aa5a1f676ed695892a6c5e6cb504f72712ac2b462a78b7b57543bd7939a74550eb978c343080926480d1119e9b299ed07a943f8cdc937f5f68e3b1fdd17cffb8e81225ef867ffbdf288b61947e4cf69d70b8cf697fc77bd8132c1ed9d8b816a07a285e6b77955ac6d9b8009094875ce531abac0443486aba986afd61bc6d1e05484390f1444de7d54f6af5d8bba38106a2262e9c74d86d981388ea1cba44280e0d993e21b358bbc7a80f13e4236cdb62e
-}
-]
-binding_signature: 87e087f3eb8455a327c9621787bf6fbf592a3d6307bfee7e5ac7282e5c50c9556f8feb4cbe21d33e22b4d6c40046419be88cc3acd6ebae781945aea904627e02
+	{
+		"result":"FAILED",
+		"packingFee":882440,
+		"fee":882440,
+		"blockNumber":27775479,
+		"contractResult":[
+			"08c379a00000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000002173746172742074696d65206265666f726520626c6f636b2e74696d657374616d7000000000000000000000000000000000000000000000000000000000000000"
+		],
+		···
+		"result":"FAILED",
+		"packingFee":345000,
+		"fee":345000,
+		"blockNumber":27775479,
+		"contractResult":[
+			"08c379a00000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000002345524332303a207472616e7366657220746f20746865207a65726f20616464726573730000000000000000000000000000000000000000000000000000000000"
+		],
+		"blockTimeStamp":1656922275000,
+		"resMessage":"REVERT opcode executed",
+		"receipt":{
+			"result":"REVERT",
+			"net_fee":345000,
+			"energy_usage_total":647,
+			"origin_energy_usage":647
+		},
+		"id":"13d1e01639edd3f5200789b2fe4d3fdeb765f0bbe4548a1fb69583da85cf7980",
+		"contract_address":"TBLfSzQo8TGtCotPD5JZntpZfQqPFLehTE"
+	}
 ]
 
-}
-timestamp: Fri Jul 19 10:43:38 CST 2019
-fee_limit: 0
-}
-
-10:43:38.722 INFO  [main] [Client](Client.java:2058) SendShieldedCoinWithoutAsk successful !!
 ```
-
-从匿名地址到透明地址
+#### GetTransactionSignWeight
+通过交易本体hex string获取签名信息
 
 示例：
-
 ```shell
-listshieldednote
-Unspend note list like:
-1 ztron1ghdy60hya8y72deu0q0r25qfl60unmue6889m3xfc3296a5ut6jcyafzhtp9nlutndukufzap4h 100000000 4ce5656a13049df00abc7fb3ce78d54c78944d3cbbdfdb29f288e1df5fdf67e1 1 UnSpend
-2 ztron1hn9r3wmytavslztwmlzvuzk3dqpdhwcmda2d0deyu5pwv32dp78saaslyt82w0078y6uzfg8x6w 90000000 06b55fc27f7ec649396706d149d18a0bb003347bdd7f489e3d47205da9cee802 0 UnSpend test2
-
-sendshieldedcoin null 0 1 2 TRGhNNfnmgLegT4zHNjEqDSADjgmnHvubJ 80000000 0
-address ztron1hn9r3wmytavslztwmlzvuzk3dqpdhwcmda2d0deyu5pwv32dp78saaslyt82w0078y6uzfg8x6w
-value 90000000
-rcm becfc0d183a9fe0f8571c9a071bd91fafa7f84c0a5c8c704b100a1ecbd611804
-trxId 06b55fc27f7ec649396706d149d18a0bb003347bdd7f489e3d47205da9cee802
-index 0
-memo test2
-Receive txid = f8bd9e486bdd3a7fa99b4e0b8492f6dac6179c143e44c94e363a397a1ab9fc3b
-transaction hex string is hash:
-d6487d07461fc5c32e61469be9deec6d6e0288e5906eb840b6bac287b2e946e6
-txid:
-f8bd9e486bdd3a7fa99b4e0b8492f6dac6179c143e44c94e363a397a1ab9fc3b
-raw_data:
+wallet>getTransactionSignWeight 
+0a83010a0241aa2208b2d2c13c86e8bd8840d9f0d9d99a305a65080112610a2d747970652e676f6f676c65617069732e636f6d2f70726f746f636f6c2e5472616e73666572436f6e747261637412300a1541babecec4d9f58f0df77f0728b9c53abb1f21d684121541e8bd653015895947cec33d1670a88cf67ab277b9180a70e8e1adcf9a301241dbfe007bb44e8db164f4c0cf9b586a8d6a65f0612c4d9ec5350adeae6cd97c7874e7254bbf4156b545a90c34e48c8f28bdb5c8f9258514233b9201b2844d7f9201
 {
-ref_block_bytes: 060c
-ref_block_hash: c047800cdbd6b5db
-contract:
+	"result":{
+		
+	},
+	"approved_list":[
+		"TSzdGHnhYnQKFF4LKrRLztkjYAvbNoxnQ8"
+	],
+	"permission":{
+		"keys":[
+			{
+				"address":"TSzdGHnhYnQKFF4LKrRLztkjYAvbNoxnQ8",
+				"weight":1
+			}
+		],
+		"threshold":1,
+		"permission_name":"owner"
+	},
+	"current_weight":1,
+	"transaction":{
+		"result":{
+			"result":true
+		},
+		"txid":"6e1d2460796f717b701e355734ac0e4e8b32e14c24ce569a60ad3f63afe46c87",
+		"transaction":{
+			"signature":[
+				"dbfe007bb44e8db164f4c0cf9b586a8d6a65f0612c4d9ec5350adeae6cd97c7874e7254bbf4156b545a90c34e48c8f28bdb5c8f9258514233b9201b2844d7f9201"
+			],
+			···
+		}
+	}
+}
+```
+
+
+
+
+### 智能合约
+本节为所有与智能合约相关的命令:
+
+- [DeployContract](#deploycontract)
+- [TriggerContract](#triggercontract)
+- [TriggerConstantContract](#triggerconstantcontract)
+- [EstimateEnergy](#estimateenergy)
+- [GetContract](#getcontract)
+- [UpdateEnergyLimit](#updateenergylimit)
+- [UpdateSetting](#updatesetting)
+- [UnfreezeAsset](#unfreezeasset)
+#### DeployContract
+使用该命令部署智能合约
+```
+wallet> DeployContract [ownerAddress] [contractName] [ABI] [byteCode] [constructor] [params] [isHex] [fee_limit] [consume_user_resource_percent] [origin_energy_limit] [value] [token_value] [token_id](e.g: TRXTOKEN, use # if don't provided) <library:address,library:address,...> <lib_compiler_version(e.g:v5)> library:address,...>
+```
+
+* `OwnerAddress`为发起人地址，如若不填，则默认为当前登陆账户地址。
+* `contractName` 为智能合约的名称。
+* `ABI` 为编译时生成的ABI码。
+* `byteCode` 为编译时生成的bytecode。
+* `constructor`, `params`, `isHex` 这三个参数定义了bytecode的格式，也就决定了从参数来解析bytecode的方式。
+* `fee_limit` 用来设置单笔交易所能消耗的TRX的上限。
+* `consume_user_resource_percent` 为用户调用合约时消耗TRX所占的比例，为百分数[0, 100%]。
+* `origin_energy_limit` 为触发一次合约开发者所消耗TRX的上限。
+* `value` 为转入到合约地址中的TRX的数额。
+* `token_value` 为合约中TRC-10 token的数量。
+* `token_id` 为TRC-10 的ID。
+
+示例:
+```shell
+wallet> deployContract normalcontract544 [{"constant":false,"inputs":[{"name":"i","type":"uint256"}],"name": "findArgsByIndexTest","outputs":[{"name":"z","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"}]
+608060405234801561001057600080fd5b50610134806100206000396000f3006080604052600436106100405763ffffffff7c0100000000000000000000000000000000000000000000000000000000600035041663329000b58114610045575b600080fd5b34801561005157600080fd5b5061005d60043561006f565b60408051918252519081900360200190f35b604080516003808252608082019092526000916060919060208201838038833901905050905060018160008151811015156100a657fe5b602090810290910101528051600290829060019081106100c257fe5b602090810290910101528051600390829060029081106100de57fe5b6020908102909101015280518190849081106100f657fe5b906020019060200201519150509190505600a165627a7a72305820b24fc247fdaf3644b3c4c94fcee380aa610ed83415061ff9e65d7fa94a5a50a00029 # # false 1000000000 75 50000 0 0 #
+```
+可以使用`getTransactionInfoById`来查看合约的执行结果，示例如下:
+```shell
+wallet> getTransactionInfoById 4978dc64ff746ca208e51780cce93237ee444f598b24d5e9ce0da885fb3a3eb9
 {
-contract 0 :::
-[
-contract_type: ShieldedTransferContract
-spend_description:
-[
+    "id": "8c1f57a5e53b15bb0a0a0a0d4740eda9c31fbdb6a63bc429ec2113a92e8ff361",
+    "fee": 6170500,
+    "blockNumber": 1867,
+    "blockTimeStamp": 1567499757000,
+    "contractResult": [
+        "6080604052600436106100405763ffffffff7c0100000000000000000000000000000000000000000000000000000000600035041663329000b58114610045575b600080fd5b34801561005157600080fd5b5061005d60043561006f565b60408051918252519081900360200190f35b604080516003808252608082019092526000916060919060208201838038833901905050905060018160008151811015156100a657fe5b602090810290910101528051600290829060019081106100c257fe5b602090810290910101528051600390829060029081106100de57fe5b6020908102909101015280518190849081106100f657fe5b906020019060200201519150509190505600a165627a7a72305820b24fc247fdaf3644b3c4c94fcee380aa610ed83415061ff9e65d7fa94a5a50a00029"
+    ],
+    "contract_address": "TJMKWmC6mwF1QVax8Sy2AcgT6MqaXmHEds",
+    "receipt": {
+        "energy_fee": 6170500,
+        "energy_usage_total": 61705,
+        "net_usage": 704,
+        "result": "SUCCESS"
+    }
+}
+```
+
+#### TriggerContract
+该命令用于触发智能合约
+```
+wallet> TriggerContract [ownerAddress] [contractAddress] [method] [args] [isHex] [fee_limit] [value] [token_value] [token_id]
+```
+
+* `OwnerAddress` 调用者地址，如若不填，则默认为当前登陆账户地址。
+* `ContractAddress` 为智能合约地址。
+* `method` 为调用函数或者参数的名称，请参考下面的例子。
+* `args` 为一个占位参数, 可以传入'#'代替如若`method` 不需要额外的参数。
+* `isHex` 决定了`method`和`args`的格式是否是hex string。
+* `fee_limit` 用来设置单笔交易所能消耗的TRX的上限。
+* `value` 传入的TRX的数额.
+* `token_value` 为TRC-10 token的数额.
+* `token_id` 为TRC-10 token的ID, 如果没有, 可以传入‘#’代替.
+
+示例：
+```shell
+wallet> triggerContract TGdtALTPZ1FWQcc5MW7aK3o1ASaookkJxG findArgsByIndexTest(uint256) 0 false
+1000000000 0 0 #
+```
+可以使用`getTransactionInfoById`来查看合约的执行结果，示例如下:
+```shell
+wallet> getTransactionInfoById 7d9c4e765ea53cf6749d8a89ac07d577141b93f83adc4015f0b266d8f5c2dec4
 {
-value_commitment:65f4ee0430e1d6ee492be68885ac38aa44a0d341ceec915dc4c6821bd1e09535
-anchor:e43b41c9f42c98aa5f88c2d78760c2bf592a73b9fc5f5f62deb24aa0ce5e7113
-nullifier:047965dfee699250578d728e9a11ca733774e604b4c28a4b40d4d1f8cd8b8c2c
-rk:460b69899b5d18dcba9a2af5e9520542396731caf09611cc4f1d7c61bc7ceddb
-zkproof:a87f2f3445338304142a0b515b2bc90525dcc51c6f16cfd49b00e7592efa9847004a253334408bfe0637e3cb831647968bd8117cf152d3233296a2d5b3cce6c70d80ffb95917ebc5ef378b994c7ecf95217496de41ddf09a9618279cf697352d0c2d4546d53ce1d9f7c6a05915fa5bc66745b58984fc6d76adff9292237bbd75c306fc0e9576a1b0478d80ca6dba2185a4dde684669e0e1af50de954fad5ef440f8248f10f08c22185585d30c917506ec98a92ee8d0cd8c7e31503697280d010
-spend_authority_signature:588f25beaf8d2a52bb4b5ff09d34c756cd2da4623b08f580046e0a858b32a41b2fc8c5acecce59c74368fbfff05d64f09a72dde569b16d2ac020f7df1bb15105
+    "id": "de289f255aa2cdda95fbd430caf8fde3f9c989c544c4917cf1285a088115d0e8",
+    "fee": 8500,
+    "blockNumber": 2076,
+    "blockTimeStamp": 1567500396000,
+    "contractResult": [
+        ""
+    ],
+    "contract_address": "TJMKWmC6mwF1QVax8Sy2AcgT6MqaXmHEds",
+    "receipt": {
+        "energy_fee": 8500,
+        "energy_usage_total": 85,
+        "net_usage": 314,
+        "result": "REVERT"
+    },
+    "result": "FAILED",
+    "resMessage": "REVERT opcode executed"
 }
-]
-receive_description:
-[
+```
+#### TriggerConstantContract
+既可以调用合约只读函数(view 或 pure修饰的函数)，用于合约数据查询；也可以调用合约非只读函数，用于预判交易是否可以执行成功或者预估交易的能量消耗。
+
+```
+wallet> TriggerConstantContract ownerAddress(use # if you own) contractAddress method args isHex [value token_value token_id(e.g: TRXTOKEN, use # if don't provided)]
+
+```
+
+* `ownerAddress` 调用者地址，如是当前登陆账户地址，请输入#。
+* `contractAddress` 智能合约地址。
+* `method` 调用的合约函数。
+* `args` 合约调用传入的参数, 如若`method` 不需要额外的参数，请输入#。
+* `isHex` `args`的格式是否是hex string。
+* `value` 传入的TRX的数额. 可选，如果没有, 可以传入‘#’代替。
+* `token_value` 为TRC-10 token的数额。可选，如果没有, 可以传入‘#’代替。
+* `token_id` 为TRC-10 token的ID, 可选，如果没有, 可以传入‘#’代替。
+
+示例：
+```shell
+wallet> TriggerConstantContract TTGhREx2pDSxFX555NWz1YwGpiBVPvQA7e  TVSvjZdyDSNocHm7dP3jvCmMNsCnMTPa5W transfer(address,uint256) 0000000000000000000000002ce5de57373427f799cc0a3dd03b841322514a8c00000000000000000000000000000000000000000000000000038d7ea4c68000 true
+
+transfer(address,uint256):a9059cbb
+Execution result = {
+	"constant_result": [
+		"0000000000000000000000000000000000000000000000000000000000000001"
+	],
+	"result": {
+		"result": true
+	},
+	"energy_used": 13253,
+	"logs": [
+		{
+			"address": "LUijWGF4iFrT7hV37Q2Q45DU5TUBvVZb7",
+			"topics": [
+				"ddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+				"000000000000000000000000bdc8ee51fdd1b1e01d71f836481828f88463c838",
+				"0000000000000000000000002ce5de57373427f799cc0a3dd03b841322514a8c"
+			],
+			"data": "00000000000000000000000000000000000000000000000000038d7ea4c68000"
+		}
+	]
+}
+```
+#### EstimateEnergy
+为智能合约交易预估能量消耗。 estimateEnergy 是可选接口, 有些 FullNode 节点可能没有开启该接口，因此，如若调用 estimateEnergy 接口时捕获到节点不支持此功能的错误信息 (this node does not support estimate energy)，建议继续使用 triggerconstantcontract 接口预估能量消耗。
+
+```
+wallet> EstimateEnergy ownerAddress contractAddress method args isHex [value token_value token_id]
+```
+
+* `ownerAddress` 调用者地址，如是当前登陆账户地址，请输入#。
+* `contractAddress` 智能合约地址。
+* `method` 调用的合约函数。
+* `args` 合约调用传入的参数, 如若`method` 不需要额外的参数，请输入#。
+* `isHex` `args`的格式是否是hex string。
+* `value` 传入的TRX的数额. 可选，如果没有, 可以传入‘#’代替。
+* `token_value` 为TRC-10 token的数额。可选，如果没有, 可以传入‘#’代替。
+* `token_id` 为TRC-10 token的ID, 可选，如果没有, 可以传入‘#’代替。
+
+示例：
+```shell
+wallet> EstimateEnergy TTGhREx2pDSxFX555NWz1YwGpiBVPvQA7e  TVSvjZdyDSNocHm7dP3jvCmMNsCnMTPa5W transfer(address,uint256) 0000000000000000000000002ce5de57373427f799cc0a3dd03b841322514a8c00000000000000000000000000000000000000000000000000038d7ea4c68000 true
+
+transfer(address,uint256):a9059cbb
+Estimate energy result = {
+	"result": {
+		"result": true
+	},
+	"energy_required": 14910
+}
+```
+
+#### GetContract
+用合约地址调出合约信息
+```
+wallet> GetContract [contractAddress]
+```
+
+示例:
+```shell
+wallet> GetContract TGdtALTPZ1FWQcc5MW7aK3o1ASaookkJxG
 {
-value_commitment:577acf5e74a0359cd2850287ac141845a5cdae3152e0b1770842c01516a1606b
-note_commitment:bf656bf6273c96507dd0316284be8894a738c674498e64389235f033df1e0d41
-epk:8a2666e7762a31a4a796bd4b1630cafc475f47699c1c05e1e2f0265537f14f66
-c_enc:4c0a89428c210d848f8f7cbb89f2305aad60d9bc9a222d46f588fcf03b73341f3a400a2026f999e7c8a0a74a7fb37bd4aa6072c05ea1bff8ecf234b4cdc064a00481ab153c2f5168de1cbec568c305956b2d1459e7d75effc8902958f51de77efb8ee1614d5de22bd80536d5a24c8799e5c04294f3db9e6180f91de3d83209e6b7e7bf7c54c7e3da8fa938a975446e5227c34227a7ce5e1cff66420a641aca44c0a85a527a1cedb49934c38665d91ebc8623678f99de7aa46af27b9f060552686c9e1911298729404e2cbe317d0cf3779861538af9307f76079f7afb725dda3c80912e5b869d85fe0781518e1cb41c2275ef776e4bf31fb6bec99ee70eb4cba35fc5816d7c809c810a13dd685cd2d7aa08fb4cbc75767af82657d50d1594c6e6aafe0c2b4fffbb897e68c506d33efaacff8b9b8cd099b3b291a045dbc76dd54a87780c6f83b340f00fb0d436f7f71ab6a2487fab39c3826f2cddb50d367e9fac61b949f8593cd6dbf26e26c5772bd3a5a3145768303442708151b27a714b142d9dc9ad96ea4fd69e9ae3b8c2a78aae7c25e32b6d23330f5ba1950ab1357c5c8a1400d920d16ae30a5c30921c93d1f6beda6bb58825a59a75a322325b87690656c8370eeb50e500690fb7076017f029997bc8c8ca6f1d1d555fe630076057bc3327ff00a518c1a36a21156175639e50c78fea2a3ac44df60e96e7b3f731f9d947166328b85ffbeb938e3dbddfce0a07b9b11ec7da5a319471401f1a40da6b70e330e484159408526ea7a4c350216d15ca62e084608f0adae5fa3c1e8312019fdf2543ed4c
-c_out:eb8baa73655503aee8d8ec3d4e281c58de48693fac562862c3b875faa7e3b915cfba3bb8a497dd6d3a13b49c02a034d10df0df2029c0b8a9080ef88f6152e6f4ecd4c639e8f450a5d5e818ba4620475b
-zkproof:93556b5e801251c410930717abbb8f4aaecf102383ec0ac0cbec0dab16f5fd11009154e2e7260c7de14b4a52d2f5e3d898816ff8377e9c7e4592afbe716924239b56f776cf1c4a505a78ff5b8c783432bb3eeacda3ae3a73d8297de0786abe91123ea85faa3531021e6ede128fb2cc4aed1b0ef34f178e011e1b05f348d8b0d199fe97308f2ae0a681b03c273bc8925cb00850d59f8274613ee02563f61a9160bcb9b88d0c07824ef6a8f68051dc1b21fa815452b3a1b692983f5139abbc1ccc
+    "origin_address": "TRGhNNfnmgLegT4zHNjEqDSADjgmnHvubJ",
+    "contract_address": "TJMKWmC6mwF1QVax8Sy2AcgT6MqaXmHEds",
+    "abi": {
+        "entrys": [
+            {
+                "name": "findArgsByIndexTest",
+                "inputs": [
+                    {
+                        "name": "i",
+                        "type": "uint256"
+                    }
+                ],
+                "outputs": [
+                    {
+                        "name": "z",
+                        "type": "uint256"
+                    }
+                ],
+                "type": "Function",
+                "stateMutability": "Nonpayable"
+            }
+        ]
+    },
+    "bytecode": "608060405234801561001057600080fd5b50610134806100206000396000f3006080604052600436106100405763ffffffff7c0100000000000000000000000000000000000000000000000000000000600035041663329000b58114610045575b600080fd5b34801561005157600080fd5b5061005d60043561006f565b60408051918252519081900360200190f35b604080516003808252608082019092526000916060919060208201838038833901905050905060018160008151811015156100a657fe5b602090810290910101528051600290829060019081106100c257fe5b602090810290910101528051600390829060029081106100de57fe5b6020908102909101015280518190849081106100f657fe5b906020019060200201519150509190505600a165627a7a72305820b24fc247fdaf3644b3c4c94fcee380aa610ed83415061ff9e65d7fa94a5a50a00029",
+    "consume_user_resource_percent": 75,
+    "name": "normalcontract544",
+    "origin_energy_limit": 50000,
+    "code_hash": "23423cece3b4866263c15357b358e5ac261c218693b862bcdb90fa792d5714e6"
 }
-]
-binding_signature: 3780fa22547965820a00f9e3fbe94f49f8e4d9afcd1cf561946557a08de1b28aba8597ca4159b29cf42fa4ce6beb6570af8d622f642b7ac4896c012cf8d1fb00
-transparent_to_address: TRGhNNfnmgLegT4zHNjEqDSADjgmnHvubJ
-to_amount: 80000000
-]
+```
 
-}
-timestamp: Fri Jul 19 10:46:19 CST 2019
-fee_limit: 0
-}
-
-txid:
-f8bd9e486bdd3a7fa99b4e0b8492f6dac6179c143e44c94e363a397a1ab9fc3b
-raw_data:
+#### UpdateEnergyLimit
+该命令用于修改合约中能量消耗的上限,参数定义请参考上面的命令。
+```
+wallet> UpdateEnergyLimit [ownerAddress] [contract_address] [energy_limit]
+```
+示例:
+```shell
+wallet> updateenergylimit TY7CMEBRMgtFeNzkVJACh9L7TdMKENFkeq 8000000
 {
-ref_block_bytes: 060c
-ref_block_hash: c047800cdbd6b5db
-contract:
+	"raw_data":{
+		"contract":[
+			{
+				"parameter":{
+					"value":{
+						"owner_address":"TSzdGHnhYnQKFF4LKrRLztkjYAvbNoxnQ8",
+						"origin_energy_limit":8000000,
+						"contract_address":"TY7CMEBRMgtFeNzkVJACh9L7TdMKENFkeq"
+					},
+					"type_url":"type.googleapis.com/protocol.UpdateEnergyLimitContract"
+				},
+				"type":"UpdateEnergyLimitContract"
+			}
+		],
+		"ref_block_bytes":"2d56",
+		"ref_block_hash":"3e8f88e2de6bb637",
+		"expiration":1656993270000,
+		"timestamp":1656993210227
+	},
+	···
+UpdateSetting for origin_energy_limit successful !!!
+```
+#### UpdateSetting
+该命令用于修改合约中用户能量消耗的比例,参数定义请参考上面的命令。
+```
+wallet> UpdateSetting [ownerAddress] [contract_address] [consume_user_resource_percent]
+```
+示例:
+```shell
+wallet> updateenergylimit TY7CMEBRMgtFeNzkVJACh9L7TdMKENFkeq 35
 {
-contract 0 :::
-[
-contract_type: ShieldedTransferContract
-spend_description:
-[
+	"raw_data":{
+		"contract":[
+			{
+				"parameter":{
+					"value":{
+						"owner_address":"TSzdGHnhYnQKFF4LKrRLztkjYAvbNoxnQ8",
+						"origin_energy_limit":35,
+						"contract_address":"TY7CMEBRMgtFeNzkVJACh9L7TdMKENFkeq"
+					},
+					"type_url":"type.googleapis.com/protocol.UpdateEnergyLimitContract"
+				},
+				"type":"UpdateEnergyLimitContract"
+			}
+		],
+		"ref_block_bytes":"2d9f",
+		"ref_block_hash":"c25a5c8ba398aa8f",
+		"expiration":1656993489000,
+		"timestamp":1656993430923
+	},
+	···
+UpdateSetting for origin_energy_limit successful !!!
+```
+
+
+### TRC-10资产
+下面是账户地址相关命令：
+
+- [AssetIssue](#assetissue)
+- [UpdateAsset](#updateasset)
+- [TransferAsset](#transferasset)
+- [ParticipateAssetissue](#participateassetissue)
+- [ListAssetIssue](#listassetissue)
+- [GetAssetIssueByAccount](#getassetissuebyaccount)
+- [GetAssetIssueById](#getassetissuebyid)
+- [GetAssetIssueByName](#getassetissuebyname)
+- [GetAssetIssueListByName](#getassetissuelistbyname)
+#### AssetIssue
+发行TRC10代币，每个账户地址智能发行一种TRC-10 token。
+
+```
+wallet> AssetIssue [OwnerAddress] [AssetName] [AbbrName] [TotalSupply] [TrxNum] [AssetNum] [Precision] [StartDate] [EndDate] [Description Url] [FreeNetLimitPerAccount] [PublicFreeNetLimit] [FrozenAmount0] [FrozenDays0] [...] [FrozenAmountN] [FrozenDaysN]
+```
+
+* `OwnerAddress` 为交易发起人地址，如若不填，默认为当前登陆地址。
+* `AssetName` 为发行的TRC-10 token的名称。
+* `AbbrName` 为发行的TRC-10 token名称缩写。
+* `TotalSupply` 为该TRC-10 token的总量。
+    * TotalSupply = Account Balance of Issuer + All Frozen Token Amount 
+* Account Balance Of Issuer: 发行时发行人的该币余额
+* All Frozen Token Amount: 该币在转账和发行前的数额
+* `TrxNum`, `AssetNum` 这两个参数决定了该币发行时交易率是多少。
+    * Exchange Rate = TrxNum / AssetNum 
+* `AssetNum`: 该币的单位
+* `TrxNum`: 单位为sun (0.000001 TRX)
+* `Precision` 小数点后的位数。
+* `FreeNetLimitPerAccount` 为每个账户可以使用的最大带宽。发行人可以质押TRX获得带宽。(仅限于`TransferAsset`)
+* `PublicFreeNetLimit` 为所有账户可用的最大带宽。 发行人可以质押TRX获得带宽。(仅限于`TransferAsset`)
+* `StartDate`, `EndDate` 为发行起始和终止日期。 在该日期内，其他用户可以参与到新币发行中。
+* `FrozenAmount0`, `FrozenDays0` 决定了会有多少新币冻结多久。`FrozenAmount0`需大于0. `FrozenDays0`: 必须字1到3652之间。
+
+示例:
+```shell
+wallet> AssetIssue TestTRX TRX 75000000000000000 1 1 2 "2019-10-02 15:10:00" "2020-07-11" "just for test121212" www.test.com 100 100000 10000 10 10000 1
+wallet> GetAssetIssueByAccount TRGhNNfnmgLegT4zHNjEqDSADjgmnHvubJ  # View published information
 {
-value_commitment:65f4ee0430e1d6ee492be68885ac38aa44a0d341ceec915dc4c6821bd1e09535
-anchor:e43b41c9f42c98aa5f88c2d78760c2bf592a73b9fc5f5f62deb24aa0ce5e7113
-nullifier:047965dfee699250578d728e9a11ca733774e604b4c28a4b40d4d1f8cd8b8c2c
-rk:460b69899b5d18dcba9a2af5e9520542396731caf09611cc4f1d7c61bc7ceddb
-zkproof:a87f2f3445338304142a0b515b2bc90525dcc51c6f16cfd49b00e7592efa9847004a253334408bfe0637e3cb831647968bd8117cf152d3233296a2d5b3cce6c70d80ffb95917ebc5ef378b994c7ecf95217496de41ddf09a9618279cf697352d0c2d4546d53ce1d9f7c6a05915fa5bc66745b58984fc6d76adff9292237bbd75c306fc0e9576a1b0478d80ca6dba2185a4dde684669e0e1af50de954fad5ef440f8248f10f08c22185585d30c917506ec98a92ee8d0cd8c7e31503697280d010
-spend_authority_signature:588f25beaf8d2a52bb4b5ff09d34c756cd2da4623b08f580046e0a858b32a41b2fc8c5acecce59c74368fbfff05d64f09a72dde569b16d2ac020f7df1bb15105
+    "assetIssue": [
+        {
+            "owner_address": "TRGhNNfnmgLegT4zHNjEqDSADjgmnHvubJ",
+            "name": "TestTRX",
+            "abbr": "TRX",
+            "total_supply": 75000000000000000,
+            "frozen_supply": [
+                {
+                    "frozen_amount": 10000,
+                    "frozen_days": 1
+                },
+                {
+                    "frozen_amount": 10000,
+                    "frozen_days": 10
+                }
+            ],
+            "trx_num": 1,
+            "precision": 2,
+            "num": 1,
+            "start_time": 1570000200000,
+            "end_time": 1594396800000,
+            "description": "just for test121212",
+            "url": "www.test.com",
+            "free_asset_net_limit": 100,
+            "public_free_asset_net_limit": 100000,
+            "id": "1000001"
+        }
+    ]
 }
-]
-receive_description:
-[
+```
+#### UpdateAsset
+使用该命来修改已发布资产的部分参数
+```
+wallet> UpdateAsset [OwnerAddress] [newLimit] [newPublicLimit] [description url]
+```
+参数定义与AssetIssue相同。
+
+示例:
+```shell
+wallet> UpdateAsset 1000 1000000 "change description" www.changetest.com
+wallet> GetAssetIssueByAccount TRGhNNfnmgLegT4zHNjEqDSADjgmnHvubJ  # to check the modified information
 {
-value_commitment:577acf5e74a0359cd2850287ac141845a5cdae3152e0b1770842c01516a1606b
-note_commitment:bf656bf6273c96507dd0316284be8894a738c674498e64389235f033df1e0d41
-epk:8a2666e7762a31a4a796bd4b1630cafc475f47699c1c05e1e2f0265537f14f66
-c_enc:4c0a89428c210d848f8f7cbb89f2305aad60d9bc9a222d46f588fcf03b73341f3a400a2026f999e7c8a0a74a7fb37bd4aa6072c05ea1bff8ecf234b4cdc064a00481ab153c2f5168de1cbec568c305956b2d1459e7d75effc8902958f51de77efb8ee1614d5de22bd80536d5a24c8799e5c04294f3db9e6180f91de3d83209e6b7e7bf7c54c7e3da8fa938a975446e5227c34227a7ce5e1cff66420a641aca44c0a85a527a1cedb49934c38665d91ebc8623678f99de7aa46af27b9f060552686c9e1911298729404e2cbe317d0cf3779861538af9307f76079f7afb725dda3c80912e5b869d85fe0781518e1cb41c2275ef776e4bf31fb6bec99ee70eb4cba35fc5816d7c809c810a13dd685cd2d7aa08fb4cbc75767af82657d50d1594c6e6aafe0c2b4fffbb897e68c506d33efaacff8b9b8cd099b3b291a045dbc76dd54a87780c6f83b340f00fb0d436f7f71ab6a2487fab39c3826f2cddb50d367e9fac61b949f8593cd6dbf26e26c5772bd3a5a3145768303442708151b27a714b142d9dc9ad96ea4fd69e9ae3b8c2a78aae7c25e32b6d23330f5ba1950ab1357c5c8a1400d920d16ae30a5c30921c93d1f6beda6bb58825a59a75a322325b87690656c8370eeb50e500690fb7076017f029997bc8c8ca6f1d1d555fe630076057bc3327ff00a518c1a36a21156175639e50c78fea2a3ac44df60e96e7b3f731f9d947166328b85ffbeb938e3dbddfce0a07b9b11ec7da5a319471401f1a40da6b70e330e484159408526ea7a4c350216d15ca62e084608f0adae5fa3c1e8312019fdf2543ed4c
-c_out:eb8baa73655503aee8d8ec3d4e281c58de48693fac562862c3b875faa7e3b915cfba3bb8a497dd6d3a13b49c02a034d10df0df2029c0b8a9080ef88f6152e6f4ecd4c639e8f450a5d5e818ba4620475b
-zkproof:93556b5e801251c410930717abbb8f4aaecf102383ec0ac0cbec0dab16f5fd11009154e2e7260c7de14b4a52d2f5e3d898816ff8377e9c7e4592afbe716924239b56f776cf1c4a505a78ff5b8c783432bb3eeacda3ae3a73d8297de0786abe91123ea85faa3531021e6ede128fb2cc4aed1b0ef34f178e011e1b05f348d8b0d199fe97308f2ae0a681b03c273bc8925cb00850d59f8274613ee02563f61a9160bcb9b88d0c07824ef6a8f68051dc1b21fa815452b3a1b692983f5139abbc1ccc
+    "assetIssue": [
+        {
+            "owner_address": "TRGhNNfnmgLegT4zHNjEqDSADjgmnHvubJ",
+            "name": "TestTRX",
+            "abbr": "TRX",
+            "total_supply": 75000000000000000,
+            "frozen_supply": [
+                {
+                    "frozen_amount": 10000,
+                    "frozen_days": 1
+                },
+                {
+                    "frozen_amount": 10000,
+                    "frozen_days": 10
+                }
+            ],
+            "trx_num": 1,
+            "precision": 2,
+            "num": 1,
+            "start_time": 1570000200000,
+            "end_time": 1594396800000,
+            "description": "change description",
+            "url": "www.changetest.com",
+            "free_asset_net_limit": 1000,
+            "public_free_asset_net_limit": 1000000,
+            "id": "1000001"
+        }
+    ]
 }
-]
-binding_signature: 3780fa22547965820a00f9e3fbe94f49f8e4d9afcd1cf561946557a08de1b28aba8597ca4159b29cf42fa4ce6beb6570af8d622f642b7ac4896c012cf8d1fb00
-transparent_to_address: TRGhNNfnmgLegT4zHNjEqDSADjgmnHvubJ
-to_amount: 80000000
-]
+```
+#### TransferAsset
+该命令用于转移资产
+```
+> TransferAsset [OwnerAddress] [ToAddress] [AssertID] [Amount]
+```
+这其中`OwnerAddress` 为发起人地址，如若不填，默认为当前登陆地址，`ToAddress` 为接收地址，`AssertName` 为代币的名称，`Amount` 本次转账的数额。
 
+示例:
+```shell
+wallet> TransferAsset TN3zfjYUmMFK3ZsHSsrdJoNRtGkQmZLBLz 1000001 1000
+wallet> getaccount TN3zfjYUmMFK3ZsHSsrdJoNRtGkQmZLBLz  # to check target account information after the transfer
+address: TN3zfjYUmMFK3ZsHSsrdJoNRtGkQmZLBLz
+    assetV2
+    {
+    id: 1000001
+    balance: 1000
+    latest_asset_operation_timeV2: null
+    free_asset_net_usageV2: 0
+    }
+```
+#### ParticipateAssetissue
+使用该命令参与代币的发行
+```
+> ParticipateAssetIssue [OwnerAddress] [ToAddress] [AssetID] [Amount]
+```
+`OwnerAddress` 为发起人地址，如若不填，默认为当前登陆地址。`ToAddress` 为接收地址，`AssertName` 为代币的名称，`Amount`为本次转账的数额。
+
+参与发行必须发生在TRC10代币的发行过程中，否则会报错。
+
+示例:
+```shell
+wallet> ParticipateAssetIssue TRGhNNfnmgLegT4zHNjEqDSADjgmnHvubJ 1000001 1000
+wallet> getaccount TJCnKsPa7y5okkXvQAidZBzqx3QyQ6sxMW  # View remaining balance
+address: TJCnKsPa7y5okkXvQAidZBzqx3QyQ6sxMW
+assetV2
+    {
+    id: 1000001
+    balance: 1000
+    latest_asset_operation_timeV2: null
+    free_asset_net_usageV2: 0
+    }
+```
+#### UnfreezeAsset
+
+解冻一个地址下已经超过冻结时间的待解冻TRC-10代币。 
+```
+wallet> unfreezeasset [OwnerAddress]
+```
+#### ListAssetIssue
+
+列出所有已发行TRC-10代币及详情
+```shell
+wallet> listassetissue
+{
+	"assetIssue": [
+		{
+			"owner_address": "TMWXhuxiT1KczhBxCseCDDsrhmpYGUcoA9",
+			"name": "tronlink_token",
+			"abbr": "tronlink_token",
+			"total_supply": 1000000000000000,
+			"frozen_supply": [
+				{
+					"frozen_amount": 1,
+					"frozen_days": 1
+				}
+			],
+			"trx_num": 1,
+			"precision": 6,
+			"num": 1,
+			"start_time": 1574757000000,
+			"end_time": 1757595000000,
+			"description": "Description",
+			"url": "https://blog.csdn.net/u010270891/article/details/82978260",
+			"free_asset_net_limit": 1000,
+			"public_free_asset_net_limit": 2000,
+			"id": "1000001"
+		},
+···
+```
+#### GetAssetIssueByAccount
+
+列出发行人地址下所有已发行TRC-10代币及详情。
+```
+wallet> getassetissuebyaccount [owneraddress]
+```
+示例：
+```shell
+wallet> getassetissuebyaccount TUwjpfqW7NG6BF3GCTrKy1aDvfchwSG4tN
+{
+	"assetIssue": [
+		{
+			"owner_address": "TUwjpfqW7NG6BF3GCTrKy1aDvfchwSG4tN",
+			"name": "h00966",
+			"abbr": "h00966",
+			"total_supply": 100000000000,
+			"trx_num": 1000000,
+			"precision": 6,
+			"num": 1000000,
+			"start_time": 1656374400000,
+			"end_time": 1656460800000,
+			"description": "Automated gaming platform. 
+TRC10 token h0966.
+More info on website.  TRC10 token h0966.
+More info on website.  More info on website.",
+			"url": "https://h00966.com",
+			"id": "1004901"
+		}
+	]
 }
-timestamp: Fri Jul 19 10:46:19 CST 2019
-fee_limit: 0
+```
+
+#### GetAssetIssueById
+
+根据代币ID获取其详细信息
+
+示例：
+```shell
+wallet> GetAssetIssueById 1004901
+{
+	"owner_address": "TUwjpfqW7NG6BF3GCTrKy1aDvfchwSG4tN",
+	"name": "h00966",
+	"abbr": "h00966",
+	"total_supply": 100000000000,
+	"trx_num": 1000000,
+	"precision": 6,
+	"num": 1000000,
+	"start_time": 1656374400000,
+	"end_time": 1656460800000,
+	"description": "Automated gaming platform. 
+TRC10 token h0966.
+More info on website.TRC10 token h0966.
+More info on website.More info on website.",
+	"url": "https://h00966.com",
+	"id": "1004901"
 }
-
-10:46:19.226 INFO  [main] [Client](Client.java:2040) SendShieldedCoin successful !!
-
 ```
 
-4. sendshieldedcoinwithoutask
+#### GetAssetIssueByName
 
-此命令与sendshieldedcoin相似。区别是sendshieldedcoin使用'ask'签名，sendshieldedcoinwithoutask使用'ak'签名。
-
-5. 显示账户拥有的notes
-
-listshieldednote type
-type: 0代表未花费的notes，1代表所有的notes。
+根据代币名称获取其详细信息
 
 示例：
-
 ```shell
-listshieldednote 0
-Unspend note list like:
-1 ztron1ghdy60hya8y72deu0q0r25qfl60unmue6889m3xfc3296a5ut6jcyafzhtp9nlutndukufzap4h 100000000 4ce5656a13049df00abc7fb3ce78d54c78944d3cbbdfdb29f288e1df5fdf67e1 1 UnSpend
-listshieldednote 1
-All note list like:
-ztron1ghdy60hya8y72deu0q0r25qfl60unmue6889m3xfc3296a5ut6jcyafzhtp9nlutndukufzap4h 100000000 4ce5656a13049df00abc7fb3ce78d54c78944d3cbbdfdb29f288e1df5fdf67e1 1 UnSpend
-ztron16j06s3p5gvp2jde4vh7w3ug3zz3m62zkyfu86s7ara5lafhp22p9wr3gz0lcdm3pvt7qx0aftu4 100000000 4ce5656a13049df00abc7fb3ce78d54c78944d3cbbdfdb29f288e1df5fdf67e1 0 Spend test1
-ztron1hn9r3wmytavslztwmlzvuzk3dqpdhwcmda2d0deyu5pwv32dp78saaslyt82w0078y6uzfg8x6w 90000000 06b55fc27f7ec649396706d149d18a0bb003347bdd7f489e3d47205da9cee802 0 Spend test2
+wallet> GetAssetIssueByname h00966
+{
+	"owner_address": "TUwjpfqW7NG6BF3GCTrKy1aDvfchwSG4tN",
+	"name": "h00966",
+	"abbr": "h00966",
+	"total_supply": 100000000000,
+	"trx_num": 1000000,
+	"precision": 6,
+	"num": 1000000,
+	"start_time": 1656374400000,
+	"end_time": 1656460800000,
+	"description": "Automated gaming platform. 
+TRC10 token h0966.
+More info on website.TRC10 token h0966.
+More info on website.More info on website.",
+	"url": "https://h00966.com",
+	"id": "1004901"
+}
 ```
 
-6. 清除本地所有notes
+#### GetAssetIssueListByName
 
-resetshieldednote
+根据代币名称获取其详细信息
+```shell
+wallet> GetAssetIssueListByName ROFLOTOKEN
+{
+	"assetIssue": [
+		{
+			"owner_address": "TLvQSVH9Hm7kxLFtTP228fN6pCrHmtVjpb",
+			"name": "ROFLOTOKEN",
+			"abbr": "roflotoken",
+			"total_supply": 10000000000000000,
+			"trx_num": 1000000,
+			"precision": 6,
+			"num": 100000000,
+			"start_time": 1656349200000,
+			"end_time": 1656435600000,
+			"description": "roflotoken.com",
+			"url": "https://haxibaibo.com/",
+			"id": "1004898"
+		}
+	]
+}
+```
 
-当切换运行环境或者本地数据异常时，可以调用此命令。
 
-7. To scan notes using ivk
 
-ScanNotebyIvk ivk startNum endNum
+### 治理
+任何关于proposal的操作，除了查看类的以外，都需要委员会成员来完成。
 
-ivk: 匿名账户ivk
-startNum: 起始区块的索引
-endNum: 结束区块的索引
+下面是账户地址相关命令：
+
+ - [CreatProposal](#creatproposal)
+ - [ApproveProposal](#approveproposal)
+ - [Deleteproposal](#deleteproposal)
+ - [ListProposals](#listproposals)
+ - [ListProposalsPaginated](#listproposalspaginated)
+ - [GetProposal](#getproposal)
+ - [Votewitness](#votewitness)
+ - [GetBrokerage](#getbrokerage)
+ - [GetReward](#getreward)
+ - [UpdateBrokerage](#updatebrokerage)
+
+#### CreatProposal
+发起一项新的proposal。
+```
+wallet> createProposal [OwnerAddress] [id0] [value0] ... [idN] [valueN]
+```
+`OwnerAddress` 为发起人地址，如若不填，默认为当前登陆地址。
+`id0` 是TRON Network Parameter的序列号。其中的每个参数都定义好的提议内容，同时对应一个序列号，请参考 [https://tronscan.org/#/sr/committee](https://tronscan.org/#/sr/committee)。`Value0` 为提议修改的值。在下面的例子中，proposal建议将No.4(修改发行费用)的费用改为 1000TRX，
+```shell
+wallet> createProposal 4 1000
+wallet> listproposals  # to check initiated proposal
+{
+    "proposals": [
+        {
+            "proposal_id": 1,
+            "proposer_address": "TRGhNNfnmgLegT4zHNjEqDSADjgmnHvubJ",
+            "parameters": [
+                {
+                    "key": 4,
+                    "value": 1000
+                }
+            ],
+            "expiration_time": 1567498800000,
+            "create_time": 1567498308000
+        }
+    ]
+}
+```
+该proposal的对应ID为1。
+
+#### ApproveProposal
+使用该命令同意或否决一项proposal。
+```
+wallet> approveProposal [OwnerAddress] [id] [is_or_not_add_approval]
+```
+`OwnerAddress` 为发起人地址，如若不填，默认为当前登陆地址。`id` 为proposal的ID。`is_or_not_add_approval` 填入“true”为同意，填入“false”为否决。
+
+示例:
+```shell
+wallet> ApproveProposal 1 true  # in favor of the offer
+wallet> ApproveProposal 1 false  # Cancel the approved proposal
+```
+#### Deleteproposal
+取消一个proposal。
+```
+wallet> deleteProposal [OwnerAddress] [proposalId]
+```
+ `OwnerAddress` 为发起人地址，如若不填，默认为当前登陆地址。`proposalId` 为proposal对应的ID。只有发起该propsal的超级代表才能取消自己发起的proposal。
 
 示例：
-
 ```shell
-scannotebyivk d2a4137cecf049965c4183f78fe9fc9fbeadab6ab3ef70ea749421b4c6b8de04 500 1499
-11:25:43.728 INFO  [main] [WalletApiWrapper](WalletApiWrapper.java:966)
-txid:4ce5656a13049df00abc7fb3ce78d54c78944d3cbbdfdb29f288e1df5fdf67e1
-index:0
-address:ztron16j06s3p5gvp2jde4vh7w3ug3zz3m62zkyfu86s7ara5lafhp22p9wr3gz0lcdm3pvt7qx0aftu4
-rcm:224463fbba4ef49a4e547d5b7fe608ebd9ec717591db2f6b6644a862a5528b07
-value:100000000
-memo:test1
-11:25:43.730 INFO  [main] [WalletApiWrapper](WalletApiWrapper.java:974) complete.
+wallet> DeleteProposal 1
 ```
 
-8. To scan notes using ovk
+#### ListProposals
+查看已发起的proposal。
+```shell
+wallet> listproposals
+{
+	"proposals": [
+		{
+			"proposal_id": 12732,
+			"proposer_address": "TQ4eBJna51sew13DBLd7YjEHHHW7fkNzc2",
+			"parameters": [
+				{
+					"key": 65,
+					"value": 1
+				},
+				{
+					"key": 66,
+					"value": 1
+				},
+				{
+					"key": 62,
+					"value": 432000000
+				}
+			],
+			"expiration_time": 1656491400000,
+			"create_time": 1656490794000,
+			"approvals": [
+				"TQ4eBJna51sew13DBLd7YjEHHHW7fkNzc2"
+			],
+			"state": "DISAPPROVED"
+		},
+		{
+···
+```
+#### ListProposalsPaginated
+用分段的方式查看已发起的proposal。
+```
+wallet> ListProposalsPaginated [offset] [limit] 
+```
+`offset` 是需要跳过的proposal的ID，如输入20，则从proposal_ID=21 开始查看。`limit` 是要查看的proposal数量，如输入10，则查看`offset`的值之后的10个proposal。默认情况下，该命令将会列出所有的proposal。
 
-ScanNotebyOvk ovk startNum endNum
+下面的示例中，传参的意义为跳过ID为33及之前的proposal，查看其之后2个proposal，即34和35的两个proposal：
 
-ovk: 匿名账户ovk
-startNum: 起始区块的索引
-endNum: 结束区块的索引
+```shell
+wallet> listproposalspaginated 33 2
+{
+	"proposals": [
+		{
+			"proposal_id": 34,
+			"proposer_address": "TEDguVMSsFw3HSizQXFK1BsrGWeuRMNN7t",
+			"parameters": [
+				{
+					"key": 1,
+					"value": 9997000000
+				}
+			],
+			"expiration_time": 1582381200000,
+			"create_time": 1582380477000,
+			"state": "DISAPPROVED"
+		},
+		{
+			"proposal_id": 35,
+			"proposer_address": "TDkSQtBhZx7Ua8qvenM4zuH52u2BsYTwzc",
+			"parameters": [
+				{
+					"key": 1,
+					"value": 9997000000
+				}
+			],
+			"expiration_time": 1582381200000,
+			"create_time": 1582380498000,
+			"state": "DISAPPROVED"
+		}
+	]
+}
+```
+#### GetProposal
+
+通过proposal ID查看proposal详情。
+```shell
+wallet> getproposal 34
+{
+	"proposal_id": 34,
+	"proposer_address": "TEDguVMSsFw3HSizQXFK1BsrGWeuRMNN7t",
+	"parameters": [
+		{
+			"key": 1,
+			"value": 9997000000
+		}
+	],
+	"expiration_time": 1582381200000,
+	"create_time": 1582380477000,
+	"state": "DISAPPROVED"
+}
+```
+
+#### Votewitness
+使用该命令为超级代表投票。投票需要相应的投票权, 即`TRON Power`，可以通过质押资产来获得。第一个参数为超级代表的地址，第二个参数为该超级代表投票的数量。
+```
+wallet> votewitness [SR address] [TRON Power Amount]
+
+* TRON Power计算规则: 每冻结 1 TRX获得一个单位的TRON Power。
+* 资产解冻后, 所有之前的投票即作废。可以重复冻结资产避免这种情况。
+
+**注意** TRON 只会记录你的最后一次投票，新的投票会覆盖之前的投票。
 
 示例：
-
 ```shell
-scannotebyovk a5b06ef3067855d741f966d54dfa1c124548535107333336bd9552a427f0529e 500 1499
-11:27:17.760 INFO  [main] [WalletApiWrapper](WalletApiWrapper.java:1042)
-txid:06b55fc27f7ec649396706d149d18a0bb003347bdd7f489e3d47205da9cee802
-index:0
-paymentAddress:ztron1hn9r3wmytavslztwmlzvuzk3dqpdhwcmda2d0deyu5pwv32dp78saaslyt82w0078y6uzfg8x6w
-rcm:becfc0d183a9fe0f8571c9a071bd91fafa7f84c0a5c8c704b100a1ecbd611804
-memo:test2
-value:90000000
-11:27:17.760 INFO  [main] [WalletApiWrapper](WalletApiWrapper.java:1050) complete.
+wallet> freezeBalance 100000000 3 1 address  # 冻结 10TRX，获得10个单位的TRON Power。
+
+wallet> votewitness [SR1] 4 [SR2] 6  # 为SR1投4票，同时再为SR2投6票
+
+wallet> votewitness [SR1] 10  # 为SR1投10票
+```
+示例中的结果为SR1获得10票，SR2获得0票。
+
+#### ListWitnesses
+
+列出所有超级代表的信息。
+```shell
+wallet> listwitnesses
+{
+	"witnesses": [
+		{
+			"address": "TPffmvjxEcvZefQqS7QYvL1Der3uiguikE",
+			"voteCount": 324999518,
+			"url": "http://sr-26.com",
+			"totalProduced": 414028,
+			"totalMissed": 20,
+			"latestBlockNum": 27638663,
+			"latestSlotNum": 552169224,
+			"isJobs": true
+		},
+		{
+			"address": "TFFLWM7tmKiwGtbh2mcz2rBssoFjHjSShG",
+			"voteCount": 324759460,
+			"url": "http://sr-27.com",
+			"totalProduced": 414144,
+			"totalMissed": 16,
+			"latestBlockNum": 27638664,
+			"latestSlotNum": 552169225,
+			"isJobs": true
+		},
+···
 ```
 
-9. To calculate the nullifier of a note
+#### GetBrokerage
+使用该命令，可以查看超级代表的出块分成比例。
 
-GetShieldedNullifier index
+在为超级代表投票后，会收到相应的奖励。超级代表可以调整出块收益的分成比例，默认比例为20%，即收益的20%归该超级代表所有，剩余80%按投票数分配给投票者。
 
-index: note索引
+`OwnerAddress` 为超级代表的地址，base58格式。
+
+示例中，出块奖励的分成为20%，即80%的收益会按权重分配给投票者：
+```shell
+wallet> getbrokerage TSzdGHnhYnQKFF4LKrRLztkjYAvbNoxnQ8
+The brokerage is : 20
+```
+
+#### GetReward
+查询未领取的奖励。
+
+`OwnerAddress` 为超级代表的地址，base58格式。示例如下：
+```shell
+wallet> getreward TSzdGHnhYnQKFF4LKrRLztkjYAvbNoxnQ8
+The reward is : 0
+``` 
+
+
+#### UpdateBrokerage
+该命令由超级代表发起，调整出块收益的分成比例。
+```
+wallet> updateBrokerage [OwnerAddress] [brokerage]
+```
+`OwnerAddress`  为超级代表的地址，base58格式。`brokerage` 为要改成的比例，0-100之间。
 
 示例：
-
 ```shell
-listshieldednote
-Unspend note list like:
-2 ztron1ghdy60hya8y72deu0q0r25qfl60unmue6889m3xfc3296a5ut6jcyafzhtp9nlutndukufzap4h 100000000 4ce5656a13049df00abc7fb3ce78d54c78944d3cbbdfdb29f288e1df5fdf67e1 1 UnSpend
-getshieldednullifier 2
-address ztron1ghdy60hya8y72deu0q0r25qfl60unmue6889m3xfc3296a5ut6jcyafzhtp9nlutndukufzap4h
-value 100000000
-rcm 07ed5471098652ad441575c61868d1e11317de0f73cbb743a4c5cfe78e3d150c
-trxId 4ce5656a13049df00abc7fb3ce78d54c78944d3cbbdfdb29f288e1df5fdf67e1
-index 1
-memo
-ShieldedNullifier:2a524a3be2643365ecdacf8f0d3ca1de8fad3080eea0b9561435b5d1ee467042
+wallet> updateBrokerage TZ7U1WVBRLZ2umjizxqz3XfearEHhXKX7h 30
 ```
 
-10. To scan the notes status of your local shielded address
 
-ScanAndMarkNotebyAddress shieldedAddress startNum endNum
+### 去中心化交易所
+交易对的价格浮动和交易情况遵循[Bancor Agreement](https://cryptopapers.info/assets/pdf/bancor.pdf)。
 
-shieldedAddress: 匿名账户
-startNum: 起始区块索引
-endNum: 结束区块索引
+下面是账户地址相关命令：
+
+- [ExchangeCreate](#exchangecreate)
+- [ExchangeInject](#exchangeinject)
+- [ExchangeTransaction](#exchangetransaction)
+- [ExchangeWithdraw](#exchangewithdraw)
+- [ListExchanges](#listexchanges)
+- [ListExchangesPaginated](#listexchangespaginated)
+- [MarketSellAsset](#marketsellasset)
+- [MarketCancelOrder](#marketcancelorder)
+- [GetMarketOrderByAccount](#getmarketorderbyaccount)
+- [GetMarketOrderById](#getmarketorderbyid)
+- [GetMarketPairList](#getmarketpairlist)
+- [GetMarketOrderListByPair](#getmarketorderlistbypair)
+- [GetMarketPriceByPair](#getmarketpricebypair)
+
+#### ExchangeCreate
+创建一个交易对
+```
+wallet> exchangeCreate [OwnerAddress][first_token_id] [first_token_balance] [second_token_id] [second_token_balance]
+```
+`OwnerAddress` 为发起人地址，如若不填则默认为当前登陆地址。`First_token_id`, `first_token_balance`为交易对中第一个代币的ID和金额。`second_token_id`, `second_token_balance` 为交易对中第二代币的ID和金额。如果是TRX, 则ID为""，额度必须在0到1,000,000,000,000,000之间，不包括头尾。
+
+示例:
+```shell
+wallet> exchangeCreate 1000001 10000 _ 10000
+# Create trading pairs with the IDs of 1000001 and TRX, with amount 10000 for both.
+```
+#### ExchangeInject
+将资金注入交易对
+```
+wallet> exchangeInject [OwnerAddress] [exchange_id] [token_id] [quant]
+```
+`OwnerAddress` 为发起人地址，如若不填则默认为当前登陆地址。`exchange_id` 为交易对的ID。`token_id, quant` 为要注入的代币ID和金额。
+
+当要向交易对注入资金时，交易对中的代币会从本账户中取走，注入到交易对中。根据不同的代币余额情况，同种数额的同种代币会有变化。
+
+#### ExchangeTransaction
+发起一笔交易对交易
+```
+wallet> exchangeTransaction [OwnerAddress] [exchange_id] [token_id] [quant] [expected]
+```
+`OwnerAddress` 为发起人地址，如若不填则默认为当前登陆地址。`exchange_id` 为交易对的ID。`token_id`, `quant` 为要卖出的代币的ID和数额。`expected` 为预期买入的代币数额，该数额必须小于`quant`，否则会报错。
 
 示例：
-
 ```shell
-ScanAndMarkNotebyAddress  ztron16j06s3p5gvp2jde4vh7w3ug3zz3m62zkyfu86s7ara5lafhp22p9wr3gz0lcdm3pvt7qx0aftu4 500 1500
-11:33:27.789 INFO  [main] [WalletApiWrapper](WalletApiWrapper.java:1004)
-txid:4ce5656a13049df00abc7fb3ce78d54c78944d3cbbdfdb29f288e1df5fdf67e1
-index:0
-isSpend:true
-address:ztron16j06s3p5gvp2jde4vh7w3ug3zz3m62zkyfu86s7ara5lafhp22p9wr3gz0lcdm3pvt7qx0aftu4
-rcm:224463fbba4ef49a4e547d5b7fe608ebd9ec717591db2f6b6644a862a5528b07
-value:100000000
-memo:test1
-11:33:27.789 INFO  [main] [WalletApiWrapper](WalletApiWrapper.java:1019) complete.
+wallet> ExchangeTransaction 1 1000001 100 80
+```
+示例的含义为，想要通过ID为1的交易对，用100个单位的ID为1000001的代币来交易80个TRX。(亦可理解为在交易对1中，通过卖出100个1000001代币来买入80个TRX。).
+
+#### ExchangeWithdraw
+提取交易对中的资金
+```
+wallet> exchangeWithdraw [OwnerAddress] [exchange_id] [token_id] [quant]
+```
+`OwnerAddress` 为发起人地址，如若不填则默认为当前登陆地址。`Exchange_id` 为交易对ID。`Token_id`, `quant` 为要从交易对中取出的代币的ID和数额。
+
+当要向交易对提取资金时，交易对中的代币会被提取到账户地址中。根据不同的代币余额情况，同种数额的同种代币会有变化。
+
+可以通过下面的`ListExchanges`命令来获取所有的交易对信息。
+
+#### ListExchanges
+列出所有交易对及详情
+```shell
+wallet> listexchanges
+{
+	"exchanges": [
+		{
+			"exchange_id": 14,
+			"creator_address": "TCjuQbm5yab7ENTYb7tbdAKaiNa9Lrj4mo",
+			"create_time": 1654154880000,
+			"first_token_id": "1004852",
+			"first_token_balance": 91,
+			"second_token_id": "_",
+			"second_token_balance": 110000000
+		},
+		{
+			"exchange_id": 13,
+			"creator_address": "TBpbKyKVUB1YLULrbhawUws69Gv33cmKDL",
+			"create_time": 1648004214000,
+			"first_token_id": "1000575",
+			"first_token_balance": 991,
+			"second_token_id": "1000184",
+			"second_token_balance": 1010
+		},
+···
 ```
 
-11. To generate the spending key of a shielded address
+#### ListExchangesPaginated
 
-GetSpendingKey
+列出选段中的交易对
+```shell
+wallet> ListExchangesPaginated [offset] [limit]
+```
+`offset` 为想要跳过的交易对ID。默认从1开始列出交易对，如此处输入值为15，则从交易对ID为16开始列出。`limit` 为想要列出的交易对数量。
+
+下面示例的含义为从id为4的交易对开始列出信息，一共列出2组信息，即列出交易对ID为4，5的信息,请参考:
+```shell
+wallet> listexchangespaginated 3 2
+{
+	"exchanges": [
+		{
+			"exchange_id": 4,
+			"creator_address": "TXmHTj3t5LXGvqGkr4jRNw7nf9GjquQ5yf",
+			"create_time": 1601458377000,
+			"first_token_id": "1000088",
+			"first_token_balance": 1,
+			"second_token_id": "_",
+			"second_token_balance": 1
+		},
+		{
+			"exchange_id": 5,
+			"creator_address": "TTJJvoPKGVKnbUBPVTn1Zi8o6k3EfFDXVS",
+			"create_time": 1602578613000,
+			"first_token_id": "1000091",
+			"first_token_balance": 456125,
+			"second_token_id": "_",
+			"second_token_balance": 106968111
+		}
+	]
+}
+```
+#### MarketSellAsset
+创建一个售出订单
+```
+wallet> MarketSellAsset [owner_address] [sell_token_id] [sell_token_quantity] [buy_token_id] [buy_token_quantity]
+```
+`OwnerAddress` 为发起人地址，如若不填则默认为当前登陆地址。`sell_token_id` and `sell_token_quantity` 为要售出的代币ID和数额。`buy_token_id`, `buy_token_quantity` 为想要买入的代币ID和数额。
 
 示例：
-
 ```shell
-GetSpendingKey
-11:48:52.918 INFO  [main] [Client](Client.java:2194) 0eb458b309fa544066c40d80ce30a8002756c37d2716315c59a98c893dbb5f6a
+wallet> MarketSellAsset TJCnKsPa7y5okkXvQAidZBzqx3QyQ6sxMW  1000001 200 _ 100    
 ```
-
-12. To get the ask，nsk and ovk from a spending key
-
-etExpandedSpendingKey sk
-
-示例：
-
+如上创建订单后，我们用`getTransactionInfoById`来查看结果,
 ```shell
-getExpandedSpendingKey 0eb458b309fa544066c40d80ce30a8002756c37d2716315c59a98c893dbb5f6a
-11:49:00.481 INFO  [main] [Client](Client.java:2212) ask:252a0f6f6f0bac114a13e1e663d51943f1df9309649400218437586dea78260e
-11:49:00.485 INFO  [main] [Client](Client.java:2213) nsk:5cd2bc8d9468dbad26ea37c5335a0cd25f110eaf533248c59a3310dcbc03e503
-11:49:00.485 INFO  [main] [Client](Client.java:2214) ovk:892a10c1d3e8ea22242849e13f177d69e1180d1d5bba118c586765241ba2d3d6
+wallet> getTransactionInfoById 10040f993cd9452b25bf367f38edadf11176355802baf61f3c49b96b4480d374   
+
+{
+	"id": "10040f993cd9452b25bf367f38edadf11176355802baf61f3c49b96b4480d374",
+	"blockNumber": 669,
+	"blockTimeStamp": 1578983493000,
+	"contractResult": [
+		""
+	],
+	"receipt": {
+		"net_usage": 264
+	}
+} 
 ```
+#### MarketCancelOrder
+使用该命令可以取消订单
+```
+wallet> MarketCancelOrder [owner_address] [order_id]
+```
+`owner_address` 为发起人地址，如若不填则默认为当前登陆账户地址。`order_id` 为订单的ID。
 
-13. To get ak from ask
-
-getAkFromAsk ask
-
-示例：
-
+示例:
 ```shell
-GetAkFromAsk 252a0f6f6f0bac114a13e1e663d51943f1df9309649400218437586dea78260e
-11:49:33.547 INFO  [main] [Client](Client.java:2232) ak:f1b843147150027daa5b522dd8d0757ec5c8c146defd8e01b62b34cf917299f1
+wallet> MarketCancelOrder TJCnKsPa7y5okkXvQAidZBzqx3QyQ6sxMW fc9c64dfd48ae58952e85f05ecb8ec87f55e19402493bb2df501ae9d2da75db0  
 ```
-
-14. To get nk from nsk
-
-getNkFromNsk nsk
-
-示例：
-
+通过`getTransactionInfoById`来查看结果，
 ```shell
-GetNkFromNsk 5cd2bc8d9468dbad26ea37c5335a0cd25f110eaf533248c59a3310dcbc03e503
-11:49:44.651 INFO  [main] [Client](Client.java:2250) nk:ed3dc885049f0a716a4de8c08c6cabcad0da3c437202341aa3d9248d8eb2b74a
+wallet> getTransactionInfoById b375787a098498623403c755b1399e82910385251b643811936d914c9f37bd27   
+{
+	"id": "b375787a098498623403c755b1399e82910385251b643811936d914c9f37bd27",
+	"blockNumber": 1582,
+	"blockTimeStamp": 1578986232000,
+	"contractResult": [
+		""
+	],
+	"receipt": {
+		"net_usage": 283
+	}
+}
 ```
+#### GetMarketOrderByAccount
+使用该命令可查看该账户创建的活跃订单
+```
+wallet> GetMarketOrderByAccount [ownerAddress]
+```
+`ownerAddress` 为可查看的地址。
 
-15. To get ivk from ak and nk
-
-getIncomingViewingKey ak[64] nk[64]
-
-示例：
-
+示例:
 ```shell
-getincomingviewingkey  f1b843147150027daa5b522dd8d0757ec5c8c146defd8e01b62b34cf917299f1  ed3dc885049f0a716a4de8c08c6cabcad0da3c437202341aa3d9248d8eb2b74a
-11:51:45.686 INFO  [main] [Client](Client.java:2272) ivk:148cf9e91f1e6656a41dc9b6c6ee4e52ff7a25b25c2d4a3a3182d0a2cd851205
+wallet> GetMarketOrderByAccount TJCnKsPa7y5okkXvQAidZBzqx3QyQ6sxMW   
+{
+	"orders": [
+		{
+			"order_id": "fc9c64dfd48ae58952e85f05ecb8ec87f55e19402493bb2df501ae9d2da75db0",
+			"owner_address": "TJCnKsPa7y5okkXvQAidZBzqx3QyQ6sxMW",
+			"create_time": 1578983490000,
+			"sell_token_id": "_",
+			"sell_token_quantity": 100,
+			"buy_token_id": "1000001",
+			"buy_token_quantity": 200,
+			"sell_token_quantity_remain": 100
+		}
+	]
+}  
 ```
-
-16. To GetDiversifier
-
-GetDiversifier
-
-示例：
-
+#### GetMarketOrderById
+通过订单ID查看订单信息
+```
+wallet> GetMarketOrderById [orderId]
+```
+示例:
 ```shell
-GetDiversifier
-11:49:19.158 INFO  [main] [Client](Client.java:2281) 11db4baf6bd5d5afd3a8b5
+wallet> GetMarketOrderById fc9c64dfd48ae58952e85f05ecb8ec87f55e19402493bb2df501ae9d2da75db0   
+{
+	"order_id": "fc9c64dfd48ae58952e85f05ecb8ec87f55e19402493bb2df501ae9d2da75db0",
+	"owner_address": "TJCnKsPa7y5okkXvQAidZBzqx3QyQ6sxMW",
+	"create_time": 1578983490000,
+	"sell_token_id": "_",
+	"sell_token_quantity": 100,
+	"buy_token_id": "1000001",
+	"buy_token_quantity": 200,
+}
 ```
-
-17. To get a shielded payment address by ivk and diversifier
-
-getshieldedpaymentaddress ivk[64] d[22]
-
-示例：
-
+#### GetMarketPairList
+列出当前活跃的交易对
 ```shell
-GetShieldedPaymentAddress 148cf9e91f1e6656a41dc9b6c6ee4e52ff7a25b25c2d4a3a3182d0a2cd851205  11db4baf6bd5d5afd3a8b5
-11:52:33.542 INFO  [main] [Client](Client.java:2309) pkd:65c11642115d386ed716b9cc06a3498e86e303d7f20d0869c9de90e31322ac15
-11:52:33.543 INFO  [main] [Client](Client.java:2310) shieldedAddress:ztron1z8d5htmt6h26l5agk4juz9jzz9wnsmkhz6uucp4rfx8gdccr6leq6zrfe80fpccny2kp2cray8z
+wallet> getmarketpairlist
+{
+	"orderPair": [
+		{
+			"sell_token_id": "1000012",
+			"buy_token_id": "_"
+		},
+		{
+			"sell_token_id": "1000094",
+			"buy_token_id": "1000095"
+		},
+		{
+			"sell_token_id": "1000099",
+			"buy_token_id": "1000100"
+		},
+···
 ```
+#### GetMarketOrderListByPair
+通过代币ID查看当前活跃订单
+```
+wallet> GetMarketOrderListByPair [sell_token_id] [buy_token_id]
+```
+`sell_token_id` 为要售出的代币ID。`buy_token_id` 为要买入的代币ID。
 
-### 使用资源委托
+示例:
+```shell
+wallet> GetMarketOrderListByPair _ 1000001   
+{
+	"orders": [
+		{
+			"order_id": "fc9c64dfd48ae58952e85f05ecb8ec87f55e19402493bb2df501ae9d2da75db0",
+			"owner_address": "TJCnKsPa7y5okkXvQAidZBzqx3QyQ6sxMW",
+			"create_time": 1578983490000,
+			"sell_token_id": "_",
+			"sell_token_quantity": 100,
+			"buy_token_id": "1000001",
+			"buy_token_quantity": 200,
+			"sell_token_quantity_remain": 100
+		}
+	]
+}
+```
+#### GetMarketPriceByPair
+通过代币ID获取当前市场价格
+```
+wallet> GetMarketPriceByPair [sell_token_id] [buy_token_id]
+```
+`sell_token_id` 为要售出的代币ID，`buy_token_id` 为要买入的代币ID。
 
-a. 委托资源
-
-freezeBalance frozen_balance frozen_duration [ResourceCode:0 BANDWIDTH,1 ENERGY] [receiverAddress]
-frozen_balance: 质押的TRX数目，最小单位为SUN
-frozen_duration: 质押天数
-ResourceCode: 0 BANDWIDTH;1 ENERGY
-receiverAddress: 接收方地址。如果为空，则自己获得质押TRX所获得的资源
-
-b. 解除资源委托
-
-unfreezeBalance  [ResourceCode:0 BANDWIDTH,1 CPU] [receiverAddress]
-receiverAddress: 接收方地址。如果为空，则解除自己获得的质押TRX所获得的资源
-
-c. 查询资源委托信息
-
-getDelegatedResource fromAddress toAddress
-查询从fromAddress代理给toAddress的资源信息
-getDelegatedResourceAccountIndex address
-查询从address代理出去的相关账户信息
-
-### 钱包相关命令
-
-RegisterWallet: 注册钱包
-BackupWallet: 备份钱包
-BackupWallet2Base64: 以base64形式备份钱包
-ChangePassword: 修改账户的密码
-ImportWallet: 导入钱包
-ImportWalletByBase64: 以base64的形式导入钱包
-
-### 账户相关命令
-
-GenerateAddress: 生成账户地址
-GetAccount: 获得账户的信息
-GetAccountNet: 获取账户的带宽信息
-GetAccountResource: 获得账户的资源信息
-GetAddress: 获得当前登录账户的地址
-GetBalance: 获得当前登录账户的余额
-
-### 获得交易信息
-
-GetTransactionById id: 通过交易id获得交易
-GetTransactionCountByBlockNum number: 获取指定区块里的交易的数目
-GetTransactionInfoById: 通过交易id获得交易（包含费用详情）
-
-### 获得区块信息
-
-GetBlock: 按照区块高度查询区块信息，如果没有提供参数，返回最新区块
-GetBlockById id: 按照区块id获得区块信息
-GetBlockByLatestNum n: 获得最新的n个区块的区块信息，0 < n < 100
-GetBlockByLimitNext startBlockId endBlockId:
-按照指定的区间查询区块信息
-
-### 其他
-
-GetNextMaintenanceTime: 获得下一个维护期时间
-ListNodes: 查询节点列表
-ListWitnesses: 查询超级代表列表
-BroadcastTransaction: 广播交易
+示例:
+```shell
+wallet> GetMarketPriceByPair _ 1000001   
+{
+	"sell_token_id": "_",
+	"buy_token_id": "1000001",
+	"prices": [
+		{
+			"sell_token_quantity": 100,
+			"buy_token_quantity": 200
+		}
+	]
+}
+```

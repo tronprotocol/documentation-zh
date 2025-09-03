@@ -35,12 +35,12 @@ MainNet的配置请参照:
 + 示例：
 
 ```shell
-freezebalance 10,000,000 3 # 质押了10TRX，获取了10单位TRON Power(TP)
-votewitness witness1 4 witness2 6 # 同时给witness1投了4票，给witness2投了6票
-votewitness witness1 3 witness2 7 # 同时给witness1投了3票，给witness2投了7票
+freezebalancev2 10,000,000 3 # 质押了10TRX，获取了10单位TRON Power(TP)
+votewitness SR1 4 SR2 6 # 同时给SR1投了4票，给SR2投了6票
+votewitness SR1 3 SR2 7 # 同时给SR1投了3票，给SR2投了7票
 ```
 
-以上命令的最终结果是给witness1投了3票，给witness2投了7票
+以上命令的最终结果是给SR1投了3票，给SR2投了7票
 
 ### 2.3 超级代表的奖励
 
@@ -55,7 +55,7 @@ votewitness witness1 3 witness2 7 # 同时给witness1投了3票，给witness2投
 
 #### 2.4.1 什么是委员会
 
-委员会用于修改Tron网络动态参数，如出块奖励、交易费用等等。委员会由当前的27个超级代表组成。每个超级代表都具有提议权、对提议的投票权，
+委员会用于修改TRON网络动态参数，如出块奖励、交易费用等等。委员会由当前的27个超级代表组成。每个超级代表都具有提议权、对提议的投票权，
 当提议获得19个代表及以上的赞成票时，该提议获得通过，并在下个维护期内进行网络参数修改。
 
 #### 2.4.2 创建提议
@@ -63,13 +63,13 @@ votewitness witness1 3 witness2 7 # 同时给witness1投了3票，给witness2投
 只有超级代表对应账户具有提议权，其他账户无法创建提议。允许修改的网络动态参数以及编号如下( [min,max] )：
 
 - 0: MAINTENANCE_TIME_INTERVAL, [3 * 27* 1000 ,24 * 3600 * 1000] //修改超级代表调整时间间隔，目前为6 * 3600 * 1000ms
-- 1: ACCOUNT_UPGRADE_COST, [0,100 000 000 000 000 000]  //修改账户升级为超级代表的费用，目前为9999_000_000 Sun
-- 2: CREATE_ACCOUNT_FEE, [0,100 000 000 000  000 000] // 修改创建账户费用，目前为100_000Sun
+- 1: ACCOUNT_UPGRADE_COST, [0,100 000 000 000 000 000]  //修改账户升级为超级代表的费用，目前为9,999,000,000 Sun
+- 2: CREATE_ACCOUNT_FEE, [0,100 000 000 000  000 000] // 修改创建账户费用，目前为100,000Sun
 - 3: TRANSACTION_FEE, [0,100 000 000 000 000 000] // 修改TRX抵扣带宽的费用，目前为10Sun/byte
-- 4: ASSET_ISSUE_FEE, [0,100 000 000 000 000 000] // 修改资产发行费用，目前为1024_000_000 Sun
-- 5: WITNESS_PAY_PER_BLOCK, [0,100 000 000 000 000 000] // 修改超级代表出块奖励，目前为32_000_000 Sun
-- 6: WITNESS_STANDBY_ALLOWANCE, [0,100 000 000 000 000 000] // 修改分给前127名超级代表候选人的奖励，115_200_000_000 Sun
-- 7: CREATE_NEW_ACCOUNT_FEE_IN_SYSTEM_CONTRACT, []// 修改系统创建账户的费用，目前为1_000_000 Sun
+- 4: ASSET_ISSUE_FEE, [0,100 000 000 000 000 000] // 修改资产发行费用，目前为1,024,000,000 Sun
+- 5: WITNESS_PAY_PER_BLOCK, [0,100 000 000 000 000 000] // 修改超级代表出块奖励，目前为32,000,000 Sun
+- 6: WITNESS_STANDBY_ALLOWANCE, [0,100 000 000 000 000 000] // 修改分给前127名超级代表候选人的奖励，115,200,000,000 Sun
+- 7: CREATE_NEW_ACCOUNT_FEE_IN_SYSTEM_CONTRACT, []// 修改系统创建账户的费用，目前为1,000,000 Sun
 - 8: CREATE_NEW_ACCOUNT_BANDWIDTH_RATE, // 提议7、8，组合使用，用于修改创建账户时对资源或TRX的消耗
 - 9: ALLOW_CREATION_OF_CONTRACTS, // 用于控制虚拟机功能的开启
 - 10: REMOVE_THE_POWER_OF_THE_GR  // 用于清除GR的创世票数
@@ -90,7 +90,7 @@ id0_N: 参数编号
 value0_N: 新参数值
 ```
 
-注：Tron网络中，1 TRX = 1000_000 Sun。
+注：Tron网络中，1 TRX = 1,000,000 Sun。
 
 #### 2.4.3 对提议进行投票
 
@@ -122,13 +122,13 @@ id: 提议Id，根据提议创建时间递增
 查询所有提议信息（ListProposals）
 分页查询提议信息（GetPaginatedProposalList）
 查询指定提议信息（GetProposalById）
-相关api详情，请查询[Tron HTTP API](../api/http.md)
+相关api详情，请查询[TRON HTTP API](../api/http.md)
 
 ## 3. 账号模型
 
 ### 3.1 账户模型介绍
 
-Tron采用账户模型。账户的唯一标识为地址address，对账户操作需要验证私钥签名。每个账户拥有TRX、Token余额及智能合约、带宽、能量等各种资源。通过发送交易可以增减TRX或者Token余额，需要消耗带宽；可以发布并拥有智能合约，也可以调用他人发布的智能合约，需要消耗能量。可以申请成为超级代表并被投票，也可以对超级代表进行投票。等等。Tron所有的活动都围绕账户进行。
+TRON采用账户模型。账户的唯一标识为地址address，对账户操作需要验证私钥签名。每个账户拥有TRX、Token余额及智能合约、带宽、能量等各种资源。通过发送交易可以增减TRX或者Token余额，需要消耗带宽；可以发布并拥有智能合约，也可以调用他人发布的智能合约，需要消耗能量。可以申请成为超级代表并被投票，也可以对超级代表进行投票。等等。TRON所有的活动都围绕账户进行。
 
 ### 3.2 创建账号的方式
 
@@ -137,7 +137,7 @@ Tron采用账户模型。账户的唯一标识为地址address，对账户操作
 
 ### 3.3 生成密钥对算法
 
-Tron的签名算法为ECDSA，选用曲线为SECP256K1。其私钥为一个随机数，公钥为椭圆曲线上一个点。生成过程为，首先生成一个随机数d作为私钥，再计算P = d * G作为公钥；其中G为椭圆曲线的基点。
+TRON的签名算法为ECDSA，选用曲线为SECP256K1。其私钥为一个随机数，公钥为椭圆曲线上一个点。生成过程为，首先生成一个随机数d作为私钥，再计算P = d * G作为公钥；其中G为椭圆曲线的基点。
 
 ### 3.4 地址格式说明
 
@@ -208,9 +208,9 @@ CPU：16核 内存：32G 带宽：100M 硬盘：1T
 推荐配置要求：
 CPU：64核及以上 内存：64G及以上 带宽：500M及以上 硬盘：20T及以上
 
-### 4.4 Tron网络结构
+### 4.4 TRON网络结构
 
-Tron网络采用Peer-to-Peer(P2P)的网络架构，网络中的节点地位对等。网络中的节点有SuperNode、FullNode、SolidityNode三种类型，SuperNode主要用于生成区块，FullNode用于同步区块、广播交易，SolidityNode用于同步固化的区块。任何部署运行Tron代码的设备都可以加入Tron网络并作为一个节点，和Tron网络中的其他节点有相同的地位，他们可以创建交易，广播交易，同步区块等，也可以作为SuperNode的候选人参与选举。
+TRON网络采用Peer-to-Peer(P2P)的网络架构，网络中的节点地位对等。网络中的节点有SuperNode、FullNode、SolidityNode三种类型，SuperNode主要用于生成区块，FullNode用于同步区块、广播交易，SolidityNode用于同步固化的区块。任何部署运行TRON代码的设备都可以加入TRON网络并作为一个节点，和TRON网络中的其他节点有相同的地位，他们可以创建交易，广播交易，同步区块等，也可以作为SuperNode的候选人参与选举。
 ![image](https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/network.png)
 
 ### 4.5 一键部署FullNode和SolidityNode
@@ -304,7 +304,7 @@ wget https://raw.githubusercontent.com/tronprotocol/tron-deployment/master/priva
 ```shell
 nohup java -Xmx6g -XX:+HeapDumpOnOutOfMemoryError -jar FullNode.jar  -c private_net_config.conf
 命令行参数说明:
---witness: 启动witness功能,由于配置的这个fullnode节点不需要产快，所以此fullnode节点不可以添加这个参数，i.e.: --witness。
+--witness: 启动超级代表产块功能, 因为这个fullnode节点不需要产快，所以此fullnode节点不可以添加这个参数，i.e.: --witness。
 --log-config: 指定日志配置文件路径，i.e.: --log-config logback.xml。
 -c: 指定配置文件路径，i.e.: -c config.conf。
 ```
@@ -395,14 +395,14 @@ java -jar DBConvert.jar output-directory/database  output-directory-dst/database
 
 ## 5. 智能合约
 
-### 5.1 Tron智能合约介绍
+### 5.1 TRON智能合约介绍
 
 智能合约是一种能自动执行其条款的计算化交易协议。智能合约和普通合约一样，定义了参与者相关的条款和奖惩机制。一旦合约被启动，便能按照设定的条款执行，并自动检查所承诺的条款实施情形。
-Tron兼容以太坊（Ethereum）上采用Solidity编写的智能合约。当前建议的Solidity语言版本为0.4.24 ~ 0.4.25。合约编写、编译完成后，部署到Tron公链上。部署后的合约，被触发时，就会在公链的各个节点上自动执行。
+TRON兼容以太坊（Ethereum）上采用Solidity编写的智能合约。当前建议的Solidity语言版本为0.4.24 ~ 0.4.25。合约编写、编译完成后，部署到TRON公链上。部署后的合约，被触发时，就会在公链的各个节点上自动执行。
 
-### 5.2 Tron智能合约特性（地址等）
+### 5.2 TRON智能合约特性（地址等）
 
-Tron virtual machine 基于以太坊 solidity 语言实现，兼容以太坊虚拟机的特性，但基于tron自身属性也有部分的区别。
+TRON virtual machine 基于以太坊 solidity 语言实现，兼容以太坊虚拟机的特性，但基于tron自身属性也有部分的区别。
 
 #### 5.2.1 智能合约
 
@@ -525,7 +525,7 @@ transfer/send/call/callcode/delegatecall函数调用转账
 
 ```solidity
 /**
-  *  @dev    convert uint256 (HexString add 0x at beginning) tron address to solidity address type
+  *  @dev    convert uint256 (HexString add 0x at beginning) TRON address to solidity address type
   *  @param  tronAddress uint256 tronAddress, begin with 0x, followed by HexString
   *  @return Solidity address type
   */
@@ -601,13 +601,13 @@ function assignAddress() public view {
 
 质押获取Energy，即将持有的trx锁定，无法进行交易，作为抵押，并以此获得免费使用Energy的权利。具体计算与全网所有账户质押有关，可参考相关部分计算。
 
-##### FreezeBalance 质押获得能量
+##### 质押获得能量
 
 ```shell
-freezeBalance frozen_balance frozen_duration [ResourceCode:0 BANDWIDTH,1 ENERGY]
+freezeBalancev2 frozen_balance [ResourceCode:0 BANDWIDTH,1 ENERGY]
 ```
 
-通过质押TRX获取的Energy， 额度 = 为获取Energy质押的TRX / 整个网络为获取Energy质押的TRX 总额 * 50_000_000_000。
+通过质押TRX获取的Energy， 额度 = 为获取Energy质押的TRX / 整个网络为获取Energy质押的TRX 总额 * 50,000,000,000。
 也就是所有用户按质押TRX平分固定额度的Energy。
 
 示例：
@@ -617,34 +617,34 @@ freezeBalance frozen_balance frozen_duration [ResourceCode:0 BANDWIDTH,1 ENERGY]
 
 二人质押获得的可用Energy分别是
 
-A: 25_000_000_000 且energy_limit 为25_000_000_000
+A: 25,000,000,000 且energy_limit 为25,000,000,000
 
-B: 25_000_000_000 且energy_limit 为25_000_000_000
+B: 25,000,000,000 且energy_limit 为25,000,000,000
 
 当第三人C质押1TRX时。
 
 三人质押获得的可用Energy调整为
 
-A: 20_000_000_000 且energy_limit调整为20_000_000_000
+A: 20,000,000,000 且energy_limit调整为20,000,000,000
 
-B: 20_000_000_000 且energy_limit调整为20_000_000_000
+B: 20,000,000,000 且energy_limit调整为20,000,000,000
 
-B: 10_000_000_000 且energy_limit 为10_000_000_000
+C: 10,000,000,000 且energy_limit 为10,000,000,000
 
 ```
 
-##### FreezeBalance 恢复能量
+##### 恢复能量
 
 所消耗的能量会在24小时内平滑减少至0。
 
 示例：
 
 ```text
-在某一时刻A的Energy已使用量为72_000_000 Energy
+在某一时刻A的Energy已使用量为72,000,000 Energy
 
 在没有其他消耗或质押的操作下：
 
-一小时后A的Energy已使用量为 72_000_000 - (72_000_000 * (60*60/60*60*24)) Energy = 69_000_000 Energy
+一小时后A的Energy已使用量为 72,000,000 - (72,000,000 * (60*60/60*60*24)) Energy = 69,000,000 Energy
 
 24小时后A的Energy已使用量为 0 Energy。
 ```
@@ -683,15 +683,15 @@ B: 10_000_000_000 且energy_limit 为10_000_000_000
 
 则，feeLimit的预估方法为：
 
-1). A = 20000 energy * (1 trx / 400 energy) = 50 trx = 50_000_000 sun,
+1). A = 20000 energy * (1 trx / 400 energy) = 50 trx = 50,000,000 sun,
 
-2). B = 20000 energy * (1 trx / 10000 energy) = 2 trx = 2_000_000 sun，
+2). B = 20000 energy * (1 trx / 10000 energy) = 2 trx = 2,000,000 sun，
 
-3).  取A和B的最大值，为50_000_000 sun，
+3).  取A和B的最大值，为50,000,000 sun，
 
 4).  开发者承诺承担90%，用户需要承担10%，
 
-那么，建议用户填写的feeLimit为 50_000_000 sun * 10% = 5_000_000 sun。
+那么，建议用户填写的feeLimit为 50,000,000 sun * 10% = 5,000,000 sun。
 
 小节附录：
 
@@ -701,7 +701,7 @@ B: 10_000_000_000 且energy_limit 为10_000_000_000
 
 [3] 预估的下一次执行所需Energy上限，应该略大于上一次实际消耗的Energy。
 
-[4] 1 trx = 10^4 energy 为目前的燃烧trx的比例，后续Tron可能会根据全网拥塞情况调整，调整后，将通知到全网的节点。
+[4] 1 trx = 10^4 energy 为目前的燃烧trx的比例，后续TRON可能会根据全网拥塞情况调整，调整后，将通知到全网的节点。
 
 #### 5.3.3 Energy的计算(开发者必读)
 
@@ -826,9 +826,9 @@ contract DataStore {
 因为波场的编译器与以太坊的编译略有差异，正在与Remix集成中，所以临时采用改方案获取ABI和ByteCode，而不是通过Remix直接获取ABI和ByteCode。
 把上述代码复制到SimpleWebCompiler中，点击Compile按钮，获取ABI和ByteCode。
 
-##### 通过Wallet-cli部署智能合约
+##### 通过wallet-cli部署智能合约
 
-下载Wallet-Cli，文件然后编译。
+下载wallet-cli，文件然后编译。
 
 ```shell
 # 下载源代码
@@ -853,7 +853,7 @@ java -jar wallet-cli.jar
 ```shell
 importwallet
 <输入你自己的设定的钱包密码2次>
-<输入私钥：da146374a75310b9666e834ee4ad0866d6f4035967bfc76217c5a495fff9f0d0>
+<输入私钥：da146374...fff9f0d0>
 login
 <输入你自己的设定的钱包密码>
 getbalance
@@ -944,7 +944,7 @@ triggercontract TTWq4vMEYB2yibAbPV7gQ4mrqTyX92fha6 get(uint256) 1 false 1000000 
 
 ## 7. TRC-10通证
 
-TRON网络支持2种通证，一种是通过智能合约发行的TRC20协议的通证，一种是通过Tron公链内置的TRC10通证。
+TRON网络支持2种通证，一种是通过智能合约发行的TRC20协议的通证，一种是通过TRON公链内置的TRC10通证。
 
 下面对TRC10通证进行说明。
 
@@ -1059,7 +1059,7 @@ TRON网络引入了Bandwidth point 和 Energy 两种资源概念。其中Bandwid
 
 Bandwidth Points的获取分两种：
 
-+ 通过质押TRX获取的Bandwidth Points， 额度 = 为获取Bandwidth Points质押的TRX / 整个网络为获取Bandwidth Points质押的TRX 总额 * 43_200_000_000。
++ 通过质押TRX获取的Bandwidth Points， 额度 = 为获取Bandwidth Points质押的TRX / 整个网络为获取Bandwidth Points质押的TRX 总额 * 43,200,000,000。
 也就是所有用户按质押TRX平分固定额度的Bandwidth Points。
 
 + 每个账号每天有固定免费额度的带宽，该额度由波场网络的第#61号参数定义，用户可在tronscan上查看最新的值（https://tronscan.org/#/sr/committee）。
@@ -1131,7 +1131,7 @@ receiverAddress表示受委托账户的地址，
 
 |交易类型|费用|
 | :------|:------:|
-|创建witness|9999 TRX|
+|申请成为超级代表候选人|9999 TRX|
 |发行token|1024 TRX|
 |创建account|0.1 TRX|
 |创建exchange|1024 TRX|
@@ -1244,7 +1244,7 @@ ExchangeWithdraw 1 abc 1000000
 
 交易中token的当前价格信息的计算过程：
 
-假设 first_token 当前的价格为 100 Sun，first_token_balance 为1000_000,second_token_balance 为2000_000，
+假设 first_token 当前的价格为 100 Sun，first_token_balance 为1,000,000,second_token_balance 为2,000,000，
 second_token 当前的价格为 first_token * first_token_balance/second_token_balance = 50 Sun
 first_token的价格可有"first_token&&TRX"交易对计算获得
 
@@ -1254,18 +1254,18 @@ first_token的价格可有"first_token&&TRX"交易对计算获得
 
 sellTokenQuant是要卖出的first_token的金额
 buyTokenQuant是要买入的second_token的金额
-supply = 1_000_000_000_000_000_000L
+supply = 1,000,000,000,000,000,000L
 supplyQuant = -supply *(1.0 - Math.pow(1.0 + (double) sellTokenQuant/（firstTokenBalance + sellTokenQuant）, 0.0005))
 buyTokenQuant = （long）balance* (Math.pow(1.0 + (double) supplyQuant / supply, 2000.0) - 1.0)
 
 注意：由于网络其他账户发生交易，价格可能发生变化。
 
-相关api详情，请查询[Tron HTTP API](../api/http.md)。
+相关api详情，请查询[TRON HTTP API](../api/http.md)。
 
-## 10. 多重签名
+## 10. 账户权限管理
 
 详细信息请参考:
-[波场多重签名](../mechanism-algorithm/multi-signatures.md)
+[账户权限管理](../mechanism-algorithm/multi-signatures.md)
 
 ## 11. 匿名交易
 
@@ -1277,7 +1277,7 @@ buyTokenQuant = （long）balance* (Math.pow(1.0 + (double) supplyQuant / supply
 ### 12.1 wallet-cli功能介绍
 
 请参考:
-[Wallet-cli](https://github.com/tronprotocol/wallet-cli/blob/master/README.md)
+[wallet-cli](https://github.com/tronprotocol/wallet-cli/blob/master/README.md)
 
 ### 12.2 计算交易ID
 

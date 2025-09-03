@@ -14,7 +14,7 @@ Version 0.1
 
 该私有链的产块节点的地址：TPL66VK2gCXNCD7EJg9pgJRfqcRazjhUZY
 
-Witness私钥：da146374a75310b9666e834ee4ad0866d6f4035967bfc76217c5a495fff9f0d0
+Witness私钥：da146374...fff9f0d0
 
 注意：如果要支持constant的请求，需要在配置文件config.conf中填写：supportConstant = true，默认是false。
 
@@ -67,9 +67,9 @@ contract DataStore {
 因为波场的编译器与以太坊的编译略有差异，正在与Remix集成中，所以临时采用改方案获取ABI和ByteCode，而不是通过Remix直接获取ABI和ByteCode。  
 把上述代码复制到SimpleWebCompiler中，点击Compile按钮，获取ABI和ByteCode。
 
-### 通过Wallet-cli部署智能合约
+### 通过wallet-cli部署智能合约
 
-下载Wallet-Cli，文件然后编译。
+下载wallet-cli，文件然后编译。
 
 ```shell
 # 下载源代码
@@ -93,7 +93,7 @@ java -jar wallet-cli.jar
 ```shell
 importwallet
 <输入你自己的设定的钱包密码2次>
-<输入私钥：da146374a75310b9666e834ee4ad0866d6f4035967bfc76217c5a495fff9f0d0>
+<输入私钥：da146374...fff9f0d0>
 login
 <输入你自己的设定的钱包密码>
 getbalance

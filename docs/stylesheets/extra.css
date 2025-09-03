@@ -1,0 +1,70 @@
+:root {
+  --md-primary-fg-color: #ec0b2a;        /* 主色调 */
+  --md-accent-fg-color: #ec0b2a;         /* 强调色 */
+}
+
+/* 禁用一级目录的大写转换 */
+.wy-menu-vertical p.caption {
+    text-transform: none;
+}
+
+.wy-dropdown-menu>dd.call-to-action {
+    text-transform: none;
+}
+
+/* 为有子目录项的链接添加箭头图标 */
+.md-nav__item.has-children > .md-nav__link {
+  position: relative;
+  padding-right: 20px; /* 为图标留出空间 */
+}
+
+.md-nav__item.has-children > .md-nav__link::after {
+  content: "⟩"; /* 使用尖括号 */
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1em;
+  font-weight: 900;
+  transition: transform 0.2s ease; /* 添加旋转动画 */
+}
+
+/* 展开时旋转 90 度 */
+.md-nav__item.has-children.is-expanded > .md-nav__link::after {
+  transform: translateY(-50%) rotate(90deg);
+}
+
+/*设置一级导航字体的颜色以增加和二级导航的区分度*/
+.md-nav--primary .md-nav__item--section > .md-nav__link {
+    color: #000;
+    font-size: 1.1em; 
+}
+
+/* 隐藏左侧导航栏的站点名称 此名称有重复*/
+.md-nav__title {
+    display: none;
+}
+
+.md-sidebar {
+    padding-top: 0; /* 移除顶部内边距 */
+}
+
+/*Hide Home nav-item*/
+.md-nav--primary > .md-nav__list > li:first-child {
+    display: none;
+}
+
+.md-footer {
+  background-color: var(--md-default-bg-color);
+}
+
+/* add flex alignment */
+.md-footer__link {
+  align-items: center;
+}
+
+/* Override the responsive design part of the footer. */
+@media screen and (max-width: 44.984375em) {
+  .md-footer__link--prev .md-footer__title {
+    display: block;
+  }

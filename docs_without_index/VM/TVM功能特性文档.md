@@ -1,6 +1,6 @@
-# Tron virtual machine 功能特性介绍及基于Tron的solidity语言使用文档
+# TRON virtual machine 功能特性介绍及基于TRON的solidity语言使用文档
 
-Tron virtual machine 基于以太坊 solidity 语言实现，兼容以太坊虚拟机的特性，但基于tron自身属性也有部分的区别。
+TRON virtual machine 基于以太坊 solidity 语言实现，兼容以太坊虚拟机的特性，但基于tron自身属性也有部分的区别。
 
 ## I 智能合约
 
@@ -135,7 +135,7 @@ transfer/send/call/callcode/delegatecall函数调用转账
 
 ```solidity
     /**
-     *  @dev    convert uint256 (HexString add 0x at beginning) tron address to solidity address type
+     *  @dev    convert uint256 (HexString add 0x at beginning) TRON address to solidity address type
      *  @param  tronAddress uint256 tronAddress, begin with 0x, followed by HexString
      *  @return Solidity address type
      */

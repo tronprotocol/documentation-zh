@@ -1,15 +1,15 @@
 # 智能合约
 
-## 波场智能合约介绍
+## 介绍
 
 智能合约是一种能自动执行其条款的计算化交易协议。智能合约和普通合约一样，定义了参与者相关的条款和奖惩机制。一旦合约被启动，便能按照设定的条款执行，并自动检查所承诺的条款实施情形。
-Tron兼容以太坊（Ethereum）上采用Solidity编写的智能合约。当前建议的Solidity语言版本为0.4.24 ~ 0.4.25。合约编写、编译完成后，部署到Tron公链上。部署后的合约，被触发时，就会在公链的各个节点上自动执行。
+TRON兼容以太坊（Ethereum）上采用Solidity编写的智能合约。你可以在[TRON solidity 代码库](https://github.com/tronprotocol/solidity/releases)中了解最新的版本。合约编写、编译完成后，部署到TRON公链上。部署后的合约，被触发时，就会在公链的各个节点上自动执行。
 
-## 波场智能合约特性
+## 特性
 
-Tron virtual machine 基于以太坊 solidity 语言实现，兼容以太坊虚拟机的特性，但基于tron自身属性也有部分的区别。
+TRON virtual machine 基于以太坊 solidity 语言实现，兼容以太坊虚拟机的特性，但基于tron自身属性也有部分的区别。
 
-### 1. 智能合约
+### 智能合约的定义
 
 波场虚拟机运行的智能合约兼容以太坊智能合约特性，以protobuf的形式定义合约内容：
 
@@ -61,18 +61,18 @@ Tron virtual machine 基于以太坊 solidity 语言实现，兼容以太坊虚�
       bytes trx_hash = 10;
     }
 
-origin_address: 合约创建者地址
-contract_address: 合约地址
-abi:合约所有函数的接口信息
-bytecode：合约字节码
-call_value：随合约调用传入的trx金额
-consume_user_resource_percent：开发者设置的调用者的资源扣费百分比
-name：合约名称
-origin_energy_limit: 开发者设置的在一次合约调用过程中自己消耗的energy的上限，必须大于0。对于之前老的合约，deploy的时候没有提供设置该值的参数，会存成0，但是会按照1000万energy上限计算，开发者可以通过updateEnergyLimit接口重新设置该值，设置新值时也必须大于0
+- origin_address: 合约创建者地址
+- contract_address: 合约地址
+- abi:合约所有函数的接口信息
+- bytecode：合约字节码
+- call_value：随合约调用传入的trx金额
+- consume_user_resource_percent：开发者设置的调用者的资源扣费百分比
+- name：合约名称
+- origin_energy_limit: 开发者设置的在一次合约调用过程中自己消耗的energy的上限，必须大于0。对于之前老的合约，deploy的时候没有提供设置该值的参数，会存成0，但是会按照1000万energy上限计算，开发者可以通过updateEnergyLimit接口重新设置该值，设置新值时也必须大于0
 
 通过另外两个grpc message类型 CreateSmartContract 和 TriggerSmartContract 来创建和使用smart contract
 
-### 2. 合约函数的使用
+### 合约函数的使用
 
 * constant function和非constant function
 
@@ -96,7 +96,7 @@ Constant function 是指用 view/pure/constant 修饰的函数。会在调用的
 
 另一个与合约调用相关的是调用指令集的时候使用CREATE指令。这个指令将会创建一个新的合约并生成新的地址。与以太坊的创建唯一的不同在于波场新生成的地址使用的是传入的本次智能合约交易id与调用的nonce的哈希组合。和以太坊不同，这个nonce的定义为本次根调用开始创建的合约序号。即如果有多次的 CREATE指令调用，从1开始，顺序编号每次调用的合约。详细请参考代码。还需注意，与deploycontract的grpc调用创建合约不同，CREATE的合约并不会保存合约的abi。
 
-* 内置功能属性及内置函数 (Odyssey-v3.1.1及之后的版本暂时不支持TVM内置函数)
+* 内置功能
 
 ```shell
 1）TVM兼容solidity语言的转账形式，包括：
@@ -106,24 +106,13 @@ transfer/send/call/callcode/delegatecall函数调用转账
 
 注意，波场的智能合约与波场系统合约的逻辑不同，如果转账的目标地址账户不存在，不能通过智能合约转账的形式创建目标地址账户。这也是与以太坊的不同点。
 
-2）不同账户为超级节点投票 (Odyssey-v3.1.1及之后的版本暂时不支持)
-3）超级节点获取所有奖励 (Odyssey-v3.1.1及之后的版本暂时不支持)
-4）超级节点通过或否定提案 (Odyssey-v3.1.1及之后的版本暂时不支持)
-5）超级节点提出提案 (Odyssey-v3.1.1及之后的版本暂时不支持)
-6）超级节点删除提案 (Odyssey-v3.1.1及之后的版本暂时不支持)
-7）波场byte地址转换为solidity地址 (Odyssey-v3.1.1及之后的版本暂时不支持)
-8）波场string地址转换为solidity地址 (Odyssey-v3.1.1及之后的版本暂时不支持)
-9）向目标账户地址发送token转账 (Odyssey-v3.1.1及之后的版本暂时不支持)
-10）查询目标账户地址的指定token的数量 (Odyssey-v3.1.1及之后的版本暂时不支持)
-11）兼容所有以太坊内置函数
+2）为超级节点投票 
+3）质押
+4）资源代理
+5）兼容所有以太坊内置函数
 ```
 
-注意：
-波场2）- 10）为波场自己的内置函数 具体中文文档请参看：https://github.com/tronprotocol/Documentation/blob/master/中文文档/虚拟机/虚拟机内置函数.md
-
-以太坊 RIPEMD160 函数不推荐使用，波场返回的是一个自己的基于sha256的hash结果，并不是准确的以太坊RIPEMD160。以后会考虑删除这个函数。
-
-### 3. 合约地址在solidity语言的使用
+### 合约地址在solidity语言的使用
 
 以太坊虚拟机地址为是20字节，而波场虚拟机解析地址为21字节。
 * 地址转换
@@ -132,7 +121,7 @@ transfer/send/call/callcode/delegatecall函数调用转账
 
 ```solidity
 /**
-  *  @dev    convert uint256 (HexString add 0x at beginning) tron address to solidity address type
+  *  @dev    convert uint256 (HexString add 0x at beginning) TRON address to solidity address type
   *  @param  tronAddress uint256 tronAddress, begin with 0x, followed by HexString
   *  @return Solidity address type
   */
@@ -175,7 +164,7 @@ function assignAddress() public view {
 
 如果想直接使用string 类型的波场地址（如TLLM21wteSPs4hKjbxgmH1L6poyMjeTbHm）请参考内置函数的两种地址转换方式（见II-4-7,II-4-8）。
 
-### 4. 与以太坊有区别的特殊常量
+### 与以太坊有区别的特殊常量
 
 #### 货币
 

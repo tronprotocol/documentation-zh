@@ -33,7 +33,7 @@ ExchangeCreate abc 10000000 _ 1000000000000
 
 任何账户都可以在任何交易对中进行交易。交易量和价格完全遵循Bancor协议。也就是说，一个账户在交易时，交易的对象是exchange。交易是即时的，不需要挂单和抢单，只要有足够的token，就可以交易成功。
 
-交易的合约是ExchangeTransactionContract，该合约有3个参数：
+交易的合约是ExchangeTransactionContract，该合约有4个参数：
 
 - exchange_id，交易对的id，TRON网络会根据交易对创建时间顺序给每个交易对唯一的id
 - token_id，要卖出的token的id
@@ -109,7 +109,7 @@ ExchangeWithdraw 1 abc 1000000
 
 交易中token的当前价格信息的计算过程：
 
-假设 first_token 当前的价格为 100 Sun，first_token_balance 为1000_000, second_token_balance 为2000_000，
+假设 first_token 当前的价格为 100 Sun，first_token_balance 为1,000,000, second_token_balance 为2,000,000，
 
 second_token 当前的价格为 first_token * first_token_balance/second_token_balance = 50 Sun
 
@@ -121,7 +121,7 @@ sellTokenQuant是要卖出的first_token的金额
 
 buyTokenQuant是要买入的second_token的金额
 
-supply = 1_000_000_000_000_000_000L
+supply = 1,000,000,000,000,000,000L
 
 supplyQuant = -supply * (1.0 - Math.pow(1.0 + (double) sellTokenQuant/（firstTokenBalance + sellTokenQuant）, 0.0005))
 
