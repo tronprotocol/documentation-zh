@@ -1,63 +1,79 @@
 # 开发示例
-本文将以新增一个`setPeer` HTTP接口为例说明如何参与java-tron开发。在开发前，请先配置[InteliJ IDE开发环境](run-in-idea.md)。
 
-有时由于网络原因，java-tron节点可能无法连接到对等节点，如果能在节点运行时添加信任节点，这将使节点可以在节点发现无法工作的的情况下也能连接到网络。
+本文将以在 `java-tron` 中新增一个 `setPeer` HTTP 接口为例，详细讲解参与 `java-tron` 开发的流程。在开始开发之前，请确保您已完成开发环境的配置，例如已根据 [IntelliJ IDEA 开发环境配置指南](run-in-idea.md) 配置好本地环境。
 
-## Fork java-tron代码仓库
+**背景**：有时由于网络原因，`java-tron` 节点可能无法连接到对等节点。为了增强节点的网络连接稳定性，我们希望实现一个功能，允许在节点运行时动态添加信任节点，即使在节点发现服务失效的情况下也能连接到网络。
 
-从 [https://github.com/tronprotocol/java-tron](https://github.com/tronprotocol/java-tron) 项目中Fork一个新的repository到自己个人的代码仓库中，然后使用如下命令将代码克隆到本地:
-    
-```
-$ git clone https://github.com/yourname/java-tron.git
-$ git remote add upstream https://github.com/tronprotocol/java-tron.git
-```
-    
-## 同步仓库 
-    
-开发新功能之前，应先将个人Fork的仓库和上游仓库进行同步：
-    
-```
-$ git fetch upstream 
-$ git checkout develop 
-$ git merge upstream/develop --no-ff
-```
+## 1. 准备开发环境
 
-## 创建新分支
-从自己仓库的develop分支拉出一个新的分支用于本地开发，请参考[分支命名规范](java-tron.md/#_8)，在本例中，新分支的名称为：`feature/add-new-http-demo`。
+### 1.1 Fork `java-tron` 代码仓库
+
+首先，从 TRON 官方 GitHub 仓库 [tronprotocol/java-tron](https://github.com/tronprotocol/java-tron) Fork 一个新的代码仓库到您个人的 GitHub 账户。然后，将您的 Fork 仓库克隆到本地，并添加 `upstream` 远程仓库以跟踪官方更新：
 
 ```
-$ git checkout -b feature/add-new-http-demo develop
+git clone https://github.com/yourname/java-tron.git
+git remote add upstream https://github.com/tronprotocol/java-tron.git
 ```
 
-## 代码实现
+### 1.2 同步仓库
 
-在IDEA中打开java-tron工程。在`java-tron/framework/src/main/java/org/tron/core/services/http`目录下新建一个servlet用于处理HTTP请求：SetPeerServlet.java，该文件中应包含两个函数`doGet`和`doPost`。`doGet`用于处理http get请求，`doPost`用于处理http post请求。如果不支持其中某种类型的请求，方法内容为空即可。
+在开发新功能之前，务必将您个人 Fork 的仓库与 `upstream`（上游）仓库进行同步，以获取最新的代码更新：
+
+```
+git fetch upstream
+git checkout develop
+git merge upstream/develop --no-ff
+```
+
+### 1.3 创建新分支
+
+从本地 `develop` 分支创建一个用于本地开发的新分支。分支命名请遵循 [分支命名规范](java-tron.md/#_8)。本示例使用 `feature/add-new-http-demo` 作为分支名称。
+
+```shell
+git checkout -b feature/add-new-http-demo develop
+```
+## 2. 代码实现：新增 `setPeer` HTTP 接口
+
+使用 IntelliJ IDEA 打开 `java-tron` 工程。接下来我们将实现一个 `setPeer` HTTP 接口，以支持用户通过 POST 请求添加信任节点。
+
+### 2.1 创建 `SetPeerServlet.java`
+
+在 `java-tron/framework/src/main/java/org/tron/core/services/http` 目录下，新建一个 `Servlet` 类：`SetPeerServlet.java`。该类包含 `doGet` 和 `doPost` 两个方法，分别用于处理 HTTP GET 和 POST 请求。如果某种请求类型不予支持，可将对应方法留空。
+
 ```java
+package org.tron.core.services.http;
+
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.tron.core.net.peer.ChannelManager;
+import org.tron.core.net.peer.Node;
+import org.tron.core.config.CommonParameter;
+import org.tron.core.Constant;
+import org.tron.core.exception.BadItemException;
+import org.tron.core.services.http.fullnode.PostParams;
+import org.tron.core.services.http.fullnode.Util;
+
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
+
+import com.alibaba.fastjson.JSONObject;
+
 @Component
 @Slf4j(topic = "API")
 public class SetPeerServlet extends HttpServlet {
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) 
-    {}
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) 
-    {}
-}
-```
 
-在该示例中setPeer请求应该通过post方式发送，因此需要在`doPost`方法中添加处理逻辑，`doGet`方法内容为空。
-
-`doPost`方法的逻辑为：
-
-1. 获取传入的参数
-2. 通过addPeer方法将peer信息添加到信任节点列表中
-3. 将addPeer的处理结果返回给前端用户
-
-```java
-@Component
-@Slf4j(topic = "API")
-public class SetPeerServlet extends HttpServlet {
   @Autowired
   private ChannelManager channelManager;
-    
+
+  protected void doGet(HttpServletRequest request, HttpServletResponse response) {
+    // GET 请求在此示例中不处理
+  }
+
   protected void doPost(HttpServletRequest request, HttpServletResponse response) {
     try {
       PostParams params = PostParams.getPostParams(request);
@@ -81,30 +97,15 @@ public class SetPeerServlet extends HttpServlet {
       }
     }
   }
-  ......
-}
-```
 
-
-将添加信任节点的处理逻辑单独放在`addPeer`方法中，这样不但可以使代码逻辑更加清晰，而且更易于测试。
-
-`addPeer`函数的逻辑为：
-
-1. 检查用户输入的参数，确保节点ip和端口不为空
-2. 通过`Node.instanceOf(peerIP)`构建节点信息
-3. 确保添加的信任节点不是自己
-4. 将节点加入到自己的信任节点列表中
-
-
-```java
-  boolean addPeer(String peerIP) {
+  private boolean addPeer(String peerIP) {
     try {
-      if (peerIP != "") {
+      if (peerIP != null && !peerIP.isEmpty()) {
         Node node = Node.instanceOf(peerIP);
         if (!(CommonParameter.PARAMETER.nodeDiscoveryBindIp.equals(node.getHost())
-                || CommonParameter.PARAMETER.nodeExternalIp.equals(node.getHost())
-                || Constant.LOCAL_HOST.equals(node.getHost()))
-                || CommonParameter.PARAMETER.nodeListenPort != node.getPort()) {
+            || CommonParameter.PARAMETER.nodeExternalIp.equals(node.getHost())
+            || Constant.LOCAL_HOST.equals(node.getHost()))
+            || CommonParameter.PARAMETER.nodeListenPort != node.getPort()) {
 
           InetAddress address = new InetSocketAddress(node.getHost(), node.getPort()).getAddress();
           channelManager.getTrustNodes().put(address, node);
@@ -118,150 +119,214 @@ public class SetPeerServlet extends HttpServlet {
   }
 }
 ```
-完成SetPeerServlet的实现，还需要将其注册到节点HTTP API服务列表中，[FullNodeHttpApiService](https://github.com/tronprotocol/java-tron/blob/develop/framework/src/main/java/org/tron/core/services/http/FullNodeHttpApiService.java) 是节点HTTP API服务的注册入口。
 
-在`FullNodeHttpApiService`类的`start`函数中调用`context.addServlet`方法将SetPeerServlet注册到服务列表中，HTTP 接口的名字定义为`/wallet/setpeer`。
+在上述代码中：
+
+*   `doPost` 方法负责处理接收到的 POST 请求。它从请求参数中获取 `peer`（对等节点 IP:Port）信息。
+*   `addPeer` 方法负责将该对等节点添加到信任节点列表中。该函数的逻辑如下：
+    1.  检查用户输入的参数，确保节点 IP 和端口不为空。
+    2.  通过 `Node.instanceOf(peerIP)` 构建节点信息。
+    3.  确保添加的信任节点不是当前节点自身。
+    4.  将节点加入到 `ChannelManager` 的信任节点列表中。
+
+### 2.2 注册 `SetPeerServlet` 到 HTTP API 服务
+
+完成 `SetPeerServlet` 的实现后，需要将其注册到节点的 HTTP API 服务中。 `FullNodeHttpApiService` 类是所有 HTTP 接口的注册入口。在该类的 `start` 方法中，使用 `context.addServlet` 将 `SetPeerServlet` 注册为名为 `/wallet/setpeer` 的 HTTP 接口：
+
 
 ```java
+package org.tron.core.services.http;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.eclipse.jetty.servlet.ServletContextHandler;
+import org.eclipse.jetty.servlet.ServletHolder;
+import org.tron.core.services.Service;
+
+@Component
 public class FullNodeHttpApiService implements Service {
-    ......
-    @Autowired
-    private SetPeerServlet setPeerServlet;
-    .......
-    
-    @Override
-    public void start() {
-        ......
-        context.addServlet(new ServletHolder(setPeerServlet), "/wallet/setpeer");
-        .......
-    }
-    
+
+  @Autowired
+  private SetPeerServlet setPeerServlet;
+
+  // ... 其他成员变量和方法 ...
+
+  @Override
+  public void start() {
+    // ... 其他初始化代码 ...
+    ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
+    // ... 其他 Servlet 注册 ...
+    context.addServlet(new ServletHolder(setPeerServlet), "/wallet/setpeer");
+    // ... 其他启动代码 ...
+  }
+
+  // ... 其他方法 ...
 }
 ```
-然后可以对以上代码进行调试，在IDEA中启动java-tron节点，在终端中通过Curl命令访问节点：
 
-```curl
-$ curl --location --request POST 'http://127.0.0.1:16667/wallet/setpeer' \
+### 2.3 调试与测试
+
+完成代码修改后，您可以在 IntelliJ IDEA 中启动 `java-tron` 节点进行调试。然后，在终端中使用 `curl` 命令访问新添加的 HTTP 接口：
+
+```bash
+curl --location --request POST 'http://127.0.0.1:16667/wallet/setpeer' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "peer":"192.163.3.2:16667"
 }'
 ```
-返回结果：
 
-```
+如果请求成功，您将收到以下返回结果：
+
+```text
 Success to set trusted peer:192.163.3.2:16667
 ```
 
-至此，该功能的代码编写完成，然后需要针对改动编写单元测试。对于简单的改动，可以在开发代码完成之后，再编写单元测试，但对于较大的改动，建议在开发的同时编写单元测试。
+至此，`setPeer` 功能的代码编写完成。接下来，您需要为这些改动编写单元测试。
 
-## 编写单元测试
+## 3. 编写单元测试
 
-java-tron项目的单元测试基于JUnit框架，关于JUnit的用法请参考[JUnit官网](https://junit.org)。下面简单介绍java-tron单元测试用例规范和常用注解说明。
+`java-tron` 项目的单元测试基于 JUnit 框架。关于 JUnit 的详细用法，请参考 [JUnit 官方文档](https://junit.org)。下面将介绍 `java-tron` 单元测试用例的规范和常用注解。
 
-### java-tron单元测试用例规范
-编写java-tron单元测试时，请遵守如下规范：
+### 3.1 `java-tron` 单元测试用例规范
 
-* 所有测试类应放在test目录下，并且测试类的包应该和被测试代码包结构保持一致。一般使用 `Test` 作为类名的后缀
-* 测试方法必须使用 @Test 修饰，并且是public void类型，一般用 `test` 作为方法名的前缀
-* 测试类中的每个测试方法必须可以独立测试，方法间不能有任何依赖
+在编写 `java-tron` 的单元测试时，请遵循以下规范：
 
-### 常用注解说明
-下面为一些常用的注解的说明，其它注解请参考[JUnit官网文档](https://junit.org)。
-
-* `@Test` - 将一个普通方法修饰成一个测试方法
-* `@Ignore` - 所修饰的测试方法会被测试运行器忽略
-* `@BeforeClass` - 会在所有的方法执行前被执行，static方法 （全局只会执行一次，而且是第一个运行）
-* `@AfterClass` - 会在所有的方法执行之后进行执行，static方法 （全局只会执行一次，而且是最后一个运行）
-* `@Before` - 会在每一个测试方法被运行前执行一次
-* `@After` - 会在每一个测试方法运行后被执行一次
+* **目录与包结构**：所有测试类应位于 test 目录下，并保持与被测试类相同的包结构。测试类名称建议以 `Test` 为后缀。
+* **测试方法定义**：测试方法必须使用 `@Test` 注解修饰，并声明为 `public void` 类型。方法名称建议以 `test` 为前缀，以增强可读性。
+* **方法独立性**：测试类中的每个方法应可独立运行，方法之间不得存在依赖关系，以确保测试的稳定性和可维护性。
 
 
-### 单元测试类的组成
-一个单元测试类应包含一下三部分内容：
+### 3.2 常用 JUnit 注解说明
 
-* @Before或者@BeforeClass修饰的函数，用于进行测试用例执行前的初始化工作
-* @After或者@BeforeClass修饰的函数，用于处理测试用例执行完成后的数据清理工作
-* @Test修饰的测试方法
+以下列出的是 JUnit 中常用的测试注解，更详细内容请参考 [JUnit 官方文档](https://junit.org)。
+
+*   `@Test`：标记一个方法为测试方法，测试运行器将执行该方法。
+*   `@Ignore`：忽略当前测试方法，运行时不会执行（可用于暂时跳过不稳定或未完成的测试）。
+*   `@BeforeClass`：在所有测试方法执行前运行一次，必须为 `static` 方法（通常用于初始化共享资源）。
+*   `@AfterClass`：在所有测试方法执行后运行一次，必须为 `static` 方法（通常用于释放共享资源）。
+*   `@Before`：在每个测试方法执行前运行一次（用于准备测试环境，如初始化数据）。
+*   `@After`：在每个测试方法执行后运行一次（用于清理测试环境，如关闭连接）。
+
+### 3.3 单元测试类的组成
+一个典型的单元测试类通常由以下三部分组成：
+
+* **初始化方法**：使用 `@Before` 或 `@BeforeClass` 注解的方法，在测试执行前进行初始化操作，如准备测试数据或配置环境。
+* **清理方法**：使用 `@After` 或 `@AfterClass` 注解的方法，在测试执行后进行清理操作，如释放资源或还原数据。
+* **测试方法**：使用 `@Test` 注解的方法，编写具体的测试逻辑，用于验证代码行为是否符合预期。
+
 
 ```java
-public class demoTest {
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+public class DemoTest {
 
   @Before
   public void init() {
-    // Initialization work before test case execution
+    // 测试用例执行前的初始化工作
   }
+
   @After
   public void destroy() {
-      // Destroy work after test case execution
-
+    // 测试用例执行后的数据清理工作
   }
+
   @Test
-  public void testDemoMethod() { 
+  public void testDemoMethod() {
+    // 测试逻辑
   }
 }
-
 ```
 
-对于本文示例，应在`framework/src/test/java/org/tron/core/services/http/`目录下新建一个文件：SetPeerServletTest.java 来编写测试用例。
+在本示例中，我们应在目录 `framework/src/test/java/org/tron/core/services/http/` 下新建测试类文件 `SetPeerServletTest.java`，用于编写对应的测试用例。
 
 
 ```java
+package org.tron.core.services.http;
+
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+import org.tron.core.config.args.Args;
+import org.tron.core.net.peer.ChannelManager;
+import org.tron.core.services.http.fullnode.SetPeerServlet;
+import org.tron.core.db.Manager;
+import org.tron.core.db.TronApplicationContext;
+import org.tron.core.Constant;
+import org.tron.core.services.Application;
+import org.tron.core.services.ApplicationFactory;
+
 public class SetPeerServletTest {
+
   private static TronApplicationContext context;
   private static Application appT;
   public static ChannelManager channelManager;
+
   @Before
   public void init() {
-    
     Args.setParam(new String[]{}, Constant.TEST_CONF);
-    context = new TronApplicationContext(DefaultConfig.class);
+    context = new TronApplicationContext(Manager.class);
     channelManager = context.getBean(ChannelManager.class);
     appT = ApplicationFactory.create(context);
     appT.initServices(Args.getInstance());
     appT.startServices();
     appT.startup();
-
   }
+
   @After
   public void destroy() {
     Args.clearParam();
     appT.shutdownServices();
     appT.shutdown();
-
   }
+
   @Test
   public void testAddPeer() {
     SetPeerServlet setPeerServlet = new SetPeerServlet();
+    // 假设 127.0.0.1 是本地 IP，addPeer 应该返回 false，因为它不会添加自身为信任节点
     Assert.assertFalse(setPeerServlet.addPeer("127.0.0.1"));
   }
 }
 ```
 
-## CheckStyle代码风格检查
-逐个检查修改的文件，在右键菜单中选择`Check Current File`，如果检查出代码风格问题，请根据提示逐个修改。
-![image](https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/demo_codestyle_error.png)
-对图中代码风格警告，进行修复，然后，再一次检查该文件，，直至没有warning。
-![image](https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/demo_codestyle.png)
+## 4. CheckStyle 代码风格检查
 
-## 提交代码
+在提交代码之前，请务必对您修改的文件进行 CheckStyle 代码风格检查。在 IntelliJ IDEA 中，您可以右键点击文件，选择 “Check Current File”。如果检查出代码风格问题，请根据提示逐个修改，直至没有警告。
 
-代码完成之后提交commit，请参考[commit规范](java-tron.md/#commit)。
-```
+![CheckStyle 代码风格错误示例](https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/demo_codestyle_error.png)
+
+修复代码风格问题后，再次检查，确保所有警告都已消除：
+
+![CheckStyle 代码风格修复后示例](https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/demo_codestyle.png)
+
+## 5. 提交代码与 Pull Request
+
+### 5.1 提交 Commit
+
+完成代码编写和测试后，提交您的更改。请参考 [Commit 规范](java-tron.md/#commit)。
+
+```bash
 git add .
-git commit -m 'add a new http api setpeer'
+git commit -m 'feat: add new http api setpeer'
 ```
-     
-提交新的分支到个人远端仓库：
-     
-```
+
+### 5.2 推送新分支
+
+将您的新分支推送到个人远程仓库：
+
+```bash
 git push origin feature/add-new-http-demo
 ```
 
-## 提交Pull Request
+### 5.3 提交 Pull Request
 
-在Github从你自己的仓库向`tronprotocol/java-tron`提交一个推送代码请求 Pull Request。
+在 GitHub 上，从您自己的仓库向 `tronprotocol/java-tron` 提交一个 Pull Request。这将把您的更改提议给官方仓库。
 
-![image](https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/javatron_pr.png)
+![提交 Pull Request 示例](https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/javatron_pr.png)
+
+请确保您的 Pull Request 描述清晰，包含您所做更改的详细信息和目的。
+
 
