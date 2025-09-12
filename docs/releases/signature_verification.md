@@ -84,7 +84,7 @@ gpg:       没有证据表明此签名属于其声称的所有者。
 
 发布包的 SHA256 哈希值和签名结果可在本文档的 [历史版本签名信息](#历史版本签名信息) 章节中查看，也可以在 [GitHub Releases 页面](https://github.com/tronprotocol/java-tron/releases) 查看。
 
-在这里，我们使用 TRON 上流行的 JavaScript 库 [tronweb](https://developers.tron.network/docs/tronweb-1) 来演示验证签名的流程。 TronWeb 提供了 `Trx.verifySignature` 接口来验证签名。验证通过将返回 `true`，否则返回 `false`。请按照以下流程进行验证。
+在这里，我们使用 TRON 上流行的 JavaScript 库 [tronweb](https://tronweb.network/docu/docs/intro/) 来演示验证签名的流程。 TronWeb 提供了 `Trx.verifySignature` 接口来验证签名。验证通过将返回 `true`，否则返回 `false`。请按照以下流程进行验证。
 
 ### 1. 安装 TronWeb
 
