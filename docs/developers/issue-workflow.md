@@ -39,42 +39,6 @@
 
 ## Issue 标签分类
 
-根据 Issue 的特征，我们使用以下标签进行分类：
+要查看所有 issue 分类标签，请访问以下链接：
 
-### `topic` (主题)
-
-* `topic: Block/Transaction`
-* `topic: Build`
-* `topic: Consensus`
-* `topic: DB`
-* `topic: Deployment`
-* `topic: Documentation`
-* `topic: Event subscribe`
-* `topic: gRPC/HTTP api`
-* `topic: Net`
-* `topic: Performance`
-* `topic: Resource manage`
-* `topic: Shielded Transaction`
-* `topic: Smart contract`
-* `topic: Solidity`
-* `topic: Testnet/Privatenet`
-
-### `type` (类型)
-
-* `type: Announcement`
-* `type: Bug`
-* `type: Enhancement`
-* `type: Feature Request`
-* `type: Manual`
-* `type: Other`
-* `type: Question`
-
-### `resolution` (解决状态)
-
-* `resolution: Duplicated`
-* `resolution: Needs More Information`
-* `resolution: Wontfix`
-
-### 其他
-
-* `improvement`
+https://github.com/tronprotocol/java-tron/labels
