@@ -2,7 +2,10 @@
 
 为简化 Java 开发流程并提升效率，选择并配置一款集成开发环境（IDE）是至关重要的第一步。本指南将以 IntelliJ IDEA 为例，详细阐述如何搭建和配置 java-tron 的集成开发环境。
 
-java-tron 节点支持部署在 `Linux` 或 `MacOS` 操作系统上，并且依赖 **Oracle JDK 1.8** 版本，不支持其他版本的 JDK。
+java-tron 节点支持部署在 `Linux` 或 `MacOS` 操作系统上。其依赖的 JDK 版本要求如下：
+
+- **通用要求**：依赖 Oracle JDK 1.8 版本
+- **`v4.8.1` 及以上版本**：新增支持 ARM 架构下的 JDK 17
 
 
 ## 前置条件
@@ -31,7 +34,7 @@ Lombok 通过注解的方式简化 Java 代码，是 java-tron 开发的必备�
 
 1.  导航至 `Preferences` -\> `Build, Execution, Deployment` -\> `Compiler` -\> `Annotation Processors`。
 2.  勾选 `Enable annotation processing` 复选框。
-3.  点击 “Apply” 保存设置。
+3.  点击 **Apply** 保存设置。
 
 ![image](https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/IDE_annotation.png)
 
@@ -52,7 +55,8 @@ Lombok 通过注解的方式简化 Java 代码，是 java-tron 开发的必备�
 
 ![image](https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/IDE_JDK.png)
 
-> **重要提示**: Project SDK 和 Gradle JVM 这两个设置必须完全一致，且都指向 Oracle JDK 1.8，否则可能会在编译或构建时遇到意外错误。
+> **重要提示**: **Project SDK** 和 **Gradle JVM** 这两个设置必须完全一致，且都指向 Oracle JDK 1.8，否则可能会在构建过程中遇到意外错误。
+
 
 
 ## 获取并编译项目源码
@@ -73,26 +77,26 @@ git checkout -t origin/develop
 
   * **使用终端编译:**
 
-    在 `java-tron` 项目根目录下，执行 Gradle 命令。
+    在 `java-tron` 项目根目录下，执行以下 Gradle 命令:
 
     ```
     # 执行完整编译，包含所有测试用例
     ./gradlew clean build
     ```
 
-    若要跳过测试，以加快编译速度，可使用 `-x test` 参数：
+    若要跳过单元测试，以加快编译速度，可使用 `-x test` 参数：
 
     ```
     # 跳过测试进行编译
     ./gradlew clean build -x test
     ```
 
-  * **使用 IDEA 界面编译:**
+  * **使用 IntelliJ IDEA 界面编译:**
 
     在 IntelliJ IDEA 中打开 `java-tron` 项目，点击顶部菜单栏的 `Build` -\> `Build Project` 来编译整个项目。
 
 
-## 4\. 配置代码风格检查
+## 配置代码风格检查
 
 java-tron 遵循 `Google checkstyle` 代码规范。在 IDEA 中，通过配置 `Checkstyle` 插件，可以实时检查代码风格，确保代码提交质量。
 
@@ -115,21 +119,21 @@ java-tron 遵循 `Google checkstyle` 代码规范。在 IDEA 中，通过配置 
 配置完成后，您即可使用 `Checkstyle` 插件对代码进行风格检查。它支持多种检查范围，可以对整个项目、单个模块，或是当前正在编辑的文件进行分析。最常用的操作是检查当前文件：
 
 1. 在代码编辑器中右键单击。
-2. 选择 "Check Current File"。
+2. 选择 **Check Current File**。
 
 如果检测出代码风格问题，`Checkstyle` 会在下方窗口列出提示。请根据这些提示逐一修改，确保在提交代码前修复所有问题，以维护代码库的统一规范。
 
 ![image](https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/IDE_stylecheck.png)
    
 
-## 5\. 运行与调试
+## 运行与调试
 
 <a id="rndstep1"></a>
 ### 步骤 1：创建工作目录
 
 在运行 java-tron 之前，您需要创建一个工作目录，用于存放节点运行时产生的数据库文件及日志文件。
 
-```
+```shell
 mkdir /Users/javatrondeploy
 ```
 
@@ -144,11 +148,11 @@ mkdir /Users/javatrondeploy
 3.  请从上到下依次找到并设置以下选项：
       * **Name:** 为配置命名，例如 `Fullnode`。
       * **JDK**：确保选择 `java 8 1.8`。
-      * **Main class:** 设置为 `org.tron.program.FullNode`。
-      * **Program arguments:** 传入节点启动参数。例如，使用 `-c config.conf` 来指定配置文件。
-      * **Working directory:** 设置为您在 [步骤 1](#rndstep1) 中创建的目录，例如 `/Users/javatrondeploy`。
+      * **Main Class:** 设置为 `org.tron.program.FullNode`。
+      * **Program Arguments:** 传入节点启动参数。例如，使用 `-c config.conf` 来指定配置文件。
+      * **Working Directory:** 设置为您在 [步骤 1](#rndstep1) 中创建的目录，例如 `/Users/javatrondeploy`。
 ![image](https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/IDE_RunDebug.png)
-4.  点击 "Apply" 保存配置。
+4.  点击 **Apply** 保存配置。
 
 ### 步骤 3: 启动节点
 
@@ -159,4 +163,4 @@ mkdir /Users/javatrondeploy
   * **调试节点:** 在代码中设置断点，然后点击 `Run` -\> `Debug 'FullNode'`。程序将在断点处暂停，方便您进行逐行跟踪调试。
 ![image](https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/IDE_debug.png)
 
-节点启动后，相关的日志文件将输出到您配置的 `Working directory` 中。
+节点启动后，相关日志文件将输出到您配置的 `Working directory` 中。
