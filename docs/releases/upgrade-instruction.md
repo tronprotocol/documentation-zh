@@ -13,7 +13,6 @@
 
 所有全节点（Fullnode），包括超级代表（Super Representative）的出块节点，都应遵循以下步骤完成升级。
 
-
 <a id="step1"></a> 
 ### 第 1 步：准备新版本程序包
 
@@ -100,7 +99,6 @@
 
     ```
     nohup java -Xmx24g -XX:+UseConcMarkSweepGC -jar FullNode.jar -c config.conf </dev/null &>/dev/null &
-
     ```
 
 ### 第 6 步：验证与监控
