@@ -1,13 +1,30 @@
 # 轻节点
 
-Lite FullNode和普通的FullNode运行同样的代码，所不同的是Lite FullNode只基于状态数据快照进行启动，状态数据快照只包含所有的账户状态数据和最近的65536个区块的历史数据。状态数据快照空间占用较小，约为全节点数据的3%，所以，Lite Fullnode具有占用磁盘空间小，启动速度块的优点。但它默认不提供节点历史区块和交易数据查询，仅提供部分全节点的HTTP API 和GRPC API，其中不支持的API请参考[HTTP](https://github.com/tronprotocol/java-tron/blob/develop/framework/src/main/java/org/tron/core/services/filter/LiteFnQueryHttpFilter.java)，[GRPC](https://github.com/tronprotocol/java-tron/blob/develop/framework/src/main/java/org/tron/core/services/filter/LiteFnQueryGrpcInterceptor.java)，但这些API可以在配置文件中通过配置 `openHistoryQueryWhenLiteFN = true`来打开，但由于轻节点启动后，其保存的数据与全节点完全相同，所以该配置项打开后，节点就支持查询节点启动后同步过来的区块数据了，但仍然不支持查询节点启动前的区块数据。
+对于任何希望在 TRON 网络中实现最高级别安全性和自主性的用户而言，运行一个全节点（Fullnode）是毋庸置疑的最佳选择。这不仅意味着用户将持有一份完整且持续同步的波场账本，能够独立验证每一笔交易和区块，还赋予了用户直接访问整个网络、查询全部历史数据的能力，不受任何第三方服务的影响。
 
+然而，运行全节点需要较高的内存、TB 级的存储空间和 CPU 资源，运行全节点对于每个人来说并不可行。为了让更多人能参与到波场生态中，TRON 提供了一种更为灵活的方案。这种方案巧妙地做出了权衡：它放弃了对完整历史数据的本地存储，以此换取在硬件资源上的极大优化，使得节点能够在配置稍低的设备上流畅运行。在 TRON 的技术体系中，这种为效率和可访问性而设计的节点，就是我们所说的轻节点（Lite Fullnode）。
 
-因此，如果开发者只需要使用节点进行区块同步，处理和广播交易，或者仅需查询节点启动后同步过来的区块及交易，那么Lite Fullnoe将是更好的选择。
+## 什么是轻节点
+
+轻节点与全节点运行完全相同的代码，但其设计初衷是为了实现快速部署和低资源消耗。
+
+## 核心特点
+
+  - **基于状态快照启动**：轻节点不从创世区块开始同步，而是直接加载一个仅包含全网账户状态和最近约 65,536 个区块数据的“状态快照”。
+  - **显著的资源优势**：由于初始数据量极小（约为全节点数据的 3%），轻节点具有占用磁盘空间小、启动速度快的突出优点。
+  - **提供部分全节点的 API**：默认情况下，轻节点为节省资源禁用了对历史数据（快照范围之外）的查询。其中不支持的 API 请参考 [HTTP](https://github.com/tronprotocol/java-tron/blob/develop/framework/src/main/java/org/tron/core/services/filter/LiteFnQueryHttpFilter.java) 和 [gRPC](https://github.com/tronprotocol/java-tron/blob/develop/framework/src/main/java/org/tron/core/services/filter/LiteFnQueryGrpcInterceptor.java)。
+  - **功能可扩展**：如果需要开启这些不支持的 API，在配置文件中可以通过配置  `openHistoryQueryWhenLiteFN = true` 来开启。由于轻节点启动后，其保存的数据与全节点完全相同，所以该配置项一旦开启后，轻节点提供的功能则与全节点完全一致，但无法查询其快照起始高度之前的任何历史数据。
+
+因此，如果应用场景仅需进行区块同步、处理广播交易，轻节点是更高效的选择。
 
 ## 轻节点部署
-轻节点的部署步骤及启动命令和全节点相同，请参考[部署说明](installing_javatron.md)来部署轻节点，唯一不同的是数据库，您需要获取到轻节点数据库，可以直接从[公共备份数据](backup_restore.md/#lite-fullnode)中下载轻节点数据快照，并直接使用；也可以通过[轻节点数据剪裁工具](toolkit.md/#_6)将全节点的数据库转换成轻节点的数据库。
+
+轻节点的部署步骤、配置文件和启动命令与全节点完全一致，请参考 [部署说明](installing_javatron.md) 来部署轻节点。唯一不同的是数据库，您有两种途径可以获取需要的轻节点数据库：
+ -  [公共备份数据](backup_restore.md/#lite-fullnode) 中下载轻节点数据快照，并直接使用；
+ - 通过 [轻节点数据剪裁工具](toolkit.md/#_6) 将全节点的数据库转换成轻节点的数据库。
 
 
 ## 轻节点维护
-由于轻节点启动后，会保存与全节点同样的数据，所以轻节点虽然在启动时数据量非常小，但是后期的数据膨胀速度与全节点相同，因此可能需要定期剪裁数据。裁剪轻节点数据也是使用[轻节点数据剪裁工具](toolkit.md/#_6)将轻节点数据切分成快照数据集，即得到裁剪后的轻节点数据。
+尽管轻节点以很小的数据量启动，但它在运行后会像全节点一样持续同步并保存新的区块数据，因此其磁盘占用会不断增长。
+
+为控制磁盘空间，可以定期对轻节点数据进行维护。维护操作同样使用 [轻节点数据剪裁工具](toolkit.md/#_6)，将当前节点数据重新裁剪为一个新的、仅包含最新状态的快照数据集。

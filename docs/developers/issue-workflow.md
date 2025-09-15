@@ -1,65 +1,44 @@
-# Issue工作流程
-我们鼓励社区贡献者参与java-tron issue 的提出与讨论，您可以将您遇到的问题或者想法通过issue的形式提出，也可以参与issue的讨论或者帮助给出解决办法。您的每一次提问或者留言都在推动java-tron向更好的方向发展，我们感谢您为java-tron所做的贡献。
+# Issue 规范与指南
 
-## 提交Issue
-如果您遇到了java-tron相关的问题或发现了相关bug，欢迎提交一个Issue，但请遵循以下规则:
-
-* 搜索现有问题
-
-    请检查是否有人已经报告了您的问题或请求了您的想法，这样不但可以快速的解决您遇到的问题，而且还避免了重复的问题。
-    
-* 提交Issue
-
-    请选择您要报告的Issue类型，并根据模板要求填写Issue内容。
-    
-    * `Ask a question` - 请详细阐明您遇到的问题、期望的结果和实际看到的结果，这样可以让社区参与者更好的了解您的问题，更快的给出解决办法。
-    * `Report a bug` - 除了阐明问题、期望的结果和看到的结果之外，还应说明bug的复现步骤，并附上出现问题时的java-tron log以及调用栈。
-    * `Request a feature` - 请阐明为什么需要该功能、该功能的用例、实现方案，以及您是否愿意实现该功能。
+我们鼓励社区贡献者积极参与 java-tron 的 Issue 提出与讨论。无论是您遇到的问题还是提出的新想法，都可以通过 Issue 的形式提交。参与 Issue 讨论或协助提供解决方案，都将推动 java-tron 向更好的方向发展。我们由衷感谢您为 java-tron 所做的每一份贡献。
 
 
+## 提交 Issue
 
-## 处理流程
-Issue的处理流程如下：
+如果您在使用 java-tron 过程中遇到问题或发现 **Bug**，欢迎提交 Issue。请遵循以下规则以确保高效处理：
 
-1. 标记Issue - 我们每周举行一次会议，对Issue进行分类，并使用合适的标签标记Issue。
-2.  分配Issue - 将Issue分配给一位或者几位社区核心开发者，核心开发者会参与Issue的调查和讨论。
-3.  社区讨论 - 所有的社区参与者均可参与Issue的调查与讨论，并将想法或者意见写到评论里，从社区讨论的中我们会得到问题的解决方案。
-4.  关闭Issue - Issue提交者可以随时关闭Issue，当问题得到了解决，或者长时间未得到社区讨论，我们会关闭该Issue，Issue提交者或其他用户也可以根据需要重新打开该Issue。
+### 1. 搜索现有问题
 
-    
-## Issue标签
-根据Issue特征使用如下标签：
+在提交新 Issue 之前，请务必检查是否已有人报告了相同的问题或提出了类似的想法。这样不仅能帮助您更快找到解决方案，还能避免重复提交。
 
-* topic
-    * `topic: Block/Transaction`
-    * `topic: Build`
-    * `topic: Consensus`
-    * `topic: DB`
-    * `topic: Deployment`
-    * `topic: Documentation`
-    * `topic: Event subscribe`
-    * `topic: gRPC/HTTP api`
-    * `topic: Net`
-    * `topic: Performance`
-    * `topic: Resource manage`
-    * `topic: Shielded Transaction`
-    * `topic: Smart contract`
-    * `topic: Solidity`
-    * `topic: Testnet/Privatenet`
-* type
-    * `type: Announcement`
-    * `type: Bug`
-    * `type: Enhancement`
-    * `type: Feature Request`
-    * `type: Manual`
-    * `type: Other`
-    * `type: Question`
+### 2. 选择并提交 Issue 类型
 
-* resolution
-    * `resolution: Duplicated`
-    * `resolution: Needs More Information`
-    * `resolution: Wontfix`
-* `improvement`
+请根据您要报告的问题选择对应的 Issue 类型，并按照模板要求填写 Issue 内容：
+
+* **Ask a question**
+    请详细阐明您遇到的问题、期望的结果和实际观察到的结果。清晰的描述有助于社区成员更好地理解您的问题，从而更快地提供解决方案。
+* **Report a bug**
+    除了阐明问题、期望结果和实际结果外，还应详细说明 **Bug** 的复现步骤，并附上出现问题时的 java-tron 日志 (`log`) 以及调用栈 (`stack trace`)。
+* **Request a feature**
+    请阐明为什么需要该功能、该功能的具体用例、建议的实现方案，以及您是否愿意参与实现该功能。
 
 
+## Issue 处理流程
 
+**Issue** 的处理流程如下：
+
+1.  **标记 Issue**
+    新提交的 Issue 将由核心贡献者进行分类处理并打上标签。
+2.  **分配 Issue**
+    Issue 会被分配给一位或多位社区核心开发者。这些核心开发者将参与 Issue 的调查和讨论。
+3.  **社区讨论**
+    所有社区参与者均可参与 Issue 的调查与讨论，并将想法或意见发布在评论区。通过社区的集思广益，我们将共同找到问题的解决方案。
+4.  **关闭 Issue**
+    Issue 提交者可以随时关闭自己提交的 Issue。当问题得到解决，或 Issue 长时间未得到社区讨论时，我们也会关闭该 Issue。如有需要，Issue 提交者或其他用户也可以根据实际情况重新开启 Issue。
+
+
+## Issue 标签分类
+
+要查看所有 issue 分类标签，请访问以下链接：
+
+https://github.com/tronprotocol/java-tron/labels
