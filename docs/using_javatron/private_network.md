@@ -18,7 +18,7 @@
 
 1. 准备节点目录
 
-   为保持配置和数据的隔离，建议为每个节点创建独立的部署目录。
+    为保持配置和数据的隔离，建议为每个节点创建独立的部署目录。
       ```
       # 创建超级代表 (SR) 节点目录
       $ mkdir SR
@@ -40,7 +40,7 @@
 
 3. 准备配置文件
 
-    - 下载官方提供的私有链配置文件模板 ([private_net_config.conf](https://github.com/tronprotocol/tron-deployment/blob/master/private_net_config.conf))。
+    - 下载官方提供的配置文件模板 ([config.conf](https://github.com/tronprotocol/java-tron/blob/develop/framework/src/main/resources/config.conf))，并修改`p2p.version`为**11111**和**20180622**以外的任何值。
     - 将其分别复制到两个节点目录中，并重命名以作区分。
       ```
       # 用于SR节点的配置文件
@@ -74,6 +74,7 @@
     * `listen.port` ：P2P 监听端口
     * `http` 端口： HTTP 监听端口
     * `rpc` 端口： RPC 监听端口
+
 6. 启动节点
     超级代表（产块节点）和普通全节点的启动命令略有不同。
 
@@ -92,74 +93,76 @@
 
 7. 高级操作：修改动态网络参数
    
-   动态网络参数可以通过 [getchainparameters](https://developers.tron.network/reference/wallet-getchainparameters) 接口获取。主网的当前动态参数及相关提案可在 TRONSCAN [参数&提议页面](https://tronscan.org/#/sr/committee) 查看。若希望私链的动态参数与主网保持一致，可使用 [DBFork](https://github.com/tronprotocol/tron-docker/blob/main/tools/toolkit/DBFork.md) 工具，它可以捕获主网的最新状态。
+     动态网络参数可以通过 [getchainparameters](https://developers.tron.network/reference/wallet-getchainparameters) 接口获取。主网的当前动态参数及相关提案可在 TRONSCAN [参数&提议页面](https://tronscan.org/#/sr/committee) 查看。若希望私链的动态参数与主网保持一致，可使用 [DBFork](https://github.com/tronprotocol/tron-docker/blob/main/tools/toolkit/DBFork.md) 工具，它可以捕获主网的最新状态。
    
   
-   私有链启动后，您可能需要调整某些网络参数（例如手续费，能量单价等），这可以通过两种方式实现：
+     私有链启动后，您可能需要调整某些网络参数（例如手续费，能量单价等），这可以通过两种方式实现：
 
-    * **方式一：通过配置文件设置 (适用于初始部署)**  
+     * **方式一：通过配置文件设置 (适用于初始部署)**  
 
-       一些动态参数可以通过配置文件直接设置，这些动态参数可以在 [此处](https://github.com/tronprotocol/java-tron/blob/develop/common/src/main/java/org/tron/core/Constant.java) 查看。
+        一些动态参数可以通过配置文件直接设置，这些动态参数可以在 [此处](https://github.com/tronprotocol/java-tron/blob/develop/common/src/main/java/org/tron/core/Constant.java) 查看。
       
-      **示例**：在 `.conf` 文件中添加以下 `committee` 块来开启多签和合约创建。 
+         **示例**：在 `.conf` 文件中添加以下 `committee` 块来开启多签和合约创建。 
       
-      ```
-      committee = {
-        allowCreationOfContracts = 1
-        allowAdaptiveEnergy = 0
-        allowMultiSign = 1
-        allowDelegateResource = 1
-        allowSameTokenName = 0
-        allowTvmTransferTrc10 = 1
-      }
-      ```
-    * **方式二：通过链上提案修改 (适用于运行中的网络)**
-    这是链上治理的标准方式，任何 Witness (SR、SR partner、SR candidate) 都有权创建提案，但只有超级代表（SR）有权投票批准。
+         ```
+         committee = {
+           allowCreationOfContracts = 1
+           allowAdaptiveEnergy = 0
+           allowMultiSign = 1
+           allowDelegateResource = 1
+           allowSameTokenName = 0
+           allowTvmTransferTrc10 = 1
+         }
+         ```
 
-      - 创建提案：Witness 使用 [proposalcreate API](https://developers.tron.network/reference/proposalcreate)，通过参数序号指定要修改的参数及其新值（参数序号列表)。
-      - 批准提案：Witness 使用 [proposalapprove API](https://developers.tron.network/reference/proposalapprove)对提案进行投票(仅支持投赞成票，SR不投票意味着不同意该提案)。
-      - 相关接口：
-        - 获取所有提议：[listproposals](https://developers.tron.network/reference/wallet-listproposals)
-        - 根据 ID 获取提议：[getproposalbyid](https://developers.tron.network/reference/getproposalbyid)
+       * **方式二：通过链上提案修改 (适用于运行中的网络)**
+        这是链上治理的标准方式，任何 Witness (SR、SR partner、SR candidate) 都有权创建提案，但只有超级代表（SR）有权投票批准。
+
+         - 创建提案：Witness 使用 [proposalcreate API](https://developers.tron.network/reference/proposalcreate)，通过参数序号指定要修改的参数及其新值（参数序号列表)。
+         - 批准提案：Witness 使用 [proposalapprove API](https://developers.tron.network/reference/proposalapprove)对提案进行投票(仅支持投赞成票，SR不投票意味着不同意该提案)。
+         - 相关接口：
+           - 获取所有提议：[listproposals](https://developers.tron.network/reference/wallet-listproposals)
+           - 根据 ID 获取提议：[getproposalbyid](https://developers.tron.network/reference/getproposalbyid)
  
  
-      **示例代码 (使用 TronWeb)：**
-    以下代码片段演示了如何创建一个提案来修改两个网络参数，并对其进行投票。在 [proposalcreate](https://developers.tron.network/reference/proposalcreate) 中，动态参数用序号表示，动态参数的序号和名称之间的映射可以在 [此处](https://developers.tron.network/reference/wallet-getchainparameters) 查看。
+         **示例代码 (使用 TronWeb)：**
 
-      ```
-      var TronWeb = require('tronweb');
-      var tronWeb = new TronWeb({
-          fullHost: 'http://localhost:16887',
-          privateKey: 'privateKey'
-      })
+         以下代码片段演示了如何创建一个提案来修改两个网络参数，并对其进行投票。在 [proposalcreate](https://developers.tron.network/reference/proposalcreate) 中，动态参数用序号表示，动态参数的序号和名称之间的映射可以在 [此处](https://developers.tron.network/reference/wallet-getchainparameters) 查看。
 
-      var parametersForProposal1 = [{"key":9,"value":1},{"key":10,"value":1}];
+         ```
+         var TronWeb = require('tronweb');
+         var tronWeb = new TronWeb({
+             fullHost: 'http://localhost:16887',
+             privateKey: 'privateKey'
+         })
 
-      async function modifyChainParameters(parameters,proposalID){
+         var parametersForProposal1 = [{"key":9,"value":1},{"key":10,"value":1}];
+
+         async function modifyChainParameters(parameters,proposalID){
       
-          parameters.sort((a, b) => {
-                  return a.key.toString() > b.key.toString() ? 1 : a.key.toString() === b.key.toString() ? 0 : -1;
-              })
-          var unsignedProposal1Txn = await tronWeb.transactionBuilder.createProposal(parameters,"41D0B69631440F0A494BB51F7EEE68FF5C593C00F0")
-          var signedProposal1Txn = await tronWeb.trx.sign(unsignedProposal1Txn);
-          var receipt1 = await tronWeb.trx.sendRawTransaction(signedProposal1Txn);
+             parameters.sort((a, b) => {
+                     return a.key.toString() > b.key.toString() ? 1 : a.key.toString() === b.   key.toString() ? 0 : -1;
+                 })
+             var unsignedProposal1Txn = await tronWeb.transactionBuilder.createProposal (parameters,"41D0B69631440F0A494BB51F7EEE68FF5C593C00F0")
+             var signedProposal1Txn = await tronWeb.trx.sign(unsignedProposal1Txn);
+             var receipt1 = await tronWeb.trx.sendRawTransaction(signedProposal1Txn);
 
-          setTimeout(async function() {
-              console.log(receipt1)
-              console.log("Vote proposal 1 !")
-              var unsignedVoteP1Txn = await tronWeb.transactionBuilder.voteProposal(proposalID, true, tronWeb.defaultAddress.hex)
-              var signedVoteP1Txn = await tronWeb.trx.sign(unsignedVoteP1Txn);
-              var rtn1 = await tronWeb.trx.sendRawTransaction(signedVoteP1Txn);
-          }, 4000)
+             setTimeout(async function() {
+                 console.log(receipt1)
+                 console.log("Vote proposal 1 !")
+                 var unsignedVoteP1Txn = await tronWeb.transactionBuilder.voteProposal (proposalID, true, tronWeb.defaultAddress.hex)
+                 var signedVoteP1Txn = await tronWeb.trx.sign(unsignedVoteP1Txn);
+                 var rtn1 = await tronWeb.trx.sendRawTransaction(signedVoteP1Txn);
+             }, 4000)
 
-      }
+         }
 
-      modifyChainParameters(parametersForProposal1, 1) 
-      ```
+         modifyChainParameters(parametersForProposal1, 1) 
+         ```
       
-     提案投票通过并在维护期结束后，新的网络参数将会生效。您可以通过 [listproposals](https://developers.tron.network/reference/wallet-listproposals) 或 [getchainparameters](https://developers.tron.network/reference/wallet-getchainparameters) 来验证变更。
+      提案投票通过并在维护期结束后，新的网络参数将会生效。您可以通过 [listproposals](https://developers.tron.network/reference/wallet-listproposals) 或 [getchainparameters](https://developers.tron.network/reference/wallet-getchainparameters) 来验证变更。
   
-     需要注意的是，具有相互依赖关系的动态参数不能包含在同一个提案中，正确的方法是将它们分成不同的提案，并注意它们的顺序。
+      需要注意的是，具有相互依赖关系的动态参数不能包含在同一个提案中，正确的方法是将它们分成不同的提案，并注意它们的顺序。
      
      
 
