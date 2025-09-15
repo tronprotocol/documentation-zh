@@ -1,83 +1,108 @@
 # 私链网络
 
-搭建私链需要部署至少一个产块的全节点，和任意数量的非产块的全节点用于同步区块和广播交易，本示例中只搭建了一个产块的节点和一个非产块的节点。搭建私链之前，请先安装`Oracle JDK 1.8`， 然后需要准备至少两个TRON网络地址并保存地址和对应的私钥，可以使用[wallet-cli](https://github.com/tronprotocol/wallet-cli)或者[Tronlink](https://www.tronlink.org/cn/)来创建地址。
+本文档将指导如何搭建一个基础的 TRON 私有网络。该网络将包含一个负责生成区块的超级代表节点和一个仅用于同步区块数据和广播交易的普通全节点。
 
+## 前置要求
+在开始之前，请确保您的开发环境满足以下条件：
+
+ - Java Development Kit (JDK)：您的环境必须安装 Oracle JDK 1.8。 
+ - TRON 账户：您需要预先创建至少两个 TRON 网络地址，并安全地保存好地址和其对应的私钥。其中一个地址将作为初始见证节点（超级代表），另一个用于普通账户。
+ - 地址创建工具：您可以使用以下任一工具来生成和管理您的 TRON 账户：
+   - [Wallet-cli](https://github.com/tronprotocol/wallet-cli)：一个官方提供的命令行钱包工具，适合在服务器环境中使用。
+   - [TronLink](https://www.tronlink.org/cn/)：一款支持TRON网络的多链钱包，提供友好的图形用户界面，方便创建和管理地址。
+   - [TronWeb](https://tronweb.network/docu/docs/intro/)：一个便于开发者与TRON网络进行交互和构建dApp的JavaScript库。
+   - [Trident](https://github.com/tronprotocol/trident)：一个轻量级的 Java SDK，旨在帮助开发者简单高效地将 TRON 区块链功能集成到 Java 应用中
 
 ## 部署指南
-搭建私链节点的流程和搭建主网节点的流程一样，不同点在于节点配置文件内容不同，搭建私链最主要的是要修改配置文件中的配置项，使节点间组成私链网络，可以进行网络发现，区块同步和广播交易。
+从操作流程上看，部署一个私有链节点与部署一个主网节点基本相同。不同点在于节点配置文件内容不同，搭建私链最主要的是要修改配置文件中的配置项，使节点间组成私链网络，可以进行网络发现，区块同步和广播交易。
 
-1. 创建目录
+1. 准备节点目录
 
-    创建部署目录，建议将两个节点放在不同的目录下。
+   为保持配置和数据的隔离，建议为每个节点创建独立的部署目录。
       ```
+      # 创建超级代表 (SR) 节点目录
       $ mkdir SR
+      
+      # 创建普通全节点目录
       $ mkdir FullNode
       ```
 
-2. 获取[FullNode.jar](https://github.com/tronprotocol/java-tron/releases)
+2. 获取 `java-tron` 客户端
 
-    获取 FullNode.jar，将其分别放到SR和FullNode目录中。
+    `java-tron` 是 TRON 网络的官方 Java 实现。
+    
+     - 从 [Java-tron GitHub Releases](https://github.com/tronprotocol/java-tron/releases) 页面下载最新的 `FullNode.jar`。
+    - 将下载的 `JAR` 文件分别复制到两个节点目录中。
      ```
      $ cp FullNode.jar ./SR
      $ cp FullNode.jar ./FullNode
      ```
 
-3. 获取节点配置文件[config.conf](https://github.com/tronprotocol/java-tron/blob/master/framework/src/main/resources/config.conf)。在搭建私链网络节点时，请将p2p.version的值修改为非11111和20180622的任意值。该配置位于[此处](https://github.com/tronprotocol/java-tron/blob/master/framework/src/main/resources/config.conf#L185)。
+3. 准备配置文件
 
-    获取节点配置文件 config.conf，将其分别放到SR和FullNode目录中,并分别修改文件名为：supernode.conf、 fullnode.conf。
+    - 下载官方提供的私有链配置文件模板 ([private_net_config.conf](https://github.com/tronprotocol/tron-deployment/blob/master/private_net_config.conf))。
+    - 将其分别复制到两个节点目录中，并重命名以作区分。
       ```
-      $ cp config.conf ./SR/supernode.conf
-      $ cp config.conf ./FullNode/fullnode.conf
+      # 用于SR节点的配置文件
+      $ cp private_net_config.conf ./SR/supernode.conf
+      
+      # 用于普通全节点的配置文件
+      $ cp private_net_config.conf ./FullNode/fullnode.conf
       ```
 
-4. 修改各节点的配置文件
+4. 修改节点配置
   
-    请根据如下表格中的说明，依次修改节点的各个配置项：
+    这是搭建私有链最关键的一步。请根据下表说明，分别编辑 `supernode.conf` 和 `fullnode.conf` 文件。
 
-    | 配置项名称 | SR Fullnode配置内容 | FullNode配置内容 | 说明 |
+    | 配置项名称 | SR 节点 (`supernode.conf`) | 全节点 (`fullnode.conf`) | 说明 |
     | :-------- | :-------- | :-------- | :-------- |
-    | localwitness     | witness账户私钥     | 不需填值     | 生成区块需要使用私钥签名     |
-    | genesis.block.witnesses	     | 上面私钥对应的地址     | 与SR配置值相同 | 创世块相关的配置，genesis.block需要与SR节点的一样    |
-    | genesis.block.Assets     | 给特定账户预置TRX。将预先准备的账户地址写入并随意指定其TRX的余额。可以直接修改原来已有账户的address字段，其它字段不需要修改；或者在末尾添加新账户信息    | 与SR配置值相同     | 创世块相关的配置     |
-    | p2p.version     | 11111之外的任意正整数     | 与SR配置值相同      | SR 和fullnode需相同，只有相同version的节点才能握手成功     |
-    | seed.node     | 不需填值     | 将ip.list设置为SR的ip地址和SR配置文件中的`listen.port`端口号    | 能够让fullnode与SR node建立连接并同步数据     |
-    | needSyncCheck     | false     | true     | 第1个SR设置needSyncCheck为false，其他设置为true      |
-    | node.discovery.enable     | true     | true     | 如果配置成false，则当前节点不会被其他节点发现     |
-    |block.proposalExpireTime|600000 |与SR配置值相同  |默认提议生效时间是3天：259200000(ms)，如需快速通过提议，可将该项设置为更小的值，如10分钟，即600000ms|
-    |block.maintenanceTimeInterval|300000| 与SR配置值相同  | 维护期时间间隔，默认是6小时: 21600000(ms),如需快速通过提议，可将该项设置为更小的值，如五分钟，即300000ms。|
-    |committee.allowSameTokenName |1|1|允许相同的token name|
-    |committee.allowTvmTransferTrc10 | 1|1|允许智能合约转账TRC10代币|
+    | `localwitness`     | 账户私钥     | 不需填值     |  用于签名区块的私钥，仅产块节点需要。     |
+    | `genesis.block.witnesses`	     | SR 地址     | 与 SR 配置值相同 | 创世块相关的配置，`genesis.block` 需要与 SR 节点的一样    |
+    | `genesis.block.Assets`     | 给特定账户预置 TRX。将预先准备的账户地址写入并随意指定其 TRX 的余额。可以直接修改原来已有账户的 `address` 字段，其它字段不需要修改；或者在末尾添加新账户信息    | 与 SR 配置值相同     | 创世块相关的配置     |
+    | `p2p.version`     | 11111 之外的任意正整数     | 与 SR 配置值相同      | SR 和 Fullnode 需相同，只有相同 version 的节点才能握手成功     |
+    | `seed.node`     | 不需填值     | 将 `ip.list` 设置为 SR 的 IP 地址和 SR 配置文件中的 `listen.port` 端口号    | 能够让 Fullnode 与 SR node 建立连接并同步数据     |
+    | `needSyncCheck`     | `false`     | `true`     | 第 1 个 SR 设置 `needSyncCheck` 为 `false`，其他设置为 `true`      |
+    | `node.discovery.enable`     | `true`     | `true`     | 如果配置成 `false`，则当前节点不会被其他节点发现     |
+    |`block.proposalExpireTime`|`600000` |与 SR 配置值相同  |默认提议生效时间是 3 天：259200000(ms)，如需快速通过提议，可将该项设置为更小的值，如 10 分钟，即 600000ms|
+    |`block.maintenanceTimeInterval`|`300000`| 与 SR 配置值相同  | 维护期时间间隔，默认是 6 小时：21600000(ms)；如需快速通过提议，可将该项设置为更小的值，如 5 分钟，即 300000ms。|
+    |`committee.allowSameTokenName` |`1`|`1`|允许相同的 token name|
+    |`committee.allowTvmTransferTrc10` | `1`|`1`|允许智能合约转账 TRC-10 代币|  
 
+5. 调整网络端口 (如需)    
+    修改配置文件中的端口号，将 SR 和 FullNode 的配置成不相同的端口号。此步骤仅在同一台机器上运行多个节点时是必需的，以避免端口冲突。否则，可跳过此步。
     
-
-5. 修改配置文件中的端口号，将SR和FullNode的配置成不相同的端口号。注意，如果SR和FullNode运行在一台机器上，此步骤是必须的，否则，可跳过此步。
-    * `listen.port` ： p2p的监听端口
-    * `http`端口： Http监听端口
-    * `rpc` 端口： rpc 监听端口
+    * `listen.port` ：P2P 监听端口
+    * `http` 端口： HTTP 监听端口
+    * `rpc` 端口： RPC 监听端口
 6. 启动节点
+    超级代表（产块节点）和普通全节点的启动命令略有不同。
 
-    产块的全节点和非产块的全节点，启动命令不同：
-
-    * 产块的全节点
+    * 启动超级代表 (SR) 节点：
       ```
+      $ cd SR
       $ java -Xmx6g -XX:+HeapDumpOnOutOfMemoryError -jar FullNode.jar  --witness  -c supernode.conf
       ```
-    * 非产块的全节点
+    * 启动普通全节点：
       ```
+      $ cd FullNode
       $ java -Xmx6g -XX:+HeapDumpOnOutOfMemoryError -jar FullNode.jar  -c fullnode.conf
+      #启动后，请观察控制台日志，确保全节点能够成功连接到SR节点并开始同步区块。
       ```
 
 
-7. 修改网络动态参数
+7. 高级操作：修改动态网络参数
+   
+   动态网络参数可以通过 [getchainparameters](https://developers.tron.network/reference/wallet-getchainparameters) 接口获取。主网的当前动态参数及相关提案可在 TRONSCAN [参数&提议页面](https://tronscan.org/#/sr/committee) 查看。若希望私链的动态参数与主网保持一致，可使用 [DBFork](https://github.com/tronprotocol/tron-docker/blob/main/tools/toolkit/DBFork.md) 工具，它可以捕获主网的最新状态。
+   
+  
+   私有链启动后，您可能需要调整某些网络参数（例如手续费，能量单价等），这可以通过两种方式实现：
 
-    动态参数可以通过[getchainparameters](https://developers.tron.network/reference/wallet-getchainparameters)获取。主网络的当前动态参数和与之相关的提案可以在[这里](https://tronscan.org/#/sr/committee)查看，动态参数在这里被称为网络参数。
+    * **方式一：通过配置文件设置 (适用于初始部署)**  
 
-    如果您希望私链的动态参数与主网保持一致，也许[dbfork](https://github.com/tronprotocol/tron-docker/tree/main/tools/dbfork)是您更感兴趣的，它可以捕获主网最新状态。
-    
-    如果要修改部分动态参数，有两种方法可供选择：
-
-    * 配置文件  
-      一些动态参数可以通过配置文件直接设置，这些动态参数可以在[此处](https://github.com/tronprotocol/java-tron/blob/develop/common/src/main/java/org/tron/core/Constant.java)查看。下面是一个通过配置文件修改动态参数的示例。
+       一些动态参数可以通过配置文件直接设置，这些动态参数可以在 [此处](https://github.com/tronprotocol/java-tron/blob/develop/common/src/main/java/org/tron/core/Constant.java) 查看。
+      
+      **示例**：在 `.conf` 文件中添加以下 `committee` 块来开启多签和合约创建。 
+      
       ```
       committee = {
         allowCreationOfContracts = 1
@@ -88,13 +113,24 @@
         allowTvmTransferTrc10 = 1
       }
       ```
-    * 提案  
-      任何witness(SR、SR partner、SR candidate)都有权创建提案，但是只有SR有权对提案进行投票。witness使用[proposalcreate](https://developers.tron.network/reference/proposalcreate)创建提案，之后SR使用[proposalapprove](https://developers.tron.network/reference/proposalapprove)批准提案(仅支持投赞成票，SR不投票意味着不同意该提案)。下面是一个通过提案修改两个动态参数的代码示例。在[proposalcreate](https://developers.tron.network/reference/proposalcreate)中，动态参数用序号表示，动态参数的序号和名称之间的映射可以在[此处](https://developers.tron.network/reference/wallet-getchainparameters)查看。
+    * **方式二：通过链上提案修改 (适用于运行中的网络)**
+    这是链上治理的标准方式，任何 Witness (SR、SR partner、SR candidate) 都有权创建提案，但只有超级代表（SR）有权投票批准。
+
+      - 创建提案：Witness 使用 [proposalcreate API](https://developers.tron.network/reference/proposalcreate)，通过参数序号指定要修改的参数及其新值（参数序号列表)。
+      - 批准提案：Witness 使用 [proposalapprove API](https://developers.tron.network/reference/proposalapprove)对提案进行投票(仅支持投赞成票，SR不投票意味着不同意该提案)。
+      - 相关接口：
+        - 获取所有提议：[listproposals](https://developers.tron.network/reference/wallet-listproposals)
+        - 根据 ID 获取提议：[getproposalbyid](https://developers.tron.network/reference/getproposalbyid)
+ 
+ 
+      **示例代码 (使用 TronWeb)：**
+    以下代码片段演示了如何创建一个提案来修改两个网络参数，并对其进行投票。在 [proposalcreate](https://developers.tron.network/reference/proposalcreate) 中，动态参数用序号表示，动态参数的序号和名称之间的映射可以在 [此处](https://developers.tron.network/reference/wallet-getchainparameters) 查看。
+
       ```
       var TronWeb = require('tronweb');
       var tronWeb = new TronWeb({
           fullHost: 'http://localhost:16887',
-          privateKey: 'c741f5c0...c7d220dc'
+          privateKey: 'privateKey'
       })
 
       var parametersForProposal1 = [{"key":9,"value":1},{"key":10,"value":1}];
@@ -114,11 +150,16 @@
               var unsignedVoteP1Txn = await tronWeb.transactionBuilder.voteProposal(proposalID, true, tronWeb.defaultAddress.hex)
               var signedVoteP1Txn = await tronWeb.trx.sign(unsignedVoteP1Txn);
               var rtn1 = await tronWeb.trx.sendRawTransaction(signedVoteP1Txn);
-          }, 1000)
+          }, 4000)
 
       }
 
-      modifyChainParameters(parametersForProposal1, 1)
+      modifyChainParameters(parametersForProposal1, 1) 
       ```
-      通过上述代码创建提案后，您可以通过[listproposals](https://developers.tron.network/reference/wallet-listproposals)检查提案是否已获批准。当创建的提案过期后，如果上述接口返回值中的“state”为“APPROVED”，表示提案已获批准。  
-      需要注意的是，具有相互依赖关系的动态参数不能包含在同一个提案中，正确的方法是将它们分成不同的提案，并注意它们的顺序。
+      
+     提案投票通过并在维护期结束后，新的网络参数将会生效。您可以通过 [listproposals](https://developers.tron.network/reference/wallet-listproposals) 或 [getchainparameters](https://developers.tron.network/reference/wallet-getchainparameters) 来验证变更。
+  
+     需要注意的是，具有相互依赖关系的动态参数不能包含在同一个提案中，正确的方法是将它们分成不同的提案，并注意它们的顺序。
+     
+     
+
