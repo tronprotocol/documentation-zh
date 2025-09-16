@@ -138,7 +138,7 @@ TRON 提供多种交易对查询接口：
 **3. 查询指定交易对详情：** `GetExchangeById`
 
 详细 API 文档参考：
-波场 [RPC-API 接口文档](https://github.com/tronprotocol/documentation-zh/blob/master/docs/api/rpc.md)
+[RPC-API 接口文档](https://tronprotocol.github.io/documentation-zh/api/rpc/)
 
 ### 价格计算
 假设交易对中：
@@ -160,7 +160,7 @@ second_token_price = first_token_price * (first_token_balance / second_token_bal
 - `sellTokenQuant`：出售的 `first_token` 数量；
 - `buyTokenQuant`：兑换获得的 `second_token` 数量；
 - `balance`：当前交易对中 `second_token` 的余额；
-- `supply = 1,000,000,000,000,000,000L`
+- `supply`：Bancor 协议公式中使用的固定常数 `10^18`。
 
 计算流程如下：
 
@@ -170,6 +170,5 @@ buyTokenQuant = (long)(balance * (Math.pow(1.0 + (double) supplyQuant / supply, 
 ```
 >**注意**: 市场价格会因网络中其他交易行为实时波动。
 
-更多接口详情，请参考：[HTTP API 文档](https://github.com/tronprotocol/documentation-zh/blob/master/docs/api/http.md)。
-
+更多接口详情，请参考：[HTTP API 文档](https://tronprotocol.github.io/documentation-zh/api/http/)。
 

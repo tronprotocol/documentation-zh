@@ -5,7 +5,7 @@
 相比之下，**RocksDB 提供更丰富的配置参数，且通常具有更高的存储效率**。本文将介绍如何启用 RocksDB，以及如何将 x86 平台的 LevelDB 转换为 RocksDB。
 
 
-## 一、使用 RocksDB
+## 使用 RocksDB
 
 ### 1. 配置 RocksDB 作为存储引擎
 
@@ -39,7 +39,7 @@ dbSettings = {
 
 
 
-## 二、x86 平台从 LevelDB 迁移至 RocksDB
+## x86 平台从 LevelDB 迁移至 RocksDB
 LevelDB 与 RocksDB 的数据格式不兼容，节点间不支持直接切换存储引擎。若需从 LevelDB 迁移到 RocksDB，需使用官方提供的转换工具 `Toolkit.jar`。
 
 ### 1. 数据转换步骤
@@ -51,8 +51,8 @@ java -jar build/libs/Toolkit.jar db convert    # 执行数据转换
 ### 2. 可选参数说明
 若您的节点使用了自定义的数据目录，可在运行转换脚本时添加如下参数：
 
-- `src_db_path`：LevelDB 数据库路径（默认为 output-directory/database）
-- `dst_db_path`：RocksDB 数据库存储路径（默认为 output-directory-dst/database）
+- `src_db_path`：LevelDB 数据库路径（默认为 `output-directory/database`）
+- `dst_db_path`：RocksDB 数据库存储路径（默认为 `output-directory-dst/database`）
 
 例如，若节点是通过如下方式运行：
 ```
@@ -82,7 +82,7 @@ java -jar build/libs/Toolkit.jar db convert output-directory/database output-dir
 >备注：
 整个数据转换过程预计耗时约 **10 小时**，具体时间依赖于数据量和磁盘性能。
 
-## 三、关于 LevelDB
+## 关于 LevelDB
 LevelDB 是 x86 平台 java-tron 默认的数据存储引擎，适用于资源有限或轻量级的部署场景。它结构简单、易于维护，但在数据压缩、备份能力和大规模节点性能上不如 RocksDB。
 
 若需深入了解两者的详细对比，请参考文档：
