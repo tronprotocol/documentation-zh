@@ -117,23 +117,23 @@ enum ContractType {
 - 默认情况下，未指定 `permission_id` 的交易使用 `owner` 权限。
 
 ### `witness` 权限（出块权限）
-- 仅超级代表账户可用；
+- 仅超级代表，超级代表合伙人和超级代表候选人地址可用；
 - 控制出块节点，不具备资金转出等操作权限；
 - 可将出块权限授权给其他地址以提升账户安全性。
 
 #### 超级代表节点配置示例：
 ```
 # config.conf
-//localWitnessAccountAddress =
+//localWitnessAccountAddress = TMK5c1jd...m6FXFXEz  # TRON 地址
 localwitness = [
-  xxx  # 被授权地址的私钥
+  xxx  # TMK5c1jd...m6FXFXEz 地址的私钥
 ]
 ```
 若修改了 `witness` 权限，则：
 ```
-localWitnessAccountAddress = <witness账户地址>
+localWitnessAccountAddress = TSMC4YzU...PBebBk2E
 localwitness = [
-  yyy  # 被授权账户的私钥
+  yyy  # TSMC4YzU...PBebBk2E 地址的私钥
 ]
 ```
 >**注意**：`localwitness` 中只允许配置一个私钥。
@@ -211,7 +211,7 @@ System.out.println(ByteArray.toHexString(operations));
 5. ...
 6. 最后一个用户签名后广播；
 7. 节点验证签名权重总和是否 ≥ `threshold`，若是则接受交易。
->示例代码参考：[wallet-cli 用例](https://github.com/tronprotocol/wallet-cli/commit/ff9122f2236f1ce19cbb9ba9f0494c8923a3d10c#diff-a63fa7484f62fe1d8fb27276c991a4e3R211)
+>示例代码参考：[wallet-cli 用例](https://github.com/tronprotocol/wallet-cli/blob/develop/src/main/java/org/tron/common/utils/TransactionUtils.java)
 
 ## 辅助接口
 ### 查询已签名地址
@@ -229,4 +229,3 @@ rpc GetTransactionSignWeight(Transaction) returns (TransactionSignWeight) {}
 ## 参考资料
 - [TIP-16 权限管理提案](https://github.com/tronprotocol/tips/blob/master/tip-16.md)
 - [Tron.proto 合约类型定义](https://github.com/tronprotocol/java-tron/blob/master/protocol/src/main/protos/core/Tron.proto)
-
