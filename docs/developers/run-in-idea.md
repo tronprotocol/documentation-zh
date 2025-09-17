@@ -13,7 +13,7 @@ java-tron 节点支持部署在 `Linux` 或 `MacOS` 操作系统上。其依赖�
 在开始配置之前，请确保您的开发环境满足以下条件：
 
   - 操作系统为 `Linux` 或 `MacOS`
-  - 已安装 **Oracle JDK 1.8**
+  - 已安装 Oracle JDK 1.8
   - 已安装 `git`
   - 已安装 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/)
 
@@ -26,7 +26,7 @@ Lombok 通过注解的方式简化 Java 代码，是 java-tron 开发的必备�
 
 1.  打开 IntelliJ IDEA，导航至 `Preferences` -\> `Plugins`。
 2.  在市场（Marketplace）中搜索 `Lombok`。
-3.  点击 `Install` 进行安装，并根据提示重启 IDE。
+3.  点击 “Install” 进行安装，并根据提示重启 IDE。
 
 ### 步骤 2：启用注解处理
 
@@ -34,7 +34,7 @@ Lombok 通过注解的方式简化 Java 代码，是 java-tron 开发的必备�
 
 1.  导航至 `Preferences` -\> `Build, Execution, Deployment` -\> `Compiler` -\> `Annotation Processors`。
 2.  勾选 `Enable annotation processing` 复选框。
-3.  点击 **Apply** 保存设置。
+3.  点击 “Apply” 保存设置。
 
 ![image](https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/IDE_annotation.png)
 
@@ -114,12 +114,12 @@ java-tron 遵循 `Google checkstyle` 代码规范。在 IDEA 中，通过配置 
 3.  在 `Configuration File` 面板中，点击 `+` 号添加一个新的配置。
 ![image](https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/IDE_checkStyleAll.png)
 4.  在弹出的窗口中，设置 `Description` 为 `tron-checkstyle`，并选择刚刚下载的 `checkStyleAll.xml` 文件。
-5.  勾选新添加的 `tron-checkstyle` 规则，并点击 **Apply** 和 **OK**。
+5.  勾选新添加的 `tron-checkstyle` 规则，并点击 “Apply” 和 “OK”。
 
 配置完成后，您即可使用 `Checkstyle` 插件对代码进行风格检查。它支持多种检查范围，可以对整个项目、单个模块，或是当前正在编辑的文件进行分析。最常用的操作是检查当前文件：
 
 1. 在代码编辑器中右键单击。
-2. 选择 **Check Current File**。
+2. 选择 “Check Current File”。
 
 如果检测出代码风格问题，`Checkstyle` 会在下方窗口列出提示。请根据这些提示逐一修改，确保在提交代码前修复所有问题，以维护代码库的统一规范。
 
@@ -141,7 +141,7 @@ mkdir /Users/javatrondeploy
 
 ### 步骤 2：配置运行/调试选项
 
-接下来，在 IntelliJ IDEA 中创建一个运行配置，告诉 IDE如何启动 java-tron 应用程序。
+接下来，在 IntelliJ IDEA 中创建一个运行配置，用于指定 java-tron 应用程序的启动方式。
 
 1.  在 IDEA 右上角，点击 `Add Configuration...`。
 2.  点击 `+` -\> `Application`，创建一个新的运行配置。
@@ -152,7 +152,7 @@ mkdir /Users/javatrondeploy
       * **Program Arguments:** 传入节点启动参数。例如，使用 `-c config.conf` 来指定配置文件。
       * **Working Directory:** 设置为您在 [步骤 1](#rndstep1) 中创建的目录，例如 `/Users/javatrondeploy`。
 ![image](https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/IDE_RunDebug.png)
-4.  点击 **Apply** 保存配置。
+4.  点击 “Apply” 保存配置。
 
 ### 步骤 3: 启动节点
 
