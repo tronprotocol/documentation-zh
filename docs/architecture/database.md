@@ -44,7 +44,7 @@ LevelDB 与 RocksDB 的数据格式不兼容，节点间不支持直接切换存
 
 ### 1. 数据转换步骤
 ```
-cd java-tron                                   #源码根目录
+cd java-tron                                   # 源码根目录
 ./gradlew build -xtest -xcheck                 # 编译项目                        
 java -jar build/libs/Toolkit.jar db convert    # 执行数据转换
 ```
