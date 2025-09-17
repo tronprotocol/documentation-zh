@@ -28,9 +28,10 @@ node {
 }
 ```
 特别的：
-    * 主网：`version=11111`
-    * Nile测试网：`version = 201910292`
-    * 私链网络：自定义，设置成其它值
+- 主网：`version=11111`
+- Nile 测试网：`version = 201910292`
+- Shasta 测试网：`version = 1`
+- 私链网络：自定义，设置成其它值
 
 ### 创世块（Genesis Block）
 需保证创世块 `genesis.block` 的设置与网络中其它节点的相同，否则无法和其他节点建立连接。主网的 `genesis.block` 配置如下：
@@ -213,7 +214,7 @@ node.discovery = {
 
 
 ### 引导节点
-java-tron 使用 [Kademlia](https://zh.wikipedia.org/wiki/Kademlia) 协议发现其他节点。节点发现需要引导节点(boot 节点)，借助引导节点发现 TRON 网络中的其他节点。引导节点由两部分组成，一部分是种子节点，一部分是配置的主动连接节点。
+java-tron 使用 [Kademlia](https://zh.wikipedia.org/wiki/Kademlia) 协议发现其他节点。节点发现需要引导节点 (boot 节点)，借助引导节点发现 TRON 网络中的其他节点。引导节点由两部分组成，一部分是种子节点，一部分是配置的主动连接节点，详情见[主动连接](#active-peers)。
 
 种子节点也由两部分组成：
 
@@ -390,14 +391,14 @@ curl http://127.0.0.1:16887/wallet/getnowblock
 遇到节点无法连接网络时，可参考以下问题排查：
 
 - **本地时钟偏差**
-使用以下命令同步系统时间：
-```
-sudo ntpdate -s time.nist.gov
-```
+    使用以下命令同步系统时间：
+    ```
+    sudo ntpdate -s time.nist.gov
+    ```
 - **UDP 被防火墙阻挡**
-节点发现协议依赖 UDP，如被防火墙阻断，可改用 `node.active` 指定固定节点。
+    节点发现协议依赖 UDP，如被防火墙阻断，可改用 `node.active` 指定固定节点。
 - **未被动接受连接**
-使用 `node.passive` 接收来自可信节点的主动连接。
+    使用 `node.passive` 接收来自可信节点的主动连接。
 - **Shasta 测试网不支持新节点加入**，请选择 Nile 测试网。
 
 ## 连接私链网络
@@ -407,4 +408,4 @@ sudo ntpdate -s time.nist.gov
 - 使用私有的 `node.p2p.version` 值，确保不会与主网或测试网冲突
 
 ### 搭建参考：
-- 请参考文档 [私链网络搭建指南](https://github.com/tronprotocol/documentation-zh/blob/master/docs/using_javatron/private_network.md) 获取完整的私链部署说明。
+- 请参考文档 [私链网络](https://tronprotocol.github.io/documentation-zh/using_javatron/private_network/) 获取完整的私链部署说明。
