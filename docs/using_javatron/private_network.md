@@ -121,8 +121,8 @@
          - 创建提案：Witness 使用 [proposalcreate API](https://developers.tron.network/reference/proposalcreate)，通过参数序号指定要修改的参数及其新值（参数序号列表)。
          - 批准提案：Witness 使用 [proposalapprove API](https://developers.tron.network/reference/proposalapprove)对提案进行投票(仅支持投赞成票，SR不投票意味着不同意该提案)。
          - 相关接口：
-           - 获取所有提议：[listproposals](https://developers.tron.network/reference/wallet-listproposals)
-           - 根据 ID 获取提议：[getproposalbyid](https://developers.tron.network/reference/getproposalbyid)
+              - 获取所有提议：[listproposals](https://developers.tron.network/reference/wallet-listproposals)
+              - 根据 ID 获取提议：[getproposalbyid](https://developers.tron.network/reference/getproposalbyid)
  
  
          **示例代码 (使用 TronWeb)：**
