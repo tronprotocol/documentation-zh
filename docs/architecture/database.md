@@ -1,95 +1,89 @@
-# 数据库配置
-java-tron数据存储支持使用 LevelDB 或者 RocksDB，默认使用LevelDB。您也可以选择RocksDB，它提供了丰富的配置参数，允许节点根据自身机器配置情况进行调优，节点数据库占用的磁盘空间相比于LevelDB更少，同时RocksDB支持在运行时进行数据备份，备份时间仅需要几秒钟。
+# 数据库配置指南
 
-下面介绍如何将java-tron节点的存储引擎设置成RocksDB，以及如何进行LevelDB和RocksDB的数据转换。
-## RocksDB
+在 TRON Java 实现（java-tron）中，节点数据存储引擎提供 **LevelDB** 和 **RocksDB** 两种选择。默认情况下，**x86 平台使用 LevelDB，ARM 平台使用 RocksDB**。如果在 ARM 系统中手动配置为 LevelDB，系统会打印警告提示并仍然强制使用 RocksDB。开发者可根据平台环境、硬件条件及性能需求，灵活选择合适的存储引擎。
 
-### config配置说明
+相比之下，**RocksDB 提供更丰富的配置参数，且通常具有更高的存储效率**。本文将介绍如何启用 RocksDB，以及如何将 x86 平台的 LevelDB 转换为 RocksDB。
 
-使用RocksDB作为数据存储引擎，需要将db.engine配置项设置为"ROCKSDB":
+
+## 使用 RocksDB
+
+### 1. 配置 RocksDB 作为存储引擎
+
+要启用 RocksDB，请在配置文件中设置 `storage.db.engine` 为 `"ROCKSDB"`：
 
 ```
 storage {
- # Directory for storing persistent data
- db.engine = "ROCKSDB",
- db.sync = false,
- db.directory = "database",
- index.directory = "index",
- transHistory.switch = "on",
+  # 持久化数据的存储引擎
+  db.engine = "ROCKSDB"
+  db.sync = false
+  db.directory = "database"
+  transHistory.switch = "on"
+}
 ```
 
-RocksDB支持的优化参数如下：
+### 2. RocksDB 优化参数
+RocksDB 支持多种调优参数，可根据节点服务器性能进行配置。以下是一个推荐的参数示例：
 ```
 dbSettings = {
-    levelNumber = 7
-    //compactThreads = 32
-    blocksize = 64  // n * KB
-    maxBytesForLevelBase = 256  // n * MB
-    maxBytesForLevelMultiplier = 10
-    level0FileNumCompactionTrigger = 4
-    targetFileSizeBase = 256  // n * MB
-    targetFileSizeMultiplier = 1
+  levelNumber = 7
+  # compactThreads = 32
+  blocksize = 64                 # 单位：KB
+  maxBytesForLevelBase = 256     # 单位：MB
+  maxBytesForLevelMultiplier = 10
+  level0FileNumCompactionTrigger = 4
+  targetFileSizeBase = 256       # 单位：MB
+  targetFileSizeMultiplier = 1
+  maxOpenFiles= 5000
 }
 ```
 
-### 使用RocksDB数据备份功能
 
-选择RocksDB作为数据存储引擎，可以使用其提供的运行时数据备份功能:
 
+## x86 平台从 LevelDB 迁移至 RocksDB
+LevelDB 与 RocksDB 的数据格式不兼容，节点间不支持直接切换存储引擎。若需从 LevelDB 迁移到 RocksDB，需使用官方提供的转换工具 `Toolkit.jar`。
+
+### 1. 数据转换步骤
 ```
-backup = {
-  enable = false  // indicate whether enable the backup plugin
-  propPath = "prop.properties" // record which bak directory is valid
-  bak1path = "bak1/database" // you must set two backup directories to prevent application halt unexpected(e.g. kill -9).
-  bak2path = "bak2/database"
-  frequency = 10000   // indicate backup db once every 10000 blocks processed.
-}
+cd java-tron                                   # 源码根目录
+./gradlew build -xtest -xcheck                 # 编译项目                        
+java -jar build/libs/Toolkit.jar db convert    # 执行数据转换
 ```
+### 2. 可选参数说明
+若您的节点使用了自定义的数据目录，可在运行转换脚本时添加如下参数：
 
-**注意：** FullNode可以使用数据备份功能；为了不影响SuperNode的产块性能，数据备份功能不支持SuperNode，但是SuperNode的备份服务节点可以使用此功能。
+- `src_db_path`：LevelDB 数据库路径（默认为 `output-directory/database`）
+- `dst_db_path`：RocksDB 数据库存储路径（默认为 `output-directory-dst/database`）
 
-### LevelDB转换为RocksDB
-
-  LevelDB和RocksDB的数据存储架构并不兼容，请确保节点始终使用同一种数据引擎。我们提供了数据转换脚本，用于将LevelDB数据转换到RocksDB数据。
-  使用方法：
-
-```text
-cd 源代码根目录
-./gradlew build   #编译源代码
-java -jar build/libs/DBConvert.jar  #执行数据转换指令
+例如，若节点是通过如下方式运行：
 ```
-
-**注意：** 如果节点的数据存储目录是自定义的，运行DBConvert.jar时添加下面2个可选参数。
-
-  **src_db_path**:指定LevelDB数据库路径源，默认是 output-directory/database
-
-  **dst_db_path**:指定RocksDB数据库路径，默认是 output-directory-dst/database
-
-  例如，如果节点是像这样的脚本运行的:
-
-```shell
 nohup java -jar FullNode.jar -d your_database_dir &
 ```
-
-  那么，你应该这样运行数据转换工具DBConvert.jar:
-
-```shell
-java -jar build/libs/DBConvert.jar  your_database_dir/database  output-directory-dst/database
+则应使用如下命令进行转换：
 ```
+java -jar build/libs/Toolkit.jar db convert  your_database_dir/database output-directory-dst/database
+```
+### 3. 停止节点后进行转换
+> **必须节点停止运行后再执行数据转换操作**。
 
-**注意：** 必须停止节点的运行，然后再运行数据转换脚本。
-如果不希望节点停止时间太长，可以在节点停止后先将LevelDB数据目录output-directory拷贝一份到新的目录下，然后恢复节点的运行。
+若希望减少停机时间，可按照以下流程操作：
 
-在新目录的上级目录中执行DBConvert.jar并指定参数`src_db_path`和`dst_db_path` 。
-  例如:
+1. 停止节点运行；
+2. 复制原始 LevelDB 数据目录至新目录；
+3. 重新启动节点（继续使用原目录）；
+4. 在新目录中执行数据转换操作。
 
-```shell
-cp -rf output-directory /tmp/output-directory
+示例命令如下：
+
+```
+java -jar build/libs/Toolkit.jar db cp output-directory/database /tmp/output-directory/database
 cd /tmp
-java -jar DBConvert.jar output-directory/database  output-directory-dst/database
+java -jar build/libs/Toolkit.jar db convert output-directory/database output-directory-dst/database
 ```
+>备注：
+整个数据转换过程预计耗时约 **10 小时**，具体时间依赖于数据量和磁盘性能。
 
-  整个的数据转换过程可能需要10个小时左右。
+## 关于 LevelDB
+LevelDB 是 x86 平台 java-tron 默认的数据存储引擎，适用于资源有限或轻量级的部署场景。它结构简单、易于维护，但在数据压缩、备份能力和大规模节点性能上不如 RocksDB。
 
-## LevelDB
-关于RocksDB与LevelDB之间的差异，详见见[链接](https://github.com/tronprotocol/documentation/blob/master/TRX_CN/Rocksdb_vs_Leveldb.md)
+若需深入了解两者的详细对比，请参考文档：
+📘 [RocksDB 与 LevelDB 差异对比](https://github.com/tronprotocol/documentation/blob/master/TRX_CN/Rocksdb_vs_Leveldb.md)
