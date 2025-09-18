@@ -397,6 +397,7 @@ curl http://127.0.0.1:16887/wallet/getnowblock
     ```
     sudo ntpdate -s time.nist.gov
     ```
+
 - **UDP 被防火墙阻挡**
 
     节点发现协议依赖 UDP，如被防火墙阻断，可改用 `node.active` 指定固定节点。
