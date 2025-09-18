@@ -400,9 +400,11 @@ curl http://127.0.0.1:16887/wallet/getnowblock
 - **UDP 被防火墙阻挡**
 
     节点发现协议依赖 UDP，如被防火墙阻断，可改用 `node.active` 指定固定节点。
+  
 - **未被动接受连接**
 
     使用 `node.passive` 接收来自可信节点的主动连接。
+  
 - **Shasta 测试网不支持新节点加入**，请选择 Nile 测试网。
 
 ## 连接私链网络
