@@ -108,3 +108,6 @@ Fullnode 节点收到交易后，会使用交易中的哈希和签名，通过 E
 
 #### 示例
 验证签名由全节点进行，[ECDSA 算法的验签](https://github.com/tronprotocol/java-tron/blob/master/crypto/src/main/java/org/tron/common/crypto/ECKey.java)可参考 java-tron，核心函数为`signatureToAddress`。
+
+### 签名规范化
+ECDSA 签名（采用secp256k1曲线）存在延展性，即对于签名$(r, s)$, 其中 $r, s \in [1, n-1]$,  $(r, n - s)$ 仍然是合法的签名。由于比特币和以太坊签名会影响交易id,  分别在[BIP-62](https://github.com/bitcoin/bips/blob/master/bip-0062.mediawiki)  和 [EIP-2]( https://eips.ethereum.org/EIPS/eip-2) 要求签名必须规范化，即 $s \leq n/2$。 但对于TRON 网络，交易id并不包含签名信息，所以并不需要对签名规范化作严格的限制，验签也不需要对签名作规范化判断。虽然没有严格限制，但是目前`java-tron`和`wallet-cli`都对签名做了规范化处理。
