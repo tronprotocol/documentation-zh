@@ -5,13 +5,13 @@
 ## 前置要求
 在开始之前，请确保您的开发环境满足以下条件：
 
- - Java Development Kit (JDK)：您的环境必须安装 Oracle JDK 1.8。 
- - TRON 账户：您需要预先创建至少两个 TRON 网络地址，并安全地保存好地址和其对应的私钥。其中一个地址将作为初始见证节点（超级代表），另一个用于普通账户。
- - 地址创建工具：您可以使用以下任一工具来生成和管理您的 TRON 账户：
-   - [Wallet-cli](https://github.com/tronprotocol/wallet-cli)：一个官方提供的命令行钱包工具，适合在服务器环境中使用。
-   - [TronLink](https://www.tronlink.org/cn/)：一款支持TRON网络的多链钱包，提供友好的图形用户界面，方便创建和管理地址。
-   - [TronWeb](https://tronweb.network/docu/docs/intro/)：一个便于开发者与TRON网络进行交互和构建dApp的JavaScript库。
-   - [Trident](https://github.com/tronprotocol/trident)：一个轻量级的 Java SDK，旨在帮助开发者简单高效地将 TRON 区块链功能集成到 Java 应用中
+- Java Development Kit (JDK)：您的环境必须安装 Oracle JDK 1.8。 
+- TRON 账户：您需要预先创建至少两个 TRON 网络地址，并安全地保存好地址和其对应的私钥。其中一个地址将作为初始见证节点（超级代表），另一个用于普通账户。
+- 地址创建工具：您可以使用以下任一工具来生成和管理您的 TRON 账户：
+    - [Wallet-cli](https://github.com/tronprotocol/wallet-cli)：一个官方提供的命令行钱包工具，适合在服务器环境中使用。
+    - [TronLink](https://www.tronlink.org/cn/)：一款支持TRON网络的多链钱包，提供友好的图形用户界面，方便创建和管理地址。
+    - [TronWeb](https://tronweb.network/docu/docs/intro/)：一个便于开发者与TRON网络进行交互和构建dApp的JavaScript库。
+    - [Trident](https://github.com/tronprotocol/trident)：一个轻量级的 Java SDK，旨在帮助开发者简单高效地将 TRON 区块链功能集成到 Java 应用中
 
 ## 部署指南
 从操作流程上看，部署一个私有链节点与部署一个主网节点基本相同。不同点在于节点配置文件内容不同，搭建私链最主要的是要修改配置文件中的配置项，使节点间组成私链网络，可以进行网络发现，区块同步和广播交易。
