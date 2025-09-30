@@ -286,6 +286,9 @@ rpc GetAccountBalance (AccountBalanceRequest) returns (AccountBalanceResponse){}
 ```
 Nodes: FullNode 
 
+**注意**：只有在配置文件里设置了`storage.balance.history.lookup= true`的节点才支持查
+询账户历史余额。支持此接口的官方节点可在[此处](../using_javatron/backup_restore.md/#fullnode)查阅。
+
 ## fetch all balance-changing transactions in a block      
 ```
 rpc GetBlockBalanceTrace (BlockBalanceTrace.BlockIdentifier) returns (BlockBalanceTrace) {}; 

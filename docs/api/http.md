@@ -223,6 +223,8 @@ curl -X POST  http://127.0.0.1:8090/wallet/getaccountbalance -d
 }
 ```
 
+**注意**：只有在配置文件里设置了`storage.balance.history.lookup= true`的节点才支持查询账户历史余额。支持此接口的官方节点可在[此处](../using_javatron/backup_restore.md/#fullnode)查阅。
+
 #### wallet/setaccountid
 作用：为指定的TRON账户设置或更新一个自定义的**账户ID (`account_id`)**。
 ```
