@@ -2,11 +2,11 @@
 本章节介绍节点的HTTP API及其用法。
 
 !!! 注意
-    尽管 TRON 通过将 HTTP API 的 Content-Type 设置为 application/json 避免了 XSS 攻击，但仍有一些 API 没有输入验证。为了更好地保护用户数据安全，我们建议您在使用 API 的任何数据之前，先对其进行正确编码（尤其是当参数'visible'为true时）。
+    尽管 TRON 通过将 HTTP API 的 Content-Type 设置为 application/json 避免了 XSS 攻击，但仍有一些 API 没有输入验证。为了更好地保护用户数据安全，我们建议您在使用 API 的任何数据之前，先对其进行正确编码（尤其是当参数'visible'为true时）。  
     
-   以下是一种典型的 XSS 防护方法：对来自 API 的所有数据在 HTML 中进行编码。使用诸如 `encodeURIComponent()` 或 `escape()` 等方法对数据进行编码，这可以将特殊字符转换为其 HTML 实体，防止浏览器将其解释为 HTML 代码。
+    以下是一种典型的 XSS 防护方法：对来自 API 的所有数据在 HTML 中进行编码。使用诸如 `encodeURIComponent()` 或 `escape()` 等方法对数据进行编码，这可以将特殊字符转换为其 HTML 实体，防止浏览器将其解释为 HTML 代码。
     
-   请务必为来自 API 的所有数据实施 XSS 防护，以确保用户数据的安全。我们了解您可能需要有关 XSS 防护的更多信息。建议您参考以下资源：[OWASP XSS Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html)。
+    请务必为来自 API 的所有数据实施 XSS 防护，以确保用户数据的安全。我们了解您可能需要有关 XSS 防护的更多信息。建议您参考以下资源：[OWASP XSS Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html)。
 
 
 TRON 节点的 HTTP API 支持两种地址格式，开发者可以通过 `visible` 参数来统一控制请求和响应中的地址格式。
@@ -223,8 +223,6 @@ curl -X POST  http://127.0.0.1:8090/wallet/getaccountbalance -d
 }
 ```
 
-**注意**：只有在配置文件里设置了`storage.balance.history.lookup= true`的节点才支持查询账户历史余额。支持此接口的官方节点可在[此处](../using_javatron/backup_restore.md/#fullnode)查阅。
-
 #### wallet/setaccountid
 作用：为指定的TRON账户设置或更新一个自定义的**账户ID (`account_id`)**。
 ```
@@ -234,7 +232,7 @@ curl -X POST  http://127.0.0.1:8090/wallet/setaccountid -d '{
 参数：
 
 - `owner_address`：是交易对创建者的地址，默认为 HexString 格式
-- `account_id` accountid,默认为 HexString 格式
+- `account_id` accountid，默认为 HexString 格式
 - `visible` 设置地址格式，`true` 为 Base58Check，`false` 或省略则为 HexString。
 
 返回值：设置 `AccountID` 的 transaction
@@ -289,7 +287,7 @@ curl -X POST  http://127.0.0.1:8090/wallet/broadcasttransaction -d '{"signature"
 * 返回一个包含广播结果的 JSON 对象。
 * 一个成功的响应通常包含 `"result": true`，表示您连接的这个节点已成功接收您的交易并开始向全网广播。
 
-**重要提示**：`"result": true` 不代表交易已被区块链确认。它仅表示“已成功广播”。您需要通过` wallet/gettransactioninfobyid ｜wallet/gettransactionbyid ` 接口使用 `txID` 来查询交易的最终状态（是否成功上链）。
+**重要提示**：`"result": true` 不代表交易已被区块链确认。它仅表示“已成功广播”。您需要通过` wallet/gettransactioninfobyid ｜wallet/gettransactionbyid` 接口使用 `txID` 来查询交易的最终状态（是否成功上链）。
 
 #### wallet/broadcasthex
 作用：将一个已经完成签名并序列化为十六进制字符串 (Hex)的交易进行广播。

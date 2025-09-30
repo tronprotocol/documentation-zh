@@ -239,7 +239,7 @@ importWalletByKeystore successful !!
 ```
 
 #### 通过 Ledger 导入钱包 - `ImportWalletByLedger`
-> 将 Ledger 的派生账户导入到 `wallet-cli`。
+> 将 Ledger 的派生账户导入到 wallet-cli。
 
 示例：
 ```
@@ -269,7 +269,7 @@ You are now logged in, and you can perform operations using this account.
 
 #### 备份钱包（Base64）- `BackupWallet2Base64`
 > 备份您的钱包，您需要输入钱包密码并导出 base64 格式的 private key。
-> 例如：`ch1jsHTxjUHBR+BMlS7JNGd3ejC28WdFvEeo6uUHZUU=`
+> 例如：ch1jsHTxjUHBR+BMlS7JNGd3ejC28WdFvEeo6uUHZUU=
 
 #### 清除钱包 keystore - `ClearWalletKeystore`
 > 清除登录账户的钱包 keystore 文件。
@@ -297,7 +297,7 @@ ClearWalletKeystore successful !!!
 ### 链上账户
 
 #### 创建账户 - `CreateAccount`
-> 该命令可以创建一个新的非活跃地址账户，并为其燃烧 1 TRX 作为手续费。
+> 该命令可以创建一个新的非活跃地址账户，并为其燃烧 1 trx 作为手续费。
 
 示例：
 ```
@@ -826,12 +826,11 @@ wallet> getCanWithdrawUnfreezeAmount TJAVcszse667FmSNCwU2fm6DmfM5D4AyDh 16711003
 }
 ```
 <a id="transaction"></a>
-### 交易相关
+### 交易
 
 #### 签名交易
-```
+
 > SendCoin TJCnKsPa7y5okkXvQAidZBzqx3QyQ6sxMW 10000000000000000
-```
 
 以下是一个使用账户权限管理功能的交易示例。其中，签名账户的授权情况请参考 修改账户权限 部分的示例。
 
@@ -920,7 +919,7 @@ Current signWeight is:
 
 信息显示如下：
 
-```
+```json
 {
     "result":{
         "code":"PERMISSION_ERROR",
@@ -1152,7 +1151,7 @@ DeployContract [ownerAddress] contractName ABI byteCode constructor params isHex
 - `ABI` - 编译生成的 ABI 代码
 - `byteCode` - 编译生成的字节码
 - `constructor`, `params`, `isHex` - 定义字节码的格式，决定从参数解析字节码的方式
-- `fee_limit` - 交易允许消耗的最大 TRX
+- `fee_limit` - 交易允许消耗的最大TRX
 - `consume_user_resource_percent` - 用户资源消耗的百分比，范围在 [0, 100]
 - `origin_energy_limit` - 触发合约一次开发者消耗的最大 Energy 量
 - `value` - 转移到合约账户的 TRX 数量
@@ -1192,15 +1191,14 @@ DeployContract [ownerAddress] contractName ABI byteCode constructor params isHex
 ```
 TriggerContract [ownerAddress] contractAddress method args isHex fee_limit value token_value token_id
 ```
-
 - `OwnerAddress` - 发起交易的账户地址，可选，默认为登录账户的地址
 - `contractAddress` - 智能合约地址
 - `method` - 函数名称和参数，请参考示例
-- `args` - 参数值，如果要调用 `receive`，请传入 `#`
+- `args` - 参数值，如果要调用 `receive`，请传入'#'
 - `isHex` - 参数 `method` 和 `args` 的格式，是否为十六进制字符串
 - `fee_limit` - 允许消耗的最大 TRX 数量
 - `token_value` - TRX-10数量
-- `token_id` - TRC-10 ID，如果没有，请使用 `#` 代替
+- `token_id` - TRC-10 ID，如果没有，请使用'#'代替
 
 示例：
 
@@ -1234,7 +1232,6 @@ TriggerContract [ownerAddress] contractAddress method args isHex fee_limit value
 ```
 TriggerConstantContract [ownerAddress] contractAddress method args isHex fee_limit value token_value token_id
 ```
-
 - `OwnerAddress` - 发起交易的账户地址，可选，默认为登录账户的地址。
 - `contractAddress` - 智能合约地址
 - `method` - 函数名称和参数，请参考示例
@@ -1252,7 +1249,7 @@ TriggerConstantContract [ownerAddress] contractAddress method args isHex fee_lim
 
 #### 预测合约地址 - `Create2 address code salt`
 
-> 预测部署合约后生成的合约地址。其中，`address` 是执行 `create2` 指令的合约地址，`code` 是待部署合约的字节码，`salt` 是一个随机的 `salt` 值。
+>预测部署合约后生成的合约地址。其中，`address` 是执行 `create2` 指令的合约地址，`code` 是待部署合约的字节码，`salt` 是一个随机的 `salt` 值。
 
 示例：
 ```
@@ -1274,7 +1271,6 @@ EstimateEnergy owner_address(use # if you own) contract_address method args isHe
 ```
 
 #### 清除合约 ABI - `ClearContractABI [ownerAddress] contractAddress`
-
 - `OwnerAddress` - 发起交易的账户地址，可选，默认为登录账户的地址。
 - `contractAddress` - 合约地址
 
@@ -1343,35 +1339,35 @@ UpdateEnergyLimit [ownerAddress] contract_address energy_limit  # 更新参数en
 <a id="trc-10"></a>
 ### TRC-10 资产
 
-#### 如何发行 TRC-10 Token
+#### 如何发行 TRC-10 代币
 
-每个账户只能发行**一个** TRC-10 Token。
+每个账户只能发行**一个** TRC-10 代币。
 
-##### 发行 TRC-10 Token
+##### 发行 TRC-10 代币
 
 ```
 AssetIssue [OwnerAddress] AssetName AbbrName TotalSupply TrxNum AssetNum Precision StartDate EndDate Description Url FreeNetLimitPerAccount PublicFreeNetLimit FrozenAmount0 FrozenDays0 [...] FrozenAmountN FrozenDaysN
 ```
 
 - `OwnerAddress` (可选) - 发起交易的账户地址。默认为登录账户的地址。
-- `AssetName` - 发行的 TRC-10 Token名称
-- `AbbrName` - TRC-10 Token的缩写
+- `AssetName` - 发行的 TRC-10 代币名称
+- `AbbrName` - TRC-10 代币的缩写
 - `TotalSupply`
-    > `TotalSupply` = 发行者的账户余额 + 所有冻结的Token数量
+    > `TotalSupply` = 发行者的账户余额 + 所有冻结的代币数量
     > `TotalSupply`：总发行量
     > 发行者的账户余额：在发行时
-    > 所有冻结的Token数量：在资产转移和发行之前
+    > 所有冻结的代币数量：在资产转移和发行之前
 - `TrxNum`, `AssetNum`
-    > 这两个参数决定了Token发行时的兑换率。
+    > 这两个参数决定了代币发行时的兑换率。
     > 兑换率 = `TrxNum` / `AssetNum`
-    > `AssetNum`：发行的Token的单位，以基础单位计
+    > `AssetNum`：发行的代币的单位，以基础单位计
     > `TrxNum`：单位为 sun（0.000001 TRX）
 - `Precision` - 精确到小数点后几位
-- `FreeNetLimitPerAccount` - 每个账户允许使用的最大 Bandwidth 量。Token发行者可以冻结 TRX 来获取 Bandwidth（仅限于 `TransferAssetContract`）
-- `PublicFreeNetLimit` - 允许所有账户使用的最大 Bandwidth 总量。Token发行者可以冻结 TRX 来获取 Bandwidth（仅限于 `TransferAssetContract`）
-- `StartDate`, `EndDate` - Token发行的开始和结束日期。在此期间，其他用户可以参与Token发行。
+- `FreeNetLimitPerAccount` - 每个账户允许使用的最大 Bandwidth 量。代币发行者可以冻结 TRX 来获取 Bandwidth（仅限于 `TransferAssetContract`）
+- `PublicFreeNetLimit` - 允许所有账户使用的最大 Bandwidth 总量。代币发行者可以冻结 TRX 来获取 Bandwidth（仅限于 `TransferAssetContract`）
+- `StartDate`, `EndDate` - 代币发行的开始和结束日期。在此期间，其他用户可以参与代币发行。
 - `FrozenAmount0`, `FrozenDays0`
-    > Token冻结的数量和天数。
+    > 代币冻结的数量和天数。
     > `FrozenAmount0`：必须大于 0
     > `FrozenDays0`：必须在 1 到 3653 之间。
 
@@ -1412,7 +1408,7 @@ AssetIssue [OwnerAddress] AssetName AbbrName TotalSupply TrxNum AssetNum Precisi
 }
 ```
 
-##### 更新 TRC-10 Token的参数
+##### 更新 TRC-10 代币的参数
 ```
 UpdateAsset [OwnerAddress] newLimit newPublicLimit description url
 ```
@@ -1455,15 +1451,15 @@ UpdateAsset [OwnerAddress] newLimit newPublicLimit description url
 }
 ```
 
-#### 参与 TRC-10 Token发行
+#### 参与 TRC-10 代币发行
 ```
 ParticipateAssetIssue [OwnerAddress] ToAddress AssetID Amount
 ```
 
 - `OwnerAddress` (可选) - 发起交易的账户地址。默认：登录账户的地址
 - `ToAddress` - TRC-10 发行者的账户地址
-- `AssertName` - TRC-10 Token ID。示例：1000001
-- `Amount` - 转移的 TRC-10 Token数量
+- `AssertName` - TRC-10 代币 ID。示例：1000001
+- `Amount` - 转移的 TRC-10 代币数量
 
 > 参与过程必须在 TRC-10 发行期间进行，否则可能会发生错误。
 
@@ -1482,16 +1478,16 @@ assetV2
     }
 ```
 
-#### 解冻 TRC-10 Token - `unfreezeasset [OwnerAddress]`
+#### 解冻 TRC-10 代币 - `unfreezeasset [OwnerAddress]`
 
-> 用于解冻所有在冻结期后本应解冻的 TRC-10 Token。
+> 用于解冻所有在冻结期后本应解冻的 TRC-10 代币。
 
-#### TRC-10 Token转账 - `TransferAsset [OwnerAddress] ToAddress AssertID Amount`
+#### TRC-10 代币转账 - `TransferAsset [OwnerAddress] ToAddress AssertID Amount`
 
 - `OwnerAddress` (可选) - 发起交易的账户地址。默认：登录账户的地址
 - `ToAddress` - 目标账户的地址
-- `AssertName` - TRC-10 Token ID。示例：1000001
-- `Amount` - 要转移的 TRC-10 Token数量
+- `AssertName` - TRC-10 代币 ID。示例：1000001
+- `Amount` - 要转移的 TRC-10 代币数量
 
 示例：
 
@@ -1508,26 +1504,26 @@ address: TN3zfjYUmMFK3ZsHSsrdJoNRtGkQmZLBLz
     }
 ```
 
-#### 如何获取 TRC-10 Token信息
+#### 如何获取 TRC-10 代币信息
 
 `ListAssetIssue`
-> 获取所有已发布的 TRC-10 Token信息
+> 获取所有已发布的 TRC-10 代币信息
 
 `GetAssetIssueByAccount`
-> 根据发行地址获取 TRC-10 Token信息
+> 根据发行地址获取 TRC-10 代币信息
 
 `GetAssetIssueById`
-> 根据 ID 获取 TRC-10 Token信息
+> 根据 ID 获取 TRC-10 代币信息
 
 `GetAssetIssueByName`
-> 根据名称获取 TRC-10 Token信息
+> 根据名称获取 TRC-10 代币信息
 
 `GetAssetIssueListByName`
-> 根据名称获取 TRC-10 Token信息列表
+> 根据名称获取 TRC-10 代币信息列表
 
 #### 分页列出资产发行 - `ListAssetIssuePaginated address code salt`
 
-> 按分页查询所有Token列表。返回从偏移量位置成功后的Token列表。
+> 按分页查询所有代币列表。返回从偏移量位置成功后的代币列表。
 
 示例：
 
@@ -1566,7 +1562,6 @@ address: TN3zfjYUmMFK3ZsHSsrdJoNRtGkQmZLBLz
 默认情况下，如果一个 SR 获得奖励，他将获得全部奖励的20%，80%的奖励将分配给他的投票者。
 
 ##### 查看 SR 的代理比例（brokerage） - `getbrokerage OwnerAddress`
-
 - `OwnerAddress` - SR 账户的地址，是 base58check 类型的地址。
 
 ##### 查询未领取的奖励 - getreward OwnerAddress
@@ -1601,7 +1596,6 @@ address: TN3zfjYUmMFK3ZsHSsrdJoNRtGkQmZLBLz
 申请成为 SR 账户需要消耗 100_000 TRX。这部分资金将被直接销毁（burned）。
 
 ##### 创建 SR - `CreateWitness [owner_address] url`
-
 > 申请成为超级代表候选人。
 
 示例：
@@ -1610,7 +1604,6 @@ address: TN3zfjYUmMFK3ZsHSsrdJoNRtGkQmZLBLz
 ```
 
 ##### 更新 SR - `UpdateWitness`
-
 > 编辑SR官网的URL。
 
 示例：
@@ -1628,11 +1621,11 @@ address: TN3zfjYUmMFK3ZsHSsrdJoNRtGkQmZLBLz
 
 ##### 发起提案 - `createProposal [OwnerAddress] id0 value0 ... idN valueN`
 
-- `OwnerAddress` (可选) - 发起交易的账户地址。默认：登录账户的地址
+- OwnerAddress (可选) - 发起交易的账户地址。默认：登录账户的地址
 - `id0` - 参数的序列号。TRON 网络的每个参数都有一个序列号。请参考 http://tronscan.org/#/sr/committee
 - `Value0` - 修改后的值
 
-在本例中，修改第4号（修改Token发行费用）的成本为 1000 TRX，如下所示：
+在本例中，修改第4号（修改代币发行费用）的成本为 1000 TRX，如下所示：
 
 ```
 > createProposal 4 1000
@@ -1655,7 +1648,7 @@ address: TN3zfjYUmMFK3ZsHSsrdJoNRtGkQmZLBLz
 }
 ```
 
-相应的 `id` 是 1。
+相应的 id 是 1。
 
 ##### 批准/不批准提案 - `approveProposal [OwnerAddress] id is_or_not_add_approval`
 
@@ -1676,7 +1669,9 @@ address: TN3zfjYUmMFK3ZsHSsrdJoNRtGkQmZLBLz
 
 > 提案必须由发起该提案的超级节点取消。
 
-示例：`DeleteProposal 1`
+示例：
+
+> DeleteProposal 1
 
 ##### 获取提案信息
 
@@ -1693,7 +1688,7 @@ address: TN3zfjYUmMFK3ZsHSsrdJoNRtGkQmZLBLz
 <a id="defi"></a>
 ### 去中心化交易所
 
-交易对的交易和价格波动遵循 Bancor 协议。
+交易对的交易和价格波动遵循 Bancor 协议，可在 TRON 代码库的 [相关文档](https://tronprotocol.github.io/documentation-en/clients/wallet-cli-command/#dex) 中找到。
 
 #### 创建交易对
 ```
@@ -1701,9 +1696,9 @@ exchangeCreate [OwnerAddress] first_token_id first_token_balance second_token_id
 ```
 
 - `OwnerAddress` (可选) - 发起交易的账户地址。默认：登录账户的地址。
-- `First_token_id`, `first_token_balance` - 第一个Token的ID和数量
-- `second_token_id`, `second_token_balance` - 第二个Token的ID和数量
-    > ID 是已发行的 TRC-10 Token 的 ID。
+- `First_token_id`, `first_token_balance` - 第一个代币的ID和数量
+- `second_token_id`, `second_token_balance` - 第二个代币的ID和数量
+    > ID 是已发行的 TRC-10 代币的 ID。
     > 如果是 TRX，ID 为 “_”。
     > 数量必须大于 0，且小于 1,000,000,000,000,000。
 
@@ -1711,7 +1706,7 @@ exchangeCreate [OwnerAddress] first_token_id first_token_balance second_token_id
 
 ```
 exchangeCreate 1000001 10000 _ 10000
-# 创建 ID 为 1000001 和 TRX 的交易对，两者数量均为 10000。
+# 创建ID为1000001和TRX的交易对，两者数量均为10000。
 ```
 
 #### 根据 id 获取交易所信息 - `getExchange`
@@ -1727,34 +1722,32 @@ exchangeCreate 1000001 10000 _ 10000
 #### 注资 - `exchangeInject [OwnerAddress] exchange_id token_id quant`
 
 - `OwnerAddress` (可选) - 发起交易的账户地址。默认：登录账户的地址。
-- `exchange_id` - 要注资的交易对的 ID
-- `token_id`, `quant` - 注资的 Token ID 和数量（单位以基础单位计）
+- `exchange_id` - 要注资的交易对的ID
+- `token_id`, `quant` - 注资的代币ID和数量（单位以基础单位计）
 
-> 进行注资时，根据其数量（quant），交易对中每个 Token 的一部分将从账户中提取，并注入到交易对中。根据交易余额的差异，同一Token的相同数量的资金也会有所不同。
+> 进行注资时，根据其数量（quant），交易对中每个代币的一部分将从账户中提取，并注入到交易对中。根据交易余额的差异，同一代币的相同数量的资金也会有所不同。
 
 #### 交易 - `exchangeTransaction [OwnerAddress] exchange_id token_id quant expected`
 
 - `OwnerAddress` (可选) - 发起交易的账户地址。默认：登录账户的地址。
 - `exchange_id` - 交易对的ID
-- `token_id`, `quant` - 要交易的 Token ID 和数量，相当于卖出
-- `expected` - 另一个 Token 的预期数量。
-    > `expected` 必须小于 `quant`，否则将报错。
+- `token_id`, `quant` - 要交易的代币ID和数量，相当于卖出
+- `expected` - 另一个代币的预期数量。
+    > expected 必须小于 quant，否则将报错。
 
 示例：
 
-```
-ExchangeTransaction 1 1000001 100 80
-```
+> ExchangeTransaction 1 1000001 100 80
 
-预期通过将交易对 ID 为 1 的 1000001 Token 中的 100 个，以 80 TRX 的价格换取 80 TRX。（相当于在 ID 为 1 的交易对中，以 80 TRX 的价格卖出 100 个 ID 为 1000001 的 Token）。
+预期通过将交易对 ID 为 1 的 1000001 代币中的 100 个，以 80 TRX 的价格换取 80 TRX。（相当于在 ID 为 1 的交易对中，以 80 TRX 的价格卖出 100 个 ID 为 1000001 的代币）。
 
 #### 撤资 - `exchangeWithdraw [OwnerAddress] exchange_id token_id quant`
 
 - `OwnerAddress` (可选) - 发起交易的账户地址。默认：登录账户的地址。
 - `exchange_id` - 要撤资的交易对的 ID
-- `token_id`, `quant` - 撤资的 Token ID 和数量（单位以基础单位计）
+- `token_id`, `quant` - 撤资的代币 ID 和数量（单位以基础单位计）
 
-> 进行撤资时，根据其数量（`quant`），交易对中每个 Token 的一部分将从交易对中提取，并注入到账户中。根据交易余额的差异，同一 Token 的相同数量的资金也会有所不同。
+> 进行撤资时，根据其数量（quant），交易对中每个代币的一部分将从交易对中提取，并注入到账户中。根据交易余额的差异，同一代币的相同数量的资金也会有所不同。
 
 #### 获取交易对信息
 
@@ -1770,7 +1763,6 @@ ExchangeTransaction 1 1000001 100 80
 ```
 MarketSellAsset owner_address sell_token_id sell_token_quantity buy_token_id buy_token_quantity
 ```
-
 - `ownerAddress` - 发起交易的账户地址。
 - `sell_token_id`, `sell_token_quantity` - 想要卖出的 token ID 和数量。
 - `buy_token_id`, `buy_token_quantity` - 想要买入的 token ID 和数量。
@@ -1797,7 +1789,6 @@ getTransactionInfoById 10040f993cd9452b25bf367f38edadf11176355802baf61f3c49b96b4
 ```
 
 ##### 获取账户创建的订单（仅包含 active 状态）- `GetMarketOrderByAccount ownerAddress`
-
 - `ownerAddress` - 创建市场订单的账户地址。
 
 示例：
@@ -1879,7 +1870,6 @@ GetMarketOrderListByPair _ 1000001
 ```
 
 ##### 根据交易对获取市场价格 - `GetMarketPriceByPair sell_token_id buy_token_id`
-
 - `sell_token_id` - 想要卖出的 token ID。
 - `buy_token_id` - 想要买入的 token ID。
 
@@ -1900,7 +1890,6 @@ GetMarketPriceByPair _ 1000001
 ```
 
 ##### 取消订单 - `MarketCancelOrder owner_address order_id`
-
 - `owner_address` - 创建订单的账户地址。
 - `order_id`- 想要取消的 order ID。
 
@@ -1930,12 +1919,13 @@ getTransactionInfoById b375787a098498623403c755b1399e82910385251b643811936d914c9
 <a id="gasfree"></a>
 ### GasFree 支持
 
-Wallet-cli 现在支持 **GasFree** 集成。本指南解释了新的命令并提供了如何使用它们的说明。
+`wallet-cli` 现在支持 **GasFree** 集成。本指南解释了新的命令并提供了如何使用它们的说明。
 
 有关更多详细信息，请参阅 [GasFree Documentation](https://gasfree.io/specification) 和 [TronLink User Guide For GasFree](https://support.tronlink.org/hc/en-us/articles/38903684778393-GasFree-User-Guide)。
 
 前提条件
 API Credentials: 用户必须从 **GasFree** 获取 API Key 和 API Secret 以进行身份验证。请参阅官方 [application form](https://docs.google.com/forms/d/e/1FAIpQLSc5EB1X8JN7LA4SAVAG99VziXEY6Kv6JxmlBry9rUBlwI-GaQ/viewform) 以获取设置 API 身份验证的说明。
+
 
 #### 查询 GasFree 信息 - `GasFreeInfo`
 > 查询 GasFree 信息。
@@ -1971,7 +1961,7 @@ gasFreeInfo: successful !!
 ```
 
 #### 提交 **GasFree** 转账 - `GasFreeTransfer`
-> 功能：提交一笔 GasFree Token 转账请求。
+> 功能：提交一笔 gasfree 代币转账请求。
 
 示例：
 ```
@@ -2046,9 +2036,8 @@ GasFreeTrace: successful!!
 ### 其他实用命令
 
 #### 切换网络 - `SwitchNetwork`
-
 > 此命令允许随时灵活切换网络。
-> `switchnetwork local` 将切换到在本地 `config.conf` 中配置的网络。
+> `switchnetwork local` 将切换到在本地 config.conf 中配置的网络。
 
 示例：
 
@@ -2076,7 +2065,6 @@ SwitchNetwork successful !!!
 ```
 
 #### 切换钱包 - `SwitchWallet`
-
 > 在使用 **LoginAll** 命令登录后，可以切换钱包。
 
 示例：
@@ -2094,7 +2082,7 @@ SwitchWallet successful !!!
 
 #### 查看备份记录 - `ViewBackupRecords`
 
-> 查看备份记录。您可以配置 `config.conf` 中的 `maxRecords` 来保留的最大记录数，不包括缓冲区记录。
+>查看备份记录。您可以配置 `config.conf` 中的 `maxRecords` 来保留的最大记录数，不包括缓冲区记录。
 
 示例：
 ```

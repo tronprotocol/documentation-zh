@@ -409,9 +409,9 @@ wallet>
 
 现在，让我们以 TRX 转账为例说明如何向 java-tron 发送交易，完整地演示“创建-签名-广播”这三个步骤。
 
-1. 创建一笔交易
+**第一步 - 创建一笔交易**
 
-  通过 Fullnode HTTP 的 `wallet/createtransaction` 接口，创建一笔未签名的 TRX 转账交易。在请求体中，指明发送方 (`owner_address`)、接收方 (`to_address`) 和金额 (`amount`)。
+  通过 FullNode HTTP 的 `wallet/createtransaction` 接口，创建一笔未签名的 TRX 转账交易。在请求体中，指明发送方 (`owner_address`)、接收方 (`to_address`) 和金额 (`amount`)。
   
   ```
   curl -X POST  http://127.0.0.1:8090/wallet/createtransaction -d 
@@ -450,7 +450,7 @@ wallet>
   }
   ```
 
-2. 对交易进行签名
+**第二步 - 对交易进行签名**
 
   使用发送方账户的私钥，对上一步生成的交易数据 (`raw_data_hex` 或 `txid`) 进行签名，以证明您对该账户的所有权。
   
@@ -461,7 +461,7 @@ wallet>
   
   签名后，您会得到一个长字符串，即交易的签名哈希 (Signature Hash)。
 
-3. 广播交易
+**第三步 - 广播交易**
 
   最后一步，我们将已签名的交易广播出去。调用  [`wallet/broadcasttransaction`](../api/http.md/#walletbroadcasttransaction) 接口，并在其请求体中填入第一步获取的交易对象和第二步生成的签名哈希。提交后，节点会验证签名，然后将交易广播至整个 TRON 网络等待打包确认，至此便完成了整个转账流程。
   
@@ -508,7 +508,9 @@ wallet>
 
 通过 HTTP API 查询已广播的交易，原理与 `wallet-cli` 相同。
 
-1. 通过 HTTP 接口 `wallet/gettransactionbyid` 获取已广播交易的完整数据。在请求体中，通过 `value` 字段传入您要查询的 `txid`：
+**`wallet/gettransactionbyid`**
+
+通过 HTTP 接口 `wallet/gettransactionbyid` 获取已广播交易的完整数据。在请求体中，通过 `value` 字段传入您要查询的 `txid`：
 
   ```
   curl --location --request POST 'http://127.0.0.1:8090/wallet/gettransactionbyid' \
@@ -552,7 +554,9 @@ wallet>
   }
   ```
 
-2. 通过 HTTP 接口 `wallet/gettransactioninfobyid` 查看交易的处理结果和回执信息（即交易是否已经被打包进区块，执行的结果和资源消耗情况）。
+**`wallet/gettransactioninfobyid`**
+
+通过 HTTP 接口 `wallet/gettransactioninfobyid` 查看交易的处理结果和回执信息（即交易是否已经被打包进区块，执行的结果和资源消耗情况）。
 
   在请求体中传入目标 `txid`：
   

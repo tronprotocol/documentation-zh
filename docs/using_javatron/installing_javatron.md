@@ -1,12 +1,12 @@
-# 部署 `java-tron` 节点
+# 部署 java-tron 节点
 
-本文档将指导开发者如何在 `Linux` 或 `macOS` 操作系统上部署 TRON `java-tron` 节点。
+本文档将指导开发者如何在 `Linux` 或 `macOS` 操作系统上部署 TRON java-tron 节点。
 
-**重要提示：**`java-tron` 节点目前仅支持 `Oracle JDK 1.8`，不支持其他版本的 JDK。
+**重要提示：**java-tron 节点目前仅支持 `Oracle JDK 1.8`，不支持其他版本的 JDK。
 
 ## 硬件配置要求
 
-运行 `java-tron` 节点所需的最小硬件配置如下：
+运行 java-tron 节点所需的最小硬件配置如下：
 
 * **CPU**: 8 核
 * **内存**: 16 GB
@@ -28,22 +28,22 @@
 * **网络带宽**：100 Mbps
 
 
-## 获取 `java-tron` 客户端
+## 获取 java-tron 客户端
 
 您可以在 [这里](https://github.com/tronprotocol/java-tron/releases) 直接下载官方提供的客户端，也可以自行通过编译源码来打包客户端。
 
-### 编译 `java-tron` 源码
+### 编译 java-tron 源码
 
 在开始编译之前，请确保您的系统已安装 `git` 工具。
 
-1. 首先，通过 `git` 命令将 `java-tron` 源代码克隆到本地，并切换到 `master` 分支：
+1. 首先，通过 `git` 命令将 java-tron 源代码克隆到本地，并切换到 `master` 分支：
 
 ```shell
 git clone https://github.com/tronprotocol/java-tron.git
 git checkout -t origin/master
 ```
 
-2. 然后，执行以下命令编译 `java-tron` 源代码：
+2. 然后，执行以下命令编译 java-tron 源代码：
 
 ```shell
 cd java-tron
@@ -53,9 +53,9 @@ cd java-tron
 * 参数 `-x test` 表示跳过执行测试用例。您也可以去除此参数以在编译过程中执行测试代码，但这会延长编译时间。
 * 编译完成后，`FullNode.jar` 文件将生成在 `java-tron/build/libs/` 目录下。
 
-## 启动 `java-tron` 节点
+## 启动 java-tron 节点
 
-您可以选择不同的配置文件将 `java-tron` 节点连接到不同的 TRON 网络:
+您可以选择不同的配置文件将 java-tron 节点连接到不同的 TRON 网络:
 
 * 主网全节点配置文件：[config.conf](https://github.com/tronprotocol/java-tron/blob/master/framework/src/main/resources/config.conf)
 * 其他网络节点配置文件：

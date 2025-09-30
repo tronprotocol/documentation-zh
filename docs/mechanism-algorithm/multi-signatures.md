@@ -84,6 +84,7 @@ message Key {
   int64 weight = 2;
 }
 ```
+
 - `address`：具备权限的地址；
 - `weight`：该地址在该权限下的权重。
 
@@ -96,6 +97,7 @@ message AccountPermissionUpdateContract {
   repeated Permission actives = 4;
 }
 ```
+
 - 此合约用于 **一次性更新账户的所有权限结构**；
 - 即便只修改其中一种权限，也需完整设置其余字段。
 
@@ -107,7 +109,7 @@ enum ContractType {
   AccountPermissionUpdateContract = 46;
 }
 ```
-`active` 权限通过 `operations` 字段配置可执行哪些 `ContractType`，详见下方计算方法。
+`active` 权限通过 `operations` 字段配置可执行哪些 `ContractType`。 `operations` 字段值的计算请参考[operations 值计算示例](#2-operations)。
 
 ## 各权限类型说明
 ### `owner` 权限（账户主控）
