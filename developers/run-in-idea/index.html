@@ -74,7 +74,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#intelij-ide" class="md-skip">
+        <a href="#intellij-idea-java-tron" class="md-skip">
           Skip to content
         </a>
       
@@ -450,9 +450,21 @@
   
   
   
-    <li class="md-nav__item">
-      <a href="../../architecture/event/" class="md-nav__link">
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
         
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
+            
   
   <span class="md-ellipsis">
     事件订阅
@@ -460,7 +472,107 @@
   </span>
   
 
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            事件订阅
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/event/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    概览
+    
+  </span>
+  
+
       </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/use-native-queue/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    内置消息队列订阅
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/use-mongodb/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Mongodb 事件订阅插件
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/use-kafka/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Kafka 事件订阅插件
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -1085,38 +1197,161 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item ">
-  <a href="#intelij-idea" class="md-nav__link" >
-    <span class="md-ellipsis">
-      配置InteliJ IDEA
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item ">
   <a href="#_1" class="md-nav__link" >
     <span class="md-ellipsis">
-      配置代码风格检查插件
+      前置条件
     </span>
   </a>
   
 </li>
       
-        <li class="md-nav__item ">
-  <a href="#java-tron" class="md-nav__link" >
+        <li class="md-nav__item has-children">
+  <a href="#intellij-idea" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
     <span class="md-ellipsis">
-      编译java-tron
+      配置 IntelliJ IDEA 环境
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="配置 IntelliJ IDEA 环境" hidden>
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item ">
+  <a href="#1-lombok" class="md-nav__link" >
+    <span class="md-ellipsis">
+      步骤 1：安装 Lombok 插件
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item ">
-  <a href="#_2" class="md-nav__link" >
+        
+          <li class="md-nav__item ">
+  <a href="#2" class="md-nav__link" >
     <span class="md-ellipsis">
-      运行和调试
+      步骤 2：启用注解处理
     </span>
   </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#3-jdk" class="md-nav__link" >
+    <span class="md-ellipsis">
+      步骤 3：验证并统一 JDK 版本
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item has-children">
+  <a href="#_2" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
+    <span class="md-ellipsis">
+      获取并编译项目源码
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="获取并编译项目源码" hidden>
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item ">
+  <a href="#1" class="md-nav__link" >
+    <span class="md-ellipsis">
+      步骤 1：克隆源码
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#2-java-tron" class="md-nav__link" >
+    <span class="md-ellipsis">
+      步骤 2：编译 java-tron
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item has-children">
+  <a href="#_3" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
+    <span class="md-ellipsis">
+      配置代码风格检查
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="配置代码风格检查" hidden>
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item ">
+  <a href="#1-checkstyle" class="md-nav__link" >
+    <span class="md-ellipsis">
+      步骤 1：安装 Checkstyle 插件
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#2-checkstyle" class="md-nav__link" >
+    <span class="md-ellipsis">
+      步骤 2：配置 Checkstyle 规则
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item has-children">
+  <a href="#_4" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
+    <span class="md-ellipsis">
+      运行与调试
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="运行与调试" hidden>
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item ">
+  <a href="#1_1" class="md-nav__link" >
+    <span class="md-ellipsis">
+      步骤 1：创建工作目录
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#2_1" class="md-nav__link" >
+    <span class="md-ellipsis">
+      步骤 2：配置运行/调试选项
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#3" class="md-nav__link" >
+    <span class="md-ellipsis">
+      步骤 3: 启动节点
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1523,70 +1758,139 @@
   
 
 
-<h1 id="intelij-ide">配置InteliJ IDE开发环境<a class="headerlink" href="#intelij-ide" title="Permanent link">&para;</a></h1>
-<p>对于Java开发，为了降低开发难度，提高开发效率，开发者应首先选择并配置一款Java集成开发环境，如IntelliJ IDEA、NetBeans或者Eclipse等，本文将以InteliJ IDEA举例来介绍如何配置java-tron集成开发环境。</p>
-<p>本文介绍在InteliJ IDEA中配置java-tron集成开发环境。java-tron节点支持部署在 <code>Linux</code> 或 <code>MacOS</code> 操作系统上，并且依赖<code>Oracle JDK 1.8</code> ，不支持其它版本的JDK。在配置InteliJ IDE开发环境前，请确保如下前置条件：</p>
+<h1 id="intellij-idea-java-tron">在 IntelliJ IDEA 中配置 java-tron 开发环境<a class="headerlink" href="#intellij-idea-java-tron" title="Permanent link">&para;</a></h1>
+<p>为简化 Java 开发流程并提升效率，选择并配置一款集成开发环境（IDE）是至关重要的第一步。本指南将以 IntelliJ IDEA 为例，详细阐述如何搭建和配置 java-tron 的集成开发环境。</p>
+<p>java-tron 节点支持部署在 <code>Linux</code> 或 <code>MacOS</code> 操作系统上。其依赖的 JDK 版本要求如下：</p>
 <ul>
-<li>在<code>Linux</code> 或 <code>MacOS</code> 操作系统上配置开发环境</li>
-<li>系统安装了<code>Oracle JDK 1.8</code>、<code>git</code>、<a href="https://www.jetbrains.com/idea/download/#section=mac">InteliJ IDEA</a></li>
+<li><strong>通用要求</strong>：依赖 Oracle JDK 1.8 版本</li>
+<li><strong><code>v4.8.1</code> 及以上版本</strong>：新增支持 ARM 架构下的 JDK 17</li>
 </ul>
-<h2 id="intelij-idea">配置InteliJ IDEA<a class="headerlink" href="#intelij-idea" title="Permanent link">&para;</a></h2>
-<p>InteliJ IDEA 配置步骤如下：</p>
+<h2 id="_1">前置条件<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>在开始配置之前，请确保您的开发环境满足以下条件：</p>
 <ul>
-<li>
-<p>安装Lombok插件</p>
-<p>在[IDEA]-&gt;[Preferences]-&gt;[Plugins] 中搜索<code>lombok</code> 安装插件，<code>Lombok</code>通过加注解的方式让java-tron代码更加简洁。</p>
-</li>
-<li>
-<p>打开<code>Enable annotation processing</code>配置项
-      <img alt="image" src="https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/IDE_annotation.png" /></p>
-</li>
-<li>
-<p>检查JDK版本，确保InteliJ IDEA中使用的是<code>Oracle JDK 1.8</code>
-      <img alt="image" src="https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/IDE_JDK.png" /></p>
-</li>
-<li>
-<p>下载java-tron源码</p>
-<p>将java-tron源代码克隆到本地，并且切换到<code>develop</code>分支。
-<div class="highlight"><pre><span></span><code>$ git clone https://github.com/tronprotocol/java-tron.git
-$ git checkout -t origin/develop
-</code></pre></div></p>
-</li>
+<li>操作系统为 <code>Linux</code> 或 <code>MacOS</code></li>
+<li>已安装 Oracle JDK 1.8</li>
+<li>已安装 <code>git</code></li>
+<li>已安装 <a href="https://www.jetbrains.com/idea/download/">IntelliJ IDEA</a></li>
 </ul>
-<h2 id="_1">配置代码风格检查插件<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<p>java-tron代码风格需要符合<code>Google check style</code> 规范。在IDEA中，可以使用<code>Checkstyle</code> 插件检查代码是否符合<code>Google check style</code>规范。插件的安装及配置流程如下：</p>
-<ul>
-<li>
-<p>在[IDEA]-&gt;[Preferences]-&gt;[Plugins] 中搜索<code>checkstyle</code>安装插件
-    <img alt="image" src="https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/IDE_checkstyle.png" /></p>
-</li>
-<li>
-<p>代码风格配置</p>
-<p>首先下载<a href="https://github.com/tronprotocol/java-tron/blob/develop/config/checkstyle/checkStyleAll.xml">java-tron代码风格检查配置文件</a>，然后在Checkstyle配置页面中，点击"+“，选择使用刚刚下载的"checkStyleAll.xml”，添加完成后，可以在"Configuration Files"列表中看到此文件，最后点击"Apply"完成配置。
-<img alt="image" src="https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/IDE_checkStyleAll.png" /></p>
-<p>配置完成<code>Checkstyle</code>插件后，就可以使用<code>Checkstyle</code>检查代码了。<code>Checkstyle</code>可以对某个模块或者整个工程做检查，也可以对单个文件做检查，在文件编辑器的右键菜单中选择"Check Current File"，checkstyle就会对该文件进行检查了。如果检测出代码问题，则需根据提示依次修改。当没有代码问题时，才可以提交代码。</p>
-<p><img alt="image" src="https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/IDE_stylecheck.png" /></p>
-</li>
-</ul>
-<h2 id="java-tron">编译java-tron<a class="headerlink" href="#java-tron" title="Permanent link">&para;</a></h2>
-<p>您可以使用终端，在java-tron工程目录下，通过如下命令编译java-tron：</p>
-<p><div class="highlight"><pre><span></span><code>$ ./gradlew clean build
+<h2 id="intellij-idea">配置 IntelliJ IDEA 环境<a class="headerlink" href="#intellij-idea" title="Permanent link">&para;</a></h2>
+<h3 id="1-lombok">步骤 1：安装 Lombok 插件<a class="headerlink" href="#1-lombok" title="Permanent link">&para;</a></h3>
+<p>Lombok 通过注解的方式简化 Java 代码，是 java-tron 开发的必备插件。</p>
+<ol>
+<li>打开 IntelliJ IDEA，导航至 <code>Preferences</code> -&gt; <code>Plugins</code>。</li>
+<li>在市场（Marketplace）中搜索 <code>Lombok</code>。</li>
+<li>点击 “Install” 进行安装，并根据提示重启 IDE。</li>
+</ol>
+<h3 id="2">步骤 2：启用注解处理<a class="headerlink" href="#2" title="Permanent link">&para;</a></h3>
+<p>为了让 Lombok 的注解生效，必须启用注解处理器。</p>
+<ol>
+<li>导航至 <code>Preferences</code> -&gt; <code>Build, Execution, Deployment</code> -&gt; <code>Compiler</code> -&gt; <code>Annotation Processors</code>。</li>
+<li>勾选 <code>Enable annotation processing</code> 复选框。</li>
+<li>点击 “Apply” 保存设置。</li>
+</ol>
+<p><img alt="image" src="https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/IDE_annotation.png" /></p>
+<h3 id="3-jdk">步骤 3：验证并统一 JDK 版本<a class="headerlink" href="#3-jdk" title="Permanent link">&para;</a></h3>
+<p>为确保项目能够正确编译和运行，必须在 IntelliJ IDEA 的两个关键位置都将 JDK 版本设置为 Oracle JDK 1.8。</p>
+<h4 id="1-sdk-project-sdk">1. 配置项目 SDK (Project SDK)<a class="headerlink" href="#1-sdk-project-sdk" title="Permanent link">&para;</a></h4>
+<p>这是用于编译项目源代码和进行语法分析的核心 JDK。</p>
+<ol>
+<li>导航至 <code>File</code> -&gt; <code>Project Structure</code> -&gt;，在左侧面板中选择 Project。</li>
+<li>在 <code>Project SDK</code> 下拉菜单中，确认已选择 <code>1.8</code> 版本。</li>
+</ol>
+<h4 id="2-gradle-jvm">2. 配置 Gradle JVM<a class="headerlink" href="#2-gradle-jvm" title="Permanent link">&para;</a></h4>
+<p>这是用于执行 Gradle 构建任务（如 build, clean）的 JDK。</p>
+<ol>
+<li>导航至 <code>Preferences</code> -&gt; <code>Build, Execution, Deployment</code> -&gt; <code>Build Tools</code> -&gt; <code>Gradle</code>。</li>
+<li>在右侧的 Gradle JVM 下拉菜单中，确保选择的也是与 Project SDK 一致的 <code>1.8</code> 版本。</li>
+</ol>
+<p><img alt="image" src="https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/IDE_JDK.png" /></p>
+<blockquote>
+<p><strong>重要提示</strong>: <strong>Project SDK</strong> 和 <strong>Gradle JVM</strong> 这两个设置必须完全一致，且都指向 Oracle JDK 1.8，否则可能会在构建过程中遇到意外错误。</p>
+</blockquote>
+<h2 id="_2">获取并编译项目源码<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h3 id="1">步骤 1：克隆源码<a class="headerlink" href="#1" title="Permanent link">&para;</a></h3>
+<p>将 <code>java-tron</code> 的源代码克隆到本地，并切换到 <code>develop</code> 分支。</p>
+<div class="highlight"><pre><span></span><code>git clone https://github.com/tronprotocol/java-tron.git
+cd java-tron
+git checkout -t origin/develop
 </code></pre></div>
-上面的编译命令会执行所有测试用例，可以使用<code>-x test</code>跳过测试用例的执行过程：
-<div class="highlight"><pre><span></span><code>$ ./gradlew clean build -x test
-</code></pre></div></p>
-<p>您也可以在IDEA中使用图形化方式编译java-tron：在IDEA中打开java-tron工程，点击"Build" -&gt; "Build Project" 编译工程。</p>
-<h2 id="_2">运行和调试<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
-<p>在运行java-tron之前，需要创建一个工作目录，用于存放节点运行时产生的数据库文件及日志文件。
-<div class="highlight"><pre><span></span><code>$ mkdir /Users/javatrondeploy
-</code></pre></div></p>
-<p>在"Run/Debug Configurations"配置面板中，指定运行java-tron的JDK版本为<code>java 8</code>，然后再配置运行java-tron的命令行参数，比如通过<code>-c</code>参数指定节点配置文件为<code>config.conf</code>。</p>
-<p>"Working directory"配置成之前创建的java-tron的工作目录，java-tron启动时会在该目录下寻找<code>config.conf</code>配置文件，请确保<code>config.conf</code>已经放到该目录下。
-<img alt="image" src="https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/IDE_RunDebug.png" /></p>
-<p>设置完成后，点击"Apply"按钮完成配置。然后您就可以在IDEA中点击"Run"-&gt;"Run FullNode" 启动java-tron节点，或者点击"Run"-&gt;"Debug FullNode"以debug模式启动节点。节点启动后，java-tron日志存储在Working Directory配置的工作目录下。
-<img alt="image" src="https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/IDE_runjavatron.png" /></p>
-<p>如果想要调试java-tron代码，可以在java-tron代码中打断点，然后以debug模式启动，这样就可以逐行跟踪调试代码了。
-<img alt="image" src="https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/IDE_debug.png" /></p>
+<h3 id="2-java-tron">步骤 2：编译 <code>java-tron</code><a class="headerlink" href="#2-java-tron" title="Permanent link">&para;</a></h3>
+<p>您可以通过两种方式编译项目：</p>
+<ul>
+<li>
+<p><strong>使用终端编译:</strong></p>
+<p>在 <code>java-tron</code> 项目根目录下，执行以下 Gradle 命令:</p>
+<div class="highlight"><pre><span></span><code># 执行完整编译，包含所有测试用例
+./gradlew clean build
+</code></pre></div>
+<p>若要跳过单元测试，以加快编译速度，可使用 <code>-x test</code> 参数：</p>
+<div class="highlight"><pre><span></span><code># 跳过测试进行编译
+./gradlew clean build -x test
+</code></pre></div>
+</li>
+<li>
+<p><strong>使用 IntelliJ IDEA 界面编译:</strong></p>
+<p>在 IntelliJ IDEA 中打开 <code>java-tron</code> 项目，点击顶部菜单栏的 <code>Build</code> -&gt; <code>Build Project</code> 来编译整个项目。</p>
+</li>
+</ul>
+<h2 id="_3">配置代码风格检查<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p>java-tron 遵循 <code>Google checkstyle</code> 代码规范。在 IDEA 中，通过配置 <code>Checkstyle</code> 插件，可以实时检查代码风格，确保代码提交质量。</p>
+<h3 id="1-checkstyle">步骤 1：安装 Checkstyle 插件<a class="headerlink" href="#1-checkstyle" title="Permanent link">&para;</a></h3>
+<ol>
+<li>在 IDEA 中，导航至 <code>Preferences</code> -&gt; <code>Plugins</code>。</li>
+<li>在市场（Marketplace）中搜索 <code>Checkstyle</code> 插件并安装。</li>
+</ol>
+<p><img alt="image" src="https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/IDE_checkstyle.png" /></p>
+<h3 id="2-checkstyle">步骤 2：配置 Checkstyle 规则<a class="headerlink" href="#2-checkstyle" title="Permanent link">&para;</a></h3>
+<ol>
+<li>首先，获取代码风格配置文件。您可以直接使用项目本地的 <code>config/checkstyle/checkStyleAll.xml</code> 文件，或者从 <a href="https://github.com/tronprotocol/java-tron/blob/develop/config/checkstyle/checkStyleAll.xml">官方 GitHub 代码库</a> 下载。</li>
+<li>在 IDEA 中，导航至 <code>Preferences</code> -&gt; <code>Tools</code> -&gt; <code>Checkstyle</code>，进入配置面板。</li>
+<li>在 <code>Configuration File</code> 面板中，点击 <code>+</code> 号添加一个新的配置。
+<img alt="image" src="https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/IDE_checkStyleAll.png" /></li>
+<li>在弹出的窗口中，设置 <code>Description</code> 为 <code>tron-checkstyle</code>，并选择刚刚下载的 <code>checkStyleAll.xml</code> 文件。</li>
+<li>勾选新添加的 <code>tron-checkstyle</code> 规则，并点击 “Apply” 和 “OK”。</li>
+</ol>
+<p>配置完成后，您即可使用 <code>Checkstyle</code> 插件对代码进行风格检查。它支持多种检查范围，可以对整个项目、单个模块，或是当前正在编辑的文件进行分析。最常用的操作是检查当前文件：</p>
+<ol>
+<li>在代码编辑器中右键单击。</li>
+<li>选择 “Check Current File”。</li>
+</ol>
+<p>如果检测出代码风格问题，<code>Checkstyle</code> 会在下方窗口列出提示。请根据这些提示逐一修改，确保在提交代码前修复所有问题，以维护代码库的统一规范。</p>
+<p><img alt="image" src="https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/IDE_stylecheck.png" /></p>
+<h2 id="_4">运行与调试<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<p><a id="rndstep1"></a></p>
+<h3 id="1_1">步骤 1：创建工作目录<a class="headerlink" href="#1_1" title="Permanent link">&para;</a></h3>
+<p>在运行 java-tron 之前，您需要创建一个工作目录，用于存放节点运行时产生的数据库文件及日志文件。</p>
+<div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>/Users/javatrondeploy
+</code></pre></div>
+<blockquote>
+<p><strong>重要提示</strong>：java-tron 会在此目录下寻找 <code>config.conf</code> 配置文件。在启动节点前，请确保您已经将正确的配置文件放置在该目录中。</p>
+</blockquote>
+<h3 id="2_1">步骤 2：配置运行/调试选项<a class="headerlink" href="#2_1" title="Permanent link">&para;</a></h3>
+<p>接下来，在 IntelliJ IDEA 中创建一个运行配置，用于指定 java-tron 应用程序的启动方式。</p>
+<ol>
+<li>在 IDEA 右上角，点击 <code>Add Configuration...</code>。</li>
+<li>点击 <code>+</code> -&gt; <code>Application</code>，创建一个新的运行配置。</li>
+<li>请从上到下依次找到并设置以下选项：<ul>
+<li><strong>Name:</strong> 为配置命名，例如 <code>Fullnode</code>。</li>
+<li><strong>JDK</strong>：确保选择 <code>java 8 1.8</code>。</li>
+<li><strong>Main Class:</strong> 设置为 <code>org.tron.program.FullNode</code>。</li>
+<li><strong>Program Arguments:</strong> 传入节点启动参数。例如，使用 <code>-c config.conf</code> 来指定配置文件。</li>
+<li><strong>Working Directory:</strong> 设置为您在 <a href="#rndstep1">步骤 1</a> 中创建的目录，例如 <code>/Users/javatrondeploy</code>。
+<img alt="image" src="https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/IDE_RunDebug.png" /></li>
+</ul>
+</li>
+<li>点击 “Apply” 保存配置。</li>
+</ol>
+<h3 id="3">步骤 3: 启动节点<a class="headerlink" href="#3" title="Permanent link">&para;</a></h3>
+<p>现在，您可以通过 IDEA 启动 java-tron 节点：</p>
+<ul>
+<li><strong>运行节点:</strong> 点击顶部菜单栏的 <code>Run</code> -&gt; <code>Run 'FullNode'</code>。
+<img alt="image" src="https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/IDE_runjavatron.png" /></li>
+<li><strong>调试节点:</strong> 在代码中设置断点，然后点击 <code>Run</code> -&gt; <code>Debug 'FullNode'</code>。程序将在断点处暂停，方便您进行逐行跟踪调试。
+<img alt="image" src="https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/IDE_debug.png" /></li>
+</ul>
+<p>节点启动后，相关日志文件将输出到您配置的 <code>Working directory</code> 中。</p>
 
 
 

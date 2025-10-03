@@ -452,9 +452,21 @@
   
   
   
-    <li class="md-nav__item">
-      <a href="../../architecture/event/" class="md-nav__link">
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
         
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
+            
   
   <span class="md-ellipsis">
     事件订阅
@@ -462,7 +474,107 @@
   </span>
   
 
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            事件订阅
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/event/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    概览
+    
+  </span>
+  
+
       </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/use-native-queue/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    内置消息队列订阅
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/use-mongodb/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Mongodb 事件订阅插件
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/use-kafka/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Kafka 事件订阅插件
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -547,26 +659,26 @@
         <li class="md-nav__item has-children">
   <a href="#_1" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
     <span class="md-ellipsis">
-      节点发现
+      基础配置网络
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="节点发现" hidden>
+    <nav class="md-nav" aria-label="基础配置网络" hidden>
       <ul class="md-nav__list">
         
           <li class="md-nav__item ">
-  <a href="#_2" class="md-nav__link" >
+  <a href="#p2p-id" class="md-nav__link" >
     <span class="md-ellipsis">
-      开启与关闭
+      网络标识（P2P 网络 ID）
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item ">
-  <a href="#_3" class="md-nav__link" >
+  <a href="#genesis-block" class="md-nav__link" >
     <span class="md-ellipsis">
-      引导节点
+      创世块（Genesis Block）
     </span>
   </a>
   
@@ -578,7 +690,49 @@
 </li>
       
         <li class="md-nav__item has-children">
-  <a href="#_4" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
+  <a href="#_2" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
+    <span class="md-ellipsis">
+      节点发现
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="节点发现" hidden>
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item ">
+  <a href="#_3" class="md-nav__link" >
+    <span class="md-ellipsis">
+      启用节点发现
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#_4" class="md-nav__link" >
+    <span class="md-ellipsis">
+      引导节点
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#_6" class="md-nav__link" >
+    <span class="md-ellipsis">
+      关闭节点发现
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item has-children">
+  <a href="#_7" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
     <span class="md-ellipsis">
       节点连接
     </span>
@@ -588,7 +742,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item ">
-  <a href="#_5" class="md-nav__link" >
+  <a href="#_8" class="md-nav__link" >
     <span class="md-ellipsis">
       节点连接数量
     </span>
@@ -597,16 +751,16 @@
 </li>
         
           <li class="md-nav__item ">
-  <a href="#_6" class="md-nav__link" >
+  <a href="#active-peers" class="md-nav__link" >
     <span class="md-ellipsis">
-      主动连接
+      主动连接（Active Peers）
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item ">
-  <a href="#_7" class="md-nav__link" >
+  <a href="#_9" class="md-nav__link" >
     <span class="md-ellipsis">
       被动连接
     </span>
@@ -619,30 +773,105 @@
   
 </li>
       
-        <li class="md-nav__item ">
-  <a href="#_8" class="md-nav__link" >
+        <li class="md-nav__item has-children">
+  <a href="#_10" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
     <span class="md-ellipsis">
-      日志与网络连接验证
+      日志与节点状态验证
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="日志与节点状态验证" hidden>
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item ">
+  <a href="#_11" class="md-nav__link" >
+    <span class="md-ellipsis">
+      查看同步日志
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#_12" class="md-nav__link" >
+    <span class="md-ellipsis">
+      同步中日志示例：
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#_13" class="md-nav__link" >
+    <span class="md-ellipsis">
+      生产区块日志示例（超级代表节点）：
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#_14" class="md-nav__link" >
+    <span class="md-ellipsis">
+      查询节点状态
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#_15" class="md-nav__link" >
+    <span class="md-ellipsis">
+      验证节点同步状态
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item ">
+  <a href="#_16" class="md-nav__link" >
+    <span class="md-ellipsis">
+      常见连接问题排查
     </span>
   </a>
   
 </li>
       
-        <li class="md-nav__item ">
-  <a href="#_9" class="md-nav__link" >
+        <li class="md-nav__item has-children">
+  <a href="#_17" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
     <span class="md-ellipsis">
-      连接问题
+      连接私链网络
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="连接私链网络" hidden>
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item ">
+  <a href="#_18" class="md-nav__link" >
+    <span class="md-ellipsis">
+      配置要点：
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item ">
-  <a href="#_10" class="md-nav__link" >
+        
+          <li class="md-nav__item ">
+  <a href="#_19" class="md-nav__link" >
     <span class="md-ellipsis">
-      连接到私链网络
+      搭建参考：
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1589,11 +1818,18 @@
   
 
 
-<h1 id="tron">连接到TRON网络<a class="headerlink" href="#tron" title="Permanent link">&para;</a></h1>
-<p>TRON网络主要分为主网，Shasta测试网，Nile测试网以及私网，因此对于java-tron客户端，可以通过对配置文件中配置项的修改使其连接到任意一个TRON网络中。目前测试网中，Shasta测试网不支持节点加入，Nile测试网支持。</p>
-<p>您需要设置如下配置项，将java-tron连接到其中一个TRON网络：</p>
+<h1 id="tron">连接 TRON 网络指南<a class="headerlink" href="#tron" title="Permanent link">&para;</a></h1>
+<p>TRON 网络分为以下几类：</p>
 <ul>
-<li>
+<li><strong>主网（Mainnet）</strong></li>
+<li><strong>Nile 测试网</strong></li>
+<li><strong>Shasta 测试网</strong>（目前不支持节点加入）</li>
+<li><strong>私有链（Private Network）</strong></li>
+</ul>
+<p>本指南将介绍如何配置 java-tron 客户端连接到这些网络，涵盖基础配置网络、节点发现、节点连接，日志与节点状态验证以及如何排查连接问题。</p>
+<h2 id="_1">基础配置网络<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>通过修改 <a href="https://github.com/tronprotocol/java-tron/blob/develop/framework/src/main/resources/config.conf">配置文件</a> 中的以下关键项，可将 java-tron 节点接入指定网络：</p>
+<h3 id="p2p-id">网络标识（P2P 网络 ID）<a class="headerlink" href="#p2p-id" title="Permanent link">&para;</a></h3>
 <p>网络ID(<code>p2p.version</code>): 表示希望加入的网络。相关配置项：
 <div class="highlight"><pre><span></span><code>node {
   ...
@@ -1606,12 +1842,12 @@
 特别的：</p>
 <ul>
 <li>主网：<code>version=11111</code></li>
-<li>Nile测试网：<code>version = 201910292</code></li>
+<li>Nile 测试网：<code>version = 201910292</code></li>
+<li>Shasta 测试网：<code>version = 1</code></li>
 <li>私链网络：自定义，设置成其它值</li>
 </ul>
-</li>
-<li>
-<p>创世块：需保证创世块的设置与网络中其它节点的相同，否则无法和其他节点建立连接。相关配置项：
+<h3 id="genesis-block">创世块（Genesis Block）<a class="headerlink" href="#genesis-block" title="Permanent link">&para;</a></h3>
+<p>需保证创世块 <code>genesis.block</code> 的设置与网络中其它节点的相同，否则无法和其他节点建立连接。主网的 <code>genesis.block</code> 配置如下：
 <div class="highlight"><pre><span></span><code>genesis.block = {
   # Reserve balance
   assets = [
@@ -1634,7 +1870,6 @@
       balance = &quot;-9223372036854775808&quot;
     }
   ]
-
   witnesses = [
     {
       address: THKJYuUmMKKARNf7s2VT51g5uPY6KEqnat,
@@ -1772,100 +2007,64 @@
       voteCount = 100000000
     }
   ]
-
   timestamp = &quot;0&quot; #2017-8-26 12:00:00
-
   parentHash = &quot;0xe58f33f9baf9305dc6f82b9f1934ea8f0ade2defb951258d50167028c780351f&quot;
 }
 </code></pre></div></p>
-</li>
-</ul>
-<h2 id="_1">节点发现<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<h3 id="_2">开启与关闭<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
-<p>节点发现通过配置文件开启和关闭，通常开启，相关配置项如下：</p>
+<h2 id="_2">节点发现<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h3 id="_3">启用节点发现<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<p>节点发现通过配置文件开启和关闭。默认开启，相关配置项如下：
 <div class="highlight"><pre><span></span><code>node.discovery = {
   ...
   enable = true
-  ...  
+  ...
 }
-</code></pre></div>
-<h3 id="_3">引导节点<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
-<p>java-tron使用<a href="https://zh.wikipedia.org/wiki/Kademlia">Kademlia</a>协议发现其他节点。节点发现需要引导节点(boot节点)，借助引导节点发现TRON网络中的其他节点。引导节点由两部分组成，一部分是种子节点，一部分是配置的主动连接节点，详情见<a href="#_7">主动连接</a>。</p>
+</code></pre></div></p>
+<h3 id="_4">引导节点<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<p>java-tron 使用 <a href="https://zh.wikipedia.org/wiki/Kademlia">Kademlia</a> 协议发现其他节点。节点发现需要引导节点 (boot 节点)，借助引导节点发现 TRON 网络中的其他节点。引导节点由两部分组成，一部分是种子节点，一部分是配置的主动连接节点，详情见<a href="#active-peers">主动连接</a>。</p>
 <p>种子节点也由两部分组成：</p>
-<ul>
-<li>
-<p>配置的seed.node：
-<div class="highlight"><pre><span></span><code>seed.node = {
-  # List of the seed nodes
-  # Seed nodes are stable full nodes
-
+<h4 id="seednode">配置的 <code>seed.node</code><a class="headerlink" href="#seednode" title="Permanent link">&para;</a></h4>
+<p>使用 <code>seed.node</code> 初始化网络连接。应设置为在线稳定的全节点。</p>
+<p><div class="highlight"><pre><span></span><code>seed.node = {
   ip.list = [
     &quot;3.225.171.164:18888&quot;,
     &quot;52.8.46.215:18888&quot;,
-    &quot;3.79.71.167:18888&quot;,
-    &quot;108.128.110.16:18888&quot;,
-    &quot;18.133.82.227:18888&quot;,
-    &quot;35.180.81.133:18888&quot;,
-    &quot;13.210.151.5:18888&quot;,
-    &quot;18.231.27.82:18888&quot;,
-    &quot;3.12.212.122:18888&quot;,
-    &quot;52.24.128.7:18888&quot;,
-    &quot;15.207.144.3:18888&quot;,
-    &quot;3.39.38.55:18888&quot;,    
-    &quot;54.151.226.240:18888&quot;,
-    &quot;35.174.93.198:18888&quot;,
-    &quot;18.210.241.149:18888&quot;,
-    &quot;54.177.115.127:18888&quot;,
-    &quot;54.254.131.82:18888&quot;,
-    &quot;18.167.171.167:18888&quot;,
-    &quot;54.167.11.177:18888&quot;,
-    &quot;35.74.7.196:18888&quot;,
-    &quot;52.196.244.176:18888&quot;,
-    &quot;54.248.129.19:18888&quot;,
-    &quot;43.198.142.160:18888&quot;,
-    &quot;3.0.214.7:18888&quot;,
-    &quot;54.153.59.116:18888&quot;,
-    &quot;54.153.94.160:18888&quot;,
-    &quot;54.82.161.39:18888&quot;,
-    &quot;54.179.207.68:18888&quot;,
-    &quot;18.142.82.44:18888&quot;,
+    ...
     &quot;18.163.230.203:18888&quot;
     #&quot;[2a05:d014:1f2f:2600:1b15:921:d60b:4c60]:18888&quot;, // use this if support ipv6
     #&quot;[2600:1f18:7260:f400:8947:ebf3:78a0:282b]:18888&quot;, // use this if support ipv6
   ]
 }
 </code></pre></div>
-如果网卡支持ipv6，可以使用上述列表中的ipv6地址格式的种子节点，将注释符<code>#</code>去掉即可。
-如果想要获取最新的seed.node，可以在官方的<a href="https://github.com/tronprotocol/java-tron/blob/master/framework/src/main/resources/config.conf">配置文件</a>查看。</p>
-</li>
-<li>
-<p>从数据库中读取的持久化节点。持久化节点需要开启节点持久化服务。如果开启该功能，<a href="https://zh.wikipedia.org/wiki/Kademlia#%E8%B7%AF%E7%94%B1%E8%A1%A8">路由表</a>中的节点会被定时任务写入数据库，如果节点启动的时候基于此数据库，会从数据库中读取这些节点作为种子节点使用。相关配置项：
+对于TRON主网，可以使用 <a href="https://developers.tron.network/docs/networks#public-node">社区公共节点</a> 作为种子节点。如果想要获取最新的<code>seed.node</code>，可以在官方的 <a href="https://github.com/tronprotocol/java-tron/blob/master/framework/src/main/resources/config.conf">配置文件</a> 查看。
+如果网卡支持 ipv6，可以使用上述列表中的 ipv6 地址格式的种子节点，将注释符 <code>#</code> 去掉即可。</p>
+<h4 id="_5">从数据库中读取的持久化节点<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h4>
+<p>持久化节点需要开启节点持久化服务。如果开启该功能，<a href="https://zh.wikipedia.org/wiki/Kademlia#%E8%B7%AF%E7%94%B1%E8%A1%A8">路由表</a> 中的节点会被定时任务写入数据库，如果节点启动的时候基于此数据库，会从数据库中读取这些节点作为种子节点使用。相关配置项：
 <div class="highlight"><pre><span></span><code>node.discovery = {
   ...
   persist = true
   ... 
 }
 </code></pre></div></p>
-</li>
-</ul>
-<p>节点发现基于udp协议，绑定的默认端口是18888，也可以绑定其他端口。相关配置项：
+<p>节点发现基于 UDP 协议 (User Datagram Protocol)，绑定的默认端口是 <code>18888</code>，也可以绑定其他端口。相关配置项：
 <div class="highlight"><pre><span></span><code>node {
   ...
   listen.port = 18888
   ...
 }
 </code></pre></div></p>
-<p>在某些情况下，不需要开启节点发现，比如，运行一个本地测试节点或部署一个具有固定的一些节点的测试网络。这时可以通过将配置项设置成<code>node.discovery.enable = false</code>来关闭节点发现，也可以通过防火墙关闭udp 18888端口来实现。</p>
-<h2 id="_4">节点连接<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
-<h3 id="_5">节点连接数量<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
-<p><code>node.maxConnections</code>表示节点与其它节点的最大连接数量，默认值是30。设置更大的值可以使节点能够建立更多的连接，加入网络的效率更高，同时广播的效率也更高，但是，相对的维护连接需要的带宽也更高，性能消耗也更大，因此，请根据实际情况设置。<br />
+<h3 id="_6">关闭节点发现<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<p>在某些情况下，不需要开启节点发现，比如，运行一个本地测试节点或部署一个具有固定的一些节点的测试网络。这时可以通过将配置项设置成 <code>node.discovery.enable = false</code> 来关闭节点发现，也可以通过防火墙关闭 UDP <code>18888</code> 端口来实现。</p>
+<h2 id="_7">节点连接<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<h3 id="_8">节点连接数量<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<p><code>node.maxConnections</code>  表示节点与其它节点的最大连接数量，默认值是 30。设置更大的值可以使节点能够建立更多的连接，加入网络的效率更高，同时广播的效率也更高，但是，相对的维护连接需要的带宽也更高，性能消耗也更大，因此，请根据实际情况设置。 
 <div class="highlight"><pre><span></span><code>node {
   ...
-  maxConnections = 30
+  maxConnections = 30           # 最大连接数
   ...
 }
 </code></pre></div></p>
-<h3 id="_6">主动连接<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<h3 id="active-peers">主动连接（Active Peers）<a class="headerlink" href="#active-peers" title="Permanent link">&para;</a></h3>
 <p>主动连接的目标节点来源于三部分：</p>
 <ul>
 <li>配置的主动节点(高优先级)，不依赖于节点发现，即使节点发现没有开启，当前节点也会主动向这些节点发起连接。相关配置项：
@@ -1881,22 +2080,22 @@
  }
 </code></pre></div></li>
 <li>节点发现获取到的可连接节点(中优先级)</li>
-<li>DNS节点(低优先级)，DNS树获取的备用节点，需要配置treeUrls，在前两个来源不足时使用，一般不会使用到。相关配置项(一般不配置)：
-<div class="highlight"><pre><span></span><code>dns {
-  ...
-  # dns urls to get nodes, url format tree://{pubkey}@{domain}, default empty
-  treeUrls = [
-    #&quot;tree://AKMQMNAJJBL73LXWPXDI4I5ZWWIZ4AWO34DWQ636QOBBXNFXH3LQS@main.trondisco.net&quot;,
-  ]
-  ...
+<li>DNS 节点(低优先级)，DNS 树获取的备用节点，需要配置 treeUrls，在前两个来源不足时使用，一般不会使用到。相关配置项(一般不配置)：
+  <div class="highlight"><pre><span></span><code>dns {
+...
+# dns urls to get nodes, url format tree://{pubkey}@{domain}, default empty
+treeUrls = [
+  #&quot;tree://AKMQMNAJJBL73LXWPXDI4I5ZWWIZ4AWO34DWQ636QOBBXNFXH3LQS@main.trondisco.net&quot;,
+]
+...
 }
 </code></pre></div>
-相比较传统的静态种子节点列表，DNS 树机制在P2P网络引导方面具有节点动态更新、不易受攻击等优势。</li>
+  相比较传统的静态种子节点列表，DNS 树机制在 P2P 网络引导方面具有节点动态更新、不易受攻击等优势。</li>
 </ul>
 <p>可以看到，目前主动连接的目标节点来源只有两类，一类是配置的主动节点，一类是节点发现获取到的可连接节点。</p>
-<h3 id="_7">被动连接<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<h3 id="_9">被动连接<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
 <ul>
-<li><code>node.passive</code>配置的节点。当这些节点主动向当前节点发起连接时，当前节点都会无条件的接受。</li>
+<li><code>node.passive</code> 配置的节点。当这些节点主动向当前节点发起连接时，当前节点都会无条件的接受。</li>
 </ul>
 <div class="highlight"><pre><span></span><code>node {
   ...
@@ -1912,27 +2111,28 @@
 <ul>
 <li>其他节点。节点在发现其他节点的同时也会被其他节点发现，这些节点也有可能向当前节点主动发起连接。</li>
 </ul>
-<p>和节点发现基于udp协议不一样，节点连接基于tcp协议，但是被动连接绑定的端口号和节点发现绑定的端口号是一样的。如果一个节点为了安全起见，不想有被动连接，可以通过防火墙关闭tcp 18888端口实现。如果某个节点关闭了被动连接，整个网络拓扑会变成如下图所示：</p>
+<p>和节点发现基于 UDP 协议不一样，节点连接基于 TCP 协议 (Transmission Control Protocol)，但是被动连接绑定的端口号和节点发现绑定的端口号是一样的。如果一个节点为了安全起见，不想有被动连接，可以通过防火墙关闭 TCP 18888 端口实现。如果某个节点关闭了被动连接，整个网络拓扑会变成如下图所示：</p>
 <p><img alt="image" src="https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/network_topology.png" /></p>
-<h2 id="_8">日志与网络连接验证<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
-<p>java-tron 节点日志为节点目录下的<code>/logs/tron.log</code>。在节点安装目录下，可以使用如下命令查看节点最新日志，以了解节点区块同步情况：</p>
-<div class="highlight"><pre><span></span><code>$ tail -f /logs/tron.log/
+<h2 id="_10">日志与节点状态验证<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h2>
+<h3 id="_11">查看同步日志<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h3>
+<p>TRON 节点日志位于 <code>logs/tron.log</code>，可通过如下命令实时查看：</p>
+<div class="highlight"><pre><span></span><code>$ tail -f logs/tron.log
 </code></pre></div>
-<p>如果一切正常，您将看到类似如下区块同步的日志信息：
-<div class="highlight"><pre><span></span><code>15:41:48.033 INFO  [nioEventLoopGroup-6-2] [DB](Manager.java:1208) pushBlock block number:76, cost/txs:13/0 false
-15:41:48.033 INFO  [nioEventLoopGroup-6-2] [net](TronNetDelegate.java:255) Success process block Num:76,ID:000000000000004c9e3899ee9952a7f0d9e4f692c7070a48390e6fea8099432f.
-</code></pre></div></p>
-<p>对于超级代表的产块的全节点，您将看到如下生产区块的日志信息：</p>
-<div class="highlight"><pre><span></span><code>02:31:33.008 INFO  [DPosMiner] [DB](Manager.java:1383) Generate block 79336 begin
-02:31:33.059 INFO  [DPosMiner] [DB](SnapshotManager.java:315) flush cost:51, create checkpoint cost:49, refresh cost:2
-02:31:33.060 INFO  [DPosMiner] [DB](Manager.java:1492) Generate block 79336 success, trxs:0, pendingCount: 0, rePushCount: 0, postponedCount: 0
+<h3 id="_12">同步中日志示例：<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>pushBlock block number:76, cost/txs:13/0 false
+Success process block Num:76,ID:000000000000004c9e3899ee9952a7f0d9e4f692c7070a48390e6fea8099432f.
 </code></pre></div>
-<p>如果节点日志中没有报告任何错误消息，则表示一切正常。您也可以通过发送http请求，来判断节点是否已经启动，以及查看节点的状态：包括节点配置信息，节点所在机器信息，节点peers连接情况等：
-<div class="highlight"><pre><span></span><code>$ curl http://127.0.0.1:16887/wallet/getnodeinfo
-</code></pre></div></p>
-<p>返回结果：</p>
+<h3 id="_13">生产区块日志示例（超级代表节点）：<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>Generate block 79336 begin
+Generate block 79336 success, trxs:0, pendingCount: 0, rePushCount: 0, postponedCount: 0
+</code></pre></div>
+<h3 id="_14">查询节点状态<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h3>
+<p>使用 HTTP 接口获取当前节点运行状态：</p>
+<p><div class="highlight"><pre><span></span><code>$ curl http://127.0.0.1:16887/wallet/getnodeinfo
+</code></pre></div>
+返回示例：
 <div class="highlight"><pre><span></span><code>{
-    &quot;activeConnectCount&quot;: 3,
+  &quot;activeConnectCount&quot;: 3,
     &quot;beginSyncNum&quot;: 42518346,
     &quot;block&quot;: &quot;Num:42518365,ID:000000000288c75d1967232f1efe606ff90b9dd76660d7de8cc091849be6bf10&quot;,
     &quot;cheatWitnessInfoMap&quot;: {
@@ -1957,19 +2157,43 @@
     &quot;solidityBlock&quot;: &quot;Num:42518347,ID:000000000288c74b723398aef104c585bad1c7cbade7793c5551466bd916feee&quot;,
     &quot;totalFlow&quot;: 8735314
 }
+</code></pre></div></p>
+<h3 id="_15">验证节点同步状态<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h3>
+<p>可在 <a href="https://tronscan.org/">TRONSCAN 区块浏览器</a> 查询当前区块高度，并与本地接口返回结果对比：
+<div class="highlight"><pre><span></span><code>curl http://127.0.0.1:16887/wallet/getnowblock
 </code></pre></div>
-<p>为了让用户与TRON网络交互，java-tron节点必须处于运行状态，并且处于同步正常的状态。节点是否与网络中其它节点保持同步，可以通过在Tronscan查询当前的区块高度和节点ID，并与本地节点<code>/wallet/getnowblock</code>的结果进行比较，如果相等，则说明本地节点的同步状态是正常的。</p>
-<h2 id="_9">连接问题<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
-<p>有时java-tron无法连接到对等节点，常见的原因有:</p>
+若区块高度一致，则说明本地节点同步正常。</p>
+<h2 id="_16">常见连接问题排查<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h2>
+<p>遇到节点无法连接网络时，可参考以下问题排查：</p>
 <ul>
-<li>本地时钟错误。参与到TRON网络需要一个精确的时钟。可以使用<code>sudo ntpdate -s time.nist.gov</code> 命令重新同步本地时钟。</li>
-<li>某些防火墙配置可能会禁止UDP流量，而节点发现服务建立在UDP协议基础之上，因此可以通过配置<a href="#_5"><code>node.active</code></a>，在节点发现无效的情况下连接到网络。</li>
-<li>通过配置<a href="#_5"><code>node.passive</code></a>，以接受可信的节点的主动连接。</li>
-<li>Shasta测试网暂时不支持节点加入到网络中 ，如果需要运行节点加入到公共测试网络，可以选择Nile测试网。</li>
+<li>
+<p><strong>本地时钟偏差</strong></p>
+<p>使用以下命令同步系统时间：
+<div class="highlight"><pre><span></span><code>sudo ntpdate -s time.nist.gov
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>UDP 被防火墙阻挡</strong></p>
+<p>节点发现协议依赖 UDP，如被防火墙阻断，可改用 <code>node.active</code> 指定固定节点。</p>
+</li>
+<li>
+<p><strong>未被动接受连接</strong></p>
+<p>使用 <code>node.passive</code> 接收来自可信节点的主动连接。</p>
+</li>
+<li>
+<p><strong>Shasta 测试网不支持新节点加入</strong>，请选择 Nile 测试网。</p>
+</li>
 </ul>
-<h2 id="_10">连接到私链网络<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h2>
-<p>对于开发人员来说，他的节点有可能并不需要连接到TRON主网或者TRON公共测试网络，而是需要连接到私有测试网络，因为私链不但对机器配置没有要求，而且在私链网络的沙盒环境下，更容易测试各种功能，可以自由破坏而不需要承担任何后果。</p>
-<p>私链网络需要将<a href="https://github.com/tronprotocol/tron-deployment/blob/master/private_net_config.conf">私链配置文件</a>中的配置项<code>node.p2p.version</code>配置成一个没有被任何其他现有的公共网络（TRON主网，测试网）使用的值。有关私链搭建的详细说明请参考 <a href="../private_network/">私链网络</a>。</p>
+<h2 id="_17">连接私链网络<a class="headerlink" href="#_17" title="Permanent link">&para;</a></h2>
+<p>开发者可通过搭建私有 TRON 网络，获得更大的测试灵活性和控制能力。</p>
+<h3 id="_18">配置要点：<a class="headerlink" href="#_18" title="Permanent link">&para;</a></h3>
+<ul>
+<li>使用私有的 <code>node.p2p.version</code> 值，确保不会与主网或测试网冲突</li>
+</ul>
+<h3 id="_19">搭建参考：<a class="headerlink" href="#_19" title="Permanent link">&para;</a></h3>
+<ul>
+<li>请参考文档 <a href="https://tronprotocol.github.io/documentation-zh/using_javatron/private_network/">私链网络</a> 获取完整的私链部署说明。</li>
+</ul>
 
 
 

@@ -450,9 +450,21 @@
   
   
   
-    <li class="md-nav__item">
-      <a href="../../architecture/event/" class="md-nav__link">
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
         
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
+            
   
   <span class="md-ellipsis">
     事件订阅
@@ -460,7 +472,107 @@
   </span>
   
 
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            事件订阅
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/event/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    概览
+    
+  </span>
+  
+
       </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/use-native-queue/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    内置消息队列订阅
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/use-mongodb/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Mongodb 事件订阅插件
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/use-kafka/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Kafka 事件订阅插件
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -1062,29 +1174,29 @@
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
-        <li class="md-nav__item has-children">
-  <a href="#_2" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
+        <li class="md-nav__item ">
+  <a href="#_2" class="md-nav__link" >
     <span class="md-ellipsis">
-      发起提议投票的讨论
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="发起提议投票的讨论" hidden>
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item ">
-  <a href="#_3" class="md-nav__link" >
-    <span class="md-ellipsis">
-      标题
+      提议投票流程
     </span>
   </a>
   
 </li>
+      
+        <li class="md-nav__item has-children">
+  <a href="#_3" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
+    <span class="md-ellipsis">
+      发起提议的讨论
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="发起提议的讨论" hidden>
+      <ul class="md-nav__list">
         
           <li class="md-nav__item ">
   <a href="#_4" class="md-nav__link" >
     <span class="md-ellipsis">
-      主体内容
+      规范要求
     </span>
   </a>
   
@@ -1096,7 +1208,7 @@
 </li>
       
         <li class="md-nav__item ">
-  <a href="#_5" class="md-nav__link" >
+  <a href="#_7" class="md-nav__link" >
     <span class="md-ellipsis">
       社区讨论
     </span>
@@ -1105,7 +1217,7 @@
 </li>
       
         <li class="md-nav__item ">
-  <a href="#_6" class="md-nav__link" >
+  <a href="#_8" class="md-nav__link" >
     <span class="md-ellipsis">
       发起投票请求
     </span>
@@ -1114,7 +1226,7 @@
 </li>
       
         <li class="md-nav__item ">
-  <a href="#_7" class="md-nav__link" >
+  <a href="#_9" class="md-nav__link" >
     <span class="md-ellipsis">
       投票和生效
     </span>
@@ -1548,45 +1660,59 @@
 
 
 <h1 id="_1">网络治理<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
-<p>TRON网络的治理是通过修改 <a href="https://tronscan.org/#/sr/committee">网络参数</a> 来完成的，网络参数的修改，我们也称为网络升级。任何人都可以提出修改网络参数的讨论，但只有超级代表或者超级代表合伙人可以在链上提交投票请求，在投票截止前，27名超级代表可对提议进行投票，投票截止时间到达且投票数量达到要求后，提议即生效。</p>
-<p>您可以在 <a href="https://github.com/tronprotocol/tips/tree/master/proposal">这里</a> 看到以往已经完成的提议投票的列表。</p>
-<p>发起提议投票应遵循如下流程：</p>
+<p>TRON 网络的治理主要通过修改 <a href="https://tronscan.org/#/sr/committee">网络参数</a> 来实现，这一过程也被称为 <strong>网络升级</strong>。<br />
+任何人都可以在社区中提出对网络参数的修改建议，但只有 <strong>超级代表（SR）</strong> ，<strong>超级代表合伙人</strong> ，以及 <strong>超级代表候选人</strong> 才能在链上正式提交投票请求。在投票有效期内，超级代表将对提议进行表决。当投票截止时间到达且支持票数达到要求时，提议即自动生效。</p>
+<p>您可以在 <a href="https://github.com/tronprotocol/tips/tree/master/proposal">这里</a> 查看历次已完成的提议和投票记录。</p>
+<h2 id="_2">提议投票流程<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <ol>
-<li><a href="#_2">发起提议投票的讨论</a></li>
-<li><a href="#_5">社区讨论</a></li>
-<li><a href="#_6">发起投票请求</a></li>
-<li><a href="#_7">投票和生效</a></li>
+<li><a href="#_3">发起提议的讨论</a>  </li>
+<li><a href="#_7">社区讨论</a>  </li>
+<li><a href="#_8">发起投票请求</a>  </li>
+<li><a href="#_9">投票和生效</a>  </li>
 </ol>
-<h2 id="_2">发起提议投票的讨论<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
-<p>任何TRON网络参与者都可以发起提议投票的讨论，请在 <a href="https://github.com/tronprotocol/tips/issues">TIP仓库</a> 创建提议投票讨论Issue，该Issue用来详细介绍提议，包含本次提议的动机、要修改的TRON网络参数及其值、技术规范、以及修改后的影响等等，新的提议投票讨论可参考这个 <a href="https://github.com/tronprotocol/tips/issues/232">示例</a>。</p>
-<p>下面是发起提议投票讨论的规范。</p>
-<h3 id="_3">标题<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
-<p>我们希望TRON生态所有用户都能参与到网络治理中，为了能够在社区进行更好的宣传，建议您为提议投票进行命名，并将名称写在标题的最前面，下面是一个示例：
-<div class="highlight"><pre><span></span><code>Palma Upgrade：proposal to change the unit price of energy to 210 sun
-</code></pre></div></p>
-<h3 id="_4">主体内容<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
-<p>讨论中应详细介绍该提议的内容，包括动机、预估的发起提案的时间及生效时间、如何发起提议投票、该提案的技术规范或背景信息等：</p>
-<div class="highlight"><pre><span></span><code># Simple Summary
-简要介绍该提议要修改的TRON网络参数及值，并概括其作用。
-
-# Motivation
-描述提议的动机，现在遇到的问题是什么，也就是为什么需要修改某个或某些动态参数。
-
-# Timeline
-写明发起提议投票的日期，以及预估的提议生效日期。提议issue发出后一般留出两周的时间供社区讨论，因此，在Issue中设置的提案发起时间应为Issue提出时间的两周以后。
-
-# How to Initialize the Voting Request
-指明发起提议投票请求的命令。
-
-# Technical Specification / Background
-提议的具体技术规范或者背景信息
+<h2 id="_3">发起提议的讨论<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p>任何 TRON 网络参与者都可以发起 TIP 投票的讨论。<br />
+请在 <a href="https://github.com/tronprotocol/tips/issues">TIP 仓库</a> 中创建一个 <strong>Issue</strong>，详细说明提议内容，包括：</p>
+<ul>
+<li>提议动机  </li>
+<li>计划修改的网络参数及其数值  </li>
+<li>技术规范  </li>
+<li>修改后的预期影响  </li>
+</ul>
+<p>新的提议讨论可参考这个 <a href="https://github.com/tronprotocol/tips/issues/789">示例</a>。</p>
+<h3 id="_4">规范要求<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<h4 id="_5">标题<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h4>
+<p>为了便于传播与社区参与，建议为提议设计一个简洁明确的名称，并写在标题最前面，例如：</p>
+<div class="highlight"><pre><span></span><code>Proposal: Change the unit price of Energy to 100 sun
 </code></pre></div>
-<h2 id="_5">社区讨论<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
-<p>在提议讨论发起后，讨论的发起人应该尽力在社区中进行推广，吸引社区用户对提议进行讨论，并根据讨论的结果来更新提议。</p>
-<h2 id="_6">发起投票请求<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
-<p>一般在提议中设置的投票请求的发起时间是该提议讨论发起两周后，当社区对提议进行了充分讨论，形成社区共识后，超级代表或超级代表合伙人会在链上发起投票请求。</p>
-<h2 id="_7">投票和生效<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
-<p>链上发起的投票的有效期是3天，在投票有效期内，所有27个超级代表均可以为提议进行投票，投票截止时间达到后，如果获得的票数大于或者等于18票，该提案将生效。</p>
+<h4 id="_6">主体内容<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h4>
+<p>在 Issue 正文中，应包含以下主要部分：</p>
+<div class="highlight"><pre><span></span><code>## Simple Summary
+简要说明该提议修改的 TRON 网络参数及数值，并概括预期作用。
+
+## Motivation
+描述提出该提议的动机，即当前存在的问题，以及为什么需要修改某些网络参数。
+
+## Timeline
+说明发起提议投票的日期，以及预估的提议生效时间。
+一般来说，Issue 提出后会留出约两周的时间供社区讨论，因此正式的投票请求应在两周后启动。
+
+## How to Initialize the Voting Request
+明确说明在链上发起提议投票请求的命令。
+
+## Technical Specification / Background
+详细描述提议的技术规范或背景信息。
+</code></pre></div>
+<h2 id="_7">社区讨论<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<p>在 TIP 讨论发起后，发起人应积极推动社区用户参与讨论，收集意见和反馈，并根据讨论结果对提议内容进行适当修改与更新。</p>
+<h2 id="_8">发起投票请求<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
+<p>若社区已充分讨论并形成基本共识，<strong>超级代表</strong> ，<strong>超级代表合伙人</strong>，或 <strong>超级代表候选人</strong>会在链上正式提交投票请求。</p>
+<h2 id="_9">投票和生效<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
+<ul>
+<li>链上投票的有效期为 <strong>3 天</strong>。  </li>
+<li>在此期间，所有超级代表均可对 TIP 进行投票。  </li>
+<li>投票截止后，如果获得的超级代表赞成票数 <strong>大于或等于 18 票</strong>，该提议即视为通过并自动生效。</li>
+</ul>
 
 
 

@@ -450,9 +450,21 @@
   
   
   
-    <li class="md-nav__item">
-      <a href="../../architecture/event/" class="md-nav__link">
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
         
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
+            
   
   <span class="md-ellipsis">
     事件订阅
@@ -460,7 +472,107 @@
   </span>
   
 
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            事件订阅
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/event/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    概览
+    
+  </span>
+  
+
       </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/use-native-queue/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    内置消息队列订阅
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/use-mongodb/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Mongodb 事件订阅插件
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/use-kafka/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Kafka 事件订阅插件
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -1106,74 +1218,122 @@
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
-        <li class="md-nav__item ">
-  <a href="#fork-java-tron" class="md-nav__link" >
+        <li class="md-nav__item has-children">
+  <a href="#1" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
     <span class="md-ellipsis">
-      Fork java-tron代码仓库
+      1. 准备开发环境
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. 准备开发环境" hidden>
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item ">
+  <a href="#11-fork-java-tron" class="md-nav__link" >
+    <span class="md-ellipsis">
+      1.1 Fork java-tron 代码仓库
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item ">
-  <a href="#_2" class="md-nav__link" >
+        
+          <li class="md-nav__item ">
+  <a href="#12" class="md-nav__link" >
     <span class="md-ellipsis">
-      同步仓库
+      1.2 同步仓库
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item ">
-  <a href="#_3" class="md-nav__link" >
+        
+          <li class="md-nav__item ">
+  <a href="#13" class="md-nav__link" >
     <span class="md-ellipsis">
-      创建新分支
+      1.3 创建新分支
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item ">
-  <a href="#_4" class="md-nav__link" >
-    <span class="md-ellipsis">
-      代码实现
-    </span>
-  </a>
+        
+      </ul>
+    </nav>
   
 </li>
       
         <li class="md-nav__item has-children">
-  <a href="#_5" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
+  <a href="#2-setpeer-http" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
     <span class="md-ellipsis">
-      编写单元测试
+      2. 代码实现：新增 setPeer HTTP 接口
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="编写单元测试" hidden>
+    <nav class="md-nav" aria-label="2. 代码实现：新增 setPeer HTTP 接口" hidden>
       <ul class="md-nav__list">
         
           <li class="md-nav__item ">
-  <a href="#java-tron" class="md-nav__link" >
+  <a href="#21-setpeerservletjava" class="md-nav__link" >
     <span class="md-ellipsis">
-      java-tron单元测试用例规范
+      2.1 创建 SetPeerServlet.java
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item ">
-  <a href="#_6" class="md-nav__link" >
+  <a href="#22-setpeerservlet-http-api" class="md-nav__link" >
     <span class="md-ellipsis">
-      常用注解说明
+      2.2 注册 SetPeerServlet 到 HTTP API 服务
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item ">
-  <a href="#_7" class="md-nav__link" >
+  <a href="#23" class="md-nav__link" >
     <span class="md-ellipsis">
-      单元测试类的组成
+      2.3 调试与测试
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item has-children">
+  <a href="#3" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
+    <span class="md-ellipsis">
+      3. 编写单元测试
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 编写单元测试" hidden>
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item ">
+  <a href="#31-java-tron" class="md-nav__link" >
+    <span class="md-ellipsis">
+      3.1 java-tron 单元测试用例规范
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#32-junit" class="md-nav__link" >
+    <span class="md-ellipsis">
+      3.2 常用 JUnit 注解说明
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#33" class="md-nav__link" >
+    <span class="md-ellipsis">
+      3.3 单元测试类的组成
     </span>
   </a>
   
@@ -1185,29 +1345,53 @@
 </li>
       
         <li class="md-nav__item ">
-  <a href="#checkstyle" class="md-nav__link" >
+  <a href="#4-checkstyle" class="md-nav__link" >
     <span class="md-ellipsis">
-      CheckStyle代码风格检查
+      4. CheckStyle 代码风格检查
     </span>
   </a>
   
 </li>
       
-        <li class="md-nav__item ">
-  <a href="#_8" class="md-nav__link" >
+        <li class="md-nav__item has-children">
+  <a href="#5-pull-request" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
     <span class="md-ellipsis">
-      提交代码
+      5. 提交代码与 Pull Request
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. 提交代码与 Pull Request" hidden>
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item ">
+  <a href="#51-commit" class="md-nav__link" >
+    <span class="md-ellipsis">
+      5.1 提交 Commit
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item ">
-  <a href="#pull-request" class="md-nav__link" >
+        
+          <li class="md-nav__item ">
+  <a href="#52" class="md-nav__link" >
     <span class="md-ellipsis">
-      提交Pull Request
+      5.2 推送新分支
     </span>
   </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#53-pull-request" class="md-nav__link" >
+    <span class="md-ellipsis">
+      5.3 提交 Pull Request
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1593,46 +1777,60 @@
 
 
 <h1 id="_1">开发示例<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
-<p>本文将以新增一个<code>setPeer</code> HTTP接口为例说明如何参与java-tron开发。在开发前，请先配置<a href="../run-in-idea/">InteliJ IDE开发环境</a>。</p>
-<p>有时由于网络原因，java-tron节点可能无法连接到对等节点，如果能在节点运行时添加信任节点，这将使节点可以在节点发现无法工作的的情况下也能连接到网络。</p>
-<h2 id="fork-java-tron">Fork java-tron代码仓库<a class="headerlink" href="#fork-java-tron" title="Permanent link">&para;</a></h2>
-<p>从 <a href="https://github.com/tronprotocol/java-tron">https://github.com/tronprotocol/java-tron</a> 项目中Fork一个新的repository到自己个人的代码仓库中，然后使用如下命令将代码克隆到本地:</p>
-<div class="highlight"><pre><span></span><code>$ git clone https://github.com/yourname/java-tron.git
-$ git remote add upstream https://github.com/tronprotocol/java-tron.git
+<p>本文将以在 <code>java-tron</code> 中新增一个 <code>setPeer</code> HTTP 接口为例，详细讲解参与 <code>java-tron</code> 开发的流程。在开始开发之前，请确保您已完成开发环境的配置，例如已根据 <a href="../run-in-idea/">IntelliJ IDEA 开发环境配置指南</a> 配置好本地环境。</p>
+<p><strong>背景</strong>：有时由于网络原因，<code>java-tron</code> 节点可能无法连接到对等节点。为了增强节点的网络连接稳定性，我们希望实现一个功能，允许在节点运行时动态添加信任节点，即使在节点发现服务失效的情况下也能连接到网络。</p>
+<h2 id="1">1. 准备开发环境<a class="headerlink" href="#1" title="Permanent link">&para;</a></h2>
+<h3 id="11-fork-java-tron">1.1 Fork <code>java-tron</code> 代码仓库<a class="headerlink" href="#11-fork-java-tron" title="Permanent link">&para;</a></h3>
+<p>首先，从 TRON 官方 GitHub 仓库 <a href="https://github.com/tronprotocol/java-tron">tronprotocol/java-tron</a> Fork 一个新的代码仓库到您个人的 GitHub 账户。然后，将您的 Fork 仓库克隆到本地，并添加 <code>upstream</code> 远程仓库以跟踪官方更新：</p>
+<div class="highlight"><pre><span></span><code>git clone https://github.com/yourname/java-tron.git
+git remote add upstream https://github.com/tronprotocol/java-tron.git
 </code></pre></div>
-<h2 id="_2">同步仓库<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
-<p>开发新功能之前，应先将个人Fork的仓库和上游仓库进行同步：</p>
-<div class="highlight"><pre><span></span><code>$ git fetch upstream 
-$ git checkout develop 
-$ git merge upstream/develop --no-ff
+<h3 id="12">1.2 同步仓库<a class="headerlink" href="#12" title="Permanent link">&para;</a></h3>
+<p>在开发新功能之前，务必将您个人 Fork 的仓库与 <code>upstream</code>（上游）仓库进行同步，以获取最新的代码更新：</p>
+<div class="highlight"><pre><span></span><code>git fetch upstream
+git checkout develop
+git merge upstream/develop --no-ff
 </code></pre></div>
-<h2 id="_3">创建新分支<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
-<p>从自己仓库的develop分支拉出一个新的分支用于本地开发，请参考<a href="../java-tron/#_8">分支命名规范</a>，在本例中，新分支的名称为：<code>feature/add-new-http-demo</code>。</p>
-<div class="highlight"><pre><span></span><code>$ git checkout -b feature/add-new-http-demo develop
+<h3 id="13">1.3 创建新分支<a class="headerlink" href="#13" title="Permanent link">&para;</a></h3>
+<p>从本地 <code>develop</code> 分支创建一个用于本地开发的新分支。分支命名请遵循 <a href="../java-tron/#_8">分支命名规范</a>。本示例使用 <code>feature/add-new-http-demo</code> 作为分支名称。</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>feature/add-new-http-demo<span class="w"> </span>develop
 </code></pre></div>
-<h2 id="_4">代码实现<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
-<p>在IDEA中打开java-tron工程。在<code>java-tron/framework/src/main/java/org/tron/core/services/http</code>目录下新建一个servlet用于处理HTTP请求：SetPeerServlet.java，该文件中应包含两个函数<code>doGet</code>和<code>doPost</code>。<code>doGet</code>用于处理http get请求，<code>doPost</code>用于处理http post请求。如果不支持其中某种类型的请求，方法内容为空即可。
-<div class="highlight"><pre><span></span><code><span class="nd">@Component</span>
+<h2 id="2-setpeer-http">2. 代码实现：新增 <code>setPeer</code> HTTP 接口<a class="headerlink" href="#2-setpeer-http" title="Permanent link">&para;</a></h2>
+<p>使用 IntelliJ IDEA 打开 <code>java-tron</code> 工程。接下来我们将实现一个 <code>setPeer</code> HTTP 接口，以支持用户通过 POST 请求添加信任节点。</p>
+<h3 id="21-setpeerservletjava">2.1 创建 <code>SetPeerServlet.java</code><a class="headerlink" href="#21-setpeerservletjava" title="Permanent link">&para;</a></h3>
+<p>在 <code>java-tron/framework/src/main/java/org/tron/core/services/http</code> 目录下，新建一个 <code>Servlet</code> 类：<code>SetPeerServlet.java</code>。该类包含 <code>doGet</code> 和 <code>doPost</code> 两个方法，分别用于处理 HTTP GET 和 POST 请求。如果某种请求类型不予支持，可将对应方法留空。</p>
+<div class="highlight"><pre><span></span><code><span class="kn">package</span><span class="w"> </span><span class="nn">org.tron.core.services.http</span><span class="p">;</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">lombok.extern.slf4j.Slf4j</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">org.springframework.beans.factory.annotation.Autowired</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">org.springframework.stereotype.Component</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">org.tron.core.net.peer.ChannelManager</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">org.tron.core.net.peer.Node</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">org.tron.core.config.CommonParameter</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">org.tron.core.Constant</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">org.tron.core.exception.BadItemException</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">org.tron.core.services.http.fullnode.PostParams</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">org.tron.core.services.http.fullnode.Util</span><span class="p">;</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">javax.servlet.http.HttpServlet</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">javax.servlet.http.HttpServletRequest</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">javax.servlet.http.HttpServletResponse</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">java.io.IOException</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">java.net.InetAddress</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">java.net.InetSocketAddress</span><span class="p">;</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">com.alibaba.fastjson.JSONObject</span><span class="p">;</span>
+
+<span class="nd">@Component</span>
 <span class="nd">@Slf4j</span><span class="p">(</span><span class="n">topic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;API&quot;</span><span class="p">)</span>
 <span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">SetPeerServlet</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">HttpServlet</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="kd">protected</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">doGet</span><span class="p">(</span><span class="n">HttpServletRequest</span><span class="w"> </span><span class="n">request</span><span class="p">,</span><span class="w"> </span><span class="n">HttpServletResponse</span><span class="w"> </span><span class="n">response</span><span class="p">)</span><span class="w"> </span>
-<span class="w">    </span><span class="p">{}</span>
-<span class="w">    </span><span class="kd">protected</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">doPost</span><span class="p">(</span><span class="n">HttpServletRequest</span><span class="w"> </span><span class="n">request</span><span class="p">,</span><span class="w"> </span><span class="n">HttpServletResponse</span><span class="w"> </span><span class="n">response</span><span class="p">)</span><span class="w"> </span>
-<span class="w">    </span><span class="p">{}</span>
-<span class="p">}</span>
-</code></pre></div></p>
-<p>在该示例中setPeer请求应该通过post方式发送，因此需要在<code>doPost</code>方法中添加处理逻辑，<code>doGet</code>方法内容为空。</p>
-<p><code>doPost</code>方法的逻辑为：</p>
-<ol>
-<li>获取传入的参数</li>
-<li>通过addPeer方法将peer信息添加到信任节点列表中</li>
-<li>将addPeer的处理结果返回给前端用户</li>
-</ol>
-<div class="highlight"><pre><span></span><code><span class="nd">@Component</span>
-<span class="nd">@Slf4j</span><span class="p">(</span><span class="n">topic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;API&quot;</span><span class="p">)</span>
-<span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">SetPeerServlet</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">HttpServlet</span><span class="w"> </span><span class="p">{</span>
+
 <span class="w">  </span><span class="nd">@Autowired</span>
 <span class="w">  </span><span class="kd">private</span><span class="w"> </span><span class="n">ChannelManager</span><span class="w"> </span><span class="n">channelManager</span><span class="p">;</span>
+
+<span class="w">  </span><span class="kd">protected</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">doGet</span><span class="p">(</span><span class="n">HttpServletRequest</span><span class="w"> </span><span class="n">request</span><span class="p">,</span><span class="w"> </span><span class="n">HttpServletResponse</span><span class="w"> </span><span class="n">response</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// GET 请求在此示例中不处理</span>
+<span class="w">  </span><span class="p">}</span>
 
 <span class="w">  </span><span class="kd">protected</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">doPost</span><span class="p">(</span><span class="n">HttpServletRequest</span><span class="w"> </span><span class="n">request</span><span class="p">,</span><span class="w"> </span><span class="n">HttpServletResponse</span><span class="w"> </span><span class="n">response</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
@@ -1657,25 +1855,15 @@ $ git merge upstream/develop --no-ff
 <span class="w">      </span><span class="p">}</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">}</span>
-<span class="w">  </span><span class="p">......</span>
-<span class="p">}</span>
-</code></pre></div>
-<p>将添加信任节点的处理逻辑单独放在<code>addPeer</code>方法中，这样不但可以使代码逻辑更加清晰，而且更易于测试。</p>
-<p><code>addPeer</code>函数的逻辑为：</p>
-<ol>
-<li>检查用户输入的参数，确保节点ip和端口不为空</li>
-<li>通过<code>Node.instanceOf(peerIP)</code>构建节点信息</li>
-<li>确保添加的信任节点不是自己</li>
-<li>将节点加入到自己的信任节点列表中</li>
-</ol>
-<p><div class="highlight"><pre><span></span><code><span class="w">  </span><span class="kt">boolean</span><span class="w"> </span><span class="nf">addPeer</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">peerIP</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">  </span><span class="kd">private</span><span class="w"> </span><span class="kt">boolean</span><span class="w"> </span><span class="nf">addPeer</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">peerIP</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">peerIP</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">peerIP</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">null</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">!</span><span class="n">peerIP</span><span class="p">.</span><span class="na">isEmpty</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="n">Node</span><span class="w"> </span><span class="n">node</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Node</span><span class="p">.</span><span class="na">instanceOf</span><span class="p">(</span><span class="n">peerIP</span><span class="p">);</span>
 <span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="n">CommonParameter</span><span class="p">.</span><span class="na">PARAMETER</span><span class="p">.</span><span class="na">nodeDiscoveryBindIp</span><span class="p">.</span><span class="na">equals</span><span class="p">(</span><span class="n">node</span><span class="p">.</span><span class="na">getHost</span><span class="p">())</span>
-<span class="w">                </span><span class="o">||</span><span class="w"> </span><span class="n">CommonParameter</span><span class="p">.</span><span class="na">PARAMETER</span><span class="p">.</span><span class="na">nodeExternalIp</span><span class="p">.</span><span class="na">equals</span><span class="p">(</span><span class="n">node</span><span class="p">.</span><span class="na">getHost</span><span class="p">())</span>
-<span class="w">                </span><span class="o">||</span><span class="w"> </span><span class="n">Constant</span><span class="p">.</span><span class="na">LOCAL_HOST</span><span class="p">.</span><span class="na">equals</span><span class="p">(</span><span class="n">node</span><span class="p">.</span><span class="na">getHost</span><span class="p">()))</span>
-<span class="w">                </span><span class="o">||</span><span class="w"> </span><span class="n">CommonParameter</span><span class="p">.</span><span class="na">PARAMETER</span><span class="p">.</span><span class="na">nodeListenPort</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">node</span><span class="p">.</span><span class="na">getPort</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="o">||</span><span class="w"> </span><span class="n">CommonParameter</span><span class="p">.</span><span class="na">PARAMETER</span><span class="p">.</span><span class="na">nodeExternalIp</span><span class="p">.</span><span class="na">equals</span><span class="p">(</span><span class="n">node</span><span class="p">.</span><span class="na">getHost</span><span class="p">())</span>
+<span class="w">            </span><span class="o">||</span><span class="w"> </span><span class="n">Constant</span><span class="p">.</span><span class="na">LOCAL_HOST</span><span class="p">.</span><span class="na">equals</span><span class="p">(</span><span class="n">node</span><span class="p">.</span><span class="na">getHost</span><span class="p">()))</span>
+<span class="w">            </span><span class="o">||</span><span class="w"> </span><span class="n">CommonParameter</span><span class="p">.</span><span class="na">PARAMETER</span><span class="p">.</span><span class="na">nodeListenPort</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">node</span><span class="p">.</span><span class="na">getPort</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
 
 <span class="w">          </span><span class="n">InetAddress</span><span class="w"> </span><span class="n">address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">InetSocketAddress</span><span class="p">(</span><span class="n">node</span><span class="p">.</span><span class="na">getHost</span><span class="p">(),</span><span class="w"> </span><span class="n">node</span><span class="p">.</span><span class="na">getPort</span><span class="p">()).</span><span class="na">getAddress</span><span class="p">();</span>
 <span class="w">          </span><span class="n">channelManager</span><span class="p">.</span><span class="na">getTrustNodes</span><span class="p">().</span><span class="na">put</span><span class="p">(</span><span class="n">address</span><span class="p">,</span><span class="w"> </span><span class="n">node</span><span class="p">);</span>
@@ -1689,123 +1877,174 @@ $ git merge upstream/develop --no-ff
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-完成SetPeerServlet的实现，还需要将其注册到节点HTTP API服务列表中，<a href="https://github.com/tronprotocol/java-tron/blob/develop/framework/src/main/java/org/tron/core/services/http/FullNodeHttpApiService.java">FullNodeHttpApiService</a> 是节点HTTP API服务的注册入口。</p>
-<p>在<code>FullNodeHttpApiService</code>类的<code>start</code>函数中调用<code>context.addServlet</code>方法将SetPeerServlet注册到服务列表中，HTTP 接口的名字定义为<code>/wallet/setpeer</code>。</p>
-<p><div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">FullNodeHttpApiService</span><span class="w"> </span><span class="kd">implements</span><span class="w"> </span><span class="n">Service</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="p">......</span>
-<span class="w">    </span><span class="nd">@Autowired</span>
-<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">SetPeerServlet</span><span class="w"> </span><span class="n">setPeerServlet</span><span class="p">;</span>
-<span class="w">    </span><span class="p">.......</span>
+<p>在上述代码中：</p>
+<ul>
+<li><code>doPost</code> 方法负责处理接收到的 POST 请求。它从请求参数中获取 <code>peer</code>（对等节点 IP:Port）信息。</li>
+<li><code>addPeer</code> 方法负责将该对等节点添加到信任节点列表中。该函数的逻辑如下：<ol>
+<li>检查用户输入的参数，确保节点 IP 和端口不为空。</li>
+<li>通过 <code>Node.instanceOf(peerIP)</code> 构建节点信息。</li>
+<li>确保添加的信任节点不是当前节点自身。</li>
+<li>将节点加入到 <code>ChannelManager</code> 的信任节点列表中。</li>
+</ol>
+</li>
+</ul>
+<h3 id="22-setpeerservlet-http-api">2.2 注册 <code>SetPeerServlet</code> 到 HTTP API 服务<a class="headerlink" href="#22-setpeerservlet-http-api" title="Permanent link">&para;</a></h3>
+<p>完成 <code>SetPeerServlet</code> 的实现后，需要将其注册到节点的 HTTP API 服务中。 <code>FullNodeHttpApiService</code> 类是所有 HTTP 接口的注册入口。在该类的 <code>start</code> 方法中，使用 <code>context.addServlet</code> 将 <code>SetPeerServlet</code> 注册为名为 <code>/wallet/setpeer</code> 的 HTTP 接口：</p>
+<div class="highlight"><pre><span></span><code><span class="kn">package</span><span class="w"> </span><span class="nn">org.tron.core.services.http</span><span class="p">;</span>
 
-<span class="w">    </span><span class="nd">@Override</span>
-<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">start</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="p">......</span>
-<span class="w">        </span><span class="n">context</span><span class="p">.</span><span class="na">addServlet</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">ServletHolder</span><span class="p">(</span><span class="n">setPeerServlet</span><span class="p">),</span><span class="w"> </span><span class="s">&quot;/wallet/setpeer&quot;</span><span class="p">);</span>
-<span class="w">        </span><span class="p">.......</span>
-<span class="w">    </span><span class="p">}</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">org.springframework.beans.factory.annotation.Autowired</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">org.springframework.stereotype.Component</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">org.eclipse.jetty.servlet.ServletContextHandler</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">org.eclipse.jetty.servlet.ServletHolder</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">org.tron.core.services.Service</span><span class="p">;</span>
 
+<span class="nd">@Component</span>
+<span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">FullNodeHttpApiService</span><span class="w"> </span><span class="kd">implements</span><span class="w"> </span><span class="n">Service</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">  </span><span class="nd">@Autowired</span>
+<span class="w">  </span><span class="kd">private</span><span class="w"> </span><span class="n">SetPeerServlet</span><span class="w"> </span><span class="n">setPeerServlet</span><span class="p">;</span>
+
+<span class="w">  </span><span class="c1">// ... 其他成员变量和方法 ...</span>
+
+<span class="w">  </span><span class="nd">@Override</span>
+<span class="w">  </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">start</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// ... 其他初始化代码 ...</span>
+<span class="w">    </span><span class="n">ServletContextHandler</span><span class="w"> </span><span class="n">context</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ServletContextHandler</span><span class="p">(</span><span class="n">ServletContextHandler</span><span class="p">.</span><span class="na">SESSIONS</span><span class="p">);</span>
+<span class="w">    </span><span class="c1">// ... 其他 Servlet 注册 ...</span>
+<span class="w">    </span><span class="n">context</span><span class="p">.</span><span class="na">addServlet</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">ServletHolder</span><span class="p">(</span><span class="n">setPeerServlet</span><span class="p">),</span><span class="w"> </span><span class="s">&quot;/wallet/setpeer&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="c1">// ... 其他启动代码 ...</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="c1">// ... 其他方法 ...</span>
 <span class="p">}</span>
 </code></pre></div>
-然后可以对以上代码进行调试，在IDEA中启动java-tron节点，在终端中通过Curl命令访问节点：</p>
-<p><div class="highlight"><pre><span></span><code>$ curl --location --request POST &#39;http://127.0.0.1:16667/wallet/setpeer&#39; \
---header &#39;Content-Type: application/json&#39; \
---data-raw &#39;{
-    &quot;peer&quot;:&quot;192.163.3.2:16667&quot;
-}&#39;
+<h3 id="23">2.3 调试与测试<a class="headerlink" href="#23" title="Permanent link">&para;</a></h3>
+<p>完成代码修改后，您可以在 IntelliJ IDEA 中启动 <code>java-tron</code> 节点进行调试。然后，在终端中使用 <code>curl</code> 命令访问新添加的 HTTP 接口：</p>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>--location<span class="w"> </span>--request<span class="w"> </span>POST<span class="w"> </span><span class="s1">&#39;http://127.0.0.1:16667/wallet/setpeer&#39;</span><span class="w"> </span><span class="se">\</span>
+--header<span class="w"> </span><span class="s1">&#39;Content-Type: application/json&#39;</span><span class="w"> </span><span class="se">\</span>
+--data-raw<span class="w"> </span><span class="s1">&#39;{</span>
+<span class="s1">    &quot;peer&quot;:&quot;192.163.3.2:16667&quot;</span>
+<span class="s1">}&#39;</span>
 </code></pre></div>
-返回结果：</p>
+<p>如果请求成功，您将收到以下返回结果：</p>
 <div class="highlight"><pre><span></span><code>Success to set trusted peer:192.163.3.2:16667
 </code></pre></div>
-<p>至此，该功能的代码编写完成，然后需要针对改动编写单元测试。对于简单的改动，可以在开发代码完成之后，再编写单元测试，但对于较大的改动，建议在开发的同时编写单元测试。</p>
-<h2 id="_5">编写单元测试<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
-<p>java-tron项目的单元测试基于JUnit框架，关于JUnit的用法请参考<a href="https://junit.org">JUnit官网</a>。下面简单介绍java-tron单元测试用例规范和常用注解说明。</p>
-<h3 id="java-tron">java-tron单元测试用例规范<a class="headerlink" href="#java-tron" title="Permanent link">&para;</a></h3>
-<p>编写java-tron单元测试时，请遵守如下规范：</p>
+<p>至此，<code>setPeer</code> 功能的代码编写完成。接下来，您需要为这些改动编写单元测试。</p>
+<h2 id="3">3. 编写单元测试<a class="headerlink" href="#3" title="Permanent link">&para;</a></h2>
+<p><code>java-tron</code> 项目的单元测试基于 JUnit 框架。关于 JUnit 的详细用法，请参考 <a href="https://junit.org">JUnit 官方文档</a>。下面将介绍 <code>java-tron</code> 单元测试用例的规范和常用注解。</p>
+<h3 id="31-java-tron">3.1 <code>java-tron</code> 单元测试用例规范<a class="headerlink" href="#31-java-tron" title="Permanent link">&para;</a></h3>
+<p>在编写 <code>java-tron</code> 的单元测试时，请遵循以下规范：</p>
 <ul>
-<li>所有测试类应放在test目录下，并且测试类的包应该和被测试代码包结构保持一致。一般使用 <code>Test</code> 作为类名的后缀</li>
-<li>测试方法必须使用 @Test 修饰，并且是public void类型，一般用 <code>test</code> 作为方法名的前缀</li>
-<li>测试类中的每个测试方法必须可以独立测试，方法间不能有任何依赖</li>
+<li><strong>目录与包结构</strong>：所有测试类应位于 test 目录下，并保持与被测试类相同的包结构。测试类名称建议以 <code>Test</code> 为后缀。</li>
+<li><strong>测试方法定义</strong>：测试方法必须使用 <code>@Test</code> 注解修饰，并声明为 <code>public void</code> 类型。方法名称建议以 <code>test</code> 为前缀，以增强可读性。</li>
+<li><strong>方法独立性</strong>：测试类中的每个方法应可独立运行，方法之间不得存在依赖关系，以确保测试的稳定性和可维护性。</li>
 </ul>
-<h3 id="_6">常用注解说明<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
-<p>下面为一些常用的注解的说明，其它注解请参考<a href="https://junit.org">JUnit官网文档</a>。</p>
+<h3 id="32-junit">3.2 常用 JUnit 注解说明<a class="headerlink" href="#32-junit" title="Permanent link">&para;</a></h3>
+<p>以下列出的是 JUnit 中常用的测试注解，更详细内容请参考 <a href="https://junit.org">JUnit 官方文档</a>。</p>
 <ul>
-<li><code>@Test</code> - 将一个普通方法修饰成一个测试方法</li>
-<li><code>@Ignore</code> - 所修饰的测试方法会被测试运行器忽略</li>
-<li><code>@BeforeClass</code> - 会在所有的方法执行前被执行，static方法 （全局只会执行一次，而且是第一个运行）</li>
-<li><code>@AfterClass</code> - 会在所有的方法执行之后进行执行，static方法 （全局只会执行一次，而且是最后一个运行）</li>
-<li><code>@Before</code> - 会在每一个测试方法被运行前执行一次</li>
-<li><code>@After</code> - 会在每一个测试方法运行后被执行一次</li>
+<li><code>@Test</code>：标记一个方法为测试方法，测试运行器将执行该方法。</li>
+<li><code>@Ignore</code>：忽略当前测试方法，运行时不会执行（可用于暂时跳过不稳定或未完成的测试）。</li>
+<li><code>@BeforeClass</code>：在所有测试方法执行前运行一次，必须为 <code>static</code> 方法（通常用于初始化共享资源）。</li>
+<li><code>@AfterClass</code>：在所有测试方法执行后运行一次，必须为 <code>static</code> 方法（通常用于释放共享资源）。</li>
+<li><code>@Before</code>：在每个测试方法执行前运行一次（用于准备测试环境，如初始化数据）。</li>
+<li><code>@After</code>：在每个测试方法执行后运行一次（用于清理测试环境，如关闭连接）。</li>
 </ul>
-<h3 id="_7">单元测试类的组成<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
-<p>一个单元测试类应包含一下三部分内容：</p>
+<h3 id="33">3.3 单元测试类的组成<a class="headerlink" href="#33" title="Permanent link">&para;</a></h3>
+<p>一个典型的单元测试类通常由以下三部分组成：</p>
 <ul>
-<li>@Before或者@BeforeClass修饰的函数，用于进行测试用例执行前的初始化工作</li>
-<li>@After或者@BeforeClass修饰的函数，用于处理测试用例执行完成后的数据清理工作</li>
-<li>@Test修饰的测试方法</li>
+<li><strong>初始化方法</strong>：使用 <code>@Before</code> 或 <code>@BeforeClass</code> 注解的方法，在测试执行前进行初始化操作，如准备测试数据或配置环境。</li>
+<li><strong>清理方法</strong>：使用 <code>@After</code> 或 <code>@AfterClass</code> 注解的方法，在测试执行后进行清理操作，如释放资源或还原数据。</li>
+<li><strong>测试方法</strong>：使用 <code>@Test</code> 注解的方法，编写具体的测试逻辑，用于验证代码行为是否符合预期。</li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">demoTest</span><span class="w"> </span><span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">org.junit.After</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">org.junit.Before</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">org.junit.Test</span><span class="p">;</span>
+
+<span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">DemoTest</span><span class="w"> </span><span class="p">{</span>
 
 <span class="w">  </span><span class="nd">@Before</span>
 <span class="w">  </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">init</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="c1">// Initialization work before test case execution</span>
+<span class="w">    </span><span class="c1">// 测试用例执行前的初始化工作</span>
 <span class="w">  </span><span class="p">}</span>
+
 <span class="w">  </span><span class="nd">@After</span>
 <span class="w">  </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">destroy</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="c1">// Destroy work after test case execution</span>
-
+<span class="w">    </span><span class="c1">// 测试用例执行后的数据清理工作</span>
 <span class="w">  </span><span class="p">}</span>
+
 <span class="w">  </span><span class="nd">@Test</span>
-<span class="w">  </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">testDemoMethod</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span>
+<span class="w">  </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">testDemoMethod</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// 测试逻辑</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-<p>对于本文示例，应在<code>framework/src/test/java/org/tron/core/services/http/</code>目录下新建一个文件：SetPeerServletTest.java 来编写测试用例。</p>
-<div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">SetPeerServletTest</span><span class="w"> </span><span class="p">{</span>
+<p>在本示例中，我们应在目录 <code>framework/src/test/java/org/tron/core/services/http/</code> 下新建测试类文件 <code>SetPeerServletTest.java</code>，用于编写对应的测试用例。</p>
+<div class="highlight"><pre><span></span><code><span class="kn">package</span><span class="w"> </span><span class="nn">org.tron.core.services.http</span><span class="p">;</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">org.junit.After</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">org.junit.Assert</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">org.junit.Before</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">org.junit.Test</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">org.tron.core.config.args.Args</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">org.tron.core.net.peer.ChannelManager</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">org.tron.core.services.http.fullnode.SetPeerServlet</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">org.tron.core.db.Manager</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">org.tron.core.db.TronApplicationContext</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">org.tron.core.Constant</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">org.tron.core.services.Application</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">org.tron.core.services.ApplicationFactory</span><span class="p">;</span>
+
+<span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">SetPeerServletTest</span><span class="w"> </span><span class="p">{</span>
+
 <span class="w">  </span><span class="kd">private</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="n">TronApplicationContext</span><span class="w"> </span><span class="n">context</span><span class="p">;</span>
 <span class="w">  </span><span class="kd">private</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="n">Application</span><span class="w"> </span><span class="n">appT</span><span class="p">;</span>
 <span class="w">  </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="n">ChannelManager</span><span class="w"> </span><span class="n">channelManager</span><span class="p">;</span>
+
 <span class="w">  </span><span class="nd">@Before</span>
 <span class="w">  </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">init</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-
 <span class="w">    </span><span class="n">Args</span><span class="p">.</span><span class="na">setParam</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">String</span><span class="o">[]</span><span class="p">{},</span><span class="w"> </span><span class="n">Constant</span><span class="p">.</span><span class="na">TEST_CONF</span><span class="p">);</span>
-<span class="w">    </span><span class="n">context</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">TronApplicationContext</span><span class="p">(</span><span class="n">DefaultConfig</span><span class="p">.</span><span class="na">class</span><span class="p">);</span>
+<span class="w">    </span><span class="n">context</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">TronApplicationContext</span><span class="p">(</span><span class="n">Manager</span><span class="p">.</span><span class="na">class</span><span class="p">);</span>
 <span class="w">    </span><span class="n">channelManager</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">context</span><span class="p">.</span><span class="na">getBean</span><span class="p">(</span><span class="n">ChannelManager</span><span class="p">.</span><span class="na">class</span><span class="p">);</span>
 <span class="w">    </span><span class="n">appT</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ApplicationFactory</span><span class="p">.</span><span class="na">create</span><span class="p">(</span><span class="n">context</span><span class="p">);</span>
 <span class="w">    </span><span class="n">appT</span><span class="p">.</span><span class="na">initServices</span><span class="p">(</span><span class="n">Args</span><span class="p">.</span><span class="na">getInstance</span><span class="p">());</span>
 <span class="w">    </span><span class="n">appT</span><span class="p">.</span><span class="na">startServices</span><span class="p">();</span>
 <span class="w">    </span><span class="n">appT</span><span class="p">.</span><span class="na">startup</span><span class="p">();</span>
-
 <span class="w">  </span><span class="p">}</span>
+
 <span class="w">  </span><span class="nd">@After</span>
 <span class="w">  </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">destroy</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="n">Args</span><span class="p">.</span><span class="na">clearParam</span><span class="p">();</span>
 <span class="w">    </span><span class="n">appT</span><span class="p">.</span><span class="na">shutdownServices</span><span class="p">();</span>
 <span class="w">    </span><span class="n">appT</span><span class="p">.</span><span class="na">shutdown</span><span class="p">();</span>
-
 <span class="w">  </span><span class="p">}</span>
+
 <span class="w">  </span><span class="nd">@Test</span>
 <span class="w">  </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">testAddPeer</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="n">SetPeerServlet</span><span class="w"> </span><span class="n">setPeerServlet</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">SetPeerServlet</span><span class="p">();</span>
+<span class="w">    </span><span class="c1">// 假设 127.0.0.1 是本地 IP，addPeer 应该返回 false，因为它不会添加自身为信任节点</span>
 <span class="w">    </span><span class="n">Assert</span><span class="p">.</span><span class="na">assertFalse</span><span class="p">(</span><span class="n">setPeerServlet</span><span class="p">.</span><span class="na">addPeer</span><span class="p">(</span><span class="s">&quot;127.0.0.1&quot;</span><span class="p">));</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-<h2 id="checkstyle">CheckStyle代码风格检查<a class="headerlink" href="#checkstyle" title="Permanent link">&para;</a></h2>
-<p>逐个检查修改的文件，在右键菜单中选择<code>Check Current File</code>，如果检查出代码风格问题，请根据提示逐个修改。
-<img alt="image" src="https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/demo_codestyle_error.png" />
-对图中代码风格警告，进行修复，然后，再一次检查该文件，，直至没有warning。
-<img alt="image" src="https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/demo_codestyle.png" /></p>
-<h2 id="_8">提交代码<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
-<p>代码完成之后提交commit，请参考<a href="../java-tron/#commit">commit规范</a>。
-<div class="highlight"><pre><span></span><code>git add .
-git commit -m &#39;add a new http api setpeer&#39;
-</code></pre></div></p>
-<p>提交新的分支到个人远端仓库：</p>
-<div class="highlight"><pre><span></span><code>git push origin feature/add-new-http-demo
+<h2 id="4-checkstyle">4. CheckStyle 代码风格检查<a class="headerlink" href="#4-checkstyle" title="Permanent link">&para;</a></h2>
+<p>在提交代码之前，请务必对您修改的文件进行 CheckStyle 代码风格检查。在 IntelliJ IDEA 中，您可以右键点击文件，选择 “Check Current File”。如果检查出代码风格问题，请根据提示逐个修改，直至没有警告。</p>
+<p><img alt="CheckStyle 代码风格错误示例" src="https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/demo_codestyle_error.png" /></p>
+<p>修复代码风格问题后，再次检查，确保所有警告都已消除：</p>
+<p><img alt="CheckStyle 代码风格修复后示例" src="https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/demo_codestyle.png" /></p>
+<h2 id="5-pull-request">5. 提交代码与 Pull Request<a class="headerlink" href="#5-pull-request" title="Permanent link">&para;</a></h2>
+<h3 id="51-commit">5.1 提交 Commit<a class="headerlink" href="#51-commit" title="Permanent link">&para;</a></h3>
+<p>完成代码编写和测试后，提交您的更改。请参考 <a href="../java-tron/#commit">Commit 规范</a>。</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>add<span class="w"> </span>.
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s1">&#39;feat: add new http api setpeer&#39;</span>
 </code></pre></div>
-<h2 id="pull-request">提交Pull Request<a class="headerlink" href="#pull-request" title="Permanent link">&para;</a></h2>
-<p>在Github从你自己的仓库向<code>tronprotocol/java-tron</code>提交一个推送代码请求 Pull Request。</p>
-<p><img alt="image" src="https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/javatron_pr.png" /></p>
+<h3 id="52">5.2 推送新分支<a class="headerlink" href="#52" title="Permanent link">&para;</a></h3>
+<p>将您的新分支推送到个人远程仓库：</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>feature/add-new-http-demo
+</code></pre></div>
+<h3 id="53-pull-request">5.3 提交 Pull Request<a class="headerlink" href="#53-pull-request" title="Permanent link">&para;</a></h3>
+<p>在 GitHub 上，从您自己的仓库向 <code>tronprotocol/java-tron</code> 提交一个 Pull Request。这将把您的更改提议给官方仓库。</p>
+<p><img alt="提交 Pull Request 示例" src="https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/javatron_pr.png" /></p>
+<p>请确保您的 Pull Request 描述清晰，包含您所做更改的详细信息和目的。</p>
 
 
 

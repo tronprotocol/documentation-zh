@@ -14,7 +14,7 @@
         <link rel="prev" href="../../using_javatron/private_network/">
       
       
-        <link rel="next" href="../database/">
+        <link rel="next" href="../use-native-queue/">
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
@@ -22,7 +22,7 @@
     
     
       
-        <title>事件订阅 - java-tron</title>
+        <title>概览 - java-tron</title>
       
     
     
@@ -110,7 +110,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              事件订阅
+              概览
             
           </span>
         </div>
@@ -454,6 +454,46 @@
   
   
   
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    事件订阅
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            事件订阅
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
     <li class="md-nav__item md-nav__item--active">
       
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
@@ -466,7 +506,7 @@
           
   
   <span class="md-ellipsis">
-    事件订阅
+    概览
     
   </span>
   
@@ -478,7 +518,7 @@
         
   
   <span class="md-ellipsis">
-    事件订阅
+    概览
     
   </span>
   
@@ -503,44 +543,86 @@
         <li class="md-nav__item has-children">
   <a href="#_2" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
     <span class="md-ellipsis">
-      使用事件插件进行事件订阅
+      事件订阅方式概览
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="使用事件插件进行事件订阅" hidden>
+    <nav class="md-nav" aria-label="事件订阅方式概览" hidden>
       <ul class="md-nav__list">
         
           <li class="md-nav__item ">
-  <a href="#tip" class="md-nav__link" >
+  <a href="#1" class="md-nav__link" >
     <span class="md-ellipsis">
-      TIP
+      1. 本地事件插件订阅（推荐）
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item ">
+  <a href="#2-zeromq" class="md-nav__link" >
+    <span class="md-ellipsis">
+      2. 内置消息队列订阅（ZeroMQ）
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item ">
   <a href="#_3" class="md-nav__link" >
+    <span class="md-ellipsis">
+      事件服务框架（基于本地插件）
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item has-children">
+  <a href="#_4" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
     <span class="md-ellipsis">
       事件类型
     </span>
   </a>
   
-</li>
+    <nav class="md-nav" aria-label="事件类型" hidden>
+      <ul class="md-nav__list">
         
           <li class="md-nav__item ">
-  <a href="#_4" class="md-nav__link" >
+  <a href="#1_1" class="md-nav__link" >
     <span class="md-ellipsis">
-      新功能
+      1. 交易事件
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item ">
-  <a href="#github" class="md-nav__link" >
+  <a href="#2" class="md-nav__link" >
     <span class="md-ellipsis">
-      Github 项目
+      2. 区块事件
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#3" class="md-nav__link" >
+    <span class="md-ellipsis">
+      3. 合约事件与日志
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#4" class="md-nav__link" >
+    <span class="md-ellipsis">
+      4. 固化块通知事件
     </span>
   </a>
   
@@ -552,46 +634,28 @@
 </li>
       
         <li class="md-nav__item has-children">
-  <a href="#java-tron" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
+  <a href="#v20" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
     <span class="md-ellipsis">
-      使用java-tron内置的消息队列进行事件订阅
+      迁移至新版事件服务（V2.0）
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="使用java-tron内置的消息队列进行事件订阅" hidden>
+    <nav class="md-nav" aria-label="迁移至新版事件服务（V2.0）" hidden>
       <ul class="md-nav__list">
         
           <li class="md-nav__item ">
-  <a href="#_7" class="md-nav__link" >
+  <a href="#_5" class="md-nav__link" >
     <span class="md-ellipsis">
-      配置节点
+      迁移前评估
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item ">
-  <a href="#_8" class="md-nav__link" >
+  <a href="#_6" class="md-nav__link" >
     <span class="md-ellipsis">
-      启动节点
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item ">
-  <a href="#_9" class="md-nav__link" >
-    <span class="md-ellipsis">
-      准备事件订阅脚本
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item ">
-  <a href="#_10" class="md-nav__link" >
-    <span class="md-ellipsis">
-      启动订阅者
+      迁移操作步骤
     </span>
   </a>
   
@@ -605,6 +669,80 @@
     </ul>
   
 </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../use-native-queue/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    内置消息队列订阅
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../use-mongodb/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Mongodb 事件订阅插件
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../use-kafka/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Kafka 事件订阅插件
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
       
     </li>
   
@@ -1590,169 +1728,199 @@
 
 
 <h1 id="_1">事件订阅<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
-<h2 id="_2">使用事件插件进行事件订阅<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
-<h3 id="tip">TIP<a class="headerlink" href="#tip" title="Permanent link">&para;</a></h3>
-<p>TIP: <a href="https://github.com/tronprotocol/TIPs/issues/12">https://github.com/tronprotocol/TIPs/issues/12</a></p>
-<h3 id="_3">事件类型<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
-<p>波场事件订阅支持四种类型的事件：</p>
+<p>TRON 提供了强大的事件订阅机制，使开发者能够实时捕获链上关键事件，例如交易状态、合约调用和区块生成，从而构建功能丰富的去中心化应用（DApps）。</p>
+<h2 id="_2">事件订阅方式概览<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>TRON 提供了两种主要的事件订阅方式，以满足不同场景下的需求。</p>
+<h3 id="1">1. 本地事件插件订阅（推荐）<a class="headerlink" href="#1" title="Permanent link">&para;</a></h3>
+<p>该方式基于可扩展的插件架构，可将链上事件实时或批量持久化到外部系统，如 <strong>MongoDB</strong> 数据库或 <strong>Kafka</strong> 消息队列。此方案专为对事件可靠性、持久化和数据分析有较高要求的生产环境而设计。</p>
+<p>这种方式有如下优势：</p>
 <ul>
-<li>交易相关事件</li>
+<li><strong>多样化的插件支持：</strong> 目前支持 Kafka 和 MongoDB。</li>
+<li><strong>丰富的数据类型：</strong> 可订阅区块、交易、智能合约事件及日志。</li>
+<li><strong>支持复杂过滤：</strong> 可根据特定条件过滤事件。</li>
+<li><strong>历史事件回溯：</strong> V2.0 框架支持从指定区块高度开始同步历史事件。</li>
+<li><strong>生产级可靠性：</strong> 推荐用于需要数据完整性和可靠性的场景。</li>
 </ul>
-<p>订阅的内容：</p>
-<div class="highlight"><pre><span></span><code>transactionId: 交易哈希  
-blockHash: 区块哈希  
-blockNumber: 区块高度  
-energyUsage: 此次调用中，合约调用者消耗的Energy的总量  
-energyFee: 此次调用中，合约调用者消耗的Energy中，需要TRX支付的数目(SUN为单位)  
-originEnergyUsage: 此次调用中，合约开发者消耗的Energy的总量  
-energyUsageTotal: 此次调用中，合约调用者和合约开发者消耗的Energy的总量  
-</code></pre></div>
+<blockquote>
+<p><strong>注意：</strong> 在网络分叉等极端情况下，未固化（non-solidified）的事件可能会被回滚。因此，在对数据可靠性要求较高的场景中，强烈建议订阅<strong>固化事件（solidified events）</strong>。</p>
+</blockquote>
+<h3 id="2-zeromq">2. 内置消息队列订阅（ZeroMQ）<a class="headerlink" href="#2-zeromq" title="Permanent link">&para;</a></h3>
+<p>Java-tron 节点内置 <strong>ZeroMQ</strong> 消息队列，提供轻量级的事件推送能力。这种方式无需部署额外插件，适用于对实时性要求较高，但不需要存储或回溯事件的简单场景，例如快速开发和测试。</p>
+<p>这种方式有如下优势：</p>
 <ul>
-<li>区块相关事件</li>
+<li><strong>无需部署插件：</strong> 直接连接 TRON 节点即可订阅。</li>
+<li><strong>高实时性：</strong> 专为实时事件推送而设计。</li>
+<li><strong>轻量级：</strong> 适合快速原型开发和测试环境。</li>
 </ul>
-<p>订阅的内容：</p>
-<div class="highlight"><pre><span></span><code>blockHash: 区块哈希  
-blockNumber: 区块高度  
-transactionSize: 区块中包含的交易的数目  
-latestSolidifiedBlockNumber: 最新的固化块的高度  
-transactionList: 交易哈希列表  
-</code></pre></div>
+<h2 id="_3">事件服务框架（基于本地插件）<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p>Java-tron 当前支持两个事件服务框架版本：<code>V1.0</code> 和 <code>V2.0</code>。</p>
 <ul>
-<li>合约事件相关</li>
+<li><strong>V1.0：</strong> 仅支持新区块产生时的实时事件推送。</li>
+<li><strong>V2.0：</strong> <strong>推荐使用</strong>，新增了历史事件回溯功能，允许从任意区块高度开始同步。</li>
 </ul>
-<p>订阅的内容：</p>
-<div class="highlight"><pre><span></span><code>transactionId: 交易哈希  
-contractAddress: 合约地址  
-callerAddress: 合约调用者地址  
-blockNumber: 合约事件所在的区块高度  
-blockTimestamp: 区块时间戳  
-eventSignature: 事件签名  
-topicMap: the map of topic in solidity language  
-data: the data information in solidity language  
-</code></pre></div>
-<ul>
-<li>合约日志事件相关</li>
-</ul>
-<p>订阅的内容：</p>
-<div class="highlight"><pre><span></span><code>transactionId: 交易哈希  
-contractAddress: 合约地址  
-callerAddress: 合约调用者地址  
-blockNumber: 合约事件所在的区块高度  
-blockTimestamp: 区块时间戳  
-contractTopics: the list of topic in solidity language  
-data: the data information in solidity language  
-removed: &#39;true&#39;代表日志已经被移除  
-</code></pre></div>
-<p>合约事件与合约日志事件订阅支持过滤功能：</p>
-<div class="highlight"><pre><span></span><code>fromBlock: 起始区块索引  
-toBlock: 结束区块索引  
-contractAddress: 合约地址  
-contractTopics: 合约主题  
-</code></pre></div>
-<div class="admonition 注意">
-<p class="admonition-title">注意</p>
+<p>详细对比与选择建议请参考：<a href="https://medium.com/tronnetwork/event-service-framework-v2-0-0622f2f07249">事件服务框架 V2.0 介绍</a>。</p>
+<p><strong>工作流程：</strong></p>
 <ol>
-<li>不支持历史数据查询</li>
-<li>在对非固化的事件进行订阅时，请务必以<code>blockNumber</code> 和 <code>blockHash</code> 两个参数为准，以验证收到的事件是有效的。在发生网络连接不稳定等特殊情况下造成的切链，会出现事件重组的情况，导致部分事件失效。</li>
+<li><strong>事件采集：</strong> TRON 节点从链上区块中获取事件信息。</li>
+<li><strong>事件入队：</strong> 将事件封装并写入事件缓存队列。</li>
+<li><strong>插件消费：</strong> 事件插件异步消费队列数据。</li>
+<li><strong>事件推送：</strong> 插件将数据推送到目标系统（例如 Kafka 或 MongoDB）。</li>
+<li><strong>业务处理：</strong> 外部业务应用持续消费这些事件数据。</li>
 </ol>
-</div>
-<h3 id="_4">新功能<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
-<ol>
-<li>
-<p>支持事件插件，kafka &amp; mongodb 插件已经发布，开发者可以按照需求自定义插件。</p>
-</li>
-<li>
-<p>支持订阅链上数据，例如区块，交易，合约以及合约日志。开发者还可以通过设置过滤条件来订阅指定的数据。</p>
-</li>
-<li>
-<p>提供事件订阅的数据查询服务，线上地址为<a href="https://api.tronex.io">https://api.tronex.io</a>。</p>
-</li>
-</ol>
-<h3 id="github">Github 项目<a class="headerlink" href="#github" title="Permanent link">&para;</a></h3>
-<ul>
-<li><a href="https://github.com/tronprotocol/event-plugin">事件订阅</a></li>
-<li><a href="https://github.com/tronprotocol/tron-eventquery">事件订阅数据查询</a></li>
-</ul>
-<h4 id="_5">事件订阅<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h4>
-<ul>
-<li><a href="https://tronprotocol.github.io/documentation-zh/developers/deployment/#kafka">kafka部署</a></li>
-<li><a href="https://tronprotocol.github.io/documentation-zh/developers/deployment/#mongo">mongo部署</a></li>
-</ul>
-<h4 id="_6">事件订阅数据查询<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h4>
-<p>事件订阅数据查询服务实现了事件订阅模型。</p>
-<p>查看更多信息，请查阅<a href="https://github.com/tronprotocol/TIPs/issues/12">https://github.com/tronprotocol/TIPs/issues/12</a></p>
-<ul>
-<li><a href="https://tronprotocol.github.io/documentation-zh/developers/deployment/#_6">事件订阅数据查询服务部署</a></li>
-<li><a href="https://github.com/tronprotocol/documentation-en/blob/master/docs_without_index/plugin/event-query-http.md">事件订阅数据查询服务http api</a></li>
-</ul>
-<h2 id="java-tron">使用java-tron内置的消息队列进行事件订阅<a class="headerlink" href="#java-tron" title="Permanent link">&para;</a></h2>
-<p>TRON提供了事件订阅服务，开发者不但可以通过事件插件来获取链上事件，还可以通过<a href="https://github.com/tronprotocol/tips/blob/master/tip-28.md">java-tron 内置的ZeroMQ消息队列</a>来订阅事件。所不同的是，事件插件需要额外部署，用来实现事件转储：开发者可以根据需求选择合适的存储工具，如MongoDB，Kafka等，插件帮助完成对订阅的事件的存储工作。而java-tron内置的ZeroMQ，不需要额外的部署操作，事件订阅者直接连接发布者ip及端口、设置订阅主题，接收订阅的事件即可，但该方式不提供事件存储功能。因此，当开发者希望短期并直接从节点订阅事件，那么使用内置的消息队列将是一个更合适的选择。</p>
-<p>本文将详细介绍如何通过java-tron内置的消息队列来订阅事件。</p>
-<h3 id="_7">配置节点<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
-<p>要使用节点内置的ZeroMQ进行事件订阅，需要在节点配置文件中将<code>useNativeQueue</code>配置项设置为<code>true</code>。
-<div class="highlight"><pre><span></span><code>event.subscribe = {
-  native = {
-    useNativeQueue = true // if true, use native message queue, else use event plugin.
-    bindport = 5555 // bind port
-    sendqueuelength = 1000 //max length of send queue
+<h2 id="_4">事件类型<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<p>开发者可通过修改节点配置文件 <code>config.conf</code>，灵活指定需要订阅的事件类型。</p>
+<h3 id="1_1">1. 交易事件<a class="headerlink" href="#1_1" title="Permanent link">&para;</a></h3>
+<p>用于订阅交易相关的事件信息。</p>
+<p><strong>配置示例：</strong></p>
+<div class="highlight"><pre><span></span><code>event.subscribe.topics = [
+  {
+    triggerName = &quot;transaction&quot;
+    enable = false
+    topic = &quot;transaction&quot;
+    solidified = false
+    ethCompatible = false
   }
-
-  ......
-
-  topics = [
-    {
-      triggerName = &quot;block&quot; // block trigger, the value can&#39;t be modified
-      enable = true
-      topic = &quot;block&quot; // plugin topic, the value could be modified
-    },
-    ......
-  ]
-}
-</code></pre></div></p>
+]
+</code></pre></div>
+<p><strong>参数说明：</strong></p>
 <ul>
-<li><code>native.useNativeQueue</code>: true为使用内置消息队列，false为使用事件插件</li>
-<li><code>native.bindport</code>: ZeroMQ发布者绑定端口。本例中为<code>5555</code>，所以订阅者应连接的发布者地址为<code>"tcp://127.0.0.1:5555"</code></li>
-<li><code>native.sendqueuelength</code>: 发送队列的长度，即当订阅者接收消息较慢的情况下，TCP缓冲区最多容纳的发布者发布的消息数量，超过则丢弃</li>
-<li><code>topics</code>: 订阅的<a href="#_3">事件类型</a>，包括区块类型、交易类型等</li>
+<li><code>triggerName</code>: 事件类型标识，交易事件固定为 <code>"transaction"</code>。</li>
+<li><code>enable</code>: 是否订阅此类型的事件。</li>
+<li><code>topic</code>: 在 MongoDB 或 Kafka 中接收此类型事件的主题名，该参数值需与 MongoDB 或 Kafka 的配置保持一致。</li>
+<li><code>solidified</code>: 如果设为 <code>true</code>，则仅订阅已固化的交易事件。</li>
+<li><code>ethCompatible</code>: 如果设为 <code>true</code>，将包含 ETH 兼容字段（如 <code>transactionIndex</code>, <code>logList</code>）。</li>
 </ul>
-<h3 id="_8">启动节点<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
-<p>事件订阅服务默认为关闭状态，需要通过配置命令行参数 <code>--es</code> 的方式来启用。开启事件订阅服务的节点的启动命令如下：
-<div class="highlight"><pre><span></span><code>$ java -jar FullNode.jar --es
+<p><strong>交易事件中包含的主要字段：</strong></p>
+<ul>
+<li><code>transactionId</code>: 交易哈希。</li>
+<li><code>blockNumber</code>: 区块高度。</li>
+<li><code>energyUsage</code>: 此次调用中消耗的能量(Energy) 总量。</li>
+<li><code>energyFee</code>: 此次调用中消耗的 TRX 数量（以 <code>sun</code> 为单位）。</li>
+</ul>
+<p>更多字段请参考 <a href="https://github.com/tronprotocol/java-tron/blob/develop/common/src/main/java/org/tron/common/logsfilter/trigger/TransactionLogTrigger.java">TransactionLogTrigger</a>。</p>
+<h3 id="2">2. 区块事件<a class="headerlink" href="#2" title="Permanent link">&para;</a></h3>
+<p>用于订阅区块生成信息。</p>
+<p><strong>配置示例：</strong></p>
+<div class="highlight"><pre><span></span><code>event.subscribe.topics = [
+  {
+    triggerName = &quot;block&quot;
+    enable = false
+    topic = &quot;block&quot;
+    solidified = false
+  }
+]
+</code></pre></div>
+<p><strong>区块事件中包含的主要字段：</strong></p>
+<ul>
+<li><code>blockHash</code>: 区块哈希。</li>
+<li><code>blockNumber</code>: 区块高度。</li>
+<li><code>transactionSize</code>: 区块中包含的交易数量。</li>
+<li><code>latestSolidifiedBlockNumber</code>: 最新的固化块的高度</li>
+<li><code>transactionList</code>: 交易哈希列表</li>
+</ul>
+<p>更多字段请参考 <a href="https://github.com/tronprotocol/java-tron/blob/develop/common/src/main/java/org/tron/common/logsfilter/trigger/BlockLogTrigger.java">BlockLogTrigger</a>。</p>
+<h3 id="3">3. 合约事件与日志<a class="headerlink" href="#3" title="Permanent link">&para;</a></h3>
+<p>用于订阅智能合约事件和日志。</p>
+<p><strong>配置示例：</strong></p>
+<div class="highlight"><pre><span></span><code>event.subscribe.topics = [
+  {
+    triggerName = &quot;contractevent&quot;
+    enable = false
+    topic = &quot;contractevent&quot;
+  },
+  {
+    triggerName = &quot;contractlog&quot;
+    enable = false
+    topic = &quot;contractlog&quot;
+  },
+  {
+    triggerName = &quot;solidityevent&quot;
+    enable = false
+    topic = &quot;solidityevent&quot;
+  },
+  {
+    triggerName = &quot;soliditylog&quot;
+    enable = false
+    topic = &quot;soliditylog&quot;
+  }
+]
+</code></pre></div>
+<ul>
+<li><code>contractevent</code>: 订阅所有合约事件。</li>
+<li><code>contractlog</code>: 订阅所有合约日志。</li>
+<li><code>solidityevent</code>: 仅订阅固化块中的合约事件。</li>
+<li><code>soliditylog</code>: 仅订阅固化块中的合约日志。</li>
+</ul>
+<p><strong>合约事件中包含的主要字段：</strong></p>
+<ul>
+<li><code>transactionId</code>: 交易哈希。</li>
+<li><code>contractAddress</code>: 合约地址。</li>
+<li><code>blockNumber</code>: 合约事件所在的区块高度。</li>
+</ul>
+<p>更多字段请参考 <a href="https://github.com/tronprotocol/java-tron/blob/develop/common/src/main/java/org/tron/common/logsfilter/trigger/ContractEventTrigger.java">ContractEventTrigger</a> 和  <a href="https://github.com/tronprotocol/java-tron/blob/develop/common/src/main/java/org/tron/common/logsfilter/trigger/ContractLogTrigger.java">ContractLogTrigger</a>。</p>
+<blockquote>
+<p>注意：<strong>合约事件</strong>与<strong>合约日志事件</strong>订阅支持以下过滤参数：
+<div class="highlight"><pre><span></span><code>fromBlock: 起始区块索引
+toBlock: 结束区块索引
+contractAddress: 合约地址
+contractTopics: contract topics列表
 </code></pre></div></p>
-<h3 id="_9">准备事件订阅脚本<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
-<p>本文以Nodejs为例来说明如何订阅事件。</p>
-<p>首先，下载zeromq库：
-<div class="highlight"><pre><span></span><code>$ npm install zeromq@5
+</blockquote>
+<h3 id="4">4. 固化块通知事件<a class="headerlink" href="#4" title="Permanent link">&para;</a></h3>
+<p>用于实时获取最新固化块高度，适用于需要同步最新固化状态的场景。</p>
+<p><strong>配置示例：</strong></p>
+<div class="highlight"><pre><span></span><code>event.subscribe.topics = [
+  {
+    triggerName = &quot;solidity&quot;
+    enable = true
+    topic = &quot;solidity&quot;
+  }
+]
 </code></pre></div>
-然后，编写订阅者代码：
-<div class="highlight"><pre><span></span><code>// subscriber.js
-var zmq = require(&quot;zeromq&quot;),
-var sock = zmq.socket(&quot;sub&quot;);
-
-sock.connect(&quot;tcp://127.0.0.1:5555&quot;);
-sock.subscribe(&quot;block&quot;);
-console.log(&quot;Subscriber connected to port 5555&quot;);
-
-sock.on(&quot;message&quot;, function(topic, message) {
-  console.log(
-    &quot;received a message related to:&quot;,
-    Buffer.from(topic).toString(),
-    &quot;, containing message:&quot;,
-    Buffer.from(message).toString()
-  );
-});
+<p><strong>固化快通知事件中包含的主要字段：</strong></p>
+<ul>
+<li><code>latestSolidifiedBlockNumber</code>: 最新固化块高度。</li>
+<li><code>timestamp</code>: 区块时间戳。</li>
+</ul>
+<p>更多字段请参考 <a href="https://github.com/tronprotocol/java-tron/blob/develop/common/src/main/java/org/tron/common/logsfilter/trigger/SolidityTrigger.java">SolidityTrigger</a>。</p>
+<h2 id="v20">迁移至新版事件服务（V2.0）<a class="headerlink" href="#v20" title="Permanent link">&para;</a></h2>
+<p>新版 <code>V2.0</code> 事件服务框架引入了历史事件回溯功能，并对事件推送机制进行了全面优化。以下是迁移至 <code>V2.0</code> 的操作步骤。</p>
+<h3 id="_5">迁移前评估<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<p>在迁移之前，请考虑以下因素：</p>
+<ul>
+<li><strong>内部交易日志支持：</strong> <code>V2.0</code> 暂不支持内部交易日志（<code>internalTransactionList</code> 字段为空）。如果您的业务依赖此字段，请继续使用 <code>V1.0</code>。</li>
+<li><strong>插件版本：</strong> 建议将事件插件同步升级至最新版，以避免处理大量历史数据时可能出现的性能问题。</li>
+</ul>
+<h3 id="_6">迁移操作步骤<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<h4 id="1_2">步骤 1：获取新版事件插件<a class="headerlink" href="#1_2" title="Permanent link">&para;</a></h4>
+<p>你可以从 GitHub 获取源码并自行构建，或直接下载官方发布的版本。</p>
+<p><strong>通过源码构建：</strong></p>
+<p><div class="highlight"><pre><span></span><code>git clone git@github.com:tronprotocol/event-plugin.git
+cd event-plugin
+git checkout master
+./gradlew build
 </code></pre></div>
-本示例将订阅者连接到了节点事件发布者，并订阅了<code>block</code>事件。</p>
-<h3 id="_10">启动订阅者<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
-<p>Nodejs启动命令如下：
-<div class="highlight"><pre><span></span><code>$ node subscriber.js
-
-&gt; Subscriber connected to port 5555
+构建完成后，生成的 <code>.zip</code> 文件即为插件包。</p>
+<p><strong>直接下载官方发布版本：</strong></p>
+<p>访问 <a href="https://github.com/tronprotocol/event-plugin/releases">event-plugin Releases 页面</a> 下载最新插件包。</p>
+<h4 id="2-fullnode">步骤 2：修改 FullNode 配置<a class="headerlink" href="#2-fullnode" title="Permanent link">&para;</a></h4>
+<p>在 <code>config.conf</code> 文件中，将事件服务版本修改为使用<code>V2.0</code>，值为 1 。</p>
+<div class="highlight"><pre><span></span><code>event.subscribe.version = 1 # 1 表示 V2.0，0 表示 V1.0
 </code></pre></div>
-当节点有新的区块时，该订阅者将收到区块事件，输出信息如下：
-<div class="highlight"><pre><span></span><code>received a message related to: blockTrigger, containing message: {&quot;timeStamp&quot;:1678343709000,&quot;triggerName&quot;:&quot;blockTrigger&quot;,&quot;blockNumber&quot;:1361,&quot;blockHash&quot;:&quot;00000000000005519b3995cd638753a862c812d1bda11de14bbfaa5ad3383280&quot;,&quot;transactionSize&quot;:0,&quot;latestSolidifiedBlockNumber&quot;:1361,&quot;transactionList&quot;:[]}
-received a message related to: blockTrigger, containing message: {&quot;timeStamp&quot;:1678343712000,&quot;triggerName&quot;:&quot;blockTrigger&quot;,&quot;blockNumber&quot;:1362,&quot;blockHash&quot;:&quot;0000000000000552d53d1bdd9929e4533a983f14df8931ee9b3bf6d6c74a47b0&quot;,&quot;transactionSize&quot;:0,&quot;latestSolidifiedBlockNumber&quot;:1362,&quot;transactionList&quot;:[]}
-</code></pre></div></p>
+<h4 id="3_1">步骤 3：配置事件插件<a class="headerlink" href="#3_1" title="Permanent link">&para;</a></h4>
+<p>新版插件的配置方式与旧版基本一致。你可以参考官方文档进行部署：</p>
+<ul>
+<li><a href="/documentation-zh/architecture/use-mongodb/">事件插件部署(MongoDB)</a></li>
+<li><a href="/documentation-zh/architecture/use-kafka/">事件插件部署(Kafka)</a></li>
+</ul>
+<h4 id="4_1">步骤 4（可选）：配置历史事件同步起点<a class="headerlink" href="#4_1" title="Permanent link">&para;</a></h4>
+<p>如果你需要从指定区块高度开始同步历史事件，请在配置文件中加入以下配置。</p>
+<div class="highlight"><pre><span></span><code>event.subscribe.startSyncBlockNum = &lt;block_height&gt;
+</code></pre></div>
+<h4 id="5-fullnode">步骤 5：启动 FullNode 和插件<a class="headerlink" href="#5-fullnode" title="Permanent link">&para;</a></h4>
+<p>完成上述配置后，使用以下命令启动 <code>FullNode</code> 并加载事件插件。</p>
+<div class="highlight"><pre><span></span><code>java -jar FullNode.jar -c config.conf --es
+</code></pre></div>
 
 
 
@@ -1790,13 +1958,13 @@ received a message related to: blockTrigger, containing message: {&quot;timeStam
         
         
           
-          <a href="../database/" class="md-footer__link md-footer__link--next" aria-label="Next: 数据库配置">
+          <a href="../use-native-queue/" class="md-footer__link md-footer__link--next" aria-label="Next: 内置消息队列订阅">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                数据库配置
+                内置消息队列订阅
               </div>
             </div>
             <div class="md-footer__button md-icon">
