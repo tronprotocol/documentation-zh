@@ -8,13 +8,13 @@
       
       
       
-        <link rel="canonical" href="https://tronprotocol.github.io/documentation-zh/using_javatron/private_network/">
+        <link rel="canonical" href="https://tronprotocol.github.io/documentation-zh/architecture/use-kafka/">
       
       
-        <link rel="prev" href="../litefullnode/">
+        <link rel="prev" href="../use-mongodb/">
       
       
-        <link rel="next" href="../../architecture/event/">
+        <link rel="next" href="../database/">
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
@@ -22,7 +22,7 @@
     
     
       
-        <title>私链网络 - java-tron</title>
+        <title>Kafka 事件订阅插件 - java-tron</title>
       
     
     
@@ -74,7 +74,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#_1" class="md-skip">
+        <a href="#tron-kafka" class="md-skip">
           Skip to content
         </a>
       
@@ -110,7 +110,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              私链网络
+              Kafka 事件订阅插件
             
           </span>
         </div>
@@ -365,7 +365,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../installing_javatron/" class="md-nav__link">
+      <a href="../../using_javatron/installing_javatron/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -387,7 +387,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../backup_restore/" class="md-nav__link">
+      <a href="../../using_javatron/backup_restore/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -409,11 +409,139 @@
   
   
     <li class="md-nav__item">
-      <a href="../litefullnode/" class="md-nav__link">
+      <a href="../../using_javatron/litefullnode/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
     轻节点
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../using_javatron/private_network/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    私链网络
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    事件订阅
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            事件订阅
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../event/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    概览
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../use-native-queue/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    内置消息队列订阅
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../use-mongodb/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Mongodb 事件订阅插件
     
   </span>
   
@@ -444,7 +572,7 @@
           
   
   <span class="md-ellipsis">
-    私链网络
+    Kafka 事件订阅插件
     
   </span>
   
@@ -456,7 +584,7 @@
         
   
   <span class="md-ellipsis">
-    私链网络
+    Kafka 事件订阅插件
     
   </span>
   
@@ -479,20 +607,137 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item ">
-  <a href="#_2" class="md-nav__link" >
+  <a href="#_1" class="md-nav__link" >
     <span class="md-ellipsis">
-      前置要求
+      推荐系统配置
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item ">
-  <a href="#_3" class="md-nav__link" >
+  <a href="#kafka" class="md-nav__link" >
     <span class="md-ellipsis">
-      部署指南
+      编译 Kafka 事件订阅插件
     </span>
   </a>
+  
+</li>
+      
+        <li class="md-nav__item has-children">
+  <a href="#kafka_1" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
+    <span class="md-ellipsis">
+      部署并运行 Kafka
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="部署并运行 Kafka" hidden>
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item ">
+  <a href="#1-kafka" class="md-nav__link" >
+    <span class="md-ellipsis">
+      步骤 1：安装 Kafka
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#2-kafka" class="md-nav__link" >
+    <span class="md-ellipsis">
+      步骤 2：运行 Kafka
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item has-children">
+  <a href="#_2" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
+    <span class="md-ellipsis">
+      配置事件订阅
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="配置事件订阅" hidden>
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item ">
+  <a href="#_3" class="md-nav__link" >
+    <span class="md-ellipsis">
+      插件配置项
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#_4" class="md-nav__link" >
+    <span class="md-ellipsis">
+      配置事件订阅类型
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#_5" class="md-nav__link" >
+    <span class="md-ellipsis">
+      配置事件过滤
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item ">
+  <a href="#kafka-topic" class="md-nav__link" >
+    <span class="md-ellipsis">
+      创建 Kafka 订阅 Topic
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item has-children">
+  <a href="#_6" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
+    <span class="md-ellipsis">
+      启动事件订阅节点
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="启动事件订阅节点" hidden>
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item ">
+  <a href="#_7" class="md-nav__link" >
+    <span class="md-ellipsis">
+      验证插件加载
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#_8" class="md-nav__link" >
+    <span class="md-ellipsis">
+      验证事件订阅
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -500,132 +745,6 @@
   
 </nav>
       
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    
-    
-    
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" >
-        
-          
-          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
-            
-  
-  <span class="md-ellipsis">
-    事件订阅
-    
-  </span>
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_3_5">
-            <span class="md-nav__icon md-icon"></span>
-            事件订阅
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../architecture/event/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    概览
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../architecture/use-native-queue/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    内置消息队列订阅
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../architecture/use-mongodb/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Mongodb 事件订阅插件
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../architecture/use-kafka/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Kafka 事件订阅插件
-    
-  </span>
-  
-
-      </a>
     </li>
   
 
@@ -646,7 +765,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../architecture/database/" class="md-nav__link">
+      <a href="../database/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -668,7 +787,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../connecting_to_tron/" class="md-nav__link">
+      <a href="../../using_javatron/connecting_to_tron/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -690,7 +809,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../metrics/" class="md-nav__link">
+      <a href="../../using_javatron/metrics/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -712,7 +831,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../toolkit/" class="md-nav__link">
+      <a href="../../using_javatron/toolkit/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1617,232 +1736,147 @@
   
 
 
-<h1 id="_1">私链网络<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
-<p>本文档将指导如何搭建一个基础的 TRON 私有网络。该网络将包含一个负责生成区块的超级代表节点和一个仅用于同步区块数据和广播交易的普通全节点。</p>
-<h2 id="_2">前置要求<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
-<p>在开始之前，请确保您的开发环境满足以下条件：</p>
+<h1 id="tron-kafka">TRON Kafka 事件订阅插件：部署与使用指南<a class="headerlink" href="#tron-kafka" title="Permanent link">&para;</a></h1>
+<p>本指南旨在帮助开发者高效搭建并运行 TRON Kafka 事件订阅插件，用以监听 TRON 链上事件。我们将从环境准备讲起，一步步带您完成部署、配置和最终验证。主要步骤包括：</p>
 <ul>
-<li>Java Development Kit (JDK)：您的环境必须安装 Oracle JDK 1.8。 </li>
-<li>TRON 账户：您需要预先创建至少两个 TRON 网络地址，并安全地保存好地址和其对应的私钥。其中一个地址将作为初始见证节点（超级代表），另一个用于普通账户。</li>
-<li>地址创建工具：您可以使用以下任一工具来生成和管理您的 TRON 账户：<ul>
-<li><a href="https://github.com/tronprotocol/wallet-cli">Wallet-cli</a>：一个官方提供的命令行钱包工具，适合在服务器环境中使用。</li>
-<li><a href="https://www.tronlink.org/cn/">TronLink</a>：一款支持TRON网络的多链钱包，提供友好的图形用户界面，方便创建和管理地址。</li>
-<li><a href="https://tronweb.network/docu/docs/intro/">TronWeb</a>：一个便于开发者与TRON网络进行交互和构建dApp的JavaScript库。</li>
-<li><a href="https://github.com/tronprotocol/trident">Trident</a>：一个轻量级的 Java SDK，旨在帮助开发者简单高效地将 TRON 区块链功能集成到 Java 应用中</li>
+<li><a href="#1">检查系统配置</a></li>
+<li><a href="#2">编译事件插件</a></li>
+<li><a href="#3">部署并运行 Kafka</a></li>
+<li><a href="#4">配置事件订阅规则</a></li>
+<li><a href="#5">创建 Kafka 订阅 Topic</a></li>
+<li><a href="#6">启动事件订阅节点</a></li>
 </ul>
-</li>
+<p><a id="1"></a> </p>
+<h2 id="_1">推荐系统配置<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>为确保 TRON 节点和事件订阅服务的稳定运行，建议采用以下系统配置：</p>
+<ul>
+<li><strong>CPU</strong>：16 核或更高</li>
+<li><strong>RAM</strong>：32 GB 或更高</li>
+<li><strong>SSD</strong>：2.5 TB 或更大存储空间</li>
+<li><strong>操作系统</strong>：Linux 或 macOS</li>
 </ul>
-<h2 id="_3">部署指南<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
-<p>从操作流程上看，部署一个私有链节点与部署一个主网节点基本相同。不同点在于节点配置文件内容不同，搭建私链最主要的是要修改配置文件中的配置项，使节点间组成私链网络，可以进行网络发现，区块同步和广播交易。</p>
-<ol>
-<li>
-<p>准备节点目录</p>
-<p>为保持配置和数据的隔离，建议为每个节点创建独立的部署目录。
-  <div class="highlight"><pre><span></span><code># 创建超级代表 (SR) 节点目录
-$ mkdir SR
+<p><a id="2"></a> </p>
+<h2 id="kafka">编译 Kafka 事件订阅插件<a class="headerlink" href="#kafka" title="Permanent link">&para;</a></h2>
+<p>首先，您需要从 GitHub 仓库克隆 <code>event-plugin</code> 项目，并进行编译以生成插件的 <code>.zip</code> 文件。请按照以下步骤操作：</p>
+<div class="highlight"><pre><span></span><code>git clone https://github.com/tronprotocol/event-plugin.git
+cd event-plugin
+./gradlew build
+</code></pre></div>
+<p>编译成功后，您将在 <code>event-plugin/build/plugins/</code> 目录下找到生成的 <code>.zip</code> 插件文件，例如 <code>plugin-kafka-1.0.0.zip</code>。</p>
+<p><a id="3"></a> </p>
+<h2 id="kafka_1">部署并运行 Kafka<a class="headerlink" href="#kafka_1" title="Permanent link">&para;</a></h2>
+<h3 id="1-kafka">步骤 1：安装 Kafka<a class="headerlink" href="#1-kafka" title="Permanent link">&para;</a></h3>
+<p>在 Linux 环境下，请按照以下步骤安装 Kafka：</p>
+<div class="highlight"><pre><span></span><code>cd /usr/local
+wget https://downloads.apache.org/kafka/2.8.0/kafka_2.13-2.8.0.tgz
+tar -xzf kafka_2.13-2.8.0.tgz
+</code></pre></div>
+<h3 id="2-kafka">步骤 2：运行 Kafka<a class="headerlink" href="#2-kafka" title="Permanent link">&para;</a></h3>
+<p>在 Linux 环境下，请按照以下步骤启动 ZooKeeper 服务和 Kafka Broker 服务：</p>
+<div class="highlight"><pre><span></span><code>cd /usr/local/kafka_2.13-2.8.0
+# 启动 ZooKeeper 服务
+bin/zookeeper-server-start.sh config/zookeeper.properties &amp;
+# 启动 Kafka Broker 服务
+bin/kafka-server-start.sh config/server.properties &amp;
+</code></pre></div>
+<p><a id="4"></a> </p>
+<h2 id="_2">配置事件订阅<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>为了支持 Kafka 事件订阅，您需要修改 Fullnode 节点的配置文件 (<code>config.conf</code>)，添加 <code>event.subscribe</code> 配置项。</p>
+<h3 id="_3">插件配置项<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<p>以下是 <code>event.subscribe</code> 配置项的示例：</p>
+<div class="highlight"><pre><span></span><code>event.subscribe = {
+  version = 1 
+  startSyncBlockNum = 0 
 
-# 创建普通全节点目录
-$ mkdir FullNode
-</code></pre></div></p>
-</li>
-<li>
-<p>获取 <code>java-tron</code> 客户端</p>
-<p><code>java-tron</code> 是 TRON 网络的官方 Java 实现。</p>
-<ul>
-<li>从 <a href="https://github.com/tronprotocol/java-tron/releases">Java-tron GitHub Releases</a> 页面下载最新的 <code>FullNode.jar</code>。</li>
-<li>将下载的 <code>JAR</code> 文件分别复制到两个节点目录中。
- <div class="highlight"><pre><span></span><code>$ cp FullNode.jar ./SR
-$ cp FullNode.jar ./FullNode
-</code></pre></div></li>
-</ul>
-</li>
-<li>
-<p>准备配置文件</p>
-<ul>
-<li>下载官方提供的配置文件模板 (<a href="https://github.com/tronprotocol/java-tron/blob/develop/framework/src/main/resources/config.conf">config.conf</a>)，并修改<code>p2p.version</code>为<strong>11111</strong>和<strong>20180622</strong>以外的任何值。</li>
-<li>将其分别复制到两个节点目录中，并重命名以作区分。
-  <div class="highlight"><pre><span></span><code># 用于SR节点的配置文件
-$ cp private_net_config.conf ./SR/supernode.conf
+  native = {
+    useNativeQueue = false 
+  }
 
-# 用于普通全节点的配置文件
-$ cp private_net_config.conf ./FullNode/fullnode.conf
-</code></pre></div></li>
-</ul>
-</li>
-<li>
-<p>修改节点配置</p>
-<p>这是搭建私有链最关键的一步。请根据下表说明，分别编辑 <code>supernode.conf</code> 和 <code>fullnode.conf</code> 文件。</p>
-<table>
-<thead>
-<tr>
-<th style="text-align: left;">配置项名称</th>
-<th style="text-align: left;">SR 节点 (<code>supernode.conf</code>)</th>
-<th style="text-align: left;">全节点 (<code>fullnode.conf</code>)</th>
-<th style="text-align: left;">说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;"><code>localwitness</code></td>
-<td style="text-align: left;">账户私钥</td>
-<td style="text-align: left;">不需填值</td>
-<td style="text-align: left;">用于签名区块的私钥，仅产块节点需要。</td>
-</tr>
-<tr>
-<td style="text-align: left;"><code>genesis.block.witnesses</code></td>
-<td style="text-align: left;">SR 地址</td>
-<td style="text-align: left;">与 SR 配置值相同</td>
-<td style="text-align: left;">创世块相关的配置，<code>genesis.block</code> 需要与 SR 节点的一样</td>
-</tr>
-<tr>
-<td style="text-align: left;"><code>genesis.block.Assets</code></td>
-<td style="text-align: left;">给特定账户预置 TRX。将预先准备的账户地址写入并随意指定其 TRX 的余额。可以直接修改原来已有账户的 <code>address</code> 字段，其它字段不需要修改；或者在末尾添加新账户信息</td>
-<td style="text-align: left;">与 SR 配置值相同</td>
-<td style="text-align: left;">创世块相关的配置</td>
-</tr>
-<tr>
-<td style="text-align: left;"><code>p2p.version</code></td>
-<td style="text-align: left;">11111 之外的任意正整数</td>
-<td style="text-align: left;">与 SR 配置值相同</td>
-<td style="text-align: left;">SR 和 Fullnode 需相同，只有相同 version 的节点才能握手成功</td>
-</tr>
-<tr>
-<td style="text-align: left;"><code>seed.node</code></td>
-<td style="text-align: left;">不需填值</td>
-<td style="text-align: left;">将 <code>ip.list</code> 设置为 SR 的 IP 地址和 SR 配置文件中的 <code>listen.port</code> 端口号</td>
-<td style="text-align: left;">能够让 Fullnode 与 SR node 建立连接并同步数据</td>
-</tr>
-<tr>
-<td style="text-align: left;"><code>needSyncCheck</code></td>
-<td style="text-align: left;"><code>false</code></td>
-<td style="text-align: left;"><code>true</code></td>
-<td style="text-align: left;">第 1 个 SR 设置 <code>needSyncCheck</code> 为 <code>false</code>，其他设置为 <code>true</code></td>
-</tr>
-<tr>
-<td style="text-align: left;"><code>node.discovery.enable</code></td>
-<td style="text-align: left;"><code>true</code></td>
-<td style="text-align: left;"><code>true</code></td>
-<td style="text-align: left;">如果配置成 <code>false</code>，则当前节点不会被其他节点发现</td>
-</tr>
-<tr>
-<td style="text-align: left;"><code>block.proposalExpireTime</code></td>
-<td style="text-align: left;"><code>600000</code></td>
-<td style="text-align: left;">与 SR 配置值相同</td>
-<td style="text-align: left;">默认提议生效时间是 3 天：259200000(ms)，如需快速通过提议，可将该项设置为更小的值，如 10 分钟，即 600000ms</td>
-</tr>
-<tr>
-<td style="text-align: left;"><code>block.maintenanceTimeInterval</code></td>
-<td style="text-align: left;"><code>300000</code></td>
-<td style="text-align: left;">与 SR 配置值相同</td>
-<td style="text-align: left;">维护期时间间隔，默认是 6 小时：21600000(ms)；如需快速通过提议，可将该项设置为更小的值，如 5 分钟，即 300000ms。</td>
-</tr>
-<tr>
-<td style="text-align: left;"><code>committee.allowSameTokenName</code></td>
-<td style="text-align: left;"><code>1</code></td>
-<td style="text-align: left;"><code>1</code></td>
-<td style="text-align: left;">允许相同的 token name</td>
-</tr>
-<tr>
-<td style="text-align: left;"><code>committee.allowTvmTransferTrc10</code></td>
-<td style="text-align: left;"><code>1</code></td>
-<td style="text-align: left;"><code>1</code></td>
-<td style="text-align: left;">允许智能合约转账 TRC-10 代币</td>
-</tr>
-</tbody>
-</table>
-</li>
-<li>
-<p>调整网络端口 (如需)  <br />
-    修改配置文件中的端口号，将 SR 和 FullNode 的配置成不相同的端口号。此步骤仅在同一台机器上运行多个节点时是必需的，以避免端口冲突。否则，可跳过此步。</p>
-<ul>
-<li><code>listen.port</code> ：P2P 监听端口</li>
-<li><code>http</code> 端口： HTTP 监听端口</li>
-<li><code>rpc</code> 端口： RPC 监听端口</li>
-</ul>
-</li>
-<li>
-<p>启动节点
-    超级代表（产块节点）和普通全节点的启动命令略有不同。</p>
-<ul>
-<li>启动超级代表 (SR) 节点：
-  <div class="highlight"><pre><span></span><code>$ cd SR
-$ java -Xmx6g -XX:+HeapDumpOnOutOfMemoryError -jar FullNode.jar  --witness  -c supernode.conf
-</code></pre></div></li>
-<li>启动普通全节点：
-  <div class="highlight"><pre><span></span><code>$ cd FullNode
-$ java -Xmx6g -XX:+HeapDumpOnOutOfMemoryError -jar FullNode.jar  -c fullnode.conf
-#启动后，请观察控制台日志，确保全节点能够成功连接到SR节点并开始同步区块。
-</code></pre></div></li>
-</ul>
-</li>
-<li>
-<p>高级操作：修改动态网络参数</p>
-<p>动态网络参数可以通过 <a href="https://developers.tron.network/reference/wallet-getchainparameters">getchainparameters</a> 接口获取。主网的当前动态参数及相关提案可在 TRONSCAN <a href="https://tronscan.org/#/sr/committee">参数&amp;提议页面</a> 查看。若希望私链的动态参数与主网保持一致，可使用 <a href="https://github.com/tronprotocol/tron-docker/blob/main/tools/toolkit/DBFork.md">DBFork</a> 工具，它可以捕获主网的最新状态。</p>
-<p>私有链启动后，您可能需要调整某些网络参数（例如手续费，能量单价等），这可以通过两种方式实现：</p>
-<ul>
-<li>
-<p><strong>方式一：通过配置文件设置 (适用于初始部署)</strong>  </p>
-<p>一些动态参数可以通过配置文件直接设置，这些动态参数可以在 <a href="https://github.com/tronprotocol/java-tron/blob/develop/common/src/main/java/org/tron/core/Constant.java">此处</a> 查看。</p>
-<p><strong>示例</strong>：在 <code>.conf</code> 文件中添加以下 <code>committee</code> 块来开启多签和合约创建。 </p>
-<div class="highlight"><pre><span></span><code>committee = {
-  allowCreationOfContracts = 1
-  allowAdaptiveEnergy = 0
-  allowMultiSign = 1
-  allowDelegateResource = 1
-  allowSameTokenName = 0
-  allowTvmTransferTrc10 = 1
+  path = &quot;&quot; 
+  server = &quot;&quot; 
+  dbconfig = &quot;&quot; 。
+  contractParse = true,
+  # ... 其他配置项 ...
 }
 </code></pre></div>
-</li>
-<li>
-<p><strong>方式二：通过链上提案修改 (适用于运行中的网络)</strong>
-    这是链上治理的标准方式，任何 Witness (SR、SR partner、SR candidate) 都有权创建提案，但只有超级代表（SR）有权投票批准。</p>
+<p><strong>字段解析</strong>：</p>
 <ul>
-<li>创建提案：Witness 使用 <a href="https://developers.tron.network/reference/proposalcreate">proposalcreate API</a>，通过参数序号指定要修改的参数及其新值（参数序号列表)。</li>
-<li>批准提案：Witness 使用 <a href="https://developers.tron.network/reference/proposalapprove">proposalapprove API</a>对提案进行投票(仅支持投赞成票，SR不投票意味着不同意该提案)。</li>
-<li>相关接口：<ul>
-<li>获取所有提议：<a href="https://developers.tron.network/reference/wallet-listproposals">listproposals</a></li>
-<li>根据 ID 获取提议：<a href="https://developers.tron.network/reference/getproposalbyid">getproposalbyid</a></li>
+<li><code>version</code>：事件服务框架版本。<code>1</code> 表示使用 V2.0 版本，<code>0</code> 表示使用 V1.0 版本。若未配置，默认使用 V1.0。</li>
+<li><code>startSyncBlockNum</code>：V2.0 版本新增功能，支持从本地历史区块处理并推送事件，满足历史数据订阅需求。<ul>
+<li>当 <code>startSyncBlockNum &lt;= 0</code> 时，表示关闭历史事件同步功能；</li>
+<li>当 <code>startSyncBlockNum &gt; 0</code> 时，表示开启该功能，并从指定区块高度开始同步历史事件。<strong>注意</strong>：启用该功能时建议使用最新版本的事件插件。</li>
 </ul>
 </li>
+<li><code>native.useNativeQueue</code>：是否使用内置消息队列（ZeroMQ）订阅事件。如果需要支持 Kafka 事件订阅，请确保此字段为 <code>false</code>，否则 Kafka 事件订阅将无法生效。</li>
+<li><code>path</code>：<code>plugin-kafka-1.0.0.zip</code> 的本地绝对路径，请确保路径正确，否则无法加载。</li>
+<li><code>server</code>：Kafka 服务器地址，使用 <code>ip:port</code> 的格式。Kafka 默认端口号是 <code>9092</code>，请确保端口号正确，并确保 Kafka 服务可访问。</li>
+<li><code>dbconfig</code>：此配置项仅针对 MongoDB 插件，对于 Kafka 插件请忽略。</li>
 </ul>
-<p><strong>示例代码 (使用 TronWeb)：</strong></p>
-<p>以下代码片段演示了如何创建一个提案来修改两个网络参数，并对其进行投票。在 <a href="https://developers.tron.network/reference/proposalcreate">proposalcreate</a> 中，动态参数用序号表示，动态参数的序号和名称之间的映射可以在 <a href="https://developers.tron.network/reference/wallet-getchainparameters">此处</a> 查看。</p>
-<div class="highlight"><pre><span></span><code>var TronWeb = require(&#39;tronweb&#39;);
-var tronWeb = new TronWeb({
-    fullHost: &#39;http://localhost:16887&#39;,
-    privateKey: &#39;privateKey&#39;
-})
-
-var parametersForProposal1 = [{&quot;key&quot;:9,&quot;value&quot;:1},{&quot;key&quot;:10,&quot;value&quot;:1}];
-
-async function modifyChainParameters(parameters,proposalID){
-
-    parameters.sort((a, b) =&gt; {
-            return a.key.toString() &gt; b.key.toString() ? 1 : a.key.toString() === b.   key.toString() ? 0 : -1;
-        })
-    var unsignedProposal1Txn = await tronWeb.transactionBuilder.createProposal (parameters,&quot;41D0B69631440F0A494BB51F7EEE68FF5C593C00F0&quot;)
-    var signedProposal1Txn = await tronWeb.trx.sign(unsignedProposal1Txn);
-    var receipt1 = await tronWeb.trx.sendRawTransaction(signedProposal1Txn);
-
-    setTimeout(async function() {
-        console.log(receipt1)
-        console.log(&quot;Vote proposal 1 !&quot;)
-        var unsignedVoteP1Txn = await tronWeb.transactionBuilder.voteProposal (proposalID, true, tronWeb.defaultAddress.hex)
-        var signedVoteP1Txn = await tronWeb.trx.sign(unsignedVoteP1Txn);
-        var rtn1 = await tronWeb.trx.sendRawTransaction(signedVoteP1Txn);
-    }, 4000)
-
-}
-
-modifyChainParameters(parametersForProposal1, 1) 
+<h3 id="_4">配置事件订阅类型<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<p>TRON 事件订阅支持 <code>block</code>、<code>transaction</code>、<code>contractevent</code>、<code>contractlog</code>、<code>solidity</code>、<code>soliditytevent</code>、<code>soliditylog</code> 7 种类型的事件订阅。开发者需要根据业务需求进行配置，<strong>建议只订阅 1-2 种事件类型，如果开启过多触发器，会导致性能下降。</strong></p>
+<p>以下是一个订阅 <code>block</code> 事件的示例配置：</p>
+<div class="highlight"><pre><span></span><code>topics = [
+  {
+    triggerName = &quot;block&quot; 
+    enable = true
+    topic = &quot;block&quot; 
+  }
+]
 </code></pre></div>
-</li>
+<ul>
+<li><code>triggerName</code>: 内置字段，不可更改。</li>
+<li><code>enable</code>: 如果设置为 <code>true</code>，则开启对 <code>block</code> 事件的订阅。</li>
+<li><code>topic</code>: Kafka 接收事件对应的主题名称。您需要在 Kafka 中提前创建此主题。</li>
 </ul>
-<p>提案投票通过并在维护期结束后，新的网络参数将会生效。您可以通过 <a href="https://developers.tron.network/reference/wallet-listproposals">listproposals</a> 或 <a href="https://developers.tron.network/reference/wallet-getchainparameters">getchainparameters</a> 来验证变更。</p>
-<p>需要注意的是，具有相互依赖关系的动态参数不能包含在同一个提案中，正确的方法是将它们分成不同的提案，并注意它们的顺序。</p>
-</li>
-</ol>
+<p>更多关于事件订阅类型的说明请参考 <a href="../event/#_4">事件类型</a> 章节。</p>
+<h3 id="_5">配置事件过滤<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<p><code>filter</code> 字段用于对所订阅事件进行过滤，可以指定区块范围 (<code>fromblock</code> - <code>toblock</code>)、特定合约地址 (<code>contractAddress</code>) 或特定合约主题 (<code>contractTopic</code>)，为开发者提供更高效、更精准的事件订阅服务。</p>
+<div class="highlight"><pre><span></span><code>filter = {
+  fromblock = &quot;&quot; // 查询范围的起始区块号，可以是空字符串、&quot;earliest&quot; 或指定的区块号。
+  toblock = &quot;&quot; // 查询范围的结束区块号，可以是空字符串、&quot;latest&quot; 或指定的区块号。
+  contractAddress = [
+    &quot;&quot; // 您希望订阅的合约地址。如果设置为空字符串，将接收所有合约地址的日志/事件。
+  ]
+
+  contractTopic = [
+    &quot;&quot; // 您希望订阅的合约主题。如果设置为空字符串，将接收所有合约主题的日志/事件。
+  ]
+}
+</code></pre></div>
+<p><a id="5"></a> </p>
+<h2 id="kafka-topic">创建 Kafka 订阅 Topic<a class="headerlink" href="#kafka-topic" title="Permanent link">&para;</a></h2>
+<p>Kafka 订阅 Topic 的名称必须与 <code>event.subscribe</code> 配置中 <code>topics</code> 字段的 <code>topic</code> 配置项一致。例如，如果开发者需要订阅 <code>block</code> 事件，并在 <code>block</code> 触发器中填写 <code>topic</code> 字段为 <code>"block"</code>，则需要在 Kafka 中创建名为 <code>"block"</code> 的 Topic，用于接收区块事件。</p>
+<p>在 Linux 环境下，创建 Kafka Topic 的命令如下：</p>
+<div class="highlight"><pre><span></span><code>bin/kafka-topics.sh --create --topic block --bootstrap-server localhost:9092
+</code></pre></div>
+<p><a id="6"></a> </p>
+<h2 id="_6">启动事件订阅节点<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<p>完成上述配置后，启动 Fullnode 节点时需要添加 <code>--es</code> 参数，以启用事件订阅功能。</p>
+<div class="highlight"><pre><span></span><code>java -jar FullNode.jar -c config.conf --es
+</code></pre></div>
+<h3 id="_7">验证插件加载<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<p>您可以通过查看 Fullnode 日志来验证 Kafka 事件插件是否成功加载：</p>
+<div class="highlight"><pre><span></span><code>grep -i eventplugin logs/tron.log
+</code></pre></div>
+<p>如果日志中出现类似以下字样，则表明事件订阅插件已成功加载：</p>
+<div class="highlight"><pre><span></span><code>[o.t.c.l.EventPluginLoader] &#39;your plugin path/plugin-kafka-1.0.0.zip&#39; loaded
+</code></pre></div>
+<h3 id="_8">验证事件订阅<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<p>执行 <code>kafka-console-consumer.sh</code> 脚本，获取 Kafka 中 Topic 为 <code>"block"</code> 的消息，以验证事件订阅是否成功。</p>
+<p>在 Linux 环境下，命令如下：</p>
+<div class="highlight"><pre><span></span><code>bin/kafka-console-consumer.sh --topic block --from-beginning --bootstrap-server localhost:9092
+</code></pre></div>
+<p>如果控制台出现类似以下 JSON 格式的输出，则表明事件订阅成功：</p>
+<div class="highlight"><pre><span></span><code>{
+    &quot;timeStamp&quot;: 1539973125000,
+    &quot;triggerName&quot;: &quot;blockTrigger&quot;,
+    &quot;blockNumber&quot;: 3341315,
+    &quot;blockHash&quot;: &quot;000000000032fc03440362c3d42eb05e79e8a1aef77fe31c7879d23a750f2a31&quot;,
+    &quot;transactionSize&quot;: 16,
+    &quot;latestSolidifiedBlockNumber&quot;: 3341297,
+    &quot;transactionList&quot;: [&quot;8757f846e541b51b5692a2370327f4b8031125f4557f8ad4b1037d4452616d39&quot;, &quot;f6adab7814b34e5e756170f93a31a0c3393c5d99eff11e30271916375adc7467&quot;, ..., &quot;89bcbcd063a48ef4a5678a033acf5edbb6b17419a3c91eb0479a3c8598774b43&quot;]
+}
+</code></pre></div>
 
 
 
@@ -1863,7 +1897,7 @@ modifyChainParameters(parametersForProposal1, 1)
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../litefullnode/" class="md-footer__link md-footer__link--prev" aria-label="Previous: 轻节点">
+          <a href="../use-mongodb/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Mongodb 事件订阅插件">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -1873,20 +1907,20 @@ modifyChainParameters(parametersForProposal1, 1)
                 Previous
               </span>
               <div class="md-ellipsis">
-                轻节点
+                Mongodb 事件订阅插件
               </div>
             </div>
           </a>
         
         
           
-          <a href="../../architecture/event/" class="md-footer__link md-footer__link--next" aria-label="Next: 概览">
+          <a href="../database/" class="md-footer__link md-footer__link--next" aria-label="Next: 数据库配置">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                概览
+                数据库配置
               </div>
             </div>
             <div class="md-footer__button md-icon">

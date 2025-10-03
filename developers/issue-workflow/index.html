@@ -450,9 +450,21 @@
   
   
   
-    <li class="md-nav__item">
-      <a href="../../architecture/event/" class="md-nav__link">
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
         
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
+            
   
   <span class="md-ellipsis">
     事件订阅
@@ -460,7 +472,107 @@
   </span>
   
 
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            事件订阅
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/event/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    概览
+    
+  </span>
+  
+
       </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/use-native-queue/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    内置消息队列订阅
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/use-mongodb/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Mongodb 事件订阅插件
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/use-kafka/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Kafka 事件订阅插件
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -1040,28 +1152,52 @@
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
-        <li class="md-nav__item ">
-  <a href="#issue_1" class="md-nav__link" >
+        <li class="md-nav__item has-children">
+  <a href="#issue_1" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
     <span class="md-ellipsis">
-      提交Issue
+      提交 Issue
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="提交 Issue" hidden>
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item ">
+  <a href="#1" class="md-nav__link" >
+    <span class="md-ellipsis">
+      1. 搜索现有问题
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item ">
-  <a href="#_1" class="md-nav__link" >
+        
+          <li class="md-nav__item ">
+  <a href="#2-issue" class="md-nav__link" >
     <span class="md-ellipsis">
-      处理流程
+      2. 选择并提交 Issue 类型
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
         <li class="md-nav__item ">
   <a href="#issue_2" class="md-nav__link" >
     <span class="md-ellipsis">
-      Issue标签
+      Issue 处理流程
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item ">
+  <a href="#issue_3" class="md-nav__link" >
+    <span class="md-ellipsis">
+      Issue 标签分类
     </span>
   </a>
   
@@ -1514,76 +1650,37 @@
   
 
 
-<h1 id="issue">Issue工作流程<a class="headerlink" href="#issue" title="Permanent link">&para;</a></h1>
-<p>我们鼓励社区贡献者参与java-tron issue 的提出与讨论，您可以将您遇到的问题或者想法通过issue的形式提出，也可以参与issue的讨论或者帮助给出解决办法。您的每一次提问或者留言都在推动java-tron向更好的方向发展，我们感谢您为java-tron所做的贡献。</p>
-<h2 id="issue_1">提交Issue<a class="headerlink" href="#issue_1" title="Permanent link">&para;</a></h2>
-<p>如果您遇到了java-tron相关的问题或发现了相关bug，欢迎提交一个Issue，但请遵循以下规则:</p>
+<h1 id="issue">Issue 规范与指南<a class="headerlink" href="#issue" title="Permanent link">&para;</a></h1>
+<p>我们鼓励社区贡献者积极参与 java-tron 的 Issue 提出与讨论。无论是您遇到的问题还是提出的新想法，都可以通过 Issue 的形式提交。参与 Issue 讨论或协助提供解决方案，都将推动 java-tron 向更好的方向发展。我们由衷感谢您为 java-tron 所做的每一份贡献。</p>
+<h2 id="issue_1">提交 Issue<a class="headerlink" href="#issue_1" title="Permanent link">&para;</a></h2>
+<p>如果您在使用 java-tron 过程中遇到问题或发现 <strong>Bug</strong>，欢迎提交 Issue。请遵循以下规则以确保高效处理：</p>
+<h3 id="1">1. 搜索现有问题<a class="headerlink" href="#1" title="Permanent link">&para;</a></h3>
+<p>在提交新 Issue 之前，请务必检查是否已有人报告了相同的问题或提出了类似的想法。这样不仅能帮助您更快找到解决方案，还能避免重复提交。</p>
+<h3 id="2-issue">2. 选择并提交 Issue 类型<a class="headerlink" href="#2-issue" title="Permanent link">&para;</a></h3>
+<p>请根据您要报告的问题选择对应的 Issue 类型，并按照模板要求填写 Issue 内容：</p>
 <ul>
-<li>
-<p>搜索现有问题</p>
-<p>请检查是否有人已经报告了您的问题或请求了您的想法，这样不但可以快速的解决您遇到的问题，而且还避免了重复的问题。</p>
-</li>
-<li>
-<p>提交Issue</p>
-<p>请选择您要报告的Issue类型，并根据模板要求填写Issue内容。</p>
-<ul>
-<li><code>Ask a question</code> - 请详细阐明您遇到的问题、期望的结果和实际看到的结果，这样可以让社区参与者更好的了解您的问题，更快的给出解决办法。</li>
-<li><code>Report a bug</code> - 除了阐明问题、期望的结果和看到的结果之外，还应说明bug的复现步骤，并附上出现问题时的java-tron log以及调用栈。</li>
-<li><code>Request a feature</code> - 请阐明为什么需要该功能、该功能的用例、实现方案，以及您是否愿意实现该功能。</li>
+<li><strong>Ask a question</strong>
+    请详细阐明您遇到的问题、期望的结果和实际观察到的结果。清晰的描述有助于社区成员更好地理解您的问题，从而更快地提供解决方案。</li>
+<li><strong>Report a bug</strong>
+    除了阐明问题、期望结果和实际结果外，还应详细说明 <strong>Bug</strong> 的复现步骤，并附上出现问题时的 java-tron 日志 (<code>log</code>) 以及调用栈 (<code>stack trace</code>)。</li>
+<li><strong>Request a feature</strong>
+    请阐明为什么需要该功能、该功能的具体用例、建议的实现方案，以及您是否愿意参与实现该功能。</li>
 </ul>
-</li>
-</ul>
-<h2 id="_1">处理流程<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<p>Issue的处理流程如下：</p>
+<h2 id="issue_2">Issue 处理流程<a class="headerlink" href="#issue_2" title="Permanent link">&para;</a></h2>
+<p><strong>Issue</strong> 的处理流程如下：</p>
 <ol>
-<li>标记Issue - 我们每周举行一次会议，对Issue进行分类，并使用合适的标签标记Issue。</li>
-<li>分配Issue - 将Issue分配给一位或者几位社区核心开发者，核心开发者会参与Issue的调查和讨论。</li>
-<li>社区讨论 - 所有的社区参与者均可参与Issue的调查与讨论，并将想法或者意见写到评论里，从社区讨论的中我们会得到问题的解决方案。</li>
-<li>关闭Issue - Issue提交者可以随时关闭Issue，当问题得到了解决，或者长时间未得到社区讨论，我们会关闭该Issue，Issue提交者或其他用户也可以根据需要重新打开该Issue。</li>
+<li><strong>标记 Issue</strong>
+    新提交的 Issue 将由核心贡献者进行分类处理并打上标签。</li>
+<li><strong>分配 Issue</strong>
+    Issue 会被分配给一位或多位社区核心开发者。这些核心开发者将参与 Issue 的调查和讨论。</li>
+<li><strong>社区讨论</strong>
+    所有社区参与者均可参与 Issue 的调查与讨论，并将想法或意见发布在评论区。通过社区的集思广益，我们将共同找到问题的解决方案。</li>
+<li><strong>关闭 Issue</strong>
+    Issue 提交者可以随时关闭自己提交的 Issue。当问题得到解决，或 Issue 长时间未得到社区讨论时，我们也会关闭该 Issue。如有需要，Issue 提交者或其他用户也可以根据实际情况重新开启 Issue。</li>
 </ol>
-<h2 id="issue_2">Issue标签<a class="headerlink" href="#issue_2" title="Permanent link">&para;</a></h2>
-<p>根据Issue特征使用如下标签：</p>
-<ul>
-<li>topic<ul>
-<li><code>topic: Block/Transaction</code></li>
-<li><code>topic: Build</code></li>
-<li><code>topic: Consensus</code></li>
-<li><code>topic: DB</code></li>
-<li><code>topic: Deployment</code></li>
-<li><code>topic: Documentation</code></li>
-<li><code>topic: Event subscribe</code></li>
-<li><code>topic: gRPC/HTTP api</code></li>
-<li><code>topic: Net</code></li>
-<li><code>topic: Performance</code></li>
-<li><code>topic: Resource manage</code></li>
-<li><code>topic: Shielded Transaction</code></li>
-<li><code>topic: Smart contract</code></li>
-<li><code>topic: Solidity</code></li>
-<li><code>topic: Testnet/Privatenet</code></li>
-</ul>
-</li>
-<li>
-<p>type</p>
-<ul>
-<li><code>type: Announcement</code></li>
-<li><code>type: Bug</code></li>
-<li><code>type: Enhancement</code></li>
-<li><code>type: Feature Request</code></li>
-<li><code>type: Manual</code></li>
-<li><code>type: Other</code></li>
-<li><code>type: Question</code></li>
-</ul>
-</li>
-<li>
-<p>resolution</p>
-<ul>
-<li><code>resolution: Duplicated</code></li>
-<li><code>resolution: Needs More Information</code></li>
-<li><code>resolution: Wontfix</code></li>
-</ul>
-</li>
-<li><code>improvement</code></li>
-</ul>
+<h2 id="issue_3">Issue 标签分类<a class="headerlink" href="#issue_3" title="Permanent link">&para;</a></h2>
+<p>要查看所有 issue 分类标签，请访问以下链接：</p>
+<p>https://github.com/tronprotocol/java-tron/labels</p>
 
 
 
