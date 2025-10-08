@@ -11,7 +11,7 @@
         <link rel="canonical" href="https://tronprotocol.github.io/documentation-zh/architecture/database/">
       
       
-        <link rel="prev" href="../event/">
+        <link rel="prev" href="../use-kafka/">
       
       
         <link rel="next" href="../../using_javatron/connecting_to_tron/">
@@ -452,9 +452,21 @@
   
   
   
-    <li class="md-nav__item">
-      <a href="../event/" class="md-nav__link">
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
         
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
+            
   
   <span class="md-ellipsis">
     事件订阅
@@ -462,7 +474,107 @@
   </span>
   
 
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            事件订阅
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../event/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    概览
+    
+  </span>
+  
+
       </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../use-native-queue/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    内置消息队列订阅
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../use-mongodb/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Mongodb 事件订阅插件
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../use-kafka/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Kafka 事件订阅插件
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -525,35 +637,68 @@
         <li class="md-nav__item has-children">
   <a href="#rocksdb" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
     <span class="md-ellipsis">
-      RocksDB
+      使用 RocksDB
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="RocksDB" hidden>
+    <nav class="md-nav" aria-label="使用 RocksDB" hidden>
       <ul class="md-nav__list">
         
           <li class="md-nav__item ">
-  <a href="#config" class="md-nav__link" >
+  <a href="#1-rocksdb" class="md-nav__link" >
     <span class="md-ellipsis">
-      config配置说明
+      1. 配置 RocksDB 作为存储引擎
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item ">
-  <a href="#rocksdb_1" class="md-nav__link" >
+  <a href="#2-rocksdb" class="md-nav__link" >
     <span class="md-ellipsis">
-      使用RocksDB数据备份功能
+      2. RocksDB 优化参数
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item has-children">
+  <a href="#x86-leveldb-rocksdb" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
+    <span class="md-ellipsis">
+      x86 平台从 LevelDB 迁移至 RocksDB
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="x86 平台从 LevelDB 迁移至 RocksDB" hidden>
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item ">
+  <a href="#1" class="md-nav__link" >
+    <span class="md-ellipsis">
+      1. 数据转换步骤
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item ">
-  <a href="#leveldbrocksdb" class="md-nav__link" >
+  <a href="#2" class="md-nav__link" >
     <span class="md-ellipsis">
-      LevelDB转换为RocksDB
+      2. 可选参数说明
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#3" class="md-nav__link" >
+    <span class="md-ellipsis">
+      3. 停止节点后进行转换
     </span>
   </a>
   
@@ -567,7 +712,7 @@
         <li class="md-nav__item ">
   <a href="#leveldb" class="md-nav__link" >
     <span class="md-ellipsis">
-      LevelDB
+      关于 LevelDB
     </span>
   </a>
   
@@ -1538,70 +1683,77 @@
   
 
 
-<h1 id="_1">数据库配置<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
-<p>java-tron数据存储支持使用 LevelDB 或者 RocksDB，默认使用LevelDB。您也可以选择RocksDB，它提供了丰富的配置参数，允许节点根据自身机器配置情况进行调优，节点数据库占用的磁盘空间相比于LevelDB更少，同时RocksDB支持在运行时进行数据备份，备份时间仅需要几秒钟。</p>
-<p>下面介绍如何将java-tron节点的存储引擎设置成RocksDB，以及如何进行LevelDB和RocksDB的数据转换。</p>
-<h2 id="rocksdb">RocksDB<a class="headerlink" href="#rocksdb" title="Permanent link">&para;</a></h2>
-<h3 id="config">config配置说明<a class="headerlink" href="#config" title="Permanent link">&para;</a></h3>
-<p>使用RocksDB作为数据存储引擎，需要将db.engine配置项设置为"ROCKSDB":</p>
+<h1 id="_1">数据库配置指南<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<p>在 TRON Java 实现（java-tron）中，节点数据存储引擎提供 <strong>LevelDB</strong> 和 <strong>RocksDB</strong> 两种选择。默认情况下，<strong>x86 平台使用 LevelDB，ARM 平台使用 RocksDB</strong>。如果在 ARM 系统中手动配置为 LevelDB，系统会打印警告提示并仍然强制使用 RocksDB。开发者可根据平台环境、硬件条件及性能需求，灵活选择合适的存储引擎。</p>
+<p>相比之下，<strong>RocksDB 提供更丰富的配置参数，且通常具有更高的存储效率</strong>。本文将介绍如何启用 RocksDB，以及如何将 x86 平台的 LevelDB 转换为 RocksDB。</p>
+<h2 id="rocksdb">使用 RocksDB<a class="headerlink" href="#rocksdb" title="Permanent link">&para;</a></h2>
+<h3 id="1-rocksdb">1. 配置 RocksDB 作为存储引擎<a class="headerlink" href="#1-rocksdb" title="Permanent link">&para;</a></h3>
+<p>要启用 RocksDB，请在配置文件中设置 <code>storage.db.engine</code> 为 <code>"ROCKSDB"</code>：</p>
 <div class="highlight"><pre><span></span><code>storage {
- # Directory for storing persistent data
- db.engine = &quot;ROCKSDB&quot;,
- db.sync = false,
- db.directory = &quot;database&quot;,
- index.directory = &quot;index&quot;,
- transHistory.switch = &quot;on&quot;,
+  # 持久化数据的存储引擎
+  db.engine = &quot;ROCKSDB&quot;
+  db.sync = false
+  db.directory = &quot;database&quot;
+  transHistory.switch = &quot;on&quot;
+}
 </code></pre></div>
-<p>RocksDB支持的优化参数如下：
+<h3 id="2-rocksdb">2. RocksDB 优化参数<a class="headerlink" href="#2-rocksdb" title="Permanent link">&para;</a></h3>
+<p>RocksDB 支持多种调优参数，可根据节点服务器性能进行配置。以下是一个推荐的参数示例：
 <div class="highlight"><pre><span></span><code>dbSettings = {
-    levelNumber = 7
-    //compactThreads = 32
-    blocksize = 64  // n * KB
-    maxBytesForLevelBase = 256  // n * MB
-    maxBytesForLevelMultiplier = 10
-    level0FileNumCompactionTrigger = 4
-    targetFileSizeBase = 256  // n * MB
-    targetFileSizeMultiplier = 1
+  levelNumber = 7
+  # compactThreads = 32
+  blocksize = 64                 # 单位：KB
+  maxBytesForLevelBase = 256     # 单位：MB
+  maxBytesForLevelMultiplier = 10
+  level0FileNumCompactionTrigger = 4
+  targetFileSizeBase = 256       # 单位：MB
+  targetFileSizeMultiplier = 1
+  maxOpenFiles= 5000
 }
 </code></pre></div></p>
-<h3 id="rocksdb_1">使用RocksDB数据备份功能<a class="headerlink" href="#rocksdb_1" title="Permanent link">&para;</a></h3>
-<p>选择RocksDB作为数据存储引擎，可以使用其提供的运行时数据备份功能:</p>
-<div class="highlight"><pre><span></span><code>backup = {
-  enable = false  // indicate whether enable the backup plugin
-  propPath = &quot;prop.properties&quot; // record which bak directory is valid
-  bak1path = &quot;bak1/database&quot; // you must set two backup directories to prevent application halt unexpected(e.g. kill -9).
-  bak2path = &quot;bak2/database&quot;
-  frequency = 10000   // indicate backup db once every 10000 blocks processed.
-}
+<h2 id="x86-leveldb-rocksdb">x86 平台从 LevelDB 迁移至 RocksDB<a class="headerlink" href="#x86-leveldb-rocksdb" title="Permanent link">&para;</a></h2>
+<p>LevelDB 与 RocksDB 的数据格式不兼容，节点间不支持直接切换存储引擎。若需从 LevelDB 迁移到 RocksDB，需使用官方提供的转换工具 <code>Toolkit.jar</code>。</p>
+<h3 id="1">1. 数据转换步骤<a class="headerlink" href="#1" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>cd java-tron                                   # 源码根目录
+./gradlew build -xtest -xcheck                 # 编译项目                        
+java -jar build/libs/Toolkit.jar db convert    # 执行数据转换
 </code></pre></div>
-<p><strong>注意：</strong> FullNode可以使用数据备份功能；为了不影响SuperNode的产块性能，数据备份功能不支持SuperNode，但是SuperNode的备份服务节点可以使用此功能。</p>
-<h3 id="leveldbrocksdb">LevelDB转换为RocksDB<a class="headerlink" href="#leveldbrocksdb" title="Permanent link">&para;</a></h3>
-<p>LevelDB和RocksDB的数据存储架构并不兼容，请确保节点始终使用同一种数据引擎。我们提供了数据转换脚本，用于将LevelDB数据转换到RocksDB数据。
-  使用方法：</p>
-<div class="highlight"><pre><span></span><code>cd 源代码根目录
-./gradlew build   #编译源代码
-java -jar build/libs/DBConvert.jar  #执行数据转换指令
+<h3 id="2">2. 可选参数说明<a class="headerlink" href="#2" title="Permanent link">&para;</a></h3>
+<p>若您的节点使用了自定义的数据目录，可在运行转换脚本时添加如下参数：</p>
+<ul>
+<li><code>src_db_path</code>：LevelDB 数据库路径（默认为 <code>output-directory/database</code>）</li>
+<li><code>dst_db_path</code>：RocksDB 数据库存储路径（默认为 <code>output-directory-dst/database</code>）</li>
+</ul>
+<p>例如，若节点是通过如下方式运行：
+<div class="highlight"><pre><span></span><code>nohup java -jar FullNode.jar -d your_database_dir &amp;
 </code></pre></div>
-<p><strong>注意：</strong> 如果节点的数据存储目录是自定义的，运行DBConvert.jar时添加下面2个可选参数。</p>
-<p><strong>src_db_path</strong>:指定LevelDB数据库路径源，默认是 output-directory/database</p>
-<p><strong>dst_db_path</strong>:指定RocksDB数据库路径，默认是 output-directory-dst/database</p>
-<p>例如，如果节点是像这样的脚本运行的:</p>
-<div class="highlight"><pre><span></span><code>nohup<span class="w"> </span>java<span class="w"> </span>-jar<span class="w"> </span>FullNode.jar<span class="w"> </span>-d<span class="w"> </span>your_database_dir<span class="w"> </span><span class="p">&amp;</span>
+则应使用如下命令进行转换：
+<div class="highlight"><pre><span></span><code>java -jar build/libs/Toolkit.jar db convert  your_database_dir/database output-directory-dst/database
+</code></pre></div></p>
+<h3 id="3">3. 停止节点后进行转换<a class="headerlink" href="#3" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>必须节点停止运行后再执行数据转换操作</strong>。</p>
+</blockquote>
+<p>若希望减少停机时间，可按照以下流程操作：</p>
+<ol>
+<li>停止节点运行；</li>
+<li>复制原始 LevelDB 数据目录至新目录；</li>
+<li>重新启动节点（继续使用原目录）；</li>
+<li>在新目录中执行数据转换操作。</li>
+</ol>
+<p>示例命令如下：</p>
+<div class="highlight"><pre><span></span><code>java -jar build/libs/Toolkit.jar db cp output-directory/database /tmp/output-directory/database
+cd /tmp
+java -jar build/libs/Toolkit.jar db convert output-directory/database output-directory-dst/database
 </code></pre></div>
-<p>那么，你应该这样运行数据转换工具DBConvert.jar:</p>
-<div class="highlight"><pre><span></span><code>java<span class="w"> </span>-jar<span class="w"> </span>build/libs/DBConvert.jar<span class="w">  </span>your_database_dir/database<span class="w">  </span>output-directory-dst/database
-</code></pre></div>
-<p><strong>注意：</strong> 必须停止节点的运行，然后再运行数据转换脚本。
-如果不希望节点停止时间太长，可以在节点停止后先将LevelDB数据目录output-directory拷贝一份到新的目录下，然后恢复节点的运行。</p>
-<p>在新目录的上级目录中执行DBConvert.jar并指定参数<code>src_db_path</code>和<code>dst_db_path</code> 。
-  例如:</p>
-<div class="highlight"><pre><span></span><code>cp<span class="w"> </span>-rf<span class="w"> </span>output-directory<span class="w"> </span>/tmp/output-directory
-<span class="nb">cd</span><span class="w"> </span>/tmp
-java<span class="w"> </span>-jar<span class="w"> </span>DBConvert.jar<span class="w"> </span>output-directory/database<span class="w">  </span>output-directory-dst/database
-</code></pre></div>
-<p>整个的数据转换过程可能需要10个小时左右。</p>
-<h2 id="leveldb">LevelDB<a class="headerlink" href="#leveldb" title="Permanent link">&para;</a></h2>
-<p>关于RocksDB与LevelDB之间的差异，详见见<a href="https://github.com/tronprotocol/documentation/blob/master/TRX_CN/Rocksdb_vs_Leveldb.md">链接</a></p>
+<blockquote>
+<p>备注：
+整个数据转换过程预计耗时约 <strong>10 小时</strong>，具体时间依赖于数据量和磁盘性能。</p>
+</blockquote>
+<h2 id="leveldb">关于 LevelDB<a class="headerlink" href="#leveldb" title="Permanent link">&para;</a></h2>
+<p>LevelDB 是 x86 平台 java-tron 默认的数据存储引擎，适用于资源有限或轻量级的部署场景。它结构简单、易于维护，但在数据压缩、备份能力和大规模节点性能上不如 RocksDB。</p>
+<p>若需深入了解两者的详细对比，请参考文档：
+📘 <a href="https://github.com/tronprotocol/documentation/blob/master/TRX_CN/Rocksdb_vs_Leveldb.md">RocksDB 与 LevelDB 差异对比</a></p>
 
 
 
@@ -1622,7 +1774,7 @@ java<span class="w"> </span>-jar<span class="w"> </span>DBConvert.jar<span class
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../event/" class="md-footer__link md-footer__link--prev" aria-label="Previous: 事件订阅">
+          <a href="../use-kafka/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Kafka 事件订阅插件">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -1632,7 +1784,7 @@ java<span class="w"> </span>-jar<span class="w"> </span>DBConvert.jar<span class
                 Previous
               </span>
               <div class="md-ellipsis">
-                事件订阅
+                Kafka 事件订阅插件
               </div>
             </div>
           </a>

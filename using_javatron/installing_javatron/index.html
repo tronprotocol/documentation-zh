@@ -610,9 +610,21 @@
   
   
   
-    <li class="md-nav__item">
-      <a href="../../architecture/event/" class="md-nav__link">
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
         
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
+            
   
   <span class="md-ellipsis">
     事件订阅
@@ -620,7 +632,107 @@
   </span>
   
 
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            事件订阅
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/event/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    概览
+    
+  </span>
+  
+
       </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/use-native-queue/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    内置消息队列订阅
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/use-mongodb/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Mongodb 事件订阅插件
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/use-kafka/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Kafka 事件订阅插件
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -1604,11 +1716,11 @@
   
 
 
-<h1 id="java-tron">部署 <code>java-tron</code> 节点<a class="headerlink" href="#java-tron" title="Permanent link">&para;</a></h1>
-<p>本文档将指导开发者如何在 <code>Linux</code> 或 <code>macOS</code> 操作系统上部署 TRON <code>java-tron</code> 节点。</p>
-<p><strong>重要提示：</strong><code>java-tron</code> 节点目前仅支持 <code>Oracle JDK 1.8</code>，不支持其他版本的 JDK。</p>
+<h1 id="java-tron">部署 java-tron 节点<a class="headerlink" href="#java-tron" title="Permanent link">&para;</a></h1>
+<p>本文档将指导开发者如何在 <code>Linux</code> 或 <code>macOS</code> 操作系统上部署 TRON java-tron 节点。</p>
+<p><strong>重要提示：</strong>java-tron 节点目前仅支持 <code>Oracle JDK 1.8</code>，不支持其他版本的 JDK。</p>
 <h2 id="_1">硬件配置要求<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<p>运行 <code>java-tron</code> 节点所需的最小硬件配置如下：</p>
+<p>运行 java-tron 节点所需的最小硬件配置如下：</p>
 <ul>
 <li><strong>CPU</strong>: 8 核</li>
 <li><strong>内存</strong>: 16 GB</li>
@@ -1629,18 +1741,18 @@
 <li><strong>SSD</strong>: 3.5 TB+</li>
 <li><strong>网络带宽</strong>：100 Mbps</li>
 </ul>
-<h2 id="java-tron_1">获取 <code>java-tron</code> 客户端<a class="headerlink" href="#java-tron_1" title="Permanent link">&para;</a></h2>
+<h2 id="java-tron_1">获取 java-tron 客户端<a class="headerlink" href="#java-tron_1" title="Permanent link">&para;</a></h2>
 <p>您可以在 <a href="https://github.com/tronprotocol/java-tron/releases">这里</a> 直接下载官方提供的客户端，也可以自行通过编译源码来打包客户端。</p>
-<h3 id="java-tron_2">编译 <code>java-tron</code> 源码<a class="headerlink" href="#java-tron_2" title="Permanent link">&para;</a></h3>
+<h3 id="java-tron_2">编译 java-tron 源码<a class="headerlink" href="#java-tron_2" title="Permanent link">&para;</a></h3>
 <p>在开始编译之前，请确保您的系统已安装 <code>git</code> 工具。</p>
 <ol>
-<li>首先，通过 <code>git</code> 命令将 <code>java-tron</code> 源代码克隆到本地，并切换到 <code>master</code> 分支：</li>
+<li>首先，通过 <code>git</code> 命令将 java-tron 源代码克隆到本地，并切换到 <code>master</code> 分支：</li>
 </ol>
 <div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/tronprotocol/java-tron.git
 git<span class="w"> </span>checkout<span class="w"> </span>-t<span class="w"> </span>origin/master
 </code></pre></div>
 <ol>
-<li>然后，执行以下命令编译 <code>java-tron</code> 源代码：</li>
+<li>然后，执行以下命令编译 java-tron 源代码：</li>
 </ol>
 <div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>java-tron
 ./gradlew<span class="w"> </span>clean<span class="w"> </span>build<span class="w"> </span>-x<span class="w"> </span><span class="nb">test</span>
@@ -1649,8 +1761,8 @@ git<span class="w"> </span>checkout<span class="w"> </span>-t<span class="w"> </
 <li>参数 <code>-x test</code> 表示跳过执行测试用例。您也可以去除此参数以在编译过程中执行测试代码，但这会延长编译时间。</li>
 <li>编译完成后，<code>FullNode.jar</code> 文件将生成在 <code>java-tron/build/libs/</code> 目录下。</li>
 </ul>
-<h2 id="java-tron_3">启动 <code>java-tron</code> 节点<a class="headerlink" href="#java-tron_3" title="Permanent link">&para;</a></h2>
-<p>您可以选择不同的配置文件将 <code>java-tron</code> 节点连接到不同的 TRON 网络:</p>
+<h2 id="java-tron_3">启动 java-tron 节点<a class="headerlink" href="#java-tron_3" title="Permanent link">&para;</a></h2>
+<p>您可以选择不同的配置文件将 java-tron 节点连接到不同的 TRON 网络:</p>
 <ul>
 <li>主网全节点配置文件：<a href="https://github.com/tronprotocol/java-tron/blob/master/framework/src/main/resources/config.conf">config.conf</a></li>
 <li>
