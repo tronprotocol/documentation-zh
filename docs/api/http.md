@@ -495,7 +495,7 @@ curl -X POST http://127.0.0.1:8090/wallet/freezebalancev2 -d
 - `owner_address`: 质押 TRX 账号的地址, HEX 格式或 Base58Check 格式
 - `frozen_balance`: 质押 TRX 的数量, 单位为 sun
 - `resource`: 质押 TRX 获取资源的类型, 可以是 `BANDWIDTH` 或者 `ENERGY`
-- `permission_id`: 可选参数，在使用账户管理权限签名时使用。
+- `Permission_id`: 可选参数，在使用账户管理权限签名时使用。
 - `visible` 设置地址格式，`true` 为 Base58Check，`false` 或省略则为 HexString。
 
 返回值：该接口返回一个未签名的质押交易对象 (Unsigned Transaction)。
@@ -517,7 +517,7 @@ curl -X POST http://127.0.0.1:8090/wallet/unfreezebalancev2 -d
 - `owner_address`: 解质押 TRX 账号的地址, HEX 格式或 Base58Check 格式
 - `resource`: 资源类型, `BANDWIDTH` 或者 `ENERGY`
 - `unfreeze_balance`: 解质押的TRX数量，单位为 sun
-- `permission_id`: 可选参数，在使用账户管理权限签名时使用。
+- `Permission_id`: 可选参数，在使用账户管理权限签名时使用。
 - `visible` 设置地址格式，`true` 为 Base58Check，`false` 或省略则为 HexString。
 
 返回值：该接口返回一个未签名的解质押交易对象 (Unsigned Transaction)。
@@ -539,7 +539,7 @@ curl -X POST http://127.0.0.1:8090/wallet/cancelallunfreezev2 -d
 参数：
 
 - `owner_address`: 账户地址, HEX 格式或 Base58Check 格式。
-- `permission_id`: 可选参数，在使用账户管理权限签名时使用。
+- `Permission_id`: 可选参数，在使用账户管理权限签名时使用。
 - `visible` 设置地址格式，`true` 为 Base58Check，`false` 或省略则为 HexString。
 
 返回值：一个未签名的取消解质押交易对象 (Unsigned Transaction)。
@@ -568,7 +568,7 @@ curl -X POST http://127.0.0.1:8090/wallet/delegateresource -d
 - `resource`: 代理的资源类型, `BANDWIDTH` 或者 `ENERGY`。
 - `lock`: true 表示为该资源代理操作设置三天的锁定期，即资源代理给目标地址后的三天内不可以取消对其的资源代理，如果锁定期内，再次代理资源给同一目标地址，则锁定期将重新设置为3天。false 表示本次资源代理没有锁定期，可随时取消对目标地址的资源代理。
 - `lock_period`: 锁定周期，以区块时间（3s）为单位，表示锁定多少个区块的时间，当 lock 为 `true` 时，该字段有效。如果代理锁定期为 1 天，则 `lock_period` 为：28800。
-- `permission_id`: 可选参数，在使用账户管理权限签名时使用。
+- `Permission_id`: 可选参数，在使用账户管理权限签名时使用。
 - `visible` 设置地址格式，`true` 为 Base58Check，`false` 或省略则为 HexString。
 
 返回值：该接口返回一个未签名的资源代理交易对象 (Unsigned Transaction)。
@@ -595,7 +595,7 @@ curl -X POST http://127.0.0.1:8090/wallet/undelegateresource -d
 - `receiver_address`: 资源的接收账户地址, 也就是取消为该地址的资源代理。 HEX 格式或 Base58Check 格式。
 - `balance`: 取消代理 balance 数量的 TRX 所对应的资源, 单位为 sun。
 - `resource`: 取消代理的资源类型, `BANDWIDTH` 或者 `ENERGY`。
-- `permission_id`: 可选参数，在使用账户管理权限签名时使用。
+- `Permission_id`: 可选参数，在使用账户管理权限签名时使用。
 - `visible` 设置地址格式，`true` 为 Base58Check，`false` 或省略则为 HexString。
 
 返回值：该接口返回一个未签名的取消资源代理交易对象 (Unsigned Transaction)。
@@ -613,7 +613,7 @@ curl -X POST http://127.0.0.1:8090/wallet/withdrawexpireunfreeze -d
 参数：
 
 - `owner_address`: 交易发起者账号的地址, HEX 格式或 Base58Check 格式。
-- `permission_id`: 可选参数，在使用账户管理权限签名时使用。
+- `Permission_id`: 可选参数，在使用账户管理权限签名时使用。
 - `visible` 设置地址格式，`true` 为 Base58Check，`false` 或省略则为 HexString。
 
 返回值：该接口返回一个未签名的提取到期解质押资金的交易对象 (Unsigned Transaction)。
