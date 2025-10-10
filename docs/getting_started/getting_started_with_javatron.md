@@ -129,9 +129,9 @@ wallet>
 在 TRON 网络上执行任何交易（如转账、调用合约）都需要消耗网络资源，这些资源通过质押或燃烧 TRX 来获得。因此，在进行链上操作前，您必须确保操作账户中持有足够的 TRX。TRX 的获取方式因网络而异：
 
 - **在 TRON 网络主网 (Mainnet)**，TRX 是真实资产，主要通过以下方式获得：
-  - 作为超级代表获得出块奖励，或通过为超级代表投票获得奖励
-  - 从其他的 TRON 网络账户接收 TRX 转账
-  - 从加密货币交易所购买
+    - 作为超级代表获得出块奖励，或通过为超级代表投票获得奖励
+    - 从其他的 TRON 网络账户接收 TRX 转账
+    - 从加密货币交易所购买
 - **在 Nile 测试网 (Testnet)**，TRX 没有实际价值。您可以通过访问 [水龙头 (Faucet)](https://nileex.io/join/getJoinPage) 免费获取。详细流程可参考 [如何获取测试币](https://developers.tron.network/docs/getting-testnet-tokens-on-tron)。
 
 完成以上所有准备工作后，您现在拥有了一个配置正确、网络环境安全且持有测试币的 TRON 账户。
