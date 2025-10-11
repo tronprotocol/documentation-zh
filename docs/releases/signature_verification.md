@@ -1,6 +1,6 @@
 # java-tron 发布包签名校验
 
-本文档旨在指导开发者如何对 TRON 的 java-tron 可执行文件进行签名校验，以确保所获取文件的**可靠性**和**完整性**。签名校验过程需要提供三个关键信息：待验证的可执行文件、文件的数字签名以及用于签名的私钥所对应的公钥。校验原理是根据可执行文件的内容和其签名反向推导出签名的公钥，并与  [java-tron](https://github.com/tronprotocol/java-tron) 公示的公钥进行比对。如果两者一致，则表明您获取的 java-tron 可执行文件是与 GitHub 上发布的一致且未被篡改的。
+本文档旨在指导开发者如何对 TRON 的 java-tron 可执行文件进行签名校验，以确保所获取文件的**可靠性**和**完整性**。签名校验过程需要提供三个关键信息：待验证的可执行文件、文件的数字签名以及用于签名的私钥所对应的公钥。校验原理是根据可执行文件的内容和其签名反向推导出签名的公钥，并与 [java-tron](https://github.com/tronprotocol/java-tron) 公示的公钥进行比对。如果两者一致，则表明您获取的 java-tron 可执行文件是与 GitHub 上发布的一致且未被篡改的。
 
 TRON 针对 java-tron 发布包的签名方式有所调整：
 
@@ -19,11 +19,11 @@ TRON 针对 java-tron 发布包的签名方式有所调整：
 如果您已经安装了 GPG，可以跳过此步骤。否则，请根据您的操作系统执行以下命令进行安装：
 
 * **macOS**:
-    ```shell
+    ```
     brew install gpg
     ```
 * **Debian、Ubuntu 或其他 Linux 发行版**:
-    ```shell
+    ```
     sudo apt install gpg
     ```
 
@@ -33,7 +33,7 @@ TRON 针对 java-tron 发布包的签名方式有所调整：
 
 首先，从 [java-tron GitHub 仓库](https://github.com/tronprotocol/java-tron?tab=readme-ov-file#integrity-check) 获取 java-tron 发布包 GPG 签名的**公钥 Hash** 和 **UID**。例如：
 
-```text
+```
 pub: 1254 F859 D2B1 BD9F 66E7 107D F859 BCB4 4A28 290B
 uid: build@tron.network
 ```
@@ -82,9 +82,9 @@ gpg:       没有证据表明此签名属于其声称的所有者。
 1.  首先计算发布包可执行文件的 SHA256 哈希值。
 2.  然后使用该 TRON 账户的私钥对 SHA256 哈希值进行签名。
 
-发布包的 SHA256 哈希值和签名结果可在本文档的 [历史版本签名信息](#_1)章节中查看，也可以在 [GitHub Releases 页面](https://github.com/tronprotocol/java-tron/releases) 查看。
+发布包的 SHA256 哈希值和签名结果可在本文档的 [历史版本签名信息](#_1) 章节中查看，也可以在 [GitHub Releases 页面](https://github.com/tronprotocol/java-tron/releases) 查看。
 
-在这里，我们使用 TRON 上流行的 JavaScript 库 [tronweb](https://tronweb.network/docu/docs/intro/) 来演示验证签名的流程。 TronWeb 提供了 `Trx.verifySignature` 接口来验证签名。验证通过将返回 `true`，否则返回 `false`。请按照以下流程进行验证。
+在这里，我们使用 TRON 上流行的 JavaScript 库 [TronWeb](https://tronweb.network/docu/docs/intro/) 来演示验证签名的流程。 TronWeb 提供了 `Trx.verifySignature` 接口来验证签名。验证通过将返回 `true`，否则返回 `false`。请按照以下流程进行验证。
 
 ### 1. 安装 TronWeb
 
@@ -114,6 +114,7 @@ npm install -g tronweb
     ```
     sha256sum FullNode.jar
     ```
+    
 将命令输出的哈希值与发布信息中提供的哈希值进行比对。
 
 ### 3. 检查发布包签名
@@ -136,7 +137,7 @@ node -e 'console.log(require("tronweb").Trx.verifySignature(
 
 #### Odyssey-3.7
 
-```text
+```
 FullNode sha256sum: 2fca93b09da4ac62641e03838e77fce99b4711ddb0c09aa91656c80fc9556d2e
 FullNode signature: 21435e32131feb6d00ba8048df04e112e02569ec851064d8ecad2d4dd5da44b7628ddce16823dadfff6fd683fc58cee74964970621a845ee459e2c96a750de551b
 SolidityNode sha256sum: fcdea8b3e511306218ba442fb0828f0413574012d646c39c212a59f6ba5844bc
@@ -145,7 +146,7 @@ SolidityNode signature: 6dcad6e02f17467e5cfebeefa0f9963da08e7da10feebefdec47d689
 
 #### GreatVoyage-4.0.0
 
-```text
+```
 FullNode sha256sum: d3f8f9fde64bdefaadae784d09de97172e5e8a3fe539217e12b89963983a530d
 FullNode signature: e788dbaf2fe35f099f65b2403cfb0d7cbe7f4611f8c5ff8151e4bd84ae468d2e541043c9cde9e74500003027ae9f25cdda81a9bcd60abb45ca7a69f965f4dcc71c
 SolidityNode sha256sum: adddf88423c6c31f1f25ed39b10779c24dd7cdcf37f2325c02b2f2ecfc97e1f6
@@ -154,7 +155,7 @@ SolidityNode signature: e3b9859f178f7851dedb7a0a8deb715e5f1e3af10b1064c36f2727ec
 
 #### GreatVoyage-4.1.1
 
-```text
+```
 FullNode sha256sum: 30e716b86b879af1e006c2b463903ae3835e239e32e2b01c2a1b903a153897fe
 FullNode signature: 5faee65a448bb9aa77835992ca3d24e50d8a76b7934f80664ad38e83179c8114278fdef4494de7231f8e40de86461676a7aa4a54c795f4c692e91d90e156ec471b
 SolidityNode sha256sum: 10a160181053b421109ecace74df5fc0f8860bc8a70181add65fd9a292c35a44
@@ -163,7 +164,7 @@ SolidityNode signature: 1d1413b13adf7778f9a720294eca066ac728ad636d166505276f5ff1
 
 #### GreatVoyage-v4.1.2
 
-```text
+```
 FullNode sha256sum: 4ded44b6c1a3dbd25212e14ab413142b5463dcbf30a528f83ded529048542547
 FullNode signature: 57a094c1b8a5ec301ef913eb718de2498b5695eb999530863df05252ba8919ba6866c8490e29d36f7dbf34537c898ece5ef0111efb134419c3a5fd6fc9ec03b81c
 SolidityNode sha256sum: 3db36cadbd1f7641aafc8164983f28df4b7ceff8174e090327ed407012cf12cb
@@ -172,7 +173,7 @@ SolidityNode signature: d07604f6811cbed628dd6e5c07880c2fdd3025848fd5365925531c77
 
 #### GreatVoyage-v4.1.3(Thales)
 
-```text
+```
 FullNode sha256sum: c5fb99ad5b024bb7877118f30fb6065f6e6febd11a3cfa241521cbed73cca181
 FullNode signature: d80ec371e791c4316925d80ff3400cf51b14c8a4d4c696b7817c517eb094823622932b45b9b37f9e9657513c3eddb1134fbbb1ee56727c0957e8a3b40c67409b1c
 SolidityNode sha256sum: 4b941d71b561a8b2e0b97d7498823d900eaf287910eea1eaafc649f5aad14036
@@ -181,7 +182,7 @@ SolidityNode signature: f8a8e8d411b009d02986cad1e19e745f8107384a274f146bcae60c57
 
 #### GreatVoyage-v4.2.0(Plato)
 
-```text
+```
 FullNode sha256sum:
 bbf103432be016b582452137b4862140af15ccf7c5daa9be738450705317fdb8
 FullNode signature:
@@ -194,7 +195,7 @@ SolidityNode signature:
 
 #### GreatVoyage-v4.2.1(Origen)
 
-```text
+```
 FullNode sha256sum:
 9888710c915a4027f1bc3dcb1d5d983e0c00d4c438f6fa307d412f62ff6862ea
 FullNode signature:
@@ -207,7 +208,7 @@ SolidityNode signature:
 
 #### GreatVoyage-v4.2.2(Lucretius)
 
-```text
+```
 FullNode sha256sum:
 8a7f8143b3351ea6b5d8e3dfc857b09256d363d4907ba3ab0288f67f77c2a58f
 FullNode signature:
@@ -220,7 +221,7 @@ SolidityNode signature:
 
 #### GreatVoyage-v4.2.2.1(Epictetus)
 
-```text
+```
 FullNode sha256sum:
 8bd040a8db16ccba3e957ed3558b82d145928153a53f9688302849658a72f9bc
 FullNode signature:
@@ -233,7 +234,7 @@ SolidityNode signature:
 
 #### GreatVoyage-v4.3.0(Bacon)
 
-```text
+```
 FullNode sha256sum:
 b5e993800cea5ca040758dd6b3c7438def03cbf1358468beb76ea45399a59298
 FullNode signature:
@@ -246,7 +247,7 @@ c27ffde8ce88ee14689e15a9d5c3fb2d2a9d180ea43b45046131df8ac5481fae2588621b395ad703
 
 #### GreatVoyage-v4.4.0(Rousseau)
 
-```text
+```
 FullNode sha256sum:
 bf7f962846f75139dd89ac6da32074cad33b2e172c0749abbed8773cc1ab1a37
 FullNode signature:
@@ -259,7 +260,7 @@ cc4325c085719e3e5045b5c6c2553d7adc9c735419618f7afad06c3a532da0ed46906ae9b2dadb15
 
 #### GreatVoyage-v4.4.1(Protagoras)
 
-```text
+```
 FullNode sha256sum:
 4a32918849dc8a7fedcb637ff4939389363726cb16c6a581e39253260668ee04
 FullNode signature:
@@ -272,7 +273,7 @@ d2836bda30fd25c89494ae7a12b5357bc9e725c9e2c655fb0a9158a4bee881693ea869defe650b0b
 
 #### GreatVoyage-v4.4.2(Augustinus)
 
-```text
+```
 FullNode sha256sum:
 70eba12350fa21e1b261927093090e7bdf0765592d19433c594149bd3707ef0a
 FullNode signature:
@@ -285,7 +286,7 @@ f3935dfe4af9601cf102c975ed2eebbd4b42160e8746c0d0b21ffbd2fbd4b6f374257b1bc0e94890
 
 #### GreatVoyage-v4.4.3(Pythagoras)
 
-```text
+```
 FullNode sha256sum:
 c07637a1a4a9a289218554f4714caef90032e267b068411c7dd818d4af45e39f
 FullNode signature:
@@ -298,7 +299,7 @@ dc0f910555a23667d682a6775588de90592ede44f76a32b12ea8f89fa7dcc937274cc3a44b20da49
 
 #### GreatVoyage-v4.4.4(Plotinus)
 
-```text
+```
 FullNode sha256sum:
 0264d382489dae5bf1d340030c1892b0a7aeb9364cb9380c034e159c9eb9a269
 FullNode signature:
@@ -311,7 +312,7 @@ SolidityNode signature:
 
 #### GreatVoyage-v4.4.5(Cicero)
 
-```text
+```
 FullNode sha256sum:
 8115e887e5af5768e8ab967f8e7bc024af94bda31be7f3dbc30934b42489d988
 FullNode signature:
@@ -324,7 +325,7 @@ SolidityNode signature:
 
 #### GreatVoyage-v4.4.6(David)
 
-```text
+```
 FullNode sha256sum:
 eaf213f6e6cd9913f9f27bf72a42209c1a0f0fce9841c1d6bd680d879d7d6f85
 FullNode signature:
@@ -337,7 +338,7 @@ a03d5d6f0e6c6b869f2e545d8c3ff8a4fed569508e9abe4219271d8bf25dfb015e242add8fd2ab6b
 
 #### GreatVoyage-v4.5.1(Tertullian)
 
-```text
+```
 FullNode sha256sum:
 db3c75d7854dcf241558c2942b9a582f478c00a88b6f7a7e5ff8a653a8d4c59a
 FullNode signature:
@@ -350,7 +351,7 @@ a736f9de5425562a2af188c547245f9b4da6d793728bc767242e3df75fa104f61ce978b62fc5cea7
 
 #### GreatVoyage-v4.5.2 (Aurelius)
 
-```text
+```
 FullNode sha256sum:
 60e959ccde3ff90c10b503bb25edf37684845e358df2ad64b2b330712b30c177
 FullNode signature:
@@ -363,7 +364,7 @@ afb5db2467ce9f5445679df53e2fecfaed3c4a2d0ca2ba88b65e621aa2d37a9e6aab06b30052a938
 
 #### GreatVoyage-v4.6.0 (Socrates)
 
-```text
+```
 FullNode sha256sum:
 598589d428085e25c838552970844b0ba00248ad92873bd2ad25b35f37db7a5b
 FullNode signature:

@@ -7,11 +7,10 @@
   * 对于**标准节点**，请参考 [标准节点升级流程](#standard_process)。
   * 对于配置了**主备高可用**的节点，请遵循 [主备节点升级指南](#primary/backup_upgrade) 以确保服务的平稳过渡。
 
------
 <a id="standard_process"></a> 
 ## 标准节点升级流程
 
-所有全节点（Fullnode），包括超级代表（Super Representative）的出块节点，都应遵循以下步骤完成升级。
+所有全节点（FullNode），包括超级代表（Super Representative）的出块节点，都应遵循以下步骤完成升级。
 
 <a id="step1"></a> 
 ### 第 1 步：准备新版本程序包
