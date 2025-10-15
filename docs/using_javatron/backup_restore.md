@@ -71,7 +71,11 @@ tar xzvf output-directory.20220628152402.etgz
 | 官方数据源 (亚洲: 新加坡) | [http://35.247.128.170/](http://35.247.128.170/) | LevelDB 数据，包含内部交易 |
 | 官方数据源 (美洲: 美国弗吉尼亚) | [http://34.48.6.163/](http://34.48.6.163/) | LevelDB 数据，不包含内部交易，包含账户历史余额 |
 
-**注意：** **LevelDB** 和 **RocksDB** 数据不允许混用。FullNode 的数据库类型通过配置文件中的 `db.engine` 配置项指定，可选值为 `LEVELDB` 或 `ROCKSDB`。
+**注意：** 
+
+- **LevelDB** 和 **RocksDB** 数据不允许混用。FullNode 的数据库类型通过配置文件中的 `db.engine` 配置项指定，可选值为 `LEVELDB` 或 `ROCKSDB`。
+- 内部交易通过配置文件中的`vm.saveInternalTx`或者`vm.saveFeaturedInternalTx`配置项打开/关闭，其中`vm.saveInternalTx`仅针对`call`、`create`、`suicide`交易，`vm.saveFeaturedInternalTx`针对所有类型的交易。影响接口：[`gettransactioninfobyid`](https://developers.tron.network/reference/gettransactioninfobyid-1)
+- 账户历史余额通过配置文件中的`storage.balance.history.lookup`配置项打开/关闭。影响接口：[`getaccountbalance`](https://developers.tron.network/reference/getaccountbalance)
 
 #### Lite FullNode 数据快照
 
