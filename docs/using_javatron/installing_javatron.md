@@ -37,21 +37,18 @@
 在开始编译之前，请确保您的系统已安装 `git` 工具。
 
 1. 首先，通过 `git` 命令将 java-tron 源代码克隆到本地，并切换到 `master` 分支：
-
 ```shell
 git clone https://github.com/tronprotocol/java-tron.git
 git checkout -t origin/master
 ```
-
 2. 然后，执行以下命令编译 java-tron 源代码：
-
 ```shell
 cd java-tron
 ./gradlew clean build -x test
 ```
 
-* 参数 `-x test` 表示跳过执行测试用例。您也可以去除此参数以在编译过程中执行测试代码，但这会延长编译时间。
-* 编译完成后，`FullNode.jar` 文件将生成在 `java-tron/build/libs/` 目录下。
+    * 参数 `-x test` 表示跳过执行测试用例。您也可以去除此参数以在编译过程中执行测试代码，但这会延长编译时间。
+    * 编译完成后，`FullNode.jar` 文件将生成在 `java-tron/build/libs/` 目录下。
 
 ## 启动 java-tron 节点
 
@@ -59,9 +56,8 @@ cd java-tron
 
 * 主网全节点配置文件：[config.conf](https://github.com/tronprotocol/java-tron/blob/master/framework/src/main/resources/config.conf)
 * 其他网络节点配置文件：
-
-  * Nile 测试网：https://nileex.io/
-  * 私链网络：请参考[私链网络](https://tronprotocol.github.io/documentation-zh/using_javatron/private_network/)
+    * Nile 测试网：https://nileex.io/
+    * 私链网络：请参考[私链网络](https://tronprotocol.github.io/documentation-zh/using_javatron/private_network/)
 
 ### 启动全节点 (FullNode)
 
