@@ -450,21 +450,9 @@
   
   
   
-    
-    
-    
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
+    <li class="md-nav__item">
+      <a href="../../architecture/event/" class="md-nav__link">
         
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" >
-        
-          
-          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
-            
   
   <span class="md-ellipsis">
     事件订阅
@@ -472,107 +460,7 @@
   </span>
   
 
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_3_5">
-            <span class="md-nav__icon md-icon"></span>
-            事件订阅
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../architecture/event/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    概览
-    
-  </span>
-  
-
       </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../architecture/use-native-queue/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    内置消息队列订阅
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../architecture/use-mongodb/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Mongodb 事件订阅插件
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../architecture/use-kafka/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Kafka 事件订阅插件
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
     </li>
   
 
@@ -2200,7 +2088,7 @@
 <li><code>owner_address</code>: 质押 TRX 账号的地址, HEX 格式或 Base58Check 格式</li>
 <li><code>frozen_balance</code>: 质押 TRX 的数量, 单位为 sun</li>
 <li><code>resource</code>: 质押 TRX 获取资源的类型, 可以是 <code>BANDWIDTH</code> 或者 <code>ENERGY</code></li>
-<li><code>permission_id</code>: 可选参数，在使用账户管理权限签名时使用。</li>
+<li><code>Permission_id</code>: 可选参数，在使用账户管理权限签名时使用。</li>
 <li><code>visible</code> 设置地址格式，<code>true</code> 为 Base58Check，<code>false</code> 或省略则为 HexString。</li>
 </ul>
 <p>返回值：该接口返回一个未签名的质押交易对象 (Unsigned Transaction)。</p>
@@ -2218,7 +2106,7 @@
 <li><code>owner_address</code>: 解质押 TRX 账号的地址, HEX 格式或 Base58Check 格式</li>
 <li><code>resource</code>: 资源类型, <code>BANDWIDTH</code> 或者 <code>ENERGY</code></li>
 <li><code>unfreeze_balance</code>: 解质押的TRX数量，单位为 sun</li>
-<li><code>permission_id</code>: 可选参数，在使用账户管理权限签名时使用。</li>
+<li><code>Permission_id</code>: 可选参数，在使用账户管理权限签名时使用。</li>
 <li><code>visible</code> 设置地址格式，<code>true</code> 为 Base58Check，<code>false</code> 或省略则为 HexString。</li>
 </ul>
 <p>返回值：该接口返回一个未签名的解质押交易对象 (Unsigned Transaction)。</p>
@@ -2236,7 +2124,7 @@
 <p>参数：</p>
 <ul>
 <li><code>owner_address</code>: 账户地址, HEX 格式或 Base58Check 格式。</li>
-<li><code>permission_id</code>: 可选参数，在使用账户管理权限签名时使用。</li>
+<li><code>Permission_id</code>: 可选参数，在使用账户管理权限签名时使用。</li>
 <li><code>visible</code> 设置地址格式，<code>true</code> 为 Base58Check，<code>false</code> 或省略则为 HexString。</li>
 </ul>
 <p>返回值：一个未签名的取消解质押交易对象 (Unsigned Transaction)。</p>
@@ -2259,7 +2147,7 @@
 <li><code>resource</code>: 代理的资源类型, <code>BANDWIDTH</code> 或者 <code>ENERGY</code>。</li>
 <li><code>lock</code>: true 表示为该资源代理操作设置三天的锁定期，即资源代理给目标地址后的三天内不可以取消对其的资源代理，如果锁定期内，再次代理资源给同一目标地址，则锁定期将重新设置为3天。false 表示本次资源代理没有锁定期，可随时取消对目标地址的资源代理。</li>
 <li><code>lock_period</code>: 锁定周期，以区块时间（3s）为单位，表示锁定多少个区块的时间，当 lock 为 <code>true</code> 时，该字段有效。如果代理锁定期为 1 天，则 <code>lock_period</code> 为：28800。</li>
-<li><code>permission_id</code>: 可选参数，在使用账户管理权限签名时使用。</li>
+<li><code>Permission_id</code>: 可选参数，在使用账户管理权限签名时使用。</li>
 <li><code>visible</code> 设置地址格式，<code>true</code> 为 Base58Check，<code>false</code> 或省略则为 HexString。</li>
 </ul>
 <p>返回值：该接口返回一个未签名的资源代理交易对象 (Unsigned Transaction)。</p>
@@ -2280,7 +2168,7 @@
 <li><code>receiver_address</code>: 资源的接收账户地址, 也就是取消为该地址的资源代理。 HEX 格式或 Base58Check 格式。</li>
 <li><code>balance</code>: 取消代理 balance 数量的 TRX 所对应的资源, 单位为 sun。</li>
 <li><code>resource</code>: 取消代理的资源类型, <code>BANDWIDTH</code> 或者 <code>ENERGY</code>。</li>
-<li><code>permission_id</code>: 可选参数，在使用账户管理权限签名时使用。</li>
+<li><code>Permission_id</code>: 可选参数，在使用账户管理权限签名时使用。</li>
 <li><code>visible</code> 设置地址格式，<code>true</code> 为 Base58Check，<code>false</code> 或省略则为 HexString。</li>
 </ul>
 <p>返回值：该接口返回一个未签名的取消资源代理交易对象 (Unsigned Transaction)。</p>
@@ -2294,7 +2182,7 @@
 <p>参数：</p>
 <ul>
 <li><code>owner_address</code>: 交易发起者账号的地址, HEX 格式或 Base58Check 格式。</li>
-<li><code>permission_id</code>: 可选参数，在使用账户管理权限签名时使用。</li>
+<li><code>Permission_id</code>: 可选参数，在使用账户管理权限签名时使用。</li>
 <li><code>visible</code> 设置地址格式，<code>true</code> 为 Base58Check，<code>false</code> 或省略则为 HexString。</li>
 </ul>
 <p>返回值：该接口返回一个未签名的提取到期解质押资金的交易对象 (Unsigned Transaction)。</p>

@@ -450,21 +450,9 @@
   
   
   
-    
-    
-    
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
+    <li class="md-nav__item">
+      <a href="../../architecture/event/" class="md-nav__link">
         
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" >
-        
-          
-          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
-            
   
   <span class="md-ellipsis">
     事件订阅
@@ -472,107 +460,7 @@
   </span>
   
 
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_3_5">
-            <span class="md-nav__icon md-icon"></span>
-            事件订阅
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../architecture/event/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    概览
-    
-  </span>
-  
-
       </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../architecture/use-native-queue/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    内置消息队列订阅
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../architecture/use-mongodb/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Mongodb 事件订阅插件
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../architecture/use-kafka/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Kafka 事件订阅插件
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
     </li>
   
 
@@ -1748,7 +1636,7 @@
 <p>区块链作为一种分布式账本系统，拥有遍布全球的数千甚至上万个独立节点，它们各自维护一份相同的账本副本。要将新的交易数据写入这个共享账本，必须获得这些节点的普遍认可。在固有的不可信分布式环境中实现这一目标，是一个复杂的系统工程。</p>
 <p>区块链系统能够正常运行（即所有节点能够持续维护一份一致的账本），前提是系统中绝大多数节点是诚实可靠的。为了确保诚实节点能够共同监督交易数据的写入，每个区块链系统都需要建立自己的<strong>共识机制</strong>。</p>
 <p>共识机制就像区块链的“宪法”，它保证了即便在不可信的分布式环境下，只要绝大多数节点遵守共识规定，系统就能达成确定且可信的结果。因此，共识机制的意义在于，它使区块链中的诚实节点能够最终就账本内容达成一致。</p>
-<p>目前主流的共识机制包括工作量证明（PoW）、权益证明（PoS）和委托权益证明（DPoS）。每种机制在不同的区块链系统中都有其独特的具体实现。本文将重点介绍 <strong>TRON 网络</strong>所采用的 DPoS 共识机制，并详细阐述其核心组件和运作原理。</p>
+<p>目前主流的共识机制包括工作量证明（PoW）、权益证明（PoS）和委托权益证明（DPoS）。每种机制在不同的区块链系统中都有其独特的具体实现。本文将重点介绍 <strong>TRON 网络</strong> 所采用的 DPoS 共识机制，并详细阐述其核心组件和运作原理。</p>
 <h3 id="dpos">DPoS 共识机制<a class="headerlink" href="#dpos" title="Permanent link">&para;</a></h3>
 <p>DPoS 共识机制在区块链系统中的核心作用是选举出<strong>超级代表（Super Representative，简称 SR）</strong>，即网络的指定区块生产者（或出块节点/Block Producer）。这些 SR 负责验证交易数据并将其记录到账本中，随后将包含新账目的区块广播至全网，并获得其他节点的认可。</p>
 <p>在 DPoS 共识中，系统会根据节点获得的选票数量来选定一部分节点作为区块生产者。整个选举流程具体如下：</p>
@@ -1782,7 +1670,7 @@
 <td>TRON 网络中获得区块生产资格的节点。TRON 设定区块生产者的数量为 <strong>27 个</strong>。下文不区分区块生产者、记账人、Witness、SuperNode、SR 等概念。</td>
 </tr>
 <tr>
-<td>超级代表候选人</td>
+<td>超级代表候选人（Super Representative Candidate）</td>
 <td>TRON 网络中具备成为区块生产者资格的节点。</td>
 </tr>
 <tr>
@@ -1859,7 +1747,7 @@
 </ul>
 <h2 id="_12">基于提案的参数调整<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h2>
 <p>DPoS 的一个重要特性是，任何系统参数的调整都可以通过<strong>链上提案</strong>发起。SR 通过对提案的投票来决定提案是否生效。这种机制的好处在于，在链上调整参数时，<strong>无需进行硬分叉升级</strong>。</p>
-<p>目前 TRON 网络的动态参数及其值，以及过往的提案记录，请参考 <a href="https://tronscan.org/#/sr/committee">TRONSCAN 委员会页面</a>。</p>
+<p>目前 TRON 网络的动态参数及其值，以及过往的提案记录，请参考 <a href="https://tronscan.org/#/sr/committee">TRONSCAN 委员会</a> 页面。</p>
 <h2 id="_13">参考文档<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="https://medium.com/tronnetwork/the-basics-of-trons-dpos-consensus-algorithm-db12c52f1e03">The Basics of TRON’s DPoS Consensus Algorithm</a></li>

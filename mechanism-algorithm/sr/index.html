@@ -450,21 +450,9 @@
   
   
   
-    
-    
-    
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
+    <li class="md-nav__item">
+      <a href="../../architecture/event/" class="md-nav__link">
         
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" >
-        
-          
-          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
-            
   
   <span class="md-ellipsis">
     事件订阅
@@ -472,107 +460,7 @@
   </span>
   
 
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_3_5">
-            <span class="md-nav__icon md-icon"></span>
-            事件订阅
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../architecture/event/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    概览
-    
-  </span>
-  
-
       </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../architecture/use-native-queue/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    内置消息队列订阅
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../architecture/use-mongodb/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Mongodb 事件订阅插件
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../architecture/use-kafka/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Kafka 事件订阅插件
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
     </li>
   
 
@@ -970,7 +858,7 @@
           <li class="md-nav__item ">
   <a href="#_8" class="md-nav__link" >
     <span class="md-ellipsis">
-      什么是委员会
+      关于委员会
     </span>
   </a>
   
@@ -1729,25 +1617,21 @@
 </li>
 <li>
 <p>解质押对投票的影响</p>
-<p>当您解质押一部分TRX时，您会失去等量的TP。系统将按以下规则回收TP：</p>
+<p>当您解质押一部分 TRX 时，您会失去等量的 TP。系统将按以下规则回收 TP：</p>
 <ul>
-<li>优先回收未使用的TP</li>
-<li>如果可用TP不足，系统将自动从您已投出的票数中按比例撤回，以弥补TP的不足</li>
-<li>若您已向多个SR投票，系统将根据您在每个SR上的投票比例，按比例从他们那里撤回相应的票数并回收TP</li>
+<li>优先回收未使用的 TP</li>
+<li>如果可用 TP 不足，系统将自动从您已投出的票数中按比例撤回，以弥补 TP 的不足</li>
+<li>若您已向多个 SR 投票，系统将根据您在每个 SR 上的投票比例，按比例从他们那里撤回相应的票数并回收 TP</li>
 </ul>
 </li>
 </ul>
-<blockquote>
 <p><strong>重要提示:</strong> TRON 网络只记录你最后一次投票的状态，也就是说你的每一次投票都会覆盖以前所有的投票效果。</p>
-</blockquote>
-<ul>
-<li><strong>示例：</strong></li>
-</ul>
-<div class="highlight"><pre><span></span><code>&gt;freezebalancev2<span class="w"> </span><span class="m">10</span>,000,000<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="c1"># 质押了 10 TRX，获取了 10 单位 TRON Power(TP)，其中：0 为带宽，1 为能量</span>
-&gt;votewitness<span class="w"> </span>SR1<span class="w"> </span><span class="m">4</span><span class="w"> </span>SR2<span class="w"> </span><span class="m">6</span><span class="w"> </span><span class="c1"># 同时给 SR1 投了 4 票，给 SR2 投了 6 票</span>
-&gt;votewitness<span class="w"> </span>SR1<span class="w"> </span><span class="m">3</span><span class="w"> </span>SR2<span class="w"> </span><span class="m">7</span><span class="w"> </span><span class="c1"># 同时给 SR1 投了 3 票，给 SR2 投了 7 票</span>
+<p><strong>示例：</strong></p>
+<div class="highlight"><pre><span></span><code>&gt;freezebalancev2 10,000,000 1 # 质押了 10 TRX，获取了 10 单位 TRON Power(TP)，其中：0 为带宽，1 为能量
+&gt;votewitness SR1 4 SR2 6 # 同时给 SR1 投了 4 票，给 SR2 投了 6 票
+&gt;votewitness SR1 3 SR2 7 # 同时给 SR1 投了 3 票，给 SR2 投了 7 票
 </code></pre></div>
-<p>以上命令的最终结果是给 SR1 投了 3 票，给 SR2 投了 7 票</p>
+<p>以上命令的最终结果是给 SR1 投了 3 票，给 SR2 投了 7 票。</p>
 <h2 id="_4">奖励<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
 <h3 id="_5">超级代表佣金比例<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
 <p>超级代表（SR）和超级代表合伙人（SR Partners）可以通过设置佣金比例 (Brokerage Rate)，来决定如何将获得的奖励在自己与投票者之间进行分配。</p>
@@ -1812,58 +1696,50 @@
 <ul>
 <li>链上参数序号和参数名可以在 <a href="https://tronscan.org/#/sr/committee">这里</a> 查看</li>
 <li><code>brokerageRate</code>：佣金比例</li>
-<li>超级代表和超级代表合伙人：前 127 位的 SR。</li>
+<li>超级代表和超级代表合伙人：前 127 位 SR candidate。</li>
 <li>如果投票者投票给 SR，那么它既有产块奖励，也有投票奖励，但是产块奖励只有其投票的 SR 产块时才有。如果投票者投票给超级代表合伙人，那么它只有投票奖励。</li>
 </ul>
 <h2 id="_7">委员会<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
-<h3 id="_8">什么是委员会<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
-<p>委员会是TRON网络的最高治理机构，负责对网络的核心动态参数（如交易费、出块奖励等）进行调整。</p>
+<h3 id="_8">关于委员会<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<p>委员会是 TRON 网络的最高治理机构，负责对网络的核心动态参数（如交易费、出块奖励等）进行调整。</p>
 <ul>
-<li>组成：委员会由当前在任的 27位超级代表 (SR) 组成。</li>
+<li><strong>组成</strong>：委员会由当前在任的 27 位超级代表 (SR) 组成。</li>
 <li>
-<p>权力：每位委员会成员（即超级代表）都拥有两项核心权力：</p>
+<p><strong>权力</strong>：每位委员会成员（即超级代表）都拥有两项核心权力：</p>
 <ul>
 <li>创建提议：发起一个修改网络参数的提议。</li>
 <li>对提议投票：对其他成员发起的提议进行投票。</li>
 </ul>
 </li>
 <li>
-<p>提议生效机制：
-当一个提议获得了至少18名超级代表的赞成票后，该提议即获通过。通过的提议将在下一个维护周期自动生效，完成对网络参数的修改。</p>
+<p><strong>提议生效机制</strong>：
+当一个提议获得了至少 18 名超级代表的赞成票后，该提议即获通过。通过的提议将在下一个维护周期自动生效，完成对网络参数的修改。</p>
 </li>
 </ul>
 <h3 id="_9">创建提议<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
-<p>在TRON网络中，超级代表&amp;超级代表合伙人&amp;超级代表候选人 均可以发起修改网络参数提议。</p>
-<p>TRON网络动态参数及其编号请参考<a href="https://tronscan.org/#/sr/committee">这里</a>。</p>
-<ul>
-<li>示例：</li>
-</ul>
-<div class="highlight"><pre><span></span><code>createproposal<span class="w"> </span>id0<span class="w"> </span>value0<span class="w"> </span>...<span class="w"> </span>idN<span class="w"> </span>valueN
-id0_N:<span class="w"> </span>参数编号
-value0_N:<span class="w"> </span>新参数值
+<p>在 TRON 网络中，超级代表、超级代表合伙人、超级代表候选人均可以发起修改网络参数提议。</p>
+<p>TRON 网络动态参数及其编号请参考 <a href="https://tronscan.org/#/sr/committee">这里</a>。</p>
+<p><strong>示例</strong>：</p>
+<div class="highlight"><pre><span></span><code>createproposal id0 value0 ... idN valueN
+id0_N: 参数编号
+value0_N: 新参数值
 </code></pre></div>
 <h3 id="_10">对提议进行投票<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
 <p>对提议的投票过程遵循以下核心规则：</p>
 <ol>
-<li>TRON的治理投票系统仅支持赞成票。不进行投票操作，即代表不赞同该提议。</li>
-<li>
-<p>从提议创建时间开始，3天时间内为提议的有效期。超过该时间范围，该提议如果没有获得足够的赞成票，则该提议失效。</p>
-</li>
-<li>
-<p>示例：</p>
-</li>
+<li>TRON 的治理投票系统仅支持赞成票。不进行投票操作，即代表不赞同该提议。</li>
+<li>从提议创建时间开始，3 天时间内为提议的有效期。超过该时间范围，该提议如果没有获得足够的赞成票，则该提议失效。</li>
 </ol>
-<div class="highlight"><pre><span></span><code>approveProposal<span class="w"> </span>id<span class="w"> </span>is_or_not_add_approval
-id:<span class="w"> </span>提议Id
-is_or_not_add_approval:<span class="w"> </span>赞成或取消赞成
+<p><strong>示例</strong>：</p>
+<div class="highlight"><pre><span></span><code>approveProposal id is_or_not_add_approval
+id: 提议Id
+is_or_not_add_approval: 赞成或取消赞成
 </code></pre></div>
 <h3 id="_11">取消提议<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h3>
-<p>提议创建者，能够在提议生效前，取消提议。</p>
-<ul>
-<li>示例：</li>
-</ul>
-<div class="highlight"><pre><span></span><code>deleteProposal<span class="w"> </span>proposalId
-id:<span class="w"> </span>提议Id
+<p>提议创建者能够在提议生效前取消提议。</p>
+<p><strong>示例</strong>：</p>
+<div class="highlight"><pre><span></span><code>deleteProposal proposalId
+id: 提议Id
 </code></pre></div>
 <h3 id="_12">查询提议<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
 <p>以下接口可以查询提议，包括：</p>
