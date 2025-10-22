@@ -450,21 +450,9 @@
   
   
   
-    
-    
-    
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
+    <li class="md-nav__item">
+      <a href="../../architecture/event/" class="md-nav__link">
         
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" >
-        
-          
-          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
-            
   
   <span class="md-ellipsis">
     事件订阅
@@ -472,107 +460,7 @@
   </span>
   
 
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_3_5">
-            <span class="md-nav__icon md-icon"></span>
-            事件订阅
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../architecture/event/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    概览
-    
-  </span>
-  
-
       </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../architecture/use-native-queue/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    内置消息队列订阅
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../architecture/use-mongodb/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Mongodb 事件订阅插件
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../architecture/use-kafka/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Kafka 事件订阅插件
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
     </li>
   
 
@@ -1062,7 +950,7 @@
 </li>
       
         <li class="md-nav__item has-children">
-  <a href="#_15" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
+  <a href="#_12" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
     <span class="md-ellipsis">
       动态能量模型
     </span>
@@ -1072,7 +960,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item ">
-  <a href="#_16" class="md-nav__link" >
+  <a href="#_13" class="md-nav__link" >
     <span class="md-ellipsis">
       工作原理
     </span>
@@ -1096,7 +984,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item ">
-  <a href="#_17" class="md-nav__link" >
+  <a href="#_14" class="md-nav__link" >
     <span class="md-ellipsis">
       如何质押获取系统资源
     </span>
@@ -1105,7 +993,7 @@
 </li>
         
           <li class="md-nav__item ">
-  <a href="#_19" class="md-nav__link" >
+  <a href="#_16" class="md-nav__link" >
     <span class="md-ellipsis">
       如何代理资源
     </span>
@@ -1114,7 +1002,7 @@
 </li>
         
           <li class="md-nav__item ">
-  <a href="#_20" class="md-nav__link" >
+  <a href="#_17" class="md-nav__link" >
     <span class="md-ellipsis">
       如何解质押
     </span>
@@ -1123,7 +1011,7 @@
 </li>
         
           <li class="md-nav__item ">
-  <a href="#_22" class="md-nav__link" >
+  <a href="#_19" class="md-nav__link" >
     <span class="md-ellipsis">
       如何取消全部解质押
     </span>
@@ -1134,7 +1022,7 @@
           <li class="md-nav__item ">
   <a href="#api" class="md-nav__link" >
     <span class="md-ellipsis">
-      API
+      相关 API 接口
     </span>
   </a>
   
@@ -1798,9 +1686,9 @@
 <h2 id="_2">资源模型介绍<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <p>TRON 网络的核心系统资源由三部分构成：投票权 (TRON Power, TP)、带宽 (Bandwidth) 和 能量 (Energy)。它们各自的定义和用途如下：</p>
 <ul>
-<li>投票权 (TRON Power, TP): 用户通过质押 TRX 获得的治理凭证，用于为超级代表（Super Representative, SR） 选举中的候选人（Candidate）投票，以决定每个周期的 SR 及超级代表合伙人（Partner）。</li>
-<li>带宽 (Bandwidth): 衡量交易数据在区块链上占用的字节大小。任何类型的交易（无论是普通转账还是合约交互）都必须消耗带宽。</li>
-<li>能量 (Energy): 衡量智能合约在 TRON 虚拟机（TVM）中执行所需消耗的计算资源，可理解为“CPU 算力费”。能量仅在部署或执行智能合约时才会被消耗。</li>
+<li><strong>投票权 (TRON Power, TP)</strong>: 用户通过质押 TRX 获得的治理凭证，用于为超级代表 (Super Representative, SR) 选举中的候选人（Candidate）投票，以决定每个周期的 SR 及超级代表合伙人 (Partner)。</li>
+<li><strong>带宽 (Bandwidth)</strong>: 衡量交易数据在区块链上占用的字节大小。任何类型的交易（无论是普通转账还是合约交互）都必须消耗带宽。</li>
+<li><strong>能量 (Energy)</strong>: 衡量智能合约在 TRON 虚拟机 (TVM) 中执行所需消耗的计算资源，可理解为“CPU 算力费”。能量仅在部署或执行智能合约时才会被消耗。</li>
 </ul>
 <h2 id="_3">投票权<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
 <p>任何账户在给超级代表投票前，都需要先获得投票权，即 TRON Power (TP)。</p>
@@ -1811,7 +1699,7 @@
 <li><strong>查询接口</strong>：您随时可以通过 <code>wallet/getaccountresource</code> API 接口，查询自己账户当前拥有的总 TP 以及已使用的 TP 数量。</li>
 </ul>
 <h2 id="_4">带宽<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
-<p>交易以字节数组的形式在网络中传输及存储，一条交易消耗的带宽（Bandwidth） = <code>交易字节数 * Bandwidth 费率</code>，当前 Bandwidth 费率 = 1。</p>
+<p>交易以字节数组的形式在网络中传输及存储。一条交易消耗的带宽（Bandwidth） = <code>交易字节数 * Bandwidth 费率</code>，当前 Bandwidth 费率 = 1。</p>
 <p>假如一条交易的字节数为 200，那么该交易需要消耗 200 带宽。</p>
 <blockquote>
 <p><strong>注意</strong>：由于网络中总质押资金以及账户的质押资金随时可能发生变化，因此账户拥有的带宽不是固定值。</p>
@@ -1819,34 +1707,41 @@
 <h3 id="1">1. 获取带宽<a class="headerlink" href="#1" title="Permanent link">&para;</a></h3>
 <p>带宽可通过以下三种方式获取：</p>
 <ul>
-<li><strong>通过质押 TRX 获取</strong>：
-用户根据其为获取带宽而质押的 TRX 数量，按比例分享一个全网固定的总带宽池。
+<li>
+<p><strong>通过质押 TRX 获取</strong>：用户根据其为获取带宽而质押的 TRX 数量，按比例分享一个全网固定的总带宽池。
     <div class="highlight"><pre><span></span><code>额度 = (为获取带宽质押的 TRX / 整个网络为获取带宽质押的 TRX 总额) * (Bandwidth 总量) 
 </code></pre></div>
-    <strong>Bandwidth 总量</strong>是一个可通过委员会提案修改的网络参数（<a href="https://tronscan.io/#/sr/committee">#62</a>），目前的值是 43,200,000,000。</li>
-</ul>
+    <strong>Bandwidth 总量</strong>是一个可通过委员会提案修改的网络参数（<a href="https://tronscan.io/#/sr/committee">#62</a>），目前的值是 43,200,000,000。</p>
 <p>质押获取带宽操作 (<code>wallet-cli</code> 示例)
-    <div class="highlight"><pre><span></span><code>freezeBalanceV2 frozen_balance [ResourceCode:0 BANDWIDTH,1 ENERGY] 
+<div class="highlight"><pre><span></span><code>freezeBalanceV2 frozen_balance [ResourceCode:0 BANDWIDTH,1 ENERGY] 
 </code></pre></div></p>
-<ul>
-<li><strong>通过他人代理获取</strong>：
-   代理获取带宽操作 (<code>wallet-cli</code> 示例)
-   <div class="highlight"><pre><span></span><code>delegateResource [OwnerAddress] balance ResourceCode(0 BANDWIDTH,1 ENERGY),   ReceiverAddress [lock]
-</code></pre></div></li>
+</li>
+<li>
+<p><strong>通过他人代理获取</strong>：另一个帐户可以将其带宽委托给您。
+    代理获取带宽操作 (<code>wallet-cli</code> 示例)
+    <div class="highlight"><pre><span></span><code>delegateResource [OwnerAddress] balance ResourceCode(0 BANDWIDTH,1 ENERGY),   ReceiverAddress [lock]
+</code></pre></div></p>
+</li>
 <li><strong>获取每日固定免费额度</strong>：每个账户每日可获得的固定免费带宽量。该额度是一个可通过委员会提案修改的网络参数（<a href="https://tronscan.io/#/sr/committee">#61</a>），当前值为 600。</li>
 </ul>
 <h3 id="2">2. 带宽的消耗规则详解<a class="headerlink" href="#2" title="Permanent link">&para;</a></h3>
 <p>除了查询操作，任何交易都需要消耗带宽。当您发起一笔交易时，系统会根据交易类型的不同，遵循一套严格的优先级顺序来扣除带宽费用。</p>
 <p><strong>场景一：普通交易</strong></p>
-<p>系统将按以下顺序尝试支付带宽费用：
-1. 消耗质押带宽：优先消耗发起者通过质押 TRX 获得的带宽。
-2. 消耗免费带宽：其次消耗交易发起者的 600 每日免费带宽。
-*3. 燃烧 TRX 支付：若以上两者均不足，则会燃烧交易发起者的 TRX 来支付。
-  * <code>燃烧费用 = 交易字节数 × 1,000 sun</code></p>
+<p>系统将按以下顺序尝试支付带宽费用：</p>
+<ol>
+<li>消耗质押带宽：优先消耗发起者通过质押 TRX 获得的带宽。</li>
+<li>消耗免费带宽：其次消耗交易发起者的 600 每日免费带宽。</li>
+<li>燃烧 TRX 支付：若以上两者均不足，则会燃烧交易发起者的 TRX 来支付。<ul>
+<li><em><code>燃烧费用 = 交易字节数 × 1,000 sun</code></em></li>
+</ul>
+</li>
+</ol>
 <p><strong>场景二：创建新账户的交易</strong></p>
-<p>创建新账户的交易在支付带宽时有其特殊规则，不使用每日免费带宽：
-1. 消耗质押带宽：优先尝试消耗交易发起者通过质押 TRX 获得的带宽。
-2. 燃烧 TRX 支付：若质押带宽不足，则直接燃烧 0.1 TRX 作为费用来完成账户创建。</p>
+<p>创建新账户的交易在支付带宽时有其特殊规则，不使用每日免费带宽：</p>
+<ol>
+<li>消耗质押带宽：优先尝试消耗交易发起者通过质押 TRX 获得的带宽。</li>
+<li>燃烧 TRX 支付：若质押带宽不足，则直接燃烧 0.1 TRX 作为费用来完成账户创建。</li>
+</ol>
 <p><strong>场景三：TRC-10 通证转账</strong></p>
 <p>TRC-10 通证（Token）转账的消耗逻辑最为特殊，它引入了“通证发行方”作为潜在的费用承担者：</p>
 <ol>
@@ -1875,16 +1770,16 @@
 若质押带宽不足，则进入下一步。</li>
 <li>消耗发起者免费带宽：如果免费带宽也不足，则进入下一步。</li>
 <li>燃烧 TRX 支付：若以上所有带宽资源均不足，则会燃烧发起者的 TRX 来支付费用。</li>
-<li>燃烧费用 = 交易字节数 × 1,000 sun</li>
+<li><em>燃烧费用 = 交易字节数 × 1,000 sun</em></li>
 </ol>
 <h3 id="3">3. 带宽的自动恢复<a class="headerlink" href="#3" title="Permanent link">&para;</a></h3>
-<p>账户的免费带宽和质押 TRX 获取的带宽消耗后， 会在 24 小时内逐步恢复。</p>
+<p>账户的免费带宽和质押 TRX 获取的带宽消耗后，会在 24 小时内逐步恢复。</p>
 <h3 id="4">4. 账户带宽余额查询<a class="headerlink" href="#4" title="Permanent link">&para;</a></h3>
 <p>您可以通过调用 <code>wallet/getaccountresource</code> HTTP 接口来获取一个账户当前的资源状态。在返回的 JSON 数据中，您可以使用以下公式来精确计算两种带宽的剩余额度。</p>
-<div class="highlight"><pre><span></span><code>免费带宽余额 = freeNetLimit - freeNetUsed
+<p><div class="highlight"><pre><span></span><code>免费带宽余额 = freeNetLimit - freeNetUsed
 通过质押获取的带宽余额 = NetLimit - NetUsed
 </code></pre></div>
-<p>注：如果接口返回的结果中没有包含上述公式中的参数，表示该参数值为 <code>0</code>。</p>
+<em>注：如果接口返回的结果中没有包含上述公式中的参数，表示该参数值为 <code>0</code>。</em></p>
 <h2 id="_5">能量<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
 <p>能量 (Energy) 是在 TRON 虚拟机（TVM）中执行智能合约指令时所需消耗的计算资源的计量单位。本章将从以下三个方面全面介绍能量这一核心资源：</p>
 <ul>
@@ -1915,8 +1810,8 @@
 <p>您能获得的能量额度是一个动态值，它根据您的质押占全网总能量质押的比例实时计算：
 <div class="highlight"><pre><span></span><code>您的能量额度 = (为获取 Energy 质押的 TRX / 整个网络为获取 Energy 质押的 TRX 总额) * 能量总量
 </code></pre></div>
-能量总量是一个由委员会设定的网络参数（<a href="https://tronscan.io/#/sr/committee">#19</a>），当前值为 180,000,000,000，可通过 TIP 修改。</p>
-<h5 id="_8">计算示例<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h5>
+能量总量是一个由委员会设定的网络参数 (<a href="https://tronscan.io/#/sr/committee">#19</a>)，当前值为 180,000,000,000，可通过 TIP 修改。</p>
+<p><em><strong>计算示例</strong></em></p>
 <p>由于您的额度与全网总质押量挂钩，当其他用户质押或解押时，您的能量额度会随之变化。</p>
 <div class="highlight"><pre><span></span><code>如全网只有两个人 A，B 分别质押 2 TRX，2 TRX。
 
@@ -1934,29 +1829,30 @@ B: 72,000,000,000
 
 C: 36,000,000,000
 </code></pre></div>
-<h4 id="_9">能量的消耗<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h4>
-<h5 id="_10">能量支付优先级<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h5>
-<p>当一笔合约交易需要消耗能量时，系统按以下顺序支付：</p>
+<h4 id="_8">能量的消耗<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h4>
+<p><em><strong>能量支付优先级</strong></em>
+当一笔合约交易需要消耗能量时，系统按以下顺序支付：</p>
 <ul>
 <li><strong>消耗质押能量</strong>：优先消耗交易发起者通过质押 TRX 获得的能量。</li>
 <li><strong>燃烧 TRX 支付</strong>：如果质押获得的能量不足以支付所有指令，系统会自动开始燃烧发起者账户中的 TRX 来弥补差额，当前能量单价为 0.0001 TRX。</li>
 </ul>
-<h5 id="_11">异常情况下的扣费规则<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h5>
-<p>合约执行可能因不同原因中断，其能量扣除规则也大不相同：</p>
+<p><em><strong>异常情况下的扣费规则</strong></em>
+合约执行可能因不同原因中断，其能量扣除规则也大不相同：</p>
 <ul>
 <li><strong>对于正常中断 (<code>REVERT</code> 指令)</strong>：
 如果合约中途由于抛出 <code>REVERT</code> 异常而退出，则仅扣除已经执行的指令所对应的能量。</li>
 <li><strong>对于意外中断 (bug 或超时)</strong>：
 如果合约因代码 bug、执行超时或其他意外错误而崩溃，系统将扣除本次交易可用的全部能量作为惩罚，用户可以通过设置交易的 <code>fee_limit</code> 参数来限定这笔交易最多可以消耗的能量费用上限。</li>
 </ul>
-<h4 id="_12">能量的恢复<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h4>
+<h4 id="_9">能量的恢复<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h4>
 <p>账户的能量资源消耗后，会在 24 小时内逐步恢复。</p>
 <p><a id="set-fee-limit"></a></p>
 <h3 id="2-fee_limit">2. 如何填写 <code>fee_limit</code> (用户必读)<a class="headerlink" href="#2-fee_limit" title="Permanent link">&para;</a></h3>
-<blockquote>
-<p>在本节范围内，将合约的开发部署人员，简称为“开发者”；将调用合约的用户或者其他合约，简称为“调用者”。</p>
-<p>调用合约消耗的能量能以一定比例折合成 TRX（或者 sun），所以在本节范围内，指代合约消耗的资源时，并不严格区分 Energy 和 TRX；仅在作为数值的单位时，才区分 Energy、TRX 和 sun。</p>
-</blockquote>
+<div class="admonition 注意">
+<p class="admonition-title">注意</p>
+<p>在本节范围内，将合约的开发部署人员，简称为“开发者”；将调用合约的用户或者其他合约，简称为“调用者”。
+调用合约消耗的能量能以一定比例折合成 TRX（或者 sun），所以在本节范围内，指代合约消耗的资源时，并不严格区分 Energy 和 TRX；仅在作为数值的单位时，才区分 Energy、TRX 和 sun。</p>
+</div>
 <p><code>fee_limit</code> 是调用智能合约时一个至关重要的安全参数。合理设置 <code>fee_limit</code>，一方面能尽量保证正常执行；另外一方面，如果合约所需能量过多，又不会过多消耗调用者的 TRX。</p>
 <p>在设置 <code>fee_limit</code> 之前，需要了解几个概念：</p>
 <ol>
@@ -1966,8 +1862,7 @@ C: 36,000,000,000
 <li>一个恶意合约，如果最终执行超时，或者因 bug 合约崩溃，则会扣除当前交易允许消耗的所有 Energy。这个总能量池由以下几部分相加构成：<code>总消耗能量 = 调用者质押所得能量 + 开发者分摊能量 + 燃烧 TRX 所得能量</code>。其中，“燃烧 TRX 所得能量”的上限由 <code>fee_limit</code> 决定。</li>
 <li>开发者可以通过 <a href="https://developers.tron.network/docs/energy-consumption-mechanism#tron-energy-sharing-mechanism">能量分摊机制</a> 承担一定比例的能量消耗（比如 90%）。但是，当开发者账户的 Energy 不足以支付时，剩余部分完全由调用者承担。在 <code>fee_limit</code> 限制范围内，如调用者的 Energy 不足，则会燃烧等价值的 TRX。<sup id="fnref2:2"><a class="footnote-ref" href="#fn:2">2</a></sup></li>
 </ol>
-<p><strong>示例</strong><br />
-下面将以一个合约 <code>C</code> 的执行，来具体举例，如何估算 <code>fee_limit</code>：</p>
+<p><strong>示例</strong>: 下面将以一个合约 <code>C</code> 的执行，来具体举例，如何估算 <code>fee_limit</code>：</p>
 <ul>
 <li>假设合约 <code>C</code> 上一次成功执行时，消耗了 18000 Energy。通过调用 <a href="https://developers.tron.network/reference/estimateenergy">estimateenergy</a> 接口进行预估，假设本次执行消耗的 Energy 上限约为 20,000 Energy；</li>
 <li>燃烧 TRX 时，由于能量单价目前为 100 sun，所以 10 TRX 固定可以兑换 100,000 Energy；</li>
@@ -1975,34 +1870,36 @@ C: 36,000,000,000
 </ul>
 <p><code>fee_limit</code> 的估算步骤如下：</p>
 <ul>
-<li><strong>步骤 1：计算交易总费用</strong>
-首先，将预估的最高能量消耗乘以能量单价，得出交易的总费用。
-<code>20,000 Energy * 100 sun = 2,000,000 sun (即 2 TRX)</code></li>
-<li><strong>步骤 2：确定用户承担的份额</strong>
-接着，根据开发者承诺的承担比例（90%），计算出用户需要承担的费用比例（10%）: <code>2,000,000 sun * 10% = 200,000 sun</code></li>
-<li><strong>步骤 3：设定最终的 <code>fee_limit</code></strong>
-因此，建议用户将 <code>fee_limit</code> 设置为 200,000 sun。</li>
+<li><strong>步骤 1：计算交易总费用</strong>：将预估的最高能量消耗乘以能量单价，得出交易的总费用：<code>20,000 Energy * 100 sun = 2,000,000 sun (即 2 TRX)</code></li>
+<li><strong>步骤 2：确定用户承担的份额</strong>：根据开发者承诺的承担比例（90%），计算出用户需要承担的费用比例（10%）: <code>2,000,000 sun * 10% = 200,000 sun</code></li>
+<li><strong>步骤 3：设定最终的 <code>fee_limit</code></strong>：建议用户将 <code>fee_limit</code> 设置为 200,000 sun。</li>
 </ul>
 <p><a id="energy-mechanism"></a></p>
 <h3 id="3-tron">3. TRON 网络能量消耗机制<a class="headerlink" href="#3-tron" title="Permanent link">&para;</a></h3>
-<h4 id="_13">基本能量消耗规则<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h4>
+<h4 id="_10">基本能量消耗规则<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h4>
 <p>在执行合约交易时，系统会逐条指令计算并扣除所需能量，账户能量的使用遵循以下优先级原则：</p>
 <ol>
 <li>优先使用账户可用能量（通过质押或租赁获得）</li>
 <li>若能量不足，不足的能量，按固定费率（0.0001 TRX / 能量）燃烧账户内的 TRX </li>
 </ol>
-<h4 id="_14">合约能量分摊机制<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h4>
+<h4 id="_11">合约能量分摊机制<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h4>
 <p>对于合约调用，为降低调用者的成本，TRON支持合约部署者分担部分能量消耗，具体细节请参考 <a href="https://developers.tron.network/docs/energy-consumption-mechanism#tron-energy-sharing-mechanism">合约能量分摊机制</a> 章节。</p>
-<p><strong>能量扣除规则：</strong></p>
-<p><strong>合约部署者承担部分：</strong>
-* 直接从部署者账户的可用能量中扣除，不会燃烧部署者的TRX</p>
-<p><strong>合约调用者承担部分：</strong>
-1. 优先使用账户中的可用能量
-2. 不足部分，按固定费率燃烧账户余额中的 TRX</p>
+<p>能量扣除规则：</p>
+<ul>
+<li>合约部署者承担部分：<ul>
+<li>直接从部署者账户的可用能量中扣除，不会燃烧部署者的TRX</li>
+</ul>
+</li>
+<li>合约调用者承担部分：<ul>
+<li>优先使用账户中的可用能量</li>
+<li>不足部分，按固定费率燃烧账户余额中的 TRX</li>
+</ul>
+</li>
+</ul>
 <p><a id="dynamic-energy-model"></a></p>
-<h2 id="_15">动态能量模型<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h2>
+<h2 id="_12">动态能量模型<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h2>
 <p>动态能量模型是波场网络的一个资源平衡机制，可以根据合约的资源占用情况动态调整每个合约的能量消耗量，从而使能量资源在链上的分配更加合理，防止网络资源过度集中在少数热门合约上，详情请参考 <a href="https://medium.com/tronnetwork/introduction-to-dynamic-energy-model-31917419b61a">动态能量模型介绍</a>。</p>
-<h3 id="_16">工作原理<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h3>
+<h3 id="_13">工作原理<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h3>
 <p>如果合约在一个维护周期（目前是 6 小时）内使用过多的能量，则在下一个维护周期内，用户向该合约发送相同的交易将产生更多的额外能量消量。当合约合理使用资源时，用户调用该合约所产生的能量消耗将逐渐恢复正常。</p>
 <p>每一个合约有一个能量消耗放大系数 <code>energy_factor</code>，表示该智能合约交易的能量消耗相对于基础能量消耗的增加倍数，初始值是 <code>0</code>。</p>
 <ul>
@@ -2040,31 +1937,29 @@ C: 36,000,000,000
 <p>由于热门合约在不同的维护周期的能量消耗是不一样的，所以在调用合约时要为交易设置合适的 <code>fee_limit</code> 参数。</p>
 <p><a id="staking-on-tron"></a></p>
 <h2 id="tron">在 TRON 网络上质押<a class="headerlink" href="#tron" title="Permanent link">&para;</a></h2>
-<h3 id="_17">如何质押获取系统资源<a class="headerlink" href="#_17" title="Permanent link">&para;</a></h3>
+<h3 id="_14">如何质押获取系统资源<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h3>
 <p>在 TRON 网络中，质押 TRX 是获取能量、带宽和投票权这三大核心资源的统一机制。</p>
-<h4 id="_18">如何执行质押<a class="headerlink" href="#_18" title="Permanent link">&para;</a></h4>
+<h4 id="_15">如何执行质押<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h4>
 <ul>
 <li>通过 HTTP API：调用 <code>wallet/freezebalancev2</code> 接口。</li>
 <li>通过智能合约：在合约中调用 <a href="https://developers.tron.network/docs/stake-20-solidity-api">Stake 2.0 Solidity API</a> 完成质押操作。</li>
 </ul>
 <p>当您执行解质押操作时，对应的资源（能量/带宽）和投票权将会被同步释放和收回。</p>
-<h3 id="_19">如何代理资源<a class="headerlink" href="#_19" title="Permanent link">&para;</a></h3>
+<h3 id="_16">如何代理资源<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h3>
 <p>账户在通过质押获取到能量或带宽后，可以选择将其代理给其他 TRON 账户。这允许资源富余的账户帮助资源不足的账户完成交易。</p>
-<p><strong>代理规则与核心限制</strong>
-在执行资源代理前，必须了解以下关键规则：</p>
+<p><strong>代理规则与核心限制</strong></p>
+<p>在执行资源代理前，必须了解以下关键规则：</p>
 <ul>
 <li><strong>可代理的资源</strong>：仅限能量和带宽。投票权（TP）无法被代理。</li>
 <li><strong>资源的来源</strong>：必须是来自 Stake 2.0 质押且尚未使用的资源。</li>
 <li><strong>接收方限制</strong>：接收方必须是一个已激活的外部账户，不能是合约地址。</li>
 </ul>
-<p><strong>时间锁选项 (Time Lock Option)</strong>
-在代理资源时，您可以选择是否启用“时间锁”，这将影响您何时能收回资源。</p>
+<p><strong>时间锁选项 (Time Lock Option)</strong></p>
+<p>在代理资源时，您可以选择是否启用“时间锁”，这将影响您何时能收回资源。</p>
 <ul>
-<li><strong>带时间锁</strong>：
-  资源将被锁定，您需要在等待期后才能执行取消代理的操作。 
-  <strong>重要</strong>：在此期间，如果您对同一个地址再次进行代理，等待期将重新开始计算。  </li>
-<li><strong>不带时间锁</strong>：
-您可以随时取消代理，立即收回资源。</li>
+<li><strong>带时间锁</strong>：资源将被锁定，您需要在等待期后才能执行取消代理的操作。
+    <strong>重要</strong>：在此期间，如果您对同一个地址再次进行代理，等待期将重新开始计算。  </li>
+<li><strong>不带时间锁</strong>：您可以随时取消代理，立即收回资源。</li>
 </ul>
 <p><strong>相关 API 接口</strong></p>
 <ul>
@@ -2072,74 +1967,64 @@ C: 36,000,000,000
 <li><code>undelegateresource</code>: 取消资源代理（收回资源）。</li>
 <li><code>getcandelegatedmaxsize</code>: 查询您当前某种资源可供代理的最大份额。</li>
 </ul>
-<h3 id="_20">如何解质押<a class="headerlink" href="#_20" title="Permanent link">&para;</a></h3>
+<h3 id="_17">如何解质押<a class="headerlink" href="#_17" title="Permanent link">&para;</a></h3>
 <p>您可以在质押 TRX 后随时进行解质押。在调用 <code>unfreezebalancev2</code> API 发起解质押操作后，您的资金会进入一个 14 天的锁定期。此锁定期由 TRON 网络的 <a href="https://tronscan.io/#/sr/committee">#70</a> 号参数定义，未来可通过网络治理提议进行修改。14 天锁定期结束后，您便可以通过 <code>withdrawexpireunfreeze</code> API 将这笔已解质押的 TRX 提取到您的账户中。</p>
-<p><strong>重要提示</strong>: 在执行解质押前，请务必了解以下关键限制：</p>
-<ul>
-<li><strong>已代理资源无法解质押</strong>
-您不能解质押那些已代理给其他账户的资源所对应的 TRX。必须先通过 <code>undelegateresource</code> 收回已代理的资源，然后才能解质押这部分 TRX。</li>
-<li><strong>资源的回收</strong>
-解质押将使得与该笔质押 TRX 对应的资源和 TRON Power (TP) 被系统同步收回。因此，您将失去相应的能量或带宽，以及等量的 TP。</li>
-<li><strong>并发操作次数限制</strong>
-您最多只能同时保有 32 笔处于 14 天锁定期内的解质押操作。您可以通过 <code>getavailableunfreezecount</code> 接口查询剩余可用的解质押次数。</li>
-</ul>
-<p><strong>解质押的自动触发效果</strong></p>
-<p>调用 <code>unfreezebalancev2</code> 不仅将发起解质押，系统还将自动为您提取已结束 14 天锁定期、可以自由取回的 TRX。</p>
-<p><strong>如何验证提取金额</strong></p>
-<p>要查询单次解质押操作具体自动提取了多少已解锁的 TRX，您可以通过 <code>gettransactioninfobyid</code> 接口查询该笔解质押交易的详情，并关注以下字段：</p>
-<ul>
-<li><code>withdraw_expire_amount</code>: 该字段显示了在本次交易中，自动提取到的已到期解质押 TRX 本金数量。</li>
-</ul>
-<h4 id="_21">投票权资源回收<a class="headerlink" href="#_21" title="Permanent link">&para;</a></h4>
+<p>!!! <strong>重要提示</strong>: 在执行解质押前，请务必了解以下关键限制：
+    * <strong>已代理资源无法解质押</strong>：您不能解质押那些已代理给其他账户的资源所对应的 TRX。必须先通过 <code>undelegateresource</code> 收回已代理的资源，然后才能解质押这部分 TRX。
+    * <strong>资源的回收</strong>：解质押将使得与该笔质押 TRX 对应的资源和 TRON Power (TP) 被系统同步收回。因此，您将失去相应的能量或带宽，以及等量的 TP。
+    * <strong>并发操作次数限制</strong>：您最多只能同时保有 32 笔处于 14 天锁定期内的解质押操作。您可以通过 <code>getavailableunfreezecount</code> 接口查询剩余可用的解质押次数。</p>
+<p><strong>解质押的自动触发效果</strong>：调用 <code>unfreezebalancev2</code> 不仅将发起解质押，系统还将自动为您提取已结束 14 天锁定期、可以自由取回的 TRX。</p>
+<p><strong>如何验证提取金额</strong>：要查询单次解质押操作具体自动提取了多少已解锁的 TRX，您可以通过 <code>gettransactioninfobyid</code> 接口查询该笔解质押交易的详情，并关注字段 <code>withdraw_expire_amount</code>。该字段显示了在本次交易中，自动提取到的已到期解质押 TRX 本金数量。</p>
+<h4 id="_18">投票权资源回收<a class="headerlink" href="#_18" title="Permanent link">&para;</a></h4>
 <p>在 Stake 2.0 机制下，解质押 TRX 会同步回收等量的投票权（TP）。如果回收的 TP 数量超过了您账户中空闲的 TP，系统将按比例撤销您已投出的选票。</p>
-<p><strong>回收 TP 的优先级</strong></p>
-<p>系统回收 TP 时，遵循以下两步流程：</p>
+<p><em><strong>回收 TP 的优先级</strong></em>：系统回收 TP 时，遵循以下两步流程：</p>
 <ol>
 <li>优先回收空闲 TP： 
     系统首先会回收您账户中所有未使用于投票的、空闲的投票权。</li>
 <li>按需撤销已投选票：
     如果空闲 TP 不足以满足回收需求，系统将开始撤销您已投出的选票，以回收剩余所需 TP。</li>
 </ol>
-<p><strong>选票撤销的计算规则</strong></p>
+<p><em><strong>选票撤销的计算规则</strong></em></p>
 <p>撤销操作并非随机，而是按比例公平地从您投票给的每一个超级代表/超级代理合伙人 身上撤回选票。</p>
-<p>计算公式
-<div class="highlight"><pre><span></span><code>从当前超级代表撤销的票数 = 总撤票数 * (给当前超级代表或超级代表合伙人的投票数 / 该账户总投票数)
-</code></pre></div>
-示例说明</p>
-<p>假设用户 <code>A</code> 的账户状态如下：</p>
-<p><strong>初始状态：</strong></p>
+<ul>
+<li><em>计算公式:</em>
+    <div class="highlight"><pre><span></span><code>从当前超级代表撤销的票数 = 总撤票数 * (给当前超级代表或超级代表合伙人的投票数 / 该账户总投票数)
+</code></pre></div></li>
+<li>
+<p><em>示例说明:</em></p>
+<p>假设用户 <code>A</code> 的账户初始状态如下：</p>
 <ul>
 <li>总质押：2,000 TRX</li>
 <li>总 TP：2,000 TP</li>
 <li>已投票数：1,000票 (其中，为 SR1 投了 600 票，为 SR2 投了 400 票)</li>
 <li>空闲 TP：1,000 TP</li>
 </ul>
-<p>现在，用户 A 执行操作：<strong>解质押 1,500 TRX</strong>。</p>
-<p><strong>系统处理流程：</strong></p>
+<p>现在，用户 A 执行操作：解质押 1,500 TRX。</p>
+<p><em>系统处理流程：</em></p>
 <ol>
-<li><strong>回收需求</strong>：系统需要从 <code>A</code> 的账户中回收 1,500 TP。</li>
-<li><strong>回收空闲 TP</strong>：首先回收全部 1,000 点空闲 TP。</li>
-<li><strong>计算差额</strong>：仍需回收 <code>1,500 - 1,000 = 500 TP</code>。这部分必须通过撤销选票来获取。</li>
-<li><strong>按比例撤票</strong>：</li>
+<li>回收需求：系统需要从 <code>A</code> 的账户中回收 1,500 TP。</li>
+<li>回收空闲 TP：首先回收全部 1,000 点空闲 TP。</li>
+<li>计算差额：仍需回收 <code>1,500 - 1,000 = 500 TP</code>。这部分必须通过撤销选票来获取。</li>
+<li>按比例撤票：</li>
 <li>从 SR1 撤销的票数 = 500 * (600 / 1000) = 300 票</li>
 <li>从 SR2 撤销的票数 = 500 * (400 / 1000) = 200 票</li>
-<li><strong>最终结果</strong>：
-A 的账户成功解质押 1,500 TRX，其投票状态更新为：为 SR1 投 300 票，为 SR2 投 200 票。</li>
+<li>最终结果：A 的账户成功解质押 1,500 TRX，其投票状态更新为：为 SR1 投 300 票，为 SR2 投 200 票。</li>
 </ol>
-<blockquote>
-<p><strong>重要提示</strong>：Stake 1.0 与 Stake 2.0 的关键区别</p>
-<p>尽管当前网络主流为 Stake 2.0，但通过 Stake 1.0 质押的 TRX 依然有效，并可通过其对应的 <code>wallet/unfreezebalance</code> 接口赎回。</p>
-</blockquote>
-<p><strong>注意</strong>：如果解质押 Stake 1.0 质押的 TRX，会撤销账户所有的投票。</p>
-<h3 id="_22">如何取消全部解质押<a class="headerlink" href="#_22" title="Permanent link">&para;</a></h3>
+</li>
+</ul>
+<p>!!! 重要提示：Stake 1.0 与 Stake 2.0 的关键区别
+    尽管当前网络主流为 Stake 2.0，但通过 Stake 1.0 质押的 TRX 依然有效，并可通过其对应的 <code>wallet/unfreezebalance</code> 接口赎回。</p>
+<div class="codehilite"><pre><span></span><code>如果解质押 Stake 1.0 质押的 TRX，会撤销账户所有的投票。
+</code></pre></div>
+
+<h3 id="_19">如何取消全部解质押<a class="headerlink" href="#_19" title="Permanent link">&para;</a></h3>
 <p>如果您发起了 TRX 解质押但中途改变了主意，Stake 2.0 提供了一个高效的“撤销”功能。您可以使用 <code>cancelallunfreezev2</code> API 立即取消所有正在进行中的解质押，从而避免了漫长的 14 天锁定期，并可立刻获取资源。</p>
 <p><strong>请注意</strong>，调用此接口后，您账户中所有处于 14 天锁定期内、尚未完成的解质押请求都将被一次性全部撤销。</p>
 <ul>
 <li><strong>TRX 状态</strong>：这些被撤销的 TRX 将立即被重新质押。</li>
 <li><strong>资源类型</strong>：重新质押后获取的资源类型（能量或带宽）将与您最初质押时选择的类型保持一致。</li>
 </ul>
-<p><strong>附加效果：自动提取已到期 TRX</strong></p>
-<p>如果您的账户中存在任何已经完成 14 天锁定期、正等待提取的解质押 TRX，本次操作会将这部分资金自动提取到您的账户余额中。</p>
+<p><strong>附加效果 - 自动提取已到期 TRX</strong>：如果您的账户中存在任何已经完成 14 天锁定期、正等待提取的解质押 TRX，本次操作会将这部分资金自动提取到您的账户余额中。</p>
 <p><strong>如何验证操作结果</strong></p>
 <p>您可以通过 <code>gettransactioninfobyid</code> 接口查询该笔交易的详情，并重点关注以下两个字段：</p>
 <ul>
@@ -2148,7 +2033,7 @@ A 的账户成功解质押 1,500 TRX，其投票状态更新为：为 SR1 投 30
 <li><code>withdraw_expire_amount</code>:
 该字段显示了本次操作中，被自动提取到您账户余额中的、已到期的解质押 TRX 总额。</li>
 </ul>
-<h3 id="api">API<a class="headerlink" href="#api" title="Permanent link">&para;</a></h3>
+<h3 id="api">相关 API 接口<a class="headerlink" href="#api" title="Permanent link">&para;</a></h3>
 <p>下表为质押模型相关接口及其说明：</p>
 <table>
 <thead>

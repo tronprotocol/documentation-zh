@@ -450,21 +450,9 @@
   
   
   
-    
-    
-    
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
+    <li class="md-nav__item">
+      <a href="../../architecture/event/" class="md-nav__link">
         
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" >
-        
-          
-          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
-            
   
   <span class="md-ellipsis">
     事件订阅
@@ -472,107 +460,7 @@
   </span>
   
 
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_3_5">
-            <span class="md-nav__icon md-icon"></span>
-            事件订阅
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../architecture/event/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    概览
-    
-  </span>
-  
-
       </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../architecture/use-native-queue/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    内置消息队列订阅
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../architecture/use-mongodb/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Mongodb 事件订阅插件
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../architecture/use-kafka/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Kafka 事件订阅插件
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
     </li>
   
 
@@ -1693,7 +1581,7 @@
 
 
 <h1 id="java-tron">java-tron 发布包签名校验<a class="headerlink" href="#java-tron" title="Permanent link">&para;</a></h1>
-<p>本文档旨在指导开发者如何对 TRON 的 java-tron 可执行文件进行签名校验，以确保所获取文件的<strong>可靠性</strong>和<strong>完整性</strong>。签名校验过程需要提供三个关键信息：待验证的可执行文件、文件的数字签名以及用于签名的私钥所对应的公钥。校验原理是根据可执行文件的内容和其签名反向推导出签名的公钥，并与  <a href="https://github.com/tronprotocol/java-tron">java-tron</a> 公示的公钥进行比对。如果两者一致，则表明您获取的 java-tron 可执行文件是与 GitHub 上发布的一致且未被篡改的。</p>
+<p>本文档旨在指导开发者如何对 TRON 的 java-tron 可执行文件进行签名校验，以确保所获取文件的<strong>可靠性</strong>和<strong>完整性</strong>。签名校验过程需要提供三个关键信息：待验证的可执行文件、文件的数字签名以及用于签名的私钥所对应的公钥。校验原理是根据可执行文件的内容和其签名反向推导出签名的公钥，并与 <a href="https://github.com/tronprotocol/java-tron">java-tron</a> 公示的公钥进行比对。如果两者一致，则表明您获取的 java-tron 可执行文件是与 GitHub 上发布的一致且未被篡改的。</p>
 <p>TRON 针对 java-tron 发布包的签名方式有所调整：</p>
 <ul>
 <li><strong>2023 年 1 月 3 日及之后发布的新版本</strong>：采用 <strong>GPG 方式</strong>进行签名和验签。</li>
@@ -1706,10 +1594,10 @@
 <p>如果您已经安装了 GPG，可以跳过此步骤。否则，请根据您的操作系统执行以下命令进行安装：</p>
 <ul>
 <li><strong>macOS</strong>:
-    <div class="highlight"><pre><span></span><code>brew<span class="w"> </span>install<span class="w"> </span>gpg
+    <div class="highlight"><pre><span></span><code>brew install gpg
 </code></pre></div></li>
 <li><strong>Debian、Ubuntu 或其他 Linux 发行版</strong>:
-    <div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>gpg
+    <div class="highlight"><pre><span></span><code>sudo apt install gpg
 </code></pre></div></li>
 </ul>
 <h3 id="2">2. 导入公钥<a class="headerlink" href="#2" title="Permanent link">&para;</a></h3>
@@ -1746,8 +1634,8 @@ gpg:       没有证据表明此签名属于其声称的所有者。
 <li>首先计算发布包可执行文件的 SHA256 哈希值。</li>
 <li>然后使用该 TRON 账户的私钥对 SHA256 哈希值进行签名。</li>
 </ol>
-<p>发布包的 SHA256 哈希值和签名结果可在本文档的 <a href="#_1">历史版本签名信息</a>章节中查看，也可以在 <a href="https://github.com/tronprotocol/java-tron/releases">GitHub Releases 页面</a> 查看。</p>
-<p>在这里，我们使用 TRON 上流行的 JavaScript 库 <a href="https://tronweb.network/docu/docs/intro/">tronweb</a> 来演示验证签名的流程。 TronWeb 提供了 <code>Trx.verifySignature</code> 接口来验证签名。验证通过将返回 <code>true</code>，否则返回 <code>false</code>。请按照以下流程进行验证。</p>
+<p>发布包的 SHA256 哈希值和签名结果可在本文档的 <a href="#_1">历史版本签名信息</a> 章节中查看，也可以在 <a href="https://github.com/tronprotocol/java-tron/releases">GitHub Releases 页面</a> 查看。</p>
+<p>在这里，我们使用 TRON 上流行的 JavaScript 库 <a href="https://tronweb.network/docu/docs/intro/">TronWeb</a> 来演示验证签名的流程。 TronWeb 提供了 <code>Trx.verifySignature</code> 接口来验证签名。验证通过将返回 <code>true</code>，否则返回 <code>false</code>。请按照以下流程进行验证。</p>
 <h3 id="1-tronweb">1. 安装 TronWeb<a class="headerlink" href="#1-tronweb" title="Permanent link">&para;</a></h3>
 <p>如果您已经安装了 TronWeb，可以跳过此步骤。否则，请参照以下命令进行安装：</p>
 <div class="highlight"><pre><span></span><code>npm install -g tronweb
@@ -1767,9 +1655,9 @@ gpg:       没有证据表明此签名属于其声称的所有者。
 </code></pre></div></li>
 <li><strong>Debian、Ubuntu 和其他 Debian 衍生版系统</strong>:
     <div class="highlight"><pre><span></span><code>sha256sum FullNode.jar
-</code></pre></div>
-将命令输出的哈希值与发布信息中提供的哈希值进行比对。</li>
+</code></pre></div></li>
 </ul>
+<p>将命令输出的哈希值与发布信息中提供的哈希值进行比对。</p>
 <h3 id="3_1">3. 检查发布包签名<a class="headerlink" href="#3_1" title="Permanent link">&para;</a></h3>
 <p>使用 TronWeb 的 <code>Trx.verifySignature</code> 接口验证发布包的签名。在命令行中执行以下 JavaScript 代码：</p>
 <div class="highlight"><pre><span></span><code># Trx.verifySignature(SHA256, ADDRESS, SIGNATURE));

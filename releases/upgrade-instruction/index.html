@@ -450,21 +450,9 @@
   
   
   
-    
-    
-    
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
+    <li class="md-nav__item">
+      <a href="../../architecture/event/" class="md-nav__link">
         
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" >
-        
-          
-          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
-            
   
   <span class="md-ellipsis">
     事件订阅
@@ -472,107 +460,7 @@
   </span>
   
 
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_3_5">
-            <span class="md-nav__icon md-icon"></span>
-            事件订阅
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../architecture/event/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    概览
-    
-  </span>
-  
-
       </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../architecture/use-native-queue/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    内置消息队列订阅
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../architecture/use-mongodb/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Mongodb 事件订阅插件
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../architecture/use-kafka/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Kafka 事件订阅插件
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
     </li>
   
 
@@ -1684,10 +1572,9 @@
 <li>对于<strong>标准节点</strong>，请参考 <a href="#standard_process">标准节点升级流程</a>。</li>
 <li>对于配置了<strong>主备高可用</strong>的节点，请遵循 <a href="#primary/backup_upgrade">主备节点升级指南</a> 以确保服务的平稳过渡。</li>
 </ul>
-<hr />
 <p><a id="standard_process"></a> </p>
 <h2 id="_1">标准节点升级流程<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<p>所有全节点（Fullnode），包括超级代表（Super Representative）的出块节点，都应遵循以下步骤完成升级。</p>
+<p>所有全节点（FullNode），包括超级代表（Super Representative）的出块节点，都应遵循以下步骤完成升级。</p>
 <p><a id="step1"></a> </p>
 <h3 id="1">第 1 步：准备新版本程序包<a class="headerlink" href="#1" title="Permanent link">&para;</a></h3>
 <p>您可以选择直接下载编译好的 java-tron 可执行文件，也可下载新版本的源代码并自行编译，以获取新版本可执行文件。请在 java-tron 当前运行目录之外的其它路径下执行以下操作。</p>
