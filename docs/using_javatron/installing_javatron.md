@@ -74,7 +74,7 @@ java -Xmx24g -XX:+UseConcMarkSweepGC -jar FullNode.jar -c config.conf
 ```
 
 * `-XX:+UseConcMarkSweepGC`: 指定并发标记-清除 (CMS) 垃圾回收器。此参数必须放在 `-jar` 参数之前。
-* `-Xms`：Java 虚拟机 (JVM) 堆的初始值，`-Xmx`: JVM堆的最大值，`-XX:NewRatio`: 堆内存中老年代和年轻代的比例，比如`-XX:NewRatio=2`，则表示老年代是年轻代的2倍
+* `-Xms`：Java 虚拟机 (JVM) 堆的初始值，`-Xmx`: JVM堆的最大值，`-XX:NewRatio`: 堆内存中老年代和年轻代的比例，比如`-XX:NewRatio=2`，则表示老年代是年轻代的2倍。
     * 对于普通的FullNode节点，推荐设置：`-Xms12G -Xmx12G -XX:NewRatio=3`
     * 对于出块节点，推荐设置：`-Xms24G -Xmx24G -XX:NewRatio=3`   
 * 要启动 **Nile 测试网全节点** 或**私链全节点**，请使用本节开头部分列出的相应配置文件链接。
