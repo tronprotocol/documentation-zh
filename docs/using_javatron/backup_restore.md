@@ -74,8 +74,8 @@ tar xzvf output-directory.20220628152402.etgz
 **注意：** 
 
 - **LevelDB** 和 **RocksDB** 数据不允许混用。FullNode 的数据库类型通过配置文件中的 `db.engine` 配置项指定，可选值为 `LEVELDB` 或 `ROCKSDB`。
-- 内部交易通过配置文件中的`vm.saveInternalTx`或者`vm.saveFeaturedInternalTx`配置项打开/关闭，其中`vm.saveInternalTx`仅针对`call`、`create`、`suicide`交易，`vm.saveFeaturedInternalTx`针对所有类型的交易。影响接口：[`gettransactioninfobyid`](https://developers.tron.network/reference/gettransactioninfobyid-1)
-- 账户历史余额通过配置文件中的`storage.balance.history.lookup`配置项打开/关闭。影响接口：[`getaccountbalance`](https://developers.tron.network/reference/getaccountbalance)
+- 内部交易通过配置文件中的`vm.saveInternalTx`或者`vm.saveFeaturedInternalTx`配置项开启/关闭。只有开启`vm.saveInternalTx` ，才会保存内部交易，如果`saveFeaturedInternalTx`也同时开启，则会保存所有类型的内部交易，否则，只保存`call`、`create`、`suicide`交易。影响接口：[`gettransactioninfobyid`](https://developers.tron.network/reference/gettransactioninfobyid-1)
+- 账户历史余额通过配置文件中的`storage.balance.history.lookup`配置项开启/关闭。影响接口：[`getaccountbalance`](https://developers.tron.network/reference/getaccountbalance)
 
 #### Lite FullNode 数据快照
 
