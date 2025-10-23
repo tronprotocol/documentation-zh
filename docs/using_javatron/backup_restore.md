@@ -81,39 +81,53 @@ TRON 网络从 GreatVoyage-V4.1.0 版本开始支持 **Lite FullNode** 类型的
 | :----------------------- | :------- | :--- |
 | 官方数据源 (亚洲: 新加坡) | [http://34.143.247.77/](http://34.143.247.77/) | LevelDB 数据 |
 
-**小提示：** 如果您已经拥有 FullNode 的全量数据，可以使用 [Lite FullNode 数据裁剪工具](https://tronprotocol.github.io/documentation-zh/using_javatron/toolkit/#_6)自行将 FullNode 数据裁剪为 Lite FullNode 数据。
+**小提示：** 如果您已经拥有 FullNode 的全量数据，可以使用 [Lite FullNode 数据裁剪工具](../toolkit/#_5)自行将 FullNode 数据裁剪为 Lite FullNode 数据。
 
-#### 数据快照的解压方式
-TRON 网络快照数据大小通常超过 2TB。我们强烈推荐使用流式处理方式（即边下载边解压），以有效节省您的磁盘空间。具体操作命令如下：
 
-```
-wget -q -O - SNAPSHOT_URL/FullNode_output-directory.tgz | tar -zxvf -
-```
-
-##### 方法 1：流式下载并解压（推荐，节省空间）
-
-此方法无需先存储完整的压缩包，而是直接将数据解压到目标目录，显著减少了磁盘占用。
-
-##### 方法 2：先下载后解压（需充足存储空间）
-
-```
-# 1. 下载完整快照文件
-wget SNAPSHOT_URL/FullNode_output-directory.tgz
-
-# 2. 解压文件
-tar -zxvf FullNode_output-directory.tgz
-```
-
-此方法会先下载完整的快照文件，然后再进行解压。请注意，解压时您需要同时保留压缩包和解压后的文件，因此建议至少准备两个 3TB 或更大的磁盘（一个用于存储压缩包，另一个用于存储解压后的数据。解压完成后，您可以释放用于存储压缩包的磁盘，从而节省成本）。
-
-#### 数据快照的使用步骤
-
-无论是 FullNode 数据快照还是 Lite FullNode 数据快照，使用步骤都相同：
-
-1.  根据您的需求下载相应的压缩备份数据库文件。
-2.  将备份的数据库压缩文件解压到 `output-directory` 目录。如果您希望指定其他目录，也可以将其解压到指定的目标目录。
-3.  启动节点。节点默认读取 `output-directory` 目录。如果您的数据解压到了其他目录，请在节点启动时添加 `-d` 参数并指定数据库目录名。
 
 ### Nile 测试网数据快照
 
 关于 Nile 测试网数据快照的详细信息，请参照 [官网](https://nileex.io/)。使用方法与主网数据快照相同。
+
+
+### 数据快照的使用
+
+数据快照的使用步骤如下：
+
+1. 根据自己需求下载相应压缩备份数据库。
+2. 解压备份数据库压缩包至 `output-directory` 目录（或根据需求指定其他目标目录）。有关详细解压说明，请参见下方[数据快照解压方式](#uncompress-ways)章节。 
+3. 启动节点。节点默认读取 `output-directory` 目录。如果您的数据解压到了其他目录，请在节点启动时添加 `-d` 参数并指定数据库目录名。
+
+<a id="uncompress-ways"></a>
+#### 数据快照的解压方式
+
+TRON 网络快照数据大小超过 2TB。我们推荐使用**流式处理（边下载边解压）**，以节省磁盘空间。
+
+**方法 1：流式下载并解压（推荐，节省空间）**
+
+创建一个名为 `download_snapshot.sh` 的脚本文件，并写入以下内容：
+
+```
+#!/bin/bash
+wget -q -O - SNAPSHOT_URL/FullNode_output-directory.tgz | tar -zxvf -
+```
+
+运行脚本：
+
+```
+bash download_snapshot.sh
+```
+
+此方法无需存储完整压缩包，直接解压至目标目录，**显著减少磁盘占用**。
+
+**方法 2：先下载后解压（需充足存储空间）**
+
+```
+# 1. 下载完整快照文件  
+wget SNAPSHOT_URL/FullNode_output-directory.tgz  
+
+# 2. 解压文件  
+tar -zxvf FullNode_output-directory.tgz  
+```
+
+此方法在解压时同时保留压缩包和解压后的文件，建议使用2个3TB的磁盘（3TB+ 压缩包 & 3TB+ 解压数据，解压后可释放一块磁盘，节省成本）。
