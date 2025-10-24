@@ -113,6 +113,7 @@
          ```
 
        * **方式二：通过链上提案修改 (适用于运行中的网络)**
+        
         这是链上治理的标准方式，任何 超级代表（SR）、SR Partner、SR Candidate 都有权创建提案，但只有 SR 有权投票批准。
 
          - 创建提案：SR 使用 [proposalcreate](https://developers.tron.network/reference/proposalcreate) API，通过参数序号指定要修改的参数及其新值（参数序号列表)。
