@@ -480,6 +480,15 @@
   
 </li>
         
+          <li class="md-nav__item ">
+  <a href="#_5" class="md-nav__link" >
+    <span class="md-ellipsis">
+      数据快照的使用
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1611,7 +1620,12 @@ done
 </tr>
 </tbody>
 </table>
-<p><strong>注意：</strong> <strong>LevelDB</strong> 和 <strong>RocksDB</strong> 数据不允许混用。FullNode 的数据库类型通过配置文件中的 <code>db.engine</code> 配置项指定，可选值为 <code>LEVELDB</code> 或 <code>ROCKSDB</code>。</p>
+<p><strong>注意：</strong> </p>
+<ul>
+<li><strong>LevelDB</strong> 和 <strong>RocksDB</strong> 数据不允许混用。FullNode 的数据库类型通过配置文件中的 <code>db.engine</code> 配置项指定，可选值为 <code>LEVELDB</code> 或 <code>ROCKSDB</code>。</li>
+<li>内部交易通过配置文件中的<code>vm.saveInternalTx</code>或者<code>vm.saveFeaturedInternalTx</code>配置项开启/关闭。只有开启<code>vm.saveInternalTx</code> ，才会保存内部交易，如果<code>saveFeaturedInternalTx</code>也同时开启，则会保存所有类型的内部交易，否则，只保存<code>call</code>、<code>create</code>、<code>suicide</code>交易。影响接口：<a href="https://developers.tron.network/reference/gettransactioninfobyid-1"><code>gettransactioninfobyid</code></a></li>
+<li>账户历史余额通过配置文件中的<code>storage.balance.history.lookup</code>配置项开启/关闭。影响接口：<a href="https://developers.tron.network/reference/getaccountbalance"><code>getaccountbalance</code></a></li>
+</ul>
 <h4 id="lite-fullnode">Lite FullNode 数据快照<a class="headerlink" href="#lite-fullnode" title="Permanent link">&para;</a></h4>
 <p>TRON 网络从 GreatVoyage-V4.1.0 版本开始支持 <strong>Lite FullNode</strong> 类型的节点。相比于普通的 FullNode，Lite FullNode 拥有更小的数据库和更快的启动速度，因为它只需要状态数据和必要的历史数据即可启动。下表列出了 Lite FullNode 数据快照的下载地址。</p>
 <table>
@@ -1630,30 +1644,36 @@ done
 </tr>
 </tbody>
 </table>
-<p><strong>小提示：</strong> 如果您已经拥有 FullNode 的全量数据，可以使用 <a href="https://tronprotocol.github.io/documentation-zh/using_javatron/toolkit/#_6">Lite FullNode 数据裁剪工具</a>自行将 FullNode 数据裁剪为 Lite FullNode 数据。</p>
-<h4 id="_5">数据快照的解压方式<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h4>
-<p>TRON 网络快照数据大小通常超过 2TB。我们强烈推荐使用流式处理方式（即边下载边解压），以有效节省您的磁盘空间。具体操作命令如下：</p>
-<div class="highlight"><pre><span></span><code>wget -q -O - SNAPSHOT_URL/FullNode_output-directory.tgz | tar -zxvf -
-</code></pre></div>
-<h5 id="1">方法 1：流式下载并解压（推荐，节省空间）<a class="headerlink" href="#1" title="Permanent link">&para;</a></h5>
-<p>此方法无需先存储完整的压缩包，而是直接将数据解压到目标目录，显著减少了磁盘占用。</p>
-<h5 id="2">方法 2：先下载后解压（需充足存储空间）<a class="headerlink" href="#2" title="Permanent link">&para;</a></h5>
-<div class="highlight"><pre><span></span><code># 1. 下载完整快照文件
-wget SNAPSHOT_URL/FullNode_output-directory.tgz
-
-# 2. 解压文件
-tar -zxvf FullNode_output-directory.tgz
-</code></pre></div>
-<p>此方法会先下载完整的快照文件，然后再进行解压。请注意，解压时您需要同时保留压缩包和解压后的文件，因此建议至少准备两个 3TB 或更大的磁盘（一个用于存储压缩包，另一个用于存储解压后的数据。解压完成后，您可以释放用于存储压缩包的磁盘，从而节省成本）。</p>
-<h4 id="_6">数据快照的使用步骤<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h4>
-<p>无论是 FullNode 数据快照还是 Lite FullNode 数据快照，使用步骤都相同：</p>
-<ol>
-<li>根据您的需求下载相应的压缩备份数据库文件。</li>
-<li>将备份的数据库压缩文件解压到 <code>output-directory</code> 目录。如果您希望指定其他目录，也可以将其解压到指定的目标目录。</li>
-<li>启动节点。节点默认读取 <code>output-directory</code> 目录。如果您的数据解压到了其他目录，请在节点启动时添加 <code>-d</code> 参数并指定数据库目录名。</li>
-</ol>
+<p><strong>小提示：</strong> 如果您已经拥有 FullNode 的全量数据，可以使用 <a href="../toolkit/#_5">Lite FullNode 数据裁剪工具</a>自行将 FullNode 数据裁剪为 Lite FullNode 数据。</p>
 <h3 id="nile">Nile 测试网数据快照<a class="headerlink" href="#nile" title="Permanent link">&para;</a></h3>
 <p>关于 Nile 测试网数据快照的详细信息，请参照 <a href="https://nileex.io/">官网</a>。使用方法与主网数据快照相同。</p>
+<h3 id="_5">数据快照的使用<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<p>数据快照的使用步骤如下：</p>
+<ol>
+<li>根据自己需求下载相应压缩备份数据库。</li>
+<li>解压备份数据库压缩包至 <code>output-directory</code> 目录（或根据需求指定其他目标目录）。有关详细解压说明，请参见下方<a href="#uncompress-ways">数据快照解压方式</a>章节。 </li>
+<li>启动节点。节点默认读取 <code>output-directory</code> 目录。如果您的数据解压到了其他目录，请在节点启动时添加 <code>-d</code> 参数并指定数据库目录名。</li>
+</ol>
+<p><a id="uncompress-ways"></a></p>
+<h4 id="_6">数据快照的解压方式<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h4>
+<p>TRON 网络快照数据大小超过 2TB。我们推荐使用<strong>流式处理（边下载边解压）</strong>，以节省磁盘空间。</p>
+<p><strong>方法 1：流式下载并解压（推荐，节省空间）</strong></p>
+<p>创建一个名为 <code>download_snapshot.sh</code> 的脚本文件，并写入以下内容：</p>
+<div class="highlight"><pre><span></span><code>#!/bin/bash
+wget -q -O - SNAPSHOT_URL/FullNode_output-directory.tgz | tar -zxvf -
+</code></pre></div>
+<p>运行脚本：</p>
+<div class="highlight"><pre><span></span><code>bash download_snapshot.sh
+</code></pre></div>
+<p>此方法无需存储完整压缩包，直接解压至目标目录，<strong>显著减少磁盘占用</strong>。</p>
+<p><strong>方法 2：先下载后解压（需充足存储空间）</strong></p>
+<div class="highlight"><pre><span></span><code># 1. 下载完整快照文件  
+wget SNAPSHOT_URL/FullNode_output-directory.tgz  
+
+# 2. 解压文件  
+tar -zxvf FullNode_output-directory.tgz  
+</code></pre></div>
+<p>此方法在解压时同时保留压缩包和解压后的文件，建议使用2个3TB的磁盘（3TB+ 压缩包 &amp; 3TB+ 解压数据，解压后可释放一块磁盘，节省成本）。</p>
 
 
 
