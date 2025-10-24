@@ -1682,8 +1682,8 @@ $ java -Xmx6g -XX:+HeapDumpOnOutOfMemoryError -jar FullNode.jar  -c fullnode.con
 </code></pre></div>
 </li>
 <li>
-<p><strong>方式二：通过链上提案修改 (适用于运行中的网络)</strong>
-    这是链上治理的标准方式，任何 超级代表（SR）、SR Partner、SR Candidate 都有权创建提案，但只有 SR 有权投票批准。</p>
+<p><strong>方式二：通过链上提案修改 (适用于运行中的网络)</strong></p>
+<p>这是链上治理的标准方式，任何 超级代表（SR）、SR Partner、SR Candidate 都有权创建提案，但只有 SR 有权投票批准。</p>
 <ul>
 <li>创建提案：SR 使用 <a href="https://developers.tron.network/reference/proposalcreate">proposalcreate</a> API，通过参数序号指定要修改的参数及其新值（参数序号列表)。</li>
 <li>批准提案：SR 使用 <a href="https://developers.tron.network/reference/proposalapprove">proposalapprove</a> API 对提案进行投票（仅支持投赞成票，SR 不投票意味着不同意该提案）。</li>

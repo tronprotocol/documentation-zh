@@ -1634,32 +1634,30 @@
 <h3 id="java-tron_2">编译 java-tron 源码<a class="headerlink" href="#java-tron_2" title="Permanent link">&para;</a></h3>
 <p>在开始编译之前，请确保您的系统已安装 <code>git</code> 工具。</p>
 <ol>
-<li>首先，通过 <code>git</code> 命令将 java-tron 源代码克隆到本地，并切换到 <code>master</code> 分支：</li>
-</ol>
+<li>首先，通过 <code>git</code> 命令将 java-tron 源代码克隆到本地，并切换到 <code>master</code> 分支：
 <div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/tronprotocol/java-tron.git
 git<span class="w"> </span>checkout<span class="w"> </span>-t<span class="w"> </span>origin/master
-</code></pre></div>
-<ol>
-<li>然后，执行以下命令编译 java-tron 源代码：</li>
-</ol>
+</code></pre></div></li>
+<li>
+<p>然后，执行以下命令编译 java-tron 源代码：
 <div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>java-tron
 ./gradlew<span class="w"> </span>clean<span class="w"> </span>build<span class="w"> </span>-x<span class="w"> </span><span class="nb">test</span>
-</code></pre></div>
+</code></pre></div></p>
 <ul>
 <li>参数 <code>-x test</code> 表示跳过执行测试用例。您也可以去除此参数以在编译过程中执行测试代码，但这会延长编译时间。</li>
 <li>编译完成后，<code>FullNode.jar</code> 文件将生成在 <code>java-tron/build/libs/</code> 目录下。</li>
 </ul>
+</li>
+</ol>
 <h2 id="java-tron_3">启动 java-tron 节点<a class="headerlink" href="#java-tron_3" title="Permanent link">&para;</a></h2>
 <p>您可以选择不同的配置文件将 java-tron 节点连接到不同的 TRON 网络:</p>
 <ul>
 <li>主网全节点配置文件：<a href="https://github.com/tronprotocol/java-tron/blob/master/framework/src/main/resources/config.conf">config.conf</a></li>
-<li>
-<p>其他网络节点配置文件：</p>
-</li>
-<li>
-<p>Nile 测试网：https://nileex.io/</p>
-</li>
+<li>其他网络节点配置文件：<ul>
+<li>Nile 测试网：https://nileex.io/</li>
 <li>私链网络：请参考<a href="https://tronprotocol.github.io/documentation-zh/using_javatron/private_network/">私链网络</a></li>
+</ul>
+</li>
 </ul>
 <h3 id="fullnode">启动全节点 (FullNode)<a class="headerlink" href="#fullnode" title="Permanent link">&para;</a></h3>
 <p><strong>全节点</strong> (FullNode) 作为 TRON 网络的入口点，拥有完整的历史数据，并提供对外访问的 HTTP API、 gRPC API 和 JSON-RPC API。您可以通过全节点与 TRON 网络进行交互，例如资产转移、智能合约部署、智能合约交互等。</p>
@@ -1668,7 +1666,11 @@ git<span class="w"> </span>checkout<span class="w"> </span>-t<span class="w"> </
 </code></pre></div>
 <ul>
 <li><code>-XX:+UseConcMarkSweepGC</code>: 指定并发标记-清除 (CMS) 垃圾回收器。此参数必须放在 <code>-jar</code> 参数之前。</li>
-<li><code>-Xmx</code>: 设置 Java 虚拟机 (JVM) 堆的最大值，通常建议设置为物理内存的 80%。</li>
+<li><code>-Xms</code>：Java 虚拟机 (JVM) 堆的初始值，<code>-Xmx</code>: JVM堆的最大值，<code>-XX:NewRatio</code>: 堆内存中老年代和年轻代的比例，比如<code>-XX:NewRatio=2</code>，则表示老年代是年轻代的2倍。<ul>
+<li>对于普通的FullNode节点，推荐设置：<code>-Xms12G -Xmx12G -XX:NewRatio=3</code></li>
+<li>对于出块节点，推荐设置：<code>-Xms24G -Xmx24G -XX:NewRatio=3</code>   </li>
+</ul>
+</li>
 <li>要启动 <strong>Nile 测试网全节点</strong> 或<strong>私链全节点</strong>，请使用本节开头部分列出的相应配置文件链接。</li>
 </ul>
 <h3 id="_2">启动出块节点<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
