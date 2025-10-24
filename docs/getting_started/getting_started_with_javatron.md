@@ -129,9 +129,9 @@ wallet>
 在 TRON 网络上执行任何交易（如转账、调用合约）都需要消耗网络资源，这些资源通过质押或燃烧 TRX 来获得。因此，在进行链上操作前，您必须确保操作账户中持有足够的 TRX。TRX 的获取方式因网络而异：
 
 - **在 TRON 网络主网 (Mainnet)**，TRX 是真实资产，主要通过以下方式获得：
-  - 作为超级代表获得出块奖励，或通过为超级代表投票获得奖励
-  - 从其他的 TRON 网络账户接收 TRX 转账
-  - 从加密货币交易所购买
+    - 作为超级代表获得出块奖励，或通过为超级代表投票获得奖励
+    - 从其他的 TRON 网络账户接收 TRX 转账
+    - 从加密货币交易所购买
 - **在 Nile 测试网 (Testnet)**，TRX 没有实际价值。您可以通过访问 [水龙头 (Faucet)](https://nileex.io/join/getJoinPage) 免费获取。详细流程可参考 [如何获取测试币](https://developers.tron.network/docs/getting-testnet-tokens-on-tron)。
 
 完成以上所有准备工作后，您现在拥有了一个配置正确、网络环境安全且持有测试币的 TRON 账户。
@@ -318,12 +318,11 @@ wallet>
 当您发送一笔交易后，`wallet-cli` 终端会返回一个唯一的交易ID（`txid`）。通过这个 `txid`，您可以查询到关于这笔交易的所有信息。
 
 1. 使用 `gettransactionbyid <txid>` 查看交易的原始内容：
-  ```
+```
   wallet> gettransactionbyid 21851bcf1faf22c99a7a49c4f246d709cf9f54db2f264ca145adcd464ea155a4
-  ```
-  返回的 JSON 数据包含了交易的所有细节，例如合约类型 (`TransferContract`)、转账金额、发送方和接收方地址等。`"contractRet":"SUCCESS"` 表示这笔交易的合约在语法上是正确的。
-  
-  ```
+```
+返回的 JSON 数据包含了交易的所有细节，例如合约类型 (`TransferContract`)、转账金额、发送方和接收方地址等。`"contractRet":"SUCCESS"` 表示这笔交易的合约在语法上是正确的。
+```
   {
   	"ret":[
   		{
@@ -357,13 +356,13 @@ wallet>
   }
   wallet> 
   
-  ```
+```
 2. 使用 `gettransactioninfobyid <txid>` 查看交易的处理结果和回执信息（即交易是否已经被打包进区块，执行的结果和资源消耗情况）：
-  ```
+```
   wallet> gettransactioninfobyid 21851bcf1faf22c99a7a49c4f246d709cf9f54db2f264ca145adcd464ea155a4
-  ```
-  在返回的结果中，最重要的字段是 `blockNumber`，它表示交易在哪一个区块高度被确认。如果这个值存在，说明交易已成功上链。此外，`receipt` 对象则记录了该交易消耗的带宽（`net_usage`）等资源。
-  ```
+```
+在返回的结果中，最重要的字段是 `blockNumber`，它表示交易在哪一个区块高度被确认。如果这个值存在，说明交易已成功上链。此外，`receipt` 对象则记录了该交易消耗的带宽（`net_usage`）等资源。
+```
   {
   	"id": "21851bcf1faf22c99a7a49c4f246d709cf9f54db2f264ca145adcd464ea155a4",
   	"blockNumber": 27773932,
@@ -376,7 +375,7 @@ wallet>
   	}
   }
   wallet> 
-  ```
+```
 
 ### 方式二：使用 `cURL`（直接调用 HTTP API）
 
