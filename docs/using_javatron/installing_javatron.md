@@ -101,7 +101,7 @@ java -Xmx24g -XX:+UseConcMarkSweepGC -jar FullNode.jar --witness -c config.conf
 
 ### 主从模式的出块全节点
 
-为了提高出块全节点的可靠性，可以部署多个相同账户的出块全节点，形成主从模式。当一个具有出块权限的账户部署大于等于两个节点时，需要完善各节点配置文件中的`node.backup`。`node.backup`的配置项说明如下：
+为了提高出块全节点的可靠性，可以部署多个相同账户的出块全节点，形成主从模式。当一个具有出块权限的账户部署大于等于两个节点时（推荐数量：2个，主节点及从节点各1个），需要完善各节点配置文件中的`node.backup`。`node.backup`的配置项说明如下：
 
 ```ini
 node.backup {
@@ -114,7 +114,7 @@ node.backup {
   # time interval to send keepAlive message, each member should have the same configuration unit: ms
   keepAliveInterval = 3000
 
-  # peer's ip list, can't contain myself
+  # peers‘ ip list, must not include myself
   members = [
     # "ip",
     # "ip"
@@ -122,7 +122,7 @@ node.backup {
 }
 ```
 
-比如，某个具有出块权限的账户部署了3个节点，三个节点的ip分别为192.168.0.100，192.168.0.101，192.168.0.102，那么他们的`node.backup`配置需如下所示：
+比如，某个具有出块权限的账户部署了2个节点，两个节点的ip分别为192.168.0.100，192.168.0.101，那么他们的`node.backup`配置需如下所示：
 
 * ip为192.168.0.100的配置
   
@@ -132,8 +132,7 @@ node.backup {
   priority = 8
   keepAliveInterval = 3000
   members = [
-    "192.168.0.101",
-    "192.168.0.102"
+    "192.168.0.101"
   ]
 }
 ```
@@ -146,22 +145,7 @@ node.backup {
   priority = 7
   keepAliveInterval = 3000
   members = [
-    "192.168.0.100",
-    "192.168.0.102"
-  ]
-}
-```
-
-* ip为192.168.0.102的配置
-
-```ini
-node.backup {
-  port = 10001
-  priority = 6
-  keepAliveInterval = 3000
-  members = [
-    "192.168.0.100",
-    "192.168.0.101"
+    "192.168.0.100"
   ]
 }
 ```
