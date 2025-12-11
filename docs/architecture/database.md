@@ -1,9 +1,9 @@
 # 数据库配置指南
 
-在 TRON Java 实现（java-tron）中，节点数据存储引擎提供LevelDB和RocksDB两种选择。数据库在不同架构下的区别：
+在 TRON Java 实现（java-tron）中，节点数据存储引擎提供LevelDB和RocksDB两种选择。数据库在不同架构上的区别：
 
-- x86架构上，数据库支持LevelDB和RocksDB，且RocksDB的版本是v5.15.10
-- ARM架构上，数据库仅支持RocksDB，且RocksDB的版本是v9.7.4 
+- x86架构上，数据库支持LevelDB和RocksDB，当前RocksDB的版本是v5.15.10
+- ARM架构上，数据库仅支持RocksDB，当前RocksDB的版本是v9.7.4 
 
 开发者可根据平台环境、硬件条件及性能需求，灵活选择合适的存储引擎。相比之下，RocksDB 提供更丰富的配置参数，且通常具有更高的存储效率。本文将介绍如何启用 RocksDB，以及如何将 x86 平台的 LevelDB 转换为 RocksDB。
 

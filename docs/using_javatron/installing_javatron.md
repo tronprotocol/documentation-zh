@@ -2,7 +2,7 @@
 
 本文档将指导开发者如何在 `Linux` 或 `macOS` 操作系统上部署 TRON java-tron 节点。
 
-java-tron 节点目前支持在x86和ARM架构下运行(ARM架构的支持从4.8.1版本开始)。不同架构下，JDK的支持情况：
+java-tron 节点目前支持在x86和ARM架构上运行(ARM架构的支持从4.8.1版本开始)。不同架构上，JDK的支持情况：
 
 - x86架构上，目前仅支持Oracle JDK 8
 - ARM架构上，目前仅支持JDK 17。
