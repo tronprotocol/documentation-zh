@@ -4,8 +4,8 @@
 
 java-tron 节点支持部署在 `Linux` 或 `MacOS` 操作系统上。其依赖的 JDK 版本要求如下：
 
-- x86架构下：依赖 Oracle JDK 8 
-- ARM架构下：依赖JDK 17
+- x86架构上：依赖 Oracle JDK 8 
+- ARM架构上：依赖JDK 17
 
 下面的配置以x86架构、Oracle JDK 8为示例：
 

@@ -10,7 +10,7 @@ TRON Toolkit 是一个集成了多种 `java-tron` 周边工具的实用程序，
 
 本文将详细介绍如何获取和使用 TRON Toolkit。
 
-**注意**： 由于在ARM架构下只支持RocksDB，所以像`db convert`和`db archive`这样处理LevelDB的工具只能在x86下使用。
+**注意**： 由于在ARM架构上只支持RocksDB，所以像`db convert`和`db archive`这样处理LevelDB的工具只能在x86下使用。
 
 ## Toolkit的获取
 您可以通过编译 `java-tron` 源代码或直接从已发布的版本中获取 `Toolkit.jar` 文件。推荐从 [GitHub Releases](https://github.com/tronprotocol/java-tron/releases) 下载最新版本。
