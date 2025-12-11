@@ -5,7 +5,7 @@
 ## 前置要求
 在开始之前，请确保您的开发环境满足以下条件：
 
-- **Java Development Kit (JDK)**：您的环境必须安装 Oracle JDK 1.8。 
+- **Java Development Kit (JDK)**：x86架构下，须安装 Oracle JDK 8；ARM架构下，须安装JDK 17。 
 - **TRON 账户**：您需要预先创建至少两个 TRON 网络地址，并安全地保存好地址和其对应的私钥。其中一个地址将作为初始见证节点（超级代表），另一个用于普通账户。
 - **地址创建工具**：您可以使用以下任一工具来生成和管理您的 TRON 账户：
     - [Wallet-cli](https://github.com/tronprotocol/wallet-cli)：一个官方提供的命令行钱包工具，适合在服务器环境中使用。

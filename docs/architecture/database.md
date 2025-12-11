@@ -1,8 +1,11 @@
 # 数据库配置指南
 
-在 TRON Java 实现（java-tron）中，节点数据存储引擎提供 **LevelDB** 和 **RocksDB** 两种选择。默认情况下，**x86 平台使用 LevelDB，ARM 平台使用 RocksDB**。如果在 ARM 系统中手动配置为 LevelDB，系统会打印警告提示并仍然强制使用 RocksDB。开发者可根据平台环境、硬件条件及性能需求，灵活选择合适的存储引擎。
+在 TRON Java 实现（java-tron）中，节点数据存储引擎提供LevelDB和RocksDB两种选择。数据库在不同架构下的区别：
 
-相比之下，**RocksDB 提供更丰富的配置参数，且通常具有更高的存储效率**。本文将介绍如何启用 RocksDB，以及如何将 x86 平台的 LevelDB 转换为 RocksDB。
+- x86架构下，数据库支持LevelDB和RocksDB，且RocksDB的版本是v5.15.10
+- ARM架构下，数据库仅支持RocksDB，且RocksDB的版本是v9.7.4 
+
+开发者可根据平台环境、硬件条件及性能需求，灵活选择合适的存储引擎。相比之下，RocksDB 提供更丰富的配置参数，且通常具有更高的存储效率。本文将介绍如何启用 RocksDB，以及如何将 x86 平台的 LevelDB 转换为 RocksDB。
 
 
 ## 使用 RocksDB
@@ -40,7 +43,7 @@ dbSettings = {
 
 
 ## x86 平台从 LevelDB 迁移至 RocksDB
-LevelDB 与 RocksDB 的数据格式不兼容，节点间不支持直接切换存储引擎。若需从 LevelDB 迁移到 RocksDB，需使用官方提供的转换工具 `Toolkit.jar`。
+若需从 LevelDB 迁移到 RocksDB，需使用官方提供的转换工具 `Toolkit.jar`。
 
 ### 1. 数据转换步骤
 ```
@@ -79,11 +82,12 @@ java -jar build/libs/Toolkit.jar db cp output-directory/database /tmp/output-dir
 cd /tmp
 java -jar build/libs/Toolkit.jar db convert output-directory/database output-directory-dst/database
 ```
+
 >备注：
 整个数据转换过程预计耗时约 **10 小时**，具体时间依赖于数据量和磁盘性能。
 
 ## 关于 LevelDB
-LevelDB 是 x86 平台 java-tron 默认的数据存储引擎，适用于资源有限或轻量级的部署场景。它结构简单、易于维护，但在数据压缩、备份能力和大规模节点性能上不如 RocksDB。
+LevelDB 是 x86 平台 java-tron 节点默认的数据存储引擎，适用于资源有限或轻量级的部署场景。它结构简单、易于维护，但在数据压缩、备份能力和大规模节点性能上不如 RocksDB。
 
 若需深入了解两者的详细对比，请参考文档：
 📘 [RocksDB 与 LevelDB 差异对比](https://github.com/tronprotocol/documentation/blob/master/TRX_CN/Rocksdb_vs_Leveldb.md)
