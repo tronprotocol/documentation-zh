@@ -75,6 +75,13 @@ java -Xmx24g -XX:+UseConcMarkSweepGC -jar FullNode.jar -c config.conf
     * 对于出块节点，推荐设置：`-Xms24G -Xmx24G -XX:NewRatio=3`   
 * 要启动 **Nile 测试网全节点** 或**私链全节点**，请使用本节开头部分列出的相应配置文件链接。
 
+### 启动固化节点 (SolidityNode)
+
+固化节点仅从其他节点同步固化区块。自4.8.1版本开始，不再提供单独的`SolidityNode.jar`，固化节点的启动通过命令行参数`--solidity`，即：
+```shell
+java -Xmx24g -XX:+UseConcMarkSweepGC -jar FullNode.jar --solidity -c config.conf 
+```
+
 ### 启动出块节点
 
 在上述全节点启动命令中添加 `--witness` 参数，`FullNode` 将作为**出块节点** (SR Node) 运行。出块节点除了支持全节点的所有功能外，还支持区块生产和交易打包。
@@ -198,7 +205,7 @@ node.backup {
         localwitnesskeystore = ["B/localwitnesskeystore.json"]
         ```
 
-    * 您可以使用 `wallet-cli` 项目的 `registerwallet` 命令生成 `keystore` 文件和密码。
+    * 您可以使用 `wallet-cli` 项目的 `registerwallet` 命令生成 `keystore` 文件和密码或者使用`java -jar FullNode.jar --keystore-factory`命令生成(自4.8.1版本之后，不再提供单独的`KeystoreFactory.jar`)
 
 1. **启动出块节点**:
 
