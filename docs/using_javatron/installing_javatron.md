@@ -77,7 +77,18 @@ java -Xmx24g -XX:+UseConcMarkSweepGC -jar FullNode.jar -c config.conf
 
 ### 启动固化节点 (SolidityNode)
 
-固化节点仅从其他节点同步固化区块。自4.8.1版本开始，不再提供单独的`SolidityNode.jar`，固化节点的启动通过命令行参数`--solidity`，即：
+固化节点仅从受信任的全节点同步固化区块。受信任全节点通过配置文件进行配置，端口号为全节点的grpc服务端口。
+
+```
+node {
+  # trust node for solidity node
+  # trustNode = "ip:port"
+  trustNode = "127.0.0.1:50051"
+  ...
+}
+```
+
+自4.8.1版本开始，不再提供单独的`SolidityNode.jar`，固化节点的启动通过命令行参数`--solidity`，即：
 ```shell
 java -Xmx24g -XX:+UseConcMarkSweepGC -jar FullNode.jar --solidity -c config.conf 
 ```
