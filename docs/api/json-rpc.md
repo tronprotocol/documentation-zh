@@ -960,7 +960,7 @@ curl -X POST 'https://api.shasta.trongrid.io/jsonrpc' --data '{
 
 	"method": "eth_getBlockReceipts",
 
-	"params": ["0x377a8a2"],
+	"params": ["0x5416c22"],
 
 	"id": 64
 
@@ -971,7 +971,7 @@ curl -X POST 'https://api.shasta.trongrid.io/jsonrpc' --data '{
 结果
 
 ```json
-
+{"jsonrpc":"2.0","id":64,"result":null}
 ```
 
 
