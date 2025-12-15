@@ -1333,6 +1333,7 @@ curl -X POST http://127.0.0.1:8090/wallet/updateasset -d '{
 - [wallet/createwitness](#walletcreatewitness)
 - [wallet/updatewitness](#walletupdatewitness)
 - [wallet/listwitnesses](#walletlistwitnesses)
+- [wallet/getpaginatednowwitnesslist](#walletgetpaginatednowwitnesslist)
 - [wallet/withdrawbalance](#walletwithdrawbalance)
 - [wallet/votewitnessaccount](#walletvotewitnessaccount)
 - [wallet/getBrokerage](#walletgetbrokerage)
@@ -1381,6 +1382,23 @@ curl -X POST  http://127.0.0.1:8090/wallet/listwitnesses
 参数：无
 
 返回值：返回所有 SR 信息列表。
+
+#### wallet/getpaginatednowwitnesslist
+作用：查询各个witness的实时得票数量并按得票数量的降序返回witness分页列表
+```
+curl -X POST  http://127.0.0.1:8090/wallet/getpaginatednowwitnesslist -d '{
+  "offset": 0,
+  "limit": 100,
+  "visible": true
+}'    
+```
+参数：
+
+- `offset`：`long`型，表示起始下标，要求`>=0`
+- `limit`：`long`型，表示返回的witness数，要求`>0` ，上限为系统常量`1000`
+- `visible`： `boolean`型，可选参数，默认为false，控制返回的地址格式
+
+返回值：满足参数条件的witness分页列表，按实时得票数量降序排序
 
 #### wallet/withdrawbalance
 作用：超级代表或者用户提取奖励到 balance，每 24 个小时可以提现一次。
@@ -1975,7 +1993,7 @@ curl -X POST http://127.0.0.1:8090/walletsolidity/getdelegatedresourceaccountind
 返回值：
 - 该接口返回一个包含双向代理关系列表的JSON对象。包含两个列表，一个是该帐户将资源委托给的地址列表(toAddress)，另一个是将资源委托给该帐户的地址列表(fromAddress)
 
-### 投票和SR
+### 投票和超级代表
 
 #### walletsolidity/listwitnesses
 作用：查询当前的所有 SR 列表。
@@ -1986,7 +2004,26 @@ curl -X POST  http://127.0.0.1:8091/walletsolidity/listwitnesses
 
 返回值：返回所有 SR 信息列表。
 
-### TRC10 通证
+
+#### wallet/getpaginatednowwitnesslist
+作用：查询各个witness的实时得票数量并按得票数量的降序返回witness分页列表
+```
+curl -X POST  http://127.0.0.1:8091/walletsolidity/getpaginatednowwitnesslist -d '{
+  "offset": 0,
+  "limit": 100,
+  "visible": true
+}'
+```
+参数：
+
+- `offset`：`long`型，表示起始下标，要求`>=0`
+- `limit`：`long`型，表示返回的witness数，要求`>0` ，上限为系统常量`1000`
+- `visible`： `boolean`型，可选参数，默认为false，控制返回的地址格式
+
+返回值：满足参数条件的witness分页列表，按实时得票数量降序排序
+
+
+### TRC-10通证
 
 #### walletsolidity/getassetissuelist
 作用：查询所有Token列表
