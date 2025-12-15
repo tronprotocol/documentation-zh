@@ -2005,7 +2005,7 @@ curl -X POST  http://127.0.0.1:8091/walletsolidity/listwitnesses
 返回值：返回所有 SR 信息列表。
 
 
-#### wallet/getpaginatednowwitnesslist
+#### walletsolidity/getpaginatednowwitnesslist
 作用：查询各个witness的实时得票数量并按得票数量的降序返回witness分页列表
 ```
 curl -X POST  http://127.0.0.1:8091/walletsolidity/getpaginatednowwitnesslist -d '{
