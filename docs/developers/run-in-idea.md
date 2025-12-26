@@ -4,16 +4,17 @@
 
 java-tron 节点支持部署在 `Linux` 或 `MacOS` 操作系统上。其依赖的 JDK 版本要求如下：
 
-- **通用要求**：依赖 Oracle JDK 1.8 版本
-- **`v4.8.1` 及以上版本**：新增支持 ARM 架构下的 JDK 17
+- x86架构上：依赖 Oracle JDK 8 
+- ARM架构上：依赖JDK 17
 
+下面的配置以x86架构、Oracle JDK 8为示例：
 
 ## 前置条件
 
 在开始配置之前，请确保您的开发环境满足以下条件：
 
   - 操作系统为 `Linux` 或 `MacOS`
-  - 已安装 Oracle JDK 1.8
+  - 已安装 Oracle JDK 8
   - 已安装 `git`
   - 已安装 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/)
 
@@ -39,7 +40,7 @@ Lombok 通过注解的方式简化 Java 代码，是 java-tron 开发的必备�
 ![image](https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/IDE_annotation.png)
 
 ### 步骤 3：验证并统一 JDK 版本
-为确保项目能够正确编译和运行，必须在 IntelliJ IDEA 的两个关键位置都将 JDK 版本设置为 Oracle JDK 1.8。
+为确保项目能够正确编译和运行，必须在 IntelliJ IDEA 的两个关键位置都将 JDK 版本设置为 Oracle JDK 8。
 
 #### 1. 配置项目 SDK (Project SDK)
 这是用于编译项目源代码和进行语法分析的核心 JDK。
@@ -55,7 +56,7 @@ Lombok 通过注解的方式简化 Java 代码，是 java-tron 开发的必备�
 
 ![image](https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/IDE_JDK.png)
 
-> **重要提示**: **Project SDK** 和 **Gradle JVM** 这两个设置必须完全一致，且都指向 Oracle JDK 1.8，否则可能会在构建过程中遇到意外错误。
+> **重要提示**: **Project SDK** 和 **Gradle JVM** 这两个设置必须完全一致，且都指向 Oracle JDK 8（也就是图中的1.8，1.8和8只是命名方式的不同，在java-tron的文档中，非特殊情形下，统一命名成8），否则可能会在构建过程中遇到意外错误。
 
 
 
