@@ -56,7 +56,7 @@ Lombok 通过注解的方式简化 Java 代码，是 java-tron 开发的必备�
 
 ![image](https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/IDE_JDK.png)
 
-> **重要提示**: **Project SDK** 和 **Gradle JVM** 这两个设置必须完全一致，且都指向 Oracle JDK 8，否则可能会在构建过程中遇到意外错误。
+> **重要提示**: **Project SDK** 和 **Gradle JVM** 这两个设置必须完全一致，且都指向 Oracle JDK 8（也就是图中的1.8，1.8和8只是命名方式的不同，在java-tron的文档中，非特殊情形下，统一命名成8），否则可能会在构建过程中遇到意外错误。
 
 
 
