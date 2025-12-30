@@ -311,7 +311,6 @@ No.  Address                  Name
 2    (your wallet address)
 3    (your wallet address)
 Please choose between 1 and 3, or enter search to search wallets
-Please choose between 1 and 3
 3
 Please input your password.
 password: 
