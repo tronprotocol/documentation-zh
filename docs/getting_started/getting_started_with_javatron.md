@@ -88,11 +88,16 @@ currentNetwork: NILE
 wallet> registerwallet
 Please input password.
 password: 
-user defined config file doesn't exists, use default config file in jar
-WalletApi getRpcVsersion: 2
 Please input password again.
-password: 
-Register a wallet successful, keystore file name is UTC--2022-07-04T06-35-35.304000000Z--TQXjm2J8K2DKTV49MdfT2anjUehbU3WDJz.json
+Please enter the number of mnemonic words 
+        Default: 12 mnemonic words, 
+        Enter 24 to use 24 mnemonic words
+        Press Enter to use the default (12). 
+        Valid inputs are "12" or "24"
+mnemonic file : ./Mnemonic/(your wallet address).json
+Please name your wallet: 
+register a wallet successful, keystore file : ./Wallet/(your wallet address).json
+(Note: If you delete an account, make sure to delete the wallet file and mnemonic file) 
 wallet> 
 ```
 
@@ -240,14 +245,13 @@ wallet> getaccount TUoHaVjx7n5xz8LwPRDckgFrDWhMhuSuJM
 ```
 {
 	"address": "TUoHaVjx7n5xz8LwPRDckgFrDWhMhuSuJM",
-	"balance": 93643857919,
-	"create_time": 1619681898000,
-	"latest_opration_time": 1655358327000,
-	"is_witness": true,
-	"asset_issued_name": "TestTRC10T",
-	"latest_consume_free_time": 1652948766000,
+	"balance": 5,
+	"create_time": 1663487574000,
+	"net_window_size": 28800000,
+	"net_window_optimized": true,
 	"account_resource": {
-		"latest_consume_time_for_energy": 1655358327000
+		"energy_window_size": 28800000
+        "energy_window_optimized": true
 	},
     
         ......
@@ -289,7 +293,7 @@ wallet> sendcoin TUznHJfHe6gdYY7gvWmf6bNZHuPHDZtowf 1000000
 	"raw_data_hex":"0a02cbc322088581ae7e29258a5240a89aefbf9c305a67080112630a2d747970652e676f6f676c65617069732e636f6d2f70726f746f636f6c2e5472616e73666572436f6e747261637412320a1541ce8a0cf0c16d48bcf22825f6053248df653c89ca121541d0b69631440f0a494bb51f7eee68ff5c593c00f018c0843d7098cfebbf9c30"
 }
 before sign transaction hex string is 0a85010a02cbc322088581ae7e29258a5240a89aefbf9c305a67080112630a2d747970652e676f6f676c65617069732e636f6d2f70726f746f636f6c2e5472616e73666572436f6e747261637412320a1541ce8a0cf0c16d48bcf22825f6053248df653c89ca121541d0b69631440f0a494bb51f7eee68ff5c593c00f018c0843d7098cfebbf9c30
-Please confirm and input your permission id, if input y or Y means default 0, other non-numeric characters will cancel transaction.
+Please confirm and input your permission id, if input y/Y means default 0, other non-numeric characters will cancel transaction.
 ```
 此命令会返回一个待确认的交易。请按以下步骤完成签名和广播：
 
@@ -298,13 +302,15 @@ Please confirm and input your permission id, if input y or Y means default 0, ot
 3. 输入密码授权：输入所选账户的密码，`wallet-cli` 将会完成签名，并将交易广播至 java-tron 节点，完成交易。
 
 ```
-Please confirm and input your permission id, if input y or Y means default 0, other non-numeric characters will cancel transaction.
+Please confirm and input your permission id, if input y/Y means default 0, other non-numeric characters will cancel transaction.
 y
 Please choose your key for sign.
-The 1th keystore file name is .DS_Store
-The 2th keystore file name is UTC--2022-07-04T06-35-35.304000000Z--TQXjm2J8K2DKTV49MdfT2anjUehbU3WDJz.json
-The 3th keystore file name is UTC--2022-06-21T09-51-26.367000000Z--TUoHaVjx7n5xz8LwPRDckgFrDWhMhuSuJM.json
-Please choose between 1 and 3
+
+No.  Address                  Name
+1    (your wallet address)
+2    (your wallet address)
+3    (your wallet address)
+Please choose between 1 and 3, or enter search to search wallets
 3
 Please input your password.
 password: 
