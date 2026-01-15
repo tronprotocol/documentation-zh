@@ -93,12 +93,12 @@ uname -m
 
 *   主网 FullNode 配置文件：[config.conf](https://github.com/tronprotocol/java-tron/blob/master/framework/src/main/resources/config.conf)
 *   其他网络节点配置：
-    *   Nile 测试网：请参阅[https://nileex.io/](https://nileex.io/)
-    *   私有网络：请参阅 [私有网络](https://tronprotocol.github.io/documentation-en/using_javatron/private_network/)
+    *   Nile 测试网：[https://github.com/tron-nile-testnet/nile-testnet/blob/master/framework/src/main/resources/config-nile.conf](https://github.com/tron-nile-testnet/nile-testnet/blob/master/framework/src/main/resources/config-nile.conf)
+    *   私有网络：请参阅 [私有网络](https://tronprotocol.github.io/documentation-zh/using_javatron/private_network/)
 
-### 快速启动 FullNode
+### 启动全节点
 
-**FullNode** 是 TRON 网络的入口点，拥有完整的历史数据，并通过 **HTTP API**、**gRPC API** 和 **JSON-RPC API** 提供外部访问。您可以通过 **FullNode** 与 TRON 网络交互，进行资产转移、智能合约部署和智能合约交互等交易。
+全节点即**FullNode** 是 TRON 网络的入口点，拥有完整的历史数据，并通过 **HTTP API**、**gRPC API** 和 **JSON-RPC API** 提供外部访问。您可以通过 **FullNode** 与 TRON 网络交互，进行资产转移、智能合约部署和智能合约交互等交易。
 
 以下是启动 **主网 FullNode** 的命令，使用 `-c` 参数指定配置文件：
 
@@ -107,11 +107,11 @@ $ nohup java -Xms9G -jar ./build/libs/FullNode.jar -c config.conf &
 `
 
 *   `nohup ... &`：在后台运行命令并忽略挂断信号。
-*   `Xms9G` 参数将连接到主网的最小堆大小设置为 `9 GB`。
+*   `Xms9G`： 参数将FullNode运行的JVM最小堆值设置为`9 GB`。
 *   要启动 **Nile 测试网 FullNode** 或 **私有网络 FullNode**，请使用上面提供的相应配置文件链接。
 
 #### 主网 FullNode 部署的 JVM 参数优化
-为了在连接主网时获得更高的效率和稳定性，请参考以下针对不同架构的说明：
+为了在连接主网时获得更高的效率和稳定性，请参考以下针对不同架构的完整Java程序启动命令：
 
 ##### x86_64（JDK 8）
 ```bash
@@ -139,14 +139,14 @@ $ nohup java -Xmx9G -XX:+UseZGC \
 ```
 
 #### Java 启动参数解释
-**通用及内存参数：**
+**通用内存参数：**
 
-*   `-Xms` / `-Xmx`：设置 JVM 堆的初始大小和最大大小。
+*   `-Xms` / `-Xmx`：设置 JVM 堆的初始值和最大值。
     * 对于最低硬件要求（16 GB RAM 的服务器）：建议 JDK 8 使用 `-Xms9G -Xmx12G`；JDK 17 使用 `-Xmx9G`。
-    * 对于 RAM ≥32 GB 的服务器，建议将最大堆大小（`-Xmx`）设置为总 RAM 的 40%，最小堆大小设置为 `-Xms9G`。
-*   `-XX:MetaspaceSize` / `-XX:MaxMetaspaceSize`：设置元空间（类元数据）的初始大小和最大大小。
+    * 对于 RAM ≥32 GB 的服务器，建议将最大堆值（`-Xmx`）设置为总 RAM 的 40%，最小堆值设置为 `-Xms9G`。
+*   `-XX:MetaspaceSize` / `-XX:MaxMetaspaceSize`：设置元空间（类元数据）的初始值和最大值。
 *   `-XX:MaxDirectMemorySize`：限制 NIO Direct Byte Buffers 使用的内存。
-*   `-XX:ReservedCodeCacheSize`：设置 JIT 代码缓存的最大大小。
+*   `-XX:ReservedCodeCacheSize`：设置 JIT 代码缓存的最大值。
 *   `-XX:+UseCodeCacheFlushing`：允许 JVM 在代码缓存满时刷新它。
 *   `-XX:+HeapDumpOnOutOfMemoryError`：如果发生 OutOfMemoryError，则将堆内存转储到文件。
 
