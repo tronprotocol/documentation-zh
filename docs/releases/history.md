@@ -3,6 +3,7 @@
 
 |  名称 |版本号  | 发布日期 | 包含的TIP | 版本说明 | 技术解读 |
 | -------- | -------- | -------- | -------- | -------- | -------- |
+|  Seneca    |  GreatVoyage-v4.8.0.1    |  2026-01-13    |  N/A  |  [Release Note](https://github.com/tronprotocol/java-tron/releases/tag/GreatVoyage-v4.8.0.1)   |   [Specs](#greatvoyage-4801seneca)   |
 |  Kant    |  GreatVoyage-v4.8.0    |  2025-04-29    |  [TIP-650](https://github.com/tronprotocol/tips/blob/master/tip-650.md) <br> [TIP-651](https://github.com/tronprotocol/tips/blob/master/tip-651.md) <br> [TIP-694](https://github.com/tronprotocol/tips/blob/master/tip-694.md) <br> [TIP-697](https://github.com/tronprotocol/tips/blob/master/tip-697.md) <br> [TIP-745](https://github.com/tronprotocol/tips/blob/master/tip-745.md)  |  [Release Note](https://github.com/tronprotocol/java-tron/releases/tag/GreatVoyage-v4.8.0)   |   [Specs](#greatvoyage-480kant)   |
 |  Epicurus    |  GreatVoyage-v4.7.7    |  2024-11-29    |  [TIP-697](https://github.com/tronprotocol/tips/issues/697)  |  [Release Note](https://github.com/tronprotocol/java-tron/releases/tag/GreatVoyage-v4.7.7)   |   [Specs](#greatvoyage-477epicurus)   |
 |  Anaximander    |  GreatVoyage-v4.7.6    |  2024-10-04    |  N/A   |  [Release Note](https://github.com/tronprotocol/java-tron/releases/tag/GreatVoyage-v4.7.6)   |   [Specs](#greatvoyage-v476anaximander)   |
@@ -79,6 +80,21 @@
 |   N/A   | Odyssey-v1.0.4    |  2018-4-13    |  N/A    |      [Release Note](https://github.com/tronprotocol/java-tron/releases/tag/Odyssey-v1.0.4)    |  N/A   |
 |   N/A   | Odyssey-v1.0.3    |  2018-4-5    |  N/A    |      [Release Note](https://github.com/tronprotocol/java-tron/releases/tag/Odyssey-v1.0.3)    |  N/A   |
 |   N/A   | Exodus-v1.0    |  2017-12-28    |  N/A    |      [Release Note](https://github.com/tronprotocol/java-tron/releases/tag/Exodus-v1.0)    |  N/A   |
+
+## GreatVoyage-4.8.0.1(Seneca)
+
+### 其它变更
+#### 1. 优化 ExchangeTransactionContract 类型的交易处理逻辑
+	
+由于 `ExchangeTransactionContract` 涉及的指数运算较为繁琐，且其应用场景已由更高效的 SunSwap 型 AMM (Automated Market Maker) 协议完全覆盖，当前版本对相关功能进行了整合和精简，本次优化不影响用户资产安全。原交易对（Exchange）的创建者仍保留完整的资产访问权限，可随时根据需要取回资产。
+
+* 源代码：[https://github.com/tronprotocol/java-tron/pull/6507](https://github.com/tronprotocol/java-tron/pull/6507)
+
+There is no easy way from the earth to the stars.
+
+<p align="right">---Seneca</p>
+
+---
 
 ## GreatVoyage-4.8.0(Kant)
 Kant版本引入了多个重要的优化和更新，主要包括支持以太坊Cancun升级；增强共识层校验等，下面是详细介绍。
