@@ -90,11 +90,10 @@
 
 * 源代码：[https://github.com/tronprotocol/java-tron/pull/6507](https://github.com/tronprotocol/java-tron/pull/6507)
 
-There is no easy way from the earth to the stars.
-
+---
+*There is no easy way from the earth to the stars.*
 <p align="right">---Seneca</p>
 
----
 
 ## GreatVoyage-4.8.0(Kant)
 Kant版本引入了多个重要的优化和更新，主要包括支持以太坊Cancun升级；增强共识层校验等，下面是详细介绍。
@@ -340,8 +339,8 @@ Kant 版本在匿名交易的构建 API 中，增加了对付款地址 (payment 
 
 * 源代码：[https://github.com/tronprotocol/java-tron/pull/6174](https://github.com/tronprotocol/java-tron/pull/6174)
 
-
-Science is organized knowledge. Wisdom is organized life.
+---
+*Science is organized knowledge. Wisdom is organized life.*
 <p align="right">---Immanuel Kant</p>
 
 
@@ -386,12 +385,12 @@ Epicurus版本优化了GRPC接口调用的耗时统计方法，以适配GRPC异�
 源代码：https://github.com/tronprotocol/java-tron/pull/6097 
 
 
-
-Not what we have but what we enjoy, constitutes our abundance.
+---
+*Not what we have but what we enjoy, constitutes our abundance.*
 
 <p align="right">---Epicurus</p>
 
----
+
 
 
 ## GreatVoyage-v4.7.6(Anaximander)
@@ -456,11 +455,10 @@ Anaximander版本优化了区块处理逻辑，在处理广播过来的区块后
 
 
 
-
+--- 
 *Nature is eternal and does not age.* 
 <p align="right"> ---Anaximander</p>
 
---- 
 
 ## GreatVoyage-v4.7.5(Cleobulus)
 
@@ -2190,6 +2188,7 @@ GreatVoyage-v4.3.0(Bacon)引入了leveldb 启动优化插件，插件优化了ma
 * 源代码： https://github.com/tronprotocol/java-tron/pull/3925
 * 插件使用指南：https://tronprotocol.github.io/documentation-zh/using_javatron/toolkit/#leveldb  
 
+---
 *Knowledge is power.* 
 <p align="right"> --- Francis Bacon </p>
 
@@ -2208,7 +2207,7 @@ GreatVoyage-v4.2.2.1(Epictetus) 版本对`pending transaction`的处理逻辑进
 
 GreatVoyage-v4.2.2.1(Epictetus) 版本引入的更新优化了`pending transaction`的处理逻辑，将大幅提升事件订阅服务的稳定性，将为TRON用户带来更好的体验，进一步繁荣波场生态。
 
- --- 
+--- 
 *No great thing is created suddenly.* 
 <p align="right"> --- Epictetus</p>
 
@@ -2253,7 +2252,8 @@ GreatVoyage-v4.2.2(Lucretius)版本将智能合约的ABI数据从合约数据库
 
 
 
- --- *Truths kindle light for truths.*
+ --- 
+ *Truths kindle light for truths.*
  <p align="right"> --- Lucretius</p>
 
 
