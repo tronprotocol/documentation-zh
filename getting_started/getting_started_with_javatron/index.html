@@ -421,6 +421,15 @@
   
 </li>
         
+          <li class="md-nav__item ">
+  <a href="#3" class="md-nav__link" >
+    <span class="md-ellipsis">
+      3. 关闭节点
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1685,11 +1694,16 @@ currentNetwork: NILE
 <div class="highlight"><pre><span></span><code>wallet&gt; registerwallet
 Please input password.
 password: 
-user defined config file doesn&#39;t exists, use default config file in jar
-WalletApi getRpcVsersion: 2
 Please input password again.
-password: 
-Register a wallet successful, keystore file name is UTC--2022-07-04T06-35-35.304000000Z--TQXjm2J8K2DKTV49MdfT2anjUehbU3WDJz.json
+Please enter the number of mnemonic words 
+        Default: 12 mnemonic words, 
+        Enter 24 to use 24 mnemonic words
+        Press Enter to use the default (12). 
+        Valid inputs are &quot;12&quot; or &quot;24&quot;
+mnemonic file : ./Mnemonic/(your wallet address).json
+Please name your wallet: 
+register a wallet successful, keystore file : ./Wallet/(your wallet address).json
+(Note: If you delete an account, make sure to delete the wallet file and mnemonic file) 
 wallet&gt; 
 </code></pre></div></p>
 <p><strong>2. 登录并查看地址</strong>：</p>
@@ -1789,6 +1803,7 @@ Num:23113870,ID:000000000160b08e37cb9951d31a4233f106c7e77e0535c597dbb6a16f163699
 <code>curl http://127.0.0.1:8090/wallet/getnowblock</code></li>
 </ul>
 <p>要确认您的节点已与网络完全同步，将您本地节点的区块高度与 <a href="https://tronscan.org/">Tronscan 区块浏览器</a> 上显示的最新区块高度进行比较。如果两者一致，则表示您本地节点的同步状态正常。</p>
+<h3 id="3">3. 关闭节点<a class="headerlink" href="#3" title="Permanent link">&para;</a></h3>
 <p>如果要关闭 java-tron，请通过<code>kill -15 &lt;进程ID&gt;</code>来停止节点。</p>
 <p><a id="interact-with-tron"></a></p>
 <h2 id="java-tron-tron">技能三：使用 java-tron 节点与 TRON 网络交互<a class="headerlink" href="#java-tron-tron" title="Permanent link">&para;</a></h2>
@@ -1807,14 +1822,13 @@ Num:23113870,ID:000000000160b08e37cb9951d31a4233f106c7e77e0535c597dbb6a16f163699
 返回结果如下：
 <div class="highlight"><pre><span></span><code>{
     &quot;address&quot;: &quot;TUoHaVjx7n5xz8LwPRDckgFrDWhMhuSuJM&quot;,
-    &quot;balance&quot;: 93643857919,
-    &quot;create_time&quot;: 1619681898000,
-    &quot;latest_opration_time&quot;: 1655358327000,
-    &quot;is_witness&quot;: true,
-    &quot;asset_issued_name&quot;: &quot;TestTRC10T&quot;,
-    &quot;latest_consume_free_time&quot;: 1652948766000,
+    &quot;balance&quot;: 5,
+    &quot;create_time&quot;: 1663487574000,
+    &quot;net_window_size&quot;: 28800000,
+    &quot;net_window_optimized&quot;: true,
     &quot;account_resource&quot;: {
-        &quot;latest_consume_time_for_energy&quot;: 1655358327000
+        &quot;energy_window_size&quot;: 28800000
+        &quot;energy_window_optimized&quot;: true
     },
 
         ......
@@ -1852,7 +1866,7 @@ wallet&gt;
     &quot;raw_data_hex&quot;:&quot;0a02cbc322088581ae7e29258a5240a89aefbf9c305a67080112630a2d747970652e676f6f676c65617069732e636f6d2f70726f746f636f6c2e5472616e73666572436f6e747261637412320a1541ce8a0cf0c16d48bcf22825f6053248df653c89ca121541d0b69631440f0a494bb51f7eee68ff5c593c00f018c0843d7098cfebbf9c30&quot;
 }
 before sign transaction hex string is 0a85010a02cbc322088581ae7e29258a5240a89aefbf9c305a67080112630a2d747970652e676f6f676c65617069732e636f6d2f70726f746f636f6c2e5472616e73666572436f6e747261637412320a1541ce8a0cf0c16d48bcf22825f6053248df653c89ca121541d0b69631440f0a494bb51f7eee68ff5c593c00f018c0843d7098cfebbf9c30
-Please confirm and input your permission id, if input y or Y means default 0, other non-numeric characters will cancel transaction.
+Please confirm and input your permission id, if input y/Y means default 0, other non-numeric characters will cancel transaction.
 </code></pre></div>
 此命令会返回一个待确认的交易。请按以下步骤完成签名和广播：</p>
 <ol>
@@ -1860,13 +1874,15 @@ Please confirm and input your permission id, if input y or Y means default 0, ot
 <li>选择签名账户：根据界面提示，选择用于给这笔交易签名的账户（即扣款账户）。</li>
 <li>输入密码授权：输入所选账户的密码，<code>wallet-cli</code> 将会完成签名，并将交易广播至 java-tron 节点，完成交易。</li>
 </ol>
-<div class="highlight"><pre><span></span><code>Please confirm and input your permission id, if input y or Y means default 0, other non-numeric characters will cancel transaction.
+<div class="highlight"><pre><span></span><code>Please confirm and input your permission id, if input y/Y means default 0, other non-numeric characters will cancel transaction.
 y
 Please choose your key for sign.
-The 1th keystore file name is .DS_Store
-The 2th keystore file name is UTC--2022-07-04T06-35-35.304000000Z--TQXjm2J8K2DKTV49MdfT2anjUehbU3WDJz.json
-The 3th keystore file name is UTC--2022-06-21T09-51-26.367000000Z--TUoHaVjx7n5xz8LwPRDckgFrDWhMhuSuJM.json
-Please choose between 1 and 3
+
+No.  Address                  Name
+1    (your wallet address)
+2    (your wallet address)
+3    (your wallet address)
+Please choose between 1 and 3, or enter search to search wallets
 3
 Please input your password.
 password: 
