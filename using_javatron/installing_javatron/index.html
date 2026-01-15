@@ -434,7 +434,16 @@
           <li class="md-nav__item ">
   <a href="#java-tron_2" class="md-nav__link" >
     <span class="md-ellipsis">
-      编译 java-tron 源码
+      编译 java-tron 前的先决条件
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#java-tron_3" class="md-nav__link" >
+    <span class="md-ellipsis">
+      编译 java-tron 源代码
     </span>
   </a>
   
@@ -446,7 +455,7 @@
 </li>
       
         <li class="md-nav__item has-children">
-  <a href="#java-tron_3" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
+  <a href="#java-tron_4" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
     <span class="md-ellipsis">
       启动 java-tron 节点
     </span>
@@ -456,16 +465,16 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item ">
-  <a href="#fullnode" class="md-nav__link" >
+  <a href="#_2" class="md-nav__link" >
     <span class="md-ellipsis">
-      启动全节点 (FullNode)
+      启动全节点
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item ">
-  <a href="#_2" class="md-nav__link" >
+  <a href="#_3" class="md-nav__link" >
     <span class="md-ellipsis">
       启动出块节点
     </span>
@@ -474,7 +483,7 @@
 </li>
         
           <li class="md-nav__item ">
-  <a href="#_3" class="md-nav__link" >
+  <a href="#_4" class="md-nav__link" >
     <span class="md-ellipsis">
       主从模式的出块全节点
     </span>
@@ -488,7 +497,7 @@
 </li>
       
         <li class="md-nav__item has-children">
-  <a href="#_4" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
+  <a href="#_5" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
     <span class="md-ellipsis">
       优化与注意事项
     </span>
@@ -498,7 +507,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item ">
-  <a href="#_5" class="md-nav__link" >
+  <a href="#_6" class="md-nav__link" >
     <span class="md-ellipsis">
       加快节点数据同步
     </span>
@@ -1631,49 +1640,131 @@
 </ul>
 <h2 id="java-tron_1">获取 java-tron 客户端<a class="headerlink" href="#java-tron_1" title="Permanent link">&para;</a></h2>
 <p>您可以在 <a href="https://github.com/tronprotocol/java-tron/releases">这里</a> 直接下载官方提供的客户端，也可以自行通过编译源码来打包客户端。</p>
-<h3 id="java-tron_2">编译 java-tron 源码<a class="headerlink" href="#java-tron_2" title="Permanent link">&para;</a></h3>
-<p>在开始编译之前，请确保您的系统已安装 <code>git</code> 工具。</p>
-<ol>
-<li>首先，通过 <code>git</code> 命令将 java-tron 源代码克隆到本地，并切换到 <code>master</code> 分支：
-<div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/tronprotocol/java-tron.git
-git<span class="w"> </span>checkout<span class="w"> </span>-t<span class="w"> </span>origin/master
-</code></pre></div></li>
-<li>
-<p>然后，执行以下命令编译 java-tron 源代码：
-<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>java-tron
-./gradlew<span class="w"> </span>clean<span class="w"> </span>build<span class="w"> </span>-x<span class="w"> </span><span class="nb">test</span>
-</code></pre></div></p>
+<h3 id="java-tron_2">编译 java-tron 前的先决条件<a class="headerlink" href="#java-tron_2" title="Permanent link">&para;</a></h3>
+<p>在编译 java-tron 之前，请确保您具备：</p>
 <ul>
-<li>参数 <code>-x test</code> 表示跳过执行测试用例。您也可以去除此参数以在编译过程中执行测试代码，但这会延长编译时间。</li>
-<li>编译完成后，<code>FullNode.jar</code> 文件将生成在 <code>java-tron/build/libs/</code> 目录下。</li>
+<li>操作系统：<code>Linux</code> 或 <code>MacOS</code>（不支持 <code>Windows</code>）。</li>
+<li>已安装 Git 和根据您 CPU 架构安装的正确 JDK 版本。</li>
+</ul>
+<p>步骤 1：验证 Git 是否安装</p>
+<p>如果未安装 Git，请从 <a href="https://git-scm.com/downloads">https://git-scm.com/downloads</a> 下载。</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>--version
+</code></pre></div>
+<p>步骤 2：检查您的 CPU 架构并安装正确的 JDK</p>
+<div class="highlight"><pre><span></span><code>uname<span class="w"> </span>-m
+</code></pre></div>
+<ul>
+<li>
+<p>如果您的架构是 <code>x86_64</code>（Intel/AMD 64 位）：</p>
+<ul>
+<li>安装 Java SE 8（Oracle JDK 8）：<a href="https://www.oracle.com/java/technologies/javase/javase8-archive-downloads.html">https://www.oracle.com/java/technologies/javase/javase8-archive-downloads.html</a></li>
+<li>验证：
+<div class="highlight"><pre><span></span><code>java<span class="w"> </span>-version
+</code></pre></div>
+输出应显示以 <code>1.8</code> 开头的版本。</li>
+</ul>
+</li>
+<li>
+<p>如果您的架构是 <code>arm64</code> 或 <code>aarch64</code>（Apple Silicon / ARM 服务器）：</p>
+<ul>
+<li>安装 Java SE 17（JDK 17）：<a href="https://www.oracle.com/java/technologies/javase/javase8-archive-downloads.html">https://www.oracle.com/java/technologies/downloads/#java17</a></li>
+<li>验证：
+<div class="highlight"><pre><span></span><code>java<span class="w"> </span>-version
+</code></pre></div>
+输出应显示以 <code>17</code> 开头的版本。</li>
+</ul>
+</li>
+</ul>
+<h3 id="java-tron_3">编译 java-tron 源代码<a class="headerlink" href="#java-tron_3" title="Permanent link">&para;</a></h3>
+<ol>
+<li>克隆仓库并切换到 <code>master</code> 分支：
+    <div class="highlight"><pre><span></span><code>git clone https://github.com/tronprotocol/java-tron.git
+git checkout -t origin/master
+cd java-tron
+</code></pre></div></li>
+<li>然后，运行以下命令来构建 java-tron：
+    <div class="highlight"><pre><span></span><code>./gradlew clean build -x test
+</code></pre></div><ul>
+<li>参数 <code>-x test</code> 表示跳过测试用例的执行。您可以移除此参数以在编译期间执行测试代码，但这将延长编译时间。</li>
+<li>如果在构建过程中遇到 <code>DependencyVerificationException</code>，请刷新依赖项并重新生成验证元数据：
+  <div class="highlight"><pre><span></span><code>./gradlew clean build -x test --refresh-dependencies
+</code></pre></div></li>
+<li>编译完成后，<code>FullNode.jar</code> 文件将在 <code>java-tron/build/libs/</code> 目录中生成。</li>
 </ul>
 </li>
 </ol>
-<h2 id="java-tron_3">启动 java-tron 节点<a class="headerlink" href="#java-tron_3" title="Permanent link">&para;</a></h2>
-<p>您可以选择不同的配置文件将 java-tron 节点连接到不同的 TRON 网络:</p>
+<h2 id="java-tron_4">启动 java-tron 节点<a class="headerlink" href="#java-tron_4" title="Permanent link">&para;</a></h2>
+<p>您可以选择不同的配置文件将 java-tron 节点连接到不同的 TRON 网络：</p>
 <ul>
-<li>主网全节点配置文件：<a href="https://github.com/tronprotocol/java-tron/blob/master/framework/src/main/resources/config.conf">config.conf</a></li>
-<li>其他网络节点配置文件：<ul>
-<li>Nile 测试网：https://nileex.io/</li>
-<li>私链网络：请参考<a href="https://tronprotocol.github.io/documentation-zh/using_javatron/private_network/">私链网络</a></li>
+<li>主网 FullNode 配置文件：<a href="https://github.com/tronprotocol/java-tron/blob/master/framework/src/main/resources/config.conf">config.conf</a></li>
+<li>其他网络节点配置：<ul>
+<li>Nile 测试网：<a href="https://github.com/tron-nile-testnet/nile-testnet/blob/master/framework/src/main/resources/config-nile.conf">https://github.com/tron-nile-testnet/nile-testnet/blob/master/framework/src/main/resources/config-nile.conf</a></li>
+<li>私有网络：请参阅 <a href="https://tronprotocol.github.io/documentation-zh/using_javatron/private_network/">私有网络</a></li>
 </ul>
 </li>
 </ul>
-<h3 id="fullnode">启动全节点 (FullNode)<a class="headerlink" href="#fullnode" title="Permanent link">&para;</a></h3>
-<p><strong>全节点</strong> (FullNode) 作为 TRON 网络的入口点，拥有完整的历史数据，并提供对外访问的 HTTP API、 gRPC API 和 JSON-RPC API。您可以通过全节点与 TRON 网络进行交互，例如资产转移、智能合约部署、智能合约交互等。</p>
-<p>以下是启动<strong>主网全节点</strong>的命令，通过 <code>-c</code> 参数指定配置文件：</p>
-<div class="highlight"><pre><span></span><code>java<span class="w"> </span>-Xmx24g<span class="w"> </span>-XX:+UseConcMarkSweepGC<span class="w"> </span>-jar<span class="w"> </span>FullNode.jar<span class="w"> </span>-c<span class="w"> </span>config.conf
+<h3 id="_2">启动全节点<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<p>全节点即<strong>FullNode</strong> 是 TRON 网络的入口点，拥有完整的历史数据，并通过 <strong>HTTP API</strong>、<strong>gRPC API</strong> 和 <strong>JSON-RPC API</strong> 提供外部访问。您可以通过 <strong>FullNode</strong> 与 TRON 网络交互，进行资产转移、智能合约部署和智能合约交互等交易。</p>
+<p>以下是启动 <strong>主网 FullNode</strong> 的命令，使用 <code>-c</code> 参数指定配置文件：</p>
+<p><code>$ nohup java -Xms9G -jar ./build/libs/FullNode.jar -c config.conf &amp;</code></p>
+<ul>
+<li><code>nohup ... &amp;</code>：在后台运行命令并忽略挂断信号。</li>
+<li><code>Xms9G</code>： 参数将FullNode运行的JVM最小堆值设置为<code>9 GB</code>。</li>
+<li>要启动 <strong>Nile 测试网 FullNode</strong> 或 <strong>私有网络 FullNode</strong>，请使用上面提供的相应配置文件链接。</li>
+</ul>
+<h4 id="fullnode-jvm">主网 FullNode 部署的 JVM 参数优化<a class="headerlink" href="#fullnode-jvm" title="Permanent link">&para;</a></h4>
+<p>为了在连接主网时获得更高的效率和稳定性，请参考以下针对不同架构的完整Java程序启动命令：</p>
+<h5 id="x86_64jdk-8">x86_64（JDK 8）<a class="headerlink" href="#x86_64jdk-8" title="Permanent link">&para;</a></h5>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>nohup<span class="w"> </span>java<span class="w"> </span>-Xms9G<span class="w"> </span>-Xmx12G<span class="w"> </span>-XX:ReservedCodeCacheSize<span class="o">=</span>256m<span class="w"> </span><span class="se">\</span>
+<span class="w">             </span>-XX:MetaspaceSize<span class="o">=</span>256m<span class="w"> </span>-XX:MaxMetaspaceSize<span class="o">=</span>512m<span class="w"> </span><span class="se">\</span>
+<span class="w">             </span>-XX:MaxDirectMemorySize<span class="o">=</span>1G<span class="w"> </span>-XX:+PrintGCDetails<span class="w"> </span><span class="se">\</span>
+<span class="w">             </span>-XX:+PrintGCDateStamps<span class="w">  </span>-Xloggc:gc.log<span class="w"> </span><span class="se">\</span>
+<span class="w">             </span>-XX:+UseConcMarkSweepGC<span class="w"> </span>-XX:NewRatio<span class="o">=</span><span class="m">3</span><span class="w"> </span><span class="se">\</span>
+<span class="w">             </span>-XX:+CMSScavengeBeforeRemark<span class="w"> </span>-XX:+ParallelRefProcEnabled<span class="w"> </span><span class="se">\</span>
+<span class="w">             </span>-XX:+HeapDumpOnOutOfMemoryError<span class="w"> </span><span class="se">\</span>
+<span class="w">             </span>-XX:+UseCMSInitiatingOccupancyOnly<span class="w">  </span>-XX:CMSInitiatingOccupancyFraction<span class="o">=</span><span class="m">70</span><span class="w"> </span><span class="se">\</span>
+<span class="w">             </span>-jar<span class="w"> </span>./build/libs/FullNode.jar<span class="w"> </span>-c<span class="w"> </span>main_net_config.conf<span class="w"> </span><span class="p">&amp;</span>
 </code></pre></div>
+<h5 id="arm64jdk-17">ARM64（JDK 17）<a class="headerlink" href="#arm64jdk-17" title="Permanent link">&para;</a></h5>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>nohup<span class="w"> </span>java<span class="w"> </span>-Xmx9G<span class="w"> </span>-XX:+UseZGC<span class="w"> </span><span class="se">\</span>
+<span class="w">             </span>-Xlog:gc,gc+heap:file<span class="o">=</span>gc.log:time,tags,level:filecount<span class="o">=</span><span class="m">10</span>,filesize<span class="o">=</span>100M<span class="w"> </span><span class="se">\</span>
+<span class="w">             </span>-XX:ReservedCodeCacheSize<span class="o">=</span>256m<span class="w"> </span><span class="se">\</span>
+<span class="w">             </span>-XX:+UseCodeCacheFlushing<span class="w"> </span><span class="se">\</span>
+<span class="w">             </span>-XX:MetaspaceSize<span class="o">=</span>256m<span class="w"> </span><span class="se">\</span>
+<span class="w">             </span>-XX:MaxMetaspaceSize<span class="o">=</span>512m<span class="w"> </span><span class="se">\</span>
+<span class="w">             </span>-XX:MaxDirectMemorySize<span class="o">=</span>1g<span class="w"> </span><span class="se">\</span>
+<span class="w">             </span>-XX:+HeapDumpOnOutOfMemoryError<span class="w"> </span><span class="se">\</span>
+<span class="w">             </span>-jar<span class="w"> </span>./build/libs/FullNode.jar<span class="w"> </span>-c<span class="w"> </span>main_net_config.conf<span class="w"> </span><span class="p">&amp;</span>
+</code></pre></div>
+<h4 id="java">Java 启动参数解释<a class="headerlink" href="#java" title="Permanent link">&para;</a></h4>
+<p><strong>通用内存参数：</strong></p>
 <ul>
-<li><code>-XX:+UseConcMarkSweepGC</code>: 指定并发标记-清除 (CMS) 垃圾回收器。此参数必须放在 <code>-jar</code> 参数之前。</li>
-<li><code>-Xms</code>：Java 虚拟机 (JVM) 堆的初始值，<code>-Xmx</code>: JVM堆的最大值，<code>-XX:NewRatio</code>: 堆内存中老年代和年轻代的比例，比如<code>-XX:NewRatio=2</code>，则表示老年代是年轻代的2倍。<ul>
-<li>对于普通的FullNode节点，推荐设置：<code>-Xms12G -Xmx12G -XX:NewRatio=3</code></li>
-<li>对于出块节点，推荐设置：<code>-Xms24G -Xmx24G -XX:NewRatio=3</code>   </li>
+<li><code>-Xms</code> / <code>-Xmx</code>：设置 JVM 堆的初始值和最大值。<ul>
+<li>对于最低硬件要求（16 GB RAM 的服务器）：建议 JDK 8 使用 <code>-Xms9G -Xmx12G</code>；JDK 17 使用 <code>-Xmx9G</code>。</li>
+<li>对于 RAM ≥32 GB 的服务器，建议将最大堆值（<code>-Xmx</code>）设置为总 RAM 的 40%，最小堆值设置为 <code>-Xms9G</code>。</li>
 </ul>
 </li>
-<li>要启动 <strong>Nile 测试网全节点</strong> 或<strong>私链全节点</strong>，请使用本节开头部分列出的相应配置文件链接。</li>
+<li><code>-XX:MetaspaceSize</code> / <code>-XX:MaxMetaspaceSize</code>：设置元空间（类元数据）的初始值和最大值。</li>
+<li><code>-XX:MaxDirectMemorySize</code>：限制 NIO Direct Byte Buffers 使用的内存。</li>
+<li><code>-XX:ReservedCodeCacheSize</code>：设置 JIT 代码缓存的最大值。</li>
+<li><code>-XX:+UseCodeCacheFlushing</code>：允许 JVM 在代码缓存满时刷新它。</li>
+<li><code>-XX:+HeapDumpOnOutOfMemoryError</code>：如果发生 OutOfMemoryError，则将堆内存转储到文件。</li>
 </ul>
-<h3 id="_2">启动出块节点<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<p><strong>JDK 8（CMS GC）特有参数：</strong></p>
+<ul>
+<li><code>-XX:+UseConcMarkSweepGC</code>：启用并发标记清除（CMS）垃圾收集器。</li>
+<li><code>-XX:NewRatio=3</code>：设置老年代与新生代的比例为 3:1。</li>
+<li><code>-XX:+CMSScavengeBeforeRemark</code>：在 CMS 重新标记阶段之前触发一次 Minor GC，以减少暂停时间。</li>
+<li><code>-XX:+ParallelRefProcEnabled</code>：启用并行引用处理，以减少暂停时间。</li>
+<li><code>-XX:+UseCMSInitiatingOccupancyOnly</code> 和 <code>-XX:CMSInitiatingOccupancyFraction=70</code>：强制 CMS 在老年代使用率达到 70% 时开始回收。</li>
+<li><code>-XX:+PrintGCDetails</code>、<code>-XX:+PrintGCDateStamps</code>、<code>-Xloggc:gc.log</code>：传统的 GC 日志记录设置。</li>
+</ul>
+<p><strong>JDK 17（ZGC）特有参数：</strong></p>
+<ul>
+<li><code>-XX:+UseZGC</code>：启用 ZGC，一种可扩展的低延迟垃圾收集器。</li>
+<li><code>-Xlog:gc...</code>：统一的 JVM 日志记录配置。示例配置了带有文件轮换（10 个文件，每个 100MB）的 GC 日志。</li>
+</ul>
+<h3 id="_3">启动出块节点<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
 <p>在上述全节点启动命令中添加 <code>--witness</code> 参数，<code>FullNode</code> 将作为<strong>出块节点</strong> (SR Node) 运行。出块节点除了支持全节点的所有功能外，还支持区块生产和交易打包。</p>
 <p><strong>重要提示</strong>:</p>
 <ul>
@@ -1689,8 +1780,8 @@ git<span class="w"> </span>checkout<span class="w"> </span>-t<span class="w"> </
 <p>然后执行以下命令来启动出块节点：</p>
 <div class="highlight"><pre><span></span><code>java<span class="w"> </span>-Xmx24g<span class="w"> </span>-XX:+UseConcMarkSweepGC<span class="w"> </span>-jar<span class="w"> </span>FullNode.jar<span class="w"> </span>--witness<span class="w"> </span>-c<span class="w"> </span>config.conf
 </code></pre></div>
-<h3 id="_3">主从模式的出块全节点<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
-<p>为了提高出块全节点的可靠性，可以部署多个相同账户的出块全节点，形成主从模式。当一个具有出块权限的账户部署大于等于两个节点时，需要完善各节点配置文件中的<code>node.backup</code>。<code>node.backup</code>的配置项说明如下：</p>
+<h3 id="_4">主从模式的出块全节点<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<p>为了提高出块全节点的可靠性，可以部署多个相同账户的出块全节点，形成主从模式。当一个具有出块权限的账户部署大于等于两个节点时（推荐数量：2个，主节点及从节点各1个），需要完善各节点配置文件中的<code>node.backup</code>。<code>node.backup</code>的配置项说明如下：</p>
 <div class="highlight"><pre><span></span><code><span class="na">node.backup {</span>
 <span class="w">  </span><span class="c1"># udp listen port, each member should have the same configuration</span>
 <span class="w">  </span><span class="na">port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">10001</span>
@@ -1701,14 +1792,14 @@ git<span class="w"> </span>checkout<span class="w"> </span>-t<span class="w"> </
 <span class="w">  </span><span class="c1"># time interval to send keepAlive message, each member should have the same configuration unit: ms</span>
 <span class="w">  </span><span class="na">keepAliveInterval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">3000</span>
 
-<span class="w">  </span><span class="c1"># peer&#39;s ip list, can&#39;t contain myself</span>
+<span class="w">  </span><span class="c1"># peers‘ ip list, must not include myself</span>
 <span class="w">  </span><span class="na">members</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">[</span>
 <span class="w">    </span><span class="c1"># &quot;ip&quot;,</span>
 <span class="w">    </span><span class="c1"># &quot;ip&quot;</span>
 <span class="w">  </span><span class="na">]</span>
 <span class="na">}</span>
 </code></pre></div>
-<p>比如，某个具有出块权限的账户部署了3个节点，三个节点的ip分别为192.168.0.100，192.168.0.101，192.168.0.102，那么他们的<code>node.backup</code>配置需如下所示：</p>
+<p>比如，某个具有出块权限的账户部署了2个节点，两个节点的ip分别为192.168.0.100，192.168.0.101，那么他们的<code>node.backup</code>配置需如下所示：</p>
 <ul>
 <li>ip为192.168.0.100的配置</li>
 </ul>
@@ -1717,8 +1808,7 @@ git<span class="w"> </span>checkout<span class="w"> </span>-t<span class="w"> </
 <span class="w">  </span><span class="na">priority</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">8</span>
 <span class="w">  </span><span class="na">keepAliveInterval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">3000</span>
 <span class="w">  </span><span class="na">members</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">[</span>
-<span class="w">    </span><span class="na">&quot;192.168.0.101&quot;,</span>
-<span class="w">    </span><span class="na">&quot;192.168.0.102&quot;</span>
+<span class="w">    </span><span class="na">&quot;192.168.0.101&quot;</span>
 <span class="w">  </span><span class="na">]</span>
 <span class="na">}</span>
 </code></pre></div>
@@ -1730,21 +1820,7 @@ git<span class="w"> </span>checkout<span class="w"> </span>-t<span class="w"> </
 <span class="w">  </span><span class="na">priority</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">7</span>
 <span class="w">  </span><span class="na">keepAliveInterval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">3000</span>
 <span class="w">  </span><span class="na">members</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">[</span>
-<span class="w">    </span><span class="na">&quot;192.168.0.100&quot;,</span>
-<span class="w">    </span><span class="na">&quot;192.168.0.102&quot;</span>
-<span class="w">  </span><span class="na">]</span>
-<span class="na">}</span>
-</code></pre></div>
-<ul>
-<li>ip为192.168.0.102的配置</li>
-</ul>
-<div class="highlight"><pre><span></span><code><span class="na">node.backup {</span>
-<span class="w">  </span><span class="na">port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">10001</span>
-<span class="w">  </span><span class="na">priority</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">6</span>
-<span class="w">  </span><span class="na">keepAliveInterval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">3000</span>
-<span class="w">  </span><span class="na">members</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">[</span>
-<span class="w">    </span><span class="na">&quot;192.168.0.100&quot;,</span>
-<span class="w">    </span><span class="na">&quot;192.168.0.101&quot;</span>
+<span class="w">    </span><span class="na">&quot;192.168.0.100&quot;</span>
 <span class="w">  </span><span class="na">]</span>
 <span class="na">}</span>
 </code></pre></div>
@@ -1754,8 +1830,8 @@ git<span class="w"> </span>checkout<span class="w"> </span>-t<span class="w"> </
 <li>当一个priority高的节点出现故障失去主节点的身份，别的从节点竞争获得主节点的位置，在该priority高的节点恢复正常、重新具备出块的条件时，其不会自动获得主节点的身份，需要等到当前的主节点发生故障之后才能重新竞争获得。</li>
 <li>主从切换需要的时间：当主节点发生故障，从节点切换为主节点的时间最少需要2*keepAliveTimeout，其中keepAliveTimeout=keepAliveInterval * 6。需要2个keepAliveTimeout是因为从节点切换为主节点中间需要经过预备状态(INIT)的过渡，即从节点(SLAVER) -&gt; 预备节点(INIT) -&gt; 主节点(MASTER)。</li>
 </ul>
-<h2 id="_4">优化与注意事项<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
-<h3 id="_5">加快节点数据同步<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<h2 id="_5">优化与注意事项<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<h3 id="_6">加快节点数据同步<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
 <p>对于主网和 Nile 测试网，新节点启动后需要同步的数据量较大，将花费较长时间。您可以使用 <a href="https://tronprotocol.github.io/documentation-zh/using_javatron/backup_restore/#_5">数据快照</a> 来加快节点同步速度。</p>
 <p>操作步骤如下：</p>
 <ol>
