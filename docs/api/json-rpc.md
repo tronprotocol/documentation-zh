@@ -938,6 +938,42 @@ curl -X POST 'https://api.shasta.trongrid.io/jsonrpc' --data '{
 
 ```
 
+### eth_getBlockReceipts
+
+*通过`blockNumber`查询指定区块中的所有交易收据（Transaction Receipts）。对于创世块，轻节点已经裁剪的块和未生产的块返回`null`。*
+
+**参数**
+
+String - `blockNumber`：支持十六进制字符串表示的区块号、blockHash(有无0x开头均支持)或标签（ "latest"、"earliest"、"finalized"）三种类型
+
+**返回值**
+
+An array of objects - 交易收据对象的数组，交易收据对象同[eth_getTransactionReceipt](#eth_gettransactionreceipt)的返回值
+
+**示例**
+
+```curl
+
+curl -X POST 'https://api.shasta.trongrid.io/jsonrpc' --data '{
+
+	"jsonrpc": "2.0",
+
+	"method": "eth_getBlockReceipts",
+
+	"params": ["0x5416c22"],
+
+	"id": 64
+
+}'
+
+```
+
+结果
+
+```json
+{"jsonrpc":"2.0","id":64,"result":null}
+```
+
 
 ### eth_getWork
 
