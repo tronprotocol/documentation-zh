@@ -89,18 +89,28 @@ uname -m
 
 ## 启动 java-tron 节点
 
-您可以选择不同的配置文件将 java-tron 节点连接到不同的 TRON 网络：
+全节点作为 TRON 网络的入口，通过 HTTP 和 RPC API 提供完整接口。客户端可借助这些端点执行资产转账、部署智能合约并调用链上逻辑。全节点必须接入 TRON 网络，才能参与共识与交易处理。
 
-*   主网 FullNode 配置文件：[config.conf](https://github.com/tronprotocol/java-tron/blob/master/framework/src/main/resources/config.conf)
-*   其他网络节点配置：
-    *   Nile 测试网：[https://github.com/tron-nile-testnet/nile-testnet/blob/master/framework/src/main/resources/config-nile.conf](https://github.com/tron-nile-testnet/nile-testnet/blob/master/framework/src/main/resources/config-nile.conf)
-    *   私有网络：请参阅 [私有网络](https://tronprotocol.github.io/documentation-zh/using_javatron/private_network/)
+### TRON网络类型
+TRON 网络主要分为以下几类：
 
-### 启动全节点
+- **主网（Mainnet）**  
+  承载真实价值（TRX、TRC-20 代币等）的公共区块链，由庞大的去中心化网络保障安全。
 
-全节点即**FullNode** 是 TRON 网络的入口点，拥有完整的历史数据，并通过 **HTTP API**、**gRPC API** 和 **JSON-RPC API** 提供外部访问。您可以通过 **FullNode** 与 TRON 网络交互，进行资产转移、智能合约部署和智能合约交互等交易。
+- **[Nile 测试网（Testnet）](https://nileex.io/)**  
+  面向未来的测试网，新功能和治理提案会率先在此上线，供开发者体验，因此其代码版本通常领先于主网。
 
-以下是启动 **主网 FullNode** 的命令，使用 `-c` 参数指定配置文件：
+- **[Shasta 测试网](https://shasta.tronex.io/)**  
+  与主网的特性和治理提案保持高度一致，网络参数及软件版本与主网同步，为开发者提供接近真实的最终测试环境。
+
+- **私有网络**  
+  由私人实体搭建的定制化 TRON 网络，用于测试、开发或特定业务场景。
+
+启动全节点时，通过指定对应的配置文件即可选择网络：主网配置：[config.conf](https://github.com/tronprotocol/java-tron/blob/master/framework/src/main/resources/config.conf)；Nile 测试网配置：[config-nile.conf](https://github.com/tron-nile-testnet/nile-testnet/blob/master/framework/src/main/resources/config-nile.conf)
+
+### 启动全节点连接主网
+
+以下是启动 **主网节点** 的命令，使用默认内置的主网配置文件：
 
 `
 $ nohup java -Xms9G -jar ./build/libs/FullNode.jar -c config.conf &
@@ -108,7 +118,8 @@ $ nohup java -Xms9G -jar ./build/libs/FullNode.jar -c config.conf &
 
 *   `nohup ... &`：在后台运行命令并忽略挂断信号。
 *   `Xms9G`： 参数将FullNode运行的JVM最小堆值设置为`9 GB`。
-*   要启动 **Nile 测试网 FullNode** 或 **私有网络 FullNode**，请使用上面提供的相应配置文件链接。
+
+请参见后续章节，了解在 Nile 测试网和私有网络中部署全节点的详细说明。
 
 #### 主网 FullNode 部署的 JVM 参数优化
 为了在连接主网时获得更高的效率和稳定性，请参考以下针对不同架构的完整Java程序启动命令：
@@ -163,6 +174,25 @@ $ nohup java -Xmx9G -XX:+UseZGC \
 
 *   `-XX:+UseZGC`：启用 ZGC，一种可扩展的低延迟垃圾收集器。
 *   `-Xlog:gc...`：统一的 JVM 日志记录配置。示例配置了带有文件轮换（10 个文件，每个 100MB）的 GC 日志。
+
+### 启动全节点连接 Nile 测试网
+
+使用 `-c` 参数将节点指向对应网络的配置文件。由于 Nile 测试网可能包含主网尚未发布的新功能，**强烈建议**按照 [Nile 测试网源码编译指南](https://github.com/tron-nile-testnet/nile-testnet/blob/master/README.md#building-the-source-code) 编译源码。
+
+```bash
+nohup java -jar ./build/libs/FullNode.jar -c config-nile.conf &
+```
+
+Nile 相关资源：区块浏览器、水龙头、钱包、开发者文档及网络统计信息，请访问 [nileex.io](https://nileex.io/)。
+
+### 接入 Shasta 测试网
+
+Shasta 不接受公共节点连接同步区块，仅可通过 TronGrid 端点以API方式访问；详情见 [TronGrid 服务](https://developers.tron.network/docs/trongrid)。
+Shasta 相关资源（浏览器、水龙头、钱包、开发者文档及网络统计）请访问 [shastaex.io](https://shasta.tronex.io/)。
+
+### 搭建私有网络
+
+如需为测试或开发搭建私有网络，请遵循[私有网络指南](https://tronprotocol.github.io/documentation-en/using_javatron/private_network/)。
 
 ### 启动出块节点
 
