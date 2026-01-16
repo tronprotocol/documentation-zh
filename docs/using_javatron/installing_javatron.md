@@ -91,7 +91,7 @@ uname -m
 
 全节点作为 TRON 网络的入口，通过 HTTP 和 RPC API 提供完整接口。客户端可借助这些端点执行资产转账、部署智能合约并调用链上逻辑。全节点必须接入 TRON 网络，才能参与共识与交易处理。
 
-### TRON网络类型
+### TRON 网络类型
 TRON 网络主要分为以下几类：
 
 - **主网（Mainnet）**  
@@ -110,7 +110,7 @@ TRON 网络主要分为以下几类：
 
 ### 启动全节点连接主网
 
-以下是启动 **主网节点** 的命令，使用默认内置的主网配置文件：
+以下是启动 **主网全节点** 的命令，使用默认内置的主网配置文件：
 
 `
 $ nohup java -Xms9G -jar ./build/libs/FullNode.jar -c config.conf &
@@ -190,7 +190,7 @@ Nile 相关资源：区块浏览器、水龙头、钱包、开发者文档及网
 Shasta 不接受公共节点连接同步区块，仅可通过 TronGrid 端点以API方式访问；详情见 [TronGrid 服务](https://developers.tron.network/docs/trongrid)。
 Shasta 相关资源（浏览器、水龙头、钱包、开发者文档及网络统计）请访问 [shastaex.io](https://shasta.tronex.io/)。
 
-### 搭建私有网络
+### 启动全节点连接私有网络
 
 如需为测试或开发搭建私有网络，请遵循[私有网络指南](https://tronprotocol.github.io/documentation-en/using_javatron/private_network/)。
 
