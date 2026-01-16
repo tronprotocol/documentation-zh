@@ -164,6 +164,24 @@ $ nohup java -Xmx9G -XX:+UseZGC \
 *   `-XX:+UseZGC`：启用 ZGC，一种可扩展的低延迟垃圾收集器。
 *   `-Xlog:gc...`：统一的 JVM 日志记录配置。示例配置了带有文件轮换（10 个文件，每个 100MB）的 GC 日志。
 
+### 启动固化节点 (SolidityNode)
+
+固化节点仅从受信任的全节点同步固化区块。受信任全节点通过配置文件进行配置，端口号为全节点的grpc服务端口。
+
+```
+node {
+  # trust node for solidity node
+  # trustNode = "ip:port"
+  trustNode = "127.0.0.1:50051"
+  ...
+}
+```
+
+自4.8.1版本开始，不再提供单独的`SolidityNode.jar`，固化节点的启动通过命令行参数`--solidity`，即：
+```shell
+java -Xmx24g -XX:+UseConcMarkSweepGC -jar FullNode.jar --solidity -c config.conf 
+```
+
 ### 启动出块节点
 
 在上述全节点启动命令中添加 `--witness` 参数，`FullNode` 将作为**出块节点** (SR Node) 运行。出块节点除了支持全节点的所有功能外，还支持区块生产和交易打包。
@@ -271,7 +289,7 @@ node.backup {
         localwitnesskeystore = ["B/localwitnesskeystore.json"]
         ```
 
-    * 您可以使用 `wallet-cli` 项目的 `registerwallet` 命令生成 `keystore` 文件和密码。
+    * 您可以使用 `wallet-cli` 项目的 `registerwallet` 命令生成 `keystore` 文件和密码或者使用`java -jar FullNode.jar --keystore-factory`命令生成(自4.8.1版本之后，不再提供单独的`KeystoreFactory.jar`)
 
 1. **启动出块节点**:
 
