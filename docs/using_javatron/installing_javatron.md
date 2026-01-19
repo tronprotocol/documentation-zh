@@ -35,7 +35,7 @@
 ### 编译 java-tron 前的先决条件
 在编译 java-tron 之前，请确保您具备：
 
-- 操作系统：`Linux` 或 `MacOS`（不支持 `Windows`）。
+- 操作系统：`Linux` 或 `macOS`（不支持 `Windows`）。
 - 已安装 Git 和根据您 CPU 架构安装的正确 JDK 版本。
 
 步骤 1：验证 Git 是否安装
