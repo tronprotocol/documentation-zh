@@ -32,48 +32,174 @@
 
 您可以在 [这里](https://github.com/tronprotocol/java-tron/releases) 直接下载官方提供的客户端，也可以自行通过编译源码来打包客户端。
 
-### 编译 java-tron 源码
+### 编译 java-tron 前的先决条件
+在编译 java-tron 之前，请确保您具备：
 
-在开始编译之前，请确保您的系统已安装 `git` 工具。
+- 操作系统：`Linux` 或 `macOS`（不支持 `Windows`）。
+- 已安装 Git 和根据您 CPU 架构安装的正确 JDK 版本。
 
-1. 首先，通过 `git` 命令将 java-tron 源代码克隆到本地，并切换到 `master` 分支：
-```shell
-git clone https://github.com/tronprotocol/java-tron.git
-git checkout -t origin/master
+步骤 1：验证 Git 是否安装
+
+如果未安装 Git，请从 [https://git-scm.com/downloads](https://git-scm.com/downloads) 下载。
+
+```bash
+git --version
 ```
-2. 然后，执行以下命令编译 java-tron 源代码：
-```shell
-cd java-tron
-./gradlew clean build -x test
+
+步骤 2：检查您的 CPU 架构并安装正确的 JDK
+
+```bash
+uname -m
 ```
 
-    * 参数 `-x test` 表示跳过执行测试用例。您也可以去除此参数以在编译过程中执行测试代码，但这会延长编译时间。
-    * 编译完成后，`FullNode.jar` 文件将生成在 `java-tron/build/libs/` 目录下。
+- 如果您的架构是 `x86_64`（Intel/AMD 64 位）：
+    - 安装 Java SE 8（Oracle JDK 8）：[https://www.oracle.com/java/technologies/javase/javase8-archive-downloads.html](https://www.oracle.com/java/technologies/javase/javase8-archive-downloads.html)
+    - 验证：
+    ```bash
+    java -version
+    ```
+    输出应显示以 `1.8` 开头的版本。
+
+- 如果您的架构是 `arm64` 或 `aarch64`（Apple Silicon / ARM 服务器）：
+    - 安装 Java SE 17（JDK 17）：[https://www.oracle.com/java/technologies/downloads/#java17](https://www.oracle.com/java/technologies/javase/javase8-archive-downloads.html)
+    - 验证：
+    ```bash
+    java -version
+    ```
+    输出应显示以 `17` 开头的版本。
+
+### 编译 java-tron 源代码
+
+1.  克隆仓库并切换到 `master` 分支：
+    ```
+    git clone https://github.com/tronprotocol/java-tron.git
+    git checkout -t origin/master
+    cd java-tron
+    ```
+2.  然后，运行以下命令来构建 java-tron：
+    ```
+    ./gradlew clean build -x test
+    ```
+    * 参数 `-x test` 表示跳过测试用例的执行。您可以移除此参数以在编译期间执行测试代码，但这将延长编译时间。
+    * 如果在构建过程中遇到 `DependencyVerificationException`，请刷新依赖项并重新生成验证元数据：
+      ```
+      ./gradlew clean build -x test --refresh-dependencies
+      ```
+    * 编译完成后，`FullNode.jar` 文件将在 `java-tron/build/libs/` 目录中生成。
 
 ## 启动 java-tron 节点
 
-您可以选择不同的配置文件将 java-tron 节点连接到不同的 TRON 网络:
+全节点作为 TRON 网络的入口，通过 HTTP 和 RPC API 提供完整接口。客户端可借助这些端点执行资产转账、部署智能合约并调用链上逻辑。全节点必须接入 TRON 网络，才能参与共识与交易处理。
 
-* 主网全节点配置文件：[config.conf](https://github.com/tronprotocol/java-tron/blob/master/framework/src/main/resources/config.conf)
-* 其他网络节点配置文件：
-    * Nile 测试网：https://nileex.io/
-    * 私链网络：请参考[私链网络](https://tronprotocol.github.io/documentation-zh/using_javatron/private_network/)
+### TRON 网络类型
+TRON 网络主要分为以下几类：
 
-### 启动全节点 (FullNode)
+- **主网（Mainnet）**  
+  承载真实价值（TRX、TRC-20 代币等）的公共区块链，由庞大的去中心化网络保障安全。
 
-**全节点** (FullNode) 作为 TRON 网络的入口点，拥有完整的历史数据，并提供对外访问的 HTTP API、 gRPC API 和 JSON-RPC API。您可以通过全节点与 TRON 网络进行交互，例如资产转移、智能合约部署、智能合约交互等。
+- **[Nile 测试网（Testnet）](https://nileex.io/)**  
+  面向未来的测试网，新功能和治理提案会率先在此上线，供开发者体验，因此其代码版本通常领先于主网。
 
-以下是启动**主网全节点**的命令，通过 `-c` 参数指定配置文件：
+- **[Shasta 测试网](https://shasta.tronex.io/)**  
+  与主网的特性和治理提案保持高度一致，网络参数及软件版本与主网同步，为开发者提供接近真实的最终测试环境。
 
-```shell
-java -Xmx24g -XX:+UseConcMarkSweepGC -jar FullNode.jar -c config.conf
+- **私有网络**  
+  由私人实体搭建的定制化 TRON 网络，用于测试、开发或特定业务场景。
+
+启动全节点时，通过指定对应的配置文件即可选择网络：主网配置：[config.conf](https://github.com/tronprotocol/java-tron/blob/master/framework/src/main/resources/config.conf)；Nile 测试网配置：[config-nile.conf](https://github.com/tron-nile-testnet/nile-testnet/blob/master/framework/src/main/resources/config-nile.conf)
+
+### 启动全节点连接主网
+
+以下是启动 **主网全节点** 的命令，使用默认内置的主网配置文件：
+
+`
+nohup java -Xms9G -jar ./build/libs/FullNode.jar -c config.conf &
+`
+
+*   `nohup ... &`：在后台运行命令并忽略挂断信号。
+*   `Xms9G`： 参数将FullNode运行的JVM最小堆值设置为`9 GB`。
+
+使用一下命令查看全节点运行日志，可以看到区块同步进度，节点连接状态等信息：
+```bash
+tail -f ./logs/tron.log
 ```
 
-* `-XX:+UseConcMarkSweepGC`: 指定并发标记-清除 (CMS) 垃圾回收器。此参数必须放在 `-jar` 参数之前。
-* `-Xms`：Java 虚拟机 (JVM) 堆的初始值，`-Xmx`: JVM堆的最大值，`-XX:NewRatio`: 堆内存中老年代和年轻代的比例，比如`-XX:NewRatio=2`，则表示老年代是年轻代的2倍。
-    * 对于普通的FullNode节点，推荐设置：`-Xms12G -Xmx12G -XX:NewRatio=3`
-    * 对于出块节点，推荐设置：`-Xms24G -Xmx24G -XX:NewRatio=3`   
-* 要启动 **Nile 测试网全节点** 或**私链全节点**，请使用本节开头部分列出的相应配置文件链接。
+使用 TRON 官方区块链浏览器 [TronScan](https://tronscan.org/#/) 查看主网交易、区块、账户、超级代表投票和治理指标等信息。
+
+请参见后续章节，了解在 Nile 测试网和私有网络中部署全节点的详细说明。
+
+#### 主网 FullNode 部署的 JVM 参数优化
+为了在连接主网时获得更高的效率和稳定性，请参考以下针对不同架构的完整Java程序启动命令：
+
+##### x86_64（JDK 8）
+```bash
+$ nohup java -Xms9G -Xmx12G -XX:ReservedCodeCacheSize=256m \
+             -XX:MetaspaceSize=256m -XX:MaxMetaspaceSize=512m \
+             -XX:MaxDirectMemorySize=1G -XX:+PrintGCDetails \
+             -XX:+PrintGCDateStamps  -Xloggc:gc.log \
+             -XX:+UseConcMarkSweepGC -XX:NewRatio=3 \
+             -XX:+CMSScavengeBeforeRemark -XX:+ParallelRefProcEnabled \
+             -XX:+HeapDumpOnOutOfMemoryError \
+             -XX:+UseCMSInitiatingOccupancyOnly  -XX:CMSInitiatingOccupancyFraction=70 \
+             -jar ./build/libs/FullNode.jar -c main_net_config.conf &
+```
+##### ARM64（JDK 17）
+```bash
+$ nohup java -Xmx9G -XX:+UseZGC \
+             -Xlog:gc,gc+heap:file=gc.log:time,tags,level:filecount=10,filesize=100M \
+             -XX:ReservedCodeCacheSize=256m \
+             -XX:+UseCodeCacheFlushing \
+             -XX:MetaspaceSize=256m \
+             -XX:MaxMetaspaceSize=512m \
+             -XX:MaxDirectMemorySize=1g \
+             -XX:+HeapDumpOnOutOfMemoryError \
+             -jar ./build/libs/FullNode.jar -c main_net_config.conf &
+```
+
+#### Java 启动参数解释
+**通用内存参数：**
+
+*   `-Xms` / `-Xmx`：设置 JVM 堆的初始值和最大值。
+    * 对于最低硬件要求（16 GB RAM 的服务器）：建议 JDK 8 使用 `-Xms9G -Xmx12G`；JDK 17 使用 `-Xmx9G`。
+    * 对于 RAM ≥32 GB 的服务器，建议将最大堆值（`-Xmx`）设置为总 RAM 的 40%，最小堆值设置为 `-Xms9G`。
+*   `-XX:MetaspaceSize` / `-XX:MaxMetaspaceSize`：设置元空间（类元数据）的初始值和最大值。
+*   `-XX:MaxDirectMemorySize`：限制 NIO Direct Byte Buffers 使用的内存。
+*   `-XX:ReservedCodeCacheSize`：设置 JIT 代码缓存的最大值。
+*   `-XX:+UseCodeCacheFlushing`：允许 JVM 在代码缓存满时刷新它。
+*   `-XX:+HeapDumpOnOutOfMemoryError`：如果发生 OutOfMemoryError，则将堆内存转储到文件。
+
+**JDK 8（CMS GC）特有参数：**
+
+*   `-XX:+UseConcMarkSweepGC`：启用并发标记清除（CMS）垃圾收集器。
+*   `-XX:NewRatio=3`：设置老年代与新生代的比例为 3:1。
+*   `-XX:+CMSScavengeBeforeRemark`：在 CMS 重新标记阶段之前触发一次 Minor GC，以减少暂停时间。
+*   `-XX:+ParallelRefProcEnabled`：启用并行引用处理，以减少暂停时间。
+*   `-XX:+UseCMSInitiatingOccupancyOnly` 和 `-XX:CMSInitiatingOccupancyFraction=70`：强制 CMS 在老年代使用率达到 70% 时开始回收。
+*   `-XX:+PrintGCDetails`、`-XX:+PrintGCDateStamps`、`-Xloggc:gc.log`：传统的 GC 日志记录设置。
+
+**JDK 17（ZGC）特有参数：**
+
+*   `-XX:+UseZGC`：启用 ZGC，一种可扩展的低延迟垃圾收集器。
+*   `-Xlog:gc...`：统一的 JVM 日志记录配置。示例配置了带有文件轮换（10 个文件，每个 100MB）的 GC 日志。
+
+### 启动全节点连接 Nile 测试网
+
+使用 `-c` 参数将节点指向对应网络的配置文件。由于 Nile 测试网可能包含主网尚未发布的新功能，**强烈建议**按照 [Nile 测试网源码编译指南](https://github.com/tron-nile-testnet/nile-testnet/blob/master/README.md#building-the-source-code) 编译源码。
+
+```bash
+nohup java -jar ./build/libs/FullNode.jar -c config-nile.conf &
+```
+
+Nile 相关资源：区块浏览器、水龙头、钱包、开发者文档及网络统计信息，请访问 [nileex.io](https://nileex.io/)。
+
+### 接入 Shasta 测试网
+
+Shasta 不接受公共节点连接同步区块，仅可通过 TronGrid 端点以API方式访问；详情见 [TronGrid 服务](https://developers.tron.network/docs/trongrid)。
+Shasta 相关资源（浏览器、水龙头、钱包、开发者文档及网络统计）请访问 [shastaex.io](https://shasta.tronex.io/)。
+
+### 启动全节点连接私有网络
+
+如需为测试或开发搭建私有网络，请遵循[私有网络指南](https://tronprotocol.github.io/documentation-zh/using_javatron/private_network/)。
 
 ### 启动出块节点
 
