@@ -21,10 +21,10 @@
     为保持配置和数据的隔离，建议为每个节点创建独立的部署目录。
       ```
       # 创建超级代表 (SR) 节点目录
-      $ mkdir SR
+      mkdir SR
       
       # 创建普通全节点目录
-      $ mkdir FullNode
+      mkdir FullNode
       ```
 
 2. 获取 java-tron 客户端
@@ -32,8 +32,8 @@
      - 从 [Java-tron GitHub Releases](https://github.com/tronprotocol/java-tron/releases) 页面下载最新的 `FullNode.jar`。
     - 将下载的 `JAR` 文件分别复制到两个节点目录中。
      ```
-     $ cp FullNode.jar ./SR
-     $ cp FullNode.jar ./FullNode
+     cp FullNode.jar ./SR
+     cp FullNode.jar ./FullNode
      ```
 
 3. 准备配置文件
@@ -42,10 +42,10 @@
     - 将其分别复制到两个节点目录中，并重命名以作区分。
       ```
       # 用于 SR 节点的配置文件
-      $ cp private_net_config.conf ./SR/supernode.conf
+      cp private_net_config.conf ./SR/supernode.conf
       
       # 用于普通全节点的配置文件
-      $ cp private_net_config.conf ./FullNode/fullnode.conf
+      cp private_net_config.conf ./FullNode/fullnode.conf
       ```
 
 4. 修改节点配置
@@ -78,13 +78,13 @@
 
     * 启动超级代表 (SR) 节点：
       ```
-      $ cd SR
-      $ java -Xmx6g -XX:+HeapDumpOnOutOfMemoryError -jar FullNode.jar  --witness  -c supernode.conf
+      cd SR
+      java -Xmx6g -XX:+HeapDumpOnOutOfMemoryError -jar FullNode.jar  --witness  -c supernode.conf
       ```
     * 启动普通全节点：
       ```
-      $ cd FullNode
-      $ java -Xmx6g -XX:+HeapDumpOnOutOfMemoryError -jar FullNode.jar  -c fullnode.conf
+      cd FullNode
+      java -Xmx6g -XX:+HeapDumpOnOutOfMemoryError -jar FullNode.jar  -c fullnode.conf
       #启动后，请观察控制台日志，确保全节点能够成功连接到SR节点并开始同步区块。
       ```
 

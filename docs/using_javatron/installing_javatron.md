@@ -134,7 +134,7 @@ tail -f ./logs/tron.log
 
 ##### x86_64（JDK 8）
 ```bash
-$ nohup java -Xms9G -Xmx12G -XX:ReservedCodeCacheSize=256m \
+nohup java -Xms9G -Xmx12G -XX:ReservedCodeCacheSize=256m \
              -XX:MetaspaceSize=256m -XX:MaxMetaspaceSize=512m \
              -XX:MaxDirectMemorySize=1G -XX:+PrintGCDetails \
              -XX:+PrintGCDateStamps  -Xloggc:gc.log \
@@ -146,7 +146,7 @@ $ nohup java -Xms9G -Xmx12G -XX:ReservedCodeCacheSize=256m \
 ```
 ##### ARM64（JDK 17）
 ```bash
-$ nohup java -Xmx9G -XX:+UseZGC \
+nohup java -Xmx9G -XX:+UseZGC \
              -Xlog:gc,gc+heap:file=gc.log:time,tags,level:filecount=10,filesize=100M \
              -XX:ReservedCodeCacheSize=256m \
              -XX:+UseCodeCacheFlushing \
@@ -220,10 +220,32 @@ localwitness = [
 ]
 ```
 
-然后执行以下命令来启动出块节点：
+对于运行在高性能服务器（例如，≥ 64GB 内存）上的 SR 节点，强烈建议使用以下优化的 Java 启动命令。这些配置旨在确保区块生产的最大稳定性和效率。请执行与您的环境相对应的命令：
 
-```shell
-java -XX:+UseConcMarkSweepGC -jar FullNode.jar --witness -c config.conf
+#### 选项 1：JDK 8（x86_64 架构）
+```bash
+nohup java -Xms9G -Xmx24G -XX:ReservedCodeCacheSize=256m \
+    -XX:MetaspaceSize=256m -XX:MaxMetaspaceSize=512m \
+    -XX:MaxDirectMemorySize=1G -XX:+PrintGCDetails \
+    -XX:+PrintGCDateStamps  -Xloggc:gc.log \
+    -XX:+UseConcMarkSweepGC -XX:NewRatio=3 \
+    -XX:+CMSScavengeBeforeRemark -XX:+ParallelRefProcEnabled \
+    -XX:+HeapDumpOnOutOfMemoryError \
+    -XX:+UseCMSInitiatingOccupancyOnly  -XX:CMSInitiatingOccupancyFraction=70 \
+    -jar ./build/libs/FullNode.jar --witness -c config.conf &
+```
+
+#### 选项 2：JDK 17（ARM64 架构）
+```bash
+nohup java -Xms9G -Xmx24G -XX:+UseZGC \
+    -Xlog:gc,gc+heap:file=gc.log:time,tags,level:filecount=10,filesize=100M \
+    -XX:ReservedCodeCacheSize=256m \
+    -XX:+UseCodeCacheFlushing \
+    -XX:MetaspaceSize=256m \
+    -XX:MaxMetaspaceSize=512m \
+    -XX:MaxDirectMemorySize=1g \
+    -XX:+HeapDumpOnOutOfMemoryError \
+    -jar ./build/libs/FullNode.jar --witness -c config.conf &
 ```
 
 > **注意：** 对于主网 SR 节点，请参考 [主网 FullNode 部署的 JVM 参数优化](#主网-fullnode-部署的-jvm-参数优化) 章节，获取适用于不同架构的完整 Java 启动命令。对于配备 64 GB 内存的服务器，建议将 JVM 堆大小设置为 `-Xms9G -Xmx24G`。
