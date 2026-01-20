@@ -199,7 +199,7 @@ Shasta 相关资源（浏览器、水龙头、钱包、开发者文档及网络�
 
 ### 启动全节点连接私有网络
 
-如需为测试或开发搭建私有网络，请遵循[私有网络指南](https://tronprotocol.github.io/documentation-en/using_javatron/private_network/)。
+如需为测试或开发搭建私有网络，请遵循[私有网络指南](https://tronprotocol.github.io/documentation-zh/using_javatron/private_network/)。
 
 ### 启动出块节点
 
