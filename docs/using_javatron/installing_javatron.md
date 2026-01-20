@@ -113,7 +113,7 @@ TRON 网络主要分为以下几类：
 以下是启动 **主网全节点** 的命令，使用默认内置的主网配置文件：
 
 `
-$ nohup java -Xms9G -jar ./build/libs/FullNode.jar -c config.conf &
+nohup java -Xms9G -jar ./build/libs/FullNode.jar -c config.conf &
 `
 
 *   `nohup ... &`：在后台运行命令并忽略挂断信号。
