@@ -113,11 +113,12 @@ TRON 网络主要分为以下几类：
 以下是启动 **主网全节点** 的命令，使用默认内置的主网配置文件：
 
 `
-nohup java -Xms9G -jar ./build/libs/FullNode.jar -c config.conf &
+nohup java -jar ./build/libs/FullNode.jar -c config.conf &
 `
 
 *   `nohup ... &`：在后台运行命令并忽略挂断信号。
-*   `Xms9G`： 参数将FullNode运行的JVM最小堆值设置为`9 GB`。
+
+> 对于生产环境部署或长期运行的主网节点，请参考下方 [主网 FullNode 部署的 JVM 参数优化](#主网-fullnode-部署的-jvm-参数优化) 章节，以获取完整的Java启动命令。
 
 使用一下命令查看全节点运行日志，可以看到区块同步进度，节点连接状态等信息：
 ```bash
@@ -222,8 +223,10 @@ localwitness = [
 然后执行以下命令来启动出块节点：
 
 ```shell
-java -Xmx24g -XX:+UseConcMarkSweepGC -jar FullNode.jar --witness -c config.conf
+java -XX:+UseConcMarkSweepGC -jar FullNode.jar --witness -c config.conf
 ```
+
+> **注意：** 对于主网 SR 节点，请参考 [主网 FullNode 部署的 JVM 参数优化](#主网-fullnode-部署的-jvm-参数优化) 章节，获取适用于不同架构的完整 Java 启动命令。对于配备 64 GB 内存的服务器，建议将 JVM 堆大小设置为 `-Xms9G -Xmx24G`。
 
 ### 主从模式的出块全节点
 
