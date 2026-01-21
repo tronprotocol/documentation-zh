@@ -248,8 +248,6 @@ nohup java -Xms9G -Xmx24G -XX:+UseZGC \
     -jar ./build/libs/FullNode.jar --witness -c config.conf &
 ```
 
-> **注意：** 对于主网 SR 节点，请参考 [主网 FullNode 部署的 JVM 参数优化](#主网-fullnode-部署的-jvm-参数优化) 章节，获取适用于不同架构的完整 Java 启动命令。对于配备 64 GB 内存的服务器，建议将 JVM 堆大小设置为 `-Xms9G -Xmx24G`。
-
 ### 主从模式的出块全节点
 
 为了提高出块全节点的可靠性，可以部署多个相同账户的出块全节点，形成主从模式。当一个具有出块权限的账户部署大于等于两个节点时（推荐数量：2个，主节点及从节点各1个），需要完善各节点配置文件中的`node.backup`。`node.backup`的配置项说明如下：
