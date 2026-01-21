@@ -113,13 +113,14 @@ TRON 网络主要分为以下几类：
 以下是启动 **主网全节点** 的命令，使用默认内置的主网配置文件：
 
 `
-nohup java -Xms9G -jar ./build/libs/FullNode.jar -c config.conf &
+nohup java -jar ./build/libs/FullNode.jar -c config.conf &
 `
 
 *   `nohup ... &`：在后台运行命令并忽略挂断信号。
-*   `Xms9G`： 参数将FullNode运行的JVM最小堆值设置为`9 GB`。
 
-使用一下命令查看全节点运行日志，可以看到区块同步进度，节点连接状态等信息：
+> 对于生产环境部署或长期运行的主网节点，请参考下方 [主网 FullNode 部署的 JVM 参数优化](#fullnode-jvm) 章节，以获取完整的Java启动命令。
+
+使用以下命令查看全节点运行日志，可以看到区块同步进度，节点连接状态等信息：
 ```bash
 tail -f ./logs/tron.log
 ```
@@ -128,12 +129,12 @@ tail -f ./logs/tron.log
 
 请参见后续章节，了解在 Nile 测试网和私有网络中部署全节点的详细说明。
 
-#### 主网 FullNode 部署的 JVM 参数优化
+#### 主网 FullNode 部署的 JVM 参数优化 <a id="fullnode-jvm"></a>
 为了在连接主网时获得更高的效率和稳定性，请参考以下针对不同架构的完整Java程序启动命令：
 
 ##### x86_64（JDK 8）
 ```bash
-$ nohup java -Xms9G -Xmx12G -XX:ReservedCodeCacheSize=256m \
+nohup java -Xms9G -Xmx12G -XX:ReservedCodeCacheSize=256m \
              -XX:MetaspaceSize=256m -XX:MaxMetaspaceSize=512m \
              -XX:MaxDirectMemorySize=1G -XX:+PrintGCDetails \
              -XX:+PrintGCDateStamps  -Xloggc:gc.log \
@@ -145,7 +146,7 @@ $ nohup java -Xms9G -Xmx12G -XX:ReservedCodeCacheSize=256m \
 ```
 ##### ARM64（JDK 17）
 ```bash
-$ nohup java -Xmx9G -XX:+UseZGC \
+nohup java -Xmx9G -XX:+UseZGC \
              -Xlog:gc,gc+heap:file=gc.log:time,tags,level:filecount=10,filesize=100M \
              -XX:ReservedCodeCacheSize=256m \
              -XX:+UseCodeCacheFlushing \
@@ -219,10 +220,32 @@ localwitness = [
 ]
 ```
 
-然后执行以下命令来启动出块节点：
+对于运行在高性能服务器（例如，≥ 64GB 内存）上的 SR 节点，强烈建议使用以下优化的 Java 启动命令。这些配置旨在确保区块生产的最大稳定性和效率。请执行与您的环境相对应的命令：
 
-```shell
-java -Xmx24g -XX:+UseConcMarkSweepGC -jar FullNode.jar --witness -c config.conf
+#### 选项 1：JDK 8（x86_64 架构）
+```bash
+nohup java -Xms9G -Xmx24G -XX:ReservedCodeCacheSize=256m \
+    -XX:MetaspaceSize=256m -XX:MaxMetaspaceSize=512m \
+    -XX:MaxDirectMemorySize=1G -XX:+PrintGCDetails \
+    -XX:+PrintGCDateStamps  -Xloggc:gc.log \
+    -XX:+UseConcMarkSweepGC -XX:NewRatio=3 \
+    -XX:+CMSScavengeBeforeRemark -XX:+ParallelRefProcEnabled \
+    -XX:+HeapDumpOnOutOfMemoryError \
+    -XX:+UseCMSInitiatingOccupancyOnly  -XX:CMSInitiatingOccupancyFraction=70 \
+    -jar ./build/libs/FullNode.jar --witness -c config.conf &
+```
+
+#### 选项 2：JDK 17（ARM64 架构）
+```bash
+nohup java -Xms9G -Xmx24G -XX:+UseZGC \
+    -Xlog:gc,gc+heap:file=gc.log:time,tags,level:filecount=10,filesize=100M \
+    -XX:ReservedCodeCacheSize=256m \
+    -XX:+UseCodeCacheFlushing \
+    -XX:MetaspaceSize=256m \
+    -XX:MaxMetaspaceSize=512m \
+    -XX:MaxDirectMemorySize=1g \
+    -XX:+HeapDumpOnOutOfMemoryError \
+    -jar ./build/libs/FullNode.jar --witness -c config.conf &
 ```
 
 ### 主从模式的出块全节点
