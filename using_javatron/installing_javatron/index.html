@@ -465,9 +465,36 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item ">
+  <a href="#tron" class="md-nav__link" >
+    <span class="md-ellipsis">
+      TRON 网络类型
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
   <a href="#_2" class="md-nav__link" >
     <span class="md-ellipsis">
-      启动全节点
+      启动全节点连接主网
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#nile" class="md-nav__link" >
+    <span class="md-ellipsis">
+      启动全节点连接 Nile 测试网
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#shasta" class="md-nav__link" >
+    <span class="md-ellipsis">
+      接入 Shasta 测试网
     </span>
   </a>
   
@@ -476,7 +503,7 @@
           <li class="md-nav__item ">
   <a href="#_3" class="md-nav__link" >
     <span class="md-ellipsis">
-      启动出块节点
+      启动全节点连接私有网络
     </span>
   </a>
   
@@ -484,6 +511,15 @@
         
           <li class="md-nav__item ">
   <a href="#_4" class="md-nav__link" >
+    <span class="md-ellipsis">
+      启动出块节点
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#_5" class="md-nav__link" >
     <span class="md-ellipsis">
       主从模式的出块全节点
     </span>
@@ -497,7 +533,7 @@
 </li>
       
         <li class="md-nav__item has-children">
-  <a href="#_5" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
+  <a href="#_6" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
     <span class="md-ellipsis">
       优化与注意事项
     </span>
@@ -507,7 +543,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item ">
-  <a href="#_6" class="md-nav__link" >
+  <a href="#_7" class="md-nav__link" >
     <span class="md-ellipsis">
       加快节点数据同步
     </span>
@@ -1643,7 +1679,7 @@
 <h3 id="java-tron_2">编译 java-tron 前的先决条件<a class="headerlink" href="#java-tron_2" title="Permanent link">&para;</a></h3>
 <p>在编译 java-tron 之前，请确保您具备：</p>
 <ul>
-<li>操作系统：<code>Linux</code> 或 <code>MacOS</code>（不支持 <code>Windows</code>）。</li>
+<li>操作系统：<code>Linux</code> 或 <code>macOS</code>（不支持 <code>Windows</code>）。</li>
 <li>已安装 Git 和根据您 CPU 架构安装的正确 JDK 版本。</li>
 </ul>
 <p>步骤 1：验证 Git 是否安装</p>
@@ -1694,28 +1730,46 @@ cd java-tron
 </li>
 </ol>
 <h2 id="java-tron_4">启动 java-tron 节点<a class="headerlink" href="#java-tron_4" title="Permanent link">&para;</a></h2>
-<p>您可以选择不同的配置文件将 java-tron 节点连接到不同的 TRON 网络：</p>
+<p>全节点作为 TRON 网络的入口，通过 HTTP 和 RPC API 提供完整接口。客户端可借助这些端点执行资产转账、部署智能合约并调用链上逻辑。全节点必须接入 TRON 网络，才能参与共识与交易处理。</p>
+<h3 id="tron">TRON 网络类型<a class="headerlink" href="#tron" title="Permanent link">&para;</a></h3>
+<p>TRON 网络主要分为以下几类：</p>
 <ul>
-<li>主网 FullNode 配置文件：<a href="https://github.com/tronprotocol/java-tron/blob/master/framework/src/main/resources/config.conf">config.conf</a></li>
-<li>其他网络节点配置：<ul>
-<li>Nile 测试网：<a href="https://github.com/tron-nile-testnet/nile-testnet/blob/master/framework/src/main/resources/config-nile.conf">https://github.com/tron-nile-testnet/nile-testnet/blob/master/framework/src/main/resources/config-nile.conf</a></li>
-<li>私有网络：请参阅 <a href="https://tronprotocol.github.io/documentation-zh/using_javatron/private_network/">私有网络</a></li>
-</ul>
+<li>
+<p><strong>主网（Mainnet）</strong><br />
+  承载真实价值（TRX、TRC-20 代币等）的公共区块链，由庞大的去中心化网络保障安全。</p>
+</li>
+<li>
+<p><strong><a href="https://nileex.io/">Nile 测试网（Testnet）</a></strong><br />
+  面向未来的测试网，新功能和治理提案会率先在此上线，供开发者体验，因此其代码版本通常领先于主网。</p>
+</li>
+<li>
+<p><strong><a href="https://shasta.tronex.io/">Shasta 测试网</a></strong><br />
+  与主网的特性和治理提案保持高度一致，网络参数及软件版本与主网同步，为开发者提供接近真实的最终测试环境。</p>
+</li>
+<li>
+<p><strong>私有网络</strong><br />
+  由私人实体搭建的定制化 TRON 网络，用于测试、开发或特定业务场景。</p>
 </li>
 </ul>
-<h3 id="_2">启动全节点<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
-<p>全节点即<strong>FullNode</strong> 是 TRON 网络的入口点，拥有完整的历史数据，并通过 <strong>HTTP API</strong>、<strong>gRPC API</strong> 和 <strong>JSON-RPC API</strong> 提供外部访问。您可以通过 <strong>FullNode</strong> 与 TRON 网络交互，进行资产转移、智能合约部署和智能合约交互等交易。</p>
-<p>以下是启动 <strong>主网 FullNode</strong> 的命令，使用 <code>-c</code> 参数指定配置文件：</p>
-<p><code>$ nohup java -Xms9G -jar ./build/libs/FullNode.jar -c config.conf &amp;</code></p>
+<p>启动全节点时，通过指定对应的配置文件即可选择网络：主网配置：<a href="https://github.com/tronprotocol/java-tron/blob/master/framework/src/main/resources/config.conf">config.conf</a>；Nile 测试网配置：<a href="https://github.com/tron-nile-testnet/nile-testnet/blob/master/framework/src/main/resources/config-nile.conf">config-nile.conf</a></p>
+<h3 id="_2">启动全节点连接主网<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<p>以下是启动 <strong>主网全节点</strong> 的命令，使用默认内置的主网配置文件：</p>
+<p><code>nohup java -jar ./build/libs/FullNode.jar -c config.conf &amp;</code></p>
 <ul>
 <li><code>nohup ... &amp;</code>：在后台运行命令并忽略挂断信号。</li>
-<li><code>Xms9G</code>： 参数将FullNode运行的JVM最小堆值设置为<code>9 GB</code>。</li>
-<li>要启动 <strong>Nile 测试网 FullNode</strong> 或 <strong>私有网络 FullNode</strong>，请使用上面提供的相应配置文件链接。</li>
 </ul>
-<h4 id="fullnode-jvm">主网 FullNode 部署的 JVM 参数优化<a class="headerlink" href="#fullnode-jvm" title="Permanent link">&para;</a></h4>
+<blockquote>
+<p>对于生产环境部署或长期运行的主网节点，请参考下方 <a href="#fullnode-jvm">主网 FullNode 部署的 JVM 参数优化</a> 章节，以获取完整的Java启动命令。</p>
+</blockquote>
+<p>使用以下命令查看全节点运行日志，可以看到区块同步进度，节点连接状态等信息：
+<div class="highlight"><pre><span></span><code>tail<span class="w"> </span>-f<span class="w"> </span>./logs/tron.log
+</code></pre></div></p>
+<p>使用 TRON 官方区块链浏览器 <a href="https://tronscan.org/#/">TronScan</a> 查看主网交易、区块、账户、超级代表投票和治理指标等信息。</p>
+<p>请参见后续章节，了解在 Nile 测试网和私有网络中部署全节点的详细说明。</p>
+<h4 id="fullnode-jvm">主网 FullNode 部署的 JVM 参数优化 <a id="fullnode-jvm"></a><a class="headerlink" href="#fullnode-jvm" title="Permanent link">&para;</a></h4>
 <p>为了在连接主网时获得更高的效率和稳定性，请参考以下针对不同架构的完整Java程序启动命令：</p>
 <h5 id="x86_64jdk-8">x86_64（JDK 8）<a class="headerlink" href="#x86_64jdk-8" title="Permanent link">&para;</a></h5>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>nohup<span class="w"> </span>java<span class="w"> </span>-Xms9G<span class="w"> </span>-Xmx12G<span class="w"> </span>-XX:ReservedCodeCacheSize<span class="o">=</span>256m<span class="w"> </span><span class="se">\</span>
+<div class="highlight"><pre><span></span><code>nohup<span class="w"> </span>java<span class="w"> </span>-Xms9G<span class="w"> </span>-Xmx12G<span class="w"> </span>-XX:ReservedCodeCacheSize<span class="o">=</span>256m<span class="w"> </span><span class="se">\</span>
 <span class="w">             </span>-XX:MetaspaceSize<span class="o">=</span>256m<span class="w"> </span>-XX:MaxMetaspaceSize<span class="o">=</span>512m<span class="w"> </span><span class="se">\</span>
 <span class="w">             </span>-XX:MaxDirectMemorySize<span class="o">=</span>1G<span class="w"> </span>-XX:+PrintGCDetails<span class="w"> </span><span class="se">\</span>
 <span class="w">             </span>-XX:+PrintGCDateStamps<span class="w">  </span>-Xloggc:gc.log<span class="w"> </span><span class="se">\</span>
@@ -1726,7 +1780,7 @@ cd java-tron
 <span class="w">             </span>-jar<span class="w"> </span>./build/libs/FullNode.jar<span class="w"> </span>-c<span class="w"> </span>main_net_config.conf<span class="w"> </span><span class="p">&amp;</span>
 </code></pre></div>
 <h5 id="arm64jdk-17">ARM64（JDK 17）<a class="headerlink" href="#arm64jdk-17" title="Permanent link">&para;</a></h5>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>nohup<span class="w"> </span>java<span class="w"> </span>-Xmx9G<span class="w"> </span>-XX:+UseZGC<span class="w"> </span><span class="se">\</span>
+<div class="highlight"><pre><span></span><code>nohup<span class="w"> </span>java<span class="w"> </span>-Xmx9G<span class="w"> </span>-XX:+UseZGC<span class="w"> </span><span class="se">\</span>
 <span class="w">             </span>-Xlog:gc,gc+heap:file<span class="o">=</span>gc.log:time,tags,level:filecount<span class="o">=</span><span class="m">10</span>,filesize<span class="o">=</span>100M<span class="w"> </span><span class="se">\</span>
 <span class="w">             </span>-XX:ReservedCodeCacheSize<span class="o">=</span>256m<span class="w"> </span><span class="se">\</span>
 <span class="w">             </span>-XX:+UseCodeCacheFlushing<span class="w"> </span><span class="se">\</span>
@@ -1764,7 +1818,17 @@ cd java-tron
 <li><code>-XX:+UseZGC</code>：启用 ZGC，一种可扩展的低延迟垃圾收集器。</li>
 <li><code>-Xlog:gc...</code>：统一的 JVM 日志记录配置。示例配置了带有文件轮换（10 个文件，每个 100MB）的 GC 日志。</li>
 </ul>
-<h3 id="_3">启动出块节点<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<h3 id="nile">启动全节点连接 Nile 测试网<a class="headerlink" href="#nile" title="Permanent link">&para;</a></h3>
+<p>使用 <code>-c</code> 参数将节点指向对应网络的配置文件。由于 Nile 测试网可能包含主网尚未发布的新功能，<strong>强烈建议</strong>按照 <a href="https://github.com/tron-nile-testnet/nile-testnet/blob/master/README.md#building-the-source-code">Nile 测试网源码编译指南</a> 编译源码。</p>
+<div class="highlight"><pre><span></span><code>nohup<span class="w"> </span>java<span class="w"> </span>-jar<span class="w"> </span>./build/libs/FullNode.jar<span class="w"> </span>-c<span class="w"> </span>config-nile.conf<span class="w"> </span><span class="p">&amp;</span>
+</code></pre></div>
+<p>Nile 相关资源：区块浏览器、水龙头、钱包、开发者文档及网络统计信息，请访问 <a href="https://nileex.io/">nileex.io</a>。</p>
+<h3 id="shasta">接入 Shasta 测试网<a class="headerlink" href="#shasta" title="Permanent link">&para;</a></h3>
+<p>Shasta 不接受公共节点连接同步区块，仅可通过 TronGrid 端点以API方式访问；详情见 <a href="https://developers.tron.network/docs/trongrid">TronGrid 服务</a>。
+Shasta 相关资源（浏览器、水龙头、钱包、开发者文档及网络统计）请访问 <a href="https://shasta.tronex.io/">shastaex.io</a>。</p>
+<h3 id="_3">启动全节点连接私有网络<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<p>如需为测试或开发搭建私有网络，请遵循<a href="https://tronprotocol.github.io/documentation-zh/using_javatron/private_network/">私有网络指南</a>。</p>
+<h3 id="_4">启动出块节点<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
 <p>在上述全节点启动命令中添加 <code>--witness</code> 参数，<code>FullNode</code> 将作为<strong>出块节点</strong> (SR Node) 运行。出块节点除了支持全节点的所有功能外，还支持区块生产和交易打包。</p>
 <p><strong>重要提示</strong>:</p>
 <ul>
@@ -1777,10 +1841,30 @@ cd java-tron
 <span class="w">    </span><span class="mi">650950</span><span class="err">B</span><span class="mf">1...295</span><span class="err">BD</span><span class="mi">812</span>
 <span class="p">]</span>
 </code></pre></div>
-<p>然后执行以下命令来启动出块节点：</p>
-<div class="highlight"><pre><span></span><code>java<span class="w"> </span>-Xmx24g<span class="w"> </span>-XX:+UseConcMarkSweepGC<span class="w"> </span>-jar<span class="w"> </span>FullNode.jar<span class="w"> </span>--witness<span class="w"> </span>-c<span class="w"> </span>config.conf
+<p>对于运行在高性能服务器（例如，≥ 64GB 内存）上的 SR 节点，强烈建议使用以下优化的 Java 启动命令。这些配置旨在确保区块生产的最大稳定性和效率。请执行与您的环境相对应的命令：</p>
+<h4 id="1jdk-8x86_64">选项 1：JDK 8（x86_64 架构）<a class="headerlink" href="#1jdk-8x86_64" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>nohup<span class="w"> </span>java<span class="w"> </span>-Xms9G<span class="w"> </span>-Xmx24G<span class="w"> </span>-XX:ReservedCodeCacheSize<span class="o">=</span>256m<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-XX:MetaspaceSize<span class="o">=</span>256m<span class="w"> </span>-XX:MaxMetaspaceSize<span class="o">=</span>512m<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-XX:MaxDirectMemorySize<span class="o">=</span>1G<span class="w"> </span>-XX:+PrintGCDetails<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-XX:+PrintGCDateStamps<span class="w">  </span>-Xloggc:gc.log<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-XX:+UseConcMarkSweepGC<span class="w"> </span>-XX:NewRatio<span class="o">=</span><span class="m">3</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-XX:+CMSScavengeBeforeRemark<span class="w"> </span>-XX:+ParallelRefProcEnabled<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-XX:+HeapDumpOnOutOfMemoryError<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-XX:+UseCMSInitiatingOccupancyOnly<span class="w">  </span>-XX:CMSInitiatingOccupancyFraction<span class="o">=</span><span class="m">70</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-jar<span class="w"> </span>./build/libs/FullNode.jar<span class="w"> </span>--witness<span class="w"> </span>-c<span class="w"> </span>config.conf<span class="w"> </span><span class="p">&amp;</span>
 </code></pre></div>
-<h3 id="_4">主从模式的出块全节点<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<h4 id="2jdk-17arm64">选项 2：JDK 17（ARM64 架构）<a class="headerlink" href="#2jdk-17arm64" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>nohup<span class="w"> </span>java<span class="w"> </span>-Xms9G<span class="w"> </span>-Xmx24G<span class="w"> </span>-XX:+UseZGC<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-Xlog:gc,gc+heap:file<span class="o">=</span>gc.log:time,tags,level:filecount<span class="o">=</span><span class="m">10</span>,filesize<span class="o">=</span>100M<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-XX:ReservedCodeCacheSize<span class="o">=</span>256m<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-XX:+UseCodeCacheFlushing<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-XX:MetaspaceSize<span class="o">=</span>256m<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-XX:MaxMetaspaceSize<span class="o">=</span>512m<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-XX:MaxDirectMemorySize<span class="o">=</span>1g<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-XX:+HeapDumpOnOutOfMemoryError<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-jar<span class="w"> </span>./build/libs/FullNode.jar<span class="w"> </span>--witness<span class="w"> </span>-c<span class="w"> </span>config.conf<span class="w"> </span><span class="p">&amp;</span>
+</code></pre></div>
+<h3 id="_5">主从模式的出块全节点<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
 <p>为了提高出块全节点的可靠性，可以部署多个相同账户的出块全节点，形成主从模式。当一个具有出块权限的账户部署大于等于两个节点时（推荐数量：2个，主节点及从节点各1个），需要完善各节点配置文件中的<code>node.backup</code>。<code>node.backup</code>的配置项说明如下：</p>
 <div class="highlight"><pre><span></span><code><span class="na">node.backup {</span>
 <span class="w">  </span><span class="c1"># udp listen port, each member should have the same configuration</span>
@@ -1830,8 +1914,8 @@ cd java-tron
 <li>当一个priority高的节点出现故障失去主节点的身份，别的从节点竞争获得主节点的位置，在该priority高的节点恢复正常、重新具备出块的条件时，其不会自动获得主节点的身份，需要等到当前的主节点发生故障之后才能重新竞争获得。</li>
 <li>主从切换需要的时间：当主节点发生故障，从节点切换为主节点的时间最少需要2*keepAliveTimeout，其中keepAliveTimeout=keepAliveInterval * 6。需要2个keepAliveTimeout是因为从节点切换为主节点中间需要经过预备状态(INIT)的过渡，即从节点(SLAVER) -&gt; 预备节点(INIT) -&gt; 主节点(MASTER)。</li>
 </ul>
-<h2 id="_5">优化与注意事项<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
-<h3 id="_6">加快节点数据同步<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<h2 id="_6">优化与注意事项<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<h3 id="_7">加快节点数据同步<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
 <p>对于主网和 Nile 测试网，新节点启动后需要同步的数据量较大，将花费较长时间。您可以使用 <a href="https://tronprotocol.github.io/documentation-zh/using_javatron/backup_restore/#_5">数据快照</a> 来加快节点同步速度。</p>
 <p>操作步骤如下：</p>
 <ol>

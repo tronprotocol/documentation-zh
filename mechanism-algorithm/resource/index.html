@@ -1020,6 +1020,15 @@
 </li>
         
           <li class="md-nav__item ">
+  <a href="#_25" class="md-nav__link" >
+    <span class="md-ellipsis">
+      取消资源代理时的资源回收
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
   <a href="#api" class="md-nav__link" >
     <span class="md-ellipsis">
       相关 API 接口
@@ -2036,6 +2045,94 @@ C: 36,000,000,000
 <li><code>withdraw_expire_amount</code>:
 该字段显示了本次操作中，被自动提取到您账户余额中的、已到期的解质押 TRX 总额。</li>
 </ul>
+<h3 id="_25">取消资源代理时的资源回收<a class="headerlink" href="#_25" title="Permanent link">&para;</a></h3>
+<p><strong>说明</strong>：由于在 TRON 网络中，账户获得的资源数量取决于其 TRX 质押量 在全网总质押量中的占比。当代理方将资源代理给被代理方时，本质上是将其自身质押的一定数量的 TRX 份额借给被代理方。在计算资源配额时，系统对 TRX 的来源不作区分。账户<strong>自持质押</strong>与<strong>接收代理</strong>的 TRX 将被合并统计，统一作为获取资源的权重基数。因此，本章节所称“质押数额”除另有说明外，均指该账户的质押总额（含自身质押及他人代理），不再对其来源进行区分。</p>
+<p>当代理方发起资源代理时，会将一定数量的 TRX 质押份额借给被代理方，使其获得相应资源的使用权；当代理方执行取消资源代理操作时，系统不仅收回对应的 TRX 质押份额，同时会按比例回收被代理方账户中的未恢复资源。</p>
+<h4 id="_26">未恢复资源的回收逻辑<a class="headerlink" href="#_26" title="Permanent link">&para;</a></h4>
+<h5 id="1">1. 计算公式<a class="headerlink" href="#1" title="Permanent link">&para;</a></h5>
+<p>系统会根据取消代理的 TRX 数额，按比例回收被代理方账户中尚未恢复的资源。计算公式：</p>
+<p><div class="highlight"><pre><span></span><code>回收的未恢复资源数量 = (取消代理的 TRX 数额 / 被代理方该资源的总质押数额) * 被代理方的未恢复资源量
+</code></pre></div>
+<strong>注意</strong>：回收的未恢复资源数量，不得超过本次取消代理的 TRX 数量按当前全网实时质押量计算出的最大资源容量。</p>
+<ul>
+<li><strong>取消代理的 TRX 数额</strong>：在取消资源代理交易中，回收的 TRX 质押额度。</li>
+<li><strong>被代理方该资源的总质押数额</strong>：指被代理方持有的某项资源（能量或带宽）的质押总量（Stake 1.0 和 Stake 2.0 自身质押以及他人代理总和）。可通过 <a href="https://developers.tron.network/reference/account-getaccount#/">wallet/getaccount</a> 接口查询。</li>
+<li><strong>被代理方的未恢复资源量</strong>：指被代理方账户中当前已消耗且正在处于恢复周期内的资源数量。可通过 <a href="https://developers.tron.network/reference/account-getaccount#/">wallet/getaccount</a> 或 <a href="https://developers.tron.network/reference/getaccountresource#/">wallet/getaccountresource</a> 接口查询。</li>
+</ul>
+<h5 id="2">2.账户状态变化<a class="headerlink" href="#2" title="Permanent link">&para;</a></h5>
+<p>取消资源代理完成后，双方账户在资源相关的有效状态上将发生如下变化。
+以下表达仅用于描述逻辑层面的变化关系，其中“质押数额”为计算概念，并不对应链上的某一具体字段。</p>
+<p><strong>代理方</strong></p>
+<div class="highlight"><pre><span></span><code>质押数额 = 原质押数额 + 取消代理的 TRX 数额
+
+未恢复资源量 = 原未恢复资源量 + 回收的未恢复资源量
+</code></pre></div>
+<p><strong>被代理方</strong></p>
+<div class="highlight"><pre><span></span><code>质押数额 = 原质押数额 - 取消代理的 TRX 数额
+
+未恢复资源量 = 原未恢复资源量 - 回收的未恢复资源量
+</code></pre></div>
+<p><strong>注意：</strong> 资源被消耗后会在 24 小时内匀速线性地恢复。如果在恢复期间，账户再次使用资源或收回代理资源，系统会将原有的恢复进度与新的恢复周期进行加权合并。</p>
+<h4 id="_27">示例<a class="headerlink" href="#_27" title="Permanent link">&para;</a></h4>
+<p>假设当前全网资源倍率为：1 TRX 质押量 = 0.2 Energy，并且全网的质押总量不变。用户 X 将其持有的 200 TRX 额度的能量代理给了用户 Y。在用户 X 取消代理操作前，两个账户的状态如下：</p>
+<table>
+<thead>
+<tr>
+<th>账户</th>
+<th>角色</th>
+<th>总质押数额（为获取能量）</th>
+<th>能量总量</th>
+<th>未恢复的能量数量</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>X</td>
+<td>代理方</td>
+<td>1000 TRX</td>
+<td>200 Energy</td>
+<td>75 Energy</td>
+</tr>
+<tr>
+<td>Y</td>
+<td>被代理方</td>
+<td>500 TRX</td>
+<td>100 Energy</td>
+<td>50 Energy</td>
+</tr>
+</tbody>
+</table>
+<p>当用户 X 取消对 用户 Y 的 200 TRX 的能量代理时：</p>
+<p><div class="highlight"><pre><span></span><code>回收的未恢复能量数量 = (200 / 500) * 50 = 20 Energy
+</code></pre></div>
+回收后，各账户的状态：</p>
+<table>
+<thead>
+<tr>
+<th>账户</th>
+<th>身份</th>
+<th>总质押数额（为获取能量）</th>
+<th>能量总量</th>
+<th>未恢复的能量数量</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>X</td>
+<td>代理方</td>
+<td>1200 TRX（1000 + 200 ）</td>
+<td>240 Energy</td>
+<td>95 Energy（ 75 + 20 ）</td>
+</tr>
+<tr>
+<td>Y</td>
+<td>被代理方</td>
+<td>300 TRX（500 - 200）</td>
+<td>60 Energy</td>
+<td>30 Energy（ 50 -20 ）</td>
+</tr>
+</tbody>
+</table>
 <h3 id="api">相关 API 接口<a class="headerlink" href="#api" title="Permanent link">&para;</a></h3>
 <p>下表为质押模型相关接口及其说明：</p>
 <table>
