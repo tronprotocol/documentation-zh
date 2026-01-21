@@ -118,7 +118,7 @@ nohup java -jar ./build/libs/FullNode.jar -c config.conf &
 
 *   `nohup ... &`：在后台运行命令并忽略挂断信号。
 
-> 对于生产环境部署或长期运行的主网节点，请参考下方 [主网 FullNode 部署的 JVM 参数优化](#主网-fullnode-部署的-jvm-参数优化) 章节，以获取完整的Java启动命令。
+> 对于生产环境部署或长期运行的主网节点，请参考下方 [主网 FullNode 部署的 JVM 参数优化](#fullnode-jvm) 章节，以获取完整的Java启动命令。
 
 使用一下命令查看全节点运行日志，可以看到区块同步进度，节点连接状态等信息：
 ```bash
@@ -129,7 +129,7 @@ tail -f ./logs/tron.log
 
 请参见后续章节，了解在 Nile 测试网和私有网络中部署全节点的详细说明。
 
-#### 主网 FullNode 部署的 JVM 参数优化
+#### 主网 FullNode 部署的 JVM 参数优化 <a id="fullnode-jvm"></a>
 为了在连接主网时获得更高的效率和稳定性，请参考以下针对不同架构的完整Java程序启动命令：
 
 ##### x86_64（JDK 8）
