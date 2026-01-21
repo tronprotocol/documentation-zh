@@ -120,7 +120,7 @@ nohup java -jar ./build/libs/FullNode.jar -c config.conf &
 
 > 对于生产环境部署或长期运行的主网节点，请参考下方 [主网 FullNode 部署的 JVM 参数优化](#fullnode-jvm) 章节，以获取完整的Java启动命令。
 
-使用一下命令查看全节点运行日志，可以看到区块同步进度，节点连接状态等信息：
+使用以下命令查看全节点运行日志，可以看到区块同步进度，节点连接状态等信息：
 ```bash
 tail -f ./logs/tron.log
 ```
