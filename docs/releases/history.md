@@ -3,6 +3,7 @@
 
 |  名称 |版本号  | 发布日期 | 包含的TIP | 版本说明 | 技术解读 |
 | -------- | -------- | -------- | -------- | -------- | -------- |
+|  Seneca    |  GreatVoyage-v4.8.0.1    |  2026-01-13    |  N/A  |  [Release Note](https://github.com/tronprotocol/java-tron/releases/tag/GreatVoyage-v4.8.0.1)   |   [Specs](#greatvoyage-4801seneca)   |
 |  Kant    |  GreatVoyage-v4.8.0    |  2025-04-29    |  [TIP-650](https://github.com/tronprotocol/tips/blob/master/tip-650.md) <br> [TIP-651](https://github.com/tronprotocol/tips/blob/master/tip-651.md) <br> [TIP-694](https://github.com/tronprotocol/tips/blob/master/tip-694.md) <br> [TIP-697](https://github.com/tronprotocol/tips/blob/master/tip-697.md) <br> [TIP-745](https://github.com/tronprotocol/tips/blob/master/tip-745.md)  |  [Release Note](https://github.com/tronprotocol/java-tron/releases/tag/GreatVoyage-v4.8.0)   |   [Specs](#greatvoyage-480kant)   |
 |  Epicurus    |  GreatVoyage-v4.7.7    |  2024-11-29    |  [TIP-697](https://github.com/tronprotocol/tips/issues/697)  |  [Release Note](https://github.com/tronprotocol/java-tron/releases/tag/GreatVoyage-v4.7.7)   |   [Specs](#greatvoyage-477epicurus)   |
 |  Anaximander    |  GreatVoyage-v4.7.6    |  2024-10-04    |  N/A   |  [Release Note](https://github.com/tronprotocol/java-tron/releases/tag/GreatVoyage-v4.7.6)   |   [Specs](#greatvoyage-v476anaximander)   |
@@ -79,6 +80,20 @@
 |   N/A   | Odyssey-v1.0.4    |  2018-4-13    |  N/A    |      [Release Note](https://github.com/tronprotocol/java-tron/releases/tag/Odyssey-v1.0.4)    |  N/A   |
 |   N/A   | Odyssey-v1.0.3    |  2018-4-5    |  N/A    |      [Release Note](https://github.com/tronprotocol/java-tron/releases/tag/Odyssey-v1.0.3)    |  N/A   |
 |   N/A   | Exodus-v1.0    |  2017-12-28    |  N/A    |      [Release Note](https://github.com/tronprotocol/java-tron/releases/tag/Exodus-v1.0)    |  N/A   |
+
+## GreatVoyage-4.8.0.1(Seneca)
+
+### 其它变更
+#### 1. 优化 ExchangeTransactionContract 类型的交易处理逻辑
+	
+由于 `ExchangeTransactionContract` 涉及的指数运算较为繁琐，且其应用场景已由更高效的 SunSwap 型 AMM (Automated Market Maker) 协议完全覆盖，当前版本对相关功能进行了整合和精简，本次优化不影响用户资产安全。原交易对（Exchange）的创建者仍保留完整的资产访问权限，可随时根据需要取回资产。
+
+* 源代码：[https://github.com/tronprotocol/java-tron/pull/6507](https://github.com/tronprotocol/java-tron/pull/6507)
+
+---
+*There is no easy way from the earth to the stars.*
+<p align="right">---Seneca</p>
+
 
 ## GreatVoyage-4.8.0(Kant)
 Kant版本引入了多个重要的优化和更新，主要包括支持以太坊Cancun升级；增强共识层校验等，下面是详细介绍。
@@ -324,8 +339,8 @@ Kant 版本在匿名交易的构建 API 中，增加了对付款地址 (payment 
 
 * 源代码：[https://github.com/tronprotocol/java-tron/pull/6174](https://github.com/tronprotocol/java-tron/pull/6174)
 
-
-Science is organized knowledge. Wisdom is organized life.
+---
+*Science is organized knowledge. Wisdom is organized life.*
 <p align="right">---Immanuel Kant</p>
 
 
@@ -370,12 +385,12 @@ Epicurus版本优化了GRPC接口调用的耗时统计方法，以适配GRPC异�
 源代码：https://github.com/tronprotocol/java-tron/pull/6097 
 
 
-
-Not what we have but what we enjoy, constitutes our abundance.
+---
+*Not what we have but what we enjoy, constitutes our abundance.*
 
 <p align="right">---Epicurus</p>
 
----
+
 
 
 ## GreatVoyage-v4.7.6(Anaximander)
@@ -440,11 +455,10 @@ Anaximander版本优化了区块处理逻辑，在处理广播过来的区块后
 
 
 
-
+--- 
 *Nature is eternal and does not age.* 
 <p align="right"> ---Anaximander</p>
 
---- 
 
 ## GreatVoyage-v4.7.5(Cleobulus)
 
@@ -2174,6 +2188,7 @@ GreatVoyage-v4.3.0(Bacon)引入了leveldb 启动优化插件，插件优化了ma
 * 源代码： https://github.com/tronprotocol/java-tron/pull/3925
 * 插件使用指南：https://tronprotocol.github.io/documentation-zh/using_javatron/toolkit/#leveldb  
 
+---
 *Knowledge is power.* 
 <p align="right"> --- Francis Bacon </p>
 
@@ -2192,7 +2207,7 @@ GreatVoyage-v4.2.2.1(Epictetus) 版本对`pending transaction`的处理逻辑进
 
 GreatVoyage-v4.2.2.1(Epictetus) 版本引入的更新优化了`pending transaction`的处理逻辑，将大幅提升事件订阅服务的稳定性，将为TRON用户带来更好的体验，进一步繁荣波场生态。
 
- --- 
+--- 
 *No great thing is created suddenly.* 
 <p align="right"> --- Epictetus</p>
 
@@ -2237,7 +2252,8 @@ GreatVoyage-v4.2.2(Lucretius)版本将智能合约的ABI数据从合约数据库
 
 
 
- --- *Truths kindle light for truths.*
+ --- 
+ *Truths kindle light for truths.*
  <p align="right"> --- Lucretius</p>
 
 
