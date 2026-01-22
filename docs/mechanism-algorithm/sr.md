@@ -71,7 +71,8 @@ TRON 网络中的所有账户都拥有选举权，可以通过投票来支持自
 | **相关链上参数序号** | #5 (要求 #30 链参数激活) | #31 (要求 #30 链参数激活) |
 | **相关链上参数名** | `getWitnessPayPerBlock` | `getWitness127PayPerBlock` |
 | **奖励发放对象** | 产块的 SR、SR 的投票者 | SR 和 SR 合伙人、SR 和 SR 合伙人的投票者 |
-| **奖励发放时间** | **SR**: 每产完一个块<br><br>**SR 的投票者**：投票者发起以下 4 种交易之一触发奖励:<br>- `VoteWitnessContract`<br>- `WithdrawBalanceContract`<br>- `UnfreezeBalanceContract`<br>- `UnfreezeBalanceV2Contract` | **SR 和 SR 合伙人**: 每产完一个块<br><br>**SR 和 SR 合伙人的投票者**：投票者发起以下 4 种交易之一触发奖励:<br>- `VoteWitnessContract`<br>- `WithdrawBalanceContract`<br>- `UnfreezeBalanceContract`<br>- `UnfreezeBalanceV2Contract` |
+| **奖励发放** | **SR**: 每产完一个块<br><br>**SR 的投票者**：投票者发起以下 4 种交易之一触发奖励发放:<br>- `VoteWitnessContract`<br>- `UnfreezeBalanceContract`<br>- `UnfreezeBalanceV2Contract` <br>- `WithdrawBalanceContract`(和前三个交易不同：奖励发放后马上提取到账户余额)| **SR 和 SR 合伙人**: 每产完一个块<br><br>**SR 和 SR 合伙人的投票者**：投票者发起以下 4 种交易之一触发奖励发放:<br>- `VoteWitnessContract`<br>- `UnfreezeBalanceContract`<br>- `UnfreezeBalanceV2Contract` <br>- `WithdrawBalanceContract`(和前三个交易不同：奖励发放后马上提取到账户余额)|
+| **提取奖励到账户余额** |  通过发起`WithdrawBalanceContract`交易触发 | 通过发起`WithdrawBalanceContract`交易触发 |
 | **具体的奖励值** | **SR**:<br>`8 * brokerageRate`<br><br>**SR 的投票者**：<br>`8 * (1-brokerageRate) * (该投票者的投票数量) / (该SR获得的总投票数量)` | **SR / SR合伙人**：<br>`128 * brokerageRate * (该SR/SR合伙人获得的投票数量) / (所有SR和SR合伙人获得的总投票数量)`<br><br>**SR / SR 合伙人的投票者**：<br>`128 * (1-brokerageRate) * (该投票者的投票数量) / (所有SR和SR合伙人获得的总投票数量)`|
 
 **注意** ：
