@@ -45,9 +45,11 @@ TRON 的签名算法为 ECDSA，选用曲线为 SECP256K1。其私钥为一个�
 ### Base58Check 计算过程
 
 1. 计算校验码
+
     a. 对 `address` 进行 SHA256 哈希运算，得到 `h1`  
     b. 对 `h1` 再次进行 SHA256 运算，得到 `h2`  
     c. 取 `h2` 的前 4 字节作为校验码 `check`
+
 2. 拼接数据  
 将 `check` 拼接到 `address` 之后，得到 `address||check`
 3. Base58 编码  
