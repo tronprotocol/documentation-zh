@@ -899,6 +899,15 @@
 </li>
         
           <li class="md-nav__item ">
+  <a href="#eth_getblockreceipts" class="md-nav__link" >
+    <span class="md-ellipsis">
+      eth_getBlockReceipts
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
   <a href="#eth_getwork" class="md-nav__link" >
     <span class="md-ellipsis">
       eth_getWork
@@ -2923,6 +2932,28 @@ curl -X POST &#39;https://api.shasta.trongrid.io/jsonrpc&#39; --data &#39;{&quot
 <span class="w">    </span><span class="p">}</span>
 
 <span class="p">}</span>
+</code></pre></div>
+<h3 id="eth_getblockreceipts">eth_getBlockReceipts<a class="headerlink" href="#eth_getblockreceipts" title="Permanent link">&para;</a></h3>
+<p><em>通过<code>blockNumber</code>查询指定区块中的所有交易收据（Transaction Receipts）。对于创世块，轻节点已经裁剪的块和未生产的块返回<code>null</code>。</em></p>
+<p><strong>参数</strong></p>
+<p>String - <code>blockNumber</code>：支持十六进制字符串表示的区块号、blockHash(有无0x开头均支持)或标签（ "latest"、"earliest"、"finalized"）三种类型</p>
+<p><strong>返回值</strong></p>
+<p>An array of objects - 交易收据对象的数组，交易收据对象同<a href="#eth_gettransactionreceipt">eth_getTransactionReceipt</a>的返回值</p>
+<p><strong>示例</strong></p>
+<div class="highlight"><pre><span></span><code>curl -X POST &#39;https://api.shasta.trongrid.io/jsonrpc&#39; --data &#39;{
+
+    &quot;jsonrpc&quot;: &quot;2.0&quot;,
+
+    &quot;method&quot;: &quot;eth_getBlockReceipts&quot;,
+
+    &quot;params&quot;: [&quot;0x5416c22&quot;],
+
+    &quot;id&quot;: 64
+
+}&#39;
+</code></pre></div>
+<p>结果</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">&quot;jsonrpc&quot;</span><span class="p">:</span><span class="s2">&quot;2.0&quot;</span><span class="p">,</span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="mi">64</span><span class="p">,</span><span class="nt">&quot;result&quot;</span><span class="p">:</span><span class="kc">null</span><span class="p">}</span>
 </code></pre></div>
 <h3 id="eth_getwork">eth_getWork<a class="headerlink" href="#eth_getwork" title="Permanent link">&para;</a></h3>
 <p><em>返回当前区块的哈希。</em></p>

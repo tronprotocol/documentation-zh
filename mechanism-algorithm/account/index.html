@@ -1664,12 +1664,16 @@
 </ol>
 <h3 id="base58check">Base58Check 计算过程<a class="headerlink" href="#base58check" title="Permanent link">&para;</a></h3>
 <ol>
-<li>计算校验码
-    a. 对 <code>address</code> 进行 SHA256 哈希运算，得到 <code>h1</code><br />
-    b. 对 <code>h1</code> 再次进行 SHA256 运算，得到 <code>h2</code><br />
-    c. 取 <code>h2</code> 的前 4 字节作为校验码 <code>check</code></li>
-<li>拼接数据<br />
-将 <code>check</code> 拼接到 <code>address</code> 之后，得到 <code>address||check</code></li>
+<li>
+<p>计算校验码</p>
+<p>a. 对 <code>address</code> 进行 SHA256 哈希运算，得到 <code>h1</code><br />
+b. 对 <code>h1</code> 再次进行 SHA256 运算，得到 <code>h2</code><br />
+c. 取 <code>h2</code> 的前 4 字节作为校验码 <code>check</code></p>
+</li>
+<li>
+<p>拼接数据<br />
+将 <code>check</code> 拼接到 <code>address</code> 之后，得到 <code>address||check</code></p>
+</li>
 <li>Base58 编码<br />
 对 <code>address||check</code> 进行 Base58 编码，Base58 的字符表为：<code>"123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"</code>  ，排除了易混淆字符：<code>0</code>(阿拉伯数字 0) 、<code>O</code>(大写字母 O)、<code>I</code>(大写字母 I)、<code>l</code>(小写字母 l)。</li>
 </ol>
@@ -1689,11 +1693,11 @@
 <ul>
 <li><strong>计算 <code>r</code> 值</strong>：随机生成一个临时私钥 <code>k</code>，计算临时公钥 <code>K = k × G</code>（<code>G</code>：曲线基点），<code>r = K_x mod n</code>，即 <code>K</code> 的横坐标模 <code>n</code>，其中 <code>n</code> 是曲线阶数（<code>n</code> 和 <code>G</code> 满足 <code>n × G = O</code>，<code>O</code> 是有限域上椭圆曲线群的零点）。<code>r</code> 为 32 个字节。</li>
 <li><strong>计算 <code>s</code> 值</strong>：先计算临时私钥 <code>k</code> 对 n 的模逆 <code>k⁻¹</code>，即 <code>k⁻¹</code> 满足 <code>k⁻¹ × k = 1 mod n</code>，再通过交易的 <code>hash</code>、用户的私钥 <code>d</code>、<code>r</code> 值计算 <code>s</code> 值，<code>s = (k⁻¹ × (hash + d × r)) mod n</code>。<code>s</code> 为 32 个字节。</li>
-<li><strong>计算 <code>v</code> 值</strong>：<code>v</code> 值是恢复标志符，由于 <code>r</code> 值有取模运算以及椭圆曲线的对称性，如果只有 <code>r</code> 值，一个 <code>r</code> 最多可以恢复出四个 <code>K</code>。<code>v</code> 值的取值范围是 <code>0、1、2、3</code> 四个整数，历史上为了和以太坊保持一致，最后的 <code>v</code> 值会在 <code>0、1、2、3</code> 的基础上再加 <code>27</code>，即最后 <code>v</code> 值的取值范围是 <code>27、28、29、30</code>。有了确定的 <code>v</code>，就可以恢复出唯一的 <code>K</code>。<code>v</code> 为 1 个字节。  </li>
+<li><strong>计算 <code>v</code> 值</strong>：先计算<code>recoveryId</code>(恢复标识符)，由于 <code>r</code> 值有取模运算以及椭圆曲线的对称性，如果只有 <code>r</code> 值，一个 <code>r</code> 最多可以恢复出四个 <code>K</code>。<code>recoveryId</code> 的取值范围是 <code>0、1、2、3</code> 四个整数。<code>v</code>值的计算依赖于<code>recoveryId</code>，历史上为了和以太坊保持一致，<code>v</code>值设置成<code>recoveryId</code> 加<code>27</code>，即<code>v</code> 值的取值范围是 <code>27、28、29、30</code>。有了确定的 <code>v</code>，就可以恢复出唯一的 <code>K</code>。<code>v</code> 为 1 个字节。  </li>
 </ul>
 </li>
 <li>
-<p>将签名结果 <code>r</code>，<code>s</code>，<code>v</code> 拼接后添加到交易中，拼接顺序为 <code>v || r || s</code>。</p>
+<p>将<code>r</code>，<code>s</code>，<code>recoveryId</code>或者<code>r</code>，<code>s</code>，<code>v</code>拼接后得到完整的签名值添加到交易中，拼接顺序为 <code>r || s || recoveryId</code> / <code>r || s || v</code>。目前官方客户端<code>wallet-cli</code>以及<code>java-tron</code>中产块时对区块的签名都是采用拼接<code>recoveryId</code>的形式，即<code>signature = r || s || recoveryId</code></p>
 </li>
 </ol>
 <h3 id="java">Java 代码示例<a class="headerlink" href="#java" title="Permanent link">&para;</a></h3>
