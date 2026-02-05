@@ -61,8 +61,8 @@
     | `seed.node`     | 不需填值     | 将 `ip.list` 设置为 SR 的 IP 地址和 SR 配置文件中的 `listen.port` 端口号    | 能够让 FullNode 与 SR node 建立连接并同步数据     |
     | `needSyncCheck`     | `false`     | `true`     | 第 1 个 SR 设置 `needSyncCheck` 为 `false`，其他设置为 `true`      |
     | `node.discovery.enable`     | `true`     | `true`     | 如果配置成 `false`，则当前节点不会被其他节点发现     |
-    |`block.proposalExpireTime`|`600000` |与 SR 配置值相同  |默认提议生效时间是 3 天：259200000(ms)，如需快速通过提议，可将该项设置为更小的值，如 10 分钟，即 600000(ms)|
-    |`block.maintenanceTimeInterval`|`300000`| 与 SR 配置值相同  | 维护期时间间隔，默认是 6 小时：21600000(ms)；如需快速通过提议，可将该项设置为更小的值，如 5 分钟，即 300000(ms)|
+    |`block.proposalExpireTime`|`600000` |与 SR 配置值相同  |默认提案过期时间是 3 天：259200000(ms)；由于逻辑上强制提案最少需要经历一个完整的维护期时间间隔，所以如果希望提案快速通过，需要将该项和维护期时间间隔项同时设置成小值|
+    |`block.maintenanceTimeInterval`|`300000`| 与 SR 配置值相同  | 维护期时间间隔，默认是 6 小时：21600000(ms)|
     |`committee.allowSameTokenName` |`1`|`1`|如果配置为 `1` (true)，则允许相同的 token name|
     |`committee.allowTvmTransferTrc10` | `1`|`1`|如果配置为 `1` (true)，允许 TVM 通过智能合约转账 TRC-10 代币 |  
 
