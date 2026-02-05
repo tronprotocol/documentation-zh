@@ -619,7 +619,7 @@ db.createUser({user:"tron",pwd:"123456",roles:[{role:"dbOwner",db:"eventlog"}]})
 
 事件查询服务提供 HTTP 接口，用于查询 MongoDB 中存储的事件数据。该服务依赖 Java 环境。
 
-**注意**：请确保 JDK 使用的是 **Oracle JDK 8**，而不是 Open JDK 8。
+**注意**：x86架构上请使用Oracle JDK 8，ARM架构上请使用JDK 17
 
 ##### 步骤 1：下载源码
 
