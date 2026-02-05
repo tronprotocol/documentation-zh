@@ -2,12 +2,12 @@
 
 为简化 Java 开发流程并提升效率，选择并配置一款集成开发环境（IDE）是至关重要的第一步。本指南将以 IntelliJ IDEA 为例，详细阐述如何搭建和配置 java-tron 的集成开发环境。
 
-java-tron 节点支持部署在 `Linux` 或 `MacOS` 操作系统上。其依赖的 JDK 版本要求如下：
+java-tron 节点支持部署在 `Linux` 或 `MacOS` 操作系统上。其支持的 JDK 版本要求如下：
 
-- x86架构上：依赖 Oracle JDK 8 
-- ARM架构上：依赖JDK 17
+- x86_64架构上：仅支持Oracle JDK 8 
+- arm64架构上：仅支持JDK 17
 
-下面的配置以x86架构、Oracle JDK 8为示例：
+下面的配置以x86_64架构、Oracle JDK 8为示例：
 
 ## 前置条件
 
