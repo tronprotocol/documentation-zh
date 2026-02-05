@@ -1659,6 +1659,7 @@
 <li><a href="#leveldb">LevelDB启动优化</a> - 加快数据库类型为LevelDB的节点启动速度</li>
 </ul>
 <p>本文将详细介绍如何获取和使用 TRON Toolkit。</p>
+<p><strong>注意</strong>： 由于在ARM架构上只支持RocksDB，所以像<code>db convert</code>和<code>db archive</code>这样处理LevelDB的工具只能在x86架构上使用。</p>
 <h2 id="toolkit">Toolkit的获取<a class="headerlink" href="#toolkit" title="Permanent link">&para;</a></h2>
 <p>您可以通过编译 <code>java-tron</code> 源代码或直接从已发布的版本中获取 <code>Toolkit.jar</code> 文件。推荐从 <a href="https://github.com/tronprotocol/java-tron/releases">GitHub Releases</a> 下载最新版本。</p>
 <h3 id="_1">从源代码编译<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
@@ -1856,7 +1857,7 @@ java<span class="w"> </span>-jar<span class="w"> </span>Toolkit.jar<span class="
 <h3 id="_14">命令与参数<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h3>
 <p>使用 <code>db convert</code> 命令来执行数据转换操作：</p>
 <div class="highlight"><pre><span></span><code># full command
-  java -jar Toolkit.jar db convert [-h] [--safe] &lt;src&gt; &lt;dest&gt;
+  java -jar Toolkit.jar db convert [-h] &lt;src&gt; &lt;dest&gt;
 # examples
   java -jar Toolkit.jar db convert  output-directory/database /tmp/database
 </code></pre></div>
@@ -1864,15 +1865,10 @@ java<span class="w"> </span>-jar<span class="w"> </span>Toolkit.jar<span class="
 <ul>
 <li><code>&lt;src&gt;</code>：指定 LevelDB 数据目录。默认值为 <code>output-directory/database</code>。</li>
 <li><code>&lt;dest&gt;</code>：指定输出的 RocksDB 数据目录。默认值为 <code>output-directory-dst/database</code>。</li>
-<li><code>--safe &lt;boolean&gt;</code>：是否以安全模式转换数据。默认值为 <code>false</code>，但为了更好的数据兼容性，建议设置成<code>true</code>。<ul>
-<li>如果启用安全模式，工具将从 LevelDB 读取数据并写入 RocksDB，此过程耗时较长。</li>
-<li>如果禁用安全模式（默认），由于当前版本中 RocksDB 与 LevelDB 兼容，工具仅会将 <code>engine.properties</code> 配置项从 <code>leveldb</code> 更改为 <code>rocksdb</code>，操作速度更快。</li>
-</ul>
-</li>
 <li><code>-h | --help &lt;boolean&gt;</code>：显示帮助信息。默认值为 <code>false</code>。</li>
 </ul>
 <blockquote>
-<p><strong>重要提示</strong>：在使用本工具进行任何操作之前，<strong>必须</strong>停止当前运行的节点。</p>
+<p><strong>重要提示</strong>：在使用本工具进行任何操作之前，必须停止当前运行的节点。</p>
 </blockquote>
 <h2 id="leveldb">LevelDB 启动优化工具<a class="headerlink" href="#leveldb" title="Permanent link">&para;</a></h2>
 <p>随着 LevelDB 数据库的持续运行，其 <code>manifest</code> 文件会不断增长。过大的 <code>manifest</code> 文件不仅会影响节点启动速度，还可能导致内存持续增长并引发服务异常中止。为了解决这些问题，TRON Toolkit 提供了 <strong>LevelDB 启动优化工具</strong>。该工具可以优化 <code>manifest</code> 文件大小和 LevelDB 的启动过程，从而减少内存占用并提升节点启动速度。</p>

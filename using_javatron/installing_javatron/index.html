@@ -510,6 +510,15 @@
 </li>
         
           <li class="md-nav__item ">
+  <a href="#soliditynode" class="md-nav__link" >
+    <span class="md-ellipsis">
+      启动固化节点 (SolidityNode)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
   <a href="#_4" class="md-nav__link" >
     <span class="md-ellipsis">
       启动出块节点
@@ -1651,7 +1660,11 @@
 
 <h1 id="java-tron">部署 java-tron 节点<a class="headerlink" href="#java-tron" title="Permanent link">&para;</a></h1>
 <p>本文档将指导开发者如何在 <code>Linux</code> 或 <code>macOS</code> 操作系统上部署 TRON java-tron 节点。</p>
-<p><strong>重要提示：</strong>java-tron 节点目前仅支持 <code>Oracle JDK 1.8</code>，不支持其他版本的 JDK。</p>
+<p>java-tron 节点目前支持在x86和ARM架构上运行(ARM架构的支持从4.8.1版本开始)。不同架构上，JDK的支持情况：</p>
+<ul>
+<li>x86架构上，目前仅支持Oracle JDK 8</li>
+<li>ARM架构上，目前仅支持JDK 17。</li>
+</ul>
 <h2 id="_1">硬件配置要求<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
 <p>运行 java-tron 节点所需的最小硬件配置如下：</p>
 <ul>
@@ -1828,6 +1841,18 @@ cd java-tron
 Shasta 相关资源（浏览器、水龙头、钱包、开发者文档及网络统计）请访问 <a href="https://shasta.tronex.io/">shastaex.io</a>。</p>
 <h3 id="_3">启动全节点连接私有网络<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
 <p>如需为测试或开发搭建私有网络，请遵循<a href="https://tronprotocol.github.io/documentation-zh/using_javatron/private_network/">私有网络指南</a>。</p>
+<h3 id="soliditynode">启动固化节点 (SolidityNode)<a class="headerlink" href="#soliditynode" title="Permanent link">&para;</a></h3>
+<p>固化节点仅从受信任的全节点同步固化区块。受信任全节点通过配置文件进行配置，端口号为全节点的grpc服务端口。</p>
+<div class="highlight"><pre><span></span><code>node {
+  # trust node for solidity node
+  # trustNode = &quot;ip:port&quot;
+  trustNode = &quot;127.0.0.1:50051&quot;
+  ...
+}
+</code></pre></div>
+<p>自4.8.1版本开始，不再提供单独的<code>SolidityNode.jar</code>，固化节点的启动通过命令行参数<code>--solidity</code>，即：
+<div class="highlight"><pre><span></span><code>java<span class="w"> </span>-Xmx24g<span class="w"> </span>-XX:+UseConcMarkSweepGC<span class="w"> </span>-jar<span class="w"> </span>FullNode.jar<span class="w"> </span>--solidity<span class="w"> </span>-c<span class="w"> </span>config.conf<span class="w"> </span>
+</code></pre></div></p>
 <h3 id="_4">启动出块节点<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
 <p>在上述全节点启动命令中添加 <code>--witness</code> 参数，<code>FullNode</code> 将作为<strong>出块节点</strong> (SR Node) 运行。出块节点除了支持全节点的所有功能外，还支持区块生产和交易打包。</p>
 <p><strong>重要提示</strong>:</p>
@@ -1940,7 +1965,7 @@ Shasta 相关资源（浏览器、水龙头、钱包、开发者文档及网络�
 </code></pre></div>
 </li>
 <li>
-<p>您可以使用 <code>wallet-cli</code> 项目的 <code>registerwallet</code> 命令生成 <code>keystore</code> 文件和密码。</p>
+<p>您可以使用 <code>wallet-cli</code> 项目的 <code>registerwallet</code> 命令生成 <code>keystore</code> 文件和密码或者使用<code>java -jar FullNode.jar --keystore-factory</code>命令生成(自4.8.1版本之后，不再提供单独的<code>KeystoreFactory.jar</code>)</p>
 </li>
 </ul>
 </li>

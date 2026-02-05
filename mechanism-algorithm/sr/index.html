@@ -1681,9 +1681,14 @@
 <td style="text-align: left;">SR 和 SR 合伙人、SR 和 SR 合伙人的投票者</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>奖励发放时间</strong></td>
-<td style="text-align: left;"><strong>SR</strong>: 每产完一个块<br><br><strong>SR 的投票者</strong>：投票者发起以下 4 种交易之一触发奖励:<br>- <code>VoteWitnessContract</code><br>- <code>WithdrawBalanceContract</code><br>- <code>UnfreezeBalanceContract</code><br>- <code>UnfreezeBalanceV2Contract</code></td>
-<td style="text-align: left;"><strong>SR 和 SR 合伙人</strong>: 每产完一个块<br><br><strong>SR 和 SR 合伙人的投票者</strong>：投票者发起以下 4 种交易之一触发奖励:<br>- <code>VoteWitnessContract</code><br>- <code>WithdrawBalanceContract</code><br>- <code>UnfreezeBalanceContract</code><br>- <code>UnfreezeBalanceV2Contract</code></td>
+<td style="text-align: left;"><strong>奖励发放</strong></td>
+<td style="text-align: left;"><strong>SR</strong>: 每产完一个块<br><br><strong>SR 的投票者</strong>：投票者发起以下 4 种交易之一触发奖励发放:<br>- <code>VoteWitnessContract</code><br>- <code>UnfreezeBalanceContract</code><br>- <code>UnfreezeBalanceV2Contract</code> <br>- <code>WithdrawBalanceContract</code>(和前三个交易不同：奖励发放后马上提取到账户余额)</td>
+<td style="text-align: left;"><strong>SR 和 SR 合伙人</strong>: 每产完一个块<br><br><strong>SR 和 SR 合伙人的投票者</strong>：投票者发起以下 4 种交易之一触发奖励发放:<br>- <code>VoteWitnessContract</code><br>- <code>UnfreezeBalanceContract</code><br>- <code>UnfreezeBalanceV2Contract</code> <br>- <code>WithdrawBalanceContract</code>(和前三个交易不同：奖励发放后马上提取到账户余额)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>提取奖励到账户余额</strong></td>
+<td style="text-align: left;">通过发起<code>WithdrawBalanceContract</code>交易触发</td>
+<td style="text-align: left;">通过发起<code>WithdrawBalanceContract</code>交易触发</td>
 </tr>
 <tr>
 <td style="text-align: left;"><strong>具体的奖励值</strong></td>

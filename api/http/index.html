@@ -783,27 +783,18 @@
 </li>
         
           <li class="md-nav__item ">
-  <a href="#sr" class="md-nav__link" >
-    <span class="md-ellipsis">
-      投票和SR
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item ">
-  <a href="#trc10" class="md-nav__link" >
-    <span class="md-ellipsis">
-      TRC10 通证
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item ">
   <a href="#_10" class="md-nav__link" >
     <span class="md-ellipsis">
-      区块
+      投票和超级代表
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#trc-10_1" class="md-nav__link" >
+    <span class="md-ellipsis">
+      TRC-10通证
     </span>
   </a>
   
@@ -812,7 +803,7 @@
           <li class="md-nav__item ">
   <a href="#_11" class="md-nav__link" >
     <span class="md-ellipsis">
-      交易
+      区块
     </span>
   </a>
   
@@ -820,6 +811,15 @@
         
           <li class="md-nav__item ">
   <a href="#_12" class="md-nav__link" >
+    <span class="md-ellipsis">
+      交易
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#_13" class="md-nav__link" >
     <span class="md-ellipsis">
       去中心化交易所
     </span>
@@ -2774,6 +2774,7 @@
 <li><a href="#walletcreatewitness">wallet/createwitness</a></li>
 <li><a href="#walletupdatewitness">wallet/updatewitness</a></li>
 <li><a href="#walletlistwitnesses">wallet/listwitnesses</a></li>
+<li><a href="#walletgetpaginatednowwitnesslist">wallet/getpaginatednowwitnesslist</a></li>
 <li><a href="#walletwithdrawbalance">wallet/withdrawbalance</a></li>
 <li><a href="#walletvotewitnessaccount">wallet/votewitnessaccount</a></li>
 <li><a href="#walletgetbrokerage">wallet/getBrokerage</a></li>
@@ -2814,6 +2815,21 @@
 </code></pre></div>
 参数：无</p>
 <p>返回值：返回所有 SR 信息列表。</p>
+<h4 id="walletgetpaginatednowwitnesslist">wallet/getpaginatednowwitnesslist<a class="headerlink" href="#walletgetpaginatednowwitnesslist" title="Permanent link">&para;</a></h4>
+<p>作用：查询各个witness的实时得票数量并按得票数量的降序返回witness分页列表
+<div class="highlight"><pre><span></span><code>curl -X POST  http://127.0.0.1:8090/wallet/getpaginatednowwitnesslist -d &#39;{
+  &quot;offset&quot;: 0,
+  &quot;limit&quot;: 100,
+  &quot;visible&quot;: true
+}&#39;    
+</code></pre></div>
+参数：</p>
+<ul>
+<li><code>offset</code>：<code>long</code>型，表示起始下标，要求<code>&gt;=0</code></li>
+<li><code>limit</code>：<code>long</code>型，表示返回的witness数，要求<code>&gt;0</code> ，上限为系统常量<code>1000</code></li>
+<li><code>visible</code>： <code>boolean</code>型，可选参数，默认为false，控制返回的地址格式</li>
+</ul>
+<p>返回值：满足参数条件的witness分页列表，按实时得票数量降序排序</p>
 <h4 id="walletwithdrawbalance">wallet/withdrawbalance<a class="headerlink" href="#walletwithdrawbalance" title="Permanent link">&para;</a></h4>
 <p>作用：超级代表或者用户提取奖励到 balance，每 24 个小时可以提现一次。</p>
 <p><div class="highlight"><pre><span></span><code>curl -X POST http://127.0.0.1:8090/wallet/withdrawbalance -d &#39;{
@@ -3289,14 +3305,29 @@ http://127.0.0.1:8090/wallet/getReward -d &#39;{
 - <code>visible</code> 设置地址格式，<code>true</code>为Base58Check，<code>false</code>或省略则为HexString。</p>
 <p>返回值：
 - 该接口返回一个包含双向代理关系列表的JSON对象。包含两个列表，一个是该帐户将资源委托给的地址列表(toAddress)，另一个是将资源委托给该帐户的地址列表(fromAddress)</p>
-<h3 id="sr">投票和SR<a class="headerlink" href="#sr" title="Permanent link">&para;</a></h3>
+<h3 id="_10">投票和超级代表<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
 <h4 id="walletsoliditylistwitnesses">walletsolidity/listwitnesses<a class="headerlink" href="#walletsoliditylistwitnesses" title="Permanent link">&para;</a></h4>
 <p>作用：查询当前的所有 SR 列表。
 <div class="highlight"><pre><span></span><code>curl -X POST  http://127.0.0.1:8091/walletsolidity/listwitnesses
 </code></pre></div>
 参数：无</p>
 <p>返回值：返回所有 SR 信息列表。</p>
-<h3 id="trc10">TRC10 通证<a class="headerlink" href="#trc10" title="Permanent link">&para;</a></h3>
+<h4 id="walletsoliditygetpaginatednowwitnesslist">walletsolidity/getpaginatednowwitnesslist<a class="headerlink" href="#walletsoliditygetpaginatednowwitnesslist" title="Permanent link">&para;</a></h4>
+<p>作用：查询各个witness的实时得票数量并按得票数量的降序返回witness分页列表
+<div class="highlight"><pre><span></span><code>curl -X POST  http://127.0.0.1:8091/walletsolidity/getpaginatednowwitnesslist -d &#39;{
+  &quot;offset&quot;: 0,
+  &quot;limit&quot;: 100,
+  &quot;visible&quot;: true
+}&#39;
+</code></pre></div>
+参数：</p>
+<ul>
+<li><code>offset</code>：<code>long</code>型，表示起始下标，要求<code>&gt;=0</code></li>
+<li><code>limit</code>：<code>long</code>型，表示返回的witness数，要求<code>&gt;0</code> ，上限为系统常量<code>1000</code></li>
+<li><code>visible</code>： <code>boolean</code>型，可选参数，默认为false，控制返回的地址格式</li>
+</ul>
+<p>返回值：满足参数条件的witness分页列表，按实时得票数量降序排序</p>
+<h3 id="trc-10_1">TRC-10通证<a class="headerlink" href="#trc-10_1" title="Permanent link">&para;</a></h3>
 <h4 id="walletsoliditygetassetissuelist">walletsolidity/getassetissuelist<a class="headerlink" href="#walletsoliditygetassetissuelist" title="Permanent link">&para;</a></h4>
 <p>作用：查询所有Token列表
 <div class="highlight"><pre><span></span><code>curl -X POST  http://127.0.0.1:8091/walletsolidity/getassetissuelist
@@ -3333,7 +3364,7 @@ http://127.0.0.1:8090/wallet/getReward -d &#39;{
 参数：
 - <code>value</code>：TRC-10 Token 的 ID。</p>
 <p>返回值：指定的 TRC-10 Token 对象。</p>
-<h3 id="_10">区块<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
+<h3 id="_11">区块<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h3>
 <h4 id="walletsoliditygetnowblock">walletsolidity/getnowblock<a class="headerlink" href="#walletsoliditygetnowblock" title="Permanent link">&para;</a></h4>
 <p>作用：查询最新块。
 <div class="highlight"><pre><span></span><code>curl -X POST  http://127.0.0.1:8091/walletsolidity/getnowblock
@@ -3378,7 +3409,7 @@ http://127.0.0.1:8090/wallet/getReward -d &#39;{
 </code></pre></div>
 参数：无</p>
 <p>返回值：一个包含节点版本、网络状况、区块同步状态等信息的对象。</p>
-<h3 id="_11">交易<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h3>
+<h3 id="_12">交易<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
 <h4 id="walletsoliditygettransactionbyid">walletsolidity/gettransactionbyid<a class="headerlink" href="#walletsoliditygettransactionbyid" title="Permanent link">&para;</a></h4>
 <p>作用：通过交易ID（哈希）查询一个已上链交易的完整信息。
 <div class="highlight"><pre><span></span><code>curl -X POST  http://127.0.0.1:8091/walletsolidity/gettransactionbyid -d &#39;{&quot;value&quot; : &quot;309b6fa3d01353e46f57dd8a8f27611f98e392b50d035cef213f2c55225a8bd2&quot;}&#39;
@@ -3407,7 +3438,7 @@ http://127.0.0.1:8090/wallet/getReward -d &#39;{
 参数：
 - num：区块高度。</p>
 <p>返回值：一个包含多个交易摘要信息对象的列表。</p>
-<h3 id="_12">去中心化交易所<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
+<h3 id="_13">去中心化交易所<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h3>
 <h4 id="walletsoliditygetexchangebyid">walletsolidity/getexchangebyid<a class="headerlink" href="#walletsoliditygetexchangebyid" title="Permanent link">&para;</a></h4>
 <p>作用：根据id查询交易对
 <div class="highlight"><pre><span></span><code>curl -X POST  http://127.0.0.1:8091/walletsolidity/getexchangebyid -d {&quot;id&quot;:1}

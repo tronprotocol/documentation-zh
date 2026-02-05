@@ -1510,7 +1510,7 @@
 <h2 id="_2">前置要求<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <p>在开始之前，请确保您的开发环境满足以下条件：</p>
 <ul>
-<li><strong>Java Development Kit (JDK)</strong>：您的环境必须安装 Oracle JDK 1.8。 </li>
+<li><strong>Java Development Kit (JDK)</strong>：x86架构上，须安装 Oracle JDK 8；ARM架构上，须安装JDK 17。 </li>
 <li><strong>TRON 账户</strong>：您需要预先创建至少两个 TRON 网络地址，并安全地保存好地址和其对应的私钥。其中一个地址将作为初始见证节点（超级代表），另一个用于普通账户。</li>
 <li><strong>地址创建工具</strong>：您可以使用以下任一工具来生成和管理您的 TRON 账户：<ul>
 <li><a href="https://github.com/tronprotocol/wallet-cli">Wallet-cli</a>：一个官方提供的命令行钱包工具，适合在服务器环境中使用。</li>
@@ -1615,13 +1615,13 @@ cp private_net_config.conf ./FullNode/fullnode.conf
 <td style="text-align: left;"><code>block.proposalExpireTime</code></td>
 <td style="text-align: left;"><code>600000</code></td>
 <td style="text-align: left;">与 SR 配置值相同</td>
-<td style="text-align: left;">默认提议生效时间是 3 天：259200000(ms)，如需快速通过提议，可将该项设置为更小的值，如 10 分钟，即 600000(ms)</td>
+<td style="text-align: left;">默认提案过期时间是 3 天：259200000(ms)；由于逻辑上强制提案最少需要经历一个完整的维护期时间间隔，所以如果希望提案快速通过，需要将该项和维护期时间间隔项同时设置成小值</td>
 </tr>
 <tr>
 <td style="text-align: left;"><code>block.maintenanceTimeInterval</code></td>
 <td style="text-align: left;"><code>300000</code></td>
 <td style="text-align: left;">与 SR 配置值相同</td>
-<td style="text-align: left;">维护期时间间隔，默认是 6 小时：21600000(ms)；如需快速通过提议，可将该项设置为更小的值，如 5 分钟，即 300000(ms)</td>
+<td style="text-align: left;">维护期时间间隔，默认是 6 小时：21600000(ms)</td>
 </tr>
 <tr>
 <td style="text-align: left;"><code>committee.allowSameTokenName</code></td>
