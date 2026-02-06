@@ -2,10 +2,10 @@
 
 本文档将指导开发者如何在 `Linux` 或 `macOS` 操作系统上部署 TRON java-tron 节点。
 
-java-tron 节点目前支持在x86和ARM架构上运行(ARM架构的支持从4.8.1版本开始)。不同架构上，JDK的支持情况：
+java-tron 节点目前支持在x86_64和arm64架构上运行(arm64架构的支持从4.8.1版本开始)。不同架构上，JDK的支持情况：
 
-- x86架构上，目前仅支持Oracle JDK 8
-- ARM架构上，目前仅支持JDK 17。
+- x86_64架构上，目前仅支持Oracle JDK 8
+- arm64架构上，目前仅支持JDK 17。
 
 ## 硬件配置要求
 
@@ -147,7 +147,7 @@ nohup java -Xms9G -Xmx12G -XX:ReservedCodeCacheSize=256m \
              -XX:+UseCMSInitiatingOccupancyOnly  -XX:CMSInitiatingOccupancyFraction=70 \
              -jar ./build/libs/FullNode.jar -c main_net_config.conf &
 ```
-##### ARM64（JDK 17）
+##### arm64（JDK 17）
 ```bash
 nohup java -Xmx9G -XX:+UseZGC \
              -Xlog:gc,gc+heap:file=gc.log:time,tags,level:filecount=10,filesize=100M \
@@ -256,7 +256,7 @@ nohup java -Xms9G -Xmx24G -XX:ReservedCodeCacheSize=256m \
     -jar ./build/libs/FullNode.jar --witness -c config.conf &
 ```
 
-#### 选项 2：JDK 17（ARM64 架构）
+#### 选项 2：JDK 17（arm64 架构）
 ```bash
 nohup java -Xms9G -Xmx24G -XX:+UseZGC \
     -Xlog:gc,gc+heap:file=gc.log:time,tags,level:filecount=10,filesize=100M \
