@@ -1660,10 +1660,10 @@
 
 <h1 id="java-tron">部署 java-tron 节点<a class="headerlink" href="#java-tron" title="Permanent link">&para;</a></h1>
 <p>本文档将指导开发者如何在 <code>Linux</code> 或 <code>macOS</code> 操作系统上部署 TRON java-tron 节点。</p>
-<p>java-tron 节点目前支持在x86和ARM架构上运行(ARM架构的支持从4.8.1版本开始)。不同架构上，JDK的支持情况：</p>
+<p>java-tron 节点目前支持在x86_64和arm64架构上运行(arm64架构的支持从4.8.1版本开始)。不同架构上，JDK的支持情况：</p>
 <ul>
-<li>x86架构上，目前仅支持Oracle JDK 8</li>
-<li>ARM架构上，目前仅支持JDK 17。</li>
+<li>x86_64架构上，目前仅支持Oracle JDK 8</li>
+<li>arm64架构上，目前仅支持JDK 17。</li>
 </ul>
 <h2 id="_1">硬件配置要求<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
 <p>运行 java-tron 节点所需的最小硬件配置如下：</p>
@@ -1792,7 +1792,7 @@ cd java-tron
 <span class="w">             </span>-XX:+UseCMSInitiatingOccupancyOnly<span class="w">  </span>-XX:CMSInitiatingOccupancyFraction<span class="o">=</span><span class="m">70</span><span class="w"> </span><span class="se">\</span>
 <span class="w">             </span>-jar<span class="w"> </span>./build/libs/FullNode.jar<span class="w"> </span>-c<span class="w"> </span>main_net_config.conf<span class="w"> </span><span class="p">&amp;</span>
 </code></pre></div>
-<h5 id="arm64jdk-17">ARM64（JDK 17）<a class="headerlink" href="#arm64jdk-17" title="Permanent link">&para;</a></h5>
+<h5 id="arm64jdk-17">arm64（JDK 17）<a class="headerlink" href="#arm64jdk-17" title="Permanent link">&para;</a></h5>
 <div class="highlight"><pre><span></span><code>nohup<span class="w"> </span>java<span class="w"> </span>-Xmx9G<span class="w"> </span>-XX:+UseZGC<span class="w"> </span><span class="se">\</span>
 <span class="w">             </span>-Xlog:gc,gc+heap:file<span class="o">=</span>gc.log:time,tags,level:filecount<span class="o">=</span><span class="m">10</span>,filesize<span class="o">=</span>100M<span class="w"> </span><span class="se">\</span>
 <span class="w">             </span>-XX:ReservedCodeCacheSize<span class="o">=</span>256m<span class="w"> </span><span class="se">\</span>
@@ -1878,7 +1878,7 @@ Shasta 相关资源（浏览器、水龙头、钱包、开发者文档及网络�
 <span class="w">    </span>-XX:+UseCMSInitiatingOccupancyOnly<span class="w">  </span>-XX:CMSInitiatingOccupancyFraction<span class="o">=</span><span class="m">70</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-jar<span class="w"> </span>./build/libs/FullNode.jar<span class="w"> </span>--witness<span class="w"> </span>-c<span class="w"> </span>config.conf<span class="w"> </span><span class="p">&amp;</span>
 </code></pre></div>
-<h4 id="2jdk-17arm64">选项 2：JDK 17（ARM64 架构）<a class="headerlink" href="#2jdk-17arm64" title="Permanent link">&para;</a></h4>
+<h4 id="2jdk-17arm64">选项 2：JDK 17（arm64 架构）<a class="headerlink" href="#2jdk-17arm64" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code>nohup<span class="w"> </span>java<span class="w"> </span>-Xms9G<span class="w"> </span>-Xmx24G<span class="w"> </span>-XX:+UseZGC<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-Xlog:gc,gc+heap:file<span class="o">=</span>gc.log:time,tags,level:filecount<span class="o">=</span><span class="m">10</span>,filesize<span class="o">=</span>100M<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-XX:ReservedCodeCacheSize<span class="o">=</span>256m<span class="w"> </span><span class="se">\</span>
