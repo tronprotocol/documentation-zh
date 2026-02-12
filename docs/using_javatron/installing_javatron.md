@@ -220,7 +220,7 @@ node {
 
 自4.8.1版本开始，不再提供单独的`SolidityNode.jar`，固化节点的启动通过命令行参数`--solidity`，即：
 ```shell
-java -Xmx24g -XX:+UseConcMarkSweepGC -jar FullNode.jar --solidity -c framework/src/main/resources/config.conf 
+java -Xmx24g -XX:+UseConcMarkSweepGC -jar build/libs/FullNode.jar --solidity -c framework/src/main/resources/config.conf 
 ```
 
 ### 启动出块节点
@@ -352,7 +352,7 @@ node.backup {
         localwitnesskeystore = ["B/localwitnesskeystore.json"]
         ```
 
-    * 您可以使用 `wallet-cli` 项目的 `registerwallet` 命令生成 `keystore` 文件和密码或者使用`java -jar FullNode.jar --keystore-factory`命令生成(自4.8.1版本之后，不再提供单独的`KeystoreFactory.jar`)
+    * 您可以使用 `wallet-cli` 项目的 `registerwallet` 命令生成 `keystore` 文件和密码或者使用`java -jar build/libs/FullNode.jar --keystore-factory`命令生成(自4.8.1版本之后，不再提供单独的`KeystoreFactory.jar`)
 
 1. **启动出块节点**:
 
@@ -360,7 +360,7 @@ node.backup {
         * **注意事项**: 此方式在启动节点时需要人机交互输入密码。建议使用会话保持工具，例如 `screen` 或 `tmux`。
 
         ```shell
-        java -Xmx24g -XX:+UseConcMarkSweepGC -jar FullNode.jar --witness -c framework/src/main/resources/config.conf
+        java -Xmx24g -XX:+UseConcMarkSweepGC -jar build/libs/FullNode.jar --witness -c framework/src/main/resources/config.conf
         ```
 
         * 在节点启动过程中，系统会提示您输入密码。正确输入密码后，节点将完成启动。
@@ -368,7 +368,7 @@ node.backup {
     * **使用 `nohup` 命令，直接在命令行中通过 `--password` 传入密码**
 
         ```shell
-        nohup java -Xmx24g -XX:+UseConcMarkSweepGC -jar FullNode.jar --witness -c framework/src/main/resources/config.conf --password "密码" > start.log 2>&1 &
+        nohup java -Xmx24g -XX:+UseConcMarkSweepGC -jar build/libs/FullNode.jar --witness -c framework/src/main/resources/config.conf --password "密码" > start.log 2>&1 &
         ```
 
 ### 使用 `tcmalloc` 优化内存占用
