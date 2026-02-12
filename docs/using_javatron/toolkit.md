@@ -40,7 +40,7 @@ TRON Toolkit 是一个集成了多种 `java-tron` 周边工具的实用程序，
 # full command
 java -jar Toolkit.jar db mv [-h] [-c=<config>] [-d=<database>]
 # examples
-java -jar Toolkit.jar db mv -c config.conf -d /data/tron/output-directory
+java -jar Toolkit.jar db mv -c framework/src/main/resources/config.conf -d /data/tron/output-directory
 ```
 
 **可选参数**：
@@ -100,7 +100,7 @@ storage {
 配置完成后，执行以下命令进行数据库迁移。命令执行时会显示当前迁移进度：
 
 ```
-java -jar Toolkit.jar db mv -c config.conf -d /data/tron/output-directory
+java -jar Toolkit.jar db mv -c framework/src/main/resources/config.conf -d /data/tron/output-directory
 ```
 
 #### 4. 重新启动 FullNode 服务
