@@ -1656,7 +1656,7 @@ $ git checkout -b release_vx.x.x
 <span class="w">    </span>-XX:+CMSScavengeBeforeRemark<span class="w"> </span>-XX:+ParallelRefProcEnabled<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-XX:+HeapDumpOnOutOfMemoryError<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-XX:+UseCMSInitiatingOccupancyOnly<span class="w">  </span>-XX:CMSInitiatingOccupancyFraction<span class="o">=</span><span class="m">70</span><span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>-jar<span class="w"> </span>./build/libs/FullNode.jar<span class="w"> </span>--witness<span class="w"> </span>-c<span class="w"> </span>config.conf<span class="w"> </span><span class="p">&amp;</span>
+<span class="w">    </span>-jar<span class="w"> </span>./build/libs/FullNode.jar<span class="w"> </span>--witness<span class="w"> </span>-c<span class="w"> </span>framework/src/main/resources/config.conf<span class="w"> </span><span class="p">&amp;</span>
 </code></pre></div></p>
 </li>
 <li>
@@ -1669,7 +1669,7 @@ $ git checkout -b release_vx.x.x
 <span class="w">    </span>-XX:MaxMetaspaceSize<span class="o">=</span>512m<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-XX:MaxDirectMemorySize<span class="o">=</span>1g<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-XX:+HeapDumpOnOutOfMemoryError<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>-jar<span class="w"> </span>./build/libs/FullNode.jar<span class="w"> </span>--witness<span class="w"> </span>-c<span class="w"> </span>config.conf<span class="w"> </span><span class="p">&amp;</span>
+<span class="w">    </span>-jar<span class="w"> </span>./build/libs/FullNode.jar<span class="w"> </span>--witness<span class="w"> </span>-c<span class="w"> </span>framework/src/main/resources/config.conf<span class="w"> </span><span class="p">&amp;</span>
 </code></pre></div></p>
 <blockquote>
 <p><em>注意</em>：推荐使用 <code>keystore</code> 文件或在配置文件中管理私钥，而不是直接在命令行中作为参数传入。</p>
@@ -1687,7 +1687,7 @@ $ git checkout -b release_vx.x.x
 <span class="w">             </span>-XX:+CMSScavengeBeforeRemark<span class="w"> </span>-XX:+ParallelRefProcEnabled<span class="w"> </span><span class="se">\</span>
 <span class="w">             </span>-XX:+HeapDumpOnOutOfMemoryError<span class="w"> </span><span class="se">\</span>
 <span class="w">             </span>-XX:+UseCMSInitiatingOccupancyOnly<span class="w">  </span>-XX:CMSInitiatingOccupancyFraction<span class="o">=</span><span class="m">70</span><span class="w"> </span><span class="se">\</span>
-<span class="w">             </span>-jar<span class="w"> </span>./build/libs/FullNode.jar<span class="w"> </span>-c<span class="w"> </span>main_net_config.conf<span class="w"> </span><span class="p">&amp;</span>
+<span class="w">             </span>-jar<span class="w"> </span>./build/libs/FullNode.jar<span class="w"> </span>-c<span class="w"> </span>framework/src/main/resources/config.conf<span class="w"> </span><span class="p">&amp;</span>
 </code></pre></div></li>
 <li><strong>arm64 架构（仅支持 JDK 17）</strong>
 <div class="highlight"><pre><span></span><code>nohup<span class="w"> </span>java<span class="w"> </span>-Xmx9G<span class="w"> </span>-XX:+UseZGC<span class="w"> </span><span class="se">\</span>
@@ -1698,7 +1698,7 @@ $ git checkout -b release_vx.x.x
 <span class="w">             </span>-XX:MaxMetaspaceSize<span class="o">=</span>512m<span class="w"> </span><span class="se">\</span>
 <span class="w">             </span>-XX:MaxDirectMemorySize<span class="o">=</span>1g<span class="w"> </span><span class="se">\</span>
 <span class="w">             </span>-XX:+HeapDumpOnOutOfMemoryError<span class="w"> </span><span class="se">\</span>
-<span class="w">             </span>-jar<span class="w"> </span>./build/libs/FullNode.jar<span class="w"> </span>-c<span class="w"> </span>main_net_config.conf<span class="w"> </span><span class="p">&amp;</span>
+<span class="w">             </span>-jar<span class="w"> </span>./build/libs/FullNode.jar<span class="w"> </span>-c<span class="w"> </span>framework/src/main/resources/config.conf<span class="w"> </span><span class="p">&amp;</span>
 </code></pre></div></li>
 </ul>
 <h3 id="6">第 6 步：验证与监控<a class="headerlink" href="#6" title="Permanent link">&para;</a></h3>
