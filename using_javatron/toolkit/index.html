@@ -1681,7 +1681,7 @@ $ ./gradlew clean build -x test
 <div class="highlight"><pre><span></span><code># full command
 java -jar Toolkit.jar db mv [-h] [-c=&lt;config&gt;] [-d=&lt;database&gt;]
 # examples
-java -jar Toolkit.jar db mv -c config.conf -d /data/tron/output-directory
+java -jar Toolkit.jar db mv -c framework/src/main/resources/config.conf -d /data/tron/output-directory
 </code></pre></div>
 <p><strong>可选参数</strong>：</p>
 <ul>
@@ -1727,32 +1727,12 @@ java -jar Toolkit.jar db mv -c config.conf -d /data/tron/output-directory
 <p>工具会将 <code>name</code> 指定的数据库迁移到 <code>path</code> 指定的目录，并在原目录下创建一个软链接指向新目录。FullNode 启动后将通过此软链接找到数据。</p>
 <h4 id="3">3. 执行数据库迁移<a class="headerlink" href="#3" title="Permanent link">&para;</a></h4>
 <p>配置完成后，执行以下命令进行数据库迁移。命令执行时会显示当前迁移进度：</p>
-<div class="highlight"><pre><span></span><code>java -jar Toolkit.jar db mv -c config.conf -d /data/tron/output-directory
+<div class="highlight"><pre><span></span><code>java -jar Toolkit.jar db mv -c framework/src/main/resources/config.conf -d /data/tron/output-directory
 </code></pre></div>
 <h4 id="4-fullnode">4. 重新启动 FullNode 服务<a class="headerlink" href="#4-fullnode" title="Permanent link">&para;</a></h4>
 <p>数据库迁移完成后，重新启动 <code>java-tron</code> 节点。</p>
-<p><strong>FullNode 启动命令示例</strong>：</p>
-<p><div class="highlight"><pre><span></span><code>nohup java -Xms9G -Xmx9G -XX:ReservedCodeCacheSize=256m \
-                -XX:MetaspaceSize=256m -XX:MaxMetaspaceSize=512m \
-                -XX:MaxDirectMemorySize=1G -XX:+PrintGCDetails \
-                -XX:+PrintGCDateStamps  -Xloggc:gc.log \
-                -XX:+UseConcMarkSweepGC -XX:NewRatio=2 \
-                -XX:+CMSScavengeBeforeRemark -XX:+ParallelRefProcEnabled \
-                -XX:+HeapDumpOnOutOfMemoryError \
-                -XX:+UseCMSInitiatingOccupancyOnly  -XX:CMSInitiatingOccupancyFraction=70 \
-                -jar FullNode.jar -c config.conf &gt;&gt; start.log 2&gt;&amp;1 &amp;
-</code></pre></div>
-<strong>超级代表（SR）FullNode 启动命令示例</strong>：
-<div class="highlight"><pre><span></span><code>nohup java -Xms9G -Xmx9G -XX:ReservedCodeCacheSize=256m \
-               -XX:MetaspaceSize=256m -XX:MaxMetaspaceSize=512m \
-               -XX:MaxDirectMemorySize=1G -XX:+PrintGCDetails \
-               -XX:+PrintGCDateStamps  -Xloggc:gc.log \
-               -XX:+UseConcMarkSweepGC -XX:NewRatio=2 \
-               -XX:+CMSScavengeBeforeRemark -XX:+ParallelRefProcEnabled \
-               -XX:+HeapDumpOnOutOfMemoryError \
-               -XX:+UseCMSInitiatingOccupancyOnly  -XX:CMSInitiatingOccupancyFraction=70 \
-               -jar FullNode.jar --witness -c config.conf &gt;&gt; start.log 2&gt;&amp;1 &amp;
-</code></pre></div></p>
+<p><a href="../installing_javatron/#_2"><strong>FullNode 启动命令示例</strong></a></p>
+<p><a href="../installing_javatron/#_4"><strong>超级代表（SR）FullNode 启动命令示例</strong></a></p>
 <h2 id="_5">轻节点数据剪裁工具<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
 <p>TRON Toolkit 提供了<strong>数据裁剪工具</strong>，主要用于生成和管理轻节点数据。</p>
 <p>全节点的完整数据可被分成两部分：快照数据集（Snapshot dataset）或历史数据集（History dataset）。</p>
