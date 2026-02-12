@@ -98,7 +98,7 @@ nohup java -Xms9G -Xmx24G -XX:ReservedCodeCacheSize=256m \
     -XX:+CMSScavengeBeforeRemark -XX:+ParallelRefProcEnabled \
     -XX:+HeapDumpOnOutOfMemoryError \
     -XX:+UseCMSInitiatingOccupancyOnly  -XX:CMSInitiatingOccupancyFraction=70 \
-    -jar ./build/libs/FullNode.jar --witness -c config.conf &
+    -jar ./build/libs/FullNode.jar --witness -c framework/src/main/resources/config.conf &
 ```
 
 * **arm64 架构（仅支持 JDK 17）**
@@ -111,7 +111,7 @@ nohup java -Xms9G -Xmx24G -XX:+UseZGC \
     -XX:MaxMetaspaceSize=512m \
     -XX:MaxDirectMemorySize=1g \
     -XX:+HeapDumpOnOutOfMemoryError \
-    -jar ./build/libs/FullNode.jar --witness -c config.conf &
+    -jar ./build/libs/FullNode.jar --witness -c framework/src/main/resources/config.conf &
 ```
 > *注意*：推荐使用 `keystore` 文件或在配置文件中管理私钥，而不是直接在命令行中作为参数传入。
 
@@ -126,7 +126,7 @@ nohup java -Xms9G -Xmx12G -XX:ReservedCodeCacheSize=256m \
              -XX:+CMSScavengeBeforeRemark -XX:+ParallelRefProcEnabled \
              -XX:+HeapDumpOnOutOfMemoryError \
              -XX:+UseCMSInitiatingOccupancyOnly  -XX:CMSInitiatingOccupancyFraction=70 \
-             -jar ./build/libs/FullNode.jar -c main_net_config.conf &
+             -jar ./build/libs/FullNode.jar -c framework/src/main/resources/config.conf &
 ```
 * **arm64 架构（仅支持 JDK 17）**
 ```bash
@@ -138,7 +138,7 @@ nohup java -Xmx9G -XX:+UseZGC \
              -XX:MaxMetaspaceSize=512m \
              -XX:MaxDirectMemorySize=1g \
              -XX:+HeapDumpOnOutOfMemoryError \
-             -jar ./build/libs/FullNode.jar -c main_net_config.conf &
+             -jar ./build/libs/FullNode.jar -c framework/src/main/resources/config.conf &
 ```
 
 

@@ -40,7 +40,7 @@ TRON Toolkit 是一个集成了多种 `java-tron` 周边工具的实用程序，
 # full command
 java -jar Toolkit.jar db mv [-h] [-c=<config>] [-d=<database>]
 # examples
-java -jar Toolkit.jar db mv -c config.conf -d /data/tron/output-directory
+java -jar Toolkit.jar db mv -c framework/src/main/resources/config.conf -d /data/tron/output-directory
 ```
 
 **可选参数**：
@@ -100,37 +100,16 @@ storage {
 配置完成后，执行以下命令进行数据库迁移。命令执行时会显示当前迁移进度：
 
 ```
-java -jar Toolkit.jar db mv -c config.conf -d /data/tron/output-directory
+java -jar Toolkit.jar db mv -c framework/src/main/resources/config.conf -d /data/tron/output-directory
 ```
 
 #### 4. 重新启动 FullNode 服务
 数据库迁移完成后，重新启动 `java-tron` 节点。
 
-**FullNode 启动命令示例**：
+[**FullNode 启动命令示例**](../installing_javatron/#_2)
 
-```
-nohup java -Xms9G -Xmx9G -XX:ReservedCodeCacheSize=256m \
-                -XX:MetaspaceSize=256m -XX:MaxMetaspaceSize=512m \
-                -XX:MaxDirectMemorySize=1G -XX:+PrintGCDetails \
-                -XX:+PrintGCDateStamps  -Xloggc:gc.log \
-                -XX:+UseConcMarkSweepGC -XX:NewRatio=2 \
-                -XX:+CMSScavengeBeforeRemark -XX:+ParallelRefProcEnabled \
-                -XX:+HeapDumpOnOutOfMemoryError \
-                -XX:+UseCMSInitiatingOccupancyOnly  -XX:CMSInitiatingOccupancyFraction=70 \
-                -jar FullNode.jar -c config.conf >> start.log 2>&1 &
-```
-**超级代表（SR）FullNode 启动命令示例**：
-```
-nohup java -Xms9G -Xmx9G -XX:ReservedCodeCacheSize=256m \
-               -XX:MetaspaceSize=256m -XX:MaxMetaspaceSize=512m \
-               -XX:MaxDirectMemorySize=1G -XX:+PrintGCDetails \
-               -XX:+PrintGCDateStamps  -Xloggc:gc.log \
-               -XX:+UseConcMarkSweepGC -XX:NewRatio=2 \
-               -XX:+CMSScavengeBeforeRemark -XX:+ParallelRefProcEnabled \
-               -XX:+HeapDumpOnOutOfMemoryError \
-               -XX:+UseCMSInitiatingOccupancyOnly  -XX:CMSInitiatingOccupancyFraction=70 \
-               -jar FullNode.jar --witness -c config.conf >> start.log 2>&1 &
-```
+[**超级代表（SR）FullNode 启动命令示例**](../installing_javatron/#_4)
+
 ## 轻节点数据剪裁工具
 TRON Toolkit 提供了**数据裁剪工具**，主要用于生成和管理轻节点数据。
 
