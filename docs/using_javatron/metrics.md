@@ -23,7 +23,7 @@ node {
 ## 启动java-tron节点
 您可以通过如下命令启动java-tron节点：
 ```
-$ java -Xmx24g -XX:+UseConcMarkSweepGC -jar FullNode.jar -c main_net_config.conf
+$ java -Xmx24g -XX:+UseConcMarkSweepGC -jar FullNode.jar -c framework/src/main/resources/config.conf
 ```
 
 ## 部署Prometheus服务
