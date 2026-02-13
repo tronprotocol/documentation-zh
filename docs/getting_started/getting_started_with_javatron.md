@@ -154,13 +154,7 @@ wallet>
 
 ### **1. 启动节点**
 
-请使用以下命令启动节点。其中 `-Xmx24g` 标志为 JVM 分配了 24GB 内存，您可以根据自己机器的配置进行调整。
-
-> 提示：在运行此命令前，请确保您已根据引言部分的说明，完成了 java-tron 的安装。
-
-```
-$  java -Xmx24g -XX:+UseConcMarkSweepGC -jar FullNode.jar -c nile_net_config.conf
-```
+启动命令请参考[启动全节点连接 Nile 测试网](../../using_javatron/installing_javatron/#nile)。
 
 ### 2. 验证节点状态
 

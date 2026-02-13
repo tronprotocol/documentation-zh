@@ -116,7 +116,7 @@ TRON 网络主要分为以下几类：
 以下是启动 **主网全节点** 的命令，使用默认内置的主网配置文件：
 
 `
-nohup java -jar ./build/libs/FullNode.jar -c framework/src/main/resources/config.conf &
+nohup java -jar build/libs/FullNode.jar -c framework/src/main/resources/config.conf &
 `
 
 *   `nohup ... &`：在后台运行命令并忽略挂断信号。
@@ -145,7 +145,7 @@ nohup java -Xms9G -Xmx12G -XX:ReservedCodeCacheSize=256m \
              -XX:+CMSScavengeBeforeRemark -XX:+ParallelRefProcEnabled \
              -XX:+HeapDumpOnOutOfMemoryError \
              -XX:+UseCMSInitiatingOccupancyOnly  -XX:CMSInitiatingOccupancyFraction=70 \
-             -jar ./build/libs/FullNode.jar -c framework/src/main/resources/config.conf &
+             -jar build/libs/FullNode.jar -c framework/src/main/resources/config.conf &
 ```
 ##### arm64（JDK 17）
 ```bash
@@ -157,7 +157,7 @@ nohup java -Xmx9G -XX:+UseZGC \
              -XX:MaxMetaspaceSize=512m \
              -XX:MaxDirectMemorySize=1g \
              -XX:+HeapDumpOnOutOfMemoryError \
-             -jar ./build/libs/FullNode.jar -c framework/src/main/resources/config.conf &
+             -jar build/libs/FullNode.jar -c framework/src/main/resources/config.conf &
 ```
 
 #### Java 启动参数解释
@@ -191,7 +191,7 @@ nohup java -Xmx9G -XX:+UseZGC \
 使用 `-c` 参数将节点指向对应网络的配置文件。由于 Nile 测试网可能包含主网尚未发布的新功能，**强烈建议**按照 [Nile 测试网源码编译指南](https://github.com/tron-nile-testnet/nile-testnet/blob/master/README.md#building-the-source-code) 编译源码。
 
 ```bash
-nohup java -jar ./build/libs/FullNode.jar -c framework/src/main/resources/config-nile.conf &
+nohup java -jar build/libs/FullNode.jar -c framework/src/main/resources/config-nile.conf &
 ```
 
 Nile 相关资源：区块浏览器、水龙头、钱包、开发者文档及网络统计信息，请访问 [nileex.io](https://nileex.io/)。
@@ -220,7 +220,7 @@ node {
 
 自4.8.1版本开始，不再提供单独的`SolidityNode.jar`，固化节点的启动通过命令行参数`--solidity`，即：
 ```shell
-java -Xmx24g -XX:+UseConcMarkSweepGC -jar FullNode.jar --solidity -c framework/src/main/resources/config.conf 
+java -Xmx24g -XX:+UseConcMarkSweepGC -jar build/libs/FullNode.jar --solidity -c framework/src/main/resources/config.conf 
 ```
 
 ### 启动出块节点
@@ -253,7 +253,7 @@ nohup java -Xms9G -Xmx24G -XX:ReservedCodeCacheSize=256m \
     -XX:+CMSScavengeBeforeRemark -XX:+ParallelRefProcEnabled \
     -XX:+HeapDumpOnOutOfMemoryError \
     -XX:+UseCMSInitiatingOccupancyOnly  -XX:CMSInitiatingOccupancyFraction=70 \
-    -jar ./build/libs/FullNode.jar --witness -c framework/src/main/resources/config.conf &
+    -jar build/libs/FullNode.jar --witness -c framework/src/main/resources/config.conf &
 ```
 
 #### 选项 2：JDK 17（arm64 架构）
@@ -266,7 +266,7 @@ nohup java -Xms9G -Xmx24G -XX:+UseZGC \
     -XX:MaxMetaspaceSize=512m \
     -XX:MaxDirectMemorySize=1g \
     -XX:+HeapDumpOnOutOfMemoryError \
-    -jar ./build/libs/FullNode.jar --witness -c framework/src/main/resources/config.conf &
+    -jar build/libs/FullNode.jar --witness -c framework/src/main/resources/config.conf &
 ```
 
 ### 主从模式的出块全节点
@@ -352,7 +352,7 @@ node.backup {
         localwitnesskeystore = ["B/localwitnesskeystore.json"]
         ```
 
-    * 您可以使用 `wallet-cli` 项目的 `registerwallet` 命令生成 `keystore` 文件和密码或者使用`java -jar FullNode.jar --keystore-factory`命令生成(自4.8.1版本之后，不再提供单独的`KeystoreFactory.jar`)
+    * 您可以使用 `wallet-cli` 项目的 `registerwallet` 命令生成 `keystore` 文件和密码或者使用`java -jar build/libs/FullNode.jar --keystore-factory`命令生成(自4.8.1版本之后，不再提供单独的`KeystoreFactory.jar`)
 
 1. **启动出块节点**:
 
@@ -360,7 +360,7 @@ node.backup {
         * **注意事项**: 此方式在启动节点时需要人机交互输入密码。建议使用会话保持工具，例如 `screen` 或 `tmux`。
 
         ```shell
-        java -Xmx24g -XX:+UseConcMarkSweepGC -jar FullNode.jar --witness -c framework/src/main/resources/config.conf
+        java -Xmx24g -XX:+UseConcMarkSweepGC -jar build/libs/FullNode.jar --witness -c framework/src/main/resources/config.conf
         ```
 
         * 在节点启动过程中，系统会提示您输入密码。正确输入密码后，节点将完成启动。
@@ -368,7 +368,7 @@ node.backup {
     * **使用 `nohup` 命令，直接在命令行中通过 `--password` 传入密码**
 
         ```shell
-        nohup java -Xmx24g -XX:+UseConcMarkSweepGC -jar FullNode.jar --witness -c framework/src/main/resources/config.conf --password "密码" > start.log 2>&1 &
+        nohup java -Xmx24g -XX:+UseConcMarkSweepGC -jar build/libs/FullNode.jar --witness -c framework/src/main/resources/config.conf --password "密码" > start.log 2>&1 &
         ```
 
 ### 使用 `tcmalloc` 优化内存占用

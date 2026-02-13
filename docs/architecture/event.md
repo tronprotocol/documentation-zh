@@ -96,7 +96,7 @@ event.subscribe.startSyncBlockNum = <block_height>
 完成上述配置后，使用以下命令启动 `FullNode` 并加载事件插件。
 
 ```
-java -jar FullNode.jar -c config.conf --es
+java -jar build/libs/FullNode.jar -c framework/src/main/resources/config.conf --es
 ```
 <a id="use-kafka"></a>
 ### Kafka 事件订阅插件部署与使用指南
@@ -365,7 +365,7 @@ bin/kafka-topics.sh --create --topic block --bootstrap-server localhost:9092
 完成上述配置后，启动 Fullnode 节点时需要添加 `--es` 参数，以启用事件订阅功能。
 
 ```
-java -jar FullNode.jar -c config.conf --es
+java -jar build/libs/FullNode.jar -c framework/src/main/resources/config.conf --es
 ```
 
 ##### 验证插件加载
@@ -684,7 +684,7 @@ nohup java -jar -Dserver.port=8081 target/troneventquery-1.0.0-SNAPSHOT.jar 2>&1
 启动 FullNode 节点的命令如下：
 
 ```
-java -jar FullNode.jar -c config.conf --es
+java -jar build/libs/FullNode.jar -c framework/src/main/resources/config.conf --es
 ```
 
 有关 FullNode 节点的安装，请参考 [部署 FullNode](https://tronprotocol.github.io/documentation-zh/using_javatron/installing_javatron/) 文档。
@@ -770,7 +770,7 @@ event.subscribe = {
 ### 启动节点
 事件订阅服务默认为关闭状态，需要通过配置命令行参数 `--es` 的方式来启用。开启事件订阅服务的节点的启动命令如下：
 ```
-$ java -jar FullNode.jar --es
+$ java -jar build/libs/FullNode.jar --es
 ```
 
 ### 准备事件订阅脚本

@@ -38,9 +38,9 @@ TRON Toolkit 是一个集成了多种 `java-tron` 周边工具的实用程序，
 
 ```
 # full command
-java -jar Toolkit.jar db mv [-h] [-c=<config>] [-d=<database>]
+java -jar build/libs/Toolkit.jar db mv [-h] [-c=<config>] [-d=<database>]
 # examples
-java -jar Toolkit.jar db mv -c framework/src/main/resources/config.conf -d /data/tron/output-directory
+java -jar build/libs/Toolkit.jar db mv -c framework/src/main/resources/config.conf -d /data/tron/output-directory
 ```
 
 **可选参数**：
@@ -100,7 +100,7 @@ storage {
 配置完成后，执行以下命令进行数据库迁移。命令执行时会显示当前迁移进度：
 
 ```
-java -jar Toolkit.jar db mv -c framework/src/main/resources/config.conf -d /data/tron/output-directory
+java -jar build/libs/Toolkit.jar db mv -c framework/src/main/resources/config.conf -d /data/tron/output-directory
 ```
 
 #### 4. 重新启动 FullNode 服务
@@ -135,14 +135,14 @@ TRON Toolkit 提供了**数据裁剪工具**，主要用于生成和管理轻节
 使用 `db lite` 命令来执行数据裁剪操作：
 ```
 # full command
-  java -jar Toolkit.jar db lite [-h] -ds=<datasetPath> -fn=<fnDataPath> [-o=<operate>] [-t=<type>]
+  java -jar build/libs/Toolkit.jar db lite [-h] -ds=<datasetPath> -fn=<fnDataPath> [-o=<operate>] [-t=<type>]
 # examples
   #split and get a snapshot dataset
-  java -jar Toolkit.jar db lite -o split -t snapshot --fn-data-path output-directory/database --dataset-path /tmp
+  java -jar build/libs/Toolkit.jar db lite -o split -t snapshot --fn-data-path output-directory/database --dataset-path /tmp
   #split and get a history dataset
-  java -jar Toolkit.jar db lite -o split -t history --fn-data-path output-directory/database --dataset-path /tmp
+  java -jar build/libs/Toolkit.jar db lite -o split -t history --fn-data-path output-directory/database --dataset-path /tmp
   #merge history dataset and snapshot dataset
-  java -jar Toolkit.jar db lite -o merge --fn-data-path /tmp/snapshot --dataset-path /tmp/history
+  java -jar build/libs/Toolkit.jar db lite -o merge --fn-data-path /tmp/snapshot --dataset-path /tmp/history
 ```
 **可选参数**：
 
@@ -168,7 +168,7 @@ TRON Toolkit 提供了**数据裁剪工具**，主要用于生成和管理轻节
 
 ```
 # 简单起见，将快照数据集存放在`/tmp`目录下
-java -jar Toolkit.jar db lite -o split -t snapshot --fn-data-path output-directory/database --dataset-path /tmp
+java -jar build/libs/Toolkit.jar db lite -o split -t snapshot --fn-data-path output-directory/database --dataset-path /tmp
 ```
 
 * `--fn-data-path`： 待剪裁数据目录，即节点数据目录
@@ -182,7 +182,7 @@ java -jar Toolkit.jar db lite -o split -t snapshot --fn-data-path output-directo
 
 ```
 # 简单起见，将历史数据集存放在 `/tmp` 目录下
-java -jar Toolkit.jar db lite -o split -t history --fn-data-path output-directory/database --dataset-path /tmp
+java -jar build/libs/Toolkit.jar db lite -o split -t history --fn-data-path output-directory/database --dataset-path /tmp
 ```
 
 *   `--fn-data-path`：全节点数据目录
@@ -199,7 +199,7 @@ java -jar Toolkit.jar db lite -o split -t history --fn-data-path output-director
 
 ```shell
 # 简单起见，假设快照数据集存放在 `/tmp/snapshot`，历史数据集存放在 `/tmp/history`
-java -jar Toolkit.jar db lite -o merge --fn-data-path /tmp/snapshot --dataset-path /tmp/history
+java -jar build/libs/Toolkit.jar db lite -o merge --fn-data-path /tmp/snapshot --dataset-path /tmp/history
 ```
 
 *   `--fn-data-path`：快照数据集目录。
@@ -217,9 +217,9 @@ java -jar Toolkit.jar db lite -o merge --fn-data-path /tmp/snapshot --dataset-pa
 
 ```shell
 # full command
-  java -jar Toolkit.jar db cp [-h] <src> <dest>
+  java -jar build/libs/Toolkit.jar db cp [-h] <src> <dest>
 # examples
-  java -jar Toolkit.jar db cp  output-directory/database /tmp/databse
+  java -jar build/libs/Toolkit.jar db cp  output-directory/database /tmp/databse
 ```
 
 **可选参数**：
@@ -241,9 +241,9 @@ TRON Toolkit 支持数据库数据转换功能，可以将 LevelDB 格式的数�
 
 ```
 # full command
-  java -jar Toolkit.jar db convert [-h] <src> <dest>
+  java -jar build/libs/Toolkit.jar db convert [-h] <src> <dest>
 # examples
-  java -jar Toolkit.jar db convert  output-directory/database /tmp/database
+  java -jar build/libs/Toolkit.jar db convert  output-directory/database /tmp/database
 ```
 
 **可选参数**：
@@ -265,16 +265,16 @@ TRON Toolkit 支持数据库数据转换功能，可以将 LevelDB 格式的数�
 
 ```
 # full command
-   java -jar Toolkit.jar db archive [-h] [-b=<maxBatchSize>] [-d=<databaseDirectory>] [-m=<maxManifestSize>]
+   java -jar build/libs/Toolkit.jar db archive [-h] [-b=<maxBatchSize>] [-d=<databaseDirectory>] [-m=<maxManifestSize>]
 # examples
    #1. use default settings
-   java -jar Toolkit.jar db archive 
+   java -jar build/libs/Toolkit.jar db archive 
    #2. specify the database directory as /tmp/db/database
-   java -jar Toolkit.jar db archive -d /tmp/db/database 
+   java -jar build/libs/Toolkit.jar db archive -d /tmp/db/database 
    #3. specify the batch size to 64000 when optimizing manifest
-   java -jar Toolkit.jar db archive -b 64000
+   java -jar build/libs/Toolkit.jar db archive -b 64000
    #4. specify optimization only when Manifest exceeds 128M
-   java -jar Toolkit.jar db archive -m 128 
+   java -jar build/libs/Toolkit.jar db archive -m 128 
 ```
 
 **可选参数**：

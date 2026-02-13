@@ -85,61 +85,13 @@
 <a id="step5"></a> 
 ### 第 5 步：启动节点
 
-请根据节点类型及 CPU 架构选择下方对应的启动命令作为参考。命令中各参数的说明请参见 [节点部署](https://tronprotocol.github.io/documentation-zh/using_javatron/installing_javatron/#_2) 章节，具体参数值请根据实际运行环境进行调整。
-
 #### 超级代表节点 (出块节点)
- * **x86_64 架构（仅支持 JDK 8）**
-```bash
-nohup java -Xms9G -Xmx24G -XX:ReservedCodeCacheSize=256m \
-    -XX:MetaspaceSize=256m -XX:MaxMetaspaceSize=512m \
-    -XX:MaxDirectMemorySize=1G -XX:+PrintGCDetails \
-    -XX:+PrintGCDateStamps  -Xloggc:gc.log \
-    -XX:+UseConcMarkSweepGC -XX:NewRatio=3 \
-    -XX:+CMSScavengeBeforeRemark -XX:+ParallelRefProcEnabled \
-    -XX:+HeapDumpOnOutOfMemoryError \
-    -XX:+UseCMSInitiatingOccupancyOnly  -XX:CMSInitiatingOccupancyFraction=70 \
-    -jar ./build/libs/FullNode.jar --witness -c framework/src/main/resources/config.conf &
-```
 
-* **arm64 架构（仅支持 JDK 17）**
-```bash
-nohup java -Xms9G -Xmx24G -XX:+UseZGC \
-    -Xlog:gc,gc+heap:file=gc.log:time,tags,level:filecount=10,filesize=100M \
-    -XX:ReservedCodeCacheSize=256m \
-    -XX:+UseCodeCacheFlushing \
-    -XX:MetaspaceSize=256m \
-    -XX:MaxMetaspaceSize=512m \
-    -XX:MaxDirectMemorySize=1g \
-    -XX:+HeapDumpOnOutOfMemoryError \
-    -jar ./build/libs/FullNode.jar --witness -c framework/src/main/resources/config.conf &
-```
-> *注意*：推荐使用 `keystore` 文件或在配置文件中管理私钥，而不是直接在命令行中作为参数传入。
+对于出块节点，请参考[启动出块节点](../../using_javatron/installing_javatron/#_4)
 
 #### 普通全节点
- * **x86_64 架构（仅支持 JDK 8）**
-```bash
-nohup java -Xms9G -Xmx12G -XX:ReservedCodeCacheSize=256m \
-             -XX:MetaspaceSize=256m -XX:MaxMetaspaceSize=512m \
-             -XX:MaxDirectMemorySize=1G -XX:+PrintGCDetails \
-             -XX:+PrintGCDateStamps  -Xloggc:gc.log \
-             -XX:+UseConcMarkSweepGC -XX:NewRatio=3 \
-             -XX:+CMSScavengeBeforeRemark -XX:+ParallelRefProcEnabled \
-             -XX:+HeapDumpOnOutOfMemoryError \
-             -XX:+UseCMSInitiatingOccupancyOnly  -XX:CMSInitiatingOccupancyFraction=70 \
-             -jar ./build/libs/FullNode.jar -c framework/src/main/resources/config.conf &
-```
-* **arm64 架构（仅支持 JDK 17）**
-```bash
-nohup java -Xmx9G -XX:+UseZGC \
-             -Xlog:gc,gc+heap:file=gc.log:time,tags,level:filecount=10,filesize=100M \
-             -XX:ReservedCodeCacheSize=256m \
-             -XX:+UseCodeCacheFlushing \
-             -XX:MetaspaceSize=256m \
-             -XX:MaxMetaspaceSize=512m \
-             -XX:MaxDirectMemorySize=1g \
-             -XX:+HeapDumpOnOutOfMemoryError \
-             -jar ./build/libs/FullNode.jar -c framework/src/main/resources/config.conf &
-```
+
+对于普通全节点，请参考[启动全节点连接主网](../../using_javatron/installing_javatron/#_2)
 
 
 
