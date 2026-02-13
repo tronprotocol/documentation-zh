@@ -116,7 +116,7 @@ TRON 网络主要分为以下几类：
 以下是启动 **主网全节点** 的命令，使用默认内置的主网配置文件：
 
 `
-nohup java -jar ./build/libs/FullNode.jar -c framework/src/main/resources/config.conf &
+nohup java -jar build/libs/FullNode.jar -c framework/src/main/resources/config.conf &
 `
 
 *   `nohup ... &`：在后台运行命令并忽略挂断信号。
@@ -145,7 +145,7 @@ nohup java -Xms9G -Xmx12G -XX:ReservedCodeCacheSize=256m \
              -XX:+CMSScavengeBeforeRemark -XX:+ParallelRefProcEnabled \
              -XX:+HeapDumpOnOutOfMemoryError \
              -XX:+UseCMSInitiatingOccupancyOnly  -XX:CMSInitiatingOccupancyFraction=70 \
-             -jar ./build/libs/FullNode.jar -c framework/src/main/resources/config.conf &
+             -jar build/libs/FullNode.jar -c framework/src/main/resources/config.conf &
 ```
 ##### arm64（JDK 17）
 ```bash
@@ -157,7 +157,7 @@ nohup java -Xmx9G -XX:+UseZGC \
              -XX:MaxMetaspaceSize=512m \
              -XX:MaxDirectMemorySize=1g \
              -XX:+HeapDumpOnOutOfMemoryError \
-             -jar ./build/libs/FullNode.jar -c framework/src/main/resources/config.conf &
+             -jar build/libs/FullNode.jar -c framework/src/main/resources/config.conf &
 ```
 
 #### Java 启动参数解释
@@ -191,7 +191,7 @@ nohup java -Xmx9G -XX:+UseZGC \
 使用 `-c` 参数将节点指向对应网络的配置文件。由于 Nile 测试网可能包含主网尚未发布的新功能，**强烈建议**按照 [Nile 测试网源码编译指南](https://github.com/tron-nile-testnet/nile-testnet/blob/master/README.md#building-the-source-code) 编译源码。
 
 ```bash
-nohup java -jar ./build/libs/FullNode.jar -c framework/src/main/resources/config-nile.conf &
+nohup java -jar build/libs/FullNode.jar -c framework/src/main/resources/config-nile.conf &
 ```
 
 Nile 相关资源：区块浏览器、水龙头、钱包、开发者文档及网络统计信息，请访问 [nileex.io](https://nileex.io/)。
@@ -253,7 +253,7 @@ nohup java -Xms9G -Xmx24G -XX:ReservedCodeCacheSize=256m \
     -XX:+CMSScavengeBeforeRemark -XX:+ParallelRefProcEnabled \
     -XX:+HeapDumpOnOutOfMemoryError \
     -XX:+UseCMSInitiatingOccupancyOnly  -XX:CMSInitiatingOccupancyFraction=70 \
-    -jar ./build/libs/FullNode.jar --witness -c framework/src/main/resources/config.conf &
+    -jar build/libs/FullNode.jar --witness -c framework/src/main/resources/config.conf &
 ```
 
 #### 选项 2：JDK 17（arm64 架构）
@@ -266,7 +266,7 @@ nohup java -Xms9G -Xmx24G -XX:+UseZGC \
     -XX:MaxMetaspaceSize=512m \
     -XX:MaxDirectMemorySize=1g \
     -XX:+HeapDumpOnOutOfMemoryError \
-    -jar ./build/libs/FullNode.jar --witness -c framework/src/main/resources/config.conf &
+    -jar build/libs/FullNode.jar --witness -c framework/src/main/resources/config.conf &
 ```
 
 ### 主从模式的出块全节点

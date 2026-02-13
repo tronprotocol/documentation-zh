@@ -1030,7 +1030,7 @@ node.rpc.reflectionService=true
 为了便于工具维护和开发者使用，TRON推出了`Toolkit.jar`工具箱，其中包括了各种TRON开发周边工具，早在Aristotle版本，轻节点数据剪裁工具相关代码就已经被集成到了`Toolkit`工具箱中（位于plugin模块下），并且可以完全替代`LiteFullNodeTool`（位于framework模块下），因此，Bias版本删除了framework模块下的`LiteFullNodeTool`相关代码，这不但降低了代码冗余，而且使功能模块划分更加清晰。工具箱中的轻节点数据剪裁功能的使用命令如下：
 
 ```
-$ java -jar Toolkit.jar db lite 
+$ java -jar build/libs/Toolkit.jar db lite 
 ```
 
 
@@ -1601,7 +1601,7 @@ node.disabledApi= [
 为了方便节点部署者进行数据备份或数据统计，节点支持在特定的条件下停止运行，用户可以通过节点配置文件设置节点停止的条件，当满足设置的条件时，节点将停止同步并退出运行。但在Periander之前的版本中，节点仅支持停止在特定条件下，而在停止后不支持接口查询服务，使得用户无法调用接口来了解系统的状态。因此，Periander版本增加了一种新的节点启动方式，以支持在不启动网络模块的情况下提供数据查询服务，当节点成功停止在特定条件后，用户可以通过在启动命令中添加`-p2p-disable true`参数，来启动节点，这时，节点将不启动网络模块，不进行节点发现与区块同步，但会提供接口查询服务，从而方便用户查询当前的系统状态。启动命令请参考：
 
 ```
-java -jar FullNode.jar -c config.conf --p2p-disable true 
+java -jar build/libs/FullNode.jar -c framework/src/main/resources/config.conf --p2p-disable true 
 ```
 
 
@@ -1981,11 +1981,11 @@ GreatVoyage-v4.7.0.1(Aristotle)版本优化了Gradle编译参数，将JVM堆内�
 
 ```
 // 将LevelDB数据转换为RocksDB数据
-$ java -jar Toolkit.jar db convert -h
+$ java -jar build/libs/Toolkit.jar db convert -h
 // 将全节点数据转换成轻节点数据
-$ java -jar Toolkit.jar db lite -h
+$ java -jar build/libs/Toolkit.jar db lite -h
 // 数据库拷贝
-$ java -jar Toolkit.jar db copy -h
+$ java -jar build/libs/Toolkit.jar db copy -h
 ```
 
 * 源代码: [https://github.com/tronprotocol/java-tron/pull/4813](https://github.com/tronprotocol/java-tron/pull/4813) 
@@ -2080,12 +2080,12 @@ GreatVoyage-v4.6.0(Socrates)版本新增了三个网络模块相关的prometheus
 #### 3. 新增help命令行选项
 GreatVoyage-v4.6.0(Socrates)版本增加了help命令行选项，用于查看所有的参数及其使用说明。下面是使用示例：
 ```
-$ java -jar FullNode.jar --help
+$ java -jar build/libs/FullNode.jar --help
 
 Name:
 	FullNode - the java-tron command line interface
 
-Usage: java -jar FullNode.jar [options] [seedNode <seedNode> ...]
+Usage: java -jar build/libs/FullNode.jar [options] [seedNode <seedNode> ...]
 
 VERSION:
 4.5.2-d05f766

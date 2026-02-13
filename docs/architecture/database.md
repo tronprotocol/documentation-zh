@@ -59,7 +59,7 @@ java -jar build/libs/Toolkit.jar db convert    # 执行数据转换
 
 例如，若节点是通过如下方式运行：
 ```
-nohup java -jar FullNode.jar -d your_database_dir &
+nohup java -jar build/libs/FullNode.jar -d your_database_dir &
 ```
 则应使用如下命令进行转换：
 ```

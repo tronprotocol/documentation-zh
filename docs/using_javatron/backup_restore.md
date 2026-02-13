@@ -3,7 +3,7 @@
 java-tron 节点将其持久化数据存储在指定的数据目录下。默认的数据目录是 `/output-directory/`。您可以通过在 java-tron 节点启动命令中添加 `-d` 或 `--output-directory` 参数来指定不同的数据存储位置，例如：
 
 ```
-java -jar fullnode.jar -d ./outputdir
+java -jar build/libs/fullnode.jar -d ./outputdir
 ```
 
 
