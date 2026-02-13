@@ -1679,9 +1679,9 @@ $ ./gradlew clean build -x test
 <h3 id="_3">命令与参数<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
 <p>使用 <code>db mv</code> 命令来执行数据迁移操作：</p>
 <div class="highlight"><pre><span></span><code># full command
-java -jar Toolkit.jar db mv [-h] [-c=&lt;config&gt;] [-d=&lt;database&gt;]
+java -jar build/libs/Toolkit.jar db mv [-h] [-c=&lt;config&gt;] [-d=&lt;database&gt;]
 # examples
-java -jar Toolkit.jar db mv -c framework/src/main/resources/config.conf -d /data/tron/output-directory
+java -jar build/libs/Toolkit.jar db mv -c framework/src/main/resources/config.conf -d /data/tron/output-directory
 </code></pre></div>
 <p><strong>可选参数</strong>：</p>
 <ul>
@@ -1727,7 +1727,7 @@ java -jar Toolkit.jar db mv -c framework/src/main/resources/config.conf -d /data
 <p>工具会将 <code>name</code> 指定的数据库迁移到 <code>path</code> 指定的目录，并在原目录下创建一个软链接指向新目录。FullNode 启动后将通过此软链接找到数据。</p>
 <h4 id="3">3. 执行数据库迁移<a class="headerlink" href="#3" title="Permanent link">&para;</a></h4>
 <p>配置完成后，执行以下命令进行数据库迁移。命令执行时会显示当前迁移进度：</p>
-<div class="highlight"><pre><span></span><code>java -jar Toolkit.jar db mv -c framework/src/main/resources/config.conf -d /data/tron/output-directory
+<div class="highlight"><pre><span></span><code>java -jar build/libs/Toolkit.jar db mv -c framework/src/main/resources/config.conf -d /data/tron/output-directory
 </code></pre></div>
 <h4 id="4-fullnode">4. 重新启动 FullNode 服务<a class="headerlink" href="#4-fullnode" title="Permanent link">&para;</a></h4>
 <p>数据库迁移完成后，重新启动 <code>java-tron</code> 节点。</p>
@@ -1753,14 +1753,14 @@ java -jar Toolkit.jar db mv -c framework/src/main/resources/config.conf -d /data
 <h3 id="_6">命令与参数<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
 <p>使用 <code>db lite</code> 命令来执行数据裁剪操作：
 <div class="highlight"><pre><span></span><code># full command
-  java -jar Toolkit.jar db lite [-h] -ds=&lt;datasetPath&gt; -fn=&lt;fnDataPath&gt; [-o=&lt;operate&gt;] [-t=&lt;type&gt;]
+  java -jar build/libs/Toolkit.jar db lite [-h] -ds=&lt;datasetPath&gt; -fn=&lt;fnDataPath&gt; [-o=&lt;operate&gt;] [-t=&lt;type&gt;]
 # examples
   #split and get a snapshot dataset
-  java -jar Toolkit.jar db lite -o split -t snapshot --fn-data-path output-directory/database --dataset-path /tmp
+  java -jar build/libs/Toolkit.jar db lite -o split -t snapshot --fn-data-path output-directory/database --dataset-path /tmp
   #split and get a history dataset
-  java -jar Toolkit.jar db lite -o split -t history --fn-data-path output-directory/database --dataset-path /tmp
+  java -jar build/libs/Toolkit.jar db lite -o split -t history --fn-data-path output-directory/database --dataset-path /tmp
   #merge history dataset and snapshot dataset
-  java -jar Toolkit.jar db lite -o merge --fn-data-path /tmp/snapshot --dataset-path /tmp/history
+  java -jar build/libs/Toolkit.jar db lite -o merge --fn-data-path /tmp/snapshot --dataset-path /tmp/history
 </code></pre></div>
 <strong>可选参数</strong>：</p>
 <ul>
@@ -1783,7 +1783,7 @@ java -jar Toolkit.jar db mv -c framework/src/main/resources/config.conf -d /data
 <p>此功能可将全节点数据转换为轻节点数据，也可用于定期裁剪轻节点数据。步骤如下：</p>
 <p>首先，停止节点，然后执行以下命令：</p>
 <div class="highlight"><pre><span></span><code># 简单起见，将快照数据集存放在`/tmp`目录下
-java -jar Toolkit.jar db lite -o split -t snapshot --fn-data-path output-directory/database --dataset-path /tmp
+java -jar build/libs/Toolkit.jar db lite -o split -t snapshot --fn-data-path output-directory/database --dataset-path /tmp
 </code></pre></div>
 <ul>
 <li><code>--fn-data-path</code>： 待剪裁数据目录，即节点数据目录</li>
@@ -1793,7 +1793,7 @@ java -jar Toolkit.jar db lite -o split -t snapshot --fn-data-path output-directo
 <h4 id="_9">切分历史数据集<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h4>
 <p>切分历史数据集的命令如下：</p>
 <div class="highlight"><pre><span></span><code># 简单起见，将历史数据集存放在 `/tmp` 目录下
-java -jar Toolkit.jar db lite -o split -t history --fn-data-path output-directory/database --dataset-path /tmp
+java -jar build/libs/Toolkit.jar db lite -o split -t history --fn-data-path output-directory/database --dataset-path /tmp
 </code></pre></div>
 <ul>
 <li><code>--fn-data-path</code>：全节点数据目录</li>
@@ -1807,7 +1807,7 @@ java -jar Toolkit.jar db lite -o split -t history --fn-data-path output-director
 </blockquote>
 <p>合并历史数据集和快照数据集的命令如下：</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># 简单起见，假设快照数据集存放在 `/tmp/snapshot`，历史数据集存放在 `/tmp/history`</span>
-java<span class="w"> </span>-jar<span class="w"> </span>Toolkit.jar<span class="w"> </span>db<span class="w"> </span>lite<span class="w"> </span>-o<span class="w"> </span>merge<span class="w"> </span>--fn-data-path<span class="w"> </span>/tmp/snapshot<span class="w"> </span>--dataset-path<span class="w"> </span>/tmp/history
+java<span class="w"> </span>-jar<span class="w"> </span>build/libs/Toolkit.jar<span class="w"> </span>db<span class="w"> </span>lite<span class="w"> </span>-o<span class="w"> </span>merge<span class="w"> </span>--fn-data-path<span class="w"> </span>/tmp/snapshot<span class="w"> </span>--dataset-path<span class="w"> </span>/tmp/history
 </code></pre></div>
 <ul>
 <li><code>--fn-data-path</code>：快照数据集目录。</li>
@@ -1819,9 +1819,9 @@ java<span class="w"> </span>-jar<span class="w"> </span>Toolkit.jar<span class="
 <h3 id="_12">命令与参数<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
 <p>使用 <code>db cp</code> 命令来执行数据拷贝操作：</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># full command</span>
-<span class="w">  </span>java<span class="w"> </span>-jar<span class="w"> </span>Toolkit.jar<span class="w"> </span>db<span class="w"> </span>cp<span class="w"> </span><span class="o">[</span>-h<span class="o">]</span><span class="w"> </span>&lt;src&gt;<span class="w"> </span>&lt;dest&gt;
+<span class="w">  </span>java<span class="w"> </span>-jar<span class="w"> </span>build/libs/Toolkit.jar<span class="w"> </span>db<span class="w"> </span>cp<span class="w"> </span><span class="o">[</span>-h<span class="o">]</span><span class="w"> </span>&lt;src&gt;<span class="w"> </span>&lt;dest&gt;
 <span class="c1"># examples</span>
-<span class="w">  </span>java<span class="w"> </span>-jar<span class="w"> </span>Toolkit.jar<span class="w"> </span>db<span class="w"> </span>cp<span class="w">  </span>output-directory/database<span class="w"> </span>/tmp/databse
+<span class="w">  </span>java<span class="w"> </span>-jar<span class="w"> </span>build/libs/Toolkit.jar<span class="w"> </span>db<span class="w"> </span>cp<span class="w">  </span>output-directory/database<span class="w"> </span>/tmp/databse
 </code></pre></div>
 <p><strong>可选参数</strong>：</p>
 <ul>
@@ -1837,9 +1837,9 @@ java<span class="w"> </span>-jar<span class="w"> </span>Toolkit.jar<span class="
 <h3 id="_14">命令与参数<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h3>
 <p>使用 <code>db convert</code> 命令来执行数据转换操作：</p>
 <div class="highlight"><pre><span></span><code># full command
-  java -jar Toolkit.jar db convert [-h] &lt;src&gt; &lt;dest&gt;
+  java -jar build/libs/Toolkit.jar db convert [-h] &lt;src&gt; &lt;dest&gt;
 # examples
-  java -jar Toolkit.jar db convert  output-directory/database /tmp/database
+  java -jar build/libs/Toolkit.jar db convert  output-directory/database /tmp/database
 </code></pre></div>
 <p><strong>可选参数</strong>：</p>
 <ul>
@@ -1855,16 +1855,16 @@ java<span class="w"> </span>-jar<span class="w"> </span>Toolkit.jar<span class="
 <h3 id="_15">命令与参数<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h3>
 <p>使用 <code>db archive</code> 命令来执行 LevelDB 启动优化操作：</p>
 <div class="highlight"><pre><span></span><code># full command
-   java -jar Toolkit.jar db archive [-h] [-b=&lt;maxBatchSize&gt;] [-d=&lt;databaseDirectory&gt;] [-m=&lt;maxManifestSize&gt;]
+   java -jar build/libs/Toolkit.jar db archive [-h] [-b=&lt;maxBatchSize&gt;] [-d=&lt;databaseDirectory&gt;] [-m=&lt;maxManifestSize&gt;]
 # examples
    #1. use default settings
-   java -jar Toolkit.jar db archive 
+   java -jar build/libs/Toolkit.jar db archive 
    #2. specify the database directory as /tmp/db/database
-   java -jar Toolkit.jar db archive -d /tmp/db/database 
+   java -jar build/libs/Toolkit.jar db archive -d /tmp/db/database 
    #3. specify the batch size to 64000 when optimizing manifest
-   java -jar Toolkit.jar db archive -b 64000
+   java -jar build/libs/Toolkit.jar db archive -b 64000
    #4. specify optimization only when Manifest exceeds 128M
-   java -jar Toolkit.jar db archive -m 128 
+   java -jar build/libs/Toolkit.jar db archive -m 128 
 </code></pre></div>
 <p><strong>可选参数</strong>：</p>
 <ul>

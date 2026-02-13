@@ -4275,7 +4275,7 @@ node.maxUnsolidifiedBlocks = 54
 <p>源代码：<a href="https://github.com/tronprotocol/java-tron/pull/5583">https://github.com/tronprotocol/java-tron/pull/5583</a>  </p>
 <h4 id="6-frameworklitefullnodetool">6. 删除framework模块下的LiteFullNodeTool相关代码<a class="headerlink" href="#6-frameworklitefullnodetool" title="Permanent link">&para;</a></h4>
 <p>为了便于工具维护和开发者使用，TRON推出了<code>Toolkit.jar</code>工具箱，其中包括了各种TRON开发周边工具，早在Aristotle版本，轻节点数据剪裁工具相关代码就已经被集成到了<code>Toolkit</code>工具箱中（位于plugin模块下），并且可以完全替代<code>LiteFullNodeTool</code>（位于framework模块下），因此，Bias版本删除了framework模块下的<code>LiteFullNodeTool</code>相关代码，这不但降低了代码冗余，而且使功能模块划分更加清晰。工具箱中的轻节点数据剪裁功能的使用命令如下：</p>
-<div class="highlight"><pre><span></span><code>$ java -jar Toolkit.jar db lite 
+<div class="highlight"><pre><span></span><code>$ java -jar build/libs/Toolkit.jar db lite 
 </code></pre></div>
 <p>源代码：<a href="https://github.com/tronprotocol/java-tron/pull/5711">https://github.com/tronprotocol/java-tron/pull/5711</a>  </p>
 <h4 id="7-nodediscoverybindip">7. 删除配置项<code>node.discovery.bind.ip</code><a class="headerlink" href="#7-nodediscoverybindip" title="Permanent link">&para;</a></h4>
@@ -4651,7 +4651,7 @@ node.dynamicConfig.checkInterval = 600
 </ul>
 <h4 id="6_3">6. 增加新的节点启动方式<a class="headerlink" href="#6_3" title="Permanent link">&para;</a></h4>
 <p>为了方便节点部署者进行数据备份或数据统计，节点支持在特定的条件下停止运行，用户可以通过节点配置文件设置节点停止的条件，当满足设置的条件时，节点将停止同步并退出运行。但在Periander之前的版本中，节点仅支持停止在特定条件下，而在停止后不支持接口查询服务，使得用户无法调用接口来了解系统的状态。因此，Periander版本增加了一种新的节点启动方式，以支持在不启动网络模块的情况下提供数据查询服务，当节点成功停止在特定条件后，用户可以通过在启动命令中添加<code>-p2p-disable true</code>参数，来启动节点，这时，节点将不启动网络模块，不进行节点发现与区块同步，但会提供接口查询服务，从而方便用户查询当前的系统状态。启动命令请参考：</p>
-<div class="highlight"><pre><span></span><code>java -jar FullNode.jar -c config.conf --p2p-disable true 
+<div class="highlight"><pre><span></span><code>java -jar build/libs/FullNode.jar -c framework/src/main/resources/config.conf --p2p-disable true 
 </code></pre></div>
 <ul>
 <li>源代码:  <a href="https://github.com/tronprotocol/java-tron/pull/5011">https://github.com/tronprotocol/java-tron/pull/5011</a>  </li>
@@ -5054,11 +5054,11 @@ node.dynamicConfig.checkInterval = 600
 <h4 id="6-toolkitjar">6. Toolkit.jar工具箱集成<a class="headerlink" href="#6-toolkitjar" title="Permanent link">&para;</a></h4>
 <p><code>DBConvert.jar</code>是数据库数据转换工具， 它可以将LevelDB数据转换为RocksDB数据；<code>LiteFullNodeTool.jar</code>是轻节点工具，可以将全节点数据转换成轻节点数据。从 GreatVoyage-v4.7.0.1(Aristotle)版本开始，将<code>DBConvert.jar</code> 和<code>LiteFullNodeTool.jar</code>集成到了<code>Toolkit.jar</code>工具箱中，并对<code>Toolkit.jar</code>工具箱新增数据库拷贝功能，以实现快速的节点数据库拷贝。未来java-tron周边的工具将逐步都集成到<code>Toolkit.jar</code>工具箱中，以便于工具维护和开发者使用。<code>Toolkit.jar</code>工具箱新增功能的使用命令如下：</p>
 <div class="highlight"><pre><span></span><code>// 将LevelDB数据转换为RocksDB数据
-$ java -jar Toolkit.jar db convert -h
+$ java -jar build/libs/Toolkit.jar db convert -h
 // 将全节点数据转换成轻节点数据
-$ java -jar Toolkit.jar db lite -h
+$ java -jar build/libs/Toolkit.jar db lite -h
 // 数据库拷贝
-$ java -jar Toolkit.jar db copy -h
+$ java -jar build/libs/Toolkit.jar db copy -h
 </code></pre></div>
 <ul>
 <li>源代码: <a href="https://github.com/tronprotocol/java-tron/pull/4813">https://github.com/tronprotocol/java-tron/pull/4813</a> </li>
@@ -5128,12 +5128,12 @@ $ java -jar Toolkit.jar db copy -h
 </ul>
 <h4 id="3-help">3. 新增help命令行选项<a class="headerlink" href="#3-help" title="Permanent link">&para;</a></h4>
 <p>GreatVoyage-v4.6.0(Socrates)版本增加了help命令行选项，用于查看所有的参数及其使用说明。下面是使用示例：
-<div class="highlight"><pre><span></span><code>$ java -jar FullNode.jar --help
+<div class="highlight"><pre><span></span><code>$ java -jar build/libs/FullNode.jar --help
 
 Name:
     FullNode - the java-tron command line interface
 
-Usage: java -jar FullNode.jar [options] [seedNode &lt;seedNode&gt; ...]
+Usage: java -jar build/libs/FullNode.jar [options] [seedNode &lt;seedNode&gt; ...]
 
 VERSION:
 4.5.2-d05f766
