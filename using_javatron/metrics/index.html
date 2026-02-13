@@ -1544,7 +1544,7 @@
 </code></pre></div></p>
 <h2 id="java-tron_2">启动java-tron节点<a class="headerlink" href="#java-tron_2" title="Permanent link">&para;</a></h2>
 <p>您可以通过如下命令启动java-tron节点：
-<div class="highlight"><pre><span></span><code>$ java -Xmx24g -XX:+UseConcMarkSweepGC -jar FullNode.jar -c framework/src/main/resources/config.conf
+<div class="highlight"><pre><span></span><code>$ java -Xmx24g -XX:+UseConcMarkSweepGC -jar build/libs/FullNode.jar -c framework/src/main/resources/config.conf
 </code></pre></div></p>
 <h2 id="prometheus">部署Prometheus服务<a class="headerlink" href="#prometheus" title="Permanent link">&para;</a></h2>
 <p><a href="https://prometheus.io/download/">prometheus</a>官方提供了预编译的二进制文件以及docker镜像，您可以直接在官网下载或者在dockerhub上拉取docker镜像，更多的安装与配置说明，请参考<a href="https://prometheus.io/docs/introduction/overview/">prometheus文档</a>。作为简单的部署说明，本文将采用docker镜像部署方式：</p>

@@ -1652,7 +1652,7 @@ git checkout master
 </code></pre></div>
 <h5 id="5-fullnode">步骤 5：启动 FullNode 和插件<a class="headerlink" href="#5-fullnode" title="Permanent link">&para;</a></h5>
 <p>完成上述配置后，使用以下命令启动 <code>FullNode</code> 并加载事件插件。</p>
-<p><div class="highlight"><pre><span></span><code>java -jar FullNode.jar -c config.conf --es
+<p><div class="highlight"><pre><span></span><code>java -jar build/libs/FullNode.jar -c framework/src/main/resources/config.conf --es
 </code></pre></div>
 <a id="use-kafka"></a></p>
 <h3 id="kafka">Kafka 事件订阅插件部署与使用指南<a class="headerlink" href="#kafka" title="Permanent link">&para;</a></h3>
@@ -1865,7 +1865,7 @@ bin/kafka-server-start.sh config/server.properties &amp;
 <p><a id="start-the-node"></a> </p>
 <h4 id="_7">启动事件订阅节点<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h4>
 <p>完成上述配置后，启动 Fullnode 节点时需要添加 <code>--es</code> 参数，以启用事件订阅功能。</p>
-<div class="highlight"><pre><span></span><code>java -jar FullNode.jar -c config.conf --es
+<div class="highlight"><pre><span></span><code>java -jar build/libs/FullNode.jar -c framework/src/main/resources/config.conf --es
 </code></pre></div>
 <h5 id="_8">验证插件加载<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h5>
 <p>您可以通过查看 Fullnode 日志来验证 Kafka 事件插件是否成功加载：</p>
@@ -2107,7 +2107,7 @@ sh insertIndex.sh
 <h5 id="fullnode">启动 FullNode 节点<a class="headerlink" href="#fullnode" title="Permanent link">&para;</a></h5>
 <p><strong>重要提示</strong>：在启动 FullNode 节点之前，请确保 MongoDB 服务已成功启动。</p>
 <p>启动 FullNode 节点的命令如下：</p>
-<div class="highlight"><pre><span></span><code>java -jar FullNode.jar -c config.conf --es
+<div class="highlight"><pre><span></span><code>java -jar build/libs/FullNode.jar -c framework/src/main/resources/config.conf --es
 </code></pre></div>
 <p>有关 FullNode 节点的安装，请参考 <a href="https://tronprotocol.github.io/documentation-zh/using_javatron/installing_javatron/">部署 FullNode</a> 文档。</p>
 <h5 id="_14">验证插件加载<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h5>
@@ -2167,7 +2167,7 @@ db.block.find()
 </ul>
 <h3 id="_16">启动节点<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h3>
 <p>事件订阅服务默认为关闭状态，需要通过配置命令行参数 <code>--es</code> 的方式来启用。开启事件订阅服务的节点的启动命令如下：
-<div class="highlight"><pre><span></span><code>$ java -jar FullNode.jar --es
+<div class="highlight"><pre><span></span><code>$ java -jar build/libs/FullNode.jar --es
 </code></pre></div></p>
 <h3 id="_17">准备事件订阅脚本<a class="headerlink" href="#_17" title="Permanent link">&para;</a></h3>
 <p>本文以 Node.js 为例来说明如何订阅事件。</p>

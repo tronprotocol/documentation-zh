@@ -1617,7 +1617,7 @@ java -jar build/libs/Toolkit.jar db convert    # 执行数据转换
 <li><code>dst_db_path</code>：RocksDB 数据库存储路径（默认为 <code>output-directory-dst/database</code>）</li>
 </ul>
 <p>例如，若节点是通过如下方式运行：
-<div class="highlight"><pre><span></span><code>nohup java -jar FullNode.jar -d your_database_dir &amp;
+<div class="highlight"><pre><span></span><code>nohup java -jar build/libs/FullNode.jar -d your_database_dir &amp;
 </code></pre></div>
 则应使用如下命令进行转换：
 <div class="highlight"><pre><span></span><code>java -jar build/libs/Toolkit.jar db convert  your_database_dir/database output-directory-dst/database
