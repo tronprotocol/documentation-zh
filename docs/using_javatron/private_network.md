@@ -79,12 +79,12 @@
     * 启动超级代表 (SR) 节点：
       ```
       cd SR
-      java -Xmx6g -XX:+HeapDumpOnOutOfMemoryError -jar build/libs/FullNode.jar  --witness  -c supernode.conf
+      java -Xmx6g -XX:+HeapDumpOnOutOfMemoryError -jar FullNode.jar  --witness  -c supernode.conf
       ```
     * 启动普通全节点：
       ```
       cd FullNode
-      java -Xmx6g -XX:+HeapDumpOnOutOfMemoryError -jar build/libs/FullNode.jar  -c fullnode.conf
+      java -Xmx6g -XX:+HeapDumpOnOutOfMemoryError -jar FullNode.jar  -c fullnode.conf
       #启动后，请观察控制台日志，确保全节点能够成功连接到SR节点并开始同步区块。
       ```
 
