@@ -60,7 +60,7 @@
     git checkout -b branch_name master
     ```
 
-* **提交与推送 (Commit and Push)**
+* **提交与推送**
 
   编写修改并在完成后提交新代码。
      ```bash
