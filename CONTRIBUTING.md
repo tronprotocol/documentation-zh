@@ -16,13 +16,13 @@
 1.  在提交 Issue 之前，请先搜索[已有的 issues](https://github.com/tronprotocol/documentation-zh/issues?q=is%3Aissue%20state%3Aclosed%20OR%20state%3Aopen) 以避免重复。
 2.  对于简单的错别字或格式问题，我们建议直接通过 Pull Request 提交修复。
 3.  对于其他内容问题，请清楚地描述您遇到的问题以及您预期的文档表述方式。
-    * Ask a question
+    * **Ask a question**
 
       欢迎随时提问任何与 `documentation-zh` 相关的问题，以解决您的疑惑。请在 GitHub Issues 中点击 **Ask a question**，并使用 [Ask a question](.github/ISSUE_TEMPLATE/ask-a-question.md) 模板。
-    * Report an error
+    * **Report an error**
 
       如果您认为在 `documentation-zh` 中发现了错误，请在 GitHub Issues 中点击 **Report an error**，并使用 [Report an error](.github/ISSUE_TEMPLATE/report-an-error.md) 模板。
-    * Request a feature
+    * **Request a feature**
 
       如果您对 `documentation-zh` 有任何好的内容建议，请在 GitHub Issues 中点击 **Request a feature**，并使用 [Request a feature](.github/ISSUE_TEMPLATE/request-a-feature.md) 模板。
 
