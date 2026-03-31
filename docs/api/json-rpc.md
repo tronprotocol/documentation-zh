@@ -114,7 +114,7 @@ curl -X POST 'https://api.shasta.trongrid.io/jsonrpc' --data '{"jsonrpc":"2.0","
 | to        | DATA, 20 Bytes | 合约地址。十六进制格式地址，去掉前缀 "41" |
 | gas       | QUANTITY       | 不支持。值为 0x0                               |
 | gasPrice  | QUANTITY       | 不支持。值为 0x0                               |
-| value     | QUANTITY       | 不支持。值为 0x0                               |
+| value     | QUANTITY       | 随此交易发送的整数值，以十六进制编码                               |
 | data      | DATA           | 方法签名和编码参数的哈希。          |
 
 2\. QUANTITY|TAG - 目前仅支持 "latest"。
