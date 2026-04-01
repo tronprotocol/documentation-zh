@@ -199,7 +199,7 @@ Nile 相关资源：区块浏览器、水龙头、钱包、开发者文档及网
 ### 接入 Shasta 测试网
 
 Shasta 不接受公共节点连接同步区块，仅可通过 TronGrid 端点以API方式访问；详情见 [TronGrid 服务](https://developers.tron.network/docs/trongrid)。
-Shasta 相关资源（浏览器、水龙头、钱包、开发者文档及网络统计）请访问 [shastaex.io](https://shasta.tronex.io/)。
+Shasta 相关资源（浏览器、水龙头、钱包、开发者文档及网络统计）请访问 [shasta.tronex.io](https://shasta.tronex.io/)。
 
 ### 启动全节点连接私有网络
 
