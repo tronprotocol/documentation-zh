@@ -161,6 +161,8 @@ localwitness = [
 3. 调用 `AccountPermissionUpdateContract`；
 4. 签名并广播交易。
 
+**注意**: 当一个区块内有账户权限变更交易时，后续不会再打包该账户的其他交易，以保证账户权限变更交易从下一个区块才实际生效。
+
 #### 示例请求：
 ```
 POST http://{{host}}:{{port}}/wallet/accountpermissionupdate
