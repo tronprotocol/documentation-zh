@@ -784,7 +784,7 @@ $ npm install zeromq@5
 然后，编写订阅者代码：
 ```
 // subscriber.js
-var zmq = require("zeromq"),
+var zmq = require("zeromq");
 var sock = zmq.socket("sub");
 
 sock.connect("tcp://127.0.0.1:5555");
