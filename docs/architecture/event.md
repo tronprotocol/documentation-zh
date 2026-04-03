@@ -643,14 +643,18 @@ mvn --version
 mvn package
 ```
 
-命令执行成功后，将在 `tron-eventquery/target` 目录下生成 JAR 包，并在 `tron-eventquery/`目录下生成配置文件`config.conf`。配置文件内容示例如下：
+命令执行成功后，将在 `tron-eventquery/target` 目录下生成 JAR 包，并在 `tron-eventquery/`目录下生成配置文件`config.conf`。
+
+**注意：下述配置仅供参考。在生产环境中，请务必为 MongoDB 设置强密码，不要使用硬编码的明文密码。**
+
+配置文件内容示例如下：
 
 ```
 mongo.host=IP
 mongo.port=27017
 mongo.dbname=eventlog
 mongo.username=tron
-mongo.password=123456
+mongo.password=${MONGO_PASSWORD}
 mongo.connectionsPerHost=8
 mongo.threadsAllowedToBlockForConnectionMultiplier=4
 ```
