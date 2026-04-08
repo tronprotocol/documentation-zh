@@ -799,7 +799,7 @@ curl -X POST  http://127.0.0.1:8090/wallet/getblockbylimitnext -d '{"startNum": 
 参数：
 
 - `startNum`：起始块高度，包含此块
-- `endNum`：截止块高度，不包含此此块
+- `endNum`：截止块高度，不包含此块
 
 返回值：一个包含多个区块对象的数组 (Block[])。
 
@@ -1215,7 +1215,7 @@ curl -X POST  http://127.0.0.1:8090/wallet/transferasset -d '{"owner_address":"4
 ```
 参数：
 
-- `owner_address`是转出方地址。，默认为 HexString 格式。
+- `owner_address`是转出方地址，默认为 HexString 格式。
 - `to_address`是接收方地址，默认为 HexString 格式。
 - `asset_name`是 TRC-10 代币 ID，默认为 HexString 格式。
 - `amount`是 token 转账数量。
@@ -2101,7 +2101,7 @@ curl -X POST  http://127.0.0.1:8091/walletsolidity/getblockbynum -d '{"num" : 10
 #### walletsolidity/getblockbyid
 作用：通过指定的区块ID（哈希）查询完整的区块信息。
 ```
-curl -X POST  http://127.0.0.1:8091/walletsolidity/getblockbyid-d '{"value":
+curl -X POST  http://127.0.0.1:8091/walletsolidity/getblockbyid -d '{"value":
 "0000000000038809c59ee8409a3b6c051e369ef1096603c7ee723c16e2376c73"}'
 ```
 参数：
@@ -2117,7 +2117,7 @@ curl -X POST  http://127.0.0.1:8091/walletsolidity/getblockbylimitnext -d '{"sta
 参数：
 
 - `startNum`：起始块高度，包含此块
-- `endNum`：截止块高度，不包含此此块
+- `endNum`：截止块高度，不包含此块
 
 返回值：一个包含多个区块对象的数组 (Block[])。
 

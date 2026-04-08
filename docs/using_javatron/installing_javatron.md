@@ -2,10 +2,10 @@
 
 本文档将指导开发者如何在 `Linux` 或 `macOS` 操作系统上部署 TRON java-tron 节点。
 
-java-tron 节点目前支持在x86_64和arm64架构上运行(arm64架构的支持从4.8.1版本开始)。不同架构上，JDK的支持情况：
+java-tron 节点目前支持在 x86_64 和 arm64 架构上运行（arm64 架构的支持从 4.8.1 版本开始）。不同架构上，JDK 的支持情况：
 
-- x86_64架构上，目前仅支持Oracle JDK 8
-- arm64架构上，目前仅支持JDK 17。
+- x86_64 架构上，目前仅支持 Oracle JDK 8
+- arm64 架构上，目前仅支持 JDK 17。
 
 ## 硬件配置要求
 
@@ -121,7 +121,7 @@ nohup java -jar build/libs/FullNode.jar -c framework/src/main/resources/config.c
 
 *   `nohup ... &`：在后台运行命令并忽略挂断信号。
 
-> 对于生产环境部署或长期运行的主网节点，请参考下方 [主网 FullNode 部署的 JVM 参数优化](#fullnode-jvm) 章节，以获取完整的Java启动命令。
+> 对于生产环境部署或长期运行的主网节点，请参考下方 [主网 FullNode 部署的 JVM 参数优化](#fullnode-jvm) 章节，以获取完整的 Java 启动命令。
 
 使用以下命令查看全节点运行日志，可以看到区块同步进度，节点连接状态等信息：
 ```bash
@@ -198,16 +198,16 @@ Nile 相关资源：区块浏览器、水龙头、钱包、开发者文档及网
 
 ### 接入 Shasta 测试网
 
-Shasta 不接受公共节点连接同步区块，仅可通过 TronGrid 端点以API方式访问；详情见 [TronGrid 服务](https://developers.tron.network/docs/trongrid)。
+Shasta 不接受公共节点连接同步区块，仅可通过 TronGrid 端点以 API 方式访问；详情见 [TronGrid 服务](https://developers.tron.network/docs/trongrid)。
 Shasta 相关资源（浏览器、水龙头、钱包、开发者文档及网络统计）请访问 [shasta.tronex.io](https://shasta.tronex.io/)。
 
 ### 启动全节点连接私有网络
 
-如需为测试或开发搭建私有网络，请遵循[私有网络指南](https://tronprotocol.github.io/documentation-zh/using_javatron/private_network/)。
+如需为测试或开发搭建私有网络，请遵循 [私有网络指南](https://tronprotocol.github.io/documentation-zh/using_javatron/private_network/)。
 
 ### 启动固化节点 (SolidityNode)
 
-固化节点仅从受信任的全节点同步固化区块。受信任全节点通过配置文件进行配置，端口号为全节点的grpc服务端口。
+固化节点仅从受信任的全节点同步固化区块。受信任全节点通过配置文件进行配置，端口号为全节点的 grpc 服务端口。
 
 ```
 node {
