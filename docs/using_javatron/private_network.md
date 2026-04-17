@@ -5,12 +5,12 @@
 ## 前置要求
 在开始之前，请确保您的开发环境满足以下条件：
 
-- **Java Development Kit (JDK)**：x86_64架构上，须安装 Oracle JDK 8；arm64架构上，须安装JDK 17。 
+- **Java Development Kit (JDK)**：x86_64 架构上，须安装 Oracle JDK 8；arm64 架构上，须安装 JDK 17。 
 - **TRON 账户**：您需要预先创建至少两个 TRON 网络地址，并安全地保存好地址和其对应的私钥。其中一个地址将作为初始见证节点（超级代表），另一个用于普通账户。
 - **地址创建工具**：您可以使用以下任一工具来生成和管理您的 TRON 账户：
     - [Wallet-cli](https://github.com/tronprotocol/wallet-cli)：一个官方提供的命令行钱包工具，适合在服务器环境中使用。
-    - [TronLink](https://www.tronlink.org/cn/)：一款支持TRON网络的多链钱包，提供友好的图形用户界面，方便创建和管理地址。
-    - [TronWeb](https://tronweb.network/docu/docs/intro/)：一个便于开发者与TRON网络进行交互和构建dApp的JavaScript库。
+    - [TronLink](https://www.tronlink.org/cn/)：一款支持 TRON 网络的多链钱包，提供友好的图形用户界面，方便创建和管理地址。
+    - [TronWeb](https://tronweb.network/docu/docs/intro/)：一个便于开发者与 TRON 网络进行交互和构建 dApp 的 JavaScript 库。
     - [Trident](https://github.com/tronprotocol/trident)：一个轻量级的 Java SDK，旨在帮助开发者简单高效地将 TRON 区块链功能集成到 Java 应用中
 
 ## 部署指南

@@ -198,7 +198,7 @@ event.subscribe = {
 <a id="event-types"></a>
 ###### 事件类型
 
-TRON 事件订阅支持 `block`、`transaction`、`contractevent`、`contractlog`、`solidity`、`soliditytevent`、`soliditylog` 7 种类型的事件订阅。开发者需要根据业务需求进行配置，**建议只订阅 1-2 种事件类型，如果开启过多触发器，会导致性能下降。**
+TRON 事件订阅支持 `block`、`transaction`、`contractevent`、`contractlog`、`solidity`、`solidityevent`、`soliditylog` 7 种类型的事件订阅。开发者需要根据业务需求进行配置，**建议只订阅 1-2 种事件类型，如果开启过多触发器，会导致性能下降。**
 
 **1. 交易事件**
 
@@ -339,7 +339,7 @@ event.subscribe.topics = [
 ]
 ```
 
-固化快通知事件中包含的主要字段：
+固化块通知事件中包含的主要字段：
 
   - `latestSolidifiedBlockNumber`: 最新固化块高度。
   - `timestamp`: 区块时间戳。
@@ -416,7 +416,7 @@ bin/kafka-console-consumer.sh --topic block --from-beginning --bootstrap-server 
 - [部署事件订阅插件](#deploying-the-event-plugin)
 - [安装并配置 MongoDB](#deploying-the-mongodb)
 - [部署事件查询服务](#deploying-the-event-query-service)
-- [启动服务并验证数据](#starting-and-verifing)
+- [启动服务并验证数据](#starting-and-verifying)
 - [调用 API 查询事件](#using-the-tron-event-query-service-api)
 
 
@@ -526,7 +526,7 @@ event.subscribe = {
 *   `startSyncBlockNum`：V2.0 版本新增支持从本地历史区块中处理并推送事件，可满足用户对历史数据的订阅需求。当 `startSyncBlockNum <= 0` 时，表示关闭历史事件同步功能；当 `startSyncBlockNum > 0` 时，表示开启该功能，并从指定区块高度开始同步历史事件。**注意**：启用该功能时建议使用最新版本的事件插件。
 *   `native.useNativeQueue`：是否使用内置消息队列（ZeroMQ）订阅事件。`true` 表示使用内置消息队列，`false` 表示使用插件订阅事件。这里需设置成 `false`。
 *   `path`：插件的绝对路径，例如 `"/deploy/fullnode/event-plugin/build/plugins/plugin-mongodb-1.0.0.zip"`。
-*   `server`：目标服务器地址，即MongoDB 的地址和端口，例如 `"127.0.0.1:27017"`。
+*   `server`：目标服务器地址，即 MongoDB 的地址和端口，例如 `"127.0.0.1:27017"`。
 *   `dbconfig`：MongoDB 数据库配置，格式为：`数据库名|用户名|密码`，例如 `"eventlog|tron|123456"`。
 *   `topics`：目前支持七种事件类型：`block`、`transaction`、`contractevent`、 `contractlog`、`solidity`、`solidityevent` 和 `soliditylog`。详细信息请参考 [事件类型](#event-types) 章节。
     *   `triggerName`：触发器名称，不可修改。
@@ -676,7 +676,7 @@ sh insertIndex.sh
 nohup java -jar -Dserver.port=8081 target/troneventquery-1.0.0-SNAPSHOT.jar 2>&1 &
 ```
 
-<a id="starting-and-verifing"></a> 
+<a id="starting-and-verifying"></a> 
 #### 启动服务与验证数据
 
 完成上述部署步骤后，您可以启动 TRON FullNode 节点并验证事件订阅服务是否正常工作。
