@@ -45,7 +45,6 @@ curl --request POST \
 
 | 触发条件 | 响应 |
 |---|---|
-| 请求体超过 `node.maxMessageSize`（POST） | `{"Error": "class java.lang.Exception : body size is too big, the limit is <N>"}` |
 | `address` 解析失败（非法 hex / base58） | `{"Error": "INVALID address, <details>"}` |
 | 请求体不是合法 JSON（POST） | `{"Error": "class com.alibaba.fastjson.JSONException : <解析器信息>"}` |
 | 其他异常 | `{"Error": "<exceptionClass> : <message>"}` |

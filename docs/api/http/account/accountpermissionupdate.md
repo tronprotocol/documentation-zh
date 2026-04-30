@@ -124,7 +124,7 @@ curl --request POST \
 | `owner.type != Owner` | `{"Error": "class org.tron.core.exception.ContractValidateException : owner permission type is error"}` |
 | `witness.type != Witness` | `{"Error": "class org.tron.core.exception.ContractValidateException : witness permission type is error"}` |
 | `actives[i].type != Active` | `{"Error": "class org.tron.core.exception.ContractValidateException : active permission type is error"}` |
-| `Permission.keys` 数量超过 5 | `{"Error": "class org.tron.core.exception.ContractValidateException : number of keys in permission should not be greater than 5"}` |
+| `Permission.keys` 数量超过 `getTotalSignNum()`（默认 5） | `{"Error": "class org.tron.core.exception.ContractValidateException : number of keys in permission should not be greater than <N>"}` |
 | `Permission.keys` 为空 | `{"Error": "class org.tron.core.exception.ContractValidateException : key's count should be greater than 0"}` |
 | `witness` 权限的 keys 不为 1 | `{"Error": "class org.tron.core.exception.ContractValidateException : Witness permission's key count should be 1"}` |
 | `Permission.threshold <= 0` | `{"Error": "class org.tron.core.exception.ContractValidateException : permission's threshold should be greater than 0"}` |
@@ -134,6 +134,7 @@ curl --request POST \
 | `keys[i].address` 不是 21 字节合法地址 | `{"Error": "class org.tron.core.exception.ContractValidateException : key is not a validate address"}` |
 | `keys[i].weight <= 0` | `{"Error": "class org.tron.core.exception.ContractValidateException : key's weight should be greater than 0"}` |
 | `Permission.threshold` 大于 `keys.weight` 之和 | `{"Error": "class org.tron.core.exception.ContractValidateException : sum of all key's weight should not be less than threshold in permission <Owner\|Witness\|Active>"}` |
+| owner / witness 权限设置了非空 `operations` | `{"Error": "class org.tron.core.exception.ContractValidateException : <Owner\|Witness> permission needn't operations"}` |
 | `active.operations` 长度不为 32 字节 | `{"Error": "class org.tron.core.exception.ContractValidateException : operations size must 32"}` |
 | `active.operations` 中包含未注册的合约类型位 | `{"Error": "class org.tron.core.exception.ContractValidateException : <i> isn't a validate ContractType"}` |
 | 其他异常 | `{"Error": "<exceptionClass> : <message>"}` |

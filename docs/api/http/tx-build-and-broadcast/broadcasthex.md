@@ -56,7 +56,8 @@ curl --request POST \
 | 触发条件 | 响应 |
 |---|---|
 | 请求体不是合法 JSON | `{"Error": "class com.alibaba.fastjson.JSONException : <解析器信息>"}` |
-| `transaction` 字段缺失或非字符串 | `{"Error": "class java.lang.NullPointerException : <message>"}`（`getString("transaction")` 返 null → `ByteArray.fromHexString(null)` 空指针） |
-| `transaction` 不是合法 hex | `{"Error": "class org.bouncycastle.util.encoders.DecoderException : <message>"}`（`ByteArray.fromHexString`） |
-| `transaction` 不是合法 protobuf | `{"Error": "class com.google.protobuf.InvalidProtocolBufferException : <message>"}`（`Transaction.parseFrom`） |
+| `transaction` 字段缺失 | 业务级响应 `{"result": false, "code": "CONTRACT_VALIDATE_ERROR", "message": "Contract validate error : No contract!", "transaction": "{}", "txid": "<空 Transaction 的 SHA256>"}`（`getString` 返 null → `ByteArray.fromHexString(null)` 得空数组 → `Transaction.parseFrom` 得空 Transaction → 进入广播） |
+| `transaction` 非字符串（数组/对象/数字） | `{"Error": "class org.bouncycastle.util.encoders.DecoderException : <message>"}`（fastjson `getString` 把非字符串 toString 后交 `ByteArray.fromHexString`） |
+| `transaction` 不是合法 hex | `{"Error": "class org.bouncycastle.util.encoders.DecoderException : <message>"}` |
+| `transaction` 不是合法 protobuf | `{"Error": "class com.google.protobuf.InvalidProtocolBufferException : <message>"}` |
 | 其他异常 | `{"Error": "<exceptionClass> : <message>"}` |

@@ -61,14 +61,14 @@ curl --request POST \
 }
 ```
 
-账户不存在返回 `{}`。
+`address` 缺失或对应账户不存在均返回 `{}`。
 
 ### 异常响应
 
 | 触发条件 | 响应 |
 |---|---|
 | 请求体超过 `node.maxMessageSize`（POST） | `{"Error": "class java.lang.Exception : body size is too big, the limit is <N>"}` |
-| `address` 不是合法 base58check（`visible=true`） | `{"Error": "class java.lang.IllegalArgumentException : <message>"}`（GET）；`{"Error": "class java.lang.NullPointerException : <message>"}`（POST） |
-| `address` 不是合法 hex（`visible=false`） | `{"Error": "class org.bouncycastle.util.encoders.DecoderException : <message>"}`（GET）；`{"Error": "class org.tron.core.services.http.JsonFormat$ParseException : <message>"}`（POST） |
+| `address` 不是合法 hex（`visible=false`） | `{"Error": "class org.bouncycastle.util.encoders.DecoderException : exception decoding Hex string: <详情>"}` |
+| `address` 不是合法 base58check（`visible=true`） | `{"Error": "class java.lang.IllegalArgumentException : <详情>"}` |
 | 请求体不是合法 JSON / 字段类型不符（POST） | `{"Error": "class com.alibaba.fastjson.JSONException : <解析器信息>"}` |
 | 其他异常 | `{"Error": "<exceptionClass> : <message>"}` |

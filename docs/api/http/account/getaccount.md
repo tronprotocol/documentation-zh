@@ -99,15 +99,14 @@ curl --request POST \
 }
 ```
 
-账户不存在返回 `{}`。
+`address` 缺失或对应账户不存在均返回 `{}`。
 
 ### 异常响应
 
 | 触发条件 | 响应 |
 |---|---|
 | 请求体超过 `node.maxMessageSize`（POST） | `{"Error": "class java.lang.Exception : body size is too big, the limit is <N>"}` |
-| `address` 缺失 | `{"Error": "class java.lang.NullPointerException : <message>"}` |
-| `address` 不是合法 base58check（`visible=true`） | `{"Error": "class java.lang.IllegalArgumentException : <message>"}`（GET）；`{"Error": "class java.lang.NullPointerException : <message>"}`（POST） |
-| `address` 不是合法 hex（`visible=false`） | `{"Error": "class org.bouncycastle.util.encoders.DecoderException : <message>"}`（GET）；`{"Error": "class org.tron.core.services.http.JsonFormat$ParseException : <message>"}`（POST） |
+| `address` 不是合法 hex（`visible=false`） | `{"Error": "class org.tron.core.services.http.JsonFormat$ParseException : <pos>: INVALID hex String"}` |
+| `address` 不是合法 base58check（`visible=true`） | 含非 base58 字符抛 `{"Error": "class org.tron.core.services.http.JsonFormat$ParseException : <pos>: INVALID base58 String, <详情>"}`；仅校验位错误抛 `{"Error": "class java.lang.NullPointerException : null"}`（GET、POST 行为一致：GET 路径把 `address` 包成 JSON 后同样走 `JsonFormat.merge`） |
 | 请求体不是合法 JSON / 字段类型不符（POST） | `{"Error": "class com.alibaba.fastjson.JSONException : <解析器信息>"}` 或 `{"Error": "class org.tron.core.services.http.JsonFormat$ParseException : <解码器信息>"}` |
 | 其他异常 | `{"Error": "<exceptionClass> : <message>"}` |

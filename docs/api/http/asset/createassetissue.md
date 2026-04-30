@@ -21,7 +21,7 @@
 | `start_time` | int64 | 是 | 募集开始时间，毫秒 |
 | `end_time` | int64 | 是 | 募集结束时间，毫秒 |
 | `description` | string | 否 | 描述（hex UTF-8） |
-| `url` | string | 否 | 项目 URL（hex UTF-8） |
+| `url` | string | 是 | 项目 URL（hex UTF-8，长度 ≤ 256 字节） |
 | `free_asset_net_limit` | int64 | 否 | 单账户该通证免费带宽 |
 | `public_free_asset_net_limit` | int64 | 否 | 通证公共免费带宽 |
 | `permission_id` | int32 | 否 | 多签权限 ID |

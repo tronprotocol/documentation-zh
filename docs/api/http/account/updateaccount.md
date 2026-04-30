@@ -68,7 +68,7 @@ curl --request POST \
 |---|---|
 | 请求体超过 `node.maxMessageSize` | `{"Error": "class java.lang.Exception : body size is too big, the limit is <N>"}` |
 | 请求体不是合法 JSON / 字段类型不符 | `{"Error": "class com.alibaba.fastjson.JSONException : <解析器信息>"}` 或 `{"Error": "class org.tron.core.services.http.JsonFormat$ParseException : <解码器信息>"}` |
-| `account_name` 不合法（长度不在 `[8, 32]` 字节，或字符不合法） | `{"Error": "class org.tron.core.exception.ContractValidateException : Invalid accountName"}` |
+| `account_name` 长度超过 200 字节 | `{"Error": "class org.tron.core.exception.ContractValidateException : Invalid accountName"}` |
 | `owner_address` 不是 21 字节合法地址 | `{"Error": "class org.tron.core.exception.ContractValidateException : Invalid ownerAddress"}` |
 | `owner_address` 在链上不存在 | `{"Error": "class org.tron.core.exception.ContractValidateException : Account does not exist"}` |
 | 账户已设置过 `account_name` 且 `AllowUpdateAccountName=0` | `{"Error": "class org.tron.core.exception.ContractValidateException : This account name is already existed"}` |

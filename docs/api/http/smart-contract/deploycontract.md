@@ -94,7 +94,7 @@ curl --request POST \
 | 触发条件 | 响应 |
 |---|---|
 | 请求体超过 `node.maxMessageSize` | `{"Error": "class java.lang.Exception : body size is too big, the limit is <N>"}` |
-| `owner_address` 不是合法 base58check（`visible=true`） | `{"Error": "class java.lang.IllegalArgumentException : <message>"}`（非 base58 字符）；校验位错误时 `Util.getHexAddress` 静默返回空串 → 下游产 `ContractValidateException : Validate ... no OwnerAccount` |
+| `owner_address` 不是合法 base58check（`visible=true`） | 含非 base58 字符抛 `{"Error": "class java.lang.IllegalArgumentException : <详情>"}`；仅校验位错误时 `Util.getHexAddress` 静默返回空串，`CreateSmartContract` 构造路径不校验 owner 非空，会返回 `owner_address` 字段缺失的合法交易（签名/广播阶段才会失败） |
 | `owner_address` 不是合法 hex（`visible=false`） | `{"Error": "class org.bouncycastle.util.encoders.DecoderException : <message>"}`（直调 `ByteArray.fromHexString`） |
 | `bytecode` 不是合法 hex | `{"Error": "class org.bouncycastle.util.encoders.DecoderException : <message>"}`（直调 `ByteArray.fromHexString`） |
 | `abi` 不是合法 JSON | `{"Error": "class com.alibaba.fastjson.JSONException : <解析器信息>"}` |

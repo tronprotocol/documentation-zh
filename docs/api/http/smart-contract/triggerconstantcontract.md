@@ -95,12 +95,14 @@ curl --request POST \
 
 ### 异常响应
 
-不会写出 `{"Error": ...}`。所有异常被 catch 后写入 `result.code`、`result.message`，HTTP 体仍是 `TransactionExtention`：
+不会写出 `{"Error": ...}`。所有异常被 catch 后写入 `result.code` / `result.message`，HTTP 体仍是 `TransactionExtention`。注意：**EVM revert / runtime 错误不走 `result.code` 路径**，而是 `result.result=true`、`message` 写 revert/runtime 信息，失败标记落在 `transaction.ret[0].ret="FAILED"`。
 
-| 触发条件 | `result.result` | `result.code` | `result.message` |
-|---|---|---|---|
-| 合约不存在 / 校验失败（`ContractValidateException`） | false | `CONTRACT_VALIDATE_ERROR` | 校验器原始描述 |
-| EVM revert / `require` 失败 | false | `CONTRACT_EXE_ERROR` | `REVERT opcode executed` 等；`constant_result[0]` 为 `Error(string)` 的 ABI 编码 |
-| 其他（hex 解析、参数缺失、proto merge 等） | false | `OTHER_ERROR` | `<exceptionClass> : <message>`（`"` → `'`） |
+| 触发条件 | `result.result` | `result.code` | `result.message` | 其他 |
+|---|---|---|---|---|
+| 合约不存在 / 校验失败（`ContractValidateException`） | 缺省 (false) | `CONTRACT_VALIDATE_ERROR` | 校验器原始描述 | — |
+| EVM revert / `require` 失败 | true | 缺省（`SUCCESS`，不出现） | `REVERT opcode executed` | `transaction.ret[0].ret="FAILED"`；`constant_result[0]` 为 `Error(string)` 的 ABI 编码（合约带 reason 时） |
+| EVM 运行时错误（OOG、非法指令等，无 `result.getException()`） | true | 缺省（`SUCCESS`，不出现） | `result.getRuntimeError()` 原始字符串 | 同上 |
+| `result.getException() != null`（如 `OutOfTimeException`） | 缺省 (false) | `OTHER_ERROR` | `<exceptionClass> : <message>`（`"` → `'`） | — |
+| 其他（hex 解析、参数缺失、proto merge 等） | 缺省 (false) | `OTHER_ERROR` | `<exceptionClass> : <message>`（`"` → `'`） | — |
 
 revert 时 `result.message` 不携带原 reason 字符串；reason 需自己解码 `constant_result[0]`：跳过前 4 字节选择器 `08c379a0`，按 ABI `string` 解码剩余数据。

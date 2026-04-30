@@ -12,7 +12,8 @@
 
 | 字段 | 类型 | 必填 | 说明 |
 |---|---|---|---|
-| `raw_data` / `raw_data_hex` | object/string | 是 | 同 broadcasttransaction |
+| `raw_data` | object | 是 | 与 createtransaction 返回一致 |
+| `raw_data_hex` | string | 否（节点忽略） | 同 [`broadcasttransaction`](broadcasttransaction.md#请求参数)：客户端可视化辅助字段，不参与验签 |
 | `signature` | string[] | 是 | 已收集的签名（可以只有 1 个） |
 | `visible` | bool | 否 | 地址、文本字段格式（响应含 `result.message`，受 `visible` 影响） |
 
@@ -78,6 +79,6 @@ curl --request POST \
 | 触发条件 | 响应 |
 |---|---|
 | 请求体超过 `node.maxMessageSize` | `{"Error": "class java.lang.Exception : body size is too big, the limit is <N>"}` |
-| 请求体不是合法 JSON / 字段类型不符 | `{"Error": "class com.alibaba.fastjson.JSONException : <解析器信息>"}` 或 `{"Error": "class org.tron.core.services.http.JsonFormat$ParseException : <解码器信息>"}` |
-| `raw_data_hex` 不是合法 hex | `{"Error": "class java.lang.NullPointerException : <message>"}`（`Util.packTransaction` 捕获 `JsonFormat$ParseException` 后返 `null`，下游空指针） |
+| 请求体不是合法 JSON | `{"Error": "class com.alibaba.fastjson.JSONException : <解析器信息>"}` |
+| 缺少 `raw_data`、`raw_data.contract` 不是数组、`signature` 非数组或元素非 hex、`raw_data` 字段类型不符等 | `{"Error": "class java.lang.NullPointerException : null"}`（`Util.packTransaction` 把 `JsonFormat$ParseException` / `ClassCastException` 静默捕获后返回 `null`，下游 `getTransactionSignWeight(null)` 触发空指针） |
 | 其他异常 | `{"Error": "<exceptionClass> : <message>"}` |

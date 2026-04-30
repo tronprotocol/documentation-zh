@@ -62,5 +62,7 @@ curl --request POST \
 |---|---|
 | 请求体超过 `node.maxMessageSize`（POST） | `{"Error": "class java.lang.Exception : body size is too big, the limit is <N>"}` |
 | `id` 不是数字（GET） | `{"Error": "class java.lang.NumberFormatException : <message>"}` |
-| 请求体不是合法 JSON / 字段类型不符（POST） | `{"Error": "class com.alibaba.fastjson.JSONException : <解析器信息>"}` 或 `{"Error": "class org.tron.core.services.http.JsonFormat$ParseException : <解码器信息>"}` |
+| 请求体不是合法 JSON（POST） | `{"Error": "class com.alibaba.fastjson.JSONException : <解析器信息>"}` |
+| `id` 缺失（POST） | `{"Error": "class java.security.InvalidParameterException : key [id] does not exist"}` |
+| `id` 不是数字（POST，含字符串/布尔/数组/对象） | `{"Error": "class java.lang.NumberFormatException : null"}`（`Util.getJsonLongValue` 走 fastjson `getBigDecimal`） |
 | 其他异常 | `{"Error": "<exceptionClass> : <message>"}` |
