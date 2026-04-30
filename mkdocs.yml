@@ -207,7 +207,7 @@ nav:
                 - 累计销毁 TRX: api/rpc/node-and-tools/GetBurnTrx.md
         - jsonRPC 接口:
             - 概述: api/json-rpc/index.md
-            - 节点 / 链身份:
+            - 节点信息 / 链身份:
                 - 客户端版本字符串: api/json-rpc/node/web3_clientVersion.md
                 - Keccak-256 哈希: api/json-rpc/node/web3_sha3.md
                 - 网络 ID: api/json-rpc/node/net_version.md
@@ -228,11 +228,11 @@ nav:
                 - 按块高 + index 查询交易: api/json-rpc/block-and-tx-query/eth_getTransactionByBlockNumberAndIndex.md
                 - 按 txid 查询回执: api/json-rpc/block-and-tx-query/eth_getTransactionReceipt.md
                 - 整块回执列表: api/json-rpc/block-and-tx-query/eth_getBlockReceipts.md
-            - 账户:
+            - 账户状态:
                 - 账户 TRX 余额: api/json-rpc/account/eth_getBalance.md
                 - 合约存储槽: api/json-rpc/account/eth_getStorageAt.md
                 - 合约 runtime 字节码: api/json-rpc/account/eth_getCode.md
-            - 智能合约:
+            - 智能合约调用:
                 - 只读调用合约: api/json-rpc/smart-contract/eth_call.md
                 - 估算 energy 消耗: api/json-rpc/smart-contract/eth_estimateGas.md
             - 日志 / 过滤器:
