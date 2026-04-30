@@ -239,4 +239,4 @@ marketcancelorder  TN3zfjYUmMFK3ZsHSsrdJoNRtGkQmZLBLz 5c83953fd64af67cb452171df5
 3.由于链上合约执行时间的限制，无法在一笔交易中完成大量的撮合交易交易，所以有最大撮合数的限制，目前是20，超过这个数目的交易会执行错误。\
 4.交易费。除了创建交易时消耗的带宽，其他的手续费为0，未来可通过提案修改。
 
-相关api详情，请查询[http api](../api/http.md)。  
+相关api详情，请查询[http api](../api/http/index.md)。  

@@ -1,0 +1,39 @@
+# eth_getStorageAt
+
+查询合约存储槽（slot）的值。
+
+- 源码：`framework/src/main/java/org/tron/core/services/jsonrpc/TronJsonRpcImpl.java#getStorageAt`
+- 端口：FullNode `8545` / Solidity `8555`
+
+## 请求参数
+
+| 位置 | 类型 | 必填 | 说明 |
+|---|---|---|---|
+| `params[0]` | string | 是 | 合约地址（20 字节 hex 或 base58check） |
+| `params[1]` | string | 是 | 存储槽索引，32 字节 hex |
+| `params[2]` | string | 是 | 区块标识，**仅支持 `latest`** |
+
+```bash
+curl -X POST https://nile.trongrid.io/jsonrpc \
+  -H 'Content-Type: application/json' \
+  -d '{"jsonrpc":"2.0","method":"eth_getStorageAt","params":["0x9ff8fc48fb114ccd5bbdc24a86f0c73082f08825","0x0","latest"],"id":1}'
+```
+
+## 响应
+
+槽位的 32 字节值，hex 编码。**地址不是合约**或槽位未写入时返回 32 字节 0。
+
+下例为上面 curl 调用 Nile testnet 抓回的真实响应（合约 slot 0 存的 `uint256` 计数器值为 `0x8`）：
+
+```json
+{ "jsonrpc": "2.0", "id": 1, "result": "0x0000000000000000000000000000000000000000000000000000000000000008" }
+```
+
+### 异常响应
+
+| 触发条件 | 错误码 | message |
+|---|---|---|
+| `params[2]` 是 `earliest` / `pending` / `finalized` | `-32602` | `TAG [earliest \| pending \| finalized] not supported` |
+| `params[2]` 是合法 hex 数字 | `-32602` | `QUANTITY not supported, just support TAG as latest` |
+| `params[2]` 既不是合法 tag 也不是合法 hex | `-32602` | `invalid block number` |
+| `params[0]` 不是合法地址 | `-32602` | 透传 message |
