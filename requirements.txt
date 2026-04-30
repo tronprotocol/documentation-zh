@@ -1,0 +1,3 @@
+mkdocs-material
+python-frontmatter  # 解析 Markdown 元数据
+GitPython           # 用于更稳定地克隆仓库
