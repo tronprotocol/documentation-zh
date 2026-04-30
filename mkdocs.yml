@@ -31,7 +31,8 @@ nav:
         - 账户权限管理: mechanism-algorithm/multi-signatures.md
     - java-tron开发: 
         - 开发者指南: developers/java-tron.md
-        - TIPs工作流程: developers/tips.md
+        - TIPs工作流程: developers/tips-workflow.md
+        - TIPs: developers/tips/
         - Issue工作流程: developers/issue-workflow.md
         - 治理流程: developers/governance.md
         - 配置IDE开发环境: developers/run-in-idea.md
@@ -61,6 +62,10 @@ theme:
     - search.suggest  # 搜索时显示建议
     - content.code.annotate  # 代码块注释
     - content.tooltips  # 内容中的工具提示
+    - navigation.tabs
+    - content.tabs.link
+    - content.code.copy
+    - tags 
   palette:
     primary: custom  # 主色调
     accent: custom  # 强调色
@@ -71,7 +76,7 @@ theme:
 extra_javascript:
     - javascripts/toc.js
     - javascripts/nav-toc.js
-    - javascripts/mathjax-sri.js
+    - 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML'
 
 extra_css:
     - stylesheets/extra.css
@@ -87,6 +92,9 @@ markdown_extensions:
     - pymdownx.tilde
     - pymdownx.tasklist
     - pymdownx.superfences
+    - tables
+    - attr_list
+    - md_in_html
 
 plugins:
   - search:
@@ -105,4 +113,6 @@ plugins:
         - introduction/overview.md
         - mechanism-algorithm/shielded-TRC20-contract.md
         - mechanism-algorithm/trc10.md
+        - search
+        - tags
 
