@@ -36,129 +36,129 @@ grpc://<host>:50061   protocol.WalletSolidity/<Method>
 
 | 方法 | 描述 |
 |---|---|
-| [GetAccount](account/GetAccount.md) | 查询账户信息 |
-| [GetAccountBalance](account/GetAccountBalance.md) | 按指定区块查询账户 TRX 余额 |
-| [GetAccountNet](account/GetAccountNet.md) | 查询带宽资源使用（已弃用） |
-| [GetAccountResource](account/GetAccountResource.md) | 查询带宽 + 能量 + TronPower 使用 |
-| [CreateAccount2](account/CreateAccount2.md) | 创建新账户的未签名交易 |
-| [UpdateAccount2](account/UpdateAccount2.md) | 修改账户昵称 |
-| [AccountPermissionUpdate](account/AccountPermissionUpdate.md) | 修改账户多签权限 |
+| [GetAccount](account/GetAccount.md) | 按地址查询账户 |
+| [GetAccountBalance](account/GetAccountBalance.md) | 查询账户在指定区块的余额 |
+| [GetAccountNet](account/GetAccountNet.md) | 查询账户带宽资源 |
+| [GetAccountResource](account/GetAccountResource.md) | 查询账户带宽+能量+TronPower |
+| [CreateAccount2](account/CreateAccount2.md) | 链上创建账户（需消耗 1 TRX） |
+| [UpdateAccount2](account/UpdateAccount2.md) | 修改账户名 |
+| [AccountPermissionUpdate](account/AccountPermissionUpdate.md) | 配置多签权限 |
 
-## TRC10 通证
-
-| 方法 | 描述 |
-|---|---|
-| [CreateAssetIssue2](asset/CreateAssetIssue2.md) | 发行 TRC10 通证 |
-| [UpdateAsset2](asset/UpdateAsset2.md) | 修改 TRC10 描述/URL/带宽限额 |
-| [TransferAsset2](asset/TransferAsset2.md) | TRC10 通证转账 |
-| [ParticipateAssetIssue2](asset/ParticipateAssetIssue2.md) | 参与 TRC10 募集 |
-| [UnfreezeAsset2](asset/UnfreezeAsset2.md) | 解冻发行方冻结的通证 |
-| [GetAssetIssueById](asset/GetAssetIssueById.md) | 按 token id 查询 TRC10 |
-| [GetAssetIssueByName](asset/GetAssetIssueByName.md) | 按名查询 TRC10 |
-| [GetAssetIssueListByName](asset/GetAssetIssueListByName.md) | 按名查询所有同名 TRC10 |
-| [GetAssetIssueByAccount](asset/GetAssetIssueByAccount.md) | 查询账户发行的 TRC10 |
-| [GetAssetIssueList](asset/GetAssetIssueList.md) | 查询全网 TRC10 |
-| [GetPaginatedAssetIssueList](asset/GetPaginatedAssetIssueList.md) | 分页查询全网 TRC10 |
-
-## 区块与交易查询
+## 区块 / 交易查询
 
 | 方法 | 描述 |
 |---|---|
 | [GetNowBlock2](block-and-tx-query/GetNowBlock2.md) | 当前最新区块 |
-| [GetBlock](block-and-tx-query/GetBlock.md) | 按 num/hash 查询区块（统一接口） |
-| [GetBlockByNum2](block-and-tx-query/GetBlockByNum2.md) | 按区块号查询 |
-| [GetBlockById](block-and-tx-query/GetBlockById.md) | 按区块哈希查询 |
-| [GetBlockByLimitNext2](block-and-tx-query/GetBlockByLimitNext2.md) | 区间查询区块 |
-| [GetBlockByLatestNum2](block-and-tx-query/GetBlockByLatestNum2.md) | 最新 N 个区块 |
-| [GetBlockBalanceTrace](block-and-tx-query/GetBlockBalanceTrace.md) | 区块内余额变动追踪 |
-| [GetTransactionCountByBlockNum](block-and-tx-query/GetTransactionCountByBlockNum.md) | 区块交易数 |
-| [GetTransactionById](block-and-tx-query/GetTransactionById.md) | 按 ID 查询交易体 |
-| [GetTransactionInfoById](block-and-tx-query/GetTransactionInfoById.md) | 按 ID 查询交易执行结果 |
-| [GetTransactionInfoByBlockNum](block-and-tx-query/GetTransactionInfoByBlockNum.md) | 区块内所有交易执行结果 |
-| [GetPendingSize](block-and-tx-query/GetPendingSize.md) | pending 池交易数 |
-| [GetTransactionFromPending](block-and-tx-query/GetTransactionFromPending.md) | 从 pending 取交易 |
-| [GetTransactionListFromPending](block-and-tx-query/GetTransactionListFromPending.md) | pending 中所有交易 ID |
+| [GetBlock](block-and-tx-query/GetBlock.md) | 通用区块查询（按 num/hash） |
+| [GetBlockByNum2](block-and-tx-query/GetBlockByNum2.md) | 按高度查询区块 |
+| [GetBlockById](block-and-tx-query/GetBlockById.md) | 按 hash 查询区块 |
+| [GetBlockByLimitNext2](block-and-tx-query/GetBlockByLimitNext2.md) | 按区间查询区块 |
+| [GetBlockByLatestNum2](block-and-tx-query/GetBlockByLatestNum2.md) | 查询最近 N 个区块 |
+| [GetBlockBalanceTrace](block-and-tx-query/GetBlockBalanceTrace.md) | 查询区块的账户余额变更 |
+| [GetTransactionCountByBlockNum](block-and-tx-query/GetTransactionCountByBlockNum.md) | 区块内交易数 |
+| [GetTransactionById](block-and-tx-query/GetTransactionById.md) | 按 txid 查询交易 |
+| [GetTransactionInfoById](block-and-tx-query/GetTransactionInfoById.md) | 按 txid 查询交易回执 |
+| [GetTransactionInfoByBlockNum](block-and-tx-query/GetTransactionInfoByBlockNum.md) | 按区块查询交易回执 |
+| [GetPendingSize](block-and-tx-query/GetPendingSize.md) | 待打包交易池大小 |
+| [GetTransactionFromPending](block-and-tx-query/GetTransactionFromPending.md) | 查询单条 pending 交易 |
+| [GetTransactionListFromPending](block-and-tx-query/GetTransactionListFromPending.md) | 全部 pending 交易 ID |
 
-## 交易构造与广播
+## 交易构造 / 广播
 
 | 方法 | 描述 |
 |---|---|
-| [CreateTransaction2](tx-build-and-broadcast/CreateTransaction2.md) | 创建 TRX 转账交易 |
-| [GetTransactionSignWeight](tx-build-and-broadcast/GetTransactionSignWeight.md) | 多签交易权重校验 |
-| [GetTransactionApprovedList](tx-build-and-broadcast/GetTransactionApprovedList.md) | 多签交易已签名地址 |
-| [BroadcastTransaction](tx-build-and-broadcast/BroadcastTransaction.md) | 广播已签名交易 |
+| [CreateTransaction2](tx-build-and-broadcast/CreateTransaction2.md) | 构造 TRX 转账交易 |
+| [GetTransactionSignWeight](tx-build-and-broadcast/GetTransactionSignWeight.md) | 查询多签当前权重 |
+| [GetTransactionApprovedList](tx-build-and-broadcast/GetTransactionApprovedList.md) | 查询多签已签署地址 |
+| [BroadcastTransaction](tx-build-and-broadcast/BroadcastTransaction.md) | 广播签名后的交易（JSON） |
+
+## TRC10 资产
+
+| 方法 | 描述 |
+|---|---|
+| [CreateAssetIssue2](asset/CreateAssetIssue2.md) | 发行 TRC10 通证 |
+| [UpdateAsset2](asset/UpdateAsset2.md) | 修改 TRC10 描述/URL/限额 |
+| [TransferAsset2](asset/TransferAsset2.md) | 转账 TRC10 |
+| [ParticipateAssetIssue2](asset/ParticipateAssetIssue2.md) | 参与 TRC10 募资 |
+| [UnfreezeAsset2](asset/UnfreezeAsset2.md) | 解锁发行方冻结的 TRC10 |
+| [GetAssetIssueById](asset/GetAssetIssueById.md) | 按 id 查询 TRC10（推荐） |
+| [GetAssetIssueByName](asset/GetAssetIssueByName.md) | 按名查询 TRC10（重名报错） |
+| [GetAssetIssueListByName](asset/GetAssetIssueListByName.md) | 同名 TRC10 列表 |
+| [GetAssetIssueByAccount](asset/GetAssetIssueByAccount.md) | 账户发行的 TRC10 |
+| [GetAssetIssueList](asset/GetAssetIssueList.md) | 全网 TRC10 列表 |
+| [GetPaginatedAssetIssueList](asset/GetPaginatedAssetIssueList.md) | 分页 TRC10 列表 |
 
 ## 智能合约
 
 | 方法 | 描述 |
 |---|---|
 | [DeployContract](smart-contract/DeployContract.md) | 部署合约 |
-| [TriggerContract](smart-contract/TriggerContract.md) | 触发合约（写交易） |
+| [TriggerContract](smart-contract/TriggerContract.md) | 触发合约（写） |
 | [TriggerConstantContract](smart-contract/TriggerConstantContract.md) | 只读调用合约 |
-| [EstimateEnergy](smart-contract/EstimateEnergy.md) | 预估调用能量 |
-| [GetContract](smart-contract/GetContract.md) | 合约元信息 |
-| [GetContractInfo](smart-contract/GetContractInfo.md) | 合约完整运行时信息 |
+| [EstimateEnergy](smart-contract/EstimateEnergy.md) | 预估调用能量消耗 |
+| [GetContract](smart-contract/GetContract.md) | 查询合约元信息 |
+| [GetContractInfo](smart-contract/GetContractInfo.md) | 查询合约完整运行信息 |
 | [ClearContractABI](smart-contract/ClearContractABI.md) | 清空合约 ABI |
-| [UpdateSetting](smart-contract/UpdateSetting.md) | 修改合约用户资源比例 |
-| [UpdateEnergyLimit](smart-contract/UpdateEnergyLimit.md) | 修改合约 origin 能量上限 |
+| [UpdateSetting](smart-contract/UpdateSetting.md) | 修改用户能量百分比 |
+| [UpdateEnergyLimit](smart-contract/UpdateEnergyLimit.md) | 修改部署者能量上限 |
 
-## 超级代表与治理
+## 见证人 / 治理
 
 | 方法 | 描述 |
 |---|---|
-| [CreateWitness2](witness-and-governance/CreateWitness2.md) | 申请 SR 候选人 |
+| [CreateWitness2](witness-and-governance/CreateWitness2.md) | 申请成为 SR 候选人 |
 | [UpdateWitness2](witness-and-governance/UpdateWitness2.md) | 修改 SR URL |
-| [ListWitnesses](witness-and-governance/ListWitnesses.md) | 所有 SR 候选人 |
-| [GetPaginatedNowWitnessList](witness-and-governance/GetPaginatedNowWitnessList.md) | 分页获取当前 SR |
+| [ListWitnesses](witness-and-governance/ListWitnesses.md) | 所有 SR 候选人列表 |
+| [GetPaginatedNowWitnessList](witness-and-governance/GetPaginatedNowWitnessList.md) | 分页 SR 列表 |
 | [VoteWitnessAccount2](witness-and-governance/VoteWitnessAccount2.md) | 给 SR 投票 |
-| [GetBrokerageInfo](witness-and-governance/GetBrokerageInfo.md) | SR 分红比例 |
-| [UpdateBrokerage](witness-and-governance/UpdateBrokerage.md) | SR 修改分红比例 |
-| [GetRewardInfo](witness-and-governance/GetRewardInfo.md) | 账户可领取分红 |
-| [WithdrawBalance2](witness-and-governance/WithdrawBalance2.md) | 提取出块/分红奖励 |
+| [GetBrokerageInfo](witness-and-governance/GetBrokerageInfo.md) | SR 当前佣金比例 |
+| [UpdateBrokerage](witness-and-governance/UpdateBrokerage.md) | SR 修改佣金 |
+| [GetRewardInfo](witness-and-governance/GetRewardInfo.md) | 查询可领取分红 |
+| [WithdrawBalance2](witness-and-governance/WithdrawBalance2.md) | 提取出块奖励/分红 |
 | [ProposalCreate](witness-and-governance/ProposalCreate.md) | 创建链参数提案 |
-| [ProposalApprove](witness-and-governance/ProposalApprove.md) | SR 投票提案 |
+| [ProposalApprove](witness-and-governance/ProposalApprove.md) | SR 对提案投票 |
 | [ProposalDelete](witness-and-governance/ProposalDelete.md) | 撤销自己的提案 |
-| [ListProposals](witness-and-governance/ListProposals.md) | 所有提案列表 |
+| [ListProposals](witness-and-governance/ListProposals.md) | 提案列表 |
 | [GetProposalById](witness-and-governance/GetProposalById.md) | 按 ID 查询提案 |
 | [GetPaginatedProposalList](witness-and-governance/GetPaginatedProposalList.md) | 分页提案列表 |
 | [GetChainParameters](witness-and-governance/GetChainParameters.md) | 链参数当前值 |
-| [GetNextMaintenanceTime](witness-and-governance/GetNextMaintenanceTime.md) | 下次维护期开始时间 |
+| [GetNextMaintenanceTime](witness-and-governance/GetNextMaintenanceTime.md) | 下次维护期时间 |
 
-## 资源 Stake 1.0（仅保留解冻与查询）
+## 质押 1.0（仅保留解冻与查询）
 
 提案 #70 `UNFREEZE_DELAY_DAYS` 通过后（主网已生效），新的 V1 冻结会被链拒绝；解冻与查询方法保留，用于处理存量仓位。
 
-> 文件名末尾的 `2`（如 `FreezeBalance2`）是 proto 历史命名后缀（返回 `TransactionExtention` 的 V1 方法），与 Stake 2.0 的 `FreezeBalanceV2` 不是同一个方法。
+> 文件名末尾的 `2`（如 `FreezeBalance2`）是 proto 历史命名后缀（返回 `TransactionExtention` 的 V1 方法），与质押 2.0 的 `FreezeBalanceV2` 不是同一个方法。
 
 | 方法 | 描述 |
 |---|---|
-| [FreezeBalance2](stake-v1/FreezeBalance2.md) | 冻结 TRX（**链已拒绝新请求**） |
-| [UnfreezeBalance2](stake-v1/UnfreezeBalance2.md) | 解冻（仍可用于存量解冻） |
-| [GetDelegatedResource](stake-v1/GetDelegatedResource.md) | 查询资源代理记录（v1，存量查询） |
-| [GetDelegatedResourceAccountIndex](stake-v1/GetDelegatedResourceAccountIndex.md) | 资源代理对手地址列表（v1，存量查询） |
+| [FreezeBalance2](stake-v1/FreezeBalance2.md) | 冻结 TRX 获取资源（V1，**链已拒绝新请求**） |
+| [UnfreezeBalance2](stake-v1/UnfreezeBalance2.md) | 解冻已到期资源（V1，仍可用于存量解冻） |
+| [GetDelegatedResource](stake-v1/GetDelegatedResource.md) | 查询代理记录（V1，只读） |
+| [GetDelegatedResourceAccountIndex](stake-v1/GetDelegatedResourceAccountIndex.md) | 查询代理对手地址（V1，只读） |
 
-## 资源 Stake 2.0
+## 质押 2.0
 
 | 方法 | 描述 |
 |---|---|
 | [FreezeBalanceV2](stake-v2/FreezeBalanceV2.md) | 冻结 TRX 获取资源 |
-| [UnfreezeBalanceV2](stake-v2/UnfreezeBalanceV2.md) | 发起解冻申请 |
-| [WithdrawExpireUnfreeze](stake-v2/WithdrawExpireUnfreeze.md) | 提取已到期的解冻 TRX |
+| [UnfreezeBalanceV2](stake-v2/UnfreezeBalanceV2.md) | 发起解冻（14 天等待） |
+| [WithdrawExpireUnfreeze](stake-v2/WithdrawExpireUnfreeze.md) | 提取已到期解冻 |
 | [CancelAllUnfreezeV2](stake-v2/CancelAllUnfreezeV2.md) | 取消所有未到期解冻 |
-| [DelegateResource](stake-v2/DelegateResource.md) | 资源代理 |
+| [DelegateResource](stake-v2/DelegateResource.md) | 资源代理给他人 |
 | [UnDelegateResource](stake-v2/UnDelegateResource.md) | 撤销资源代理 |
-| [GetDelegatedResourceV2](stake-v2/GetDelegatedResourceV2.md) | 资源代理记录（v2） |
-| [GetDelegatedResourceAccountIndexV2](stake-v2/GetDelegatedResourceAccountIndexV2.md) | 资源代理对手地址列表（v2） |
-| [GetCanDelegatedMaxSize](stake-v2/GetCanDelegatedMaxSize.md) | 可代理最大额度 |
+| [GetDelegatedResourceV2](stake-v2/GetDelegatedResourceV2.md) | 查询代理记录 |
+| [GetDelegatedResourceAccountIndexV2](stake-v2/GetDelegatedResourceAccountIndexV2.md) | 查询代理对手地址 |
+| [GetCanDelegatedMaxSize](stake-v2/GetCanDelegatedMaxSize.md) | 当前可代理上限 |
 | [GetAvailableUnfreezeCount](stake-v2/GetAvailableUnfreezeCount.md) | 剩余可解冻次数 |
-| [GetCanWithdrawUnfreezeAmount](stake-v2/GetCanWithdrawUnfreezeAmount.md) | 可提取解冻金额 |
+| [GetCanWithdrawUnfreezeAmount](stake-v2/GetCanWithdrawUnfreezeAmount.md) | 指定时间可提取金额 |
 
-## 节点与工具
+## 节点 / 价格 / 工具
 
 | 方法 | 描述 |
 |---|---|
-| [GetNodeInfo](node-and-tools/GetNodeInfo.md) | 节点运行状态 |
-| [ListNodes](node-and-tools/ListNodes.md) | 已发现的对等节点 |
-| [GetEnergyPrices](node-and-tools/GetEnergyPrices.md) | 历史能量单价 |
-| [GetBandwidthPrices](node-and-tools/GetBandwidthPrices.md) | 历史带宽单价 |
+| [GetNodeInfo](node-and-tools/GetNodeInfo.md) | 节点状态 |
+| [ListNodes](node-and-tools/ListNodes.md) | 已知对等节点 |
+| [GetEnergyPrices](node-and-tools/GetEnergyPrices.md) | 能量历史单价 |
+| [GetBandwidthPrices](node-and-tools/GetBandwidthPrices.md) | 带宽历史单价 |
 | [GetBurnTrx](node-and-tools/GetBurnTrx.md) | 累计销毁 TRX |

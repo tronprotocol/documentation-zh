@@ -115,99 +115,99 @@ nav:
         - gRPC 接口:
             - 概述: api/rpc/index.md
             - 账户:
-                - 查询账户信息: api/rpc/account/GetAccount.md
-                - 按指定区块查询账户 TRX 余额: api/rpc/account/GetAccountBalance.md
-                - 查询带宽资源使用: api/rpc/account/GetAccountNet.md
-                - 查询带宽+能量+TronPower 使用: api/rpc/account/GetAccountResource.md
-                - 创建新账户: api/rpc/account/CreateAccount2.md
-                - 修改账户昵称: api/rpc/account/UpdateAccount2.md
-                - 修改账户多签权限: api/rpc/account/AccountPermissionUpdate.md
-            - TRC10 通证:
+                - 按地址查询账户: api/rpc/account/GetAccount.md
+                - 查询账户在指定区块的余额: api/rpc/account/GetAccountBalance.md
+                - 查询账户带宽资源: api/rpc/account/GetAccountNet.md
+                - 查询账户带宽+能量+TronPower: api/rpc/account/GetAccountResource.md
+                - 链上创建账户: api/rpc/account/CreateAccount2.md
+                - 修改账户名: api/rpc/account/UpdateAccount2.md
+                - 配置多签权限: api/rpc/account/AccountPermissionUpdate.md
+            - 区块 / 交易查询:
+                - 当前最新区块: api/rpc/block-and-tx-query/GetNowBlock2.md
+                - 通用区块查询: api/rpc/block-and-tx-query/GetBlock.md
+                - 按高度查询区块: api/rpc/block-and-tx-query/GetBlockByNum2.md
+                - 按 hash 查询区块: api/rpc/block-and-tx-query/GetBlockById.md
+                - 按区间查询区块: api/rpc/block-and-tx-query/GetBlockByLimitNext2.md
+                - 查询最近 N 个区块: api/rpc/block-and-tx-query/GetBlockByLatestNum2.md
+                - 查询区块的账户余额变更: api/rpc/block-and-tx-query/GetBlockBalanceTrace.md
+                - 区块内交易数: api/rpc/block-and-tx-query/GetTransactionCountByBlockNum.md
+                - 按 txid 查询交易: api/rpc/block-and-tx-query/GetTransactionById.md
+                - 按 txid 查询交易回执: api/rpc/block-and-tx-query/GetTransactionInfoById.md
+                - 按区块查询交易回执: api/rpc/block-and-tx-query/GetTransactionInfoByBlockNum.md
+                - 待打包交易池大小: api/rpc/block-and-tx-query/GetPendingSize.md
+                - 查询单条 pending 交易: api/rpc/block-and-tx-query/GetTransactionFromPending.md
+                - 全部 pending 交易 ID: api/rpc/block-and-tx-query/GetTransactionListFromPending.md
+            - 交易构造 / 广播:
+                - 构造 TRX 转账交易: api/rpc/tx-build-and-broadcast/CreateTransaction2.md
+                - 查询多签当前权重: api/rpc/tx-build-and-broadcast/GetTransactionSignWeight.md
+                - 查询多签已签署地址: api/rpc/tx-build-and-broadcast/GetTransactionApprovedList.md
+                - 广播签名后的交易 JSON: api/rpc/tx-build-and-broadcast/BroadcastTransaction.md
+            - TRC10 资产:
                 - 发行 TRC10 通证: api/rpc/asset/CreateAssetIssue2.md
                 - 修改 TRC10 描述: api/rpc/asset/UpdateAsset2.md
-                - TRC10 通证转账: api/rpc/asset/TransferAsset2.md
-                - 参与 TRC10 募集: api/rpc/asset/ParticipateAssetIssue2.md
-                - 解冻发行方冻结的通证: api/rpc/asset/UnfreezeAsset2.md
-                - 按 token id 查询 TRC10: api/rpc/asset/GetAssetIssueById.md
+                - 转账 TRC10: api/rpc/asset/TransferAsset2.md
+                - 参与 TRC10 募资: api/rpc/asset/ParticipateAssetIssue2.md
+                - 解锁发行方冻结的 TRC10: api/rpc/asset/UnfreezeAsset2.md
+                - 按 id 查询 TRC10: api/rpc/asset/GetAssetIssueById.md
                 - 按名查询 TRC10: api/rpc/asset/GetAssetIssueByName.md
-                - 按名查询所有同名 TRC10: api/rpc/asset/GetAssetIssueListByName.md
-                - 查询账户发行的 TRC10: api/rpc/asset/GetAssetIssueByAccount.md
-                - 查询全网 TRC10: api/rpc/asset/GetAssetIssueList.md
-                - 分页查询全网 TRC10: api/rpc/asset/GetPaginatedAssetIssueList.md
-            - 区块与交易查询:
-                - 当前最新区块: api/rpc/block-and-tx-query/GetNowBlock2.md
-                - 按 num 或 hash 查询区块: api/rpc/block-and-tx-query/GetBlock.md
-                - 按区块号查询: api/rpc/block-and-tx-query/GetBlockByNum2.md
-                - 按区块哈希查询: api/rpc/block-and-tx-query/GetBlockById.md
-                - 区间查询区块: api/rpc/block-and-tx-query/GetBlockByLimitNext2.md
-                - 最新 N 个区块: api/rpc/block-and-tx-query/GetBlockByLatestNum2.md
-                - 区块内余额变动追踪: api/rpc/block-and-tx-query/GetBlockBalanceTrace.md
-                - 区块交易数: api/rpc/block-and-tx-query/GetTransactionCountByBlockNum.md
-                - 按 ID 查询交易体: api/rpc/block-and-tx-query/GetTransactionById.md
-                - 按 ID 查询交易执行结果: api/rpc/block-and-tx-query/GetTransactionInfoById.md
-                - 区块内所有交易执行结果: api/rpc/block-and-tx-query/GetTransactionInfoByBlockNum.md
-                - pending 池交易数: api/rpc/block-and-tx-query/GetPendingSize.md
-                - 从 pending 取交易: api/rpc/block-and-tx-query/GetTransactionFromPending.md
-                - pending 中所有交易 ID: api/rpc/block-and-tx-query/GetTransactionListFromPending.md
-            - 交易构造与广播:
-                - 创建 TRX 转账交易: api/rpc/tx-build-and-broadcast/CreateTransaction2.md
-                - 多签交易权重校验: api/rpc/tx-build-and-broadcast/GetTransactionSignWeight.md
-                - 多签交易已签名地址: api/rpc/tx-build-and-broadcast/GetTransactionApprovedList.md
-                - 广播已签名交易: api/rpc/tx-build-and-broadcast/BroadcastTransaction.md
+                - 同名 TRC10 列表: api/rpc/asset/GetAssetIssueListByName.md
+                - 账户发行的 TRC10: api/rpc/asset/GetAssetIssueByAccount.md
+                - 全网 TRC10 列表: api/rpc/asset/GetAssetIssueList.md
+                - 分页 TRC10 列表: api/rpc/asset/GetPaginatedAssetIssueList.md
             - 智能合约:
                 - 部署合约: api/rpc/smart-contract/DeployContract.md
-                - 触发合约: api/rpc/smart-contract/TriggerContract.md
+                - 触发合约写: api/rpc/smart-contract/TriggerContract.md
                 - 只读调用合约: api/rpc/smart-contract/TriggerConstantContract.md
-                - 预估调用能量: api/rpc/smart-contract/EstimateEnergy.md
-                - 合约元信息: api/rpc/smart-contract/GetContract.md
-                - 合约完整运行时信息: api/rpc/smart-contract/GetContractInfo.md
+                - 预估调用能量消耗: api/rpc/smart-contract/EstimateEnergy.md
+                - 查询合约元信息: api/rpc/smart-contract/GetContract.md
+                - 查询合约完整运行信息: api/rpc/smart-contract/GetContractInfo.md
                 - 清空合约 ABI: api/rpc/smart-contract/ClearContractABI.md
-                - 修改合约用户资源比例: api/rpc/smart-contract/UpdateSetting.md
-                - 修改合约 origin 能量上限: api/rpc/smart-contract/UpdateEnergyLimit.md
-            - 超级代表与治理:
-                - 申请 SR 候选人: api/rpc/witness-and-governance/CreateWitness2.md
+                - 修改用户能量百分比: api/rpc/smart-contract/UpdateSetting.md
+                - 修改部署者能量上限: api/rpc/smart-contract/UpdateEnergyLimit.md
+            - 见证人 / 治理:
+                - 申请成为 SR 候选人: api/rpc/witness-and-governance/CreateWitness2.md
                 - 修改 SR URL: api/rpc/witness-and-governance/UpdateWitness2.md
-                - 所有 SR 候选人: api/rpc/witness-and-governance/ListWitnesses.md
-                - 分页获取当前 SR: api/rpc/witness-and-governance/GetPaginatedNowWitnessList.md
+                - 所有 SR 候选人列表: api/rpc/witness-and-governance/ListWitnesses.md
+                - 分页 SR 列表: api/rpc/witness-and-governance/GetPaginatedNowWitnessList.md
                 - 给 SR 投票: api/rpc/witness-and-governance/VoteWitnessAccount2.md
-                - SR 分红比例: api/rpc/witness-and-governance/GetBrokerageInfo.md
-                - SR 修改分红比例: api/rpc/witness-and-governance/UpdateBrokerage.md
-                - 账户可领取分红: api/rpc/witness-and-governance/GetRewardInfo.md
-                - 提取出块或分红奖励: api/rpc/witness-and-governance/WithdrawBalance2.md
+                - SR 当前佣金比例: api/rpc/witness-and-governance/GetBrokerageInfo.md
+                - SR 修改佣金: api/rpc/witness-and-governance/UpdateBrokerage.md
+                - 查询可领取分红: api/rpc/witness-and-governance/GetRewardInfo.md
+                - 提取出块奖励或分红: api/rpc/witness-and-governance/WithdrawBalance2.md
                 - 创建链参数提案: api/rpc/witness-and-governance/ProposalCreate.md
-                - SR 投票提案: api/rpc/witness-and-governance/ProposalApprove.md
+                - SR 对提案投票: api/rpc/witness-and-governance/ProposalApprove.md
                 - 撤销自己的提案: api/rpc/witness-and-governance/ProposalDelete.md
-                - 所有提案列表: api/rpc/witness-and-governance/ListProposals.md
+                - 提案列表: api/rpc/witness-and-governance/ListProposals.md
                 - 按 ID 查询提案: api/rpc/witness-and-governance/GetProposalById.md
                 - 分页提案列表: api/rpc/witness-and-governance/GetPaginatedProposalList.md
                 - 链参数当前值: api/rpc/witness-and-governance/GetChainParameters.md
-                - 下次维护期开始时间: api/rpc/witness-and-governance/GetNextMaintenanceTime.md
-            - 资源 Stake 1.0（仅保留解冻与查询）:
-                - 冻结 TRX: api/rpc/stake-v1/FreezeBalance2.md
-                - 解冻: api/rpc/stake-v1/UnfreezeBalance2.md
-                - 查询资源代理记录 v1: api/rpc/stake-v1/GetDelegatedResource.md
-                - 资源代理对手地址列表 v1: api/rpc/stake-v1/GetDelegatedResourceAccountIndex.md
-            - 资源 Stake 2.0:
+                - 下次维护期时间: api/rpc/witness-and-governance/GetNextMaintenanceTime.md
+            - 质押 1.0（仅保留解冻与查询）:
+                - 冻结 TRX 获取资源 V1: api/rpc/stake-v1/FreezeBalance2.md
+                - 解冻已到期资源 V1: api/rpc/stake-v1/UnfreezeBalance2.md
+                - 查询代理记录 V1: api/rpc/stake-v1/GetDelegatedResource.md
+                - 查询代理对手地址 V1: api/rpc/stake-v1/GetDelegatedResourceAccountIndex.md
+            - 质押 2.0:
                 - 冻结 TRX 获取资源: api/rpc/stake-v2/FreezeBalanceV2.md
-                - 发起解冻申请: api/rpc/stake-v2/UnfreezeBalanceV2.md
-                - 提取已到期的解冻 TRX: api/rpc/stake-v2/WithdrawExpireUnfreeze.md
+                - 发起解冻: api/rpc/stake-v2/UnfreezeBalanceV2.md
+                - 提取已到期解冻: api/rpc/stake-v2/WithdrawExpireUnfreeze.md
                 - 取消所有未到期解冻: api/rpc/stake-v2/CancelAllUnfreezeV2.md
-                - 资源代理: api/rpc/stake-v2/DelegateResource.md
+                - 资源代理给他人: api/rpc/stake-v2/DelegateResource.md
                 - 撤销资源代理: api/rpc/stake-v2/UnDelegateResource.md
-                - 资源代理记录 v2: api/rpc/stake-v2/GetDelegatedResourceV2.md
-                - 资源代理对手地址列表 v2: api/rpc/stake-v2/GetDelegatedResourceAccountIndexV2.md
-                - 可代理最大额度: api/rpc/stake-v2/GetCanDelegatedMaxSize.md
+                - 查询代理记录: api/rpc/stake-v2/GetDelegatedResourceV2.md
+                - 查询代理对手地址: api/rpc/stake-v2/GetDelegatedResourceAccountIndexV2.md
+                - 当前可代理上限: api/rpc/stake-v2/GetCanDelegatedMaxSize.md
                 - 剩余可解冻次数: api/rpc/stake-v2/GetAvailableUnfreezeCount.md
-                - 可提取解冻金额: api/rpc/stake-v2/GetCanWithdrawUnfreezeAmount.md
-            - 节点与工具:
-                - 节点运行状态: api/rpc/node-and-tools/GetNodeInfo.md
-                - 已发现的对等节点: api/rpc/node-and-tools/ListNodes.md
-                - 历史能量单价: api/rpc/node-and-tools/GetEnergyPrices.md
-                - 历史带宽单价: api/rpc/node-and-tools/GetBandwidthPrices.md
+                - 指定时间可提取金额: api/rpc/stake-v2/GetCanWithdrawUnfreezeAmount.md
+            - 节点 / 价格 / 工具:
+                - 节点状态: api/rpc/node-and-tools/GetNodeInfo.md
+                - 已知对等节点: api/rpc/node-and-tools/ListNodes.md
+                - 能量历史单价: api/rpc/node-and-tools/GetEnergyPrices.md
+                - 带宽历史单价: api/rpc/node-and-tools/GetBandwidthPrices.md
                 - 累计销毁 TRX: api/rpc/node-and-tools/GetBurnTrx.md
         - jsonRPC 接口:
             - 概述: api/json-rpc/index.md
-            - 节点信息 / 链身份:
+            - 节点 / 链身份:
                 - 客户端版本字符串: api/json-rpc/node/web3_clientVersion.md
                 - Keccak-256 哈希: api/json-rpc/node/web3_sha3.md
                 - 网络 ID: api/json-rpc/node/net_version.md
@@ -228,11 +228,11 @@ nav:
                 - 按块高 + index 查询交易: api/json-rpc/block-and-tx-query/eth_getTransactionByBlockNumberAndIndex.md
                 - 按 txid 查询回执: api/json-rpc/block-and-tx-query/eth_getTransactionReceipt.md
                 - 整块回执列表: api/json-rpc/block-and-tx-query/eth_getBlockReceipts.md
-            - 账户 / 状态:
+            - 账户:
                 - 账户 TRX 余额: api/json-rpc/account/eth_getBalance.md
                 - 合约存储槽: api/json-rpc/account/eth_getStorageAt.md
                 - 合约 runtime 字节码: api/json-rpc/account/eth_getCode.md
-            - 智能合约调用:
+            - 智能合约:
                 - 只读调用合约: api/json-rpc/smart-contract/eth_call.md
                 - 估算 energy 消耗: api/json-rpc/smart-contract/eth_estimateGas.md
             - 日志 / 过滤器:
