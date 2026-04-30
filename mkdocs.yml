@@ -244,7 +244,7 @@ nav:
                 - 拉取 log filter 全量: api/json-rpc/filter/eth_getFilterLogs.md
             - 交易构造:
                 - 构造未签名交易: api/json-rpc/tx-build/buildTransaction.md
-            - DPoS 空操作:
+            - 兼容桩方法:
                 - eth_coinbase: api/json-rpc/stub/eth_coinbase.md
                 - eth_accounts: api/json-rpc/stub/eth_accounts.md
                 - eth_getWork: api/json-rpc/stub/eth_getWork.md
