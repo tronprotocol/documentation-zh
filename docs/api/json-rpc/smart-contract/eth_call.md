@@ -61,6 +61,6 @@ curl -X POST https://nile.trongrid.io/jsonrpc \
 | `params[1]` 是具体 hex 高度（即便有效） | `-32602` | `QUANTITY not supported, just support TAG as latest` |
 | `from` / `to` 地址非法 | `-32602` | 透传 message |
 | `value` 不是合法 hex | `-32602` | `invalid param value: invalid hex number` |
-| 合约校验失败（如 `to` 非合约、参数不匹配等） | `-32600` | `ContractValidateException` 透传 message（fallback `contract validate error`） |
+| 合约校验失败（如 `to` 非合约、参数不匹配等） | `-32600` | `ContractValidateException` 透传 message（无 message 时 fallback `Contract validate error : `） |
 | EVM 执行 `REVERT` | `-32000` | message + （若 revert 数据以 `Error(string)` 选择器开头）解析后的字符串；`error.data` 携带原始 revert hex |
 | 其他执行/编码错误 | `-32000` | 透传 message（双引号被替换为单引号） |

@@ -84,7 +84,12 @@ curl -X POST https://nile.trongrid.io/jsonrpc \
 | 触发条件 | 错误码 | message |
 |---|---|---|
 | `fromBlock` / `toBlock` 是 `pending` | `-32602` | `TAG pending not supported` |
-| `fromBlock` / `toBlock` 不合法、范围非法、跨度超过 `maxBlockRange`（默认 5000） | `-32602` | 透传 `LogFilterWrapper` 校验 message（如 `invalid block range params`） |
-| `topics` 单个 slot 候选数超过 `maxSubTopics`（默认 1000） | `-32602` | 透传 message |
+| `blockHash` 与 `fromBlock` / `toBlock` 同时给 | `-32602` | `cannot specify both BlockHash and FromBlock/ToBlock, choose one or the other` |
+| `blockHash` 在节点上不存在 | `-32602` | `invalid blockHash` |
+| `fromBlock > toBlock` | `-32602` | `please verify: fromBlock <= toBlock` |
+| 区间跨度超过 `maxBlockRange`（默认 5000） | `-32602` | `exceed max block range: <N>` |
+| `topics` 数组长度 > 4 | `-32602` | `topics size should be <= 4` |
+| `topics` 单个 slot 是数组且元素数 > `maxSubTopics`（默认 1000） | `-32602` | `exceed max topics: <N>` |
+| `topics` 元素或 `address` 不是合法 hex | `-32602` | `invalid topic(s): <值>` / `invalid address at index <i>: <值>` 等 |
 | 命中数超过上限 | `-32005` | `JsonRpcTooManyResultException` 透传 message |
 | 节点为 lite fullnode 且查询块已剪枝 | `-32000` | `BadItemException` / `ItemNotFoundException` 透传 message |

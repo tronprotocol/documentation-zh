@@ -4,7 +4,7 @@
 
 - 源码：`framework/src/main/java/org/tron/core/services/http/GetTransactionSignWeightServlet.java`
 - Method：`POST`
-- Response：`api.TransactionSignWeight`（`api.proto:1259`）
+- Response：`api.TransactionSignWeight`（`api.proto`）
 
 ## 请求参数
 

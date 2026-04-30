@@ -5,7 +5,7 @@
 - 源码：`framework/src/main/java/org/tron/core/services/http/GetTransactionInfoByIdServlet.java`
 - Method：`GET` / `POST`
 - Request：`api.BytesMessage`
-- Response：`protocol.TransactionInfo`（`Tron.proto:454`）
+- Response：`protocol.TransactionInfo`（`Tron.proto`）
 - 支持固化接口：`/walletsolidity/gettransactioninfobyid`
 
 ## 请求参数
@@ -51,7 +51,7 @@ curl --request POST \
 | `assetIssueID` | string | 创建的 TRC10 ID（仅 CreateAssetIssue） |
 | `exchange_*` / `orderId` | — | Exchange / Market 相关字段 |
 
-`ResourceReceipt`（`Tron.proto:318`）：
+`ResourceReceipt`（`Tron.proto`）：
 
 | 字段 | 类型 | 说明 |
 |---|---|---|

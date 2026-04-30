@@ -4,7 +4,7 @@
 
 - 源码：`framework/src/main/java/org/tron/core/services/http/UnFreezeAssetServlet.java`
 - Method：`POST`
-- Contract：`protocol.UnfreezeAssetContract`（`asset_issue_contract.proto:43`）
+- Contract：`protocol.UnfreezeAssetContract`（`asset_issue_contract.proto`）
 
 ## 请求参数
 

@@ -4,7 +4,7 @@
 
 - 源码：`framework/src/main/java/org/tron/core/services/http/UpdateAssetServlet.java`
 - Method：`POST`
-- Contract：`protocol.UpdateAssetContract`（`asset_issue_contract.proto:47`）
+- Contract：`protocol.UpdateAssetContract`（`asset_issue_contract.proto`）
 
 ## 请求参数
 

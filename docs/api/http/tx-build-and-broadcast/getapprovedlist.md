@@ -4,7 +4,7 @@
 
 - 源码：`framework/src/main/java/org/tron/core/services/http/GetTransactionApprovedListServlet.java`
 - Method：`POST`
-- Response：`api.TransactionApprovedList`（`api.proto:1280`）
+- Response：`api.TransactionApprovedList`（`api.proto`）
 
 ## 请求参数
 

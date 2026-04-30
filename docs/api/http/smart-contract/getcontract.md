@@ -34,7 +34,7 @@ curl --request POST \
 | `origin_address` | string | 部署者地址 |
 | `contract_address` | string | 合约地址 |
 | `abi` | ABI | 合约 ABI |
-| `bytecode` | string(hex) | 合约 runtime 字节码 |
+| `bytecode` | string(hex) | 部署字节码（创建字节码 + 构造参数 拼接，与 deploy 时传入一致；非 runtime code，runtime code 见 [`/wallet/getcontractinfo`](getcontractinfo.md)） |
 | `call_value` | int64 | 部署时附带的 TRX |
 | `consume_user_resource_percent` | int64 | 用户承担能量百分比 |
 | `name` | string | 合约名 |

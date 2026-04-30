@@ -93,5 +93,6 @@ curl --request POST \
 | `resource=TRON_POWER` 但同时设置了 `receiver_address` | `{"Error": "class org.tron.core.exception.ContractValidateException : TRON_POWER is not allowed to delegate to other accounts."}` |
 | `receiver_address == owner_address` | `{"Error": "class org.tron.core.exception.ContractValidateException : receiverAddress must not be the same as ownerAddress"}` |
 | `receiver_address` 不是 21 字节合法地址 | `{"Error": "class org.tron.core.exception.ContractValidateException : Invalid receiverAddress"}` |
+| `receiver_address` 在链上不存在 | `{"Error": "class org.tron.core.exception.ContractValidateException : Account[<addr>] not exists"}` |
 | `receiver_address` 是合约地址且 `AllowTvmConstantinople` 已开启 | `{"Error": "class org.tron.core.exception.ContractValidateException : Do not allow delegate resources to contract addresses"}` |
 | 其他异常 | `{"Error": "<exceptionClass> : <message>"}` |

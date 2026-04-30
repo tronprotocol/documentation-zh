@@ -4,7 +4,7 @@
 
 - 源码：`framework/src/main/java/org/tron/core/services/http/AccountPermissionUpdateServlet.java`
 - Method：`POST`
-- Contract：`protocol.AccountPermissionUpdateContract`（`account_contract.proto:44`）
+- Contract：`protocol.AccountPermissionUpdateContract`（`account_contract.proto`）
 
 ## 请求参数
 
@@ -17,7 +17,7 @@
 | `permission_id` | int32 | 否 | 当前签名所用权限 ID |
 | `visible` | bool | 否 | 地址格式 |
 
-`Permission` 字段（`Tron.proto:262`）：
+`Permission` 字段（`Tron.proto`）：
 
 | 字段 | 类型 | 说明 |
 |---|---|---|

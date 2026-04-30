@@ -4,7 +4,7 @@
 
 - 源码：`framework/src/main/java/org/tron/core/services/http/UpdateAccountServlet.java`
 - Method：`POST`（`GET` 不实现）
-- Contract：`protocol.AccountUpdateContract`（`account_contract.proto:33`）
+- Contract：`protocol.AccountUpdateContract`（`account_contract.proto`）
 
 ## 请求参数
 

@@ -5,7 +5,7 @@
 - 源码：`framework/src/main/java/org/tron/core/services/http/GetBlockBalanceServlet.java`
 - Method：`POST`
 - Request：`protocol.BlockBalanceTrace.BlockIdentifier`
-- Response：`protocol.BlockBalanceTrace`（`balance_contract.proto:53`）
+- Response：`protocol.BlockBalanceTrace`（`balance_contract.proto`）
 
 ## 请求参数
 
@@ -39,7 +39,7 @@ curl --request POST \
 | `timestamp` | int64 | 区块时间，毫秒 |
 | `transaction_balance_trace` | repeated TransactionBalanceTrace | 该区块内每笔交易的余额变动 |
 
-`TransactionBalanceTrace`（`balance_contract.proto:38`）：
+`TransactionBalanceTrace`（`balance_contract.proto`）：
 
 | 字段 | 类型 | 说明 |
 |---|---|---|
@@ -72,7 +72,7 @@ curl --request POST \
 }
 ```
 
-需开启 `node.balanceTrace = true`；否则返回 `{}`。
+需开启 `storage.balance.history.lookup = true`（等价启动参数 `--history-balance-lookup`）；否则任意区块查询都会走下方"区块未追踪余额或不存在"那一行的 `ItemNotFoundException`。
 
 ### 异常响应
 

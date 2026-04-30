@@ -4,7 +4,7 @@
 
 - 源码：`framework/src/main/java/org/tron/core/services/http/ParticipateAssetIssueServlet.java`
 - Method：`POST`
-- Contract：`protocol.ParticipateAssetIssueContract`（`asset_issue_contract.proto:55`）
+- Contract：`protocol.ParticipateAssetIssueContract`（`asset_issue_contract.proto`）
 
 ## 请求参数
 

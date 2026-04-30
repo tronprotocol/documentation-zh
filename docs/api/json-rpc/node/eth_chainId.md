@@ -34,3 +34,9 @@ curl -X POST https://nile.trongrid.io/jsonrpc \
   "result": "0xcd8690dc"
 }
 ```
+
+### 异常响应
+
+| 触发条件 | 错误码 | message |
+|---|---|---|
+| 无法取到 0 号块（节点未完成创世块加载等极端情况） | `-32000` | 透传底层 `Exception.getMessage()` |

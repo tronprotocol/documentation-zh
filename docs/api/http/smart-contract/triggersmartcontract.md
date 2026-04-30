@@ -55,20 +55,6 @@ curl --request POST \
 | `energy_used` | int64 | 仅在常量调用路径填充；普通写交易不返回 |
 | `energy_penalty` | int64 | 能量惩罚（如有） |
 
-> 仅做预演（不上链）请用 [`/wallet/triggerconstantcontract`](triggerconstantcontract.md)；仅估算能量请用 [`/wallet/estimateenergy`](estimateenergy.md)。
-
-### 异常响应
-
-不会写出 `{"Error": ...}`。所有异常被 catch 后写入 `result.code`、`result.message`，HTTP 体仍是 `TransactionExtention`：
-
-| 触发条件 | `result.result` | `result.code` | `result.message` |
-|---|---|---|---|
-| `owner_address` / `contract_address` 为空（`InvalidParameterException`） | false | `OTHER_ERROR` | `class java.security.InvalidParameterException : owner_address isn't set.` 等 |
-| 合约校验失败 / fee_limit 超限 / 调用账户不存在等（`ContractValidateException`） | false | `CONTRACT_VALIDATE_ERROR` | 校验器原始描述 |
-| 其他（hex 解析、proto merge 等） | false | `OTHER_ERROR` | `<exceptionClass> : <message>`（`"` → `'`） |
-
-成功时 `result.result=true`、`result.code=SUCCESS`，`transaction` 字段填充。
-
 响应示例（Nile 实抓）：
 
 ```json
@@ -103,3 +89,15 @@ curl --request POST \
 ```
 
 > `txID` / `ref_block_*` / `expiration` / `timestamp` / `raw_data_hex` 等 ephemeral 字段语义同 [`/wallet/createtransaction`](../tx-build-and-broadcast/createtransaction.md)。写交易路径不会填充 `txid` / `constant_result` / `energy_used`；如需要预演结果改用 [`/wallet/triggerconstantcontract`](triggerconstantcontract.md)。
+
+> 仅做预演（不上链）请用 [`/wallet/triggerconstantcontract`](triggerconstantcontract.md)；仅估算能量请用 [`/wallet/estimateenergy`](estimateenergy.md)。
+
+### 异常响应
+
+不会写出 `{"Error": ...}`。所有异常被 catch 后写入 `result.code`、`result.message`，HTTP 体仍是 `TransactionExtention`：
+
+| 触发条件 | `result.result` | `result.code` | `result.message` |
+|---|---|---|---|
+| `owner_address` / `contract_address` 为空（`InvalidParameterException`） | false | `OTHER_ERROR` | `class java.security.InvalidParameterException : owner_address isn't set.` 等 |
+| 合约校验失败 / fee_limit 超限 / 调用账户不存在等（`ContractValidateException`） | false | `CONTRACT_VALIDATE_ERROR` | 校验器原始描述 |
+| 其他（hex 解析、proto merge 等） | false | `OTHER_ERROR` | `<exceptionClass> : <message>`（`"` → `'`） |

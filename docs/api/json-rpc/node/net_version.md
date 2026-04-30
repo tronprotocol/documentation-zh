@@ -28,3 +28,7 @@ curl -X POST https://nile.trongrid.io/jsonrpc \
   "result": "0xcd8690dc"
 }
 ```
+
+### 异常响应
+
+同 [`eth_chainId`](eth_chainId.md)：底层取不到创世块时抛 `-32000`，透传底层 `Exception.getMessage()`。

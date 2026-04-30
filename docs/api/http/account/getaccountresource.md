@@ -28,7 +28,7 @@ curl --request POST \
 
 ## 响应
 
-返回 `api.AccountResourceMessage`（`api.proto:1197`）：
+返回 `api.AccountResourceMessage`（`api.proto`）：
 
 | 字段 | 类型 | 说明 |
 |---|---|---|

@@ -4,8 +4,8 @@
 
 - 源码：`framework/src/main/java/org/tron/core/services/http/GetAccountBalanceServlet.java`
 - Method：`POST`
-- Request：`protocol.AccountBalanceRequest`（`balance_contract.proto:74`）
-- Response：`protocol.AccountBalanceResponse`（`balance_contract.proto:79`）
+- Request：`protocol.AccountBalanceRequest`（`balance_contract.proto`）
+- Response：`protocol.AccountBalanceResponse`（`balance_contract.proto`）
 
 ## 请求参数
 
@@ -53,7 +53,7 @@ curl --request POST \
 }
 ```
 
-需要节点开启 `localwitness` / 历史余额追踪相关配置；未启用时可能返回错误或 `{}`。
+需要节点开启 `storage.balance.history.lookup = true`（等价启动参数 `--history-balance-lookup`）。否则不会报错，而是返回 `balance: 0` + 原样回显的 `block_identifier`——与"该账户在该区块前确实没有任何记录"的成功响应无法区分，容易被误判。
 
 ### 异常响应
 
@@ -67,5 +67,5 @@ curl --request POST \
 | `block_identifier.number < 0` | `{"Error": "class java.lang.IllegalArgumentException : block_identifier number less than 0"}` |
 | `block_identifier.hash` 长度不为 32 字节 | `{"Error": "class java.lang.IllegalArgumentException : block_identifier hash length not equals 32"}` |
 | `block_identifier` 的 `number` 与 `hash` 不匹配 | `{"Error": "class java.lang.IllegalArgumentException : number and hash do not match"}` |
-| 节点未开启历史余额追踪 / 区块号不存在 | `{"Error": "class org.tron.core.exception.ItemNotFoundException : <message>"}` |
+| 区块号不存在 | `{"Error": "class org.tron.core.exception.ItemNotFoundException : number: <N> is not found!"}` |
 | 其他异常 | `{"Error": "<exceptionClass> : <message>"}` |

@@ -22,7 +22,7 @@ curl --request POST \
 
 ## 响应
 
-返回 `protocol.Block`（`Tron.proto:521`）：
+返回 `protocol.Block`（`Tron.proto`）：
 
 | 字段 | 类型 | 说明 |
 |---|---|---|

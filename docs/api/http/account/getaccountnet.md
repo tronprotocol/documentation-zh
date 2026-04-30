@@ -28,7 +28,7 @@ curl --request POST \
 
 ## 响应
 
-返回 `api.AccountNetMessage`（`protocol/src/main/protos/api/api.proto:1187`）：
+返回 `api.AccountNetMessage`（`protocol/src/main/protos/api/api.proto`）：
 
 | 字段 | 类型 | 说明 |
 |---|---|---|

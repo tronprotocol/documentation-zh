@@ -23,6 +23,8 @@ curl -X POST https://nile.trongrid.io/jsonrpc \
 { "jsonrpc": "2.0", "id": 1, "result": "0x41a614f803b6fd780986a42c78ec9c7f77e6ded13c" }
 ```
 
+> 注：这里的 21 字节（`0x41` + 20 字节）是 Tron 原生地址格式，与标准以太坊 20 字节不同。
+
 ### 异常响应
 
 | 触发条件 | 错误码 | message |

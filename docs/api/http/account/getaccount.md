@@ -29,7 +29,7 @@ curl --request POST \
 
 ## 响应
 
-返回 `protocol.Account`（见 `protocol/src/main/protos/core/Tron.proto:132`）。常用字段：
+返回 `protocol.Account`（见 `protocol/src/main/protos/core/Tron.proto`）。常用字段：
 
 | 字段 | 类型 | 说明 |
 |---|---|---|

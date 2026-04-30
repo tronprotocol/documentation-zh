@@ -4,7 +4,7 @@
 
 - 源码：`framework/src/main/java/org/tron/core/services/http/TransferServlet.java`
 - Method：`POST`
-- Contract：`protocol.TransferContract`（`balance_contract.proto:32`）
+- Contract：`protocol.TransferContract`（`balance_contract.proto`）
 
 ## 请求参数
 

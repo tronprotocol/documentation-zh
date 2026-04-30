@@ -31,7 +31,7 @@ curl --request POST \
 
 | 字段 | 类型 | 说明 |
 |---|---|---|
-| `assetIssue` | repeated AssetIssueContract | 该账户发行的 TRC10 列表（结构见 `asset_issue_contract.proto:9`，字段同 [`/wallet/createassetissue`](createassetissue.md) 请求体） |
+| `assetIssue` | repeated AssetIssueContract | 该账户发行的 TRC10 列表（结构见 `asset_issue_contract.proto`，字段同 [`/wallet/createassetissue`](createassetissue.md) 请求体） |
 
 响应示例：
 

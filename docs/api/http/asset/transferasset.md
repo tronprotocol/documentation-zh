@@ -4,7 +4,7 @@ TRC10 通证转账。
 
 - 源码：`framework/src/main/java/org/tron/core/services/http/TransferAssetServlet.java`
 - Method：`POST`
-- Contract：`protocol.TransferAssetContract`（`asset_issue_contract.proto:36`）
+- Contract：`protocol.TransferAssetContract`（`asset_issue_contract.proto`）
 
 ## 请求参数
 
