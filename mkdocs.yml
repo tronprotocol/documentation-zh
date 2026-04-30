@@ -182,7 +182,7 @@ nav:
                 - 分页提案列表: api/rpc/witness-and-governance/GetPaginatedProposalList.md
                 - 链参数当前值: api/rpc/witness-and-governance/GetChainParameters.md
                 - 下次维护期开始时间: api/rpc/witness-and-governance/GetNextMaintenanceTime.md
-            - 资源 Stake 1.0（已弃用）:
+            - 资源 Stake 1.0（仅保留解冻与查询）:
                 - 冻结 TRX: api/rpc/stake-v1/FreezeBalance2.md
                 - 解冻: api/rpc/stake-v1/UnfreezeBalance2.md
                 - 查询资源代理记录 v1: api/rpc/stake-v1/GetDelegatedResource.md
@@ -209,11 +209,11 @@ nav:
             - 概述: api/json-rpc/index.md
             - 节点信息 / 链身份:
                 - 客户端版本字符串: api/json-rpc/node/web3_clientVersion.md
-                - Keccak-256 hash: api/json-rpc/node/web3_sha3.md
+                - Keccak-256 哈希: api/json-rpc/node/web3_sha3.md
                 - 网络 ID: api/json-rpc/node/net_version.md
                 - 是否在监听 P2P: api/json-rpc/node/net_listening.md
                 - 对等节点数: api/json-rpc/node/net_peerCount.md
-                - chainId: api/json-rpc/node/eth_chainId.md
+                - 链 ID: api/json-rpc/node/eth_chainId.md
                 - 协议版本号: api/json-rpc/node/eth_protocolVersion.md
                 - 同步状态: api/json-rpc/node/eth_syncing.md
                 - 最新块高: api/json-rpc/node/eth_blockNumber.md
@@ -245,9 +245,9 @@ nav:
             - 交易构造:
                 - 构造未签名交易: api/json-rpc/tx-build/buildTransaction.md
             - 兼容桩方法:
-                - eth_coinbase: api/json-rpc/stub/eth_coinbase.md
-                - eth_accounts: api/json-rpc/stub/eth_accounts.md
-                - eth_getWork: api/json-rpc/stub/eth_getWork.md
+                - etherbase 地址: api/json-rpc/stub/eth_coinbase.md
+                - 节点托管账户列表: api/json-rpc/stub/eth_accounts.md
+                - 挖矿任务信息: api/json-rpc/stub/eth_getWork.md
     - 核心协议:
         - 波场共识: mechanism-algorithm/dpos.md
         - 超级代表: mechanism-algorithm/sr.md
