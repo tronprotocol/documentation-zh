@@ -13,7 +13,7 @@
 | 字段 | 类型 | 必填 | 说明 |
 |---|---|---|---|
 | `raw_data` | object | 是 | 与 createtransaction 返回一致 |
-| `raw_data_hex` | string | 否（节点忽略） | 同 [`broadcasttransaction`](broadcasttransaction.md#请求参数)：客户端可视化辅助字段，不参与验签 |
+| `raw_data_hex` | string | 否（节点忽略） | 同 [`broadcasttransaction`](broadcasttransaction.md)：客户端可视化辅助字段，不参与验签 |
 | `signature` | string[] | 是 | 已收集的签名（可以只有 1 个） |
 | `visible` | bool | 否 | 地址、文本字段格式（响应含 `result.message`，受 `visible` 影响） |
 
