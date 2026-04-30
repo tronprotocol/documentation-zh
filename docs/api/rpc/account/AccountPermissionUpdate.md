@@ -7,3 +7,5 @@
 ```protobuf
 rpc AccountPermissionUpdate (AccountPermissionUpdateContract) returns (TransactionExtention) {}
 ```
+
+相似 HTTP 接口见 [/wallet/accountpermissionupdate](../../http/account/accountpermissionupdate.md)。

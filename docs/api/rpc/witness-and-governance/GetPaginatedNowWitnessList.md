@@ -7,3 +7,5 @@
 ```protobuf
 rpc GetPaginatedNowWitnessList (PaginatedMessage) returns (WitnessList) {}
 ```
+
+相似 HTTP 接口见 [/wallet/getpaginatednowwitnesslist](../../http/witness-and-governance/getpaginatednowwitnesslist.md)。

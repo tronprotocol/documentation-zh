@@ -7,3 +7,5 @@
 ```protobuf
 rpc DeployContract (CreateSmartContract) returns (TransactionExtention) {}
 ```
+
+相似 HTTP 接口见 [/wallet/deploycontract](../../http/smart-contract/deploycontract.md)。

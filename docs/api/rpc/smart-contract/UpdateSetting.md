@@ -7,3 +7,5 @@
 ```protobuf
 rpc UpdateSetting (UpdateSettingContract) returns (TransactionExtention) {}
 ```
+
+相似 HTTP 接口见 [/wallet/updatesetting](../../http/smart-contract/updatesetting.md)。

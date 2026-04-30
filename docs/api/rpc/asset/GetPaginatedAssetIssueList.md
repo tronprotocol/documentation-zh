@@ -7,3 +7,5 @@
 ```protobuf
 rpc GetPaginatedAssetIssueList (PaginatedMessage) returns (AssetIssueList) {}
 ```
+
+相似 HTTP 接口见 [/wallet/getpaginatedassetissuelist](../../http/asset/getpaginatedassetissuelist.md)。

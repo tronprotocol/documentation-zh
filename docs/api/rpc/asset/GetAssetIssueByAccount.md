@@ -7,3 +7,5 @@
 ```protobuf
 rpc GetAssetIssueByAccount (Account) returns (AssetIssueList) {}
 ```
+
+相似 HTTP 接口见 [/wallet/getassetissuebyaccount](../../http/asset/getassetissuebyaccount.md)。

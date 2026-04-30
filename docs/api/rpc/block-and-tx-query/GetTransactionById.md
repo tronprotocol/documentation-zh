@@ -7,3 +7,5 @@
 ```protobuf
 rpc GetTransactionById (BytesMessage) returns (Transaction) {}
 ```
+
+相似 HTTP 接口见 [/wallet/gettransactionbyid](../../http/block-and-tx-query/gettransactionbyid.md)。

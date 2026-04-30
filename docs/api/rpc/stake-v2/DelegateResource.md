@@ -7,3 +7,5 @@
 ```protobuf
 rpc DelegateResource (DelegateResourceContract) returns (TransactionExtention) {}
 ```
+
+相似 HTTP 接口见 [/wallet/delegateresource](../../http/stake-v2/delegateresource.md)。

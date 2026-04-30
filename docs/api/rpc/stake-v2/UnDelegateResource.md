@@ -7,3 +7,5 @@
 ```protobuf
 rpc UnDelegateResource (UnDelegateResourceContract) returns (TransactionExtention) {}
 ```
+
+相似 HTTP 接口见 [/wallet/undelegateresource](../../http/stake-v2/undelegateresource.md)。

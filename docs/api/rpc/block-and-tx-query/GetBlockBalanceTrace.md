@@ -7,3 +7,5 @@
 ```protobuf
 rpc GetBlockBalanceTrace (BlockBalanceTrace.BlockIdentifier) returns (BlockBalanceTrace) {}
 ```
+
+相似 HTTP 接口见 [/wallet/getblockbalance](../../http/block-and-tx-query/getblockbalance.md)。

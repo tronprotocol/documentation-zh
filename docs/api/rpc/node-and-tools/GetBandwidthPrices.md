@@ -7,3 +7,5 @@
 ```protobuf
 rpc GetBandwidthPrices (EmptyMessage) returns (PricesResponseMessage) {}
 ```
+
+相似 HTTP 接口见 [/wallet/getbandwidthprices](../../http/node-and-tools/getbandwidthprices.md)。

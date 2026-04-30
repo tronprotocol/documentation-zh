@@ -7,3 +7,5 @@
 ```protobuf
 rpc GetEnergyPrices (EmptyMessage) returns (PricesResponseMessage) {}
 ```
+
+相似 HTTP 接口见 [/wallet/getenergyprices](../../http/node-and-tools/getenergyprices.md)。

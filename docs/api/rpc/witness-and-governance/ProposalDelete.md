@@ -7,3 +7,5 @@
 ```protobuf
 rpc ProposalDelete (ProposalDeleteContract) returns (TransactionExtention) {}
 ```
+
+相似 HTTP 接口见 [/wallet/proposaldelete](../../http/witness-and-governance/proposaldelete.md)。

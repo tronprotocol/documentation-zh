@@ -7,3 +7,5 @@
 ```protobuf
 rpc GetAccountNet (Account) returns (AccountNetMessage) {}
 ```
+
+相似 HTTP 接口见 [/wallet/getaccountnet](../../http/account/getaccountnet.md)。

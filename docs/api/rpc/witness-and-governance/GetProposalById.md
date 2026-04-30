@@ -7,3 +7,5 @@
 ```protobuf
 rpc GetProposalById (BytesMessage) returns (Proposal) {}
 ```
+
+相似 HTTP 接口见 [/wallet/getproposalbyid](../../http/witness-and-governance/getproposalbyid.md)。

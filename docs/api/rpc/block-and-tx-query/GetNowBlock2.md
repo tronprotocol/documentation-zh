@@ -7,3 +7,5 @@
 ```protobuf
 rpc GetNowBlock2 (EmptyMessage) returns (BlockExtention) {}
 ```
+
+相似 HTTP 接口见 [/wallet/getnowblock](../../http/block-and-tx-query/getnowblock.md)。

@@ -7,3 +7,5 @@
 ```protobuf
 rpc GetAssetIssueList (EmptyMessage) returns (AssetIssueList) {}
 ```
+
+相似 HTTP 接口见 [/wallet/getassetissuelist](../../http/asset/getassetissuelist.md)。

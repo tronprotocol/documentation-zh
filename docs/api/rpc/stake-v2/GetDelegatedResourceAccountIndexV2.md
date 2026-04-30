@@ -7,3 +7,5 @@
 ```protobuf
 rpc GetDelegatedResourceAccountIndexV2 (BytesMessage) returns (DelegatedResourceAccountIndex) {}
 ```
+
+相似 HTTP 接口见 [/wallet/getdelegatedresourceaccountindexv2](../../http/stake-v2/getdelegatedresourceaccountindexv2.md)。

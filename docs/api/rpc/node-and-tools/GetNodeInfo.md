@@ -7,3 +7,5 @@
 ```protobuf
 rpc GetNodeInfo (EmptyMessage) returns (NodeInfo) {}
 ```
+
+相似 HTTP 接口见 [/wallet/getnodeinfo](../../http/node-and-tools/getnodeinfo.md)。

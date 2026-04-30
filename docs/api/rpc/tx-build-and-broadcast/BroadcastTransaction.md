@@ -7,3 +7,5 @@
 ```protobuf
 rpc BroadcastTransaction (Transaction) returns (Return) {}
 ```
+
+相似 HTTP 接口见 [/wallet/broadcasttransaction](../../http/tx-build-and-broadcast/broadcasttransaction.md)。

@@ -7,3 +7,5 @@
 ```protobuf
 rpc GetContractInfo (BytesMessage) returns (SmartContractDataWrapper) {}
 ```
+
+相似 HTTP 接口见 [/wallet/getcontractinfo](../../http/smart-contract/getcontractinfo.md)。

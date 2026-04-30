@@ -7,3 +7,5 @@
 ```protobuf
 rpc WithdrawExpireUnfreeze (WithdrawExpireUnfreezeContract) returns (TransactionExtention) {}
 ```
+
+相似 HTTP 接口见 [/wallet/withdrawexpireunfreeze](../../http/stake-v2/withdrawexpireunfreeze.md)。

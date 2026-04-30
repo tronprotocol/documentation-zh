@@ -7,3 +7,5 @@
 ```protobuf
 rpc ProposalCreate (ProposalCreateContract) returns (TransactionExtention) {}
 ```
+
+相似 HTTP 接口见 [/wallet/proposalcreate](../../http/witness-and-governance/proposalcreate.md)。

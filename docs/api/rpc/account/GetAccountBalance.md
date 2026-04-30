@@ -7,3 +7,5 @@
 ```protobuf
 rpc GetAccountBalance (AccountBalanceRequest) returns (AccountBalanceResponse) {}
 ```
+
+相似 HTTP 接口见 [/wallet/getaccountbalance](../../http/account/getaccountbalance.md)。

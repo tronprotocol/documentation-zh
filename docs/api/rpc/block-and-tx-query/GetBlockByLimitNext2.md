@@ -7,3 +7,5 @@
 ```protobuf
 rpc GetBlockByLimitNext2 (BlockLimit) returns (BlockListExtention) {}
 ```
+
+相似 HTTP 接口见 [/wallet/getblockbylimitnext](../../http/block-and-tx-query/getblockbylimitnext.md)。

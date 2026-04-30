@@ -7,3 +7,5 @@
 ```protobuf
 rpc ParticipateAssetIssue2 (ParticipateAssetIssueContract) returns (TransactionExtention) {}
 ```
+
+相似 HTTP 接口见 [/wallet/participateassetissue](../../http/asset/participateassetissue.md)。

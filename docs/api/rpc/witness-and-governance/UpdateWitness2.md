@@ -7,3 +7,5 @@
 ```protobuf
 rpc UpdateWitness2 (WitnessUpdateContract) returns (TransactionExtention) {}
 ```
+
+相似 HTTP 接口见 [/wallet/updatewitness](../../http/witness-and-governance/updatewitness.md)。

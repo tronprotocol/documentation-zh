@@ -7,3 +7,5 @@
 ```protobuf
 rpc WithdrawBalance2 (WithdrawBalanceContract) returns (TransactionExtention) {}
 ```
+
+相似 HTTP 接口见 [/wallet/withdrawbalance](../../http/witness-and-governance/withdrawbalance.md)。

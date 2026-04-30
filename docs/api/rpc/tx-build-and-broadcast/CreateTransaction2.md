@@ -7,3 +7,5 @@
 ```protobuf
 rpc CreateTransaction2 (TransferContract) returns (TransactionExtention) {}
 ```
+
+相似 HTTP 接口见 [/wallet/createtransaction](../../http/tx-build-and-broadcast/createtransaction.md)。

@@ -7,3 +7,5 @@
 ```protobuf
 rpc GetAvailableUnfreezeCount (GetAvailableUnfreezeCountRequestMessage) returns (GetAvailableUnfreezeCountResponseMessage) {}
 ```
+
+相似 HTTP 接口见 [/wallet/getavailableunfreezecount](../../http/stake-v2/getavailableunfreezecount.md)。

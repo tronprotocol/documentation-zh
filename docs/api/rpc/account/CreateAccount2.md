@@ -7,3 +7,5 @@
 ```protobuf
 rpc CreateAccount2 (AccountCreateContract) returns (TransactionExtention) {}
 ```
+
+相似 HTTP 接口见 [/wallet/createaccount](../../http/account/createaccount.md)。

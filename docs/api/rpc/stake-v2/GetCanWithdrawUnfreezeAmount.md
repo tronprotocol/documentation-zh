@@ -7,3 +7,5 @@
 ```protobuf
 rpc GetCanWithdrawUnfreezeAmount (CanWithdrawUnfreezeAmountRequestMessage) returns (CanWithdrawUnfreezeAmountResponseMessage) {}
 ```
+
+相似 HTTP 接口见 [/wallet/getcanwithdrawunfreezeamount](../../http/stake-v2/getcanwithdrawunfreezeamount.md)。

@@ -7,3 +7,5 @@
 ```protobuf
 rpc ClearContractABI (ClearABIContract) returns (TransactionExtention) {}
 ```
+
+相似 HTTP 接口见 [/wallet/clearabi](../../http/smart-contract/clearabi.md)。

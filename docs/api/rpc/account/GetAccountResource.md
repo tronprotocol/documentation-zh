@@ -7,3 +7,5 @@
 ```protobuf
 rpc GetAccountResource (Account) returns (AccountResourceMessage) {}
 ```
+
+相似 HTTP 接口见 [/wallet/getaccountresource](../../http/account/getaccountresource.md)。

@@ -7,3 +7,5 @@
 ```protobuf
 rpc ListNodes (EmptyMessage) returns (NodeList) {}
 ```
+
+相似 HTTP 接口见 [/wallet/listnodes](../../http/node-and-tools/listnodes.md)。

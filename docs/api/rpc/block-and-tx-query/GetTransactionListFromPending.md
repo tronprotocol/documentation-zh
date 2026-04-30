@@ -7,3 +7,5 @@
 ```protobuf
 rpc GetTransactionListFromPending (EmptyMessage) returns (TransactionIdList) {}
 ```
+
+相似 HTTP 接口见 [/wallet/gettransactionlistfrompending](../../http/block-and-tx-query/gettransactionlistfrompending.md)。

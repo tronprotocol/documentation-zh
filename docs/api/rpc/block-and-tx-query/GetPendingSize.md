@@ -7,3 +7,5 @@
 ```protobuf
 rpc GetPendingSize (EmptyMessage) returns (NumberMessage) {}
 ```
+
+相似 HTTP 接口见 [/wallet/getpendingsize](../../http/block-and-tx-query/getpendingsize.md)。

@@ -7,3 +7,5 @@
 ```protobuf
 rpc ListWitnesses (EmptyMessage) returns (WitnessList) {}
 ```
+
+相似 HTTP 接口见 [/wallet/listwitnesses](../../http/witness-and-governance/listwitnesses.md)。

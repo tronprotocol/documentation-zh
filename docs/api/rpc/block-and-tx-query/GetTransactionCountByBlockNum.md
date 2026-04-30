@@ -7,3 +7,5 @@
 ```protobuf
 rpc GetTransactionCountByBlockNum (NumberMessage) returns (NumberMessage) {}
 ```
+
+相似 HTTP 接口见 [/wallet/gettransactioncountbyblocknum](../../http/block-and-tx-query/gettransactioncountbyblocknum.md)。

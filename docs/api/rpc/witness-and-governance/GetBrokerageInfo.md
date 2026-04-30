@@ -7,3 +7,5 @@
 ```protobuf
 rpc GetBrokerageInfo (BytesMessage) returns (NumberMessage) {}
 ```
+
+相似 HTTP 接口见 [/wallet/getBrokerage](../../http/witness-and-governance/getBrokerage.md)。

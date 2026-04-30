@@ -11,3 +11,5 @@
 ```protobuf
 rpc FreezeBalance2 (FreezeBalanceContract) returns (TransactionExtention) {}
 ```
+
+相似 HTTP 接口见 [/wallet/freezebalance](../../http/stake-v1/freezebalance.md)。

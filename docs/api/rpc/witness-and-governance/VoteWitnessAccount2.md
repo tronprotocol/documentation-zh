@@ -7,3 +7,5 @@
 ```protobuf
 rpc VoteWitnessAccount2 (VoteWitnessContract) returns (TransactionExtention) {}
 ```
+
+相似 HTTP 接口见 [/wallet/votewitnessaccount](../../http/witness-and-governance/votewitnessaccount.md)。

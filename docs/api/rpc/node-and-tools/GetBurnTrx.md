@@ -7,3 +7,5 @@
 ```protobuf
 rpc GetBurnTrx (EmptyMessage) returns (NumberMessage) {}
 ```
+
+相似 HTTP 接口见 [/wallet/getburntrx](../../http/node-and-tools/getburntrx.md)。

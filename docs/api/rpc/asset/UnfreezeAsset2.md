@@ -7,3 +7,5 @@
 ```protobuf
 rpc UnfreezeAsset2 (UnfreezeAssetContract) returns (TransactionExtention) {}
 ```
+
+相似 HTTP 接口见 [/wallet/unfreezeasset](../../http/asset/unfreezeasset.md)。

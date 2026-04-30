@@ -7,3 +7,5 @@
 ```protobuf
 rpc GetChainParameters (EmptyMessage) returns (ChainParameters) {}
 ```
+
+相似 HTTP 接口见 [/wallet/getchainparameters](../../http/witness-and-governance/getchainparameters.md)。

@@ -7,3 +7,5 @@
 ```protobuf
 rpc GetAccount (Account) returns (Account) {}
 ```
+
+相似 HTTP 接口见 [/wallet/getaccount](../../http/account/getaccount.md)。

@@ -7,3 +7,5 @@
 ```protobuf
 rpc UpdateAccount2 (AccountUpdateContract) returns (TransactionExtention) {}
 ```
+
+相似 HTTP 接口见 [/wallet/updateaccount](../../http/account/updateaccount.md)。

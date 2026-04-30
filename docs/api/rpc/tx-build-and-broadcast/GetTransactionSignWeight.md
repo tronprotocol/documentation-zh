@@ -7,3 +7,5 @@
 ```protobuf
 rpc GetTransactionSignWeight (Transaction) returns (TransactionSignWeight) {}
 ```
+
+相似 HTTP 接口见 [/wallet/getsignweight](../../http/tx-build-and-broadcast/getsignweight.md)。

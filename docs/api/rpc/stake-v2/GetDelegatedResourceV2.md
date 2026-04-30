@@ -7,3 +7,5 @@
 ```protobuf
 rpc GetDelegatedResourceV2 (DelegatedResourceMessage) returns (DelegatedResourceList) {}
 ```
+
+相似 HTTP 接口见 [/wallet/getdelegatedresourcev2](../../http/stake-v2/getdelegatedresourcev2.md)。

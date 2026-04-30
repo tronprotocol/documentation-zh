@@ -7,3 +7,5 @@
 ```protobuf
 rpc TriggerContract (TriggerSmartContract) returns (TransactionExtention) {}
 ```
+
+相似 HTTP 接口见 [/wallet/triggersmartcontract](../../http/smart-contract/triggersmartcontract.md)。

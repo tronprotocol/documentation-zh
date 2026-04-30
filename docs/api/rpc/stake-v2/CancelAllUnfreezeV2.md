@@ -7,3 +7,5 @@
 ```protobuf
 rpc CancelAllUnfreezeV2 (CancelAllUnfreezeV2Contract) returns (TransactionExtention) {}
 ```
+
+相似 HTTP 接口见 [/wallet/cancelallunfreezev2](../../http/stake-v2/cancelallunfreezev2.md)。

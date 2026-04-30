@@ -7,3 +7,5 @@
 ```protobuf
 rpc GetCanDelegatedMaxSize (CanDelegatedMaxSizeRequestMessage) returns (CanDelegatedMaxSizeResponseMessage) {}
 ```
+
+相似 HTTP 接口见 [/wallet/getcandelegatedmaxsize](../../http/stake-v2/getcandelegatedmaxsize.md)。

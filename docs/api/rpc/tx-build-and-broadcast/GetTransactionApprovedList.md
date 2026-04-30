@@ -7,3 +7,5 @@
 ```protobuf
 rpc GetTransactionApprovedList (Transaction) returns (TransactionApprovedList) {}
 ```
+
+相似 HTTP 接口见 [/wallet/getapprovedlist](../../http/tx-build-and-broadcast/getapprovedlist.md)。

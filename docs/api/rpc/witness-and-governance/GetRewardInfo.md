@@ -7,3 +7,5 @@
 ```protobuf
 rpc GetRewardInfo (BytesMessage) returns (NumberMessage) {}
 ```
+
+相似 HTTP 接口见 [/wallet/getReward](../../http/witness-and-governance/getReward.md)。

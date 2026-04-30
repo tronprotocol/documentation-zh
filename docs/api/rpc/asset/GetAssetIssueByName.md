@@ -7,3 +7,5 @@
 ```protobuf
 rpc GetAssetIssueByName (BytesMessage) returns (AssetIssueContract) {}
 ```
+
+相似 HTTP 接口见 [/wallet/getassetissuebyname](../../http/asset/getassetissuebyname.md)。

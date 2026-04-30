@@ -7,3 +7,5 @@
 ```protobuf
 rpc EstimateEnergy (TriggerSmartContract) returns (EstimateEnergyMessage) {}
 ```
+
+相似 HTTP 接口见 [/wallet/estimateenergy](../../http/smart-contract/estimateenergy.md)。

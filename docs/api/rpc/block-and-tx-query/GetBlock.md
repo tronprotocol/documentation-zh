@@ -7,3 +7,5 @@
 ```protobuf
 rpc GetBlock (BlockReq) returns (BlockExtention) {}
 ```
+
+相似 HTTP 接口见 [/wallet/getblock](../../http/block-and-tx-query/getblock.md)。
