@@ -55,6 +55,7 @@ nav:
 theme:
   name: material
   custom_dir: docs/overrides
+  language: zh
   features:
     - navigation.sections  # 启用左侧导航栏的分组
     - navigation.footer
@@ -96,7 +97,11 @@ markdown_extensions:
 
 plugins:
   - search:
-     separator: '[\s\u200b\-]'  
+     separator: '[\s\u200b\-]'
+  - git-revision-date-localized:
+      locale: zh
+      type: date
+      fallback_to_build_date: true
   - exclude:
       glob:
         - clients/tron-grid.md
