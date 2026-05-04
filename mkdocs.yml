@@ -58,6 +58,7 @@ theme:
   language: zh
   features:
     - navigation.sections  # 启用左侧导航栏的分组
+    - navigation.indexes  # 允许 section 使用 index.md 作为首页
     - navigation.footer
     - navigation.tracking  # URL 锚点跟随滚动高亮
     - toc.follow  # 右侧 TOC 高亮跟随当前章节
