@@ -58,7 +58,9 @@ theme:
   features:
     - navigation.sections  # 启用左侧导航栏的分组
     - navigation.footer
-    - toc.integrate
+    - navigation.tracking  # URL 锚点跟随滚动高亮
+    - toc.follow  # 右侧 TOC 高亮跟随当前章节
+    # - toc.integrate  # 暂时关闭，恢复标准右侧 TOC，便于对比效果
     - search.highlight  # 搜索时高亮匹配内容
     - search.suggest  # 搜索时显示建议
     - content.code.annotate  # 代码块注释
