@@ -87,7 +87,9 @@ extra_css:
 
 markdown_extensions:
     - admonition
+    - attr_list  # 首页 grid cards 需要
     - footnotes
+    - md_in_html  # 首页 grid cards 需要
     - codehilite
     - toc:
         permalink: true
