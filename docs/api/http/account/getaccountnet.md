@@ -1,6 +1,6 @@
 # /wallet/getaccountnet
 
-查询账户的带宽（Net）资源使用情况。**已弃用**，推荐使用 `/wallet/getaccountresource`。
+查询账户的带宽（Net）资源使用情况。**已弃用**，推荐使用 [`/wallet/getaccountresource`](getaccountresource.md)。
 
 - 源码：`framework/src/main/java/org/tron/core/services/http/GetAccountNetServlet.java`
 - Method：`GET` / `POST`
