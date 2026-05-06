@@ -154,7 +154,7 @@ wallet>
 
 ### **1. 启动节点**
 
-启动命令请参考[启动全节点连接 Nile 测试网](../../using_javatron/installing_javatron/#nile)。
+启动命令请参考[启动全节点连接 Nile 测试网](../using_javatron/installing_javatron.md#nile)。
 
 ### 2. 验证节点状态
 

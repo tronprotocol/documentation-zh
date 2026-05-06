@@ -87,11 +87,11 @@
 
 #### 超级代表节点 (出块节点)
 
-对于出块节点，请参考[启动出块节点](../../using_javatron/installing_javatron/#_4)
+对于出块节点，请参考[启动出块节点](../using_javatron/installing_javatron.md#_4)
 
 #### 普通全节点
 
-对于普通全节点，请参考[启动全节点连接主网](../../using_javatron/installing_javatron/#_2)
+对于普通全节点，请参考[启动全节点连接主网](../using_javatron/installing_javatron.md#_2)
 
 
 

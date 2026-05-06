@@ -106,9 +106,9 @@ java -jar build/libs/Toolkit.jar db mv -c framework/src/main/resources/config.co
 #### 4. 重新启动 FullNode 服务
 数据库迁移完成后，重新启动 `java-tron` 节点。
 
-[**FullNode 启动命令示例**](../installing_javatron/#_2)
+[**FullNode 启动命令示例**](installing_javatron.md#_2)
 
-[**超级代表（SR）FullNode 启动命令示例**](../installing_javatron/#_4)
+[**超级代表（SR）FullNode 启动命令示例**](installing_javatron.md#_4)
 
 ## 轻节点数据剪裁工具
 TRON Toolkit 提供了**数据裁剪工具**，主要用于生成和管理轻节点数据。
