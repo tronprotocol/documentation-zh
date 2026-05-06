@@ -141,6 +141,6 @@ id: 提议Id
 
 以下接口可以查询提议，包括：
 
-+ 查询所有提议信息（[ListProposals](https://tronprotocol.github.io/documentation-zh/api/http/#walletlistproposals)）
-+ 分页查询提议信息（[GetPaginatedProposalList](https://tronprotocol.github.io/documentation-zh/api/http/#walletgetpaginatedproposallist)）
-+ 查询指定提议信息（[GetProposalById](https://tronprotocol.github.io/documentation-zh/api/http/#walletgetproposalbyid)）
++ 查询所有提议信息（[ListProposals](../api/http/witness-and-governance/listproposals.md)）
++ 分页查询提议信息（[GetPaginatedProposalList](../api/http/witness-and-governance/getpaginatedproposallist.md)）
++ 查询指定提议信息（[GetProposalById](../api/http/witness-and-governance/getproposalbyid.md)）

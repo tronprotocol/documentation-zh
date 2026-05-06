@@ -463,7 +463,7 @@ wallet>
 
 **第三步 - 广播交易**
 
-  最后一步，我们将已签名的交易广播出去。调用  [`wallet/broadcasttransaction`](../api/http.md/#walletbroadcasttransaction) 接口，并在其请求体中填入第一步获取的交易对象和第二步生成的签名哈希。提交后，节点会验证签名，然后将交易广播至整个 TRON 网络等待打包确认，至此便完成了整个转账流程。
+  最后一步，我们将已签名的交易广播出去。调用  [`wallet/broadcasttransaction`](../api/http/tx-build-and-broadcast/broadcasttransaction.md) 接口，并在其请求体中填入第一步获取的交易对象和第二步生成的签名哈希。提交后，节点会验证签名，然后将交易广播至整个 TRON 网络等待打包确认，至此便完成了整个转账流程。
   
   ```
   curl --location --request POST 'http://127.0.0.1:8090/wallet/broadcasttransaction' \
