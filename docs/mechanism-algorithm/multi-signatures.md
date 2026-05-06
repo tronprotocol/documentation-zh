@@ -111,6 +111,52 @@ enum ContractType {
 ```
 `active` 权限通过 `operations` 字段配置可执行哪些 `ContractType`。 `operations` 字段值的计算请参考[operations 值计算示例](#2-operations)。
 
+`ContractType` 的详细信息如下(包括消息名、执行器、状态以及触发的业务)：
+
+| # | ContractType | Proto Message(消息名) | Actuator(执行器) | 状态 | 触发的业务 |
+|---|---|---|---|---|---|
+| 0 | AccountCreateContract | AccountContract.AccountCreateContract | CreateAccountActuator | ✅ 启用 | 创建一个链上账户 |
+| 1 | TransferContract | BalanceContract.TransferContract | TransferActuator | ✅ 启用 | TRX 转账 |
+| 2 | TransferAssetContract | AssetIssueContractOuterClass.TransferAssetContract | TransferAssetActuator | ✅ 启用 | TRC10 代币转账 |
+| 3 | VoteAssetContract |  |  | 🚫 禁用(未实现Actuator)  |  |
+| 4 | VoteWitnessContract | WitnessContract.VoteWitnessContract | VoteWitnessActuator | ✅ 启用 | 用账户的 TronPower 为 SR 投票,刷新投票记录(下次 maintenance 生效) |
+| 5 | WitnessCreateContract | WitnessContract.WitnessCreateContract | WitnessCreateActuator | ✅ 启用 | 申请成为超级代表候选人，写入 witness store |
+| 6 | AssetIssueContract | AssetIssueContractOuterClass.AssetIssueContract | AssetIssueActuator | ✅ 启用 | 发行 TRC10 代币,按 ICO 规则冻结募集期余额 |
+| 8 | WitnessUpdateContract | WitnessContract.WitnessUpdateContract | WitnessUpdateActuator | ✅ 启用 | 更新 SR 的官网 URL |
+| 9 | ParticipateAssetIssueContract | AssetIssueContractOuterClass.ParticipateAssetIssueContract | ParticipateAssetIssueActuator | ✅ 启用 | 在 ICO 期间用 TRX 认购 TRC10 代币 |
+| 10 | AccountUpdateContract | AccountContract.AccountUpdateContract | UpdateAccountActuator | ✅ 启用 | 修改账户名(受 AllowUpdateAccountName 约束) |
+| 11 | FreezeBalanceContract | BalanceContract.FreezeBalanceContract | FreezeBalanceActuator | 🚫 禁用(`supportUnfreezeDelay` 启用后链拒绝) | Stake 1.0:冻结 TRX 换取 Bandwidth/Energy,并可委托给他人 |
+| 12 | UnfreezeBalanceContract | BalanceContract.UnfreezeBalanceContract | UnfreezeBalanceActuator | ✅ 启用 | Stake 1.0:到期后解冻 TRX,释放对应资源、清除得票 |
+| 13 | WithdrawBalanceContract | BalanceContract.WithdrawBalanceContract | WithdrawBalanceActuator | ✅ 启用 | 领取 SR 出块 / 投票奖励到余额 |
+| 14 | UnfreezeAssetContract | AssetIssueContractOuterClass.UnfreezeAssetContract | UnfreezeAssetActuator | ✅ 启用 | 发行人解冻 ICO 时冻结的 TRC10 代币份额 |
+| 15 | UpdateAssetContract | AssetIssueContractOuterClass.UpdateAssetContract | UpdateAssetActuator | ✅ 启用 | 更新 TRC10 代币的 description / url / 免费带宽配额 |
+| 16 | ProposalCreateContract | ProposalContract.ProposalCreateContract | ProposalCreateActuator | ✅ 启用 | SR 发起链上参数提案,写入 ProposalStore 等待投票 |
+| 17 | ProposalApproveContract | ProposalContract.ProposalApproveContract | ProposalApproveActuator | ✅ 启用 | SR 对提案投赞成/取消票 |
+| 18 | ProposalDeleteContract | ProposalContract.ProposalDeleteContract | ProposalDeleteActuator | ✅ 启用 | 提案发起人撤回自己创建的提案 |
+| 19 | SetAccountIdContract | AccountContract.SetAccountIdContract | SetAccountIdActuator | ✅ 启用 | 为账户设置唯一 account_id(仅可设置一次) |
+| 20 | CustomContract  |  |  | 🚫 禁用(未实现Actuator)  |  |
+| 30 | CreateSmartContract | SmartContractOuterClass.CreateSmartContract | VMActuator | ✅ 启用 | 部署智能合约 |
+| 31 | TriggerSmartContract | SmartContractOuterClass.TriggerSmartContract | VMActuator | ✅ 启用 | 调用智能合约 |
+| 32 | GetContract |  |  | 🚫 禁用(未实现Actuator)  |  |
+| 33 | UpdateSettingContract | SmartContractOuterClass.UpdateSettingContract | UpdateSettingContractActuator | ✅ 启用 | 合约所有者修改合约的 consume_user_resource_percent(用户承担能量比例) |
+| 41 | ExchangeCreateContract | ExchangeContract.ExchangeCreateContract | ExchangeCreateActuator | ✅ 启用 | 创建 Bancor 交易对, 为两种资产初始注入流动性 |
+| 42 | ExchangeInjectContract | ExchangeContract.ExchangeInjectContract | ExchangeInjectActuator | ✅ 启用 | 向已有交易对继续注入流动性, 按 Bancor 算法扣减双方资产 |
+| 43 | ExchangeWithdrawContract | ExchangeContract.ExchangeWithdrawContract | ExchangeWithdrawActuator | ✅ 启用 | 交易对创建人按比例赎回交易对中双方资产 |
+| 44 | ExchangeTransactionContract | ExchangeContract.ExchangeTransactionContract | ExchangeTransactionActuator | 🚫 禁用 | 通过 Bancor 交易对进行资产兑换 |
+| 45 | UpdateEnergyLimitContract | SmartContractOuterClass.UpdateEnergyLimitContract | UpdateEnergyLimitContractActuator | ✅ 启用 | 合约所有者更新合约的 origin_energy_limit(合约所有者愿意为每一笔合约调用交易承担的能量消耗上限) |
+| 46 | AccountPermissionUpdateContract | AccountContract.AccountPermissionUpdateContract | AccountPermissionUpdateActuator | ✅ 启用 | 更新账户权限:owner/witness/active |
+| 48 | ClearABIContract | SmartContractOuterClass.ClearABIContract | ClearABIContractActuator | ✅ 启用 | 合约所有者清空合约 ABI |
+| 49 | UpdateBrokerageContract | StorageContract.UpdateBrokerageContract | UpdateBrokerageActuator | ✅ 启用 | SR 调整对投票者的佣金比例(0-100%) |
+| 51 | ShieldedTransferContract | ShieldContract.ShieldedTransferContract | ShieldedTransferActuator | 🚫 禁用(`getAllowShieldedTransaction` 未开启) | ZK-SNARK 匿名转账(透明 in + 匿名 spend/receive + 透明 out) |
+| 52 | MarketSellAssetContract | MarketContract.MarketSellAssetContract | MarketSellAssetActuator | 🚫 禁用(`getAllowMarketTransaction` 未开启) | 内置订单簿挂限价卖单(sell / buy 两种资产 + 价格) |
+| 53 | MarketCancelOrderContract | MarketContract.MarketCancelOrderContract | MarketCancelOrderActuator | 🚫 禁用(`getAllowMarketTransaction` 未开启) | 撤销自己挂出的未成交订单,退回剩余资产 |
+| 54 | FreezeBalanceV2Contract | BalanceContract.FreezeBalanceV2Contract | FreezeBalanceV2Actuator | ✅ 启用 | Stake 2.0:冻结 TRX 得到 Bandwidth/Energy, 资源与 TronPower 分离 |
+| 55 | UnfreezeBalanceV2Contract | BalanceContract.UnfreezeBalanceV2Contract | UnfreezeBalanceV2Actuator | ✅ 启用 | Stake 2.0:发起解质押,进入解冻等待期 |
+| 56 | WithdrawExpireUnfreezeContract | BalanceContract.WithdrawExpireUnfreezeContract | WithdrawExpireUnfreezeActuator | ✅ 启用 | 提取已过等待期的解冻 TRX 到账户余额 |
+| 57 | DelegateResourceContract | BalanceContract.DelegateResourceContract | DelegateResourceActuator | ✅ 启用 | Stake 2.0:把自己已质押的 Bandwidth/Energy 委托给其他地址(可设锁定期) |
+| 58 | UnDelegateResourceContract | BalanceContract.UnDelegateResourceContract | UnDelegateResourceActuator | ✅ 启用 | Stake 2.0:从他人处回收先前委托的资源 |
+| 59 | CancelAllUnfreezeV2Contract | BalanceContract.CancelAllUnfreezeV2Contract | CancelAllUnfreezeV2Actuator | ✅ 启用 | 一次性取消账户所有处于等待期的 V2 解冻,剩余份额重新质押 | 
+
 ## 各权限类型说明
 ### `owner` 权限（账户主控）
 - 拥有账户的全部控制权；
