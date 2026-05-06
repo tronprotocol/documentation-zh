@@ -6,7 +6,7 @@ java-tron 节点对外暴露三套 API。它们底层能力大体一致，区别
 
 | 需求 | 推荐方案 | 原因 |
 |---|---|---|
-| 在浏览器、移动端或任意 HTTP 客户端中调用 | **HTTP 接口** | 普通 `POST` + JSON，无需代码生成，节点上方法覆盖最广 |
+| 在浏览器、移动端或任意 HTTP 客户端中调用 | **HTTP 接口** | `POST` / `GET`（部分支持），无需代码生成，节点上方法覆盖最广 |
 | 复用以太坊生态工具（web3.js、ethers.js、MetaMask、Hardhat、Foundry 等） | **JSON-RPC 接口** | 实现了 `eth_*` / `net_*` / `web3_*` 方法集，EVM 工具可直接使用 |
 | 用强类型语言（Java、Go、Rust、C++）做服务端对接，且对延迟或吞吐有要求 | **gRPC 接口** | 基于 HTTP/2 长连接，protobuf 编码，自动生成 stub |
 
@@ -19,6 +19,6 @@ java-tron 节点对外暴露三套 API。它们底层能力大体一致，区别
 
 ## 参考索引
 
-- [HTTP 接口参考](http/index.md) —— `/wallet/*` 下的端点，按功能模块组织
+- [HTTP 接口参考](http/index.md) —— `/wallet/*` 与 `/walletsolidity/*`（部分支持）下的端点，按功能模块组织
 - [JSON-RPC 接口参考](json-rpc/index.md) —— `eth_*` / `net_*` / `web3_*` 方法以及 Tron 专属的 `buildTransaction`
-- [gRPC 接口参考](rpc/index.md) —— `protocol.Wallet` / `protocol.WalletSolidity` 方法
+- [gRPC 接口参考](rpc/index.md) —— `protocol.Wallet` / `protocol.WalletSolidity`（部分支持）方法
