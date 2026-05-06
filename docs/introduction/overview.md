@@ -122,7 +122,7 @@ id: 提议Id，根据提议创建时间递增
 查询所有提议信息（ListProposals）
 分页查询提议信息（GetPaginatedProposalList）
 查询指定提议信息（GetProposalById）
-相关api详情，请查询[TRON HTTP API](../api/http.md)
+相关api详情，请查询[TRON HTTP API](../api/http/index.md)
 
 ## 3. 账号模型
 
@@ -1260,7 +1260,7 @@ buyTokenQuant = （long）balance* (Math.pow(1.0 + (double) supplyQuant / supply
 
 注意：由于网络其他账户发生交易，价格可能发生变化。
 
-相关api详情，请查询[TRON HTTP API](../api/http.md)。
+相关api详情，请查询[TRON HTTP API](../api/http/index.md)。
 
 ## 10. 账户权限管理
 
