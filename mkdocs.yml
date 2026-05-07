@@ -261,7 +261,8 @@ nav:
         - 账户权限管理: mechanism-algorithm/multi-signatures.md
     - java-tron开发: 
         - 开发者指南: developers/java-tron.md
-        - TIPs工作流程: developers/tips.md
+        - TIPs工作流程: developers/tip-workflow.md
+        - TIPs: developers/tips.md
         - Issue工作流程: developers/issue-workflow.md
         - 治理流程: developers/governance.md
         - 配置IDE开发环境: developers/run-in-idea.md
