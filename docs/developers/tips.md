@@ -1,8 +1,3 @@
----
-search:
-  boost: 2
----
-
 # TRON Improvement Proposals (TIPs)
 
 **类别:**&nbsp;&nbsp;[Core](#core) | [Networking](#networking) | [Interface](#interface) | [TRC](#trc) | [VM](#vm) | [Informational](#informational)
