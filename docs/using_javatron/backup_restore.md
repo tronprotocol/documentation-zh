@@ -85,7 +85,7 @@ TRON 网络从 GreatVoyage-V4.1.0 版本开始支持 **Lite FullNode** 类型的
 | :----------------------- | :------- | :--- |
 | 官方数据源 (亚洲: 新加坡) | [http://34.143.247.77/](http://34.143.247.77/) | LevelDB 数据 |
 
-**小提示：** 如果您已经拥有 FullNode 的全量数据，可以使用 [Lite FullNode 数据裁剪工具](../toolkit/#_5)自行将 FullNode 数据裁剪为 Lite FullNode 数据。
+**小提示：** 如果您已经拥有 FullNode 的全量数据，可以使用 [Lite FullNode 数据裁剪工具](toolkit.md#_5)自行将 FullNode 数据裁剪为 Lite FullNode 数据。
 
 
 
