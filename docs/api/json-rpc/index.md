@@ -22,9 +22,9 @@ URL 路径恒为 `/jsonrpc`（见 `FullNodeJsonRpcHttpService.java`）。
 - **数值编码**：所有数值（block number、balance、gas、timestamp 等）使用 `0x` 前缀的十六进制字符串；空值对应 `0x` 或 `0x0`。
 - **地址编码**：JSON-RPC 接口默认接受 0x 前缀的 20 字节 hex 地址；同时兼容 base58check（内部由 `JsonRpcApiUtil.addressCompatibleToByteArray` 转换）。
 - **block tag**：常见的 `latest` / `earliest` / `pending` / `finalized` 中，**只有少量方法支持**：
-  - `eth_getBlockByNumber`、`eth_getBlockReceipts` 等区块查询方法接受 `latest` / `earliest` / `finalized`；`pending` 显式不支持，会抛 `-32602 TAG pending not supported`。
-  - `eth_getBalance` / `eth_getStorageAt` / `eth_getCode` / `eth_call` **只支持 `latest`**，传 `earliest` / `pending` / `finalized` 抛 `-32602 TAG [earliest | pending | finalized] not supported`，传具体高度抛 `-32602 QUANTITY not supported, just support TAG as latest`。
-  - `eth_newFilter` 不支持 `finalized`（抛 `-32602 invalid block range params`）。
+    - `eth_getBlockByNumber`、`eth_getBlockReceipts` 等区块查询方法接受 `latest` / `earliest` / `finalized`；`pending` 显式不支持，会抛 `-32602 TAG pending not supported`。
+    - `eth_getBalance` / `eth_getStorageAt` / `eth_getCode` / `eth_call` **只支持 `latest`**，传 `earliest` / `pending` / `finalized` 抛 `-32602 TAG [earliest | pending | finalized] not supported`，传具体高度抛 `-32602 QUANTITY not supported, just support TAG as latest`。
+    - `eth_newFilter` 不支持 `finalized`（抛 `-32602 invalid block range params`）。
 
 ## 异常响应
 
