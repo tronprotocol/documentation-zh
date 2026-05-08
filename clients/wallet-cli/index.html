@@ -9282,11 +9282,13 @@ CreateAccount successful !!
 <p>本文稍后将介绍 TP 和 Bandwidth 的使用和计算规则。</p>
 <p><strong>冻结操作如下：</strong></p>
 <h5 id="freezev2"><code>freezev2</code> 资源<a class="headerlink" href="#freezev2" title="Permanent link">&para;</a></h5>
-<p><div class="highlight"><pre><span></span><code>freezeBalanceV2 [OwnerAddress] frozen_balance [ResourceCode:0 BANDWIDTH,1 ENERGY,2 TRON_POWER]
+<div class="highlight"><pre><span></span><code>freezeBalanceV2 [OwnerAddress] frozen_balance [ResourceCode:0 BANDWIDTH,1 ENERGY,2 TRON_POWER]
 </code></pre></div>
-- <code>OwnerAddress</code> - 发起交易的账户地址，可选，默认为登录账户的地址
-- <code>frozen_balance</code> - 冻结的金额，单位为最小单位 sun，最小值为 1,000,000 sun
-- <code>ResourceCode</code> - 0 代表 BANDWIDTH；1 代表 ENERGY</p>
+<ul>
+<li><code>OwnerAddress</code> - 发起交易的账户地址，可选，默认为登录账户的地址</li>
+<li><code>frozen_balance</code> - 冻结的金额，单位为最小单位 sun，最小值为 1,000,000 sun</li>
+<li><code>ResourceCode</code> - 0 代表 BANDWIDTH；1 代表 ENERGY</li>
+</ul>
 <p>示例：
 <div class="highlight"><pre><span></span><code>wallet&gt; FreezeBalanceV2 TJAVcszse667FmSNCwU2fm6DmfM5D4AyDh 1000000000000000 0
 txid is 82244829971b4235d98a9f09ba67ddb09690ac2f879ad93e09ba3ec1ab29177d
@@ -9502,12 +9504,14 @@ wallet&gt; GetTransactionById 363ac0b82b6ad3e0d3cad90f7d72b3eceafe36585432a3e013
 }
 </code></pre></div></p>
 <h5 id="_11">取消代理资源<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h5>
-<p><div class="highlight"><pre><span></span><code>unDelegateResource [OwnerAddress] balance ResourceCode(0 BANDWIDTH,1 ENERGY), ReceiverAddress
+<div class="highlight"><pre><span></span><code>unDelegateResource [OwnerAddress] balance ResourceCode(0 BANDWIDTH,1 ENERGY), ReceiverAddress
 </code></pre></div>
-- <code>OwnerAddress</code> - 发起交易的账户地址，可选，默认为登录账户的地址
-- <code>balance</code> - 取消代理的金额，单位为最小单位 sun
-- <code>ResourceCode</code> - 0 代表 Bandwidth；1 代表 Energy
-- <code>ReceiverAddress</code> - 账户地址</p>
+<ul>
+<li><code>OwnerAddress</code> - 发起交易的账户地址，可选，默认为登录账户的地址</li>
+<li><code>balance</code> - 取消代理的金额，单位为最小单位 sun</li>
+<li><code>ResourceCode</code> - 0 代表 Bandwidth；1 代表 Energy</li>
+<li><code>ReceiverAddress</code> - 账户地址</li>
+</ul>
 <p>示例：
 <div class="highlight"><pre><span></span><code>wallet&gt; UnDelegateResource TJAVcszse667FmSNCwU2fm6DmfM5D4AyDh 1000000 0 TQ4gjjpAjLNnE67UFbmK5wVt5fzLfyEVs3
 txid is feb334794cf361fd351728026ccf7319e6ae90eba622b9eb53c626cdcae4965c
@@ -9563,10 +9567,12 @@ wallet&gt; GetTransactionById feb334794cf361fd351728026ccf7319e6ae90eba622b9eb53
 </blockquote>
 <h4 id="v2-api-getdelegatedresourcev2-fromaddress-toaddress">使用 v2 API 获取资源代理信息 - <code>getDelegatedResourceV2 fromAddress toAddress</code><a class="headerlink" href="#v2-api-getdelegatedresourcev2-fromaddress-toaddress" title="Permanent link">&para;</a></h4>
 <blockquote>
-<p>使用 v2 API 获取从 <code>fromAddress</code> 到 <code>toAddress</code> 的资源代理信息。
-- <code>fromAddress</code> - 发起代理的账户地址
-- <code>toAddress</code> - 接收代理的账户地址</p>
+<p>使用 v2 API 获取从 <code>fromAddress</code> 到 <code>toAddress</code> 的资源代理信息。</p>
 </blockquote>
+<ul>
+<li><code>fromAddress</code> - 发起代理的账户地址</li>
+<li><code>toAddress</code> - 接收代理的账户地址</li>
+</ul>
 <p>示例：
 <div class="highlight"><pre><span></span><code>wallet&gt; getDelegatedResourceV2 TJAVcszse667FmSNCwU2fm6DmfM5D4AyDh TQ4gjjpAjLNnE67UFbmK5wVt5fzLfyEVs3
 {
@@ -9595,19 +9601,23 @@ wallet&gt; GetTransactionById feb334794cf361fd351728026ccf7319e6ae90eba622b9eb53
     ]
 }
 </code></pre></div></p>
-<p><code>getcandelegatedmaxsize ownerAddress type</code>
-- <code>ownerAddress</code> - 发起代理的账户地址，可选，默认为登录账户的地址。
-    &gt; 获取 <code>ownerAddress</code> 可以代理的最大数量（使用 <code>delegateResource</code>）。
-- <code>type</code> - 0 代表 Bandwidth，1 代表 Energy。</p>
+<p><code>getcandelegatedmaxsize ownerAddress type</code></p>
+<ul>
+<li><code>ownerAddress</code> - 发起代理的账户地址，可选，默认为登录账户的地址。
+    &gt; 获取 <code>ownerAddress</code> 可以代理的最大数量（使用 <code>delegateResource</code>）。</li>
+<li><code>type</code> - 0 代表 Bandwidth，1 代表 Energy。</li>
+</ul>
 <p>示例：
 <div class="highlight"><pre><span></span><code>wallet&gt; getCanDelegatedMaxSize TJAVcszse667FmSNCwU2fm6DmfM5D4AyDh 0
 {
     &quot;max_size&quot;: 999999978708334
 }
 </code></pre></div></p>
-<p><code>getavailableunfreezecount ownerAddress</code>
-- <code>ownerAddress</code> - 发起交易的账户地址，可选，默认为登录账户的地址
-    &gt; 获取 <code>ownerAddress</code> 可以调用 <code>unfreezeBalanceV2</code> 的可用解冻次数。</p>
+<p><code>getavailableunfreezecount ownerAddress</code></p>
+<ul>
+<li><code>ownerAddress</code> - 发起交易的账户地址，可选，默认为登录账户的地址
+    &gt; 获取 <code>ownerAddress</code> 可以调用 <code>unfreezeBalanceV2</code> 的可用解冻次数。</li>
+</ul>
 <p>示例：
 <div class="highlight"><pre><span></span><code>wallet&gt; getAvailableUnfreezeCount TJAVcszse667FmSNCwU2fm6DmfM5D4AyDh
 {
@@ -9976,16 +9986,18 @@ fullNode: EMPTY, solidityNode: localhost:50052
 }
 </code></pre></div>
 <h4 id="_21">触发智能合约<a class="headerlink" href="#_21" title="Permanent link">&para;</a></h4>
-<p><div class="highlight"><pre><span></span><code>TriggerContract [ownerAddress] contractAddress method args isHex fee_limit value token_value token_id
+<div class="highlight"><pre><span></span><code>TriggerContract [ownerAddress] contractAddress method args isHex fee_limit value token_value token_id
 </code></pre></div>
-- <code>OwnerAddress</code> - 发起交易的账户地址，可选，默认为登录账户的地址
-- <code>contractAddress</code> - 智能合约地址
-- <code>method</code> - 函数名称和参数，请参考示例
-- <code>args</code> - 参数值，如果要调用 <code>receive</code>，请传入'#'
-- <code>isHex</code> - 参数 <code>method</code> 和 <code>args</code> 的格式，是否为十六进制字符串
-- <code>fee_limit</code> - 允许消耗的最大 TRX 数量
-- <code>token_value</code> - TRX-10数量
-- <code>token_id</code> - TRC-10 ID，如果没有，请使用'#'代替</p>
+<ul>
+<li><code>OwnerAddress</code> - 发起交易的账户地址，可选，默认为登录账户的地址</li>
+<li><code>contractAddress</code> - 智能合约地址</li>
+<li><code>method</code> - 函数名称和参数，请参考示例</li>
+<li><code>args</code> - 参数值，如果要调用 <code>receive</code>，请传入'#'</li>
+<li><code>isHex</code> - 参数 <code>method</code> 和 <code>args</code> 的格式，是否为十六进制字符串</li>
+<li><code>fee_limit</code> - 允许消耗的最大 TRX 数量</li>
+<li><code>token_value</code> - TRX-10数量</li>
+<li><code>token_id</code> - TRC-10 ID，如果没有，请使用'#'代替</li>
+</ul>
 <p>示例：</p>
 <div class="highlight"><pre><span></span><code>&gt; triggerContract TGdtALTPZ1FWQcc5MW7aK3o1ASaookkJxG findArgsByIndexTest(uint256) 0 false
 1000000000 0 0 #
@@ -10011,16 +10023,18 @@ fullNode: EMPTY, solidityNode: localhost:50052
 }
 </code></pre></div>
 <h4 id="_22">触发常量合约<a class="headerlink" href="#_22" title="Permanent link">&para;</a></h4>
-<p><div class="highlight"><pre><span></span><code>TriggerConstantContract [ownerAddress] contractAddress method args isHex fee_limit value token_value token_id
+<div class="highlight"><pre><span></span><code>TriggerConstantContract [ownerAddress] contractAddress method args isHex fee_limit value token_value token_id
 </code></pre></div>
-- <code>OwnerAddress</code> - 发起交易的账户地址，可选，默认为登录账户的地址。
-- <code>contractAddress</code> - 智能合约地址
-- <code>method</code> - 函数名称和参数，请参考示例
-- <code>args</code> - 参数值，如果要调用 <code>receive</code>，请传入 <code>#</code>
-- <code>isHex</code> - 参数 <code>method</code> 和 <code>args</code> 的格式，是否为十六进制字符串
-- <code>fee_limit</code> - 允许消耗的最大 TRX 数量
-- <code>token_value</code> - TRX-10 数量
-- <code>token_id</code> - TRC-10 ID，如果没有，请使用 <code>#</code> 代替</p>
+<ul>
+<li><code>OwnerAddress</code> - 发起交易的账户地址，可选，默认为登录账户的地址。</li>
+<li><code>contractAddress</code> - 智能合约地址</li>
+<li><code>method</code> - 函数名称和参数，请参考示例</li>
+<li><code>args</code> - 参数值，如果要调用 <code>receive</code>，请传入 <code>#</code></li>
+<li><code>isHex</code> - 参数 <code>method</code> 和 <code>args</code> 的格式，是否为十六进制字符串</li>
+<li><code>fee_limit</code> - 允许消耗的最大 TRX 数量</li>
+<li><code>token_value</code> - TRX-10 数量</li>
+<li><code>token_id</code> - TRC-10 ID，如果没有，请使用 <code>#</code> 代替</li>
+</ul>
 <p>示例：</p>
 <div class="highlight"><pre><span></span><code>&gt; TriggerConstantContract TSNEe5Tf4rnc9zPMNXfaTF5fZfHDDH8oyW TG3XXyExBkPp9nzdajDZsozEu4BkaSJozs &quot;balanceOf(address)&quot; 000000000000000000000000a614f803b6fd780986a42c78ec9c7f77e6ded13c true
 </code></pre></div>
@@ -10161,9 +10175,11 @@ fullNode: EMPTY, solidityNode: localhost:50052
 }
 </code></pre></div>
 <h5 id="trc-10_3">更新 TRC-10 代币的参数<a class="headerlink" href="#trc-10_3" title="Permanent link">&para;</a></h5>
-<p><div class="highlight"><pre><span></span><code>UpdateAsset [OwnerAddress] newLimit newPublicLimit description url
+<div class="highlight"><pre><span></span><code>UpdateAsset [OwnerAddress] newLimit newPublicLimit description url
 </code></pre></div>
-- 参数的具体含义与 <code>AssetIssue</code> 相同。</p>
+<ul>
+<li>参数的具体含义与 <code>AssetIssue</code> 相同。</li>
+</ul>
 <p>示例：</p>
 <div class="highlight"><pre><span></span><code>&gt; UpdateAsset 1000 1000000 &quot;change description&quot; www.changetest.com
 &gt; GetAssetIssueByAccount TRGhNNfnmgLegT4zHNjEqDSADjgmnHvubJ  # 查看已修改的信息
@@ -10465,11 +10481,13 @@ address: TN3zfjYUmMFK3ZsHSsrdJoNRtGkQmZLBLz
 </blockquote>
 <h4 id="tron-dex">如何使用 tron-dex 出售资产<a class="headerlink" href="#tron-dex" title="Permanent link">&para;</a></h4>
 <h5 id="_33">创建一个卖出资产的订单<a class="headerlink" href="#_33" title="Permanent link">&para;</a></h5>
-<p><div class="highlight"><pre><span></span><code>MarketSellAsset owner_address sell_token_id sell_token_quantity buy_token_id buy_token_quantity
+<div class="highlight"><pre><span></span><code>MarketSellAsset owner_address sell_token_id sell_token_quantity buy_token_id buy_token_quantity
 </code></pre></div>
-- <code>ownerAddress</code> - 发起交易的账户地址。
-- <code>sell_token_id</code>, <code>sell_token_quantity</code> - 想要卖出的 token ID 和数量。
-- <code>buy_token_id</code>, <code>buy_token_quantity</code> - 想要买入的 token ID 和数量。</p>
+<ul>
+<li><code>ownerAddress</code> - 发起交易的账户地址。</li>
+<li><code>sell_token_id</code>, <code>sell_token_quantity</code> - 想要卖出的 token ID 和数量。</li>
+<li><code>buy_token_id</code>, <code>buy_token_quantity</code> - 想要买入的 token ID 和数量。</li>
+</ul>
 <p>示例：</p>
 <div class="highlight"><pre><span></span><code>MarketSellAsset TJCnKsPa7y5okkXvQAidZBzqx3QyQ6sxMW  1000001 200 _ 100
 
@@ -10774,7 +10792,7 @@ Choose an option (1-2): 1
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年9月30日 09:05:50 UTC">2025年9月30日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年5月8日 06:27:17 UTC">2026年5月8日</span>
   </span>
 
     

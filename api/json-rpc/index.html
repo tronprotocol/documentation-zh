@@ -8696,10 +8696,12 @@
 <li><strong>HTTP 状态码</strong>：恒为 200，业务错误通过响应体 <code>error</code> 字段表达（见 <code>JsonRpcServlet.java</code>）。</li>
 <li><strong>数值编码</strong>：所有数值（block number、balance、gas、timestamp 等）使用 <code>0x</code> 前缀的十六进制字符串；空值对应 <code>0x</code> 或 <code>0x0</code>。</li>
 <li><strong>地址编码</strong>：JSON-RPC 接口默认接受 0x 前缀的 20 字节 hex 地址；同时兼容 base58check（内部由 <code>JsonRpcApiUtil.addressCompatibleToByteArray</code> 转换）。</li>
-<li><strong>block tag</strong>：常见的 <code>latest</code> / <code>earliest</code> / <code>pending</code> / <code>finalized</code> 中，<strong>只有少量方法支持</strong>：</li>
+<li><strong>block tag</strong>：常见的 <code>latest</code> / <code>earliest</code> / <code>pending</code> / <code>finalized</code> 中，<strong>只有少量方法支持</strong>：<ul>
 <li><code>eth_getBlockByNumber</code>、<code>eth_getBlockReceipts</code> 等区块查询方法接受 <code>latest</code> / <code>earliest</code> / <code>finalized</code>；<code>pending</code> 显式不支持，会抛 <code>-32602 TAG pending not supported</code>。</li>
 <li><code>eth_getBalance</code> / <code>eth_getStorageAt</code> / <code>eth_getCode</code> / <code>eth_call</code> <strong>只支持 <code>latest</code></strong>，传 <code>earliest</code> / <code>pending</code> / <code>finalized</code> 抛 <code>-32602 TAG [earliest | pending | finalized] not supported</code>，传具体高度抛 <code>-32602 QUANTITY not supported, just support TAG as latest</code>。</li>
 <li><code>eth_newFilter</code> 不支持 <code>finalized</code>（抛 <code>-32602 invalid block range params</code>）。</li>
+</ul>
+</li>
 </ul>
 <h2 id="_3">异常响应<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
 <p>JSON-RPC 协议错误使用 <code>error.code</code> / <code>error.message</code>，业务异常映射如下（见 <code>TronJsonRpc.java</code> 注解 + <code>JsonRpcErrorResolver.java</code>）：</p>
@@ -9021,7 +9023,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年4月30日 10:33:43 UTC">2026年4月30日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年5月8日 06:07:28 UTC">2026年5月8日</span>
   </span>
 
     

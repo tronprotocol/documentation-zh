@@ -8835,12 +8835,14 @@
 <h5 id="32">3.2 优化节点启动逻辑<a class="headerlink" href="#32" title="Permanent link">&para;</a></h5>
 <p>Kant 版本在节点启动阶段，加强了服务完整性校验，当核心服务（API，P2P，Prometheus，事件插件等）启动失败时，节点将立即退出，避免关键服务没有一同启动，提升节点稳定性。
 同时 Kant 还为 API 服务新增如下 4个配置项（默认全部开启），节点部署者可以选择关闭或开启节点 API 服务。</p>
-<p><div class="highlight"><pre><span></span><code>node.rpc.enable = true
+<div class="highlight"><pre><span></span><code>node.rpc.enable = true
 node.rpc.solidityEnable = true
 node.rpc.PBFTEnable = true
 node.http.PBFTEnable = true
 </code></pre></div>
-* 源代码： <a href="https://github.com/tronprotocol/java-tron/pull/5857">https://github.com/tronprotocol/java-tron/pull/5857</a> <a href="https://github.com/tronprotocol/java-tron/pull/6228">https://github.com/tronprotocol/java-tron/pull/6228</a> <a href="https://github.com/tronprotocol/java-tron/pull/6233">https://github.com/tronprotocol/java-tron/pull/6233</a></p>
+<ul>
+<li>源代码： <a href="https://github.com/tronprotocol/java-tron/pull/5857">https://github.com/tronprotocol/java-tron/pull/5857</a> <a href="https://github.com/tronprotocol/java-tron/pull/6228">https://github.com/tronprotocol/java-tron/pull/6228</a> <a href="https://github.com/tronprotocol/java-tron/pull/6233">https://github.com/tronprotocol/java-tron/pull/6233</a></li>
+</ul>
 <h4 id="4">4. 依赖库安全升级<a class="headerlink" href="#4" title="Permanent link">&para;</a></h4>
 <p>为提升系统安全性，Kant 对多个底层依赖库进行了版本更新，并移除了不再使用的组件，具体包括：更新了<code>jcommander</code>、<code>pf4j</code>、<code>grpc</code>、<code>logback</code>、<code>libp2p</code> 依赖库到安全稳定版本，移除了不再使用的 <code>quartz</code> 定时任务框架。</p>
 <ul>
@@ -8895,13 +8897,19 @@ node.http.PBFTEnable = true
 <p><div class="highlight"><pre><span></span><code>node.jsonrpc.maxBlockRange = 5000
 node.jsonrpc.maxSubTopics = 1000
 </code></pre></div>
-支持<code>maxBlockRange</code>的接口：
-* eth_getLogs</p>
-<p>支持<code>maxSubTopics</code>的接口：
-* eth_getLogs
-* eth_newFilter</p>
+支持<code>maxBlockRange</code>的接口：</p>
 <ul>
-<li>源代码：<a href="https://github.com/tronprotocol/java-tron/pull/6271">https://github.com/tronprotocol/java-tron/pull/6271</a>  <a href="https://github.com/tronprotocol/java-tron/pull/6275">https://github.com/tronprotocol/java-tron/pull/6275</a> </li>
+<li>eth_getLogs</li>
+</ul>
+<p>支持<code>maxSubTopics</code>的接口：</p>
+<ul>
+<li>eth_getLogs</li>
+<li>
+<p>eth_newFilter</p>
+</li>
+<li>
+<p>源代码：<a href="https://github.com/tronprotocol/java-tron/pull/6271">https://github.com/tronprotocol/java-tron/pull/6271</a>  <a href="https://github.com/tronprotocol/java-tron/pull/6275">https://github.com/tronprotocol/java-tron/pull/6275</a> </p>
+</li>
 </ul>
 <h5 id="13-eth_getlogs-hash">1.3 优化 eth_getLogs 在 hash 碰撞的小概率情况下的数据检索问题<a class="headerlink" href="#13-eth_getlogs-hash" title="Permanent link">&para;</a></h5>
 <p>Kant 版本优化了 eth_getLogs 处理逻辑，修复了在小概率发生 hash 碰撞的情况下，eth_getLogs 接口查询不到数据的问题，提升了接口的稳定性。</p>
@@ -8936,7 +8944,7 @@ node.jsonrpc.maxSubTopics = 1000
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年5月4日 07:55:38 UTC">2026年5月4日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年5月8日 06:27:17 UTC">2026年5月8日</span>
   </span>
 
     
