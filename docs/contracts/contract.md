@@ -115,6 +115,7 @@ transfer/send/call/callcode/delegatecall函数调用转账
 ### 合约地址在solidity语言的使用
 
 以太坊虚拟机地址为20字节，而波场虚拟机解析地址为21字节。
+
 * 地址转换
 
 在solidity中使用的时候需要对波场地址做如下处理（推荐）：
