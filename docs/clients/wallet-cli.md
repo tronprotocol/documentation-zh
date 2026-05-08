@@ -446,6 +446,7 @@ CreateAccount successful !!
 ```
 freezeBalanceV2 [OwnerAddress] frozen_balance [ResourceCode:0 BANDWIDTH,1 ENERGY,2 TRON_POWER]
 ```
+
 - `OwnerAddress` - 发起交易的账户地址，可选，默认为登录账户的地址
 - `frozen_balance` - 冻结的金额，单位为最小单位 sun，最小值为 1,000,000 sun
 - `ResourceCode` - 0 代表 BANDWIDTH；1 代表 ENERGY
@@ -693,6 +694,7 @@ wallet> GetTransactionById 363ac0b82b6ad3e0d3cad90f7d72b3eceafe36585432a3e013389
 ```
 unDelegateResource [OwnerAddress] balance ResourceCode(0 BANDWIDTH,1 ENERGY), ReceiverAddress
 ```
+
 - `OwnerAddress` - 发起交易的账户地址，可选，默认为登录账户的地址
 - `balance` - 取消代理的金额，单位为最小单位 sun
 - `ResourceCode` - 0 代表 Bandwidth；1 代表 Energy
@@ -752,6 +754,7 @@ wallet> GetTransactionById feb334794cf361fd351728026ccf7319e6ae90eba622b9eb53c62
 
 #### 使用 v2 API 获取资源代理信息 - `getDelegatedResourceV2 fromAddress toAddress`
 > 使用 v2 API 获取从 `fromAddress` 到 `toAddress` 的资源代理信息。
+
 - `fromAddress` - 发起代理的账户地址
 - `toAddress` - 接收代理的账户地址
 
@@ -786,6 +789,7 @@ wallet> getDelegatedResourceAccountIndexV2 TJAVcszse667FmSNCwU2fm6DmfM5D4AyDh
 ```
 
 `getcandelegatedmaxsize ownerAddress type`
+
 - `ownerAddress` - 发起代理的账户地址，可选，默认为登录账户的地址。
     > 获取 `ownerAddress` 可以代理的最大数量（使用 `delegateResource`）。
 - `type` - 0 代表 Bandwidth，1 代表 Energy。
@@ -799,6 +803,7 @@ wallet> getCanDelegatedMaxSize TJAVcszse667FmSNCwU2fm6DmfM5D4AyDh 0
 ```
 
 `getavailableunfreezecount ownerAddress`
+
 - `ownerAddress` - 发起交易的账户地址，可选，默认为登录账户的地址
     > 获取 `ownerAddress` 可以调用 `unfreezeBalanceV2` 的可用解冻次数。
 
@@ -1191,6 +1196,7 @@ DeployContract [ownerAddress] contractName ABI byteCode constructor params isHex
 ```
 TriggerContract [ownerAddress] contractAddress method args isHex fee_limit value token_value token_id
 ```
+
 - `OwnerAddress` - 发起交易的账户地址，可选，默认为登录账户的地址
 - `contractAddress` - 智能合约地址
 - `method` - 函数名称和参数，请参考示例
@@ -1232,6 +1238,7 @@ TriggerContract [ownerAddress] contractAddress method args isHex fee_limit value
 ```
 TriggerConstantContract [ownerAddress] contractAddress method args isHex fee_limit value token_value token_id
 ```
+
 - `OwnerAddress` - 发起交易的账户地址，可选，默认为登录账户的地址。
 - `contractAddress` - 智能合约地址
 - `method` - 函数名称和参数，请参考示例
@@ -1412,6 +1419,7 @@ AssetIssue [OwnerAddress] AssetName AbbrName TotalSupply TrxNum AssetNum Precisi
 ```
 UpdateAsset [OwnerAddress] newLimit newPublicLimit description url
 ```
+
 - 参数的具体含义与 `AssetIssue` 相同。
 
 示例：
@@ -1763,6 +1771,7 @@ exchangeCreate 1000001 10000 _ 10000
 ```
 MarketSellAsset owner_address sell_token_id sell_token_quantity buy_token_id buy_token_quantity
 ```
+
 - `ownerAddress` - 发起交易的账户地址。
 - `sell_token_id`, `sell_token_quantity` - 想要卖出的 token ID 和数量。
 - `buy_token_id`, `buy_token_quantity` - 想要买入的 token ID 和数量。

@@ -504,6 +504,7 @@ TRON 网络支持多种不同类型的交易，比如 TRX 转账交易、TRC-10 
        int64 origin_energy_limit = 3;
      }
 ```
+
 * `owner_address`：合约持有人地址。
 * `contract_address`：需要调整的合约地址。
 * `origin_energy_limit`：调整后智能合约部署者提供的能量上限值。

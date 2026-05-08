@@ -71,7 +71,7 @@ message Permission {
 
 - `type`：权限类型（owner/witness/active）；
 - `id`：权限 ID，系统自动分配；
-  - `owner` = 0，`witness` = 1，`active` 从 2 起递增；
+    - `owner` = 0，`witness` = 1，`active` 从 2 起递增；
 - `permission_name`：权限名称，最长 32 字节；
 - `threshold`：权限域值，密钥权重总和 ≥ 该值时方可操作；
 - `operations`：仅 `active` 权限使用，表示可执行的合约类型；

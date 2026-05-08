@@ -37,8 +37,8 @@ energy 用量的 hex 编码：
 
 - 普通 TRX 转账（`TransferContract`）→ `0x0`
 - 合约调用 / 部署 → 视节点配置：
-  - `node.supportEstimateEnergy = true` 时返回 `EstimateEnergyMessage.energyRequired`
-  - 默认（false）→ 返回 `TransactionExtention.energyUsed`（一次 constant-call 的实际用量）
+    - `node.supportEstimateEnergy = true` 时返回 `EstimateEnergyMessage.energyRequired`
+    - 默认（false）→ 返回 `TransactionExtention.energyUsed`（一次 constant-call 的实际用量）
 
 下例为上面 curl 调用 Nile testnet 抓回的真实响应（TRX 转账走 `TransferContract` 路径，直接返回 `0x0`，不进入 EVM）：
 

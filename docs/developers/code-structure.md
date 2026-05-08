@@ -180,6 +180,7 @@ actuator是交易的执行器，可以将应用看成是不同交易类型组成
 
 
 actuator模块定义的 Actuator 接口有4个方法：
+
 * `execute` - 负责交易具体需要执行的动作，可以是状态修改、流程跳转、逻辑判断
 * `validate` - 负责验证交易的正确性
 * `getOwnerAddress` - 获取交易发起方的地址
