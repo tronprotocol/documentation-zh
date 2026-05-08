@@ -8907,8 +8907,10 @@ rate.limiter.global.ip.qps = 5
 <p>该功能默认为关闭状态，需要通过修改如下节点配置项开启。
 <div class="highlight"><pre><span></span><code>node.dynamicConfig.enable=true
 node.dynamicConfig.checkInterval = 600
-</code></pre></div>
-* 源代码:  <a href="https://github.com/tronprotocol/java-tron/pull/5090">https://github.com/tronprotocol/java-tron/pull/5090</a> </p>
+</code></pre></div></p>
+<ul>
+<li>源代码:  <a href="https://github.com/tronprotocol/java-tron/pull/5090">https://github.com/tronprotocol/java-tron/pull/5090</a> </li>
+</ul>
 <h4 id="3_1">3. 优化区块同步逻辑<a class="headerlink" href="#3_1" title="Permanent link">&para;</a></h4>
 <p>Periander版本优化了区块同步逻辑，通过锁机制确保了区块获取线程与区块同步线程、获取区块摘要线程与切链线程并发执行的正确性，提高了区块同步及节点连接的稳定性。</p>
 <ul>
@@ -8918,12 +8920,14 @@ node.dynamicConfig.checkInterval = 600
 </ul>
 <h4 id="4-http">4. HTTP请求规范化<a class="headerlink" href="#4-http" title="Permanent link">&para;</a></h4>
 <p>节点支持关闭指定的HTTP API，节点部署者可以通过<code>node.disabledApi</code>配置项配置节点要停止提供服务的接口。在Periander之前的版本中，接口即便被加入到了<code>node.disabledApi</code>列表中，但对于非规范的URL请求，节点仍然会予以响应，Periander版本对请求的URL进行了规范化处理，以确保<code>node.disabledApi</code>列表的有效性。</p>
-<p><div class="highlight"><pre><span></span><code>node.disabledApi= [
+<div class="highlight"><pre><span></span><code>node.disabledApi= [
    &quot;getaccount&quot;,
     &quot;getnowblock2&quot;
 ]
 </code></pre></div>
-* 源代码:  <a href="https://github.com/tronprotocol/java-tron/pull/5085">https://github.com/tronprotocol/java-tron/pull/5085</a> </p>
+<ul>
+<li>源代码:  <a href="https://github.com/tronprotocol/java-tron/pull/5085">https://github.com/tronprotocol/java-tron/pull/5085</a> </li>
+</ul>
 <h4 id="5">5. 优化区块同步逻辑<a class="headerlink" href="#5" title="Permanent link">&para;</a></h4>
 <p>当节点向某节点请求区块后，如果在一定时间内内没有接收到区块，则认为超时，然后会再选择其它满足条件的节点，并向其请求该区块，选择节点的其中一个条件是节点的<code>区块获取延迟</code>低于<code>区块超时时间</code>。因此，过低的<code>区块超时时间</code>可能会使节点无法找到其它远端节点，从而导致区块同步慢或停止同步。</p>
 <p>为了提高在网络不稳定情况下的区块同步性能，Periander版本将节点获取区块的超时时间的默认值从200ms提高到了500ms，不仅扩大了节点选择的范围，而且提高了成功获取区块的概率，大幅提升区块同步效率。节点部署者也可以通过<code>node.fetchBlock.timeout</code> 配置项调整超时时间。</p>
@@ -8980,7 +8984,7 @@ node.dynamicConfig.checkInterval = 600
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年5月4日 07:55:38 UTC">2026年5月4日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年5月8日 06:27:17 UTC">2026年5月8日</span>
   </span>
 
     
