@@ -9,14 +9,14 @@ TRON 网络的治理主要通过修改 [网络参数](https://tronscan.org/#/sr/
 
 ## 提议投票流程
 
-1. [发起提议的讨论](#_3)  
-2. [社区讨论](#_7)  
-3. [发起投票请求](#_8)  
-4. [投票和生效](#_9)  
+1. [发起提议的讨论](#initiate-proposal-discussion)  
+2. [社区讨论](#community-discussion)  
+3. [发起投票请求](#submit-voting-request)  
+4. [投票和生效](#voting-and-implementation)  
 
 
 
-## 发起提议的讨论
+## 发起提议的讨论 { #initiate-proposal-discussion }
 
 任何 TRON 网络参与者都可以发起 TIP 投票的讨论。  
 请在 [TIP 仓库](https://github.com/tronprotocol/tips/issues) 中创建一个 **Issue**，详细说明提议内容，包括：
@@ -58,17 +58,17 @@ Proposal: Change the unit price of Energy to 100 sun
 详细描述提议的技术规范或背景信息。
 ```
 
-## 社区讨论
+## 社区讨论 { #community-discussion }
 
 在 TIP 讨论发起后，发起人应积极推动社区用户参与讨论，收集意见和反馈，并根据讨论结果对提议内容进行适当修改与更新。
 
 
-## 发起投票请求
+## 发起投票请求 { #submit-voting-request }
 
 若社区已充分讨论并形成基本共识，**超级代表** ，**超级代表合伙人**，或 **超级代表候选人**会在链上正式提交投票请求。
 
 
-## 投票和生效
+## 投票和生效 { #voting-and-implementation }
 
 - 链上投票的有效期为 **3 天**。  
 - 在此期间，所有超级代表均可对 TIP 进行投票。  

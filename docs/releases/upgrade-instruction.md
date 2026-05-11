@@ -5,15 +5,13 @@
 对于**强制升级**的版本，请严格遵循本指南完成部署。对于**非强制升级**的版本，您可以根据实际需求选择是否升级。
 
   * 对于**标准节点**，请参考 [标准节点升级流程](#standard_process)。
-  * 对于配置了**主备高可用**的节点，请遵循 [主备节点升级指南](#primary/backup_upgrade) 以确保服务的平稳过渡。
+  * 对于配置了**主备高可用**的节点，请遵循 [主备节点升级指南](#primary-backup-upgrade) 以确保服务的平稳过渡。
 
-<a id="standard_process"></a> 
-## 标准节点升级流程
+## 标准节点升级流程 { #standard_process }
 
 所有全节点（FullNode），包括超级代表（Super Representative）的出块节点，都应遵循以下步骤完成升级。
 
-<a id="step1"></a> 
-### 第 1 步：准备新版本程序包
+### 第 1 步：准备新版本程序包 { #step1 }
 
 您可以选择直接下载编译好的 java-tron 可执行文件，也可下载新版本的源代码并自行编译，以获取新版本可执行文件。请在 java-tron 当前运行目录之外的其它路径下执行以下操作。
 
@@ -50,8 +48,7 @@
     ```
     $ kill -15 <进程ID>
     ```
-<a id="step3"></a> 
-### 第 3 步：备份关键数据
+### 第 3 步：备份关键数据 { #step3 }
 
 建议您在升级前进行一次完整备份。请按指定顺序执行以下备份步骤：请务必依次备份可执行文件、数据库和配置文件。
 
@@ -82,16 +79,15 @@
 
 > **关于数据库**：您通常可以直接使用 java-tron 工作目录下原有的数据库文件，也可考虑使用预先构建的 [数据库快照](https://tronprotocol.github.io/documentation-zh/using_javatron/backup_restore)。
 
-<a id="step5"></a> 
-### 第 5 步：启动节点
+### 第 5 步：启动节点 { #step5 }
 
 #### 超级代表节点 (出块节点)
 
-对于出块节点，请参考[启动出块节点](../using_javatron/installing_javatron.md#_4)
+对于出块节点，请参考[启动出块节点](../using_javatron/installing_javatron.md#starting-a-block-production-node)
 
 #### 普通全节点
 
-对于普通全节点，请参考[启动全节点连接主网](../using_javatron/installing_javatron.md#_2)
+对于普通全节点，请参考[启动全节点连接主网](../using_javatron/installing_javatron.md#starting-a-fullnode-on-the-tron-main-network)
 
 
 
@@ -109,8 +105,7 @@
 **应急预案**：如果在升级过程中遇到任何导致节点无法启动或运行异常的问题，请立即使用 [第 3 步](#step3) 中备份的数据恢复至旧版本，并及时提交 Github Issue 或反馈至 TRON 社区以寻求帮助。
 
 -----
-<a id="primary/backup_upgrade"></a> 
-## 主备节点升级指南
+## 主备节点升级指南 { #primary-backup-upgrade }
 
 为确保服务的高可用性，主备节点的升级应采用滚动升级（Rolling Upgrade）策略。
 

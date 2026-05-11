@@ -129,8 +129,7 @@ java-tron 遵循 `Google checkstyle` 代码规范。在 IDEA 中，通过配置 
 
 ## 运行与调试
 
-<a id="rndstep1"></a>
-### 步骤 1：创建工作目录
+### 步骤 1：创建工作目录 { #rndstep1 }
 
 在运行 java-tron 之前，您需要创建一个工作目录，用于存放节点运行时产生的数据库文件及日志文件。
 

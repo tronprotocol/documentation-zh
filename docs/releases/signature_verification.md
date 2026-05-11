@@ -82,7 +82,7 @@ gpg:       没有证据表明此签名属于其声称的所有者。
 1.  首先计算发布包可执行文件的 SHA256 哈希值。
 2.  然后使用该 TRON 账户的私钥对 SHA256 哈希值进行签名。
 
-发布包的 SHA256 哈希值和签名结果可在本文档的 [历史版本签名信息](#_1) 章节中查看，也可以在 [GitHub Releases 页面](https://github.com/tronprotocol/java-tron/releases) 查看。
+发布包的 SHA256 哈希值和签名结果可在本文档的 [历史版本签名信息](#historical-version-signature-information) 章节中查看，也可以在 [GitHub Releases 页面](https://github.com/tronprotocol/java-tron/releases) 查看。
 
 在这里，我们使用 TRON 上流行的 JavaScript 库 [TronWeb](https://tronweb.network/docu/docs/intro/) 来演示验证签名的流程。 TronWeb 提供了 `Trx.verifySignature` 接口来验证签名。验证通过将返回 `true`，否则返回 `false`。请按照以下流程进行验证。
 
@@ -133,7 +133,7 @@ node -e 'console.log(require("tronweb").Trx.verifySignature(
 如果签名验证通过，将输出 `true`；否则，输出 `false`。
 
 
-### 历史版本签名信息
+### 历史版本签名信息 { #historical-version-signature-information }
 
 #### Odyssey-3.7
 

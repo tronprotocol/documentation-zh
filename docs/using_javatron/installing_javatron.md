@@ -111,7 +111,7 @@ TRON 网络主要分为以下几类：
 
 启动全节点时，通过指定对应的配置文件即可选择网络：主网配置：[config.conf](https://github.com/tronprotocol/java-tron/blob/master/framework/src/main/resources/config.conf)；Nile 测试网配置：[config-nile.conf](https://github.com/tron-nile-testnet/nile-testnet/blob/master/framework/src/main/resources/config-nile.conf)
 
-### 启动全节点连接主网
+### 启动全节点连接主网 { #starting-a-fullnode-on-the-tron-main-network }
 
 以下是启动 **主网全节点** 的命令，使用默认内置的主网配置文件：
 
@@ -123,6 +123,7 @@ nohup java -jar build/libs/FullNode.jar -c framework/src/main/resources/config.c
 
 > 对于生产环境部署或长期运行的主网节点，请参考下方 [主网 FullNode 部署的 JVM 参数优化](#fullnode-jvm) 章节，以获取完整的 Java 启动命令。
 
+
 使用以下命令查看全节点运行日志，可以看到区块同步进度，节点连接状态等信息：
 ```bash
 tail -f ./logs/tron.log
@@ -132,7 +133,7 @@ tail -f ./logs/tron.log
 
 请参见后续章节，了解在 Nile 测试网和私有网络中部署全节点的详细说明。
 
-#### 主网 FullNode 部署的 JVM 参数优化 <a id="fullnode-jvm"></a>
+#### 主网 FullNode 部署的 JVM 参数优化 { #fullnode-jvm }
 为了在连接主网时获得更高的效率和稳定性，请参考以下针对不同架构的完整Java程序启动命令：
 
 ##### x86_64（JDK 8）
@@ -186,7 +187,7 @@ nohup java -Xmx9G -XX:+UseZGC \
 *   `-XX:+UseZGC`：启用 ZGC，一种可扩展的低延迟垃圾收集器。
 *   `-Xlog:gc...`：统一的 JVM 日志记录配置。示例配置了带有文件轮换（10 个文件，每个 100MB）的 GC 日志。
 
-### 启动全节点连接 Nile 测试网
+### 启动全节点连接 Nile 测试网 { #starting-a-fullnode-on-the-nile-test-network }
 
 使用 `-c` 参数将节点指向对应网络的配置文件。由于 Nile 测试网可能包含主网尚未发布的新功能，**强烈建议**按照 [Nile 测试网源码编译指南](https://github.com/tron-nile-testnet/nile-testnet/blob/master/README.md#building-the-source-code) 编译源码。
 
@@ -223,7 +224,7 @@ node {
 java -Xmx24g -XX:+UseConcMarkSweepGC -jar build/libs/FullNode.jar --solidity -c framework/src/main/resources/config.conf 
 ```
 
-### 启动出块节点
+### 启动出块节点 { #starting-a-block-production-node }
 
 在上述全节点启动命令中添加 `--witness` 参数，`FullNode` 将作为**出块节点** (SR Node) 运行。出块节点除了支持全节点的所有功能外，还支持区块生产和交易打包。
 
@@ -330,7 +331,7 @@ node.backup {
 
 ### 加快节点数据同步
 
-对于主网和 Nile 测试网，新节点启动后需要同步的数据量较大，将花费较长时间。您可以使用 [数据快照](https://tronprotocol.github.io/documentation-zh/using_javatron/backup_restore/#_5) 来加快节点同步速度。
+对于主网和 Nile 测试网，新节点启动后需要同步的数据量较大，将花费较长时间。您可以使用 [数据快照](https://tronprotocol.github.io/documentation-zh/using_javatron/backup_restore/#data-snapshot-usage-steps) 来加快节点同步速度。
 
 操作步骤如下：
 
