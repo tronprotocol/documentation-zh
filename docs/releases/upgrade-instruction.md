@@ -18,7 +18,7 @@
 #### 方式一：下载可执行文件 (推荐)
 
 1.  访问 [java-tron GitHub Releases](https://github.com/tronprotocol/java-tron/releases) 页面，下载最新版本的 `FullNode.jar` 可执行文件。
-2.  **安全校验**：为确保文件的完整性和安全性，请务必根据 [java-tron 一致性校验](https://tronprotocol.github.io/documentation-zh/releases/signature_verification/) 文档对下载的 JAR 文件进行签名校验。
+2.  **安全校验**：为确保文件的完整性和安全性，请务必根据 [java-tron 一致性校验](signature_verification.md) 文档对下载的 JAR 文件进行签名校验。
 
 #### 方式二：从源码编译
 
@@ -77,7 +77,7 @@
         - 此步骤并非强制性的。 您可以根据自己节点的实际情况和需求，来决定是否更新配置文件。不过，我们仍强烈建议您使用最新的配置文件，以确保节点完全兼容并支持所有新功能。
         - 如果某一版本要求必须更新配置文件，我们会在其版本发布说明 (Release Notes) 中进行明确说明。请务必在升级前仔细阅读相关的发布说明。
 
-> **关于数据库**：您通常可以直接使用 java-tron 工作目录下原有的数据库文件，也可考虑使用预先构建的 [数据库快照](https://tronprotocol.github.io/documentation-zh/using_javatron/backup_restore)。
+> **关于数据库**：您通常可以直接使用 java-tron 工作目录下原有的数据库文件，也可考虑使用预先构建的 [数据库快照](../using_javatron/backup_restore.md)。
 
 ### 第 5 步：启动节点 { #step5 }
 

@@ -416,4 +416,4 @@ curl http://127.0.0.1:16887/wallet/getnowblock
 - 使用私有的 `node.p2p.version` 值，确保不会与主网或测试网冲突
 
 ### 搭建参考：
-- 请参考文档 [私链网络](https://tronprotocol.github.io/documentation-zh/using_javatron/private_network/) 获取完整的私链部署说明。
+- 请参考文档 [私链网络](private_network.md) 获取完整的私链部署说明。

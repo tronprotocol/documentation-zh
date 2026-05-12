@@ -676,7 +676,7 @@ nohup java -jar -Dserver.port=8081 target/troneventquery-1.0.0-SNAPSHOT.jar 2>&1
 java -jar build/libs/FullNode.jar -c framework/src/main/resources/config.conf --es
 ```
 
-有关 FullNode 节点的安装，请参考 [部署 FullNode](https://tronprotocol.github.io/documentation-zh/using_javatron/installing_javatron/) 文档。
+有关 FullNode 节点的安装，请参考 [部署 FullNode](../using_javatron/installing_javatron.md) 文档。
 
 ##### 验证插件加载
 
