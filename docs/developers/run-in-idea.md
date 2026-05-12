@@ -129,7 +129,7 @@ java-tron 遵循 `Google checkstyle` 代码规范。在 IDEA 中，通过配置 
 
 ## 运行与调试
 
-### 步骤 1：创建工作目录 { #rndstep1 }
+### 步骤 1：创建工作目录 { #create-working-directory }
 
 在运行 java-tron 之前，您需要创建一个工作目录，用于存放节点运行时产生的数据库文件及日志文件。
 
@@ -150,7 +150,7 @@ mkdir /Users/javatrondeploy
       * **JDK**：确保选择 `java 8 1.8`。
       * **Main Class:** 设置为 `org.tron.program.FullNode`。
       * **Program Arguments:** 传入节点启动参数。例如，使用 `-c config.conf` 来指定配置文件。
-      * **Working Directory:** 设置为您在 [步骤 1](#rndstep1) 中创建的目录，例如 `/Users/javatrondeploy`。
+      * **Working Directory:** 设置为您在 [步骤 1](#create-working-directory) 中创建的目录，例如 `/Users/javatrondeploy`。
 ![image](https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/IDE_RunDebug.png)
 4.  点击 “Apply” 保存配置。
 

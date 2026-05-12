@@ -45,23 +45,23 @@ Balance = 0
 > TransferAsset TWzrEZYtwzkAxXJ8PatVrGuoSNsexejRiM 1000001 10000
 ```
 
-## 命令 { #top }
+## 命令 { #commands }
 
 **wallet-cli** 支持以下几类命令：
 
-- [密钥管理](#private_key)
-- [链上账户](#account)
-- [账户资源](#resource)
+- [密钥管理](#key-management)
+- [链上账户](#on-chain-account)
+- [账户资源](#account-resource)
 - [交易](#transaction)
-- [查询链上数据](#query_chain_data)
-- [智能合约](#contract)
-- [TRC-10 资产](#trc-10)
+- [查询链上数据](#query-chain-data)
+- [智能合约](#smart-contract)
+- [TRC-10 资产](#trc-10-asset)
 - [治理](#governance)
-- [去中心化交易所](#defi)
-- [GasFree 支持](#gasfree)
-- [其他实用命令](#other)
+- [去中心化交易所](#decentralized-exchange)
+- [GasFree 支持](#gasfree-support)
+- [其他实用命令](#other-utility-commands)
 
-### 密钥管理 { #private_key }
+### 密钥管理 { #key-management }
 
 #### 退出登录 - `Logout`
 > 登出当前钱包账户。
@@ -291,7 +291,7 @@ File deleted successfully:
 ClearWalletKeystore successful !!!
 ```
 
-### 链上账户 { #account }
+### 链上账户 { #on-chain-account }
 
 #### 创建账户 - `CreateAccount`
 > 该命令可以创建一个新的非活跃地址账户，并为其燃烧 1 trx 作为手续费。
@@ -427,7 +427,7 @@ CreateAccount successful !!
 
 如果账户不是超级代表（Super Representative, 简称 SR），则无需设置 `witness_permission`，否则将报错。
 
-### 账户资源 { #resource }
+### 账户资源 { #account-resource }
 
 #### 如何冻结/解冻余额
 
@@ -1023,7 +1023,7 @@ Current signWeight is:
     }
 }
 ```
-### 查询链上数据 { #query_chain_data }
+### 查询链上数据 { #query-chain-data }
 
 #### 查看本地交易历史 - `ViewTransactionHistory`
 
@@ -1136,7 +1136,7 @@ wallet> currentnetwork
 current network: CUSTOM
 fullNode: EMPTY, solidityNode: localhost:50052
 ```
-### 智能合约 { #contract }
+### 智能合约 { #smart-contract }
 
 #### 部署智能合约
 
@@ -1336,7 +1336,7 @@ UpdateEnergyLimit [ownerAddress] contract_address energy_limit  # 更新参数en
 ```
 
 
-### TRC-10 资产 { #trc-10 }
+### TRC-10 资产 { #trc-10-asset }
 
 #### 如何发行 TRC-10 代币
 
@@ -1684,7 +1684,7 @@ address: TN3zfjYUmMFK3ZsHSsrdJoNRtGkQmZLBLz
 > 根据提案 ID 获取提案信息
 
 
-### 去中心化交易所 { #defi }
+### 去中心化交易所 { #decentralized-exchange }
 
 交易对的交易和价格波动遵循 Bancor 协议，可在 TRON 代码库的 [相关文档](https://tronprotocol.github.io/documentation-en/clients/wallet-cli-command/#dex) 中找到。
 
@@ -1915,7 +1915,7 @@ getTransactionInfoById b375787a098498623403c755b1399e82910385251b643811936d914c9
 ```
 
 
-### GasFree 支持 { #gasfree }
+### GasFree 支持 { #gasfree-support }
 
 `wallet-cli` 现在支持 **GasFree** 集成。本指南解释了新的命令并提供了如何使用它们的说明。
 
@@ -2030,7 +2030,7 @@ GasFreeTrace: successful!!
 ```
 
 
-### 其他实用命令 { #other }
+### 其他实用命令 { #other-utility-commands }
 
 #### 切换网络 - `SwitchNetwork`
 > 此命令允许随时灵活切换网络。

@@ -53,20 +53,20 @@ java -jar build/libs/Toolkit.jar db mv -c framework/src/main/resources/config.co
 
 请按照以下步骤使用数据库存储分区工具：
 
-1. [停止 FullNode 服务](#1-stop-the-fullnode-service)
-2. [配置数据库存储迁移](#2-configure-database-storage-migration)
-3. [执行数据库迁移](#3-execute-the-database-migration)
-4. [重新启动 FullNode 服务](#4-restart-the-fullnode-service)
+1. [停止 FullNode 服务](#stop-the-fullnode-service)
+2. [配置数据库存储迁移](#configure-database-storage-migration)
+3. [执行数据库迁移](#execute-the-database-migration)
+4. [重新启动 FullNode 服务](#restart-the-fullnode-service)
 
 
-#### 1. 停止 FullNode 服务 { #1-stop-the-fullnode-service }
+#### 1. 停止 FullNode 服务 { #stop-the-fullnode-service }
 在执行数据库迁移之前，**必须**停止当前运行的 FullNode 服务。您可以使用以下命令查找 FullNode 进程 ID（PID）并终止进程：
 ```
 kill -15 $(ps -ef | grep FullNode.jar | grep -v grep | awk '{print $2}')
 ```
 
 
-#### 2. 配置数据库存储迁移 { #2-configure-database-storage-migration }
+#### 2. 配置数据库存储迁移 { #configure-database-storage-migration }
 数据库迁移的配置通过 `java-tron` 节点配置文件中的 `storage.properties` 字段进行。您可以在 [java-tron 仓库](https://github.com/tronprotocol/java-tron/blob/master/framework/src/main/resources/config.conf#L38) 中找到示例配置。
 
 以下示例展示了如何将 `block` 和 `trans` 数据库迁移到 `/data1/tron` 目录：
@@ -95,7 +95,7 @@ storage {
 
 工具会将 `name` 指定的数据库迁移到 `path` 指定的目录，并在原目录下创建一个软链接指向新目录。FullNode 启动后将通过此软链接找到数据。
 
-#### 3. 执行数据库迁移 { #3-execute-the-database-migration }
+#### 3. 执行数据库迁移 { #execute-the-database-migration }
 
 配置完成后，执行以下命令进行数据库迁移。命令执行时会显示当前迁移进度：
 
@@ -103,7 +103,7 @@ storage {
 java -jar build/libs/Toolkit.jar db mv -c framework/src/main/resources/config.conf -d /data/tron/output-directory
 ```
 
-#### 4. 重新启动 FullNode 服务 { #4-restart-the-fullnode-service }
+#### 4. 重新启动 FullNode 服务 { #restart-the-fullnode-service }
 数据库迁移完成后，重新启动 `java-tron` 节点。
 
 [**FullNode 启动命令示例**](installing_javatron.md#starting-a-fullnode-on-the-tron-main-network)

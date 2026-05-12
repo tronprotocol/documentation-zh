@@ -102,14 +102,14 @@ java -jar build/libs/FullNode.jar -c framework/src/main/resources/config.conf --
 
 本指南旨在帮助开发者高效搭建并运行 TRON Kafka 事件订阅插件，用以监听 TRON 链上事件。我们将从环境准备讲起，一步步带您完成部署、配置和最终验证。主要步骤包括：
 
-- [检查系统配置](#checking-system-configuration-1)
-- [编译事件插件](#compiling-the-event-plugin-1)
+- [检查系统配置](#kafka-system-requirements)
+- [编译事件插件](#compiling-the-kafka-event-plugin)
 - [部署并运行 Kafka](#deploying-and-running-kafka)
 - [配置事件订阅规则](#configuring-event-subscription-rules)
 - [创建 Kafka 订阅 Topic](#creating-the-kafka-subscription-topic)
 - [启动事件订阅节点](#start-the-node)
 
-#### 推荐系统配置 { #checking-system-configuration-1 }
+#### 推荐系统配置 { #kafka-system-requirements }
 
 为确保 TRON 节点和事件订阅服务的稳定运行，建议采用以下系统配置：
 
@@ -118,7 +118,7 @@ java -jar build/libs/FullNode.jar -c framework/src/main/resources/config.conf --
 *   **SSD**：2.5 TB 或更大存储空间
 *   **操作系统**：Linux 或 macOS
 
-#### 编译 Kafka 事件订阅插件 { #compiling-the-event-plugin-1 }
+#### 编译 Kafka 事件订阅插件 { #compiling-the-kafka-event-plugin }
 
 首先，您需要从 GitHub 仓库克隆 `event-plugin` 项目，并进行编译以生成插件的 `.zip` 文件。请按照以下步骤操作：
 
@@ -402,7 +402,7 @@ bin/kafka-console-consumer.sh --topic block --from-beginning --bootstrap-server 
 
 本指南旨在帮助开发者快速部署和使用 TRON MongoDB 事件订阅插件，实现链上事件的实时数据采集、持久化存储与查询。我们将从环境准备讲起，一步步带您完成部署、配置和使用，主要流程包括：
 
-- [检查系统配置](#checking-system-configuration-2)
+- [检查系统配置](#mongodb-system-requirements)
 - [了解系统架构](#understanding-system-architecture)
 - [部署事件订阅插件](#deploying-the-event-plugin)
 - [安装并配置 MongoDB](#deploying-the-mongodb)
@@ -411,7 +411,7 @@ bin/kafka-console-consumer.sh --topic block --from-beginning --bootstrap-server 
 - [调用 API 查询事件](#using-the-tron-event-query-service-api)
 
 
-#### 推荐系统配置 { #checking-system-configuration-2 }
+#### 推荐系统配置 { #mongodb-system-requirements }
 
 为了确保 TRON 节点与事件服务的高效稳定运行，推荐以下配置：
 
