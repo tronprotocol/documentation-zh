@@ -130,7 +130,7 @@
          ```
          var TronWeb = require('tronweb');
          var tronWeb = new TronWeb({
-             fullHost: 'http://localhost:16887',
+             fullHost: 'http://localhost:8090',
              privateKey: 'privateKey'
          })
 
