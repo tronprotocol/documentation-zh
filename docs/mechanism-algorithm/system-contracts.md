@@ -143,10 +143,11 @@ TRON 网络支持多种不同类型的交易，比如 TRX 转账交易、TRC-10 
        int64 total_supply = 4;
        repeated FrozenSupply frozen_supply = 5;
        int32 trx_num = 6;
+       int32 precision = 7;
        int32 num = 8;
        int64 start_time = 9;
        int64 end_time = 10;
-       int64 order = 11; // the order of tokens of the same name
+       int64 order = 11; // useless
        int32 vote_score = 16;
        bytes description = 20;
        bytes url = 21;
@@ -154,6 +155,7 @@ TRON 网络支持多种不同类型的交易，比如 TRX 转账交易、TRC-10 
        int64 public_free_asset_net_limit = 23;
        int64 public_free_asset_net_usage = 24;
        int64 public_latest_free_net_time = 25;
+       string id = 41;
      }
 ```
 
@@ -174,6 +176,7 @@ TRON 网络支持多种不同类型的交易，比如 TRX 转账交易、TRC-10 
 * `public_free_asset_net_limit`：所有账户可以使用的免费带宽（转移该资产时使用）。
 * `public_free_asset_net_usage`：所有账户使用免费带宽（转移该资产时使用）。
 * `public_latest_free_net_time`：最近一次转移该 Token 使用免费带宽的时间。
+* `id`：Token 的唯一 ID，由系统在发行时按顺序生成（从 1000001 起递增）。
 
 ## 更新超级节点候选人 URL WitnessUpdateContract
 
@@ -241,7 +244,7 @@ TRON 网络支持多种不同类型的交易，比如 TRX 转账交易、TRC-10 
       message UnfreezeBalanceContract {
        bytes owner_address = 1;
        ResourceCode resource = 10;
-       bytes receiver_address = 13;
+       bytes receiver_address = 15;
      }
 ```
 
@@ -648,6 +651,7 @@ TRON 网络支持多种不同类型的交易，比如 TRX 转账交易、TRC-10 
       int64 balance = 3;
       bytes receiver_address = 4;
       bool  lock = 5;
+      int64 lock_period = 6;
       }
 ```
 
@@ -655,7 +659,8 @@ TRON 网络支持多种不同类型的交易，比如 TRX 转账交易、TRC-10 
 * `resource`： 代理的资源的类型。
 * `balance`： 代理的资源的份额，单位为sun。
 * `receiver_address`：资源接收者地址。
-* `lock`：是否将代理操作锁定3天。
+* `lock`：是否锁定本次代理。
+* `lock_period`：当 `lock=true` 时的锁定时长，单位为块（每块 3 秒）。仅在 `MAX_DELEGATE_LOCK_PERIOD` 提案生效后才接受用户传入值，此时取 0 表示使用默认 86400 块（3 天），取值上限由链参数 `getMaxDelegateLockPeriod` 决定；提案未生效时该字段被忽略，锁定时长固定为 86400 块。
    
    
 ## 取消资源代理 UnDelegateResourceContract
