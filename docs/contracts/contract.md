@@ -179,7 +179,7 @@ function assignAddress() public view {
 
 #### 货币
 
-类似于 Solidity 对 `ether` 的支持，波场虚拟机的代码支持的货币单位有 `trx` 和 `sun`，其中 1 `trx` = 1000000 `sun`，大小写敏感，只支持小写。目前 tron-studio 支持 `trx` 和 `sun`，在 remix 中，不支持 `trx` 和 `sun`，如果使用 `ether`、`finney` 等单位时，注意换算（可能会发生溢出错误）。
+类似于 Solidity 对 `ether` 的支持，波场虚拟机的代码支持的货币单位有 `trx` 和 `sun`，其中 1 `trx` = 1000000 `sun`，大小写敏感，只支持小写。目前 tron-studio 支持 `trx` 和 `sun`，在 remix 中，不支持 `trx` 和 `sun`。
 我们推荐使用 tron-studio 代替 remix 进行 TRON 智能合约的编写。
 
 #### 区块相关
