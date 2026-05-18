@@ -91,7 +91,7 @@ Constant function 是指用 `view`/`pure`/`constant` 修饰的函数。会在调
 #### 消息调用（message calls）
 
 消息调用可以向其他的合约发起函数调用，也可以向合约的账户或非合约的账户转账 TRX。与普通的波场 `TriggerContract` 类似，消息调用也有调用的发起者、接受者、数据、转账金额、扣费以及返回值等属性。每一个消息调用都可以递归地生成新的消息调用。
-合约可以决定在其内部的消息调用中，对于剩余的 energy 应发送和保留多少。如果在内部消息调用时发生了 `OutOfEnergyException` 异常（或其他任何异常），会返回 false，但不会以异常的形式抛出。此时，只有与该内部消息调用一起发送的 gas 会被消耗掉，如果不表明消息调用所传入的费用 `call.value(energy)`，则会扣掉所有的剩余 energy。
+合约可以决定在其内部的消息调用中，对于剩余的 energy 应发送和保留多少。如果在内部消息调用时发生了 `OutOfEnergyException` 异常（或其他任何异常），会返回 false，但不会以异常的形式抛出。此时，只有随该内部调用一起发送的 energy 会被消耗掉；如果不通过 `call.gas(x)`（0.6.2 前旧语法）或 `{gas: x, value: ...}`（0.6.2+ 新语法）显式指定 energy 上限，则会把所有剩余 energy 都传入该内部调用。
 
 #### 委托调用 / 代码调用 / 库（delegatecall/callcode/library）
 
