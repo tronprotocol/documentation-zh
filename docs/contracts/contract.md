@@ -83,10 +83,12 @@ message SmartContract {
 #### constant function 和非 constant function
 
 函数调用从对链上属性是否有更改可分为两种：constant function 和非 constant function。
-Constant function 是指用 `view`/`pure`/`constant` 修饰的函数。会在调用的节点上直接返回结果，并不以一笔交易的形式广播出去。
+Constant function 是指用 `view`/`pure` 修饰的函数。会在调用的节点上直接返回结果，并不以一笔交易的形式广播出去。
 非 constant function 是指需要依托一笔交易的形式被广播的方法调用。函数会改变链上数据的内容，比如转账，改变合约内部变量的值等等。
 
-注意：如果在合约内部使用 create 指令（`CREATE` 指令），即使用 `view`/`pure`/`constant` 来修饰这个动态创建的合约方法，这个合约方法仍会被当作非 constant function，以交易的形式来处理。
+注：早期合约可能使用已废弃的 `constant` 函数修饰符。该修饰符仅是编译期标注，不会编进字节码，已部署的老合约照常运行；但用当前 TRON Solidity 编译器重新编译会报语法错——新合约请使用 `view`/`pure`。
+
+注意：如果在合约内部使用 create 指令（`CREATE` 指令），即使用 `view`/`pure` 来修饰这个动态创建的合约方法，这个合约方法仍会被当作非 constant function，以交易的形式来处理。
 
 #### 消息调用（message calls）
 
