@@ -7,7 +7,7 @@ TRON 兼容以太坊（Ethereum）上采用 Solidity 编写的智能合约。你
 
 ## 特性
 
-TRON virtual machine 基于以太坊 solidity 语言实现，兼容以太坊虚拟机的特性，但基于 TRON 自身属性也有部分的区别。
+TRON virtual machine 基于以太坊 Solidity 语言实现，兼容以太坊虚拟机的特性，但基于 TRON 自身属性也有部分的区别。
 
 ### 智能合约的定义
 
@@ -123,55 +123,54 @@ Constant function 是指用 `view`/`pure`/`constant` 修饰的函数。会在调
 
 注意：不推荐使用以太坊的 `RIPEMD160` 函数，因为 TRON 上的返回结果是基于 TRON 的 `sha256` 计算得到的哈希，并非准确的以太坊 `RIPEMD160`。
 
-### 合约地址在solidity语言的使用
+### 合约地址在 Solidity 语言的使用
 
-以太坊虚拟机地址为20字节，而波场虚拟机解析地址为21字节。
+以太坊虚拟机地址为 20 字节，而波场虚拟机解析地址为 21 字节。
 
 #### 地址转换
 
-在solidity中使用的时候需要对波场地址做如下处理（推荐）：
+在 Solidity 中使用的时候需要对波场地址做如下处理（推荐）：
 
 ```solidity
 /**
-  *  @dev    convert uint256 (HexString add 0x at beginning) TRON address to solidity address type
-  *  @param  tronAddress uint256 tronAddress, begin with 0x, followed by HexString
-  *  @return Solidity address type
-  */
-
-    function convertFromTronInt(uint256 tronAddress) public view returns(address){
-        return address(tronAddress);
-    }
+ *  @dev    convert uint256 (HexString add 0x at beginning) TRON address to solidity address type
+ *  @param  tronAddress uint256 tronAddress, begin with 0x, followed by HexString
+ *  @return Solidity address type
+ */
+function convertFromTronInt(uint256 tronAddress) public view returns (address) {
+    return address(tronAddress);
+}
 ```
 
-这个和在以太坊中其他类型转换成address类型语法相同。
+这与以太坊中将其他类型转换为 `address` 类型的语法相同。
 
 #### 地址判断
 
-solidity中有地址常量判断，如果写的是21字节地址编译器会报错，只用写20字节地址即可，如：
+Solidity 中有地址常量判断，如果写的是 21 字节地址编译器会报错，只用写 20 字节地址即可，如：
 
 ```solidity
-function compareAddress(address tronAddress) public view returns (uint256){
-        // if (tronAddress == 0x41ca35b7d915458ef540ade6068dfe2f44e8fa733c) { // compile error
-        if (tronAddress == 0xca35b7d915458ef540ade6068dfe2f44e8fa733c) { // right
-            return 1;
-        } else {
-            return 0;
-        }
+function compareAddress(address tronAddress) public view returns (uint256) {
+    // if (tronAddress == 0x41ca35b7d915458ef540ade6068dfe2f44e8fa733c) { // compile error
+    if (tronAddress == 0xca35b7d915458ef540ade6068dfe2f44e8fa733c) { // right
+        return 1;
+    } else {
+        return 0;
     }
+}
 ```
 
-tronAddress 从 wallet-cli 传入是 0000000000000000000041ca35b7d915458ef540ade6068dfe2f44e8fa733c 这个 21 字节地址，即正常的波场地址时，是会返回1的，判断正确。
+tronAddress 从 wallet-cli 传入是 0000000000000000000041ca35b7d915458ef540ade6068dfe2f44e8fa733c 这个 21 字节地址，即正常的波场地址时，是会返回 1 的，判断正确。
 
 #### 地址赋值
 
-solidity中有地址常量的赋值，如果写的是21字节地址编译器会报错，只用写20字节地址即可，solidity中后续操作直接利用这个20位地址，波场虚拟机内部做了补位操作。如：
+Solidity 中有地址常量的赋值，如果写的是 21 字节地址编译器会报错，只用写 20 字节地址即可，Solidity 中后续操作直接利用这个 20 字节地址，波场虚拟机内部做了补位操作。如：
 
 ```solidity
 function assignAddress() public view {
-        // address newAddress = 0x41ca35b7d915458ef540ade6068dfe2f44e8fa733c; // compile error
-        address newAddress = 0xca35b7d915458ef540ade6068dfe2f44e8fa733c;
-        // do something
-    }
+    // address newAddress = 0x41ca35b7d915458ef540ade6068dfe2f44e8fa733c; // compile error
+    address newAddress = 0xca35b7d915458ef540ade6068dfe2f44e8fa733c;
+    // do something
+}
 ```
 
 如果想直接使用 base58 形式的波场地址字符串（如 `TLLM21wteSPs4hKjbxgmH1L6poyMjeTbHm`），先用 wallet-cli 或 TRON SDK 把它转换成 20 字节的 hex 形式，再赋给 Solidity 的 `address` 类型。
@@ -201,7 +200,6 @@ function assignAddress() public view {
 - `now` (uint)：`block.timestamp` 的别名。在上游 Solidity 0.7.0 中已被移除（TRON 的 Solidity fork 自 `tv_0.7.0` 起继承该移除）；请改用 `block.timestamp`
 - `tx.gasprice` (uint)：交易的 gas 价格，波场不推荐使用，设置值恒为 0
 - `tx.origin` (address)：交易发起者
-
 
 ### Energy
 
