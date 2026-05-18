@@ -174,7 +174,7 @@ function assignAddress() public view {
     }
 ```
 
-如果想直接使用string 类型的波场地址（如TLLM21wteSPs4hKjbxgmH1L6poyMjeTbHm）请参考内置函数的两种地址转换方式（见II-4-7,II-4-8）。
+如果想直接使用 base58 形式的波场地址字符串（如 `TLLM21wteSPs4hKjbxgmH1L6poyMjeTbHm`），先用 wallet-cli 或 TRON SDK 把它转换成 20 字节的 hex 形式，再赋给 Solidity 的 `address` 类型。
 
 ### 与以太坊有区别的特殊常量
 
