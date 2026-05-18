@@ -186,7 +186,7 @@ function assignAddress() public view {
 
 #### 区块相关
 
-- `blockhash(uint blockNumber) returns (bytes32)`：指定区块的区块哈希——仅可用于最新的 256 个区块且不包括当前区块。注意：`block.blockhash(uint)` 形式在上游 Solidity 0.4.22 中已被弃用，并在 0.5.0 中被移除（TRON 的 Solidity fork 自 `tv_0.4.24` 起继承了这两项变更）；请改用顶层的 `blockhash(...)`
+- `blockhash(uint blockNumber) returns (bytes32)`：指定区块的区块哈希——仅可用于最新的 256 个区块且不包括当前区块。注意：`block.blockhash(uint)` 形式在上游 Solidity 0.4.22 中被弃用，并在 0.5.0 中被移除；TRON 的 Solidity fork 自 `tv_0.4.24` 起继承了弃用，自 `tv_0.5.4` 起继承了移除——请改用顶层的 `blockhash(...)`
 - `block.basefee` (uint)：返回链参数中的网络能量费（`getEnergyFee`）；与以太坊基于每个区块的 EIP-1559 base fee 不同，该值只在委员会提案修改时才会变化。自 London 升级（`ALLOW_TVM_LONDON`）起可用，由委员会 [提案 #72](https://tronscan.io/#/proposal/72) 在主网激活
 - `block.coinbase` (address)：产当前区块的超级节点地址
 - `block.difficulty` (uint)：当前区块难度，波场不推荐使用，设置恒为 0
