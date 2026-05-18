@@ -159,7 +159,7 @@ function compareAddress(address tronAddress) public view returns (uint256) {
 }
 ```
 
-tronAddress 从 wallet-cli 传入是 0000000000000000000041ca35b7d915458ef540ade6068dfe2f44e8fa733c 这个 21 字节地址，即正常的波场地址时，是会返回 1 的，判断正确。
+从 wallet-cli 传入参数时使用 32 字节 ABI 编码的 21 字节 TRON 地址 `000000000000000000000041ca35b7d915458ef540ade6068dfe2f44e8fa733c`（前补 11 字节零，后接以 `41` 开头的 21 字节 TRON 地址），即正常的波场地址，会返回 1，判断正确。
 
 #### 地址赋值
 
