@@ -96,21 +96,25 @@ Constant function 是指用 view/pure/constant 修饰的函数。会在调用的
 
 另一个与合约调用相关的是调用指令集的时候使用 CREATE 指令。这个指令将会创建一个新的合约并生成新的地址。与以太坊的创建唯一的不同在于波场新生成的地址使用的是传入的本次智能合约交易 id 与调用的 nonce 的哈希组合。和以太坊不同，这个 nonce 的定义为本次根调用开始创建的合约序号。即如果有多次的 CREATE 指令调用，从 1 开始，顺序编号每次调用的合约。详细请参考代码。还需注意，与 deploycontract 的 grpc 调用创建合约不同，CREATE 的合约并不会保存合约的 abi。
 
-* 内置功能
+* 内置功能与内置函数属性
 
-```shell
-1）TVM兼容solidity语言的转账形式，包括：
-伴随constructor调用转账
-伴随合约内函数调用转账
-transfer/send/call/callcode/delegatecall函数调用转账
+1. TVM 兼容 Solidity 语言的转账形式，包括：
 
-注意，波场的智能合约与波场系统合约的逻辑不同，如果转账的目标地址账户不存在，不能通过智能合约转账的形式创建目标地址账户。这也是与以太坊的不同点。
+    - 在 constructor 中调用转账
+    - 在合约内函数中调用转账
+    - 通过 `transfer`/`send`/`call`/`callcode`/`delegatecall` 函数调用转账
 
-2）为超级节点投票 
-3）质押
-4）资源代理
-5）兼容所有以太坊内置函数
-```
+    注意：TRON 的智能合约与 TRON 的系统合约不同。在 SOLIDITY_059 升级（链参数 `ALLOW_TVM_SOLIDITY_059`，由委员会 [提案 #29](https://tronscan.io/#/proposal/29) 激活）之前，从智能合约向不存在的账户转账会失败；激活之后，TVM 会在转账时自动创建目标账户，与系统合约行为一致。
+
+2. 在合约内为超级节点投票以及提取投票奖励。由链参数 `ALLOW_TVM_VOTE` 启用，由委员会 [提案 #84](https://tronscan.io/#/proposal/84) 在主网激活。提供 `VOTEWITNESS` / `WITHDRAWREWARD` 操作码以及相关的只读预编译合约。
+
+3. TRC10 代币操作：向目标地址发送 TRC10、查询某地址的 TRC10 余额。由链参数 `ALLOW_TVM_TRANSFER_TRC10` 启用，由委员会 [提案 #15](https://tronscan.io/#/proposal/15) 在主网激活。
+
+4. 在合约内质押 TRX 获取资源（Stake 2.0）、代理/取消代理资源、查询代理余额。当网络支持解冻延迟模型（Stake 2.0）时启用，目前已在主网激活。
+
+5. 兼容大多数以太坊内置函数和预编译合约（覆盖 Constantinople、Istanbul、London、Shanghai、Cancun 升级，每个升级由独立的 `ALLOW_TVM_*` 链参数控制——已全部在主网激活，分别对应委员会提案 [#18](https://tronscan.io/#/proposal/18)、[#44](https://tronscan.io/#/proposal/44)、[#72](https://tronscan.io/#/proposal/72)、[#89](https://tronscan.io/#/proposal/89) 和 [#103](https://tronscan.io/#/proposal/103)）。`ALLOW_TVM_COMPATIBLE_EVM` 链参数从未提案，因此以太坊标准的 `RIPEMD160` 和 `BLAKE2F` 预编译合约尚未启用。
+
+注意：不推荐使用以太坊的 `RIPEMD160` 函数，因为 TRON 上的返回结果是基于 TRON 的 `sha256` 计算得到的哈希，并非准确的以太坊 `RIPEMD160`。
 
 ### 合约地址在solidity语言的使用
 
@@ -175,6 +179,7 @@ function assignAddress() public view {
 #### 区块相关
 
 - block.blockhash(uint blockNumber) returns (bytes32)：指定区块的区块哈希——仅可用于最新的 256 个区块且不包括当前区块；而 blocks 从 0.4.22 版本开始已经不推荐使用，由 blockhash(uint blockNumber) 代替
+- `block.basefee` (uint)：返回链参数中的网络能量费（`getEnergyFee`）；与以太坊基于每个区块的 EIP-1559 base fee 不同，该值只在委员会提案修改时才会变化。自 London 升级（`ALLOW_TVM_LONDON`）起可用，由委员会 [提案 #72](https://tronscan.io/#/proposal/72) 在主网激活
 - block.coinbase (address): 产当前区块的超级节点地址
 - block.difficulty (uint): 当前区块难度，波场不推荐使用，设置恒为0
 - block.gaslimit (uint): 当前区块 gas 限额，波场暂时不支持使用, 暂时设置为0
@@ -189,3 +194,8 @@ function assignAddress() public view {
 - now (uint): 目前区块时间戳（block.timestamp）
 - tx.gasprice (uint): 交易的 gas 价格，波场不推荐使用，设置值恒为0
 - tx.origin (address): 交易发起者
+
+
+### Energy
+
+智能合约的每条指令在运行时都会消耗系统资源，我们以 `Energy` 作为资源消耗的单位。
