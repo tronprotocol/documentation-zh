@@ -215,7 +215,7 @@ node.discovery = {
 
 
 ### 引导节点
-java-tron 使用 [Kademlia](https://zh.wikipedia.org/wiki/Kademlia) 协议发现其他节点。节点发现需要引导节点 (boot 节点)，借助引导节点发现 TRON 网络中的其他节点。引导节点由两部分组成，一部分是种子节点，一部分是配置的主动连接节点，详情见[主动连接](#active-peers)。
+java-tron 使用 [Kademlia](https://zh.wikipedia.org/wiki/Kademlia) 协议发现其他节点。节点发现需要引导节点 (boot 节点)，借助引导节点发现 TRON 网络中的其他节点。引导节点由两部分组成，一部分是种子节点，一部分是配置的主动连接节点，详情见[主动连接](#active-connection-active-peers)。
 
 种子节点也由两部分组成：
 
@@ -275,7 +275,7 @@ node {
 
 
 
-### 主动连接（Active Peers）
+### 主动连接（Active Peers） { #active-connection-active-peers }
 主动连接的目标节点来源于三部分：
 
 - 配置的主动节点(高优先级)，不依赖于节点发现，即使节点发现没有开启，当前节点也会主动向这些节点发起连接。相关配置项：
@@ -416,4 +416,4 @@ curl http://127.0.0.1:16887/wallet/getnowblock
 - 使用私有的 `node.p2p.version` 值，确保不会与主网或测试网冲突
 
 ### 搭建参考：
-- 请参考文档 [私链网络](https://tronprotocol.github.io/documentation-zh/using_javatron/private_network/) 获取完整的私链部署说明。
+- 请参考文档 [私链网络](private_network.md) 获取完整的私链部署说明。

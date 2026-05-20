@@ -109,7 +109,7 @@ enum ContractType {
   AccountPermissionUpdateContract = 46;
 }
 ```
-`active` 权限通过 `operations` 字段配置可执行哪些 `ContractType`。 `operations` 字段值的计算请参考[operations 值计算示例](#2-operations)。
+`active` 权限通过 `operations` 字段配置可执行哪些 `ContractType`。 `operations` 字段值的计算请参考[operations 值计算示例](#operations-value-calculation-example)。
 
 `ContractType` 的详细信息如下(包括消息名、执行器、状态以及触发的业务)：
 
@@ -241,7 +241,7 @@ POST http://{{host}}:{{port}}/wallet/accountpermissionupdate
   ]
 }
 ```
-### 2. operations 值计算示例
+### 2. operations 值计算示例 { #operations-value-calculation-example }
 `operations` 是表示可执行合约权限的 32 字节十六进制字符串（小端）。
 以下 Java 示例生成将（ID=0-45）的合约权限加入：
 
