@@ -73,12 +73,12 @@ tar xzvf output-directory.20220628152402.etgz
 | 官方数据源 (亚洲: 新加坡) | [http://35.247.128.170/](http://35.247.128.170/) | LevelDB 数据，包含内部交易 |
 | 官方数据源 (美洲: 美国弗吉尼亚) | [http://34.48.6.163/](http://34.48.6.163/) | LevelDB 数据，不包含内部交易，包含账户历史余额 |
 
-**注意：** 
+**注意：**
 
 - **LevelDB** 和 **RocksDB** 数据不允许混用。FullNode 的数据库类型通过配置文件中的 `db.engine` 配置项指定，可选值为 `LEVELDB` 或 `ROCKSDB`。如果您拥有 LevelDB 格式的数据，但希望以 RocksDB 引擎启动节点，可以使用 toolkit 中的 [数据转换工具](toolkit.md#_13) 将 LevelDB 数据转换为 RocksDB 格式。
-- 内部交易通过配置文件中的`vm.saveInternalTx`或者`vm.saveFeaturedInternalTx`配置项开启/关闭。只有开启`vm.saveInternalTx` ，才会保存内部交易，如果`saveFeaturedInternalTx`也同时开启，则会保存所有类型的内部交易，否则，只保存`call`、`create`、`suicide`交易。影响接口：[`gettransactioninfobyid`](https://developers.tron.network/reference/gettransactioninfobyid-1)
+- 内部交易通过配置文件中的 `vm.saveInternalTx` 或者 `vm.saveFeaturedInternalTx` 配置项开启/关闭。只有开启 `vm.saveInternalTx`，才会保存内部交易，如果 `saveFeaturedInternalTx` 也同时开启，则会保存所有类型的内部交易，否则，只保存 `call`、`create`、`suicide` 交易。影响接口：[`gettransactioninfobyid`](https://developers.tron.network/reference/gettransactioninfobyid-1)
 - 配置项 `vm.saveCancelAllUnfreezeV2Details` 会额外把带宽 / 能量 / TRON Power 的取消额度以 `extra` 字段的形式记录到 `CANCELALLUNFREEZEV2` 操作码生成的内部交易上。该配置仅在 `vm.saveInternalTx` 与 `vm.saveFeaturedInternalTx` 同时开启时才会生效。
-- 账户历史余额通过配置文件中的`storage.balance.history.lookup`配置项开启/关闭。影响接口：[`getaccountbalance`](https://developers.tron.network/reference/getaccountbalance)
+- 账户历史余额通过配置文件中的 `storage.balance.history.lookup` 配置项开启/关闭。影响接口：[`getaccountbalance`](https://developers.tron.network/reference/getaccountbalance)
 
 #### Lite FullNode 数据快照
 
@@ -90,19 +90,16 @@ TRON 网络从 GreatVoyage-v4.1.0 版本开始支持 **Lite FullNode** 类型的
 
 **小提示：** 如果您已经拥有 FullNode 的全量数据，可以使用 [Lite FullNode 数据裁剪工具](toolkit.md#_5)自行将 FullNode 数据裁剪为 Lite FullNode 数据。
 
-
-
 ### Nile 测试网数据快照
 
 关于 Nile 测试网数据快照的详细信息，请参照 [官网](https://nileex.io/)。使用方法与主网数据快照相同。
-
 
 ### 数据快照的使用
 
 数据快照的使用步骤如下：
 
 1. 根据自己需求下载相应压缩备份数据库。
-2. 解压备份数据库压缩包至 `output-directory` 目录（或根据需求指定其他目标目录）。有关详细解压说明，请参见下方[数据快照解压方式](#uncompress-ways)章节。 
+2. 解压备份数据库压缩包至 `output-directory` 目录（或根据需求指定其他目标目录）。有关详细解压说明，请参见下方[数据快照解压方式](#uncompress-ways)章节。
 3. 启动节点。节点默认读取 `output-directory` 目录。如果您的数据解压到了其他目录，请在节点启动时添加 `-d` 参数并指定数据库目录名。
 
 <a id="uncompress-ways"></a>
