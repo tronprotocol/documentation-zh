@@ -1,9 +1,9 @@
 # TRON 网络节点数据备份与恢复
 
-java-tron 节点将其持久化数据存储在指定的数据目录下。默认的数据目录是 `/output-directory/`。您可以通过在 java-tron 节点启动命令中添加 `-d` 或 `--output-directory` 参数来指定不同的数据存储位置，例如：
+java-tron 节点将其持久化数据存储在指定的数据目录下。默认的数据目录是 `output-directory`（相对于当前工作目录的相对路径）。您可以通过在 java-tron 节点启动命令中添加 `-d` 或 `--output-directory` 参数来指定不同的数据存储位置，例如：
 
 ```
-java -jar build/libs/fullnode.jar -d ./outputdir
+java -jar build/libs/FullNode.jar -d ./outputdir
 ```
 
 
@@ -79,7 +79,7 @@ tar xzvf output-directory.20220628152402.etgz
 
 #### Lite FullNode 数据快照
 
-TRON 网络从 GreatVoyage-V4.1.0 版本开始支持 **Lite FullNode** 类型的节点。相比于普通的 FullNode，Lite FullNode 拥有更小的数据库和更快的启动速度，因为它只需要状态数据和必要的历史数据即可启动。下表列出了 Lite FullNode 数据快照的下载地址。
+TRON 网络从 GreatVoyage-v4.1.0 版本开始支持 **Lite FullNode** 类型的节点。相比于普通的 FullNode，Lite FullNode 拥有更小的数据库和更快的启动速度，因为它只需要状态数据和必要的历史数据即可启动。下表列出了 Lite FullNode 数据快照的下载地址。
 
 | Lite FullNode 节点数据源 | 下载地址 | 说明 |
 | :----------------------- | :------- | :--- |
