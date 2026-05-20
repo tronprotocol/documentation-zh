@@ -24,7 +24,15 @@ storage {
 }
 ```
 
+字段说明：
+
+- `db.sync`：设为 `true` 时，底层引擎会等待每笔写入真正落盘后再返回，对断电/硬件崩溃更安全，但写入会明显变慢；默认 `false`，写入由 OS 缓冲，崩溃时可能丢失尚未落盘的部分。LevelDB 与 RocksDB 路径都生效。
+- `transHistory.switch`：设为 `"off"` 时，`TransactionHistoryStore` 和 `TransactionRetStore` 会静默丢弃新写入，因此 switch 处于关闭期间处理的交易在 `gettransactioninfobyid` 查询时会返回空；已有数据仍可读取。默认 `"on"`。
+
 ### 2. RocksDB 优化参数
+
+`dbSettings` 块仅在 `db.engine = "ROCKSDB"` 时生效；使用 LevelDB 时这些值会被静默忽略。
+
 RocksDB 支持多种调优参数，可根据节点服务器性能进行配置。以下是一个推荐的参数示例：
 ```
 dbSettings = {
