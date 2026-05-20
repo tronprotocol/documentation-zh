@@ -122,7 +122,7 @@ wget -q -O - SNAPSHOT_URL/FullNode_output-directory.tgz | tar -zxvf -
 bash download_snapshot.sh
 ```
 
-此方法无需存储完整压缩包，直接解压至目标目录，**显著减少磁盘占用**。
+**注意：** 此方法无需存储完整压缩包，直接解压至目标目录，**显著减少磁盘占用**。
 
 **方法 2：先下载后解压（需充足存储空间）**
 
@@ -134,4 +134,4 @@ wget SNAPSHOT_URL/FullNode_output-directory.tgz
 tar -zxvf FullNode_output-directory.tgz  
 ```
 
-此方法在解压时同时保留压缩包和解压后的文件，建议使用2个3TB的磁盘（3TB+ 压缩包 & 3TB+ 解压数据，解压后可释放一块磁盘，节省成本）。
+**注意：** 此方法在解压时同时保留压缩包和解压后的文件，建议使用2个3TB的磁盘（3TB+ 压缩包 & 3TB+ 解压数据，解压后可释放一块磁盘，节省成本）。
