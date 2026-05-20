@@ -45,17 +45,23 @@ dbSettings = {
 ## x86_64 平台从 LevelDB 迁移至 RocksDB
 若需从 LevelDB 迁移到 RocksDB，需使用官方提供的转换工具 `Toolkit.jar`。
 
+> **注意**：`db convert` 子命令仅支持 x86_64。在 arm64 上执行时会打印 "unsupported architecture" 提示后直接退出，不会进行任何转换。
+
 ### 1. 数据转换步骤
 ```
 cd java-tron                                   # 源码根目录
 ./gradlew build -xtest -xcheck                 # 编译项目                        
 java -jar build/libs/Toolkit.jar db convert    # 执行数据转换
 ```
-### 2. 可选参数说明
-若您的节点使用了自定义的数据目录，可在运行转换脚本时添加如下参数：
+### 2. 位置参数
+若您的节点使用了自定义的数据目录，可在 `db convert` 后按顺序追加两个位置参数，分别指定 LevelDB 源路径与 RocksDB 目标路径：
 
-- `src_db_path`：LevelDB 数据库路径（默认为 `output-directory/database`）
-- `dst_db_path`：RocksDB 数据库存储路径（默认为 `output-directory-dst/database`）
+```
+java -jar build/libs/Toolkit.jar db convert <src> <dst>
+```
+
+- `<src>`：LevelDB 数据库路径（默认为 `output-directory/database`）
+- `<dst>`：RocksDB 数据库存储路径（默认为 `output-directory-dst/database`）
 
 例如，若节点是通过如下方式运行：
 ```
@@ -88,6 +94,3 @@ java -jar build/libs/Toolkit.jar db convert output-directory/database output-dir
 
 ## 关于 LevelDB
 LevelDB 是 x86_64 平台 java-tron 节点默认的数据存储引擎，适用于资源有限或轻量级的部署场景。它结构简单、易于维护，但在数据压缩、备份能力和大规模节点性能上不如 RocksDB。
-
-若需深入了解两者的详细对比，请参考文档：
-📘 [RocksDB 与 LevelDB 差异对比](https://github.com/tronprotocol/documentation/blob/master/TRX_CN/Rocksdb_vs_Leveldb.md)
