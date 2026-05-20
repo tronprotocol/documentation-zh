@@ -89,8 +89,7 @@ cd /tmp
 java -jar build/libs/Toolkit.jar db convert output-directory/database output-directory-dst/database
 ```
 
->备注：
-整个数据转换过程预计耗时约 **10 小时**，具体时间依赖于数据量和磁盘性能。
+> **注意**：整个数据转换过程预计耗时约 **10 小时**，具体时间依赖于数据量和磁盘性能。
 
 ## 关于 LevelDB
 LevelDB 是 x86_64 平台 java-tron 节点默认的数据存储引擎，适用于资源有限或轻量级的部署场景。它结构简单、易于维护，但在数据压缩、备份能力和大规模节点性能上不如 RocksDB。
