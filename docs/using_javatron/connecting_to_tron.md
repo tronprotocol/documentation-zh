@@ -196,7 +196,7 @@ genesis.block = {
       voteCount = 100000000
     }
   ]
-  timestamp = "0" #2017-8-26 12:00:00
+  timestamp = "0" # 创世块时间戳，单位为毫秒
   parentHash = "0xe58f33f9baf9305dc6f82b9f1934ea8f0ade2defb951258d50167028c780351f"
 }
 ```
@@ -264,14 +264,24 @@ node {
 ## 节点连接
 
 ### 节点连接数量
-`node.maxConnections`  表示节点与其它节点的最大连接数量，默认值是 30。设置更大的值可以使节点能够建立更多的连接，加入网络的效率更高，同时广播的效率也更高，但是，相对的维护连接需要的带宽也更高，性能消耗也更大，因此，请根据实际情况设置。 
+节点的连接数量由以下几个参数共同控制，通常需要配合调优：
+
+- `node.maxConnections`：节点的最大连接数（默认值：30）。当连接数达到该上限后，来自非可信节点的被动连接会被拒绝。可信节点是指 IP 出现在 `node.passive`、`node.active` 或 `fastForward` 中的节点（这三处的 IP 都会被加入可信列表）。主动连接不受该限制约束：对 `node.active` 中配置的节点的主动连接，仅受 `node.active` 列表大小限制；对通过节点发现协议发现的节点的主动连接，由 `minConnections` 和 `minActiveConnections` 驱动（见下文）。
+- `node.minConnections`：期望维持的最小总连接数，包含主动连接和被动连接（默认值：8）。当总连接数低于该值时，节点会向已发现的节点发起主动连接以补足。
+- `node.minActiveConnections`：期望维持的对已发现节点的最小主动连接数（默认值：3）。即使总连接数已经达到或超过 `minConnections`，节点仍会持续向已发现的节点发起主动连接，直到该阈值被满足。
+- `node.maxConnectionsWithSameIp`：允许来自同一 IP 地址的最大连接数（默认值：2），用于缓解来自单一 IP 的滥用。
+
 ```
 node {
   ...
-  maxConnections = 30           # 最大连接数
+  maxConnections = 30
+  minConnections = 8
+  minActiveConnections = 3
+  maxConnectionsWithSameIp = 2
   ...
 }
 ```
+注意：`minConnections` 不能超过 `maxConnections`，`minActiveConnections` 不能超过 `minConnections`，否则节点会在启动时自动将其修正到合法范围内。
 
 
 
@@ -351,7 +361,7 @@ Generate block 79336 success, trxs:0, pendingCount: 0, rePushCount: 0, postponed
 使用 HTTP 接口获取当前节点运行状态：
 
 ```
-$ curl http://127.0.0.1:16887/wallet/getnodeinfo
+$ curl http://127.0.0.1:8090/wallet/getnodeinfo
 ```
 返回示例：
 ```
@@ -385,7 +395,7 @@ $ curl http://127.0.0.1:16887/wallet/getnodeinfo
 ### 验证节点同步状态
 可在 [TRONSCAN 区块浏览器](https://tronscan.org/) 查询当前区块高度，并与本地接口返回结果对比：
 ```
-curl http://127.0.0.1:16887/wallet/getnowblock
+curl http://127.0.0.1:8090/wallet/getnowblock
 ```
 若区块高度一致，则说明本地节点同步正常。
 
