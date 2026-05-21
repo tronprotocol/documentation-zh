@@ -22,25 +22,25 @@ TRON 网络支持多种不同类型的交易，比如 TRX 转账交易、TRC-10 
 | 11 | FreezeBalanceContract | BalanceContract.FreezeBalanceContract | FreezeBalanceActuator | 🚫 禁用(`supportUnfreezeDelay` 启用后链拒绝) | Stake 1.0:质押 TRX 换取 Bandwidth/Energy,并可代理给他人 |
 | 12 | UnfreezeBalanceContract | BalanceContract.UnfreezeBalanceContract | UnfreezeBalanceActuator | ✅ 启用 | Stake 1.0:到期后解质押 TRX,释放对应资源、清除得票 |
 | 13 | WithdrawBalanceContract | BalanceContract.WithdrawBalanceContract | WithdrawBalanceActuator | ✅ 启用 | 领取 SR 出块 / 投票奖励到余额 |
-| 14 | UnfreezeAssetContract | AssetIssueContractOuterClass.UnfreezeAssetContract | UnfreezeAssetActuator | ✅ 启用 | 发行人解冻 ICO 时冻结的 TRC-10 token 份额 |
+| 14 | UnfreezeAssetContract | AssetIssueContractOuterClass.UnfreezeAssetContract | UnfreezeAssetActuator | ✅ 启用 | 解冻 ICO 时冻结的 TRC-10 token 份额 |
 | 15 | UpdateAssetContract | AssetIssueContractOuterClass.UpdateAssetContract | UpdateAssetActuator | ✅ 启用 | 更新 TRC-10 token 的 description / url / 免费带宽配额 |
-| 16 | ProposalCreateContract | ProposalContract.ProposalCreateContract | ProposalCreateActuator | ✅ 启用 | Witness 发起链上参数提案,写入 ProposalStore 等待投票 |
-| 17 | ProposalApproveContract | ProposalContract.ProposalApproveContract | ProposalApproveActuator | ✅ 启用 | Witness 对提案投赞成/取消票 |
-| 18 | ProposalDeleteContract | ProposalContract.ProposalDeleteContract | ProposalDeleteActuator | ✅ 启用 | 提案发起人撤回自己创建的提案 |
+| 16 | ProposalCreateContract | ProposalContract.ProposalCreateContract | ProposalCreateActuator | ✅ 启用 | 发起链上参数提案,写入 ProposalStore 等待投票 |
+| 17 | ProposalApproveContract | ProposalContract.ProposalApproveContract | ProposalApproveActuator | ✅ 启用 | 对提案投赞成/取消票 |
+| 18 | ProposalDeleteContract | ProposalContract.ProposalDeleteContract | ProposalDeleteActuator | ✅ 启用 | 撤回创建的提案 |
 | 19 | SetAccountIdContract | AccountContract.SetAccountIdContract | SetAccountIdActuator | ✅ 启用 | 为账户设置唯一 account_id(仅可设置一次) |
 | 20 | CustomContract  |  |  | 🚫 禁用(未实现Actuator)  |  |
 | 30 | CreateSmartContract | SmartContractOuterClass.CreateSmartContract | VMActuator | ✅ 启用 | 部署智能合约 |
 | 31 | TriggerSmartContract | SmartContractOuterClass.TriggerSmartContract | VMActuator | ✅ 启用 | 调用智能合约 |
 | 32 | GetContract |  |  | 🚫 禁用(未实现Actuator)  |  |
-| 33 | UpdateSettingContract | SmartContractOuterClass.UpdateSettingContract | UpdateSettingContractActuator | ✅ 启用 | 合约所有者修改合约的 consume_user_resource_percent(用户承担能量比例) |
+| 33 | UpdateSettingContract | SmartContractOuterClass.UpdateSettingContract | UpdateSettingContractActuator | ✅ 启用 | 修改合约的 consume_user_resource_percent(用户承担能量比例) |
 | 41 | ExchangeCreateContract | ExchangeContract.ExchangeCreateContract | ExchangeCreateActuator | ✅ 启用 | 创建 Bancor 交易对, 为两种资产初始注入流动性 |
 | 42 | ExchangeInjectContract | ExchangeContract.ExchangeInjectContract | ExchangeInjectActuator | ✅ 启用 | 向已有交易对继续注入流动性, 按 Bancor 算法扣减双方资产 |
-| 43 | ExchangeWithdrawContract | ExchangeContract.ExchangeWithdrawContract | ExchangeWithdrawActuator | ✅ 启用 | 交易对创建人按比例撤回交易对中双方资产 |
+| 43 | ExchangeWithdrawContract | ExchangeContract.ExchangeWithdrawContract | ExchangeWithdrawActuator | ✅ 启用 | 按比例撤回交易对中双方资产 |
 | 44 | ExchangeTransactionContract | ExchangeContract.ExchangeTransactionContract | ExchangeTransactionActuator | 🚫 禁用 | 通过 Bancor 交易对进行资产兑换 |
-| 45 | UpdateEnergyLimitContract | SmartContractOuterClass.UpdateEnergyLimitContract | UpdateEnergyLimitContractActuator | ✅ 启用 | 合约所有者更新合约的 origin_energy_limit(合约所有者愿意为每一笔合约调用交易承担的能量消耗上限) |
+| 45 | UpdateEnergyLimitContract | SmartContractOuterClass.UpdateEnergyLimitContract | UpdateEnergyLimitContractActuator | ✅ 启用 | 更新合约的 origin_energy_limit(每次合约调用愿意承担的能量消耗上限) |
 | 46 | AccountPermissionUpdateContract | AccountContract.AccountPermissionUpdateContract | AccountPermissionUpdateActuator | ✅ 启用 | 更新账户权限:owner/witness/active |
-| 48 | ClearABIContract | SmartContractOuterClass.ClearABIContract | ClearABIContractActuator | ✅ 启用 | 合约所有者清空合约 ABI |
-| 49 | UpdateBrokerageContract | StorageContract.UpdateBrokerageContract | UpdateBrokerageActuator | ✅ 启用 | Witness 调整对投票者的分成比例(0-100%) |
+| 48 | ClearABIContract | SmartContractOuterClass.ClearABIContract | ClearABIContractActuator | ✅ 启用 | 清空合约 ABI |
+| 49 | UpdateBrokerageContract | StorageContract.UpdateBrokerageContract | UpdateBrokerageActuator | ✅ 启用 | 调整对投票者的分成比例(0-100%) |
 | 51 | ShieldedTransferContract | ShieldContract.ShieldedTransferContract | ShieldedTransferActuator | 🚫 禁用(`getAllowShieldedTransaction` 未开启) | ZK-SNARK 匿名转账(透明 in + 匿名 spend/receive + 透明 out) |
 | 52 | MarketSellAssetContract | MarketContract.MarketSellAssetContract | MarketSellAssetActuator | 🚫 禁用(`getAllowMarketTransaction` 未开启) | 内置订单簿挂限价卖单(sell / buy 两种资产 + 价格) |
 | 53 | MarketCancelOrderContract | MarketContract.MarketCancelOrderContract | MarketCancelOrderActuator | 🚫 禁用(`getAllowMarketTransaction` 未开启) | 撤销自己挂出的未成交订单,退回剩余资产 |
@@ -420,7 +420,7 @@ TRON 网络支持多种不同类型的交易，比如 TRX 转账交易、TRC-10 
      }
 ```
 
-* `owner_address`：向交易对注入流动性的账户地址。
+* `owner_address`：向交易对注入流动性的账户地址（必须为该交易对的创建者）。
 * `exchange_id`： 交易对的id。
 * `token_id`：要注资的 token 的 id。
 * `quant`：要注资的 token 的数量。
