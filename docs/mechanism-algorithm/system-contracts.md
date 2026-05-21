@@ -585,7 +585,7 @@ TRON 网络支持多种不同类型的交易，比如 TRX 转账交易、TRC-10 
     }
 ```
 
-* `owner_address`：创建订单的账户地址。
+* `owner_address`：挂单的账户地址。
 * `sell_token_id`：要卖出的 token 的 id。
 * `sell_token_quantity`：要卖出的 token 的数量。
 * `buy_token_id`：要买入的 token 的 id。
@@ -600,7 +600,7 @@ TRON 网络支持多种不同类型的交易，比如 TRX 转账交易、TRC-10 
     }
 ```
 
-* `owner_address`：创建订单的账户地址。
+* `owner_address`：原挂单的账户地址。
 * `order_id`：要撤销的市场订单 id。
 
 ## 质押资产 FreezeBalanceV2Contract
