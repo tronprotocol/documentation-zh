@@ -17,7 +17,7 @@ TRON 网络支持多种不同类型的交易，比如 TRX 转账交易、TRC-10 
 | 5 | WitnessCreateContract | WitnessContract.WitnessCreateContract | WitnessCreateActuator | ✅ 启用 | 申请成为超级代表候选人，写入 witness store |
 | 6 | AssetIssueContract | AssetIssueContractOuterClass.AssetIssueContract | AssetIssueActuator | ✅ 启用 | 发行 TRC-10 token,按 ICO 规则冻结募集期余额 |
 | 8 | WitnessUpdateContract | WitnessContract.WitnessUpdateContract | WitnessUpdateActuator | ✅ 启用 | 更新 SR 的官网 URL |
-| 9 | ParticipateAssetIssueContract | AssetIssueContractOuterClass.ParticipateAssetIssueContract | ParticipateAssetIssueActuator | ✅ 启用 | 在 ICO 期间用 TRX 认购 TRC-10 token |
+| 9 | ParticipateAssetIssueContract | AssetIssueContractOuterClass.ParticipateAssetIssueContract | ParticipateAssetIssueActuator | ✅ 启用 | 在 ICO 期间用 TRX 参与 TRC-10 token 发行 |
 | 10 | AccountUpdateContract | AccountContract.AccountUpdateContract | UpdateAccountActuator | ✅ 启用 | 修改账户名(受 AllowUpdateAccountName 约束) |
 | 11 | FreezeBalanceContract | BalanceContract.FreezeBalanceContract | FreezeBalanceActuator | 🚫 禁用(`supportUnfreezeDelay` 启用后链拒绝) | Stake 1.0:冻结 TRX 换取 Bandwidth/Energy,并可委托给他人 |
 | 12 | UnfreezeBalanceContract | BalanceContract.UnfreezeBalanceContract | UnfreezeBalanceActuator | ✅ 启用 | Stake 1.0:到期后解冻 TRX,释放对应资源、清除得票 |
@@ -190,7 +190,7 @@ TRON 网络支持多种不同类型的交易，比如 TRX 转账交易、TRC-10 
 * `owner_address`：Witness 账户地址。
 * `update_url`：Witness 网站的 URL。
 
-## 购买 TRC-10 token ParticipateAssetIssueContract
+## 参与 TRC-10 token 发行 ParticipateAssetIssueContract
 
 ```protobuf
       message ParticipateAssetIssueContract {
@@ -201,7 +201,7 @@ TRON 网络支持多种不同类型的交易，比如 TRX 转账交易、TRC-10 
      }
 ```
 
-* `owner_address`：参与认购的账户地址。
+* `owner_address`：参与 TRC-10 token 发行的账户地址。
 * `to_address`：发行 token 所有者地址。
 * `asset_name`：发行 token 的 ID。
 * `amount`：购买发行 token 使用 TRX 的数量，单位是 sun。
