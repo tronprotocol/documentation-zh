@@ -7632,7 +7632,7 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item has-children">
-  <a href="#_1" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
+  <a href="#standard-node-upgrade-process" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
     <span class="md-ellipsis">
       标准节点升级流程
     </span>
@@ -7642,7 +7642,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item ">
-  <a href="#1" class="md-nav__link" >
+  <a href="#prepare-the-new-version-package" class="md-nav__link" >
     <span class="md-ellipsis">
       第 1 步：准备新版本程序包
     </span>
@@ -7660,7 +7660,7 @@
 </li>
         
           <li class="md-nav__item ">
-  <a href="#3" class="md-nav__link" >
+  <a href="#back-up-critical-data" class="md-nav__link" >
     <span class="md-ellipsis">
       第 3 步：备份关键数据
     </span>
@@ -7678,7 +7678,7 @@
 </li>
         
           <li class="md-nav__item ">
-  <a href="#5" class="md-nav__link" >
+  <a href="#start-the-node" class="md-nav__link" >
     <span class="md-ellipsis">
       第 5 步：启动节点
     </span>
@@ -7701,7 +7701,7 @@
 </li>
       
         <li class="md-nav__item ">
-  <a href="#_6" class="md-nav__link" >
+  <a href="#primary-backup-upgrade" class="md-nav__link" >
     <span class="md-ellipsis">
       主备节点升级指南
     </span>
@@ -8654,7 +8654,7 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item has-children">
-  <a href="#_1" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
+  <a href="#standard-node-upgrade-process" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
     <span class="md-ellipsis">
       标准节点升级流程
     </span>
@@ -8664,7 +8664,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item ">
-  <a href="#1" class="md-nav__link" >
+  <a href="#prepare-the-new-version-package" class="md-nav__link" >
     <span class="md-ellipsis">
       第 1 步：准备新版本程序包
     </span>
@@ -8682,7 +8682,7 @@
 </li>
         
           <li class="md-nav__item ">
-  <a href="#3" class="md-nav__link" >
+  <a href="#back-up-critical-data" class="md-nav__link" >
     <span class="md-ellipsis">
       第 3 步：备份关键数据
     </span>
@@ -8700,7 +8700,7 @@
 </li>
         
           <li class="md-nav__item ">
-  <a href="#5" class="md-nav__link" >
+  <a href="#start-the-node" class="md-nav__link" >
     <span class="md-ellipsis">
       第 5 步：启动节点
     </span>
@@ -8723,7 +8723,7 @@
 </li>
       
         <li class="md-nav__item ">
-  <a href="#_6" class="md-nav__link" >
+  <a href="#primary-backup-upgrade" class="md-nav__link" >
     <span class="md-ellipsis">
       主备节点升级指南
     </span>
@@ -8767,21 +8767,19 @@
 <p>本指南详细介绍了如何安全地将您的 java-tron 节点部署至最新版本。</p>
 <p>对于<strong>强制升级</strong>的版本，请严格遵循本指南完成部署。对于<strong>非强制升级</strong>的版本，您可以根据实际需求选择是否升级。</p>
 <ul>
-<li>对于<strong>标准节点</strong>，请参考 <a href="#standard_process">标准节点升级流程</a>。</li>
-<li>对于配置了<strong>主备高可用</strong>的节点，请遵循 <a href="#primary/backup_upgrade">主备节点升级指南</a> 以确保服务的平稳过渡。</li>
+<li>对于<strong>标准节点</strong>，请参考 <a href="#standard-node-upgrade-process">标准节点升级流程</a>。</li>
+<li>对于配置了<strong>主备高可用</strong>的节点，请遵循 <a href="#primary-backup-upgrade">主备节点升级指南</a> 以确保服务的平稳过渡。</li>
 </ul>
-<p><a id="standard_process"></a> </p>
-<h2 id="_1">标准节点升级流程<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h2 id="standard-node-upgrade-process">标准节点升级流程<a class="headerlink" href="#standard-node-upgrade-process" title="Permanent link">&para;</a></h2>
 <p>所有全节点（FullNode），包括超级代表（Super Representative）的出块节点，都应遵循以下步骤完成升级。</p>
-<p><a id="step1"></a> </p>
-<h3 id="1">第 1 步：准备新版本程序包<a class="headerlink" href="#1" title="Permanent link">&para;</a></h3>
+<h3 id="prepare-the-new-version-package">第 1 步：准备新版本程序包<a class="headerlink" href="#prepare-the-new-version-package" title="Permanent link">&para;</a></h3>
 <p>您可以选择直接下载编译好的 java-tron 可执行文件，也可下载新版本的源代码并自行编译，以获取新版本可执行文件。请在 java-tron 当前运行目录之外的其它路径下执行以下操作。</p>
-<h4 id="_2">方式一：下载可执行文件 (推荐)<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h4>
+<h4 id="_1">方式一：下载可执行文件 (推荐)<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h4>
 <ol>
 <li>访问 <a href="https://github.com/tronprotocol/java-tron/releases">java-tron GitHub Releases</a> 页面，下载最新版本的 <code>FullNode.jar</code> 可执行文件。</li>
-<li><strong>安全校验</strong>：为确保文件的完整性和安全性，请务必根据 <a href="https://tronprotocol.github.io/documentation-zh/releases/signature_verification/">java-tron 一致性校验</a> 文档对下载的 JAR 文件进行签名校验。</li>
+<li><strong>安全校验</strong>：为确保文件的完整性和安全性，请务必根据 <a href="../signature_verification/">java-tron 一致性校验</a> 文档对下载的 JAR 文件进行签名校验。</li>
 </ol>
-<h4 id="_3">方式二：从源码编译<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h4>
+<h4 id="_2">方式二：从源码编译<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h4>
 <ol>
 <li>克隆 <code>java-tron</code> 仓库并切换到目标版本的分支。
     <div class="highlight"><pre><span></span><code># 克隆仓库
@@ -8797,7 +8795,7 @@ $ git checkout -b release_vx.x.x
 </ol>
 <h3 id="2">第 2 步：停止运行中的节点<a class="headerlink" href="#2" title="Permanent link">&para;</a></h3>
 <blockquote>
-<p><strong>注意</strong>：如果这是您首次部署节点，请直接跳至 <a href="#step5">第 5 步：启动节点</a>。</p>
+<p><strong>注意</strong>：如果这是您首次部署节点，请直接跳至 <a href="#start-the-node">第 5 步：启动节点</a>。</p>
 </blockquote>
 <ol>
 <li>使用以下命令查找 java-tron 进程的 <code>PID</code>。
@@ -8805,10 +8803,9 @@ $ git checkout -b release_vx.x.x
 </code></pre></div></li>
 <li>停止节点进程。
     <div class="highlight"><pre><span></span><code>$ kill -15 &lt;进程ID&gt;
-</code></pre></div>
-<a id="step3"></a> </li>
+</code></pre></div></li>
 </ol>
-<h3 id="3">第 3 步：备份关键数据<a class="headerlink" href="#3" title="Permanent link">&para;</a></h3>
+<h3 id="back-up-critical-data">第 3 步：备份关键数据<a class="headerlink" href="#back-up-critical-data" title="Permanent link">&para;</a></h3>
 <p>建议您在升级前进行一次完整备份。请按指定顺序执行以下备份步骤：请务必依次备份可执行文件、数据库和配置文件。</p>
 <ol>
 <li><strong>备份当前的可执行文件</strong>
@@ -8825,7 +8822,7 @@ $ git checkout -b release_vx.x.x
 <h3 id="4">第 4 步：替换旧文件<a class="headerlink" href="#4" title="Permanent link">&para;</a></h3>
 <p>准备好新版本可执行文件，并备份好原节点数据后，请根据以下步骤替换旧文件：</p>
 <ol>
-<li>将 <a href="#step1">第 1 步</a> 中获取的新版本 <code>FullNode.jar</code> 拷贝到 java-tron 的工作目录。</li>
+<li>将 <a href="#prepare-the-new-version-package">第 1 步</a> 中获取的新版本 <code>FullNode.jar</code> 拷贝到 java-tron 的工作目录。</li>
 <li>更新配置文件 (可选)<ul>
 <li>建议使用新版本的配置文件替换现有文件。替换后，请将您之前的自定义设置（例如，私钥、<code>keystore</code> 路径）合并到新文件中。</li>
 <li><strong>配置更新策略</strong><ul>
@@ -8837,14 +8834,13 @@ $ git checkout -b release_vx.x.x
 </li>
 </ol>
 <blockquote>
-<p><strong>关于数据库</strong>：您通常可以直接使用 java-tron 工作目录下原有的数据库文件，也可考虑使用预先构建的 <a href="https://tronprotocol.github.io/documentation-zh/using_javatron/backup_restore">数据库快照</a>。</p>
+<p><strong>关于数据库</strong>：您通常可以直接使用 java-tron 工作目录下原有的数据库文件，也可考虑使用预先构建的 <a href="../../using_javatron/backup_restore/">数据库快照</a>。</p>
 </blockquote>
-<p><a id="step5"></a> </p>
-<h3 id="5">第 5 步：启动节点<a class="headerlink" href="#5" title="Permanent link">&para;</a></h3>
-<h4 id="_4">超级代表节点 (出块节点)<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h4>
-<p>对于出块节点，请参考<a href="../../using_javatron/installing_javatron/#_4">启动出块节点</a></p>
-<h4 id="_5">普通全节点<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h4>
-<p>对于普通全节点，请参考<a href="../../using_javatron/installing_javatron/#_2">启动全节点连接主网</a></p>
+<h3 id="start-the-node">第 5 步：启动节点<a class="headerlink" href="#start-the-node" title="Permanent link">&para;</a></h3>
+<h4 id="_3">超级代表节点 (出块节点)<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h4>
+<p>对于出块节点，请参考<a href="../../using_javatron/installing_javatron/#starting-a-block-production-node">启动出块节点</a></p>
+<h4 id="_4">普通全节点<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h4>
+<p>对于普通全节点，请参考<a href="../../using_javatron/installing_javatron/#starting-a-fullnode-on-the-tron-main-network">启动全节点连接主网</a></p>
 <h3 id="6">第 6 步：验证与监控<a class="headerlink" href="#6" title="Permanent link">&para;</a></h3>
 <ol>
 <li><strong>等待节点同步</strong>：节点启动后，将开始同步区块数据。请耐心等待其追赶至网络最新区块高度。</li>
@@ -8857,14 +8853,13 @@ $ git checkout -b release_vx.x.x
 </ul>
 </li>
 </ol>
-<p><strong>应急预案</strong>：如果在升级过程中遇到任何导致节点无法启动或运行异常的问题，请立即使用 <a href="#step3">第 3 步</a> 中备份的数据恢复至旧版本，并及时提交 Github Issue 或反馈至 TRON 社区以寻求帮助。</p>
+<p><strong>应急预案</strong>：如果在升级过程中遇到任何导致节点无法启动或运行异常的问题，请立即使用 <a href="#back-up-critical-data">第 3 步</a> 中备份的数据恢复至旧版本，并及时提交 Github Issue 或反馈至 TRON 社区以寻求帮助。</p>
 <hr />
-<p><a id="primary/backup_upgrade"></a> </p>
-<h2 id="_6">主备节点升级指南<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<h2 id="primary-backup-upgrade">主备节点升级指南<a class="headerlink" href="#primary-backup-upgrade" title="Permanent link">&para;</a></h2>
 <p>为确保服务的高可用性，主备节点的升级应采用滚动升级（Rolling Upgrade）策略。</p>
 <ol>
 <li><strong>升级备用节点 (Backup Node)</strong> <ul>
-<li>首先，在<strong>备用节点</strong>上完整执行上述 <a href="#standard_process">标准节点升级流程</a> 中的所有步骤。</li>
+<li>首先，在<strong>备用节点</strong>上完整执行上述 <a href="#standard-node-upgrade-process">标准节点升级流程</a> 中的所有步骤。</li>
 </ul>
 </li>
 <li><strong>执行切换</strong><ul>
@@ -8873,7 +8868,7 @@ $ git checkout -b release_vx.x.x
 </ul>
 </li>
 <li><strong>升级原主节点</strong><ul>
-<li>在确认新的主节点（原备用节点）稳定运行后，对原主节点执行 <a href="#standard_process">标准节点升级流程</a> 进行升级。</li>
+<li>在确认新的主节点（原备用节点）稳定运行后，对原主节点执行 <a href="#standard-node-upgrade-process">标准节点升级流程</a> 进行升级。</li>
 <li><strong>异常处理</strong>：如果在此期间，新的主节点出现故障，应立即停止对其的升级操作，并重新启动原主节点以恢复服务。同时，请保存故障节点的完整日志，以供问题排查。以便进行问题排查。如需进一步支持，请携带相关日志在 Github 提交 Issue 或通过社区反馈。</li>
 </ul>
 </li>
@@ -8907,7 +8902,7 @@ $ git checkout -b release_vx.x.x
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年5月6日 13:06:34 UTC">2026年5月6日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年5月12日 08:25:39 UTC">2026年5月12日</span>
   </span>
 
     
@@ -8999,8 +8994,6 @@ $ git checkout -b release_vx.x.x
       <script src="../../assets/javascripts/bundle.c8b220af.min.js"></script>
       
         <script src="../../javascripts/toc.js"></script>
-      
-        <script src="../../javascripts/nav-toc.js"></script>
       
         <script src="../../javascripts/mathjax-sri.js"></script>
       

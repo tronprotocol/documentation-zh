@@ -508,7 +508,7 @@
 </li>
         
           <li class="md-nav__item ">
-  <a href="#_5" class="md-nav__link" >
+  <a href="#data-snapshot-usage-steps" class="md-nav__link" >
     <span class="md-ellipsis">
       数据快照的使用
     </span>
@@ -8682,7 +8682,7 @@
 </li>
         
           <li class="md-nav__item ">
-  <a href="#_5" class="md-nav__link" >
+  <a href="#data-snapshot-usage-steps" class="md-nav__link" >
     <span class="md-ellipsis">
       数据快照的使用
     </span>
@@ -8824,18 +8824,17 @@ done
 </tr>
 </tbody>
 </table>
-<p><strong>小提示：</strong> 如果您已经拥有 FullNode 的全量数据，可以使用 <a href="../toolkit/#_5">Lite FullNode 数据裁剪工具</a>自行将 FullNode 数据裁剪为 Lite FullNode 数据。</p>
+<p><strong>小提示：</strong> 如果您已经拥有 FullNode 的全量数据，可以使用 <a href="../toolkit/#lite-fullnode-data-pruning">Lite FullNode 数据裁剪工具</a>自行将 FullNode 数据裁剪为 Lite FullNode 数据。</p>
 <h3 id="nile">Nile 测试网数据快照<a class="headerlink" href="#nile" title="Permanent link">&para;</a></h3>
 <p>关于 Nile 测试网数据快照的详细信息，请参照 <a href="https://nileex.io/">官网</a>。使用方法与主网数据快照相同。</p>
-<h3 id="_5">数据快照的使用<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<h3 id="data-snapshot-usage-steps">数据快照的使用<a class="headerlink" href="#data-snapshot-usage-steps" title="Permanent link">&para;</a></h3>
 <p>数据快照的使用步骤如下：</p>
 <ol>
 <li>根据自己需求下载相应压缩备份数据库。</li>
 <li>解压备份数据库压缩包至 <code>output-directory</code> 目录（或根据需求指定其他目标目录）。有关详细解压说明，请参见下方<a href="#uncompress-ways">数据快照解压方式</a>章节。 </li>
 <li>启动节点。节点默认读取 <code>output-directory</code> 目录。如果您的数据解压到了其他目录，请在节点启动时添加 <code>-d</code> 参数并指定数据库目录名。</li>
 </ol>
-<p><a id="uncompress-ways"></a></p>
-<h4 id="_6">数据快照的解压方式<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h4>
+<h4 id="uncompress-ways">数据快照的解压方式<a class="headerlink" href="#uncompress-ways" title="Permanent link">&para;</a></h4>
 <p>TRON 网络快照数据大小超过 2TB。我们推荐使用<strong>流式处理（边下载边解压）</strong>，以节省磁盘空间。</p>
 <p><strong>方法 1：流式下载并解压（推荐，节省空间）</strong></p>
 <p>创建一个名为 <code>download_snapshot.sh</code> 的脚本文件，并写入以下内容：</p>
@@ -8874,7 +8873,7 @@ tar -zxvf FullNode_output-directory.tgz
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年5月6日 13:06:34 UTC">2026年5月6日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年5月11日 09:37:12 UTC">2026年5月11日</span>
   </span>
 
     
@@ -8966,8 +8965,6 @@ tar -zxvf FullNode_output-directory.tgz
       <script src="../../assets/javascripts/bundle.c8b220af.min.js"></script>
       
         <script src="../../javascripts/toc.js"></script>
-      
-        <script src="../../javascripts/nav-toc.js"></script>
       
         <script src="../../javascripts/mathjax-sri.js"></script>
       
