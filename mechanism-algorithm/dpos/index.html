@@ -8947,7 +8947,7 @@
 </tr>
 <tr>
 <td>出块顺序（记账顺序）</td>
-<td>27 个区块生产者按照得票数量从高到低进行排序，以此确定其生产区块的顺序。</td>
+<td>27 个区块生产者按照得票数量从高到低进行排序，以此确定其生产区块的顺序。当两个 SR 的得票数相同时，使用其地址作为决胜依据，以产生确定的顺序。</td>
 </tr>
 <tr>
 <td>槽位（Slot）</td>
@@ -8955,11 +8955,11 @@
 </tr>
 <tr>
 <td>出块轮（Epoch）</td>
-<td>TRON 设定每 <strong>6 小时</strong>为一个出块轮，称为一个 <strong>Epoch</strong>。每个出块轮的最后两个出块时间是<strong>维护期</strong>。每个出块轮的维护期将决定下一个出块轮的出块顺序。</td>
+<td>TRON 设定每 <strong>6 小时</strong>为一个出块轮，称为一个 <strong>Epoch</strong>。在相邻两个出块轮的交界处，系统会执行一次<strong>维护期</strong>，以确定下一个出块轮的出块顺序。</td>
 </tr>
 <tr>
 <td>维护期</td>
-<td>TRON 设定为 <strong>2 个区块时间</strong>，即 <strong>6 秒钟</strong>。此时间段用于统计候选人的得票数。由于 24 小时有 4 个出块轮，因此自然有 4 个维护期。维护期内不进行区块生产，主要用于确定下一个出块轮的生产顺序。</td>
+<td>在每个出块轮的交界处，系统会触发维护：统计本出块轮内累计的选票、重新选出 27 个 SR，并更新下一个出块轮的出块顺序。维护期间，产块会<strong>跳过 2 个槽位</strong>（<strong>6 秒钟</strong>），因此在该区间内不会产生新区块。由于 24 小时有 4 个出块轮，因此每天自然有 4 个维护期。</td>
 </tr>
 </tbody>
 </table>
@@ -9004,10 +9004,12 @@
 <p>当区块链发生分叉时，诚实的超级代表总是会选择在当前<strong>最长</strong>的分叉链上继续生产区块。</p>
 <h2 id="_11">激励模型<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h2>
 <p>为了保证 TRON 区块链系统安全高效地运行，TRON 设计了激励模型，以鼓励更多节点加入 TRON 网络，从而扩大网络规模。</p>
+<p>下方所列的奖励数额为通过链上提案调整后的<strong>当前主网值</strong>，并非协议硬编码，未来仍可通过提案再次调整（详见<a href="#proposal-based-parameter-adjustment">基于提案的参数调整</a>）。</p>
 <ul>
 <li><strong>区块生产奖励：</strong> TRON 网络每成功生产一个区块，会向该区块的生产者（即对应的超级代表）奖励 <strong>8 TRX</strong>。该超级代表在根据其设定的佣金比例扣除佣金后，会将剩余部分根据投票者的投票权重分配给支持他们的选民。</li>
 <li><strong>投票奖励：</strong> 随着每个区块的产生，TRON 网络还会向所有超级代表和超级代表合伙人额外奖励 <strong>128 TRX</strong>。这笔奖励将根据他们各自获得的投票比例进行分配。同样，超级代表和超级代表合伙人在根据其设定的佣金比例扣除佣金后，会将剩余的投票奖励根据选民的投票权重分发给对应的选民。</li>
 </ul>
+<p><a id="proposal-based-parameter-adjustment"></a></p>
 <h2 id="_12">基于提案的参数调整<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h2>
 <p>DPoS 的一个重要特性是，任何系统参数的调整都可以通过<strong>链上提案</strong>发起。SR 通过对提案的投票来决定提案是否生效。这种机制的好处在于，在链上调整参数时，<strong>无需进行硬分叉升级</strong>。</p>
 <p>目前 TRON 网络的动态参数及其值，以及过往的提案记录，请参考 <a href="https://tronscan.org/#/sr/committee">TRONSCAN 委员会</a> 页面。</p>
@@ -9035,7 +9037,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年4月8日 08:31:59 UTC">2026年4月8日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年5月11日 07:34:43 UTC">2026年5月11日</span>
   </span>
 
     
@@ -9127,8 +9129,6 @@
       <script src="../../assets/javascripts/bundle.c8b220af.min.js"></script>
       
         <script src="../../javascripts/toc.js"></script>
-      
-        <script src="../../javascripts/nav-toc.js"></script>
       
         <script src="../../javascripts/mathjax-sri.js"></script>
       

@@ -666,7 +666,7 @@
 </li>
         
           <li class="md-nav__item ">
-  <a href="#active-peers" class="md-nav__link" >
+  <a href="#active-connection-active-peers" class="md-nav__link" >
     <span class="md-ellipsis">
       主动连接（Active Peers）
     </span>
@@ -8889,7 +8889,7 @@
 </li>
         
           <li class="md-nav__item ">
-  <a href="#active-peers" class="md-nav__link" >
+  <a href="#active-connection-active-peers" class="md-nav__link" >
     <span class="md-ellipsis">
       主动连接（Active Peers）
     </span>
@@ -9234,7 +9234,7 @@
       voteCount = 100000000
     }
   ]
-  timestamp = &quot;0&quot; #2017-8-26 12:00:00
+  timestamp = &quot;0&quot; # 创世块时间戳，单位为毫秒
   parentHash = &quot;0xe58f33f9baf9305dc6f82b9f1934ea8f0ade2defb951258d50167028c780351f&quot;
 }
 </code></pre></div></p>
@@ -9248,7 +9248,7 @@
 }
 </code></pre></div></p>
 <h3 id="_4">引导节点<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
-<p>java-tron 使用 <a href="https://zh.wikipedia.org/wiki/Kademlia">Kademlia</a> 协议发现其他节点。节点发现需要引导节点 (boot 节点)，借助引导节点发现 TRON 网络中的其他节点。引导节点由两部分组成，一部分是种子节点，一部分是配置的主动连接节点，详情见<a href="#active-peers">主动连接</a>。</p>
+<p>java-tron 使用 <a href="https://zh.wikipedia.org/wiki/Kademlia">Kademlia</a> 协议发现其他节点。节点发现需要引导节点 (boot 节点)，借助引导节点发现 TRON 网络中的其他节点。引导节点由两部分组成，一部分是种子节点，一部分是配置的主动连接节点，详情见<a href="#active-connection-active-peers">主动连接</a>。</p>
 <p>种子节点也由两部分组成：</p>
 <h4 id="seednode">配置的 <code>seed.node</code><a class="headerlink" href="#seednode" title="Permanent link">&para;</a></h4>
 <p>使用 <code>seed.node</code> 初始化网络连接。应设置为在线稳定的全节点。</p>
@@ -9284,14 +9284,24 @@
 <p>在某些情况下，不需要开启节点发现，比如，运行一个本地测试节点或部署一个具有固定的一些节点的测试网络。这时可以通过将配置项设置成 <code>node.discovery.enable = false</code> 来关闭节点发现，也可以通过防火墙关闭 UDP <code>18888</code> 端口来实现。</p>
 <h2 id="_7">节点连接<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
 <h3 id="_8">节点连接数量<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
-<p><code>node.maxConnections</code>  表示节点与其它节点的最大连接数量，默认值是 30。设置更大的值可以使节点能够建立更多的连接，加入网络的效率更高，同时广播的效率也更高，但是，相对的维护连接需要的带宽也更高，性能消耗也更大，因此，请根据实际情况设置。 
-<div class="highlight"><pre><span></span><code>node {
+<p>节点的连接数量由以下几个参数共同控制，通常需要配合调优：</p>
+<ul>
+<li><code>node.maxConnections</code>：节点的最大连接数（默认值：30）。当连接数达到该上限后，来自非可信节点的被动连接会被拒绝。可信节点是指 IP 出现在 <code>node.passive</code>、<code>node.active</code> 或 <code>fastForward</code> 中的节点（这三处的 IP 都会被加入可信列表）。主动连接不受该限制约束：对 <code>node.active</code> 中配置的节点的主动连接，仅受 <code>node.active</code> 列表大小限制；对通过节点发现协议发现的节点的主动连接，由 <code>minConnections</code> 和 <code>minActiveConnections</code> 驱动（见下文）。</li>
+<li><code>node.minConnections</code>：期望维持的最小总连接数，包含主动连接和被动连接（默认值：8）。当总连接数低于该值时，节点会向已发现的节点发起主动连接以补足。</li>
+<li><code>node.minActiveConnections</code>：期望维持的对已发现节点的最小主动连接数（默认值：3）。即使总连接数已经达到或超过 <code>minConnections</code>，节点仍会持续向已发现的节点发起主动连接，直到该阈值被满足。</li>
+<li><code>node.maxConnectionsWithSameIp</code>：允许来自同一 IP 地址的最大连接数（默认值：2），用于缓解来自单一 IP 的滥用。</li>
+</ul>
+<p><div class="highlight"><pre><span></span><code>node {
   ...
-  maxConnections = 30           # 最大连接数
+  maxConnections = 30
+  minConnections = 8
+  minActiveConnections = 3
+  maxConnectionsWithSameIp = 2
   ...
 }
-</code></pre></div></p>
-<h3 id="active-peers">主动连接（Active Peers）<a class="headerlink" href="#active-peers" title="Permanent link">&para;</a></h3>
+</code></pre></div>
+注意：<code>minConnections</code> 不能超过 <code>maxConnections</code>，<code>minActiveConnections</code> 不能超过 <code>minConnections</code>，否则节点会在启动时自动将其修正到合法范围内。</p>
+<h3 id="active-connection-active-peers">主动连接（Active Peers）<a class="headerlink" href="#active-connection-active-peers" title="Permanent link">&para;</a></h3>
 <p>主动连接的目标节点来源于三部分：</p>
 <ul>
 <li>
@@ -9359,7 +9369,7 @@ Generate block 79336 success, trxs:0, pendingCount: 0, rePushCount: 0, postponed
 </code></pre></div>
 <h3 id="_14">查询节点状态<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h3>
 <p>使用 HTTP 接口获取当前节点运行状态：</p>
-<p><div class="highlight"><pre><span></span><code>$ curl http://127.0.0.1:16887/wallet/getnodeinfo
+<p><div class="highlight"><pre><span></span><code>$ curl http://127.0.0.1:8090/wallet/getnodeinfo
 </code></pre></div>
 返回示例：
 <div class="highlight"><pre><span></span><code>{
@@ -9391,7 +9401,7 @@ Generate block 79336 success, trxs:0, pendingCount: 0, rePushCount: 0, postponed
 </code></pre></div></p>
 <h3 id="_15">验证节点同步状态<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h3>
 <p>可在 <a href="https://tronscan.org/">TRONSCAN 区块浏览器</a> 查询当前区块高度，并与本地接口返回结果对比：
-<div class="highlight"><pre><span></span><code>curl http://127.0.0.1:16887/wallet/getnowblock
+<div class="highlight"><pre><span></span><code>curl http://127.0.0.1:8090/wallet/getnowblock
 </code></pre></div>
 若区块高度一致，则说明本地节点同步正常。</p>
 <h2 id="_16">常见连接问题排查<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h2>
@@ -9423,7 +9433,7 @@ Generate block 79336 success, trxs:0, pendingCount: 0, rePushCount: 0, postponed
 </ul>
 <h3 id="_19">搭建参考：<a class="headerlink" href="#_19" title="Permanent link">&para;</a></h3>
 <ul>
-<li>请参考文档 <a href="https://tronprotocol.github.io/documentation-zh/using_javatron/private_network/">私链网络</a> 获取完整的私链部署说明。</li>
+<li>请参考文档 <a href="../private_network/">私链网络</a> 获取完整的私链部署说明。</li>
 </ul>
 
 
@@ -9445,7 +9455,7 @@ Generate block 79336 success, trxs:0, pendingCount: 0, rePushCount: 0, postponed
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年5月8日 06:27:17 UTC">2026年5月8日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年5月13日 07:29:20 UTC">2026年5月13日</span>
   </span>
 
     
@@ -9537,8 +9547,6 @@ Generate block 79336 success, trxs:0, pendingCount: 0, rePushCount: 0, postponed
       <script src="../../assets/javascripts/bundle.c8b220af.min.js"></script>
       
         <script src="../../javascripts/toc.js"></script>
-      
-        <script src="../../javascripts/nav-toc.js"></script>
       
         <script src="../../javascripts/mathjax-sri.js"></script>
       

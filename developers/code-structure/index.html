@@ -7581,7 +7581,7 @@
 </li>
         
           <li class="md-nav__item ">
-  <a href="#_24" class="md-nav__link" >
+  <a href="#node-discovery" class="md-nav__link" >
     <span class="md-ellipsis">
       节点发现
     </span>
@@ -7590,7 +7590,7 @@
 </li>
         
           <li class="md-nav__item ">
-  <a href="#_25" class="md-nav__link" >
+  <a href="#node-connection" class="md-nav__link" >
     <span class="md-ellipsis">
       节点连接
     </span>
@@ -7599,7 +7599,7 @@
 </li>
         
           <li class="md-nav__item ">
-  <a href="#_30" class="md-nav__link" >
+  <a href="#block-synchronization" class="md-nav__link" >
     <span class="md-ellipsis">
       区块同步
     </span>
@@ -7608,7 +7608,7 @@
 </li>
         
           <li class="md-nav__item ">
-  <a href="#_34" class="md-nav__link" >
+  <a href="#block-and-transaction-broadcast" class="md-nav__link" >
     <span class="md-ellipsis">
       区块和交易广播
     </span>
@@ -7617,7 +7617,7 @@
 </li>
         
           <li class="md-nav__item ">
-  <a href="#_35" class="md-nav__link" >
+  <a href="#_29" class="md-nav__link" >
     <span class="md-ellipsis">
       总结
     </span>
@@ -8976,7 +8976,7 @@
 </li>
         
           <li class="md-nav__item ">
-  <a href="#_24" class="md-nav__link" >
+  <a href="#node-discovery" class="md-nav__link" >
     <span class="md-ellipsis">
       节点发现
     </span>
@@ -8985,7 +8985,7 @@
 </li>
         
           <li class="md-nav__item ">
-  <a href="#_25" class="md-nav__link" >
+  <a href="#node-connection" class="md-nav__link" >
     <span class="md-ellipsis">
       节点连接
     </span>
@@ -8994,7 +8994,7 @@
 </li>
         
           <li class="md-nav__item ">
-  <a href="#_30" class="md-nav__link" >
+  <a href="#block-synchronization" class="md-nav__link" >
     <span class="md-ellipsis">
       区块同步
     </span>
@@ -9003,7 +9003,7 @@
 </li>
         
           <li class="md-nav__item ">
-  <a href="#_34" class="md-nav__link" >
+  <a href="#block-and-transaction-broadcast" class="md-nav__link" >
     <span class="md-ellipsis">
       区块和交易广播
     </span>
@@ -9012,7 +9012,7 @@
 </li>
         
           <li class="md-nav__item ">
-  <a href="#_35" class="md-nav__link" >
+  <a href="#_29" class="md-nav__link" >
     <span class="md-ellipsis">
       总结
     </span>
@@ -9428,13 +9428,13 @@
 <img alt="image" src="https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/network_architecture.png" /></p>
 <p>P2P网络作为TRON的最底层模块，直接决定了整个区块链网络的稳定性。网络模块按照功能可以划分成以下四部分：</p>
 <ul>
-<li><a href="#_24">节点发现</a></li>
-<li><a href="#_25">节点连接</a></li>
-<li><a href="#_30">区块同步</a></li>
-<li><a href="#_34">区块和交易广播</a></li>
+<li><a href="#node-discovery">节点发现</a></li>
+<li><a href="#node-connection">节点连接</a></li>
+<li><a href="#block-synchronization">区块同步</a></li>
+<li><a href="#block-and-transaction-broadcast">区块和交易广播</a></li>
 </ul>
 <p>下面将分别介绍这四个功能部分。</p>
-<h3 id="_24">节点发现<a class="headerlink" href="#_24" title="Permanent link">&para;</a></h3>
+<h3 id="node-discovery">节点发现<a class="headerlink" href="#node-discovery" title="Permanent link">&para;</a></h3>
 <p>节点发现是区块链节点接入区块链网络的第一步。区块链网络是一种结构化的P2P网络。结构化网络会将所有节点按照某种结构有序的组织起来，比如形成一个环状网络或者树状的网络。 结构化网络普遍基于DHT(Distributed Hash Table，分布式哈希表) 算法实现。具体的实现方案有 Chord、Pastry、CAN、Kademlia 等算法。TRON 网络采用 Kademlia 算法。</p>
 <h4 id="kademlia">Kademlia 算法<a class="headerlink" href="#kademlia" title="Permanent link">&para;</a></h4>
 <p>Kademlia 是分布式散列表(DHT，Distributed Hash Table)的一种实现，是去中心化 P2P 网络中最核心的一种路由寻址技术，可以在无中心服务器的情况下，在网络中快速找到目标节点。</p>
@@ -9473,7 +9473,7 @@
 <p>当本节点接收到远端节点回复的 <code>DISCOVER_NEIGHBORS</code> 消息后，会依次向收到的邻居节点发送 <code>DISCOVER_PING</code> 消息，接下来如果收到了回复消息<code>DISCOVER_PONG</code>，则判断相应的K桶是否装满，如果K桶未满，则将新节点加入K桶，如果K桶满了，则向其中的某个节点发起挑战，若挑战成功(向被挑战的节点发送<code>DISCOVER_PING</code> 消息，如果未能收到其回复<code>DISCOVER_PONG</code>，则为挑战成功，否则挑战失败)，则将旧节点从K桶中删除，将新节点加入K桶。
 <img alt="image" src="https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/network_updatek.png" /></p>
 <p>节点周期的执行节点发现任务，不断的更新K桶，构建自己的节点路由表。接下来就是节点间建立连接的过程了。</p>
-<h3 id="_25">节点连接<a class="headerlink" href="#_25" title="Permanent link">&para;</a></h3>
+<h3 id="node-connection">节点连接<a class="headerlink" href="#node-connection" title="Permanent link">&para;</a></h3>
 <p>在了解节点间如何建立TCP连接之前，您需要首先了解peer节点类型。</p>
 <h4 id="peer">peer节点管理<a class="headerlink" href="#peer" title="Permanent link">&para;</a></h4>
 <p>节点需要对peer节点进行管理分类，以进行高效稳定的节点连接。远端节点可以分为如下几类：</p>
@@ -9487,8 +9487,8 @@
 <h4 id="tcp">建立节点间TCP连接<a class="headerlink" href="#tcp" title="Permanent link">&para;</a></h4>
 <p>在节点启动后，会创建一个建立节点间TCP连接的定时任务<code>poolLoopExecutor</code>，用于选择节点，并与之建立连接。建立TCP连接定时任务，工作过程如下：
 <img alt="image" src="https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/network_connect.png" /></p>
-<p>TCP连接主要分为两步：首先，确定要与之建立连接的节点的列表；列表中需要包含active nodes中还没有成功建立连接的节点，然后计算还需要建立连接的数量，从邻居发现节点列表里面根据 <a href="#_26">节点过滤策略</a> 过滤出满足要求的节点，再根据 <a href="#_27">节点打分策略</a> 对节点打分排序，将最高的相应数量的节点加入到请求列表中。最后，与请求列表中的节点建立TCP连接。</p>
-<h5 id="_26">节点过滤策略<a class="headerlink" href="#_26" title="Permanent link">&para;</a></h5>
+<p>TCP连接主要分为两步：首先，确定要与之建立连接的节点的列表；列表中需要包含active nodes中还没有成功建立连接的节点，然后计算还需要建立连接的数量，从邻居发现节点列表里面根据 <a href="#node-filter-strategy">节点过滤策略</a> 过滤出满足要求的节点，再根据 <a href="#node-scoring-strategy">节点打分策略</a> 对节点打分排序，将最高的相应数量的节点加入到请求列表中。最后，与请求列表中的节点建立TCP连接。</p>
+<h5 id="node-filter-strategy">节点过滤策略<a class="headerlink" href="#node-filter-strategy" title="Permanent link">&para;</a></h5>
 <p>建立节点连接时，需过滤掉如下几类节点，并判断节点自己的连接数是否达到了最大连接。</p>
 <ul>
 <li>自身节点</li>
@@ -9499,7 +9499,7 @@
 </ul>
 <p>但是对于可信节点，会忽略掉部分过滤策略，始终与其建立连接。
 <img alt="image" src="https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/network_filterrule.png" /></p>
-<h5 id="_27">节点打分策略<a class="headerlink" href="#_27" title="Permanent link">&para;</a></h5>
+<h5 id="node-scoring-strategy">节点打分策略<a class="headerlink" href="#node-scoring-strategy" title="Permanent link">&para;</a></h5>
 <p>节点分数用于确定建立连接的优先级，分数越高，优先级越高。打分维度包括：</p>
 <ul>
 <li>丢包率：丢包率越低，说明数据通信质量越好。分数与丢包率成反比，最高分为100，最低为0</li>
@@ -9515,35 +9515,35 @@
 </li>
 </ul>
 <p>计算节点分数时，首先判断节点是否为处罚状态，如果是，则分数计为0，否则，节点分数为各个维度的得分之和。</p>
-<h4 id="_28">握手<a class="headerlink" href="#_28" title="Permanent link">&para;</a></h4>
+<h4 id="_24">握手<a class="headerlink" href="#_24" title="Permanent link">&para;</a></h4>
 <p>TCP 连接建立成功后，主动发起 TCP 连接请求的节点，会向邻居节点发送握手消息 <code>P2P_HELLO</code>，目的为了确认节点间的链路信息是否一致，以及是否需要发起区块同步流程。</p>
 <p>当邻居节点收到 <code>P2P_HELLO</code> 后，会与本地信息做比较，比如检查 p2p version、创世块信息是否一致，若一致，还需要检查固化块，以及判断是否是重复的连接、恶意节点等。若所有的检查条件都通过，则会回复 <code>P2P_HELLO</code> 消息，然后进行区块同步或广播；否则，断开连接。</p>
-<h4 id="_29">信道保活<a class="headerlink" href="#_29" title="Permanent link">&para;</a></h4>
+<h4 id="_25">信道保活<a class="headerlink" href="#_25" title="Permanent link">&para;</a></h4>
 <p>信道保活是通过 <code>P2P_PING</code>、<code>P2P_PONG</code> TCP 报文来完成的。当节点与邻居节点建立了 TCP 连接并握手成功后，节点会为连接开启一个线程 <code>pingTask</code> 定期发送 <code>P2P_PING</code> 消息以维护该 TCP 连接，每 10s 调度一次。如果在超时时间内未收到节点回复的 <code>P2P_PONG</code> 消息，则断开连接。</p>
-<h3 id="_30">区块同步<a class="headerlink" href="#_30" title="Permanent link">&para;</a></h3>
+<h3 id="block-synchronization">区块同步<a class="headerlink" href="#block-synchronization" title="Permanent link">&para;</a></h3>
 <p>在与对方节点完成握手后，如果发现对方节点的区块链比本地的区块链要长，根据最长链原则，会触发区块同步的处理流程<code>syncService.startSync</code>。同步过程中的报文交互如下图：</p>
 <p><img alt="image" src="https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/network_syncflow.png" /></p>
 <p>节点A向对方节点B发送 <code>SYNC_BLOCK_CHAIN</code> 消息，以宣告本地链的摘要信息。对方节点B收到后，计算出节点A缺失的区块清单，并将缺失区块的id列表通过 <code>BLOCK_CHAIN_INVENTORY</code> 消息发送给节点A，一次最多携带2000个区块id。</p>
 <p>节点A收到 <code>BLOCK_CHAIN_INVENTORY</code> 消息后，取出缺失区块id，并通过异步的方式向节点B发送 <code>FETCH_INV_DATA</code> 消息以请求缺少的区块，一次最多请求100个区块。如果还有需要同步的区块（即 <code>BLOCK_CHAIN_INVENTORY</code> 报文中的remain_num大于0），会触发新一轮的区块同步流程。</p>
 <p>节点B收到节点A的 <code>FETCH_INV_DATA</code> 报文后，通过 <code>BLOCK</code> 消息将区块发送给节点A。节点A收到 <code>BLOCK</code> 报文后，异步处理该区块。</p>
-<h4 id="_31">链摘要及缺失区块清单<a class="headerlink" href="#_31" title="Permanent link">&para;</a></h4>
+<h4 id="_26">链摘要及缺失区块清单<a class="headerlink" href="#_26" title="Permanent link">&para;</a></h4>
 <p>下面根据几个不同的区块同步场景示例，说明链摘要和节点缺少的区块清单的生成。</p>
 <ul>
 <li>链摘要：有序的区块blockID列表，包括：最高固化块、最高非固化块，以及之间二分法对应的区块</li>
 <li>缺失区块清单：邻居节点根据链摘要与自己链进行比较，确定对方缺失的区块清单，返回一组连续的区块blockID以及剩余的块数</li>
 </ul>
-<h5 id="_32">普通场景<a class="headerlink" href="#_32" title="Permanent link">&para;</a></h5>
+<h5 id="_27">普通场景<a class="headerlink" href="#_27" title="Permanent link">&para;</a></h5>
 <p>本地头块高度为1018，固化块高度为1000，两个节点刚建立连接，所以共同块高度为0，通过二分方式获取到节点A的本地链摘要为：1000、1010、1015、1017、1018。</p>
 <p>节点B收到节点A的链摘要后，结合本地链可以生产节点A缺少的区块清单为：1018、1019、1020、1021。之后节点A根据缺失区块清单，请求同步区块1019、1020、1021。
 <img alt="image" src="https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/network_sync1.png" /></p>
-<h5 id="_33">切链场景<a class="headerlink" href="#_33" title="Permanent link">&para;</a></h5>
+<h5 id="_28">切链场景<a class="headerlink" href="#_28" title="Permanent link">&para;</a></h5>
 <p>本地主链头块高度为1018，固化块高度为1000，两个节点刚建立连接，所以共同块高度为0，通过二分方式获取到节点A的本地链摘要为：1000、1010、1015、1017、1018。</p>
 <p>节点B收到节点A的链摘要后，发现本地主链跟节点A的主链不在同一条链上，对比节点A的链摘要，找到共同块高度为1015，则认为节点A缺少的区块清单为：1015、1016'、1017'、1018'，1019'。之后节点A根据缺失区块清单，请求同步区块1018'，1019'。
 <img alt="image" src="https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/network_sync2.png" /></p>
 <p>另一种切链场景，本地主链头块高度为1018，固化块高度为1000，共同块为1017‘，位于fork链上，通过二分方式获取到节点A的本地链摘要为：1000、1009、1014、1016'、1017'。</p>
 <p>节点B收到节点A的链摘要后，结合本地链可以生产节点A缺少的区块清单为：1017'、1018'、1019'。之后节点A根据缺失区块清单，请求同步区块1018'，1019'。
 <img alt="image" src="https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/network_sync3.png" /></p>
-<h3 id="_34">区块和交易广播<a class="headerlink" href="#_34" title="Permanent link">&para;</a></h3>
+<h3 id="block-and-transaction-broadcast">区块和交易广播<a class="headerlink" href="#block-and-transaction-broadcast" title="Permanent link">&para;</a></h3>
 <p>当超级代表节点生产出新的区块，或者全节点接收到用户发起的新交易时，会发起交易&amp;区块广播流程。当节点接收到新区块或者新交易时，会转发相应的区块或交易，转发与广播的流程一样。报文交互如下图所示：
 <img alt="image" src="https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/network_broadcastflow.png" /></p>
 <p>其中涉及到的消息类型包括：</p>
@@ -9555,7 +9555,7 @@
 </ul>
 <p>节点A将待广播交易或区块通过 <code>INVENTORY</code> 清单消息发送到节点B。节点B收到 <code>INVENTORY</code> 清单消息后，需要检查对方节点的状态，如果可以接收该消息，则将清单中的区块/交易放入待获取队列 <code>invToFetch</code> 中。如果是区块清单，还会立即触发"获取区块&amp;交易任务"，来向节点A发送 <code>FETCH_INV_DATA</code> 消息获取区块&amp;交易。</p>
 <p>节点A收到 <code>FETCH_INV_DATA</code> 消息后，会检查是否发送过清单消息给对方，如果发送过，则根据清单数据，向节点B发送交易或者区块消息。节点B收到交易或者区块消息后，处理消息，并触发转发流程。</p>
-<h3 id="_35">总结<a class="headerlink" href="#_35" title="Permanent link">&para;</a></h3>
+<h3 id="_29">总结<a class="headerlink" href="#_29" title="Permanent link">&para;</a></h3>
 <p>本文介绍了TRON最底层模块-P2P网络相关的实现细节，包括节点发现、节点连接、区块同步、区块和交易广播流程，希望通过阅读本文能帮助开发者进一步了解和开发java-tron网络相关模块。</p>
 
 
@@ -9577,7 +9577,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年5月8日 06:27:17 UTC">2026年5月8日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年5月11日 09:37:12 UTC">2026年5月11日</span>
   </span>
 
     
@@ -9669,8 +9669,6 @@
       <script src="../../assets/javascripts/bundle.c8b220af.min.js"></script>
       
         <script src="../../javascripts/toc.js"></script>
-      
-        <script src="../../javascripts/nav-toc.js"></script>
       
         <script src="../../javascripts/mathjax-sri.js"></script>
       
