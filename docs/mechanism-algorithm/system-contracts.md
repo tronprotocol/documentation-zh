@@ -13,19 +13,19 @@ TRON 网络支持多种不同类型的交易，比如 TRX 转账交易、TRC-10 
 | 1 | TransferContract | BalanceContract.TransferContract | TransferActuator | ✅ 启用 | TRX 转账 |
 | 2 | TransferAssetContract | AssetIssueContractOuterClass.TransferAssetContract | TransferAssetActuator | ✅ 启用 | TRC-10 token 转账 |
 | 3 | VoteAssetContract |  |  | 🚫 禁用(未实现Actuator)  |  |
-| 4 | VoteWitnessContract | WitnessContract.VoteWitnessContract | VoteWitnessActuator | ✅ 启用 | 用账户的 TronPower 为 SR 投票,刷新投票记录(下次 maintenance 生效) |
-| 5 | WitnessCreateContract | WitnessContract.WitnessCreateContract | WitnessCreateActuator | ✅ 启用 | 申请成为超级代表候选人，写入 witness store |
+| 4 | VoteWitnessContract | WitnessContract.VoteWitnessContract | VoteWitnessActuator | ✅ 启用 | 用账户的 TronPower 为 Witness 投票,刷新投票记录(下次 maintenance 生效) |
+| 5 | WitnessCreateContract | WitnessContract.WitnessCreateContract | WitnessCreateActuator | ✅ 启用 | 申请成为 Witness，写入 witness store |
 | 6 | AssetIssueContract | AssetIssueContractOuterClass.AssetIssueContract | AssetIssueActuator | ✅ 启用 | 发行 TRC-10 token,按 ICO 规则冻结募集期余额 |
-| 8 | WitnessUpdateContract | WitnessContract.WitnessUpdateContract | WitnessUpdateActuator | ✅ 启用 | 更新 SR 的官网 URL |
+| 8 | WitnessUpdateContract | WitnessContract.WitnessUpdateContract | WitnessUpdateActuator | ✅ 启用 | 更新 Witness 的官网 URL |
 | 9 | ParticipateAssetIssueContract | AssetIssueContractOuterClass.ParticipateAssetIssueContract | ParticipateAssetIssueActuator | ✅ 启用 | 在 ICO 期间用 TRX 参与 TRC-10 token 发行 |
 | 10 | AccountUpdateContract | AccountContract.AccountUpdateContract | UpdateAccountActuator | ✅ 启用 | 修改账户名(受 AllowUpdateAccountName 约束) |
-| 11 | FreezeBalanceContract | BalanceContract.FreezeBalanceContract | FreezeBalanceActuator | 🚫 禁用(`supportUnfreezeDelay` 启用后链拒绝) | Stake 1.0:冻结 TRX 换取 Bandwidth/Energy,并可代理给他人 |
-| 12 | UnfreezeBalanceContract | BalanceContract.UnfreezeBalanceContract | UnfreezeBalanceActuator | ✅ 启用 | Stake 1.0:到期后解冻 TRX,释放对应资源、清除得票 |
+| 11 | FreezeBalanceContract | BalanceContract.FreezeBalanceContract | FreezeBalanceActuator | 🚫 禁用(`supportUnfreezeDelay` 启用后链拒绝) | Stake 1.0:质押 TRX 换取 Bandwidth/Energy,并可代理给他人 |
+| 12 | UnfreezeBalanceContract | BalanceContract.UnfreezeBalanceContract | UnfreezeBalanceActuator | ✅ 启用 | Stake 1.0:到期后解质押 TRX,释放对应资源、清除得票 |
 | 13 | WithdrawBalanceContract | BalanceContract.WithdrawBalanceContract | WithdrawBalanceActuator | ✅ 启用 | 领取 SR 出块 / 投票奖励到余额 |
 | 14 | UnfreezeAssetContract | AssetIssueContractOuterClass.UnfreezeAssetContract | UnfreezeAssetActuator | ✅ 启用 | 发行人解冻 ICO 时冻结的 TRC-10 token 份额 |
 | 15 | UpdateAssetContract | AssetIssueContractOuterClass.UpdateAssetContract | UpdateAssetActuator | ✅ 启用 | 更新 TRC-10 token 的 description / url / 免费带宽配额 |
-| 16 | ProposalCreateContract | ProposalContract.ProposalCreateContract | ProposalCreateActuator | ✅ 启用 | SR 发起链上参数提案,写入 ProposalStore 等待投票 |
-| 17 | ProposalApproveContract | ProposalContract.ProposalApproveContract | ProposalApproveActuator | ✅ 启用 | SR 对提案投赞成/取消票 |
+| 16 | ProposalCreateContract | ProposalContract.ProposalCreateContract | ProposalCreateActuator | ✅ 启用 | Witness 发起链上参数提案,写入 ProposalStore 等待投票 |
+| 17 | ProposalApproveContract | ProposalContract.ProposalApproveContract | ProposalApproveActuator | ✅ 启用 | Witness 对提案投赞成/取消票 |
 | 18 | ProposalDeleteContract | ProposalContract.ProposalDeleteContract | ProposalDeleteActuator | ✅ 启用 | 提案发起人撤回自己创建的提案 |
 | 19 | SetAccountIdContract | AccountContract.SetAccountIdContract | SetAccountIdActuator | ✅ 启用 | 为账户设置唯一 account_id(仅可设置一次) |
 | 20 | CustomContract  |  |  | 🚫 禁用(未实现Actuator)  |  |
@@ -35,21 +35,21 @@ TRON 网络支持多种不同类型的交易，比如 TRX 转账交易、TRC-10 
 | 33 | UpdateSettingContract | SmartContractOuterClass.UpdateSettingContract | UpdateSettingContractActuator | ✅ 启用 | 合约所有者修改合约的 consume_user_resource_percent(用户承担能量比例) |
 | 41 | ExchangeCreateContract | ExchangeContract.ExchangeCreateContract | ExchangeCreateActuator | ✅ 启用 | 创建 Bancor 交易对, 为两种资产初始注入流动性 |
 | 42 | ExchangeInjectContract | ExchangeContract.ExchangeInjectContract | ExchangeInjectActuator | ✅ 启用 | 向已有交易对继续注入流动性, 按 Bancor 算法扣减双方资产 |
-| 43 | ExchangeWithdrawContract | ExchangeContract.ExchangeWithdrawContract | ExchangeWithdrawActuator | ✅ 启用 | 交易对创建人按比例赎回交易对中双方资产 |
+| 43 | ExchangeWithdrawContract | ExchangeContract.ExchangeWithdrawContract | ExchangeWithdrawActuator | ✅ 启用 | 交易对创建人按比例撤回交易对中双方资产 |
 | 44 | ExchangeTransactionContract | ExchangeContract.ExchangeTransactionContract | ExchangeTransactionActuator | 🚫 禁用 | 通过 Bancor 交易对进行资产兑换 |
 | 45 | UpdateEnergyLimitContract | SmartContractOuterClass.UpdateEnergyLimitContract | UpdateEnergyLimitContractActuator | ✅ 启用 | 合约所有者更新合约的 origin_energy_limit(合约所有者愿意为每一笔合约调用交易承担的能量消耗上限) |
 | 46 | AccountPermissionUpdateContract | AccountContract.AccountPermissionUpdateContract | AccountPermissionUpdateActuator | ✅ 启用 | 更新账户权限:owner/witness/active |
 | 48 | ClearABIContract | SmartContractOuterClass.ClearABIContract | ClearABIContractActuator | ✅ 启用 | 合约所有者清空合约 ABI |
-| 49 | UpdateBrokerageContract | StorageContract.UpdateBrokerageContract | UpdateBrokerageActuator | ✅ 启用 | SR 调整对投票者的佣金比例(0-100%) |
+| 49 | UpdateBrokerageContract | StorageContract.UpdateBrokerageContract | UpdateBrokerageActuator | ✅ 启用 | Witness 调整对投票者的分成比例(0-100%) |
 | 51 | ShieldedTransferContract | ShieldContract.ShieldedTransferContract | ShieldedTransferActuator | 🚫 禁用(`getAllowShieldedTransaction` 未开启) | ZK-SNARK 匿名转账(透明 in + 匿名 spend/receive + 透明 out) |
 | 52 | MarketSellAssetContract | MarketContract.MarketSellAssetContract | MarketSellAssetActuator | 🚫 禁用(`getAllowMarketTransaction` 未开启) | 内置订单簿挂限价卖单(sell / buy 两种资产 + 价格) |
 | 53 | MarketCancelOrderContract | MarketContract.MarketCancelOrderContract | MarketCancelOrderActuator | 🚫 禁用(`getAllowMarketTransaction` 未开启) | 撤销自己挂出的未成交订单,退回剩余资产 |
 | 54 | FreezeBalanceV2Contract | BalanceContract.FreezeBalanceV2Contract | FreezeBalanceV2Actuator | ✅ 启用 | Stake 2.0:冻结 TRX 得到 Bandwidth/Energy, 资源与 TronPower 分离 |
-| 55 | UnfreezeBalanceV2Contract | BalanceContract.UnfreezeBalanceV2Contract | UnfreezeBalanceV2Actuator | ✅ 启用 | Stake 2.0:发起解质押,进入解冻等待期 |
-| 56 | WithdrawExpireUnfreezeContract | BalanceContract.WithdrawExpireUnfreezeContract | WithdrawExpireUnfreezeActuator | ✅ 启用 | 提取已过等待期的解冻 TRX 到账户余额 |
+| 55 | UnfreezeBalanceV2Contract | BalanceContract.UnfreezeBalanceV2Contract | UnfreezeBalanceV2Actuator | ✅ 启用 | Stake 2.0:发起解质押,进入解质押等待期 |
+| 56 | WithdrawExpireUnfreezeContract | BalanceContract.WithdrawExpireUnfreezeContract | WithdrawExpireUnfreezeActuator | ✅ 启用 | 提取已过等待期的解质押 TRX 到账户余额 |
 | 57 | DelegateResourceContract | BalanceContract.DelegateResourceContract | DelegateResourceActuator | ✅ 启用 | Stake 2.0:把自己已质押的 Bandwidth/Energy 代理给其他地址(可设锁定期) |
 | 58 | UnDelegateResourceContract | BalanceContract.UnDelegateResourceContract | UnDelegateResourceActuator | ✅ 启用 | Stake 2.0:从他人处回收先前代理的资源 |
-| 59 | CancelAllUnfreezeV2Contract | BalanceContract.CancelAllUnfreezeV2Contract | CancelAllUnfreezeV2Actuator | ✅ 启用 | 一次性取消账户所有处于等待期的 V2 解冻,剩余份额重新质押 |
+| 59 | CancelAllUnfreezeV2Contract | BalanceContract.CancelAllUnfreezeV2Contract | CancelAllUnfreezeV2Actuator | ✅ 启用 | 一次性取消账户所有处于等待期的 V2 解质押,剩余份额重新质押 |
 
 下面分章节列出每个合约的 protobuf 消息定义和字段说明。
 
@@ -249,7 +249,7 @@ TRON 网络支持多种不同类型的交易，比如 TRX 转账交易、TRC-10 
 ```
 
 * `owner_address`：解质押 TRX 的账户地址。
-* `resource`： 解锁资源的类型。
+* `resource`： 解质押资源的类型。
 * `receiver_address`：接收资源的账户。
 
 ## 提取奖励 WithdrawBalanceContract
@@ -391,7 +391,7 @@ TRON 网络支持多种不同类型的交易，比如 TRX 转账交易、TRC-10 
 * `contract_address`： 合约地址。
 * `consume_user_resource_percent`：将要更新的账户消耗资源的百分比。
 
-## 创建交易所 ExchangeCreateContract
+## 创建交易对 ExchangeCreateContract
 
 ```protobuf
       message ExchangeCreateContract {
@@ -403,13 +403,13 @@ TRON 网络支持多种不同类型的交易，比如 TRX 转账交易、TRC-10 
      }
 ```
 
-* `owner_address`：创建交易所的账户地址。
+* `owner_address`：创建交易对的账户地址。
 * `first_token_id`：第 1 种 token 的 id。
 * `first_token_balance`：第 1 种 token 的 balance。
 * `second_token_id`：第 2 种 token 的 id。
 * `second_token_balance`：第 2 种 token 的 balance。
 
-## 给交易所注资 ExchangeInjectContract
+## 向交易对注入流动性 ExchangeInjectContract
 
 ```protobuf
       message ExchangeInjectContract {
@@ -425,7 +425,7 @@ TRON 网络支持多种不同类型的交易，比如 TRX 转账交易、TRC-10 
 * `token_id`：要注资的 token 的 id。
 * `quant`：要注资的 token 的数量。
 
-## 从交易所撤资 ExchangeWithdrawContract
+## 从交易对撤出流动性 ExchangeWithdrawContract
 
 ```protobuf
       message ExchangeWithdrawContract {
@@ -436,12 +436,12 @@ TRON 网络支持多种不同类型的交易，比如 TRX 转账交易、TRC-10 
      }
 ```
 
-* `owner_address`：从交易对撤出流动性的账户地址。
+* `owner_address`：从交易对撤出流动性的账户地址（必须为该交易对的创建者）。
 * `exchange_id`： 交易对的id。
 * `token_id`：要撤资的 token 的 id。
 * `quant`：要撤资的 token 的数量。
 
-## 在交易所交易 ExchangeTransactionContract
+## 通过交易对兑换资产 ExchangeTransactionContract
 
 ```protobuf
       message ExchangeTransactionContract {
@@ -486,7 +486,7 @@ TRON 网络支持多种不同类型的交易，比如 TRX 转账交易、TRC-10 
 
 * `owner_address`：待更新权限的账户地址。
 * `owner`：账户的 owner 权限，不能为空。
-* `witness`：witness 权限。超级代表（SR）账户必填；非见证人账户必须为空。
+* `witness`：witness 权限。Witness 账户必填；非 Witness 账户必须为空。
 * `actives`：active 权限列表，不能为空，且最多 8 个。
 
 更多说明请参见[账户权限管理](./multi-signatures.md)。
@@ -629,7 +629,7 @@ TRON 网络支持多种不同类型的交易，比如 TRX 转账交易、TRC-10 
 
 * `owner_address`：解质押 TRX 的账户地址。
 * `unfreeze_balance`：解质押数额。
-* `resource`： 解锁资源的类型。
+* `resource`： 解质押资源的类型。
    
 
 ## 提取解质押本金 WithdrawExpireUnfreezeContract
@@ -675,8 +675,8 @@ TRON 网络支持多种不同类型的交易，比如 TRX 转账交易、TRC-10 
 ```
 
 * `owner_address`：回收已代理资源的账户地址。
-* `resource`： 解锁资源的类型。
-* `balance`：解代理资源份额。
+* `resource`： 回收代理资源的类型。
+* `balance`：回收代理资源的份额。
 * `receiver_address`：资源接收地址。
 
 ## 取消所有 V2 解质押 CancelAllUnfreezeV2Contract
