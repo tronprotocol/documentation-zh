@@ -3,7 +3,7 @@
 TRON Toolkit 是一个集成了多种 `java-tron` 周边工具的实用程序，旨在简化节点维护和管理任务。未来，我们将持续为其添加更多功能，以提升开发者的使用体验。目前，Toolkit 提供了以下核心功能：
 
 * [数据存储分区](#database-partitioning-tool) - 解决链上数据增长带来的存储压力
-* [轻节点数据裁剪](#lite-fullnode-data-pruning) - 轻节点数据定期剪裁
+* [轻节点数据裁剪](#lite-fullnode-data-pruning) - 轻节点数据定期裁剪
 * [数据拷贝](#fast-data-copy-tool) - 实现数据库快速拷贝
 * [数据转换](#data-conversion-tool) - 支持 LevelDB 到 RocksDB 的数据库格式转换
 * [LevelDB 启动优化](#leveldb-startup-optimization-tool) - 加快数据库类型为 LevelDB 的节点启动速度
@@ -111,7 +111,7 @@ java -jar build/libs/Toolkit.jar db mv -c framework/src/main/resources/config.co
 
 [**超级代表（SR）FullNode 启动命令示例**](installing_javatron.md#starting-a-block-production-node)
 
-## 轻节点数据剪裁工具 { #lite-fullnode-data-pruning }
+## 轻节点数据裁剪工具 { #lite-fullnode-data-pruning }
 TRON Toolkit 提供了**数据裁剪工具**，主要用于生成和管理轻节点数据。
 
 全节点的完整数据可被分成两部分：快照数据集（Snapshot dataset）或历史数据集（History dataset）。
@@ -121,11 +121,11 @@ TRON Toolkit 提供了**数据裁剪工具**，主要用于生成和管理轻节
 
 快照数据集只包含所有的账户状态数据和最近的 65536 个区块的历史数据。其占用空间小，约为全节点数据的 3%，而轻节点只基于快照数据集来启动，所以，Lite Fullnode 具有占用磁盘空间小，启动速度快的优点。
 
-而数据剪裁工具能够根据当前最新区块高度将FullNode的完整数据切分为**快照数据集**（Snapshot dataset）或**历史数据集**（History dataset）；同时数据裁剪工具还支持将历史数据集与快照数据集进行合并，以满足不同的使用场景：
+而数据裁剪工具能够根据当前最新区块高度将FullNode的完整数据切分为**快照数据集**（Snapshot dataset）或**历史数据集**（History dataset）；同时数据裁剪工具还支持将历史数据集与快照数据集进行合并，以满足不同的使用场景：
 
 
 * **将全节点数据切分成轻节点数据**：通过将全节点数据切分为快照数据集，即可得到用于启动轻节点的数据。
-* **定期剪裁轻节点数据**：轻节点启动后数据量会随时间增长，因此可能需要定期裁剪。使用数据裁剪工具将轻节点数据切分为新的快照数据集，即可实现裁剪。
+* **定期裁剪轻节点数据**：轻节点启动后数据量会随时间增长，因此可能需要定期裁剪。使用数据裁剪工具将轻节点数据切分为新的快照数据集，即可实现裁剪。
 * **将轻节点数据转回全节点数据**：如果需要轻节点支持历史数据查询，可以将其转换为全节点。除了直接下载全节点数据库快照外，您也可以先将全节点数据切分为历史数据集，然后将其与轻节点的快照数据集合并，从而得到一个完整的全节点数据。
 
 > **重要提示**：在使用本工具进行任何操作之前，**必须**停止当前运行的节点。
@@ -172,7 +172,7 @@ TRON Toolkit 提供了**数据裁剪工具**，主要用于生成和管理轻节
 java -jar build/libs/Toolkit.jar db lite -o split -t snapshot --fn-data-path output-directory/database --dataset-path /tmp
 ```
 
-* `--fn-data-path`： 待剪裁数据目录，即节点数据目录
+* `--fn-data-path`： 待裁剪数据目录，即节点数据目录
 * `--dataset-path`： 存放输出的快照数据集的目录
 
 命令执行完毕后，将在 `/tmp` 目录下生成一个名为 `snapshot` 的目录。此目录中的数据即为轻节点数据。将该目录中的数据拷贝到节点数据库目录中（例如，将 `snapshot` 目录重命名为 `database` 并拷贝到 Lite FullNode 的运行目录 `output-directory` 下），然后启动轻节点即可。
