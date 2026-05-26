@@ -68,7 +68,7 @@ kill -15 $(ps -ef | grep FullNode.jar | grep -v grep | awk '{print $2}')
 
 
 #### 2. 配置数据库存储迁移 { #configure-database-storage-migration }
-数据库迁移的配置通过 `java-tron` 节点配置文件中的 `storage.properties` 字段进行。您可以在 [java-tron 仓库](https://github.com/tronprotocol/java-tron/blob/master/framework/src/main/resources/config.conf#L38) 中找到示例配置。
+数据库迁移的配置通过 `java-tron` 节点配置文件中的 `storage.properties` 字段进行。您可以在 [java-tron 仓库](https://github.com/tronprotocol/java-tron/blob/master/framework/src/main/resources/config.conf) 中找到示例配置。
 
 以下示例展示了如何将 `block` 和 `trans` 数据库迁移到 `/data1/tron` 目录：
 
