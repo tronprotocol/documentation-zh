@@ -10,7 +10,7 @@
 
 ## 核心特点
 
-  - **基于状态快照启动**：轻节点不从创世区块开始同步，而是直接加载一个仅包含全网最新状态和最近约 65,536 个区块数据的“状态快照”。
+  - **基于状态快照启动**：轻节点不从创世区块开始同步，而是直接加载一个仅包含全网最新状态和最近约 65,536 个区块数据的状态快照。
   - **显著的资源优势**：由于初始数据量远小于全节点，轻节点具有占用磁盘空间小、启动速度快的突出优点。
   - **提供部分全节点的 API**：默认情况下，轻节点为节省资源禁用了对历史数据（快照范围之外）的查询。其中不支持的 API 请参考 [HTTP](https://github.com/tronprotocol/java-tron/blob/master/framework/src/main/java/org/tron/core/services/filter/LiteFnQueryHttpFilter.java) 和 [gRPC](https://github.com/tronprotocol/java-tron/blob/master/framework/src/main/java/org/tron/core/services/filter/LiteFnQueryGrpcInterceptor.java)。
   - **功能可扩展**：如果需要开启这些不支持的 API，在配置文件中可以通过配置 `openHistoryQueryWhenLiteFN = true` 来开启。由于轻节点启动后，其保存的数据与全节点完全相同，所以开启该配置项后，所有被过滤的 API 将被重新开放。但快照起始高度之前的历史数据依然无法查询。
