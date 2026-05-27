@@ -67,7 +67,6 @@ node.metrics = {
         prom/prometheus:latest
     ```
 
-
     容器启动后，您可以通过 `http://localhost:9090/` 查看 Prometheus 服务的运行情况。
     
     点击 "Status" -> "Configuration"，查看容器使用的配置文件是否正确：
