@@ -13,7 +13,7 @@ node.metrics = {
 }
 ```
 ## 启动 java-tron 节点
-完成配置后，请参考[启动全节点连接主网](installing_javatron.md#starting-a-fullnode-on-the-tron-main-network)一节启动节点。
+完成配置后，请参考[启动 java-tron 节点](installing_javatron.md#starting-a-java-tron-node)一节启动节点。
 
 ## 部署 Prometheus 服务
 [Prometheus](https://prometheus.io/download/) 官方提供了预编译的二进制文件以及 Docker 镜像，您可以直接在官网下载或者在 DockerHub 上拉取 Docker 镜像，更多的安装与配置说明，请参考 [Prometheus 文档](https://prometheus.io/docs/introduction/overview/)。作为简单的部署说明，本文将采用 Docker 镜像部署方式：
