@@ -112,13 +112,13 @@ Grafana 可视化工具的部署流程如下：
 
 4. 导入 Dashboard
 
-    为了方便 java-tron 节点部署者，TRON 社区提供了一组预配置的 Grafana 仪表盘，请参考 tron-docker metric_monitor README 的 [Import dashboard 章节](https://github.com/tronprotocol/tron-docker/blob/main/metric_monitor/README.md#import-dashboard)将其导入到 Grafana。
+    为了方便 java-tron 节点部署者，TRON 社区提供了一组预配置的 Grafana 仪表盘，每个仪表盘以一份 JSON 文件提供。请参考 tron-docker metric_monitor README 的 [Import dashboard 章节](https://github.com/tronprotocol/tron-docker/blob/main/metric_monitor/README.md#import-dashboard)将其导入到 Grafana。
 
     点击左侧的 Dashboards 图标，然后选择 "+Import"，然后点击 "Upload JSON file" 导入上面提到的 JSON 文件之一：
     
     ![image](https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/metrics_import.png)
     
-    随后仪表盘上会展示出与该 JSON 文件对应的监控指标，您可以实时监控节点的运行情况。
+    随后 Grafana 将根据导入的 JSON 文件渲染出对应的仪表盘，您可以实时监控节点的运行情况。
 
 
 
