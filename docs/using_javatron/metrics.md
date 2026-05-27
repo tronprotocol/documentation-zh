@@ -2,23 +2,15 @@
 从 GreatVoyage-4.5.1 (Tertullian) 版本开始，节点提供了一系列兼容 Prometheus 协议的接口，使节点部署者可以更方便地监控节点的健康状态。如果您想要监控节点的各项指标，则首先需要部署一个 Prometheus 服务，用于与 java-tron 节点通信，通过节点接口获取到节点各项指标数据。然后还需要部署一个可视化工具，如 Grafana，用于将 Prometheus 获取到的节点数据，以图像化界面的形式展示出来。下面将详细介绍 java-tron 节点监控系统的搭建流程。
 
 ## 配置 java-tron
-如需使用 Prometheus 工具监控 java-tron 节点的运行情况，首先需要在节点配置文件中开启 Prometheus 指标监控，并设置 HTTP 端口号：
-```
-node {
-  ... ...
-  p2p {
-    version = 11111 # 11111: mainnet; 20180622: testnet
-  }
- ####### add for prometheus start.
- metrics{
-  prometheus{
-  enable=true 
-  port="9527"
-  }
- }
- ####### add for prometheus end.
-}
+如需使用 Prometheus 工具监控 java-tron 节点的运行情况，首先需要在节点配置文件中开启 Prometheus 指标监控，并设置 HTTP 端口号。在 `config.conf` 中找到 `node.metrics` 配置块，将 `prometheus.enable` 设置为 `true`：
 
+```
+node.metrics = {
+  prometheus {
+    enable = true
+    port = 9527
+  }
+}
 ```
 ## 启动 java-tron 节点
 完成配置后，请参考[启动全节点连接主网](installing_javatron.md#starting-a-fullnode-on-the-tron-main-network)一节启动节点。
@@ -69,7 +61,7 @@ node {
     通过如下命令启动一个 Prometheus 容器，并指定使用上步骤中用户自定义的配置文件 `/Users/test/deploy/prometheus/prometheus.yaml`
     ```shell
     $ docker run --name prometheus \
-        -d -p :9090:9090 \
+        -d -p 9090:9090 \
         -v  /Users/test/deploy/prometheus/prometheus.yaml:/etc/prometheus/prometheus.yml \
         prom/prometheus:latest
     ```
