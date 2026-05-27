@@ -1,5 +1,5 @@
 # java-tron 节点指标监控
-从 GreatVoyage-4.5.1 (Tertullian) 版本开始，节点提供了一系列兼容 Prometheus 抓取的指标接口，使节点部署者可以更方便地监控节点的健康状态。如果您想要监控节点的各项指标，则首先需要部署一个 Prometheus 服务，用于与 java-tron 节点通信，通过节点接口获取到节点各项指标数据。然后还需要部署一个可视化工具，如 Grafana，用于将 Prometheus 获取到的节点数据，以图像化界面的形式展示出来。下面将详细介绍 java-tron 节点监控系统的搭建流程。
+从 GreatVoyage-4.5.1 (Tertullian) 版本开始，节点通过 `/metrics` 端点暴露符合 Prometheus 文本格式的指标，使节点部署者可以更方便地监控节点的健康状态。如果您想要监控节点的各项指标，则首先需要部署一个 Prometheus 服务，用于与 java-tron 节点通信，从该端点抓取指标数据。然后还需要部署一个可视化工具，如 Grafana，用于将 Prometheus 获取到的节点数据，以图像化界面的形式展示出来。下面将详细介绍 java-tron 节点监控系统的搭建流程。
 
 ## 配置 java-tron
 如需使用 Prometheus 工具监控 java-tron 节点的运行情况，首先需要在节点配置文件中开启 Prometheus 指标监控，并设置 HTTP 端口号。在 `config.conf` 中找到 `node.metrics` 配置块，将 `prometheus.enable` 设置为 `true`：
@@ -49,7 +49,7 @@ node.metrics = {
           group: group-xxx
           instance: xxx-01
       - targets:
-        - 172.0.0.2:9527
+        - 127.0.0.2:9527
         labels:
           group: group-xxx
           instance: xxx-02
