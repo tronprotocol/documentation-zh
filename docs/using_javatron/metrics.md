@@ -54,11 +54,11 @@ node.metrics = {
           group: group-xxx
           instance: xxx-02
     ```
-    您可以使用此模板，然后修改配置项 `targets`，它用于配置 java-tron 节点所在机器的 IP 和 Prometheus 端口，如您部署了多个节点，可以通过配置多个 `targets`，来实现对多个节点的监控。
+    您可以使用此模板，然后修改配置项 `targets`，它用于配置 java-tron 节点所在机器的 IP 和 Prometheus 端口，如您部署了多个节点，可以通过配置多个 `targets`，来实现对多个节点的监控。将该文件保存到本机的某个目录，例如 `/Users/test/deploy/prometheus/prometheus.yaml`。
 
 3. 启动一个 Prometheus 容器
 
-    通过如下命令启动一个 Prometheus 容器，挂载上步骤中的配置文件（`/Users/test/deploy/prometheus/prometheus.yaml`）：
+    通过如下命令启动一个 Prometheus 容器，并挂载上一步准备的配置文件（`/Users/test/deploy/prometheus/prometheus.yaml`）：
 
     ```shell
     $ docker run --name prometheus \
