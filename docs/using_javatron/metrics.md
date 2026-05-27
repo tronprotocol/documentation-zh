@@ -16,16 +16,16 @@ node.metrics = {
 完成配置后，请参考[启动 java-tron 节点](installing_javatron.md#starting-a-java-tron-node)一节启动节点。
 
 ## 部署 Prometheus 服务
-[Prometheus](https://prometheus.io/download/) 官方提供了预编译的二进制文件以及 Docker 镜像，您可以直接在官网下载或者在 DockerHub 上拉取 Docker 镜像，更多的安装与配置说明，请参考 [Prometheus 文档](https://prometheus.io/docs/introduction/overview/)。作为简单的部署说明，本文将采用 Docker 镜像部署方式：
+[Prometheus](https://prometheus.io/download/) 官方提供了预编译的二进制文件以及 Docker 镜像，您可以直接在官网下载或者在 Docker Hub 上拉取 Docker 镜像，更多的安装与配置说明，请参考 [Prometheus 文档](https://prometheus.io/docs/introduction/overview/)。作为简单的部署说明，本文将采用 Docker 镜像部署方式：
 
 1. 安装 Prometheus
 
-    下载 Docker 后，输入如下命令拉取 Prometheus 镜像：
+    安装 Docker 后，输入如下命令拉取 Prometheus 镜像：
     ```
     $ docker pull prom/prometheus
     ```
 
-2. 下载 Prometheus 配置文件
+2. 准备 Prometheus 配置文件
 
     下面是一个 Prometheus 配置文件模板 `prometheus.yaml`：
 
@@ -58,11 +58,12 @@ node.metrics = {
 
 3. 启动一个 Prometheus 容器
 
-    通过如下命令启动一个 Prometheus 容器，并指定使用上步骤中用户自定义的配置文件 `/Users/test/deploy/prometheus/prometheus.yaml`
+    通过如下命令启动一个 Prometheus 容器，挂载上步骤中的配置文件（`/Users/test/deploy/prometheus/prometheus.yaml`）：
+
     ```shell
     $ docker run --name prometheus \
         -d -p 9090:9090 \
-        -v  /Users/test/deploy/prometheus/prometheus.yaml:/etc/prometheus/prometheus.yml \
+        -v /Users/test/deploy/prometheus/prometheus.yaml:/etc/prometheus/prometheus.yml \
         prom/prometheus:latest
     ```
 
@@ -70,12 +71,14 @@ node.metrics = {
     容器启动后，您可以通过 `http://localhost:9090/` 查看 Prometheus 服务的运行情况。
     
     点击 "Status" -> "Configuration"，查看容器使用的配置文件是否正确：
+
     ![image](https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/metrics_config.png)
 
     点击 "Status" -> "Targets"，查看各个监控的 java-tron 节点状态：
+
     ![image](https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/metrics_targets.png)
     
-    比如这个示例中，第一个 endpoint，状态为 `UP`，表示 Prometheus 可以正常的抓取该节点的数据。而第二个 endpoint，状态为 `DOWN`，表示异常，具体参考 "Error" 中的描述。
+    比如这个示例中，第一个 endpoint，状态为 `UP`，表示 Prometheus 可以正常地抓取该节点的数据。而第二个 endpoint，状态为 `DOWN`，表示异常，具体参考 "Error" 中的描述。
 
     当监控的 java-tron 节点的状态都正常后，您就可以通过 Grafana 等可视化工具监控指标数据了，本文将通过 Grafana 来展示数据。
 
@@ -84,7 +87,7 @@ Grafana 可视化工具的部署流程如下：
 
 1. 安装 Grafana
 
-    请参考官方文档安装 [Grafana](https://grafana.com/docs/grafana/next/setup-grafana/installation/)。本文将采用 Docker 部署方式，拉取的 image 版本为 open source 版：
+    请参考官方文档安装 [Grafana](https://grafana.com/docs/grafana/next/setup-grafana/installation/)。本文将采用 Docker 部署方式，拉取的镜像为开源版（grafana-oss）：
     ```
     $ docker pull grafana/grafana-oss
     ```
@@ -95,6 +98,7 @@ Grafana 可视化工具的部署流程如下：
     ```
     $ docker run -d --name=grafana -p 3000:3000 grafana/grafana-oss
     ```
+
 3. 登录 Grafana 界面
 
     启动后，可以通过 `http://localhost:3000/` 进入 Grafana 页面，初始的用户名和密码均是 `admin`，输入后根据提示修改密码，然后就可以进入到主界面了。点击主页面左侧的设置图标，然后选择 "Data Sources" 配置 Grafana 的数据源：
