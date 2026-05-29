@@ -188,14 +188,14 @@ event.subscribe = {
 *   `dbconfig`：此配置项仅针对 MongoDB 插件，对于 Kafka 插件请忽略。
 *   `contractParse`：控制是否对合约日志进行 ABI 解码。设为 `true`（默认值）时，节点会将每条日志与合约 ABI 进行匹配，匹配成功的日志作为解码后的 `contractevent` 事件推送，未匹配的日志则作为原始 `contractlog` 事件推送；设为 `false` 时，跳过 ABI 解码，所有日志均作为原始 `contractlog` 事件推送。
 *   `topics`：配置订阅的事件，详情请参看接下来的[事件类型](#event-types)章节。
-*   `filter`：过滤参数，详情请参看接下来的[事件类型](#event-types)章节。
+*   `filter`：过滤参数，详情请参看[事件过滤](#event-filtering)章节。
 
 
-###### 事件类型 { #event-types }
+#### 事件类型 { #event-types }
 
 TRON 事件订阅支持 `block`、`transaction`、`contractevent`、`contractlog`、`solidity`、`solidityevent`、`soliditylog` 7 种类型的事件订阅。开发者需要根据业务需求进行配置，**建议只订阅 1-2 种事件类型，如果开启过多触发器，会导致性能下降。**
 
-**1. 交易事件**
+##### 1. 交易事件 { #transaction-event }
 
 用于订阅交易相关的事件信息。
 
@@ -230,7 +230,7 @@ event.subscribe.topics = [
 
 更多字段请参考 [TransactionLogTrigger](https://github.com/tronprotocol/java-tron/blob/develop/common/src/main/java/org/tron/common/logsfilter/trigger/TransactionLogTrigger.java)。
 
-**2. 区块事件**
+##### 2. 区块事件 { #block-event }
 
 用于订阅区块生成信息。
 
@@ -257,7 +257,7 @@ event.subscribe.topics = [
 
 更多字段请参考 [BlockLogTrigger](https://github.com/tronprotocol/java-tron/blob/develop/common/src/main/java/org/tron/common/logsfilter/trigger/BlockLogTrigger.java)。
 
-**3. 合约事件与日志**
+##### 3. 合约事件与日志 { #contract-event-and-log }
 
 用于订阅智能合约事件和日志。
 
@@ -301,24 +301,27 @@ event.subscribe.topics = [
 
 更多字段请参考 [ContractEventTrigger](https://github.com/tronprotocol/java-tron/blob/develop/common/src/main/java/org/tron/common/logsfilter/trigger/ContractEventTrigger.java) 和  [ContractLogTrigger](https://github.com/tronprotocol/java-tron/blob/develop/common/src/main/java/org/tron/common/logsfilter/trigger/ContractLogTrigger.java)。
 
-> **注意**：`合约事件`与`合约日志事件`订阅支持通过`filter` 字段对事件进行过滤，可以指定区块范围 (`fromblock` - `toblock`)、特定合约地址 (`contractAddress`) 或特定合约主题 (`contractTopic`)，为开发者提供更高效、更精准的事件订阅服务。
-> ```
-> filter = {
->   fromblock = "" // 查询范围的起始区块号，可以是空字符串、"earliest" 或指定的区块号。
->   toblock = "" // 查询范围的结束区块号，可以是空字符串、"latest" 或指定的区块号。
->   contractAddress = [
->     "" // 您希望订阅的合约地址。如果设置为空字符串，将接收所有合约地址的日志/事件。
->   ]
->
->   contractTopic = [
->     "" // 您希望订阅的合约主题。如果设置为空字符串，将接收所有合约主题的日志/事件。
->   ]
-> }
-> ```
+###### 事件过滤 { #event-filtering }
+
+`合约事件`与`合约日志事件`订阅支持通过 `filter` 字段对事件进行过滤，可以指定区块范围 (`fromblock` - `toblock`)、特定合约地址 (`contractAddress`) 或特定合约主题 (`contractTopic`)，为开发者提供更高效、更精准的事件订阅服务。
+
+```hocon
+filter = {
+  fromblock = "" // 查询范围的起始区块号，可以是空字符串、"earliest" 或指定的区块号。
+  toblock = "" // 查询范围的结束区块号，可以是空字符串、"latest" 或指定的区块号。
+  contractAddress = [
+    "" // 您希望订阅的合约地址。如果设置为空字符串，将接收所有合约地址的日志/事件。
+  ]
+
+  contractTopic = [
+    "" // 您希望订阅的合约主题。如果设置为空字符串，将接收所有合约主题的日志/事件。
+  ]
+}
+```
 
 
 
-**4. 固化块通知事件**
+##### 4. 固化块通知事件 { #solidified-block-notification-event }
 
 用于实时获取最新固化块高度，适用于需要同步最新固化状态的场景。
 
@@ -691,7 +694,7 @@ tail -f logs/tron.log | grep -i eventplugin
 如果看到类似以下字样，则表示插件已成功加载：
 
 ```text
-o.t.c.l.EventPluginLoader 'your plugin path/plugin-kafka-1.0.0.zip' loaded
+o.t.c.l.EventPluginLoader 'your plugin path/plugin-mongodb-1.0.0.zip' loaded
 ```
 
 ##### 验证数据是否存入 MongoDB
