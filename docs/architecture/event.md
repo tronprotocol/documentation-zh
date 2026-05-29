@@ -138,7 +138,7 @@ cd event-plugin
 
 ```
 cd /usr/local
-wget https://downloads.apache.org/kafka/2.8.0/kafka_2.13-2.8.0.tgz
+wget https://archive.apache.org/dist/kafka/2.8.0/kafka_2.13-2.8.0.tgz
 tar -xzf kafka_2.13-2.8.0.tgz
 ```
 
@@ -186,6 +186,7 @@ event.subscribe = {
 *   `path`：`plugin-kafka-1.0.0.zip` 的本地绝对路径，请确保路径正确，否则无法加载。
 *   `server`：Kafka 服务器地址，使用 `ip:port` 的格式。Kafka 默认端口号是 `9092`，请确保端口号正确，并确保 Kafka 服务可访问。
 *   `dbconfig`：此配置项仅针对 MongoDB 插件，对于 Kafka 插件请忽略。
+*   `contractParse`：控制是否对合约日志进行 ABI 解码。设为 `true`（默认值）时，节点会将每条日志与合约 ABI 进行匹配，匹配成功的日志作为解码后的 `contractevent` 事件推送，未匹配的日志则作为原始 `contractlog` 事件推送；设为 `false` 时，跳过 ABI 解码，所有日志均作为原始 `contractlog` 事件推送。
 *   `topics`：配置订阅的事件，详情请参看接下来的[事件类型](#event-types)章节。
 *   `filter`：过滤参数，详情请参看接下来的[事件类型](#event-types)章节。
 
@@ -621,7 +622,7 @@ cd tron-eventquery
 下载 Maven 并使用 Maven 构建 `tron-eventquery` 服务：
 
 ```
-wget https://mirrors.cnnic.cn/apache/maven/maven-3/3.5.4/binaries/apache-maven-3.5.4-bin.tar.gz --no-check-certificate
+wget https://archive.apache.org/dist/maven/maven-3/3.5.4/binaries/apache-maven-3.5.4-bin.tar.gz --no-check-certificate
 tar zxvf apache-maven-3.5.4-bin.tar.gz
 export M2_HOME=$HOME/maven/apache-maven-3.5.4
 export PATH=$PATH:$M2_HOME/bin
@@ -697,7 +698,7 @@ o.t.c.l.EventPluginLoader 'your plugin path/plugin-kafka-1.0.0.zip' loaded
 连接到 MongoDB 并查询数据，以验证事件数据是否已从节点获取并通过事件订阅存储到 MongoDB 中：
 
 ```
-mongo 47.90.245.68:27017
+mongo 127.0.0.1:27017
 use eventlog
 db.auth("tron", "123456")
 show collections
