@@ -301,7 +301,7 @@ event.subscribe.topics = [
 
 更多字段请参考 [ContractEventTrigger](https://github.com/tronprotocol/java-tron/blob/develop/common/src/main/java/org/tron/common/logsfilter/trigger/ContractEventTrigger.java) 和  [ContractLogTrigger](https://github.com/tronprotocol/java-tron/blob/develop/common/src/main/java/org/tron/common/logsfilter/trigger/ContractLogTrigger.java)。
 
-> **注意**：`合约事件`与`合约日志事件`订阅支持通过`filter` 字段对事件进行过滤，可以指定区块范围 (`fromblock` - `toblock`)、特定合约地址 (`contractAddress`) 或特定合约主题 (`contractTopic`)，为开发者提供更高效、更精准的事件订阅服务。：
+> **注意**：`合约事件`与`合约日志事件`订阅支持通过`filter` 字段对事件进行过滤，可以指定区块范围 (`fromblock` - `toblock`)、特定合约地址 (`contractAddress`) 或特定合约主题 (`contractTopic`)，为开发者提供更高效、更精准的事件订阅服务。
 > ```
 > filter = {
 >   fromblock = "" // 查询范围的起始区块号，可以是空字符串、"earliest" 或指定的区块号。
@@ -517,7 +517,7 @@ event.subscribe = {
 *   `path`：插件的绝对路径，例如 `"/deploy/fullnode/event-plugin/build/plugins/plugin-mongodb-1.0.0.zip"`。
 *   `server`：目标服务器地址，即 MongoDB 的地址和端口，例如 `"127.0.0.1:27017"`。
 *   `dbconfig`：MongoDB 数据库配置，格式为：`数据库名|用户名|密码`，例如 `"eventlog|tron|123456"`。
-*   `topics`：目前支持七种事件类型：`block`、`transaction`、`contractevent`、 `contractlog`、`solidity`、`solidityevent` 和 `soliditylog`。详细信息请参考 [事件类型](#event-types) 章节。
+*   `topics`：目前支持七种事件类型：`block`、`transaction`、`contractevent`、`contractlog`、`solidity`、`solidityevent` 和 `soliditylog`。详细信息请参考 [事件类型](#event-types) 章节。
     *   `triggerName`：触发器名称，不可修改。
     *   `enable`：是否启用该事件订阅。`true` 为开启，`false` 为禁用。
     *   `topic`：MongoDB 中接收事件的集合名称，可修改。
@@ -595,11 +595,11 @@ mongod --config /home/java-tron/mongodb/mgdb.conf &
 ```
 mongo
 use admin
-db.createUser({user:"root",pwd:"admin",roles:[{role:"root",db:"admin"}]})
+db.createUser({user:"<admin-username>",pwd:"<admin-password>",roles:[{role:"root",db:"admin"}]})
 
-db.auth("root", "admin")
+db.auth("<admin-username>", "<admin-password>")
 use eventlog
-db.createUser({user:"tron",pwd:"123456",roles:[{role:"dbOwner",db:"eventlog"}]})
+db.createUser({user:"<eventlog-username>",pwd:"<eventlog-password>",roles:[{role:"dbOwner",db:"eventlog"}]})
 ```
 
 #### 部署事件查询服务（Event Query Service） { #deploying-the-event-query-service }
