@@ -521,6 +521,7 @@ event.subscribe = {
     *   `triggerName`：触发器名称，不可修改。
     *   `enable`：是否启用该事件订阅。`true` 为开启，`false` 为禁用。
     *   `topic`：MongoDB 中接收事件的集合名称，可修改。
+    *   `redundancy`：仅用于 `contractlog` 与 `soliditylog`。设为 `true` 时，已作为 `contractevent`/`solidityevent` 推送的合约日志会**额外再以原始** `contractlog`/`soliditylog` 形式推送一份。默认为 `false`。
 *   `filter`：事件过滤条件。
     *   `fromblock`：查询范围的起始区块号，可以是""、`"earliest"` （从创世区块开始查询） 或指定的区块号。
     *   `toblock`：查询范围的结束区块号，可以是""、`"latest"` （最新区块） 或指定的区块号。
