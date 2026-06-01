@@ -122,8 +122,13 @@ value0_N: 新参数值
 ```
 approveProposal id is_or_not_add_approval
 id: 提议Id
-is_or_not_add_approval: 赞成或取消赞成
+is_or_not_add_approval: true 表示投赞成票，false 表示撤回之前的赞成票
 ```
+
+**注意**：以下两种情况会在校验阶段被拒绝：
+
+- 已经赞成过该提案时，再次传 `true`（不能对同一提案重复赞成）。
+- 之前没有赞成过该提案时，传 `false`（没有可撤回的赞成票）。
 
 ### 取消提议
 
