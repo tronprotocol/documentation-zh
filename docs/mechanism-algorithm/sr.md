@@ -19,7 +19,7 @@ TRON 网络中的所有账户都拥有选举权，可以通过投票来支持自
 
  - 获取投票权 (TRON Power)
 
-      您的TP数量与您质押（Stake）的 TRX 数量直接挂钩。计算方法：每质押 1 TRX，您将获得 1 TP。
+      您的 TP 数量与您质押（Stake）的 TRX 数量直接挂钩。计算方法：每质押 1 TRX，您将获得 1 TP。
 
  - 解质押对投票的影响
 
@@ -34,7 +34,7 @@ TRON 网络中的所有账户都拥有选举权，可以通过投票来支持自
 **示例：**
 
 ```
->freezebalancev2 10,000,000 1 # 质押了 10 TRX，获取了 10 单位 TRON Power(TP)，其中：0 为带宽，1 为能量
+>freezebalancev2 10000000 1 # 质押 10 TRX（金额单位为 sun，1 TRX = 1,000,000 sun，故 10 TRX = 10000000 sun），获取 10 单位 TRON Power(TP)；资源类型：0 为带宽，1 为能量
 >votewitness SR1 4 SR2 6 # 同时给 SR1 投了 4 票，给 SR2 投了 6 票
 >votewitness SR1 3 SR2 7 # 同时给 SR1 投了 3 票，给 SR2 投了 7 票
 ```
@@ -74,7 +74,7 @@ TRON 网络中的所有账户都拥有选举权，可以通过投票来支持自
 | **提取奖励到账户余额** |  通过发起`WithdrawBalanceContract`交易触发 | 通过发起`WithdrawBalanceContract`交易触发 |
 | **具体的奖励值** | **SR**:<br>`8 * brokerageRate`<br><br>**SR 的投票者**：<br>`8 * (1-brokerageRate) * (该投票者的投票数量) / (该SR获得的总投票数量)` | **SR / SR合伙人**：<br>`128 * brokerageRate * (该SR/SR合伙人获得的投票数量) / (所有SR和SR合伙人获得的总投票数量)`<br><br>**SR / SR 合伙人的投票者**：<br>`128 * (1-brokerageRate) * (该投票者的投票数量) / (所有SR和SR合伙人获得的总投票数量)`|
 
-**注意** ：
+**注意**：
 
 - 链上参数序号和参数名可以在 [这里](https://tronscan.org/#/sr/committee) 查看
 - `brokerageRate`：佣金比例
