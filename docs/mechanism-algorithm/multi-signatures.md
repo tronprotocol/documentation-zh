@@ -72,7 +72,7 @@ message Permission {
 - `type`：权限类型（owner/witness/active）；
 - `id`：权限 ID，系统自动分配；
     - `owner` = 0，`witness` = 1，`active` 从 2 起递增；
-- `permission_name`：权限名称，最长 32 字节；
+- `permission_name`：权限名称，最长 32 个字符；
 - `threshold`：权限域值，密钥权重总和 ≥ 该值时方可操作；
 - `operations`：仅 `active` 权限使用，表示可执行的合约类型；
 - `keys`：具备此权限的地址与权重（最多 5 个）。
@@ -167,7 +167,8 @@ enum ContractType {
 ### `witness` 权限（出块权限）
 - 仅超级代表，超级代表合伙人和超级代表候选人地址可用；
 - 控制出块节点，不具备资金转出等操作权限；
-- 可将出块权限授权给其他地址以提升账户安全性。
+- 可将出块权限授权给其他地址以提升账户安全性；
+- 必须且只能包含一个 key。
 
 #### 超级代表节点配置示例：
 ```
