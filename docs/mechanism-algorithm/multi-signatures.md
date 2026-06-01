@@ -73,7 +73,7 @@ message Permission {
 - `id`：权限 ID，系统自动分配；
     - `owner` = 0，`witness` = 1，`active` 从 2 起递增；
 - `permission_name`：权限名称，最长 32 个字符；
-- `threshold`：权限域值，密钥权重总和 ≥ 该值时方可操作；
+- `threshold`：权限阈值，密钥权重总和 ≥ 该值时方可操作；
 - `operations`：仅 `active` 权限使用，表示可执行的合约类型；
 - `keys`：具备此权限的地址与权重（最多 5 个）。
 
@@ -244,7 +244,7 @@ POST http://{{host}}:{{port}}/wallet/accountpermissionupdate
 ```
 ### 2. operations 值计算示例 { #operations-value-calculation-example }
 `operations` 是表示可执行合约权限的 32 字节十六进制字符串（小端）。
-以下 Java 示例生成将（ID=0-45）的合约权限加入：
+以下 Java 示例生成 ID 为 0-45 的合约权限：
 
 ```
 Integer[] contractId = {0, 1, 2, ..., 45};
@@ -254,6 +254,9 @@ for (int id : contractId) {
 }
 System.out.println(ByteArray.toHexString(operations));
 ```
+
+>**注意**：上例中的 `contractId` 仅用于演示位运算写法。`ContractType` 的 ID 并不连续（7、21-29、34-40 等为空缺 ID），实际只能对链上 `AVAILABLE_CONTRACT_TYPE` 位图中已包含的合约类型置位，否则交易会被校验拒绝。`AVAILABLE_CONTRACT_TYPE` 大致对应上表的 # 列，但不含 ShieldedTransferContract(51)。
+
 ### 3. 交易执行流程
 1. 创建交易；
 2. 设置 `Permission_id`（默认为 0，即 `owner` 权限）；
