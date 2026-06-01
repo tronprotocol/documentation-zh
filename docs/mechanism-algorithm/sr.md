@@ -96,6 +96,8 @@ TRON 网络中的所有账户都拥有选举权，可以通过投票来支持自
  - **提议生效机制**：
 当一个提议获得了至少 18 名超级代表的赞成票后，该提议即获通过。通过的提议将在下一个维护周期自动生效，完成对网络参数的修改。
 
+**注意**：下面的创建、投票、取消提议示例均为 wallet-cli 客户端命令；对应的 HTTP 接口见 [ProposalCreate](../api/http/witness-and-governance/proposalcreate.md)、[ProposalApprove](../api/http/witness-and-governance/proposalapprove.md)、[ProposalDelete](../api/http/witness-and-governance/proposaldelete.md)。
+
 ### 创建提议
 
 在 TRON 网络中，超级代表、超级代表合伙人、超级代表候选人均可以发起修改网络参数提议。
@@ -105,10 +107,12 @@ TRON 网络动态参数及其编号请参考 [这里](https://tronscan.org/#/sr/
 **示例**：
 
 ```
-createproposal id0 value0 ... idN valueN
-id0_N: 参数编号
-value0_N: 新参数值
+createproposal parameter0 value0 ... parameterN valueN
+parameter0_N: 要修改的网络参数编号（不是提议 id）
+value0_N: 该参数的新值
 ```
+
+**注意**：一个提议可以通过提供多组 `parameter value` 键值对，一次性修改多个网络参数。
 
 ### 对提议进行投票
 
