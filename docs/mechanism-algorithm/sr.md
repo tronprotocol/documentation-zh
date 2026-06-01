@@ -92,17 +92,17 @@ TRON 网络中的所有账户都拥有选举权，可以通过投票来支持自
  - **组成**：委员会由当前在任的 27 位超级代表 (SR) 组成。
  - **权力**：每位委员会成员（即超级代表）都拥有两项核心权力：
 
-    - 创建提议：发起一个修改网络参数的提议。
-    - 对提议投票：对修改网络参数的提议进行投票（包括自己发起的提议）。
+    - 创建提案：发起一个修改网络参数的提案。
+    - 对提案投票：对修改网络参数的提案进行投票（包括自己发起的提案）。
     
- - **提议生效机制**：
-当一个提议获得了至少 18 名超级代表的赞成票后，该提议即获通过。通过的提议将在下一个维护周期自动生效，完成对网络参数的修改。
+ - **提案生效机制**：
+当一个提案获得了至少 18 名超级代表的赞成票后，该提案即获通过。通过的提案将在下一个维护周期自动生效，完成对网络参数的修改。
 
-**注意**：下面的创建、投票、取消提议示例均为 wallet-cli 客户端命令；对应的 HTTP 接口见 [ProposalCreate](../api/http/witness-and-governance/proposalcreate.md)、[ProposalApprove](../api/http/witness-and-governance/proposalapprove.md)、[ProposalDelete](../api/http/witness-and-governance/proposaldelete.md)。
+**注意**：下面的创建、投票、取消提案示例均为 wallet-cli 客户端命令；对应的 HTTP 接口见 [ProposalCreate](../api/http/witness-and-governance/proposalcreate.md)、[ProposalApprove](../api/http/witness-and-governance/proposalapprove.md)、[ProposalDelete](../api/http/witness-and-governance/proposaldelete.md)。
 
-### 创建提议
+### 创建提案
 
-在 TRON 网络中，超级代表、超级代表合伙人、超级代表候选人均可以发起修改网络参数提议。
+在 TRON 网络中，超级代表、超级代表合伙人、超级代表候选人均可以发起修改网络参数提案。
 
 TRON 网络动态参数及其编号请参考 [这里](https://tronscan.org/#/sr/committee)。
 
@@ -110,24 +110,24 @@ TRON 网络动态参数及其编号请参考 [这里](https://tronscan.org/#/sr/
 
 ```
 createproposal parameter0 value0 ... parameterN valueN
-parameter0_N: 要修改的网络参数编号（不是提议 id）
+parameter0_N: 要修改的网络参数编号（不是提案 id）
 value0_N: 该参数的新值
 ```
 
-**注意**：一个提议可以通过提供多组 `parameter value` 键值对，一次性修改多个网络参数。
+**注意**：一个提案可以通过提供多组 `parameter value` 键值对，一次性修改多个网络参数。
 
-### 对提议进行投票
+### 对提案进行投票
 
-对提议的投票过程遵循以下核心规则：
+对提案的投票过程遵循以下核心规则：
 
-1. TRON 的治理投票系统仅支持赞成票。不进行投票操作，即代表不赞同该提议。
-2. 从提议创建时间开始，默认 3 天为提议的有效期。该有效期由链上参数 `getProposalExpireTime`（#92）决定，可通过提议修改（主网当前为 3 天）。超过该时间范围，该提议如果没有获得足够的赞成票，则该提议失效。
+1. TRON 的治理投票系统仅支持赞成票。不进行投票操作，即代表不赞同该提案。
+2. 从提案创建时间开始，默认 3 天为提案的有效期。该有效期由链上参数 `getProposalExpireTime`（#92）决定，可通过提案修改（主网当前为 3 天）。超过该时间范围，该提案如果没有获得足够的赞成票，则该提案失效。
 
 **示例**：
 
 ```
 approveProposal id is_or_not_add_approval
-id: 提议Id
+id: 提案Id
 is_or_not_add_approval: true 表示投赞成票，false 表示撤回之前的赞成票
 ```
 
@@ -136,21 +136,21 @@ is_or_not_add_approval: true 表示投赞成票，false 表示撤回之前的赞
 - 已经赞成过该提案时，再次传 `true`（不能对同一提案重复赞成）。
 - 之前没有赞成过该提案时，传 `false`（没有可撤回的赞成票）。
 
-### 取消提议
+### 取消提案
 
-提议创建者能够在提议生效前取消提议。
+提案创建者能够在提案生效前取消提案。
 
 **示例**：
 
 ```
 deleteProposal proposalId
-id: 提议Id
+id: 提案Id
 ```
 
-### 查询提议
+### 查询提案
 
-以下接口可以查询提议，包括：
+以下接口可以查询提案，包括：
 
-+ 查询所有提议信息（[ListProposals](../api/http/witness-and-governance/listproposals.md)）
-+ 分页查询提议信息（[GetPaginatedProposalList](../api/http/witness-and-governance/getpaginatedproposallist.md)）
-+ 查询指定提议信息（[GetProposalById](../api/http/witness-and-governance/getproposalbyid.md)）
++ 查询所有提案信息（[ListProposals](../api/http/witness-and-governance/listproposals.md)）
++ 分页查询提案信息（[GetPaginatedProposalList](../api/http/witness-and-governance/getpaginatedproposallist.md)）
++ 查询指定提案信息（[GetProposalById](../api/http/witness-and-governance/getproposalbyid.md)）
