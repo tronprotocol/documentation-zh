@@ -54,7 +54,7 @@ TRON 网络中的所有账户都拥有选举权，可以通过投票来支持自
     
  - 自定义设置
 
-    超级代表与合伙人可以随时通过 `wallet/updateBrokerage` 接口调整自己的佣金比例。
+    超级代表与合伙人可以随时通过 [`wallet/updateBrokerage`](../api/http/witness-and-governance/updateBrokerage.md) 接口调整自己的佣金比例。
 
     - 100% 佣金：所有奖励都归超级代表/合伙人所有。
     - 0% 佣金：所有奖励都将分配给其投票者。
