@@ -33,6 +33,8 @@ curl --request POST \
 
 返回 JSON 数组（与原 `TransactionInfoList.transactionInfo` 等价），每个元素结构同 [`/wallet/gettransactioninfobyid`](gettransactioninfobyid.md)。
 
+> **注意**：在解析各个交易的 `log` 字段之前，请逐笔确认其结果为 "success"——这是保证数据一致性的推荐做法。
+
 响应示例（区块号 66987565 共 4 笔交易，截取前 2 笔）：
 
 ```json
@@ -57,8 +59,6 @@ curl --request POST \
 ```
 
 空区块（无交易）返回 `[]`；`num <= 0` 时返回 `{}`。
-
-> **注意**：在解析各个交易的 `log` 字段之前，请逐笔确认其结果为 "success"——这是保证数据一致性的推荐做法。
 
 ### 异常响应
 

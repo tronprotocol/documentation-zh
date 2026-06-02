@@ -64,6 +64,8 @@ curl --request POST \
 | `result` | enum | 合约执行结果（同 `Transaction.Result.contractResult`） |
 | `energy_penalty_total` | int64 | 能量惩罚 |
 
+> **注意**：在解析 `log` 字段之前，请先确认交易结果为 "success"——这是保证数据一致性的推荐做法。
+
 响应示例（Nile 上的真实合约调用，截断 `data` 与 `internal_transactions` 完整内容）：
 
 ```json
@@ -105,8 +107,6 @@ curl --request POST \
 ```
 
 未上链返回 `{}`。
-
-> **注意**：在解析 `log` 字段之前，请先确认交易结果为 "success"——这是保证数据一致性的推荐做法。
 
 ### 异常响应
 
