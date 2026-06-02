@@ -41,7 +41,7 @@ curl --request POST \
 | `contract_address` | bytes | 部署/调用的合约地址 |
 | `receipt` | ResourceReceipt | 资源消耗（见下） |
 | `log` | repeated Log | 事件日志（`{address, topics[], data}`） |
-| `result` | enum | `SUCESS` / `FAILED` |
+| `result` | enum | `SUCCESS` / `FAILED` |
 | `resMessage` | bytes | 失败原因 |
 | `internal_transactions` | repeated InternalTransaction | 内部交易 |
 | `withdraw_amount` | int64 | 提取见证人奖励金额（仅 WithdrawBalance） |
@@ -105,6 +105,8 @@ curl --request POST \
 ```
 
 未上链返回 `{}`。
+
+> **注意**：在解析 `log` 字段之前，请先确认交易结果为 "success"——这是保证数据一致性的推荐做法。
 
 ### 异常响应
 

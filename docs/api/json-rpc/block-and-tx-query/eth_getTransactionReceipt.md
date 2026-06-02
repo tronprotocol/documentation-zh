@@ -37,6 +37,8 @@ curl -X POST https://nile.trongrid.io/jsonrpc \
 | `type` | hex | 固定 `0x0` |
 | `root` | null | 不填充（post-Byzantium） |
 
+> **注意**：解析上方 `logs` 之前，请先确认交易 `status` 为 `"0x1"`——这是保证数据一致性的推荐做法。
+
 下例为上面 curl 调用 Nile testnet 抓回的真实响应（合约调用产生 1 条 log，可在 [Nile Tronscan](https://nile.tronscan.org/#/transaction/01b4cde4197b9d1a1ff09ef5d2b1d939d3ec2401b3f002ebd0802c0f30a6e4ca) 反查）：
 
 ```json
