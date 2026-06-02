@@ -27,6 +27,8 @@ curl -X POST https://nile.trongrid.io/jsonrpc \
 - **0 号块（创世块）** → `null`
 - lite fullnode 已剪枝该块 → `null`
 
+> **注意**：解析交易回执中的 `logs` 之前，请先确认交易 `status` 为 `"0x1"`——这是保证数据一致性的推荐做法。
+
 下例为上面 curl 调用 Nile testnet 抓回的真实响应（块 `0x3fe1ca0` 共 4 笔交易：1 笔合约调用 + 3 笔 TRX 转账）：
 
 ```json
