@@ -27,8 +27,8 @@ TRON 采用账户模型进行记账。网络中的所有活动，如转账、投
 
 **账户的创建成本:**
 
-1. 创建并激活一个新账户需支付的 1 TRX 创建账户的费。
-2. 除此之外，如果账户拥有足够的带宽（包括质押 TRX 获得的带宽或他人代理的带宽），那么创建账户只会消耗带宽，否则，创建账户需要支付 0.1 个 TRX 带宽费用。
+1. 激活一个新账户需支付 1 TRX，该 TRX 会被销毁。此金额由网络参数 `getCreateNewAccountFeeInSystemContract` 决定（主网当前为 1 TRX），可通过委员会提案修改。
+2. 除此之外，创建账户会消耗带宽：如果账户拥有足够的带宽（质押 TRX 获得的带宽或他人代理的带宽），则只消耗带宽；否则需销毁 0.1 TRX 来支付带宽费。该带宽费由网络参数 `getCreateAccountFee` 决定（主网当前为 0.1 TRX），同样可通过委员会提案修改。注意：每日免费带宽不能用于创建账户，只能使用质押或他人代理获得的带宽。
 
 ## 生成密钥对算法
 
@@ -86,6 +86,7 @@ public static Transaction sign(Transaction transaction, ECKey myKey) {
     ECDSASignature signature = myKey.sign(hash);
     ByteString bsSign = ByteString.copyFrom(signature.toByteArray());
     transactionBuilderSigned.addSignature(bsSign);
+    return transactionBuilderSigned.build();
 }
 ```
 
