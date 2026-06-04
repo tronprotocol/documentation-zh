@@ -10,7 +10,7 @@
 
 ## 核心特点
 
-  - **基于状态快照启动**：轻节点不从创世区块开始同步，而是直接加载一个仅包含全网最新状态和最近 65,536 个区块数据的状态快照。该区块数量为代码中的固定常量，无法通过配置修改。该值 65,536（= 2^16）与 TRON 交易的引用区块窗口一致：每笔交易的 `ref_block_hash` 必须指向最近 65,536 个区块中的某一个，否则该交易将被视为过期。因此轻节点必须保留至少这么多最近区块，才能验证新接收到的交易。
+  - **基于状态快照启动**：轻节点不从创世区块开始同步，而是直接加载一个仅包含全网最新状态和最近 65,536 个区块数据的状态快照。该区块数量为代码中的固定常量，无法通过配置修改。该值 65,536（= 2^16）与 TRON 交易的引用区块窗口一致：每笔交易的 `ref_block_hash` 必须指向最近 65,536 个区块中的某一个，否则该交易将无法通过TAPOS校验。因此轻节点必须保留至少这么多最近区块，才能验证新接收到的交易。
   - **显著的资源优势**：由于初始数据量远小于全节点，轻节点具有占用磁盘空间小、启动速度快的突出优点。
   - **提供部分全节点的 API**：默认情况下，轻节点为节省资源禁用了对历史数据（快照范围之外）的查询。其中不支持的 API 请参考 [HTTP](https://github.com/tronprotocol/java-tron/blob/master/framework/src/main/java/org/tron/core/services/filter/LiteFnQueryHttpFilter.java) 和 [gRPC](https://github.com/tronprotocol/java-tron/blob/master/framework/src/main/java/org/tron/core/services/filter/LiteFnQueryGrpcInterceptor.java)。
   - **功能可扩展**：如果需要开启这些不支持的 API，在配置文件中可以通过配置 `openHistoryQueryWhenLiteFN = true` 来开启。由于轻节点启动后，其保存的数据与全节点完全相同，所以开启该配置项后，所有被过滤的 API 将被重新开放。但快照起始高度之前的历史数据依然无法查询。
