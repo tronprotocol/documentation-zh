@@ -41,7 +41,7 @@ curl --request POST \
 | `contract_address` | bytes | 部署/调用的合约地址 |
 | `receipt` | ResourceReceipt | 资源消耗（见下） |
 | `log` | repeated Log | 事件日志（`{address, topics[], data}`） |
-| `result` | enum | `SUCESS` / `FAILED` |
+| `result` | enum | `SUCCESS` / `FAILED` |
 | `resMessage` | bytes | 失败原因 |
 | `internal_transactions` | repeated InternalTransaction | 内部交易 |
 | `withdraw_amount` | int64 | 提取见证人奖励金额（仅 WithdrawBalance） |
@@ -63,6 +63,8 @@ curl --request POST \
 | `net_fee` | int64 | 因带宽不足烧的 TRX |
 | `result` | enum | 合约执行结果（同 `Transaction.Result.contractResult`） |
 | `energy_penalty_total` | int64 | 能量惩罚 |
+
+> **注意**：在解析 `log` 字段之前，请先确认交易结果为 "success"——这是保证数据一致性的推荐做法。
 
 响应示例（Nile 上的真实合约调用，截断 `data` 与 `internal_transactions` 完整内容）：
 
