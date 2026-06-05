@@ -13,10 +13,10 @@ TRON 网络支持多种不同类型的交易，比如 TRX 转账交易、TRC-10 
 | 1 | TransferContract | BalanceContract.TransferContract | TransferActuator | ✅ 启用 | TRX 转账 |
 | 2 | TransferAssetContract | AssetIssueContractOuterClass.TransferAssetContract | TransferAssetActuator | ✅ 启用 | TRC-10 token 转账 |
 | 3 | VoteAssetContract |  |  | 🚫 禁用(未实现Actuator)  |  |
-| 4 | VoteWitnessContract | WitnessContract.VoteWitnessContract | VoteWitnessActuator | ✅ 启用 | 用账户的 TronPower 为 Witness 投票,刷新投票记录(下次 maintenance 生效) |
-| 5 | WitnessCreateContract | WitnessContract.WitnessCreateContract | WitnessCreateActuator | ✅ 启用 | 申请成为 Witness，写入 witness store |
+| 4 | VoteWitnessContract | WitnessContract.VoteWitnessContract | VoteWitnessActuator | ✅ 启用 | 用账户的 TronPower 为超级代表投票,刷新投票记录(下次 maintenance 生效) |
+| 5 | WitnessCreateContract | WitnessContract.WitnessCreateContract | WitnessCreateActuator | ✅ 启用 | 申请成为超级代表 |
 | 6 | AssetIssueContract | AssetIssueContractOuterClass.AssetIssueContract | AssetIssueActuator | ✅ 启用 | 发行 TRC-10 token,按 ICO 规则冻结募集期余额 |
-| 8 | WitnessUpdateContract | WitnessContract.WitnessUpdateContract | WitnessUpdateActuator | ✅ 启用 | 更新 Witness 的官网 URL |
+| 8 | WitnessUpdateContract | WitnessContract.WitnessUpdateContract | WitnessUpdateActuator | ✅ 启用 | 更新超级代表的官网 URL |
 | 9 | ParticipateAssetIssueContract | AssetIssueContractOuterClass.ParticipateAssetIssueContract | ParticipateAssetIssueActuator | ✅ 启用 | 在 ICO 期间用 TRX 参与 TRC-10 token 发行 |
 | 10 | AccountUpdateContract | AccountContract.AccountUpdateContract | UpdateAccountActuator | ✅ 启用 | 修改账户名(受 AllowUpdateAccountName 约束) |
 | 11 | FreezeBalanceContract | BalanceContract.FreezeBalanceContract | FreezeBalanceActuator | 🚫 禁用(`supportUnfreezeDelay` 启用后链拒绝) | Stake 1.0:质押 TRX 换取 Bandwidth/Energy,并可代理给他人 |
@@ -98,7 +98,7 @@ TRON 网络支持多种不同类型的交易，比如 TRX 转账交易、TRC-10 
 * `to_address`： 目标账户地址。
 * `amount`：转账 token 的数量。
 
-## 投票 Witness  VoteWitnessContract
+## 投票超级代表  VoteWitnessContract
 
 ```protobuf
       message VoteWitnessContract {
@@ -112,12 +112,12 @@ TRON 网络支持多种不同类型的交易，比如 TRX 转账交易、TRC-10 
      }
 ```
 
-* `owner_address`：为 Witness 投票的账户地址。
-* `vote_address`： Witness 的地址。
-* `vote_count`：投给 Witness 的票数。
+* `owner_address`：为超级代表投票的账户地址。
+* `vote_address`：超级代表的地址。
+* `vote_count`：投给超级代表的票数。
 * `support`：是否支持，这里应该是恒为true，暂未使用该参数。
 
-## 创建 Witness WitnessCreateContract
+## 创建超级代表 WitnessCreateContract
 
 ```protobuf
       message WitnessCreateContract {
@@ -126,8 +126,8 @@ TRON 网络支持多种不同类型的交易，比如 TRX 转账交易、TRC-10 
      }
 ```
 
-* `owner_address`：申请成为 Witness 的账户地址。
-* `url`：Witness 的网址。
+* `owner_address`：申请成为超级代表的账户地址。
+* `url`：超级代表的网址。
 
 ## 发行 TRC-10 token AssetIssueContract
 
@@ -178,7 +178,7 @@ TRON 网络支持多种不同类型的交易，比如 TRX 转账交易、TRC-10 
 * `public_latest_free_net_time`：最近一次转移该 token 使用免费带宽的时间。
 * `id`：token 的唯一 ID，由系统在发行时按顺序生成（从 1000001 起递增）。
 
-## 更新 Witness URL WitnessUpdateContract
+## 更新超级代表 URL WitnessUpdateContract
 
 ```protobuf
       message WitnessUpdateContract {
@@ -187,8 +187,8 @@ TRON 网络支持多种不同类型的交易，比如 TRX 转账交易、TRC-10 
      }
 ```
 
-* `owner_address`：更新 URL 的 Witness 账户地址。
-* `update_url`：Witness 网站的 URL。
+* `owner_address`：更新 URL 的超级代表地址。
+* `update_url`：超级代表网站的 URL。
 
 ## 参与 TRC-10 token 发行 ParticipateAssetIssueContract
 
@@ -486,7 +486,7 @@ TRON 网络支持多种不同类型的交易，比如 TRX 转账交易、TRC-10 
 
 * `owner_address`：待更新权限的账户地址。
 * `owner`：账户的 owner 权限，不能为空。
-* `witness`：witness 权限。Witness 账户必填；非 Witness 账户必须为空。
+* `witness`：witness 权限。超级代表必填；非超级代表必须为空。
 * `actives`：active 权限列表，不能为空，且最多 8 个。
 
 更多说明请参见[账户权限管理](./multi-signatures.md)。
@@ -512,7 +512,7 @@ TRON 网络支持多种不同类型的交易，比如 TRX 转账交易、TRC-10 
      }
 ```
 
-* `owner_address`：调整分成比例的 Witness 账户地址。
+* `owner_address`：调整分成比例的超级代表地址。
 * `brokerage`：分成比例，从 0 到 100，1 代表 1%。
 
 ## 匿名交易 ShieldedTransferContract
