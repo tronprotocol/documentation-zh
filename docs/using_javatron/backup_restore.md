@@ -77,7 +77,7 @@ tar xzvf output-directory.20220628152402.etgz
 
 - **LevelDB** 和 **RocksDB** 数据不允许混用。FullNode 的数据库类型通过配置文件中的 `db.engine` 配置项指定，可选值为 `LEVELDB` 或 `ROCKSDB`。如果您拥有 LevelDB 格式的数据，但希望以 RocksDB 引擎启动节点，可以使用 toolkit 中的 [数据转换工具](toolkit.md#_13) 将 LevelDB 数据转换为 RocksDB 格式。
 - 内部交易通过配置文件中的 `vm.saveInternalTx` 或者 `vm.saveFeaturedInternalTx` 配置项开启/关闭。只有开启 `vm.saveInternalTx`，才会保存内部交易，如果 `saveFeaturedInternalTx` 也同时开启，则会保存所有类型的内部交易，否则，只保存 `call`、`create`、`suicide` 交易。影响接口：[`gettransactioninfobyid`](../api/http/block-and-tx-query/gettransactioninfobyid.md)
-- 配置项 `vm.saveCancelAllUnfreezeV2Details` 会额外把带宽 / 能量 / TRON Power 的取消额度以 `extra` 字段的形式记录到 `CANCELALLUNFREEZEV2` 操作码生成的内部交易上。该配置仅在 `vm.saveInternalTx` 与 `vm.saveFeaturedInternalTx` 同时开启时才会生效。
+- 配置项 `vm.saveCancelAllUnfreezeV2Details` 会额外把带宽 / 能量 / TRON Power 的取消额度以 `extra` 字段的形式记录到 `CANCELALLUNFREEZEV2` 操作码生成的内部交易上。该配置仅在 `vm.saveInternalTx` 与 `vm.saveFeaturedInternalTx` 同时开启时才会生效。请注意，上表中包含内部交易的官方快照源节点并未开启该配置，仅开启了 `vm.saveInternalTx` 与 `vm.saveFeaturedInternalTx`。
 - 账户历史余额通过配置文件中的 `storage.balance.history.lookup` 配置项开启/关闭。影响接口：[`getaccountbalance`](../api/http/account/getaccountbalance.md)
 
 #### Lite FullNode 数据快照
