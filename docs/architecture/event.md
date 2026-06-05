@@ -459,7 +459,7 @@ event.subscribe = {
   }
   path = "/deploy/fullnode/event-plugin/build/plugins/plugin-mongodb-1.0.0.zip" 
   server = "127.0.0.1:27017" 
-  dbconfig = "eventlog|tron|123456" 
+  dbconfig = "eventlog|<eventlog-username>|<eventlog-password>" 
   topics = [
     {
       triggerName = "block" 
@@ -519,7 +519,7 @@ event.subscribe = {
 *   `native.useNativeQueue`：是否使用内置消息队列（ZeroMQ）订阅事件。`true` 表示使用内置消息队列，`false` 表示使用插件订阅事件。这里需设置成 `false`。
 *   `path`：插件的绝对路径，例如 `"/deploy/fullnode/event-plugin/build/plugins/plugin-mongodb-1.0.0.zip"`。
 *   `server`：目标服务器地址，即 MongoDB 的地址和端口，例如 `"127.0.0.1:27017"`。
-*   `dbconfig`：MongoDB 数据库配置，格式为：`数据库名|用户名|密码`，例如 `"eventlog|tron|123456"`。
+*   `dbconfig`：MongoDB 数据库配置，格式为：`数据库名|用户名|密码`，例如 `"eventlog|<eventlog-username>|<eventlog-password>"`。
 *   `topics`：目前支持七种事件类型：`block`、`transaction`、`contractevent`、`contractlog`、`solidity`、`solidityevent` 和 `soliditylog`。详细信息请参考 [事件类型](#event-types) 章节。
     *   `triggerName`：触发器名称，不可修改。
     *   `enable`：是否启用该事件订阅。`true` 为开启，`false` 为禁用。
@@ -704,7 +704,7 @@ o.t.c.l.EventPluginLoader 'your plugin path/plugin-mongodb-1.0.0.zip' loaded
 ```
 mongo 127.0.0.1:27017
 use eventlog
-db.auth("tron", "123456")
+db.auth("<eventlog-username>", "<eventlog-password>")
 show collections
 db.block.find()
 ```
