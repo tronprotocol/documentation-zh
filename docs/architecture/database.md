@@ -24,7 +24,15 @@ storage {
 }
 ```
 
+字段说明：
+
+- `db.sync`：设为 `true` 时，底层引擎会等待每笔写入真正落盘后再返回，对断电/硬件崩溃更安全，但写入会明显变慢；默认 `false`，写入由 OS 缓冲，崩溃时可能丢失尚未落盘的部分。LevelDB 与 RocksDB 路径都生效。
+- `transHistory.switch`：设为 `"off"` 时，`TransactionHistoryStore` 和 `TransactionRetStore` 会静默丢弃新写入，因此 switch 处于关闭期间处理的交易在 `gettransactioninfobyid` 查询时会返回空；已有数据仍可读取。默认 `"on"`。
+
 ### 2. RocksDB 优化参数
+
+`dbSettings` 块仅在 `db.engine = "ROCKSDB"` 时生效；使用 LevelDB 时这些值会被静默忽略。
+
 RocksDB 支持多种调优参数，可根据节点服务器性能进行配置。以下是一个推荐的参数示例：
 ```
 dbSettings = {
@@ -45,17 +53,23 @@ dbSettings = {
 ## x86_64 平台从 LevelDB 迁移至 RocksDB
 若需从 LevelDB 迁移到 RocksDB，需使用官方提供的转换工具 `Toolkit.jar`。
 
+> **注意**：`db convert` 子命令仅支持 x86_64。在 arm64 上执行时会打印 "unsupported architecture" 提示后直接退出，不会进行任何转换。
+
 ### 1. 数据转换步骤
 ```
 cd java-tron                                   # 源码根目录
 ./gradlew build -xtest -xcheck                 # 编译项目                        
 java -jar build/libs/Toolkit.jar db convert    # 执行数据转换
 ```
-### 2. 可选参数说明
-若您的节点使用了自定义的数据目录，可在运行转换脚本时添加如下参数：
+### 2. 位置参数
+若您的节点使用了自定义的数据目录，可在 `db convert` 后按顺序追加两个位置参数，分别指定 LevelDB 源路径与 RocksDB 目标路径：
 
-- `src_db_path`：LevelDB 数据库路径（默认为 `output-directory/database`）
-- `dst_db_path`：RocksDB 数据库存储路径（默认为 `output-directory-dst/database`）
+```
+java -jar build/libs/Toolkit.jar db convert <src> <dst>
+```
+
+- `<src>`：LevelDB 数据库路径（默认为 `output-directory/database`）
+- `<dst>`：RocksDB 数据库存储路径（默认为 `output-directory-dst/database`）
 
 例如，若节点是通过如下方式运行：
 ```
@@ -83,11 +97,7 @@ cd /tmp
 java -jar build/libs/Toolkit.jar db convert output-directory/database output-directory-dst/database
 ```
 
->备注：
-整个数据转换过程预计耗时约 **10 小时**，具体时间依赖于数据量和磁盘性能。
+> **注意**：整个数据转换过程预计耗时约 **10 小时**，具体时间依赖于数据量和磁盘性能。
 
 ## 关于 LevelDB
 LevelDB 是 x86_64 平台 java-tron 节点默认的数据存储引擎，适用于资源有限或轻量级的部署场景。它结构简单、易于维护，但在数据压缩、备份能力和大规模节点性能上不如 RocksDB。
-
-若需深入了解两者的详细对比，请参考文档：
-📘 [RocksDB 与 LevelDB 差异对比](https://github.com/tronprotocol/documentation/blob/master/TRX_CN/Rocksdb_vs_Leveldb.md)
