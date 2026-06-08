@@ -219,25 +219,6 @@ TRON 网络支持多种不同类型的交易，比如 TRX 转账交易、TRC-10 
 * `owner_address`：待更新账户的地址。
 * `account_name`： 账户名称。
 
-## Stake 1.0 质押 FreezeBalanceContract
-
-
-```protobuf
-      message FreezeBalanceContract {
-       bytes owner_address = 1;
-       int64 frozen_balance = 2;
-       int64 frozen_duration = 3;
-       ResourceCode resource = 10;
-       bytes receiver_address = 15;
-     }
-```
-
-* `owner_address`：质押 TRX 的账户地址。
-* `frozen_balance`：质押资产的数量。
-* `frozen_duration`：质押资产的时间段。
-* `resource`：质押 TRX 获取资源的类型。
-* `receiver_address`：接收资源的账户。
-
 ## 解质押 Stake 1.0 阶段质押的资产 UnfreezeBalanceContract
 
 ```protobuf
@@ -441,24 +422,6 @@ TRON 网络支持多种不同类型的交易，比如 TRX 转账交易、TRC-10 
 * `token_id`：要撤资的 token 的 id。
 * `quant`：要撤资的 token 的数量。
 
-## 通过交易对兑换资产 ExchangeTransactionContract
-
-```protobuf
-      message ExchangeTransactionContract {
-       bytes owner_address = 1;
-       int64 exchange_id = 2;
-       bytes token_id = 3;
-       int64 quant = 4;
-       int64 expected = 5;
-     }
-```
-
-* `owner_address`：通过交易对兑换资产的账户地址。
-* `exchange_id`： 交易对的id。
-* `token_id`：要卖出的 token 的 id。
-* `quant`：要卖出的 token 的数量。
-* `expected`：期望买入 token 的数量，如果计算出来的实际可以买到的 token 数量小于这个值，则交易失败。
-
 ## 调整能量上限 UpdateEnergyLimitContract
 
 ```protobuf
@@ -514,94 +477,6 @@ TRON 网络支持多种不同类型的交易，比如 TRX 转账交易、TRC-10 
 
 * `owner_address`：调整分成比例的超级代表地址。
 * `brokerage`：分成比例，从 0 到 100，1 代表 1%。
-
-## 匿名交易 ShieldedTransferContract
-
-```protobuf
-    message ShieldedTransferContract {
-       bytes transparent_from_address = 1;
-       int64 from_amount = 2;
-       repeated SpendDescription spend_description = 3;
-       repeated ReceiveDescription receive_description = 4;
-       bytes binding_signature = 5;
-       bytes transparent_to_address = 6;
-       int64 to_amount = 7;
-    }
-```
-
-* `transparent_from_address`：交易发送方透明地址，如果交易发送方是匿名的，则该参数为空。
-* `from_amount`：交易发送方转账金额，正整数；如果交易发送方是匿名的，则该参数为0。
-* `spend_description`：交易发送方note的SpendDescription，最多一个，该参数类型具体描述见下文；如果发送方是透明地址，则该参数为空。
-* `receive_description`：交易接收方note的ReceiveDescription，最多两个，该参数类型具体描述见下文。
-* `binding_signature`：交易的绑定签名，证明交易双方金额平衡。
-* `transparent_to_address`：交易接收方透明地址，如果交易接收方都是匿名的，则该参数为空。
-* `to_amount`：交易接收方转账金额，正整数；如果交易接收方是匿名的，则该参数为0。
-
-```
-     message SpendDescription {
-       bytes value_commitment = 1;
-       bytes anchor = 2;
-       bytes nullifier = 3;
-       bytes rk = 4;
-       bytes zkproof = 5;
-       bytes spend_authority_signature = 6;
-     }
-```
-
-* `value_commitment`：对交易发送方转账金额的承诺。
-* `anchor`：交易发送方note commitment所在Merkle树的根hash。
-* `nullifier`：交易发送方note的作废证明，防止双花。
-* `rk`：验证交易发送方Spend Authorization签名的公钥。
-* `zkproof`：交易发送方note的零知识证明，证明要花费的note存在，且可以被花费。
-* `spend_authority_signature`：交易发送方的Spend Authorization签名。
-
-```
-     message ReceiveDescription {
-       bytes value_commitment = 1;
-       bytes note_commitment = 2;
-       bytes epk = 3;
-       bytes c_enc = 4;
-       bytes c_out = 5;
-       bytes zkproof = 6;
-     }
-```
-
-* `value_commitment`：对交易接收方转账金额的承诺。
-* `note_commitment`：对交易接收方note的承诺。
-* `epk`：临时公钥，用于生成解密note密钥。
-* `c_enc`：note加密结果的一部分，是对（Diversifier, 转账金额v, 生成note_commitment的随机数rcm, Memo）的加密结果。
-* `c_out`：note加密结果的另一部分，是对（接收方公钥，临时私钥）的加密结果。
-* `zkproof`：交易接收方note存在的零知识证明。
-
-## 挂限价卖单 MarketSellAssetContract
-
-```protobuf
-    message MarketSellAssetContract {
-      bytes owner_address = 1;
-      bytes sell_token_id = 2;
-      int64 sell_token_quantity = 3;
-      bytes buy_token_id = 4;
-      int64 buy_token_quantity = 5; // min to receive
-    }
-```
-
-* `owner_address`：挂单的账户地址。
-* `sell_token_id`：要卖出的 token 的 id。
-* `sell_token_quantity`：要卖出的 token 的数量。
-* `buy_token_id`：要买入的 token 的 id。
-* `buy_token_quantity`：期望买入 token 的最小数量。撮合时若实际买入数量小于该值，则订单挂在订单簿上等待以更优的价格成交。
-
-## 撤销市场订单 MarketCancelOrderContract
-
-```protobuf
-    message MarketCancelOrderContract {
-      bytes owner_address = 1;
-      bytes order_id = 2;
-    }
-```
-
-* `owner_address`：原挂单的账户地址。
-* `order_id`：要撤销的市场订单 id。
 
 ## 质押资产 FreezeBalanceV2Contract
 
