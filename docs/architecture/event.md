@@ -138,7 +138,7 @@ cd event-plugin
 
 ```
 cd /usr/local
-wget https://downloads.apache.org/kafka/2.8.0/kafka_2.13-2.8.0.tgz
+wget https://archive.apache.org/dist/kafka/2.8.0/kafka_2.13-2.8.0.tgz
 tar -xzf kafka_2.13-2.8.0.tgz
 ```
 
@@ -186,15 +186,16 @@ event.subscribe = {
 *   `path`：`plugin-kafka-1.0.0.zip` 的本地绝对路径，请确保路径正确，否则无法加载。
 *   `server`：Kafka 服务器地址，使用 `ip:port` 的格式。Kafka 默认端口号是 `9092`，请确保端口号正确，并确保 Kafka 服务可访问。
 *   `dbconfig`：此配置项仅针对 MongoDB 插件，对于 Kafka 插件请忽略。
+*   `contractParse`：控制是否对合约日志进行 ABI 解码。设为 `true`（默认值）时，节点会将每条日志与合约 ABI 进行匹配，匹配成功的日志作为解码后的 `contractevent` 事件推送，未匹配的日志则作为原始 `contractlog` 事件推送；设为 `false` 时，跳过 ABI 解码，所有日志均作为原始 `contractlog` 事件推送。
 *   `topics`：配置订阅的事件，详情请参看接下来的[事件类型](#event-types)章节。
-*   `filter`：过滤参数，详情请参看接下来的[事件类型](#event-types)章节。
+*   `filter`：过滤参数，详情请参看[事件过滤](#event-filtering)章节。
 
 
-###### 事件类型 { #event-types }
+#### 事件类型 { #event-types }
 
 TRON 事件订阅支持 `block`、`transaction`、`contractevent`、`contractlog`、`solidity`、`solidityevent`、`soliditylog` 7 种类型的事件订阅。开发者需要根据业务需求进行配置，**建议只订阅 1-2 种事件类型，如果开启过多触发器，会导致性能下降。**
 
-**1. 交易事件**
+##### 1. 交易事件 { #transaction-event }
 
 用于订阅交易相关的事件信息。
 
@@ -229,7 +230,7 @@ event.subscribe.topics = [
 
 更多字段请参考 [TransactionLogTrigger](https://github.com/tronprotocol/java-tron/blob/develop/common/src/main/java/org/tron/common/logsfilter/trigger/TransactionLogTrigger.java)。
 
-**2. 区块事件**
+##### 2. 区块事件 { #block-event }
 
 用于订阅区块生成信息。
 
@@ -256,7 +257,7 @@ event.subscribe.topics = [
 
 更多字段请参考 [BlockLogTrigger](https://github.com/tronprotocol/java-tron/blob/develop/common/src/main/java/org/tron/common/logsfilter/trigger/BlockLogTrigger.java)。
 
-**3. 合约事件与日志**
+##### 3. 合约事件与日志 { #contract-event-and-log }
 
 用于订阅智能合约事件和日志。
 
@@ -300,24 +301,27 @@ event.subscribe.topics = [
 
 更多字段请参考 [ContractEventTrigger](https://github.com/tronprotocol/java-tron/blob/develop/common/src/main/java/org/tron/common/logsfilter/trigger/ContractEventTrigger.java) 和  [ContractLogTrigger](https://github.com/tronprotocol/java-tron/blob/develop/common/src/main/java/org/tron/common/logsfilter/trigger/ContractLogTrigger.java)。
 
-> **注意**：`合约事件`与`合约日志事件`订阅支持通过`filter` 字段对事件进行过滤，可以指定区块范围 (`fromblock` - `toblock`)、特定合约地址 (`contractAddress`) 或特定合约主题 (`contractTopic`)，为开发者提供更高效、更精准的事件订阅服务。：
-> ```
-> filter = {
->   fromblock = "" // 查询范围的起始区块号，可以是空字符串、"earliest" 或指定的区块号。
->   toblock = "" // 查询范围的结束区块号，可以是空字符串、"latest" 或指定的区块号。
->   contractAddress = [
->     "" // 您希望订阅的合约地址。如果设置为空字符串，将接收所有合约地址的日志/事件。
->   ]
->
->   contractTopic = [
->     "" // 您希望订阅的合约主题。如果设置为空字符串，将接收所有合约主题的日志/事件。
->   ]
-> }
-> ```
+###### 事件过滤 { #event-filtering }
+
+`合约事件`与`合约日志事件`订阅支持通过 `filter` 字段对事件进行过滤，可以指定区块范围 (`fromblock` - `toblock`)、特定合约地址 (`contractAddress`) 或特定合约主题 (`contractTopic`)，为开发者提供更高效、更精准的事件订阅服务。
+
+```hocon
+filter = {
+  fromblock = "" // 查询范围的起始区块号，可以是空字符串、"earliest" 或指定的区块号。
+  toblock = "" // 查询范围的结束区块号，可以是空字符串、"latest" 或指定的区块号。
+  contractAddress = [
+    "" // 您希望订阅的合约地址。如果设置为空字符串，将接收所有合约地址的日志/事件。
+  ]
+
+  contractTopic = [
+    "" // 您希望订阅的合约主题。如果设置为空字符串，将接收所有合约主题的日志/事件。
+  ]
+}
+```
 
 
 
-**4. 固化块通知事件**
+##### 4. 固化块通知事件 { #solidified-block-notification-event }
 
 用于实时获取最新固化块高度，适用于需要同步最新固化状态的场景。
 
@@ -455,7 +459,7 @@ event.subscribe = {
   }
   path = "/deploy/fullnode/event-plugin/build/plugins/plugin-mongodb-1.0.0.zip" 
   server = "127.0.0.1:27017" 
-  dbconfig = "eventlog|tron|123456" 
+  dbconfig = "eventlog|<eventlog-username>|<eventlog-password>" 
   topics = [
     {
       triggerName = "block" 
@@ -515,11 +519,12 @@ event.subscribe = {
 *   `native.useNativeQueue`：是否使用内置消息队列（ZeroMQ）订阅事件。`true` 表示使用内置消息队列，`false` 表示使用插件订阅事件。这里需设置成 `false`。
 *   `path`：插件的绝对路径，例如 `"/deploy/fullnode/event-plugin/build/plugins/plugin-mongodb-1.0.0.zip"`。
 *   `server`：目标服务器地址，即 MongoDB 的地址和端口，例如 `"127.0.0.1:27017"`。
-*   `dbconfig`：MongoDB 数据库配置，格式为：`数据库名|用户名|密码`，例如 `"eventlog|tron|123456"`。
-*   `topics`：目前支持七种事件类型：`block`、`transaction`、`contractevent`、 `contractlog`、`solidity`、`solidityevent` 和 `soliditylog`。详细信息请参考 [事件类型](#event-types) 章节。
+*   `dbconfig`：MongoDB 数据库配置，格式为：`数据库名|用户名|密码`，例如 `"eventlog|<eventlog-username>|<eventlog-password>"`。
+*   `topics`：目前支持七种事件类型：`block`、`transaction`、`contractevent`、`contractlog`、`solidity`、`solidityevent` 和 `soliditylog`。详细信息请参考 [事件类型](#event-types) 章节。
     *   `triggerName`：触发器名称，不可修改。
     *   `enable`：是否启用该事件订阅。`true` 为开启，`false` 为禁用。
     *   `topic`：MongoDB 中接收事件的集合名称，可修改。
+    *   `redundancy`：仅用于 `contractlog` 与 `soliditylog`。设为 `true` 时，已作为 `contractevent`/`solidityevent` 推送的合约日志会**额外再以原始** `contractlog`/`soliditylog` 形式推送一份。默认为 `false`。
 *   `filter`：事件过滤条件。
     *   `fromblock`：查询范围的起始区块号，可以是""、`"earliest"` （从创世区块开始查询） 或指定的区块号。
     *   `toblock`：查询范围的结束区块号，可以是""、`"latest"` （最新区块） 或指定的区块号。
@@ -594,11 +599,11 @@ mongod --config /home/java-tron/mongodb/mgdb.conf &
 ```
 mongo
 use admin
-db.createUser({user:"root",pwd:"admin",roles:[{role:"root",db:"admin"}]})
+db.createUser({user:"<admin-username>",pwd:"<admin-password>",roles:[{role:"root",db:"admin"}]})
 
-db.auth("root", "admin")
+db.auth("<admin-username>", "<admin-password>")
 use eventlog
-db.createUser({user:"tron",pwd:"123456",roles:[{role:"dbOwner",db:"eventlog"}]})
+db.createUser({user:"<eventlog-username>",pwd:"<eventlog-password>",roles:[{role:"dbOwner",db:"eventlog"}]})
 ```
 
 #### 部署事件查询服务（Event Query Service） { #deploying-the-event-query-service }
@@ -621,7 +626,7 @@ cd tron-eventquery
 下载 Maven 并使用 Maven 构建 `tron-eventquery` 服务：
 
 ```
-wget https://mirrors.cnnic.cn/apache/maven/maven-3/3.5.4/binaries/apache-maven-3.5.4-bin.tar.gz --no-check-certificate
+wget https://archive.apache.org/dist/maven/maven-3/3.5.4/binaries/apache-maven-3.5.4-bin.tar.gz --no-check-certificate
 tar zxvf apache-maven-3.5.4-bin.tar.gz
 export M2_HOME=$HOME/maven/apache-maven-3.5.4
 export PATH=$PATH:$M2_HOME/bin
@@ -689,7 +694,7 @@ tail -f logs/tron.log | grep -i eventplugin
 如果看到类似以下字样，则表示插件已成功加载：
 
 ```text
-o.t.c.l.EventPluginLoader 'your plugin path/plugin-kafka-1.0.0.zip' loaded
+o.t.c.l.EventPluginLoader 'your plugin path/plugin-mongodb-1.0.0.zip' loaded
 ```
 
 ##### 验证数据是否存入 MongoDB
@@ -697,9 +702,9 @@ o.t.c.l.EventPluginLoader 'your plugin path/plugin-kafka-1.0.0.zip' loaded
 连接到 MongoDB 并查询数据，以验证事件数据是否已从节点获取并通过事件订阅存储到 MongoDB 中：
 
 ```
-mongo 47.90.245.68:27017
+mongo 127.0.0.1:27017
 use eventlog
-db.auth("tron", "123456")
+db.auth("<eventlog-username>", "<eventlog-password>")
 show collections
 db.block.find()
 ```
