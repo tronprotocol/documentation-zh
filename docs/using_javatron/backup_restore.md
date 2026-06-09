@@ -1,10 +1,12 @@
 # TRON 网络节点数据备份与恢复
 
-java-tron 节点将其持久化数据存储在指定的数据目录下。默认的数据目录是 `/output-directory/`。您可以通过在 java-tron 节点启动命令中添加 `-d` 或 `--output-directory` 参数来指定不同的数据存储位置，例如：
+java-tron 节点将其持久化数据存储在指定的数据目录下。默认的数据目录是 `output-directory`（相对于当前工作目录的相对路径）。您可以通过在 java-tron 节点启动命令中添加 `-d` 或 `--output-directory` 参数来指定不同的数据存储位置，例如：
 
 ```
-java -jar build/libs/fullnode.jar -d ./outputdir
+java -jar build/libs/FullNode.jar -d ./outputdir
 ```
+
+数据目录下，所有持久化数据都存放在 `database/` 子目录中，子目录名由配置项 `storage.db.directory` 控制（默认值：`database`）。如果您修改了 `storage.db.directory`，请确保备份与恢复时使用重命名后的目录。
 
 
 ## 备份节点数据
@@ -71,15 +73,16 @@ tar xzvf output-directory.20220628152402.etgz
 | 官方数据源 (亚洲: 新加坡) | [http://35.247.128.170/](http://35.247.128.170/) | LevelDB 数据，包含内部交易 |
 | 官方数据源 (美洲: 美国弗吉尼亚) | [http://34.48.6.163/](http://34.48.6.163/) | LevelDB 数据，不包含内部交易，包含账户历史余额 |
 
-**注意：** 
+**注意：**
 
-- **LevelDB** 和 **RocksDB** 数据不允许混用。FullNode 的数据库类型通过配置文件中的 `db.engine` 配置项指定，可选值为 `LEVELDB` 或 `ROCKSDB`。
-- 内部交易通过配置文件中的`vm.saveInternalTx`或者`vm.saveFeaturedInternalTx`配置项开启/关闭。只有开启`vm.saveInternalTx` ，才会保存内部交易，如果`saveFeaturedInternalTx`也同时开启，则会保存所有类型的内部交易，否则，只保存`call`、`create`、`suicide`交易。影响接口：[`gettransactioninfobyid`](https://developers.tron.network/reference/gettransactioninfobyid-1)
-- 账户历史余额通过配置文件中的`storage.balance.history.lookup`配置项开启/关闭。影响接口：[`getaccountbalance`](https://developers.tron.network/reference/getaccountbalance)
+- **LevelDB** 和 **RocksDB** 数据不允许混用。FullNode 的数据库类型通过配置文件中的 `db.engine` 配置项指定，可选值为 `LEVELDB` 或 `ROCKSDB`。如果您拥有 LevelDB 格式的数据，但希望以 RocksDB 引擎启动节点，可以使用 toolkit 中的 [数据转换工具](toolkit.md#_13) 将 LevelDB 数据转换为 RocksDB 格式。
+- 内部交易通过配置文件中的 `vm.saveInternalTx` 或者 `vm.saveFeaturedInternalTx` 配置项开启/关闭。只有开启 `vm.saveInternalTx`，才会保存内部交易，如果 `saveFeaturedInternalTx` 也同时开启，则会保存所有类型的内部交易，否则，只保存 `call`、`create`、`suicide` 交易。影响接口：[`gettransactioninfobyid`](../api/http/block-and-tx-query/gettransactioninfobyid.md)
+- 配置项 `vm.saveCancelAllUnfreezeV2Details` 会额外把带宽 / 能量 / TRON Power 的取消额度以 `extra` 字段的形式记录到 `CANCELALLUNFREEZEV2` 操作码生成的内部交易上。该配置仅在 `vm.saveInternalTx` 与 `vm.saveFeaturedInternalTx` 同时开启时才会生效。请注意，上表中包含内部交易的官方快照源节点并未开启该配置，仅开启了 `vm.saveInternalTx` 与 `vm.saveFeaturedInternalTx`。
+- 账户历史余额通过配置文件中的 `storage.balance.history.lookup` 配置项开启/关闭。影响接口：[`getaccountbalance`](../api/http/account/getaccountbalance.md)
 
 #### Lite FullNode 数据快照
 
-TRON 网络从 GreatVoyage-V4.1.0 版本开始支持 **Lite FullNode** 类型的节点。相比于普通的 FullNode，Lite FullNode 拥有更小的数据库和更快的启动速度，因为它只需要状态数据和必要的历史数据即可启动。下表列出了 Lite FullNode 数据快照的下载地址。
+TRON 网络从 GreatVoyage-v4.1.0 版本开始支持 **Lite FullNode** 类型的节点。相比于普通的 FullNode，Lite FullNode 拥有更小的数据库和更快的启动速度，因为它只需要状态数据和必要的历史数据即可启动。下表列出了 Lite FullNode 数据快照的下载地址。
 
 | Lite FullNode 节点数据源 | 下载地址 | 说明 |
 | :----------------------- | :------- | :--- |
@@ -87,19 +90,16 @@ TRON 网络从 GreatVoyage-V4.1.0 版本开始支持 **Lite FullNode** 类型的
 
 **小提示：** 如果您已经拥有 FullNode 的全量数据，可以使用 [Lite FullNode 数据裁剪工具](toolkit.md#lite-fullnode-data-pruning)自行将 FullNode 数据裁剪为 Lite FullNode 数据。
 
-
-
 ### Nile 测试网数据快照
 
 关于 Nile 测试网数据快照的详细信息，请参照 [官网](https://nileex.io/)。使用方法与主网数据快照相同。
-
 
 ### 数据快照的使用 { #data-snapshot-usage-steps }
 
 数据快照的使用步骤如下：
 
 1. 根据自己需求下载相应压缩备份数据库。
-2. 解压备份数据库压缩包至 `output-directory` 目录（或根据需求指定其他目标目录）。有关详细解压说明，请参见下方[数据快照解压方式](#uncompress-ways)章节。 
+2. 解压备份数据库压缩包至 `output-directory` 目录（或根据需求指定其他目标目录）。有关详细解压说明，请参见下方[数据快照解压方式](#uncompress-ways)章节。
 3. 启动节点。节点默认读取 `output-directory` 目录。如果您的数据解压到了其他目录，请在节点启动时添加 `-d` 参数并指定数据库目录名。
 
 #### 数据快照的解压方式 { #uncompress-ways }
@@ -121,7 +121,7 @@ wget -q -O - SNAPSHOT_URL/FullNode_output-directory.tgz | tar -zxvf -
 bash download_snapshot.sh
 ```
 
-此方法无需存储完整压缩包，直接解压至目标目录，**显著减少磁盘占用**。
+**注意：** 此方法无需存储完整压缩包，直接解压至目标目录，**显著减少磁盘占用**。
 
 **方法 2：先下载后解压（需充足存储空间）**
 
@@ -133,4 +133,4 @@ wget SNAPSHOT_URL/FullNode_output-directory.tgz
 tar -zxvf FullNode_output-directory.tgz  
 ```
 
-此方法在解压时同时保留压缩包和解压后的文件，建议使用2个3TB的磁盘（3TB+ 压缩包 & 3TB+ 解压数据，解压后可释放一块磁盘，节省成本）。
+**注意：** 此方法在解压时同时保留压缩包和解压后的文件，建议使用2个3TB的磁盘（3TB+ 压缩包 & 3TB+ 解压数据，解压后可释放一块磁盘，节省成本）。
