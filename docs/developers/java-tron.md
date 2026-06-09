@@ -27,7 +27,7 @@
 4. **创建 Pull Request (PR)**  
    将改动推送到您的 Fork 仓库，并向官方仓库提交 PR。
 5. **代码审查与合并**  
-   维护者将根据 [代码审查指南](#_6) 审核您的 PR，并在合格后合并至主分支。
+   维护者将根据 [代码审查指南](#code-review-guidelines) 审核您的 PR，并在合格后合并至主分支。
 
 
 
@@ -107,7 +107,7 @@ git push origin feature/branch_name
 
 建议选择红框的选项，将 `tronprotocol/java-tron` 的 `develop` 分支选成 base 分支，将个人的 Fork 仓库的分支选成 compare 分支。
 
-## 代码审查指南
+## 代码审查指南 { #code-review-guidelines }
 将代码合并到 **java-tron** 的唯一途径是 **Pull Request (PR)**。
 所有 PR 必须经过审查后才能合并。
 

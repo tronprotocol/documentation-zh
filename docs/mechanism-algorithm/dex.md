@@ -140,7 +140,7 @@ TRON 提供多种交易对查询接口：
 **3. 查询指定交易对详情：** `GetExchangeById`
 
 详细 API 文档参考：
-[RPC-API 接口文档](https://tronprotocol.github.io/documentation-zh/api/rpc/)
+[RPC-API 接口文档](../api/rpc/index.md)
 
 ### 价格计算
 假设交易对中：
@@ -172,5 +172,5 @@ buyTokenQuant = (long)(balance * (Math.pow(1.0 + (double) supplyQuant / supply, 
 ```
 >**注意**: 市场价格会因网络中其他交易行为实时波动。
 
-更多接口详情，请参考：[HTTP API 文档](https://tronprotocol.github.io/documentation-zh/api/http/)。
+更多接口详情，请参考：[HTTP API 文档](../api/http/index.md)。
 
