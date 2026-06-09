@@ -1,42 +1,31 @@
 # java-tron 节点指标监控
-从 GreatVoyage-4.5.1 (Tertullian) 版本开始，节点提供了一系列兼容 Prometheus 协议的接口，使节点部署者可以更方便地监控节点的健康状态。如果您想要监控节点的各项指标，则首先需要部署一个 Prometheus 服务，用于与 java-tron 节点通信，通过节点接口获取到节点各项指标数据。然后还需要部署一个可视化工具，如 Grafana，用于将 Prometheus 获取到的节点数据，以图像化界面的形式展示出来。下面将详细介绍 java-tron 节点监控系统的搭建流程。
+从 GreatVoyage-4.5.1 (Tertullian) 版本开始，节点通过 `/metrics` 端点暴露符合 Prometheus 文本格式的指标，使节点部署者可以更方便地监控节点的健康状态。各项暴露指标的含义请参考 tron-docker metric_monitor README 的 [All Metrics 章节](https://github.com/tronprotocol/tron-docker/blob/main/metric_monitor/README.md#all-metrics)。如果您想要监控节点的各项指标，则首先需要部署一个 Prometheus 服务，用于与 java-tron 节点通信，从该端点抓取指标数据。然后还需要部署一个可视化工具，如 Grafana，用于将 Prometheus 获取到的节点数据，以图像化界面的形式展示出来。下面将详细介绍 java-tron 节点监控系统的搭建流程。
 
 ## 配置 java-tron
-如需使用 Prometheus 工具监控 java-tron 节点的运行情况，首先需要在节点配置文件中开启 Prometheus 指标监控，并设置 HTTP 端口号：
-```
-node {
-  ... ...
-  p2p {
-    version = 11111 # 11111: mainnet; 20180622: testnet
-  }
- ####### add for prometheus start.
- metrics{
-  prometheus{
-  enable=true 
-  port="9527"
-  }
- }
- ####### add for prometheus end.
-}
+如需使用 Prometheus 工具监控 java-tron 节点的运行情况，首先需要在节点配置文件中开启 Prometheus 指标监控，并设置 HTTP 端口号。在 `config.conf` 中找到 `node.metrics` 配置块，将 `prometheus.enable` 设置为 `true`：
 
+```
+node.metrics = {
+  prometheus {
+    enable = true
+    port = 9527
+  }
+}
 ```
 ## 启动 java-tron 节点
-您可以通过如下命令启动 java-tron 节点：
-```
-$ java -Xmx24g -XX:+UseConcMarkSweepGC -jar build/libs/FullNode.jar -c framework/src/main/resources/config.conf
-```
+完成配置后，请参考[启动 java-tron 节点](installing_javatron.md#starting-a-java-tron-node)一节启动节点。
 
 ## 部署 Prometheus 服务
-[Prometheus](https://prometheus.io/download/) 官方提供了预编译的二进制文件以及 Docker 镜像，您可以直接在官网下载或者在 DockerHub 上拉取 Docker 镜像，更多的安装与配置说明，请参考 [Prometheus 文档](https://prometheus.io/docs/introduction/overview/)。作为简单的部署说明，本文将采用 Docker 镜像部署方式：
+[Prometheus](https://prometheus.io/download/) 官方提供了预编译的二进制文件以及 Docker 镜像，您可以直接在官网下载或者在 Docker Hub 上拉取 Docker 镜像，更多的安装与配置说明，请参考 [Prometheus 文档](https://prometheus.io/docs/introduction/overview/)。作为简单的部署说明，本文将采用 Docker 镜像部署方式：
 
 1. 安装 Prometheus
 
-    下载 Docker 后，输入如下命令拉取 Prometheus 镜像：
+    安装 Docker 后，输入如下命令拉取 Prometheus 镜像：
     ```
     $ docker pull prom/prometheus
     ```
 
-2. 下载 Prometheus 配置文件
+2. 准备 Prometheus 配置文件
 
     下面是一个 Prometheus 配置文件模板 `prometheus.yaml`：
 
@@ -60,51 +49,55 @@ $ java -Xmx24g -XX:+UseConcMarkSweepGC -jar build/libs/FullNode.jar -c framework
           group: group-xxx
           instance: xxx-01
       - targets:
-        - 172.0.0.2:9527
+        - 127.0.0.2:9527
         labels:
           group: group-xxx
           instance: xxx-02
     ```
-    您可以使用此模板，然后修改配置项 `targets`，它用于配置 java-tron 节点所在机器的 IP 和 Prometheus 端口，如您部署了多个节点，可以通过配置多个 `targets`，来实现对多个节点的监控。
+    您可以使用此模板，然后修改配置项 `targets`，它用于配置 java-tron 节点所在机器的 IP 和 Prometheus 端口，如您部署了多个节点，可以通过配置多个 `targets`，来实现对多个节点的监控。将该文件保存到本机的某个目录，例如 `/Users/test/deploy/prometheus/prometheus.yaml`。
 
 3. 启动一个 Prometheus 容器
 
-    通过如下命令启动一个 Prometheus 容器，并指定使用上步骤中用户自定义的配置文件 `/Users/test/deploy/prometheus/prometheus.yaml`
+    通过如下命令启动一个 Prometheus 容器，并挂载上一步准备的配置文件（`/Users/test/deploy/prometheus/prometheus.yaml`）：
+
     ```shell
     $ docker run --name prometheus \
-        -d -p :9090:9090 \
-        -v  /Users/test/deploy/prometheus/prometheus.yaml:/etc/prometheus/prometheus.yml \
+        -d -p 9090:9090 \
+        -v /Users/test/deploy/prometheus/prometheus.yaml:/etc/prometheus/prometheus.yml \
         prom/prometheus:latest
     ```
-
 
     容器启动后，您可以通过 `http://localhost:9090/` 查看 Prometheus 服务的运行情况。
     
     点击 "Status" -> "Configuration"，查看容器使用的配置文件是否正确：
+
     ![image](https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/metrics_config.png)
 
     点击 "Status" -> "Targets"，查看各个监控的 java-tron 节点状态：
+
     ![image](https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/metrics_targets.png)
     
-    比如这个示例中，第一个 endpoint，状态为 `UP`，表示 Prometheus 可以正常的抓取该节点的数据。而第二个 endpoint，状态为 `DOWN`，表示异常，具体参考 "Error" 中的描述。
+    比如这个示例中，第一个 endpoint，状态为 `UP`，表示 Prometheus 可以正常地抓取该节点的数据。而第二个 endpoint，状态为 `DOWN`，表示异常，具体参考 "Error" 中的描述。
 
-    当监控的 java-tron 节点的状态都正常后，您就可以通过 Grafana 或 Promdash 等可视化工具监控指标数据了，本文将通过 Grafana 来展示数据。
+    当监控的 java-tron 节点的状态都正常后，您就可以通过 Grafana 等可视化工具监控指标数据了，本文将通过 Grafana 来展示数据。
 
 ## 部署 Grafana
 Grafana 可视化工具的部署流程如下：
 
 1. 安装 Grafana
 
-    请参考官方文档安装 [Grafana](https://grafana.com/docs/grafana/next/setup-grafana/installation/)。本文将采用 Docker 部署方式，拉取的 image 版本为 open source 版：
+    请参考官方文档安装 [Grafana](https://grafana.com/docs/grafana/next/setup-grafana/installation/)。本文将采用 Docker 部署方式，拉取的镜像为开源版（grafana-oss）：
     ```
     $ docker pull grafana/grafana-oss
     ```
 
 2. 启动 Grafana
-  您可以通过如下 Docker 命令来启动 Grafana：
+
+    您可以通过如下 Docker 命令来启动 Grafana：
     ```
     $ docker run -d --name=grafana -p 3000:3000 grafana/grafana-oss
     ```
+
 3. 登录 Grafana 界面
 
     启动后，可以通过 `http://localhost:3000/` 进入 Grafana 页面，初始的用户名和密码均是 `admin`，输入后根据提示修改密码，然后就可以进入到主界面了。点击主页面左侧的设置图标，然后选择 "Data Sources" 配置 Grafana 的数据源：
@@ -117,17 +110,15 @@ Grafana 可视化工具的部署流程如下：
     
     然后点击页面最下方的 "Save & test" 按钮，保存设置。点击保存后，Grafana 会检测与数据源的连接情况，如果成功通信，则会出现 `Data source is working` 字样。
 
-4. 导入Dashboard
+4. 导入 Dashboard
 
-    Grafana 的仪表盘需要配置，为了方便 java-tron 节点部署者，TRON 社区提供了一个较全面的仪表盘配置文件，您可以直接在 Grafana dashboard 中下载 java-tron 仪表盘配置文件 [java-tron-template_rev1.json](https://grafana.com/grafana/dashboards/16567)，然后导入到 Grafana。
+    为了方便 java-tron 节点部署者，TRON 社区提供了一组预配置的 Grafana 仪表盘，每个仪表盘以一份 JSON 文件提供。请参考 tron-docker metric_monitor README 的 [Import dashboard 章节](https://github.com/tronprotocol/tron-docker/blob/main/metric_monitor/README.md#import-dashboard)将其导入到 Grafana。
 
-    点击左侧的 Dashboards 图标，然后选择 "+Import"，然后点击 "Upload JSON file" 导入已下载的仪表盘配置文件：
+    点击左侧的 Dashboards 图标，然后选择 "+Import"，然后点击 "Upload JSON file" 导入上面提到的 JSON 文件之一：
     
     ![image](https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/metrics_import.png)
     
-    然后您就可以在仪表盘界面看到如下种类的监控信息，并实时监控节点的运行情况了：
-    
-    ![image](https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/metrics_dashboard.png)
+    随后 Grafana 将根据导入的 JSON 文件渲染出对应的仪表盘，您可以实时监控节点的运行情况。
 
 
 

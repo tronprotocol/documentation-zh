@@ -88,13 +88,13 @@ TRON 网络从 GreatVoyage-v4.1.0 版本开始支持 **Lite FullNode** 类型的
 | :----------------------- | :------- | :--- |
 | 官方数据源 (亚洲: 新加坡) | [http://34.143.247.77/](http://34.143.247.77/) | LevelDB 数据 |
 
-**小提示：** 如果您已经拥有 FullNode 的全量数据，可以使用 [Lite FullNode 数据裁剪工具](toolkit.md#_5)自行将 FullNode 数据裁剪为 Lite FullNode 数据。
+**小提示：** 如果您已经拥有 FullNode 的全量数据，可以使用 [Lite FullNode 数据裁剪工具](toolkit.md#lite-fullnode-data-pruning)自行将 FullNode 数据裁剪为 Lite FullNode 数据。
 
 ### Nile 测试网数据快照
 
 关于 Nile 测试网数据快照的详细信息，请参照 [官网](https://nileex.io/)。使用方法与主网数据快照相同。
 
-### 数据快照的使用
+### 数据快照的使用 { #data-snapshot-usage-steps }
 
 数据快照的使用步骤如下：
 
@@ -102,8 +102,7 @@ TRON 网络从 GreatVoyage-v4.1.0 版本开始支持 **Lite FullNode** 类型的
 2. 解压备份数据库压缩包至 `output-directory` 目录（或根据需求指定其他目标目录）。有关详细解压说明，请参见下方[数据快照解压方式](#uncompress-ways)章节。
 3. 启动节点。节点默认读取 `output-directory` 目录。如果您的数据解压到了其他目录，请在节点启动时添加 `-d` 参数并指定数据库目录名。
 
-<a id="uncompress-ways"></a>
-#### 数据快照的解压方式
+#### 数据快照的解压方式 { #uncompress-ways }
 
 TRON 网络快照数据大小超过 2TB。我们推荐使用**流式处理（边下载边解压）**，以节省磁盘空间。
 
