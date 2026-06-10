@@ -203,7 +203,7 @@ for (int id : contractId) {
 System.out.println(ByteArray.toHexString(operations));
 ```
 
->**注意**：上例中的 `contractId` 仅用于演示位运算写法。`ContractType` 的 ID 并不连续（7、21-29、34-40 等为空缺 ID），实际只能对链上 `AVAILABLE_CONTRACT_TYPE` 位图中已包含的合约类型置位，否则交易会被校验拒绝。`AVAILABLE_CONTRACT_TYPE` 大致对应上表的 # 列，但不含 ShieldedTransferContract(51)。
+>**注意**：上例中的 `contractId` 仅用于演示位运算写法。`ContractType` 的 ID 并不连续（7、21-29、34-40 等为空缺 ID），实际只能对链上 `AVAILABLE_CONTRACT_TYPE` 位图中已包含的合约类型置位，否则交易会被校验拒绝。`AVAILABLE_CONTRACT_TYPE` 大致对应 [ContractType 总览](./system-contracts.md#contracttype) 表的 # 列，但不含 ShieldedTransferContract(51)。
 
 ### 3. 交易执行流程
 1. 创建交易；
