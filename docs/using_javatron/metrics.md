@@ -22,7 +22,7 @@ node.metrics = {
 
     安装 Docker 后，输入如下命令拉取 Prometheus 镜像：
     ```
-    $ docker pull prom/prometheus
+    docker pull prom/prometheus
     ```
 
 2. 准备 Prometheus 配置文件
@@ -61,7 +61,7 @@ node.metrics = {
     通过如下命令启动一个 Prometheus 容器，并挂载上一步准备的配置文件（`/Users/test/deploy/prometheus/prometheus.yaml`）：
 
     ```shell
-    $ docker run --name prometheus \
+    docker run --name prometheus \
         -d -p 9090:9090 \
         -v /Users/test/deploy/prometheus/prometheus.yaml:/etc/prometheus/prometheus.yml \
         prom/prometheus:latest
@@ -88,14 +88,14 @@ Grafana 可视化工具的部署流程如下：
 
     请参考官方文档安装 [Grafana](https://grafana.com/docs/grafana/next/setup-grafana/installation/)。本文将采用 Docker 部署方式，拉取的镜像为开源版（grafana-oss）：
     ```
-    $ docker pull grafana/grafana-oss
+    docker pull grafana/grafana-oss
     ```
 
 2. 启动 Grafana
 
     您可以通过如下 Docker 命令来启动 Grafana：
     ```
-    $ docker run -d --name=grafana -p 3000:3000 grafana/grafana-oss
+    docker run -d --name=grafana -p 3000:3000 grafana/grafana-oss
     ```
 
 3. 登录 Grafana 界面

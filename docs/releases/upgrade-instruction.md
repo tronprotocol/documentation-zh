@@ -26,15 +26,15 @@
 1.  克隆 `java-tron` 仓库并切换到目标版本的分支。
     ```
     # 克隆仓库
-    $ git clone https://github.com/tronprotocol/java-tron.git
+    git clone https://github.com/tronprotocol/java-tron.git
 
     # 切换到指定版本分支
-    $ cd java-tron
-    $ git checkout -b release_vx.x.x
+    cd java-tron
+    git checkout -b release_vx.x.x
     ```
 2.  执行编译命令。编译成功后，新的可执行文件 `FullNode.jar` 将生成在 `build/libs/` 目录下。
     ```
-    $ ./gradlew clean build -x test
+    ./gradlew clean build -x test
     ```
 
 ### 第 2 步：停止运行中的节点
@@ -43,11 +43,11 @@
 
 1.  使用以下命令查找 java-tron 进程的 `PID`。
     ```
-    $ ps -ef | grep java
+    ps -ef | grep java
     ```
 2.  停止节点进程。
     ```
-    $ kill -15 <进程ID>
+    kill -15 <进程ID>
     ```
 ### 第 3 步：备份关键数据 { #back-up-critical-data }
 
@@ -55,15 +55,15 @@
 
 1. **备份当前的可执行文件**
     ```
-    $ mv $JAVA_TRON.jar $JAVA_TRON.jar.`date "+%Y%m%d%H%M%S"`
+    mv $JAVA_TRON.jar $JAVA_TRON.jar.`date "+%Y%m%d%H%M%S"`
     ```
 2. **备份当前数据库 `output-directory`**
     ```
-    $ tar cvzf output-directory.`date "+%Y%m%d%H%M%S"`.etgz output-directory
+    tar cvzf output-directory.`date "+%Y%m%d%H%M%S"`.etgz output-directory
     ```
 3. **备份当前配置文件**
     ```
-    $ mv $config.conf $config.conf.`date "+%Y%m%d%H%M%S"`
+    mv $config.conf $config.conf.`date "+%Y%m%d%H%M%S"`
     ```
 这样可以确保在升级失败或遇到任何问题时，您能利用备份迅速回滚至上一版本。
 

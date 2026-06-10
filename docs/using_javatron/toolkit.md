@@ -20,13 +20,13 @@ TRON Toolkit 是一个集成了多种 `java-tron` 周边工具的实用程序，
 
 1. **克隆 `java-tron` 源代码仓库**：
    ```
-   $ git clone https://github.com/tronprotocol/java-tron.git
-   $ git checkout -t origin/master
+   git clone https://github.com/tronprotocol/java-tron.git
+   git checkout -t origin/master
    ```
 2. **编译项目**：
    ```
-   $ cd java-tron
-   $ ./gradlew clean build -x test
+   cd java-tron
+   ./gradlew clean build -x test
    ```
 
 编译成功后，`Toolkit.jar` 文件将生成在 `java-tron/build/libs/` 目录下。

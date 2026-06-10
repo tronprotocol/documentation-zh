@@ -763,7 +763,7 @@ event.subscribe = {
 ### 启动节点
 事件订阅服务默认为关闭状态，需要通过配置命令行参数 `--es` 的方式来启用。开启事件订阅服务的节点的启动命令如下：
 ```
-$ java -jar build/libs/FullNode.jar --es
+java -jar build/libs/FullNode.jar --es
 ```
 
 ### 准备事件订阅脚本
@@ -772,7 +772,7 @@ $ java -jar build/libs/FullNode.jar --es
 
 首先，下载 `ZeroMQ` 库：
 ```
-$ npm install zeromq@5
+npm install zeromq@5
 ```
 然后，编写订阅者代码：
 ```
@@ -799,7 +799,7 @@ sock.on("message", function(topic, message) {
 
 Node.js 启动命令如下：
 ```
-$ node subscriber.js
+node subscriber.js
 
 > Subscriber connected to port 5555
 ```

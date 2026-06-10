@@ -50,7 +50,7 @@ TRON 网络上有两种主要类型的帐户:
 在您的终端中通过命令 `java -jar wallet-cli.jar` 启动一个 `wallet-cli` 实例：
 
 ```
-$ java -jar wallet-cli.jar
+java -jar wallet-cli.jar
 
 Welcome to TRON wallet-cli
 Please type one of the following commands to proceed.

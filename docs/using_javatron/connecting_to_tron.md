@@ -345,7 +345,7 @@ node {
 TRON 节点日志位于 `logs/tron.log`，可通过如下命令实时查看：
 
 ```
-$ tail -f logs/tron.log
+tail -f logs/tron.log
 ```
 ### 同步中日志示例：
 ```
@@ -361,7 +361,7 @@ Generate block 79336 success, trxs:0, pendingCount: 0, rePushCount: 0, postponed
 使用 HTTP 接口获取当前节点运行状态：
 
 ```
-$ curl http://127.0.0.1:8090/wallet/getnodeinfo
+curl http://127.0.0.1:8090/wallet/getnodeinfo
 ```
 返回示例：
 ```
