@@ -8680,39 +8680,29 @@
 
 
 <h1 id="java-tron">java-tron 节点指标监控<a class="headerlink" href="#java-tron" title="Permanent link">&para;</a></h1>
-<p>从 GreatVoyage-4.5.1 (Tertullian) 版本开始，节点提供了一系列兼容 Prometheus 协议的接口，使节点部署者可以更方便地监控节点的健康状态。如果您想要监控节点的各项指标，则首先需要部署一个 Prometheus 服务，用于与 java-tron 节点通信，通过节点接口获取到节点各项指标数据。然后还需要部署一个可视化工具，如 Grafana，用于将 Prometheus 获取到的节点数据，以图像化界面的形式展示出来。下面将详细介绍 java-tron 节点监控系统的搭建流程。</p>
+<p>从 GreatVoyage-4.5.1 (Tertullian) 版本开始，节点通过 <code>/metrics</code> 端点暴露符合 Prometheus 文本格式的指标，使节点部署者可以更方便地监控节点的健康状态。各项暴露指标的含义请参考 tron-docker metric_monitor README 的 <a href="https://github.com/tronprotocol/tron-docker/blob/main/metric_monitor/README.md#all-metrics">All Metrics 章节</a>。如果您想要监控节点的各项指标，则首先需要部署一个 Prometheus 服务，用于与 java-tron 节点通信，从该端点抓取指标数据。然后还需要部署一个可视化工具，如 Grafana，用于将 Prometheus 获取到的节点数据，以图像化界面的形式展示出来。下面将详细介绍 java-tron 节点监控系统的搭建流程。</p>
 <h2 id="java-tron_1">配置 java-tron<a class="headerlink" href="#java-tron_1" title="Permanent link">&para;</a></h2>
-<p>如需使用 Prometheus 工具监控 java-tron 节点的运行情况，首先需要在节点配置文件中开启 Prometheus 指标监控，并设置 HTTP 端口号：
-<div class="highlight"><pre><span></span><code>node {
-  ... ...
-  p2p {
-    version = 11111 # 11111: mainnet; 20180622: testnet
+<p>如需使用 Prometheus 工具监控 java-tron 节点的运行情况，首先需要在节点配置文件中开启 Prometheus 指标监控，并设置 HTTP 端口号。在 <code>config.conf</code> 中找到 <code>node.metrics</code> 配置块，将 <code>prometheus.enable</code> 设置为 <code>true</code>：</p>
+<div class="highlight"><pre><span></span><code>node.metrics = {
+  prometheus {
+    enable = true
+    port = 9527
   }
- ####### add for prometheus start.
- metrics{
-  prometheus{
-  enable=true 
-  port=&quot;9527&quot;
-  }
- }
- ####### add for prometheus end.
 }
-</code></pre></div></p>
+</code></pre></div>
 <h2 id="java-tron_2">启动 java-tron 节点<a class="headerlink" href="#java-tron_2" title="Permanent link">&para;</a></h2>
-<p>您可以通过如下命令启动 java-tron 节点：
-<div class="highlight"><pre><span></span><code>$ java -Xmx24g -XX:+UseConcMarkSweepGC -jar build/libs/FullNode.jar -c framework/src/main/resources/config.conf
-</code></pre></div></p>
+<p>完成配置后，请参考<a href="../installing_javatron/#starting-a-java-tron-node">启动 java-tron 节点</a>一节启动节点。</p>
 <h2 id="prometheus">部署 Prometheus 服务<a class="headerlink" href="#prometheus" title="Permanent link">&para;</a></h2>
-<p><a href="https://prometheus.io/download/">Prometheus</a> 官方提供了预编译的二进制文件以及 Docker 镜像，您可以直接在官网下载或者在 DockerHub 上拉取 Docker 镜像，更多的安装与配置说明，请参考 <a href="https://prometheus.io/docs/introduction/overview/">Prometheus 文档</a>。作为简单的部署说明，本文将采用 Docker 镜像部署方式：</p>
+<p><a href="https://prometheus.io/download/">Prometheus</a> 官方提供了预编译的二进制文件以及 Docker 镜像，您可以直接在官网下载或者在 Docker Hub 上拉取 Docker 镜像，更多的安装与配置说明，请参考 <a href="https://prometheus.io/docs/introduction/overview/">Prometheus 文档</a>。作为简单的部署说明，本文将采用 Docker 镜像部署方式：</p>
 <ol>
 <li>
 <p>安装 Prometheus</p>
-<p>下载 Docker 后，输入如下命令拉取 Prometheus 镜像：
+<p>安装 Docker 后，输入如下命令拉取 Prometheus 镜像：
 <div class="highlight"><pre><span></span><code>$ docker pull prom/prometheus
 </code></pre></div></p>
 </li>
 <li>
-<p>下载 Prometheus 配置文件</p>
+<p>准备 Prometheus 配置文件</p>
 <p>下面是一个 Prometheus 配置文件模板 <code>prometheus.yaml</code>：</p>
 <p><div class="highlight"><pre><span></span><code><span class="nt">global</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">scrape_interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">30s</span>
@@ -8733,28 +8723,28 @@
 <span class="w">      </span><span class="nt">group</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">group-xxx</span>
 <span class="w">      </span><span class="nt">instance</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">xxx-01</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">targets</span><span class="p">:</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">172.0.0.2:9527</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">127.0.0.2:9527</span>
 <span class="w">    </span><span class="nt">labels</span><span class="p">:</span>
 <span class="w">      </span><span class="nt">group</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">group-xxx</span>
 <span class="w">      </span><span class="nt">instance</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">xxx-02</span>
 </code></pre></div>
-您可以使用此模板，然后修改配置项 <code>targets</code>，它用于配置 java-tron 节点所在机器的 IP 和 Prometheus 端口，如您部署了多个节点，可以通过配置多个 <code>targets</code>，来实现对多个节点的监控。</p>
+您可以使用此模板，然后修改配置项 <code>targets</code>，它用于配置 java-tron 节点所在机器的 IP 和 Prometheus 端口，如您部署了多个节点，可以通过配置多个 <code>targets</code>，来实现对多个节点的监控。将该文件保存到本机的某个目录，例如 <code>/Users/test/deploy/prometheus/prometheus.yaml</code>。</p>
 </li>
 <li>
 <p>启动一个 Prometheus 容器</p>
-<p>通过如下命令启动一个 Prometheus 容器，并指定使用上步骤中用户自定义的配置文件 <code>/Users/test/deploy/prometheus/prometheus.yaml</code>
+<p>通过如下命令启动一个 Prometheus 容器，并挂载上一步准备的配置文件（<code>/Users/test/deploy/prometheus/prometheus.yaml</code>）：</p>
 <div class="highlight"><pre><span></span><code>$<span class="w"> </span>docker<span class="w"> </span>run<span class="w"> </span>--name<span class="w"> </span>prometheus<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>-d<span class="w"> </span>-p<span class="w"> </span>:9090:9090<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>-v<span class="w">  </span>/Users/test/deploy/prometheus/prometheus.yaml:/etc/prometheus/prometheus.yml<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-d<span class="w"> </span>-p<span class="w"> </span><span class="m">9090</span>:9090<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-v<span class="w"> </span>/Users/test/deploy/prometheus/prometheus.yaml:/etc/prometheus/prometheus.yml<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>prom/prometheus:latest
-</code></pre></div></p>
+</code></pre></div>
 <p>容器启动后，您可以通过 <code>http://localhost:9090/</code> 查看 Prometheus 服务的运行情况。</p>
-<p>点击 "Status" -&gt; "Configuration"，查看容器使用的配置文件是否正确：
-<img alt="image" src="https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/metrics_config.png" /></p>
-<p>点击 "Status" -&gt; "Targets"，查看各个监控的 java-tron 节点状态：
-<img alt="image" src="https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/metrics_targets.png" /></p>
-<p>比如这个示例中，第一个 endpoint，状态为 <code>UP</code>，表示 Prometheus 可以正常的抓取该节点的数据。而第二个 endpoint，状态为 <code>DOWN</code>，表示异常，具体参考 "Error" 中的描述。</p>
-<p>当监控的 java-tron 节点的状态都正常后，您就可以通过 Grafana 或 Promdash 等可视化工具监控指标数据了，本文将通过 Grafana 来展示数据。</p>
+<p>点击 "Status" -&gt; "Configuration"，查看容器使用的配置文件是否正确：</p>
+<p><img alt="image" src="https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/metrics_config.png" /></p>
+<p>点击 "Status" -&gt; "Targets"，查看各个监控的 java-tron 节点状态：</p>
+<p><img alt="image" src="https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/metrics_targets.png" /></p>
+<p>比如这个示例中，第一个 endpoint，状态为 <code>UP</code>，表示 Prometheus 可以正常地抓取该节点的数据。而第二个 endpoint，状态为 <code>DOWN</code>，表示异常，具体参考 "Error" 中的描述。</p>
+<p>当监控的 java-tron 节点的状态都正常后，您就可以通过 Grafana 等可视化工具监控指标数据了，本文将通过 Grafana 来展示数据。</p>
 </li>
 </ol>
 <h2 id="grafana">部署 Grafana<a class="headerlink" href="#grafana" title="Permanent link">&para;</a></h2>
@@ -8762,14 +8752,14 @@
 <ol>
 <li>
 <p>安装 Grafana</p>
-<p>请参考官方文档安装 <a href="https://grafana.com/docs/grafana/next/setup-grafana/installation/">Grafana</a>。本文将采用 Docker 部署方式，拉取的 image 版本为 open source 版：
+<p>请参考官方文档安装 <a href="https://grafana.com/docs/grafana/next/setup-grafana/installation/">Grafana</a>。本文将采用 Docker 部署方式，拉取的镜像为开源版（grafana-oss）：
 <div class="highlight"><pre><span></span><code>$ docker pull grafana/grafana-oss
 </code></pre></div></p>
 </li>
 <li>
-<p>启动 Grafana
-  您可以通过如下 Docker 命令来启动 Grafana：
-    <div class="highlight"><pre><span></span><code>$ docker run -d --name=grafana -p 3000:3000 grafana/grafana-oss
+<p>启动 Grafana</p>
+<p>您可以通过如下 Docker 命令来启动 Grafana：
+<div class="highlight"><pre><span></span><code>$ docker run -d --name=grafana -p 3000:3000 grafana/grafana-oss
 </code></pre></div></p>
 </li>
 <li>
@@ -8781,12 +8771,11 @@
 <p>然后点击页面最下方的 "Save &amp; test" 按钮，保存设置。点击保存后，Grafana 会检测与数据源的连接情况，如果成功通信，则会出现 <code>Data source is working</code> 字样。</p>
 </li>
 <li>
-<p>导入Dashboard</p>
-<p>Grafana 的仪表盘需要配置，为了方便 java-tron 节点部署者，TRON 社区提供了一个较全面的仪表盘配置文件，您可以直接在 Grafana dashboard 中下载 java-tron 仪表盘配置文件 <a href="https://grafana.com/grafana/dashboards/16567">java-tron-template_rev1.json</a>，然后导入到 Grafana。</p>
-<p>点击左侧的 Dashboards 图标，然后选择 "+Import"，然后点击 "Upload JSON file" 导入已下载的仪表盘配置文件：</p>
+<p>导入 Dashboard</p>
+<p>为了方便 java-tron 节点部署者，TRON 社区提供了一组预配置的 Grafana 仪表盘，每个仪表盘以一份 JSON 文件提供。请参考 tron-docker metric_monitor README 的 <a href="https://github.com/tronprotocol/tron-docker/blob/main/metric_monitor/README.md#import-dashboard">Import dashboard 章节</a>将其导入到 Grafana。</p>
+<p>点击左侧的 Dashboards 图标，然后选择 "+Import"，然后点击 "Upload JSON file" 导入上面提到的 JSON 文件之一：</p>
 <p><img alt="image" src="https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/metrics_import.png" /></p>
-<p>然后您就可以在仪表盘界面看到如下种类的监控信息，并实时监控节点的运行情况了：</p>
-<p><img alt="image" src="https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/metrics_dashboard.png" /></p>
+<p>随后 Grafana 将根据导入的 JSON 文件渲染出对应的仪表盘，您可以实时监控节点的运行情况。</p>
 </li>
 </ol>
 
@@ -8809,7 +8798,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年4月8日 08:31:59 UTC">2026年4月8日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年5月27日 08:28:57 UTC">2026年5月27日</span>
   </span>
 
     

@@ -9106,8 +9106,8 @@
 <li><code>owner</code> = 0，<code>witness</code> = 1，<code>active</code> 从 2 起递增；</li>
 </ul>
 </li>
-<li><code>permission_name</code>：权限名称，最长 32 字节；</li>
-<li><code>threshold</code>：权限域值，密钥权重总和 ≥ 该值时方可操作；</li>
+<li><code>permission_name</code>：权限名称，最长 32 个字符；</li>
+<li><code>threshold</code>：权限阈值，密钥权重总和 ≥ 该值时方可操作；</li>
 <li><code>operations</code>：仅 <code>active</code> 权限使用，表示可执行的合约类型；</li>
 <li><code>keys</code>：具备此权限的地址与权重（最多 5 个）。</li>
 </ul>
@@ -9134,356 +9134,7 @@
 <li>即便只修改其中一种权限，也需完整设置其余字段。</li>
 </ul>
 <h3 id="5-contracttype">5. 合约类型枚举：<code>ContractType</code><a class="headerlink" href="#5-contracttype" title="Permanent link">&para;</a></h3>
-<p><div class="highlight"><pre><span></span><code>enum ContractType {
-  AccountCreateContract = 0;
-  ...
-  AccountPermissionUpdateContract = 46;
-}
-</code></pre></div>
-<code>active</code> 权限通过 <code>operations</code> 字段配置可执行哪些 <code>ContractType</code>。 <code>operations</code> 字段值的计算请参考<a href="#operations-value-calculation-example">operations 值计算示例</a>。</p>
-<p><code>ContractType</code> 的详细信息如下(包括消息名、执行器、状态以及触发的业务)：</p>
-<table>
-<thead>
-<tr>
-<th>#</th>
-<th>ContractType</th>
-<th>Proto Message(消息名)</th>
-<th>Actuator(执行器)</th>
-<th>状态</th>
-<th>触发的业务</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>0</td>
-<td>AccountCreateContract</td>
-<td>AccountContract.AccountCreateContract</td>
-<td>CreateAccountActuator</td>
-<td>✅ 启用</td>
-<td>创建一个链上账户</td>
-</tr>
-<tr>
-<td>1</td>
-<td>TransferContract</td>
-<td>BalanceContract.TransferContract</td>
-<td>TransferActuator</td>
-<td>✅ 启用</td>
-<td>TRX 转账</td>
-</tr>
-<tr>
-<td>2</td>
-<td>TransferAssetContract</td>
-<td>AssetIssueContractOuterClass.TransferAssetContract</td>
-<td>TransferAssetActuator</td>
-<td>✅ 启用</td>
-<td>TRC10 代币转账</td>
-</tr>
-<tr>
-<td>3</td>
-<td>VoteAssetContract</td>
-<td></td>
-<td></td>
-<td>🚫 禁用(未实现Actuator)</td>
-<td></td>
-</tr>
-<tr>
-<td>4</td>
-<td>VoteWitnessContract</td>
-<td>WitnessContract.VoteWitnessContract</td>
-<td>VoteWitnessActuator</td>
-<td>✅ 启用</td>
-<td>用账户的 TronPower 为 SR 投票,刷新投票记录(下次 maintenance 生效)</td>
-</tr>
-<tr>
-<td>5</td>
-<td>WitnessCreateContract</td>
-<td>WitnessContract.WitnessCreateContract</td>
-<td>WitnessCreateActuator</td>
-<td>✅ 启用</td>
-<td>申请成为超级代表候选人，写入 witness store</td>
-</tr>
-<tr>
-<td>6</td>
-<td>AssetIssueContract</td>
-<td>AssetIssueContractOuterClass.AssetIssueContract</td>
-<td>AssetIssueActuator</td>
-<td>✅ 启用</td>
-<td>发行 TRC10 代币,按 ICO 规则冻结募集期余额</td>
-</tr>
-<tr>
-<td>8</td>
-<td>WitnessUpdateContract</td>
-<td>WitnessContract.WitnessUpdateContract</td>
-<td>WitnessUpdateActuator</td>
-<td>✅ 启用</td>
-<td>更新 SR 的官网 URL</td>
-</tr>
-<tr>
-<td>9</td>
-<td>ParticipateAssetIssueContract</td>
-<td>AssetIssueContractOuterClass.ParticipateAssetIssueContract</td>
-<td>ParticipateAssetIssueActuator</td>
-<td>✅ 启用</td>
-<td>在 ICO 期间用 TRX 认购 TRC10 代币</td>
-</tr>
-<tr>
-<td>10</td>
-<td>AccountUpdateContract</td>
-<td>AccountContract.AccountUpdateContract</td>
-<td>UpdateAccountActuator</td>
-<td>✅ 启用</td>
-<td>修改账户名(受 AllowUpdateAccountName 约束)</td>
-</tr>
-<tr>
-<td>11</td>
-<td>FreezeBalanceContract</td>
-<td>BalanceContract.FreezeBalanceContract</td>
-<td>FreezeBalanceActuator</td>
-<td>🚫 禁用(<code>supportUnfreezeDelay</code> 启用后链拒绝)</td>
-<td>Stake 1.0:冻结 TRX 换取 Bandwidth/Energy,并可委托给他人</td>
-</tr>
-<tr>
-<td>12</td>
-<td>UnfreezeBalanceContract</td>
-<td>BalanceContract.UnfreezeBalanceContract</td>
-<td>UnfreezeBalanceActuator</td>
-<td>✅ 启用</td>
-<td>Stake 1.0:到期后解冻 TRX,释放对应资源、清除得票</td>
-</tr>
-<tr>
-<td>13</td>
-<td>WithdrawBalanceContract</td>
-<td>BalanceContract.WithdrawBalanceContract</td>
-<td>WithdrawBalanceActuator</td>
-<td>✅ 启用</td>
-<td>领取 SR 出块 / 投票奖励到余额</td>
-</tr>
-<tr>
-<td>14</td>
-<td>UnfreezeAssetContract</td>
-<td>AssetIssueContractOuterClass.UnfreezeAssetContract</td>
-<td>UnfreezeAssetActuator</td>
-<td>✅ 启用</td>
-<td>发行人解冻 ICO 时冻结的 TRC10 代币份额</td>
-</tr>
-<tr>
-<td>15</td>
-<td>UpdateAssetContract</td>
-<td>AssetIssueContractOuterClass.UpdateAssetContract</td>
-<td>UpdateAssetActuator</td>
-<td>✅ 启用</td>
-<td>更新 TRC10 代币的 description / url / 免费带宽配额</td>
-</tr>
-<tr>
-<td>16</td>
-<td>ProposalCreateContract</td>
-<td>ProposalContract.ProposalCreateContract</td>
-<td>ProposalCreateActuator</td>
-<td>✅ 启用</td>
-<td>SR 发起链上参数提案,写入 ProposalStore 等待投票</td>
-</tr>
-<tr>
-<td>17</td>
-<td>ProposalApproveContract</td>
-<td>ProposalContract.ProposalApproveContract</td>
-<td>ProposalApproveActuator</td>
-<td>✅ 启用</td>
-<td>SR 对提案投赞成/取消票</td>
-</tr>
-<tr>
-<td>18</td>
-<td>ProposalDeleteContract</td>
-<td>ProposalContract.ProposalDeleteContract</td>
-<td>ProposalDeleteActuator</td>
-<td>✅ 启用</td>
-<td>提案发起人撤回自己创建的提案</td>
-</tr>
-<tr>
-<td>19</td>
-<td>SetAccountIdContract</td>
-<td>AccountContract.SetAccountIdContract</td>
-<td>SetAccountIdActuator</td>
-<td>✅ 启用</td>
-<td>为账户设置唯一 account_id(仅可设置一次)</td>
-</tr>
-<tr>
-<td>20</td>
-<td>CustomContract</td>
-<td></td>
-<td></td>
-<td>🚫 禁用(未实现Actuator)</td>
-<td></td>
-</tr>
-<tr>
-<td>30</td>
-<td>CreateSmartContract</td>
-<td>SmartContractOuterClass.CreateSmartContract</td>
-<td>VMActuator</td>
-<td>✅ 启用</td>
-<td>部署智能合约</td>
-</tr>
-<tr>
-<td>31</td>
-<td>TriggerSmartContract</td>
-<td>SmartContractOuterClass.TriggerSmartContract</td>
-<td>VMActuator</td>
-<td>✅ 启用</td>
-<td>调用智能合约</td>
-</tr>
-<tr>
-<td>32</td>
-<td>GetContract</td>
-<td></td>
-<td></td>
-<td>🚫 禁用(未实现Actuator)</td>
-<td></td>
-</tr>
-<tr>
-<td>33</td>
-<td>UpdateSettingContract</td>
-<td>SmartContractOuterClass.UpdateSettingContract</td>
-<td>UpdateSettingContractActuator</td>
-<td>✅ 启用</td>
-<td>合约所有者修改合约的 consume_user_resource_percent(用户承担能量比例)</td>
-</tr>
-<tr>
-<td>41</td>
-<td>ExchangeCreateContract</td>
-<td>ExchangeContract.ExchangeCreateContract</td>
-<td>ExchangeCreateActuator</td>
-<td>✅ 启用</td>
-<td>创建 Bancor 交易对, 为两种资产初始注入流动性</td>
-</tr>
-<tr>
-<td>42</td>
-<td>ExchangeInjectContract</td>
-<td>ExchangeContract.ExchangeInjectContract</td>
-<td>ExchangeInjectActuator</td>
-<td>✅ 启用</td>
-<td>向已有交易对继续注入流动性, 按 Bancor 算法扣减双方资产</td>
-</tr>
-<tr>
-<td>43</td>
-<td>ExchangeWithdrawContract</td>
-<td>ExchangeContract.ExchangeWithdrawContract</td>
-<td>ExchangeWithdrawActuator</td>
-<td>✅ 启用</td>
-<td>交易对创建人按比例赎回交易对中双方资产</td>
-</tr>
-<tr>
-<td>44</td>
-<td>ExchangeTransactionContract</td>
-<td>ExchangeContract.ExchangeTransactionContract</td>
-<td>ExchangeTransactionActuator</td>
-<td>🚫 禁用</td>
-<td>通过 Bancor 交易对进行资产兑换</td>
-</tr>
-<tr>
-<td>45</td>
-<td>UpdateEnergyLimitContract</td>
-<td>SmartContractOuterClass.UpdateEnergyLimitContract</td>
-<td>UpdateEnergyLimitContractActuator</td>
-<td>✅ 启用</td>
-<td>合约所有者更新合约的 origin_energy_limit(合约所有者愿意为每一笔合约调用交易承担的能量消耗上限)</td>
-</tr>
-<tr>
-<td>46</td>
-<td>AccountPermissionUpdateContract</td>
-<td>AccountContract.AccountPermissionUpdateContract</td>
-<td>AccountPermissionUpdateActuator</td>
-<td>✅ 启用</td>
-<td>更新账户权限:owner/witness/active</td>
-</tr>
-<tr>
-<td>48</td>
-<td>ClearABIContract</td>
-<td>SmartContractOuterClass.ClearABIContract</td>
-<td>ClearABIContractActuator</td>
-<td>✅ 启用</td>
-<td>合约所有者清空合约 ABI</td>
-</tr>
-<tr>
-<td>49</td>
-<td>UpdateBrokerageContract</td>
-<td>StorageContract.UpdateBrokerageContract</td>
-<td>UpdateBrokerageActuator</td>
-<td>✅ 启用</td>
-<td>SR 调整对投票者的佣金比例(0-100%)</td>
-</tr>
-<tr>
-<td>51</td>
-<td>ShieldedTransferContract</td>
-<td>ShieldContract.ShieldedTransferContract</td>
-<td>ShieldedTransferActuator</td>
-<td>🚫 禁用(<code>getAllowShieldedTransaction</code> 未开启)</td>
-<td>ZK-SNARK 匿名转账(透明 in + 匿名 spend/receive + 透明 out)</td>
-</tr>
-<tr>
-<td>52</td>
-<td>MarketSellAssetContract</td>
-<td>MarketContract.MarketSellAssetContract</td>
-<td>MarketSellAssetActuator</td>
-<td>🚫 禁用(<code>getAllowMarketTransaction</code> 未开启)</td>
-<td>内置订单簿挂限价卖单(sell / buy 两种资产 + 价格)</td>
-</tr>
-<tr>
-<td>53</td>
-<td>MarketCancelOrderContract</td>
-<td>MarketContract.MarketCancelOrderContract</td>
-<td>MarketCancelOrderActuator</td>
-<td>🚫 禁用(<code>getAllowMarketTransaction</code> 未开启)</td>
-<td>撤销自己挂出的未成交订单,退回剩余资产</td>
-</tr>
-<tr>
-<td>54</td>
-<td>FreezeBalanceV2Contract</td>
-<td>BalanceContract.FreezeBalanceV2Contract</td>
-<td>FreezeBalanceV2Actuator</td>
-<td>✅ 启用</td>
-<td>Stake 2.0:冻结 TRX 得到 Bandwidth/Energy, 资源与 TronPower 分离</td>
-</tr>
-<tr>
-<td>55</td>
-<td>UnfreezeBalanceV2Contract</td>
-<td>BalanceContract.UnfreezeBalanceV2Contract</td>
-<td>UnfreezeBalanceV2Actuator</td>
-<td>✅ 启用</td>
-<td>Stake 2.0:发起解质押,进入解冻等待期</td>
-</tr>
-<tr>
-<td>56</td>
-<td>WithdrawExpireUnfreezeContract</td>
-<td>BalanceContract.WithdrawExpireUnfreezeContract</td>
-<td>WithdrawExpireUnfreezeActuator</td>
-<td>✅ 启用</td>
-<td>提取已过等待期的解冻 TRX 到账户余额</td>
-</tr>
-<tr>
-<td>57</td>
-<td>DelegateResourceContract</td>
-<td>BalanceContract.DelegateResourceContract</td>
-<td>DelegateResourceActuator</td>
-<td>✅ 启用</td>
-<td>Stake 2.0:把自己已质押的 Bandwidth/Energy 委托给其他地址(可设锁定期)</td>
-</tr>
-<tr>
-<td>58</td>
-<td>UnDelegateResourceContract</td>
-<td>BalanceContract.UnDelegateResourceContract</td>
-<td>UnDelegateResourceActuator</td>
-<td>✅ 启用</td>
-<td>Stake 2.0:从他人处回收先前委托的资源</td>
-</tr>
-<tr>
-<td>59</td>
-<td>CancelAllUnfreezeV2Contract</td>
-<td>BalanceContract.CancelAllUnfreezeV2Contract</td>
-<td>CancelAllUnfreezeV2Actuator</td>
-<td>✅ 启用</td>
-<td>一次性取消账户所有处于等待期的 V2 解冻,剩余份额重新质押</td>
-</tr>
-</tbody>
-</table>
+<p><code>active</code> 权限通过 <code>operations</code> 字段配置可执行哪些 <code>ContractType</code>。完整的 <code>ContractType</code> 枚举值清单及其 Proto Message、Actuator、状态和业务行为，统一维护在 <a href="../system-contracts/#contracttype">系统合约 — ContractType 总览</a> 中。<code>operations</code> 字段值的计算请参考 <a href="#2-operations">operations 值计算示例</a>。</p>
 <h2 id="_5">各权限类型说明<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
 <h3 id="owner"><code>owner</code> 权限（账户主控）<a class="headerlink" href="#owner" title="Permanent link">&para;</a></h3>
 <ul>
@@ -9496,7 +9147,8 @@
 <ul>
 <li>仅超级代表，超级代表合伙人和超级代表候选人地址可用；</li>
 <li>控制出块节点，不具备资金转出等操作权限；</li>
-<li>可将出块权限授权给其他地址以提升账户安全性。</li>
+<li>可将出块权限授权给其他地址以提升账户安全性；</li>
+<li>必须且只能包含一个 key。</li>
 </ul>
 <h4 id="_6">超级代表节点配置示例：<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h4>
 <p><div class="highlight"><pre><span></span><code># config.conf
@@ -9583,7 +9235,7 @@ localwitness = [
 </code></pre></div>
 <h3 id="operations-value-calculation-example">2. operations 值计算示例<a class="headerlink" href="#operations-value-calculation-example" title="Permanent link">&para;</a></h3>
 <p><code>operations</code> 是表示可执行合约权限的 32 字节十六进制字符串（小端）。
-以下 Java 示例生成将（ID=0-45）的合约权限加入：</p>
+以下 Java 示例生成 ID 为 0-45 的合约权限：</p>
 <div class="highlight"><pre><span></span><code>Integer[] contractId = {0, 1, 2, ..., 45};
 byte[] operations = new byte[32];
 for (int id : contractId) {
@@ -9591,6 +9243,9 @@ for (int id : contractId) {
 }
 System.out.println(ByteArray.toHexString(operations));
 </code></pre></div>
+<blockquote>
+<p><strong>注意</strong>：上例中的 <code>contractId</code> 仅用于演示位运算写法。<code>ContractType</code> 的 ID 并不连续（7、21-29、34-40 等为空缺 ID），实际只能对链上 <code>AVAILABLE_CONTRACT_TYPE</code> 位图中已包含的合约类型置位，否则交易会被校验拒绝。<code>AVAILABLE_CONTRACT_TYPE</code> 大致对应上表的 # 列，但不含 ShieldedTransferContract(51)。</p>
+</blockquote>
 <h3 id="3">3. 交易执行流程<a class="headerlink" href="#3" title="Permanent link">&para;</a></h3>
 <ol>
 <li>创建交易；</li>
@@ -9640,7 +9295,7 @@ rpc GetTransactionSignWeight(Transaction) returns (TransactionSignWeight) {}
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年5月12日 08:25:39 UTC">2026年5月12日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年6月1日 04:49:01 UTC">2026年6月1日</span>
   </span>
 
     
