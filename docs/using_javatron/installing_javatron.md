@@ -90,7 +90,7 @@ uname -m
       ```
     * 编译完成后，`FullNode.jar` 文件将在 `java-tron/build/libs/` 目录中生成。
 
-## 启动 java-tron 节点
+## 启动 java-tron 节点 { #starting-a-java-tron-node }
 
 全节点作为 TRON 网络的入口，通过 HTTP 和 RPC API 提供完整接口。客户端可借助这些端点执行资产转账、部署智能合约并调用链上逻辑。全节点必须接入 TRON 网络，才能参与共识与交易处理。
 
