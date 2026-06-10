@@ -675,11 +675,11 @@
         <li class="md-nav__item has-children">
   <a href="#lite-fullnode-data-pruning" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
     <span class="md-ellipsis">
-      轻节点数据剪裁工具
+      轻节点数据裁剪工具
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="轻节点数据剪裁工具" hidden>
+    <nav class="md-nav" aria-label="轻节点数据裁剪工具" hidden>
       <ul class="md-nav__list">
         
           <li class="md-nav__item ">
@@ -765,6 +765,30 @@
         
           <li class="md-nav__item ">
   <a href="#_11" class="md-nav__link" >
+    <span class="md-ellipsis">
+      命令与参数
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item has-children">
+  <a href="#merkle-root-computation-tool" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
+    <span class="md-ellipsis">
+      Merkle Root 计算工具
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Merkle Root 计算工具" hidden>
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item ">
+  <a href="#_12" class="md-nav__link" >
     <span class="md-ellipsis">
       命令与参数
     </span>
@@ -8797,11 +8821,11 @@
         <li class="md-nav__item has-children">
   <a href="#lite-fullnode-data-pruning" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
     <span class="md-ellipsis">
-      轻节点数据剪裁工具
+      轻节点数据裁剪工具
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="轻节点数据剪裁工具" hidden>
+    <nav class="md-nav" aria-label="轻节点数据裁剪工具" hidden>
       <ul class="md-nav__list">
         
           <li class="md-nav__item ">
@@ -8899,6 +8923,30 @@
   
 </li>
       
+        <li class="md-nav__item has-children">
+  <a href="#merkle-root-computation-tool" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
+    <span class="md-ellipsis">
+      Merkle Root 计算工具
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Merkle Root 计算工具" hidden>
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item ">
+  <a href="#_12" class="md-nav__link" >
+    <span class="md-ellipsis">
+      命令与参数
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -8935,10 +8983,11 @@
 <p>TRON Toolkit 是一个集成了多种 <code>java-tron</code> 周边工具的实用程序，旨在简化节点维护和管理任务。未来，我们将持续为其添加更多功能，以提升开发者的使用体验。目前，Toolkit 提供了以下核心功能：</p>
 <ul>
 <li><a href="#database-partitioning-tool">数据存储分区</a> - 解决链上数据增长带来的存储压力</li>
-<li><a href="#lite-fullnode-data-pruning">轻节点数据裁剪</a> - 轻节点数据定期剪裁</li>
+<li><a href="#lite-fullnode-data-pruning">轻节点数据裁剪</a> - 轻节点数据定期裁剪</li>
 <li><a href="#fast-data-copy-tool">数据拷贝</a> - 实现数据库快速拷贝</li>
 <li><a href="#data-conversion-tool">数据转换</a> - 支持 LevelDB 到 RocksDB 的数据库格式转换</li>
 <li><a href="#leveldb-startup-optimization-tool">LevelDB 启动优化</a> - 加快数据库类型为 LevelDB 的节点启动速度</li>
+<li><a href="#merkle-root-computation-tool">Merkle Root 计算</a> - 计算小型数据库的 Merkle Root，用于数据校验</li>
 </ul>
 <p>本文将详细介绍如何获取和使用 TRON Toolkit。</p>
 <p><strong>注意</strong>：由于在 arm64 架构上只支持 RocksDB，所以像 <code>db convert</code> 和 <code>db archive</code> 这样处理 LevelDB 的工具只能在 x86_64 架构上使用。</p>
@@ -8984,7 +9033,7 @@ java -jar build/libs/Toolkit.jar db mv -c framework/src/main/resources/config.co
 <div class="highlight"><pre><span></span><code>kill -15 $(ps -ef | grep FullNode.jar | grep -v grep | awk &#39;{print $2}&#39;)
 </code></pre></div></p>
 <h4 id="configure-database-storage-migration">2. 配置数据库存储迁移<a class="headerlink" href="#configure-database-storage-migration" title="Permanent link">&para;</a></h4>
-<p>数据库迁移的配置通过 <code>java-tron</code> 节点配置文件中的 <code>storage.properties</code> 字段进行。您可以在 <a href="https://github.com/tronprotocol/java-tron/blob/master/framework/src/main/resources/config.conf#L38">java-tron 仓库</a> 中找到示例配置。</p>
+<p>数据库迁移的配置通过 <code>java-tron</code> 节点配置文件中的 <code>storage.properties</code> 字段进行。您可以在 <a href="https://github.com/tronprotocol/java-tron/blob/master/framework/src/main/resources/config.conf">java-tron 仓库</a> 中找到示例配置。</p>
 <p>以下示例展示了如何将 <code>block</code> 和 <code>trans</code> 数据库迁移到 <code>/data1/tron</code> 目录：</p>
 <div class="highlight"><pre><span></span><code>storage {
  ......
@@ -8992,7 +9041,6 @@ java -jar build/libs/Toolkit.jar db mv -c framework/src/main/resources/config.co
     {
      name = &quot;block&quot;,
      path = &quot;/data1/tron&quot;,
-
     },
     {
      name = &quot;trans&quot;,
@@ -9015,18 +9063,18 @@ java -jar build/libs/Toolkit.jar db mv -c framework/src/main/resources/config.co
 <p>数据库迁移完成后，重新启动 <code>java-tron</code> 节点。</p>
 <p><a href="../installing_javatron/#starting-a-fullnode-on-the-tron-main-network"><strong>FullNode 启动命令示例</strong></a></p>
 <p><a href="../installing_javatron/#starting-a-block-production-node"><strong>超级代表（SR）FullNode 启动命令示例</strong></a></p>
-<h2 id="lite-fullnode-data-pruning">轻节点数据剪裁工具<a class="headerlink" href="#lite-fullnode-data-pruning" title="Permanent link">&para;</a></h2>
+<h2 id="lite-fullnode-data-pruning">轻节点数据裁剪工具<a class="headerlink" href="#lite-fullnode-data-pruning" title="Permanent link">&para;</a></h2>
 <p>TRON Toolkit 提供了<strong>数据裁剪工具</strong>，主要用于生成和管理轻节点数据。</p>
 <p>全节点的完整数据可被分成两部分：快照数据集（Snapshot dataset）或历史数据集（History dataset）。</p>
 <ul>
 <li><strong>快照数据集</strong>：用于启动轻节点，不包含裁剪时的最新区块高度之前的历史数据。</li>
 <li><strong>历史数据集</strong>：用于历史数据查询。</li>
 </ul>
-<p>快照数据集只包含所有的账户状态数据和最近的 65536 个区块的历史数据。其占用空间小，约为全节点数据的 3%，而轻节点只基于快照数据集来启动，所以，Lite Fullnode 具有占用磁盘空间小，启动速度快的优点。</p>
-<p>而数据剪裁工具能够根据当前最新区块高度将FullNode的完整数据切分为<strong>快照数据集</strong>（Snapshot dataset）或<strong>历史数据集</strong>（History dataset）；同时数据裁剪工具还支持将历史数据集与快照数据集进行合并，以满足不同的使用场景：</p>
+<p>快照数据集只包含全网最新状态数据和最近的 65536 个区块的历史数据。其占用空间远小于全节点数据，而轻节点只基于快照数据集来启动，所以，Lite Fullnode 具有占用磁盘空间小，启动速度快的优点。</p>
+<p>而数据裁剪工具能够根据当前最新区块高度将FullNode的完整数据切分为<strong>快照数据集</strong>（Snapshot dataset）或<strong>历史数据集</strong>（History dataset）；同时数据裁剪工具还支持将历史数据集与快照数据集进行合并，以满足不同的使用场景：</p>
 <ul>
 <li><strong>将全节点数据切分成轻节点数据</strong>：通过将全节点数据切分为快照数据集，即可得到用于启动轻节点的数据。</li>
-<li><strong>定期剪裁轻节点数据</strong>：轻节点启动后数据量会随时间增长，因此可能需要定期裁剪。使用数据裁剪工具将轻节点数据切分为新的快照数据集，即可实现裁剪。</li>
+<li><strong>定期裁剪轻节点数据</strong>：轻节点启动后数据量会随时间增长，因此可能需要定期裁剪。使用数据裁剪工具将轻节点数据切分为新的快照数据集，即可实现裁剪。</li>
 <li><strong>将轻节点数据转回全节点数据</strong>：如果需要轻节点支持历史数据查询，可以将其转换为全节点。除了直接下载全节点数据库快照外，您也可以先将全节点数据切分为历史数据集，然后将其与轻节点的快照数据集合并，从而得到一个完整的全节点数据。</li>
 </ul>
 <blockquote>
@@ -9046,7 +9094,7 @@ java -jar build/libs/Toolkit.jar db mv -c framework/src/main/resources/config.co
 </code></pre></div>
 <strong>可选参数</strong>：</p>
 <ul>
-<li><code>-o | --operation &lt;split | merge&gt;</code>：指定操作类型，<code>split</code>（拆分）或 <code>merge</code>（合并）。默认值为 <code>split</code>。</li>
+<li><code>-o | --operate &lt;split | merge&gt;</code>：指定操作类型，<code>split</code>（拆分）或 <code>merge</code>（合并）。默认值为 <code>split</code>。</li>
 <li><code>-t | --type &lt;snapshot | history&gt;</code>：仅与 <code>-o split</code> 配合使用。<code>snapshot</code> 表示切分为快照数据集，<code>history</code> 表示切分为历史数据集。</li>
 <li><code>-fn | --fn-data-path &lt;string&gt;</code>：<ul>
 <li>当操作类型为 <code>split</code> 时，指定待裁剪数据的目录。</li>
@@ -9068,7 +9116,7 @@ java -jar build/libs/Toolkit.jar db mv -c framework/src/main/resources/config.co
 java -jar build/libs/Toolkit.jar db lite -o split -t snapshot --fn-data-path output-directory/database --dataset-path /tmp
 </code></pre></div>
 <ul>
-<li><code>--fn-data-path</code>： 待剪裁数据目录，即节点数据目录</li>
+<li><code>--fn-data-path</code>： 待裁剪数据目录，即节点数据目录</li>
 <li><code>--dataset-path</code>： 存放输出的快照数据集的目录</li>
 </ul>
 <p>命令执行完毕后，将在 <code>/tmp</code> 目录下生成一个名为 <code>snapshot</code> 的目录。此目录中的数据即为轻节点数据。将该目录中的数据拷贝到节点数据库目录中（例如，将 <code>snapshot</code> 目录重命名为 <code>database</code> 并拷贝到 Lite FullNode 的运行目录 <code>output-directory</code> 下），然后启动轻节点即可。</p>
@@ -9158,6 +9206,27 @@ java<span class="w"> </span>-jar<span class="w"> </span>build/libs/Toolkit.jar<s
 <blockquote>
 <p><strong>重要提示</strong>：在使用本工具进行任何操作之前，<strong>必须</strong>停止当前运行的节点。</p>
 </blockquote>
+<h2 id="merkle-root-computation-tool">Merkle Root 计算工具<a class="headerlink" href="#merkle-root-computation-tool" title="Permanent link">&para;</a></h2>
+<p>TRON Toolkit 提供了 <strong>Merkle Root 计算工具</strong>，可以计算指定数据库的 Merkle Root，用于跨节点的数据校验和一致性比对。</p>
+<blockquote>
+<p><strong>重要提示</strong>：本工具仅适用于小型数据库。在大型数据库上运行可能会触发 <code>GC overhead limit exceeded</code> 异常。</p>
+</blockquote>
+<h3 id="_12">命令与参数<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
+<p>使用 <code>db root</code> 命令来计算 Merkle Root：</p>
+<div class="highlight"><pre><span></span><code># full command
+   java -jar build/libs/Toolkit.jar db root [-h] [--db=&lt;dbs&gt;]... [&lt;db&gt;]
+# examples
+   #计算默认数据库目录下 account 和 witness 两个数据库的 Merkle Root
+   java -jar build/libs/Toolkit.jar db root --db account --db witness
+   #指定数据库目录
+   java -jar build/libs/Toolkit.jar db root --db account /tmp/db/database
+</code></pre></div>
+<p><strong>可选参数</strong>：</p>
+<ul>
+<li><code>&lt;db&gt;</code>：指定数据库目录。默认值为 <code>output-directory/database</code>。</li>
+<li><code>--db &lt;string&gt;</code>：指定需要计算 Merkle Root 的数据库名称。该选项可以重复使用，以同时计算多个数据库。</li>
+<li><code>-h | --help &lt;boolean&gt;</code>：显示帮助信息。默认值为 <code>false</code>。</li>
+</ul>
 
 
 
@@ -9178,7 +9247,7 @@ java<span class="w"> </span>-jar<span class="w"> </span>build/libs/Toolkit.jar<s
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年5月12日 08:25:39 UTC">2026年5月12日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年5月26日 09:49:26 UTC">2026年5月26日</span>
   </span>
 
     

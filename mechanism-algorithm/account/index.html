@@ -8899,14 +8899,14 @@
 <li>生成地址：使用钱包应用（如 <a href="https://www.tronlink.org/">TronLink</a>）生成一对私钥和地址。</li>
 <li>激活账户：此时账户仅存在于理论上，需要被“激活”才能在链上使用。激活方式是从一个已存在的账户向这个新地址发送任意数量的 TRX 或 TRC-10 代币。交易成功后，新账户即在 TRON 网络上被创建。</li>
 </ul>
-<p><strong>方式二：通过内置合约创建</strong></p>
+<p><strong>方式二：通过系统合约创建</strong></p>
 <ul>
-<li>开发者可以调用 <code>CreateAccount</code> 内置合约，完成创建账户。</li>
+<li>开发者可以调用 <code>AccountCreateContract</code> 系统合约，完成创建账户。</li>
 </ul>
 <p><strong>账户的创建成本:</strong></p>
 <ol>
-<li>创建并激活一个新账户需支付的 1 TRX 创建账户的费。</li>
-<li>除此之外，如果账户拥有足够的带宽（包括质押 TRX 获得的带宽或他人代理的带宽），那么创建账户只会消耗带宽，否则，创建账户需要支付 0.1 个 TRX 带宽费用。</li>
+<li>激活一个新账户需支付 1 TRX，该 TRX 会被销毁。此金额由网络参数 <code>getCreateNewAccountFeeInSystemContract</code> 决定（主网当前为 1 TRX），可通过委员会提案修改。</li>
+<li>除此之外，创建账户会消耗带宽：如果账户拥有足够的带宽（质押 TRX 获得的带宽或他人代理的带宽），则只消耗带宽；否则需销毁 0.1 TRX 来支付带宽费。该带宽费由网络参数 <code>getCreateAccountFee</code> 决定（主网当前为 0.1 TRX），同样可通过委员会提案修改。注意：每日免费带宽不能用于创建账户，只能使用质押或他人代理获得的带宽。</li>
 </ol>
 <h2 id="_4">生成密钥对算法<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
 <p>TRON 的签名算法为 ECDSA，选用曲线为 SECP256K1。其私钥为一个随机数，公钥为椭圆曲线上一个点。生成过程为：首先生成一个随机数 <code>d</code> 作为私钥，再计算 <code>P = d × G</code> 作为公钥，其中 <code>G</code> 为椭圆曲线的基点，基点是公开的。</p>
@@ -8956,13 +8956,14 @@ c. 取 <code>h2</code> 的前 4 字节作为校验码 <code>check</code></p>
 </li>
 </ol>
 <h3 id="java">Java 代码示例<a class="headerlink" href="#java" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>public static Transaction sign(Transaction transaction, ECKey myKey) {
-    Transaction.Builder transactionBuilderSigned = transaction.toBuilder();
-    byte[] hash = sha256(transaction.getRawData().toByteArray());
-    ECDSASignature signature = myKey.sign(hash);
-    ByteString bsSign = ByteString.copyFrom(signature.toByteArray());
-    transactionBuilderSigned.addSignature(bsSign);
-}
+<div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="n">Transaction</span><span class="w"> </span><span class="nf">sign</span><span class="p">(</span><span class="n">Transaction</span><span class="w"> </span><span class="n">transaction</span><span class="p">,</span><span class="w"> </span><span class="n">ECKey</span><span class="w"> </span><span class="n">myKey</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">Transaction</span><span class="p">.</span><span class="na">Builder</span><span class="w"> </span><span class="n">transactionBuilderSigned</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">transaction</span><span class="p">.</span><span class="na">toBuilder</span><span class="p">();</span>
+<span class="w">    </span><span class="kt">byte</span><span class="o">[]</span><span class="w"> </span><span class="n">hash</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sha256</span><span class="p">(</span><span class="n">transaction</span><span class="p">.</span><span class="na">getRawData</span><span class="p">().</span><span class="na">toByteArray</span><span class="p">());</span>
+<span class="w">    </span><span class="n">ECDSASignature</span><span class="w"> </span><span class="n">signature</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">myKey</span><span class="p">.</span><span class="na">sign</span><span class="p">(</span><span class="n">hash</span><span class="p">);</span>
+<span class="w">    </span><span class="n">ByteString</span><span class="w"> </span><span class="n">bsSign</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ByteString</span><span class="p">.</span><span class="na">copyFrom</span><span class="p">(</span><span class="n">signature</span><span class="p">.</span><span class="na">toByteArray</span><span class="p">());</span>
+<span class="w">    </span><span class="n">transactionBuilderSigned</span><span class="p">.</span><span class="na">addSignature</span><span class="p">(</span><span class="n">bsSign</span><span class="p">);</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">transactionBuilderSigned</span><span class="p">.</span><span class="na">build</span><span class="p">();</span>
+<span class="p">}</span>
 </code></pre></div>
 <h2 id="_7">签名验证<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
 <p>FullNode 节点收到交易后，会使用交易中的哈希和签名，通过 ECDSA 的恢复机制（ecrecover）计算出一个公钥，并由此推算出地址。如果该地址与交易中指定的发起方地址匹配，则验签通过。</p>
@@ -9007,7 +9008,7 @@ c. 取 <code>h2</code> 的前 4 字节作为校验码 <code>check</code></p>
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年5月11日 09:37:12 UTC">2026年5月11日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年6月3日 11:01:29 UTC">2026年6月3日</span>
   </span>
 
     

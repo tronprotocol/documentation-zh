@@ -604,7 +604,7 @@
           <li class="md-nav__item ">
   <a href="#2" class="md-nav__link" >
     <span class="md-ellipsis">
-      2. 可选参数说明
+      2. 位置参数
     </span>
   </a>
   
@@ -8714,7 +8714,7 @@
           <li class="md-nav__item ">
   <a href="#2" class="md-nav__link" >
     <span class="md-ellipsis">
-      2. 可选参数说明
+      2. 位置参数
     </span>
   </a>
   
@@ -8793,7 +8793,13 @@
   transHistory.switch = &quot;on&quot;
 }
 </code></pre></div>
+<p>字段说明：</p>
+<ul>
+<li><code>db.sync</code>：设为 <code>true</code> 时，底层引擎会等待每笔写入真正落盘后再返回，对断电/硬件崩溃更安全，但写入会明显变慢；默认 <code>false</code>，写入由 OS 缓冲，崩溃时可能丢失尚未落盘的部分。LevelDB 与 RocksDB 路径都生效。</li>
+<li><code>transHistory.switch</code>：设为 <code>"off"</code> 时，<code>TransactionHistoryStore</code> 和 <code>TransactionRetStore</code> 会静默丢弃新写入，因此 switch 处于关闭期间处理的交易在 <code>gettransactioninfobyid</code> 查询时会返回空；已有数据仍可读取。默认 <code>"on"</code>。</li>
+</ul>
 <h3 id="2-rocksdb">2. RocksDB 优化参数<a class="headerlink" href="#2-rocksdb" title="Permanent link">&para;</a></h3>
+<p><code>dbSettings</code> 块仅在 <code>db.engine = "ROCKSDB"</code> 时生效；使用 LevelDB 时这些值会被静默忽略。</p>
 <p>RocksDB 支持多种调优参数，可根据节点服务器性能进行配置。以下是一个推荐的参数示例：
 <div class="highlight"><pre><span></span><code>dbSettings = {
   levelNumber = 7
@@ -8809,16 +8815,21 @@
 </code></pre></div></p>
 <h2 id="x86_64-leveldb-rocksdb">x86_64 平台从 LevelDB 迁移至 RocksDB<a class="headerlink" href="#x86_64-leveldb-rocksdb" title="Permanent link">&para;</a></h2>
 <p>若需从 LevelDB 迁移到 RocksDB，需使用官方提供的转换工具 <code>Toolkit.jar</code>。</p>
+<blockquote>
+<p><strong>注意</strong>：<code>db convert</code> 子命令仅支持 x86_64。在 arm64 上执行时会打印 "unsupported architecture" 提示后直接退出，不会进行任何转换。</p>
+</blockquote>
 <h3 id="1">1. 数据转换步骤<a class="headerlink" href="#1" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code>cd java-tron                                   # 源码根目录
 ./gradlew build -xtest -xcheck                 # 编译项目                        
 java -jar build/libs/Toolkit.jar db convert    # 执行数据转换
 </code></pre></div>
-<h3 id="2">2. 可选参数说明<a class="headerlink" href="#2" title="Permanent link">&para;</a></h3>
-<p>若您的节点使用了自定义的数据目录，可在运行转换脚本时添加如下参数：</p>
+<h3 id="2">2. 位置参数<a class="headerlink" href="#2" title="Permanent link">&para;</a></h3>
+<p>若您的节点使用了自定义的数据目录，可在 <code>db convert</code> 后按顺序追加两个位置参数，分别指定 LevelDB 源路径与 RocksDB 目标路径：</p>
+<div class="highlight"><pre><span></span><code>java -jar build/libs/Toolkit.jar db convert &lt;src&gt; &lt;dst&gt;
+</code></pre></div>
 <ul>
-<li><code>src_db_path</code>：LevelDB 数据库路径（默认为 <code>output-directory/database</code>）</li>
-<li><code>dst_db_path</code>：RocksDB 数据库存储路径（默认为 <code>output-directory-dst/database</code>）</li>
+<li><code>&lt;src&gt;</code>：LevelDB 数据库路径（默认为 <code>output-directory/database</code>）</li>
+<li><code>&lt;dst&gt;</code>：RocksDB 数据库存储路径（默认为 <code>output-directory-dst/database</code>）</li>
 </ul>
 <p>例如，若节点是通过如下方式运行：
 <div class="highlight"><pre><span></span><code>nohup java -jar build/libs/FullNode.jar -d your_database_dir &amp;
@@ -8843,13 +8854,10 @@ cd /tmp
 java -jar build/libs/Toolkit.jar db convert output-directory/database output-directory-dst/database
 </code></pre></div>
 <blockquote>
-<p>备注：
-整个数据转换过程预计耗时约 <strong>10 小时</strong>，具体时间依赖于数据量和磁盘性能。</p>
+<p><strong>注意</strong>：整个数据转换过程预计耗时约 <strong>10 小时</strong>，具体时间依赖于数据量和磁盘性能。</p>
 </blockquote>
 <h2 id="leveldb">关于 LevelDB<a class="headerlink" href="#leveldb" title="Permanent link">&para;</a></h2>
 <p>LevelDB 是 x86_64 平台 java-tron 节点默认的数据存储引擎，适用于资源有限或轻量级的部署场景。它结构简单、易于维护，但在数据压缩、备份能力和大规模节点性能上不如 RocksDB。</p>
-<p>若需深入了解两者的详细对比，请参考文档：
-📘 <a href="https://github.com/tronprotocol/documentation/blob/master/TRX_CN/Rocksdb_vs_Leveldb.md">RocksDB 与 LevelDB 差异对比</a></p>
 
 
 
@@ -8870,7 +8878,7 @@ java -jar build/libs/Toolkit.jar db convert output-directory/database output-dir
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年2月13日 03:38:45 UTC">2026年2月13日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年5月20日 03:55:33 UTC">2026年5月20日</span>
   </span>
 
     

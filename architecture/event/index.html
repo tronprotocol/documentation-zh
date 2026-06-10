@@ -8896,7 +8896,7 @@ cd event-plugin
 <h5 id="1-kafka">步骤 1：安装 Kafka<a class="headerlink" href="#1-kafka" title="Permanent link">&para;</a></h5>
 <p>在 Linux 环境下，请按照以下步骤安装 Kafka：</p>
 <div class="highlight"><pre><span></span><code>cd /usr/local
-wget https://downloads.apache.org/kafka/2.8.0/kafka_2.13-2.8.0.tgz
+wget https://archive.apache.org/dist/kafka/2.8.0/kafka_2.13-2.8.0.tgz
 tar -xzf kafka_2.13-2.8.0.tgz
 </code></pre></div>
 <h5 id="2-kafka">步骤 2：运行 Kafka<a class="headerlink" href="#2-kafka" title="Permanent link">&para;</a></h5>
@@ -8937,12 +8937,13 @@ bin/kafka-server-start.sh config/server.properties &amp;
 <li><code>path</code>：<code>plugin-kafka-1.0.0.zip</code> 的本地绝对路径，请确保路径正确，否则无法加载。</li>
 <li><code>server</code>：Kafka 服务器地址，使用 <code>ip:port</code> 的格式。Kafka 默认端口号是 <code>9092</code>，请确保端口号正确，并确保 Kafka 服务可访问。</li>
 <li><code>dbconfig</code>：此配置项仅针对 MongoDB 插件，对于 Kafka 插件请忽略。</li>
+<li><code>contractParse</code>：控制是否对合约日志进行 ABI 解码。设为 <code>true</code>（默认值）时，节点会将每条日志与合约 ABI 进行匹配，匹配成功的日志作为解码后的 <code>contractevent</code> 事件推送，未匹配的日志则作为原始 <code>contractlog</code> 事件推送；设为 <code>false</code> 时，跳过 ABI 解码，所有日志均作为原始 <code>contractlog</code> 事件推送。</li>
 <li><code>topics</code>：配置订阅的事件，详情请参看接下来的<a href="#event-types">事件类型</a>章节。</li>
-<li><code>filter</code>：过滤参数，详情请参看接下来的<a href="#event-types">事件类型</a>章节。</li>
+<li><code>filter</code>：过滤参数，详情请参看<a href="#event-filtering">事件过滤</a>章节。</li>
 </ul>
-<h6 id="event-types">事件类型<a class="headerlink" href="#event-types" title="Permanent link">&para;</a></h6>
+<h4 id="event-types">事件类型<a class="headerlink" href="#event-types" title="Permanent link">&para;</a></h4>
 <p>TRON 事件订阅支持 <code>block</code>、<code>transaction</code>、<code>contractevent</code>、<code>contractlog</code>、<code>solidity</code>、<code>solidityevent</code>、<code>soliditylog</code> 7 种类型的事件订阅。开发者需要根据业务需求进行配置，<strong>建议只订阅 1-2 种事件类型，如果开启过多触发器，会导致性能下降。</strong></p>
-<p><strong>1. 交易事件</strong></p>
+<h5 id="transaction-event">1. 交易事件<a class="headerlink" href="#transaction-event" title="Permanent link">&para;</a></h5>
 <p>用于订阅交易相关的事件信息。</p>
 <p>配置示例：</p>
 <div class="highlight"><pre><span></span><code>event.subscribe.topics = [
@@ -8971,7 +8972,7 @@ bin/kafka-server-start.sh config/server.properties &amp;
 <li><code>energyFee</code>: 此次调用中消耗的 TRX 数量（以 <code>sun</code> 为单位）。</li>
 </ul>
 <p>更多字段请参考 <a href="https://github.com/tronprotocol/java-tron/blob/develop/common/src/main/java/org/tron/common/logsfilter/trigger/TransactionLogTrigger.java">TransactionLogTrigger</a>。</p>
-<p><strong>2. 区块事件</strong></p>
+<h5 id="block-event">2. 区块事件<a class="headerlink" href="#block-event" title="Permanent link">&para;</a></h5>
 <p>用于订阅区块生成信息。</p>
 <p>配置示例：</p>
 <div class="highlight"><pre><span></span><code>event.subscribe.topics = [
@@ -8992,7 +8993,7 @@ bin/kafka-server-start.sh config/server.properties &amp;
 <li><code>transactionList</code>: 交易哈希列表</li>
 </ul>
 <p>更多字段请参考 <a href="https://github.com/tronprotocol/java-tron/blob/develop/common/src/main/java/org/tron/common/logsfilter/trigger/BlockLogTrigger.java">BlockLogTrigger</a>。</p>
-<p><strong>3. 合约事件与日志</strong></p>
+<h5 id="contract-event-and-log">3. 合约事件与日志<a class="headerlink" href="#contract-event-and-log" title="Permanent link">&para;</a></h5>
 <p>用于订阅智能合约事件和日志。</p>
 <p>配置示例：</p>
 <div class="highlight"><pre><span></span><code>event.subscribe.topics = [
@@ -9031,8 +9032,8 @@ bin/kafka-server-start.sh config/server.properties &amp;
 <li><code>blockNumber</code>: 合约事件所在的区块高度。</li>
 </ul>
 <p>更多字段请参考 <a href="https://github.com/tronprotocol/java-tron/blob/develop/common/src/main/java/org/tron/common/logsfilter/trigger/ContractEventTrigger.java">ContractEventTrigger</a> 和  <a href="https://github.com/tronprotocol/java-tron/blob/develop/common/src/main/java/org/tron/common/logsfilter/trigger/ContractLogTrigger.java">ContractLogTrigger</a>。</p>
-<blockquote>
-<p><strong>注意</strong>：<code>合约事件</code>与<code>合约日志事件</code>订阅支持通过<code>filter</code> 字段对事件进行过滤，可以指定区块范围 (<code>fromblock</code> - <code>toblock</code>)、特定合约地址 (<code>contractAddress</code>) 或特定合约主题 (<code>contractTopic</code>)，为开发者提供更高效、更精准的事件订阅服务。：
+<h6 id="event-filtering">事件过滤<a class="headerlink" href="#event-filtering" title="Permanent link">&para;</a></h6>
+<p><code>合约事件</code>与<code>合约日志事件</code>订阅支持通过 <code>filter</code> 字段对事件进行过滤，可以指定区块范围 (<code>fromblock</code> - <code>toblock</code>)、特定合约地址 (<code>contractAddress</code>) 或特定合约主题 (<code>contractTopic</code>)，为开发者提供更高效、更精准的事件订阅服务。</p>
 <div class="highlight"><pre><span></span><code>filter = {
   fromblock = &quot;&quot; // 查询范围的起始区块号，可以是空字符串、&quot;earliest&quot; 或指定的区块号。
   toblock = &quot;&quot; // 查询范围的结束区块号，可以是空字符串、&quot;latest&quot; 或指定的区块号。
@@ -9044,9 +9045,8 @@ bin/kafka-server-start.sh config/server.properties &amp;
     &quot;&quot; // 您希望订阅的合约主题。如果设置为空字符串，将接收所有合约主题的日志/事件。
   ]
 }
-</code></pre></div></p>
-</blockquote>
-<p><strong>4. 固化块通知事件</strong></p>
+</code></pre></div>
+<h5 id="solidified-block-notification-event">4. 固化块通知事件<a class="headerlink" href="#solidified-block-notification-event" title="Permanent link">&para;</a></h5>
 <p>用于实时获取最新固化块高度，适用于需要同步最新固化状态的场景。</p>
 <p>配置示例：</p>
 <div class="highlight"><pre><span></span><code>event.subscribe.topics = [
@@ -9141,7 +9141,7 @@ cd event-plugin
 <span class="w">  </span><span class="p">}</span>
 <span class="w">  </span><span class="nx">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;/deploy/fullnode/event-plugin/build/plugins/plugin-mongodb-1.0.0.zip&quot;</span><span class="w"> </span>
 <span class="w">  </span><span class="nx">server</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;127.0.0.1:27017&quot;</span><span class="w"> </span>
-<span class="w">  </span><span class="nx">dbconfig</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;eventlog|tron|123456&quot;</span><span class="w"> </span>
+<span class="w">  </span><span class="nx">dbconfig</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;eventlog|&lt;eventlog-username&gt;|&lt;eventlog-password&gt;&quot;</span><span class="w"> </span>
 <span class="w">  </span><span class="nx">topics</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
 <span class="w">    </span><span class="p">{</span>
 <span class="w">      </span><span class="nx">triggerName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;block&quot;</span><span class="w"> </span>
@@ -9200,11 +9200,12 @@ cd event-plugin
 <li><code>native.useNativeQueue</code>：是否使用内置消息队列（ZeroMQ）订阅事件。<code>true</code> 表示使用内置消息队列，<code>false</code> 表示使用插件订阅事件。这里需设置成 <code>false</code>。</li>
 <li><code>path</code>：插件的绝对路径，例如 <code>"/deploy/fullnode/event-plugin/build/plugins/plugin-mongodb-1.0.0.zip"</code>。</li>
 <li><code>server</code>：目标服务器地址，即 MongoDB 的地址和端口，例如 <code>"127.0.0.1:27017"</code>。</li>
-<li><code>dbconfig</code>：MongoDB 数据库配置，格式为：<code>数据库名|用户名|密码</code>，例如 <code>"eventlog|tron|123456"</code>。</li>
-<li><code>topics</code>：目前支持七种事件类型：<code>block</code>、<code>transaction</code>、<code>contractevent</code>、 <code>contractlog</code>、<code>solidity</code>、<code>solidityevent</code> 和 <code>soliditylog</code>。详细信息请参考 <a href="#event-types">事件类型</a> 章节。<ul>
+<li><code>dbconfig</code>：MongoDB 数据库配置，格式为：<code>数据库名|用户名|密码</code>，例如 <code>"eventlog|&lt;eventlog-username&gt;|&lt;eventlog-password&gt;"</code>。</li>
+<li><code>topics</code>：目前支持七种事件类型：<code>block</code>、<code>transaction</code>、<code>contractevent</code>、<code>contractlog</code>、<code>solidity</code>、<code>solidityevent</code> 和 <code>soliditylog</code>。详细信息请参考 <a href="#event-types">事件类型</a> 章节。<ul>
 <li><code>triggerName</code>：触发器名称，不可修改。</li>
 <li><code>enable</code>：是否启用该事件订阅。<code>true</code> 为开启，<code>false</code> 为禁用。</li>
 <li><code>topic</code>：MongoDB 中接收事件的集合名称，可修改。</li>
+<li><code>redundancy</code>：仅用于 <code>contractlog</code> 与 <code>soliditylog</code>。设为 <code>true</code> 时，已作为 <code>contractevent</code>/<code>solidityevent</code> 推送的合约日志会<strong>额外再以原始</strong> <code>contractlog</code>/<code>soliditylog</code> 形式推送一份。默认为 <code>false</code>。</li>
 </ul>
 </li>
 <li><code>filter</code>：事件过滤条件。<ul>
@@ -9259,11 +9260,11 @@ wiredTigerCacheSizeGB=2
 <p>连接到 MongoDB 并创建管理员用户，然后创建用于事件订阅的数据库和用户：</p>
 <div class="highlight"><pre><span></span><code>mongo
 use admin
-db.createUser({user:&quot;root&quot;,pwd:&quot;admin&quot;,roles:[{role:&quot;root&quot;,db:&quot;admin&quot;}]})
+db.createUser({user:&quot;&lt;admin-username&gt;&quot;,pwd:&quot;&lt;admin-password&gt;&quot;,roles:[{role:&quot;root&quot;,db:&quot;admin&quot;}]})
 
-db.auth(&quot;root&quot;, &quot;admin&quot;)
+db.auth(&quot;&lt;admin-username&gt;&quot;, &quot;&lt;admin-password&gt;&quot;)
 use eventlog
-db.createUser({user:&quot;tron&quot;,pwd:&quot;123456&quot;,roles:[{role:&quot;dbOwner&quot;,db:&quot;eventlog&quot;}]})
+db.createUser({user:&quot;&lt;eventlog-username&gt;&quot;,pwd:&quot;&lt;eventlog-password&gt;&quot;,roles:[{role:&quot;dbOwner&quot;,db:&quot;eventlog&quot;}]})
 </code></pre></div>
 <h4 id="deploying-the-event-query-service">部署事件查询服务（Event Query Service）<a class="headerlink" href="#deploying-the-event-query-service" title="Permanent link">&para;</a></h4>
 <p>事件查询服务提供 HTTP 接口，用于查询 MongoDB 中存储的事件数据。该服务依赖 Java 环境。</p>
@@ -9275,7 +9276,7 @@ cd tron-eventquery
 </code></pre></div>
 <h5 id="2_1">步骤 2：构建服务<a class="headerlink" href="#2_1" title="Permanent link">&para;</a></h5>
 <p>下载 Maven 并使用 Maven 构建 <code>tron-eventquery</code> 服务：</p>
-<div class="highlight"><pre><span></span><code>wget https://mirrors.cnnic.cn/apache/maven/maven-3/3.5.4/binaries/apache-maven-3.5.4-bin.tar.gz --no-check-certificate
+<div class="highlight"><pre><span></span><code>wget https://archive.apache.org/dist/maven/maven-3/3.5.4/binaries/apache-maven-3.5.4-bin.tar.gz --no-check-certificate
 tar zxvf apache-maven-3.5.4-bin.tar.gz
 export M2_HOME=$HOME/maven/apache-maven-3.5.4
 export PATH=$PATH:$M2_HOME/bin
@@ -9315,13 +9316,13 @@ sh insertIndex.sh
 <div class="highlight"><pre><span></span><code>tail -f logs/tron.log | grep -i eventplugin
 </code></pre></div>
 <p>如果看到类似以下字样，则表示插件已成功加载：</p>
-<div class="highlight"><pre><span></span><code>o.t.c.l.EventPluginLoader &#39;your plugin path/plugin-kafka-1.0.0.zip&#39; loaded
+<div class="highlight"><pre><span></span><code>o.t.c.l.EventPluginLoader &#39;your plugin path/plugin-mongodb-1.0.0.zip&#39; loaded
 </code></pre></div>
 <h5 id="mongodb">验证数据是否存入 MongoDB<a class="headerlink" href="#mongodb" title="Permanent link">&para;</a></h5>
 <p>连接到 MongoDB 并查询数据，以验证事件数据是否已从节点获取并通过事件订阅存储到 MongoDB 中：</p>
-<div class="highlight"><pre><span></span><code>mongo 47.90.245.68:27017
+<div class="highlight"><pre><span></span><code>mongo 127.0.0.1:27017
 use eventlog
-db.auth(&quot;tron&quot;, &quot;123456&quot;)
+db.auth(&quot;&lt;eventlog-username&gt;&quot;, &quot;&lt;eventlog-password&gt;&quot;)
 show collections
 db.block.find()
 </code></pre></div>
@@ -9422,7 +9423,7 @@ received a message related to: blockTrigger, containing message: {&quot;timeStam
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年5月12日 08:25:39 UTC">2026年5月12日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年6月5日 03:25:56 UTC">2026年6月5日</span>
   </span>
 
     
