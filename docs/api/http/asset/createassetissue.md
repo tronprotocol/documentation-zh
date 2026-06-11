@@ -1,6 +1,6 @@
 # /wallet/createassetissue
 
-创建一个 TRC10 通证发行交易。
+创建一个 TRC10 token 发行交易。
 
 - 源码：`framework/src/main/java/org/tron/core/services/http/CreateAssetIssueServlet.java`
 - Method：`POST`
@@ -11,19 +11,19 @@
 | 字段 | 类型 | 必填 | 说明 |
 |---|---|---|---|
 | `owner_address` | string | 是 | 发行方地址 |
-| `name` | string | 是 | 通证名（hex 编码 UTF-8） |
+| `name` | string | 是 | token 名（hex 编码 UTF-8） |
 | `abbr` | string | 否 | 缩写（hex 编码 UTF-8） |
 | `total_supply` | int64 | 是 | 总发行量 |
 | `frozen_supply` | repeated FrozenSupply | 否 | 冻结部分；元素 `{frozen_amount, frozen_days}` |
-| `trx_num` | int32 | 是 | 兑换比例分母（trx_num TRX = num 通证） |
+| `trx_num` | int32 | 是 | 兑换比例分母（trx_num TRX = num token） |
 | `num` | int32 | 是 | 兑换比例分子 |
 | `precision` | int32 | 否 | 精度 |
 | `start_time` | int64 | 是 | 募集开始时间，毫秒 |
 | `end_time` | int64 | 是 | 募集结束时间，毫秒 |
 | `description` | string | 否 | 描述（hex UTF-8） |
 | `url` | string | 是 | 项目 URL（hex UTF-8，长度 ≤ 256 字节） |
-| `free_asset_net_limit` | int64 | 否 | 单账户该通证免费带宽 |
-| `public_free_asset_net_limit` | int64 | 否 | 通证公共免费带宽 |
+| `free_asset_net_limit` | int64 | 否 | 单账户该 token 免费带宽 |
+| `public_free_asset_net_limit` | int64 | 否 | token 公共免费带宽 |
 | `permission_id` | int32 | 否 | 多签权限 ID |
 | `visible` | bool | 否 | 地址、文本字段格式 |
 

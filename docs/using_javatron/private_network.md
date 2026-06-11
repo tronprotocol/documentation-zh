@@ -64,7 +64,7 @@
     |`block.proposalExpireTime`|`600000` |与 SR 配置值相同  |默认提案过期时间是 3 天：259200000(ms)；由于逻辑上强制提案最少需要经历一个完整的维护期时间间隔，所以如果希望提案快速通过，需要将该项和维护期时间间隔项同时设置成小值|
     |`block.maintenanceTimeInterval`|`300000`| 与 SR 配置值相同  | 维护期时间间隔，默认是 6 小时：21600000(ms)|
     |`committee.allowSameTokenName` |`1`|`1`|如果配置为 `1` (true)，则允许相同的 token name|
-    |`committee.allowTvmTransferTrc10` | `1`|`1`|如果配置为 `1` (true)，允许 TVM 通过智能合约转账 TRC-10 代币 |  
+    |`committee.allowTvmTransferTrc10` | `1`|`1`|如果配置为 `1` (true)，允许 TVM 通过智能合约转账 TRC-10 token |  
 
 5. 调整网络端口 (如需)    
     修改配置文件中的端口号，将 SR 和 FullNode 的配置成不相同的端口号。此步骤仅在同一台机器上运行多个节点时是必需的，以避免端口冲突。否则，可跳过此步。

@@ -1,6 +1,6 @@
 # /wallet/updateasset
 
-修改 TRC10 通证的描述、URL 及带宽限额（仅发行方）。
+修改 TRC10 token 的描述、URL 及带宽限额（仅发行方）。
 
 - 源码：`framework/src/main/java/org/tron/core/services/http/UpdateAssetServlet.java`
 - Method：`POST`
@@ -14,7 +14,7 @@
 | `description` | string | 否 | 新描述（hex UTF-8） |
 | `url` | string | 否 | 新 URL（hex UTF-8） |
 | `new_limit` | int64 | 否 | 单账户免费带宽限额 |
-| `new_public_limit` | int64 | 否 | 通证公共免费带宽限额 |
+| `new_public_limit` | int64 | 否 | token 公共免费带宽限额 |
 | `permission_id` | int32 | 否 | 多签权限 ID |
 | `visible` | bool | 否 | 地址、文本字段格式 |
 

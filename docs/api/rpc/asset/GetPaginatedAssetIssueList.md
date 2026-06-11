@@ -1,6 +1,6 @@
 # GetPaginatedAssetIssueList
 
-按分页查询全网 TRC10 通证。
+按分页查询全网 TRC10 token。
 
 - 服务：同时支持 `Wallet` 和 `WalletSolidity`
 

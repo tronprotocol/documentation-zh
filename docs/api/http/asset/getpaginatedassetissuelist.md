@@ -1,6 +1,6 @@
 # /wallet/getpaginatedassetissuelist
 
-按分页查询全网 TRC10 通证。
+按分页查询全网 TRC10 token。
 
 - 源码：`framework/src/main/java/org/tron/core/services/http/GetPaginatedAssetIssueListServlet.java`
 - Method：`GET` / `POST`
@@ -34,7 +34,7 @@ curl --request POST \
 
 | 字段 | 类型 | 说明 |
 |---|---|---|
-| `assetIssue` | repeated AssetIssueContract | 分页后的通证列表 |
+| `assetIssue` | repeated AssetIssueContract | 分页后的 token 列表 |
 
 响应示例（Nile，limit=2）：
 

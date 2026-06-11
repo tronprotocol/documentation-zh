@@ -1,6 +1,6 @@
 # /wallet/getassetissuelist
 
-查询全网所有 TRC10 通证。
+查询全网所有 TRC10 token。
 
 - 源码：`framework/src/main/java/org/tron/core/services/http/GetAssetIssueListServlet.java`
 - Method：`GET` / `POST`
@@ -25,7 +25,7 @@ curl --request POST \
 
 | 字段 | 类型 | 说明 |
 |---|---|---|
-| `assetIssue` | repeated AssetIssueContract | 全部 TRC10 通证（结构同 [`/wallet/createassetissue`](createassetissue.md) 请求体） |
+| `assetIssue` | repeated AssetIssueContract | 全部 TRC10 token（结构同 [`/wallet/createassetissue`](createassetissue.md) 请求体） |
 
 响应示例（Nile 全量列表很长，仅截取首项；如需翻页请使用 [`/wallet/getpaginatedassetissuelist`](getpaginatedassetissuelist.md)）：
 

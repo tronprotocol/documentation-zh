@@ -1,6 +1,6 @@
 # /wallet/getassetissuelistbyname
 
-按通证名查询所有同名 TRC10。
+按 token 名查询所有同名 TRC10。
 
 - 源码：`framework/src/main/java/org/tron/core/services/http/GetAssetIssueListByNameServlet.java`
 - Method：`GET` / `POST`
@@ -11,7 +11,7 @@
 
 | 字段 | 类型 | 必填 | 说明 |
 |---|---|---|---|
-| `value` | string | 是 | 通证名（hex 编码 UTF-8） |
+| `value` | string | 是 | token 名（hex 编码 UTF-8） |
 | `visible` | bool | 否 | 地址、文本字段格式 |
 
 示例：
@@ -32,7 +32,7 @@ curl --request POST \
 
 | 字段 | 类型 | 说明 |
 |---|---|---|
-| `assetIssue` | repeated AssetIssueContract | 所有同名通证 |
+| `assetIssue` | repeated AssetIssueContract | 所有同名 token |
 
 响应示例（Nile name `54524e` 解码为 `TRN`，存在两个同名 token，截取前 2 项）：
 

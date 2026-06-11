@@ -11,13 +11,13 @@
 | 字段 | 类型 | 必填 | 说明 |
 |---|---|---|---|
 | `owner_address` | string | 是 | 购买方 |
-| `to_address` | string | 是 | 通证发行方地址 |
-| `asset_name` | string | 是 | 通证 ID（自 `ALLOW_SAME_TOKEN_NAME` 提案生效后是字符串形式的 token id，如 `1000001`，hex UTF-8 编码） |
+| `to_address` | string | 是 | token 发行方地址 |
+| `asset_name` | string | 是 | token ID（自 `ALLOW_SAME_TOKEN_NAME` 提案生效后是字符串形式的 token id，如 `1000001`，hex UTF-8 编码） |
 | `amount` | int64 | 是 | 支付的 TRX，sun |
 | `permission_id` | int32 | 否 | 多签权限 ID |
 | `visible` | bool | 否 | 地址、文本字段格式 |
 
-约束：必须在 `[start_time, end_time)` 期间内；获得的通证数量按 `num/trx_num` 折算。
+约束：必须在 `[start_time, end_time)` 期间内；获得的 token 数量按 `num/trx_num` 折算。
 
 示例：
 

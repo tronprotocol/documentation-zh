@@ -1,6 +1,6 @@
 # TransferAsset2
 
-TRC10 通证转账。
+TRC10 token 转账。
 
 - 服务：仅支持 `Wallet`
 
