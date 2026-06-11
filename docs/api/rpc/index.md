@@ -102,7 +102,7 @@ grpc://<host>:50061   protocol.WalletSolidity/<Method>
 | [UpdateSetting](smart-contract/UpdateSetting.md) | 修改用户能量百分比 |
 | [UpdateEnergyLimit](smart-contract/UpdateEnergyLimit.md) | 修改部署者能量上限 |
 
-## 见证人 / 治理
+## 超级代表 / 治理
 
 | 方法 | 描述 |
 |---|---|
