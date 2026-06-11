@@ -91,7 +91,7 @@
 
 7. 高级操作：修改动态网络参数
    
-     动态网络参数可以通过 [getchainparameters](https://developers.tron.network/reference/wallet-getchainparameters) 接口获取。主网的当前动态参数及相关提案可在 TRONSCAN [参数&提议页面](https://tronscan.org/#/sr/committee) 查看。若希望私链的动态参数与主网保持一致，可使用 [DBFork](https://github.com/tronprotocol/tron-docker/blob/main/tools/toolkit/DBFork.md) 工具，它可以捕获主网的最新状态。
+     动态网络参数可以通过 [getchainparameters](../api/http/witness-and-governance/getchainparameters.md) 接口获取。主网的当前动态参数及相关提案可在 TRONSCAN [参数&提议页面](https://tronscan.org/#/sr/committee) 查看。若希望私链的动态参数与主网保持一致，可使用 [DBFork](https://github.com/tronprotocol/tron-docker/blob/main/tools/toolkit/DBFork.md) 工具，它可以捕获主网的最新状态。
   
      私有链启动后，您可能需要调整某些网络参数（例如手续费，能量单价等），这可以通过两种方式实现：
 
@@ -116,16 +116,16 @@
         
         这是链上治理的标准方式，任何 超级代表（SR）、SR Partner、SR Candidate 都有权创建提案，但只有 SR 有权投票批准。
 
-         - 创建提案：SR 使用 [proposalcreate](https://developers.tron.network/reference/proposalcreate) API，通过参数序号指定要修改的参数及其新值（参数序号列表)。
-         - 批准提案：SR 使用 [proposalapprove](https://developers.tron.network/reference/proposalapprove) API 对提案进行投票（仅支持投赞成票，SR 不投票意味着不同意该提案）。
+         - 创建提案：SR 使用 [proposalcreate](../api/http/witness-and-governance/proposalcreate.md) API，通过参数序号指定要修改的参数及其新值（参数序号列表)。
+         - 批准提案：SR 使用 [proposalapprove](../api/http/witness-and-governance/proposalapprove.md) API 对提案进行投票（仅支持投赞成票，SR 不投票意味着不同意该提案）。
          - 相关接口：
-              - 获取所有提议：[listproposals](https://developers.tron.network/reference/wallet-listproposals)
-              - 根据 ID 获取提议：[getproposalbyid](https://developers.tron.network/reference/getproposalbyid)
+              - 获取所有提议：[listproposals](../api/http/witness-and-governance/listproposals.md)
+              - 根据 ID 获取提议：[getproposalbyid](../api/http/witness-and-governance/getproposalbyid.md)
  
  
          **示例代码 (使用 TronWeb)：**
 
-         以下代码片段演示了如何创建一个提案来修改两个网络参数，并对其进行投票。在 [proposalcreate](https://developers.tron.network/reference/proposalcreate) 中，动态参数用序号表示，动态参数的序号和名称之间的映射可以在 [此处](https://developers.tron.network/reference/wallet-getchainparameters) 查看。
+         以下代码片段演示了如何创建一个提案来修改两个网络参数，并对其进行投票。在 [proposalcreate](../api/http/witness-and-governance/proposalcreate.md) 中，动态参数用序号表示，序号和名称之间的映射定义在 java-tron 源码的 [`enum ProposalType`](https://github.com/tronprotocol/java-tron/blob/master/actuator/src/main/java/org/tron/core/utils/ProposalUtil.java) 中（枚举项括号内即为参数序号）。
 
          ```
          var TronWeb = require('tronweb');
@@ -158,7 +158,7 @@
          modifyChainParameters(parametersForProposal1, 1) 
          ```
       
-      提案投票通过并在维护期结束后，新的网络参数将会生效。您可以通过 [listproposals](https://developers.tron.network/reference/wallet-listproposals) 或 [getchainparameters](https://developers.tron.network/reference/wallet-getchainparameters) 来验证变更。
+      提案投票通过并在维护期结束后，新的网络参数将会生效。您可以通过 [listproposals](../api/http/witness-and-governance/listproposals.md) 或 [getchainparameters](../api/http/witness-and-governance/getchainparameters.md) 来验证变更。
   
       需要注意的是，具有相互依赖关系的动态参数不能包含在同一个提案中，正确的方法是将它们分成不同的提案，并注意它们的顺序。
      
