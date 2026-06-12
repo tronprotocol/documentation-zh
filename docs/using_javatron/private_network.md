@@ -91,7 +91,7 @@
 
 7. 高级操作：修改网络参数
    
-     网络参数可以通过 [getchainparameters](../api/http/witness-and-governance/getchainparameters.md) 接口获取。主网的当前网络参数及相关提案可在 TRONSCAN [参数&提议页面](https://tronscan.org/#/sr/committee) 查看。若希望私链的网络参数与主网保持一致，可使用 [DBFork](https://github.com/tronprotocol/tron-docker/blob/main/tools/toolkit/DBFork.md) 工具，它可以捕获主网的最新状态。
+     网络参数可以通过 [getchainparameters](../api/http/witness-and-governance/getchainparameters.md) 接口获取。主网的当前网络参数及相关提案可在 TRONSCAN [参数&提案页面](https://tronscan.org/#/sr/committee) 查看。若希望私链的网络参数与主网保持一致，可使用 [DBFork](https://github.com/tronprotocol/tron-docker/blob/main/tools/toolkit/DBFork.md) 工具，它可以捕获主网的最新状态。
   
      私有链启动后，您可能需要调整某些网络参数（例如手续费，能量单价等），这可以通过两种方式实现：
 
@@ -119,8 +119,8 @@
          - 创建提案：SR 使用 [proposalcreate](../api/http/witness-and-governance/proposalcreate.md) API，通过参数序号指定要修改的参数及其新值（参数序号列表)。
          - 批准提案：SR 使用 [proposalapprove](../api/http/witness-and-governance/proposalapprove.md) API 对提案进行投票（仅支持投赞成票，SR 不投票意味着不同意该提案）。
          - 相关接口：
-              - 获取所有提议：[listproposals](../api/http/witness-and-governance/listproposals.md)
-              - 根据 ID 获取提议：[getproposalbyid](../api/http/witness-and-governance/getproposalbyid.md)
+              - 获取所有提案：[listproposals](../api/http/witness-and-governance/listproposals.md)
+              - 根据 ID 获取提案：[getproposalbyid](../api/http/witness-and-governance/getproposalbyid.md)
  
  
          **示例代码 (使用 TronWeb)：**

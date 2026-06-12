@@ -332,7 +332,7 @@ _**异常情况下的扣费规则**_
 
 ### 如何解质押
 
-您可以在质押 TRX 后随时进行解质押。在调用 `unfreezebalancev2` API 发起解质押操作后，您的资金会进入一个 14 天的锁定期。此锁定期由 TRON 网络的 [#70](https://tronscan.io/#/sr/committee) 号参数定义，未来可通过网络治理提议进行修改。14 天锁定期结束后，您便可以通过 `withdrawexpireunfreeze` API 将这笔已解质押的 TRX 提取到您的账户中。
+您可以在质押 TRX 后随时进行解质押。在调用 `unfreezebalancev2` API 发起解质押操作后，您的资金会进入一个 14 天的锁定期。此锁定期由 TRON 网络的 [#70](https://tronscan.io/#/sr/committee) 号参数定义，未来可通过网络治理提案进行修改。14 天锁定期结束后，您便可以通过 `withdrawexpireunfreeze` API 将这笔已解质押的 TRX 提取到您的账户中。
 
 !!! 重要提示 
     在执行解质押前，请务必了解以下关键限制：
