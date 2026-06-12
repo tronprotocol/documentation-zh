@@ -4,8 +4,8 @@
 
 对于**强制升级**的版本，请严格遵循本指南完成部署。对于**非强制升级**的版本，您可以根据实际需求选择是否升级。
 
-  * 对于**标准节点**，请参考 [标准节点升级流程](#standard-node-upgrade-process)。
-  * 对于配置了**主备高可用**的节点，请遵循 [主备节点升级指南](#primary-backup-upgrade) 以确保服务的平稳过渡。
+* 对于**标准节点**，请参考 [标准节点升级流程](#standard-node-upgrade-process)。
+* 对于配置了**主备高可用**的节点，请遵循 [主备节点升级指南](#primary-backup-upgrade) 以确保服务的平稳过渡。
 
 ## 标准节点升级流程 { #standard-node-upgrade-process }
 
