@@ -1,7 +1,9 @@
 # java-tron 节点指标监控
+
 从 GreatVoyage-4.5.1 (Tertullian) 版本开始，节点通过 `/metrics` 端点暴露符合 Prometheus 文本格式的指标，使节点部署者可以更方便地监控节点的健康状态。各项暴露指标的含义请参考 tron-docker metric_monitor README 的 [All Metrics 章节](https://github.com/tronprotocol/tron-docker/blob/main/metric_monitor/README.md#all-metrics)。如果您想要监控节点的各项指标，则首先需要部署一个 Prometheus 服务，用于与 java-tron 节点通信，从该端点抓取指标数据。然后还需要部署一个可视化工具，如 Grafana，用于将 Prometheus 获取到的节点数据，以图像化界面的形式展示出来。下面将详细介绍 java-tron 节点监控系统的搭建流程。
 
 ## 配置 java-tron
+
 如需使用 Prometheus 工具监控 java-tron 节点的运行情况，首先需要在节点配置文件中开启 Prometheus 指标监控，并设置 HTTP 端口号。在 `config.conf` 中找到 `node.metrics` 配置块，将 `prometheus.enable` 设置为 `true`：
 
 ```
@@ -12,10 +14,13 @@ node.metrics = {
   }
 }
 ```
+
 ## 启动 java-tron 节点
+
 完成配置后，请参考[启动 java-tron 节点](installing_javatron.md#starting-a-java-tron-node)一节启动节点。
 
 ## 部署 Prometheus 服务
+
 [Prometheus](https://prometheus.io/download/) 官方提供了预编译的二进制文件以及 Docker 镜像，您可以直接在官网下载或者在 Docker Hub 上拉取 Docker 镜像，更多的安装与配置说明，请参考 [Prometheus 文档](https://prometheus.io/docs/introduction/overview/)。作为简单的部署说明，本文将采用 Docker 镜像部署方式：
 
 1. 安装 Prometheus
@@ -82,6 +87,7 @@ node.metrics = {
     当监控的 java-tron 节点的状态都正常后，您就可以通过 Grafana 等可视化工具监控指标数据了，本文将通过 Grafana 来展示数据。
 
 ## 部署 Grafana
+
 Grafana 可视化工具的部署流程如下：
 
 1. 安装 Grafana

@@ -78,6 +78,7 @@ SwitchNetwork successful !!!
 wallet> currentnetwork
 currentNetwork: NILE
 ```
+
 ### 步骤 B：创建账户
 
 **1. 注册新账户**
@@ -210,6 +211,7 @@ Num:23113870,ID:000000000160b08e37cb9951d31a4233f106c7e77e0535c597dbb6a16f163699
 要确认您的节点已与网络完全同步，将您本地节点的区块高度与 [Tronscan 区块浏览器](https://tronscan.org/) 上显示的最新区块高度进行比较。如果两者一致，则表示您本地节点的同步状态正常。
 
 ### 3. 关闭节点
+
 如果要关闭 java-tron，请通过`kill -15 <进程ID>`来停止节点。
 
 
@@ -227,6 +229,7 @@ Num:23113870,ID:000000000160b08e37cb9951d31a4233f106c7e77e0535c597dbb6a16f163699
 ### 方式一：使用 `wallet-cli` (推荐)
 
 #### 查询账户信息
+
 您可以使用 `getaccount <地址>` 命令查询指定地址的详细信息。执行该命令时，`wallet-cli` 会在后台向 java-tron 节点发送请求，然后将获取到的账户数据呈现在终端界面。
 
 ```
@@ -249,7 +252,9 @@ wallet> getaccount TUoHaVjx7n5xz8LwPRDckgFrDWhMhuSuJM
 }
 
 ```
+
 #### 查询账户余额
+
 使用 `getbalance` 命令可快速查看当前登录账户的 TRX 余额。
 ```
 wallet> getbalance
@@ -258,6 +263,7 @@ wallet>
 ```
 
 #### 转账 TRX
+
 使用 `sendcoin <接收方地址> <转账金额>` 命令发起一笔 TRX 转账。金额单位为 sun（1 TRX = 1,000,000 sun）。
 ```
 wallet> sendcoin TUznHJfHe6gdYY7gvWmf6bNZHuPHDZtowf 1000000
@@ -580,6 +586,7 @@ wallet>
   ```
 
 ## 总结与展望
+
 恭喜您完成了 java-tron 的入门之旅！您已经亲手操作并掌握了运行节点、创建账户和发送交易等核心技能，为深入探索 TRON 生态打下了坚实的基础。
 
 

@@ -14,6 +14,7 @@ TRON Toolkit 是一个集成了多种 `java-tron` 周边工具的实用程序，
 **注意**：由于在 arm64 架构上只支持 RocksDB，所以像 `db convert` 和 `db archive` 这样处理 LevelDB 的工具只能在 x86_64 架构上使用。
 
 ## Toolkit 的获取
+
 您可以通过编译 `java-tron` 源代码或直接从已发布的版本中获取 `Toolkit.jar` 文件。推荐从 [GitHub Releases](https://github.com/tronprotocol/java-tron/releases) 下载最新版本。
 
 ### 从源代码编译
@@ -32,9 +33,11 @@ TRON Toolkit 是一个集成了多种 `java-tron` 周边工具的实用程序，
 编译成功后，`Toolkit.jar` 文件将生成在 `java-tron/build/libs/` 目录下。
 
 ## 数据存储分区工具 { #database-partitioning-tool }
+
 随着 TRON 链上数据的持续增长（目前主网全节点数据已达 2TB，每日增长约 1.2GB），节点的数据存储压力日益增大。为了解决单个磁盘容量不足的问题，TRON Toolkit 引入了**数据库存储分区工具**。该工具允许您根据配置将部分数据库迁移到其他存储盘，从而在磁盘空间不足时，无需更换原有磁盘，只需增加新的存储设备即可。
 
 ### 命令与参数
+
 使用 `db mv` 命令来执行数据迁移操作：
 
 ```
@@ -61,6 +64,7 @@ java -jar build/libs/Toolkit.jar db mv -c framework/src/main/resources/config.co
 
 
 #### 1. 停止 FullNode 服务 { #stop-the-fullnode-service }
+
 在执行数据库迁移之前，**必须**停止当前运行的 FullNode 服务。您可以使用以下命令查找 FullNode 进程 ID（PID）并终止进程：
 ```
 kill -15 $(ps -ef | grep FullNode.jar | grep -v grep | awk '{print $2}')
@@ -68,6 +72,7 @@ kill -15 $(ps -ef | grep FullNode.jar | grep -v grep | awk '{print $2}')
 
 
 #### 2. 配置数据库存储迁移 { #configure-database-storage-migration }
+
 数据库迁移的配置通过 `java-tron` 节点配置文件中的 `storage.properties` 字段进行。您可以在 [java-tron 仓库](https://github.com/tronprotocol/java-tron/blob/master/framework/src/main/resources/config.conf) 中找到示例配置。
 
 以下示例展示了如何将 `block` 和 `trans` 数据库迁移到 `/data1/tron` 目录：
@@ -103,6 +108,7 @@ java -jar build/libs/Toolkit.jar db mv -c framework/src/main/resources/config.co
 ```
 
 #### 4. 重新启动 FullNode 服务 { #restart-the-fullnode-service }
+
 数据库迁移完成后，重新启动 `java-tron` 节点。
 
 [**FullNode 启动命令示例**](installing_javatron.md#starting-a-fullnode-on-the-tron-main-network)
@@ -110,6 +116,7 @@ java -jar build/libs/Toolkit.jar db mv -c framework/src/main/resources/config.co
 [**超级代表（SR）FullNode 启动命令示例**](installing_javatron.md#starting-a-block-production-node)
 
 ## 轻节点数据裁剪工具 { #lite-fullnode-data-pruning }
+
 TRON Toolkit 提供了**数据裁剪工具**，主要用于生成和管理轻节点数据。
 
 全节点的完整数据可被分成两部分：快照数据集（Snapshot dataset）或历史数据集（History dataset）。
@@ -129,6 +136,7 @@ TRON Toolkit 提供了**数据裁剪工具**，主要用于生成和管理轻节
 > **重要提示**：在使用本工具进行任何操作之前，**必须**停止当前运行的节点。
 
 ### 命令与参数
+
 使用 `db lite` 命令来执行数据裁剪操作：
 ```
 # full command
@@ -154,6 +162,7 @@ TRON Toolkit 提供了**数据裁剪工具**，主要用于生成和管理轻节
 
 
 ### 使用示例
+
 节点数据库通常默认保存在 `output-directory/database` 目录下。以下示例将以该默认目录进行说明。
 
 #### 切分快照数据集
@@ -209,6 +218,7 @@ java -jar build/libs/Toolkit.jar db lite -o merge --fn-data-path /tmp/snapshot -
 节点数据库通常较大，传统的数据拷贝操作耗时较长。TRON Toolkit 提供了**数据库快速拷贝功能**，通过创建硬链接的方式，在同一磁盘中实现 LevelDB 或 RocksDB 数据库的高效拷贝。
 
 ### 命令与参数
+
 使用 `db cp` 命令来执行数据拷贝操作：
 
 ```shell

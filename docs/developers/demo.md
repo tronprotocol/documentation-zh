@@ -32,6 +32,7 @@ git merge upstream/develop --no-ff
 ```shell
 git checkout -b feature/add-new-http-demo develop
 ```
+
 ## 2. 代码实现：新增 `setPeer` HTTP 接口
 
 使用 IntelliJ IDEA 打开 `java-tron` 工程。接下来我们将实现一个 `setPeer` HTTP 接口，以支持用户通过 POST 请求添加信任节点。
@@ -209,6 +210,7 @@ Success to set trusted peer:192.163.3.2:16667
 *   `@After`：在每个测试方法执行后运行一次（用于清理测试环境，如关闭连接）。
 
 ### 3.3 单元测试类的组成
+
 一个典型的单元测试类通常由以下三部分组成：
 
 * **初始化方法**：使用 `@Before` 或 `@BeforeClass` 注解的方法，在测试执行前进行初始化操作，如准备测试数据或配置环境。

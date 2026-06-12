@@ -35,6 +35,7 @@ node {
 - 私链网络：自定义，设置成其它值
 
 ### 创世块（Genesis Block）
+
 需保证创世块 `genesis.block` 的设置与网络中其它节点的相同，否则无法和其他节点建立连接。主网的 `genesis.block` 配置如下：
 ```
 genesis.block = {
@@ -203,7 +204,9 @@ genesis.block = {
 
 
 ## 节点发现
+
 ### 启用节点发现
+
 节点发现通过配置文件开启和关闭。默认开启，相关配置项如下：
 ```
 node.discovery = {
@@ -215,11 +218,13 @@ node.discovery = {
 
 
 ### 引导节点
+
 java-tron 使用 [Kademlia](https://zh.wikipedia.org/wiki/Kademlia) 协议发现其他节点。节点发现需要引导节点 (boot 节点)，借助引导节点发现 TRON 网络中的其他节点。引导节点由两部分组成，一部分是种子节点，一部分是配置的主动连接节点，详情见[主动连接](#active-connection-active-peers)。
 
 种子节点也由两部分组成：
 
 #### 配置的 `seed.node` 
+
 使用 `seed.node` 初始化网络连接。应设置为在线稳定的全节点。
 
 
@@ -239,6 +244,7 @@ seed.node = {
 如果网卡支持 ipv6，可以使用上述列表中的 ipv6 地址格式的种子节点，将注释符 `#` 去掉即可。
 
 #### 从数据库中读取的持久化节点
+
 持久化节点需要开启节点持久化服务。如果开启该功能，[路由表](https://zh.wikipedia.org/wiki/Kademlia#%E8%B7%AF%E7%94%B1%E8%A1%A8) 中的节点会被定时任务写入数据库，如果节点启动的时候基于此数据库，会从数据库中读取这些节点作为种子节点使用。相关配置项：
 ```
 node.discovery = {
@@ -264,6 +270,7 @@ node {
 ## 节点连接
 
 ### 节点连接数量
+
 节点的连接数量由以下几个参数共同控制，通常需要配合调优：
 
 - `node.maxConnections`：节点的最大连接数（默认值：30）。当连接数达到该上限后，来自非可信节点的被动连接会被拒绝。可信节点是指 IP 出现在 `node.passive`、`node.active` 或 `fastForward` 中的节点（这三处的 IP 都会被加入可信列表）。主动连接不受该限制约束：对 `node.active` 中配置的节点的主动连接，仅受 `node.active` 列表大小限制；对通过节点发现协议发现的节点的主动连接，由 `minConnections` 和 `minActiveConnections` 驱动（见下文）。
@@ -286,6 +293,7 @@ node {
 
 
 ### 主动连接（Active Peers） { #active-connection-active-peers }
+
 主动连接的目标节点来源于三部分：
 
 - 配置的主动节点(高优先级)，不依赖于节点发现，即使节点发现没有开启，当前节点也会主动向这些节点发起连接。相关配置项：
@@ -319,6 +327,7 @@ node {
 可以看到，目前主动连接的目标节点来源只有两类，一类是配置的主动节点，一类是节点发现获取到的可连接节点。
 
 ### 被动连接
+
 - `node.passive` 配置的节点。当这些节点主动向当前节点发起连接时，当前节点都会无条件的接受。
 
 ```
@@ -341,23 +350,31 @@ node {
 ![image](https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/network_topology.png)
 
 ## 日志与节点状态验证
+
 ### 查看同步日志
+
 TRON 节点日志位于 `logs/tron.log`，可通过如下命令实时查看：
 
 ```
 tail -f logs/tron.log
 ```
+
 ### 同步中日志示例：
+
 ```
 pushBlock block number:76, cost/txs:13/0 false
 Success process block Num:76,ID:000000000000004c9e3899ee9952a7f0d9e4f692c7070a48390e6fea8099432f.
 ```
+
 ### 生产区块日志示例（超级代表节点）：
+
 ```
 Generate block 79336 begin
 Generate block 79336 success, trxs:0, pendingCount: 0, rePushCount: 0, postponedCount: 0
 ```
+
 ### 查询节点状态
+
 使用 HTTP 接口获取当前节点运行状态：
 
 ```
@@ -392,7 +409,9 @@ curl http://127.0.0.1:8090/wallet/getnodeinfo
     "totalFlow": 8735314
 }
 ```
+
 ### 验证节点同步状态
+
 可在 [TRONSCAN 区块浏览器](https://tronscan.org/) 查询当前区块高度，并与本地接口返回结果对比：
 ```
 curl http://127.0.0.1:8090/wallet/getnowblock
@@ -400,6 +419,7 @@ curl http://127.0.0.1:8090/wallet/getnowblock
 若区块高度一致，则说明本地节点同步正常。
 
 ## 常见连接问题排查
+
 遇到节点无法连接网络时，可参考以下问题排查：
 
 - **本地时钟偏差**
@@ -420,10 +440,13 @@ curl http://127.0.0.1:8090/wallet/getnowblock
 - **Shasta 测试网不支持新节点加入**，请选择 Nile 测试网。
 
 ## 连接私链网络
+
 开发者可通过搭建私有 TRON 网络，获得更大的测试灵活性和控制能力。
 
 ### 配置要点：
+
 - 使用私有的 `node.p2p.version` 值，确保不会与主网或测试网冲突
 
 ### 搭建参考：
+
 - 请参考文档 [私链网络](private_network.md) 获取完整的私链部署说明。

@@ -31,6 +31,7 @@ TRON 网络的治理主要通过修改 [网络参数](https://tronscan.org/#/sr/
 ### 规范要求
 
 #### 标题
+
 为了便于传播与社区参与，建议为提案设计一个简洁明确的名称，并写在标题最前面，例如：
 
 ```
@@ -38,6 +39,7 @@ Proposal: Change the unit price of Energy to 100 sun
 ```
 
 #### 主体内容
+
 在 Issue 正文中，应包含以下主要部分：
 
 ```
