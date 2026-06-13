@@ -133,13 +133,16 @@ localwitness = [
   xxx  # TMK5c1jd...m6FXFXEz 地址的私钥
 ]
 ```
+
 若修改了 `witness` 权限，则：
+
 ```properties
 localWitnessAccountAddress = TSMC4YzU...PBebBk2E
 localwitness = [
   yyy  # TSMC4YzU...PBebBk2E 地址的私钥
 ]
 ```
+
 >**注意**：`localwitness` 中只允许配置一个私钥。
 
 ### Active 权限（功能权限组合）
@@ -228,6 +231,7 @@ System.out.println(ByteArray.toHexString(operations));
 5. ...
 6. 最后一个用户签名后广播；
 7. 节点验证签名权重总和是否 ≥ `threshold`，若是则接受交易。
+
 >示例代码参考：[wallet-cli 用例](https://github.com/tronprotocol/wallet-cli/blob/develop/src/main/java/org/tron/common/utils/TransactionUtils.java)
 
 ## 辅助接口

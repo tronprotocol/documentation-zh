@@ -80,6 +80,7 @@ git clone https://github.com/yourname/java-tron.git
 cd java-tron
 git remote add upstream https://github.com/tronprotocol/java-tron.git
 ```
+
 > `upstream` 代表官方仓库。命名可自定义，但习惯上使用 `upstream`。
 >
 ### 2. 同步上游代码
@@ -89,6 +90,7 @@ git fetch upstream
 git checkout develop
 git merge upstream/develop --no-ff
 ```
+
 > `--no-ff` 用于避免快速合并模式，确保提交历史清晰。
 >
 ### 3. 创建开发分支
@@ -154,6 +156,7 @@ CI 工具：
 所有检查通过后，维护者将审查并合并至 `develop`。
 
 > **编码规范**
+>
 >- 遵循 [Google Java Style Guide](https://google.github.io/styleguide/javaguide.html)
 >- 所有 PR 必须基于 `develop` 分支
 
@@ -203,6 +206,7 @@ CI 工具：
 5. 避免无意义 Commit
 
 示例
+
 ```text
 feat(block): optimize the block-producing logic
 

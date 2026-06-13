@@ -34,6 +34,7 @@ storage {
 `dbSettings` 块仅在 `db.engine = "ROCKSDB"` 时生效；使用 LevelDB 时这些值会被静默忽略。
 
 RocksDB 支持多种调优参数，可根据节点服务器性能进行配置。以下是一个推荐的参数示例：
+
 ```properties
 dbSettings = {
   levelNumber = 7
@@ -76,10 +77,13 @@ java -jar build/libs/Toolkit.jar db convert <src> <dst>
 - `<dst>`：RocksDB 数据库存储路径（默认为 `output-directory-dst/database`）
 
 例如，若节点是通过如下方式运行：
+
 ```bash
 nohup java -jar build/libs/FullNode.jar -d your_database_dir &
 ```
+
 则应使用如下命令进行转换：
+
 ```bash
 java -jar build/libs/Toolkit.jar db convert  your_database_dir/database output-directory-dst/database
 ```

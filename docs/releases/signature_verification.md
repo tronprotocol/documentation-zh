@@ -19,10 +19,13 @@ TRON 针对 java-tron 发布包的签名方式有所调整：
 如果您已经安装了 GPG，可以跳过此步骤。否则，请根据您的操作系统执行以下命令进行安装：
 
 * **macOS**:
+
     ```bash
     brew install gpg
     ```
+
 * **Debian、Ubuntu 或其他 Linux 发行版**:
+
     ```bash
     sudo apt install gpg
     ```
@@ -107,10 +110,13 @@ npm install -g tronweb
 在您的系统上执行以下命令来计算 `FullNode.jar` 的 SHA256 哈希值：
 
 * **macOS**:
+
     ```bash
     shasum -a 256 FullNode.jar
     ```
+
 * **Debian、Ubuntu 和其他 Debian 衍生版系统**:
+
     ```bash
     sha256sum FullNode.jar
     ```

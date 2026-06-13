@@ -62,6 +62,7 @@ cd event-plugin
 git checkout master
 ./gradlew build
 ```
+
 构建完成后，生成的 `.zip` 文件即为插件包。
 
 * 直接下载官方发布版本
@@ -442,7 +443,9 @@ git clone https://github.com/tronprotocol/event-plugin.git
 cd event-plugin
 ./gradlew build
 ```
+
 构建完成后，生成的插件文件：
+
 ```text
 event-plugin/build/plugins/plugin-mongodb-*.zip
 ```
@@ -766,6 +769,7 @@ event.subscribe = {
 ### 启动节点
 
 事件订阅服务默认为关闭状态，需要通过配置命令行参数 `--es` 的方式来启用。开启事件订阅服务的节点的启动命令如下：
+
 ```bash
 java -jar build/libs/FullNode.jar --es
 ```
@@ -775,10 +779,13 @@ java -jar build/libs/FullNode.jar --es
 本文以 Node.js 为例来说明如何订阅事件。
 
 首先，下载 `ZeroMQ` 库：
+
 ```bash
 npm install zeromq@5
 ```
+
 然后，编写订阅者代码：
+
 ```javascript
 // subscriber.js
 var zmq = require("zeromq");
@@ -797,17 +804,21 @@ sock.on("message", function(topic, message) {
   );
 });
 ```
+
 本示例将订阅者连接到了节点事件发布者，并订阅了 `block` 事件。
 
 ### 启动订阅者
 
 Node.js 启动命令如下：
+
 ```bash
 node subscriber.js
 
 > Subscriber connected to port 5555
 ```
+
 当节点有新的区块时，该订阅者将收到区块事件，输出信息如下：
+
 ```text
 received a message related to: blockTrigger, containing message: {"timeStamp":1678343709000,"triggerName":"blockTrigger","blockNumber":1361,"blockHash":"00000000000005519b3995cd638753a862c812d1bda11de14bbfaa5ad3383280","transactionSize":0,"latestSolidifiedBlockNumber":1361,"transactionList":[]}
 received a message related to: blockTrigger, containing message: {"timeStamp":1678343712000,"triggerName":"blockTrigger","blockNumber":1362,"blockHash":"0000000000000552d53d1bdd9929e4533a983f14df8931ee9b3bf6d6c74a47b0","transactionSize":0,"latestSolidifiedBlockNumber":1362,"transactionList":[]}

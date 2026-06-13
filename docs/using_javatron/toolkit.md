@@ -20,11 +20,14 @@ TRON Toolkit 是一个集成了多种 `java-tron` 周边工具的实用程序，
 ### 从源代码编译
 
 1. **克隆 `java-tron` 源代码仓库**：
+
    ```bash
    git clone https://github.com/tronprotocol/java-tron.git
    git checkout -t origin/master
    ```
+
 2. **编译项目**：
+
    ```bash
    cd java-tron
    ./gradlew clean build -x test
@@ -66,6 +69,7 @@ java -jar build/libs/Toolkit.jar db mv -c framework/src/main/resources/config.co
 #### 1. 停止 FullNode 服务 { #stop-the-fullnode-service }
 
 在执行数据库迁移之前，**必须**停止当前运行的 FullNode 服务。您可以使用以下命令查找 FullNode 进程 ID（PID）并终止进程：
+
 ```bash
 kill -15 $(ps -ef | grep FullNode.jar | grep -v grep | awk '{print $2}')
 ```
@@ -138,6 +142,7 @@ TRON Toolkit 提供了**数据裁剪工具**，主要用于生成和管理轻节
 ### 命令与参数
 
 使用 `db lite` 命令来执行数据裁剪操作：
+
 ```bash
 # full command
   java -jar build/libs/Toolkit.jar db lite [-h] -ds=<datasetPath> -fn=<fnDataPath> [-o=<operate>] [-t=<type>]
@@ -149,6 +154,7 @@ TRON Toolkit 提供了**数据裁剪工具**，主要用于生成和管理轻节
   #merge history dataset and snapshot dataset
   java -jar build/libs/Toolkit.jar db lite -o merge --fn-data-path /tmp/snapshot --dataset-path /tmp/history
 ```
+
 **可选参数**：
 
 *   `-o | --operate <split | merge>`：指定操作类型，`split`（拆分）或 `merge`（合并）。默认值为 `split`。

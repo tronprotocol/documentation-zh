@@ -18,6 +18,7 @@ TRON 网络分为以下几类：
 ### 网络标识（P2P 网络 ID）
 
 网络ID(`p2p.version`): 表示希望加入的网络。相关配置项：
+
 ```properties
 node {
   ...
@@ -27,6 +28,7 @@ node {
   ...
 }
 ```
+
 特别的：
 
 - 主网：`version=11111`
@@ -37,6 +39,7 @@ node {
 ### 创世块（Genesis Block）
 
 需保证创世块 `genesis.block` 的设置与网络中其它节点的相同，否则无法和其他节点建立连接。主网的 `genesis.block` 配置如下：
+
 ```properties
 genesis.block = {
   # Reserve balance
@@ -208,6 +211,7 @@ genesis.block = {
 ### 启用节点发现
 
 节点发现通过配置文件开启和关闭。默认开启，相关配置项如下：
+
 ```properties
 node.discovery = {
   ...
@@ -240,12 +244,14 @@ seed.node = {
   ]
 }
 ```
+
 对于TRON主网，可以使用 [社区公共节点](https://developers.tron.network/docs/networks#public-node) 作为种子节点。如果想要获取最新的`seed.node`，可以在官方的 [配置文件](https://github.com/tronprotocol/java-tron/blob/master/framework/src/main/resources/config.conf) 查看。
 如果网卡支持 ipv6，可以使用上述列表中的 ipv6 地址格式的种子节点，将注释符 `#` 去掉即可。
 
 #### 从数据库中读取的持久化节点
 
 持久化节点需要开启节点持久化服务。如果开启该功能，[路由表](https://zh.wikipedia.org/wiki/Kademlia#%E8%B7%AF%E7%94%B1%E8%A1%A8) 中的节点会被定时任务写入数据库，如果节点启动的时候基于此数据库，会从数据库中读取这些节点作为种子节点使用。相关配置项：
+
 ```properties
 node.discovery = {
   ...
@@ -255,6 +261,7 @@ node.discovery = {
 ```
 
 节点发现基于 UDP 协议 (User Datagram Protocol)，绑定的默认端口是 `18888`，也可以绑定其他端口。相关配置项：
+
 ```properties
 node {
   ...
@@ -288,6 +295,7 @@ node {
   ...
 }
 ```
+
 注意：`minConnections` 不能超过 `maxConnections`，`minActiveConnections` 不能超过 `minConnections`，否则节点会在启动时自动将其修正到合法范围内。
 
 
@@ -297,6 +305,7 @@ node {
 主动连接的目标节点来源于三部分：
 
 - 配置的主动节点(高优先级)，不依赖于节点发现，即使节点发现没有开启，当前节点也会主动向这些节点发起连接。相关配置项：
+
 ```properties
 node {
   ...
@@ -312,6 +321,7 @@ node {
 
 - 节点发现获取到的可连接节点(中优先级)
 - DNS 节点(低优先级)，DNS 树获取的备用节点，需要配置 treeUrls，在前两个来源不足时使用，一般不会使用到。相关配置项(一般不配置)：
+
   ```properties
   dns {
   ...
@@ -322,6 +332,7 @@ node {
   ...
   }
   ```
+
   相比较传统的静态种子节点列表，DNS 树机制在 P2P 网络引导方面具有节点动态更新、不易受攻击等优势。
   
 可以看到，目前主动连接的目标节点来源只有两类，一类是配置的主动节点，一类是节点发现获取到的可连接节点。
@@ -380,7 +391,9 @@ Generate block 79336 success, trxs:0, pendingCount: 0, rePushCount: 0, postponed
 ```bash
 curl http://127.0.0.1:8090/wallet/getnodeinfo
 ```
+
 返回示例：
+
 ```json
 {
   "activeConnectCount": 3,
@@ -413,9 +426,11 @@ curl http://127.0.0.1:8090/wallet/getnodeinfo
 ### 验证节点同步状态
 
 可在 [TRONSCAN 区块浏览器](https://tronscan.org/) 查询当前区块高度，并与本地接口返回结果对比：
+
 ```bash
 curl http://127.0.0.1:8090/wallet/getnowblock
 ```
+
 若区块高度一致，则说明本地节点同步正常。
 
 ## 常见连接问题排查
@@ -425,6 +440,7 @@ curl http://127.0.0.1:8090/wallet/getnowblock
 - **本地时钟偏差**
 
     使用以下命令同步系统时间：
+
     ```bash
     sudo ntpdate -s time.nist.gov
     ```

@@ -66,6 +66,7 @@ wallet>
 `wallet-cli` 默认的工作环境是 TRON 主网 (Mainnet)。请先将环境切换至 Nile 测试网，以避免在本指南的后续操作中与真实资产交互。
 
 您可使用 `switchnetwork` 命令切换网络，并用 `currentnetwork` 命令验证网络状态。当提示选择网络时，输入 `2` 选择 `NILE`。
+
 ```text
 wallet> switchnetwork
 Please select network：
@@ -84,6 +85,7 @@ currentNetwork: NILE
 **1. 注册新账户**
 
 在提示符后输入 `registerwallet` 命令，并根据提示设置一个安全的密码。此命令会生成一个新的 TRON 网络账户，并将其注册到 `wallet-cli`，即将其加密后的**私钥**存储在 `wallet-cli` 的本地密钥库中，以便后续使用该私钥对交易进行签名。
+
 ```text
 wallet> registerwallet
 Please input password.
@@ -104,10 +106,13 @@ wallet>
 **2. 登录并查看地址**：
 
 首先，在 `wallet-cli` 中使用 `login` 命令。系统会列出当前已有的账户供您选择。
+
 ```text
 wallet> login
 ```
+
 如您有多个账户，请根据提示，输入您希望登录的账户所对应的序号（例如 `2`），然后输入该账户的密码。
+
 ```text
 Please choose between 1 and 3
 2
@@ -116,7 +121,9 @@ password:
 Login successful !!!
 wallet> 
 ```
+
 看到 `Login successful !!!` 提示即表示登录成功。您可使用 `getaddress` 命令查看当前账户的地址。
+
 ```text
 wallet> getaddress
 GetAddress successful !!
@@ -160,6 +167,7 @@ wallet>
 **2.1 查看启动与同步日志**
 
 当节点启动后，您首先会在日志中看到节点的网络配置信息。以下日志表明 java-tron 已经启动并连接到了 Nile 测试网：
+
 ```text
 11:07:58.758 INFO  [main] [app](Args.java:1143) ************************ Net config ************************
 11:07:58.758 INFO  [main] [app](Args.java:1144) P2P version: 201910292
@@ -168,7 +176,9 @@ wallet>
 11:07:58.758 INFO  [main] [app](Args.java:1147) Listen port: 18888
 11:07:58.758 INFO  [main] [app](Args.java:1148) Discover enable: true
 ```
+
 接下来，节点会开始寻找网络中可连接的其他对等节点 (peer)，并通过持续向它们请求区块来同步整个链上数据。成功连接上的对等节点即为“活跃对等节点” (active peer)。以下日志表明节点已成功连接到其他节点，并已开始同步数据：
+
 ```text
 11:08:42.547 INFO  [TronJClientWorker-1] [net](Channel.java:116) Finish handshake with /123.56.3.74:18888.
 11:08:42.547 INFO  [TronJClientWorker-1] [net](ChannelManager.java:161) Add active peer /123.56.3.74:18888 | fea80a0298b465a54fd332ff36819545d850115e77b327858b5306c9a58c6b8c2e7c08df76ab508a7594ed3577a8f4157727108442877077ab499b102b488467, total active peers: 1
@@ -195,6 +205,7 @@ Num:23113869,ID:000000000160b08d231e450ae1993a72ba19eb8f3c748fa70d105dadd0c9fd5f
 11:08:43.504 INFO  [TronJClientWorker-1] [net](MessageQueue.java:121) Receive from /123.56.3.74:18888, type: BLOCK
 Num:23113870,ID:000000000160b08e37cb9951d31a4233f106c7e77e0535c597dbb6a16f163699, trx size: 0
 ```
+
 通过观察日志中的区块号（`Num:` 后面的数字）是否在持续稳定增长，可以判断同步是否在正常进行。如果日志长时间没有滚动，或反复出现错误、警告信息，说明节点可能遇到了问题。
 
 **2.2 使用 API 确认同步状态**
@@ -235,7 +246,9 @@ Num:23113870,ID:000000000160b08e37cb9951d31a4233f106c7e77e0535c597dbb6a16f163699
 ```text
 wallet> getaccount TUoHaVjx7n5xz8LwPRDckgFrDWhMhuSuJM
 ```
+
 返回结果如下：
+
 ```json
 {
 	"address": "TUoHaVjx7n5xz8LwPRDckgFrDWhMhuSuJM",
@@ -256,6 +269,7 @@ wallet> getaccount TUoHaVjx7n5xz8LwPRDckgFrDWhMhuSuJM
 #### 查询账户余额
 
 使用 `getbalance` 命令可快速查看当前登录账户的 TRX 余额。
+
 ```text
 wallet> getbalance
 Balance = 93642857919
@@ -265,6 +279,7 @@ wallet>
 #### 转账 TRX
 
 使用 `sendcoin <接收方地址> <转账金额>` 命令发起一笔 TRX 转账。金额单位为 sun（1 TRX = 1,000,000 sun）。
+
 ```text
 wallet> sendcoin TUznHJfHe6gdYY7gvWmf6bNZHuPHDZtowf 1000000
 {
@@ -292,6 +307,7 @@ wallet> sendcoin TUznHJfHe6gdYY7gvWmf6bNZHuPHDZtowf 1000000
 before sign transaction hex string is 0a85010a02cbc322088581ae7e29258a5240a89aefbf9c305a67080112630a2d747970652e676f6f676c65617069732e636f6d2f70726f746f636f6c2e5472616e73666572436f6e747261637412320a1541ce8a0cf0c16d48bcf22825f6053248df653c89ca121541d0b69631440f0a494bb51f7eee68ff5c593c00f018c0843d7098cfebbf9c30
 Please confirm and input your permission id, if input y/Y means default 0, other non-numeric characters will cancel transaction.
 ```
+
 此命令会返回一个待确认的交易。请按以下步骤完成签名和广播：
 
 1. 确认交易：核对交易详情无误后，输入 `y` 并按回车键（输入其他任意字符则会取消交易）。
@@ -322,10 +338,13 @@ wallet>
 当您发送一笔交易后，`wallet-cli` 终端会返回一个唯一的交易ID（`txid`）。通过这个 `txid`，您可以查询到关于这笔交易的所有信息。
 
 1. 使用 `gettransactionbyid <txid>` 查看交易的原始内容：
+
 ```text
   wallet> gettransactionbyid 21851bcf1faf22c99a7a49c4f246d709cf9f54db2f264ca145adcd464ea155a4
 ```
+
 返回的 JSON 数据包含了交易的所有细节，例如合约类型 (`TransferContract`)、转账金额、发送方和接收方地址等。`"contractRet":"SUCCESS"` 表示这笔交易的合约在语法上是正确的。
+
 ```json
   {
   	"ret":[
@@ -361,11 +380,15 @@ wallet>
   wallet> 
   
 ```
+
 2. 使用 `gettransactioninfobyid <txid>` 查看交易的处理结果和回执信息（即交易是否已经被打包进区块，执行的结果和资源消耗情况）：
+
 ```text
   wallet> gettransactioninfobyid 21851bcf1faf22c99a7a49c4f246d709cf9f54db2f264ca145adcd464ea155a4
 ```
+
 在返回的结果中，最重要的字段是 `blockNumber`，它表示交易在哪一个区块高度被确认。如果这个值存在，说明交易已成功上链。此外，`receipt` 对象则记录了该交易消耗的带宽（`net_usage`）等资源。
+
 ```json
   {
   	"id": "21851bcf1faf22c99a7a49c4f246d709cf9f54db2f264ca145adcd464ea155a4",
@@ -399,7 +422,9 @@ wallet>
        "visible": true
      }'
 ```
+
 返回的 JSON 数据中，`balance` 字段即为该地址的 TRX 余额，单位为 sun (1 TRX = 1,000,000 sun)。
+
 ```json
 {
     "account_name": "testacc2",
@@ -425,7 +450,9 @@ wallet>
           "visible":true
       }'
   ```
+
   节点会返回一个未签名的 TRX 转账交易。请记下其中的 `txid` 和 `raw_data_hex`，它们将在后续步骤中使用。
+
   ```json
   {
       "visible": true,
@@ -499,7 +526,9 @@ wallet>
       "raw_data_hex": "0a02193b2208aaecd88e4e0e752840e098909f9b305a68080112640a2d747970652e676f6f676c65617069732e636f6d2f70726f746f636f6c2e5472616e73666572436f6e747261637412330a154198927ffb9f554dc4a453c64b2e553a02d6df514b121541d0b69631440f0a494bb51f7eee68ff5c593c00f01880ade20470b4d58c9f9b30"
   }'
   ```
+
   如果返回结果中的 `"result": true`，则代表您的交易已成功广播:
+
   ```json
   {
       "result": true,
@@ -522,7 +551,9 @@ wallet>
        "value": "c558bd35978267d8999baf6148703cbc94786f3f2e22893637588ca05437d7f0"
   }'
   ```
+
   返回结果的数据结构与 `wallet-cli` 的 `gettransactionbyid` 命令基本一致：
+
   ```json
   {
       "ret": [
@@ -570,7 +601,9 @@ wallet>
        "value": "c558bd35978267d8999baf6148703cbc94786f3f2e22893637588ca05437d7f0"
   }'
   ```
+
   返回结果中的 `blockNumber` 字段是交易成功的关键凭证，只要这个字段有值，就代表您的交易已成功上链且不可逆转。而 `receipt` 字段则提供了详细的执行回执。
+
   ```json
   {
       "id": "c558bd35978267d8999baf6148703cbc94786f3f2e22893637588ca05437d7f0",

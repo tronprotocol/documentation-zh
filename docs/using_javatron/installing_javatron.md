@@ -59,36 +59,46 @@ uname -m
 - 如果您的架构是 `x86_64`（Intel/AMD 64 位）：
     - 安装 Java SE 8（JDK 8，推荐最新的小版本）
     - 验证：
+
     ```bash
     java -version
     ```
+
     输出应显示以 `1.8` 开头的版本。
 
 - 如果您的架构是 `arm64` 或 `aarch64`（Apple Silicon / ARM 服务器）：
     - 安装 Java SE 17（JDK 17）
     - 验证：
+
     ```bash
     java -version
     ```
+
     输出应显示以 `17` 开头的版本。
 
 ### 编译 java-tron 源代码
 
 1.  克隆仓库并切换到 `master` 分支：
+
     ```bash
     git clone https://github.com/tronprotocol/java-tron.git
     git checkout -t origin/master
     cd java-tron
     ```
+
 2.  然后，运行以下命令来构建 java-tron：
+
     ```bash
     ./gradlew clean build -x test
     ```
+
     * 参数 `-x test` 表示跳过测试用例的执行。您可以移除此参数以在编译期间执行测试代码，但这将延长编译时间。
     * 如果在构建过程中遇到 `DependencyVerificationException`，请刷新依赖项并重新生成验证元数据：
+
       ```bash
       ./gradlew clean build -x test --refresh-dependencies
       ```
+
     * 编译完成后，`FullNode.jar` 文件将在 `java-tron/build/libs/` 目录中生成。
 
 ## 启动 java-tron 节点 { #starting-a-java-tron-node }
@@ -126,6 +136,7 @@ nohup java -jar build/libs/FullNode.jar -c framework/src/main/resources/config.c
 > 对于生产环境部署或长期运行的主网节点，请参考下方 [主网 FullNode 部署的 JVM 参数优化](#mainnet-fullnode-jvm-tuning) 章节，以获取完整的 Java 启动命令。
 
 使用以下命令查看全节点运行日志，可以看到区块同步进度，节点连接状态等信息：
+
 ```bash
 tail -f ./logs/tron.log
 ```
@@ -226,6 +237,7 @@ node {
 ```
 
 自4.8.1版本开始，不再提供单独的`SolidityNode.jar`，固化节点的启动通过命令行参数`--solidity`，即：
+
 ```shell
 java -Xmx24g -XX:+UseConcMarkSweepGC -jar build/libs/FullNode.jar --solidity -c framework/src/main/resources/config.conf 
 ```

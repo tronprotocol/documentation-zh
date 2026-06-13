@@ -26,6 +26,7 @@ node.metrics = {
 1. 安装 Prometheus
 
     安装 Docker 后，输入如下命令拉取 Prometheus 镜像：
+
     ```bash
     docker pull prom/prometheus
     ```
@@ -59,6 +60,7 @@ node.metrics = {
           group: group-xxx
           instance: xxx-02
     ```
+
     您可以使用此模板，然后修改配置项 `targets`，它用于配置 java-tron 节点所在机器的 IP 和 Prometheus 端口，如您部署了多个节点，可以通过配置多个 `targets`，来实现对多个节点的监控。将该文件保存到本机的某个目录，例如 `/Users/test/deploy/prometheus/prometheus.yaml`。
 
 3. 启动一个 Prometheus 容器
@@ -93,6 +95,7 @@ Grafana 可视化工具的部署流程如下：
 1. 安装 Grafana
 
     请参考官方文档安装 [Grafana](https://grafana.com/docs/grafana/next/setup-grafana/installation/)。本文将采用 Docker 部署方式，拉取的镜像为开源版（grafana-oss）：
+
     ```bash
     docker pull grafana/grafana-oss
     ```
@@ -100,6 +103,7 @@ Grafana 可视化工具的部署流程如下：
 2. 启动 Grafana
 
     您可以通过如下 Docker 命令来启动 Grafana：
+
     ```bash
     docker run -d --name=grafana -p 3000:3000 grafana/grafana-oss
     ```
