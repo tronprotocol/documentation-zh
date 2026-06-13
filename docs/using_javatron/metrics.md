@@ -6,7 +6,7 @@
 
 如需使用 Prometheus 工具监控 java-tron 节点的运行情况，首先需要在节点配置文件中开启 Prometheus 指标监控，并设置 HTTP 端口号。在 `config.conf` 中找到 `node.metrics` 配置块，将 `prometheus.enable` 设置为 `true`：
 
-```
+```properties
 node.metrics = {
   prometheus {
     enable = true
@@ -26,7 +26,7 @@ node.metrics = {
 1. 安装 Prometheus
 
     安装 Docker 后，输入如下命令拉取 Prometheus 镜像：
-    ```
+    ```bash
     docker pull prom/prometheus
     ```
 
@@ -93,14 +93,14 @@ Grafana 可视化工具的部署流程如下：
 1. 安装 Grafana
 
     请参考官方文档安装 [Grafana](https://grafana.com/docs/grafana/next/setup-grafana/installation/)。本文将采用 Docker 部署方式，拉取的镜像为开源版（grafana-oss）：
-    ```
+    ```bash
     docker pull grafana/grafana-oss
     ```
 
 2. 启动 Grafana
 
     您可以通过如下 Docker 命令来启动 Grafana：
-    ```
+    ```bash
     docker run -d --name=grafana -p 3000:3000 grafana/grafana-oss
     ```
 

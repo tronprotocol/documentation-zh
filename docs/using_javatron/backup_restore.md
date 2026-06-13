@@ -2,7 +2,7 @@
 
 java-tron 节点将其持久化数据存储在指定的数据目录下。默认的数据目录是 `output-directory`（相对于当前工作目录的相对路径）。您可以通过在 java-tron 节点启动命令中添加 `-d` 或 `--output-directory` 参数来指定不同的数据存储位置，例如：
 
-```
+```bash
 java -jar build/libs/FullNode.jar -d ./outputdir
 ```
 
@@ -15,13 +15,13 @@ java -jar build/libs/FullNode.jar -d ./outputdir
 
 首先，使用以下命令获取 java-tron 进程的 PID：
 
-```
+```bash
 ps -ef | grep FullNode.jar | grep -v grep | awk '{print $2}'
 ```
 
 然后，使用获取到的 PID 来终止进程。建议使用以下停止脚本来安全关闭 java-tron 进程，以避免数据库损坏：
 
-```
+```bash
 #!/bin/bash
 while true; do
   pid=`ps -ef |grep FullNode.jar |grep -v grep |awk '{print $2}'`
@@ -38,7 +38,7 @@ done
 
 当 java-tron 进程成功关闭后，您可以使用以下命令进行数据备份：
 
-```
+```bash
 tar cvzf output-directory.`date "+%Y%m%d%H%M%S"`.etgz output-directory
 ```
 
@@ -49,7 +49,7 @@ tar cvzf output-directory.`date "+%Y%m%d%H%M%S"`.etgz output-directory
 
 如果您的数据库备份文件名为 `output-directory.20220628152402.etgz`，您可以使用以下命令来恢复数据库文件：
 
-```
+```bash
 tar xzvf output-directory.20220628152402.etgz
 ```
 
@@ -110,14 +110,14 @@ TRON 网络快照数据大小超过 2TB。我们推荐使用**流式处理（边
 
 创建一个名为 `download_snapshot.sh` 的脚本文件，并写入以下内容：
 
-```
+```bash
 #!/bin/bash
 wget -q -O - SNAPSHOT_URL/FullNode_output-directory.tgz | tar -zxvf -
 ```
 
 运行脚本：
 
-```
+```bash
 bash download_snapshot.sh
 ```
 
@@ -125,7 +125,7 @@ bash download_snapshot.sh
 
 **方法 2：先下载后解压（需充足存储空间）**
 
-```
+```bash
 # 1. 下载完整快照文件  
 wget SNAPSHOT_URL/FullNode_output-directory.tgz  
 

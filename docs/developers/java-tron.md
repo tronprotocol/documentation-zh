@@ -75,7 +75,7 @@
 
 ### 1. Fork 与克隆仓库
 
-```
+```bash
 git clone https://github.com/yourname/java-tron.git
 cd java-tron
 git remote add upstream https://github.com/tronprotocol/java-tron.git
@@ -84,7 +84,7 @@ git remote add upstream https://github.com/tronprotocol/java-tron.git
 >
 ### 2. 同步上游代码
 
-```
+```bash
 git fetch upstream
 git checkout develop
 git merge upstream/develop --no-ff
@@ -93,20 +93,20 @@ git merge upstream/develop --no-ff
 >
 ### 3. 创建开发分支
 
-```
+```bash
 git checkout -b feature/branch_name develop
 ```
 
 ### 4. 提交改动
 
-```
+```bash
 git add .
 git commit -m "commit message"
 ```
 
 ### 5. 推送分支
 
-```
+```bash
 git push origin feature/branch_name
 ```
 
@@ -176,7 +176,7 @@ CI 工具：
 
 推荐格式：
 
-```
+```text
 <type>(<scope>): <subject>
 
 <body>
@@ -203,7 +203,7 @@ CI 工具：
 5. 避免无意义 Commit
 
 示例
-```
+```text
 feat(block): optimize the block-producing logic
 
 1. increase the priority for acquiring synchronization lock

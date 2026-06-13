@@ -24,7 +24,7 @@
 #### 方式二：从源码编译
 
 1.  克隆 `java-tron` 仓库并切换到目标版本的分支。
-    ```
+    ```bash
     # 克隆仓库
     git clone https://github.com/tronprotocol/java-tron.git
 
@@ -33,7 +33,7 @@
     git checkout -b release_vx.x.x
     ```
 2.  执行编译命令。编译成功后，新的可执行文件 `FullNode.jar` 将生成在 `build/libs/` 目录下。
-    ```
+    ```bash
     ./gradlew clean build -x test
     ```
 
@@ -42,11 +42,11 @@
 > **注意**：如果这是您首次部署节点，请直接跳至 [第 5 步：启动节点](#start-the-node)。
 
 1.  使用以下命令查找 java-tron 进程的 `PID`。
-    ```
+    ```bash
     ps -ef | grep java
     ```
 2.  停止节点进程。
-    ```
+    ```bash
     kill -15 <进程ID>
     ```
 
@@ -55,15 +55,15 @@
 建议您在升级前进行一次完整备份。请按指定顺序执行以下备份步骤：请务必依次备份可执行文件、数据库和配置文件。
 
 1. **备份当前的可执行文件**
-    ```
+    ```bash
     mv $JAVA_TRON.jar $JAVA_TRON.jar.`date "+%Y%m%d%H%M%S"`
     ```
 2. **备份当前数据库 `output-directory`**
-    ```
+    ```bash
     tar cvzf output-directory.`date "+%Y%m%d%H%M%S"`.etgz output-directory
     ```
 3. **备份当前配置文件**
-    ```
+    ```bash
     mv $config.conf $config.conf.`date "+%Y%m%d%H%M%S"`
     ```
 这样可以确保在升级失败或遇到任何问题时，您能利用备份迅速回滚至上一版本。
@@ -99,7 +99,7 @@
 2.  **检查日志**：观察日志输出，确保节点正常运行且没有错误信息。
 3.  **确认同步状态**：您需要通过对比本地节点和 TRON 主网的最新区块高度来验证同步是否完成。当两者高度基本一致时，即代表节点升级成功。
     - 查询本地节点区块高度：可调用 `/wallet/getnowblock` API:
-        ```
+        ```bash
         curl http://127.0.0.1:8090/wallet/getnowblock
         ```
     - 查询主网区块高度：可实时访问 [区块链浏览器 TRONSCAN](https://tronscan.org) 查看。

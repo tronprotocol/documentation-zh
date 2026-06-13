@@ -33,7 +33,7 @@ TRON 中支持三类权限类型：
 
 ### 1. 账户结构：`Account`
 
-```
+```protobuf
 message Account {
   ...
   Permission owner_permission = 31;
@@ -50,7 +50,7 @@ message Account {
 
 ### 2. 权限配置：`Permission`
 
-```
+```protobuf
 message Permission {
   enum PermissionType {
     Owner = 0;
@@ -80,7 +80,7 @@ message Permission {
 
 ### 3. 权限密钥结构：`Key`
 
-```
+```protobuf
 message Key {
   bytes address = 1;
   int64 weight = 2;
@@ -92,7 +92,7 @@ message Key {
 
 ### 4. 权限更新交易：`AccountPermissionUpdateContract`
 
-```
+```protobuf
 message AccountPermissionUpdateContract {
   bytes owner_address = 1;
   Permission owner = 2;
@@ -126,7 +126,7 @@ message AccountPermissionUpdateContract {
 
 #### 超级代表节点配置示例：
 
-```
+```properties
 # config.conf
 //localWitnessAccountAddress = TMK5c1jd...m6FXFXEz  # TRON 地址
 localwitness = [
@@ -134,7 +134,7 @@ localwitness = [
 ]
 ```
 若修改了 `witness` 权限，则：
-```
+```properties
 localWitnessAccountAddress = TSMC4YzU...PBebBk2E
 localwitness = [
   yyy  # TSMC4YzU...PBebBk2E 地址的私钥
@@ -171,7 +171,7 @@ localwitness = [
 
 #### 示例请求：
 
-```
+```text
 POST http://{{host}}:{{port}}/wallet/accountpermissionupdate
 
 {
@@ -208,7 +208,7 @@ POST http://{{host}}:{{port}}/wallet/accountpermissionupdate
 `operations` 是表示可执行合约权限的 32 字节十六进制字符串（小端）。
 以下 Java 示例生成 ID 为 0-45 的合约权限：
 
-```
+```java
 Integer[] contractId = {0, 1, 2, ..., 45};
 byte[] operations = new byte[32];
 for (int id : contractId) {
@@ -234,7 +234,7 @@ System.out.println(ByteArray.toHexString(operations));
 
 ### 查询已签名地址
 
-```
+```text
 POST /wallet/getapprovedlist
 
 rpc GetTransactionApprovedList(Transaction) returns (TransactionApprovedList) {}
@@ -242,7 +242,7 @@ rpc GetTransactionApprovedList(Transaction) returns (TransactionApprovedList) {}
 
 ### 查询签名权重
 
-```
+```text
 POST /wallet/getsignweight
 
 rpc GetTransactionSignWeight(Transaction) returns (TransactionSignWeight) {}

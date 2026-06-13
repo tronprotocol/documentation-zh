@@ -18,7 +18,7 @@ TRON 网络分为以下几类：
 ### 网络标识（P2P 网络 ID）
 
 网络ID(`p2p.version`): 表示希望加入的网络。相关配置项：
-```
+```properties
 node {
   ...
   p2p {
@@ -37,7 +37,7 @@ node {
 ### 创世块（Genesis Block）
 
 需保证创世块 `genesis.block` 的设置与网络中其它节点的相同，否则无法和其他节点建立连接。主网的 `genesis.block` 配置如下：
-```
+```properties
 genesis.block = {
   # Reserve balance
   assets = [
@@ -208,7 +208,7 @@ genesis.block = {
 ### 启用节点发现
 
 节点发现通过配置文件开启和关闭。默认开启，相关配置项如下：
-```
+```properties
 node.discovery = {
   ...
   enable = true
@@ -228,7 +228,7 @@ java-tron 使用 [Kademlia](https://zh.wikipedia.org/wiki/Kademlia) 协议发现
 使用 `seed.node` 初始化网络连接。应设置为在线稳定的全节点。
 
 
-```
+```properties
 seed.node = {
   ip.list = [
     "3.225.171.164:18888",
@@ -246,7 +246,7 @@ seed.node = {
 #### 从数据库中读取的持久化节点
 
 持久化节点需要开启节点持久化服务。如果开启该功能，[路由表](https://zh.wikipedia.org/wiki/Kademlia#%E8%B7%AF%E7%94%B1%E8%A1%A8) 中的节点会被定时任务写入数据库，如果节点启动的时候基于此数据库，会从数据库中读取这些节点作为种子节点使用。相关配置项：
-```
+```properties
 node.discovery = {
   ...
   persist = true
@@ -255,7 +255,7 @@ node.discovery = {
 ```
 
 节点发现基于 UDP 协议 (User Datagram Protocol)，绑定的默认端口是 `18888`，也可以绑定其他端口。相关配置项：
-```
+```properties
 node {
   ...
   listen.port = 18888
@@ -278,7 +278,7 @@ node {
 - `node.minActiveConnections`：期望维持的对已发现节点的最小主动连接数（默认值：3）。即使总连接数已经达到或超过 `minConnections`，节点仍会持续向已发现的节点发起主动连接，直到该阈值被满足。
 - `node.maxConnectionsWithSameIp`：允许来自同一 IP 地址的最大连接数（默认值：2），用于缓解来自单一 IP 的滥用。
 
-```
+```properties
 node {
   ...
   maxConnections = 30
@@ -297,7 +297,7 @@ node {
 主动连接的目标节点来源于三部分：
 
 - 配置的主动节点(高优先级)，不依赖于节点发现，即使节点发现没有开启，当前节点也会主动向这些节点发起连接。相关配置项：
-```
+```properties
 node {
   ...
   active = [
@@ -312,7 +312,7 @@ node {
 
 - 节点发现获取到的可连接节点(中优先级)
 - DNS 节点(低优先级)，DNS 树获取的备用节点，需要配置 treeUrls，在前两个来源不足时使用，一般不会使用到。相关配置项(一般不配置)：
-  ```
+  ```properties
   dns {
   ...
   # dns urls to get nodes, url format tree://{pubkey}@{domain}, default empty
@@ -330,7 +330,7 @@ node {
 
 - `node.passive` 配置的节点。当这些节点主动向当前节点发起连接时，当前节点都会无条件的接受。
 
-```
+```properties
 node {
   ...
   passive = [
@@ -355,20 +355,20 @@ node {
 
 TRON 节点日志位于 `logs/tron.log`，可通过如下命令实时查看：
 
-```
+```bash
 tail -f logs/tron.log
 ```
 
 ### 同步中日志示例：
 
-```
+```text
 pushBlock block number:76, cost/txs:13/0 false
 Success process block Num:76,ID:000000000000004c9e3899ee9952a7f0d9e4f692c7070a48390e6fea8099432f.
 ```
 
 ### 生产区块日志示例（超级代表节点）：
 
-```
+```text
 Generate block 79336 begin
 Generate block 79336 success, trxs:0, pendingCount: 0, rePushCount: 0, postponedCount: 0
 ```
@@ -377,11 +377,11 @@ Generate block 79336 success, trxs:0, pendingCount: 0, rePushCount: 0, postponed
 
 使用 HTTP 接口获取当前节点运行状态：
 
-```
+```bash
 curl http://127.0.0.1:8090/wallet/getnodeinfo
 ```
 返回示例：
-```
+```json
 {
   "activeConnectCount": 3,
     "beginSyncNum": 42518346,
@@ -413,7 +413,7 @@ curl http://127.0.0.1:8090/wallet/getnodeinfo
 ### 验证节点同步状态
 
 可在 [TRONSCAN 区块浏览器](https://tronscan.org/) 查询当前区块高度，并与本地接口返回结果对比：
-```
+```bash
 curl http://127.0.0.1:8090/wallet/getnowblock
 ```
 若区块高度一致，则说明本地节点同步正常。
@@ -425,7 +425,7 @@ curl http://127.0.0.1:8090/wallet/getnowblock
 - **本地时钟偏差**
 
     使用以下命令同步系统时间：
-    ```
+    ```bash
     sudo ntpdate -s time.nist.gov
     ```
 

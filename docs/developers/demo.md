@@ -10,7 +10,7 @@
 
 首先，从 TRON 官方 GitHub 仓库 [tronprotocol/java-tron](https://github.com/tronprotocol/java-tron) Fork 一个新的代码仓库到您个人的 GitHub 账户。然后，将您的 Fork 仓库克隆到本地，并添加 `upstream` 远程仓库以跟踪官方更新：
 
-```
+```bash
 git clone https://github.com/yourname/java-tron.git
 git remote add upstream https://github.com/tronprotocol/java-tron.git
 ```
@@ -19,7 +19,7 @@ git remote add upstream https://github.com/tronprotocol/java-tron.git
 
 在开发新功能之前，务必将您个人 Fork 的仓库与 `upstream`（上游）仓库进行同步，以获取最新的代码更新：
 
-```
+```bash
 git fetch upstream
 git checkout develop
 git merge upstream/develop --no-ff

@@ -21,7 +21,7 @@
 1. 准备节点目录
 
     为保持配置和数据的隔离，建议为每个节点创建独立的部署目录。
-      ```
+      ```bash
       # 创建超级代表 (SR) 节点目录
       mkdir SR
       
@@ -33,7 +33,7 @@
     
      - 从 [Java-tron GitHub Releases](https://github.com/tronprotocol/java-tron/releases) 页面下载最新的 `FullNode.jar`。
     - 将下载的 `JAR` 文件分别复制到两个节点目录中。
-     ```
+     ```bash
      cp FullNode.jar ./SR
      cp FullNode.jar ./FullNode
      ```
@@ -42,7 +42,7 @@
 
     - 下载官方提供的配置文件模板 ([config.conf](https://github.com/tronprotocol/java-tron/blob/develop/framework/src/main/resources/config.conf))，并修改 `p2p.version `为 **11111** 和 **20180622** 以外的任何值。
     - 将其分别复制到两个节点目录中，并重命名以作区分。
-      ```
+      ```bash
       # 用于 SR 节点的配置文件
       cp private_net_config.conf ./SR/supernode.conf
       
@@ -79,12 +79,12 @@
     超级代表（产块节点）和普通全节点的启动命令略有不同。
 
     * 启动超级代表 (SR) 节点：
-      ```
+      ```bash
       cd SR
       java -Xmx6g -XX:+HeapDumpOnOutOfMemoryError -jar FullNode.jar  --witness  -c supernode.conf
       ```
     * 启动普通全节点：
-      ```
+      ```bash
       cd FullNode
       java -Xmx6g -XX:+HeapDumpOnOutOfMemoryError -jar FullNode.jar  -c fullnode.conf
       #启动后，请观察控制台日志，确保全节点能够成功连接到SR节点并开始同步区块。
@@ -103,7 +103,7 @@
       
          **示例**：在 `.conf` 文件中添加以下 `committee` 块来开启多签和合约创建:
       
-         ```
+         ```properties
          committee = {
            allowCreationOfContracts = 1
            allowAdaptiveEnergy = 0
@@ -129,7 +129,7 @@
 
          以下代码片段演示了如何创建一个提案来修改两个网络参数，并对其进行投票。在 [proposalcreate](../api/http/witness-and-governance/proposalcreate.md) 中，网络参数用序号表示，序号和名称之间的映射定义在 java-tron 源码的 [`enum ProposalType`](https://github.com/tronprotocol/java-tron/blob/master/actuator/src/main/java/org/tron/core/utils/ProposalUtil.java) 中（枚举项括号内即为参数序号）。
 
-         ```
+         ```javascript
          var TronWeb = require('tronweb');
          var tronWeb = new TronWeb({
              fullHost: 'http://localhost:8090',

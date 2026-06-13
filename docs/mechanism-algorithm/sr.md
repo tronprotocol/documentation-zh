@@ -33,7 +33,7 @@ TRON 网络中的所有账户都拥有选举权，可以通过投票来支持自
 
 **示例：**
 
-```
+```text
 >freezebalancev2 10000000 1 # 质押 10 TRX（金额单位为 sun，1 TRX = 1,000,000 sun，故 10 TRX = 10000000 sun），获取 10 单位 TRON Power(TP)；资源类型：0 为带宽，1 为能量
 >votewitness SR1 4 SR2 6 # 同时给 SR1 投了 4 票，给 SR2 投了 6 票
 >votewitness SR1 3 SR2 7 # 同时给 SR1 投了 3 票，给 SR2 投了 7 票
@@ -108,7 +108,7 @@ TRON 网络参数及其编号请参考 [这里](https://tronscan.org/#/sr/commit
 
 **示例**：
 
-```
+```text
 createproposal parameter0 value0 ... parameterN valueN
 parameter0_N: 要修改的网络参数编号（不是提案 id）
 value0_N: 该参数的新值
@@ -125,7 +125,7 @@ value0_N: 该参数的新值
 
 **示例**：
 
-```
+```text
 approveProposal id is_or_not_add_approval
 id: 提案Id
 is_or_not_add_approval: true 表示投赞成票，false 表示撤回之前的赞成票
@@ -142,7 +142,7 @@ is_or_not_add_approval: true 表示投赞成票，false 表示撤回之前的赞
 
 **示例**：
 
-```
+```text
 deleteProposal proposalId
 id: 提案Id
 ```
