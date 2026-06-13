@@ -17,8 +17,8 @@
 | `parameter` | string | 否 | ABI 编码的参数（hex，无函数选择子） |
 | `data` | string | 否 | 直接给定调用 data（hex），与 `function_selector` 二选一 |
 | `call_value` | int64 | 否 | 调用带入的 TRX（sun） |
-| `token_id` | int64 | 否 | 调用带入 TRC10 token id |
-| `call_token_value` | int64 | 否 | 调用带入 TRC10 数量 |
+| `token_id` | int64 | 否 | 调用带入 TRC-10 token id |
+| `call_token_value` | int64 | 否 | 调用带入 TRC-10 数量 |
 | `fee_limit` | int64 | 是 | 交易费用上限（sun） |
 | `permission_id` | int32 | 否 | 多签权限 ID |
 | `visible` | bool | 否 | 地址、文本字段格式（响应含 `result.message`，受 `visible` 影响） |

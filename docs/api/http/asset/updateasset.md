@@ -1,6 +1,6 @@
 # /wallet/updateasset
 
-修改 TRC10 token 的描述、URL 及带宽限额（仅发行方）。
+修改 TRC-10 token 的描述、URL 及带宽限额（仅发行方）。
 
 - 源码：`framework/src/main/java/org/tron/core/services/http/UpdateAssetServlet.java`
 - Method：`POST`

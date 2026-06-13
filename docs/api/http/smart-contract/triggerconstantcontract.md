@@ -18,8 +18,8 @@
 | `parameter` | string | 否 | ABI 编码参数（hex） |
 | `data` | string | 否 | 调用 data（hex），与 `function_selector` 二选一 |
 | `call_value` | int64 | 否 | 调用带入的 TRX（sun） |
-| `token_id` | int64 | 否 | 调用带入的 TRC10 token id |
-| `call_token_value` | int64 | 否 | 调用带入的 TRC10 数量 |
+| `token_id` | int64 | 否 | 调用带入的 TRC-10 token id |
+| `call_token_value` | int64 | 否 | 调用带入的 TRC-10 数量 |
 | `extra_data` | string | 否 | 交易备注（hex；`visible=true` 时为 UTF-8 文本） |
 | `permission_id` | int32 | 否 | 多签权限 ID |
 | `visible` | bool | 否 | 地址、文本字段格式（响应含 `result.message`，受 `visible` 影响） |

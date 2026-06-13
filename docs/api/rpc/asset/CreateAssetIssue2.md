@@ -1,6 +1,6 @@
 # CreateAssetIssue2
 
-创建一个 TRC10 token 发行交易。
+创建一个 TRC-10 token 发行交易。
 
 - 服务：仅支持 `Wallet`
 

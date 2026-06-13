@@ -1,6 +1,6 @@
 # /wallet/getassetissuelistbyname
 
-按 token 名查询所有同名 TRC10。
+按 token 名查询所有同名 TRC-10。
 
 - 源码：`framework/src/main/java/org/tron/core/services/http/GetAssetIssueListByNameServlet.java`
 - Method：`GET` / `POST`

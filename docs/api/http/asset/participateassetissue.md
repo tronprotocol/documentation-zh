@@ -1,6 +1,6 @@
 # /wallet/participateassetissue
 
-参与 TRC10 募集（用 TRX 购买）。
+参与 TRC-10 募集（用 TRX 购买）。
 
 - 源码：`framework/src/main/java/org/tron/core/services/http/ParticipateAssetIssueServlet.java`
 - Method：`POST`

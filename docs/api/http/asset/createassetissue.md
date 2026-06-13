@@ -1,6 +1,6 @@
 # /wallet/createassetissue
 
-创建一个 TRC10 token 发行交易。
+创建一个 TRC-10 token 发行交易。
 
 - 源码：`framework/src/main/java/org/tron/core/services/http/CreateAssetIssueServlet.java`
 - Method：`POST`
@@ -90,7 +90,7 @@ curl --request POST \
 }
 ```
 
-费用：发行 TRC10 需消耗一笔较高的 TRX 销毁（链参数 `getAssetIssueFee`，目前 1024 TRX）。
+费用：发行 TRC-10 需消耗一笔较高的 TRX 销毁（链参数 `getAssetIssueFee`，目前 1024 TRX）。
 
 ### 异常响应
 

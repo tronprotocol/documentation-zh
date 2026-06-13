@@ -72,21 +72,21 @@ grpc://<host>:50061   protocol.WalletSolidity/<Method>
 | [GetTransactionApprovedList](tx-build-and-broadcast/GetTransactionApprovedList.md) | 查询多签已签署地址 |
 | [BroadcastTransaction](tx-build-and-broadcast/BroadcastTransaction.md) | 广播签名后的交易（JSON） |
 
-## TRC10 资产
+## TRC-10 资产
 
 | 方法 | 描述 |
 |---|---|
-| [CreateAssetIssue2](asset/CreateAssetIssue2.md) | 发行 TRC10 通证 |
-| [UpdateAsset2](asset/UpdateAsset2.md) | 修改 TRC10 描述/URL/限额 |
-| [TransferAsset2](asset/TransferAsset2.md) | 转账 TRC10 |
-| [ParticipateAssetIssue2](asset/ParticipateAssetIssue2.md) | 参与 TRC10 募资 |
-| [UnfreezeAsset2](asset/UnfreezeAsset2.md) | 解锁发行方冻结的 TRC10 |
-| [GetAssetIssueById](asset/GetAssetIssueById.md) | 按 id 查询 TRC10（推荐） |
-| [GetAssetIssueByName](asset/GetAssetIssueByName.md) | 按名查询 TRC10（重名报错） |
-| [GetAssetIssueListByName](asset/GetAssetIssueListByName.md) | 同名 TRC10 列表 |
-| [GetAssetIssueByAccount](asset/GetAssetIssueByAccount.md) | 账户发行的 TRC10 |
-| [GetAssetIssueList](asset/GetAssetIssueList.md) | 全网 TRC10 列表 |
-| [GetPaginatedAssetIssueList](asset/GetPaginatedAssetIssueList.md) | 分页 TRC10 列表 |
+| [CreateAssetIssue2](asset/CreateAssetIssue2.md) | 发行 TRC-10 通证 |
+| [UpdateAsset2](asset/UpdateAsset2.md) | 修改 TRC-10 描述/URL/限额 |
+| [TransferAsset2](asset/TransferAsset2.md) | 转账 TRC-10 |
+| [ParticipateAssetIssue2](asset/ParticipateAssetIssue2.md) | 参与 TRC-10 募资 |
+| [UnfreezeAsset2](asset/UnfreezeAsset2.md) | 解锁发行方冻结的 TRC-10 |
+| [GetAssetIssueById](asset/GetAssetIssueById.md) | 按 id 查询 TRC-10（推荐） |
+| [GetAssetIssueByName](asset/GetAssetIssueByName.md) | 按名查询 TRC-10（重名报错） |
+| [GetAssetIssueListByName](asset/GetAssetIssueListByName.md) | 同名 TRC-10 列表 |
+| [GetAssetIssueByAccount](asset/GetAssetIssueByAccount.md) | 账户发行的 TRC-10 |
+| [GetAssetIssueList](asset/GetAssetIssueList.md) | 全网 TRC-10 列表 |
+| [GetPaginatedAssetIssueList](asset/GetPaginatedAssetIssueList.md) | 分页 TRC-10 列表 |
 
 ## 智能合约
 

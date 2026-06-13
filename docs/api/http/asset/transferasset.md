@@ -1,6 +1,6 @@
 # /wallet/transferasset
 
-TRC10 token 转账。
+TRC-10 token 转账。
 
 - 源码：`framework/src/main/java/org/tron/core/services/http/TransferAssetServlet.java`
 - Method：`POST`

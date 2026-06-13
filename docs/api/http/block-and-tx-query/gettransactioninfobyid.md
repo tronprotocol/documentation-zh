@@ -48,7 +48,7 @@ curl --request POST \
 | `unfreeze_amount` | int64 | 解冻金额（仅 UnfreezeBalance V1） |
 | `withdraw_expire_amount` | int64 | 解冻提现金额（V2） |
 | `cancel_unfreezeV2_amount` | map\<string,int64\> | 取消解冻金额（V2） |
-| `assetIssueID` | string | 创建的 TRC10 ID（仅 CreateAssetIssue） |
+| `assetIssueID` | string | 创建的 TRC-10 ID（仅 CreateAssetIssue） |
 | `exchange_*` / `orderId` | — | Exchange / Market 相关字段 |
 
 `ResourceReceipt`（`Tron.proto`）：
