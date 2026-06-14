@@ -14,7 +14,7 @@
 
 要启用 RocksDB，请在配置文件中设置 `storage.db.engine` 为 `"ROCKSDB"`：
 
-```
+```properties
 storage {
   # 持久化数据的存储引擎
   db.engine = "ROCKSDB"
@@ -34,7 +34,8 @@ storage {
 `dbSettings` 块仅在 `db.engine = "ROCKSDB"` 时生效；使用 LevelDB 时这些值会被静默忽略。
 
 RocksDB 支持多种调优参数，可根据节点服务器性能进行配置。以下是一个推荐的参数示例：
-```
+
+```properties
 dbSettings = {
   levelNumber = 7
   # compactThreads = 32
@@ -51,20 +52,24 @@ dbSettings = {
 
 
 ## x86_64 平台从 LevelDB 迁移至 RocksDB
+
 若需从 LevelDB 迁移到 RocksDB，需使用官方提供的转换工具 `Toolkit.jar`。
 
 > **注意**：`db convert` 子命令仅支持 x86_64。在 arm64 上执行时会打印 "unsupported architecture" 提示后直接退出，不会进行任何转换。
 
 ### 1. 数据转换步骤
-```
+
+```bash
 cd java-tron                                   # 源码根目录
 ./gradlew build -xtest -xcheck                 # 编译项目                        
 java -jar build/libs/Toolkit.jar db convert    # 执行数据转换
 ```
+
 ### 2. 位置参数
+
 若您的节点使用了自定义的数据目录，可在 `db convert` 后按顺序追加两个位置参数，分别指定 LevelDB 源路径与 RocksDB 目标路径：
 
-```
+```bash
 java -jar build/libs/Toolkit.jar db convert <src> <dst>
 ```
 
@@ -72,14 +77,19 @@ java -jar build/libs/Toolkit.jar db convert <src> <dst>
 - `<dst>`：RocksDB 数据库存储路径（默认为 `output-directory-dst/database`）
 
 例如，若节点是通过如下方式运行：
-```
+
+```bash
 nohup java -jar build/libs/FullNode.jar -d your_database_dir &
 ```
+
 则应使用如下命令进行转换：
-```
+
+```bash
 java -jar build/libs/Toolkit.jar db convert  your_database_dir/database output-directory-dst/database
 ```
+
 ### 3. 停止节点后进行转换
+>
 > **必须节点停止运行后再执行数据转换操作**。
 
 若希望减少停机时间，可按照以下流程操作：
@@ -91,7 +101,7 @@ java -jar build/libs/Toolkit.jar db convert  your_database_dir/database output-d
 
 示例命令如下：
 
-```
+```bash
 java -jar build/libs/Toolkit.jar db cp output-directory/database /tmp/output-directory/database
 cd /tmp
 java -jar build/libs/Toolkit.jar db convert output-directory/database output-directory-dst/database
@@ -100,4 +110,5 @@ java -jar build/libs/Toolkit.jar db convert output-directory/database output-dir
 > **注意**：整个数据转换过程预计耗时约 **10 小时**，具体时间依赖于数据量和磁盘性能。
 
 ## 关于 LevelDB
+
 LevelDB 是 x86_64 平台 java-tron 节点默认的数据存储引擎，适用于资源有限或轻量级的部署场景。它结构简单、易于维护，但在数据压缩、备份能力和大规模节点性能上不如 RocksDB。

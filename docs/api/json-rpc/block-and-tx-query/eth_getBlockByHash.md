@@ -33,7 +33,7 @@ curl -X POST https://nile.trongrid.io/jsonrpc \
 | `transactionsRoot` | hex | 交易 trie root |
 | `stateRoot` | hex | 账户状态 root |
 | `receiptsRoot` | hex | 固定 32 字节 0 |
-| `miner` | hex | 出块见证人地址（创世块为全 0） |
+| `miner` | hex | 出块超级代表地址（创世块为全 0） |
 | `difficulty` / `totalDifficulty` | hex | 固定 `0x0` |
 | `extraData` | hex | 固定 `0x` |
 | `size` | hex | 序列化字节数 |

@@ -43,8 +43,8 @@ curl --request POST \
 | `frozenV2` | repeated FreezeV2 | Stake 2.0 冻结 |
 | `unfrozenV2` | repeated UnFreezeV2 | Stake 2.0 解冻中 |
 | `account_resource` | AccountResource | 能量相关 |
-| `asset` / `assetV2` | map\<string,int64\> | 持有的 TRC10 |
-| `allowance` | int64 | 见证人未提取奖励 |
+| `asset` / `assetV2` | map\<string,int64\> | 持有的 TRC-10 |
+| `allowance` | int64 | 超级代表未提取奖励 |
 | `latest_opration_time` | int64 | 最近一次操作时间 |
 | `owner_permission` / `witness_permission` / `active_permission` | Permission | 权限配置 |
 

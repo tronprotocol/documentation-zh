@@ -1,6 +1,6 @@
 # /wallet/transferasset
 
-TRC10 通证转账。
+TRC-10 token 转账。
 
 - 源码：`framework/src/main/java/org/tron/core/services/http/TransferAssetServlet.java`
 - Method：`POST`
@@ -12,7 +12,7 @@ TRC10 通证转账。
 |---|---|---|---|
 | `owner_address` | string | 是 | 发起方 |
 | `to_address` | string | 是 | 接收方 |
-| `asset_name` | string | 是 | 通证 ID（自 `ALLOW_SAME_TOKEN_NAME` 提案生效后是字符串形式的 token id，如 `1000001`，hex UTF-8 编码） |
+| `asset_name` | string | 是 | token ID（自 `ALLOW_SAME_TOKEN_NAME` 提案生效后是字符串形式的 token id，如 `1000001`，hex UTF-8 编码） |
 | `amount` | int64 | 是 | 转账数量（最小单位） |
 | `extra_data` | string | 否 | 交易备注（hex；`visible=true` 时为 UTF-8 文本） |
 | `permission_id` | int32 | 否 | 多签权限 ID |

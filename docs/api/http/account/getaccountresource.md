@@ -34,7 +34,7 @@ curl --request POST \
 |---|---|---|
 | `freeNetUsed` / `freeNetLimit` | int64 | 免费带宽（每 24h 重置） |
 | `NetUsed` / `NetLimit` | int64 | 质押带宽 |
-| `assetNetUsed` / `assetNetLimit` | map | TRC10 各自带宽 |
+| `assetNetUsed` / `assetNetLimit` | map | TRC-10 各自带宽 |
 | `TotalNetLimit` / `TotalNetWeight` | int64 | 全网带宽配额、全网质押 |
 | `EnergyUsed` / `EnergyLimit` | int64 | 能量 |
 | `TotalEnergyLimit` / `TotalEnergyWeight` | int64 | 全网能量配额、全网质押 |
