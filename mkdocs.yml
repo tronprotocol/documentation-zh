@@ -271,8 +271,18 @@ nav:
         - 核心模块: developers/code-structure.md
     - Dapp开发:
         - 工具: contracts/tools.md
-    - 客户端: 
-        - wallet-cli: clients/wallet-cli.md
+    - 客户端:
+        - wallet-cli:
+            - clients/wallet-cli/index.md
+            - 钱包管理: clients/wallet-cli/wallet-management.md
+            - 账户: clients/wallet-cli/accounts.md
+            - 质押与资源: clients/wallet-cli/staking.md
+            - 交易: clients/wallet-cli/transactions.md
+            - 智能合约: clients/wallet-cli/smart-contracts.md
+            - TRC-10 资产: clients/wallet-cli/trc10.md
+            - 治理: clients/wallet-cli/governance.md
+            - GasFree: clients/wallet-cli/gasfree.md
+            - 查询: clients/wallet-cli/query.md
     - 版本发布:
         - 新版本部署手册: releases/upgrade-instruction.md
         - 一致性检验: releases/signature_verification.md
@@ -360,6 +370,8 @@ markdown_extensions:
     - pymdownx.tilde
     - pymdownx.tasklist
     - pymdownx.superfences
+    - pymdownx.tabbed:
+        alternate_style: true
 
 plugins:
   - search:
