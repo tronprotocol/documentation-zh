@@ -20,6 +20,7 @@ nav:
         - 节点维护工具: using_javatron/toolkit.md
     - API接口:
         - 概述: api/index.md
+        - 机器可读定义: api/interface-definitions.md
         - HTTP 接口:
             - 概述: api/http/index.md
             - 账户:
