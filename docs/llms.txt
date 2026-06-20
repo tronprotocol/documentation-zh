@@ -23,6 +23,8 @@
 - [HTTP API 参考](https://tronprotocol.github.io/documentation-zh/api/http/)：`/wallet/*` 与 `/walletsolidity/*` 端点，按功能分组（账户、资产、区块/交易查询、交易构建/广播、智能合约、超级代表/治理、质押 v1/v2、节点/工具）。
 - [JSON-RPC API 参考](https://tronprotocol.github.io/documentation-zh/api/json-rpc/)：兼容以太坊的 `eth_*` / `net_*` / `web3_*` 方法，以及 Tron 特有的 `buildTransaction`，含端口、启用开关、编码约定与错误码。
 - [gRPC API 参考](https://tronprotocol.github.io/documentation-zh/api/rpc/)：`protocol.Wallet` / `protocol.WalletSolidity` 方法；契约由 java-tron 仓库中的 `.proto` 文件定义。
+- [OpenAPI 规范（HTTP）](https://tronprotocol.github.io/documentation-zh/api/openapi.yaml)：`/wallet/*` 与 `/walletsolidity/*` HTTP 接口的机器可读 OpenAPI 契约。
+- [OpenRPC 规范（JSON-RPC）](https://tronprotocol.github.io/documentation-zh/api/openrpc.json)：`eth_*` / `net_*` / `web3_*` 及 `buildTransaction` 方法的机器可读 OpenRPC 契约。
 
 ## 核心协议
 
