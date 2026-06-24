@@ -70,6 +70,6 @@ Proposal: Change the unit price of Energy to 100 sun
 
 ## 投票和生效 { #voting-and-implementation }
 
-- 链上投票的有效期为 **3 天**。  
+- 链上投票的有效期由网络参数 `PROPOSAL_EXPIRE_TIME` 决定，默认为 **3 天**，该参数本身也可通过治理提案修改。  
 - 在此期间，所有超级代表均可对 TIP 进行投票。  
 - 投票截止后，如果获得的超级代表赞成票数 **大于或等于 18 票**，该提议即视为通过并自动生效。
