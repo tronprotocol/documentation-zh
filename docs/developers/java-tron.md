@@ -178,7 +178,7 @@ CI 工具：
 - `test`：测试代码改动
 - `chore`：构建流程或辅助工具的变更（无生产代码改动）
 
-`scope` 用于说明改动位置，例如：`protobuf`、`api`、`test`、`docs`、`build`、`db`、`net`。若无合适的 scope，可使用 `*`。
+`scope` 用于说明改动位置，例如：`protocol`、`api`、`test`、`docs`、`build`、`db`、`net`。若无合适的 scope，可使用 `*`。
 
 ### Subject 规范
 1. 不超过 50 个字符
