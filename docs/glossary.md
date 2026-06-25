@@ -6,7 +6,7 @@
 
 **energyFee**
 
-此次调用中，合约调用者消耗的Energy中，需要TRX支付的数目(以SUN为单位，1 TRX = 1,000,000 SUN)
+此次调用中，合约调用者消耗的Energy中，需要TRX支付的数目(以 sun 为单位，1 TRX = 1,000,000 sun)
 
 **originEnergyUsage**
 
@@ -18,7 +18,7 @@
 
 **FeeLimit**
 
-用户在调用或者创建智能合约时，指定的最高可接受的trx费用消耗，包含消耗质押获得资源的trx和消耗用户本身持有的trx两部分，优先使用质押获得的资源。
+用户在调用或者创建智能合约时，用于设定可使用的、通过销毁或质押 TRX 获得的 Energy 的上限，优先使用通过质押 TRX 获得的 Energy。
 
 **CallValue**
 
@@ -38,7 +38,7 @@
 
 **net_fee**
 
-本次合约因Bandwidth不足而消耗的TRX(以SUN为单位，1 TRX = 1,000,000 SUN)
+本次合约因Bandwidth不足而消耗的TRX(以 sun 为单位，1 TRX = 1,000,000 sun)
 
 **Bandwidth**
 
