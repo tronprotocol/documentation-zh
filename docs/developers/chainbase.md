@@ -181,7 +181,7 @@ java-tron中 SnapshotManager 是存储模块的关键入口，持有了当前所
 
 节点接收到新区块后产生的变更不会直接存储到持久化存储中，而是首先存在 snapshotImpl 中，每接收一个区块对应产生一个snapshotImpl 不断的接收区块会导致 snapshotImpl 越来越多，什么时候会写入到持久化存储中呢？
 
-SnapshotManager 中存在两个变量：size 和 maxSize，size 此处我们简单理解为目前内存中有多少层 snapshotImpl，maxSIze 则表示目前固化块和最新块高度的差值。
+SnapshotManager 中存在两个变量：size 和 maxSize，size 此处我们简单理解为目前内存中有多少层 snapshotImpl，maxSize 则表示目前固化块和最新块高度的差值。
 
 这样就很明显了，如果 size > maxSize，那么说明最开始的 size-maxSize 层的snapshotImpl 对应的区块已经是固化块了，它们可以落盘了，然后会将应该落盘的 snapshotImpl 合并到持久化存储中，这样来确保 snapshotImpl 不会占用过多的内存，而且也保证了固化块能够被及时的持久化存储下来。
 
