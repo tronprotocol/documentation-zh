@@ -19,8 +19,8 @@
 | `call_value` | int64 | 否 | 调用合约带入的 TRX（sun） |
 | `consume_user_resource_percent` | int64 | 是 | 用户承担能量百分比 0–100 |
 | `origin_energy_limit` | int64 | 是 | 部署者承担能量上限 |
-| `token_id` | int64 | 否 | 调用合约带入的 TRC10 token id |
-| `call_token_value` | int64 | 否 | 调用合约带入的 TRC10 数量 |
+| `token_id` | int64 | 否 | 调用合约带入的 TRC-10 token id |
+| `call_token_value` | int64 | 否 | 调用合约带入的 TRC-10 数量 |
 | `permission_id` | int32 | 否 | 多签权限 ID |
 | `visible` | bool | 否 | 地址格式 |
 

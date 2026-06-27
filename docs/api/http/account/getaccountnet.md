@@ -36,8 +36,8 @@ curl --request POST \
 | `freeNetLimit` | int64 | 免费带宽上限（每 24h 重置） |
 | `NetUsed` | int64 | 已使用的质押带宽 |
 | `NetLimit` | int64 | 质押获得的带宽上限 |
-| `assetNetUsed` | map\<string,int64\> | 持有 TRC10 各自使用的带宽 |
-| `assetNetLimit` | map\<string,int64\> | 持有 TRC10 各自的带宽上限 |
+| `assetNetUsed` | map\<string,int64\> | 持有 TRC-10 各自使用的带宽 |
+| `assetNetLimit` | map\<string,int64\> | 持有 TRC-10 各自的带宽上限 |
 | `TotalNetLimit` | int64 | 全网总带宽上限 |
 | `TotalNetWeight` | int64 | 全网带宽质押总量（TRX） |
 

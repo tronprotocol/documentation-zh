@@ -1,6 +1,6 @@
 # /wallet/getassetissuebyname
 
-按通证名查询单个 TRC10。**注意**：自 `ALLOW_SAME_TOKEN_NAME` 提案后，name 不再唯一，调用此接口在重名时会报错；推荐用 [`/wallet/getassetissuebyid`](getassetissuebyid.md) 或 [`/wallet/getassetissuelistbyname`](getassetissuelistbyname.md)。
+按 token 名查询单个 TRC-10。**注意**：自 `ALLOW_SAME_TOKEN_NAME` 提案后，name 不再唯一，调用此接口在重名时会报错；推荐用 [`/wallet/getassetissuebyid`](getassetissuebyid.md) 或 [`/wallet/getassetissuelistbyname`](getassetissuelistbyname.md)。
 
 - 源码：`framework/src/main/java/org/tron/core/services/http/GetAssetIssueByNameServlet.java`
 - Method：`GET` / `POST`
@@ -10,7 +10,7 @@
 
 | 字段 | 类型 | 必填 | 说明 |
 |---|---|---|---|
-| `value` | string | 是 | 通证名（hex 编码 UTF-8） |
+| `value` | string | 是 | token 名（hex 编码 UTF-8） |
 | `visible` | bool | 否 | 地址、文本字段格式 |
 
 示例：

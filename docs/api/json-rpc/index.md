@@ -121,7 +121,7 @@ filter 相关默认限额（见 `config.conf` 的 `jsonrpc {}` 段）：
 
 | 方法 | 说明 |
 |---|---|
-| [`buildTransaction`](tx-build/buildTransaction.md) | 构造未签名交易（仅 FullNode；TRX 转账 / TRC10 转账 / 部署合约 / 触发合约） |
+| [`buildTransaction`](tx-build/buildTransaction.md) | 构造未签名交易（仅 FullNode；TRX 转账 / TRC-10 转账 / 部署合约 / 触发合约） |
 
 > JSON-RPC 不提供广播接口；签名后请走 HTTP [`/wallet/broadcasttransaction`](../http/tx-build-and-broadcast/broadcasttransaction.md) 或 [`/wallet/broadcasthex`](../http/tx-build-and-broadcast/broadcasthex.md)。
 

@@ -12,7 +12,7 @@
 |---|---|---|---|
 | `owner_address` | string | 是 | 账户地址 |
 | `owner` | Permission | 是 | owner 权限（type=Owner，id=0；不能为空） |
-| `witness` | Permission | 否 | 见证人权限（type=Witness，id=1）；只有 SR 账户填 |
+| `witness` | Permission | 否 | 超级代表权限（type=Witness，id=1）；只有 SR 账户填 |
 | `actives` | repeated Permission | 是 | active 权限列表（type=Active，id 从 2 开始） |
 | `permission_id` | int32 | 否 | 当前签名所用权限 ID |
 | `visible` | bool | 否 | 地址格式 |

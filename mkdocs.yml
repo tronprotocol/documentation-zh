@@ -53,7 +53,7 @@ nav:
                 - 广播签名后的交易 JSON: api/http/tx-build-and-broadcast/broadcasttransaction.md
                 - 广播签名后的交易 hex: api/http/tx-build-and-broadcast/broadcasthex.md
             - TRC10 资产:
-                - 发行 TRC10 通证: api/http/asset/createassetissue.md
+                - 发行 TRC10 token: api/http/asset/createassetissue.md
                 - 修改 TRC10 描述: api/http/asset/updateasset.md
                 - 转账 TRC10: api/http/asset/transferasset.md
                 - 参与 TRC10 募资: api/http/asset/participateassetissue.md
@@ -146,7 +146,7 @@ nav:
                 - 查询多签已签署地址: api/rpc/tx-build-and-broadcast/GetTransactionApprovedList.md
                 - 广播签名后的交易 JSON: api/rpc/tx-build-and-broadcast/BroadcastTransaction.md
             - TRC10 资产:
-                - 发行 TRC10 通证: api/rpc/asset/CreateAssetIssue2.md
+                - 发行 TRC10 token: api/rpc/asset/CreateAssetIssue2.md
                 - 修改 TRC10 描述: api/rpc/asset/UpdateAsset2.md
                 - 转账 TRC10: api/rpc/asset/TransferAsset2.md
                 - 参与 TRC10 募资: api/rpc/asset/ParticipateAssetIssue2.md
