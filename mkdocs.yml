@@ -261,13 +261,15 @@ nav:
         - 账户权限管理: mechanism-algorithm/multi-signatures.md
     - java-tron开发: 
         - 开发者指南: developers/java-tron.md
+        - 核心模块: developers/code-structure.md
+        - ChainBase 深入解析: developers/chainbase.md
+        - P2P 网络深入解析: developers/network.md
         - TIPs工作流程: developers/tip-workflow.md
         - TIPs: developers/tips.md
         - Issue工作流程: developers/issue-workflow.md
         - 治理流程: developers/governance.md
         - 配置IDE开发环境: developers/run-in-idea.md
         - 开发示例: developers/demo.md
-        - 核心模块: developers/code-structure.md
     - Dapp开发:
         - 工具: contracts/tools.md
     - 客户端:
