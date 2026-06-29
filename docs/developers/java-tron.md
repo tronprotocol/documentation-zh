@@ -4,7 +4,7 @@
 
 无论是小的修复还是重要的功能改进，我们都非常感激您的贡献。  
 
-在 GitHub 上，您可以用于：
+在 GitHub 上，您可以：
 
 - 跟踪问题  
 - 贡献代码  
@@ -27,7 +27,7 @@
 4. **创建 Pull Request (PR)**  
    将改动推送到您的 Fork 仓库，并向官方仓库提交 PR。
 5. **代码审查与合并**  
-   维护者将根据 [代码审查指南](#code-review-guidelines) 审核您的 PR，并在合格后合并至主分支。
+   维护者将根据 [代码审查指南](#code-review-guidelines) 审核您的 PR，并在合格后合并至 `develop` 分支。
 
 
 
@@ -39,7 +39,7 @@
   请先在 [TIP 仓库](https://github.com/tronprotocol/tips) 提交 Issue，详细说明动机与实现方案。  
   参考 [TIP 规范](tips.md)。  
 - **提前提交 PR**  
-  我们鼓励开发者尽早提交 PR，即使功能尚未完成。这样其他开发者能及时获知相关的 TIP Issue 已进入 *In Progress* 状态。  
+  我们鼓励开发者尽早提交 PR，即使功能尚未完成。这样其他开发者能及时获知相关 TIP 的开发已经启动。  
 - **开发分支**  
   所有开发应基于 `develop` 分支进行，随后再提交 PR。  
 
@@ -51,22 +51,23 @@
 
 - **`develop` 分支**
     - 用于日常开发  
-    - 只允许合并分叉分支与 `release-*` 分支  
-    - 每次准备新版本时，从该分支拉取 `release-*`  
+    - 只允许合并分叉分支与 `release_*` 分支  
+    - 每次准备新版本时，从该分支拉取 `release_*`  
 - **`master` 分支**  
     - 只在发布时使用  
-    - 合并对象仅限 `release-*` 与 `hotfix-*`  
-- **`release-*` 分支**  
+    - 合并对象仅限 `release_*` 与 `hotfix/*`  
+- **`release_*` 分支**  
     - 从 `develop` 拉取，用于版本定版和回归测试  
     - 回归完成后合并至 `master`  
     - 永久保留，作为发版快照  
     - Bug 修复直接合并到该分支，并同步回 `develop`  
-- **`feature-*` 分支**  
+- **`feature/*` 分支**  
     - 从 `develop` 拉取，用于新功能开发  
     - 功能完成后合并回 `develop`  
     - 可长期维护  
-- **`hotfix-*` 分支**  
+- **`hotfix/*` 分支**  
     - 从 `master` 拉取，用于紧急 Bug 修复  
+    - 仅接受来自 Fork 仓库的 Bug 修复 PR  
     - 修复完成后合并回 `master` 与 `develop`  
 
 
@@ -114,7 +115,7 @@ git push origin feature/branch_name
 
 ### 6. 发起 Pull Request
 
-从你自己的仓库向 `tronprotocol/java-tron` 提交一个推送代码请求 Pull Request（PR）。
+从您自己的仓库向 `tronprotocol/java-tron` 提交一个 Pull Request（PR）。
     ![image](https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/javatron_pr.png)
 
 
@@ -163,9 +164,9 @@ CI 工具：
 ## 分支命名规范
 
 1. `master` 和 `develop` 固定命名
-2. 版本开发分支以版本号和版本名命名（如 `GreatVoyage-v4.8.0(Kant)`）
-3. `hotfix/*`：用于紧急修复（如 `hotfix/typo`）
-4. `feature/*`：用于新功能开发（如 `feature/new-resource-model`）
+2. `release_*`：以 `release_` 前缀加版本号命名，版本号由项目负责人分配（如 `GreatVoyage-v4.8.0(Kant)` 版本对应 `release_v4.8.0`）
+3. `hotfix/*`：用于紧急修复，单词间以下划线连接（如 `hotfix/typo`、`hotfix/null_point_exception`）
+4. `feature/*`：用于新功能开发，单词间以下划线连接（如 `feature/new_resource_model`）
 
 ## Pull Request 规范
 
@@ -174,6 +175,8 @@ CI 工具：
 3. 标题：简要描述 PR 目标
 4. 描述：面向 Reviewer，详细说明
 5. 明确需要反馈的部分
+6. 标题首字母不大写
+7. 标题结尾不加句号
 
 ## Commit 描述规范
 
@@ -195,15 +198,17 @@ CI 工具：
 - `style`：格式调整（无功能更改）
 - `refactor`：代码重构
 - `test`：测试代码改动
-- `chore`：其他（如任务分配等）
+- `chore`：构建流程或辅助工具的变更（无生产代码改动）
+
+`scope` 用于说明改动位置，例如：`protocol`、`api`、`test`、`docs`、`build`、`db`、`net`。若无合适的 scope，可使用 `*`。
 
 ### Subject 规范
 
 1. 不超过 50 个字符
-2. 使用动词开头，第一人称现在时（如 `change` 而非 `changed`）
+2. 使用动词开头，第一人称现在时（如 `change` 而非 `changed` 或 `changes`）
 3. 首字母小写
 4. 结尾不加句号
-5. 避免无意义 Commit
+5. 避免无意义 Commit，建议使用 `git rebase` 命令
 
 示例
 
@@ -229,7 +234,6 @@ Closes #1234
 ## 行为准则
 
 请保持尊重和建设性，共同营造积极的社区氛围。
-
 
 
 
