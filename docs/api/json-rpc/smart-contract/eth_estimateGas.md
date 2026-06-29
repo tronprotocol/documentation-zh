@@ -12,6 +12,7 @@
 | `params[0]` | object | 是 | `CallArguments`（同 [`eth_call`](eth_call.md)），其中 `from` / `to` / `value` / `data` 用于推断合约类型 |
 
 `CallArguments.getContractType` 推断规则：
+
 - `to` 为空且 `data` 非空 → `CreateSmartContract`
 - `to` 是合约地址 → `TriggerSmartContract`
 - `to` 是普通账户且 `value` 非空 → `TransferContract`（直接返回 `0x0`，不进入 EVM 估算）

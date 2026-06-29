@@ -5,9 +5,9 @@
 - [**创建 TRON 账户**](#create-account)：
     - 获得您在区块链世界的数字身份。学习如何安全地生成和管理您的地址与私钥，这是您持有 TRX 资产、发送交易以及与智能合约交互的唯一凭证。
 - [**启动并运行一个 java-tron 节点**](#start-node)：  
-     - 搭建您与 TRON 网络连接的专用网关。将您的计算机接入 TRON 网络，使其成为网络的一部分。这对于希望成为网络维护者或需要本地、高可用 API 服务的开发者至关重要。
+    - 搭建您与 TRON 网络连接的专用网关。将您的计算机接入 TRON 网络，使其成为网络的一部分。这对于希望成为网络维护者或需要本地、高可用 API 服务的开发者至关重要。
 - [**使用 java-tron 节点与 TRON 网络交互**](#interact-with-tron)：
-     - 学习如何通过客户端工具（如 `wallet-cli` 或 `cURL`）发送交易、查询链上数据（此技能不要求您自己运行节点，您可以使用公共节点服务完成操作）。
+    - 学习如何通过客户端工具（如 `wallet-cli` 或 `cURL`）发送交易、查询链上数据（此技能不要求您自己运行节点，您可以使用公共节点服务完成操作）。
 
 
 ## 核心概念
@@ -49,8 +49,8 @@ TRON 网络上有两种主要类型的帐户:
 
 在您的终端中通过命令 `java -jar wallet-cli.jar` 启动一个 `wallet-cli` 实例：
 
-```
-$ java -jar wallet-cli.jar
+```bash
+java -jar wallet-cli.jar
 
 Welcome to TRON wallet-cli
 Please type one of the following commands to proceed.
@@ -66,7 +66,8 @@ wallet>
 `wallet-cli` 默认的工作环境是 TRON 主网 (Mainnet)。请先将环境切换至 Nile 测试网，以避免在本指南的后续操作中与真实资产交互。
 
 您可使用 `switchnetwork` 命令切换网络，并用 `currentnetwork` 命令验证网络状态。当提示选择网络时，输入 `2` 选择 `NILE`。
-```
+
+```text
 wallet> switchnetwork
 Please select network：
 1. MAIN
@@ -78,12 +79,14 @@ SwitchNetwork successful !!!
 wallet> currentnetwork
 currentNetwork: NILE
 ```
+
 ### 步骤 B：创建账户
 
 **1. 注册新账户**
 
 在提示符后输入 `registerwallet` 命令，并根据提示设置一个安全的密码。此命令会生成一个新的 TRON 网络账户，并将其注册到 `wallet-cli`，即将其加密后的**私钥**存储在 `wallet-cli` 的本地密钥库中，以便后续使用该私钥对交易进行签名。
-```
+
+```text
 wallet> registerwallet
 Please input password.
 password: 
@@ -103,11 +106,14 @@ wallet>
 **2. 登录并查看地址**：
 
 首先，在 `wallet-cli` 中使用 `login` 命令。系统会列出当前已有的账户供您选择。
-```
+
+```text
 wallet> login
 ```
+
 如您有多个账户，请根据提示，输入您希望登录的账户所对应的序号（例如 `2`），然后输入该账户的密码。
-```
+
+```text
 Please choose between 1 and 3
 2
 Please input your password.
@@ -115,8 +121,10 @@ password:
 Login successful !!!
 wallet> 
 ```
+
 看到 `Login successful !!!` 提示即表示登录成功。您可使用 `getaddress` 命令查看当前账户的地址。
-```
+
+```text
 wallet> getaddress
 GetAddress successful !!
 address = TQXjm2J8K2DKTV49MdfT2anjUehbU3WDJz
@@ -159,7 +167,8 @@ wallet>
 **2.1 查看启动与同步日志**
 
 当节点启动后，您首先会在日志中看到节点的网络配置信息。以下日志表明 java-tron 已经启动并连接到了 Nile 测试网：
-```
+
+```text
 11:07:58.758 INFO  [main] [app](Args.java:1143) ************************ Net config ************************
 11:07:58.758 INFO  [main] [app](Args.java:1144) P2P version: 201910292
 11:07:58.758 INFO  [main] [app](Args.java:1145) Bind IP: 192.168.20.101
@@ -167,8 +176,10 @@ wallet>
 11:07:58.758 INFO  [main] [app](Args.java:1147) Listen port: 18888
 11:07:58.758 INFO  [main] [app](Args.java:1148) Discover enable: true
 ```
+
 接下来，节点会开始寻找网络中可连接的其他对等节点 (peer)，并通过持续向它们请求区块来同步整个链上数据。成功连接上的对等节点即为“活跃对等节点” (active peer)。以下日志表明节点已成功连接到其他节点，并已开始同步数据：
-```
+
+```text
 11:08:42.547 INFO  [TronJClientWorker-1] [net](Channel.java:116) Finish handshake with /123.56.3.74:18888.
 11:08:42.547 INFO  [TronJClientWorker-1] [net](ChannelManager.java:161) Add active peer /123.56.3.74:18888 | fea80a0298b465a54fd332ff36819545d850115e77b327858b5306c9a58c6b8c2e7c08df76ab508a7594ed3577a8f4157727108442877077ab499b102b488467, total active peers: 1
 11:08:42.549 INFO  [TronJClientWorker-1] [net](Channel.java:208) Peer /123.56.3.74:18888 status change to SYNCING.
@@ -194,6 +205,7 @@ Num:23113869,ID:000000000160b08d231e450ae1993a72ba19eb8f3c748fa70d105dadd0c9fd5f
 11:08:43.504 INFO  [TronJClientWorker-1] [net](MessageQueue.java:121) Receive from /123.56.3.74:18888, type: BLOCK
 Num:23113870,ID:000000000160b08e37cb9951d31a4233f106c7e77e0535c597dbb6a16f163699, trx size: 0
 ```
+
 通过观察日志中的区块号（`Num:` 后面的数字）是否在持续稳定增长，可以判断同步是否在正常进行。如果日志长时间没有滚动，或反复出现错误、警告信息，说明节点可能遇到了问题。
 
 **2.2 使用 API 确认同步状态**
@@ -210,6 +222,7 @@ Num:23113870,ID:000000000160b08e37cb9951d31a4233f106c7e77e0535c597dbb6a16f163699
 要确认您的节点已与网络完全同步，将您本地节点的区块高度与 [Tronscan 区块浏览器](https://tronscan.org/) 上显示的最新区块高度进行比较。如果两者一致，则表示您本地节点的同步状态正常。
 
 ### 3. 关闭节点
+
 如果要关闭 java-tron，请通过`kill -15 <进程ID>`来停止节点。
 
 
@@ -227,13 +240,16 @@ Num:23113870,ID:000000000160b08e37cb9951d31a4233f106c7e77e0535c597dbb6a16f163699
 ### 方式一：使用 `wallet-cli` (推荐)
 
 #### 查询账户信息
+
 您可以使用 `getaccount <地址>` 命令查询指定地址的详细信息。执行该命令时，`wallet-cli` 会在后台向 java-tron 节点发送请求，然后将获取到的账户数据呈现在终端界面。
 
-```
+```text
 wallet> getaccount TUoHaVjx7n5xz8LwPRDckgFrDWhMhuSuJM
 ```
+
 返回结果如下：
-```
+
+```json
 {
 	"address": "TUoHaVjx7n5xz8LwPRDckgFrDWhMhuSuJM",
 	"balance": 5,
@@ -249,17 +265,22 @@ wallet> getaccount TUoHaVjx7n5xz8LwPRDckgFrDWhMhuSuJM
 }
 
 ```
+
 #### 查询账户余额
+
 使用 `getbalance` 命令可快速查看当前登录账户的 TRX 余额。
-```
+
+```text
 wallet> getbalance
 Balance = 93642857919
 wallet> 
 ```
 
 #### 转账 TRX
+
 使用 `sendcoin <接收方地址> <转账金额>` 命令发起一笔 TRX 转账。金额单位为 sun（1 TRX = 1,000,000 sun）。
-```
+
+```text
 wallet> sendcoin TUznHJfHe6gdYY7gvWmf6bNZHuPHDZtowf 1000000
 {
 	"raw_data":{
@@ -286,13 +307,14 @@ wallet> sendcoin TUznHJfHe6gdYY7gvWmf6bNZHuPHDZtowf 1000000
 before sign transaction hex string is 0a85010a02cbc322088581ae7e29258a5240a89aefbf9c305a67080112630a2d747970652e676f6f676c65617069732e636f6d2f70726f746f636f6c2e5472616e73666572436f6e747261637412320a1541ce8a0cf0c16d48bcf22825f6053248df653c89ca121541d0b69631440f0a494bb51f7eee68ff5c593c00f018c0843d7098cfebbf9c30
 Please confirm and input your permission id, if input y/Y means default 0, other non-numeric characters will cancel transaction.
 ```
+
 此命令会返回一个待确认的交易。请按以下步骤完成签名和广播：
 
 1. 确认交易：核对交易详情无误后，输入 `y` 并按回车键（输入其他任意字符则会取消交易）。
 2. 选择签名账户：根据界面提示，选择用于给这笔交易签名的账户（即扣款账户）。
 3. 输入密码授权：输入所选账户的密码，`wallet-cli` 将会完成签名，并将交易广播至 java-tron 节点，完成交易。
 
-```
+```text
 Please confirm and input your permission id, if input y/Y means default 0, other non-numeric characters will cancel transaction.
 y
 Please choose your key for sign.
@@ -316,11 +338,14 @@ wallet>
 当您发送一笔交易后，`wallet-cli` 终端会返回一个唯一的交易ID（`txid`）。通过这个 `txid`，您可以查询到关于这笔交易的所有信息。
 
 1. 使用 `gettransactionbyid <txid>` 查看交易的原始内容：
-```
+
+```text
   wallet> gettransactionbyid 21851bcf1faf22c99a7a49c4f246d709cf9f54db2f264ca145adcd464ea155a4
 ```
+
 返回的 JSON 数据包含了交易的所有细节，例如合约类型 (`TransferContract`)、转账金额、发送方和接收方地址等。`"contractRet":"SUCCESS"` 表示这笔交易的合约在语法上是正确的。
-```
+
+```json
   {
   	"ret":[
   		{
@@ -355,12 +380,16 @@ wallet>
   wallet> 
   
 ```
+
 2. 使用 `gettransactioninfobyid <txid>` 查看交易的处理结果和回执信息（即交易是否已经被打包进区块，执行的结果和资源消耗情况）：
-```
+
+```text
   wallet> gettransactioninfobyid 21851bcf1faf22c99a7a49c4f246d709cf9f54db2f264ca145adcd464ea155a4
 ```
+
 在返回的结果中，最重要的字段是 `blockNumber`，它表示交易在哪一个区块高度被确认。如果这个值存在，说明交易已成功上链。此外，`receipt` 对象则记录了该交易消耗的带宽（`net_usage`）等资源。
-```
+
+```json
   {
   	"id": "21851bcf1faf22c99a7a49c4f246d709cf9f54db2f264ca145adcd464ea155a4",
   	"blockNumber": 27773932,
@@ -387,14 +416,16 @@ wallet>
 
 向节点的 `8090` 端口发送一个 `POST` 请求，请求体中包含您要查询的地址。
 
-```
+```bash
  curl -X POST http://127.0.0.1:8090/wallet/getaccount -d 
      '{"address": "TUoHaVjx7n5xz8LwPRDckgFrDWhMhuSuJM",
        "visible": true
      }'
 ```
+
 返回的 JSON 数据中，`balance` 字段即为该地址的 TRX 余额，单位为 sun (1 TRX = 1,000,000 sun)。
-```
+
+```json
 {
     "account_name": "testacc2",
     "address": "TUoHaVjx7n5xz8LwPRDckgFrDWhMhuSuJM",
@@ -410,7 +441,7 @@ wallet>
 
   通过 FullNode HTTP 的 `wallet/createtransaction` 接口，创建一笔未签名的 TRX 转账交易。在请求体中，指明发送方 (`owner_address`)、接收方 (`to_address`) 和金额 (`amount`)。
   
-  ```
+  ```bash
   curl -X POST  http://127.0.0.1:8090/wallet/createtransaction -d 
       '{
           "to_address": "TUznHJfHe6gdYY7gvWmf6bNZHuPHDZtowf", 
@@ -419,8 +450,10 @@ wallet>
           "visible":true
       }'
   ```
+
   节点会返回一个未签名的 TRX 转账交易。请记下其中的 `txid` 和 `raw_data_hex`，它们将在后续步骤中使用。
-  ```
+
+  ```json
   {
       "visible": true,
       "txID": "c558bd35978267d8999baf6148703cbc94786f3f2e22893637588ca05437d7f0",
@@ -453,8 +486,8 @@ wallet>
   
   **重要提示**: 
   
-  - 为保障私钥安全，建议您始终在本地或安全的服务器环境中，并使用 TRON 官方提供的 SDK (如 `TronWeb`, `java-tron-sdk` 等) 完成所有签名操作。
-  - `cURL` 无法执行签名操作。此步骤仅作流程说明。
+- 为保障私钥安全，建议您始终在本地或安全的服务器环境中，并使用 TRON 官方提供的 SDK (如 `TronWeb`, `java-tron-sdk` 等) 完成所有签名操作。
+- `cURL` 无法执行签名操作。此步骤仅作流程说明。
   
   签名后，您会得到一个长字符串，即交易的签名哈希 (Signature Hash)。
 
@@ -462,7 +495,7 @@ wallet>
 
   最后一步，我们将已签名的交易广播出去。调用  [`wallet/broadcasttransaction`](../api/http/tx-build-and-broadcast/broadcasttransaction.md) 接口，并在其请求体中填入第一步获取的交易对象和第二步生成的签名哈希。提交后，节点会验证签名，然后将交易广播至整个 TRON 网络等待打包确认，至此便完成了整个转账流程。
   
-  ```
+  ```bash
   curl --location --request POST 'http://127.0.0.1:8090/wallet/broadcasttransaction' \
   --header 'Content-Type: application/json' \
   --data-raw '{
@@ -493,8 +526,10 @@ wallet>
       "raw_data_hex": "0a02193b2208aaecd88e4e0e752840e098909f9b305a68080112640a2d747970652e676f6f676c65617069732e636f6d2f70726f746f636f6c2e5472616e73666572436f6e747261637412330a154198927ffb9f554dc4a453c64b2e553a02d6df514b121541d0b69631440f0a494bb51f7eee68ff5c593c00f01880ade20470b4d58c9f9b30"
   }'
   ```
+
   如果返回结果中的 `"result": true`，则代表您的交易已成功广播:
-  ```
+
+  ```json
   {
       "result": true,
       "txid": "c558bd35978267d8999baf6148703cbc94786f3f2e22893637588ca05437d7f0"
@@ -509,15 +544,17 @@ wallet>
 
 通过 HTTP 接口 `wallet/gettransactionbyid` 获取已广播交易的完整数据。在请求体中，通过 `value` 字段传入您要查询的 `txid`：
 
-  ```
+  ```bash
   curl --location --request POST 'http://127.0.0.1:8090/wallet/gettransactionbyid' \
   --header 'Content-Type: application/json' \
   --data-raw '{
        "value": "c558bd35978267d8999baf6148703cbc94786f3f2e22893637588ca05437d7f0"
   }'
   ```
+
   返回结果的数据结构与 `wallet-cli` 的 `gettransactionbyid` 命令基本一致：
-  ```
+
+  ```json
   {
       "ret": [
           {
@@ -557,15 +594,17 @@ wallet>
 
   在请求体中传入目标 `txid`：
   
-  ```
+  ```bash
   curl --location --request POST 'http://127.0.0.1:8090/wallet/gettransactioninfobyid' \
   --header 'Content-Type: application/json' \
   --data-raw '{
        "value": "c558bd35978267d8999baf6148703cbc94786f3f2e22893637588ca05437d7f0"
   }'
   ```
+
   返回结果中的 `blockNumber` 字段是交易成功的关键凭证，只要这个字段有值，就代表您的交易已成功上链且不可逆转。而 `receipt` 字段则提供了详细的执行回执。
-  ```
+
+  ```json
   {
       "id": "c558bd35978267d8999baf6148703cbc94786f3f2e22893637588ca05437d7f0",
       "blockNumber": 27662687,
@@ -580,6 +619,7 @@ wallet>
   ```
 
 ## 总结与展望
+
 恭喜您完成了 java-tron 的入门之旅！您已经亲手操作并掌握了运行节点、创建账户和发送交易等核心技能，为深入探索 TRON 生态打下了坚实的基础。
 
 

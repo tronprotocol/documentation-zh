@@ -31,9 +31,9 @@ curl --request POST \
 | `block_header.raw_data.txTrieRoot` | bytes | 交易 Merkle 根 |
 | `block_header.raw_data.parentHash` | bytes | 父区块哈希 |
 | `block_header.raw_data.number` | int64 | 区块号 |
-| `block_header.raw_data.witness_address` | bytes | 出块见证人地址 |
+| `block_header.raw_data.witness_address` | bytes | 出块超级代表地址 |
 | `block_header.raw_data.version` | int32 | 区块版本 |
-| `block_header.witness_signature` | bytes | 见证人签名 |
+| `block_header.witness_signature` | bytes | 超级代表签名 |
 | `transactions` | repeated Transaction | 该区块包含的交易 |
 
 响应示例（Nile 上的真实出块，省略 `transactions` 内容）：

@@ -1,6 +1,6 @@
 # /wallet/getassetissuebyid
 
-按 token id 查询 TRC10（推荐方式，token id 全局唯一）。
+按 token id 查询 TRC-10（推荐方式，token id 全局唯一）。
 
 - 源码：`framework/src/main/java/org/tron/core/services/http/GetAssetIssueByIdServlet.java`
 - Method：`GET` / `POST`

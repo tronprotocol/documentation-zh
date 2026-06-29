@@ -10,7 +10,7 @@
 
 首先，从 TRON 官方 GitHub 仓库 [tronprotocol/java-tron](https://github.com/tronprotocol/java-tron) Fork 一个新的代码仓库到您个人的 GitHub 账户。然后，将您的 Fork 仓库克隆到本地，并添加 `upstream` 远程仓库以跟踪官方更新：
 
-```
+```bash
 git clone https://github.com/yourname/java-tron.git
 git remote add upstream https://github.com/tronprotocol/java-tron.git
 ```
@@ -19,7 +19,7 @@ git remote add upstream https://github.com/tronprotocol/java-tron.git
 
 在开发新功能之前，务必将您个人 Fork 的仓库与 `upstream`（上游）仓库进行同步，以获取最新的代码更新：
 
-```
+```bash
 git fetch upstream
 git checkout develop
 git merge upstream/develop --no-ff
@@ -32,6 +32,7 @@ git merge upstream/develop --no-ff
 ```shell
 git checkout -b feature/add-new-http-demo develop
 ```
+
 ## 2. 代码实现：新增 `setPeer` HTTP 接口
 
 使用 IntelliJ IDEA 打开 `java-tron` 工程。接下来我们将实现一个 `setPeer` HTTP 接口，以支持用户通过 POST 请求添加信任节点。
@@ -209,6 +210,7 @@ Success to set trusted peer:192.163.3.2:16667
 *   `@After`：在每个测试方法执行后运行一次（用于清理测试环境，如关闭连接）。
 
 ### 3.3 单元测试类的组成
+
 一个典型的单元测试类通常由以下三部分组成：
 
 * **初始化方法**：使用 `@Before` 或 `@BeforeClass` 注解的方法，在测试执行前进行初始化操作，如准备测试数据或配置环境。

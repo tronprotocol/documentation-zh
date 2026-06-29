@@ -36,7 +36,7 @@ curl --request POST \
 | `peerList` | repeated PeerInfo | 各 peer 详情 |
 | `configNodeInfo` | ConfigNodeInfo | 配置（`codeVersion`、`versionNum`、`p2pVersion`、`listenPort` 等） |
 | `machineInfo` | MachineInfo | 机器信息（CPU、内存、磁盘） |
-| `cheatWitnessInfoMap` | map<string,string> | SR 作弊统计（key 为见证人 hex 地址，含 `41` 前缀） |
+| `cheatWitnessInfoMap` | map<string,string> | SR 作弊统计（key 为超级代表 hex 地址，含 `41` 前缀） |
 
 响应示例（截取关键字段，省略 `peerList`、`memoryDescInfoList` 完整内容、`cheatWitnessInfoMap` 等）：
 

@@ -53,7 +53,7 @@ nav:
                 - 广播签名后的交易 JSON: api/http/tx-build-and-broadcast/broadcasttransaction.md
                 - 广播签名后的交易 hex: api/http/tx-build-and-broadcast/broadcasthex.md
             - TRC10 资产:
-                - 发行 TRC10 通证: api/http/asset/createassetissue.md
+                - 发行 TRC10 token: api/http/asset/createassetissue.md
                 - 修改 TRC10 描述: api/http/asset/updateasset.md
                 - 转账 TRC10: api/http/asset/transferasset.md
                 - 参与 TRC10 募资: api/http/asset/participateassetissue.md
@@ -146,7 +146,7 @@ nav:
                 - 查询多签已签署地址: api/rpc/tx-build-and-broadcast/GetTransactionApprovedList.md
                 - 广播签名后的交易 JSON: api/rpc/tx-build-and-broadcast/BroadcastTransaction.md
             - TRC10 资产:
-                - 发行 TRC10 通证: api/rpc/asset/CreateAssetIssue2.md
+                - 发行 TRC10 token: api/rpc/asset/CreateAssetIssue2.md
                 - 修改 TRC10 描述: api/rpc/asset/UpdateAsset2.md
                 - 转账 TRC10: api/rpc/asset/TransferAsset2.md
                 - 参与 TRC10 募资: api/rpc/asset/ParticipateAssetIssue2.md
@@ -258,7 +258,6 @@ nav:
         - 资源模型: mechanism-algorithm/resource.md
         - 智能合约: contracts/contract.md
         - 系统合约: mechanism-algorithm/system-contracts.md
-        - 去中心化交易所: mechanism-algorithm/dex.md
         - 账户权限管理: mechanism-algorithm/multi-signatures.md
     - java-tron开发: 
         - 开发者指南: developers/java-tron.md
@@ -273,8 +272,18 @@ nav:
         - 开发示例: developers/demo.md
     - Dapp开发:
         - 工具: contracts/tools.md
-    - 客户端: 
-        - wallet-cli: clients/wallet-cli.md
+    - 客户端:
+        - wallet-cli:
+            - clients/wallet-cli/index.md
+            - 钱包管理: clients/wallet-cli/wallet-management.md
+            - 账户: clients/wallet-cli/accounts.md
+            - 质押与资源: clients/wallet-cli/staking.md
+            - 交易: clients/wallet-cli/transactions.md
+            - 智能合约: clients/wallet-cli/smart-contracts.md
+            - TRC-10 资产: clients/wallet-cli/trc10.md
+            - 治理: clients/wallet-cli/governance.md
+            - GasFree: clients/wallet-cli/gasfree.md
+            - 查询: clients/wallet-cli/query.md
     - 版本发布:
         - 新版本部署手册: releases/upgrade-instruction.md
         - 一致性检验: releases/signature_verification.md
@@ -362,6 +371,8 @@ markdown_extensions:
     - pymdownx.tilde
     - pymdownx.tasklist
     - pymdownx.superfences
+    - pymdownx.tabbed:
+        alternate_style: true
 
 plugins:
   - search:

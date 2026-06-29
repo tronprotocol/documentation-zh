@@ -10,10 +10,10 @@
 
 ## 核心特点
 
-  - **基于状态快照启动**：轻节点不从创世区块开始同步，而是直接加载一个仅包含全网最新状态和最近 65,536 个区块数据的状态快照。该区块数量为代码中的固定常量，无法通过配置修改。该值 65,536（= 2^16）与 TRON 交易的引用区块窗口一致：每笔交易的 `ref_block_hash` 必须指向最近 65,536 个区块中的某一个，否则该交易将无法通过TAPOS校验。因此轻节点必须保留至少这么多最近区块，才能验证新接收到的交易。
-  - **显著的资源优势**：由于初始数据量远小于全节点，轻节点具有占用磁盘空间小、启动速度快的突出优点。
-  - **提供部分全节点的 API**：默认情况下，轻节点为节省资源禁用了对历史数据（快照范围之外）的查询。其中不支持的 API 请参考 [HTTP](https://github.com/tronprotocol/java-tron/blob/master/framework/src/main/java/org/tron/core/services/filter/LiteFnQueryHttpFilter.java) 和 [gRPC](https://github.com/tronprotocol/java-tron/blob/master/framework/src/main/java/org/tron/core/services/filter/LiteFnQueryGrpcInterceptor.java)。
-  - **功能可扩展**：如果需要开启这些不支持的 API，在配置文件中可以通过配置 `openHistoryQueryWhenLiteFN = true` 来开启。由于轻节点启动后，其保存的数据与全节点完全相同，所以开启该配置项后，所有被过滤的 API 将被重新开放。但快照起始高度之前的历史数据依然无法查询。
+- **基于状态快照启动**：轻节点不从创世区块开始同步，而是直接加载一个仅包含全网最新状态和最近 65,536 个区块数据的状态快照。该区块数量为代码中的固定常量，无法通过配置修改。该值 65,536（= 2^16）与 TRON 交易的引用区块窗口一致：每笔交易的 `ref_block_hash` 必须指向最近 65,536 个区块中的某一个，否则该交易将无法通过TAPOS校验。因此轻节点必须保留至少这么多最近区块，才能验证新接收到的交易。
+- **显著的资源优势**：由于初始数据量远小于全节点，轻节点具有占用磁盘空间小、启动速度快的突出优点。
+- **提供部分全节点的 API**：默认情况下，轻节点为节省资源禁用了对历史数据（快照范围之外）的查询。其中不支持的 API 请参考 [HTTP](https://github.com/tronprotocol/java-tron/blob/master/framework/src/main/java/org/tron/core/services/filter/LiteFnQueryHttpFilter.java) 和 [gRPC](https://github.com/tronprotocol/java-tron/blob/master/framework/src/main/java/org/tron/core/services/filter/LiteFnQueryGrpcInterceptor.java)。
+- **功能可扩展**：如果需要开启这些不支持的 API，在配置文件中可以通过配置 `openHistoryQueryWhenLiteFN = true` 来开启。由于轻节点启动后，其保存的数据与全节点完全相同，所以开启该配置项后，所有被过滤的 API 将被重新开放。但快照起始高度之前的历史数据依然无法查询。
 
 因此，如果应用场景仅需进行区块同步、处理广播交易，轻节点是更高效的选择。
 
@@ -21,10 +21,11 @@
 
 轻节点的部署步骤、配置文件和启动命令与全节点完全一致，请参考 [部署说明](installing_javatron.md) 来部署轻节点。唯一不同的是数据库，您有两种途径可以获取需要的轻节点数据库：
 
- - 从 [公共备份数据](backup_restore.md/#lite-fullnode) 中下载轻节点数据快照，并直接使用；
- - 通过 [轻节点数据剪裁工具](toolkit.md/#lite-fullnode-data-pruning) 将全节点的数据库转换成轻节点的数据库。
+- 从 [公共备份数据](backup_restore.md/#lite-fullnode) 中下载轻节点数据快照，并直接使用；
+- 通过 [轻节点数据剪裁工具](toolkit.md/#lite-fullnode-data-pruning) 将全节点的数据库转换成轻节点的数据库。
 
 ## 轻节点维护
+
 尽管轻节点以很小的数据量启动，但它在运行后会像全节点一样持续同步并保存新的区块数据，因此其磁盘占用会不断增长。
 
 为控制磁盘空间，可以定期对轻节点数据进行维护。维护操作同样使用 [轻节点数据剪裁工具](toolkit.md/#lite-fullnode-data-pruning)，将当前节点数据重新裁剪为一个新的、仅包含最新状态的快照数据集。
