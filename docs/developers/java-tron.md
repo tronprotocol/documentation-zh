@@ -75,33 +75,46 @@
 ## 代码提交流程
 
 ### 1. Fork 与克隆仓库
-```
+
+```bash
 git clone https://github.com/yourname/java-tron.git
 cd java-tron
 git remote add upstream https://github.com/tronprotocol/java-tron.git
 ```
+
 > `upstream` 代表官方仓库。命名可自定义，但习惯上使用 `upstream`。
+>
 ### 2. 同步上游代码
-```
+
+```bash
 git fetch upstream
 git checkout develop
 git merge upstream/develop --no-ff
 ```
+
 > `--no-ff` 用于避免快速合并模式，确保提交历史清晰。
+>
 ### 3. 创建开发分支
-```
+
+```bash
 git checkout -b feature/branch_name develop
 ```
+
 ### 4. 提交改动
-```
+
+```bash
 git add .
 git commit -m "commit message"
 ```
+
 ### 5. 推送分支
-```
+
+```bash
 git push origin feature/branch_name
 ```
+
 ### 6. 发起 Pull Request
+
 从您自己的仓库向 `tronprotocol/java-tron` 提交一个 Pull Request（PR）。
     ![image](https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/javatron_pr.png)
 
@@ -109,16 +122,19 @@ git push origin feature/branch_name
 建议选择红框的选项，将 `tronprotocol/java-tron` 的 `develop` 分支选成 base 分支，将个人的 Fork 仓库的分支选成 compare 分支。
 
 ## 代码审查指南 { #code-review-guidelines }
+
 将代码合并到 **java-tron** 的唯一途径是 **Pull Request (PR)**。
 所有 PR 必须经过审查后才能合并。
 
 ### 审查流程
+
 - 审查者需理解 PR 的动机和改动
 - 对于缺少描述或改动过大的 PR，审查者可要求补充说明
 - 审查者检查代码风格、功能完整性与测试情况
 - 审查者应保持礼貌、尊重并及时跟进
 
 ### 功能验证
+
 - **Bug 修复 PR**
     - 审查者应尝试复现问题并验证修复
     - 推荐提交者提供单元测试：未改动时应失败，改动后应通过
@@ -128,6 +144,7 @@ git push origin feature/branch_name
     - 所有新增代码需提供单元测试
 
 ### 代码规范要求
+
 - 使用代码规范工具检查代码
 - 在提交前自测
 - 通过标准化测试
@@ -140,16 +157,19 @@ CI 工具：
 所有检查通过后，维护者将审查并合并至 `develop`。
 
 > **编码规范**
+>
 >- 遵循 [Google Java Style Guide](https://google.github.io/styleguide/javaguide.html)
 >- 所有 PR 必须基于 `develop` 分支
 
 ## 分支命名规范
+
 1. `master` 和 `develop` 固定命名
 2. `release_*`：以 `release_` 前缀加版本号命名，版本号由项目负责人分配（如 `GreatVoyage-v4.8.0(Kant)` 版本对应 `release_v4.8.0`）
 3. `hotfix/*`：用于紧急修复，单词间以下划线连接（如 `hotfix/typo`、`hotfix/null_point_exception`）
 4. `feature/*`：用于新功能开发，单词间以下划线连接（如 `feature/new_resource_model`）
 
 ## Pull Request 规范
+
 1. 一个 PR 只处理一件事
 2. 避免超大改动量
 3. 标题：简要描述 PR 目标
@@ -159,9 +179,10 @@ CI 工具：
 7. 标题结尾不加句号
 
 ## Commit 描述规范
+
 推荐格式：
 
-```
+```text
 <type>(<scope>): <subject>
 
 <body>
@@ -170,6 +191,7 @@ CI 工具：
 ```
 
 ### Commit 类型
+
 - `feat`：新功能
 - `fix`：Bug 修复
 - `docs`：文档修改
@@ -181,6 +203,7 @@ CI 工具：
 `scope` 用于说明改动位置，例如：`protocol`、`api`、`test`、`docs`、`build`、`db`、`net`。若无合适的 scope，可使用 `*`。
 
 ### Subject 规范
+
 1. 不超过 50 个字符
 2. 使用动词开头，第一人称现在时（如 `change` 而非 `changed` 或 `changes`）
 3. 首字母小写
@@ -188,7 +211,8 @@ CI 工具：
 5. 避免无意义 Commit，建议使用 `git rebase` 命令
 
 示例
-```
+
+```text
 feat(block): optimize the block-producing logic
 
 1. increase the priority for acquiring synchronization lock
@@ -196,7 +220,9 @@ feat(block): optimize the block-producing logic
 
 Closes #1234
 ```
+
 ## 特殊情况处理
+
 - **提交者未跟进**
     - 等待数日后联系；如无回应，可关闭 PR 或由他人继续
 - **提交者在修复 Bug 时顺带重构**
@@ -206,8 +232,8 @@ Closes #1234
     - 审查者可关闭 PR
 
 ## 行为准则
-请保持尊重和建设性，共同营造积极的社区氛围。
 
+请保持尊重和建设性，共同营造积极的社区氛围。
 
 
 

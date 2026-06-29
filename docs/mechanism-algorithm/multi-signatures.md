@@ -33,7 +33,7 @@ TRON 中支持三类权限类型：
 
 ### 1. 账户结构：`Account`
 
-```
+```protobuf
 message Account {
   ...
   Permission owner_permission = 31;
@@ -49,7 +49,8 @@ message Account {
 - `active_permission`：`active` 权限列表，最多支持 8 个。
 
 ### 2. 权限配置：`Permission`
-```
+
+```protobuf
 message Permission {
   enum PermissionType {
     Owner = 0;
@@ -78,7 +79,8 @@ message Permission {
 - `keys`：具备此权限的地址与权重（最多 5 个）。
 
 ### 3. 权限密钥结构：`Key`
-```
+
+```protobuf
 message Key {
   bytes address = 1;
   int64 weight = 2;
@@ -89,7 +91,8 @@ message Key {
 - `weight`：该地址在该权限下的权重。
 
 ### 4. 权限更新交易：`AccountPermissionUpdateContract`
-```
+
+```protobuf
 message AccountPermissionUpdateContract {
   bytes owner_address = 1;
   Permission owner = 2;
@@ -106,42 +109,51 @@ message AccountPermissionUpdateContract {
 `active` 权限通过 `operations` 字段配置可执行哪些 `ContractType`。完整的 `ContractType` 枚举值清单及其 Proto Message、Actuator、状态和业务行为，统一维护在 [系统合约 — ContractType 总览](./system-contracts.md#contracttype) 中。`operations` 字段值的计算请参考 [operations 值计算示例](#2-operations)。
 
 ## 各权限类型说明
+
 ### `owner` 权限（账户主控）
+
 - 拥有账户的全部控制权；
 - 可修改任意权限结构（包括自己）；
 - 创建账户时自动设置，默认阈值为 1，包含账户本身地址；
 - 默认情况下，未指定 `Permission_id` 的交易使用 `owner` 权限。
 
 ### `witness` 权限（出块权限）
+
 - 仅超级代表，超级代表合伙人和超级代表候选人地址可用；
 - 控制出块节点，不具备资金转出等操作权限；
 - 可将出块权限授权给其他地址以提升账户安全性；
 - 必须且只能包含一个 key。
 
 #### 超级代表节点配置示例：
-```
+
+```properties
 # config.conf
 //localWitnessAccountAddress = TMK5c1jd...m6FXFXEz  # TRON 地址
 localwitness = [
   xxx  # TMK5c1jd...m6FXFXEz 地址的私钥
 ]
 ```
+
 若修改了 `witness` 权限，则：
-```
+
+```properties
 localWitnessAccountAddress = TSMC4YzU...PBebBk2E
 localwitness = [
   yyy  # TSMC4YzU...PBebBk2E 地址的私钥
 ]
 ```
+
 >**注意**：`localwitness` 中只允许配置一个私钥。
 
 ### Active 权限（功能权限组合）
+
 - 可组合合约权限，划分子权限给不同角色；
 - 最多支持 8 个 `active` 权限配置；
 - 权限 ID 从 2 开始递增；
 - 默认创建账户时生成一个 `active` 权限，默认阈值为 1，仅包含自身地址。
 
 ## 操作费用
+
 | 操作             | 收费标准       |
 | -------------- | ---------- |
 | 修改账户权限         | 100 TRX    |
@@ -150,7 +162,9 @@ localwitness = [
 以上费用可通过提案调整。
 
 ## 接口与操作示例
+
 ### 1. 修改权限操作流程
+
 1. 使用 `getaccount` 查询当前账户权限结构；
 2. 构造新的权限配置；
 3. 调用 `AccountPermissionUpdateContract`；
@@ -159,7 +173,8 @@ localwitness = [
 **注意**: 当一个区块内有账户权限变更交易时，后续不会再打包该账户的其他交易，以保证账户权限变更交易从下一个区块才实际生效。
 
 #### 示例请求：
-```
+
+```text
 POST http://{{host}}:{{port}}/wallet/accountpermissionupdate
 
 {
@@ -190,11 +205,13 @@ POST http://{{host}}:{{port}}/wallet/accountpermissionupdate
   ]
 }
 ```
+
 ### 2. operations 值计算示例 { #operations-value-calculation-example }
+
 `operations` 是表示可执行合约权限的 32 字节十六进制字符串（小端）。
 以下 Java 示例生成 ID 为 0-45 的合约权限：
 
-```
+```java
 Integer[] contractId = {0, 1, 2, ..., 45};
 byte[] operations = new byte[32];
 for (int id : contractId) {
@@ -203,9 +220,10 @@ for (int id : contractId) {
 System.out.println(ByteArray.toHexString(operations));
 ```
 
->**注意**：上例中的 `contractId` 仅用于演示位运算写法。`ContractType` 的 ID 并不连续（7、21-29、34-40 等为空缺 ID），实际只能对链上 `AVAILABLE_CONTRACT_TYPE` 位图中已包含的合约类型置位，否则交易会被校验拒绝。`AVAILABLE_CONTRACT_TYPE` 大致对应上表的 # 列，但不含 ShieldedTransferContract(51)。
+>**注意**：上例中的 `contractId` 仅用于演示位运算写法。`ContractType` 的 ID 并不连续（7、21-29、34-40 等为空缺 ID），实际只能对链上 `AVAILABLE_CONTRACT_TYPE` 位图中已包含的合约类型置位，否则交易会被校验拒绝。`AVAILABLE_CONTRACT_TYPE` 大致对应 [ContractType 总览](./system-contracts.md#contracttype) 表的 # 列，但不含 ShieldedTransferContract(51)。
 
 ### 3. 交易执行流程
+
 1. 创建交易；
 2. 设置 `Permission_id`（默认为 0，即 `owner` 权限）；
 3. A 用户签名，转发给 B；
@@ -213,21 +231,28 @@ System.out.println(ByteArray.toHexString(operations));
 5. ...
 6. 最后一个用户签名后广播；
 7. 节点验证签名权重总和是否 ≥ `threshold`，若是则接受交易。
+
 >示例代码参考：[wallet-cli 用例](https://github.com/tronprotocol/wallet-cli/blob/develop/src/main/java/org/tron/common/utils/TransactionUtils.java)
 
 ## 辅助接口
+
 ### 查询已签名地址
-```
+
+```text
 POST /wallet/getapprovedlist
 
 rpc GetTransactionApprovedList(Transaction) returns (TransactionApprovedList) {}
 ```
+
 ### 查询签名权重
-```
+
+```text
 POST /wallet/getsignweight
 
 rpc GetTransactionSignWeight(Transaction) returns (TransactionSignWeight) {}
 ```
+
 ## 参考资料
+
 - [TIP-16 权限管理提案](https://github.com/tronprotocol/tips/blob/master/tip-16.md)
 - [Tron.proto 合约类型定义](https://github.com/tronprotocol/java-tron/blob/master/protocol/src/main/protos/core/Tron.proto)

@@ -20,8 +20,8 @@ Tron 私有扩展。构造一条**未签名**的 Tron 交易；签名后通过 H
 | `gas` | `0x0` | 交易最大消耗 energy；最终 `feeLimit = gas × eth_gasPrice`（sun） |
 | `value` | null | TRX 金额（sun，hex） |
 | `data` | null | 合约 bytecode（部署）或 calldata（trigger） |
-| `tokenId` | `0` | TRC10 token id（用于 `TransferAssetContract`） |
-| `tokenValue` | `0` | TRC10 数量 |
+| `tokenId` | `0` | TRC-10 token id（用于 `TransferAssetContract`） |
+| `tokenValue` | `0` | TRC-10 数量 |
 | `abi` | `""` | 部署合约时的 ABI JSON 字符串（如 `[{...}]`） |
 | `name` | `""` | 部署合约名 |
 | `consumeUserResourcePercent` | `0` | 用户分担资源百分比（0–100） |
@@ -105,6 +105,6 @@ curl -X POST https://nile.trongrid.io/jsonrpc \
 | `to` 非空但非法 hex / 长度不对 | `-32602` | 透传 `addressCompatibleToByteArray` 异常 message |
 | `value` 不是合法 hex | `-32602` | `invalid param value: invalid hex number` |
 | `gas` 不是合法 hex | `-32602` | `invalid param value: invalid hex number` |
-| `tokenId` 转字符串后非法（仅 TRC10 路径） | `-32602` | `invalid param value: invalid tokenId` |
+| `tokenId` 转字符串后非法（仅 TRC-10 路径） | `-32602` | `invalid param value: invalid tokenId` |
 | 合约校验失败（`ContractValidateException`） | `-32600` | 透传 message |
 | 内部异常 | `-32000` | 透传 message |

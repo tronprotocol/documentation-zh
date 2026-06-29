@@ -1,6 +1,6 @@
 # /wallet/unfreezeasset
 
-解冻发行方在 `frozen_supply` 中冻结的通证份额（仅 TRC10 发行方调用，到期后才能成功）。
+解冻发行方在 `frozen_supply` 中冻结的 token 份额（仅 TRC-10 发行方调用，到期后才能成功）。
 
 - 源码：`framework/src/main/java/org/tron/core/services/http/UnFreezeAssetServlet.java`
 - Method：`POST`
@@ -10,7 +10,7 @@
 
 | 字段 | 类型 | 必填 | 说明 |
 |---|---|---|---|
-| `owner_address` | string | 是 | TRC10 发行方地址 |
+| `owner_address` | string | 是 | TRC-10 发行方地址 |
 | `permission_id` | int32 | 否 | 多签权限 ID |
 | `visible` | bool | 否 | 地址格式 |
 

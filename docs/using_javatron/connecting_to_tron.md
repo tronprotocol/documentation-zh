@@ -18,7 +18,8 @@ TRON 网络分为以下几类：
 ### 网络标识（P2P 网络 ID）
 
 网络ID(`p2p.version`): 表示希望加入的网络。相关配置项：
-```
+
+```properties
 node {
   ...
   p2p {
@@ -27,6 +28,7 @@ node {
   ...
 }
 ```
+
 特别的：
 
 - 主网：`version=11111`
@@ -35,8 +37,10 @@ node {
 - 私链网络：自定义，设置成其它值
 
 ### 创世块（Genesis Block）
+
 需保证创世块 `genesis.block` 的设置与网络中其它节点的相同，否则无法和其他节点建立连接。主网的 `genesis.block` 配置如下：
-```
+
+```properties
 genesis.block = {
   # Reserve balance
   assets = [
@@ -203,9 +207,12 @@ genesis.block = {
 
 
 ## 节点发现
+
 ### 启用节点发现
+
 节点发现通过配置文件开启和关闭。默认开启，相关配置项如下：
-```
+
+```properties
 node.discovery = {
   ...
   enable = true
@@ -215,15 +222,17 @@ node.discovery = {
 
 
 ### 引导节点
+
 java-tron 使用 [Kademlia](https://zh.wikipedia.org/wiki/Kademlia) 协议发现其他节点。节点发现需要引导节点 (boot 节点)，借助引导节点发现 TRON 网络中的其他节点。引导节点由两部分组成，一部分是种子节点，一部分是配置的主动连接节点，详情见[主动连接](#active-connection-active-peers)。
 
 种子节点也由两部分组成：
 
 #### 配置的 `seed.node` 
+
 使用 `seed.node` 初始化网络连接。应设置为在线稳定的全节点。
 
 
-```
+```properties
 seed.node = {
   ip.list = [
     "3.225.171.164:18888",
@@ -235,12 +244,15 @@ seed.node = {
   ]
 }
 ```
+
 对于TRON主网，可以使用 [社区公共节点](https://developers.tron.network/docs/networks#public-node) 作为种子节点。如果想要获取最新的`seed.node`，可以在官方的 [配置文件](https://github.com/tronprotocol/java-tron/blob/master/framework/src/main/resources/config.conf) 查看。
 如果网卡支持 ipv6，可以使用上述列表中的 ipv6 地址格式的种子节点，将注释符 `#` 去掉即可。
 
 #### 从数据库中读取的持久化节点
+
 持久化节点需要开启节点持久化服务。如果开启该功能，[路由表](https://zh.wikipedia.org/wiki/Kademlia#%E8%B7%AF%E7%94%B1%E8%A1%A8) 中的节点会被定时任务写入数据库，如果节点启动的时候基于此数据库，会从数据库中读取这些节点作为种子节点使用。相关配置项：
-```
+
+```properties
 node.discovery = {
   ...
   persist = true
@@ -249,7 +261,8 @@ node.discovery = {
 ```
 
 节点发现基于 UDP 协议 (User Datagram Protocol)，绑定的默认端口是 `18888`，也可以绑定其他端口。相关配置项：
-```
+
+```properties
 node {
   ...
   listen.port = 18888
@@ -264,6 +277,7 @@ node {
 ## 节点连接
 
 ### 节点连接数量
+
 节点的连接数量由以下几个参数共同控制，通常需要配合调优：
 
 - `node.maxConnections`：节点的最大连接数（默认值：30）。当连接数达到该上限后，来自非可信节点的被动连接会被拒绝。可信节点是指 IP 出现在 `node.passive`、`node.active` 或 `fastForward` 中的节点（这三处的 IP 都会被加入可信列表）。主动连接不受该限制约束：对 `node.active` 中配置的节点的主动连接，仅受 `node.active` 列表大小限制；对通过节点发现协议发现的节点的主动连接，由 `minConnections` 和 `minActiveConnections` 驱动（见下文）。
@@ -271,7 +285,7 @@ node {
 - `node.minActiveConnections`：期望维持的对已发现节点的最小主动连接数（默认值：3）。即使总连接数已经达到或超过 `minConnections`，节点仍会持续向已发现的节点发起主动连接，直到该阈值被满足。
 - `node.maxConnectionsWithSameIp`：允许来自同一 IP 地址的最大连接数（默认值：2），用于缓解来自单一 IP 的滥用。
 
-```
+```properties
 node {
   ...
   maxConnections = 30
@@ -281,15 +295,18 @@ node {
   ...
 }
 ```
+
 注意：`minConnections` 不能超过 `maxConnections`，`minActiveConnections` 不能超过 `minConnections`，否则节点会在启动时自动将其修正到合法范围内。
 
 
 
 ### 主动连接（Active Peers） { #active-connection-active-peers }
+
 主动连接的目标节点来源于三部分：
 
 - 配置的主动节点(高优先级)，不依赖于节点发现，即使节点发现没有开启，当前节点也会主动向这些节点发起连接。相关配置项：
-```
+
+```properties
 node {
   ...
   active = [
@@ -304,7 +321,8 @@ node {
 
 - 节点发现获取到的可连接节点(中优先级)
 - DNS 节点(低优先级)，DNS 树获取的备用节点，需要配置 treeUrls，在前两个来源不足时使用，一般不会使用到。相关配置项(一般不配置)：
-  ```
+
+  ```properties
   dns {
   ...
   # dns urls to get nodes, url format tree://{pubkey}@{domain}, default empty
@@ -314,14 +332,16 @@ node {
   ...
   }
   ```
+
   相比较传统的静态种子节点列表，DNS 树机制在 P2P 网络引导方面具有节点动态更新、不易受攻击等优势。
   
 可以看到，目前主动连接的目标节点来源只有两类，一类是配置的主动节点，一类是节点发现获取到的可连接节点。
 
 ### 被动连接
+
 - `node.passive` 配置的节点。当这些节点主动向当前节点发起连接时，当前节点都会无条件的接受。
 
-```
+```properties
 node {
   ...
   passive = [
@@ -341,30 +361,40 @@ node {
 ![image](https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/network_topology.png)
 
 ## 日志与节点状态验证
+
 ### 查看同步日志
+
 TRON 节点日志位于 `logs/tron.log`，可通过如下命令实时查看：
 
+```bash
+tail -f logs/tron.log
 ```
-$ tail -f logs/tron.log
-```
+
 ### 同步中日志示例：
-```
+
+```text
 pushBlock block number:76, cost/txs:13/0 false
 Success process block Num:76,ID:000000000000004c9e3899ee9952a7f0d9e4f692c7070a48390e6fea8099432f.
 ```
+
 ### 生产区块日志示例（超级代表节点）：
-```
+
+```text
 Generate block 79336 begin
 Generate block 79336 success, trxs:0, pendingCount: 0, rePushCount: 0, postponedCount: 0
 ```
+
 ### 查询节点状态
+
 使用 HTTP 接口获取当前节点运行状态：
 
+```bash
+curl http://127.0.0.1:8090/wallet/getnodeinfo
 ```
-$ curl http://127.0.0.1:8090/wallet/getnodeinfo
-```
+
 返回示例：
-```
+
+```json
 {
   "activeConnectCount": 3,
     "beginSyncNum": 42518346,
@@ -392,20 +422,26 @@ $ curl http://127.0.0.1:8090/wallet/getnodeinfo
     "totalFlow": 8735314
 }
 ```
+
 ### 验证节点同步状态
+
 可在 [TRONSCAN 区块浏览器](https://tronscan.org/) 查询当前区块高度，并与本地接口返回结果对比：
-```
+
+```bash
 curl http://127.0.0.1:8090/wallet/getnowblock
 ```
+
 若区块高度一致，则说明本地节点同步正常。
 
 ## 常见连接问题排查
+
 遇到节点无法连接网络时，可参考以下问题排查：
 
 - **本地时钟偏差**
 
     使用以下命令同步系统时间：
-    ```
+
+    ```bash
     sudo ntpdate -s time.nist.gov
     ```
 
@@ -420,10 +456,13 @@ curl http://127.0.0.1:8090/wallet/getnowblock
 - **Shasta 测试网不支持新节点加入**，请选择 Nile 测试网。
 
 ## 连接私链网络
+
 开发者可通过搭建私有 TRON 网络，获得更大的测试灵活性和控制能力。
 
 ### 配置要点：
+
 - 使用私有的 `node.p2p.version` 值，确保不会与主网或测试网冲突
 
 ### 搭建参考：
+
 - 请参考文档 [私链网络](private_network.md) 获取完整的私链部署说明。
