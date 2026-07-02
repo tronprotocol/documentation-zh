@@ -75,7 +75,7 @@
 
 * **提交 Pull Request (PR)**
 
-  从您的 fork 仓库向 `tronprotocol/documentation-zh` 提交一个 Pull Request。请选择 `tronprotocol/documentation-en` 的 `master` 分支作为 **base branch**（目标分支），并选择您 fork 仓库中的对应分支作为 **compare branch**（比较分支）。
+  从您的 fork 仓库向 `tronprotocol/documentation-zh` 提交一个 Pull Request。请选择 `tronprotocol/documentation-zh` 的 `master` 分支作为 **base branch**（目标分支），并选择您 fork 仓库中的对应分支作为 **compare branch**（比较分支）。
 
 ## 常见问题 (FAQ)
 
