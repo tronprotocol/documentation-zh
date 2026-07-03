@@ -16,6 +16,14 @@
 - **`permission_id`**：交易构造接口可选；用于多签账户指定使用哪个 `Permission`。
 - **金额单位**：除 TRC-10 数量按发行精度外，其他金额一律为 sun（1 TRX = 1e6 sun）。
 
+!!! warning "XSS 安全提示"
+
+    尽管 HTTP API 通过将 `Content-Type` 设置为 `application/json` 降低了浏览器直接将响应解析为 HTML 的风险，但这并不等于完全避免 XSS。部分接口对入参并无严格校验，响应中可能回显用户可控内容（尤其当 `visible=true` 时，地址、备注等字段可能以 UTF-8 字符串原样返回）。在将 API 返回的数据渲染到页面之前，应根据输出上下文进行安全处理。
+
+    正确做法是根据输出位置选择合适的编码方式：在 HTML 文本上下文中使用 HTML 实体编码（如将 `<` 转成 `&lt;`、`>` 转成 `&gt;`、`"` 转成 `&quot;`），或直接使用前端框架自带的默认输出转义机制（如 React JSX、Vue 模板的默认转义）。如果数据被放入 URL 参数中，才应使用 `encodeURIComponent()` 这类 URL 编码方法。注意 `encodeURIComponent()` / `escape()` 属于 URL 编码或旧式编码方式，不能替代 HTML 上下文中的输出转义。
+
+    更多防护指引请参考 [OWASP XSS Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html)。
+
 ## 异常响应
 
 HTTP 状态码在**绝大多数情况下都是 200**（业务错误也通过响应体表达），客户端必须解析响应体判断成败。已知例外：

@@ -20,7 +20,6 @@ nav:
         - 节点维护工具: using_javatron/toolkit.md
     - API接口:
         - 概述: api/index.md
-        - 机器可读定义: api/interface-definitions.md
         - HTTP 接口:
             - 概述: api/http/index.md
             - 账户:
@@ -252,6 +251,7 @@ nav:
                 - etherbase 地址: api/json-rpc/stub/eth_coinbase.md
                 - 节点托管账户列表: api/json-rpc/stub/eth_accounts.md
                 - 挖矿任务信息: api/json-rpc/stub/eth_getWork.md
+        - 机器可读定义: api/interface-definitions.md
     - 核心协议:
         - 波场共识: mechanism-algorithm/dpos.md
         - 超级代表: mechanism-algorithm/sr.md
