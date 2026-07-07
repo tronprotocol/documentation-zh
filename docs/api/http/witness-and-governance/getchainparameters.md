@@ -48,4 +48,5 @@ curl --request POST \
 
 | 触发条件 | 响应 |
 |---|---|
+| 请求体超过 `node.http.maxMessageSize`（POST） | 通常由 `SizeLimitHandler` 返回 HTTP 413 `Payload Too Large` |
 | 节点内部异常（读取 DynamicProperties 失败） | `{"Error": "<exceptionClass> : <message>"}` |

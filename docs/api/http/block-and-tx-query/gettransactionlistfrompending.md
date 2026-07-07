@@ -10,7 +10,7 @@
 
 | 字段 | 类型 | 必填 | 说明 |
 |---|---|---|---|
-| `visible` | bool | 否 | 无效果（响应无 bytes 字段） |
+| `visible` | bool | 否 | 无影响（响应无 bytes 字段） |
 
 示例：
 
@@ -41,4 +41,5 @@ curl --request POST \
 
 | 触发条件 | 响应 |
 |---|---|
+| 请求体超过 `node.http.maxMessageSize`（POST） | 通常由 `SizeLimitHandler` 返回 HTTP 413 `Payload Too Large` |
 | 节点内部异常（读取 pending 池失败） | `{"Error": "<exceptionClass> : <message>"}` |

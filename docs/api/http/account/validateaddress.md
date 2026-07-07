@@ -44,7 +44,7 @@ curl --request POST \
 
 | 触发条件 | 响应 |
 |---|---|
-| 请求体超过 `node.maxMessageSize`（POST） | 空响应（`Util.checkBodySize` 抛 `java.lang.Exception`，被 catch 后丢弃） |
-| 请求体不是合法 JSON（POST） | 空响应（`JSON.parseObject` 抛 `com.alibaba.fastjson.JSONException`，被 catch 后丢弃） |
+| 请求体超过 `node.http.maxMessageSize`（POST） | 通常由 `SizeLimitHandler` 返回 HTTP 413 `Payload Too Large` |
+| 请求体不是合法 JSON（POST） | 空响应（`JSON.parseObject` 抛 `org.tron.json.JSONException`，被 catch 后丢弃） |
 
 GET 路径不读 body，上面两种情况只在 POST 触发。

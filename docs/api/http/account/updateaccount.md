@@ -11,8 +11,8 @@
 | 字段 | 类型 | 必填 | 说明 |
 |---|---|---|---|
 | `owner_address` | string | 是 | 账户地址 |
-| `account_name` | string | 是 | 新的账户名（hex 编码 UTF-8） |
-| `permission_id` | int32 | 否 | 多签权限 ID |
+| `account_name` | string | 否 | 新的账户名（hex 编码 UTF-8）；省略时默认为空值，校验器允许该值 |
+| `Permission_id` | int32 | 否 | 多签权限 ID |
 | `visible` | bool | 否 | 地址、文本字段格式 |
 
 示例：
@@ -66,8 +66,8 @@ curl --request POST \
 
 | 触发条件 | 响应 |
 |---|---|
-| 请求体超过 `node.maxMessageSize` | `{"Error": "class java.lang.Exception : body size is too big, the limit is <N>"}` |
-| 请求体不是合法 JSON / 字段类型不符 | `{"Error": "class com.alibaba.fastjson.JSONException : <解析器信息>"}` 或 `{"Error": "class org.tron.core.services.http.JsonFormat$ParseException : <解码器信息>"}` |
+| 请求体超过 `node.http.maxMessageSize` | 通常由 `SizeLimitHandler` 返回 HTTP 413 `Payload Too Large` |
+| 请求体不是合法 JSON / 字段类型不符 | `{"Error": "class org.tron.json.JSONException : <解析器信息>"}` 或 `{"Error": "class org.tron.core.services.http.JsonFormat$ParseException : <解码器信息>"}` |
 | `account_name` 长度超过 200 字节 | `{"Error": "class org.tron.core.exception.ContractValidateException : Invalid accountName"}` |
 | `owner_address` 不是 21 字节合法地址 | `{"Error": "class org.tron.core.exception.ContractValidateException : Invalid ownerAddress"}` |
 | `owner_address` 在链上不存在 | `{"Error": "class org.tron.core.exception.ContractValidateException : Account does not exist"}` |

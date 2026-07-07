@@ -9,7 +9,7 @@
 
 | 位置 | 类型 | 必填 | 说明 |
 |---|---|---|---|
-| `params[0]` | string | 是 | 区块高度（hex）或 tag（`latest` / `earliest` / `finalized`；`pending` 显式不支持） |
+| `params[0]` | string | 是 | 区块高度（hex）或 tag（`latest` / `earliest` / `finalized`；`pending` 和 `safe` 显式不支持） |
 
 ```bash
 curl -X POST https://nile.trongrid.io/jsonrpc \
@@ -31,5 +31,5 @@ curl -X POST https://nile.trongrid.io/jsonrpc \
 
 | 触发条件 | 错误码 | message |
 |---|---|---|
-| `params[0]` 是 `pending` | `-32602` | `TAG pending not supported` |
+| `params[0]` 是 `pending` 或 `safe` | `-32602` | `TAG pending not supported` 或 `TAG safe not supported` |
 | `params[0]` 不是合法 hex 也不是合法 tag | `-32602` | `invalid block number` |

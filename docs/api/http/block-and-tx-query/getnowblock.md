@@ -30,7 +30,7 @@ curl --request POST \
 | `block_header.raw_data.timestamp` | int64 | 出块时间，毫秒 |
 | `block_header.raw_data.txTrieRoot` | bytes | 交易 Merkle 根 |
 | `block_header.raw_data.parentHash` | bytes | 父区块哈希 |
-| `block_header.raw_data.number` | int64 | 区块号 |
+| `block_header.raw_data.number` | int64 | 区块高度 |
 | `block_header.raw_data.witness_address` | bytes | 出块超级代表地址 |
 | `block_header.raw_data.version` | int32 | 区块版本 |
 | `block_header.witness_signature` | bytes | 超级代表签名 |
@@ -62,4 +62,5 @@ curl --request POST \
 
 | 触发条件 | 响应 |
 |---|---|
+| 请求体超过 `node.http.maxMessageSize`（POST） | 通常由 `SizeLimitHandler` 返回 HTTP 413 `Payload Too Large` |
 | 节点内部异常（读取最新区块或序列化失败） | `{"Error": "<exceptionClass> : <message>"}` |

@@ -12,7 +12,7 @@
 | 字段 | 类型 | 必填 | 说明 |
 |---|---|---|---|
 | `hash` | string | 是 | 区块哈希 hex |
-| `number` | int64 | 是 | 区块号 |
+| `number` | int64 | 是 | 区块高度 |
 | `visible` | bool | 否 | 地址格式 |
 
 示例：
@@ -35,7 +35,7 @@ curl --request POST \
 | 字段 | 类型 | 说明 |
 |---|---|---|
 | `block_identifier.hash` | bytes | 区块哈希 |
-| `block_identifier.number` | int64 | 区块号 |
+| `block_identifier.number` | int64 | 区块高度 |
 | `timestamp` | int64 | 区块时间，毫秒 |
 | `transaction_balance_trace` | repeated TransactionBalanceTrace | 该区块内每笔交易的余额变动 |
 
@@ -78,8 +78,8 @@ curl --request POST \
 
 | 触发条件 | 响应 |
 |---|---|
-| 请求体超过 `node.maxMessageSize` | `{"Error": "class java.lang.Exception : body size is too big, the limit is <N>"}` |
-| 请求体不是合法 JSON / 字段类型不符 | `{"Error": "class com.alibaba.fastjson.JSONException : <解析器信息>"}` 或 `{"Error": "class org.tron.core.services.http.JsonFormat$ParseException : <解码器信息>"}` |
+| 请求体超过 `node.http.maxMessageSize` | 通常由 `SizeLimitHandler` 返回 HTTP 413 `Payload Too Large` |
+| 请求体不是合法 JSON / 字段类型不符 | `{"Error": "class org.tron.json.JSONException : <解析器信息>"}` 或 `{"Error": "class org.tron.core.services.http.JsonFormat$ParseException : <解码器信息>"}` |
 | `BlockIdentifier` 缺失 | `{"Error": "class java.lang.IllegalArgumentException : block_identifier null"}` |
 | `number < 0` | `{"Error": "class java.lang.IllegalArgumentException : block_identifier number less than 0"}` |
 | `hash` 长度不为 32 字节 | `{"Error": "class java.lang.IllegalArgumentException : block_identifier hash length not equals 32"}` |

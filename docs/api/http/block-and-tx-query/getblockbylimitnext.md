@@ -11,8 +11,8 @@
 
 | 字段 | 类型 | 必填 | 说明 |
 |---|---|---|---|
-| `startNum` | int64 | 是 | 起始区块号（含） |
-| `endNum` | int64 | 是 | 结束区块号（不含） |
+| `startNum` | int64 | 是 | 起始区块高度（含） |
+| `endNum` | int64 | 是 | 结束区块高度（不含） |
 | `visible` | bool | 否 | 地址、文本字段格式 |
 
 约束：`endNum > startNum`，且 `endNum - startNum <= 100`。
@@ -72,7 +72,7 @@ curl --request POST \
 
 | 触发条件 | 响应 |
 |---|---|
-| 请求体超过 `node.maxMessageSize`（POST） | `{"Error": "class java.lang.Exception : body size is too big, the limit is <N>"}` |
+| 请求体超过 `node.http.maxMessageSize`（POST） | 通常由 `SizeLimitHandler` 返回 HTTP 413 `Payload Too Large` |
 | `startNum` / `endNum` 不是数字（GET） | `{"Error": "class java.lang.NumberFormatException : <message>"}` |
-| 请求体不是合法 JSON / 字段类型不符（POST） | `{"Error": "class com.alibaba.fastjson.JSONException : <解析器信息>"}` 或 `{"Error": "class org.tron.core.services.http.JsonFormat$ParseException : <解码器信息>"}` |
+| 请求体不是合法 JSON / 字段类型不符（POST） | `{"Error": "class org.tron.json.JSONException : <解析器信息>"}` 或 `{"Error": "class org.tron.core.services.http.JsonFormat$ParseException : <解码器信息>"}` |
 | 其他异常 | `{"Error": "<exceptionClass> : <message>"}` |

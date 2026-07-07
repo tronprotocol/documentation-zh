@@ -9,11 +9,11 @@
 
 | 位置 | 类型 | 必填 | 说明 |
 |---|---|---|---|
-| `params[0]` | object | 是 | `CallArguments`（同 [`eth_call`](eth_call.md)），其中 `from` / `to` / `value` / `data` 用于推断合约类型 |
+| `params[0]` | object | 是 | `CallArguments`（同 [`eth_call`](eth_call.md)），其中 `from` / `to` / `value` / `data` / `input` 用于推断合约类型 |
 
 `CallArguments.getContractType` 推断规则：
 
-- `to` 为空且 `data` 非空 → `CreateSmartContract`
+- `to` 为空且 calldata 非空 → `CreateSmartContract`
 - `to` 是合约地址 → `TriggerSmartContract`
 - `to` 是普通账户且 `value` 非空 → `TransferContract`（直接返回 `0x0`，不进入 EVM 估算）
 - 其它情形 → 抛 `-32600 invalid json request[: invalid value]`
@@ -51,10 +51,11 @@ energy 用量的 hex 编码：
 
 | 触发条件 | 错误码 | message |
 |---|---|---|
-| `from` 缺失 / 非法 hex / 长度不对 | `-32602` | 透传 `addressCompatibleToByteArray` 异常 message |
+| `from` 非法 hex / 长度不对 | `-32602` | 透传 `addressCompatibleToByteArray` 异常 message |
 | `to` 非法 hex / 长度不对 | `-32602` | 透传 `addressCompatibleToByteArray` 异常 message |
-| `from` 合法但 `to` + `data` 都缺失 | `-32600` | `invalid json request` |
+| `from` 合法但 `to` 和 calldata（`data` / `input`）都缺失 | `-32600` | `invalid json request` |
 | `to` 不是合约且 `value` 未传 | `-32600` | `invalid json request: invalid value` |
 | 合约校验失败（`ContractValidateException`） | `-32600` | 透传 message（fallback `invalid contract`） |
 | EVM 执行 `REVERT` | `-32000` | message + 解析后的 revert string；`error.data` 携带原始 revert hex |
+| `input` 不是严格 hex | `-32602` | 透传 `JsonRpcApiUtil.requireValidHex` 校验信息 |
 | `data` / `value` hex 非法或其他内部异常 | `-32000` | 透传 message（双引号被替换为单引号） |

@@ -10,6 +10,8 @@
 
 无。
 
+GET 请求可在 URL 查询参数中添加 `int64_as_string=true`，使 `burnTrxAmount` 以 JSON 字符串返回。
+
 示例：
 
 ```bash
@@ -28,8 +30,15 @@ curl --request POST \
 { "burnTrxAmount": 153731208869910 }
 ```
 
+使用 GET 请求并添加 `?int64_as_string=true` 时：
+
+```json
+{ "burnTrxAmount": "153731208869910" }
+```
+
 ### 异常响应
 
 | 触发条件 | 响应 |
 |---|---|
+| 请求体超过 `node.http.maxMessageSize`（POST） | 通常由 `SizeLimitHandler` 返回 HTTP 413 `Payload Too Large` |
 | 节点内部异常（读取动态属性失败） | `{"Error": "<exceptionClass> : <message>"}` |

@@ -1,6 +1,6 @@
 # /wallet/getblockbynum
 
-按区块号查询区块。
+按区块高度查询区块。
 
 - 源码：`framework/src/main/java/org/tron/core/services/http/GetBlockByNumServlet.java`
 - Method：`GET` / `POST`
@@ -11,7 +11,7 @@
 
 | 字段 | 类型 | 必填 | 说明 |
 |---|---|---|---|
-| `num` | int64 | 是 | 区块号 |
+| `num` | int64 | 否 | 区块高度；GET 和 POST 省略时均默认为 `0` |
 | `visible` | bool | 否 | 地址、文本字段格式 |
 
 GET 示例：`/wallet/getblockbynum?num=66987565`
@@ -52,13 +52,13 @@ curl --request POST \
 }
 ```
 
-区块号不存在返回 `{}`。
+区块高度不存在返回 `{}`。
 
 ### 异常响应
 
 | 触发条件 | 响应 |
 |---|---|
-| 请求体超过 `node.maxMessageSize`（POST） | `{"Error": "class java.lang.Exception : body size is too big, the limit is <N>"}` |
+| 请求体超过 `node.http.maxMessageSize`（POST） | 通常由 `SizeLimitHandler` 返回 HTTP 413 `Payload Too Large` |
 | `num` 不是数字（GET） | `{"Error": "class java.lang.NumberFormatException : <message>"}` |
-| 请求体不是合法 JSON / 字段类型不符（POST） | `{"Error": "class com.alibaba.fastjson.JSONException : <解析器信息>"}` 或 `{"Error": "class org.tron.core.services.http.JsonFormat$ParseException : <解码器信息>"}` |
+| 请求体不是合法 JSON / 字段类型不符（POST） | `{"Error": "class org.tron.json.JSONException : <解析器信息>"}` 或 `{"Error": "class org.tron.core.services.http.JsonFormat$ParseException : <解码器信息>"}` |
 | 其他异常 | `{"Error": "<exceptionClass> : <message>"}` |

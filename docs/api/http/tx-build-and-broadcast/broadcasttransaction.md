@@ -87,8 +87,8 @@ JSON 解析失败、`raw_data` 缺失或类型错等走 `Util.processError`：
 
 | 触发条件 | 响应 |
 |---|---|
-| 请求体超过 `node.maxMessageSize` | `{"Error": "class java.lang.Exception : body size is too big, the limit is <N>"}` |
-| 请求体不是合法 JSON | `{"Error": "class com.alibaba.fastjson.JSONException : <解析器信息>"}` |
+| 请求体超过 `node.http.maxMessageSize` | 通常由 `SizeLimitHandler` 返回 HTTP 413 `Payload Too Large` |
+| 请求体不是合法 JSON | `{"Error": "class org.tron.json.JSONException : <解析器信息>"}` |
 | 缺少 `raw_data`、`raw_data.contract` 不是数组、`signature` 非数组或元素非 hex、`raw_data` 字段类型不符等 | `{"Error": "class java.lang.NullPointerException : null"}`（`Util.packTransaction` 把 `JsonFormat$ParseException` / `ClassCastException` 静默捕获后返回 `null`，下游构造 `TransactionCapsule(null)` 触发空指针） |
 | `raw_data.contract[i].parameter.value` 内字段类型不符 | 该 contract 在 `packTransaction` 内部被 catch 并丢弃，最终广播为空 contract 列表，返回 `{"code": "CONTRACT_VALIDATE_ERROR", "message": "<\"No contract!\" 的 hex>", ...}` |
 | 其他异常 | `{"Error": "<exceptionClass> : <message>"}` |

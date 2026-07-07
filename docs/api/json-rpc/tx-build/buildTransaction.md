@@ -20,6 +20,7 @@ Tron 私有扩展。构造一条**未签名**的 Tron 交易；签名后通过 H
 | `gas` | `0x0` | 交易最大消耗 energy；最终 `feeLimit = gas × eth_gasPrice`（sun） |
 | `value` | null | TRX 金额（sun，hex） |
 | `data` | null | 合约 bytecode（部署）或 calldata（trigger） |
+| `input` | null | `data` 的别名；hex 校验更严格，适合 execution-API 兼容客户端使用 |
 | `tokenId` | `0` | TRC-10 token id（用于 `TransferAssetContract`） |
 | `tokenValue` | `0` | TRC-10 数量 |
 | `abi` | `""` | 部署合约时的 ABI JSON 字符串（如 `[{...}]`） |
@@ -34,7 +35,7 @@ Tron 私有扩展。构造一条**未签名**的 Tron 交易；签名后通过 H
 
 | 条件 | ContractType |
 |---|---|
-| `to` 为空 + `data` 非空 | `CreateSmartContract` |
+| `to` 为空 + calldata 非空 | `CreateSmartContract` |
 | `to` 是合约地址 | `TriggerSmartContract` |
 | `to` 是普通账户 + `tokenId>0` + `tokenValue>0` + `value` 为空 | `TransferAssetContract` |
 | `to` 是普通账户 + `value` 非空 | `TransferContract` |
@@ -103,6 +104,8 @@ curl -X POST https://nile.trongrid.io/jsonrpc \
 | `from` 缺失 / 非法 | `-32600` | `invalid json request` |
 | 合约类型推断失败（如 `to` + `data` + `value` 同时为空） | `-32600` | `invalid json request` |
 | `to` 非空但非法 hex / 长度不对 | `-32602` | 透传 `addressCompatibleToByteArray` 异常 message |
+| `input` 不是严格 hex | `-32602` | 透传 `JsonRpcApiUtil.requireValidHex` 校验信息 |
+| `data` 和 `input` 都设置但解析出的 bytes 不一致 | `-32602` | `both "data" and "input" are set and not equal. Please use "input" to pass transaction call data` |
 | `value` 不是合法 hex | `-32602` | `invalid param value: invalid hex number` |
 | `gas` 不是合法 hex | `-32602` | `invalid param value: invalid hex number` |
 | `tokenId` 转字符串后非法（仅 TRC-10 路径） | `-32602` | `invalid param value: invalid tokenId` |

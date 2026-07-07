@@ -21,7 +21,7 @@
 | `token_id` | int64 | 否 | 调用带入的 TRC-10 token id |
 | `call_token_value` | int64 | 否 | 调用带入的 TRC-10 数量 |
 | `extra_data` | string | 否 | 交易备注（hex；`visible=true` 时为 UTF-8 文本） |
-| `permission_id` | int32 | 否 | 多签权限 ID |
+| `Permission_id` | int32 | 否 | 多签权限 ID |
 | `visible` | bool | 否 | 地址、文本字段格式（响应含 `result.message`，受 `visible` 影响） |
 
 示例：
@@ -95,11 +95,14 @@ curl --request POST \
 
 ### 异常响应
 
-不会写出 `{"Error": ...}`。所有异常被 catch 后写入 `result.code` / `result.message`，HTTP 体仍是 `TransactionExtention`。注意：**EVM revert / runtime 错误不走 `result.code` 路径**，而是 `result.result=true`、`message` 写 revert/runtime 信息，失败标记落在 `transaction.ret[0].ret="FAILED"`。
+请求进入 servlet 后不会写出 `{"Error": ...}`。由 servlet 接管的异常会被 catch 后写入 `result.code` / `result.message`，HTTP 体仍是 `TransactionExtention`。注意：**EVM revert / runtime 错误不走 `result.code` 路径**，而是 `result.result=true`、`message` 写 revert/runtime 信息，失败标记落在 `transaction.ret[0].ret="FAILED"`。
+
+如果请求体在更早的共享 HTTP 传输层被拒绝，例如超过 `node.http.maxMessageSize`，节点通常会由 `SizeLimitHandler` 返回 HTTP 413 `Payload Too Large`，而不会进入该 servlet。
 
 | 触发条件 | `result.result` | `result.code` | `result.message` | 其他 |
 |---|---|---|---|---|
-| 合约不存在 / 校验失败（`ContractValidateException`） | 缺省 (false) | `CONTRACT_VALIDATE_ERROR` | 校验器原始描述 | — |
+| `contract_address` 已设置但合约不存在 | 缺省 (false) | `CONTRACT_VALIDATE_ERROR` | `Smart contract is not exist.` | — |
+| 节点关闭 constant-call 支持 | 缺省 (false) | `CONTRACT_VALIDATE_ERROR` | `this node does not support constant` | — |
 | EVM revert / `require` 失败 | true | 缺省（`SUCCESS`，不出现） | `REVERT opcode executed` | `transaction.ret[0].ret="FAILED"`；`constant_result[0]` 为 `Error(string)` 的 ABI 编码（合约带 reason 时） |
 | EVM 运行时错误（OOG、非法指令等，无 `result.getException()`） | true | 缺省（`SUCCESS`，不出现） | `result.getRuntimeError()` 原始字符串 | 同上 |
 | `result.getException() != null`（如 `OutOfTimeException`） | 缺省 (false) | `OTHER_ERROR` | `<exceptionClass> : <message>`（`"` → `'`） | — |

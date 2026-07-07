@@ -45,15 +45,19 @@ curl --request POST \
 }
 ```
 
-未开启 `vm.estimateEnergy=true` 时调用走异常分支（见下文），通常表现为 `result.code = OTHER_ERROR`、`result.message` 含 `this node does not support estimate energy`。
+未开启 `vm.estimateEnergy=true` 时调用走 `ContractValidateException` 分支（见下文）：`result.code = CONTRACT_VALIDATE_ERROR`，`result.message` 为 `this node does not support estimate energy`。
 
 ### 异常响应
 
-不会写出 `{"Error": ...}`。所有异常被 catch 后写入 `result.code`、`result.message`，HTTP 体仍是 `EstimateEnergyMessage`：
+请求进入 servlet 后不会写出 `{"Error": ...}`。由 servlet 接管的异常会被 catch 后写入 `result.code`、`result.message`，HTTP 体仍是 `EstimateEnergyMessage`。
+
+如果请求体在更早的共享 HTTP 传输层被拒绝，例如超过 `node.http.maxMessageSize`，节点通常会由 `SizeLimitHandler` 返回 HTTP 413 `Payload Too Large`，而不会进入该 servlet。
 
 | 触发条件 | `result.result` | `result.code` | `result.message` |
 |---|---|---|---|
-| 合约不存在 / 校验失败（`ContractValidateException`） | false | `CONTRACT_VALIDATE_ERROR` | 校验器原始描述 |
-| 节点未开启 `vm.estimateEnergy` / EVM revert / 其他 | false | `OTHER_ERROR` | `<exceptionClass> : <message>`（`"` → `'`） |
+| 节点未开启 `vm.estimateEnergy` | false | `CONTRACT_VALIDATE_ERROR` | `this node does not support estimate energy` |
+| 节点关闭 constant-call 支持 | false | `CONTRACT_VALIDATE_ERROR` | `this node does not support constant, so estimate energy cannot work` |
+| `contract_address` 已设置但合约不存在 | false | `CONTRACT_VALIDATE_ERROR` | `Smart contract is not exist.` |
+| EVM exception / retry 耗尽 / 其他非校验异常 | false | `OTHER_ERROR` | `<exceptionClass> : <message>`（`"` → `'`） |
 
 异常路径下 `energy_required` 字段不被填充（值为 0）。

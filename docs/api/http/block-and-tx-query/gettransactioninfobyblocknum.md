@@ -1,6 +1,6 @@
 # /wallet/gettransactioninfobyblocknum
 
-按区块号返回该区块所有交易的 `TransactionInfo`（执行结果）数组。
+按区块高度返回该区块所有交易的 `TransactionInfo`（执行结果）数组。
 
 - 源码：`framework/src/main/java/org/tron/core/services/http/GetTransactionInfoByBlockNumServlet.java`
 - Method：`GET` / `POST`
@@ -12,7 +12,7 @@
 
 | 字段 | 类型 | 必填 | 说明 |
 |---|---|---|---|
-| `num` | int64 | 是 | 区块号 |
+| `num` | int64 | 是 | 区块高度 |
 | `visible` | bool | 否 | 地址、文本字段格式；`visible=true` 时 servlet 额外把 `log[].address`（EVM 20 字节）补 `0x41` 前缀后转 base58 |
 
 示例：
@@ -35,7 +35,7 @@ curl --request POST \
 
 > **注意**：在解析各个交易的 `log` 字段之前，请逐笔确认其结果为 "success"——这是保证数据一致性的推荐做法。
 
-响应示例（区块号 66987565 共 4 笔交易，截取前 2 笔）：
+响应示例（区块高度 66987565 共 4 笔交易，截取前 2 笔）：
 
 ```json
 [
@@ -64,7 +64,7 @@ curl --request POST \
 
 | 触发条件 | 响应 |
 |---|---|
-| 请求体超过 `node.maxMessageSize`（POST） | `{"Error": "class java.lang.Exception : body size is too big, the limit is <N>"}` |
+| 请求体超过 `node.http.maxMessageSize`（POST） | 通常由 `SizeLimitHandler` 返回 HTTP 413 `Payload Too Large` |
 | `num` 不是数字（GET） | `{"Error": "class java.lang.NumberFormatException : <message>"}` |
-| 请求体不是合法 JSON / 字段类型不符（POST） | `{"Error": "class com.alibaba.fastjson.JSONException : <解析器信息>"}` 或 `{"Error": "class org.tron.core.services.http.JsonFormat$ParseException : <解码器信息>"}` |
+| 请求体不是合法 JSON / 字段类型不符（POST） | `{"Error": "class org.tron.json.JSONException : <解析器信息>"}` 或 `{"Error": "class org.tron.core.services.http.JsonFormat$ParseException : <解码器信息>"}` |
 | 其他异常 | `{"Error": "<exceptionClass> : <message>"}` |

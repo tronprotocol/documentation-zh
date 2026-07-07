@@ -51,13 +51,14 @@ curl --request POST \
 
 业务级错误（`SIGERROR` / `DUP_TRANSACTION_ERROR` / `TAPOS_ERROR` 等）按 `result/code/message` 形态返回，`code` 取值与 [`/wallet/broadcasttransaction`](broadcasttransaction.md) 一致。
 
-入参 `transaction` 字段缺失、不是合法 hex、`Transaction.parseFrom` 反序列化失败时走 `Util.processError`（servlet 不调用 `Util.checkBodySize`，因此无 body-size 分支）：
+入参 `transaction` 字段缺失、不是合法 hex、`Transaction.parseFrom` 反序列化失败时走 `Util.processError`（servlet 本身不调用 `Util.checkBodySize`，但共享 `SizeLimitHandler` 仍可能先拒绝超大请求体）：
 
 | 触发条件 | 响应 |
 |---|---|
-| 请求体不是合法 JSON | `{"Error": "class com.alibaba.fastjson.JSONException : <解析器信息>"}` |
+| 请求体超过 `node.http.maxMessageSize` | 通常由 `SizeLimitHandler` 返回 HTTP 413 `Payload Too Large`；该 servlet 本身没有额外调用 `Util.checkBodySize` |
+| 请求体不是合法 JSON | `{"Error": "class org.tron.json.JSONException : <解析器信息>"}` |
 | `transaction` 字段缺失 | 业务级响应 `{"result": false, "code": "CONTRACT_VALIDATE_ERROR", "message": "Contract validate error : No contract!", "transaction": "{}", "txid": "<空 Transaction 的 SHA256>"}`（`getString` 返 null → `ByteArray.fromHexString(null)` 得空数组 → `Transaction.parseFrom` 得空 Transaction → 进入广播） |
-| `transaction` 非字符串（数组/对象/数字） | `{"Error": "class org.bouncycastle.util.encoders.DecoderException : <message>"}`（fastjson `getString` 把非字符串 toString 后交 `ByteArray.fromHexString`） |
+| `transaction` 非字符串（数组/对象/数字） | `{"Error": "class org.bouncycastle.util.encoders.DecoderException : <message>"}`（`org.tron.json.JSONObject#getString` 对标量值使用 `asText(null)`，对数组/对象序列化后再交给 `ByteArray.fromHexString`） |
 | `transaction` 不是合法 hex | `{"Error": "class org.bouncycastle.util.encoders.DecoderException : <message>"}` |
 | `transaction` 不是合法 protobuf | `{"Error": "class com.google.protobuf.InvalidProtocolBufferException : <message>"}` |
 | 其他异常 | `{"Error": "<exceptionClass> : <message>"}` |

@@ -13,8 +13,11 @@
 - **Method**：除少量纯查询接口同时支持 `GET`，多数 POST 接口仅接受 `POST`，请求体为 JSON。
 - **`visible`**：`true` 时地址使用 base58check 字符串形式，URL/描述等文本字段使用 UTF-8 字符串；`false`（默认）时使用 hex 字符串。
 - **构造类接口**返回未签名的 `protocol.Transaction`，需调用方本地签名后通过 [`/wallet/broadcasttransaction`](tx-build-and-broadcast/broadcasttransaction.md) 或 [`/wallet/broadcasthex`](tx-build-and-broadcast/broadcasthex.md) 广播。
-- **`permission_id`**：交易构造接口可选；用于多签账户指定使用哪个 `Permission`。
+- **`Permission_id`**：交易构造接口可选；用于多签账户指定使用哪个 `Permission`。字段名区分大小写。
 - **金额单位**：除 TRC-10 数量按发行精度外，其他金额一律为 sun（1 TRX = 1e6 sun）。
+- **`int64_as_string`**：GET 请求可在 URL 查询参数中添加 `int64_as_string=true`。启用后，protobuf JSON 响应中的 int64 / uint64 字段会序列化为 JSON 字符串，避免 JavaScript 等客户端出现精度损失。该参数只对 GET 请求生效，不影响 POST 请求体。
+- **请求体大小**：HTTP 请求体受 `config.conf` 中 `node.http.maxMessageSize` 限制（默认 `4194304`，约 4 MiB；`0` 表示拒绝所有非空 body）。JSON-RPC 有独立的 `node.jsonrpc.maxMessageSize`。
+- **限流**：HTTP 单接口限流在 `rate.limiter.http` 中配置。全局开关 `rate.limiter.apiNonBlocking` 控制超限行为：`true` 表示立即拒绝，`false` 表示排队并阻塞调用方直到获得 permit。
 
 !!! warning "XSS 安全提示"
 
@@ -29,6 +32,7 @@
 HTTP 状态码在**绝大多数情况下都是 200**（业务错误也通过响应体表达），客户端必须解析响应体判断成败。已知例外：
 
 - 接口被节点配置 `disabledApiList` 显式禁用时，由 `HttpApiAccessFilter` 直接返回 **HTTP 404**，响应体 `{"Error": "this API is unavailable due to config"}`。
+- 请求体超过 `node.http.maxMessageSize` 时，共享 HTTP `SizeLimitHandler` 可能会在目标 servlet 处理请求前直接返回 **HTTP 413**（`Payload Too Large`）。如果请求已经进入 servlet，并由 servlet 内部的 `Util.checkBodySize` 检查到 body 超限，则接口会按自身的异常响应格式返回；部分接口仍可能是 **HTTP 200** 加错误响应体。
 - 节点以 lite fullnode 模式启动且未开启 `openHistoryQueryWhenLiteFN` 时，由 `LiteFnQueryHttpFilter` 对约 24 个历史查询接口（`getblockbynum` / `gettransactionbyid` / `gettransactioninfobyid` / `gettransactioninfobyblocknum` / `getblockbyid` / `getblockbylatestnum` / `getblockbylimitnext` / `gettransactioncountbyblocknum` 等）返回 **HTTP 200**，但响应体是裸字符串 `this API is closed because this node is a lite fullnode`（**非 JSON**），客户端朴素 `JSON.parse` 会抛错，需先按字符串前缀识别。
 - 其它由 servlet 容器/反向代理产生的网络层错误（502、504、连接拒绝等）不在本文档范围。
 

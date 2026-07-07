@@ -35,7 +35,7 @@ curl --request POST \
 |---|---|---|
 | `id` | bytes | 交易 ID |
 | `fee` | int64 | 实际扣除的 TRX 手续费（sun） |
-| `blockNumber` | int64 | 所在区块号 |
+| `blockNumber` | int64 | 所在区块高度 |
 | `blockTimeStamp` | int64 | 区块时间，毫秒 |
 | `contractResult` | repeated bytes | 合约调用返回值 |
 | `contract_address` | bytes | 部署/调用的合约地址 |
@@ -112,7 +112,7 @@ curl --request POST \
 
 | 触发条件 | 响应 |
 |---|---|
-| 请求体超过 `node.maxMessageSize`（POST） | `{"Error": "class java.lang.Exception : body size is too big, the limit is <N>"}` |
+| 请求体超过 `node.http.maxMessageSize`（POST） | 通常由 `SizeLimitHandler` 返回 HTTP 413 `Payload Too Large` |
 | `value` 不是合法 hex | `{"Error": "class org.bouncycastle.util.encoders.DecoderException : <message>"}`（GET）；`{"Error": "class org.tron.core.services.http.JsonFormat$ParseException : <message>"}`（POST） |
-| 请求体不是合法 JSON / 字段类型不符（POST） | `{"Error": "class com.alibaba.fastjson.JSONException : <解析器信息>"}` 或 `{"Error": "class org.tron.core.services.http.JsonFormat$ParseException : <解码器信息>"}` |
+| 请求体不是合法 JSON / 字段类型不符（POST） | `{"Error": "class org.tron.json.JSONException : <解析器信息>"}` 或 `{"Error": "class org.tron.core.services.http.JsonFormat$ParseException : <解码器信息>"}` |
 | 其他异常 | `{"Error": "<exceptionClass> : <message>"}` |

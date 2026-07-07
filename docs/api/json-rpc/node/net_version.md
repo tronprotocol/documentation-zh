@@ -31,4 +31,4 @@ curl -X POST https://nile.trongrid.io/jsonrpc \
 
 ### 异常响应
 
-同 [`eth_chainId`](eth_chainId.md)：底层取不到创世块时抛 `-32000`，透传底层 `Exception.getMessage()`。
+同 [`eth_chainId`](eth_chainId.md)：实现中如果底层取不到创世块，会抛出 `JsonRpcInternalException`；但接口声明没有为该异常配置 `@JsonRpcErrors` 映射。因此，java-tron 不会为该接口暴露稳定的方法级 `-32000` 映射。
