@@ -106,7 +106,7 @@ message AccountPermissionUpdateContract {
 
 ### 5. 合约类型枚举：`ContractType`
 
-`active` 权限通过 `operations` 字段配置可执行哪些 `ContractType`。完整的 `ContractType` 枚举值清单及其 Proto Message、Actuator、状态和业务行为，统一维护在 [系统合约 — ContractType 总览](./system-contracts.md#contracttype) 中。`operations` 字段值的计算请参考 [operations 值计算示例](#2-operations)。
+`active` 权限通过 `operations` 字段配置可执行哪些 `ContractType`。完整的 `ContractType` 枚举值清单及其 Proto Message、Actuator、状态和业务行为，统一维护在 [系统合约 — ContractType 总览](./system-contracts.md#contracttype) 中。`operations` 字段值的计算请参考 [operations 值计算示例](#operations-value-calculation-example)。
 
 ## 各权限类型说明
 
