@@ -193,7 +193,7 @@ event.subscribe = {
     *   当 `startSyncBlockNum <= 0` 时，表示关闭历史事件同步功能；
     *   当 `startSyncBlockNum > 0` 时，表示开启该功能，并从指定区块高度开始同步历史事件。**注意**：启用该功能时建议使用最新版本的事件插件。
 *   `native.useNativeQueue`：是否使用内置消息队列（ZeroMQ）订阅事件。如果需要支持 Kafka 事件订阅，请确保此字段为 `false`，否则 Kafka 事件订阅将无法生效。
-*   `path`：`plugin-kafka-*.zip` 的本地绝对路径。java-tron v4.8.2 及以后，插件包必须声明 `Plugin-Version` 为 `3.0.0` 或更高版本。请确保路径正确，否则无法加载。
+*   `path`：你实际构建或下载的插件 ZIP 文件的本地绝对路径，例如 `plugin-kafka-3.0.0.zip`。java-tron v4.8.2 及以后，插件包必须声明 `Plugin-Version` 为 `3.0.0` 或更高版本。请确保路径正确，否则无法加载。
 *   `server`：Kafka 服务器地址，使用 `ip:port` 的格式。Kafka 默认端口号是 `9092`，请确保端口号正确，并确保 Kafka 服务可访问。
 *   `dbconfig`：此配置项仅针对 MongoDB 插件，对于 Kafka 插件请忽略。
 *   `contractParse`：控制是否对合约日志进行 ABI 解码。设为 `true`（默认值）时，节点会将每条日志与合约 ABI 进行匹配，匹配成功的日志作为解码后的 `contractevent` 事件推送，未匹配的日志则作为原始 `contractlog` 事件推送；设为 `false` 时，跳过 ABI 解码，所有日志均作为原始 `contractlog` 事件推送。
@@ -477,7 +477,7 @@ event.subscribe = {
   native = {
     useNativeQueue = false
   }
-  path = "/deploy/fullnode/event-plugin/build/plugins/plugin-mongodb-*.zip"
+  path = "/deploy/fullnode/event-plugin/build/plugins/<plugin-mongodb-x.x.x.zip>"
   server = "127.0.0.1:27017"
   dbconfig = "eventlog|<eventlog-username>|<eventlog-password>"
   topics = [
@@ -538,7 +538,7 @@ event.subscribe = {
 *   `enable`：事件订阅的全局开关。如果为 `false`，则事件订阅被禁用，插件路径、topics 和 filter 配置都不会生效，除非同时指定了兼容保留的 `--es` 命令行参数。
 *   `startSyncBlockNum`：V2.0 版本新增支持从本地历史区块中处理并推送事件，可满足用户对历史数据的订阅需求。当 `startSyncBlockNum <= 0` 时，表示关闭历史事件同步功能；当 `startSyncBlockNum > 0` 时，表示开启该功能，并从指定区块高度开始同步历史事件。**注意**：启用该功能时建议使用最新版本的事件插件。
 *   `native.useNativeQueue`：是否使用内置消息队列（ZeroMQ）订阅事件。`true` 表示使用内置消息队列，`false` 表示使用插件订阅事件。这里需设置成 `false`。
-*   `path`：插件的绝对路径，例如 `"/deploy/fullnode/event-plugin/build/plugins/plugin-mongodb-*.zip"`。java-tron v4.8.2 及以后，插件包必须声明 `Plugin-Version` 为 `3.0.0` 或更高版本。
+*   `path`：插件的绝对路径。请将占位符 `<plugin-mongodb-x.x.x.zip>` 替换为你实际构建或下载的 ZIP 文件名，例如 `"/deploy/fullnode/event-plugin/build/plugins/plugin-mongodb-3.0.0.zip"`。java-tron v4.8.2 及以后，插件包必须声明 `Plugin-Version` 为 `3.0.0` 或更高版本。
 *   `server`：目标服务器地址，即 MongoDB 的地址和端口，例如 `"127.0.0.1:27017"`。
 *   `dbconfig`：MongoDB 数据库配置，格式为：`数据库名|用户名|密码`，例如 `"eventlog|<eventlog-username>|<eventlog-password>"`。
 *   `topics`：目前支持七种事件类型：`block`、`transaction`、`contractevent`、`contractlog`、`solidity`、`solidityevent` 和 `soliditylog`。详细信息请参考 [事件类型](#event-types) 章节。
