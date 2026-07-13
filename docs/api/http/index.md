@@ -11,6 +11,7 @@
 ## 通用约定
 
 - **Method**：除少量纯查询接口同时支持 `GET`，多数 POST 接口仅接受 `POST`，请求体为 JSON。
+- **GET / POST 边界**：同时支持两种方法的接口会在请求表和异常表中标明适用方法。GET 通常从 URL 查询参数读取，POST 通常读取 JSON 请求体；如果 POST 复用查询参数或忽略请求体，对应接口页面会单独说明。
 - **`visible`**：`true` 时地址使用 base58check 字符串形式，URL/描述等文本字段使用 UTF-8 字符串；`false`（默认）时使用 hex 字符串。
 - **构造类接口**返回未签名的 `protocol.Transaction`，需调用方本地签名后通过 [`/wallet/broadcasttransaction`](tx-build-and-broadcast/broadcasttransaction.md) 或 [`/wallet/broadcasthex`](tx-build-and-broadcast/broadcasthex.md) 广播。
 - **`Permission_id`**：交易构造接口可选；用于多签账户指定使用哪个 `Permission`。字段名区分大小写。

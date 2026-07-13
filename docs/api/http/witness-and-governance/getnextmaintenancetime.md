@@ -7,7 +7,12 @@
 
 ## 请求参数
 
-无（仅 `visible`）。
+GET 和 POST 都从 URL 查询参数读取 `visible`；servlet 不解析 POST 请求体。`int64_as_string` 仅由 `RateLimiterServlet` 在 GET 请求中处理。
+
+| 字段 | 方法 | 类型 | 必填 | 说明 |
+|---|---|---|---|---|
+| `visible` | GET / POST | bool | 否 | 输出格式；默认值为 `false` |
+| `int64_as_string` | GET | bool | 否 | 为 `true` 时，以 JSON 字符串返回 `num` |
 
 示例：
 
@@ -31,7 +36,7 @@ curl --request POST \
 
 ### 异常响应
 
-| 触发条件 | 响应 |
-|---|---|
-| 请求体超过 `node.http.maxMessageSize`（POST） | 通常由 `SizeLimitHandler` 返回 HTTP 413 `Payload Too Large` |
-| 节点内部异常 | `{"Error": "<exceptionClass> : <message>"}` |
+| 方法 | 触发条件 | 响应 |
+|---|---|---|
+| GET / POST | 请求体超过 `node.http.maxMessageSize` | 通常由 `SizeLimitHandler` 返回 HTTP 413 `Payload Too Large` |
+| GET / POST | 节点内部异常 | `{"Error": "<exceptionClass> : <message>"}` |

@@ -8,9 +8,11 @@
 
 ## 请求参数
 
-| 字段 | 类型 | 必填 | 说明 |
-|---|---|---|---|
-| `visible` | bool | 否 | 无影响（响应无 bytes 字段） |
+GET 从 URL 查询参数读取以下字段；POST 从 JSON 请求体读取。
+
+| 字段 | 方法 | 类型 | 必填 | 说明 |
+|---|---|---|---|---|
+| `visible` | GET / POST | bool | 否 | 无影响（响应无 bytes 字段） |
 
 示例：
 
@@ -39,7 +41,7 @@ curl --request POST \
 
 ### 异常响应
 
-| 触发条件 | 响应 |
-|---|---|
-| 请求体超过 `node.http.maxMessageSize`（POST） | 通常由 `SizeLimitHandler` 返回 HTTP 413 `Payload Too Large` |
-| 节点内部异常（读取 pending 池失败） | `{"Error": "<exceptionClass> : <message>"}` |
+| 方法 | 触发条件 | 响应 |
+|---|---|---|
+| GET / POST | 请求体超过 `node.http.maxMessageSize` | 通常由 `SizeLimitHandler` 返回 HTTP 413 `Payload Too Large` |
+| GET / POST | 节点内部异常（读取 pending 池失败） | `{"Error": "<exceptionClass> : <message>"}` |

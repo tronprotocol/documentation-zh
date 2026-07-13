@@ -11,10 +11,12 @@
 
 ## 请求参数
 
-| 字段 | 类型 | 必填 | 说明 |
-|---|---|---|---|
-| `value` | string | 是 | 查询账户地址 |
-| `visible` | bool | 否 | 地址格式 |
+GET 从 URL 查询参数读取以下字段；POST 从 JSON 请求体读取。
+
+| 字段 | 方法 | 类型 | 必填 | 说明 |
+|---|---|---|---|---|
+| `value` | GET / POST | string | 是 | 查询账户地址 |
+| `visible` | GET / POST | bool | 否 | 地址格式 |
 
 示例：
 
@@ -60,10 +62,10 @@ curl --request POST \
 
 ### 异常响应
 
-| 触发条件 | 响应 |
-|---|---|
-| 请求体超过 `node.http.maxMessageSize` | 通常由 `SizeLimitHandler` 返回 HTTP 413 `Payload Too Large` |
-| `value` 不是合法 base58check（`visible=true`） | 含非 base58 字符抛 `{"Error": "class java.lang.IllegalArgumentException : <详情>"}`；仅校验位错误时 `Util.getHexAddress` 静默返回 null → 查询不到记录返回 `{}`（GET、POST 行为一致，POST 在 merge 前先做 base58 → hex 转换） |
-| `value` 不是合法 hex（`visible=false`） | `{"Error": "class org.bouncycastle.util.encoders.DecoderException : <message>"}`（GET）；`{"Error": "class org.tron.core.services.http.JsonFormat$ParseException : <message>"}`（POST） |
-| 请求体不是合法 JSON / 字段类型不符（POST） | `{"Error": "class org.tron.json.JSONException : <解析器信息>"}` 或 `{"Error": "class org.tron.core.services.http.JsonFormat$ParseException : <解码器信息>"}` |
-| 其他异常 | `{"Error": "<exceptionClass> : <message>"}` |
+| 方法 | 触发条件 | 响应 |
+|---|---|---|
+| GET / POST | 请求体超过 `node.http.maxMessageSize` | 通常由 `SizeLimitHandler` 返回 HTTP 413 `Payload Too Large` |
+| GET / POST | `value` 不是合法 base58check（`visible=true`） | 含非 base58 字符抛 `{"Error": "class java.lang.IllegalArgumentException : <详情>"}`；仅校验位错误时 `Util.getHexAddress` 静默返回 null → 查询不到记录返回 `{}`（GET、POST 行为一致，POST 在 merge 前先做 base58 → hex 转换） |
+| GET / POST | `value` 不是合法 hex（`visible=false`） | `{"Error": "class org.bouncycastle.util.encoders.DecoderException : <message>"}`（GET）；`{"Error": "class org.tron.core.services.http.JsonFormat$ParseException : <message>"}`（POST） |
+| POST | 请求体不是合法 JSON / 字段类型不符（POST） | `{"Error": "class org.tron.json.JSONException : <解析器信息>"}` 或 `{"Error": "class org.tron.core.services.http.JsonFormat$ParseException : <解码器信息>"}` |
+| GET / POST | 其他异常 | `{"Error": "<exceptionClass> : <message>"}` |

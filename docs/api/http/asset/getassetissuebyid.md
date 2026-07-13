@@ -8,10 +8,12 @@
 
 ## 请求参数
 
-| 字段 | 类型 | 必填 | 说明 |
-|---|---|---|---|
-| `value` | string | 是 | token id（数字字符串，例如 `"1000001"`） |
-| `visible` | bool | 否 | 地址、文本字段格式 |
+GET 从 URL 查询参数读取以下字段；POST 从 JSON 请求体读取。
+
+| 字段 | 方法 | 类型 | 必填 | 说明 |
+|---|---|---|---|---|
+| `value` | GET / POST | string | 是 | token id（数字字符串，例如 `"1000001"`） |
+| `visible` | GET / POST | bool | 否 | 地址、文本字段格式 |
 
 示例：
 
@@ -60,8 +62,8 @@ curl --request POST \
 
 ### 异常响应
 
-| 触发条件 | 响应 |
-|---|---|
-| 请求体超过 `node.http.maxMessageSize`（POST） | 通常由 `SizeLimitHandler` 返回 HTTP 413 `Payload Too Large` |
-| 请求体不是合法 JSON（POST） | `{"Error": "class org.tron.json.JSONException : <解析器信息>"}` |
-| 其他异常 | `{"Error": "<exceptionClass> : <message>"}` |
+| 方法 | 触发条件 | 响应 |
+|---|---|---|
+| GET / POST | 请求体超过 `node.http.maxMessageSize` | 通常由 `SizeLimitHandler` 返回 HTTP 413 `Payload Too Large` |
+| POST | 请求体不是合法 JSON（POST） | `{"Error": "class org.tron.json.JSONException : <解析器信息>"}` |
+| GET / POST | 其他异常 | `{"Error": "<exceptionClass> : <message>"}` |
