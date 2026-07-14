@@ -87,8 +87,7 @@ curl -X POST https://nile.trongrid.io/jsonrpc \
 |---|---|---|
 | `fromBlock` / `toBlock` 是 `pending` 或 `safe` | `-32602` | `TAG pending not supported` 或 `TAG safe not supported` |
 | `blockHash` 与 `fromBlock` / `toBlock` 同时给 | `-32602` | `cannot specify both BlockHash and FromBlock/ToBlock, choose one or the other` |
-| `blockHash` 格式或长度不符合 hash 规则 | `-32602` | `invalid hash value` |
-| `blockHash` 形状正确但 hex 解码失败 | `-32602` | 透传 `ByteArray.fromHexString` message |
+| `blockHash` 不匹配严格的 `(0x)?[0-9a-fA-F]{64}` hash 规则 | `-32602` | `invalid hash value` |
 | `blockHash` 解码成功但节点找不到该 block | `-32602` | `invalid blockHash` |
 | `fromBlock > toBlock` | `-32602` | `please verify: fromBlock <= toBlock` |
 | 区间跨度超过 `maxBlockRange`（默认 5000） | `-32602` | `exceed max block range: <N>` |

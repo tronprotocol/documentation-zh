@@ -13,10 +13,12 @@
 | 字段 | 类型 | 必填 | 说明 |
 |---|---|---|---|
 | `owner_address` | string | 是 | 解冻账户地址 |
-| `resource` | enum | 否 | `BANDWIDTH` / `ENERGY`，默认 `BANDWIDTH` |
+| `resource` | enum | 否 | `BANDWIDTH` / `ENERGY`；链启用新资源模型时也接受 `TRON_POWER`。默认 `BANDWIDTH` |
 | `receiver_address` | string | 否 | 代理时填代理目标地址 |
 | `Permission_id` | int32 | 否 | 多签权限 ID |
 | `visible` | bool | 否 | 地址格式 |
+
+`TRON_POWER` 仅在链启用 `supportAllowNewResourceModel()` 时可用于解冻旧版 TronPower 冻结，否则会被拒绝。此资源解析规则与接口层面的 Stake 1.0/Stake 2.0 可用性检查相互独立。
 
 示例：
 

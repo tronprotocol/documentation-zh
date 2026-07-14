@@ -13,7 +13,8 @@ GET 从 URL 查询参数读取以下字段；POST 从 JSON 请求体读取。
 
 | 字段 | 方法 | 类型 | 必填 | 说明 |
 |---|---|---|---|---|
-| `value` | GET / POST | string | 是 | token 名（hex 编码 UTF-8） |
+| `value` | GET | string | 是 | token 名（hex 编码 UTF-8） |
+| `value` | POST | string | 否 | token 名；省略时使用空值，`visible=false` 时通常返回 `{}` |
 | `visible` | GET / POST | bool | 否 | 地址、文本字段格式 |
 
 示例：

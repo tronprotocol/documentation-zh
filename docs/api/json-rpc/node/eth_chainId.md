@@ -37,4 +37,8 @@ curl -X POST https://nile.trongrid.io/jsonrpc \
 
 ### 异常响应
 
-实现中如果无法取到 0 号块，会抛出 `JsonRpcInternalException`；但 `eth_chainId` 接口声明没有为该异常配置 `@JsonRpcErrors` 映射。因此，java-tron 不会为该接口暴露稳定的方法级 `-32000` 映射。
+| 触发条件 | 错误码 | message |
+|---|---|---|
+| 无法加载 0 号块 | `-32001` | 底层异常的 message |
+
+实现中如果无法加载 0 号块，会将异常包装为 `JsonRpcInternalException`；但 `eth_chainId` 接口声明没有配置匹配的 `@JsonRpcErrors` 条目。因此，java-tron 的 resolver 不会返回异常映射，jsonrpc4j 随后使用 `ERROR_NOT_HANDLED` fallback（`-32001`）。响应中的 `error.message` 来自底层异常，而不是固定字符串 `JsonRpcInternalException`。

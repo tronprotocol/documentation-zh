@@ -15,10 +15,10 @@
 | `abi` | json string | 否 | 合约 ABI（JSON 数组字符串） |
 | `bytecode` | string | 是 | 合约字节码（hex） |
 | `parameter` | string | 否 | 构造函数参数（hex，紧接 bytecode） |
-| `fee_limit` | int64 | 是 | 交易费用上限（sun） |
+| `fee_limit` | int64 | 否 | 交易费用上限（sun）；省略时默认为 `0` |
 | `call_value` | int64 | 否 | 调用合约带入的 TRX（sun） |
-| `consume_user_resource_percent` | int64 | 是 | 用户承担能量百分比 0–100 |
-| `origin_energy_limit` | int64 | 是 | 部署者承担能量上限 |
+| `consume_user_resource_percent` | int64 | 否 | 用户承担能量百分比 0–100；省略时默认为 `0` |
+| `origin_energy_limit` | int64 | 否 | 部署者承担能量上限；省略时默认为 `0` |
 | `token_id` | int64 | 否 | 调用合约带入的 TRC-10 token id |
 | `call_token_value` | int64 | 否 | 调用合约带入的 TRC-10 数量 |
 | `Permission_id` | int32 | 否 | 多签权限 ID |

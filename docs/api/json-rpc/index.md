@@ -19,8 +19,8 @@ URL 路径恒为 `/jsonrpc`（见 `FullNodeJsonRpcHttpService.java`）。
 
 - **传输**：仅 `POST`，请求体为 [JSON-RPC 2.0](https://www.jsonrpc.org/specification) 格式：`{"jsonrpc":"2.0","method":"...","params":[...],"id":1}`。
 - **HTTP 状态码**：请求进入 `JsonRpcServlet` 后，JSON-RPC 业务错误以 HTTP 200 加响应体 `error` 字段返回。传输层失败仍可能返回非 200 状态码，例如请求体过大可能在 servlet 分发前被拒绝。
-- **数值编码**：所有数值（block number、balance、gas、timestamp 等）使用 `0x` 前缀的十六进制字符串；空值对应 `0x` 或 `0x0`。
-- **地址编码**：JSON-RPC 接口默认接受 0x 前缀的 20 字节 hex 地址；同时兼容 base58check（内部由 `JsonRpcApiUtil.addressCompatibleToByteArray` 转换）。
+- **数值编码**：响应中的 quantity 使用 `0x` 前缀十六进制字符串。区块查询 selector 还接受非负十进制高度，因为 `JsonRpcApiUtil.parseBlockNumber` 同时支持十进制和 `0x` 前缀输入。
+- **地址编码**：JSON-RPC 的状态查询、调用和交易构造接口只接受十六进制地址：20 字节 EVM 风格地址，或以 `41` 开头的 21 字节 Tron 地址；均可带或不带 `0x`。`JsonRpcApiUtil.addressCompatibleToByteArray` 不接受 base58check（`T...`）。日志过滤器使用 20 字节十六进制地址。
 - **调用数据字段**：`eth_call`、`eth_estimateGas` 和 `buildTransaction` 同时接受 `data` 与 `input`。`input` 使用更严格的 execution API hex 规则（必须带 `0x` 前缀、长度为偶数；空字符串表示空 bytes）。`data` 为兼容旧客户端保留较宽松解析。
 - **block tag**：常见的 `latest` / `earliest` / `pending` / `finalized` / `safe` 中，**只有少量方法支持**：
     - `eth_getBlockByNumber`、`eth_getBlockReceipts` 等区块查询方法接受 `latest` / `earliest` / `finalized`；`pending` 和 `safe` 显式不支持，会抛 `-32602 TAG pending not supported` 或 `-32602 TAG safe not supported`。

@@ -14,7 +14,7 @@
 |---|---|---|---|
 | `raw_data` | object | 是 | 与 createtransaction 返回一致 |
 | `raw_data_hex` | string | 否（节点忽略） | 同 [`broadcasttransaction`](broadcasttransaction.md)：客户端可视化辅助字段，不参与验签 |
-| `signature` | string[] | 是 | 已收集的签名（可以只有 1 个） |
+| `signature` | string[] | 否 | 已收集的签名；省略时仍可解析请求，`current_weight` 保持为 `0` |
 | `visible` | bool | 否 | 地址、文本字段格式（响应含 `result.message`，受 `visible` 影响） |
 
 示例：请求体为带 `signature` 的 Transaction JSON，结构同 [`/wallet/broadcasttransaction`](broadcasttransaction.md)。
@@ -33,7 +33,7 @@ curl --request POST \
 '
 ```
 
-> 上例为占位结构；实际请求体应为带至少一个 `signature` 的多签交易 JSON。
+> 上例为占位结构。实际权重计算通常使用已签名的多签交易 JSON，但该接口也接受空的或省略的 `signature` 数组，并在权限结果中报告 `current_weight=0`。
 
 ## 响应
 

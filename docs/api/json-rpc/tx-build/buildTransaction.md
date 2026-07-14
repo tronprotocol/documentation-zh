@@ -15,8 +15,8 @@ Tron 私有扩展。构造一条**未签名**的 Tron 交易；签名后通过 H
 
 | 字段 | 默认 | 说明 |
 |---|---|---|
-| `from` | 必填 | 发送方地址（hex 或 base58check） |
-| `to` | 视情况 | 目标地址；合约部署时为空 |
+| `from` | 必填 | 发送方地址：20 字节 hex，或以 `41` 开头的 21 字节 Tron hex；均可带或不带 `0x`（不接受 base58check） |
+| `to` | 视情况 | 目标地址，格式同 `from`；合约部署时为空 |
 | `gas` | `0x0` | 交易最大消耗 energy；最终 `feeLimit = gas × eth_gasPrice`（sun） |
 | `value` | null | TRX 金额（sun，hex） |
 | `data` | null | 合约 bytecode（部署）或 calldata（trigger） |
@@ -108,6 +108,8 @@ curl -X POST https://nile.trongrid.io/jsonrpc \
 | `data` 和 `input` 都设置但解析出的 bytes 不一致 | `-32602` | `both "data" and "input" are set and not equal. Please use "input" to pass transaction call data` |
 | `value` 不是合法 hex | `-32602` | `invalid param value: invalid hex number` |
 | `gas` 不是合法 hex | `-32602` | `invalid param value: invalid hex number` |
+| `gas × eth_gasPrice` 导致有符号 64 位 `feeLimit` 溢出 | `-32602` | `invalid gas: fee limit overflow` |
+| 部署合约时 `abi` 无法解析 | `-32602` | `invalid abi` |
 | `tokenId` 转字符串后非法（仅 TRC-10 路径） | `-32602` | `invalid param value: invalid tokenId` |
 | 合约校验失败（`ContractValidateException`） | `-32600` | 透传 message |
 | 内部异常 | `-32000` | 透传 message |

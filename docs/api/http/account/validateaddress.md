@@ -11,7 +11,8 @@ GET 从 URL 查询参数读取以下字段；POST 从 JSON 请求体读取。
 
 | 字段 | 方法 | 类型 | 必填 | 说明 |
 |---|---|---|---|---|
-| `address` | GET / POST | string | 是 | 待校验地址，自动按长度判断格式：42 字符 hex / 34 字符 base58check / 28 字符 base64 |
+| `address` | GET | string | 是 | 待校验地址，自动按长度判断格式：42 字符 hex / 34 字符 base58check / 28 字符 base64 |
+| `address` | POST | string | 否 | 待校验地址；省略时返回 `result=false` 及异常信息（旧版 JVM 上该信息可能为 null） |
 
 示例：
 

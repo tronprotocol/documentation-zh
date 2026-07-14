@@ -15,7 +15,8 @@ GET 从 URL 查询参数读取以下字段；POST 从 JSON 请求体读取。
 
 | 字段 | 方法 | 类型 | 必填 | 说明 |
 |---|---|---|---|---|
-| `value` | GET / POST | string | 是 | 查询账户地址 |
+| `value` | GET | string | 是 | 查询账户地址 |
+| `value` | POST | string | 否 | 查询账户地址；省略时使用空 bytes 并返回默认空结果 |
 | `visible` | GET / POST | bool | 否 | 地址格式 |
 
 示例：

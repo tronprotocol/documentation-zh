@@ -13,7 +13,7 @@
 | 字段 | 类型 | 必填 | 说明 |
 |---|---|---|---|
 | `owner_address` | string | 是 | 调用方地址（合约 `msg.sender`） |
-| `contract_address` | string | 是 | 目标合约地址 |
+| `contract_address` | string | 条件必填 | 目标合约地址；必须提供 `contract_address` 或 `data` |
 | `function_selector` | string | 否 | 函数签名 |
 | `parameter` | string | 否 | ABI 编码参数（hex） |
 | `data` | string | 否 | 调用 data（hex），与 `function_selector` 二选一 |
@@ -23,6 +23,8 @@
 | `extra_data` | string | 否 | 交易备注（hex；`visible=true` 时为 UTF-8 文本） |
 | `Permission_id` | int32 | 否 | 多签权限 ID |
 | `visible` | bool | 否 | 地址、文本字段格式（响应含 `result.message`，受 `visible` 影响） |
+
+必填约束为 `owner_address AND (contract_address OR data)`。提供 `data` 时可省略 `contract_address`，例如模拟部署合约。
 
 示例：
 
@@ -97,7 +99,7 @@ curl --request POST \
 
 请求进入 servlet 后不会写出 `{"Error": ...}`。由 servlet 接管的异常会被 catch 后写入 `result.code` / `result.message`，HTTP 体仍是 `TransactionExtention`。注意：**EVM revert / runtime 错误不走 `result.code` 路径**，而是 `result.result=true`、`message` 写 revert/runtime 信息，失败标记落在 `transaction.ret[0].ret="FAILED"`。
 
-如果请求体在更早的共享 HTTP 传输层被拒绝，例如超过 `node.http.maxMessageSize`，节点通常会由 `SizeLimitHandler` 返回 HTTP 413 `Payload Too Large`，而不会进入该 servlet。
+在请求进入此 servlet 前，共享层仍可能返回不同结构：请求体超限时，`SizeLimitHandler` 通常返回 HTTP 413 `Payload Too Large`；非阻塞限流拒绝则返回 HTTP 200 和 `{"Error":"class java.lang.IllegalAccessException : lack of computing resources"}`。
 
 | 触发条件 | `result.result` | `result.code` | `result.message` | 其他 |
 |---|---|---|---|---|

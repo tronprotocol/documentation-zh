@@ -12,7 +12,8 @@ GET 从 URL 查询参数读取以下字段；POST 从 JSON 请求体读取。
 
 | 字段 | 方法 | 类型 | 必填 | 说明 |
 |---|---|---|---|---|
-| `value` | GET / POST | string | 是 | token id（数字字符串，例如 `"1000001"`） |
+| `value` | GET | string | 是 | token id（数字字符串，例如 `"1000001"`） |
+| `value` | POST | string | 否 | token id；省略时使用空值并返回 `{}` |
 | `visible` | GET / POST | bool | 否 | 地址、文本字段格式 |
 
 示例：

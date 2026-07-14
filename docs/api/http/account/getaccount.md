@@ -12,7 +12,8 @@ GET 从 URL 查询参数读取以下字段；POST 从 JSON 请求体读取。
 
 | 字段 | 方法 | 类型 | 必填 | 说明 |
 |---|---|---|---|---|
-| `address` | GET / POST | string | 是 | 账户地址；`visible=false` 为 hex（21 字节，0x41 前缀），`visible=true` 为 base58check |
+| `address` | GET | string | 是 | 账户地址；`visible=false` 为 hex（21 字节，0x41 前缀），`visible=true` 为 base58check |
+| `address` | POST | string | 否 | 账户地址；省略时使用 Protobuf 空地址，通常返回 `{}` |
 | `visible` | GET / POST | bool | 否 | 地址、文本字段格式 |
 
 POST 示例：
@@ -48,7 +49,9 @@ curl --request POST \
 | `asset` / `assetV2` | map\<string,int64\> | 持有的 TRC-10 |
 | `allowance` | int64 | 超级代表未提取奖励 |
 | `latest_opration_time` | int64 | 最近一次操作时间 |
-| `owner_permission` / `witness_permission` / `active_permission` | Permission | 权限配置 |
+| `owner_permission` | Permission | Owner 权限配置 |
+| `witness_permission` | Permission | Witness 权限配置（SR 账户存在） |
+| `active_permission` | repeated Permission | Active 权限配置列表 |
 
 响应示例：
 

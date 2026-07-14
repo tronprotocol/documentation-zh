@@ -19,7 +19,7 @@
 | `call_value` | int64 | 否 | 调用带入的 TRX（sun） |
 | `token_id` | int64 | 否 | 调用带入 TRC-10 token id |
 | `call_token_value` | int64 | 否 | 调用带入 TRC-10 数量 |
-| `fee_limit` | int64 | 是 | 交易费用上限（sun） |
+| `fee_limit` | int64 | 否 | 交易费用上限（sun）；省略时默认为 `0` |
 | `Permission_id` | int32 | 否 | 多签权限 ID |
 | `visible` | bool | 否 | 地址、文本字段格式（响应含 `result.message`，受 `visible` 影响） |
 
@@ -96,7 +96,7 @@ curl --request POST \
 
 请求进入 servlet 后不会写出 `{"Error": ...}`。由 servlet 接管的异常会被 catch 后写入 `result.code`、`result.message`，HTTP 体仍是 `TransactionExtention`。
 
-如果请求体在更早的共享 HTTP 传输层被拒绝，例如超过 `node.http.maxMessageSize`，节点通常会由 `SizeLimitHandler` 返回 HTTP 413 `Payload Too Large`，而不会进入该 servlet。
+在请求进入此 servlet 前，共享层仍可能返回不同结构：请求体超限时，`SizeLimitHandler` 通常返回 HTTP 413 `Payload Too Large`；非阻塞限流拒绝则返回 HTTP 200 和 `{"Error":"class java.lang.IllegalAccessException : lack of computing resources"}`。
 
 | 触发条件 | `result.result` | `result.code` | `result.message` |
 |---|---|---|---|

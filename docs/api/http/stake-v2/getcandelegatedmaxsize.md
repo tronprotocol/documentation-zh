@@ -13,7 +13,8 @@ GET 从 URL 查询参数读取以下字段；POST 从 JSON 请求体读取。
 
 | 字段 | 方法 | 类型 | 必填 | 说明 |
 |---|---|---|---|---|
-| `owner_address` | GET / POST | string | 是 | 账户地址 |
+| `owner_address` | GET | string | 是 | 账户地址 |
+| `owner_address` | POST | string | 否 | 账户地址；省略时使用空 bytes 并返回默认结果 |
 | `type` | GET / POST | int32 | 否 | 资源类型：`0`=BANDWIDTH（默认），`1`=ENERGY |
 | `visible` | GET / POST | bool | 否 | 地址格式 |
 

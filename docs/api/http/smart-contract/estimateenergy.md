@@ -10,7 +10,19 @@
 
 ## 请求参数
 
-参数同 [`/wallet/triggerconstantcontract`](triggerconstantcontract.md)。
+| 字段 | 类型 | 必填 | 说明 |
+|---|---|---|---|
+| `owner_address` | string | 是 | 调用方地址（合约 `msg.sender`） |
+| `contract_address` | string | 条件必填 | 目标合约地址；必须提供 `contract_address` 或 `data` |
+| `function_selector` | string | 否 | 函数签名 |
+| `parameter` | string | 否 | ABI 编码参数（hex） |
+| `data` | string | 否 | 预先构造的调用或部署 data（hex） |
+| `call_value` | int64 | 否 | 模拟调用带入的 TRX（sun） |
+| `token_id` | int64 | 否 | 模拟调用带入的 TRC-10 token id |
+| `call_token_value` | int64 | 否 | 模拟调用带入的 TRC-10 数量 |
+| `visible` | bool | 否 | 地址和响应文本字段格式 |
+
+必填约束为 `owner_address AND (contract_address OR data)`。与 [`/wallet/triggerconstantcontract`](triggerconstantcontract.md) 不同，此 servlet 不应用 `Permission_id` 或 `extra_data`，也不读取 `fee_limit`。
 
 示例：
 
@@ -51,7 +63,7 @@ curl --request POST \
 
 请求进入 servlet 后不会写出 `{"Error": ...}`。由 servlet 接管的异常会被 catch 后写入 `result.code`、`result.message`，HTTP 体仍是 `EstimateEnergyMessage`。
 
-如果请求体在更早的共享 HTTP 传输层被拒绝，例如超过 `node.http.maxMessageSize`，节点通常会由 `SizeLimitHandler` 返回 HTTP 413 `Payload Too Large`，而不会进入该 servlet。
+在请求进入此 servlet 前，共享层仍可能返回不同结构：请求体超限时，`SizeLimitHandler` 通常返回 HTTP 413 `Payload Too Large`；非阻塞限流拒绝则返回 HTTP 200 和 `{"Error":"class java.lang.IllegalAccessException : lack of computing resources"}`。
 
 | 触发条件 | `result.result` | `result.code` | `result.message` |
 |---|---|---|---|

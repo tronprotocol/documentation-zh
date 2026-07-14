@@ -15,10 +15,12 @@
 | `owner_address` | string | 是 | 冻结账户地址 |
 | `frozen_balance` | int64 | 是 | 冻结金额（sun） |
 | `frozen_duration` | int64 | 否 | 冻结天数；省略时默认为 `0`。仅当 `block.checkFrozenTime=1` 时校验，届时必须处于 `[minFrozenTime, maxFrozenTime]` 内（通常为 `[3, 3]`） |
-| `resource` | enum | 否 | `BANDWIDTH` / `ENERGY`，默认 `BANDWIDTH` |
+| `resource` | enum | 否 | `BANDWIDTH` / `ENERGY`；链启用新资源模型时也接受 `TRON_POWER`。默认 `BANDWIDTH` |
 | `receiver_address` | string | 否 | 资源代理目标地址（不填为自己） |
 | `Permission_id` | int32 | 否 | 多签权限 ID |
 | `visible` | bool | 否 | 地址格式 |
+
+`resource=TRON_POWER` 时必须省略 `receiver_address`，因为 TronPower 不能委托。未启用 `supportAllowNewResourceModel()` 的节点会拒绝 `TRON_POWER`。此外，启用 Stake 2.0 后，节点通常会整体拒绝此旧版 Stake 1.0 冻结操作。
 
 示例：
 

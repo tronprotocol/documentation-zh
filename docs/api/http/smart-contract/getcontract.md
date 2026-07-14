@@ -12,7 +12,7 @@ GET 从 URL 查询参数读取以下字段；POST 从 JSON 请求体读取。
 
 | 字段 | 方法 | 类型 | 必填 | 说明 |
 |---|---|---|---|---|
-| `value` | GET / POST | string | 是 | 合约地址 |
+| `value` | GET / POST | string | 否 | 合约地址；省略时使用空 bytes 查询并返回 `{}` |
 | `visible` | GET / POST | bool | 否 | 地址格式（响应中 `name` 为 proto `string`，不受 `visible` 影响） |
 
 示例：

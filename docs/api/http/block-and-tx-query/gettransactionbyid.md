@@ -13,7 +13,8 @@ GET 从 URL 查询参数读取以下字段；POST 从 JSON 请求体读取。
 
 | 字段 | 方法 | 类型 | 必填 | 说明 |
 |---|---|---|---|---|
-| `value` | GET / POST | string | 是 | 交易 ID hex（32 字节） |
+| `value` | GET | string | 是 | 交易 ID hex（32 字节） |
+| `value` | POST | string | 否 | 交易 ID；省略时使用空 bytes 并返回 `{}` |
 | `visible` | GET / POST | bool | 否 | 地址、文本字段格式 |
 
 示例：

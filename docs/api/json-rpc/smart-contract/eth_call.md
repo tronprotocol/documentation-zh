@@ -10,7 +10,7 @@
 | 位置 | 类型 | 必填 | 说明 |
 |---|---|---|---|
 | `params[0]` | object | 是 | `CallArguments` 对象，见下表 |
-| `params[1]` | string \| object | 是 | 区块标识：tag 字符串，或 `{"blockNumber": "0x..."}` / `{"blockHash": "0x..."}` 对象（EIP-1898）。字符串 tag 只支持 `latest`；对象形式会检查引用区块是否存在，但执行仍使用 latest state |
+| `params[1]` | string \| object | 是 | 区块标识：tag 字符串，或包含 `blockNumber`（非负 `0x`-hex 或十进制）或 `blockHash`（严格的 32 字节 hex）的对象。字符串 tag 只支持 `latest`；对象形式会检查引用区块是否存在，但执行仍使用 latest state |
 
 `CallArguments` 字段（`framework/src/main/java/org/tron/core/services/jsonrpc/types/CallArguments.java`）：
 
@@ -25,7 +25,7 @@
 
 `input` 使用更严格的 execution API hex 规则：必须带 `0x` 前缀，且 hex 位数为偶数；`""` 可作为空 bytes。`data` 为兼容旧客户端保留较宽松解析。
 
-对于 `params[1]`，字符串 block tag 必须为 `latest`。EIP-1898 object 形式接受已存在的 `blockNumber` / `blockHash` 并检查该区块存在，但调用仍基于 latest state 执行，不做历史状态执行。
+对于 `params[1]`，字符串 block tag 必须为 `latest`。EIP-1898 object 形式接受已存在的 `blockNumber` / `blockHash` 并检查该区块存在，但调用仍基于 latest state 执行，不做历史状态执行。额外的对象属性会被忽略；若两个 selector 同时存在，`blockNumber` 优先。
 
 ```bash
 # 例：调用 Nile testnet 上 Tether USD（USDT）的 symbol() 函数
@@ -60,10 +60,11 @@ curl -X POST https://nile.trongrid.io/jsonrpc \
 |---|---|---|
 | `params[1]` 既不是 string 也不是 object | `-32600` | `invalid json request` |
 | `params[1]` object 形式中 `blockNumber` / `blockHash` 都缺失 | `-32600` | `invalid json request` |
-| `params[1]` 中 `blockNumber` 不是合法 hex | `-32602` | `invalid block number` |
+| `params[1]` 中 `blockNumber` 不是合法的非负 hex/十进制高度 | `-32602` | `invalid block number` |
+| `params[1]` 中 `blockHash` 不匹配 `(0x)?[0-9a-fA-F]{64}` | `-32602` | `invalid hash value` |
 | `params[1]` 中指定的块不存在 | `-32000` | `header not found` 或 `header for hash not found` |
 | `params[1]` tag 是 `earliest` / `pending` / `finalized` / `safe` | `-32602` | `TAG [earliest \| pending \| finalized \| safe] not supported` |
-| `params[1]` 是具体 hex 高度（即便有效） | `-32602` | `QUANTITY not supported, just support TAG as latest` |
+| 字符串形式的 `params[1]` 是具体 hex 或十进制高度（即便有效） | `-32602` | `QUANTITY not supported, just support TAG as latest` |
 | `from` / `to` 地址非法 | `-32602` | 透传 message |
 | `input` 不是严格 hex | `-32602` | 透传 `JsonRpcApiUtil.requireValidHex` 校验信息 |
 | `value` 不是合法 hex | `-32602` | `invalid param value: invalid hex number` |

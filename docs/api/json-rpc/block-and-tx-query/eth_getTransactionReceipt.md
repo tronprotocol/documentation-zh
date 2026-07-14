@@ -87,5 +87,4 @@ curl -X POST https://nile.trongrid.io/jsonrpc \
 
 | 触发条件 | 错误码 | message |
 |---|---|---|
-| `params[0]` 不匹配 `(0x)?[a-zA-Z0-9]{64}` | `-32602` | `invalid hash value` |
-| `params[0]` 是合法 64 字符但解码失败 | `-32602` | 透传 `ByteArray.fromHexString` 异常 message |
+| `params[0]` 不匹配 `(0x)?[0-9a-fA-F]{64}` | `-32602` | `invalid hash value` |

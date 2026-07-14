@@ -9,8 +9,8 @@
 
 | 位置 | 类型 | 必填 | 说明 |
 |---|---|---|---|
-| `params[0]` | string | 是 | 合约地址（20 字节 hex 或 base58check） |
-| `params[1]` | string | 是 | 存储槽索引，32 字节 hex |
+| `params[0]` | string | 是 | 合约地址：20 字节 hex，或以 `41` 开头的 21 字节 Tron hex；均可带或不带 `0x`（不接受 base58check） |
+| `params[1]` | string | 是 | 存储槽索引，带或不带 `0x` 的 hex 编码；短于 32 字节时在左侧补 `0` |
 | `params[2]` | string | 是 | 区块标识，**仅支持 `latest`** |
 
 ```bash
@@ -34,7 +34,7 @@ curl -X POST https://nile.trongrid.io/jsonrpc \
 | 触发条件 | 错误码 | message |
 |---|---|---|
 | `params[2]` 是 `earliest` / `pending` / `finalized` / `safe` | `-32602` | `TAG [earliest \| pending \| finalized \| safe] not supported` |
-| `params[2]` 是合法 hex 数字 | `-32602` | `QUANTITY not supported, just support TAG as latest` |
-| `params[2]` 既不是合法 tag 也不是合法 hex | `-32602` | `invalid block number` |
+| `params[2]` 是合法 hex 或十进制数字 | `-32602` | `QUANTITY not supported, just support TAG as latest` |
+| `params[2]` 既不是合法 tag，也不是合法的非负 hex/十进制数字 | `-32602` | `invalid block number` |
 | `params[0]` 不是合法地址 | `-32602` | 透传 message |
 | `params[1]` 为 null、过长，或无法解码为合法 storage key | `-32602` | `invalid storage key value` |

@@ -9,7 +9,7 @@
 
 | 位置 | 类型 | 必填 | 说明 |
 |---|---|---|---|
-| `params[0]` | string | 是 | 区块 hash（64 hex 字符）/ 区块高度（hex）/ tag（`latest` / `earliest` / `finalized`；`pending` 和 `safe` 显式不支持） |
+| `params[0]` | string | 是 | 区块 hash（64 个 hex 字符）、非负区块高度（`0x` 前缀 hex 或十进制），或 tag（`latest` / `earliest` / `finalized`；`pending` 和 `safe` 显式不支持） |
 
 ```bash
 curl -X POST https://nile.trongrid.io/jsonrpc \
@@ -95,7 +95,6 @@ curl -X POST https://nile.trongrid.io/jsonrpc \
 
 | 触发条件 | 错误码 | message |
 |---|---|---|
-| `params[0]` 既不是 hash-shaped 也不是合法 hex 高度 / tag | `-32602` | `invalid block number` |
-| `params[0]` 是 hash-shaped（`(0x)?[a-zA-Z0-9]{64}`）但含非 hex 字符 | `-32602` | 透传 `ByteArray.fromHexString` 异常 message |
+| `params[0]` 既不是严格的 32 字节 hex hash，也不是合法的非负 hex/十进制高度或 tag | `-32602` | `invalid block number` |
 | `params[0]` 是 `pending` 或 `safe` | `-32602` | `TAG pending not supported` 或 `TAG safe not supported` |
 | 区块交易列表与 `TransactionInfoList` 长度不一致（不应发生，仅作为防御性校验） | `-32000` | `TransactionList size mismatch: block has %d transactions, but transactionInfoList has %d` |

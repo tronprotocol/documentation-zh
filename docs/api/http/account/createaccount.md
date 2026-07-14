@@ -12,7 +12,7 @@
 |---|---|---|---|
 | `owner_address` | string | 是 | 付费方地址 |
 | `account_address` | string | 是 | 待创建的新账户地址 |
-| `type` | enum | 否 | 0=Normal（默认），1=AssetIssue，2=Contract |
+| `type` | enum | 否 | 账户类型，可使用数字（`0`=Normal、`1`=AssetIssue、`2`=Contract）或 Protobuf 枚举名（`Normal`、`AssetIssue`、`Contract`）；默认 `Normal` |
 | `Permission_id` | int32 | 否 | 多签权限 ID |
 | `visible` | bool | 否 | 地址格式 |
 

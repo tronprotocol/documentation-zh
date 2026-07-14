@@ -13,8 +13,10 @@ GET 从 URL 查询参数读取以下字段；POST 从 JSON 请求体读取。
 
 | 字段 | 方法 | 类型 | 必填 | 说明 |
 |---|---|---|---|---|
-| `fromAddress` | GET / POST | string | 是 | 出借方地址 |
-| `toAddress` | GET / POST | string | 是 | 接收方地址 |
+| `fromAddress` | GET | string | 是 | 出借方地址 |
+| `fromAddress` | POST | string | 否 | 出借方地址；省略时使用空 bytes 并返回空结果 |
+| `toAddress` | GET | string | 是 | 接收方地址 |
+| `toAddress` | POST | string | 否 | 接收方地址；省略时使用空 bytes 并返回空结果 |
 | `visible` | GET / POST | bool | 否 | 地址格式 |
 
 示例：

@@ -12,7 +12,7 @@
 |---|---|---|---|
 | `owner_address` | string | 是 | 部署者地址 |
 | `contract_address` | string | 是 | 合约地址 |
-| `consume_user_resource_percent` | int64 | 是 | 用户承担能量百分比 0–100 |
+| `consume_user_resource_percent` | int64 | 否 | 用户承担能量百分比 0–100；省略时默认为 `0`，可通过 `[0,100]` 范围校验 |
 | `Permission_id` | int32 | 否 | 多签权限 ID |
 | `visible` | bool | 否 | 地址格式 |
 

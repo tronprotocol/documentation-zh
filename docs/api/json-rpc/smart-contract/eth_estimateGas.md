@@ -53,9 +53,12 @@ energy 用量的 hex 编码：
 |---|---|---|
 | `from` 非法 hex / 长度不对 | `-32602` | 透传 `addressCompatibleToByteArray` 异常 message |
 | `to` 非法 hex / 长度不对 | `-32602` | 透传 `addressCompatibleToByteArray` 异常 message |
-| `from` 合法但 `to` 和 calldata（`data` / `input`）都缺失 | `-32600` | `invalid json request` |
+| `to` 为空，且解析后的 calldata 缺失、为 `""` 或为 `"0x"`（`input` 非 null 时优先于 `data`） | `-32600` | `invalid json request` |
 | `to` 不是合约且 `value` 未传 | `-32600` | `invalid json request: invalid value` |
 | 合约校验失败（`ContractValidateException`） | `-32600` | 透传 message（fallback `invalid contract`） |
 | EVM 执行 `REVERT` | `-32000` | message + 解析后的 revert string；`error.data` 携带原始 revert hex |
 | `input` 不是严格 hex | `-32602` | 透传 `JsonRpcApiUtil.requireValidHex` 校验信息 |
-| `data` / `value` hex 非法或其他内部异常 | `-32000` | 透传 message（双引号被替换为单引号） |
+| `data` 不是合法的宽松 hex | `-32602` | 透传 `JsonRpcApiUtil.requireValidHex` 校验信息 |
+| 普通转账路径上的 `value` 不是合法的非负 hex long | `-32602` | `invalid param value: invalid hex number` 或 `invalid param value: negative` |
+| 合约调用或部署路径上的 `value` 不是合法的非负 hex long | `-32000` | 透传解析异常的 message |
+| 合约调用或部署估算期间的其他内部异常 | `-32000` | 透传 message（双引号被替换为单引号） |

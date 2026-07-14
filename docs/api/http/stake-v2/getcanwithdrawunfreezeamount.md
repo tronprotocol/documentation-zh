@@ -13,7 +13,8 @@ GET 从 URL 查询参数读取以下字段；POST 从 JSON 请求体读取。
 
 | 字段 | 方法 | 类型 | 必填 | 说明 |
 |---|---|---|---|---|
-| `owner_address` | GET / POST | string | 是 | 账户地址 |
+| `owner_address` | GET | string | 是 | 账户地址 |
+| `owner_address` | POST | string | 否 | 账户地址；省略时使用空 bytes 并返回默认空结果 |
 | `timestamp` | GET / POST | int64 | 否 | 截止时间戳（毫秒）；缺省或为 `0` 时使用最新区块时间；为负返回 `{}` |
 | `visible` | GET / POST | bool | 否 | 地址格式 |
 

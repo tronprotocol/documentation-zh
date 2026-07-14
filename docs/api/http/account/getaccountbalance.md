@@ -13,7 +13,7 @@
 |---|---|---|---|
 | `account_identifier.address` | string | 是 | 账户地址 |
 | `block_identifier.hash` | string | 是 | 区块哈希 |
-| `block_identifier.number` | int64 | 是 | 区块高度 |
+| `block_identifier.number` | int64 | 否 | 区块高度；省略时默认为 `0`。仅查询创世块时可以省略；查询其他区块时必须与 `block_identifier.hash` 匹配 |
 | `visible` | bool | 否 | 地址格式 |
 
 示例：
