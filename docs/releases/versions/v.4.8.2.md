@@ -1,0 +1,632 @@
+# **GreatVoyage-v4.8.2(Pyrrho) 技术解读**
+
+## **1. Summary**
+
+**GreatVoyage-v4.8.2 (Pyrrho)** 版本引入了多个重要的优化和更新，主线是「协议加固、EVM 兼容、接口与运维体验优化」：
+
+  - 核心协议更稳健：通过 TIP-2935（EIP-2935）从状态中提供历史区块哈希，提升对无状态客户端与 L2 的友好度。
+  - TVM 持续向 Ethereum Osaka 对齐：新增 `secp256r1` 验签预编译（TIP-7951）、`CLZ` 前导零计数指令（TIP-7939），对 `MODEXP` 预编译设置输入上界（TIP-7823）与重新定价（TIP-7883），并规范签名验证类预编译的入参（TIP-854）。
+  - API 更高效、更安全、更可控：限流可选为非阻塞，增强 HTTP 和JSON-RPC 参数校验，优化接口输出。
+  - 网络与运维体验改善：seed/active/passive等支持配置域名，移除 InfluxDB 统一到 Prometheus；新增配置自动绑定机制、丰富 Toolkit 子命令等。
+
+**升级类型：强制升级（Mandatory upgrade）**
+
+## **2. Adapt to Ethereum Upgrade**
+
+GreatVoyage-v4.8.2 在 TVM 层引入了一组与 Ethereum Osaka 和 Pectra 对齐的执行能力。相关变更均由链上治理参数控制，升级节点软件本身不会自动激活新的 TVM 语义。
+
+### **1. Osaka**
+
+#### **1. TIP-7939：新增 CLZ（前导零计数）指令**
+
+TVM 新增 `CLZ` 指令（**opcode 0x1e**），从栈中弹出一个 **256 位**整数并返回其前导零位数；当输入为 0 时返回 256。该指令固定消耗 **5 energy**，与 **MUL** 同档。
+
+相比 Solidity 中约 **184 gas**、**110–160 字节**字节码的模拟实现，原生 `CLZ` 只需 1 字节指令，可降低定点数学、位图扫描、**calldata** 压缩和后量子签名等场景的计算与 **ZK** 证明成本。`CTZ` 可通过 **x & -x** 隔离最低有效位后，再结合 `CLZ` 计算。
+
+Ethereum EIP：[EIP-7939: Count leading zeros (CLZ) opcode](https://eips.ethereum.org/EIPS/eip-7939)
+
+TIP：[TIP-7939: Count leading zeros (CLZ) opcode · Issue \#838 · tronprotocol/tips](https://github.com/tronprotocol/tips/issues/838)
+
+Source Code：<https://github.com/tronprotocol/java-tron/pull/6656>
+
+#### **2. TIP-7823：为 MODEXP 预编译设置输入上界**
+
+`MODEXP` 预编译（地址 **0x…05**）此前允许三个长度字段取任意值，无界输入扩大了共识实现的测试空间，也是历史上多次共识 Bug 的来源。Osaka 激活后，`length_of_BASE`、`length_of_EXPONENT` 和 `length_of_MODULUS` 均不得超过 **8192 bit**，即 **1024 字节**。任一长度超限时，预编译立即返回执行失败，并耗尽分配给当前预编译调用帧的全部 energy；调用方收到失败状态，可由外层合约继续处理。该上限仍覆盖 RSA 8192 位密钥和通常小于 384 位的椭圆曲线用例。TRON及以太坊历史调用分析均显示，没有成功调用的单个长度字段超过 513 字节。
+
+Ethereum EIP：<https://eips.ethereum.org/EIPS/eip-7823>
+
+TIP：<https://github.com/tronprotocol/tips/issues/826>
+
+Source Code：<https://github.com/tronprotocol/java-tron/pull/6611>
+
+#### **3. TIP-7883：提高 MODEXP 预编译的 gas 成本**
+
+TVM 在 Osaka 之前沿用基于 **EIP-198** 的旧定价路径：使用分段 multiplication complexity，并除以 **`GQUAD_DIVISOR` = 20**；该实现并不是 **EIP-2565** 定价，也没有固定的最低 energy 下限。
+
+Osaka 激活后，`MODEXP` 切换到 **TIP/EIP-7883** 公式：
+
+  - **最低 energy**：**500**。
+  - **乘法复杂度**：令 **maxLen = max(baseLen, modLen)**。当 **maxLen ≤ 32** 时，**`multiplication_complexity` = 16**；否则，**`multiplication_complexity` = 2 × ceil(maxLen / 8)²**。
+  - **迭代次数**：指数长度超过 **32 字节**时，乘子由 **8** 调整为 **16**。
+  - **最终定价**：**energy = max(500, `multiplication_complexity` × `iteration_count`)**。
+
+**TIP-7883** 是直接替换 TVM 的旧定价公式，因此相对旧实现的变化取决于具体输入，并非所有调用都单调涨价；例如部分测试向量会从 **665** 降至 **512**，而高负载边缘输入的 energy 会显著上升。`MODEXP` 的输入接口和模幂运算算法不变。
+
+Ethereum EIP：<https://eips.ethereum.org/EIPS/eip-7883>
+
+TIP：<https://github.com/tronprotocol/tips/issues/837>
+
+Source Code：<https://github.com/tronprotocol/java-tron/pull/6654>
+
+#### **4. TIP-7951：新增 secp256r1（P-256）曲线验签预编译**
+
+为兼容 **EIP-7951**，并支持 **Apple Secure Enclave**、**Android Keystore**、**FIDO2/WebAuthn** 等现代安全硬件，本次在 TVM 中新增 `secp256r1` 验签预编译，使账户抽象、设备原生签名等场景成为可能。按照 TIP-7951 对 Solidity 实现的估算，验签成本可降低约 **50–73 倍**。
+
+| **ID（地址）** | **预编译** | **说明**                                                                                                                                                                                                                                                                               | **Gas** |
+|----------------|------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------|
+| 0x100          | P256VERIFY | 对 secp256r1 曲线做 ECDSA 验签。输入固定 160 字节（消息哈希 h、签名 r、签名 s、公钥 qx、公钥 qy 各 32 字节）；成功返回 32 字节 0x…01，失败或非法输入返回空。含对 r/s/qx/qy 范围、点是否在曲线上、是否无穷远点的校验，并修正 RIP-7212 的两处缺陷（无穷远点检查、r' ≡ r (mod n) 比较）。 | 6900    |
+
+失败时不 **revert**、消耗与成功相同的 **energy**。保持与 L2 上 **RIP-7212** 部署的接口兼容（同地址、同输入/输出格式）。
+
+Ethereum EIP：<https://eips.ethereum.org/EIPS/eip-7951>
+
+TIP：<https://github.com/tronprotocol/tips/issues/785>
+
+Source Code：<https://github.com/tronprotocol/java-tron/pull/6720>
+
+### **2. [Pectra](https://eips.ethereum.org/EIPS/eip-7600)**
+
+#### **1. TIP-2935：从状态中提供历史区块哈希**
+
+此前 TVM 的 `BLOCKHASH` 只能服务最近 256 个区块，并隐式假设客户端持有近期区块哈希，对无状态客户端 / Rollup 不够友好。
+
+本次在 `HISTORY_STORAGE_ADDRESS`（**0x0000F90827F1C53a10cb7A02335B175320002935**，与以太坊一致）部署区块哈希历史合约，并使用容量为 8191 的环形缓冲区保存父区块哈希。区块 N 的父哈希写入槽位 **(N-1) % 8191**，查询区块 K 时读取 **K % 8191**。查询参数必须为 32 字节，且 K 必须位于 **\[block.number-8191, block.number-1\]**；查询未来区块或窗口外区块时调用会 **revert**。`BLOCKHASH` 指令仍保持最近 256 个区块的原有语义和成本。
+
+该功能由提案 95 `ALLOW_TVM_PRAGUE` 激活，并要求 `ALLOW_TVM_SHANGHAI` 已启用，因为历史合约字节码使用了 `PUSH0`。通过直接写入 **CodeStore**、**ContractStore** 和 **AccountStore** 部署合约，并在协议层直接写入 **StorageRowStore**，不执行系统调用，也不消耗区块 energy；用户通过 `STATICCALL` 查询时仍按普通 **TVM** 调用计费。
+
+激活时不会回填此前的 **8191 个区块**哈希，缓冲区需要约 **8191 个区块**（TRON 上约 7 小时）才能完全填满。启动期间，仍在合法范围内但尚未写入的槽位返回 **bytes32(0)**。由于 TRON 的提案激活发生在维护处理阶段，激活区块的父哈希不会被写入，存在一个区块的覆盖空档。
+
+Ethereum EIP：<https://eips.ethereum.org/EIPS/eip-2935>
+
+Ethereum Pectra Meta EIP：<https://eips.ethereum.org/EIPS/eip-7600>
+
+TIP：<https://github.com/tronprotocol/tips/issues/719>
+
+Source Code：
+
+  - <https://github.com/tronprotocol/java-tron/pull/6686>
+  - <https://github.com/tronprotocol/java-tron/pull/6800>
+
+## **3. Core**
+
+### **1. TIP-833：资源窗口计算逻辑加固，消除代码层面潜在溢出隐患**
+
+此前版本中，`ResourceProcessor` 在 `increase`、`increaseV2`、`unDelegateIncreaseV2`、`getNewWindowSize`、`getUsage` 等资源窗口计算逻辑中，部分中间结果使用 long 类型连续乘法完成。
+
+从链上实际参数范围来看，这些计算在正常网络运行中不会发生溢出，也不存在现实可触发的资源计算风险。但从代码实现角度看，相关计算的安全性依赖于链上参数的隐式边界约束，逻辑表达上不够显式和稳健。
+
+本次优化将资源窗口计算中的中间乘积统一改为使用 `BigInteger` 承载，并在最终结果回写为 long 时通过 `longValueExact()` 进行严格校验。如果未来参数组合超出 long 可表示范围，将直接抛出 `ArithmeticException`，避免出现静默溢出或隐式截断。
+
+**NOTE**：该特性通过链上治理提案参数 97 开启。  
+**TIP**：<https://github.com/tronprotocol/tips/issues/833>  
+**PR**：<https://github.com/tronprotocol/java-tron/pull/6721>
+
+## **4. TVM**
+
+### **1. 优化 VOTEWITNESS 操作码的 energy 计算**
+
+此前 `VOTEWITNESS` 操作码使用 `DataWord` 计算动态数组所需的内存边界。`DataWord` 算术按 **256 位**取模，极端长度和偏移组合可能发生回绕，从而低估内存扩展成本。本次新增 `getVoteWitnessCost3`，将数组长度、偏移和内存边界计算改为 `BigInteger`，避免 **256 位**取模回绕，并补充极端输入测试。新路径在提案 96 `ALLOW_TVM_OSAKA` 激活后生效；该 PR 使用已有的 **Osaka gate**，并未单独新增治理提案。
+
+Source Code：<https://github.com/tronprotocol/java-tron/pull/6613>
+
+### **2. TIP-854：收紧签名验证预编译的 calldata 总长度形状**
+
+两个签名验证预编译（`batchValidateSign` 地址 **0x…09**、`validateMultiSign` 地址 **0x…0a**）的计费假设输入为「定长头部 + 整数个等长元素」，但 **execute** 解码前未强制校验同样形状，导致可接受的字节串集合超出定价覆盖的形状（非字对齐尾部被静默丢弃、过短输入被零填充等），不利于审计与形式化。
+
+本次在两个预编译的执行入口增加总长度检查。令字长 **W=32**：`validateMultiSign` 使用 **H=5**、**I=5**；`batchValidateSign` 使用 **H=5**、**I=6**。只有满足 **data.length = H×W + N×I×W** 且 **N ≥ 1** 的输入才通过。**data == null**、**length % W != 0**、**length ≤ H×W**，或 **(length-H×W) % (I×W) != 0** 时，预编译返回执行失败和空输出；当前调用帧消耗其预分配 **energy**，调用栈得到 0，外层交易仍可继续。计费公式本身不变。
+
+*NOTE：该检查只规范 **calldata** 的总长度形状，不验证动态 **offset**、数组长度、元素 **offset** 或完整的 **Solidity ABI canonical encoding**。功能受提案 96 `ALLOW_TVM_OSAKA` 控制。*
+
+TIP：<https://github.com/tronprotocol/tips/issues/854>
+
+Source Code：<https://github.com/tronprotocol/java-tron/pull/6715>
+
+### **3. TIP-871：ModExp 零模数输出规范化**
+
+此前 `MODEXP` 预编译在模数为 0 时返回空字节串（长度 0）。为对齐 EIP 语义、保证输出长度可预期，本次在 Osaka 下将零模数返回值规范化为“与模数等长的全零串”：模数长度为 **modLen** 时返回 **modLen** 个 0 字节。该变化仅影响 **modLen \> 0** 且模数字节全为 0 的输入；当 **modLen == 0** 时，新旧输出均为空。**energy** 定价和非零模数路径均不受影响。
+
+*NOTE：兼容 Osaka；受 `allowTvmOsaka` 门控，提案 96 `ALLOW_TVM_OSAKA`。*
+
+TIP：<https://github.com/tronprotocol/tips/issues/871>
+
+Source Code：[*https://github.com/tronprotocol/java-tron/pull/6780*](https://github.com/tronprotocol/java-tron/pull/6780)
+
+### **4. 新增节点级配置：控制常量调用的 TVM 执行时限**
+
+`/wallet/triggerconstantcontract`/`eth_call` 等常量调用受 TVM 执行时限约束（主网默认 **80ms**），复杂合约会 `out_of_time`；而用 `--debug` 去掉超时会同时影响区块处理，造成 `OUT_OF_TIME` 分歧与同步停滞，在生产不安全。本次新增仅作用于常量调用路径的节点级配置 `vm.constantCallTimeoutMs`（默认 0，表示不启用、沿用原有常量调用时限；设为正毫秒值时覆盖该时限），不影响区块处理/广播路径。配置加载时仅校验取值合法（非负且 ≤ `Long.MAX_VALUE/1000`，以保证可安全换算为微秒 deadline）。
+
+**使用提示**：用 `vm.constantCallTimeoutMs` 扩展常量调用时限，替代 `--debug`；公共节点建议配合限流。
+
+Source Code：*https://github.com/tronprotocol/java-tron/pull/6719（issue [\#6681](https://github.com/tronprotocol/java-tron/issues/6681)）*
+
+## **5. Net**
+
+### **1. 节点配置支持域名解析**
+
+允许`seed.node.ip.list`、`node.active`、`node.passive`、`node.fastForward` 和 `node.backup.members` 配置项除了支持 IP 地址外，还支持配置域名。节点启动时会将域名解析为 IP 地址；对于 `node.backup.members`，如果 DNS 返回的 IP 地址发生变化，系统会每 60 秒自动刷新一次备份节点的 IP。
+
+Source Code：<https://github.com/tronprotocol/java-tron/pull/6727>
+
+### **2. 优化随机断连策略**
+
+此前满连接时，java-tron 会随机淘汰 peer 腾出连接位，但候选范围过大，可能断开正在正常传区块的 peer；同时攻击者可用陈旧区块 inventory 刷新活跃时间，规避淘汰。
+
+本次优化包括三点：
+
+1\. 新增 `blockRcvTime`，记录 peer 最近送达有效区块的时间。
+
+2\. 修正 `lastInteractiveTime` 更新逻辑，只有区块 inventory 高于当前头块时才视为有效活跃。
+
+3\. 调整随机淘汰策略，仅从 `blockRcvTime` 最旧的一半 peer 中选择，降低误杀近期有效传块 peer 的概率。
+
+Source Code：<https://github.com/tronprotocol/java-tron/pull/6704>（issue [\#6504](https://github.com/tronprotocol/java-tron/issues/6504)）
+
+### **3. 收紧 P2P 入站 inventory 限流（修正 TRX 计数漏洞、新增 BLOCK 限流）**
+
+此前 java-tron 对入站 inventory 的限流有两个漏洞：TRX inventory 的判断只比较「已有 10s 窗口计数」与上限（count \> `maxCountIn10s`），没把本条 `InventoryMessage` 携带的哈希数量算进去，攻击者把上万个哈希塞进一条消息，只要窗口计数还没触顶就能整条放行，等于靠批量打包绕过限流；而 BLOCK inventory 则完全没有限流，恶意 peer 可无节制地灌 block-inv 哈希，每个都要接收方做查找，白白消耗 I/O 与 CPU。本次以限流为主线一并收紧：（1）TRX 判断改为 count + currentSize \> `maxCountIn10s`，用预计窗口大小而非当前窗口与上限比较，堵住批量绕过；（2）新增按 peer 的 BLOCK inv 限流，10s 内哈希数上限由新配置 `node.maxBlockInvPerSecond` 控制（默认 10、最小 1）；（3）在同一条入站路径上顺带补齐类型校验：`checkInvRateLimit`、`InventoryMsgHandler.check`、`FetchInvDataMsgHandler.check` 三个入口对 inventory 类型做白名单，非 TRX/BLOCK 的未知类型一律以 `P2pException(BAD_MESSAGE)` 拒绝并断连，避免未知类型在限流之外被用于缓存写入或构造对外 fetch。
+
+Source Code：
+
+<https://github.com/tronprotocol/java-tron/pull/6731>，<https://github.com/tronprotocol/java-tron/pull/6851> （issue [\#6659](https://github.com/tronprotocol/java-tron/issues/6659)）
+
+### **4. P2P 入站消息校验增强**
+
+此前，java-tron 对部分 P2P 入站消息缺乏重复数据和长度校验，恶意节点可通过构造包含大量重复哈希、重复交易或超长区块列表的消息，放大节点处理开销，影响网络稳定性。本次为 Inventory、FetchInvData、Transactions 及 SyncBlockChain 等消息新增重复数据和长度校验，对包含重复数据或超出限制的消息统一判定为非法并断开连接，有效降低恶意消息带来的资源消耗，提升 P2P 网络的安全性和健壮性。  
+Source Code：<https://github.com/tronprotocol/java-tron/pull/6712> （issue [\#6667](https://github.com/tronprotocol/java-tron/issues/6667)）
+
+### **5. 通过延迟区块反序列化和限制在途区块数量，降低区块同步期间的内存占用。**
+
+此前，java-tron 在追块同步时会立即将收到的区块反序列化并长期缓存，在多 Peer 并发同步场景下容易导致堆内存持续增长，增加 GC 压力。本次优化引入轻量级 `UnparsedBlock`，仅缓存区块 ID 和原始数据，将反序列化延迟到实际处理阶段；同时新增全局在途区块数量限制 `node.maxPendingBlockSize`（默认值为500），统一控制同步缓存规模，避免并发拉块导致内存失控。优化后，同步过程的内存占用可预测，显著降低大规模同步场景下的内存压力和 OOM 风险。
+
+Source Code：<https://github.com/tronprotocol/java-tron/pull/6717> （issue [\#6685](https://github.com/tronprotocol/java-tron/issues/6685)）
+
+### **6. 交易缓存背压机制优化**
+
+此前，java-tron 判断节点是否繁忙时仅统计部分交易队列，未将 `pushTransactionQueue`、`pendingTransactions` 和 `rePushTransactions` 的整体缓存纳入计算，导致交易积压时仍持续接收新的交易 Inventory，容易造成交易缓存不断增长，增加内存压力。同时，繁忙阈值采用硬编码，无法灵活调整。本次统一统计交易缓存数量，完善背压判断逻辑，在交易流水线整体繁忙时及时停止接收新的交易 Inventory；同时新增可配置项 `node.maxTrxCacheSize` 替代硬编码阈值，使交易缓存容量更加可控，有效降低高负载场景下的内存压力。
+
+**使用提示**：可通过 `node.maxTrxCacheSize` 调整交易缓存容量及背压触发阈值。
+
+Source Code：<https://github.com/tronprotocol/java-tron/pull/6714%EF%BC%88issue> [\#6684](https://github.com/tronprotocol/java-tron/issues/6684)）
+
+### **7. 限制交易与 HelloMessage 的签名字节长度**
+
+此前部分网络/广播入口只在后续签名恢复或共识校验中发现异常签名长度，入站交易、批量 `TransactionsMessage` 以及 fast-forward HelloMessage 都可能携带过短或过长签名进入更深处理路径，带来无效计算与日志噪声。
+
+本次新增 `SignUtils.isValidLength`，入口层仅接受 65–68 字节签名：broadcastTransaction 在入池前返回 `SIGERROR`；`TransactionsMsgHandler` 在批量交易 check 阶段以 `BAD_TRX` 拒绝；`RelayService.checkHelloMessage` 在验签前拒绝异常长度。共识路径`TransactionCapsule.checkWeight` 仍保留 “size \< 65” 的历史兼容规则，不把入口限流规则下沉到区块回放，避免影响历史链上交易。
+
+Source Code：<https://github.com/tronprotocol/java-tron/pull/6782>
+
+## **6. API**
+
+### **1. API 限流支持非阻塞模式、并支持开关配置（解决限流导致的 HTTP 延迟）**
+
+此前 API 触发限流时，java-tron 用 Guava `RateLimiter.acquire()` 将调用线程阻塞排队，高并发下请求延迟无上限地增长，甚至占满 Netty/Jetty 的 worker 线程池、连正常流量也一并无法响应。本次新增对非阻塞限流的支持：核心路径改用非阻塞的 `tryAcquire()`，无可用令牌时立即拒绝并告知客户端已被限流；并通过 `rate.limiter.apiNonBlocking` 开关在阻塞 / 非阻塞两种模式间切换（默认关＝阻塞、向后兼容，开＝非阻塞削峰），由节点按需选择。同时修复了两个相关问题：限流检查改为先按端点再看全局，避免已被限住的端点仍消耗全局配额；修复每端点信号量在全局拒绝 / 异常路径下不释放的泄漏（否则累积归零后 gRPC 调用会永久阻塞）。
+
+**使用提示**：开启非阻塞模式后，客户端应预期立即被限流拒绝而非延迟响应，需实现重试 / 退避；默认阻塞模式行为与此前一致。
+
+**涉及接口**：所有启用 API rate limiter 的 HTTP/gRPC/PBFT API 入口，具体覆盖范围由 `rate.limiter` 配置决定；本次变化主要改变限流命中后的返回时机（阻塞等待 vs 立即拒绝），不新增或删除具体业务接口。
+
+**PR**：
+
+  - <https://github.com/tronprotocol/java-tron/pull/6733>
+  - <https://github.com/tronprotocol/java-tron/pull/6761>
+
+**Issue**：（issue [\#6363](https://github.com/tronprotocol/java-tron/issues/6363)）
+
+### **2. JSON-RPC 调用参数支持 input 作为 calldata 字段**
+
+TRON JSON-RPC 此前仅在调用参数对象中声明 data 字段。Ethereum execution-apis 使用 input 表示 calldata；go-ethereum 的 ethclient 和 gethclient 自 \#28078 (https://github.com/ethereum/go-ethereum/pull/28078) 起，也在 calldata 非空时发送input 而非 data。由于 java-tron 此前未声明 input，jsonrpc4j/Jackson在参数反序列化时会将其视为未知字段，导致请求在方法执行前被拒绝。本次在 `CallArguments` 和 `BuildArguments` 中新增 input，并统一用于 `eth_call`、`eth_estimateGas` 以及 java-tron 扩展接口`buildTransaction` 的 calldata 解析。`eth_call` 和 `eth_estimateGas` 中，input 优先于 data；`buildTransaction` 中，如果两者同时存在且解码后的字节不一致，将返回 -32602 Invalid params。
+
+使用提示：旧客户端继续使用 data 不受影响；新集成建议使用 input。非空 input 必须带 0x 前缀，且包含偶数个十六进制字符；空calldata 建议使用 0x。应避免同时提交 input 和 data，并确保所有已提交字段均为有效十六进制。
+
+**涉及接口**：`eth_call`、`eth_estimateGas`、`buildTransaction`。
+
+Source Code：<https://github.com/tronprotocol/java-tron/pull/6722>
+
+### **3. 规范 JSON-RPC 交易对象返回的 nonce**
+
+TRON JSON-RPC 的 `TransactionResult.nonce` 是固定为 0 的兼容性占位字段。此前该字段返回 0x0000000000000000，属于固定 8 字节 DATA 风格编码，不符合 Ethereum execution-apis 对交易 nonce 的 QUANTITY 约束 ^0x(0\|\[1-9a-f\]\[0-9a-f\]\*)\$。本次将其规范化为 0x0。该变化影响 `eth_getTransactionByHash`、`eth_getTransactionByBlockHashAndIndex`、`eth_getTransactionByBlockNumberAndIndex`，以及 `eth_getBlockByHash` 和 `eth_getBlockByNumber` 在第二个参数为 true、返回完整交易对象时包含的交易 nonce。区块对象自身的 `BlockResult.nonce` 不受影响，仍按照 Ethereum bytes8 类型返回 0x0000000000000000。本次变更仅修正交易 nonce的 JSON-RPC 编码，不改变其数值，也没有为 TRON 交易引入 Ethereum 式 nonce 语义。
+
+兼容性提示：按 QUANTITY 解析为数值的客户端通常不受影响；对字符串字面值或固定长度进行比较的客户端需要适配。
+
+**涉及接口**:`eth_getTransactionByHash`, `eth_getTransactionByBlockHashAndIndex`, `eth_getTransactionByBlockNumberAndIndex`, `eth_getBlockByHash` , `eth_getBlockByNumber`.
+
+Source Code：[*https://github.com/tronprotocol/java-tron/pull/6709*](https://github.com/tronprotocol/java-tron/pull/6709)
+
+### **4. 废弃 gRPC proto 中的 HTTP REST 映射**
+
+gRPC proto 仍带有为已废弃的 grpc-gateway 而存在的 `google.api.http` REST 映射（如 post:`/wallet/getaccount`），而这些端点早已在 `FullNodeHttpApiService` 有独立 HTTP 实现，映射已冗余。本次从 56 个 gRPC 接口定义中移除 `google.api.http` 选项块，并删除 `protocol/src/main/protos/core/tron` 下 8 个空 proto 文件。
+
+**使用提示**：通过默认 HTTP 端点（如 IP:8090/wallet/xxxx）或直接 gRPC（Trident SDK）访问，不依赖 grpc-gateway REST 转译。
+
+**涉及接口**：`api.proto` 中原本带 `google.api.http` 注解的 Wallet / WalletSolidity/WalletExtension/Monitor gRPC 方法（共 56 个映射块）；java-tron 自身的 HTTP Servlet 路径不受影响，仍使用 `/wallet/*`、`/walletsolidity/*`、`/walletpbft/*`。
+
+Source Code：<https://github.com/tronprotocol/java-tron/pull/6726>（issue [\#6548](https://github.com/tronprotocol/java-tron/issues/6548)）
+
+https://github.com/tronprotocol/java-tron/pull/6874
+
+### **5. 统一 HTTP 请求体大小限制**
+
+此前 HTTP 层无统一的「入口前」请求体大小限制，校验在读取完整请求体之后进行存在内存放大风险，并且验证逻辑分散。本次在处理链顶部插入 Jetty `SizeLimitHandler` 做流式校验；引入 `node.http.maxMessageSize` 与 `node.jsonrpc.maxMessageSize`（`node.rpc.maxMessageSize` 仍仅用于 gRPC），默认约 4MB。Content-Length 超限返回 HTTP 413；分块超限返回200+ 错误 JSON 或 200 + 空体(jsonrpc)。
+
+**使用提示**：按需调整 `node.http.maxMessageSize` / `node.jsonrpc.maxMessageSize`；超限请求需拆分。
+
+**涉及接口**：HTTP REST 的 `/wallet/*`、`/walletsolidity/*`、`/walletpbft/*` 使用 `node.http.maxMessageSize`；JSON-RPC `/jsonrpc` 使用 `node.jsonrpc.maxMessageSize`；gRPC 不受本项影响，仍由 `node.rpc.maxMessageSize` 控制。
+
+Source Code：
+
+  - <https://github.com/tronprotocol/java-tron/pull/6658>
+  - <https://github.com/tronprotocol/java-tron/pull/6843>
+
+### **6. 优化区块接口 JSON 序列化**
+
+此前区块类 HTTP 接口走了冗余路径——先完整序列化为 JSON 字符串、再反序列化回对象、再覆盖字段，造成「protobuf→JSON→对象」重复转换、额外 CPU 与较高 GC 压力。本次改为在 `Util.java` 中按需逐字段构造 JSON：`printBlockList` 直接填充区块数组，`printBlockToJSON` 仅序列化 `block_header` 并手动填充 `blockID` 与 transactions。返回字段不变，完全向后兼容，目标是降低 CPU/GC。
+
+**使用提示**：影响 `GetBlockByLimitNext`、`GetBlockByLatestNum`、`GetBlock`、`GetNowBlock`、`GetBlockByNum`、`GetBlockById`，调用方无需改动。
+
+涉及接口：`/wallet/getblockbylimitnext`、`/wallet/getblockbylatestnum`、`/wallet/getblock`、`/wallet/getnowblock`、`/wallet/getblockbynum`、`/wallet/getblockbyid`，以及对应的 `/walletsolidity/*`、`/walletpbft/*` 区块查询路径。
+
+Source Code: <https://github.com/tronprotocol/java-tron/pull/6693>
+
+### **7. 为 JSON-RPC 日志对象增加 blockTimestamp 字段**
+
+此前 JSON-RPC 的 log 对象不含区块时间戳，客户端为排序/索引需为每条日志额外发起一次 `eth_getBlockByHash`/eth_getBlockByNumber 调用，也与以太坊 execution-apis 不一致。本次为 log 对象新增 `blockTimestamp`（十六进制字符串），格式与 JSON-RPC 区块 timestamp 一致：0x 前缀的 Unix 秒（非 TRON 内部毫秒）。纯增量、无破坏性。
+
+**使用提示**：影响 `eth_getLogs`、`eth_getFilterLogs`、`eth_getFilterChanges`（仅日志/事件过滤器）、`eth_getTransactionReceipt`、`eth_getBlockReceipts`；客户端直接读取 `blockTimestamp`，省去二次区块查询。
+
+涉及接口：`eth_getLogs`、`eth_getFilterLogs`、`eth_getFilterChanges`（日志/事件过滤器）、`eth_getTransactionReceipt`、`eth_getBlockReceipts`。
+
+Source Code：<https://github.com/tronprotocol/java-tron/pull/6671>
+
+### **8. 为 JSON-RPC 引入资源上限（批量请求个数/响应体/地址数/请求体大小）**
+
+此前 JSON-RPC 对批量数组大小、响应体大小、地址过滤数量均无上限，公共/高并发场景下存在 OOM 与资源耗尽风险。本次新增：`node.jsonrpc.maxBatchSize`（默认100）、`node.jsonrpc.maxAddressSize`（默认 1000，`eth_getLogs`查询前校验）、`node.jsonrpc.maxResponseSize`（默认 25MB，序列化时增量统计）。错误码：地址超限 −32602、批量超限 −32005、响应过大 −32003。
+
+涉及接口：`node.jsonrpc.maxBatchSize`、`node.jsonrpc.maxResponseSize` 作用于所有 `/jsonrpc` 请求；`node.jsonrpc.maxAddressSize` 作用于 `eth_getLogs`、`eth_newFilter` 的 address 数组；`node.jsonrpc.maxLogFilterNum` 作用于 `eth_newFilter` 日志过滤器数量；既有 `node.jsonrpc.maxSubTopics` 作用于 `eth_getLogs`、`eth_newFilter` 的单个 topic OR 数组。
+
+Source Code：
+
+  - <https://github.com/tronprotocol/java-tron/pull/6728>
+  - <https://github.com/tronprotocol/java-tron/pull/6763>
+
+### **9. 新增可选参数：HTTP GET 响应中的 64 位整数可序列化为 JSON 字符串**
+
+此前，TRON HTTP API 中的 protobuf 64 位整数字段通常以 JSON number 输出。JavaScript 客户端使用 `JSON.parse` 解析后，这些值会被转换为 Number；当整数超出 Number 的安全整数范围 \[-(2^53-1), 2^53-1\] 时，可能发生静默精度丢失。
+
+本次新增可选参数 `int64_as_string`。在 HTTP GET 请求的 URL query 中设置 `int64_as_string=true` 后，经 TRON `JsonFormat` 序列化的 protobuf 有符号和无符号 64 位整数字段将以 JSON string 返回，包括嵌套对象和 map 中的相关字段。同时，`burnTrxAmount`、`pendingSize`、`reward` 和 `count` 四个手写 JSON 字段也已单独适配。
+
+未设置该参数或设置为 false 时，响应格式保持不变。该能力适用于 FullNode、Solidity 和 PBFT 中最终通过 `JsonFormat`，或通过内部调用 `JsonFormat` 的 Util 方法生成响应的 HTTP GET 路径。使用其他序列化方式的接口不在本次覆盖范围内。JSON-RPC、gRPC 和所有 POST 请求均不受影响。
+
+使用示例：GET `/wallet/getnowblock`?`int64_as_string=true`
+
+使用提示：该参数只接受 GET URL query。POST 请求无论在 URL query 还是 body 中设置都不会生效。开启后，相关字段的 JSON 类型将从 number 变为 string，客户端应按字符串、BigInt 或大整数库处理。
+
+典型接口包括：
+
+\- `/wallet/getnowblock` 及对应的 `/walletsolidity/getnowblock`、`/walletpbft/getnowblock`
+
+\- `/wallet/getblock`、`/wallet/getblockbynum`、`/wallet/getblockbyid`、`/wallet/getblockbylimitnext`、`/wallet/getblockbylatestnum` 及已注册的 Solidity/PBFT 对应路径
+
+\- `/wallet/getburntrx`、`/wallet/getReward`、`/wallet/gettransactioncountbyblocknum` 及对应的 Solidity/PBFT 路径
+
+\- 仅 FullNode 提供的 `/wallet/getpendingsize`
+
+Source Code：<https://github.com/tronprotocol/java-tron/pull/6699>
+
+### **10. JSON-RPC / HTTP API 参数解析路径统一加固输入校验**
+
+JSON-RPC / HTTP API 参数解析路径此前对输入长度和格式缺乏校验，存在两类风险——一是算法复杂度 DoS（`Base58.decode`/BigInteger 解析，超长输入能用很小的请求体占满线程）；二是各种畸形/越界输入会直接击穿到未预期的异常（NPE、`DecoderException`、`StackOverflowError` 等）由jsonrpc4j兜底返回默认的错误信息。本次在地址（Base58/hex 长度上限）、区块号/哈希/存储 key/交易索引/日志 topic 与 address/ABI 深度/gas-value 溢出等一系列参数入口统一加上长度与格式前置校验，将这些异常情况收敛为规范的 -32602 invalid params 错误响应。
+
+涉及接口：JSON-RPC 中解析地址、hash、topic、block selector、交易索引、gas/value、ABI/revert data 的方法（典型包括 `eth_getBalance`、`eth_getStorageAt`、`eth_getCode`、`eth_call`、`eth_estimateGas`、`buildTransaction`、`eth_getTransactionByHash`、`eth_getTransactionReceipt`、`eth_getBlockByHash`、`eth_getBlockByNumber`、`eth_getLogs`、`eth_newFilter`、`eth_getFilterLogs`）；HTTP REST 中使用地址/合约参数解析的路径（典型包括 `/wallet/getaccount`、`/wallet/triggerconstantcontract`、`/wallet/triggersmartcontract`、`/wallet/deploycontract`、`/wallet/getcontract`、`/wallet/estimateenergy`）。
+
+Source Code：<https://github.com/tronprotocol/java-tron/pull/6828>
+
+### **11. 重构jsonrpc接口区块选择器（block tag / block number）的解析逻辑**
+
+jsonrpc区块选择器（latest/earliest/pending/safe/十六进制区块号）的解析逻辑分散重复在 Wallet、`JsonRpcApiUtil`、`TronJsonRpcImpl` 三处，各自职责和控制流略有差异，导致解析逻辑重复且不一致，维护成本高。本次修改将相关逻辑统一收敛到`JsonRpcApiUtil`中，代码结构更加合理，逻辑更加清晰，降低代码维护成本。
+
+涉及接口：所有接收 JSON-RPC block tag / block number 参数的接口，典型包括 `eth_getBalance`、`eth_getStorageAt`、`eth_getCode`、`eth_call`、`eth_getTransactionCount`、`eth_getBlockByNumber`、`eth_getBlockReceipts`、`eth_getBlockTransactionCountByNumber`、`eth_getTransactionByBlockNumberAndIndex`、`eth_getUncleByBlockNumberAndIndex`、`eth_getUncleCountByBlockNumber`、`eth_getLogs`、`eth_newFilter`。
+
+Source Code：<https://github.com/tronprotocol/java-tron/pull/6668>
+
+Source Code：<https://github.com/tronprotocol/java-tron/pull/6711>
+
+### **12. 交易签名查询类 API 增加签名数量与长度防护**
+
+收紧了多签查询逻辑，防止超长签名放大响应或绕过校验。 变更点：
+
+1\. 两个查询入口都会先按链上 `totalSignNum` 限制签名数量，超限直接返回 too many signatures
+
+2\. 超过 65 字节的签名会统一截断为标准 65 字节，再参与权重和 `approvedList` 计算，响应中的 transaction 也使用截断后的签名。
+
+3\. `getApprovedList` 改为复用 `TransactionCapsule.checkWeight`，并补齐 `permissionId`、权限类型和 operation 校验。
+
+4\. `getApprovedList` 行为更严格：签名数量过多、签名不属于当前 permission、重复 signer 等情况都会整体失败，不再返回部分 `approvedList`。
+
+5\. 早退错误只返回 result，HTTP JSON 中可能没有 transaction 字段。
+
+6\. weight == 0 的错误信息不再回显超长签名 hex，而是使用固定长度的 tx hash，避免错误响应被放大。
+
+兼容性提示：钱包、多签服务和 SDK 不应再把 `getApprovedList` 当作“任意签名恢复”或“部分授权探测”接口。调用前应自行限制签名数量、过滤无关签名和重复 signer，并按 `result.code / result.message` 判断失败，同时兼容响应中缺少 transaction 字段的情
+
+况。
+
+涉及接口：HTTP `/wallet/getsignweight`、`/wallet/getapprovedlist`；gRPC `Wallet.GetTransactionSignWeight`、`Wallet.GetTransactionApprovedList`。
+
+Source Code：<https://github.com/tronprotocol/java-tron/pull/6820>
+
+## **7. Dependencies**
+
+### **1. 统一 JSON 技术栈为Jackson**
+
+此前，java-tron 内部同时使用两套 JSON 处理库：JSON-RPC、事件插件、keystore、TVM trace 等模块主要使用 jackson，而 HTTP API 层依赖 fastjson。这种双技术栈不仅增加依赖维护成本，也容易导致不同接口在 JSON 序列化和解析行为上存在差异。
+
+为降低改造对业务代码影响，本次并没有在所有调用点直接改写为 Jackson 原生 API，而是新增 `org.tron.json.JSON`、JSONObject、JSONArray 等基于 Jackson 实现的轻量兼容封装。这样可以在大多数场景下通过“替换 import”的方式完成迁移，减少大范围重构成本，并尽量保持原有 HTTP API 层的 JSON 解析和输出行为稳定。
+
+从外部兼容性看，本次改动属于内部依赖替换和安全加固，不涉及 API 路径、请求参数、响应结构、配置项或协议格式变化。正常使用 HTTP API、JSON-RPC、gRPC，以及消费事件数据的外部调用方通常无需适配。符合接口契约、使用标准 JSON 请求基本兼容；依赖 fastjson 宽松语法、字段顺序或特殊 null 行为的调用方需注意，或下游代码直接依赖 `com.alibaba.fastjson.*` 类型的场景也需要格外关注。
+
+因此，这一改动的核心目标是：在尽量保持外部行为不变的前提下，统一 JSON 技术栈，移除历史安全负担，降低后续维护和审计成本。
+
+**Source Code**：
+
+  - <https://github.com/tronprotocol/java-tron/pull/6701>
+  - <https://github.com/tronprotocol/java-tron/pull/6844>
+  - <https://github.com/tronprotocol/java-tron/pull/6845>
+  - <https://github.com/tronprotocol/java-tron/pull/6863>
+
+### **2. 依赖包升级**
+
+Bump libp2p from 2.2.7 to 2.2.8  
+Bump bcprov-jdk18on from 1.79 to 1.84 to address CVE-2026-5598  
+Bump jetty from 9.4.57 to 9.4.58 to address CVE-2025-5115  
+Bump pf4j from 3.10.0 to 3.14.1 to address CVE-2025-70952  
+Bump grpc-java from 1.75 to 1.81 to address CVE-2026-33871
+
+**Source Code**：
+
+  - <https://github.com/tronprotocol/java-tron/pull/6747>
+  - https://github.com/tronprotocol/java-tron/pull/6859
+
+## **8. Configuration**
+
+### **1.新增配置项的自动绑定机制**
+
+这轮改造围绕 java-tron 配置系统完成了从“手写解析”到“类型化自动绑定”的升级。过去大量配置项集中在 Args 中通过 hasPath/getXxx 逐项读取，默认值分散在代码、注释和配置样例中，新增参数需要同时修改多处，容易产生默认值漂移和兼容性问题。新方案基于 Typesafe Config 的 `ConfigBeanFactory`，将node、storage、vm、committee、event、`rate.limiter`等配置拆分为领域 Bean，并以 `reference.conf` 统一承载默认值和参数说明。
+
+后续优化主要集中在三方面：一是校准自动绑定后的行为差异，保留旧配置键兼容、默认值语义和边界校验；二是清理未使用或误导性的配置项，缩小 `CommonParameter` 和配置文件的历史包袱；三是为非标准命名、可选列表、嵌套结构等场景建立规范化或手动解析策略，避免严格绑定破坏已有配置。最终，`reference.conf` 成为权威配置参考，`config.conf` 精简为用户覆盖样例，并补充了配置使用与开发规范文档。整体提升了配置系统的类型安全、可维护性和可审查性，也为后续移除 `CommonParameter` 中间层奠定基础。
+
+Source Code：
+
+  - <https://github.com/tronprotocol/java-tron/pull/6615>
+  - <https://github.com/tronprotocol/java-tron/pull/6735>
+  - <https://github.com/tronprotocol/java-tron/pull/6755>
+  - <https://github.com/tronprotocol/java-tron/pull/6757>
+  - <https://github.com/tronprotocol/java-tron/pull/6759>
+  - <https://github.com/tronprotocol/java-tron/pull/6762>
+  - <https://github.com/tronprotocol/java-tron/pull/6790>
+  - <https://github.com/tronprotocol/java-tron/pull/6794>
+  - <https://github.com/tronprotocol/java-tron/pull/6806>
+  - <https://github.com/tronprotocol/java-tron/pull/6834>
+  - <https://github.com/tronprotocol/java-tron/pull/6795>
+  - <https://github.com/tronprotocol/java-tron/pull/6555>
+
+### **2. 修复 13 个 CLI 参数被配置文件静默覆盖**
+
+标准优先级应为 CLI \> 配置文件 \> 默认值，此前对 9 个参数实现正确，但 `Args.setParam(Config)` 对另外 13 个参数无条件用配置文件值覆盖了 CLI 值，使这些 CLI 标志被静默忽略。本次重构为 Default → Config → CLI 三层覆盖模型；受影响标志包括 `--rpc-thread`、`--solidity-thread`、`--validate-sign-thread`、`--max-connect-number`、`--lru-cache-size`、`--long-running-time`、`--max-energy-limit-for-constant`、`--min-time-ratio`、`--max-time-ratio`、`--support-constant`、`--save-internaltx`、`--save-featured-internaltx`、`--history-balance-lookup`，并修正 `--seed-nodes` 标志。
+
+**使用提示**：如 `java -jar FullNode.jar --rpc-thread 16` 现在会正确覆盖 `config.conf`；升级前请检查启动脚本。
+
+Source Code：<https://github.com/tronprotocol/java-tron/pull/6569>
+
+### **3. 抽取 ConfigKey 常量并废弃net.type配置项**
+
+本次将约 232 个 HOCON 配置键常量（如 "`node.rpc.port`"）从 `Constant.java` 抽取到新建的 `ConfigKey.java`，`Constant.java` 仅保留约 32 个业务常量；同时移除过时的测试网配置与 0xa0 地址格式，统一为主网地址格式（T- Base58 / 41 十六进制）。x86环境下额外添加对rocksdb的单测。
+
+Source Code：
+
+  - <https://github.com/tronprotocol/java-tron/pull/6565>
+  - <https://github.com/tronprotocol/java-tron/pull/6580>
+
+### **4. 移除 actuator.whitelist 配置以防止分叉**
+
+`actuator.whitelist`（早期测试用途）允许节点只注册白名单内的 actuator 类型；在公链上若区块含非白名单交易类型，`getActuator()` 返回 null，会使执行偏离全网而导致状态分叉、节点被隔离。本次完整移除该配置及相关逻辑，所有节点无条件注册/执行全部有效 actuator，交易类型的启用完全由链上提案治理。
+
+NOTE：破坏性变更，升级前请从配置中移除 `actuator.whitelist`。
+
+Source Code：<https://github.com/tronprotocol/java-tron/pull/6723>
+
+## **9. Database**
+
+### **1. 移除rocksDB周期性数据库备份**
+
+`storage.backup` 周期性拷贝数据库（每 frequency 个区块）本是为应对磁盘/断电/kill-9 损坏，但主网状态库已约 3TB，单次拷贝可能耗时数小时且会在窗口内阻塞区块同步，是致命的稳定性风险；测试也证实 kill -9 不会损坏数据库。本次移除整个 `storage.backup` 配置块与 `pushBlock()` 中的拷贝逻辑，推荐改用 node.backup { port, priority, members } 的主备双 FullNode 方案或 RAID。
+
+*NOTE：破坏性变更，不兼容 4.8.1 及更早；升级前请移除 `storage.backup` 并迁移到双节点容灾或 RAID。*
+
+Source Code：<https://github.com/tronprotocol/java-tron/pull/6724%EF%BC%88issue> [\#6595](https://github.com/tronprotocol/java-tron/issues/6595)）
+
+## **10. Metrics**
+
+### **1. 新增空块与 SR 集合变更的 Prometheus 指标**
+
+Prometheus 指标缺乏对区块交易数量（及是否产出空块）与维护期超级代表（SR）集合变更的可见性。
+
+本次新增 SR 集合变更以及区块内交易数量的统计。
+
+SR集合变更采用counter进行统计 `tron:sr_set_change_total`（add/remove）；区块内交易数量采用直方图 `tron:block_transaction_count`进行记录，自定义区块内交易数量的间隔为 {0, 20, 50, 80, 100, 120, 140, 160, 180, 200, 230, 260, 300, 500, 2000, 5000, 10000}，从而统计出区块交易数量的大致分布，空块由 le="0" 桶刻画，比例在 Grafana 用 PromQL 计算。
+
+**使用提示**：经 Prometheus 抓取，用 le="0" 桶或 PromQL 计算空块比例。
+
+Source Code：
+
+  - <https://github.com/tronprotocol/java-tron/pull/6624>
+  - <https://github.com/tronprotocol/java-tron/pull/6730>
+
+Issue：<https://github.com/tronprotocol/java-tron/issues/6590>
+
+### **2. 移除 InfluxDB 指标存储支持**
+
+v4.8.1及以前并存两套监控栈：Prometheus（`/metrics`）与遗留的 dropwizard `MetricsUtil` + InfluxDB（`monitor/getstatsinfo`），导致指标割裂、依赖无人维护。本次从 `MetricsUtil` 移除 InfluxDB reporter 并删除其配置块（`storageEnable`、`influxdb { ip=xx, port=8086, database=xx, metricsReportInterval=10 }`），统一到 Prometheus。
+
+NOTE：破坏性变更；升级前请移除 influxdb 配置，迁移到 Prometheus + Grafana（tron-docker）。
+
+Source Code：<https://github.com/tronprotocol/java-tron/pull/6725%EF%BC%88issue> [\#6665](https://github.com/tronprotocol/java-tron/issues/6665)）
+
+## **11. Logging**
+
+### **1. 改进日志：统一 gRPC 日志接入、降低启动噪声，并提升异常诊断能力**
+
+此前，java-tron 的部分运行日志在可观测性和运维排查体验上存在一些不足：例如 gRPC 底层使用 JUL 日志体系，部分诊断信息可能绕过 Logback 直接输出到 stderr；节点启动阶段 DB 统计信息以 INFO 级别大量输出，容易淹没关键初始化日志；异常关停时，部分日志可能来不及完整刷出；此外，签名验证耗时长、LevelDB 打开卡顿（长时间运行节点）、无效日志配置等问题也缺少足够明确的日志提示。
+
+本次对日志体系进行了面向运维侧的增强，主要包括以下几方面：
+
+  1. **gRPC 日志统一接入 Logback**  
+    引入 `org.slf4j:jul-to-slf4j:1.7.36`，并在节点启动早期安装 `SLF4JBridgeHandler`，将 grpc-java 原本通过 JUL 输出的日志统一桥接到 Logback。升级后，`io.grpc` 日志默认按 INFO 级别管理，并输出到独立的 `./logs/grpc/grpc.log`。这意味着 TLS 握手失败、连接异常重置、`NettyServerTransport` 的 “Transport failed” 等 gRPC 诊断信息，将进入受管理的日志文件，而不是散落在 stderr 中。
+
+  2. **降低启动阶段 DB 统计日志噪声**  
+    `DbStat.statProperty()` 的日志级别由 INFO 调整为 DEBUG，避免节点启动时刷出大量 DB 统计信息。这样可以让关键初始化、配置加载、网络启动等重要日志更加清晰，减少启动排障时的干扰。
+
+  3. **提升关停日志完整性**  
+    `TronLogShutdownHook` 进行了重构，相关常量命名更加明确，并将最大等待时间从 60 秒提升到 180 秒，为节点执行器线程池释放、任务收尾和日志刷盘预留更充足的时间，降低异常退出或正常关停时日志丢失的概率。
+
+  4. **慢签名验证变得可观测**  
+    新增慢签名验证日志。当单次签名验证耗时超过 50 ms 时，`TransactionCapsule.logSlowSigVerify(...)` 会输出 INFO 日志，方便运维人员识别签名验证异常变慢、CPU 压力升高或特定交易触发性能瓶颈的情况。
+
+  5. **LevelDB 打开卡顿不再静默**  
+    `LevelDbDataSourceImpl` 对可能阻塞在 JNI 层的 `factory.open(...)` 增加 watchdog 机制。如果 LevelDB 打开超过 60 秒，会输出 WARN 日志，并给出排查和修复提示，指向 `Toolkit.jar db archive` 等相关工具，方便运维人员处理 LevelDB 打开耗时过长问题。
+
+  6. **无效 `--log-config` 配置快速失败**  
+    如果通过 `--log-config` 指定的日志配置文件不可读，`LogService.load(...)` 将直接抛出 `TronError(ErrCode.LOG_LOAD)`，节点快速失败，而不是继续以默认日志配置启动。这样可以更早暴露部署配置问题，避免节点运行后才发现日志没有按预期输出。
+
+升级后，日志输出将更加清晰和可控：
+
+  - gRPC 相关诊断信息会进入 `./logs/grpc/grpc.log`；
+  - 主日志 `tron.log` 不再被启动阶段 DB 统计 INFO 日志刷屏；
+  - 慢签名验证、LevelDB 打开卡顿等运维关注事件会保留在主日志中；
+  - CI 场景下，测试 root logger 从 DEBUG 调整为 INFO，以减少测试日志量。
+
+**使用提示**：如需调整 gRPC 日志详细程度，可通过 `logback.xml` 中的 `io.grpc` logger 进行配置。
+
+本次改动仅涉及日志体系和运维可观测性，不涉及 API、RPC、网络协议、共识逻辑或数据库格式变化。正常业务调用无需适配，但节点运维方可以据此更新日志采集路径、告警规则和排障手册。
+
+**PR**：<https://github.com/tronprotocol/java-tron/pull/6700>
+
+**Issue:** <https://github.com/tronprotocol/java-tron/issues/6583>
+
+## **12. Event Service**
+
+### **1. Event Plugin 强制升级至 3.0.0 及以上版本**
+
+本次升级对 Event Plugin 增加了最低版本校验：当节点启用事件订阅并加载外部 Event Plugin 时，插件版本必须不低于 3.0.0，否则节点会在启动阶段直接失败。
+
+这一变更主要是为了配合 java-tron 内部 JSON 技术栈的调整。v4.8.2 已移除 fastjson 依赖，并统一切换到 Jackson；而旧版 Event Plugin 仍依赖 fastjson。如果继续使用旧插件，在新版本 java-tron 中可能出现类缺失、插件加载异常或事件处理失败等问题。相比让节点启动后在运行过程中静默丢失事件，本次改为启动阶段 fail-fast，能够更早暴露插件兼容性问题，避免事件订阅服务处于不可靠状态。
+
+受影响的是启用了外部 Event Plugin 的节点，例如使用 Kafka 或 MongoDB 事件插件的部署场景。节点需要同时满足以下条件才会受到影响：
+
+  - 使用 `--es` 命令行或者 `event.subscribe.enable` = true
+  - 使用外部 Event Plugin，而不是 native queue
+  - `event.subscribe.path` 指向旧版本插件包
+  - 插件包中的 `Plugin-Version` 低于 3.0.0，或版本信息缺失
+
+如果节点未启用事件订阅，或使用的是 native queue，则不受该版本校验影响。
+
+升级时，节点运营方需要重新构建或替换 Kafka / MongoDB Event Plugin 包，并将 `event.subscribe.path` 指向新的插件 zip，例如 `plugin-kafka-3.0.0.zip` 或 `plugin-mongodb-3.0.0.zip`。同时建议检查插件包 `META-INF/MANIFEST.MF` 中的 `Plugin-Version`，确保版本号不低于 3.0.0。
+
+该变更属于运维侧兼容性要求，不影响链上共识、API 协议或事件数据模型本身。但对于依赖事件订阅的数据服务、索引服务、Kafka/MongoDB 消费链路来说，升级 java-tron 前必须同步升级 Event Plugin，否则节点可能无法正常启动事件订阅。
+
+详细升级说明和插件包信息请参考 Event Plugin v3.0.0 Release Notes：<https://github.com/tronprotocol/event-plugin/releases/tag/v3.0.0>
+
+**Source Code**：#6760
+
+### **2.为区块和交易事件增加链重组回滚（removed）语义**
+
+此前，java-tron 仅为合约事件提供链重组回滚（removed）语义，区块和交易事件在发生链重组时不会通知订阅方回滚，导致订阅方可能保留已失效的事件，且重新应用新分叉分支时可能遗漏对应的区块和交易事件。本次为 `BlockLogTrigger` 和 `TransactionLogTrigger` 新增 removed 标记，在链重组时向订阅方发送回滚事件，并在新分叉分支重新应用时补发对应事件，确保事件流能够完整反映链状态变化。
+
+**兼容性提示：** 升级后，`BlockLogTrigger` 和 `TransactionLogTrigger` 将新增 removed 字段，并在链重组时发送 removed=true 的回滚事件。事件订阅方需根据该字段正确处理链重组场景，撤销已回滚区块或交易对应的本地状态。同时，由于事件 JSON 结构新增字段，使用严格 JSON Schema 校验或不允许未知字段的客户端需同步更新解析逻辑，以避免兼容性问题。
+
+Source Code：
+
+  - <https://github.com/tronprotocol/java-tron/pull/6833>
+  - <https://github.com/tronprotocol/java-tron/pull/6718>
+
+### **3. 修复链重组后eth_getFilterChanges接口无法获取新主链区块/日志的问题**
+
+修复历史遗留问题：链发生 reorg 时，`switchFork()` 只负责把被丢弃分支的日志撤回（`reOrgLogsFilter`，标记 removed=true），但切换到新主链后直接返回，导致"只撤回旧的，从不补发新的"，违背了 reorg 应有的"先撤回旧分支、再补发新分支"语义，使用 `eth_newFilter` 轮询的 dApp 会彻底丢失 reorg 后新主链上所有区块的日志。
+
+Source Code：<https://github.com/tronprotocol/java-tron/pull/6819>
+
+## **13. 工具/其他（Tooling & Others）**
+
+### **1. 优化 TransactionRegister 的 actuator 注册流程**
+
+此前，`TransactionRegister` 在启动阶段会通过反射扫描并注册 actuator。由于扫描包范围较大，启动过程存在一定的额外开销；同时，如果 actuator 注册过程中出现异常，没有 fast-fail，可能增加问题定位成本。
+
+本次对 actuator 注册流程进行了优化，主要包括三方面：
+
+  1. **增加注册状态检查**  
+    通过注册状态判断避免重复初始化，防止同一批 actuator 被重复扫描和注册，减少不必要开销。
+
+  2. **采用 fail-fast 错误处理**  
+    注册过程中如果出现异常，将通过 `TronError` 快速失败，避免节点在 actuator 注册不完整或状态不确定的情况下继续启动。这样可以让部署或代码问题在启动阶段尽早暴露，便于运维和开发人员快速定位。
+
+  3. **收窄反射扫描范围**  
+    将 actuator 的扫描范围从较大的 org.tron 包收窄到 `org.tron.core.actuator`，减少无关类扫描，降低反射初始化成本。根据测试结果，首次注册耗时从约 375 ms 降至约 188 ms，重复注册场景从约 165 ms 降至约 24 ms。
+
+整体来看，该优化不会改变交易执行逻辑、API 行为或外部协议，主要是提升节点启动阶段的注册效率和错误可观测性。对于普通节点使用者无需额外适配；如果存在自定义 actuator，需要确认其类位于 `org.tron.core.actuator` 包路径下，否则可能不会被扫描注册。
+
+**Source Code**：<https://github.com/tronprotocol/java-tron/pull/6447>
+
+### **2. 将 keystore-factory 迁移为 Toolkit 子命令**
+
+`KeystoreFactory`（此前经 FullNode.jar `--keystore-factory` 调用）位于 framework 模块，模块边界不清。本次将其迁移到 plugins，作为 Toolkit 子命令（`java -jar Toolkit.jar keystore`），并改用 picocli；为兼容保留 `--keystore-factory` 一段弃用期（带弃用提示）。
+
+**使用提示**：新调用方式 `java -jar Toolkit.jar keystore`，旧方式弃用期内仍可用。
+
+Source Code：<https://github.com/tronprotocol/java-tron/pull/6637>
+
+### **3. Solidity Node 支持条件式关闭**
+
+SolidityNode（同步比 FullNode 快约 30%+、不验签）此前缺少条件式自动关停，而这在跨架构（x86 vs ARM）验证目标高度的全局状态时很有用。本次将既有的 `node.shutdown` 自动停止条件引入 SolidityNode：BlockTime（cron）、BlockHeight、BlockCount（仅可设其一，否则 fail-fast）。
+
+Source Code：
+
+  - <https://github.com/tronprotocol/java-tron/pull/6734>
+  - <https://github.com/tronprotocol/java-tron/pull/6801>
+  - <https://github.com/tronprotocol/java-tron/pull/6804>
+  - <https://github.com/tronprotocol/java-tron/pull/6655>
+
+### **4. CI / Workflow 优化**
+
+完善 4.8.2 发版质量保障体系。
+
+  1. CI 侧新增多平台构建、`Checkstyle`、单节点/多节点集成测试，并将构建置于 PR lint 之后，减少无效资源消耗；
+  2. 覆盖率流程从 Codecov 方案调整为基于 `JaCoCo`、`diff-cover` 的 base vs PR 对比，重点校验变更行覆盖率和整体覆盖率回退。
+  3. 配置治理方面，为 `reference.conf` 增加 key 命名、层级深度、端口唯一性和注释覆盖检查，降低配置项无法绑定或缺少说明的风险。
+  4. 协议层新增 `protoLint`，强制枚举 0 值使用 `UNKNOWN_` 前缀，保障API 演进兼容性。
+  5. 同时引入 `CODEOWNERS`/自动 reviewer 分配并修复 fork PR 权限问题，升级 `actions/cache` 到 v5，提升 GitHub Actions 兼容性和稳定性。
+
+Source Code：
+
+  - <https://github.com/tronprotocol/java-tron/pull/6574>
+  - <https://github.com/tronprotocol/java-tron/pull/6706>
+  - <https://github.com/tronprotocol/java-tron/pull/6795>
+  - <https://github.com/tronprotocol/java-tron/pull/6789>
+  - <https://github.com/tronprotocol/java-tron/pull/6582>
+  - <https://github.com/tronprotocol/java-tron/pull/6605>
+  - <https://github.com/tronprotocol/java-tron/pull/6635>
+  - <https://github.com/tronprotocol/java-tron/pull/6663>
+  - <https://github.com/tronprotocol/java-tron/pull/6636>
+  - <https://github.com/tronprotocol/java-tron/pull/6559>
+  - <https://github.com/tronprotocol/java-tron/pull/6808>
+  - <https://github.com/tronprotocol/java-tron/pull/6810>
+  - <https://github.com/tronprotocol/java-tron/pull/6631>
