@@ -14,7 +14,7 @@
 - [轻全节点](https://tronprotocol.github.io/documentation-zh/using_javatron/litefullnode/)：运行与维护裁剪后的低占用节点。
 - [私链网络](https://tronprotocol.github.io/documentation-zh/using_javatron/private_network/)：搭建私有 TRON 链。
 - [节点监控](https://tronprotocol.github.io/documentation-zh/using_javatron/metrics/)：Prometheus / Grafana 指标与健康检查端点。
-- [节点维护工具 (Toolkit)](https://tronprotocol.github.io/documentation-zh/using_javatron/toolkit/)：数据库分区、轻节点裁剪、复制、LevelDB→RocksDB 转换、启动优化。
+- [节点维护工具 (Toolkit)](https://tronprotocol.github.io/documentation-zh/using_javatron/toolkit/)：数据库分区、轻节点裁剪、复制、LevelDB→RocksDB 转换、启动优化与 keystore 管理；包含 keystore 命令的 JSON 输出和退出行为说明。
 - [升级到新版本](https://tronprotocol.github.io/documentation-zh/releases/upgrade-instruction/)：新版本的升级步骤。
 
 ## API 接口

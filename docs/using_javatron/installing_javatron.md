@@ -380,7 +380,16 @@ node.backup {
         localwitnesskeystore = ["B/localwitnesskeystore.json"]
         ```
 
-    * 您可以使用 `wallet-cli` 项目的 `registerwallet` 命令生成 `keystore` 文件和密码或者使用`java -jar build/libs/FullNode.jar --keystore-factory`命令生成(自4.8.1版本之后，不再提供单独的`KeystoreFactory.jar`)
+    * 对于已有的 SR，keystore 必须加密当前在链上获准出块地址所对应的私钥。默认情况下，这是 SR 账户地址；如果已通过 SR 的 witness permission 将出块权限分配给其他地址，则应使用该授权地址对应的私钥。使用 Toolkit 的 [`keystore import`](toolkit.md#import-a-private-key) 从现有私钥创建加密 keystore：
+
+        ```bash
+        # 将当前获准用于区块签名的私钥加密到 keystore 中
+        java -jar build/libs/Toolkit.jar keystore import
+        ```
+
+        迁移已有 SR 时，不要仅使用 `keystore new`：该命令会生成随机密钥，除非先将其派生地址配置为 SR 的 witness permission，否则该密钥无法为该 SR 出块。对于新的 SR 身份，或在有计划地轮换 witness permission 时，可以使用 [`keystore new`](toolkit.md#generate-a-keystore) 或 `wallet-cli` 的 `registerwallet` 命令生成新密钥，但必须在启动出块前完成相应的链上注册或权限更新。
+
+        `java -jar build/libs/FullNode.jar --keystore-factory` 仍为兼容目的保留，但已弃用，并将在未来版本中移除。从 4.8.1 版本开始，不再单独提供 `KeystoreFactory.jar`。
 
 1. **启动出块节点**:
 

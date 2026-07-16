@@ -8,6 +8,7 @@ TRON Toolkit 是一个集成了多种 `java-tron` 周边工具的实用程序，
 * [数据转换](#data-conversion-tool) - 支持 LevelDB 到 RocksDB 的数据库格式转换
 * [LevelDB 启动优化](#leveldb-startup-optimization-tool) - 加快数据库类型为 LevelDB 的节点启动速度
 * [Merkle Root 计算](#merkle-root-computation-tool) - 计算小型数据库的 Merkle Root，用于数据校验
+* [Keystore 管理](#keystore-management) - 生成、导入、列出和更新账户 keystore 文件
 
 本文将详细介绍如何获取和使用 TRON Toolkit。
 
@@ -34,6 +35,134 @@ TRON Toolkit 是一个集成了多种 `java-tron` 周边工具的实用程序，
    ```
 
 编译成功后，`Toolkit.jar` 文件将生成在 `java-tron/build/libs/` 目录下。
+
+## 命令行输出与退出行为 { #command-line-output-and-exit-behavior }
+
+Toolkit 的输出和退出码因命令而异。目前，Toolkit **不提供**全局 JSON 输出选项，也没有所有命令共用的统一错误 envelope。
+
+* 使用具体命令调用 Toolkit 时，进程会以该命令返回的整数作为退出码。无效的命令行语法由 Picocli 处理，退出码为 `2`。
+* 不带参数调用 Toolkit 时，会打印顶层用法并以退出码 `0` 结束。
+* 下文介绍的 `keystore` 命令执行成功时返回 `0`，发生执行错误时通常返回 `1`。当目录不存在或没有 keystore 时，`keystore list` 也返回 `0`。
+* `--json` 是逐命令选项，仅由 `keystore new`、`keystore import`、`keystore list` 和 `keystore update` 支持。它控制写入 stdout 的成功结果；即使指定了 `--json`，错误和警告仍以纯文本写入 stderr。
+* `db` 命令不支持 JSON 输出，并保留各自的退出码行为。除非某条命令的文档明确说明，否则自动化程序不能假定 Toolkit 全局遵循 `0`/`1`/`2` 契约。
+
+用于 shell 自动化时，应先检查退出码，再解析 stdout；不要尝试把 stderr 当作 JSON 解析。
+
+## Keystore 管理 { #keystore-management }
+
+`keystore` 命令组用于管理 Web3 Secret Storage 格式的账户 keystore 文件，替代已弃用的交互式 `FullNode.jar --keystore-factory` 工作流。
+
+```bash
+java -jar build/libs/Toolkit.jar keystore --help
+```
+
+默认 keystore 目录为当前工作目录下的 `Wallet`。可使用 `--keystore-dir <path>` 选择其他目录。
+
+### 生成 Keystore { #generate-a-keystore }
+
+`keystore new` 会生成随机密钥对，并写入加密的 keystore 文件：
+
+```bash
+# 交互式输入密码
+java -jar build/libs/Toolkit.jar keystore new
+
+# 非交互式输入密码并返回 JSON 结果
+java -jar build/libs/Toolkit.jar keystore new \
+  --keystore-dir /data/keystores \
+  --password-file /secure/path/password.txt \
+  --json
+```
+
+成功时的 JSON 输出包含生成的地址和文件名：
+
+```json
+{"address":"T...","file":"UTC--...json"}
+```
+
+### 导入私钥 { #import-a-private-key }
+
+`keystore import` 用于导入以 64 个十六进制字符表示的 32 字节私钥，也接受 `0x` 或 `0X` 前缀。
+
+```bash
+# 交互式输入私钥和密码
+java -jar build/libs/Toolkit.jar keystore import
+
+# 非交互式导入
+java -jar build/libs/Toolkit.jar keystore import \
+  --keystore-dir /data/keystores \
+  --key-file /secure/path/private-key.txt \
+  --password-file /secure/path/password.txt \
+  --json
+```
+
+成功时的 JSON 输出与 `keystore new` 相同，包含 `address` 和 `file` 字段。
+
+默认情况下，如果目标目录中已经存在由该私钥派生地址对应的 keystore，命令会拒绝导入。仅当确实需要为同一地址创建额外的 keystore 时才使用 `--force`。
+
+### 列出 Keystore { #list-keystores }
+
+`keystore list` 会列出目录中结构有效的 `.json` keystore 文件：
+
+```bash
+java -jar build/libs/Toolkit.jar keystore list --keystore-dir /data/keystores
+java -jar build/libs/Toolkit.jar keystore list --keystore-dir /data/keystores --json
+```
+
+成功时的 JSON 输出使用 `keystores` 数组封装结果：
+
+```json
+{
+  "keystores": [
+    {"address":"T...","file":"UTC--...json"}
+  ]
+}
+```
+
+如果目录不存在或其中没有有效的 keystore，JSON 模式会返回 `{"keystores":[]}`，退出码为 `0`。无法读取或格式错误的 `.json` 文件会被跳过，并可能在 stderr 输出警告。
+
+`keystore list` 不会解密每个文件。显示的地址来自 keystore JSON 中声明的地址，本命令不会对其进行密码学验证。仅信任来自受控来源的 keystore。
+
+### 更新 Keystore 密码 { #update-a-keystore-password }
+
+`keystore update` 会按地址查找 keystore，使用当前密码解密，然后通过临时文件以新密码重写。Toolkit 会先尝试原子替换；如果文件系统不支持，则回退到普通替换：
+
+```bash
+# 交互式输入密码
+java -jar build/libs/Toolkit.jar keystore update T... \
+  --keystore-dir /data/keystores
+
+# 非交互式更新密码
+java -jar build/libs/Toolkit.jar keystore update T... \
+  --keystore-dir /data/keystores \
+  --password-file /secure/path/passwords.txt \
+  --json
+```
+
+对于 `update`，密码文件必须恰好包含两行：第一行为当前密码，第二行为新密码。
+
+成功时的 JSON 输出包含验证后的地址、文件名和更新状态：
+
+```json
+{"address":"T...","file":"UTC--...json","status":"updated"}
+```
+
+如果没有匹配的 keystore，或有多个有效 keystore 声明了所请求的地址，命令会失败，不会在重复项中任意选择。
+
+### Keystore 选项与安全 { #keystore-options-and-security }
+
+| 选项 | 命令 | 行为 |
+|---|---|---|
+| `--keystore-dir <path>` | 全部 | keystore 目录，默认为 `Wallet`。 |
+| `--json` | 全部 | 将成功结果以 JSON 写入 stdout；错误仍以文本写入 stderr。 |
+| `--password-file <file>` | `new`、`import`、`update` | 避免交互式密码提示。`new` 和 `import` 要求一行；`update` 要求恰好两行。 |
+| `--key-file <file>` | `import` | 从文件而非终端读取私钥。 |
+| `--force` | `import` | 允许为已有 keystore 的地址再创建一个 keystore。 |
+| `--sm2` | `new`、`import`、`update` | 使用 SM2 而非默认的 ECDSA。对于 `update`，必须与现有 keystore 使用的算法一致。 |
+
+密码和私钥输入文件必须是大小不超过 1,024 字节的普通文件；符号链接会被拒绝。`keystore new` 和 `keystore import` 设置的密码，以及 `keystore update` 提供的新密码，必须至少包含六个字符。为兼容旧 keystore，`keystore update` 不对当前密码应用这一最小长度限制。在 POSIX 系统上，Toolkit 会以仅所有者可访问的 `0600` 权限创建或重写 keystore 文件。
+
+!!! warning "保护临时密钥文件"
+    `--password-file` 和 `--key-file` 支持非交互式执行，但这些文件以明文保存敏感信息。请将它们存放在仓库之外，使用 `chmod 600` 将权限限制为当前用户，切勿提交到版本控制，并在不再需要时删除。
 
 ## 数据存储分区工具 { #database-partitioning-tool }
 
