@@ -88,7 +88,8 @@ java -jar build/libs/wallet-cli.jar help --command send-coin
 
 ## 全局选项（标准 CLI）
 
-全局选项要写在命令名**之前**，由 `GlobalOptions` 解析。
+执行修饰类全局选项由 `GlobalOptions` 解析，可以写在命令名**之前或之后**。顶层模式选择器
+有更严格的位置规则，具体说明如下。
 
 | 选项 | 取值 | 说明 |
 |--------|--------|-------------|
@@ -105,8 +106,13 @@ java -jar build/libs/wallet-cli.jar help --command send-coin
 
 说明：
 
-- `--output` 和 `--network` 的取值既可作为下一个 token 给出（`--network nile`），也可内联给出
-  （`--network=nile`）。
+- 执行修饰类选项 `--network`、`--grpc-endpoint`、`--output`、`--wallet`、`--quiet`、
+  `--verbose` 和 `--password-stdin` 可在命令名之前或之后识别。
+- 顶层模式选择器 `--version` 和 `--interactive` 必须写在命令名之前；出现在命令之后时，
+  会被视为命令自身的参数。
+- `--help` 和 `-h` 出现在命令之前时请求全局帮助，出现在命令之后时请求该命令的帮助。
+- 带取值的全局选项（`--output`、`--network`、`--wallet` 和 `--grpc-endpoint`）既可将取值
+  作为下一个 token 给出（`--network nile`），也可内联给出（`--network=nile`）。
 - 带取值的选项不可重复出现；未知的全局选项会被拒绝。
 
 ## 鉴权（标准 CLI）
