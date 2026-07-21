@@ -285,6 +285,7 @@ nav:
             - 治理: clients/wallet-cli/governance.md
             - GasFree: clients/wallet-cli/gasfree.md
             - 查询: clients/wallet-cli/query.md
+            - TypeScript / npm CLI: clients/wallet-cli/typescript-cli.md
     - 版本发布:
         - 新版本部署手册: releases/upgrade-instruction.md
         - 一致性检验: releases/signature_verification.md
@@ -397,4 +398,3 @@ plugins:
         - introduction/overview.md
         - mechanism-algorithm/shielded-TRC20-contract.md
         - mechanism-algorithm/trc10.md
-

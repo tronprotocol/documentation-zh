@@ -12,14 +12,13 @@ TRON 账户质押（冻结）TRX 以获取**带宽**和**能量**，并获得投
 |------|----------|
 | `0` | BANDWIDTH（带宽） |
 | `1` | ENERGY（能量） |
-| `2` | TRON_POWER（投票权；仅 REPL 的 freeze/unfreeze，且受网络开关限制） |
+| `2` | TRON_POWER（投票权；仅 freeze/unfreeze，且受网络开关限制） |
 
-码 `2`（TRON_POWER）只被 **REPL** 的 freeze/unfreeze 命令接受 ——
-`FreezeBalance`/`UnfreezeBalance`（Stake 1.0）与 `FreezeBalanceV2`/`UnfreezeBalanceV2`（Stake 2.0）。
-即便如此也受网络开关限制：只有当链参数 `getAllowNewResourceModel` 启用时，节点才允许用码 `2` 冻结，
-而主网**并未**启用——因此实际上只有 `0`/`1` 可用。标准 CLI 中每条带 `--resource` 的命令都会在本地
-前置拒绝 `0`（BANDWIDTH）/`1`（ENERGY）以外的值并报用法错误。代理命令（两种模式）同样只接受
-`0` 或 `1`。
+码 `2`（TRON_POWER）对 freeze/unfreeze 命令受网络开关限制：
+`FreezeBalance`/`UnfreezeBalance`（Stake 1.0）、`FreezeBalanceV2`/`UnfreezeBalanceV2`（Stake 2.0）
+以及对应的标准 CLI 命令，只有在链参数 `getAllowNewResourceModel` 启用时才接受它。如果无法获取该链参数，
+4.9.7 客户端会 fail-open，让节点在广播时进行最终校验。代理命令（两种模式）始终只接受 `0` 或 `1`；
+TRON_POWER 不可代理。
 
 金额以 **SUN** 为单位（1 TRX = 1,000,000 SUN）。
 
@@ -42,8 +41,8 @@ TRON 账户质押（冻结）TRX 以获取**带宽**和**能量**，并获得投
     ```
 
     - `--amount`（必填，SUN）、`--duration`（必填，天）。
-    - `--resource`（可选，`0`/`1`，默认 `0`）。标准 CLI 只接受 `0`/`1`；若要为 TRON_POWER
-      （投票权，码 `2`）冻结，请使用 REPL 的 `FreezeBalance`。
+    - `--resource`（可选，`0`/`1`/`2`，默认 `0`）。`2` 是 TRON_POWER，仅在
+      `getAllowNewResourceModel` 启用时允许。如果设置了 `--receiver`，该操作属于代理，`2` 会被拒绝。
     - `--receiver`（可选）—— 把获得的资源代理给另一个地址。
     - `--owner`、`--multi`（可选）。
 
@@ -63,7 +62,8 @@ TRON 账户质押（冻结）TRX 以获取**带宽**和**能量**，并获得投
     java -jar build/libs/wallet-cli.jar --network nile unfreeze-balance --resource 1
     ```
 
-    - `--resource`（可选，默认 `0`）。
+    - `--resource`（可选，`0`/`1`/`2`，默认 `0`）。`2` 是 TRON_POWER，仅在
+      `getAllowNewResourceModel` 启用时允许。如果设置了 `--receiver`，该操作针对代理冻结，`2` 会被拒绝。
     - `--receiver`（可选）—— 若该资源曾被代理则必填。
     - `--owner`、`--multi`（可选）。
 
@@ -86,7 +86,9 @@ TRON 账户质押（冻结）TRX 以获取**带宽**和**能量**，并获得投
       --amount 1000000 --resource 1
     ```
 
-    - `--amount`（必填，SUN）、`--resource`（可选，默认 `0`）。
+    - `--amount`（必填，SUN）、`--resource`（可选，`0`/`1`/`2`，默认 `0`）。
+      `2` 是 TRON_POWER，仅在 `getAllowNewResourceModel` 启用时允许；如果无法获取该链参数，客户端会让节点
+      在广播时校验。
     - `--owner`、`--permission-id`、`--multi`（可选）。
 
 === "交互模式"
@@ -106,7 +108,9 @@ TRON 账户质押（冻结）TRX 以获取**带宽**和**能量**，并获得投
       --amount 1000000 --resource 1
     ```
 
-    - `--amount`（必填，SUN）、`--resource`（可选，默认 `0`）。
+    - `--amount`（必填，SUN）、`--resource`（可选，`0`/`1`/`2`，默认 `0`）。
+      `2` 是 TRON_POWER，仅在 `getAllowNewResourceModel` 启用时允许；如果无法获取该链参数，客户端会让节点
+      在广播时校验。
     - `--owner`、`--permission-id`、`--multi`（可选）。
 
 === "交互模式"
