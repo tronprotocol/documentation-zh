@@ -31,4 +31,4 @@ curl -X POST https://nile.trongrid.io/jsonrpc \
 
 ### 异常响应
 
-同 [`eth_chainId`](eth_chainId.md)：底层取不到创世块时抛 `-32000`，透传底层 `Exception.getMessage()`。
+同 [`eth_chainId`](eth_chainId.md)：如果无法加载创世块，jsonrpc4j 会返回未处理异常的 fallback 错误码 `-32001`；`error.message` 是底层异常的 message，而不是固定字符串 `JsonRpcInternalException`。

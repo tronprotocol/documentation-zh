@@ -9,11 +9,15 @@
 
 ## 请求参数
 
-| 字段 | 类型 | 必填 | 说明 |
-|---|---|---|---|
-| `startNum` | int64 | 是 | 起始区块号（含） |
-| `endNum` | int64 | 是 | 结束区块号（不含） |
-| `visible` | bool | 否 | 地址、文本字段格式 |
+GET 从 URL 查询参数读取以下字段；POST 从 JSON 请求体读取。
+
+| 字段 | 方法 | 类型 | 必填 | 说明 |
+|---|---|---|---|---|
+| `startNum` | GET | int64 | 是 | 起始区块高度（包含）；缺失时执行 `Long.parseLong(null)` 并失败 |
+| `startNum` | POST | int64 | 否 | 起始区块高度（包含）；Protobuf 默认值为 `0` |
+| `endNum` | GET | int64 | 是 | 结束区块高度（不包含）；缺失时执行 `Long.parseLong(null)` 并失败 |
+| `endNum` | POST | int64 | 否 | 结束区块高度（不包含）；Protobuf 默认值为 `0` |
+| `visible` | GET / POST | bool | 否 | 地址、文本字段格式 |
 
 约束：`endNum > startNum`，且 `endNum - startNum <= 100`。
 
@@ -70,9 +74,9 @@ curl --request POST \
 
 ### 异常响应
 
-| 触发条件 | 响应 |
-|---|---|
-| 请求体超过 `node.maxMessageSize`（POST） | `{"Error": "class java.lang.Exception : body size is too big, the limit is <N>"}` |
-| `startNum` / `endNum` 不是数字（GET） | `{"Error": "class java.lang.NumberFormatException : <message>"}` |
-| 请求体不是合法 JSON / 字段类型不符（POST） | `{"Error": "class com.alibaba.fastjson.JSONException : <解析器信息>"}` 或 `{"Error": "class org.tron.core.services.http.JsonFormat$ParseException : <解码器信息>"}` |
-| 其他异常 | `{"Error": "<exceptionClass> : <message>"}` |
+| 方法 | 触发条件 | 响应 |
+|---|---|---|
+| GET / POST | 请求体超过 `node.http.maxMessageSize` | 通常由 `SizeLimitHandler` 返回 HTTP 413 `Payload Too Large` |
+| GET | `startNum` / `endNum` 不是数字（GET） | `{"Error": "class java.lang.NumberFormatException : <message>"}` |
+| POST | 请求体不是合法 JSON / 字段类型不符（POST） | `{"Error": "class org.tron.json.JSONException : <解析器信息>"}` 或 `{"Error": "class org.tron.core.services.http.JsonFormat$ParseException : <解码器信息>"}` |
+| GET / POST | 其他异常 | `{"Error": "<exceptionClass> : <message>"}` |

@@ -8,7 +8,11 @@
 
 ## 请求参数
 
-无。
+POST 没有请求参数，也不解析请求体。GET 接受以下 URL 查询参数：
+
+| 字段 | 方法 | 类型 | 必填 | 说明 |
+|---|---|---|---|---|
+| `int64_as_string` | GET | bool | 否 | 为 `true` 时，以 JSON 字符串返回 `burnTrxAmount` |
 
 示例：
 
@@ -28,8 +32,15 @@ curl --request POST \
 { "burnTrxAmount": 153731208869910 }
 ```
 
+使用 GET 请求并添加 `?int64_as_string=true` 时：
+
+```json
+{ "burnTrxAmount": "153731208869910" }
+```
+
 ### 异常响应
 
-| 触发条件 | 响应 |
-|---|---|
-| 节点内部异常（读取动态属性失败） | `{"Error": "<exceptionClass> : <message>"}` |
+| 方法 | 触发条件 | 响应 |
+|---|---|---|
+| GET / POST | 请求体超过 `node.http.maxMessageSize` | 通常由 `SizeLimitHandler` 返回 HTTP 413 `Payload Too Large` |
+| GET / POST | 节点内部异常（读取动态属性失败） | `{"Error": "<exceptionClass> : <message>"}` |

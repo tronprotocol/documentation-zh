@@ -10,7 +10,7 @@
 | 位置 | 类型 | 必填 | 说明 |
 |---|---|---|---|
 | `params[0]` | object | 是 | `CallArguments` 对象，见下表 |
-| `params[1]` | string \| object | 是 | 区块标识：tag 字符串、或 `{"blockNumber": "0x..."}` / `{"blockHash": "0x..."}` 对象（EIP-1898）。**仅支持 `latest`**（其它 tag 抛错；具体高度即便存在也会被拒绝） |
+| `params[1]` | string \| object | 是 | 区块标识：tag 字符串，或包含 `blockNumber`（非负 `0x`-hex 或十进制）或 `blockHash`（严格的 32 字节 hex）的对象。字符串 tag 只支持 `latest`；对象形式会检查引用区块是否存在，但执行仍使用 latest state |
 
 `CallArguments` 字段（`framework/src/main/java/org/tron/core/services/jsonrpc/types/CallArguments.java`）：
 
@@ -19,8 +19,13 @@
 | `from` | `0x0000000000000000000000000000000000000000` | 调用者地址 |
 | `to` | 必填 | 合约地址 |
 | `value` | `""` | 转入合约的 callValue（sun，hex） |
-| `data` | `null` | calldata（4 字节 selector + abi.encode 参数） |
+| `data` | `null` | calldata（4 字节 selector + ABI 编码参数） |
+| `input` | `null` | `data` 的别名；两者同时设置时，`eth_call` 优先使用 `input` |
 | `gas` / `gasPrice` / `nonce` | 不使用 | — |
+
+`input` 使用更严格的 execution API hex 规则：必须带 `0x` 前缀，且 hex 位数为偶数；`""` 可作为空 bytes。`data` 为兼容旧客户端保留较宽松解析。
+
+对于 `params[1]`，字符串 block tag 必须为 `latest`。EIP-1898 object 形式接受已存在的 `blockNumber` / `blockHash` 并检查该区块存在，但调用仍基于 latest state 执行，不做历史状态执行。额外的对象属性会被忽略；若两个 selector 同时存在，`blockNumber` 优先。
 
 ```bash
 # 例：调用 Nile testnet 上 Tether USD（USDT）的 symbol() 函数
@@ -55,11 +60,13 @@ curl -X POST https://nile.trongrid.io/jsonrpc \
 |---|---|---|
 | `params[1]` 既不是 string 也不是 object | `-32600` | `invalid json request` |
 | `params[1]` object 形式中 `blockNumber` / `blockHash` 都缺失 | `-32600` | `invalid json request` |
-| `params[1]` 中 `blockNumber` 不是合法 hex | `-32602` | `invalid block number` |
+| `params[1]` 中 `blockNumber` 不是合法的非负 hex/十进制高度 | `-32602` | `invalid block number` |
+| `params[1]` 中 `blockHash` 不匹配 `(0x)?[0-9a-fA-F]{64}` | `-32602` | `invalid hash value` |
 | `params[1]` 中指定的块不存在 | `-32000` | `header not found` 或 `header for hash not found` |
-| `params[1]` tag 是 `earliest` / `pending` / `finalized` | `-32602` | `TAG [earliest \| pending \| finalized] not supported` |
-| `params[1]` 是具体 hex 高度（即便有效） | `-32602` | `QUANTITY not supported, just support TAG as latest` |
+| `params[1]` tag 是 `earliest` / `pending` / `finalized` / `safe` | `-32602` | `TAG [earliest \| pending \| finalized \| safe] not supported` |
+| 字符串形式的 `params[1]` 是具体 hex 或十进制高度（即便有效） | `-32602` | `QUANTITY not supported, just support TAG as latest` |
 | `from` / `to` 地址非法 | `-32602` | 透传 message |
+| `input` 不是严格 hex | `-32602` | 透传 `JsonRpcApiUtil.requireValidHex` 校验信息 |
 | `value` 不是合法 hex | `-32602` | `invalid param value: invalid hex number` |
 | 合约校验失败（如 `to` 非合约、参数不匹配等） | `-32600` | `ContractValidateException` 透传 message（无 message 时 fallback `Contract validate error : `） |
 | EVM 执行 `REVERT` | `-32000` | message + （若 revert 数据以 `Error(string)` 选择器开头）解析后的字符串；`error.data` 携带原始 revert hex |

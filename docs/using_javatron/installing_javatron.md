@@ -297,7 +297,7 @@ nohup java -Xms9G -Xmx24G -XX:+UseZGC \
     -jar build/libs/FullNode.jar --witness -c framework/src/main/resources/config.conf &
 ```
 
-### 主从模式的出块全节点
+### 主从模式的出块全节点 { #master-slave-mode-for-block-production-fullnodes }
 
 为了提高出块全节点的可靠性，可以部署多个相同账户的出块全节点，形成主从模式。当一个具有出块权限的账户部署大于等于两个节点时（推荐数量：2个，主节点及从节点各1个），需要完善各节点配置文件中的`node.backup`。`node.backup`的配置项说明如下：
 
@@ -312,13 +312,17 @@ node.backup {
   # time interval to send keepAlive message, each member should have the same configuration unit: ms
   keepAliveInterval = 3000
 
-  # peers‘ ip list, must not include myself
+  # 对端节点的 IP 地址或域名列表，不能包含本机
   members = [
-    # "ip",
-    # "ip"
+    # "ip-or-domain",
+    # "ip-or-domain"
   ]
 }
 ```
+
+`members` 中的每个条目可以是域名、IPv4 地址或 IPv6 地址。成员条目中不能包含端口，所有成员统一使用 `node.backup.port` 单独配置的 UDP 端口。与对等节点连接列表中的 IPv6 地址不同，`node.backup.members` 中的 IPv6 地址不使用方括号，并且不能包含前导或尾随空白字符。
+
+java-tron 在启动时会逐项校验备份成员，并将域名解析为 IP 地址。如果任一成员无法解析，参数初始化将失败，节点不会启动。节点启动后，`members` 中的域名会每 60 秒重新解析一次，以便 DNS 地址变更生效。如果刷新失败，java-tron 将继续使用之前解析得到的 IP 地址。
 
 比如，某个具有出块权限的账户部署了2个节点，两个节点的ip分别为192.168.0.100，192.168.0.101，那么他们的`node.backup`配置需如下所示：
 

@@ -192,7 +192,7 @@ TRON 账户支持灵活的权限模型（一个 owner 权限、一个可选的 w
       "type": 2,
       "permission_name": "active",
       "threshold": 2,
-      "operations": "7fff1fc0033e0000000000000000000000000000000000000000000000000000",
+      "operations": "7fff1fc0033ef30f000000000000000000000000000000000000000000000000",
       "keys": [
         { "address": "TAbc...", "weight": 1 },
         { "address": "TDef...", "weight": 1 }
@@ -204,4 +204,6 @@ TRON 账户支持灵活的权限模型（一个 owner 权限、一个可选的 w
 
 - `threshold` 是该权限授权一个操作所需的签名者总权重。
 - `operations`（仅 active 权限）是一个 32 字节的十六进制位图，用于选择该权限可执行哪些合约/操作类型。
+  上面的示例匹配 4.9.7 的默认 active 权限位图：它排除了已禁用的操作 51
+  （`ShieldedTransferContract`），同时保留 49、52 等 active 操作。
 - `witness_permission` 仅对超级代表账户有意义。

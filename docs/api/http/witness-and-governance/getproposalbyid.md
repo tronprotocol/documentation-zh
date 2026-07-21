@@ -8,10 +8,12 @@
 
 ## 请求参数
 
-| 字段 | 类型 | 必填 | 说明 |
-|---|---|---|---|
-| `id` | int64 | 是 | 提案 ID |
-| `visible` | bool | 否 | 地址格式 |
+GET 从 URL 查询参数读取以下字段；POST 从 JSON 请求体读取。
+
+| 字段 | 方法 | 类型 | 必填 | 说明 |
+|---|---|---|---|---|
+| `id` | GET / POST | int64 | 是 | 提案 ID |
+| `visible` | GET / POST | bool | 否 | 地址格式 |
 
 示例：
 
@@ -58,11 +60,11 @@ curl --request POST \
 
 ### 异常响应
 
-| 触发条件 | 响应 |
-|---|---|
-| 请求体超过 `node.maxMessageSize`（POST） | `{"Error": "class java.lang.Exception : body size is too big, the limit is <N>"}` |
-| `id` 不是数字（GET） | `{"Error": "class java.lang.NumberFormatException : <message>"}` |
-| 请求体不是合法 JSON（POST） | `{"Error": "class com.alibaba.fastjson.JSONException : <解析器信息>"}` |
-| `id` 缺失（POST） | `{"Error": "class java.security.InvalidParameterException : key [id] does not exist"}` |
-| `id` 不是数字（POST，含字符串/布尔/数组/对象） | `{"Error": "class java.lang.NumberFormatException : null"}`（`Util.getJsonLongValue` 走 fastjson `getBigDecimal`） |
-| 其他异常 | `{"Error": "<exceptionClass> : <message>"}` |
+| 方法 | 触发条件 | 响应 |
+|---|---|---|
+| GET / POST | 请求体超过 `node.http.maxMessageSize` | 通常由 `SizeLimitHandler` 返回 HTTP 413 `Payload Too Large` |
+| GET | `id` 不是数字（GET） | `{"Error": "class java.lang.NumberFormatException : <message>"}` |
+| POST | 请求体不是合法 JSON（POST） | `{"Error": "class org.tron.json.JSONException : <解析器信息>"}` |
+| POST | `id` 缺失（POST） | `{"Error": "class java.security.InvalidParameterException : key [id] does not exist"}` |
+| POST | `id` 不是数字（POST，含字符串/布尔/数组/对象） | `{"Error": "class java.lang.NumberFormatException : null"}`（`Util.getJsonLongValue` 走 `org.tron.json.JSONObject#getBigDecimal`） |
+| GET / POST | 其他异常 | `{"Error": "<exceptionClass> : <message>"}` |

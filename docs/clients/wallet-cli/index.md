@@ -5,24 +5,33 @@
 [Trident SDK](https://github.com/tronprotocol/trident)）与 TRON 节点通信，用于查询链上数据以及构建、
 签名和广播交易。少数功能（如 GasFree 代付转账）则通过 HTTP 调用相应的服务接口。
 
-它提供两种使用方式：
+它提供三种使用方式：
 
-- **交互模式（REPL）** —— 带 Tab 补全和交互式提示的人性化 shell。适合手动探索和日常钱包管理。
-- **标准 CLI 模式** —— 非交互、可脚本化的接口，具有确定的退出码和可选的 JSON 输出。适合自动化、
-  脚本、CI/CD 以及 AI 智能体。
+- **Java 交互模式（REPL）** —— 带 Tab 补全和交互式提示的人性化 shell。适合手动探索和日常钱包管理。
+- **Java 标准 CLI 模式** —— 非交互、可脚本化的接口，具有确定的退出码和可选的 JSON 输出。适合使用
+  Java JAR 的自动化和脚本。
+- **TypeScript / npm CLI** —— 4.9.7 引入的独立 Node.js CLI，以 `@tron-walletcli/wallet-cli`
+  发布。它使用 `tx send`、`account balance` 等分组命令，面向自动化、CI/CD 和 AI 智能体。
 
-本文档中的每条命令，只要在两种模式下都存在，都会同时给出两种写法。用标签页切换查看：
+下面的命令参考页主要覆盖 Java JAR 的 REPL 和标准 CLI 模式。Node.js 命令面请参见
+[TypeScript / npm CLI](typescript-cli.md)。下面用标签页对比同一个账户查询在三种入口中的写法：
 
-=== "标准 CLI"
+=== "Java 标准 CLI"
 
     ```bash
     java -jar build/libs/wallet-cli.jar --network nile get-account --address TXyz...
     ```
 
-=== "交互模式"
+=== "Java 交互模式"
 
     ```
     GetAccount TXyz...
+    ```
+
+=== "TypeScript / npm CLI"
+
+    ```bash
+    wallet-cli account info --network tron:nile --account TXyz...
     ```
 
 ## 构建

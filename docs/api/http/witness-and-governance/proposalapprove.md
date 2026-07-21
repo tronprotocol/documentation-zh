@@ -12,8 +12,8 @@ SR 对提案投票（赞成/取消赞成）。
 |---|---|---|---|
 | `owner_address` | string | 是 | SR 地址 |
 | `proposal_id` | int64 | 是 | 提案 ID |
-| `is_add_approval` | bool | 是 | true=赞成，false=取消赞成 |
-| `permission_id` | int32 | 否 | 多签权限 ID |
+| `is_add_approval` | bool | 否 | `true`=赞成，`false`=取消赞成；省略时默认为 `false` |
+| `Permission_id` | int32 | 否 | 多签权限 ID |
 | `visible` | bool | 否 | 地址格式 |
 
 示例：
@@ -39,6 +39,8 @@ curl --request POST \
 ```json
 {"Error": "class org.tron.core.exception.ContractValidateException : Proposal[1] expired"}
 ```
+
+省略 `is_add_approval` 时，请求进入取消赞成分支；仅当该 witness 此前已赞成该提案时才会成功。
 
 校验通过时返回未签名 `protocol.Transaction`，结构示意（`txID` / `ref_block_*` / `expiration` / `timestamp` / `raw_data_hex` 含义同 [`/wallet/createtransaction`](../tx-build-and-broadcast/createtransaction.md)）：
 
@@ -73,8 +75,8 @@ curl --request POST \
 
 | 触发条件 | 响应 |
 |---|---|
-| 请求体超过 `node.maxMessageSize` | `{"Error": "class java.lang.Exception : body size is too big, the limit is <N>"}` |
-| 请求体不是合法 JSON / 字段类型不符 | `{"Error": "class com.alibaba.fastjson.JSONException : <解析器信息>"}` 或 `{"Error": "class org.tron.core.services.http.JsonFormat$ParseException : <解码器信息>"}` |
+| 请求体超过 `node.http.maxMessageSize` | 通常由 `SizeLimitHandler` 返回 HTTP 413 `Payload Too Large` |
+| 请求体不是合法 JSON / 字段类型不符 | `{"Error": "class org.tron.json.JSONException : <解析器信息>"}` 或 `{"Error": "class org.tron.core.services.http.JsonFormat$ParseException : <解码器信息>"}` |
 | `owner_address` 非法 | `{"Error": "class org.tron.core.exception.ContractValidateException : Invalid address"}` |
 | owner 账户不存在 | `{"Error": "... : Account[<address>] not exists"}` |
 | owner 不是 SR | `{"Error": "... : Witness[<address>] not exists"}` |

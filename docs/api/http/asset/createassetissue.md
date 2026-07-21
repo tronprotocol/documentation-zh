@@ -24,7 +24,7 @@
 | `url` | string | 是 | 项目 URL（hex UTF-8，长度 ≤ 256 字节） |
 | `free_asset_net_limit` | int64 | 否 | 单账户该 token 免费带宽 |
 | `public_free_asset_net_limit` | int64 | 否 | token 公共免费带宽 |
-| `permission_id` | int32 | 否 | 多签权限 ID |
+| `Permission_id` | int32 | 否 | 多签权限 ID |
 | `visible` | bool | 否 | 地址、文本字段格式 |
 
 示例：
@@ -96,8 +96,8 @@ curl --request POST \
 
 | 触发条件 | 响应 |
 |---|---|
-| 请求体超过 `node.maxMessageSize` | `{"Error": "class java.lang.Exception : body size is too big, the limit is <N>"}` |
-| 请求体不是合法 JSON / 字段类型不符 | `{"Error": "class com.alibaba.fastjson.JSONException : <解析器信息>"}` 或 `{"Error": "class org.tron.core.services.http.JsonFormat$ParseException : <解码器信息>"}` |
+| 请求体超过 `node.http.maxMessageSize` | 通常由 `SizeLimitHandler` 返回 HTTP 413 `Payload Too Large` |
+| 请求体不是合法 JSON / 字段类型不符 | `{"Error": "class org.tron.json.JSONException : <解析器信息>"}` 或 `{"Error": "class org.tron.core.services.http.JsonFormat$ParseException : <解码器信息>"}` |
 | `owner_address` 非法 | `{"Error": "class org.tron.core.exception.ContractValidateException : Invalid ownerAddress"}` |
 | `name` 非法（空、长度 > 32、含非法字符） | `{"Error": "... : Invalid assetName"}` |
 | `name` 解析为 "trx" | `{"Error": "... : assetName can't be trx"}` |

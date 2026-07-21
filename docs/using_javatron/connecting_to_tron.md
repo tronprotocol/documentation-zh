@@ -231,7 +231,7 @@ java-tron 使用 [Kademlia](https://zh.wikipedia.org/wiki/Kademlia) 协议发现
 
 #### 配置的 `seed.node` 
 
-使用 `seed.node` 初始化网络连接。应设置为在线稳定的全节点。
+使用 `seed.node` 初始化网络连接。应设置为在线稳定的全节点。每个条目可以使用 IPv4 地址、带方括号的 IPv6 地址或域名：
 
 
 ```properties
@@ -241,6 +241,7 @@ seed.node = {
     "52.8.46.215:18888",
     ...
     "18.163.230.203:18888"
+    #"seed.example.com:18888", // 域名
     #"[2a05:d014:1f2f:2600:1b15:921:d60b:4c60]:18888", // use this if support ipv6
     #"[2600:1f18:7260:f400:8947:ebf3:78a0:282b]:18888", // use this if support ipv6
   ]
@@ -249,6 +250,18 @@ seed.node = {
 
 对于TRON主网，可以使用 [社区公共节点](https://developers.tron.network/docs/networks#public-node) 作为种子节点。如果想要获取最新的`seed.node`，可以在官方的 [配置文件](https://github.com/tronprotocol/java-tron/blob/master/framework/src/main/resources/config.conf) 查看。
 如果网卡支持 ipv6，可以使用上述列表中的 ipv6 地址格式的种子节点，将注释符 `#` 去掉即可。
+
+#### 对等节点配置中的域名
+
+从 GreatVoyage-v4.8.2 开始，`seed.node.ip.list`、`node.active`、`node.passive` 和 `node.fastForward` 除了支持 IP 地址外，还支持使用 `hostname:port` 格式的域名。这四个配置项中的 IPv6 地址必须使用 `[IPv6-address]:port` 格式，并且不能包含前导或尾随空白字符。
+
+`node.backup.members` 同样支持域名和 IP 地址，但其中的条目不能包含端口。该列表中的 IPv6 地址不使用方括号，并且不能包含前导或尾随空白字符。所有备份节点统一使用 `node.backup.port` 单独配置的端口。完整的备份节点配置和部署示例请参阅[主从模式的出块全节点](installing_javatron.md#master-slave-mode-for-block-production-fullnodes)。
+
+java-tron 在启动时将配置的域名解析为 IP 地址。解析时首先使用操作系统解析器，因此会读取 `/etc/hosts` 等本地映射；如果解析失败或超时，则回退到内置的公共 DNS 解析器。解析时优先尝试 IPv4，失败后再尝试 IPv6。对于 `seed.node.ip.list`、`node.active`、`node.passive` 和 `node.fastForward`，同一列表中的域名会并行解析，无法解析的条目会被跳过。`node.backup.members` 则会逐项校验，其中任一成员无法解析都会导致参数初始化失败，节点无法启动。
+
+只有 `node.backup.members` 中的域名会每 60 秒定时刷新，其他对等节点配置项中的域名不会自动刷新。
+
+这些对等节点配置项中的域名使用普通的 DNS A/AAAA 记录解析，与通过 `node.dns.treeUrls` 配置的 DNS 树节点发现机制不同。
 
 #### 从数据库中读取的持久化节点
 
@@ -314,24 +327,24 @@ node {
   active = [
     # Active establish connection in any case
     # Sample entries:
-    # "ip:port",
-    # "ip:port"
+    # "192.0.2.10:18888",
+    # "active.example.com:18888"
   ]
   ...
  }
 ``` 
 
 - 节点发现获取到的可连接节点(中优先级)
-- DNS 节点(低优先级)，DNS 树获取的备用节点，需要配置 treeUrls，在前两个来源不足时使用，一般不会使用到。相关配置项(一般不配置)：
+- DNS 节点（低优先级），通过 DNS 树获取备用节点，需要配置 `node.dns.treeUrls`，在前两个来源不足时使用，一般不会使用到：
 
   ```properties
-  dns {
-  ...
-  # dns urls to get nodes, url format tree://{pubkey}@{domain}, default empty
-  treeUrls = [
-    #"tree://AKMQMNAJJBL73LXWPXDI4I5ZWWIZ4AWO34DWQ636QOBBXNFXH3LQS@main.trondisco.net",
-  ]
-  ...
+  node {
+    dns {
+      # 用于获取节点的 DNS URL，格式为 tree://{pubkey}@{domain}，默认为空
+      treeUrls = [
+        #"tree://AKMQMNAJJBL73LXWPXDI4I5ZWWIZ4AWO34DWQ636QOBBXNFXH3LQS@main.trondisco.net",
+      ]
+    }
   }
   ```
 
@@ -349,8 +362,8 @@ node {
   passive = [
     # Passive accept connection in any case
     # Sample entries:
-    # "ip:port",
-    # "ip:port"
+    # "192.0.2.20:18888",
+    # "passive.example.com:18888"
   ]
   ...
  }
