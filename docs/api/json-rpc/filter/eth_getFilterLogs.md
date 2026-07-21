@@ -28,5 +28,6 @@ curl -X POST http://127.0.0.1:8545/jsonrpc \
 | 触发条件 | 错误码 | message |
 |---|---|---|
 | filter ID 不存在 / 已过期 / 属于 block filter 或另一端口 | `-32000` | `filter not found` |
+| 已保存 filter 范围超过 `maxBlockRange`（默认 5000） | `-32602` | `exceed max block range: <N>` |
 | 命中数超过上限 | `-32005` | `JsonRpcTooManyResultException` 透传 message |
 | 节点为 lite fullnode 且查询块已剪枝 | `-32000` | `BadItemException` / `ItemNotFoundException` 透传 message |

@@ -62,7 +62,7 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 
-import com.alibaba.fastjson.JSONObject;
+import org.tron.json.JSONObject;
 
 @Component
 @Slf4j(topic = "API")
@@ -330,5 +330,4 @@ git push origin feature/add-new-http-demo
 ![提交 Pull Request 示例](https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/javatron_pr.png)
 
 请确保您的 Pull Request 描述清晰，包含您所做更改的详细信息和目的。
-
 

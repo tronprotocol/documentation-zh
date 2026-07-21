@@ -13,7 +13,7 @@
 | `owner_address` | string | 是 | 发起方地址 |
 | `to_address` | string | 是 | 接收方地址 |
 | `amount` | int64 | 是 | 金额，sun（1 TRX = 1e6 sun） |
-| `permission_id` | int32 | 否 | 多签权限 ID |
+| `Permission_id` | int32 | 否 | 多签权限 ID |
 | `extra_data` | string | 否 | 写入 `raw_data.data`（hex；`visible=true` 时为 UTF-8） |
 | `visible` | bool | 否 | 地址格式 |
 
@@ -70,8 +70,8 @@ curl --request POST \
 
 | 触发条件 | 响应 |
 |---|---|
-| 请求体超过 `node.maxMessageSize` | `{"Error": "class java.lang.Exception : body size is too big, the limit is <N>"}` |
-| 请求体不是合法 JSON | `{"Error": "class com.alibaba.fastjson.JSONException : <解析器信息>"}` |
+| 请求体超过 `node.http.maxMessageSize` | 通常由 `SizeLimitHandler` 返回 HTTP 413 `Payload Too Large` |
+| 请求体不是合法 JSON | `{"Error": "class org.tron.json.JSONException : <解析器信息>"}` |
 | 字段类型不符 / 地址解码失败 | `{"Error": "class org.tron.core.services.http.JsonFormat$ParseException : <解码器信息>"}` |
 | `extra_data` 在 `visible=false` 时不是合法 hex | `{"Error": "class org.bouncycastle.util.encoders.DecoderException : <message>"}`（`Util.setTransactionExtraData` 直调 `ByteArray.fromHexString`，绕过 `JsonFormat`） |
 | `owner_address` 不是 21 字节合法地址 | `{"Error": "class org.tron.core.exception.ContractValidateException : Invalid ownerAddress!"}` |

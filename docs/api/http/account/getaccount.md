@@ -8,10 +8,13 @@
 
 ## 请求参数
 
-| 字段 | 类型 | 必填 | 说明 |
-|---|---|---|---|
-| `address` | string | 是 | 账户地址；`visible=false` 为 hex（21 字节，0x41 前缀），`visible=true` 为 base58check |
-| `visible` | bool | 否 | 地址、文本字段格式 |
+GET 从 URL 查询参数读取以下字段；POST 从 JSON 请求体读取。
+
+| 字段 | 方法 | 类型 | 必填 | 说明 |
+|---|---|---|---|---|
+| `address` | GET | string | 是 | 账户地址；`visible=false` 为 hex（21 字节，0x41 前缀），`visible=true` 为 base58check |
+| `address` | POST | string | 否 | 账户地址；省略时使用 Protobuf 空地址，通常返回 `{}` |
+| `visible` | GET / POST | bool | 否 | 地址、文本字段格式 |
 
 POST 示例：
 
@@ -46,7 +49,9 @@ curl --request POST \
 | `asset` / `assetV2` | map\<string,int64\> | 持有的 TRC-10 |
 | `allowance` | int64 | 超级代表未提取奖励 |
 | `latest_opration_time` | int64 | 最近一次操作时间 |
-| `owner_permission` / `witness_permission` / `active_permission` | Permission | 权限配置 |
+| `owner_permission` | Permission | Owner 权限配置 |
+| `witness_permission` | Permission | Witness 权限配置（SR 账户存在） |
+| `active_permission` | repeated Permission | Active 权限配置列表 |
 
 响应示例：
 
@@ -103,10 +108,10 @@ curl --request POST \
 
 ### 异常响应
 
-| 触发条件 | 响应 |
-|---|---|
-| 请求体超过 `node.maxMessageSize`（POST） | `{"Error": "class java.lang.Exception : body size is too big, the limit is <N>"}` |
-| `address` 不是合法 hex（`visible=false`） | `{"Error": "class org.tron.core.services.http.JsonFormat$ParseException : <pos>: INVALID hex String"}` |
-| `address` 不是合法 base58check（`visible=true`） | 含非 base58 字符抛 `{"Error": "class org.tron.core.services.http.JsonFormat$ParseException : <pos>: INVALID base58 String, <详情>"}`；仅校验位错误抛 `{"Error": "class java.lang.NullPointerException : null"}`（GET、POST 行为一致：GET 路径把 `address` 包成 JSON 后同样走 `JsonFormat.merge`） |
-| 请求体不是合法 JSON / 字段类型不符（POST） | `{"Error": "class com.alibaba.fastjson.JSONException : <解析器信息>"}` 或 `{"Error": "class org.tron.core.services.http.JsonFormat$ParseException : <解码器信息>"}` |
-| 其他异常 | `{"Error": "<exceptionClass> : <message>"}` |
+| 方法 | 触发条件 | 响应 |
+|---|---|---|
+| GET / POST | 请求体超过 `node.http.maxMessageSize` | 通常由 `SizeLimitHandler` 返回 HTTP 413 `Payload Too Large` |
+| GET / POST | `address` 不是合法 hex（`visible=false`） | `{"Error": "class org.tron.core.services.http.JsonFormat$ParseException : <pos>: INVALID hex String"}` |
+| GET / POST | `address` 不是合法 base58check（`visible=true`） | 含非 base58 字符抛 `{"Error": "class org.tron.core.services.http.JsonFormat$ParseException : <pos>: INVALID base58 String, <详情>"}`；仅校验位错误抛 `{"Error": "class java.lang.NullPointerException : null"}`（GET、POST 行为一致：GET 路径把 `address` 包成 JSON 后同样走 `JsonFormat.merge`） |
+| POST | 请求体不是合法 JSON / 字段类型不符（POST） | `{"Error": "class org.tron.json.JSONException : <解析器信息>"}` 或 `{"Error": "class org.tron.core.services.http.JsonFormat$ParseException : <解码器信息>"}` |
+| GET / POST | 其他异常 | `{"Error": "<exceptionClass> : <message>"}` |

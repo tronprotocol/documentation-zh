@@ -15,13 +15,13 @@
 | `abi` | json string | 否 | 合约 ABI（JSON 数组字符串） |
 | `bytecode` | string | 是 | 合约字节码（hex） |
 | `parameter` | string | 否 | 构造函数参数（hex，紧接 bytecode） |
-| `fee_limit` | int64 | 是 | 交易费用上限（sun） |
+| `fee_limit` | int64 | 否 | 交易费用上限（sun）；省略时默认为 `0` |
 | `call_value` | int64 | 否 | 调用合约带入的 TRX（sun） |
-| `consume_user_resource_percent` | int64 | 是 | 用户承担能量百分比 0–100 |
-| `origin_energy_limit` | int64 | 是 | 部署者承担能量上限 |
+| `consume_user_resource_percent` | int64 | 否 | 用户承担能量百分比 0–100；省略时默认为 `0` |
+| `origin_energy_limit` | int64 | 否 | 部署者承担能量上限；省略时默认为 `0` |
 | `token_id` | int64 | 否 | 调用合约带入的 TRC-10 token id |
 | `call_token_value` | int64 | 否 | 调用合约带入的 TRC-10 数量 |
-| `permission_id` | int32 | 否 | 多签权限 ID |
+| `Permission_id` | int32 | 否 | 多签权限 ID |
 | `visible` | bool | 否 | 地址格式 |
 
 示例：
@@ -93,12 +93,12 @@ curl --request POST \
 
 | 触发条件 | 响应 |
 |---|---|
-| 请求体超过 `node.maxMessageSize` | `{"Error": "class java.lang.Exception : body size is too big, the limit is <N>"}` |
+| 请求体超过 `node.http.maxMessageSize` | 通常由 `SizeLimitHandler` 返回 HTTP 413 `Payload Too Large` |
 | `owner_address` 不是合法 base58check（`visible=true`） | 含非 base58 字符抛 `{"Error": "class java.lang.IllegalArgumentException : <详情>"}`；仅校验位错误时 `Util.getHexAddress` 静默返回空串，`CreateSmartContract` 构造路径不校验 owner 非空，会返回 `owner_address` 字段缺失的合法交易（签名/广播阶段才会失败） |
 | `owner_address` 不是合法 hex（`visible=false`） | `{"Error": "class org.bouncycastle.util.encoders.DecoderException : <message>"}`（直调 `ByteArray.fromHexString`） |
 | `bytecode` 不是合法 hex | `{"Error": "class org.bouncycastle.util.encoders.DecoderException : <message>"}`（直调 `ByteArray.fromHexString`） |
-| `abi` 不是合法 JSON | `{"Error": "class com.alibaba.fastjson.JSONException : <解析器信息>"}` |
-| 请求体不是合法 JSON / 字段类型不符 | `{"Error": "class com.alibaba.fastjson.JSONException : <解析器信息>"}` 或 `{"Error": "class org.tron.core.services.http.JsonFormat$ParseException : <解码器信息>"}` |
+| `abi` 不是合法 JSON | `{"Error": "class org.tron.json.JSONException : <解析器信息>"}` |
+| 请求体不是合法 JSON / 字段类型不符 | `{"Error": "class org.tron.json.JSONException : <解析器信息>"}` 或 `{"Error": "class org.tron.core.services.http.JsonFormat$ParseException : <解码器信息>"}` |
 | `consume_user_resource_percent` 不在 [0, 100] | `{"Error": "class org.tron.core.exception.ContractValidateException : percent must be >= 0 and <= 100"}` |
 | 其他异常 | `{"Error": "<exceptionClass> : <message>"}` |
 

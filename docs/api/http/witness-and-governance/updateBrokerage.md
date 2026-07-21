@@ -11,8 +11,8 @@ SR 修改分红比例（佣金）。
 | 字段 | 类型 | 必填 | 说明 |
 |---|---|---|---|
 | `owner_address` | string | 是 | SR 地址 |
-| `brokerage` | int32 | 是 | 新佣金百分比 0–100 |
-| `permission_id` | int32 | 否 | 多签权限 ID |
+| `brokerage` | int32 | 否 | 新佣金百分比 0–100；省略时默认为合法值 `0` |
+| `Permission_id` | int32 | 否 | 多签权限 ID |
 | `visible` | bool | 否 | 地址格式 |
 
 示例：
@@ -66,8 +66,8 @@ curl --request POST \
 
 | 触发条件 | 响应 |
 |---|---|
-| 请求体超过 `node.maxMessageSize` | `{"Error": "class java.lang.Exception : body size is too big, the limit is <N>"}` |
-| 请求体不是合法 JSON / 字段类型不符 | `{"Error": "class com.alibaba.fastjson.JSONException : <解析器信息>"}` 或 `{"Error": "class org.tron.core.services.http.JsonFormat$ParseException : <解码器信息>"}` |
+| 请求体超过 `node.http.maxMessageSize` | 通常由 `SizeLimitHandler` 返回 HTTP 413 `Payload Too Large` |
+| 请求体不是合法 JSON / 字段类型不符 | `{"Error": "class org.tron.json.JSONException : <解析器信息>"}` 或 `{"Error": "class org.tron.core.services.http.JsonFormat$ParseException : <解码器信息>"}` |
 | 链未启用 ChangeDelegation 提案 | `{"Error": "class org.tron.core.exception.ContractValidateException : contract type error, unexpected type [UpdateBrokerageContract]"}` |
 | `owner_address` 非法 | `{"Error": "... : Invalid ownerAddress"}` |
 | `brokerage` 不在 [0, 100] | `{"Error": "... : Invalid brokerage"}` |

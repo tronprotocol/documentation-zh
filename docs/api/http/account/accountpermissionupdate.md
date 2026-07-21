@@ -14,7 +14,7 @@
 | `owner` | Permission | 是 | owner 权限（type=Owner，id=0；不能为空） |
 | `witness` | Permission | 否 | 超级代表权限（type=Witness，id=1）；只有 SR 账户填 |
 | `actives` | repeated Permission | 是 | active 权限列表（type=Active，id 从 2 开始） |
-| `permission_id` | int32 | 否 | 当前签名所用权限 ID |
+| `Permission_id` | int32 | 否 | 当前签名所用权限 ID |
 | `visible` | bool | 否 | 地址格式 |
 
 `Permission` 字段（`Tron.proto`）：
@@ -111,8 +111,8 @@ curl --request POST \
 
 | 触发条件 | 响应 |
 |---|---|
-| 请求体超过 `node.maxMessageSize` | `{"Error": "class java.lang.Exception : body size is too big, the limit is <N>"}` |
-| 请求体不是合法 JSON / 字段类型不符 | `{"Error": "class com.alibaba.fastjson.JSONException : <解析器信息>"}` 或 `{"Error": "class org.tron.core.services.http.JsonFormat$ParseException : <解码器信息>"}` |
+| 请求体超过 `node.http.maxMessageSize` | 通常由 `SizeLimitHandler` 返回 HTTP 413 `Payload Too Large` |
+| 请求体不是合法 JSON / 字段类型不符 | `{"Error": "class org.tron.json.JSONException : <解析器信息>"}` 或 `{"Error": "class org.tron.core.services.http.JsonFormat$ParseException : <解码器信息>"}` |
 | `AllowMultiSign` 提案未开启 | `{"Error": "class org.tron.core.exception.ContractValidateException : multi sign is not allowed, need to be opened by the committee"}` |
 | `owner_address` 不是 21 字节合法地址 | `{"Error": "class org.tron.core.exception.ContractValidateException : invalidate ownerAddress"}` |
 | `owner_address` 在链上不存在 | `{"Error": "class org.tron.core.exception.ContractValidateException : ownerAddress account does not exist"}` |
