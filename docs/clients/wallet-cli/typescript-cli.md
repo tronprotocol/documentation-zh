@@ -1,8 +1,9 @@
 # TypeScript / npm CLI
 
-从 `wallet-cli` 4.9.7 开始，仓库同时提供一个面向智能体优先设计的 TypeScript CLI，并以 npm 包
-`@tron-walletcli/wallet-cli` 发布。它与本节其他页面介绍的 Java JAR 是两套命令面：Java CLI 使用
-`send-coin` 这类命令，而 TypeScript CLI 使用 `tx send` 这类分组命令。
+从 `wallet-cli` 仓库的 4.9.7 发布版本开始，仓库同时提供一个面向智能体优先设计的 TypeScript CLI。
+该 CLI 以 npm 包 `@tron-walletcli/wallet-cli` 发布，并采用独立的 npm 版本号；`wallet-cli --version`
+显示的是 npm 包版本。它与本节其他页面介绍的 Java JAR 是两套命令面：Java CLI 使用 `send-coin`
+这类命令，而 TypeScript CLI 使用 `tx send` 这类分组命令。
 
 当前 TypeScript CLI 支持 TRON 主网、Nile 和 Shasta。本版本尚不支持 EVM 链。
 
