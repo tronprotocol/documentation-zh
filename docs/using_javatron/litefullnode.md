@@ -24,6 +24,8 @@
 - 从 [公共备份数据](backup_restore.md/#lite-fullnode) 中下载轻节点数据快照，并直接使用；
 - 通过 [轻节点数据剪裁工具](toolkit.md/#lite-fullnode-data-pruning) 将全节点的数据库转换成轻节点的数据库。
 
+自行生成快照时，数据裁剪工具默认保留 `balance-trace` 和 `account-trace` 数据库。如果不需要历史余额查询，可以在执行 `split -t snapshot` 时使用 `--exclude-historical-balance` 减小快照体积。之后合并历史数据集也无法恢复被排除的数据；如果生成的轻节点需要支持历史余额查询，请勿启用此参数。命令和完整警告请参阅[轻节点数据裁剪工具](toolkit.md/#lite-fullnode-data-pruning)。
+
 ## 轻节点维护
 
 尽管轻节点以很小的数据量启动，但它在运行后会像全节点一样持续同步并保存新的区块数据，因此其磁盘占用会不断增长。
