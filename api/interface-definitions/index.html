@@ -6907,6 +6907,18 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    机器可读定义
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -6917,6 +6929,43 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item ">
+  <a href="#http" class="md-nav__link" >
+    <span class="md-ellipsis">
+      HTTP 带内错误扩展
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item ">
+  <a href="#openrpc" class="md-nav__link" >
+    <span class="md-ellipsis">
+      OpenRPC 错误目录扩展
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -7588,6 +7637,8 @@
       
         
       
+        
+      
     
     
       
@@ -7817,6 +7868,28 @@
   
   <span class="md-ellipsis">
     查询
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../clients/wallet-cli/typescript-cli/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    TypeScript / npm CLI
     
   </span>
   
@@ -8866,6 +8939,32 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item ">
+  <a href="#http" class="md-nav__link" >
+    <span class="md-ellipsis">
+      HTTP 带内错误扩展
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item ">
+  <a href="#openrpc" class="md-nav__link" >
+    <span class="md-ellipsis">
+      OpenRPC 错误目录扩展
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -8939,6 +9038,29 @@
 </tbody>
 </table>
 <p>发布的定义来自 java-tron API 行为，并附带指向相应人类可读 API 文档的链接。顶层 <code>openapi.yaml</code> 和 <code>openrpc.json</code> 由各接口片段汇总生成，方便工具直接消费一个标准文件。</p>
+<h2 id="http">HTTP 带内错误扩展<a class="headerlink" href="#http" title="Permanent link">&para;</a></h2>
+<p>HTTP 接口可能以状态码 200 返回成功对象或错误对象。JSON 响应 schema 使用 <code>x-tron-in-band-error</code> 描述消费者如何区分这两种情况。</p>
+<p>如果存在 <code>errors</code> 数组，它就是描述接口特定业务错误的规范结构。如果该数组不存在，消费者必须回退使用 <code>errorSchema</code>、<code>discriminatorField</code> 和顶层 <code>sources</code>。业务错误条目包含 <code>responsePath</code>、<code>discriminatorPath</code>、<code>failureCondition</code> 和 <code>sources</code>。Java 错误条目标识 <code>JavaTronError</code> schema，并使用 <code>$.Error</code> 作为判别路径。当任意业务错误条目匹配时，该操作即视为业务失败。</p>
+<p>支持以下 <code>failureCondition</code> 形式：</p>
+<ul>
+<li><code>equals &lt;value&gt;</code>：判别字段存在，并且等于指定的 JSON 标量值或枚举标记。</li>
+<li><code>missing or equals &lt;value&gt;</code>：字段不存在，或者字段存在且等于指定值。JSON <code>null</code> 不视为字段不存在。</li>
+<li><code>field exists and is not &lt;value&gt;</code>：字段存在，并且不等于指定值。缺失的 proto3 默认值字段不会匹配。</li>
+</ul>
+<p>判别路径使用 JSONPath 子集：<code>$</code>、以点分隔的对象成员，以及 <code>[0]</code> 形式的从零开始的数组索引。</p>
+<p>当前所有 <code>x-tron-in-band-error</code> 条目都保留 <code>errorSchema</code>、<code>discriminatorField</code> 和顶层 <code>sources</code>。具有接口特定业务错误的操作还会提供 <code>errors</code>。这些旧字段仅描述 <code>JavaTronError</code> 分支；接口特定业务失败仅通过 <code>errors</code> 表示。</p>
+<h2 id="openrpc">OpenRPC 错误目录扩展<a class="headerlink" href="#openrpc" title="Permanent link">&para;</a></h2>
+<p>顶层 <code>x-tron-error-model</code> 与每个 method 的 <code>x-tron-error-catalog</code> 在不改变 JSON-RPC 线上格式及源码派生 OpenRPC <code>errors</code> 数组的前提下，补充稳定的错误分类和重试指引。</p>
+<p>每个 method catalog 链接都包含 <code>errorIndex</code>。它是该 method <code>errors</code> 数组的从零开始的索引；关联的 <code>catalogId</code> 指向 <code>x-tron-error-model.catalog</code> 中的对应条目。method catalog 为空表示该 method 没有源码声明的错误，但 <code>sharedCatalogIds</code> 中与 method 无关的失败仍然适用。</p>
+<p>按以下顺序对响应分类：</p>
+<ol>
+<li>先评估 <code>sharedCatalogIds</code> 引用的可执行匹配，包括协议/servlet 失败以及普通 JSON-RPC envelope 之外的传输响应。</li>
+<li>如果已知调用的 method，则通过其 <code>x-tron-error-catalog</code> 链接限定候选项，并匹配 <code>code</code> 或已记录的 message 前缀等可观测线上字段。</li>
+<li>如果同一线上响应仍匹配多个候选项——尤其是重用的 <code>-32000</code> 和 <code>-32005</code> 错误码——则使用 <code>ambiguousCodeFallback</code>：<code>retryable: false</code> 且 <code>retryClass: UNKNOWN</code>。</li>
+</ol>
+<p><code>sourceException</code> 和 <code>sourceMessage</code> 是从 java-tron 源码声明派生的解释性元数据。它们不保证出现在 <code>error.message</code>、<code>error.data</code> 或其它任何线上字段中，不得作为运行时匹配条件。其中 <code>&lt;underlying exception message&gt;</code> 是源码描述占位符，不是字面响应值。</p>
+<p><code>retryable: true</code> 特指允许自动重试同一逻辑操作。<code>AFTER_STATE_CHANGE</code>、<code>AFTER_REQUEST_REBUILD</code> 或 <code>VERIFY_BEFORE_RETRY</code> 等有条件的重试类别仍为 <code>retryable: false</code>；客户端只能在满足该类别声明的前置条件后再次尝试。<code>UNKNOWN</code> 同样禁止自动重试。</p>
+<p>该目录包含 java-tron 生成的稳定协议、servlet 和 HTTP 响应。连接失败、超时以及没有稳定响应契约的通用 I/O 失败，仍属于客户端传输错误。</p>
 
 
 
@@ -8959,7 +9081,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年6月29日 13:05:13 UTC">2026年6月29日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年7月15日 08:54:55 UTC">2026年7月15日</span>
   </span>
 
     

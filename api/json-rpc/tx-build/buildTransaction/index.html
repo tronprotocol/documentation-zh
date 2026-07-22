@@ -7656,6 +7656,8 @@
       
         
       
+        
+      
     
     
       
@@ -7885,6 +7887,28 @@
   
   <span class="md-ellipsis">
     查询
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../clients/wallet-cli/typescript-cli/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    TypeScript / npm CLI
     
   </span>
   
@@ -9043,12 +9067,12 @@
 <tr>
 <td><code>from</code></td>
 <td>必填</td>
-<td>发送方地址（hex 或 base58check）</td>
+<td>发送方地址：20 字节 hex，或以 <code>41</code> 开头的 21 字节 Tron hex；均可带或不带 <code>0x</code>（不接受 base58check）</td>
 </tr>
 <tr>
 <td><code>to</code></td>
 <td>视情况</td>
-<td>目标地址；合约部署时为空</td>
+<td>目标地址，格式同 <code>from</code>；合约部署时为空</td>
 </tr>
 <tr>
 <td><code>gas</code></td>
@@ -9064,6 +9088,11 @@
 <td><code>data</code></td>
 <td>null</td>
 <td>合约 bytecode（部署）或 calldata（trigger）</td>
+</tr>
+<tr>
+<td><code>input</code></td>
+<td>null</td>
+<td><code>data</code> 的别名；hex 校验更严格，适合 execution-API 兼容客户端使用</td>
 </tr>
 <tr>
 <td><code>tokenId</code></td>
@@ -9122,7 +9151,7 @@
 </thead>
 <tbody>
 <tr>
-<td><code>to</code> 为空 + <code>data</code> 非空</td>
+<td><code>to</code> 为空 + calldata 非空</td>
 <td><code>CreateSmartContract</code></td>
 </tr>
 <tr>
@@ -9223,6 +9252,16 @@ curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </spa
 <td>透传 <code>addressCompatibleToByteArray</code> 异常 message</td>
 </tr>
 <tr>
+<td><code>input</code> 不是严格 hex</td>
+<td><code>-32602</code></td>
+<td>透传 <code>JsonRpcApiUtil.requireValidHex</code> 校验信息</td>
+</tr>
+<tr>
+<td><code>data</code> 和 <code>input</code> 都设置但解析出的 bytes 不一致</td>
+<td><code>-32602</code></td>
+<td><code>both "data" and "input" are set and not equal. Please use "input" to pass transaction call data</code></td>
+</tr>
+<tr>
 <td><code>value</code> 不是合法 hex</td>
 <td><code>-32602</code></td>
 <td><code>invalid param value: invalid hex number</code></td>
@@ -9231,6 +9270,16 @@ curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </spa
 <td><code>gas</code> 不是合法 hex</td>
 <td><code>-32602</code></td>
 <td><code>invalid param value: invalid hex number</code></td>
+</tr>
+<tr>
+<td><code>gas × eth_gasPrice</code> 导致有符号 64 位 <code>feeLimit</code> 溢出</td>
+<td><code>-32602</code></td>
+<td><code>invalid gas: fee limit overflow</code></td>
+</tr>
+<tr>
+<td>部署合约时 <code>abi</code> 无法解析</td>
+<td><code>-32602</code></td>
+<td><code>invalid abi</code></td>
 </tr>
 <tr>
 <td><code>tokenId</code> 转字符串后非法（仅 TRC-10 路径）</td>
@@ -9269,7 +9318,7 @@ curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </spa
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年6月13日 03:38:23 UTC">2026年6月13日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年7月14日 09:51:24 UTC">2026年7月14日</span>
   </span>
 
     

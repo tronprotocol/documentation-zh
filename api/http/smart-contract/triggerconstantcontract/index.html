@@ -7656,6 +7656,8 @@
       
         
       
+        
+      
     
     
       
@@ -7885,6 +7887,28 @@
   
   <span class="md-ellipsis">
     查询
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../clients/wallet-cli/typescript-cli/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    TypeScript / npm CLI
     
   </span>
   
@@ -9034,8 +9058,8 @@
 <tr>
 <td><code>contract_address</code></td>
 <td>string</td>
-<td>是</td>
-<td>目标合约地址</td>
+<td>条件必填</td>
+<td>目标合约地址；必须提供 <code>contract_address</code> 或 <code>data</code></td>
 </tr>
 <tr>
 <td><code>function_selector</code></td>
@@ -9080,7 +9104,7 @@
 <td>交易备注（hex；<code>visible=true</code> 时为 UTF-8 文本）</td>
 </tr>
 <tr>
-<td><code>permission_id</code></td>
+<td><code>Permission_id</code></td>
 <td>int32</td>
 <td>否</td>
 <td>多签权限 ID</td>
@@ -9093,6 +9117,7 @@
 </tr>
 </tbody>
 </table>
+<p>必填约束为 <code>owner_address AND (contract_address OR data)</code>。提供 <code>data</code> 时可省略 <code>contract_address</code>，例如模拟部署合约。</p>
 <p>示例：</p>
 <div class="highlight"><pre><span></span><code>curl<span class="w"> </span>--request<span class="w"> </span>POST<span class="w"> </span><span class="se">\</span>
 <span class="w">     </span>--url<span class="w"> </span>https://nile.trongrid.io/wallet/triggerconstantcontract<span class="w"> </span><span class="se">\</span>
@@ -9196,7 +9221,8 @@
 <p><code>txID</code> / <code>ref_block_*</code> / <code>expiration</code> / <code>timestamp</code> / <code>raw_data_hex</code> 等 ephemeral 字段语义同 <a href="../../tx-build-and-broadcast/createtransaction/"><code>/wallet/createtransaction</code></a>。常量调用本身不上链，<code>transaction</code> 字段仅作上下文。</p>
 </blockquote>
 <h3 id="_3">异常响应<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
-<p>不会写出 <code>{"Error": ...}</code>。所有异常被 catch 后写入 <code>result.code</code> / <code>result.message</code>，HTTP 体仍是 <code>TransactionExtention</code>。注意：<strong>EVM revert / runtime 错误不走 <code>result.code</code> 路径</strong>，而是 <code>result.result=true</code>、<code>message</code> 写 revert/runtime 信息，失败标记落在 <code>transaction.ret[0].ret="FAILED"</code>。</p>
+<p>请求进入 servlet 后不会写出 <code>{"Error": ...}</code>。由 servlet 接管的异常会被 catch 后写入 <code>result.code</code> / <code>result.message</code>，HTTP 体仍是 <code>TransactionExtention</code>。注意：<strong>EVM revert / runtime 错误不走 <code>result.code</code> 路径</strong>，而是 <code>result.result=true</code>、<code>message</code> 写 revert/runtime 信息，失败标记落在 <code>transaction.ret[0].ret="FAILED"</code>。</p>
+<p>在请求进入此 servlet 前，共享层仍可能返回不同结构：请求体超限时，<code>SizeLimitHandler</code> 通常返回 HTTP 413 <code>Payload Too Large</code>；非阻塞限流拒绝则返回 HTTP 200 和 <code>{"Error":"class java.lang.IllegalAccessException : lack of computing resources"}</code>。</p>
 <table>
 <thead>
 <tr>
@@ -9209,10 +9235,17 @@
 </thead>
 <tbody>
 <tr>
-<td>合约不存在 / 校验失败（<code>ContractValidateException</code>）</td>
+<td><code>contract_address</code> 已设置但合约不存在</td>
 <td>缺省 (false)</td>
 <td><code>CONTRACT_VALIDATE_ERROR</code></td>
-<td>校验器原始描述</td>
+<td><code>Smart contract is not exist.</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td>节点关闭 constant-call 支持</td>
+<td>缺省 (false)</td>
+<td><code>CONTRACT_VALIDATE_ERROR</code></td>
+<td><code>this node does not support constant</code></td>
 <td>—</td>
 </tr>
 <tr>
@@ -9266,7 +9299,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年6月13日 03:38:23 UTC">2026年6月13日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年7月14日 09:51:24 UTC">2026年7月14日</span>
   </span>
 
     

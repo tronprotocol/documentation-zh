@@ -7656,6 +7656,8 @@
       
         
       
+        
+      
     
     
       
@@ -7885,6 +7887,28 @@
   
   <span class="md-ellipsis">
     查询
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../clients/wallet-cli/typescript-cli/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    TypeScript / npm CLI
     
   </span>
   
@@ -9015,7 +9039,73 @@
 <li>支持固化接口：<code>/walletsolidity/estimateenergy</code></li>
 </ul>
 <h2 id="_1">请求参数<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<p>参数同 <a href="../triggerconstantcontract/"><code>/wallet/triggerconstantcontract</code></a>。</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>类型</th>
+<th>必填</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>owner_address</code></td>
+<td>string</td>
+<td>是</td>
+<td>调用方地址（合约 <code>msg.sender</code>）</td>
+</tr>
+<tr>
+<td><code>contract_address</code></td>
+<td>string</td>
+<td>条件必填</td>
+<td>目标合约地址；必须提供 <code>contract_address</code> 或 <code>data</code></td>
+</tr>
+<tr>
+<td><code>function_selector</code></td>
+<td>string</td>
+<td>否</td>
+<td>函数签名</td>
+</tr>
+<tr>
+<td><code>parameter</code></td>
+<td>string</td>
+<td>否</td>
+<td>ABI 编码参数（hex）</td>
+</tr>
+<tr>
+<td><code>data</code></td>
+<td>string</td>
+<td>否</td>
+<td>预先构造的调用或部署 data（hex）</td>
+</tr>
+<tr>
+<td><code>call_value</code></td>
+<td>int64</td>
+<td>否</td>
+<td>模拟调用带入的 TRX（sun）</td>
+</tr>
+<tr>
+<td><code>token_id</code></td>
+<td>int64</td>
+<td>否</td>
+<td>模拟调用带入的 TRC-10 token id</td>
+</tr>
+<tr>
+<td><code>call_token_value</code></td>
+<td>int64</td>
+<td>否</td>
+<td>模拟调用带入的 TRC-10 数量</td>
+</tr>
+<tr>
+<td><code>visible</code></td>
+<td>bool</td>
+<td>否</td>
+<td>地址和响应文本字段格式</td>
+</tr>
+</tbody>
+</table>
+<p>必填约束为 <code>owner_address AND (contract_address OR data)</code>。与 <a href="../triggerconstantcontract/"><code>/wallet/triggerconstantcontract</code></a> 不同，此 servlet 不应用 <code>Permission_id</code> 或 <code>extra_data</code>，也不读取 <code>fee_limit</code>。</p>
 <p>示例：</p>
 <div class="highlight"><pre><span></span><code>curl<span class="w"> </span>--request<span class="w"> </span>POST<span class="w"> </span><span class="se">\</span>
 <span class="w">     </span>--url<span class="w"> </span>https://nile.trongrid.io/wallet/estimateenergy<span class="w"> </span><span class="se">\</span>
@@ -9058,9 +9148,10 @@
 <span class="w">  </span><span class="nt">&quot;energy_required&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1870</span>
 <span class="p">}</span>
 </code></pre></div>
-<p>未开启 <code>vm.estimateEnergy=true</code> 时调用走异常分支（见下文），通常表现为 <code>result.code = OTHER_ERROR</code>、<code>result.message</code> 含 <code>this node does not support estimate energy</code>。</p>
+<p>未开启 <code>vm.estimateEnergy=true</code> 时调用走 <code>ContractValidateException</code> 分支（见下文）：<code>result.code = CONTRACT_VALIDATE_ERROR</code>，<code>result.message</code> 为 <code>this node does not support estimate energy</code>。</p>
 <h3 id="_3">异常响应<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
-<p>不会写出 <code>{"Error": ...}</code>。所有异常被 catch 后写入 <code>result.code</code>、<code>result.message</code>，HTTP 体仍是 <code>EstimateEnergyMessage</code>：</p>
+<p>请求进入 servlet 后不会写出 <code>{"Error": ...}</code>。由 servlet 接管的异常会被 catch 后写入 <code>result.code</code>、<code>result.message</code>，HTTP 体仍是 <code>EstimateEnergyMessage</code>。</p>
+<p>在请求进入此 servlet 前，共享层仍可能返回不同结构：请求体超限时，<code>SizeLimitHandler</code> 通常返回 HTTP 413 <code>Payload Too Large</code>；非阻塞限流拒绝则返回 HTTP 200 和 <code>{"Error":"class java.lang.IllegalAccessException : lack of computing resources"}</code>。</p>
 <table>
 <thead>
 <tr>
@@ -9072,13 +9163,25 @@
 </thead>
 <tbody>
 <tr>
-<td>合约不存在 / 校验失败（<code>ContractValidateException</code>）</td>
+<td>节点未开启 <code>vm.estimateEnergy</code></td>
 <td>false</td>
 <td><code>CONTRACT_VALIDATE_ERROR</code></td>
-<td>校验器原始描述</td>
+<td><code>this node does not support estimate energy</code></td>
 </tr>
 <tr>
-<td>节点未开启 <code>vm.estimateEnergy</code> / EVM revert / 其他</td>
+<td>节点关闭 constant-call 支持</td>
+<td>false</td>
+<td><code>CONTRACT_VALIDATE_ERROR</code></td>
+<td><code>this node does not support constant, so estimate energy cannot work</code></td>
+</tr>
+<tr>
+<td><code>contract_address</code> 已设置但合约不存在</td>
+<td>false</td>
+<td><code>CONTRACT_VALIDATE_ERROR</code></td>
+<td><code>Smart contract is not exist.</code></td>
+</tr>
+<tr>
+<td>EVM exception / retry 耗尽 / 其他非校验异常</td>
 <td>false</td>
 <td><code>OTHER_ERROR</code></td>
 <td><code>&lt;exceptionClass&gt; : &lt;message&gt;</code>（<code>"</code> → <code>'</code>）</td>
@@ -9106,7 +9209,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年4月30日 03:44:01 UTC">2026年4月30日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年7月14日 09:51:24 UTC">2026年7月14日</span>
   </span>
 
     

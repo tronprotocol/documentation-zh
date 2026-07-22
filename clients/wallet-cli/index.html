@@ -7580,6 +7580,8 @@
       
         
       
+        
+      
     
     
       
@@ -7809,6 +7811,28 @@
   
   <span class="md-ellipsis">
     查询
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="typescript-cli/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    TypeScript / npm CLI
     
   </span>
   
@@ -8988,14 +9012,17 @@
 <a href="https://github.com/tronprotocol/wallet-cli">tronprotocol/wallet-cli</a>。它在本地管理密钥和账户，主要通过 gRPC（基于
 <a href="https://github.com/tronprotocol/trident">Trident SDK</a>）与 TRON 节点通信，用于查询链上数据以及构建、
 签名和广播交易。少数功能（如 GasFree 代付转账）则通过 HTTP 调用相应的服务接口。</p>
-<p>它提供两种使用方式：</p>
+<p>它提供三种使用方式：</p>
 <ul>
-<li><strong>交互模式（REPL）</strong> —— 带 Tab 补全和交互式提示的人性化 shell。适合手动探索和日常钱包管理。</li>
-<li><strong>标准 CLI 模式</strong> —— 非交互、可脚本化的接口，具有确定的退出码和可选的 JSON 输出。适合自动化、
-  脚本、CI/CD 以及 AI 智能体。</li>
+<li><strong>Java 交互模式（REPL）</strong> —— 带 Tab 补全和交互式提示的人性化 shell。适合手动探索和日常钱包管理。</li>
+<li><strong>Java 标准 CLI 模式</strong> —— 非交互、可脚本化的接口，具有确定的退出码和可选的 JSON 输出。适合使用
+  Java JAR 的自动化和脚本。</li>
+<li><strong>TypeScript / npm CLI</strong> —— 4.9.7 引入的独立 Node.js CLI，以 <code>@tron-walletcli/wallet-cli</code>
+  发布。它使用 <code>tx send</code>、<code>account balance</code> 等分组命令，面向自动化、CI/CD 和 AI 智能体。</li>
 </ul>
-<p>本文档中的每条命令，只要在两种模式下都存在，都会同时给出两种写法。用标签页切换查看：</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">标准 CLI</label><label for="__tabbed_1_2">交互模式</label></div>
+<p>下面的命令参考页主要覆盖 Java JAR 的 REPL 和标准 CLI 模式。Node.js 命令面请参见
+<a href="typescript-cli/">TypeScript / npm CLI</a>。下面用标签页对比同一个账户查询在三种入口中的写法：</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Java 标准 CLI</label><label for="__tabbed_1_2">Java 交互模式</label><label for="__tabbed_1_3">TypeScript / npm CLI</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code>java<span class="w"> </span>-jar<span class="w"> </span>build/libs/wallet-cli.jar<span class="w"> </span>--network<span class="w"> </span>nile<span class="w"> </span>get-account<span class="w"> </span>--address<span class="w"> </span>TXyz...
@@ -9003,6 +9030,10 @@
 </div>
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code>GetAccount TXyz...
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code>wallet-cli<span class="w"> </span>account<span class="w"> </span>info<span class="w"> </span>--network<span class="w"> </span>tron:nile<span class="w"> </span>--account<span class="w"> </span>TXyz...
 </code></pre></div>
 </div>
 </div>
@@ -9039,7 +9070,8 @@ java<span class="w"> </span>-jar<span class="w"> </span>build/libs/wallet-cli.ja
 <div class="highlight"><pre><span></span><code>java<span class="w"> </span>-jar<span class="w"> </span>build/libs/wallet-cli.jar<span class="w"> </span><span class="nb">help</span><span class="w"> </span>--command<span class="w"> </span>send-coin
 </code></pre></div>
 <h2 id="cli_1">全局选项（标准 CLI）<a class="headerlink" href="#cli_1" title="Permanent link">&para;</a></h2>
-<p>全局选项要写在命令名<strong>之前</strong>，由 <code>GlobalOptions</code> 解析。</p>
+<p>执行修饰类全局选项由 <code>GlobalOptions</code> 解析，可以写在命令名<strong>之前或之后</strong>。顶层模式选择器
+有更严格的位置规则，具体说明如下。</p>
 <table>
 <thead>
 <tr>
@@ -9103,8 +9135,13 @@ java<span class="w"> </span>-jar<span class="w"> </span>build/libs/wallet-cli.ja
 </table>
 <p>说明：</p>
 <ul>
-<li><code>--output</code> 和 <code>--network</code> 的取值既可作为下一个 token 给出（<code>--network nile</code>），也可内联给出
-  （<code>--network=nile</code>）。</li>
+<li>执行修饰类选项 <code>--network</code>、<code>--grpc-endpoint</code>、<code>--output</code>、<code>--wallet</code>、<code>--quiet</code>、
+  <code>--verbose</code> 和 <code>--password-stdin</code> 可在命令名之前或之后识别。</li>
+<li>顶层模式选择器 <code>--version</code> 和 <code>--interactive</code> 必须写在命令名之前；出现在命令之后时，
+  会被视为命令自身的参数。</li>
+<li><code>--help</code> 和 <code>-h</code> 出现在命令之前时请求全局帮助，出现在命令之后时请求该命令的帮助。</li>
+<li>带取值的全局选项（<code>--output</code>、<code>--network</code>、<code>--wallet</code> 和 <code>--grpc-endpoint</code>）既可将取值
+  作为下一个 token 给出（<code>--network nile</code>），也可内联给出（<code>--network=nile</code>）。</li>
 <li>带取值的选项不可重复出现；未知的全局选项会被拒绝。</li>
 </ul>
 <h2 id="cli_2">鉴权（标准 CLI）<a class="headerlink" href="#cli_2" title="Permanent link">&para;</a></h2>
@@ -9208,7 +9245,7 @@ java<span class="w"> </span>-jar<span class="w"> </span>build/libs/wallet-cli.ja
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年6月17日 03:37:32 UTC">2026年6月17日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年7月16日 12:40:40 UTC">2026年7月16日</span>
   </span>
 
     

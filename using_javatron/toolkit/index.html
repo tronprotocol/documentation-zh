@@ -639,6 +639,75 @@
   
 </li>
       
+        <li class="md-nav__item ">
+  <a href="#command-line-output-and-exit-behavior" class="md-nav__link" >
+    <span class="md-ellipsis">
+      命令行输出与退出行为
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item has-children">
+  <a href="#keystore-management" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
+    <span class="md-ellipsis">
+      Keystore 管理
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Keystore 管理" hidden>
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item ">
+  <a href="#generate-a-keystore" class="md-nav__link" >
+    <span class="md-ellipsis">
+      生成 Keystore
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#import-a-private-key" class="md-nav__link" >
+    <span class="md-ellipsis">
+      导入私钥
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#list-keystores" class="md-nav__link" >
+    <span class="md-ellipsis">
+      列出 Keystore
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#update-a-keystore-password" class="md-nav__link" >
+    <span class="md-ellipsis">
+      更新 Keystore 密码
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#keystore-options-and-security" class="md-nav__link" >
+    <span class="md-ellipsis">
+      Keystore 选项与安全
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
         <li class="md-nav__item has-children">
   <a href="#database-partitioning-tool" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
     <span class="md-ellipsis">
@@ -7805,6 +7874,8 @@
       
         
       
+        
+      
     
     
       
@@ -8034,6 +8105,28 @@
   
   <span class="md-ellipsis">
     查询
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../clients/wallet-cli/typescript-cli/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    TypeScript / npm CLI
     
   </span>
   
@@ -9113,6 +9206,75 @@
   
 </li>
       
+        <li class="md-nav__item ">
+  <a href="#command-line-output-and-exit-behavior" class="md-nav__link" >
+    <span class="md-ellipsis">
+      命令行输出与退出行为
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item has-children">
+  <a href="#keystore-management" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
+    <span class="md-ellipsis">
+      Keystore 管理
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Keystore 管理" hidden>
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item ">
+  <a href="#generate-a-keystore" class="md-nav__link" >
+    <span class="md-ellipsis">
+      生成 Keystore
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#import-a-private-key" class="md-nav__link" >
+    <span class="md-ellipsis">
+      导入私钥
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#list-keystores" class="md-nav__link" >
+    <span class="md-ellipsis">
+      列出 Keystore
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#update-a-keystore-password" class="md-nav__link" >
+    <span class="md-ellipsis">
+      更新 Keystore 密码
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#keystore-options-and-security" class="md-nav__link" >
+    <span class="md-ellipsis">
+      Keystore 选项与安全
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
         <li class="md-nav__item has-children">
   <a href="#database-partitioning-tool" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
     <span class="md-ellipsis">
@@ -9316,6 +9478,7 @@
 <li><a href="#data-conversion-tool">数据转换</a> - 支持 LevelDB 到 RocksDB 的数据库格式转换</li>
 <li><a href="#leveldb-startup-optimization-tool">LevelDB 启动优化</a> - 加快数据库类型为 LevelDB 的节点启动速度</li>
 <li><a href="#merkle-root-computation-tool">Merkle Root 计算</a> - 计算小型数据库的 Merkle Root，用于数据校验</li>
+<li><a href="#keystore-management">Keystore 管理</a> - 生成、导入、列出和更新账户 keystore 文件</li>
 </ul>
 <p>本文将详细介绍如何获取和使用 TRON Toolkit。</p>
 <p><strong>注意</strong>：由于在 arm64 架构上只支持 RocksDB，所以像 <code>db convert</code> 和 <code>db archive</code> 这样处理 LevelDB 的工具只能在 x86_64 架构上使用。</p>
@@ -9335,6 +9498,127 @@ git<span class="w"> </span>checkout<span class="w"> </span>-t<span class="w"> </
 ./gradlew<span class="w"> </span>clean<span class="w"> </span>build<span class="w"> </span>-x<span class="w"> </span><span class="nb">test</span>
 </code></pre></div>
 <p>编译成功后，<code>Toolkit.jar</code> 文件将生成在 <code>java-tron/build/libs/</code> 目录下。</p>
+<h2 id="command-line-output-and-exit-behavior">命令行输出与退出行为<a class="headerlink" href="#command-line-output-and-exit-behavior" title="Permanent link">&para;</a></h2>
+<p>Toolkit 的输出和退出码因命令而异。目前，Toolkit <strong>不提供</strong>全局 JSON 输出选项，也没有所有命令共用的统一错误 envelope。</p>
+<ul>
+<li>使用具体命令调用 Toolkit 时，进程会以该命令返回的整数作为退出码。无效的命令行语法由 Picocli 处理，退出码为 <code>2</code>。</li>
+<li>不带参数调用 Toolkit 时，会打印顶层用法并以退出码 <code>0</code> 结束。</li>
+<li>下文介绍的 <code>keystore</code> 命令执行成功时返回 <code>0</code>，发生执行错误时通常返回 <code>1</code>。当目录不存在或没有 keystore 时，<code>keystore list</code> 也返回 <code>0</code>。</li>
+<li><code>--json</code> 是逐命令选项，仅由 <code>keystore new</code>、<code>keystore import</code>、<code>keystore list</code> 和 <code>keystore update</code> 支持。它控制写入 stdout 的成功结果；即使指定了 <code>--json</code>，错误和警告仍以纯文本写入 stderr。</li>
+<li><code>db</code> 命令不支持 JSON 输出，并保留各自的退出码行为。除非某条命令的文档明确说明，否则自动化程序不能假定 Toolkit 全局遵循 <code>0</code>/<code>1</code>/<code>2</code> 契约。</li>
+</ul>
+<p>用于 shell 自动化时，应先检查退出码，再解析 stdout；不要尝试把 stderr 当作 JSON 解析。</p>
+<h2 id="keystore-management">Keystore 管理<a class="headerlink" href="#keystore-management" title="Permanent link">&para;</a></h2>
+<p><code>keystore</code> 命令组用于管理 Web3 Secret Storage 格式的账户 keystore 文件，替代已弃用的交互式 <code>FullNode.jar --keystore-factory</code> 工作流。</p>
+<div class="highlight"><pre><span></span><code>java<span class="w"> </span>-jar<span class="w"> </span>build/libs/Toolkit.jar<span class="w"> </span>keystore<span class="w"> </span>--help
+</code></pre></div>
+<p>默认 keystore 目录为当前工作目录下的 <code>Wallet</code>。可使用 <code>--keystore-dir &lt;path&gt;</code> 选择其他目录。</p>
+<h3 id="generate-a-keystore">生成 Keystore<a class="headerlink" href="#generate-a-keystore" title="Permanent link">&para;</a></h3>
+<p><code>keystore new</code> 会生成随机密钥对，并写入加密的 keystore 文件：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 交互式输入密码</span>
+java<span class="w"> </span>-jar<span class="w"> </span>build/libs/Toolkit.jar<span class="w"> </span>keystore<span class="w"> </span>new
+
+<span class="c1"># 非交互式输入密码并返回 JSON 结果</span>
+java<span class="w"> </span>-jar<span class="w"> </span>build/libs/Toolkit.jar<span class="w"> </span>keystore<span class="w"> </span>new<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--keystore-dir<span class="w"> </span>/data/keystores<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--password-file<span class="w"> </span>/secure/path/password.txt<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--json
+</code></pre></div>
+<p>成功时的 JSON 输出包含生成的地址和文件名：</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">&quot;address&quot;</span><span class="p">:</span><span class="s2">&quot;T...&quot;</span><span class="p">,</span><span class="nt">&quot;file&quot;</span><span class="p">:</span><span class="s2">&quot;UTC--...json&quot;</span><span class="p">}</span>
+</code></pre></div>
+<h3 id="import-a-private-key">导入私钥<a class="headerlink" href="#import-a-private-key" title="Permanent link">&para;</a></h3>
+<p><code>keystore import</code> 用于导入以 64 个十六进制字符表示的 32 字节私钥，也接受 <code>0x</code> 或 <code>0X</code> 前缀。</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 交互式输入私钥和密码</span>
+java<span class="w"> </span>-jar<span class="w"> </span>build/libs/Toolkit.jar<span class="w"> </span>keystore<span class="w"> </span>import
+
+<span class="c1"># 非交互式导入</span>
+java<span class="w"> </span>-jar<span class="w"> </span>build/libs/Toolkit.jar<span class="w"> </span>keystore<span class="w"> </span>import<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--keystore-dir<span class="w"> </span>/data/keystores<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--key-file<span class="w"> </span>/secure/path/private-key.txt<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--password-file<span class="w"> </span>/secure/path/password.txt<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--json
+</code></pre></div>
+<p>成功时的 JSON 输出与 <code>keystore new</code> 相同，包含 <code>address</code> 和 <code>file</code> 字段。</p>
+<p>默认情况下，如果目标目录中已经存在由该私钥派生地址对应的 keystore，命令会拒绝导入。仅当确实需要为同一地址创建额外的 keystore 时才使用 <code>--force</code>。</p>
+<h3 id="list-keystores">列出 Keystore<a class="headerlink" href="#list-keystores" title="Permanent link">&para;</a></h3>
+<p><code>keystore list</code> 会列出目录中结构有效的 <code>.json</code> keystore 文件：</p>
+<div class="highlight"><pre><span></span><code>java<span class="w"> </span>-jar<span class="w"> </span>build/libs/Toolkit.jar<span class="w"> </span>keystore<span class="w"> </span>list<span class="w"> </span>--keystore-dir<span class="w"> </span>/data/keystores
+java<span class="w"> </span>-jar<span class="w"> </span>build/libs/Toolkit.jar<span class="w"> </span>keystore<span class="w"> </span>list<span class="w"> </span>--keystore-dir<span class="w"> </span>/data/keystores<span class="w"> </span>--json
+</code></pre></div>
+<p>成功时的 JSON 输出使用 <code>keystores</code> 数组封装结果：</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;keystores&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span><span class="nt">&quot;address&quot;</span><span class="p">:</span><span class="s2">&quot;T...&quot;</span><span class="p">,</span><span class="nt">&quot;file&quot;</span><span class="p">:</span><span class="s2">&quot;UTC--...json&quot;</span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>如果目录不存在或其中没有有效的 keystore，JSON 模式会返回 <code>{"keystores":[]}</code>，退出码为 <code>0</code>。无法读取或格式错误的 <code>.json</code> 文件会被跳过，并可能在 stderr 输出警告。</p>
+<p><code>keystore list</code> 不会解密每个文件。显示的地址来自 keystore JSON 中声明的地址，本命令不会对其进行密码学验证。仅信任来自受控来源的 keystore。</p>
+<h3 id="update-a-keystore-password">更新 Keystore 密码<a class="headerlink" href="#update-a-keystore-password" title="Permanent link">&para;</a></h3>
+<p><code>keystore update</code> 会按地址查找 keystore，使用当前密码解密，然后通过临时文件以新密码重写。Toolkit 会先尝试原子替换；如果文件系统不支持，则回退到普通替换：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 交互式输入密码</span>
+java<span class="w"> </span>-jar<span class="w"> </span>build/libs/Toolkit.jar<span class="w"> </span>keystore<span class="w"> </span>update<span class="w"> </span>T...<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--keystore-dir<span class="w"> </span>/data/keystores
+
+<span class="c1"># 非交互式更新密码</span>
+java<span class="w"> </span>-jar<span class="w"> </span>build/libs/Toolkit.jar<span class="w"> </span>keystore<span class="w"> </span>update<span class="w"> </span>T...<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--keystore-dir<span class="w"> </span>/data/keystores<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--password-file<span class="w"> </span>/secure/path/passwords.txt<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--json
+</code></pre></div>
+<p>对于 <code>update</code>，密码文件必须恰好包含两行：第一行为当前密码，第二行为新密码。</p>
+<p>成功时的 JSON 输出包含验证后的地址、文件名和更新状态：</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">&quot;address&quot;</span><span class="p">:</span><span class="s2">&quot;T...&quot;</span><span class="p">,</span><span class="nt">&quot;file&quot;</span><span class="p">:</span><span class="s2">&quot;UTC--...json&quot;</span><span class="p">,</span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="s2">&quot;updated&quot;</span><span class="p">}</span>
+</code></pre></div>
+<p>如果没有匹配的 keystore，或有多个有效 keystore 声明了所请求的地址，命令会失败，不会在重复项中任意选择。</p>
+<h3 id="keystore-options-and-security">Keystore 选项与安全<a class="headerlink" href="#keystore-options-and-security" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>命令</th>
+<th>行为</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--keystore-dir &lt;path&gt;</code></td>
+<td>全部</td>
+<td>keystore 目录，默认为 <code>Wallet</code>。</td>
+</tr>
+<tr>
+<td><code>--json</code></td>
+<td>全部</td>
+<td>将成功结果以 JSON 写入 stdout；错误仍以文本写入 stderr。</td>
+</tr>
+<tr>
+<td><code>--password-file &lt;file&gt;</code></td>
+<td><code>new</code>、<code>import</code>、<code>update</code></td>
+<td>避免交互式密码提示。<code>new</code> 和 <code>import</code> 要求一行；<code>update</code> 要求恰好两行。</td>
+</tr>
+<tr>
+<td><code>--key-file &lt;file&gt;</code></td>
+<td><code>import</code></td>
+<td>从文件而非终端读取私钥。</td>
+</tr>
+<tr>
+<td><code>--force</code></td>
+<td><code>import</code></td>
+<td>允许为已有 keystore 的地址再创建一个 keystore。</td>
+</tr>
+<tr>
+<td><code>--sm2</code></td>
+<td><code>new</code>、<code>import</code>、<code>update</code></td>
+<td>使用 SM2 而非默认的 ECDSA。对于 <code>update</code>，必须与现有 keystore 使用的算法一致。</td>
+</tr>
+</tbody>
+</table>
+<p>密码和私钥输入文件必须是大小不超过 1,024 字节的普通文件；符号链接会被拒绝。<code>keystore new</code> 和 <code>keystore import</code> 设置的密码，以及 <code>keystore update</code> 提供的新密码，必须至少包含六个字符。为兼容旧 keystore，<code>keystore update</code> 不对当前密码应用这一最小长度限制。在 POSIX 系统上，Toolkit 会以仅所有者可访问的 <code>0600</code> 权限创建或重写 keystore 文件。</p>
+<div class="admonition warning">
+<p class="admonition-title">保护临时密钥文件</p>
+<p><code>--password-file</code> 和 <code>--key-file</code> 支持非交互式执行，但这些文件以明文保存敏感信息。请将它们存放在仓库之外，使用 <code>chmod 600</code> 将权限限制为当前用户，切勿提交到版本控制，并在不再需要时删除。</p>
+</div>
 <h2 id="database-partitioning-tool">数据存储分区工具<a class="headerlink" href="#database-partitioning-tool" title="Permanent link">&para;</a></h2>
 <p>随着 TRON 链上数据的持续增长（目前主网全节点数据已达 2TB，每日增长约 1.2GB），节点的数据存储压力日益增大。为了解决单个磁盘容量不足的问题，TRON Toolkit 引入了<strong>数据库存储分区工具</strong>。该工具允许您根据配置将部分数据库迁移到其他存储盘，从而在磁盘空间不足时，无需更换原有磁盘，只需增加新的存储设备即可。</p>
 <h3 id="_2">命令与参数<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
@@ -9577,7 +9861,7 @@ java<span class="w"> </span>-jar<span class="w"> </span>build/libs/Toolkit.jar<s
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年6月13日 02:56:54 UTC">2026年6月13日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年7月16日 12:36:28 UTC">2026年7月16日</span>
   </span>
 
     

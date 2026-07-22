@@ -7580,6 +7580,8 @@
       
         
       
+        
+      
     
     
       
@@ -7809,6 +7811,28 @@
   
   <span class="md-ellipsis">
     查询
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../clients/wallet-cli/typescript-cli/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    TypeScript / npm CLI
     
   </span>
   
@@ -8882,12 +8906,27 @@
   
 </li>
       
-        <li class="md-nav__item ">
-  <a href="#_3" class="md-nav__link" >
+        <li class="md-nav__item has-children">
+  <a href="#_3" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
     <span class="md-ellipsis">
       异常响应
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="异常响应" hidden>
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item ">
+  <a href="#json-rpc" class="md-nav__link" >
+    <span class="md-ellipsis">
+      JSON-RPC 错误目录
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -9021,54 +9060,193 @@
 <h2 id="_2">协议约定<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <ul>
 <li><strong>传输</strong>：仅 <code>POST</code>，请求体为 <a href="https://www.jsonrpc.org/specification">JSON-RPC 2.0</a> 格式：<code>{"jsonrpc":"2.0","method":"...","params":[...],"id":1}</code>。</li>
-<li><strong>HTTP 状态码</strong>：恒为 200，业务错误通过响应体 <code>error</code> 字段表达（见 <code>JsonRpcServlet.java</code>）。</li>
-<li><strong>数值编码</strong>：所有数值（block number、balance、gas、timestamp 等）使用 <code>0x</code> 前缀的十六进制字符串；空值对应 <code>0x</code> 或 <code>0x0</code>。</li>
-<li><strong>地址编码</strong>：JSON-RPC 接口默认接受 0x 前缀的 20 字节 hex 地址；同时兼容 base58check（内部由 <code>JsonRpcApiUtil.addressCompatibleToByteArray</code> 转换）。</li>
-<li><strong>block tag</strong>：常见的 <code>latest</code> / <code>earliest</code> / <code>pending</code> / <code>finalized</code> 中，<strong>只有少量方法支持</strong>：<ul>
-<li><code>eth_getBlockByNumber</code>、<code>eth_getBlockReceipts</code> 等区块查询方法接受 <code>latest</code> / <code>earliest</code> / <code>finalized</code>；<code>pending</code> 显式不支持，会抛 <code>-32602 TAG pending not supported</code>。</li>
-<li><code>eth_getBalance</code> / <code>eth_getStorageAt</code> / <code>eth_getCode</code> / <code>eth_call</code> <strong>只支持 <code>latest</code></strong>，传 <code>earliest</code> / <code>pending</code> / <code>finalized</code> 抛 <code>-32602 TAG [earliest | pending | finalized] not supported</code>，传具体高度抛 <code>-32602 QUANTITY not supported, just support TAG as latest</code>。</li>
-<li><code>eth_newFilter</code> 不支持 <code>finalized</code>（抛 <code>-32602 invalid block range params</code>）。</li>
+<li><strong>HTTP 状态码</strong>：请求进入 <code>JsonRpcServlet</code> 后，JSON-RPC 业务错误以 HTTP 200 加响应体 <code>error</code> 字段返回。传输层失败仍可能返回非 200 状态码，例如请求体过大可能在 servlet 分发前被拒绝。</li>
+<li><strong>数值编码</strong>：响应中的 quantity 使用 <code>0x</code> 前缀十六进制字符串。区块查询 selector 还接受非负十进制高度，因为 <code>JsonRpcApiUtil.parseBlockNumber</code> 同时支持十进制和 <code>0x</code> 前缀输入。</li>
+<li><strong>地址编码</strong>：JSON-RPC 的状态查询、调用和交易构造接口只接受十六进制地址：20 字节 EVM 风格地址，或以 <code>41</code> 开头的 21 字节 Tron 地址；均可带或不带 <code>0x</code>。<code>JsonRpcApiUtil.addressCompatibleToByteArray</code> 不接受 base58check（<code>T...</code>）。日志过滤器使用 20 字节十六进制地址。</li>
+<li><strong>调用数据字段</strong>：<code>eth_call</code>、<code>eth_estimateGas</code> 和 <code>buildTransaction</code> 同时接受 <code>data</code> 与 <code>input</code>。<code>input</code> 使用更严格的 execution API hex 规则（必须带 <code>0x</code> 前缀、长度为偶数；空字符串表示空 bytes）。<code>data</code> 为兼容旧客户端保留较宽松解析。</li>
+<li><strong>block tag</strong>：常见的 <code>latest</code> / <code>earliest</code> / <code>pending</code> / <code>finalized</code> / <code>safe</code> 中，<strong>只有少量方法支持</strong>：<ul>
+<li><code>eth_getBlockByNumber</code>、<code>eth_getBlockReceipts</code> 等区块查询方法接受 <code>latest</code> / <code>earliest</code> / <code>finalized</code>；<code>pending</code> 和 <code>safe</code> 显式不支持，会抛 <code>-32602 TAG pending not supported</code> 或 <code>-32602 TAG safe not supported</code>。</li>
+<li><code>eth_getBalance</code> / <code>eth_getStorageAt</code> / <code>eth_getCode</code> / <code>eth_call</code> <strong>只支持 <code>latest</code></strong>，传 <code>earliest</code> / <code>pending</code> / <code>finalized</code> / <code>safe</code> 抛 <code>-32602 TAG [earliest | pending | finalized | safe] not supported</code>，传具体高度抛 <code>-32602 QUANTITY not supported, just support TAG as latest</code>。</li>
+<li><code>eth_newFilter</code> 不支持 <code>finalized</code>（抛 <code>-32602 invalid block range params</code>），也不支持 <code>pending</code> 和 <code>safe</code>（抛对应的 <code>TAG ... not supported</code>）。</li>
 </ul>
 </li>
 </ul>
 <h2 id="_3">异常响应<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
-<p>JSON-RPC 协议错误使用 <code>error.code</code> / <code>error.message</code>，业务异常映射如下（见 <code>TronJsonRpc.java</code> 注解 + <code>JsonRpcErrorResolver.java</code>）：</p>
+<!-- BEGIN GENERATED JSON-RPC ERROR CATALOG -->
+<h3 id="json-rpc">JSON-RPC 错误目录<a class="headerlink" href="#json-rpc" title="Permanent link">&para;</a></h3>
+<p>Catalog ID 和重试分类由 <code>openrpc.json</code> 的 <code>x-tron-error-model</code> 定义。它们是机器可读的文档分类，不是 java-tron 在线上响应中返回的字段。</p>
+<p><code>自动重试</code> 与 catalog 的 <code>retryable</code> 完全对应：只有“是”才允许自动重放同一逻辑操作。有条件的重试类别在满足“范围 / 操作”的前置条件之前仍为“否”。</p>
+<p>先评估 <code>sharedCatalogIds</code> 引用的可执行匹配，再通过 method 的 <code>x-tron-error-catalog</code> 限定 method 声明的候选错误。<code>sourceException</code> 是源码元数据，不是线上字段。如果 <code>-32000</code> 或 <code>-32005</code> 等重用错误码仍对应多个候选项，则将响应分类为 <code>UNKNOWN</code>，且不得自动重试。</p>
 <table>
 <thead>
 <tr>
-<th>错误码</th>
-<th>异常类</th>
+<th>Catalog ID</th>
+<th>线上信号</th>
+<th>源码声明</th>
 <th>含义</th>
+<th>自动重试</th>
+<th>重试类别</th>
+<th>范围 / 操作</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>-32600</code></td>
+<td><code>JSON_RPC_PARSE_ERROR</code></td>
+<td><code>error.code</code> = <code>-32700</code></td>
+<td>—</td>
+<td>请求体不是有效 JSON。</td>
+<td>否</td>
+<td><code>AFTER_REQUEST_REBUILD</code></td>
+<td>修正 JSON 语法，或减少超过 parser 限制的结构后重新提交。</td>
+</tr>
+<tr>
+<td><code>JSON_RPC_INVALID_REQUEST</code></td>
+<td><code>error.code</code> = <code>-32600</code></td>
 <td><code>JsonRpcInvalidRequestException</code></td>
-<td>请求体不合法或合约校验失败（如 <code>eth_call</code> 的 <code>params[1]</code> 既非 tag 字符串也非 <code>{blockNumber/blockHash}</code> 对象，或 <code>ContractValidateException</code>）</td>
+<td>JSON 值不是有效的 JSON-RPC 2.0 请求。</td>
+<td>否</td>
+<td><code>AFTER_REQUEST_REBUILD</code></td>
+<td>修正 JSON-RPC envelope 或无效 batch item 后重新提交。</td>
 </tr>
 <tr>
-<td><code>-32601</code></td>
+<td><code>JSON_RPC_METHOD_NOT_FOUND</code></td>
+<td><code>error.code</code> = <code>-32601</code></td>
 <td><code>JsonRpcMethodNotFoundException</code></td>
-<td>方法不存在或当前节点类型不可用（Solidity 节点禁用 <code>buildTransaction</code>，以及一组始终不支持的方法）</td>
+<td>当前节点/port 不可用或不支持请求的 method。</td>
+<td>否</td>
+<td><code>AFTER_STATE_CHANGE</code></td>
+<td>使用兼容节点/port，或等待节点可用性或配置变更。</td>
 </tr>
 <tr>
-<td><code>-32602</code></td>
+<td><code>JSON_RPC_INVALID_PARAMS</code></td>
+<td><code>error.code</code> = <code>-32602</code></td>
 <td><code>JsonRpcInvalidParamsException</code></td>
-<td>参数不合法（hash 长度错、地址格式错、block tag 不支持等）</td>
+<td>一个或多个 method 参数无效。</td>
+<td>否</td>
+<td><code>AFTER_REQUEST_REBUILD</code></td>
+<td>修正参数数量、类型、格式、block tag 或范围后重新提交。</td>
 </tr>
 <tr>
-<td><code>-32000</code></td>
-<td><code>JsonRpcInternalException</code> / <code>ItemNotFoundException</code> / <code>BadItemException</code> / <code>ExecutionException</code> / <code>InterruptedException</code></td>
-<td>服务端内部错误（block 不存在、VM 执行失败、<code>etherbase</code> 未配置、filter 不存在、lite fullnode 已剪枝等）</td>
+<td><code>JSON_RPC_SERVLET_INTERNAL_ERROR</code></td>
+<td><code>error.code</code> = <code>-32603</code> 且 <code>error.message</code> = <code>Internal error</code></td>
+<td>—</td>
+<td>JSON-RPC servlet 捕获到未预期的兜底异常。</td>
+<td>否</td>
+<td><code>UNKNOWN</code></td>
+<td>检查节点日志或使用其它健康节点；不得仅根据该兜底分类自动重试。</td>
 </tr>
 <tr>
-<td><code>-32005</code></td>
-<td><code>JsonRpcExceedLimitException</code> / <code>JsonRpcTooManyResultException</code></td>
-<td>触发限额（<code>eth_newBlockFilter</code> 超过 <code>maxBlockFilterNum</code>，或 <code>eth_getLogs</code> 日志结果超过 <code>LogBlockQuery.MAX_RESULT=10000</code>；<code>maxBlockRange</code> 越界另外抛 <code>-32602</code> <code>exceed max block range</code>）</td>
+<td><code>JSON_RPC_RESPONSE_TOO_LARGE</code></td>
+<td><code>error.code</code> = <code>-32003</code> 且 <code>error.message</code> 以 <code>Response exceeds the limit of</code> 开头</td>
+<td>—</td>
+<td>编码后的 JSON-RPC 响应超过 <code>maxResponseSize</code>。</td>
+<td>否</td>
+<td><code>AFTER_REQUEST_REBUILD</code></td>
+<td>缩小或拆分查询，使编码后的响应不超过 <code>maxResponseSize</code>。</td>
+</tr>
+<tr>
+<td><code>JSON_RPC_BATCH_TOO_LARGE</code></td>
+<td><code>error.code</code> = <code>-32005</code> 且 <code>error.message</code> 以 <code>Batch size</code> 开头</td>
+<td>—</td>
+<td>请求 batch 条目数超过 <code>maxBatchSize</code> 限制。</td>
+<td>否</td>
+<td><code>AFTER_REQUEST_REBUILD</code></td>
+<td>拆分 batch，确保每个请求的条目数不超过 <code>maxBatchSize</code>。</td>
+</tr>
+<tr>
+<td><code>JSON_RPC_FILTER_LIMIT_EXCEEDED</code></td>
+<td><code>error.code</code> = <code>-32005</code></td>
+<td><code>JsonRpcExceedLimitException</code></td>
+<td>节点已达活跃 filter 数量上限。</td>
+<td>否</td>
+<td><code>AFTER_STATE_CHANGE</code></td>
+<td>仅在 filter 容量释放后重试，或使用其它节点。</td>
+</tr>
+<tr>
+<td><code>JSON_RPC_TOO_MANY_RESULTS</code></td>
+<td><code>error.code</code> = <code>-32005</code></td>
+<td><code>JsonRpcTooManyResultException</code></td>
+<td>日志查询返回的结果数将超过节点限制。</td>
+<td>否</td>
+<td><code>AFTER_REQUEST_REBUILD</code></td>
+<td>缩小 block 范围、address 或 topic 后重新提交。</td>
+</tr>
+<tr>
+<td><code>JSON_RPC_UNDERLYING_INTERNAL_ERROR</code></td>
+<td><code>error.code</code> = <code>-32001</code> 加 fallback 匹配</td>
+<td><code>JsonRpcInternalException</code>；message 元数据 <code>&lt;underlying exception message&gt;</code></td>
+<td>链标识查询失败，并返回底层异常消息。</td>
+<td>否</td>
+<td><code>UNKNOWN</code></td>
+<td>检查返回消息和节点上下文；如无具体瞬时原因，不得自动重试。</td>
+</tr>
+<tr>
+<td><code>JSON_RPC_INTERNAL_ERROR</code></td>
+<td><code>error.code</code> = <code>-32000</code></td>
+<td><code>JsonRpcInternalException</code></td>
+<td>method 引发了 java-tron JSON-RPC 内部错误。</td>
+<td>否</td>
+<td><code>UNKNOWN</code></td>
+<td>检查 <code>error.message</code> 和节点日志；如无更具体的分类，不得自动重试。</td>
+</tr>
+<tr>
+<td><code>JSON_RPC_ITEM_NOT_FOUND</code></td>
+<td><code>error.code</code> = <code>-32000</code></td>
+<td><code>ItemNotFoundException</code></td>
+<td>请求的 filter、block item 或缓存项不存在。</td>
+<td>否</td>
+<td><code>AFTER_STATE_CHANGE</code></td>
+<td>重新创建缺失的 filter，等待 item 可用，或使用具有请求数据的节点。</td>
+</tr>
+<tr>
+<td><code>JSON_RPC_BAD_ITEM</code></td>
+<td><code>error.code</code> = <code>-32000</code></td>
+<td><code>BadItemException</code></td>
+<td>日志处理遇到无效底层 item。</td>
+<td>否</td>
+<td><code>UNKNOWN</code></td>
+<td>检查无效底层 item 和查询上下文；不得自动重试。</td>
+</tr>
+<tr>
+<td><code>JSON_RPC_EXECUTION_ERROR</code></td>
+<td><code>error.code</code> = <code>-32000</code></td>
+<td><code>ExecutionException</code></td>
+<td>异步日志查询执行失败。</td>
+<td>否</td>
+<td><code>UNKNOWN</code></td>
+<td>检查异步执行失败和节点日志，再决定是否再次尝试。</td>
+</tr>
+<tr>
+<td><code>JSON_RPC_INTERRUPTED</code></td>
+<td><code>error.code</code> = <code>-32000</code></td>
+<td><code>InterruptedException</code></td>
+<td>日志查询执行声明了 InterruptedException，但线上响应无法将其与其它 <code>-32000</code> 失败安全区分。</td>
+<td>否</td>
+<td><code>UNKNOWN</code></td>
+<td>当前线上响应与其它 <code>-32000</code> 失败存在歧义；不得自动重试。</td>
+</tr>
+<tr>
+<td><code>JSON_RPC_RATE_LIMITED</code></td>
+<td>JSON-RPC envelope 之外的 HTTP 200，且 <code>$.Error</code> 包含 <code>lack of computing resources</code></td>
+<td>—</td>
+<td>共享 servlet 限流器在写入 JSON-RPC envelope 前拒绝了请求。</td>
+<td>是</td>
+<td><code>SAFE_WITH_BACKOFF</code></td>
+<td>使用带抖动的指数退避自动重试；响应不包含 Retry-After header。</td>
+</tr>
+<tr>
+<td><code>JSON_RPC_REQUEST_TOO_LARGE</code></td>
+<td>JSON-RPC envelope 之外的 HTTP 413</td>
+<td>—</td>
+<td>HTTP 请求体在 servlet dispatch 前超过 <code>node.jsonrpc.maxMessageSize</code>。</td>
+<td>否</td>
+<td><code>AFTER_REQUEST_REBUILD</code></td>
+<td>缩小 HTTP 请求体后重新提交。</td>
 </tr>
 </tbody>
 </table>
+<!-- END GENERATED JSON-RPC ERROR CATALOG -->
+
 <p>错误响应示例：</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">&quot;jsonrpc&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2.0&quot;</span><span class="p">,</span>
@@ -9271,7 +9449,12 @@
 <tr>
 <td><code>maxBlockRange</code></td>
 <td>5000</td>
-<td><code>eth_getLogs</code> 单次允许的 <code>[fromBlock, toBlock]</code> 跨度</td>
+<td><code>eth_getLogs</code> 与 <code>eth_getFilterLogs</code> 单次允许的 <code>[fromBlock, toBlock]</code> 跨度</td>
+</tr>
+<tr>
+<td><code>maxAddressSize</code></td>
+<td>1000</td>
+<td>单次 filter 请求允许的地址数量</td>
 </tr>
 <tr>
 <td><code>maxSubTopics</code></td>
@@ -9282,6 +9465,26 @@
 <td><code>maxBlockFilterNum</code></td>
 <td>50000</td>
 <td>单节点同时存活的 block filter 上限</td>
+</tr>
+<tr>
+<td><code>maxLogFilterNum</code></td>
+<td>20000</td>
+<td>单节点同时存活的 log filter 上限</td>
+</tr>
+<tr>
+<td><code>maxBatchSize</code></td>
+<td>100</td>
+<td>JSON-RPC batch 请求最大条数</td>
+</tr>
+<tr>
+<td><code>maxResponseSize</code></td>
+<td>26214400</td>
+<td>响应体大小上限，单位 bytes（25 MiB）</td>
+</tr>
+<tr>
+<td><code>maxMessageSize</code></td>
+<td>4194304</td>
+<td>JSON-RPC 请求体大小上限，单位 bytes（约 4 MiB）；独立于 HTTP/gRPC 限制</td>
 </tr>
 </tbody>
 </table>
@@ -9351,7 +9554,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年6月13日 03:38:23 UTC">2026年6月13日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年7月15日 08:54:55 UTC">2026年7月15日</span>
   </span>
 
     
