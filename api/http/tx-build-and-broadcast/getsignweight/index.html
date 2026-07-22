@@ -7656,6 +7656,8 @@
       
         
       
+        
+      
     
     
       
@@ -7885,6 +7887,28 @@
   
   <span class="md-ellipsis">
     查询
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../clients/wallet-cli/typescript-cli/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    TypeScript / npm CLI
     
   </span>
   
@@ -9039,8 +9063,8 @@
 <tr>
 <td><code>signature</code></td>
 <td>string[]</td>
-<td>是</td>
-<td>已收集的签名（可以只有 1 个）</td>
+<td>否</td>
+<td>已收集的签名；省略时仍可解析请求，<code>current_weight</code> 保持为 <code>0</code></td>
 </tr>
 <tr>
 <td><code>visible</code></td>
@@ -9064,7 +9088,7 @@
 <span class="s1">&#39;</span>
 </code></pre></div>
 <blockquote>
-<p>上例为占位结构；实际请求体应为带至少一个 <code>signature</code> 的多签交易 JSON。</p>
+<p>上例为占位结构。实际权重计算通常使用已签名的多签交易 JSON，但该接口也接受空的或省略的 <code>signature</code> 数组，并在权限结果中报告 <code>current_weight=0</code>。</p>
 </blockquote>
 <h2 id="_2">响应<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <table>
@@ -9143,12 +9167,12 @@
 </thead>
 <tbody>
 <tr>
-<td>请求体超过 <code>node.maxMessageSize</code></td>
-<td><code>{"Error": "class java.lang.Exception : body size is too big, the limit is &lt;N&gt;"}</code></td>
+<td>请求体超过 <code>node.http.maxMessageSize</code></td>
+<td>通常由 <code>SizeLimitHandler</code> 返回 HTTP 413 <code>Payload Too Large</code></td>
 </tr>
 <tr>
 <td>请求体不是合法 JSON</td>
-<td><code>{"Error": "class com.alibaba.fastjson.JSONException : &lt;解析器信息&gt;"}</code></td>
+<td><code>{"Error": "class org.tron.json.JSONException : &lt;解析器信息&gt;"}</code></td>
 </tr>
 <tr>
 <td>缺少 <code>raw_data</code>、<code>raw_data.contract</code> 不是数组、<code>signature</code> 非数组或元素非 hex、<code>raw_data</code> 字段类型不符等</td>
@@ -9180,7 +9204,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年4月30日 10:03:21 UTC">2026年4月30日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年7月14日 09:51:24 UTC">2026年7月14日</span>
   </span>
 
     

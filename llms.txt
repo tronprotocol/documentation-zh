@@ -2,6 +2,13 @@
 
 > java-tron 是 TRON 网络的官方 Java 客户端实现，由 TRON 协议团队维护。它实现了 TRON 主网协议——DPoS 共识、超级代表、账户与资源模型、智能合约、系统合约、多签权限——是运行全节点、参与超级代表选举、部署合约和构建 DApp 的基础软件。本站为英文权威文档 documentation-en 的中文翻译版本；当中英文不一致时，以英文版为准。
 
+使用文档清单可发现站点导航中发布的全部页面。清单中的每个条目同时提供规范 HTML URL 和指向权威源文本的直接 `markdown_url`。
+
+## 机器可读资源
+
+- [文档清单](https://tronprotocol.github.io/documentation-zh/docs-manifest.json)：MkDocs 导航中发布的全部 Markdown 页面清单，包括标题、分区、规范 HTML URL、直接 Markdown URL、源文件路径和最后修改时间。
+- [Markdown 源文件目录](https://github.com/tronprotocol/documentation-zh/tree/master/docs)：文档站点权威的开源 Markdown 内容。
+
 ## 新手入门
 
 - [入门指南](https://tronprotocol.github.io/documentation-zh/getting_started/getting_started_with_javatron/)：java-tron 与 TRON 协议的第一步。
@@ -13,8 +20,11 @@
 - [备份与恢复](https://tronprotocol.github.io/documentation-zh/using_javatron/backup_restore/)：节点数据库的快照与恢复。
 - [轻全节点](https://tronprotocol.github.io/documentation-zh/using_javatron/litefullnode/)：运行与维护裁剪后的低占用节点。
 - [私链网络](https://tronprotocol.github.io/documentation-zh/using_javatron/private_network/)：搭建私有 TRON 链。
+- [事件订阅](https://tronprotocol.github.io/documentation-zh/architecture/event/)：通过支持的事件插件和服务订阅合约事件与交易日志。
+- [数据库配置](https://tronprotocol.github.io/documentation-zh/architecture/database/)：选择 LevelDB 或 RocksDB、配置存储并迁移数据库格式。
+- [网络连接](https://tronprotocol.github.io/documentation-zh/using_javatron/connecting_to_tron/)：配置种子节点、主动/被动节点、连接限制和网络发现。
 - [节点监控](https://tronprotocol.github.io/documentation-zh/using_javatron/metrics/)：Prometheus / Grafana 指标与健康检查端点。
-- [节点维护工具 (Toolkit)](https://tronprotocol.github.io/documentation-zh/using_javatron/toolkit/)：数据库分区、轻节点裁剪、复制、LevelDB→RocksDB 转换、启动优化。
+- [节点维护工具 (Toolkit)](https://tronprotocol.github.io/documentation-zh/using_javatron/toolkit/)：数据库分区、轻节点裁剪、复制、LevelDB→RocksDB 转换、启动优化与 keystore 管理；包含 keystore 命令的 JSON 输出和退出行为说明。
 - [升级到新版本](https://tronprotocol.github.io/documentation-zh/releases/upgrade-instruction/)：新版本的升级步骤。
 
 ## API 接口
@@ -25,6 +35,7 @@
 - [gRPC API 参考](https://tronprotocol.github.io/documentation-zh/api/rpc/)：`protocol.Wallet` / `protocol.WalletSolidity` 方法；契约由 java-tron 仓库中的 `.proto` 文件定义。
 - [OpenAPI 规范（HTTP）](https://tronprotocol.github.io/documentation-zh/api/openapi.yaml)：`/wallet/*` 与 `/walletsolidity/*` HTTP 接口的机器可读 OpenAPI 契约。
 - [OpenRPC 规范（JSON-RPC）](https://tronprotocol.github.io/documentation-zh/api/openrpc.json)：`eth_*` / `net_*` / `web3_*` 及 `buildTransaction` 方法的机器可读 OpenRPC 契约。
+- [机器可读 API 定义](https://tronprotocol.github.io/documentation-zh/api/interface-definitions/)：OpenAPI 和 OpenRPC 契约的范围、来源、版本与生成说明。
 
 ## 核心协议
 
@@ -40,7 +51,17 @@
 
 - [开发者指南](https://tronprotocol.github.io/documentation-zh/developers/java-tron/)：构建、贡献与扩展 java-tron。
 - [核心模块](https://tronprotocol.github.io/documentation-zh/developers/code-structure/)：源码结构与模块职责。
+- [ChainBase 深入解析](https://tronprotocol.github.io/documentation-zh/developers/chainbase/)：状态存储架构、数据库抽象与交易处理。
+- [P2P 网络深入解析](https://tronprotocol.github.io/documentation-zh/developers/network/)：节点发现、连接管理、区块同步与消息处理。
+- [TIPs 工作流](https://tronprotocol.github.io/documentation-zh/developers/tip-workflow/)：通过 TRON 改进提案提出和评审协议变更。
+- [Issue 工作流](https://tronprotocol.github.io/documentation-zh/developers/issue-workflow/)：报告、分类与解决 java-tron 问题。
+- [治理工作流](https://tronprotocol.github.io/documentation-zh/developers/governance/)：贡献者角色、拉取请求评审和仓库治理。
 - [wallet-cli](https://tronprotocol.github.io/documentation-zh/clients/wallet-cli/)：官方命令行钱包与密钥管理。
+
+## 版本发布
+
+- [版本历史](https://tronprotocol.github.io/documentation-zh/releases/versions/)：各版本的变更与源码参考。
+- [版本完整性验证](https://tronprotocol.github.io/documentation-zh/releases/signature_verification/)：部署前验证发布文件的签名与校验和。
 
 ## 其它
 

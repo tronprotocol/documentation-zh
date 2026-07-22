@@ -7580,6 +7580,8 @@
       
         
       
+        
+      
     
     
       
@@ -8045,6 +8047,28 @@
   
   <span class="md-ellipsis">
     查询
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../typescript-cli/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    TypeScript / npm CLI
     
   </span>
   
@@ -9353,16 +9377,15 @@
 </tr>
 <tr>
 <td><code>2</code></td>
-<td>TRON_POWER（投票权；仅 REPL 的 freeze/unfreeze，且受网络开关限制）</td>
+<td>TRON_POWER（投票权；仅 freeze/unfreeze，且受网络开关限制）</td>
 </tr>
 </tbody>
 </table>
-<p>码 <code>2</code>（TRON_POWER）只被 <strong>REPL</strong> 的 freeze/unfreeze 命令接受 ——
-<code>FreezeBalance</code>/<code>UnfreezeBalance</code>（Stake 1.0）与 <code>FreezeBalanceV2</code>/<code>UnfreezeBalanceV2</code>（Stake 2.0）。
-即便如此也受网络开关限制：只有当链参数 <code>getAllowNewResourceModel</code> 启用时，节点才允许用码 <code>2</code> 冻结，
-而主网<strong>并未</strong>启用——因此实际上只有 <code>0</code>/<code>1</code> 可用。标准 CLI 中每条带 <code>--resource</code> 的命令都会在本地
-前置拒绝 <code>0</code>（BANDWIDTH）/<code>1</code>（ENERGY）以外的值并报用法错误。代理命令（两种模式）同样只接受
-<code>0</code> 或 <code>1</code>。</p>
+<p>码 <code>2</code>（TRON_POWER）对 freeze/unfreeze 命令受网络开关限制：
+<code>FreezeBalance</code>/<code>UnfreezeBalance</code>（Stake 1.0）、<code>FreezeBalanceV2</code>/<code>UnfreezeBalanceV2</code>（Stake 2.0）
+以及对应的标准 CLI 命令，只有在链参数 <code>getAllowNewResourceModel</code> 启用时才接受它。如果无法获取该链参数，
+4.9.7 客户端会 fail-open，让节点在广播时进行最终校验。代理命令（两种模式）始终只接受 <code>0</code> 或 <code>1</code>；
+TRON_POWER 不可代理。</p>
 <p>金额以 <strong>SUN</strong> 为单位（1 TRX = 1,000,000 SUN）。</p>
 <p>与别处一样，REPL 用可选的首参 <code>[OwnerAddress]</code> 支持多签；标准 CLI 用 <code>--owner</code> + <code>--multi</code>。本页所有
 改变状态的质押/代理命令都需要鉴权；页尾的资源查询则不需要。</p>
@@ -9381,8 +9404,8 @@
 </code></pre></div>
 <ul>
 <li><code>--amount</code>（必填，SUN）、<code>--duration</code>（必填，天）。</li>
-<li><code>--resource</code>（可选，<code>0</code>/<code>1</code>，默认 <code>0</code>）。标准 CLI 只接受 <code>0</code>/<code>1</code>；若要为 TRON_POWER
-  （投票权，码 <code>2</code>）冻结，请使用 REPL 的 <code>FreezeBalance</code>。</li>
+<li><code>--resource</code>（可选，<code>0</code>/<code>1</code>/<code>2</code>，默认 <code>0</code>）。<code>2</code> 是 TRON_POWER，仅在
+  <code>getAllowNewResourceModel</code> 启用时允许。如果设置了 <code>--receiver</code>，该操作属于代理，<code>2</code> 会被拒绝。</li>
 <li><code>--receiver</code>（可选）—— 把获得的资源代理给另一个地址。</li>
 <li><code>--owner</code>、<code>--multi</code>（可选）。</li>
 </ul>
@@ -9401,7 +9424,8 @@
 <div class="highlight"><pre><span></span><code>java<span class="w"> </span>-jar<span class="w"> </span>build/libs/wallet-cli.jar<span class="w"> </span>--network<span class="w"> </span>nile<span class="w"> </span>unfreeze-balance<span class="w"> </span>--resource<span class="w"> </span><span class="m">1</span>
 </code></pre></div>
 <ul>
-<li><code>--resource</code>（可选，默认 <code>0</code>）。</li>
+<li><code>--resource</code>（可选，<code>0</code>/<code>1</code>/<code>2</code>，默认 <code>0</code>）。<code>2</code> 是 TRON_POWER，仅在
+  <code>getAllowNewResourceModel</code> 启用时允许。如果设置了 <code>--receiver</code>，该操作针对代理冻结，<code>2</code> 会被拒绝。</li>
 <li><code>--receiver</code>（可选）—— 若该资源曾被代理则必填。</li>
 <li><code>--owner</code>、<code>--multi</code>（可选）。</li>
 </ul>
@@ -9422,7 +9446,9 @@
 <span class="w">  </span>--amount<span class="w"> </span><span class="m">1000000</span><span class="w"> </span>--resource<span class="w"> </span><span class="m">1</span>
 </code></pre></div>
 <ul>
-<li><code>--amount</code>（必填，SUN）、<code>--resource</code>（可选，默认 <code>0</code>）。</li>
+<li><code>--amount</code>（必填，SUN）、<code>--resource</code>（可选，<code>0</code>/<code>1</code>/<code>2</code>，默认 <code>0</code>）。
+  <code>2</code> 是 TRON_POWER，仅在 <code>getAllowNewResourceModel</code> 启用时允许；如果无法获取该链参数，客户端会让节点
+  在广播时校验。</li>
 <li><code>--owner</code>、<code>--permission-id</code>、<code>--multi</code>（可选）。</li>
 </ul>
 </div>
@@ -9441,7 +9467,9 @@
 <span class="w">  </span>--amount<span class="w"> </span><span class="m">1000000</span><span class="w"> </span>--resource<span class="w"> </span><span class="m">1</span>
 </code></pre></div>
 <ul>
-<li><code>--amount</code>（必填，SUN）、<code>--resource</code>（可选，默认 <code>0</code>）。</li>
+<li><code>--amount</code>（必填，SUN）、<code>--resource</code>（可选，<code>0</code>/<code>1</code>/<code>2</code>，默认 <code>0</code>）。
+  <code>2</code> 是 TRON_POWER，仅在 <code>getAllowNewResourceModel</code> 启用时允许；如果无法获取该链参数，客户端会让节点
+  在广播时校验。</li>
 <li><code>--owner</code>、<code>--permission-id</code>、<code>--multi</code>（可选）。</li>
 </ul>
 </div>
@@ -9671,7 +9699,7 @@ GetDelegatedResourceAccountIndexV2 Address
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年6月17日 03:37:32 UTC">2026年6月17日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年7月10日 03:09:04 UTC">2026年7月10日</span>
   </span>
 
     

@@ -7656,6 +7656,8 @@
       
         
       
+        
+      
     
     
       
@@ -7885,6 +7887,28 @@
   
   <span class="md-ellipsis">
     查询
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../clients/wallet-cli/typescript-cli/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    TypeScript / npm CLI
     
   </span>
   
@@ -9009,7 +9033,7 @@
 <blockquote>
 <p><strong>链上已禁用</strong>：提案 #70 <code>UNFREEZE_DELAY_DAYS</code> 通过后（主网已生效），<code>FreezeBalanceActuator.validate()</code> 会直接抛出 <code>freeze v2 is open, old freeze is closed</code>，新请求一律失败。请改用 <a href="../../stake-v2/freezebalancev2/"><code>/wallet/freezebalancev2</code></a>。</p>
 </blockquote>
-<p>冻结 TRX 获取带宽或能量，可代理给他人。冻结期最少 3 天。</p>
+<p>冻结 TRX 获取带宽或能量，可代理给他人。当节点设置 <code>block.checkFrozenTime=1</code> 时，冻结天数必须处于链上当前动态范围内（通常必须恰好为 3 天）。</p>
 <ul>
 <li>源码：<code>framework/src/main/java/org/tron/core/services/http/FreezeBalanceServlet.java</code></li>
 <li>Method：<code>POST</code></li>
@@ -9041,14 +9065,14 @@
 <tr>
 <td><code>frozen_duration</code></td>
 <td>int64</td>
-<td>是</td>
-<td>冻结天数（必须 ≥ 3）</td>
+<td>否</td>
+<td>冻结天数；省略时默认为 <code>0</code>。仅当 <code>block.checkFrozenTime=1</code> 时校验，届时必须处于 <code>[minFrozenTime, maxFrozenTime]</code> 内（通常为 <code>[3, 3]</code>）</td>
 </tr>
 <tr>
 <td><code>resource</code></td>
 <td>enum</td>
 <td>否</td>
-<td><code>BANDWIDTH</code> / <code>ENERGY</code>，默认 <code>BANDWIDTH</code></td>
+<td><code>BANDWIDTH</code> / <code>ENERGY</code>；链启用新资源模型时也接受 <code>TRON_POWER</code>。默认 <code>BANDWIDTH</code></td>
 </tr>
 <tr>
 <td><code>receiver_address</code></td>
@@ -9057,7 +9081,7 @@
 <td>资源代理目标地址（不填为自己）</td>
 </tr>
 <tr>
-<td><code>permission_id</code></td>
+<td><code>Permission_id</code></td>
 <td>int32</td>
 <td>否</td>
 <td>多签权限 ID</td>
@@ -9070,6 +9094,7 @@
 </tr>
 </tbody>
 </table>
+<p><code>resource=TRON_POWER</code> 时必须省略 <code>receiver_address</code>，因为 TronPower 不能委托。未启用 <code>supportAllowNewResourceModel()</code> 的节点会拒绝 <code>TRON_POWER</code>。此外，启用 Stake 2.0 后，节点通常会整体拒绝此旧版 Stake 1.0 冻结操作。</p>
 <p>示例：</p>
 <div class="highlight"><pre><span></span><code>curl<span class="w"> </span>--request<span class="w"> </span>POST<span class="w"> </span><span class="se">\</span>
 <span class="w">     </span>--url<span class="w"> </span>https://nile.trongrid.io/wallet/freezebalance<span class="w"> </span><span class="se">\</span>
@@ -9125,12 +9150,12 @@
 </thead>
 <tbody>
 <tr>
-<td>请求体超过 <code>node.maxMessageSize</code></td>
-<td><code>{"Error": "class java.lang.Exception : body size is too big, the limit is &lt;N&gt;"}</code></td>
+<td>请求体超过 <code>node.http.maxMessageSize</code></td>
+<td>通常由 <code>SizeLimitHandler</code> 返回 HTTP 413 <code>Payload Too Large</code></td>
 </tr>
 <tr>
 <td>请求体不是合法 JSON / 字段类型不符</td>
-<td><code>{"Error": "class com.alibaba.fastjson.JSONException : &lt;解析器信息&gt;"}</code> 或 <code>{"Error": "class org.tron.core.services.http.JsonFormat$ParseException : &lt;解码器信息&gt;"}</code></td>
+<td><code>{"Error": "class org.tron.json.JSONException : &lt;解析器信息&gt;"}</code> 或 <code>{"Error": "class org.tron.core.services.http.JsonFormat$ParseException : &lt;解码器信息&gt;"}</code></td>
 </tr>
 <tr>
 <td>提案 #70 <code>UNFREEZE_DELAY_DAYS</code> 已激活（主网默认开启）</td>
@@ -9161,7 +9186,7 @@
 <td><code>{"Error": "class org.tron.core.exception.ContractValidateException : frozenBalance must be less than or equal to accountBalance"}</code></td>
 </tr>
 <tr>
-<td><code>frozen_duration</code> 超出 <code>[minFrozenTime, maxFrozenTime]</code>（仅当 <code>--check-frozen-time=1</code>）</td>
+<td><code>frozen_duration</code> 超出 <code>[minFrozenTime, maxFrozenTime]</code>（仅当 <code>block.checkFrozenTime=1</code>）</td>
 <td><code>{"Error": "class org.tron.core.exception.ContractValidateException : frozenDuration must be less than &lt;max&gt; days and more than &lt;min&gt; days"}</code></td>
 </tr>
 <tr>
@@ -9214,7 +9239,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年4月30日 10:00:03 UTC">2026年4月30日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年7月14日 09:51:24 UTC">2026年7月14日</span>
   </span>
 
     

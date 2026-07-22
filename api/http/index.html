@@ -7580,6 +7580,8 @@
       
         
       
+        
+      
     
     
       
@@ -7809,6 +7811,28 @@
   
   <span class="md-ellipsis">
     查询
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../clients/wallet-cli/typescript-cli/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    TypeScript / npm CLI
     
   </span>
   
@@ -8873,12 +8897,27 @@
   
 </li>
       
-        <li class="md-nav__item ">
-  <a href="#_2" class="md-nav__link" >
+        <li class="md-nav__item has-children">
+  <a href="#_2" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
     <span class="md-ellipsis">
       异常响应
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="异常响应" hidden>
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item ">
+  <a href="#http" class="md-nav__link" >
+    <span class="md-ellipsis">
+      HTTP 错误目录
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -9006,10 +9045,14 @@
 <h2 id="_1">通用约定<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
 <ul>
 <li><strong>Method</strong>：除少量纯查询接口同时支持 <code>GET</code>，多数 POST 接口仅接受 <code>POST</code>，请求体为 JSON。</li>
+<li><strong>GET / POST 边界</strong>：同时支持两种方法的接口会在请求表和异常表中标明适用方法。GET 通常从 URL 查询参数读取，POST 通常读取 JSON 请求体；如果 POST 复用查询参数或忽略请求体，对应接口页面会单独说明。</li>
 <li><strong><code>visible</code></strong>：<code>true</code> 时地址使用 base58check 字符串形式，URL/描述等文本字段使用 UTF-8 字符串；<code>false</code>（默认）时使用 hex 字符串。</li>
 <li><strong>构造类接口</strong>返回未签名的 <code>protocol.Transaction</code>，需调用方本地签名后通过 <a href="tx-build-and-broadcast/broadcasttransaction/"><code>/wallet/broadcasttransaction</code></a> 或 <a href="tx-build-and-broadcast/broadcasthex/"><code>/wallet/broadcasthex</code></a> 广播。</li>
-<li><strong><code>permission_id</code></strong>：交易构造接口可选；用于多签账户指定使用哪个 <code>Permission</code>。</li>
+<li><strong><code>Permission_id</code></strong>：交易构造接口可选；用于多签账户指定使用哪个 <code>Permission</code>。字段名区分大小写。</li>
 <li><strong>金额单位</strong>：除 TRC-10 数量按发行精度外，其他金额一律为 sun（1 TRX = 1e6 sun）。</li>
+<li><strong><code>int64_as_string</code></strong>：GET 请求可在 URL 查询参数中添加 <code>int64_as_string=true</code>。启用后，protobuf JSON 响应中的 int64 / uint64 字段会序列化为 JSON 字符串，避免 JavaScript 等客户端出现精度损失。该参数只对 GET 请求生效，不影响 POST 请求体。</li>
+<li><strong>请求体大小</strong>：HTTP 请求体受 <code>config.conf</code> 中 <code>node.http.maxMessageSize</code> 限制（默认 <code>4194304</code>，约 4 MiB；<code>0</code> 表示拒绝所有非空 body）。JSON-RPC 有独立的 <code>node.jsonrpc.maxMessageSize</code>。</li>
+<li><strong>限流</strong>：HTTP 单接口限流在 <code>rate.limiter.http</code> 中配置。全局开关 <code>rate.limiter.apiNonBlocking</code> 控制超限行为：<code>true</code> 表示立即拒绝，并返回 HTTP 200 和 <code>{"Error":"class java.lang.IllegalAccessException : lack of computing resources"}</code>；<code>false</code> 表示排队并阻塞调用方直到获得 permit。</li>
 </ul>
 <div class="admonition warning">
 <p class="admonition-title">XSS 安全提示</p>
@@ -9021,9 +9064,254 @@
 <p>HTTP 状态码在<strong>绝大多数情况下都是 200</strong>（业务错误也通过响应体表达），客户端必须解析响应体判断成败。已知例外：</p>
 <ul>
 <li>接口被节点配置 <code>disabledApiList</code> 显式禁用时，由 <code>HttpApiAccessFilter</code> 直接返回 <strong>HTTP 404</strong>，响应体 <code>{"Error": "this API is unavailable due to config"}</code>。</li>
+<li>请求体超过 <code>node.http.maxMessageSize</code> 时，共享 HTTP <code>SizeLimitHandler</code> 可能会在目标 servlet 处理请求前直接返回 <strong>HTTP 413</strong>（<code>Payload Too Large</code>）。如果请求已经进入 servlet，并由 servlet 内部的 <code>Util.checkBodySize</code> 检查到 body 超限，则接口会按自身的异常响应格式返回；部分接口仍可能是 <strong>HTTP 200</strong> 加错误响应体。</li>
+<li>启用非阻塞限流且共享 <code>RateLimiterServlet</code> 无法获得 permit 时，会在目标 servlet 运行前返回 <strong>HTTP 200</strong>，响应体为 <code>{"Error":"class java.lang.IllegalAccessException : lack of computing resources"}</code>。这是共享层错误，而非接口业务错误。</li>
 <li>节点以 lite fullnode 模式启动且未开启 <code>openHistoryQueryWhenLiteFN</code> 时，由 <code>LiteFnQueryHttpFilter</code> 对约 24 个历史查询接口（<code>getblockbynum</code> / <code>gettransactionbyid</code> / <code>gettransactioninfobyid</code> / <code>gettransactioninfobyblocknum</code> / <code>getblockbyid</code> / <code>getblockbylatestnum</code> / <code>getblockbylimitnext</code> / <code>gettransactioncountbyblocknum</code> 等）返回 <strong>HTTP 200</strong>，但响应体是裸字符串 <code>this API is closed because this node is a lite fullnode</code>（<strong>非 JSON</strong>），客户端朴素 <code>JSON.parse</code> 会抛错，需先按字符串前缀识别。</li>
 <li>其它由 servlet 容器/反向代理产生的网络层错误（502、504、连接拒绝等）不在本文档范围。</li>
 </ul>
+<!-- BEGIN GENERATED HTTP ERROR CATALOG -->
+<h3 id="http">HTTP 错误目录<a class="headerlink" href="#http" title="Permanent link">&para;</a></h3>
+<p>Catalog ID 和重试分类由 <code>openapi.yaml</code> 的 <code>x-tron-error-model</code> 定义。它们是机器可读的文档分类，不是 java-tron 在线上响应中返回的字段。</p>
+<p><code>自动重试</code> 与 catalog 的 <code>retryable</code> 完全对应：只有“是”才允许自动重放同一逻辑操作。有条件的重试类别在满足“范围 / 操作”的前置条件之前仍为“否”。</p>
+<table>
+<thead>
+<tr>
+<th>Catalog ID</th>
+<th>线上信号</th>
+<th>含义</th>
+<th>自动重试</th>
+<th>重试类别</th>
+<th>范围 / 操作</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>HTTP_RATE_LIMITED</code></td>
+<td>HTTP 200 且 <code>$.Error</code> 包含 <code>lack of computing resources</code></td>
+<td>共享 servlet 限流器拒绝了请求。</td>
+<td>是</td>
+<td><code>SAFE_WITH_BACKOFF</code></td>
+<td>使用带抖动的指数退避自动重试；响应不包含 Retry-After header。</td>
+</tr>
+<tr>
+<td><code>HTTP_SERVLET_EXCEPTION</code></td>
+<td>HTTP 200 加自由文本 <code>$.Error</code></td>
+<td>servlet 在 JavaTronError 中返回了异常类和消息。</td>
+<td>否</td>
+<td><code>UNKNOWN</code></td>
+<td>检查具体 Error 文本和接口上下文；不得仅根据该兜底分类自动重试。</td>
+</tr>
+<tr>
+<td><code>HTTP_API_DISABLED</code></td>
+<td>HTTP 404 且 <code>$.Error</code> = <code>this API is unavailable due to config</code></td>
+<td>节点配置禁用了该接口。</td>
+<td>否</td>
+<td><code>AFTER_STATE_CHANGE</code></td>
+<td>使用已启用该接口的节点，或等待节点配置变更。</td>
+</tr>
+<tr>
+<td><code>HTTP_LITE_FULLNODE_HISTORY_DISABLED</code></td>
+<td>HTTP 200 加裸文本 <code>this API is closed because this node is a lite fullnode</code></td>
+<td>lite FullNode 拒绝了历史区块或交易查询。</td>
+<td>否</td>
+<td><code>AFTER_STATE_CHANGE</code></td>
+<td>使用 full node，或等待 <code>openHistoryQueryWhenLiteFN</code> 配置变更。</td>
+</tr>
+<tr>
+<td><code>HTTP_REQUEST_TOO_LARGE</code></td>
+<td>HTTP 413（<code>text/html</code>）</td>
+<td>请求超过 <code>node.http.maxMessageSize</code>。</td>
+<td>否</td>
+<td><code>AFTER_REQUEST_REBUILD</code></td>
+<td>缩小请求体后重新提交。</td>
+</tr>
+<tr>
+<td><code>RETURN_SIGERROR</code></td>
+<td><code>$.code</code> 或 <code>$.result.code</code> = <code>SIGERROR</code></td>
+<td>交易签名无效。</td>
+<td>否</td>
+<td><code>NEVER</code></td>
+<td>修正签名并重新签名。</td>
+</tr>
+<tr>
+<td><code>RETURN_CONTRACT_VALIDATE_ERROR</code></td>
+<td><code>$.code</code> 或 <code>$.result.code</code> = <code>CONTRACT_VALIDATE_ERROR</code></td>
+<td>合约校验失败。</td>
+<td>否</td>
+<td><code>AFTER_REQUEST_REBUILD</code></td>
+<td>修正参数、余额或权限后重构请求。</td>
+</tr>
+<tr>
+<td><code>RETURN_CONTRACT_EXE_ERROR</code></td>
+<td><code>$.code</code> 或 <code>$.result.code</code> = <code>CONTRACT_EXE_ERROR</code></td>
+<td>合约执行失败。</td>
+<td>否</td>
+<td><code>AFTER_STATE_CHANGE</code></td>
+<td>检查 message；仅在相关合约或链状态变更后重试。</td>
+</tr>
+<tr>
+<td><code>RETURN_BANDWITH_ERROR</code></td>
+<td><code>$.code</code> 或 <code>$.result.code</code> = <code>BANDWITH_ERROR</code></td>
+<td>账户带宽不足，或其余额不足以支付带宽、多签、备注或其他交易相关费用。</td>
+<td>否</td>
+<td><code>AFTER_STATE_CHANGE</code></td>
+<td>在带宽恢复，或账户余额足以支付相应的带宽、多签、备注或其他交易相关费用后重试；如果交易过期，则需重新构建并签名。</td>
+</tr>
+<tr>
+<td><code>RETURN_DUP_TRANSACTION_ERROR</code></td>
+<td><code>$.code</code> 或 <code>$.result.code</code> = <code>DUP_TRANSACTION_ERROR</code></td>
+<td>节点已知该交易。</td>
+<td>否</td>
+<td><code>VERIFY_BEFORE_RETRY</code></td>
+<td>先按 txid 查询，再决定是否需要新交易。</td>
+</tr>
+<tr>
+<td><code>RETURN_TAPOS_ERROR</code></td>
+<td><code>$.code</code> 或 <code>$.result.code</code> = <code>TAPOS_ERROR</code></td>
+<td>交易引用的区块无效或过旧。</td>
+<td>否</td>
+<td><code>AFTER_REQUEST_REBUILD</code></td>
+<td>使用较新的引用区块重构并重新签名。</td>
+</tr>
+<tr>
+<td><code>RETURN_TOO_BIG_TRANSACTION_ERROR</code></td>
+<td><code>$.code</code> 或 <code>$.result.code</code> = <code>TOO_BIG_TRANSACTION_ERROR</code></td>
+<td>交易过大。</td>
+<td>否</td>
+<td><code>AFTER_REQUEST_REBUILD</code></td>
+<td>缩小或拆分交易后重新提交。</td>
+</tr>
+<tr>
+<td><code>RETURN_TRANSACTION_EXPIRATION_ERROR</code></td>
+<td><code>$.code</code> 或 <code>$.result.code</code> = <code>TRANSACTION_EXPIRATION_ERROR</code></td>
+<td>交易已过期。</td>
+<td>否</td>
+<td><code>AFTER_REQUEST_REBUILD</code></td>
+<td>使用新的 expiration 重构并重新签名。</td>
+</tr>
+<tr>
+<td><code>RETURN_SERVER_BUSY</code></td>
+<td><code>$.code</code> 或 <code>$.result.code</code> = <code>SERVER_BUSY</code></td>
+<td>节点待处理交易过多。</td>
+<td>是</td>
+<td><code>SAFE_WITH_BACKOFF</code></td>
+<td>使用带抖动的指数退避自动重试，或使用其它健康节点。</td>
+</tr>
+<tr>
+<td><code>RETURN_NO_CONNECTION</code></td>
+<td><code>$.code</code> 或 <code>$.result.code</code> = <code>NO_CONNECTION</code></td>
+<td>节点没有活跃对等连接。</td>
+<td>是</td>
+<td><code>SAFE_WITH_BACKOFF</code></td>
+<td>等待连接恢复后退避重试，或使用其它已连接节点。</td>
+</tr>
+<tr>
+<td><code>RETURN_NOT_ENOUGH_EFFECTIVE_CONNECTION</code></td>
+<td><code>$.code</code> 或 <code>$.result.code</code> = <code>NOT_ENOUGH_EFFECTIVE_CONNECTION</code></td>
+<td>节点的有效对等连接过少。</td>
+<td>是</td>
+<td><code>SAFE_WITH_BACKOFF</code></td>
+<td>等待有效对等连接恢复后退避重试，或使用其它节点。</td>
+</tr>
+<tr>
+<td><code>RETURN_BLOCK_UNSOLIDIFIED</code></td>
+<td><code>$.code</code> 或 <code>$.result.code</code> = <code>BLOCK_UNSOLIDIFIED</code></td>
+<td>节点暂时处于未固化区块状态。</td>
+<td>是</td>
+<td><code>SAFE_WITH_BACKOFF</code></td>
+<td>等待区块固化后退避重试，或使用其它已同步节点。</td>
+</tr>
+<tr>
+<td><code>RETURN_OTHER_ERROR</code></td>
+<td><code>$.code</code> 或 <code>$.result.code</code> = <code>OTHER_ERROR</code></td>
+<td>Return 响应报告未分类失败。</td>
+<td>否</td>
+<td><code>UNKNOWN</code></td>
+<td>检查 message；如无更具体的瞬时原因，不得自动重试。</td>
+</tr>
+<tr>
+<td><code>SIGN_WEIGHT_NOT_ENOUGH_PERMISSION</code></td>
+<td><code>$.result.code</code> = <code>NOT_ENOUGH_PERMISSION</code></td>
+<td>累计签名权重不足。</td>
+<td>否</td>
+<td><code>AFTER_REQUEST_REBUILD</code></td>
+<td>在再次尝试前，为所选权限补充有效签名。</td>
+</tr>
+<tr>
+<td><code>SIGN_WEIGHT_SIGNATURE_FORMAT_ERROR</code></td>
+<td><code>$.result.code</code> = <code>SIGNATURE_FORMAT_ERROR</code></td>
+<td>签名格式无效。</td>
+<td>否</td>
+<td><code>NEVER</code></td>
+<td>修正签名格式并重新签名。</td>
+</tr>
+<tr>
+<td><code>SIGN_WEIGHT_COMPUTE_ADDRESS_ERROR</code></td>
+<td><code>$.result.code</code> = <code>COMPUTE_ADDRESS_ERROR</code></td>
+<td>无法从签名恢复地址。</td>
+<td>否</td>
+<td><code>NEVER</code></td>
+<td>修正签名，使其可恢复签名者地址。</td>
+</tr>
+<tr>
+<td><code>SIGN_WEIGHT_PERMISSION_ERROR</code></td>
+<td><code>$.result.code</code> = <code>PERMISSION_ERROR</code></td>
+<td>账户、所选权限、操作或提供的签名的权限评估失败。</td>
+<td>否</td>
+<td><code>UNKNOWN</code></td>
+<td>检查 <code>result.message</code>；修正 <code>Permission_id</code>/签名，或等待账户权限状态变更。不得自动重试。</td>
+</tr>
+<tr>
+<td><code>SIGN_WEIGHT_OTHER_ERROR</code></td>
+<td><code>$.result.code</code> = <code>OTHER_ERROR</code></td>
+<td>签名权重评估返回了未分类失败。</td>
+<td>否</td>
+<td><code>UNKNOWN</code></td>
+<td>检查 <code>result.message</code>；如无更具体的瞬时原因，不得自动重试。</td>
+</tr>
+<tr>
+<td><code>APPROVED_LIST_SIGNATURE_FORMAT_ERROR</code></td>
+<td><code>$.result.code</code> = <code>SIGNATURE_FORMAT_ERROR</code></td>
+<td>签名格式无效。</td>
+<td>否</td>
+<td><code>NEVER</code></td>
+<td>修正签名格式并重新签名。</td>
+</tr>
+<tr>
+<td><code>APPROVED_LIST_COMPUTE_ADDRESS_ERROR</code></td>
+<td><code>$.result.code</code> = <code>COMPUTE_ADDRESS_ERROR</code></td>
+<td>无法从签名恢复地址。</td>
+<td>否</td>
+<td><code>NEVER</code></td>
+<td>修正签名，使其可恢复签名者地址。</td>
+</tr>
+<tr>
+<td><code>APPROVED_LIST_OTHER_ERROR</code></td>
+<td><code>$.result.code</code> = <code>OTHER_ERROR</code></td>
+<td>批准列表评估返回了未分类失败。</td>
+<td>否</td>
+<td><code>UNKNOWN</code></td>
+<td>检查 <code>result.message</code>；如无更具体的瞬时原因，不得自动重试。</td>
+</tr>
+<tr>
+<td><code>TRANSACTION_RESULT_FAILED</code></td>
+<td><code>$.transaction.ret[0].ret</code> = <code>FAILED</code></td>
+<td>生成的交易结果报告 FAILED。</td>
+<td>否</td>
+<td><code>AFTER_STATE_CHANGE</code></td>
+<td>检查交易结果，并修正或重构交易。</td>
+</tr>
+<tr>
+<td><code>INVALID_ADDRESS</code></td>
+<td><code>wallet_validateaddress_get</code> 或 <code>wallet_validateaddress_post</code>：<code>$.result</code> = <code>false</code></td>
+<td>地址校验返回 <code>result=false</code>。</td>
+<td>否</td>
+<td><code>NEVER</code></td>
+<td>修正地址编码或 <code>visible</code> 模式后重新校验。</td>
+</tr>
+</tbody>
+</table>
+<!-- END GENERATED HTTP ERROR CATALOG -->
 <h2 id="_3">账户<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -9480,7 +9768,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年7月2日 01:30:25 UTC">2026年7月2日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年7月21日 06:44:43 UTC">2026年7月21日</span>
   </span>
 
     

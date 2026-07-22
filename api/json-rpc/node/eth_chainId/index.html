@@ -7656,6 +7656,8 @@
       
         
       
+        
+      
     
     
       
@@ -7885,6 +7887,28 @@
   
   <span class="md-ellipsis">
     查询
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../clients/wallet-cli/typescript-cli/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    TypeScript / npm CLI
     
   </span>
   
@@ -9059,12 +9083,13 @@
 </thead>
 <tbody>
 <tr>
-<td>无法取到 0 号块（节点未完成创世块加载等极端情况）</td>
-<td><code>-32000</code></td>
-<td>透传底层 <code>Exception.getMessage()</code></td>
+<td>无法加载 0 号块</td>
+<td><code>-32001</code></td>
+<td>底层异常的 message</td>
 </tr>
 </tbody>
 </table>
+<p>实现中如果无法加载 0 号块，会将异常包装为 <code>JsonRpcInternalException</code>；但 <code>eth_chainId</code> 接口声明没有配置匹配的 <code>@JsonRpcErrors</code> 条目。因此，java-tron 的 resolver 不会返回异常映射，jsonrpc4j 随后使用 <code>ERROR_NOT_HANDLED</code> fallback（<code>-32001</code>）。响应中的 <code>error.message</code> 来自底层异常，而不是固定字符串 <code>JsonRpcInternalException</code>。</p>
 
 
 
@@ -9085,7 +9110,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年4月30日 10:00:03 UTC">2026年4月30日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年7月14日 09:51:24 UTC">2026年7月14日</span>
   </span>
 
     

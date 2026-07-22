@@ -7656,6 +7656,8 @@
       
         
       
+        
+      
     
     
       
@@ -7885,6 +7887,28 @@
   
   <span class="md-ellipsis">
     查询
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../clients/wallet-cli/typescript-cli/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    TypeScript / npm CLI
     
   </span>
   
@@ -9032,7 +9056,7 @@
 <td><code>params[1]</code></td>
 <td>string | object</td>
 <td>是</td>
-<td>区块标识：tag 字符串、或 <code>{"blockNumber": "0x..."}</code> / <code>{"blockHash": "0x..."}</code> 对象（EIP-1898）。<strong>仅支持 <code>latest</code></strong>（其它 tag 抛错；具体高度即便存在也会被拒绝）</td>
+<td>区块标识：tag 字符串，或包含 <code>blockNumber</code>（非负 <code>0x</code>-hex 或十进制）或 <code>blockHash</code>（严格的 32 字节 hex）的对象。字符串 tag 只支持 <code>latest</code>；对象形式会检查引用区块是否存在，但执行仍使用 latest state</td>
 </tr>
 </tbody>
 </table>
@@ -9064,7 +9088,12 @@
 <tr>
 <td><code>data</code></td>
 <td><code>null</code></td>
-<td>calldata（4 字节 selector + abi.encode 参数）</td>
+<td>calldata（4 字节 selector + ABI 编码参数）</td>
+</tr>
+<tr>
+<td><code>input</code></td>
+<td><code>null</code></td>
+<td><code>data</code> 的别名；两者同时设置时，<code>eth_call</code> 优先使用 <code>input</code></td>
 </tr>
 <tr>
 <td><code>gas</code> / <code>gasPrice</code> / <code>nonce</code></td>
@@ -9073,6 +9102,8 @@
 </tr>
 </tbody>
 </table>
+<p><code>input</code> 使用更严格的 execution API hex 规则：必须带 <code>0x</code> 前缀，且 hex 位数为偶数；<code>""</code> 可作为空 bytes。<code>data</code> 为兼容旧客户端保留较宽松解析。</p>
+<p>对于 <code>params[1]</code>，字符串 block tag 必须为 <code>latest</code>。EIP-1898 object 形式接受已存在的 <code>blockNumber</code> / <code>blockHash</code> 并检查该区块存在，但调用仍基于 latest state 执行，不做历史状态执行。额外的对象属性会被忽略；若两个 selector 同时存在，<code>blockNumber</code> 优先。</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># 例：调用 Nile testnet 上 Tether USD（USDT）的 symbol() 函数</span>
 curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>https://nile.trongrid.io/jsonrpc<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-H<span class="w"> </span><span class="s1">&#39;Content-Type: application/json&#39;</span><span class="w"> </span><span class="se">\</span>
@@ -9114,9 +9145,14 @@ curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </spa
 <td><code>invalid json request</code></td>
 </tr>
 <tr>
-<td><code>params[1]</code> 中 <code>blockNumber</code> 不是合法 hex</td>
+<td><code>params[1]</code> 中 <code>blockNumber</code> 不是合法的非负 hex/十进制高度</td>
 <td><code>-32602</code></td>
 <td><code>invalid block number</code></td>
+</tr>
+<tr>
+<td><code>params[1]</code> 中 <code>blockHash</code> 不匹配 <code>(0x)?[0-9a-fA-F]{64}</code></td>
+<td><code>-32602</code></td>
+<td><code>invalid hash value</code></td>
 </tr>
 <tr>
 <td><code>params[1]</code> 中指定的块不存在</td>
@@ -9124,12 +9160,12 @@ curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </spa
 <td><code>header not found</code> 或 <code>header for hash not found</code></td>
 </tr>
 <tr>
-<td><code>params[1]</code> tag 是 <code>earliest</code> / <code>pending</code> / <code>finalized</code></td>
+<td><code>params[1]</code> tag 是 <code>earliest</code> / <code>pending</code> / <code>finalized</code> / <code>safe</code></td>
 <td><code>-32602</code></td>
-<td><code>TAG [earliest \| pending \| finalized] not supported</code></td>
+<td><code>TAG [earliest \| pending \| finalized \| safe] not supported</code></td>
 </tr>
 <tr>
-<td><code>params[1]</code> 是具体 hex 高度（即便有效）</td>
+<td>字符串形式的 <code>params[1]</code> 是具体 hex 或十进制高度（即便有效）</td>
 <td><code>-32602</code></td>
 <td><code>QUANTITY not supported, just support TAG as latest</code></td>
 </tr>
@@ -9137,6 +9173,11 @@ curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </spa
 <td><code>from</code> / <code>to</code> 地址非法</td>
 <td><code>-32602</code></td>
 <td>透传 message</td>
+</tr>
+<tr>
+<td><code>input</code> 不是严格 hex</td>
+<td><code>-32602</code></td>
+<td>透传 <code>JsonRpcApiUtil.requireValidHex</code> 校验信息</td>
 </tr>
 <tr>
 <td><code>value</code> 不是合法 hex</td>
@@ -9180,7 +9221,7 @@ curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </spa
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年4月30日 10:00:03 UTC">2026年4月30日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年7月14日 09:51:24 UTC">2026年7月14日</span>
   </span>
 
     

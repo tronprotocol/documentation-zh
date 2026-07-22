@@ -7656,6 +7656,8 @@
       
         
       
+        
+      
     
     
       
@@ -7885,6 +7887,28 @@
   
   <span class="md-ellipsis">
     查询
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../clients/wallet-cli/typescript-cli/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    TypeScript / npm CLI
     
   </span>
   
@@ -9012,10 +9036,12 @@
 <li>Method：<code>GET</code> / <code>POST</code></li>
 </ul>
 <h2 id="_1">请求参数<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>GET 从 URL 查询参数读取以下字段；POST 从 JSON 请求体读取。</p>
 <table>
 <thead>
 <tr>
 <th>字段</th>
+<th>方法</th>
 <th>类型</th>
 <th>必填</th>
 <th>说明</th>
@@ -9024,9 +9050,17 @@
 <tbody>
 <tr>
 <td><code>address</code></td>
+<td>GET</td>
 <td>string</td>
 <td>是</td>
 <td>待校验地址，自动按长度判断格式：42 字符 hex / 34 字符 base58check / 28 字符 base64</td>
+</tr>
+<tr>
+<td><code>address</code></td>
+<td>POST</td>
+<td>string</td>
+<td>否</td>
+<td>待校验地址；省略时返回 <code>result=false</code> 及异常信息（旧版 JVM 上该信息可能为 null）</td>
 </tr>
 </tbody>
 </table>
@@ -9066,26 +9100,28 @@
 </code></pre></div>
 <h3 id="_3">异常响应<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
 <p>地址解析层错误（长度不符、checksum 错误、base58/base64 解码失败等）通过 <code>result=false</code> + <code>message</code> 表达，<strong>不会</strong>返回 <code>{"Error": ...}</code> 形态。</p>
-<p>但 <code>doPost</code> 在 <code>validAddress</code> <strong>之前</strong>还有两步会抛异常，且 servlet 的外层 <code>catch (Exception e)</code> 只 <code>logger.debug</code> 不写响应体——客户端会收到 <strong>HTTP 200 + 空 body</strong>：</p>
+<p>有两类失败不会进入常规的 <code>result=false</code> 响应：超限请求体可能在 servlet 运行前被共享 HTTP 层拒绝，而非法 JSON 会在 <code>doPost</code> 内失败。后者的异常只会被捕获并记录日志，因此客户端收到 <strong>HTTP 200 + 空 body</strong>：</p>
 <table>
 <thead>
 <tr>
+<th>方法</th>
 <th>触发条件</th>
 <th>响应</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>请求体超过 <code>node.maxMessageSize</code>（POST）</td>
-<td>空响应（<code>Util.checkBodySize</code> 抛 <code>java.lang.Exception</code>，被 catch 后丢弃）</td>
+<td>GET / POST</td>
+<td>请求体超过 <code>node.http.maxMessageSize</code></td>
+<td>通常由 <code>SizeLimitHandler</code> 返回 HTTP 413 <code>Payload Too Large</code></td>
 </tr>
 <tr>
+<td>POST</td>
 <td>请求体不是合法 JSON（POST）</td>
-<td>空响应（<code>JSON.parseObject</code> 抛 <code>com.alibaba.fastjson.JSONException</code>，被 catch 后丢弃）</td>
+<td>空响应（<code>JSON.parseObject</code> 抛 <code>org.tron.json.JSONException</code>，被 catch 后丢弃）</td>
 </tr>
 </tbody>
 </table>
-<p>GET 路径不读 body，上面两种情况只在 POST 触发。</p>
 
 
 
@@ -9106,7 +9142,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年4月30日 03:44:01 UTC">2026年4月30日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年7月14日 09:51:24 UTC">2026年7月14日</span>
   </span>
 
     
