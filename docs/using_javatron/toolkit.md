@@ -274,10 +274,12 @@ TRON Toolkit 提供了**数据裁剪工具**，主要用于生成和管理轻节
 
 ```bash
 # full command
-  java -jar build/libs/Toolkit.jar db lite [-h] -ds=<datasetPath> -fn=<fnDataPath> [-o=<operate>] [-t=<type>]
+  java -jar build/libs/Toolkit.jar db lite [-h] -ds=<datasetPath> -fn=<fnDataPath> [-o=<operate>] [-t=<type>] [--exclude-historical-balance]
 # examples
   #split and get a snapshot dataset
   java -jar build/libs/Toolkit.jar db lite -o split -t snapshot --fn-data-path output-directory/database --dataset-path /tmp
+  #切分一个不包含历史余额数据、体积更小的快照数据集
+  java -jar build/libs/Toolkit.jar db lite -o split -t snapshot --fn-data-path output-directory/database --dataset-path /tmp --exclude-historical-balance
   #split and get a history dataset
   java -jar build/libs/Toolkit.jar db lite -o split -t history --fn-data-path output-directory/database --dataset-path /tmp
   #merge history dataset and snapshot dataset
@@ -294,6 +296,9 @@ TRON Toolkit 提供了**数据裁剪工具**，主要用于生成和管理轻节
 *   `-ds | --dataset-path <string>`：
     *   当操作类型为 `split` 时，指定切分完成的快照数据集或历史数据集的输出目录。
     *   当操作类型为 `merge` 时，指定历史数据集目录。
+*   `--exclude-historical-balance`：仅与 `-o split -t snapshot` 配合使用，默认值为 `false`。启用后，工具会从快照数据集中排除 `balance-trace` 和 `account-trace` 数据库，以减小快照体积。`split -t history` 和 `merge` 操作会忽略此参数。
+
+    > **警告**：如果源节点启用了 `storage.balance.history.lookup = true`，使用此参数会永久移除生成快照中的历史余额查询数据。使用该快照启动的轻节点将无法安全提供 `getblockbalance` 查询；缺少账户轨迹数据时，`getaccountbalance` 可能返回余额 `0`。之后合并历史数据集也无法恢复被排除的数据库。如果生成的轻节点需要支持历史余额查询，请勿启用此参数。
 
 
 ### 使用示例
@@ -316,6 +321,14 @@ java -jar build/libs/Toolkit.jar db lite -o split -t snapshot --fn-data-path out
 * `--dataset-path`： 存放输出的快照数据集的目录
 
 命令执行完毕后，将在 `/tmp` 目录下生成一个名为 `snapshot` 的目录。此目录中的数据即为轻节点数据。将该目录中的数据拷贝到节点数据库目录中（例如，将 `snapshot` 目录重命名为 `database` 并拷贝到 Lite FullNode 的运行目录 `output-directory` 下），然后启动轻节点即可。
+
+如果不需要历史余额查询，可以排除余额轨迹数据库以生成体积更小的快照：
+
+```shell
+java -jar build/libs/Toolkit.jar db lite -o split -t snapshot --fn-data-path output-directory/database --dataset-path /tmp --exclude-historical-balance
+```
+
+对于生成的快照，该排除操作不可逆。如果生成的轻节点仍需使用 `storage.balance.history.lookup`，请勿启用此参数。
 
 #### 切分历史数据集
 
