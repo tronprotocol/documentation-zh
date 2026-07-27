@@ -105,7 +105,7 @@ uname -m
 
 全节点作为 TRON 网络的入口，通过 HTTP 和 RPC API 提供完整接口。客户端可借助这些端点执行资产转账、部署智能合约并调用链上逻辑。全节点必须接入 TRON 网络，才能参与共识与交易处理。
 
-### TRON 网络类型
+### TRON 网络类型 { #network-types }
 
 TRON 网络主要分为以下几类：
 
@@ -125,11 +125,11 @@ TRON 网络主要分为以下几类：
 
 ### 启动全节点连接主网 { #starting-a-fullnode-on-the-tron-main-network }
 
-以下是启动 **主网全节点** 的命令，使用默认内置的主网配置文件：
+如果当前工作目录中不存在 `./config.conf`，以下命令将使用 JAR 中内置的 `config.conf` 启动主网 FullNode。如果存在 `./config.conf`，java-tron 会优先加载该文件。为避免歧义，可通过 `-c` 指定明确路径；完整的解析顺序请参阅[节点配置](configuration.md#configuration-files-and-precedence)。
 
-`
-nohup java -jar build/libs/FullNode.jar -c framework/src/main/resources/config.conf &
-`
+```bash
+nohup java -jar build/libs/FullNode.jar &
+```
 
 *   `nohup ... &`：在后台运行命令并忽略挂断信号。
 

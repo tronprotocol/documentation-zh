@@ -25,6 +25,7 @@ java-tron 是 TRON 网络的官方 Java 客户端实现，由 TRON 协议团队�
     部署、监控、维护 java-tron 节点的运维指南。
 
     - [部署 java-tron](using_javatron/installing_javatron.md)
+    - [节点配置](using_javatron/configuration.md)
     - [节点监控](using_javatron/metrics.md)
     - [升级到新版本](releases/upgrade-instruction.md)
     - [私链网络](using_javatron/private_network.md)

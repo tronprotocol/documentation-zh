@@ -18,7 +18,7 @@
 
 #### 方式一：下载可执行文件 (推荐)
 
-1.  访问 [java-tron GitHub Releases](https://github.com/tronprotocol/java-tron/releases) 页面，下载最新版本的 `FullNode.jar` 可执行文件。
+1.  访问 [java-tron GitHub Releases](https://github.com/tronprotocol/java-tron/releases) 页面，根据系统架构下载最新的可执行文件：x86-64 使用 `FullNode-x64.jar`，ARM64 使用 `FullNode-aarch64.jar`。完成签名校验后，将下载的文件重命名为 `FullNode.jar`，供后续步骤使用。
 2.  **安全校验**：为确保文件的完整性和安全性，请务必根据 [java-tron 一致性校验](signature_verification.md) 文档对下载的 JAR 文件进行签名校验。
 
 #### 方式二：从源码编译

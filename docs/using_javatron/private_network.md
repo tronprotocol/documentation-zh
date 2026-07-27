@@ -32,7 +32,7 @@
 
 2. 获取 java-tron 客户端
     
-     - 从 [Java-tron GitHub Releases](https://github.com/tronprotocol/java-tron/releases) 页面下载最新的 `FullNode.jar`。
+     - 从 [java-tron GitHub Releases](https://github.com/tronprotocol/java-tron/releases) 页面下载适用于系统架构的最新 FullNode JAR：x86-64 使用 `FullNode-x64.jar`，ARM64 使用 `FullNode-aarch64.jar`，并将下载的文件重命名为 `FullNode.jar`。
     - 将下载的 `JAR` 文件分别复制到两个节点目录中。
 
      ```bash
@@ -42,7 +42,8 @@
 
 3. 准备配置文件
 
-    - 下载官方提供的配置文件模板 ([config.conf](https://github.com/tronprotocol/java-tron/blob/develop/framework/src/main/resources/config.conf))，并修改 `p2p.version `为 **11111** 和 **20180622** 以外的任何值。
+    - 下载当前的 [`framework/src/main/resources/config.conf`](https://github.com/tronprotocol/java-tron/blob/master/framework/src/main/resources/config.conf)。
+    - 将 `node.p2p.version` 修改为未被公共网络使用的正整数。当前公共网络 ID 为：主网 `11111`、Nile `201910292`、Shasta `1`。
     - 将其分别复制到两个节点目录中，并重命名以作区分。
 
       ```bash
@@ -61,10 +62,10 @@
     | :-------- | :-------- | :-------- | :-------- |
     | `localwitness`     | 账户私钥     | 不需填值     |  用于签名区块的私钥，仅产块节点需要。     |
     | `genesis.block.witnesses`	     | SR 地址     | 与 SR 配置值相同 | 创世块相关的配置   |
-    | `genesis.block.Assets`     | 给特定账户预置 TRX。将预先准备的账户地址写入并随意指定其 TRX 的余额。可以直接修改原来已有账户的 `address` 字段，其它字段不需要修改；或者在末尾添加新账户信息    | 与 SR 配置值相同     | 创世块相关的配置     |
-    | `p2p.version`     | 11111 之外的任意正整数     | 与 SR 配置值相同      | SR 和 FullNode 需相同，只有相同 version 的节点才能握手成功     |
-    | `seed.node`     | 不需填值     | 将 `ip.list` 设置为 SR 的 IP 地址和 SR 配置文件中的 `listen.port` 端口号    | 能够让 FullNode 与 SR node 建立连接并同步数据     |
-    | `needSyncCheck`     | `false`     | `true`     | 第 1 个 SR 设置 `needSyncCheck` 为 `false`，其他设置为 `true`      |
+    | `genesis.block.assets`     | 给特定账户预置 TRX。将预先准备的账户地址写入并按需指定其 TRX 余额    | 与 SR 配置值相同     | 创世块相关的配置     |
+    | `node.p2p.version`     | 除 `11111`、`201910292` 和 `1` 之外的任意正整数     | 与 SR 配置值相同      | 只有 `node.p2p.version` 相同的节点才能完成 P2P 握手     |
+    | `seed.node.ip.list`     | 列表留空     | 按 `SR_IP:SR_P2P_PORT` 格式添加 SR 节点，其中端口使用 SR 的 `node.listen.port` 配置值    | 使 FullNode 与 SR 节点建立连接并同步数据     |
+    | `block.needSyncCheck`     | `false`     | `true`     | 第 1 个 SR 将 `block.needSyncCheck` 设置为 `false`，其他 SR 设置为 `true`      |
     | `node.discovery.enable`     | `true`     | `true`     | 如果配置成 `false`，则当前节点不会被其他节点发现     |
     |`block.proposalExpireTime`|`600000` |与 SR 配置值相同  |默认提案过期时间是 3 天：259200000(ms)；由于逻辑上强制提案最少需要经历一个完整的维护期时间间隔，所以如果希望提案快速通过，需要将该项和维护期时间间隔项同时设置成小值|
     |`block.maintenanceTimeInterval`|`300000`| 与 SR 配置值相同  | 维护期时间间隔，默认是 6 小时：21600000(ms)|
@@ -74,9 +75,12 @@
 5. 调整网络端口 (如需)    
     修改配置文件中的端口号，将 SR 和 FullNode 的配置成不相同的端口号。此步骤仅在同一台机器上运行多个节点时是必需的，以避免端口冲突。否则，可跳过此步。
     
-    * `listen.port` ：P2P 监听端口
-    * `http` 端口： HTTP 监听端口
-    * `rpc` 端口： RPC 监听端口
+    * `node.listen.port`：P2P 监听端口
+    * `node.http.fullNodePort`、`node.http.solidityPort` 和 `node.http.PBFTPort`：HTTP 监听端口
+    * `node.rpc.port`、`node.rpc.solidityPort` 和 `node.rpc.PBFTPort`：gRPC 监听端口
+    * `node.jsonrpc.httpFullNodePort`、`node.jsonrpc.httpSolidityPort` 和 `node.jsonrpc.httpPBFTPort`：启用相应服务时使用的 JSON-RPC 监听端口
+
+    对应的启用开关和默认值请参阅[节点配置中的端口表](configuration.md#api-services-and-ports)。
 
 6. 启动节点
     超级代表（产块节点）和普通全节点的启动命令略有不同。
@@ -105,7 +109,7 @@
 
      * **方式一：通过配置文件设置 (适用于初始部署)**  
 
-        一些网络参数可以通过配置文件直接设置，这些网络参数可以在 [此处](https://github.com/tronprotocol/java-tron/blob/develop/common/src/main/java/org/tron/core/Constant.java) 查看。
+        一些网络参数可以通过配置文件直接设置，当前定义可在 [`Constant.java`](https://github.com/tronprotocol/java-tron/blob/master/common/src/main/java/org/tron/core/Constant.java) 中查看。
       
          **示例**：在 `.conf` 文件中添加以下 `committee` 块来开启多签和合约创建:
       
@@ -171,4 +175,3 @@
       需要注意的是，具有相互依赖关系的网络参数不能包含在同一个提案中，正确的方法是将它们分成不同的提案，并注意它们的顺序。
      
      
-

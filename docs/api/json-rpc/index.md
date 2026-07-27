@@ -9,9 +9,9 @@
 | FullNode JSON-RPC | `8545` | `node.jsonrpc.httpFullNodeEnable` | 全量数据库（最新块即可见） |
 | Solidity JSON-RPC | `8555` | `node.jsonrpc.httpSolidityEnable` | 仅固化数据 |
 
-端口可通过 `node.jsonrpc.httpFullNodePort` / `httpSolidityPort` 覆盖（参见 `framework/src/main/resources/config.conf` 的 `jsonrpc {}` 段）。
+端口可通过 `node.jsonrpc.httpFullNodePort` / `node.jsonrpc.httpSolidityPort` 覆盖。其默认值在 `common/src/main/resources/reference.conf` 的 `node.jsonrpc` 配置块中定义。
 
-> **默认关闭**：`config.conf` 中 `jsonrpc {}` 块的所有开关默认注释掉，`Args` 中 `httpFullNodeEnable` / `httpSolidityEnable` 均为 `false`（见 `Args.java`）。需在配置中显式 `httpFullNodeEnable = true` / `httpSolidityEnable = true` 才会随节点启动。Solidity JSON-RPC 服务还要求当前进程为 FullNode（不是独立的 SolidityNode 进程，见 `JsonRpcServiceOnSolidity.java`）。
+> **默认关闭**：`reference.conf` 将 `node.jsonrpc.httpFullNodeEnable` 和 `node.jsonrpc.httpSolidityEnable` 均设置为 `false`。必须在节点的外部配置文件中将相应开关显式设置为 `true`，服务才会随节点启动。Solidity JSON-RPC 服务还要求当前进程为 FullNode（不是独立的 SolidityNode 进程，见 `JsonRpcServiceOnSolidity.java`）。
 
 URL 路径恒为 `/jsonrpc`（见 `FullNodeJsonRpcHttpService.java`）。
 
@@ -73,7 +73,9 @@ Catalog ID 和重试分类由 `openrpc.json` 的 `x-tron-error-model` 定义。�
 }
 ```
 
-> **注意**：`disabledApi` 配置项**不影响 JSON-RPC**（见 `config.conf` 注释 "but not jsonrpc"）。要禁用 JSON-RPC，请关闭对应 `httpFullNodeEnable` / `httpSolidityEnable`。
+> **注意**：`node.disabledApi` **不影响 JSON-RPC**。要禁用 JSON-RPC 服务，请将相应的 `node.jsonrpc.httpFullNodeEnable` 或 `node.jsonrpc.httpSolidityEnable` 开关设置为 `false`。
+
+有关配置优先级、所有 API 服务端口以及重启要求，请参阅[节点配置](../../using_javatron/configuration.md)。
 
 ## 节点信息 / 链身份
 
@@ -130,7 +132,7 @@ Catalog ID 和重试分类由 `openrpc.json` 的 `x-tron-error-model` 定义。�
 | [`eth_getFilterChanges`](filter/eth_getFilterChanges.md) | 拉取并清空 filter 增量 |
 | [`eth_getFilterLogs`](filter/eth_getFilterLogs.md) | 拉取 log filter 全量（不清空） |
 
-filter 相关默认限额（见 `config.conf` 的 `jsonrpc {}` 段）：
+JSON-RPC 限制和 filter 相关默认值（在 `common/src/main/resources/reference.conf` 的 `node.jsonrpc` 配置块中定义）：
 
 | 配置项 | 默认值 | 含义 |
 |---|---|---|
