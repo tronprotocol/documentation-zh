@@ -9,7 +9,7 @@
 
 | 字段 | 类型 | 必填 | 说明 |
 |---|---|---|---|
-| `transaction` | string | 是 | 完整 `protocol.Transaction` 的 protobuf 序列化结果 hex |
+| `transaction` | string | 是 | 完整 `protocol.Transaction` 的 protobuf 序列化结果 hex。交易中嵌入的每个签名必须为 `65`–`68` 字节，否则广播会返回 `SIGERROR` |
 
 示例：
 
