@@ -32,7 +32,7 @@ java-tron 内置了两个用途不同的配置文件：
 - [完整默认值（`reference.conf`）](https://github.com/tronprotocol/java-tron/blob/master/common/src/main/resources/reference.conf)
 - [主网配置模板（`config.conf`）](https://github.com/tronprotocol/java-tron/blob/master/framework/src/main/resources/config.conf)
 
-对于 Nile 或其他网络，应使用对应网络的配置模板，而不是只修改网络名称。节点发现、P2P 版本、种子节点和创世块配置必须全部指向同一个网络。支持的网络配置模板请参阅[部署 java-tron](installing_javatron.md#network-types)。
+对于 Nile 或其他网络，应使用为该网络提供的配置模板。节点发现、P2P 版本、种子节点和创世块配置必须全部指向同一个网络。支持的网络配置模板请参阅[部署 java-tron](installing_javatron.md#network-types)。
 
 ## 使用外部配置启动节点
 
