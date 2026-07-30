@@ -351,6 +351,8 @@
       
         
       
+        
+      
     
     
       
@@ -397,6 +399,28 @@
   
   <span class="md-ellipsis">
     部署
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configuration/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    节点配置
     
   </span>
   
@@ -9026,7 +9050,7 @@ mkdir<span class="w"> </span>FullNode
 <li>
 <p>获取 java-tron 客户端</p>
 <ul>
-<li>从 <a href="https://github.com/tronprotocol/java-tron/releases">Java-tron GitHub Releases</a> 页面下载最新的 <code>FullNode.jar</code>。</li>
+<li>从 <a href="https://github.com/tronprotocol/java-tron/releases">java-tron GitHub Releases</a> 页面下载适用于系统架构的最新 FullNode JAR：x86-64 使用 <code>FullNode-x64.jar</code>，ARM64 使用 <code>FullNode-aarch64.jar</code>，并将下载的文件重命名为 <code>FullNode.jar</code>。</li>
 <li>将下载的 <code>JAR</code> 文件分别复制到两个节点目录中。</li>
 </ul>
 <div class="highlight"><pre><span></span><code>cp<span class="w"> </span>FullNode.jar<span class="w"> </span>./SR
@@ -9036,7 +9060,8 @@ cp<span class="w"> </span>FullNode.jar<span class="w"> </span>./FullNode
 <li>
 <p>准备配置文件</p>
 <ul>
-<li>下载官方提供的配置文件模板 (<a href="https://github.com/tronprotocol/java-tron/blob/develop/framework/src/main/resources/config.conf">config.conf</a>)，并修改 <code>p2p.version</code>为 <strong>11111</strong> 和 <strong>20180622</strong> 以外的任何值。</li>
+<li>下载当前的 <a href="https://github.com/tronprotocol/java-tron/blob/master/framework/src/main/resources/config.conf"><code>framework/src/main/resources/config.conf</code></a>。</li>
+<li>将 <code>node.p2p.version</code> 修改为未被公共网络使用的正整数。当前公共网络 ID 为：主网 <code>11111</code>、Nile <code>201910292</code>、Shasta <code>1</code>。</li>
 <li>将其分别复制到两个节点目录中，并重命名以作区分。</li>
 </ul>
 <div class="highlight"><pre><span></span><code><span class="c1"># 用于 SR 节点的配置文件</span>
@@ -9072,28 +9097,28 @@ cp<span class="w"> </span>private_net_config.conf<span class="w"> </span>./FullN
 <td style="text-align: left;">创世块相关的配置</td>
 </tr>
 <tr>
-<td style="text-align: left;"><code>genesis.block.Assets</code></td>
-<td style="text-align: left;">给特定账户预置 TRX。将预先准备的账户地址写入并随意指定其 TRX 的余额。可以直接修改原来已有账户的 <code>address</code> 字段，其它字段不需要修改；或者在末尾添加新账户信息</td>
+<td style="text-align: left;"><code>genesis.block.assets</code></td>
+<td style="text-align: left;">给特定账户预置 TRX。将预先准备的账户地址写入并按需指定其 TRX 余额</td>
 <td style="text-align: left;">与 SR 配置值相同</td>
 <td style="text-align: left;">创世块相关的配置</td>
 </tr>
 <tr>
-<td style="text-align: left;"><code>p2p.version</code></td>
-<td style="text-align: left;">11111 之外的任意正整数</td>
+<td style="text-align: left;"><code>node.p2p.version</code></td>
+<td style="text-align: left;">除 <code>11111</code>、<code>201910292</code> 和 <code>1</code> 之外的任意正整数</td>
 <td style="text-align: left;">与 SR 配置值相同</td>
-<td style="text-align: left;">SR 和 FullNode 需相同，只有相同 version 的节点才能握手成功</td>
+<td style="text-align: left;">只有 <code>node.p2p.version</code> 相同的节点才能完成 P2P 握手</td>
 </tr>
 <tr>
-<td style="text-align: left;"><code>seed.node</code></td>
-<td style="text-align: left;">不需填值</td>
-<td style="text-align: left;">将 <code>ip.list</code> 设置为 SR 的 IP 地址和 SR 配置文件中的 <code>listen.port</code> 端口号</td>
-<td style="text-align: left;">能够让 FullNode 与 SR node 建立连接并同步数据</td>
+<td style="text-align: left;"><code>seed.node.ip.list</code></td>
+<td style="text-align: left;">列表留空</td>
+<td style="text-align: left;">按 <code>SR_IP:SR_P2P_PORT</code> 格式添加 SR 节点，其中端口使用 SR 的 <code>node.listen.port</code> 配置值</td>
+<td style="text-align: left;">使 FullNode 与 SR 节点建立连接并同步数据</td>
 </tr>
 <tr>
-<td style="text-align: left;"><code>needSyncCheck</code></td>
+<td style="text-align: left;"><code>block.needSyncCheck</code></td>
 <td style="text-align: left;"><code>false</code></td>
 <td style="text-align: left;"><code>true</code></td>
-<td style="text-align: left;">第 1 个 SR 设置 <code>needSyncCheck</code> 为 <code>false</code>，其他设置为 <code>true</code></td>
+<td style="text-align: left;">第 1 个 SR 将 <code>block.needSyncCheck</code> 设置为 <code>false</code>，其他 SR 设置为 <code>true</code></td>
 </tr>
 <tr>
 <td style="text-align: left;"><code>node.discovery.enable</code></td>
@@ -9132,10 +9157,12 @@ cp<span class="w"> </span>private_net_config.conf<span class="w"> </span>./FullN
 <p>调整网络端口 (如需)  <br />
     修改配置文件中的端口号，将 SR 和 FullNode 的配置成不相同的端口号。此步骤仅在同一台机器上运行多个节点时是必需的，以避免端口冲突。否则，可跳过此步。</p>
 <ul>
-<li><code>listen.port</code> ：P2P 监听端口</li>
-<li><code>http</code> 端口： HTTP 监听端口</li>
-<li><code>rpc</code> 端口： RPC 监听端口</li>
+<li><code>node.listen.port</code>：P2P 监听端口</li>
+<li><code>node.http.fullNodePort</code>、<code>node.http.solidityPort</code> 和 <code>node.http.PBFTPort</code>：HTTP 监听端口</li>
+<li><code>node.rpc.port</code>、<code>node.rpc.solidityPort</code> 和 <code>node.rpc.PBFTPort</code>：gRPC 监听端口</li>
+<li><code>node.jsonrpc.httpFullNodePort</code>、<code>node.jsonrpc.httpSolidityPort</code> 和 <code>node.jsonrpc.httpPBFTPort</code>：启用相应服务时使用的 JSON-RPC 监听端口</li>
 </ul>
+<p>对应的启用开关和默认值请参阅<a href="../configuration/#api-services-and-ports">节点配置中的端口表</a>。</p>
 </li>
 <li>
 <p>启动节点
@@ -9161,7 +9188,7 @@ java<span class="w"> </span>-Xmx6g<span class="w"> </span>-XX:+HeapDumpOnOutOfMe
 <ul>
 <li>
 <p><strong>方式一：通过配置文件设置 (适用于初始部署)</strong>  </p>
-<p>一些网络参数可以通过配置文件直接设置，这些网络参数可以在 <a href="https://github.com/tronprotocol/java-tron/blob/develop/common/src/main/java/org/tron/core/Constant.java">此处</a> 查看。</p>
+<p>一些网络参数可以通过配置文件直接设置，当前定义可在 <a href="https://github.com/tronprotocol/java-tron/blob/master/common/src/main/java/org/tron/core/Constant.java"><code>Constant.java</code></a> 中查看。</p>
 <p><strong>示例</strong>：在 <code>.conf</code> 文件中添加以下 <code>committee</code> 块来开启多签和合约创建:</p>
 <div class="highlight"><pre><span></span><code><span class="na">committee</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">{</span>
 <span class="w">  </span><span class="na">allowCreationOfContracts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">1</span>
@@ -9242,7 +9269,7 @@ java<span class="w"> </span>-Xmx6g<span class="w"> </span>-XX:+HeapDumpOnOutOfMe
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年6月13日 02:56:54 UTC">2026年6月13日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年7月30日 03:06:43 UTC">2026年7月30日</span>
   </span>
 
     

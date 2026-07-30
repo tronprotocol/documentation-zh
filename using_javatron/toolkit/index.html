@@ -351,6 +351,8 @@
       
         
       
+        
+      
     
     
       
@@ -397,6 +399,28 @@
   
   <span class="md-ellipsis">
     部署
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configuration/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    节点配置
     
   </span>
   
@@ -9697,10 +9721,12 @@ java<span class="w"> </span>-jar<span class="w"> </span>build/libs/Toolkit.jar<s
 <h3 id="_4">命令与参数<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
 <p>使用 <code>db lite</code> 命令来执行数据裁剪操作：</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># full command</span>
-<span class="w">  </span>java<span class="w"> </span>-jar<span class="w"> </span>build/libs/Toolkit.jar<span class="w"> </span>db<span class="w"> </span>lite<span class="w"> </span><span class="o">[</span>-h<span class="o">]</span><span class="w"> </span>-ds<span class="o">=</span>&lt;datasetPath&gt;<span class="w"> </span>-fn<span class="o">=</span>&lt;fnDataPath&gt;<span class="w"> </span><span class="o">[</span>-o<span class="o">=</span>&lt;operate&gt;<span class="o">]</span><span class="w"> </span><span class="o">[</span>-t<span class="o">=</span>&lt;type&gt;<span class="o">]</span>
+<span class="w">  </span>java<span class="w"> </span>-jar<span class="w"> </span>build/libs/Toolkit.jar<span class="w"> </span>db<span class="w"> </span>lite<span class="w"> </span><span class="o">[</span>-h<span class="o">]</span><span class="w"> </span>-ds<span class="o">=</span>&lt;datasetPath&gt;<span class="w"> </span>-fn<span class="o">=</span>&lt;fnDataPath&gt;<span class="w"> </span><span class="o">[</span>-o<span class="o">=</span>&lt;operate&gt;<span class="o">]</span><span class="w"> </span><span class="o">[</span>-t<span class="o">=</span>&lt;type&gt;<span class="o">]</span><span class="w"> </span><span class="o">[</span>--exclude-historical-balance<span class="o">]</span>
 <span class="c1"># examples</span>
 <span class="w">  </span><span class="c1">#split and get a snapshot dataset</span>
 <span class="w">  </span>java<span class="w"> </span>-jar<span class="w"> </span>build/libs/Toolkit.jar<span class="w"> </span>db<span class="w"> </span>lite<span class="w"> </span>-o<span class="w"> </span>split<span class="w"> </span>-t<span class="w"> </span>snapshot<span class="w"> </span>--fn-data-path<span class="w"> </span>output-directory/database<span class="w"> </span>--dataset-path<span class="w"> </span>/tmp
+<span class="w">  </span><span class="c1">#切分一个不包含历史余额数据、体积更小的快照数据集</span>
+<span class="w">  </span>java<span class="w"> </span>-jar<span class="w"> </span>build/libs/Toolkit.jar<span class="w"> </span>db<span class="w"> </span>lite<span class="w"> </span>-o<span class="w"> </span>split<span class="w"> </span>-t<span class="w"> </span>snapshot<span class="w"> </span>--fn-data-path<span class="w"> </span>output-directory/database<span class="w"> </span>--dataset-path<span class="w"> </span>/tmp<span class="w"> </span>--exclude-historical-balance
 <span class="w">  </span><span class="c1">#split and get a history dataset</span>
 <span class="w">  </span>java<span class="w"> </span>-jar<span class="w"> </span>build/libs/Toolkit.jar<span class="w"> </span>db<span class="w"> </span>lite<span class="w"> </span>-o<span class="w"> </span>split<span class="w"> </span>-t<span class="w"> </span><span class="nb">history</span><span class="w"> </span>--fn-data-path<span class="w"> </span>output-directory/database<span class="w"> </span>--dataset-path<span class="w"> </span>/tmp
 <span class="w">  </span><span class="c1">#merge history dataset and snapshot dataset</span>
@@ -9720,6 +9746,12 @@ java<span class="w"> </span>-jar<span class="w"> </span>build/libs/Toolkit.jar<s
 <li>当操作类型为 <code>merge</code> 时，指定历史数据集目录。</li>
 </ul>
 </li>
+<li>
+<p><code>--exclude-historical-balance</code>：仅与 <code>-o split -t snapshot</code> 配合使用，默认值为 <code>false</code>。启用后，工具会从快照数据集中排除 <code>balance-trace</code> 和 <code>account-trace</code> 数据库，以减小快照体积。<code>split -t history</code> 和 <code>merge</code> 操作会忽略此参数。</p>
+<blockquote>
+<p><strong>警告</strong>：如果源节点启用了 <code>storage.balance.history.lookup = true</code>，使用此参数会永久移除生成快照中的历史余额查询数据。使用该快照启动的轻节点将无法安全提供 <code>getblockbalance</code> 查询；缺少账户轨迹数据时，<code>getaccountbalance</code> 可能返回余额 <code>0</code>。之后合并历史数据集也无法恢复被排除的数据库。如果生成的轻节点需要支持历史余额查询，请勿启用此参数。</p>
+</blockquote>
+</li>
 </ul>
 <h3 id="_5">使用示例<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
 <p>节点数据库通常默认保存在 <code>output-directory/database</code> 目录下。以下示例将以该默认目录进行说明。</p>
@@ -9734,6 +9766,10 @@ java<span class="w"> </span>-jar<span class="w"> </span>build/libs/Toolkit.jar<s
 <li><code>--dataset-path</code>： 存放输出的快照数据集的目录</li>
 </ul>
 <p>命令执行完毕后，将在 <code>/tmp</code> 目录下生成一个名为 <code>snapshot</code> 的目录。此目录中的数据即为轻节点数据。将该目录中的数据拷贝到节点数据库目录中（例如，将 <code>snapshot</code> 目录重命名为 <code>database</code> 并拷贝到 Lite FullNode 的运行目录 <code>output-directory</code> 下），然后启动轻节点即可。</p>
+<p>如果不需要历史余额查询，可以排除余额轨迹数据库以生成体积更小的快照：</p>
+<div class="highlight"><pre><span></span><code>java<span class="w"> </span>-jar<span class="w"> </span>build/libs/Toolkit.jar<span class="w"> </span>db<span class="w"> </span>lite<span class="w"> </span>-o<span class="w"> </span>split<span class="w"> </span>-t<span class="w"> </span>snapshot<span class="w"> </span>--fn-data-path<span class="w"> </span>output-directory/database<span class="w"> </span>--dataset-path<span class="w"> </span>/tmp<span class="w"> </span>--exclude-historical-balance
+</code></pre></div>
+<p>对于生成的快照，该排除操作不可逆。如果生成的轻节点仍需使用 <code>storage.balance.history.lookup</code>，请勿启用此参数。</p>
 <h4 id="_7">切分历史数据集<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h4>
 <p>切分历史数据集的命令如下：</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># 简单起见，将历史数据集存放在 `/tmp` 目录下</span>
@@ -9861,7 +9897,7 @@ java<span class="w"> </span>-jar<span class="w"> </span>build/libs/Toolkit.jar<s
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年7月16日 12:36:28 UTC">2026年7月16日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年7月30日 03:06:25 UTC">2026年7月30日</span>
   </span>
 
     

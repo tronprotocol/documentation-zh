@@ -349,6 +349,8 @@
       
         
       
+        
+      
     
     
       
@@ -395,6 +397,28 @@
   
   <span class="md-ellipsis">
     部署
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../using_javatron/configuration/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    节点配置
     
   </span>
   
@@ -9051,8 +9075,8 @@
 <li><strong><code>Permission_id</code></strong>：交易构造接口可选；用于多签账户指定使用哪个 <code>Permission</code>。字段名区分大小写。</li>
 <li><strong>金额单位</strong>：除 TRC-10 数量按发行精度外，其他金额一律为 sun（1 TRX = 1e6 sun）。</li>
 <li><strong><code>int64_as_string</code></strong>：GET 请求可在 URL 查询参数中添加 <code>int64_as_string=true</code>。启用后，protobuf JSON 响应中的 int64 / uint64 字段会序列化为 JSON 字符串，避免 JavaScript 等客户端出现精度损失。该参数只对 GET 请求生效，不影响 POST 请求体。</li>
-<li><strong>请求体大小</strong>：HTTP 请求体受 <code>config.conf</code> 中 <code>node.http.maxMessageSize</code> 限制（默认 <code>4194304</code>，约 4 MiB；<code>0</code> 表示拒绝所有非空 body）。JSON-RPC 有独立的 <code>node.jsonrpc.maxMessageSize</code>。</li>
-<li><strong>限流</strong>：HTTP 单接口限流在 <code>rate.limiter.http</code> 中配置。全局开关 <code>rate.limiter.apiNonBlocking</code> 控制超限行为：<code>true</code> 表示立即拒绝，并返回 HTTP 200 和 <code>{"Error":"class java.lang.IllegalAccessException : lack of computing resources"}</code>；<code>false</code> 表示排队并阻塞调用方直到获得 permit。</li>
+<li><strong>请求体大小</strong>：HTTP 请求体受 <code>node.http.maxMessageSize</code> 限制。其默认值在 <code>common/src/main/resources/reference.conf</code> 中定义（<code>4194304</code>，约 4 MiB；<code>0</code> 表示拒绝所有非空 body），并可在节点的外部配置文件中覆盖。JSON-RPC 有独立的 <code>node.jsonrpc.maxMessageSize</code>。有关配置加载和覆盖行为，请参阅<a href="../../using_javatron/configuration/">节点配置</a>。</li>
+<li><strong>限流</strong>：HTTP 单接口限流在 <code>rate.limiter.http</code> 中配置。全局开关 <code>rate.limiter.apiNonBlocking</code> 控制 permit 的获取方式：<code>true</code> 表示在没有可用 permit 时立即拒绝；<code>false</code> 表示 QPS 和单 IP QPS 策略会阻塞等待令牌，而 <code>GlobalPreemptibleAdapter</code> 最多等待两秒以获取并发 permit。请求被拒绝时返回 HTTP 200 和 <code>{"Error":"class java.lang.IllegalAccessException : lack of computing resources"}</code>。</li>
 </ul>
 <div class="admonition warning">
 <p class="admonition-title">XSS 安全提示</p>
@@ -9063,10 +9087,10 @@
 <h2 id="_2">异常响应<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <p>HTTP 状态码在<strong>绝大多数情况下都是 200</strong>（业务错误也通过响应体表达），客户端必须解析响应体判断成败。已知例外：</p>
 <ul>
-<li>接口被节点配置 <code>disabledApiList</code> 显式禁用时，由 <code>HttpApiAccessFilter</code> 直接返回 <strong>HTTP 404</strong>，响应体 <code>{"Error": "this API is unavailable due to config"}</code>。</li>
+<li>接口被节点配置 <code>node.disabledApi</code> 显式禁用时，由 <code>HttpApiAccessFilter</code> 直接返回 <strong>HTTP 404</strong>，响应体 <code>{"Error": "this API is unavailable due to config"}</code>。</li>
 <li>请求体超过 <code>node.http.maxMessageSize</code> 时，共享 HTTP <code>SizeLimitHandler</code> 可能会在目标 servlet 处理请求前直接返回 <strong>HTTP 413</strong>（<code>Payload Too Large</code>）。如果请求已经进入 servlet，并由 servlet 内部的 <code>Util.checkBodySize</code> 检查到 body 超限，则接口会按自身的异常响应格式返回；部分接口仍可能是 <strong>HTTP 200</strong> 加错误响应体。</li>
 <li>启用非阻塞限流且共享 <code>RateLimiterServlet</code> 无法获得 permit 时，会在目标 servlet 运行前返回 <strong>HTTP 200</strong>，响应体为 <code>{"Error":"class java.lang.IllegalAccessException : lack of computing resources"}</code>。这是共享层错误，而非接口业务错误。</li>
-<li>节点以 lite fullnode 模式启动且未开启 <code>openHistoryQueryWhenLiteFN</code> 时，由 <code>LiteFnQueryHttpFilter</code> 对约 24 个历史查询接口（<code>getblockbynum</code> / <code>gettransactionbyid</code> / <code>gettransactioninfobyid</code> / <code>gettransactioninfobyblocknum</code> / <code>getblockbyid</code> / <code>getblockbylatestnum</code> / <code>getblockbylimitnext</code> / <code>gettransactioncountbyblocknum</code> 等）返回 <strong>HTTP 200</strong>，但响应体是裸字符串 <code>this API is closed because this node is a lite fullnode</code>（<strong>非 JSON</strong>），客户端朴素 <code>JSON.parse</code> 会抛错，需先按字符串前缀识别。</li>
+<li>节点以 lite fullnode 模式启动且未开启 <code>node.openHistoryQueryWhenLiteFN</code> 时，由 <code>LiteFnQueryHttpFilter</code> 对约 24 个历史查询接口（<code>getblockbynum</code> / <code>gettransactionbyid</code> / <code>gettransactioninfobyid</code> / <code>gettransactioninfobyblocknum</code> / <code>getblockbyid</code> / <code>getblockbylatestnum</code> / <code>getblockbylimitnext</code> / <code>gettransactioncountbyblocknum</code> 等）返回 <strong>HTTP 200</strong>，但响应体是裸字符串 <code>this API is closed because this node is a lite fullnode</code>（<strong>非 JSON</strong>），客户端朴素 <code>JSON.parse</code> 会抛错，需先按字符串前缀识别。</li>
 <li>其它由 servlet 容器/反向代理产生的网络层错误（502、504、连接拒绝等）不在本文档范围。</li>
 </ul>
 <!-- BEGIN GENERATED HTTP ERROR CATALOG -->
@@ -9115,7 +9139,7 @@
 <td>lite FullNode 拒绝了历史区块或交易查询。</td>
 <td>否</td>
 <td><code>AFTER_STATE_CHANGE</code></td>
-<td>使用 full node，或等待 <code>openHistoryQueryWhenLiteFN</code> 配置变更。</td>
+<td>使用 full node，或等待 <code>node.openHistoryQueryWhenLiteFN</code> 配置变更。</td>
 </tr>
 <tr>
 <td><code>HTTP_REQUEST_TOO_LARGE</code></td>
@@ -9768,7 +9792,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年7月21日 06:44:43 UTC">2026年7月21日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年7月30日 03:06:43 UTC">2026年7月30日</span>
   </span>
 
     

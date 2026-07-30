@@ -349,6 +349,8 @@
       
         
       
+        
+      
     
     
       
@@ -395,6 +397,28 @@
   
   <span class="md-ellipsis">
     部署
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../using_javatron/configuration/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    节点配置
     
   </span>
   
@@ -9052,9 +9076,9 @@
 </tr>
 </tbody>
 </table>
-<p>端口可通过 <code>node.jsonrpc.httpFullNodePort</code> / <code>httpSolidityPort</code> 覆盖（参见 <code>framework/src/main/resources/config.conf</code> 的 <code>jsonrpc {}</code> 段）。</p>
+<p>端口可通过 <code>node.jsonrpc.httpFullNodePort</code> / <code>node.jsonrpc.httpSolidityPort</code> 覆盖。其默认值在 <code>common/src/main/resources/reference.conf</code> 的 <code>node.jsonrpc</code> 配置块中定义。</p>
 <blockquote>
-<p><strong>默认关闭</strong>：<code>config.conf</code> 中 <code>jsonrpc {}</code> 块的所有开关默认注释掉，<code>Args</code> 中 <code>httpFullNodeEnable</code> / <code>httpSolidityEnable</code> 均为 <code>false</code>（见 <code>Args.java</code>）。需在配置中显式 <code>httpFullNodeEnable = true</code> / <code>httpSolidityEnable = true</code> 才会随节点启动。Solidity JSON-RPC 服务还要求当前进程为 FullNode（不是独立的 SolidityNode 进程，见 <code>JsonRpcServiceOnSolidity.java</code>）。</p>
+<p><strong>默认关闭</strong>：<code>reference.conf</code> 将 <code>node.jsonrpc.httpFullNodeEnable</code> 和 <code>node.jsonrpc.httpSolidityEnable</code> 均设置为 <code>false</code>。必须在节点的外部配置文件中将相应开关显式设置为 <code>true</code>，服务才会随节点启动。Solidity JSON-RPC 服务还要求当前进程为 FullNode（不是独立的 SolidityNode 进程，见 <code>JsonRpcServiceOnSolidity.java</code>）。</p>
 </blockquote>
 <p>URL 路径恒为 <code>/jsonrpc</code>（见 <code>FullNodeJsonRpcHttpService.java</code>）。</p>
 <h2 id="_2">协议约定<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
@@ -9259,8 +9283,9 @@
 <span class="p">}</span>
 </code></pre></div>
 <blockquote>
-<p><strong>注意</strong>：<code>disabledApi</code> 配置项<strong>不影响 JSON-RPC</strong>（见 <code>config.conf</code> 注释 "but not jsonrpc"）。要禁用 JSON-RPC，请关闭对应 <code>httpFullNodeEnable</code> / <code>httpSolidityEnable</code>。</p>
+<p><strong>注意</strong>：<code>node.disabledApi</code> <strong>不影响 JSON-RPC</strong>。要禁用 JSON-RPC 服务，请将相应的 <code>node.jsonrpc.httpFullNodeEnable</code> 或 <code>node.jsonrpc.httpSolidityEnable</code> 开关设置为 <code>false</code>。</p>
 </blockquote>
+<p>有关配置优先级、所有 API 服务端口以及重启要求，请参阅<a href="../../using_javatron/configuration/">节点配置</a>。</p>
 <h2 id="_4">节点信息 / 链身份<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -9436,7 +9461,7 @@
 </tr>
 </tbody>
 </table>
-<p>filter 相关默认限额（见 <code>config.conf</code> 的 <code>jsonrpc {}</code> 段）：</p>
+<p>JSON-RPC 限制和 filter 相关默认值（在 <code>common/src/main/resources/reference.conf</code> 的 <code>node.jsonrpc</code> 配置块中定义）：</p>
 <table>
 <thead>
 <tr>
@@ -9554,7 +9579,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年7月15日 08:54:55 UTC">2026年7月15日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年7月30日 03:06:43 UTC">2026年7月30日</span>
   </span>
 
     
