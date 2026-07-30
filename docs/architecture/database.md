@@ -49,6 +49,7 @@ dbSettings = {
 }
 ```
 
+自 java-tron v4.8.2 起，通过 `storage.backup` 配置的 RocksDB 周期性备份功能已被移除。现有的 `storage.backup` 配置将被忽略，java-tron 不再通过该机制创建周期性数据库副本。
 
 
 ## x86_64 平台从 LevelDB 迁移至 RocksDB
