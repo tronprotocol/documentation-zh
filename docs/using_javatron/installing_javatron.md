@@ -242,6 +242,31 @@ node {
 java -Xmx24g -XX:+UseConcMarkSweepGC -jar build/libs/FullNode.jar --solidity -c framework/src/main/resources/config.conf 
 ```
 
+#### 配置条件停机 { #configuring-conditional-shutdown }
+
+固化节点支持与全节点相同的 `node.shutdown` 条件。可以将节点配置为：持久化时间或高度与目标值匹配的区块后关闭，或者从启动高度开始同步指定数量的区块后关闭。
+
+请在 `BlockTime`、`BlockHeight` 和 `BlockCount` 中仅配置一项。例如：
+
+```properties
+node.shutdown = {
+  # 与已持久化区块头时间匹配的 Quartz cron 表达式
+  BlockTime = "54 59 08 * * ?"
+
+  # 或者仅配置以下参数之一：
+  # BlockHeight = 33350800
+  # BlockCount = 12
+}
+```
+
+| 参数 | 说明 |
+|---|---|
+| `BlockTime` | Quartz cron 表达式。节点持久化区块头时间满足该表达式的区块后关闭。 |
+| `BlockHeight` | 节点关闭时对应的目标持久化区块高度。请使用不低于节点当前头块高度的正数。负数按未配置处理。正数低于当前头块高度时，节点会启动失败。`0` 可以被接受，但通常不会形成有效的停机目标；如果当前头块高度也是 `0` 且未启用 `--p2p-disable`，节点会立即退出。请勿将 `0` 用作停机高度。 |
+| `BlockCount` | 从节点启动开始，再同步多少个区块后关闭。请使用大于 `0` 的值。值为 `0` 时节点会启动失败，负数按未配置处理。 |
+
+如果同时启用了多个停机条件，或者 `BlockTime` 无效，参数初始化会失败，节点不会启动。
+
 ### 启动出块节点 { #starting-a-block-production-node }
 
 在上述全节点启动命令中添加 `--witness` 参数，`FullNode` 将作为**出块节点** (SR Node) 运行。出块节点除了支持全节点的所有功能外，还支持区块生产和交易打包。

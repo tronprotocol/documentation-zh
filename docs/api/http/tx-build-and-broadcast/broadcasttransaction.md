@@ -14,8 +14,10 @@
 |---|---|---|---|
 | `raw_data` | object | 是 | 与 createtransaction 返回一致；节点据此重新序列化为 protobuf bytes 做 SHA256 验签 |
 | `raw_data_hex` | string | 否（节点忽略） | 客户端可视化辅助字段——`raw_data` 的 protobuf 编码。**不是 `protocol.Transaction` 的 proto 字段**，`JsonFormat.merge` 在 parse 阶段直接忽略，节点既不读也不与 `raw_data` 比对。客户端在签名时通常拿它做 SHA256 得到 `txID`，但广播给节点后是否一致、是否合法 hex 都不影响处理 |
-| `signature` | string[] | 否 | JSON/Protobuf 解析阶段可选。普通交易通常需要一个有效签名才能广播成功；多签交易必须满足所选权限的阈值。缺少签名通常会在后续返回 `SIGERROR` |
+| `signature` | string[] | 否 | JSON/Protobuf 解析阶段可选。每个十六进制编码的签名解码后必须为 `65`–`68` 字节（通常为 `130`–`136` 个十六进制字符）；提供的签名超出该范围时会立即以 `SIGERROR` 拒绝。普通交易通常需要一个有效签名才能广播成功，多签交易则必须满足所选权限的阈值。缺少签名或签名在密码学上无效时，通常会在进入签名校验阶段后返回 `SIGERROR` |
 | `visible` | bool | 否 | 地址、文本字段格式 |
+
+通过 gRPC `BroadcastTransaction` 方法以及其他使用节点交易广播路径的 API 端点提交交易时，也会执行相同的签名长度校验。
 
 示例：
 
@@ -70,7 +72,7 @@ curl --request POST \
 
 | code | 含义 |
 |---|---|
-| `SIGERROR` | 签名校验失败 |
+| `SIGERROR` | 签名校验失败，或者提供的签名短于 `65` 字节或长于 `68` 字节 |
 | `CONTRACT_VALIDATE_ERROR` | 合约前置校验失败（余额不足、参数非法等） |
 | `CONTRACT_EXE_ERROR` | 执行期失败 |
 | `BANDWITH_ERROR` | 带宽不足 |
