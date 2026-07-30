@@ -14,7 +14,7 @@
         <link rel="prev" href="../../getting_started/getting_started_with_javatron/">
       
       
-        <link rel="next" href="../backup_restore/">
+        <link rel="next" href="../configuration/">
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
@@ -351,6 +351,8 @@
       
         
       
+        
+      
     
     
       
@@ -492,7 +494,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item ">
-  <a href="#tron" class="md-nav__link" >
+  <a href="#network-types" class="md-nav__link" >
     <span class="md-ellipsis">
       TRON 网络类型
     </span>
@@ -614,6 +616,28 @@
   
 </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configuration/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    节点配置
+    
+  </span>
+  
+
+      </a>
     </li>
   
 
@@ -9151,7 +9175,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item ">
-  <a href="#tron" class="md-nav__link" >
+  <a href="#network-types" class="md-nav__link" >
     <span class="md-ellipsis">
       TRON 网络类型
     </span>
@@ -9393,7 +9417,7 @@ git<span class="w"> </span>checkout<span class="w"> </span>-t<span class="w"> </
 </ol>
 <h2 id="starting-a-java-tron-node">启动 java-tron 节点<a class="headerlink" href="#starting-a-java-tron-node" title="Permanent link">&para;</a></h2>
 <p>全节点作为 TRON 网络的入口，通过 HTTP 和 RPC API 提供完整接口。客户端可借助这些端点执行资产转账、部署智能合约并调用链上逻辑。全节点必须接入 TRON 网络，才能参与共识与交易处理。</p>
-<h3 id="tron">TRON 网络类型<a class="headerlink" href="#tron" title="Permanent link">&para;</a></h3>
+<h3 id="network-types">TRON 网络类型<a class="headerlink" href="#network-types" title="Permanent link">&para;</a></h3>
 <p>TRON 网络主要分为以下几类：</p>
 <ul>
 <li>
@@ -9415,8 +9439,9 @@ git<span class="w"> </span>checkout<span class="w"> </span>-t<span class="w"> </
 </ul>
 <p>启动全节点时，通过指定对应的配置文件即可选择网络：主网配置：<a href="https://github.com/tronprotocol/java-tron/blob/master/framework/src/main/resources/config.conf">config.conf</a>；Nile 测试网配置：<a href="https://github.com/tron-nile-testnet/nile-testnet/blob/master/framework/src/main/resources/config-nile.conf">config-nile.conf</a></p>
 <h3 id="starting-a-fullnode-on-the-tron-main-network">启动全节点连接主网<a class="headerlink" href="#starting-a-fullnode-on-the-tron-main-network" title="Permanent link">&para;</a></h3>
-<p>以下是启动 <strong>主网全节点</strong> 的命令，使用默认内置的主网配置文件：</p>
-<p><code>nohup java -jar build/libs/FullNode.jar -c framework/src/main/resources/config.conf &amp;</code></p>
+<p>如果当前工作目录中不存在 <code>./config.conf</code>，以下命令将使用 JAR 中内置的 <code>config.conf</code> 启动主网 FullNode。如果存在 <code>./config.conf</code>，java-tron 会优先加载该文件。为避免歧义，可通过 <code>-c</code> 指定明确路径；完整的解析顺序请参阅<a href="../configuration/#configuration-files-and-precedence">节点配置</a>。</p>
+<div class="highlight"><pre><span></span><code>nohup<span class="w"> </span>java<span class="w"> </span>-jar<span class="w"> </span>build/libs/FullNode.jar<span class="w"> </span><span class="p">&amp;</span>
+</code></pre></div>
 <ul>
 <li><code>nohup ... &amp;</code>：在后台运行命令并忽略挂断信号。</li>
 </ul>
@@ -9502,6 +9527,41 @@ Shasta 相关资源（浏览器、水龙头、钱包、开发者文档及网络�
 <p>自4.8.1版本开始，不再提供单独的<code>SolidityNode.jar</code>，固化节点的启动通过命令行参数<code>--solidity</code>，即：</p>
 <div class="highlight"><pre><span></span><code>java<span class="w"> </span>-Xmx24g<span class="w"> </span>-XX:+UseConcMarkSweepGC<span class="w"> </span>-jar<span class="w"> </span>build/libs/FullNode.jar<span class="w"> </span>--solidity<span class="w"> </span>-c<span class="w"> </span>framework/src/main/resources/config.conf<span class="w"> </span>
 </code></pre></div>
+<h4 id="configuring-conditional-shutdown">配置条件停机<a class="headerlink" href="#configuring-conditional-shutdown" title="Permanent link">&para;</a></h4>
+<p>固化节点支持与全节点相同的 <code>node.shutdown</code> 条件。可以将节点配置为：持久化时间或高度与目标值匹配的区块后关闭，或者从启动高度开始同步指定数量的区块后关闭。</p>
+<p>请在 <code>BlockTime</code>、<code>BlockHeight</code> 和 <code>BlockCount</code> 中仅配置一项。例如：</p>
+<div class="highlight"><pre><span></span><code><span class="na">node.shutdown</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">{</span>
+<span class="w">  </span><span class="c1"># 与已持久化区块头时间匹配的 Quartz cron 表达式</span>
+<span class="w">  </span><span class="na">BlockTime</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;54 59 08 * * ?&quot;</span>
+
+<span class="w">  </span><span class="c1"># 或者仅配置以下参数之一：</span>
+<span class="w">  </span><span class="c1"># BlockHeight = 33350800</span>
+<span class="w">  </span><span class="c1"># BlockCount = 12</span>
+<span class="na">}</span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>BlockTime</code></td>
+<td>Quartz cron 表达式。节点持久化区块头时间满足该表达式的区块后关闭。</td>
+</tr>
+<tr>
+<td><code>BlockHeight</code></td>
+<td>节点关闭时对应的目标持久化区块高度。请使用不低于节点当前头块高度的正数。负数按未配置处理。正数低于当前头块高度时，节点会启动失败。<code>0</code> 可以被接受，但通常不会形成有效的停机目标；如果当前头块高度也是 <code>0</code> 且未启用 <code>--p2p-disable</code>，节点会立即退出。请勿将 <code>0</code> 用作停机高度。</td>
+</tr>
+<tr>
+<td><code>BlockCount</code></td>
+<td>从节点启动开始，再同步多少个区块后关闭。请使用大于 <code>0</code> 的值。值为 <code>0</code> 时节点会启动失败，负数按未配置处理。</td>
+</tr>
+</tbody>
+</table>
+<p>如果同时启用了多个停机条件，或者 <code>BlockTime</code> 无效，参数初始化会失败，节点不会启动。</p>
 <h3 id="starting-a-block-production-node">启动出块节点<a class="headerlink" href="#starting-a-block-production-node" title="Permanent link">&para;</a></h3>
 <p>在上述全节点启动命令中添加 <code>--witness</code> 参数，<code>FullNode</code> 将作为<strong>出块节点</strong> (SR Node) 运行。出块节点除了支持全节点的所有功能外，还支持区块生产和交易打包。</p>
 <p><strong>重要提示</strong>:</p>
@@ -9732,7 +9792,7 @@ java<span class="w"> </span>-jar<span class="w"> </span>.....
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年7月17日 08:54:17 UTC">2026年7月17日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年7月30日 03:07:04 UTC">2026年7月30日</span>
   </span>
 
     
@@ -9770,13 +9830,13 @@ java<span class="w"> </span>-jar<span class="w"> </span>.....
         
         
           
-          <a href="../backup_restore/" class="md-footer__link md-footer__link--next" aria-label="下一页: 备份和恢复">
+          <a href="../configuration/" class="md-footer__link md-footer__link--next" aria-label="下一页: 节点配置">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 下一页
               </span>
               <div class="md-ellipsis">
-                备份和恢复
+                节点配置
               </div>
             </div>
             <div class="md-footer__button md-icon">

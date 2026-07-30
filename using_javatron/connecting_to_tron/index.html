@@ -351,6 +351,8 @@
       
         
       
+        
+      
     
     
       
@@ -397,6 +399,28 @@
   
   <span class="md-ellipsis">
     部署
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configuration/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    节点配置
     
   </span>
   
@@ -9410,9 +9434,9 @@
 <p>本文是运维配置指南。关于 P2P 网络的内部原理（架构、区块同步与广播协议），请参阅 <a href="../../developers/network/">P2P 网络深入解析</a>。</p>
 </blockquote>
 <h2 id="_1">基础配置网络<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<p>通过修改 <a href="https://github.com/tronprotocol/java-tron/blob/develop/framework/src/main/resources/config.conf">配置文件</a> 中的以下关键项，可将 java-tron 节点接入指定网络：</p>
+<p>通过修改当前<a href="https://github.com/tronprotocol/java-tron/blob/master/framework/src/main/resources/config.conf">主网配置文件</a>中的以下关键项，可将 java-tron 节点接入指定网络。</p>
 <h3 id="p2p-id">网络标识（P2P 网络 ID）<a class="headerlink" href="#p2p-id" title="Permanent link">&para;</a></h3>
-<p>网络ID(<code>p2p.version</code>): 表示希望加入的网络。相关配置项：</p>
+<p>P2P 网络 ID（<code>node.p2p.version</code>）指定希望加入的网络。主网配置如下：</p>
 <div class="highlight"><pre><span></span><code><span class="na">node</span><span class="w"> </span><span class="s">{</span>
 <span class="w">  </span><span class="na">...</span>
 <span class="w">  </span><span class="na">p2p</span><span class="w"> </span><span class="s">{</span>
@@ -9605,8 +9629,8 @@
 <h3 id="_4">引导节点<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
 <p>java-tron 使用 <a href="https://zh.wikipedia.org/wiki/Kademlia">Kademlia</a> 协议发现其他节点。节点发现需要引导节点 (boot 节点)，借助引导节点发现 TRON 网络中的其他节点。引导节点由两部分组成，一部分是种子节点，一部分是配置的主动连接节点，详情见<a href="#active-connection-active-peers">主动连接</a>。</p>
 <p>种子节点也由两部分组成：</p>
-<h4 id="seednode">配置的 <code>seed.node</code><a class="headerlink" href="#seednode" title="Permanent link">&para;</a></h4>
-<p>使用 <code>seed.node</code> 初始化网络连接。应设置为在线稳定的全节点。每个条目可以使用 IPv4 地址、带方括号的 IPv6 地址或域名：</p>
+<h4 id="seednodeiplist">配置的 <code>seed.node.ip.list</code><a class="headerlink" href="#seednodeiplist" title="Permanent link">&para;</a></h4>
+<p>使用 <code>seed.node.ip.list</code> 初始化网络连接。应设置为在线稳定的全节点。每个条目可以使用 IPv4 地址、带方括号的 IPv6 地址或域名：</p>
 <div class="highlight"><pre><span></span><code><span class="na">seed.node</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">{</span>
 <span class="w">  </span><span class="na">ip.list</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">[</span>
 <span class="w">    </span><span class="na">&quot;3.225.171.164</span><span class="o">:</span><span class="s">18888&quot;,</span>
@@ -9619,7 +9643,7 @@
 <span class="w">  </span><span class="na">]</span>
 <span class="na">}</span>
 </code></pre></div>
-<p>对于TRON主网，可以使用 <a href="https://developers.tron.network/docs/networks#public-node">社区公共节点</a> 作为种子节点。如果想要获取最新的<code>seed.node</code>，可以在官方的 <a href="https://github.com/tronprotocol/java-tron/blob/master/framework/src/main/resources/config.conf">配置文件</a> 查看。
+<p>对于 TRON 主网，可以使用<a href="https://developers.tron.network/docs/networks#public-node">社区公共节点</a>作为种子节点。如果想要获取最新的 <code>seed.node.ip.list</code>，可以在官方的<a href="https://github.com/tronprotocol/java-tron/blob/master/framework/src/main/resources/config.conf">配置文件</a>中查看。
 如果网卡支持 ipv6，可以使用上述列表中的 ipv6 地址格式的种子节点，将注释符 <code>#</code> 去掉即可。</p>
 <h4 id="_5">对等节点配置中的域名<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h4>
 <p>从 GreatVoyage-v4.8.2 开始，<code>seed.node.ip.list</code>、<code>node.active</code>、<code>node.passive</code> 和 <code>node.fastForward</code> 除了支持 IP 地址外，还支持使用 <code>hostname:port</code> 格式的域名。这四个配置项中的 IPv6 地址必须使用 <code>[IPv6-address]:port</code> 格式，并且不能包含前导或尾随空白字符。</p>
@@ -9648,7 +9672,7 @@
 <h3 id="_9">节点连接数量<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
 <p>节点的连接数量由以下几个参数共同控制，通常需要配合调优：</p>
 <ul>
-<li><code>node.maxConnections</code>：节点的最大连接数（默认值：30）。当连接数达到该上限后，来自非可信节点的被动连接会被拒绝。可信节点是指 IP 出现在 <code>node.passive</code>、<code>node.active</code> 或 <code>fastForward</code> 中的节点（这三处的 IP 都会被加入可信列表）。主动连接不受该限制约束：对 <code>node.active</code> 中配置的节点的主动连接，仅受 <code>node.active</code> 列表大小限制；对通过节点发现协议发现的节点的主动连接，由 <code>minConnections</code> 和 <code>minActiveConnections</code> 驱动（见下文）。</li>
+<li><code>node.maxConnections</code>：节点的最大连接数（默认值：30）。当连接数达到该上限后，来自非可信节点的被动连接会被拒绝。可信节点是指 IP 出现在 <code>node.passive</code>、<code>node.active</code> 或 <code>node.fastForward</code> 中的节点（这三处的 IP 都会被加入可信列表）。主动连接不受该限制约束：对 <code>node.active</code> 中配置的节点的主动连接，仅受 <code>node.active</code> 列表大小限制；对通过节点发现协议发现的节点的主动连接，由 <code>minConnections</code> 和 <code>minActiveConnections</code> 驱动（见下文）。</li>
 <li><code>node.minConnections</code>：期望维持的最小总连接数，包含主动连接和被动连接（默认值：8）。当总连接数低于该值时，节点会向已发现的节点发起主动连接以补足。</li>
 <li><code>node.minActiveConnections</code>：期望维持的对已发现节点的最小主动连接数（默认值：3）。即使总连接数已经达到或超过 <code>minConnections</code>，节点仍会持续向已发现的节点发起主动连接，直到该阈值被满足。</li>
 <li><code>node.maxConnectionsWithSameIp</code>：允许来自同一 IP 地址的最大连接数（默认值：2），用于缓解来自单一 IP 的滥用。</li>
@@ -9815,7 +9839,7 @@ Generate block 79336 success, trxs:0, pendingCount: 0, rePushCount: 0, postponed
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年7月17日 08:54:17 UTC">2026年7月17日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年7月30日 03:06:43 UTC">2026年7月30日</span>
   </span>
 
     

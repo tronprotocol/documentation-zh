@@ -351,6 +351,8 @@
       
         
       
+        
+      
     
     
       
@@ -397,6 +399,28 @@
   
   <span class="md-ellipsis">
     部署
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../using_javatron/configuration/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    节点配置
     
   </span>
   
@@ -9165,6 +9189,7 @@
 <span class="w">  </span><span class="na">maxOpenFiles</span><span class="o">=</span><span class="w"> </span><span class="s">5000</span>
 <span class="na">}</span>
 </code></pre></div>
+<p>自 java-tron v4.8.2 起，通过 <code>storage.backup</code> 配置的 RocksDB 周期性备份功能已被移除。现有的 <code>storage.backup</code> 配置将被忽略，java-tron 不再通过该机制创建周期性数据库副本。</p>
 <h2 id="x86_64-leveldb-rocksdb">x86_64 平台从 LevelDB 迁移至 RocksDB<a class="headerlink" href="#x86_64-leveldb-rocksdb" title="Permanent link">&para;</a></h2>
 <p>若需从 LevelDB 迁移到 RocksDB，需使用官方提供的转换工具 <code>Toolkit.jar</code>。</p>
 <blockquote>
@@ -9230,7 +9255,7 @@ java<span class="w"> </span>-jar<span class="w"> </span>build/libs/Toolkit.jar<s
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年6月13日 02:56:54 UTC">2026年6月13日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年7月30日 03:06:25 UTC">2026年7月30日</span>
   </span>
 
     

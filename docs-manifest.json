@@ -12,7 +12,7 @@
       "html_url": "https://tronprotocol.github.io/documentation-zh/",
       "markdown_url": "https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/docs/index.md",
       "source_path": "docs/index.md",
-      "last_modified": "2026-06-30T17:10:03+08:00"
+      "last_modified": "2026-07-30T11:06:43+08:00"
     },
     {
       "title": "java-tron 快速入门",
@@ -28,7 +28,15 @@
       "html_url": "https://tronprotocol.github.io/documentation-zh/using_javatron/installing_javatron/",
       "markdown_url": "https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/docs/using_javatron/installing_javatron.md",
       "source_path": "docs/using_javatron/installing_javatron.md",
-      "last_modified": "2026-07-21T16:35:41+08:00"
+      "last_modified": "2026-07-30T11:07:04+08:00"
+    },
+    {
+      "title": "节点配置",
+      "section": "使用java-tron",
+      "html_url": "https://tronprotocol.github.io/documentation-zh/using_javatron/configuration/",
+      "markdown_url": "https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/docs/using_javatron/configuration.md",
+      "source_path": "docs/using_javatron/configuration.md",
+      "last_modified": "2026-07-30T11:06:43+08:00"
     },
     {
       "title": "TRON 网络节点数据备份与恢复",
@@ -36,7 +44,7 @@
       "html_url": "https://tronprotocol.github.io/documentation-zh/using_javatron/backup_restore/",
       "markdown_url": "https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/docs/using_javatron/backup_restore.md",
       "source_path": "docs/using_javatron/backup_restore.md",
-      "last_modified": "2026-07-08T12:30:14+08:00"
+      "last_modified": "2026-07-30T11:06:43+08:00"
     },
     {
       "title": "轻节点",
@@ -44,7 +52,7 @@
       "html_url": "https://tronprotocol.github.io/documentation-zh/using_javatron/litefullnode/",
       "markdown_url": "https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/docs/using_javatron/litefullnode.md",
       "source_path": "docs/using_javatron/litefullnode.md",
-      "last_modified": "2026-06-14T09:21:38+08:00"
+      "last_modified": "2026-07-30T11:06:43+08:00"
     },
     {
       "title": "私链网络",
@@ -52,7 +60,7 @@
       "html_url": "https://tronprotocol.github.io/documentation-zh/using_javatron/private_network/",
       "markdown_url": "https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/docs/using_javatron/private_network.md",
       "source_path": "docs/using_javatron/private_network.md",
-      "last_modified": "2026-06-14T09:21:38+08:00"
+      "last_modified": "2026-07-30T11:06:43+08:00"
     },
     {
       "title": "事件订阅",
@@ -68,7 +76,7 @@
       "html_url": "https://tronprotocol.github.io/documentation-zh/architecture/database/",
       "markdown_url": "https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/docs/architecture/database.md",
       "source_path": "docs/architecture/database.md",
-      "last_modified": "2026-06-14T09:21:38+08:00"
+      "last_modified": "2026-07-30T11:06:25+08:00"
     },
     {
       "title": "连接 TRON 网络指南",
@@ -76,7 +84,7 @@
       "html_url": "https://tronprotocol.github.io/documentation-zh/using_javatron/connecting_to_tron/",
       "markdown_url": "https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/docs/using_javatron/connecting_to_tron.md",
       "source_path": "docs/using_javatron/connecting_to_tron.md",
-      "last_modified": "2026-07-17T16:54:17+08:00"
+      "last_modified": "2026-07-30T11:06:43+08:00"
     },
     {
       "title": "java-tron 节点指标监控",
@@ -92,7 +100,7 @@
       "html_url": "https://tronprotocol.github.io/documentation-zh/using_javatron/toolkit/",
       "markdown_url": "https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/docs/using_javatron/toolkit.md",
       "source_path": "docs/using_javatron/toolkit.md",
-      "last_modified": "2026-07-16T20:49:31+08:00"
+      "last_modified": "2026-07-30T11:06:25+08:00"
     },
     {
       "title": "java-tron API 接口",
@@ -108,7 +116,7 @@
       "html_url": "https://tronprotocol.github.io/documentation-zh/api/http/",
       "markdown_url": "https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/docs/api/http/index.md",
       "source_path": "docs/api/http/index.md",
-      "last_modified": "2026-07-21T14:44:43+08:00"
+      "last_modified": "2026-07-30T11:06:43+08:00"
     },
     {
       "title": "/wallet/getaccount",
@@ -316,7 +324,7 @@
       "html_url": "https://tronprotocol.github.io/documentation-zh/api/http/tx-build-and-broadcast/broadcasttransaction/",
       "markdown_url": "https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/docs/api/http/tx-build-and-broadcast/broadcasttransaction.md",
       "source_path": "docs/api/http/tx-build-and-broadcast/broadcasttransaction.md",
-      "last_modified": "2026-07-15T12:06:34+08:00"
+      "last_modified": "2026-07-30T11:07:04+08:00"
     },
     {
       "title": "/wallet/broadcasthex",
@@ -324,7 +332,7 @@
       "html_url": "https://tronprotocol.github.io/documentation-zh/api/http/tx-build-and-broadcast/broadcasthex/",
       "markdown_url": "https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/docs/api/http/tx-build-and-broadcast/broadcasthex.md",
       "source_path": "docs/api/http/tx-build-and-broadcast/broadcasthex.md",
-      "last_modified": "2026-07-13T13:15:58+08:00"
+      "last_modified": "2026-07-30T11:07:04+08:00"
     },
     {
       "title": "/wallet/createassetissue",
@@ -1452,7 +1460,7 @@
       "html_url": "https://tronprotocol.github.io/documentation-zh/api/json-rpc/",
       "markdown_url": "https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/docs/api/json-rpc/index.md",
       "source_path": "docs/api/json-rpc/index.md",
-      "last_modified": "2026-07-16T14:19:40+08:00"
+      "last_modified": "2026-07-30T11:06:43+08:00"
     },
     {
       "title": "web3_clientVersion",
@@ -1820,7 +1828,7 @@
       "html_url": "https://tronprotocol.github.io/documentation-zh/developers/network/",
       "markdown_url": "https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/docs/developers/network.md",
       "source_path": "docs/developers/network.md",
-      "last_modified": "2026-06-25T11:00:50+08:00"
+      "last_modified": "2026-07-30T11:07:04+08:00"
     },
     {
       "title": "TIP 规范与指南",
@@ -1972,7 +1980,7 @@
       "html_url": "https://tronprotocol.github.io/documentation-zh/releases/upgrade-instruction/",
       "markdown_url": "https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/docs/releases/upgrade-instruction.md",
       "source_path": "docs/releases/upgrade-instruction.md",
-      "last_modified": "2026-06-14T09:21:38+08:00"
+      "last_modified": "2026-07-30T11:06:43+08:00"
     },
     {
       "title": "java-tron 发布包签名校验",

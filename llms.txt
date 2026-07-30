@@ -17,6 +17,7 @@
 ## 运行节点
 
 - [部署 java-tron](https://tronprotocol.github.io/documentation-zh/using_javatron/installing_javatron/)：硬件要求、JDK 先决条件、源码编译、启动全节点/固化节点/超级代表节点、JVM 调优。
+- [节点配置](https://tronprotocol.github.io/documentation-zh/using_javatron/configuration/)：配置来源解析与优先级、网络与存储设置、API 服务与端口、限流、出块凭证以及动态重载行为。
 - [备份与恢复](https://tronprotocol.github.io/documentation-zh/using_javatron/backup_restore/)：节点数据库的快照与恢复。
 - [轻全节点](https://tronprotocol.github.io/documentation-zh/using_javatron/litefullnode/)：运行与维护裁剪后的低占用节点。
 - [私链网络](https://tronprotocol.github.io/documentation-zh/using_javatron/private_network/)：搭建私有 TRON 链。

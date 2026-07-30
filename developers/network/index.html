@@ -349,6 +349,8 @@
       
         
       
+        
+      
     
     
       
@@ -395,6 +397,28 @@
   
   <span class="md-ellipsis">
     部署
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../using_javatron/configuration/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    节点配置
     
   </span>
   
@@ -7354,6 +7378,15 @@
   
 </li>
       
+        <li class="md-nav__item ">
+  <a href="#peer-connection-management" class="md-nav__link" >
+    <span class="md-ellipsis">
+      对等节点连接管理
+    </span>
+  </a>
+  
+</li>
+      
         <li class="md-nav__item has-children">
   <a href="#block-synchronization" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
     <span class="md-ellipsis">
@@ -7367,6 +7400,15 @@
           <li class="md-nav__item ">
   <a href="#_3" class="md-nav__link" >
     <span class="md-ellipsis">
+      同步限制与资源控制
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#_4" class="md-nav__link" >
+    <span class="md-ellipsis">
       链摘要及缺失区块清单
     </span>
   </a>
@@ -7378,17 +7420,32 @@
   
 </li>
       
-        <li class="md-nav__item ">
-  <a href="#block-and-transaction-broadcast" class="md-nav__link" >
+        <li class="md-nav__item has-children">
+  <a href="#block-and-transaction-broadcast" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
     <span class="md-ellipsis">
       区块和交易广播
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="区块和交易广播" hidden>
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item ">
+  <a href="#_7" class="md-nav__link" >
+    <span class="md-ellipsis">
+      入站校验与背压
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item ">
-  <a href="#_6" class="md-nav__link" >
+  <a href="#_8" class="md-nav__link" >
     <span class="md-ellipsis">
       总结
     </span>
@@ -9035,6 +9092,15 @@
   
 </li>
       
+        <li class="md-nav__item ">
+  <a href="#peer-connection-management" class="md-nav__link" >
+    <span class="md-ellipsis">
+      对等节点连接管理
+    </span>
+  </a>
+  
+</li>
+      
         <li class="md-nav__item has-children">
   <a href="#block-synchronization" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
     <span class="md-ellipsis">
@@ -9048,6 +9114,15 @@
           <li class="md-nav__item ">
   <a href="#_3" class="md-nav__link" >
     <span class="md-ellipsis">
+      同步限制与资源控制
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#_4" class="md-nav__link" >
+    <span class="md-ellipsis">
       链摘要及缺失区块清单
     </span>
   </a>
@@ -9059,17 +9134,32 @@
   
 </li>
       
-        <li class="md-nav__item ">
-  <a href="#block-and-transaction-broadcast" class="md-nav__link" >
+        <li class="md-nav__item has-children">
+  <a href="#block-and-transaction-broadcast" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
     <span class="md-ellipsis">
       区块和交易广播
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="区块和交易广播" hidden>
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item ">
+  <a href="#_7" class="md-nav__link" >
+    <span class="md-ellipsis">
+      入站校验与背压
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item ">
-  <a href="#_6" class="md-nav__link" >
+  <a href="#_8" class="md-nav__link" >
     <span class="md-ellipsis">
       总结
     </span>
@@ -9130,29 +9220,36 @@
 <p>P2P网络作为TRON的最底层模块，直接决定了整个区块链网络的稳定性。网络模块按照功能可以划分成以下四部分：</p>
 <ul>
 <li>节点发现</li>
-<li>节点连接</li>
+<li><a href="#peer-connection-management">节点连接</a></li>
 <li><a href="#block-synchronization">区块同步</a></li>
 <li><a href="#block-and-transaction-broadcast">区块和交易广播</a></li>
 </ul>
 <p>其中<strong>节点发现</strong>与<strong>节点连接</strong>这两部分的底层实现已从 java-tron 仓库抽离为独立的外部依赖 <a href="https://github.com/tronprotocol/libp2p"><code>io.github.tronprotocol:libp2p</code></a>，由该库负责底层的节点发现（基于 Kademlia 算法）与连接传输，并新增了基于 DNS 的节点发现等能力。其上的 TRON 协议层——包括 P2P_HELLO 握手、P2P_PING/P2P_PONG 保活、peer 业务状态管理、消息分发、同步与广播——仍由 java-tron 的 <code>core/net</code> 实现，并通过 <code>TronNetService</code> 与 libp2p 对接。底层节点发现与连接的实现细节请参阅 libp2p 仓库，本文不再展开。</p>
 <p>而<strong>区块同步</strong>与<strong>区块和交易广播</strong>仍由 java-tron 的 <code>core/net</code> 实现，下面分别介绍这两个功能部分。</p>
+<h2 id="peer-connection-management">对等节点连接管理<a class="headerlink" href="#peer-connection-management" title="Permanent link">&para;</a></h2>
+<p>启用随机断开对等节点连接功能并且节点连接数达到上限时，java-tron 会定期释放一个连接槽，以便发现可能更优的对等节点。可信节点永远不会被选中。在主要筛选路径中，还会排除正在任一方向上进行同步的对等节点。如果剩余至少 3 个符合条件的广播节点，java-tron 会按 <code>blockRcvTime</code> 排序——该字段表示各对等节点最近一次提供成功处理区块的时间——并保留时间较早的一半作为候选节点。随后，java-tron 根据 <code>lastInteractiveTime</code> 进行加权随机选择，因此不活跃时间更长的对等节点更有可能被断开。这可以防止连接表长期被近期几乎不提供区块数据的对等节点占满。</p>
+<p>对于收到的区块清单，只有当对等节点宣告的区块高度高于本地头块时，才会更新 <code>lastInteractiveTime</code>。因此，过期的区块清单无法让对等节点看起来像是最近仍然活跃。</p>
 <h2 id="block-synchronization">区块同步<a class="headerlink" href="#block-synchronization" title="Permanent link">&para;</a></h2>
 <p>在与对方节点完成握手后，如果发现对方节点的区块链比本地的区块链要长，根据最长链原则，会触发区块同步的处理流程<code>syncService.startSync</code>。同步过程中的报文交互如下图：</p>
 <p><img alt="image" src="https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/network_syncflow.png" /></p>
 <p>节点A向对方节点B发送 <code>SYNC_BLOCK_CHAIN</code> 消息，以宣告本地链的摘要信息。对方节点B收到后，计算出节点A缺失的区块清单，并将缺失区块的id列表通过 <code>BLOCK_CHAIN_INVENTORY</code> 消息发送给节点A，一次最多携带2000个区块id。</p>
 <p>节点A收到 <code>BLOCK_CHAIN_INVENTORY</code> 消息后，取出缺失区块id，并通过异步的方式向节点B发送 <code>FETCH_INV_DATA</code> 消息以请求缺少的区块，一次最多请求100个区块。如果还有需要同步的区块（即 <code>BLOCK_CHAIN_INVENTORY</code> 报文中的remain_num大于0），会触发新一轮的区块同步流程。</p>
 <p>节点B收到节点A的 <code>FETCH_INV_DATA</code> 报文后，通过 <code>BLOCK</code> 消息将区块发送给节点A。节点A收到 <code>BLOCK</code> 报文后，异步处理该区块。</p>
-<h3 id="_3">链摘要及缺失区块清单<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<h3 id="_3">同步限制与资源控制<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<p>入站 <code>SYNC_BLOCK_CHAIN</code> 消息必须至少包含 1 个区块 ID，且最多只能包含 30 个区块 ID。超出该范围的消息会被视为无效协议消息。独立的 <code>BLOCK_CHAIN_INVENTORY</code> 响应仍然最多可以携带 2000 个缺失区块 ID，如上文所述。</p>
+<p>为减少追块期间保留的堆内存，java-tron 在同步队列中将待处理的同步区块存储为区块 ID 加序列化字节，而不是保留解析后的 <code>BlockCapsule</code>。当队列中的区块可以处理时，会再次解析这些字节。</p>
+<p><code>node.maxPendingBlockSize</code> 为用于推进同步进度的新请求提供全局预算。可用预算会计入所有活跃对等节点已请求的区块、刚收到的区块以及等待处理的区块。为了避免同步死锁，高度不超过此前已请求最高高度的重试请求可以绕过该预算，因此该配置并不是所有在途区块数量的严格上限。默认值为 <code>500</code>；超出支持范围 <code>50</code>–<code>2000</code> 的值会被限制到最接近的边界值。</p>
+<h3 id="_4">链摘要及缺失区块清单<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
 <p>下面根据几个不同的区块同步场景示例，说明链摘要和节点缺少的区块清单的生成。</p>
 <ul>
 <li>链摘要：有序的区块blockID列表，包括：最高固化块、最高非固化块，以及之间二分法对应的区块</li>
 <li>缺失区块清单：邻居节点根据链摘要与自己链进行比较，确定对方缺失的区块清单，返回一组连续的区块blockID以及剩余的块数</li>
 </ul>
-<h4 id="_4">普通场景<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h4>
+<h4 id="_5">普通场景<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h4>
 <p>本地头块高度为1018，固化块高度为1000，两个节点刚建立连接，所以共同块高度为0，通过二分方式获取到节点A的本地链摘要为：1000、1010、1015、1017、1018。</p>
 <p>节点B收到节点A的链摘要后，结合本地链可以生产节点A缺少的区块清单为：1018、1019、1020、1021。之后节点A根据缺失区块清单，请求同步区块1019、1020、1021。
 <img alt="image" src="https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/network_sync1.png" /></p>
-<h4 id="_5">切链场景<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h4>
+<h4 id="_6">切链场景<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h4>
 <p>本地主链头块高度为1018，固化块高度为1000，两个节点刚建立连接，所以共同块高度为0，通过二分方式获取到节点A的本地链摘要为：1000、1010、1015、1017、1018。</p>
 <p>节点B收到节点A的链摘要后，发现本地主链跟节点A的主链不在同一条链上，对比节点A的链摘要，找到共同块高度为1015，则认为节点A缺少的区块清单为：1015、1016'、1017'、1018'，1019'。之后节点A根据缺失区块清单，请求同步区块1018'，1019'。
 <img alt="image" src="https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/network_sync2.png" /></p>
@@ -9171,7 +9268,47 @@
 </ul>
 <p>节点A将待广播交易或区块通过 <code>INVENTORY</code> 清单消息发送到节点B。节点B收到 <code>INVENTORY</code> 清单消息后，需要检查对方节点的状态，如果可以接收该消息，则将清单中的区块/交易放入待获取队列 <code>invToFetch</code> 中。如果是区块清单，还会立即触发"获取区块&amp;交易任务"，来向节点A发送 <code>FETCH_INV_DATA</code> 消息获取区块&amp;交易。</p>
 <p>节点A收到 <code>FETCH_INV_DATA</code> 消息后，会检查是否发送过清单消息给对方，如果发送过，则根据清单数据，向节点B发送交易或者区块消息。节点B收到交易或者区块消息后，处理消息，并触发转发流程。</p>
-<h2 id="_6">总结<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<h3 id="_7">入站校验与背压<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<p>在接受或转发广播数据之前，java-tron 会在 P2P 边界执行校验和资源控制：</p>
+<table>
+<thead>
+<tr>
+<th>检查项</th>
+<th>行为</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>清单类型与重复数据</td>
+<td><code>INVENTORY</code> 或 <code>FETCH_INV_DATA</code> 消息中的清单类型必须为 <code>TRX</code> 或 <code>BLOCK</code>。任一消息中包含重复哈希，或者 <code>TRXS</code> 消息中包含重复交易时，都会拒绝该消息，并以 <code>BAD_PROTOCOL</code> 原因断开发送方节点。</td>
+</tr>
+<tr>
+<td>交易清单限速</td>
+<td>每个对等节点宣告的交易 ID 数量受 <code>node.maxTps</code> 限制，默认值为每秒 <code>1000</code> 个 ID。该限制按 10 秒窗口计算，并包含当前消息中的 ID。若一条交易 <code>INVENTORY</code> 消息会使预计窗口数量超限，则丢弃该消息。</td>
+</tr>
+<tr>
+<td>区块清单限速</td>
+<td>每个对等节点的区块清单受 <code>node.maxBlockInvPerSecond</code> 限制。该限制按滚动 10 秒窗口执行。默认值为 <code>10</code> 时，每个窗口最多允许 <code>100</code> 个区块 ID，其中包括当前消息中的 ID。小于 <code>1</code> 的配置值会被提高到 <code>1</code>。若一条区块 <code>INVENTORY</code> 消息会使窗口数量超限，则丢弃该消息。</td>
+</tr>
+<tr>
+<td>交易背压</td>
+<td>当交易处理队列和交易缓存超过 <code>node.maxTrxCacheSize</code> 时，节点会停止接受新的交易清单宣告，直到重新有可用容量。默认值为 <code>50000</code>；小于 <code>2000</code> 的配置值会被提高到 <code>2000</code>。</td>
+</tr>
+<tr>
+<td>签名长度</td>
+<td>通过 P2P 收到的交易中的每个签名，以及快速转发 <code>HelloMessage</code> 中的签名，都必须为 <code>65</code>–<code>68</code> 字节（含边界）。包含超出该范围签名的交易会被视为错误交易；长度不正确的 <code>HelloMessage</code> 签名会在验签前被拒绝。</td>
+</tr>
+<tr>
+<td>区块校验</td>
+<td>宣告的区块会在重新广播前进行校验。无效的 Merkle root 或区块签名会使发送方节点以 <code>BAD_BLOCK</code> 原因断开。</td>
+</tr>
+<tr>
+<td>Protobuf 规范化</td>
+<td>对于收到的 <code>Block</code>，java-tron 会在处理或转发前清除区块自身及其 <code>BlockHeader</code> 中的 protobuf 未知字段。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_8">总结<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
 <p>本文介绍了TRON最底层模块——P2P网络。其中节点发现与节点连接已抽离至外部依赖 libp2p，本文仅做简要定位；仍保留在 java-tron <code>core/net</code> 中的区块同步、区块和交易广播流程则做了详细介绍。希望通过阅读本文能帮助开发者进一步了解和开发java-tron网络相关模块。</p>
 
 
@@ -9193,7 +9330,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年6月25日 03:00:50 UTC">2026年6月25日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年7月30日 03:07:04 UTC">2026年7月30日</span>
   </span>
 
     
