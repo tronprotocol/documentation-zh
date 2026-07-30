@@ -17,8 +17,8 @@
 - **`Permission_id`**：交易构造接口可选；用于多签账户指定使用哪个 `Permission`。字段名区分大小写。
 - **金额单位**：除 TRC-10 数量按发行精度外，其他金额一律为 sun（1 TRX = 1e6 sun）。
 - **`int64_as_string`**：GET 请求可在 URL 查询参数中添加 `int64_as_string=true`。启用后，protobuf JSON 响应中的 int64 / uint64 字段会序列化为 JSON 字符串，避免 JavaScript 等客户端出现精度损失。该参数只对 GET 请求生效，不影响 POST 请求体。
-- **请求体大小**：HTTP 请求体受 `config.conf` 中 `node.http.maxMessageSize` 限制（默认 `4194304`，约 4 MiB；`0` 表示拒绝所有非空 body）。JSON-RPC 有独立的 `node.jsonrpc.maxMessageSize`。
-- **限流**：HTTP 单接口限流在 `rate.limiter.http` 中配置。全局开关 `rate.limiter.apiNonBlocking` 控制超限行为：`true` 表示立即拒绝，并返回 HTTP 200 和 `{"Error":"class java.lang.IllegalAccessException : lack of computing resources"}`；`false` 表示排队并阻塞调用方直到获得 permit。
+- **请求体大小**：HTTP 请求体受 `node.http.maxMessageSize` 限制。其默认值在 `common/src/main/resources/reference.conf` 中定义（`4194304`，约 4 MiB；`0` 表示拒绝所有非空 body），并可在节点的外部配置文件中覆盖。JSON-RPC 有独立的 `node.jsonrpc.maxMessageSize`。有关配置加载和覆盖行为，请参阅[节点配置](../../using_javatron/configuration.md)。
+- **限流**：HTTP 单接口限流在 `rate.limiter.http` 中配置。全局开关 `rate.limiter.apiNonBlocking` 控制 permit 的获取方式：`true` 表示在没有可用 permit 时立即拒绝；`false` 表示 QPS 和单 IP QPS 策略会阻塞等待令牌，而 `GlobalPreemptibleAdapter` 最多等待两秒以获取并发 permit。请求被拒绝时返回 HTTP 200 和 `{"Error":"class java.lang.IllegalAccessException : lack of computing resources"}`。
 
 !!! warning "XSS 安全提示"
 
@@ -32,10 +32,10 @@
 
 HTTP 状态码在**绝大多数情况下都是 200**（业务错误也通过响应体表达），客户端必须解析响应体判断成败。已知例外：
 
-- 接口被节点配置 `disabledApiList` 显式禁用时，由 `HttpApiAccessFilter` 直接返回 **HTTP 404**，响应体 `{"Error": "this API is unavailable due to config"}`。
+- 接口被节点配置 `node.disabledApi` 显式禁用时，由 `HttpApiAccessFilter` 直接返回 **HTTP 404**，响应体 `{"Error": "this API is unavailable due to config"}`。
 - 请求体超过 `node.http.maxMessageSize` 时，共享 HTTP `SizeLimitHandler` 可能会在目标 servlet 处理请求前直接返回 **HTTP 413**（`Payload Too Large`）。如果请求已经进入 servlet，并由 servlet 内部的 `Util.checkBodySize` 检查到 body 超限，则接口会按自身的异常响应格式返回；部分接口仍可能是 **HTTP 200** 加错误响应体。
 - 启用非阻塞限流且共享 `RateLimiterServlet` 无法获得 permit 时，会在目标 servlet 运行前返回 **HTTP 200**，响应体为 `{"Error":"class java.lang.IllegalAccessException : lack of computing resources"}`。这是共享层错误，而非接口业务错误。
-- 节点以 lite fullnode 模式启动且未开启 `openHistoryQueryWhenLiteFN` 时，由 `LiteFnQueryHttpFilter` 对约 24 个历史查询接口（`getblockbynum` / `gettransactionbyid` / `gettransactioninfobyid` / `gettransactioninfobyblocknum` / `getblockbyid` / `getblockbylatestnum` / `getblockbylimitnext` / `gettransactioncountbyblocknum` 等）返回 **HTTP 200**，但响应体是裸字符串 `this API is closed because this node is a lite fullnode`（**非 JSON**），客户端朴素 `JSON.parse` 会抛错，需先按字符串前缀识别。
+- 节点以 lite fullnode 模式启动且未开启 `node.openHistoryQueryWhenLiteFN` 时，由 `LiteFnQueryHttpFilter` 对约 24 个历史查询接口（`getblockbynum` / `gettransactionbyid` / `gettransactioninfobyid` / `gettransactioninfobyblocknum` / `getblockbyid` / `getblockbylatestnum` / `getblockbylimitnext` / `gettransactioncountbyblocknum` 等）返回 **HTTP 200**，但响应体是裸字符串 `this API is closed because this node is a lite fullnode`（**非 JSON**），客户端朴素 `JSON.parse` 会抛错，需先按字符串前缀识别。
 - 其它由 servlet 容器/反向代理产生的网络层错误（502、504、连接拒绝等）不在本文档范围。
 
 <!-- BEGIN GENERATED HTTP ERROR CATALOG -->
@@ -50,7 +50,7 @@ Catalog ID 和重试分类由 `openapi.yaml` 的 `x-tron-error-model` 定义。�
 | `HTTP_RATE_LIMITED` | HTTP 200 且 `$.Error` 包含 `lack of computing resources` | 共享 servlet 限流器拒绝了请求。 | 是 | `SAFE_WITH_BACKOFF` | 使用带抖动的指数退避自动重试；响应不包含 Retry-After header。 |
 | `HTTP_SERVLET_EXCEPTION` | HTTP 200 加自由文本 `$.Error` | servlet 在 JavaTronError 中返回了异常类和消息。 | 否 | `UNKNOWN` | 检查具体 Error 文本和接口上下文；不得仅根据该兜底分类自动重试。 |
 | `HTTP_API_DISABLED` | HTTP 404 且 `$.Error` = `this API is unavailable due to config` | 节点配置禁用了该接口。 | 否 | `AFTER_STATE_CHANGE` | 使用已启用该接口的节点，或等待节点配置变更。 |
-| `HTTP_LITE_FULLNODE_HISTORY_DISABLED` | HTTP 200 加裸文本 `this API is closed because this node is a lite fullnode` | lite FullNode 拒绝了历史区块或交易查询。 | 否 | `AFTER_STATE_CHANGE` | 使用 full node，或等待 `openHistoryQueryWhenLiteFN` 配置变更。 |
+| `HTTP_LITE_FULLNODE_HISTORY_DISABLED` | HTTP 200 加裸文本 `this API is closed because this node is a lite fullnode` | lite FullNode 拒绝了历史区块或交易查询。 | 否 | `AFTER_STATE_CHANGE` | 使用 full node，或等待 `node.openHistoryQueryWhenLiteFN` 配置变更。 |
 | `HTTP_REQUEST_TOO_LARGE` | HTTP 413（`text/html`） | 请求超过 `node.http.maxMessageSize`。 | 否 | `AFTER_REQUEST_REBUILD` | 缩小请求体后重新提交。 |
 | `RETURN_SIGERROR` | `$.code` 或 `$.result.code` = `SIGERROR` | 交易签名无效。 | 否 | `NEVER` | 修正签名并重新签名。 |
 | `RETURN_CONTRACT_VALIDATE_ERROR` | `$.code` 或 `$.result.code` = `CONTRACT_VALIDATE_ERROR` | 合约校验失败。 | 否 | `AFTER_REQUEST_REBUILD` | 修正参数、余额或权限后重构请求。 |

@@ -15,11 +15,11 @@ TRON 网络分为以下几类：
 
 ## 基础配置网络
 
-通过修改 [配置文件](https://github.com/tronprotocol/java-tron/blob/develop/framework/src/main/resources/config.conf) 中的以下关键项，可将 java-tron 节点接入指定网络：
+通过修改当前[主网配置文件](https://github.com/tronprotocol/java-tron/blob/master/framework/src/main/resources/config.conf)中的以下关键项，可将 java-tron 节点接入指定网络。
 
 ### 网络标识（P2P 网络 ID）
 
-网络ID(`p2p.version`): 表示希望加入的网络。相关配置项：
+P2P 网络 ID（`node.p2p.version`）指定希望加入的网络。主网配置如下：
 
 ```properties
 node {
@@ -229,9 +229,9 @@ java-tron 使用 [Kademlia](https://zh.wikipedia.org/wiki/Kademlia) 协议发现
 
 种子节点也由两部分组成：
 
-#### 配置的 `seed.node` 
+#### 配置的 `seed.node.ip.list`
 
-使用 `seed.node` 初始化网络连接。应设置为在线稳定的全节点。每个条目可以使用 IPv4 地址、带方括号的 IPv6 地址或域名：
+使用 `seed.node.ip.list` 初始化网络连接。应设置为在线稳定的全节点。每个条目可以使用 IPv4 地址、带方括号的 IPv6 地址或域名：
 
 
 ```properties
@@ -248,7 +248,7 @@ seed.node = {
 }
 ```
 
-对于TRON主网，可以使用 [社区公共节点](https://developers.tron.network/docs/networks#public-node) 作为种子节点。如果想要获取最新的`seed.node`，可以在官方的 [配置文件](https://github.com/tronprotocol/java-tron/blob/master/framework/src/main/resources/config.conf) 查看。
+对于 TRON 主网，可以使用[社区公共节点](https://developers.tron.network/docs/networks#public-node)作为种子节点。如果想要获取最新的 `seed.node.ip.list`，可以在官方的[配置文件](https://github.com/tronprotocol/java-tron/blob/master/framework/src/main/resources/config.conf)中查看。
 如果网卡支持 ipv6，可以使用上述列表中的 ipv6 地址格式的种子节点，将注释符 `#` 去掉即可。
 
 #### 对等节点配置中的域名
@@ -295,7 +295,7 @@ node {
 
 节点的连接数量由以下几个参数共同控制，通常需要配合调优：
 
-- `node.maxConnections`：节点的最大连接数（默认值：30）。当连接数达到该上限后，来自非可信节点的被动连接会被拒绝。可信节点是指 IP 出现在 `node.passive`、`node.active` 或 `fastForward` 中的节点（这三处的 IP 都会被加入可信列表）。主动连接不受该限制约束：对 `node.active` 中配置的节点的主动连接，仅受 `node.active` 列表大小限制；对通过节点发现协议发现的节点的主动连接，由 `minConnections` 和 `minActiveConnections` 驱动（见下文）。
+- `node.maxConnections`：节点的最大连接数（默认值：30）。当连接数达到该上限后，来自非可信节点的被动连接会被拒绝。可信节点是指 IP 出现在 `node.passive`、`node.active` 或 `node.fastForward` 中的节点（这三处的 IP 都会被加入可信列表）。主动连接不受该限制约束：对 `node.active` 中配置的节点的主动连接，仅受 `node.active` 列表大小限制；对通过节点发现协议发现的节点的主动连接，由 `minConnections` 和 `minActiveConnections` 驱动（见下文）。
 - `node.minConnections`：期望维持的最小总连接数，包含主动连接和被动连接（默认值：8）。当总连接数低于该值时，节点会向已发现的节点发起主动连接以补足。
 - `node.minActiveConnections`：期望维持的对已发现节点的最小主动连接数（默认值：3）。即使总连接数已经达到或超过 `minConnections`，节点仍会持续向已发现的节点发起主动连接，直到该阈值被满足。
 - `node.maxConnectionsWithSameIp`：允许来自同一 IP 地址的最大连接数（默认值：2），用于缓解来自单一 IP 的滥用。
