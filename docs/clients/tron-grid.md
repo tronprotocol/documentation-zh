@@ -4,6 +4,8 @@
 
 TronGrid提供运行在云端的客户端, 因而你自己本地不需要运行节点。TronGrid提供负载均衡的，安全的，可靠的的节点访问API。
 
+如需独立对比公共 TRON JSON-RPC 端点的延迟与可靠性（TronGrid 及社区提供商如 dRPC、PublicNode），可参考 [OpenChainBench TRON RPC 基准测试](https://openchainbench.com/benchmarks/tron-rpc)。数据每 60 秒从 3 个地区（美东、欧西、新加坡）采集，发布 p50/p90/p99 延迟与成功率，遵循 CC BY 4.0 协议并开源采集工具。
+
 TronGrid支持两种类型的API调用：
 
 - FullNode & SolidityNode api
