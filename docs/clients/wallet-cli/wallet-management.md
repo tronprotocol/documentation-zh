@@ -20,7 +20,7 @@
 
     ```bash
     export MASTER_PASSWORD='your-wallet-password'
-    java -jar build/libs/wallet-cli.jar --network nile register-wallet --name my-wallet --words 12
+    java -jar java/build/libs/wallet-cli.jar --network nile register-wallet --name my-wallet --words 12
     ```
 
     - `--name`（必填）—— 钱包名称。
@@ -42,7 +42,7 @@
 === "标准 CLI"
 
     ```bash
-    java -jar build/libs/wallet-cli.jar --network nile generate-sub-account --index 1 --name sub-1
+    java -jar java/build/libs/wallet-cli.jar --network nile generate-sub-account --index 1 --name sub-1
     ```
 
     - `--index`（必填）—— 派生索引。
@@ -91,14 +91,14 @@ GenerateAddress [isECKey]
 
     ```bash
     # 列出钱包及其活动状态
-    java -jar build/libs/wallet-cli.jar list-wallet
+    java -jar java/build/libs/wallet-cli.jar list-wallet
 
     # 按地址或名称设置活动钱包
-    java -jar build/libs/wallet-cli.jar set-active-wallet --address TXyz...
-    java -jar build/libs/wallet-cli.jar set-active-wallet --name my-wallet
+    java -jar java/build/libs/wallet-cli.jar set-active-wallet --address TXyz...
+    java -jar java/build/libs/wallet-cli.jar set-active-wallet --name my-wallet
 
     # 显示当前活动钱包
-    java -jar build/libs/wallet-cli.jar get-active-wallet
+    java -jar java/build/libs/wallet-cli.jar get-active-wallet
     ```
 
     - `set-active-wallet` 接受 `--address` 或 `--name`（提供其一）。
@@ -148,7 +148,7 @@ ChangePassword
 === "标准 CLI"
 
     ```bash
-    java -jar build/libs/wallet-cli.jar modify-wallet-name --name new-name
+    java -jar java/build/libs/wallet-cli.jar modify-wallet-name --name new-name
     ```
 
     - `--name`（必填）—— 新的钱包名称。需要鉴权。
@@ -166,7 +166,7 @@ ChangePassword
 === "标准 CLI"
 
     ```bash
-    java -jar build/libs/wallet-cli.jar clear-wallet-keystore --force
+    java -jar java/build/libs/wallet-cli.jar clear-wallet-keystore --force
     ```
 
     - `--force` 在语法上是可选的，但在标准 CLI 模式下执行这一破坏性操作时必须提供 —— 不带它命令会
@@ -185,7 +185,7 @@ ChangePassword
 === "标准 CLI"
 
     ```bash
-    java -jar build/libs/wallet-cli.jar reset-wallet --confirm delete-all-wallets
+    java -jar java/build/libs/wallet-cli.jar reset-wallet --confirm delete-all-wallets
     ```
 
     - `--confirm` 必须传入确切的值 `delete-all-wallets` 才会执行重置。不带 `--confirm` 运行
@@ -230,21 +230,21 @@ Base58 地址。别名按网络隔离，来自两层：一组**内置**别名（
 
 ```bash
 # 添加账户别名
-java -jar build/libs/wallet-cli.jar --network nile alias-add \
+java -jar java/build/libs/wallet-cli.jar --network nile alias-add \
   --name treasury --type ACCOUNT --address TXyz... --note "team treasury"
 
 # 添加代币别名（带精度）
-java -jar build/libs/wallet-cli.jar --network nile alias-add \
+java -jar java/build/libs/wallet-cli.jar --network nile alias-add \
   --name usdt --type TOKEN --address TR7NHq... --decimals 6
 
 # 列出别名（可按类型过滤）
-java -jar build/libs/wallet-cli.jar --network nile alias-list --type ACCOUNT
+java -jar java/build/libs/wallet-cli.jar --network nile alias-list --type ACCOUNT
 
 # 把别名或地址解析为其规范形式
-java -jar build/libs/wallet-cli.jar --network nile alias-resolve --name treasury
+java -jar java/build/libs/wallet-cli.jar --network nile alias-resolve --name treasury
 
 # 删除用户别名
-java -jar build/libs/wallet-cli.jar --network nile alias-remove --name treasury
+java -jar java/build/libs/wallet-cli.jar --network nile alias-remove --name treasury
 ```
 
 选项说明：

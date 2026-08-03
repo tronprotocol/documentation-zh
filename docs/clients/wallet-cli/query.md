@@ -19,7 +19,7 @@
 === "标准 CLI"
 
     ```bash
-    java -jar build/libs/wallet-cli.jar --network nile current-network
+    java -jar java/build/libs/wallet-cli.jar --network nile current-network
     ```
 
 === "交互模式"
@@ -35,7 +35,7 @@
 === "标准 CLI"
 
     ```bash
-    java -jar build/libs/wallet-cli.jar --network nile get-chain-parameters
+    java -jar java/build/libs/wallet-cli.jar --network nile get-chain-parameters
     ```
 
 === "交互模式"
@@ -51,7 +51,7 @@
 === "标准 CLI"
 
     ```bash
-    java -jar build/libs/wallet-cli.jar --network nile get-next-maintenance-time
+    java -jar java/build/libs/wallet-cli.jar --network nile get-next-maintenance-time
     ```
 
 === "交互模式"
@@ -67,7 +67,7 @@
 === "标准 CLI"
 
     ```bash
-    java -jar build/libs/wallet-cli.jar --network nile get-bandwidth-prices
+    java -jar java/build/libs/wallet-cli.jar --network nile get-bandwidth-prices
     ```
 
 === "交互模式"
@@ -83,7 +83,7 @@
 === "标准 CLI"
 
     ```bash
-    java -jar build/libs/wallet-cli.jar --network nile get-energy-prices
+    java -jar java/build/libs/wallet-cli.jar --network nile get-energy-prices
     ```
 
 === "交互模式"
@@ -99,7 +99,7 @@
 === "标准 CLI"
 
     ```bash
-    java -jar build/libs/wallet-cli.jar --network nile get-memo-fee
+    java -jar java/build/libs/wallet-cli.jar --network nile get-memo-fee
     ```
 
 === "交互模式"
@@ -117,7 +117,7 @@
 === "标准 CLI"
 
     ```bash
-    java -jar build/libs/wallet-cli.jar --network nile get-block --number 1000000
+    java -jar java/build/libs/wallet-cli.jar --network nile get-block --number 1000000
     ```
 
     - `--number`（可选）—— 区块编号；默认为最新区块。
@@ -135,7 +135,7 @@
 === "标准 CLI"
 
     ```bash
-    java -jar build/libs/wallet-cli.jar --network nile get-block-by-id --id 00000000000f4240...
+    java -jar java/build/libs/wallet-cli.jar --network nile get-block-by-id --id 00000000000f4240...
     ```
 
     - `--id`（必填）—— 区块 ID（哈希）。
@@ -153,7 +153,7 @@
 === "标准 CLI"
 
     ```bash
-    java -jar build/libs/wallet-cli.jar --network nile get-block-by-id-or-num --value 1000000
+    java -jar java/build/libs/wallet-cli.jar --network nile get-block-by-id-or-num --value 1000000
     ```
 
     - `--value`（必填）—— 区块编号或区块 ID。
@@ -172,7 +172,7 @@
 === "标准 CLI"
 
     ```bash
-    java -jar build/libs/wallet-cli.jar --network nile get-block-by-latest-num --count 5
+    java -jar java/build/libs/wallet-cli.jar --network nile get-block-by-latest-num --count 5
     ```
 
     - `--count`（必填）—— 要返回的最近区块数量。
@@ -190,7 +190,7 @@
 === "标准 CLI"
 
     ```bash
-    java -jar build/libs/wallet-cli.jar --network nile get-block-by-limit-next \
+    java -jar java/build/libs/wallet-cli.jar --network nile get-block-by-limit-next \
       --start 1000000 --end 1000005
     ```
 
@@ -207,7 +207,7 @@
 === "标准 CLI"
 
     ```bash
-    java -jar build/libs/wallet-cli.jar --network nile \
+    java -jar java/build/libs/wallet-cli.jar --network nile \
       get-transaction-count-by-block-num --number 1000000
     ```
 
@@ -228,7 +228,7 @@
 === "标准 CLI"
 
     ```bash
-    java -jar build/libs/wallet-cli.jar --network nile get-transaction-by-id --id <txid>
+    java -jar java/build/libs/wallet-cli.jar --network nile get-transaction-by-id --id <txid>
     ```
 
     - `--id`（必填）—— 交易 ID（哈希）。
@@ -246,7 +246,7 @@
 === "标准 CLI"
 
     ```bash
-    java -jar build/libs/wallet-cli.jar --network nile get-transaction-info-by-id --id <txid>
+    java -jar java/build/libs/wallet-cli.jar --network nile get-transaction-info-by-id --id <txid>
     ```
 
     - `--id`（必填）。
@@ -276,7 +276,7 @@ GetTransactionInfoByBlockNum number
 === "标准 CLI"
 
     ```bash
-    java -jar build/libs/wallet-cli.jar --network nile list-nodes
+    java -jar java/build/libs/wallet-cli.jar --network nile list-nodes
     ```
 
 === "交互模式"
@@ -294,7 +294,7 @@ GetTransactionInfoByBlockNum number
 === "标准 CLI"
 
     ```bash
-    java -jar build/libs/wallet-cli.jar --network nile get-usdt-balance --address TXyz...
+    java -jar java/build/libs/wallet-cli.jar --network nile get-usdt-balance --address TXyz...
     ```
 
     - `--address`（可选）—— 默认为当前钱包的地址。

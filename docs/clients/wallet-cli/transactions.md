@@ -12,7 +12,7 @@ REPL 用可选的首参 `[OwnerAddress]` 支持多签；标准 CLI 用 `--owner`
 === "标准 CLI"
 
     ```bash
-    java -jar build/libs/wallet-cli.jar --network nile send-coin \
+    java -jar java/build/libs/wallet-cli.jar --network nile send-coin \
       --to TXyz... --amount 1000000
     ```
 
@@ -31,7 +31,7 @@ REPL 用可选的首参 `[OwnerAddress]` 支持多签；标准 CLI 用 `--owner`
 === "标准 CLI"
 
     ```bash
-    java -jar build/libs/wallet-cli.jar --network nile transfer-asset \
+    java -jar java/build/libs/wallet-cli.jar --network nile transfer-asset \
       --to TXyz... --asset 1000001 --amount 100
     ```
 
@@ -51,7 +51,7 @@ REPL 用可选的首参 `[OwnerAddress]` 支持多签；标准 CLI 用 `--owner`
 === "标准 CLI"
 
     ```bash
-    java -jar build/libs/wallet-cli.jar --network nile transfer-usdt \
+    java -jar java/build/libs/wallet-cli.jar --network nile transfer-usdt \
       --to TXyz... --amount 1000000
     ```
 
@@ -101,7 +101,7 @@ TronlinkMultiSign
 === "标准 CLI"
 
     ```bash
-    java -jar build/libs/wallet-cli.jar --network nile broadcast-transaction \
+    java -jar java/build/libs/wallet-cli.jar --network nile broadcast-transaction \
       --transaction 0a83010a02...
     ```
 

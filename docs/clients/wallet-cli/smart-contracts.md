@@ -21,7 +21,7 @@ REPL 的构建交易命令用可选的首参 `[OwnerAddress]` 支持多签；标
 === "标准 CLI"
 
     ```bash
-    java -jar build/libs/wallet-cli.jar --network nile deploy-contract \
+    java -jar java/build/libs/wallet-cli.jar --network nile deploy-contract \
       --name MyToken \
       --abi '[{"inputs":[],"stateMutability":"nonpayable","type":"constructor"}, ...]' \
       --bytecode 608060405234801561001057600080fd5b50... \
@@ -53,7 +53,7 @@ REPL 的构建交易命令用可选的首参 `[OwnerAddress]` 支持多签；标
 === "标准 CLI"
 
     ```bash
-    java -jar build/libs/wallet-cli.jar --network nile trigger-contract \
+    java -jar java/build/libs/wallet-cli.jar --network nile trigger-contract \
       --contract TContract... \
       --method "transfer(address,uint256)" \
       --params "TRecipient...,1000000" \
@@ -83,7 +83,7 @@ REPL 的构建交易命令用可选的首参 `[OwnerAddress]` 支持多签；标
 === "标准 CLI"
 
     ```bash
-    java -jar build/libs/wallet-cli.jar --network nile trigger-constant-contract \
+    java -jar java/build/libs/wallet-cli.jar --network nile trigger-constant-contract \
       --contract TContract... \
       --method "balanceOf(address)" \
       --params "TAccount..."
@@ -107,7 +107,7 @@ REPL 的构建交易命令用可选的首参 `[OwnerAddress]` 支持多签；标
 === "标准 CLI"
 
     ```bash
-    java -jar build/libs/wallet-cli.jar --network nile estimate-energy \
+    java -jar java/build/libs/wallet-cli.jar --network nile estimate-energy \
       --contract TContract... \
       --method "transfer(address,uint256)" \
       --params "TRecipient...,1000000"
@@ -142,7 +142,7 @@ Create2 address code salt
 === "标准 CLI"
 
     ```bash
-    java -jar build/libs/wallet-cli.jar --network nile update-setting \
+    java -jar java/build/libs/wallet-cli.jar --network nile update-setting \
       --contract TContract... --consume-user-resource-percent 50
     ```
 
@@ -160,7 +160,7 @@ Create2 address code salt
 === "标准 CLI"
 
     ```bash
-    java -jar build/libs/wallet-cli.jar --network nile update-energy-limit \
+    java -jar java/build/libs/wallet-cli.jar --network nile update-energy-limit \
       --contract TContract... --origin-energy-limit 10000000
     ```
 
@@ -180,7 +180,7 @@ Create2 address code salt
 === "标准 CLI"
 
     ```bash
-    java -jar build/libs/wallet-cli.jar --network nile clear-contract-abi --contract TContract...
+    java -jar java/build/libs/wallet-cli.jar --network nile clear-contract-abi --contract TContract...
     ```
 
     - `--contract`（必填）。`--owner`、`--multi`（可选）。
@@ -200,7 +200,7 @@ Create2 address code salt
 === "标准 CLI"
 
     ```bash
-    java -jar build/libs/wallet-cli.jar --network nile get-contract --address TContract...
+    java -jar java/build/libs/wallet-cli.jar --network nile get-contract --address TContract...
     ```
 
     - `--address`（必填）。
@@ -218,7 +218,7 @@ Create2 address code salt
 === "标准 CLI"
 
     ```bash
-    java -jar build/libs/wallet-cli.jar --network nile get-contract-info --address TContract...
+    java -jar java/build/libs/wallet-cli.jar --network nile get-contract-info --address TContract...
     ```
 
     - `--address`（必填）。

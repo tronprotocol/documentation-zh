@@ -232,7 +232,7 @@ System.out.println(ByteArray.toHexString(operations));
 6. 最后一个用户签名后广播；
 7. 节点验证签名权重总和是否 ≥ `threshold`，若是则接受交易。
 
->示例代码参考：[wallet-cli 用例](https://github.com/tronprotocol/wallet-cli/blob/develop/src/main/java/org/tron/common/utils/TransactionUtils.java)
+>示例代码参考：[wallet-cli 用例](https://github.com/tronprotocol/wallet-cli/blob/develop/java/src/main/java/org/tron/common/utils/TransactionUtils.java)
 
 ## 辅助接口
 

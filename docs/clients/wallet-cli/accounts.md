@@ -12,7 +12,7 @@
 === "标准 CLI"
 
     ```bash
-    java -jar build/libs/wallet-cli.jar --network nile create-account --address TXyz...
+    java -jar java/build/libs/wallet-cli.jar --network nile create-account --address TXyz...
     ```
 
     - `--address`（必填）—— 要激活的地址。
@@ -29,7 +29,7 @@
 === "标准 CLI"
 
     ```bash
-    java -jar build/libs/wallet-cli.jar --network nile update-account --name "my account"
+    java -jar java/build/libs/wallet-cli.jar --network nile update-account --name "my account"
     ```
 
     - `--name`（必填）—— 新的账户名称。
@@ -48,7 +48,7 @@
 === "标准 CLI"
 
     ```bash
-    java -jar build/libs/wallet-cli.jar --network nile set-account-id --id myaccountid
+    java -jar java/build/libs/wallet-cli.jar --network nile set-account-id --id myaccountid
     ```
 
     - `--id`（必填）—— 要设置的账户 ID。
@@ -67,7 +67,7 @@
 === "标准 CLI"
 
     ```bash
-    java -jar build/libs/wallet-cli.jar --network nile get-account --address TXyz...
+    java -jar java/build/libs/wallet-cli.jar --network nile get-account --address TXyz...
     ```
 
     - `--address`（必填）。无需鉴权。
@@ -83,7 +83,7 @@
 === "标准 CLI"
 
     ```bash
-    java -jar build/libs/wallet-cli.jar --network nile get-account-by-id --id myaccountid
+    java -jar java/build/libs/wallet-cli.jar --network nile get-account-by-id --id myaccountid
     ```
 
     - `--id`（必填）。无需鉴权。
@@ -101,7 +101,7 @@
 === "标准 CLI"
 
     ```bash
-    java -jar build/libs/wallet-cli.jar get-address
+    java -jar java/build/libs/wallet-cli.jar get-address
     ```
 
     需要鉴权（它上报活动钱包的地址）。
@@ -118,10 +118,10 @@
 
     ```bash
     # 查询某个显式地址的余额（无需鉴权）
-    java -jar build/libs/wallet-cli.jar --network nile get-balance --address TXyz...
+    java -jar java/build/libs/wallet-cli.jar --network nile get-balance --address TXyz...
 
     # 查询活动钱包的余额（需要鉴权）
-    java -jar build/libs/wallet-cli.jar --network nile get-balance
+    java -jar java/build/libs/wallet-cli.jar --network nile get-balance
     ```
 
     - `--address`（可选）。若提供则无需鉴权；若省略则读取活动钱包余额，需要鉴权。
@@ -150,7 +150,7 @@ TRON 账户支持灵活的权限模型（一个 owner 权限、一个可选的 w
 === "标准 CLI"
 
     ```bash
-    java -jar build/libs/wallet-cli.jar --network nile update-account-permission \
+    java -jar java/build/libs/wallet-cli.jar --network nile update-account-permission \
       --owner TXyz... --permissions '<permission-json>'
     ```
 
@@ -204,6 +204,6 @@ TRON 账户支持灵活的权限模型（一个 owner 权限、一个可选的 w
 
 - `threshold` 是该权限授权一个操作所需的签名者总权重。
 - `operations`（仅 active 权限）是一个 32 字节的十六进制位图，用于选择该权限可执行哪些合约/操作类型。
-  上面的示例匹配 4.9.7 的默认 active 权限位图：它排除了已禁用的操作 51
-  （`ShieldedTransferContract`），同时保留 49、52 等 active 操作。
+  上面的示例匹配默认 active 权限位图：它排除了已禁用的操作 51（`ShieldedTransferContract`），
+  同时保留 49、52 等 active 操作。
 - `witness_permission` 仅对超级代表账户有意义。

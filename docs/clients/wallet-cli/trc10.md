@@ -13,7 +13,7 @@ REPL 的构建交易命令用可选的首参 `[OwnerAddress]` 支持多签；标
 === "标准 CLI"
 
     ```bash
-    java -jar build/libs/wallet-cli.jar --network nile asset-issue \
+    java -jar java/build/libs/wallet-cli.jar --network nile asset-issue \
       --name MyToken --abbr MTK --total-supply 1000000000 \
       --trx-num 1 --ico-num 100 --precision 6 \
       --start-time 1700000000000 --end-time 1701000000000 \
@@ -43,7 +43,7 @@ REPL 的构建交易命令用可选的首参 `[OwnerAddress]` 支持多签；标
 === "标准 CLI"
 
     ```bash
-    java -jar build/libs/wallet-cli.jar --network nile update-asset \
+    java -jar java/build/libs/wallet-cli.jar --network nile update-asset \
       --description "Updated" --url https://example.com \
       --new-limit 0 --new-public-limit 0
     ```
@@ -64,7 +64,7 @@ REPL 的构建交易命令用可选的首参 `[OwnerAddress]` 支持多签；标
 === "标准 CLI"
 
     ```bash
-    java -jar build/libs/wallet-cli.jar --network nile participate-asset-issue \
+    java -jar java/build/libs/wallet-cli.jar --network nile participate-asset-issue \
       --to TIssuer... --asset 1000001 --amount 1000000
     ```
 
@@ -88,7 +88,7 @@ TRC-10 转账使用 `transfer-asset` / `TransferAsset`。见
 === "标准 CLI"
 
     ```bash
-    java -jar build/libs/wallet-cli.jar --network nile unfreeze-asset
+    java -jar java/build/libs/wallet-cli.jar --network nile unfreeze-asset
     ```
 
     - `--owner`、`--multi`（可选）。
@@ -106,7 +106,7 @@ TRC-10 转账使用 `transfer-asset` / `TransferAsset`。见
 === "标准 CLI"
 
     ```bash
-    java -jar build/libs/wallet-cli.jar --network nile get-asset-issue-by-account --address TXyz...
+    java -jar java/build/libs/wallet-cli.jar --network nile get-asset-issue-by-account --address TXyz...
     ```
 
     - `--address`（必填）。
@@ -122,7 +122,7 @@ TRC-10 转账使用 `transfer-asset` / `TransferAsset`。见
 === "标准 CLI"
 
     ```bash
-    java -jar build/libs/wallet-cli.jar --network nile get-asset-issue-by-id --id 1000001
+    java -jar java/build/libs/wallet-cli.jar --network nile get-asset-issue-by-id --id 1000001
     ```
 
     - `--id`（必填）。
@@ -138,7 +138,7 @@ TRC-10 转账使用 `transfer-asset` / `TransferAsset`。见
 === "标准 CLI"
 
     ```bash
-    java -jar build/libs/wallet-cli.jar --network nile get-asset-issue-by-name --name MyToken
+    java -jar java/build/libs/wallet-cli.jar --network nile get-asset-issue-by-name --name MyToken
     ```
 
     - `--name`（必填）。
@@ -156,7 +156,7 @@ TRC-10 转账使用 `transfer-asset` / `TransferAsset`。见
 === "标准 CLI"
 
     ```bash
-    java -jar build/libs/wallet-cli.jar --network nile get-asset-issue-list-by-name --name MyToken
+    java -jar java/build/libs/wallet-cli.jar --network nile get-asset-issue-list-by-name --name MyToken
     ```
 
     - `--name`（必填）。
@@ -172,7 +172,7 @@ TRC-10 转账使用 `transfer-asset` / `TransferAsset`。见
 === "标准 CLI"
 
     ```bash
-    java -jar build/libs/wallet-cli.jar --network nile list-asset-issue
+    java -jar java/build/libs/wallet-cli.jar --network nile list-asset-issue
     ```
 
 === "交互模式"
@@ -186,7 +186,7 @@ TRC-10 转账使用 `transfer-asset` / `TransferAsset`。见
 === "标准 CLI"
 
     ```bash
-    java -jar build/libs/wallet-cli.jar --network nile list-asset-issue-paginated \
+    java -jar java/build/libs/wallet-cli.jar --network nile list-asset-issue-paginated \
       --offset 0 --limit 20
     ```
 
