@@ -54,6 +54,11 @@ curl -X POST https://nile.trongrid.io/jsonrpc \
 }
 ```
 
+`eth_call` 通过节点的 constant call 路径执行，并受
+[`vm.constantCallTimeoutMs`](../../../using_javatron/configuration.md#tvm-and-constant-call-configuration)
+限制。默认值 `0` 使用网络的 `MAX_CPU_TIME_OF_ONE_TX` 限制；正值则设置
+仅适用于 constant call 的执行时限，单位为毫秒。
+
 ### 异常响应
 
 | 触发条件 | 错误码 | message |

@@ -126,10 +126,10 @@
 
        * **方式二：通过链上提案修改 (适用于运行中的网络)**
         
-        这是链上治理的标准方式，任何 超级代表（SR）、SR Partner、SR Candidate 都有权创建提案，但只有 SR 有权投票批准。
+        这是链上治理的标准方式。任何超级代表（SR）、超级代表合伙人（SR Partner）或超级代表候选人（SR Candidate）都可以创建提案或对提案表示赞成，但只有当前活跃 SR 的赞成才计入提案通过阈值。
 
          - 创建提案：SR 使用 [proposalcreate](../api/http/witness-and-governance/proposalcreate.md) API，通过参数序号指定要修改的参数及其新值（参数序号列表)。
-         - 批准提案：SR 使用 [proposalapprove](../api/http/witness-and-governance/proposalapprove.md) API 对提案进行投票（仅支持投赞成票，SR 不投票意味着不同意该提案）。
+         - 赞成提案：SR 使用 [proposalapprove](../api/http/witness-and-governance/proposalapprove.md) API 赞成提案或取消赞成。判断提案是否达到通过阈值时，只统计当前活跃 SR 的有效赞成；未赞成或已取消赞成不会增加赞成数量。
          - 相关接口：
               - 获取所有提案：[listproposals](../api/http/witness-and-governance/listproposals.md)
               - 根据 ID 获取提案：[getproposalbyid](../api/http/witness-and-governance/getproposalbyid.md)
@@ -172,6 +172,6 @@
       
       提案投票通过并在维护期结束后，新的网络参数将会生效。您可以通过 [listproposals](../api/http/witness-and-governance/listproposals.md) 或 [getchainparameters](../api/http/witness-and-governance/getchainparameters.md) 来验证变更。
   
-      需要注意的是，具有相互依赖关系的网络参数不能包含在同一个提案中，正确的方法是将它们分成不同的提案，并注意它们的顺序。
+      需要注意的是，具有相互依赖关系的网络参数不能包含在同一个提案中，正确的方法是将它们分成不同的提案，并注意它们的顺序。例如，应先激活 `ALLOW_TVM_SHANGHAI`，再发起启用 95 号参数（`ALLOW_TVM_PRAGUE`）的提案。
      
      

@@ -152,6 +152,37 @@ storage {
 
 不要将管理类接口或交易构造接口直接暴露给不受信任的网络。应通过主机或网络控制限制访问，并在需要时将公共服务置于配置适当的网关之后。有关各协议的具体行为，请参阅 [HTTP API](../api/http/index.md) 和 [JSON-RPC API](../api/json-rpc/index.md) 指南。
 
+## TVM 与 constant call 配置 { #tvm-and-constant-call-configuration }
+
+TVM 模拟和 Energy 估算行为通过 `vm` 配置：
+
+| 配置路径 | 默认值 | 用途 |
+|---|---:|---|
+| `vm.supportConstant` | `false` | 启用只读的 constant call。 |
+| `vm.maxEnergyLimitForConstant` | `100000000` | 单次 constant call 可用的最大 Energy。配置绑定期间，小于 3,000,000 的值会提高到该下限。 |
+| `vm.estimateEnergy` | `false` | 启用专用的 `estimateenergy` 实现。 |
+| `vm.estimateEnergyMaxRetry` | `3` | Energy 估算期间的最大重试次数；取值会被限制在 0–10 范围内。 |
+| `vm.constantCallTimeoutMs` | `0` | 通过 constant call 路径执行的调用可使用的执行时限，单位为毫秒。 |
+| `vm.vmTrace` | `false` | 启用 TVM trace 输出。 |
+
+`vm.constantCallTimeoutMs = 0` 保留原有行为，即 constant call 使用网络的
+`MAX_CPU_TIME_OF_ONE_TX` 限制。正值设置仅适用于 constant call 的执行时限，
+单位为毫秒。负值或因数值过大而无法安全转换为 VM 微秒级执行时限的值会导致
+配置加载失败。debug 模式和独立 SolidityNode 不会执行该时限检查；发送到
+FullNode `/walletsolidity` 接口的 constant call 仍受该时限限制。
+
+该配置适用于通过 HTTP、gRPC 和 JSON-RPC 执行的 constant call，包括
+[`/wallet/triggerconstantcontract`](../api/http/smart-contract/triggerconstantcontract.md)、
+ABI `view`/`pure` 函数被分派到 constant call 路径时的
+[`/wallet/triggersmartcontract`](../api/http/smart-contract/triggersmartcontract.md)、
+[`/wallet/estimateenergy`](../api/http/smart-contract/estimateenergy.md)、
+[`eth_call`](../api/json-rpc/smart-contract/eth_call.md) 和
+[`eth_estimateGas`](../api/json-rpc/smart-contract/eth_estimateGas.md)。
+
+对于生产节点，当复杂的只读调用需要更长执行时间时，可使用
+`vm.constantCallTimeoutMs`。修改这些 `vm` 配置需要重启进程；动态配置重载不会
+应用这些变更。
+
 ## 限流
 
 API 限制在 `rate.limiter` 下配置：

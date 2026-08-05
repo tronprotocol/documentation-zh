@@ -59,6 +59,10 @@ curl --request POST \
 
 未开启 `vm.estimateEnergy=true` 时调用走 `ContractValidateException` 分支（见下文）：`result.code = CONTRACT_VALIDATE_ERROR`，`result.message` 为 `this node does not support estimate energy`。
 
+Energy 估算通过 constant call 路径执行，并受
+[`vm.constantCallTimeoutMs`](../../../using_javatron/configuration.md#tvm-and-constant-call-configuration)
+限制。
+
 ### 异常响应
 
 请求进入 servlet 后不会写出 `{"Error": ...}`。由 servlet 接管的异常会被 catch 后写入 `result.code`、`result.message`，HTTP 体仍是 `EstimateEnergyMessage`。
@@ -68,7 +72,7 @@ curl --request POST \
 | 触发条件 | `result.result` | `result.code` | `result.message` |
 |---|---|---|---|
 | 节点未开启 `vm.estimateEnergy` | false | `CONTRACT_VALIDATE_ERROR` | `this node does not support estimate energy` |
-| 节点关闭 constant-call 支持 | false | `CONTRACT_VALIDATE_ERROR` | `this node does not support constant, so estimate energy cannot work` |
+| 节点关闭 constant call 支持 | false | `CONTRACT_VALIDATE_ERROR` | `this node does not support constant, so estimate energy cannot work` |
 | `contract_address` 已设置但合约不存在 | false | `CONTRACT_VALIDATE_ERROR` | `Smart contract is not exist.` |
 | EVM exception / retry 耗尽 / 其他非校验异常 | false | `OTHER_ERROR` | `<exceptionClass> : <message>`（`"` → `'`） |
 
