@@ -52,7 +52,7 @@ curl --request POST \
 | `txid` | string(hex) | 交易哈希 |
 | `constant_result` | repeated bytes(hex) | 仅在被 ABI 识别为 `view` / `pure` 函数时填充（写交易通常无此字段） |
 | `result` | Return | 结果状态 |
-| `energy_used` | int64 | 仅在常量调用路径填充；普通写交易不返回 |
+| `energy_used` | int64 | 仅在 constant call 路径填充；普通写交易不返回 |
 | `energy_penalty` | int64 | 能量惩罚（如有） |
 
 响应示例（Nile 实抓）：
@@ -91,6 +91,11 @@ curl --request POST \
 > `txID` / `ref_block_*` / `expiration` / `timestamp` / `raw_data_hex` 等 ephemeral 字段语义同 [`/wallet/createtransaction`](../tx-build-and-broadcast/createtransaction.md)。写交易路径不会填充 `txid` / `constant_result` / `energy_used`；如需要预演结果改用 [`/wallet/triggerconstantcontract`](triggerconstantcontract.md)。
 
 > 仅做预演（不上链）请用 [`/wallet/triggerconstantcontract`](triggerconstantcontract.md)；仅估算能量请用 [`/wallet/estimateenergy`](estimateenergy.md)。
+
+> 当 ABI 将目标函数标记为 `view` 或 `pure` 时，该接口会被分派到
+> constant call 路径，因此受
+> [`vm.constantCallTimeoutMs`](../../../using_javatron/configuration.md#tvm-and-constant-call-configuration)
+> 限制。
 
 ### 异常响应
 

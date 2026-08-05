@@ -103,6 +103,9 @@ Constant function 是指用 `view`/`pure` 修饰的函数。会在调用的节�
 
 **注意**：与通过 gRPC `deployContract` 创建合约不同，由 `CREATE` 指令创建的合约不会保存合约的 abi。
 
+当 `ALLOW_TVM_OSAKA` 激活时，`CREATE2` 达到最大调用深度会将零压入栈，
+而不会继续尝试创建合约。
+
 #### 内置功能与内置函数属性
 
 1. TVM 兼容 Solidity 语言的转账形式，包括：
@@ -113,7 +116,7 @@ Constant function 是指用 `view`/`pure` 修饰的函数。会在调用的节�
 
     **注意**：TRON 的智能合约与 TRON 的系统合约不同。在 SOLIDITY_059 升级（链参数 `ALLOW_TVM_SOLIDITY_059`，由委员会 [提案 #29](https://tronscan.io/#/proposal/29) 激活）之前，从智能合约向不存在的账户转账会失败；激活之后，TVM 会在转账时自动创建目标账户，与系统合约行为一致。
 
-2. 在合约内为超级节点投票以及提取投票奖励。由链参数 `ALLOW_TVM_VOTE` 启用，由委员会 [提案 #84](https://tronscan.io/#/proposal/84) 在主网激活。提供 `VOTEWITNESS` / `WITHDRAWREWARD` 操作码以及相关的只读预编译合约。
+2. 在合约内为超级节点投票以及提取投票奖励。由链参数 `ALLOW_TVM_VOTE` 启用，由委员会 [提案 #84](https://tronscan.io/#/proposal/84) 在主网激活。提供 `VOTEWITNESS` / `WITHDRAWREWARD` 操作码以及相关的只读预编译合约。执行时，TVM 会根据已激活的链参数选择 `VOTEWITNESS` 的 Energy 计算方式。当 `ALLOW_TVM_OSAKA` 已激活时，使用 `BigInteger` 处理动态数组的偏移、长度和内存边界，以防止 256 位回绕。否则，如果 `ALLOW_ENERGY_ADJUSTMENT` 已激活，则使用 Energy 调整计算方式；两个参数均未激活时，则使用未包含 Energy 调整和 Osaka 溢出保护的原始计算方式。
 
 3. TRC-10 token 操作：向目标地址发送 TRC-10、查询某地址的 TRC-10 余额。由链参数 `ALLOW_TVM_TRANSFER_TRC10` 启用，由委员会 [提案 #15](https://tronscan.io/#/proposal/15) 在主网激活。
 
@@ -183,6 +186,20 @@ function assignAddress() public view {
 #### 区块相关
 
 - `blockhash(uint blockNumber) returns (bytes32)`：指定区块的区块哈希——仅可用于最新的 256 个区块且不包括当前区块。**注意**：`block.blockhash(uint)` 形式在上游 Solidity 0.4.22 中被弃用，并在 0.5.0 中被移除；TRON 的 Solidity fork 自 `tv_0.4.24` 起继承了弃用，自 `tv_0.5.4` 起继承了移除——请改用顶层的 `blockhash(...)`
+
+    如需访问更早的区块哈希，`ALLOW_TVM_PRAGUE` 链参数（ID 95）会在
+    `0x0000F90827F1C53a10cb7A02335B175320002935` 地址部署
+    [TIP-2935](https://github.com/tronprotocol/tips/blob/master/tip-2935.md)
+    区块哈希历史合约。由于该历史合约的字节码使用了 `PUSH0`，因此必须先激活
+    `ALLOW_TVM_SHANGHAI`，才能激活此参数。
+
+    该合约使用包含 8191 个槽位的环形缓冲区存储父区块哈希。对于以 32 字节编码的
+    区块号 `K`，当 `K` 位于 `[block.number - 8191, block.number - 1]`
+    范围内时查询有效；查询未来区块或超出该窗口的区块会导致调用回滚。激活时不会
+    回填更早区块的哈希，因此该缓冲区会在参数生效后逐步填充。
+
+    该合约是对 `BLOCKHASH` 操作码的补充，并不会改变其行为。
+
 - `block.basefee` (uint)：返回链参数中的网络能量费（`getEnergyFee`）；与以太坊基于每个区块的 EIP-1559 base fee 不同，该值只在委员会提案修改时才会变化。自 London 升级（`ALLOW_TVM_LONDON`）起可用，由委员会 [提案 #72](https://tronscan.io/#/proposal/72) 在主网激活
 - `block.coinbase` (address)：产当前区块的超级节点地址
 - `block.difficulty` (uint)：当前区块难度，波场不推荐使用，设置恒为 0

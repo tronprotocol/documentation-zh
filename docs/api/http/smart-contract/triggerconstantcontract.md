@@ -93,7 +93,13 @@ curl --request POST \
 }
 ```
 
-> `txID` / `ref_block_*` / `expiration` / `timestamp` / `raw_data_hex` 等 ephemeral 字段语义同 [`/wallet/createtransaction`](../tx-build-and-broadcast/createtransaction.md)。常量调用本身不上链，`transaction` 字段仅作上下文。
+> `txID` / `ref_block_*` / `expiration` / `timestamp` / `raw_data_hex` 等 ephemeral 字段语义同 [`/wallet/createtransaction`](../tx-build-and-broadcast/createtransaction.md)。constant call 本身不上链，`transaction` 字段仅作上下文。
+
+> **执行超时：** 该接口使用节点的 constant call 执行时限。
+> `vm.constantCallTimeoutMs = 0` 时使用网络的
+> `MAX_CPU_TIME_OF_ONE_TX` 限制；正值则设置仅适用于 constant call 的执行时限，
+> 单位为毫秒。请参阅
+> [TVM 与 constant call 配置](../../../using_javatron/configuration.md#tvm-and-constant-call-configuration)。
 
 ### 异常响应
 
@@ -104,7 +110,7 @@ curl --request POST \
 | 触发条件 | `result.result` | `result.code` | `result.message` | 其他 |
 |---|---|---|---|---|
 | `contract_address` 已设置但合约不存在 | 缺省 (false) | `CONTRACT_VALIDATE_ERROR` | `Smart contract is not exist.` | — |
-| 节点关闭 constant-call 支持 | 缺省 (false) | `CONTRACT_VALIDATE_ERROR` | `this node does not support constant` | — |
+| 节点关闭 constant call 支持 | 缺省 (false) | `CONTRACT_VALIDATE_ERROR` | `this node does not support constant` | — |
 | EVM revert / `require` 失败 | true | 缺省（`SUCCESS`，不出现） | `REVERT opcode executed` | `transaction.ret[0].ret="FAILED"`；`constant_result[0]` 为 `Error(string)` 的 ABI 编码（合约带 reason 时） |
 | EVM 运行时错误（OOG、非法指令等，无 `result.getException()`） | true | 缺省（`SUCCESS`，不出现） | `result.getRuntimeError()` 原始字符串 | 同上 |
 | `result.getException() != null`（如 `OutOfTimeException`） | 缺省 (false) | `OTHER_ERROR` | `<exceptionClass> : <message>`（`"` → `'`） | — |
