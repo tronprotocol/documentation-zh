@@ -17,7 +17,7 @@ TRON 账户质押（冻结）TRX 以获取**带宽**和**能量**，并获得投
 码 `2`（TRON_POWER）对 freeze/unfreeze 命令受网络开关限制：
 `FreezeBalance`/`UnfreezeBalance`（Stake 1.0）、`FreezeBalanceV2`/`UnfreezeBalanceV2`（Stake 2.0）
 以及对应的标准 CLI 命令，只有在链参数 `getAllowNewResourceModel` 启用时才接受它。如果无法获取该链参数，
-4.9.7 客户端会 fail-open，让节点在广播时进行最终校验。代理命令（两种模式）始终只接受 `0` 或 `1`；
+客户端会 fail-open，让节点在广播时进行最终校验。代理命令（两种模式）始终只接受 `0` 或 `1`；
 TRON_POWER 不可代理。
 
 金额以 **SUN** 为单位（1 TRX = 1,000,000 SUN）。
@@ -36,7 +36,7 @@ TRON_POWER 不可代理。
 === "标准 CLI"
 
     ```bash
-    java -jar build/libs/wallet-cli.jar --network nile freeze-balance \
+    java -jar java/build/libs/wallet-cli.jar --network nile freeze-balance \
       --amount 1000000 --duration 3 --resource 1
     ```
 
@@ -59,7 +59,7 @@ TRON_POWER 不可代理。
 === "标准 CLI"
 
     ```bash
-    java -jar build/libs/wallet-cli.jar --network nile unfreeze-balance --resource 1
+    java -jar java/build/libs/wallet-cli.jar --network nile unfreeze-balance --resource 1
     ```
 
     - `--resource`（可选，`0`/`1`/`2`，默认 `0`）。`2` 是 TRON_POWER，仅在
@@ -82,7 +82,7 @@ TRON_POWER 不可代理。
 === "标准 CLI"
 
     ```bash
-    java -jar build/libs/wallet-cli.jar --network nile freeze-balance-v2 \
+    java -jar java/build/libs/wallet-cli.jar --network nile freeze-balance-v2 \
       --amount 1000000 --resource 1
     ```
 
@@ -104,7 +104,7 @@ TRON_POWER 不可代理。
 === "标准 CLI"
 
     ```bash
-    java -jar build/libs/wallet-cli.jar --network nile unfreeze-balance-v2 \
+    java -jar java/build/libs/wallet-cli.jar --network nile unfreeze-balance-v2 \
       --amount 1000000 --resource 1
     ```
 
@@ -126,7 +126,7 @@ TRON_POWER 不可代理。
 === "标准 CLI"
 
     ```bash
-    java -jar build/libs/wallet-cli.jar --network nile withdraw-expire-unfreeze
+    java -jar java/build/libs/wallet-cli.jar --network nile withdraw-expire-unfreeze
     ```
 
     - `--owner`、`--multi`（可选）。
@@ -144,7 +144,7 @@ TRON_POWER 不可代理。
 === "标准 CLI"
 
     ```bash
-    java -jar build/libs/wallet-cli.jar --network nile cancel-all-unfreeze-v2
+    java -jar java/build/libs/wallet-cli.jar --network nile cancel-all-unfreeze-v2
     ```
 
     - `--owner`、`--multi`（可选）。
@@ -164,7 +164,7 @@ TRON_POWER 不可代理。
 === "标准 CLI"
 
     ```bash
-    java -jar build/libs/wallet-cli.jar --network nile delegate-resource \
+    java -jar java/build/libs/wallet-cli.jar --network nile delegate-resource \
       --amount 1000000 --resource 1 --receiver TXyz... --lock --lock-period 86400
     ```
 
@@ -187,7 +187,7 @@ TRON_POWER 不可代理。
 === "标准 CLI"
 
     ```bash
-    java -jar build/libs/wallet-cli.jar --network nile undelegate-resource \
+    java -jar java/build/libs/wallet-cli.jar --network nile undelegate-resource \
       --amount 1000000 --resource 1 --receiver TXyz...
     ```
 
@@ -207,7 +207,7 @@ TRON_POWER 不可代理。
 === "标准 CLI"
 
     ```bash
-    java -jar build/libs/wallet-cli.jar --network nile get-account-net --address TXyz...
+    java -jar java/build/libs/wallet-cli.jar --network nile get-account-net --address TXyz...
     ```
 
     - `--address`（必填）。
@@ -223,7 +223,7 @@ TRON_POWER 不可代理。
 === "标准 CLI"
 
     ```bash
-    java -jar build/libs/wallet-cli.jar --network nile get-account-resource --address TXyz...
+    java -jar java/build/libs/wallet-cli.jar --network nile get-account-resource --address TXyz...
     ```
 
     - `--address`（必填）。
@@ -239,9 +239,9 @@ TRON_POWER 不可代理。
 === "标准 CLI"
 
     ```bash
-    java -jar build/libs/wallet-cli.jar --network nile get-delegated-resource \
+    java -jar java/build/libs/wallet-cli.jar --network nile get-delegated-resource \
       --from TFrom... --to TTo...
-    java -jar build/libs/wallet-cli.jar --network nile get-delegated-resource-v2 \
+    java -jar java/build/libs/wallet-cli.jar --network nile get-delegated-resource-v2 \
       --from TFrom... --to TTo...
     ```
 
@@ -259,9 +259,9 @@ TRON_POWER 不可代理。
 === "标准 CLI"
 
     ```bash
-    java -jar build/libs/wallet-cli.jar --network nile \
+    java -jar java/build/libs/wallet-cli.jar --network nile \
       get-delegated-resource-account-index --address TXyz...
-    java -jar build/libs/wallet-cli.jar --network nile \
+    java -jar java/build/libs/wallet-cli.jar --network nile \
       get-delegated-resource-account-index-v2 --address TXyz...
     ```
 
@@ -279,7 +279,7 @@ TRON_POWER 不可代理。
 === "标准 CLI"
 
     ```bash
-    java -jar build/libs/wallet-cli.jar --network nile get-can-delegated-max-size \
+    java -jar java/build/libs/wallet-cli.jar --network nile get-can-delegated-max-size \
       --owner TXyz... --type 1
     ```
 
@@ -298,7 +298,7 @@ TRON_POWER 不可代理。
 === "标准 CLI"
 
     ```bash
-    java -jar build/libs/wallet-cli.jar --network nile get-available-unfreeze-count --address TXyz...
+    java -jar java/build/libs/wallet-cli.jar --network nile get-available-unfreeze-count --address TXyz...
     ```
 
     - `--address`（必填）。
@@ -314,7 +314,7 @@ TRON_POWER 不可代理。
 === "标准 CLI"
 
     ```bash
-    java -jar build/libs/wallet-cli.jar --network nile get-can-withdraw-unfreeze-amount \
+    java -jar java/build/libs/wallet-cli.jar --network nile get-can-withdraw-unfreeze-amount \
       --address TXyz... --timestamp 1700000000000
     ```
 

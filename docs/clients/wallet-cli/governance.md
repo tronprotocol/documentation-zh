@@ -14,7 +14,7 @@ TRON 治理：注册和更新见证人（超级代表候选人）、投票、管
 === "标准 CLI"
 
     ```bash
-    java -jar build/libs/wallet-cli.jar --network nile create-witness --url https://my-sr.example
+    java -jar java/build/libs/wallet-cli.jar --network nile create-witness --url https://my-sr.example
     ```
 
     - `--url`（必填）。`--owner`、`--multi`（可选）。
@@ -32,7 +32,7 @@ TRON 治理：注册和更新见证人（超级代表候选人）、投票、管
 === "标准 CLI"
 
     ```bash
-    java -jar build/libs/wallet-cli.jar --network nile update-witness --url https://my-sr.example
+    java -jar java/build/libs/wallet-cli.jar --network nile update-witness --url https://my-sr.example
     ```
 
     - `--url`（必填）。`--owner`、`--multi`（可选）。
@@ -48,7 +48,7 @@ TRON 治理：注册和更新见证人（超级代表候选人）、投票、管
 === "标准 CLI"
 
     ```bash
-    java -jar build/libs/wallet-cli.jar --network nile list-witnesses
+    java -jar java/build/libs/wallet-cli.jar --network nile list-witnesses
     ```
 
 === "交互模式"
@@ -72,7 +72,7 @@ GetPaginatedNowWitnessList offset limit
 === "标准 CLI"
 
     ```bash
-    java -jar build/libs/wallet-cli.jar --network nile vote-witness \
+    java -jar java/build/libs/wallet-cli.jar --network nile vote-witness \
       --votes "TWitnessA... 100 TWitnessB... 50"
     ```
 
@@ -94,7 +94,7 @@ GetPaginatedNowWitnessList offset limit
 === "标准 CLI"
 
     ```bash
-    java -jar build/libs/wallet-cli.jar --network nile withdraw-balance
+    java -jar java/build/libs/wallet-cli.jar --network nile withdraw-balance
     ```
 
     - `--owner`、`--multi`（可选）。
@@ -112,7 +112,7 @@ GetPaginatedNowWitnessList offset limit
 === "标准 CLI"
 
     ```bash
-    java -jar build/libs/wallet-cli.jar --network nile get-reward --address TXyz...
+    java -jar java/build/libs/wallet-cli.jar --network nile get-reward --address TXyz...
     ```
 
     - `--address`（必填）。无需鉴权。
@@ -130,7 +130,7 @@ GetPaginatedNowWitnessList offset limit
 === "标准 CLI"
 
     ```bash
-    java -jar build/libs/wallet-cli.jar --network nile get-brokerage --address TWitness...
+    java -jar java/build/libs/wallet-cli.jar --network nile get-brokerage --address TWitness...
     ```
 
     - `--address`（必填）。无需鉴权。
@@ -148,7 +148,7 @@ GetPaginatedNowWitnessList offset limit
 === "标准 CLI"
 
     ```bash
-    java -jar build/libs/wallet-cli.jar --network nile update-brokerage --brokerage 20
+    java -jar java/build/libs/wallet-cli.jar --network nile update-brokerage --brokerage 20
     ```
 
     - `--brokerage`（必填，0–100）。`--owner`、`--multi`（可选）。
@@ -171,7 +171,7 @@ GetPaginatedNowWitnessList offset limit
 === "标准 CLI"
 
     ```bash
-    java -jar build/libs/wallet-cli.jar --network nile create-proposal \
+    java -jar java/build/libs/wallet-cli.jar --network nile create-proposal \
       --parameters "9 1 18 1"
     ```
 
@@ -189,7 +189,7 @@ GetPaginatedNowWitnessList offset limit
 === "标准 CLI"
 
     ```bash
-    java -jar build/libs/wallet-cli.jar --network nile approve-proposal --id 42 --approve true
+    java -jar java/build/libs/wallet-cli.jar --network nile approve-proposal --id 42 --approve true
     ```
 
     - `--id`（必填）、`--approve`（必填，`true` 表示添加批准 / `false` 表示撤回批准）。
@@ -210,7 +210,7 @@ GetPaginatedNowWitnessList offset limit
 === "标准 CLI"
 
     ```bash
-    java -jar build/libs/wallet-cli.jar --network nile delete-proposal --id 42
+    java -jar java/build/libs/wallet-cli.jar --network nile delete-proposal --id 42
     ```
 
     - `--id`（必填）。`--owner`、`--multi`（可选）。
@@ -226,7 +226,7 @@ GetPaginatedNowWitnessList offset limit
 === "标准 CLI"
 
     ```bash
-    java -jar build/libs/wallet-cli.jar --network nile list-proposals
+    java -jar java/build/libs/wallet-cli.jar --network nile list-proposals
     ```
 
 === "交互模式"
@@ -240,7 +240,7 @@ GetPaginatedNowWitnessList offset limit
 === "标准 CLI"
 
     ```bash
-    java -jar build/libs/wallet-cli.jar --network nile list-proposals-paginated --offset 0 --limit 20
+    java -jar java/build/libs/wallet-cli.jar --network nile list-proposals-paginated --offset 0 --limit 20
     ```
 
     - `--offset`（必填）、`--limit`（必填）。
@@ -256,7 +256,7 @@ GetPaginatedNowWitnessList offset limit
 === "标准 CLI"
 
     ```bash
-    java -jar build/libs/wallet-cli.jar --network nile get-proposal --id 42
+    java -jar java/build/libs/wallet-cli.jar --network nile get-proposal --id 42
     ```
 
     - `--id`（必填）。

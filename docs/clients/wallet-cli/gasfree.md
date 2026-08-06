@@ -14,7 +14,7 @@ nonce/余额等细节。
 === "标准 CLI"
 
     ```bash
-    java -jar build/libs/wallet-cli.jar --network nile gas-free-info --address TXyz...
+    java -jar java/build/libs/wallet-cli.jar --network nile gas-free-info --address TXyz...
     ```
 
     - `--address`（可选）—— 默认为当前钱包的地址。提供 `--address` 时无需鉴权；省略时使用当前钱包，
@@ -36,7 +36,7 @@ JSON 模式下，响应的 `data` 包含所提交请求的 `gas_free_id`。
 === "标准 CLI"
 
     ```bash
-    java -jar build/libs/wallet-cli.jar --network nile gas-free-transfer \
+    java -jar java/build/libs/wallet-cli.jar --network nile gas-free-transfer \
       --to TXyz... --amount 1000000
     ```
 
@@ -55,7 +55,7 @@ JSON 模式下，响应的 `data` 包含所提交请求的 `gas_free_id`。
 === "标准 CLI"
 
     ```bash
-    java -jar build/libs/wallet-cli.jar --network nile gas-free-trace --id <traceId>
+    java -jar java/build/libs/wallet-cli.jar --network nile gas-free-trace --id <traceId>
     ```
 
     - `--id`（必填）。无需鉴权。
