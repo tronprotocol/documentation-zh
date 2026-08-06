@@ -87,10 +87,16 @@ wallet-cli change-password
 `import mnemonic`、`import private-key` 和 `change-password` 只能交互执行。它们要求使用真实终端，
 并通过隐藏提示读取 secret，不提供非交互式 stdin 替代方式。
 
+以非交互方式使用 `derive`、`backup` 和 `tx sign` 等命令时，通过 `--password-stdin` 传入 master
+password。使用 Ledger 账户签名时，不要通过管道传入密码，也不要传入 `--password-stdin`。下方
+`derive` 示例展示了完整的非交互式写法。为了保持后续示例简洁，其中可能省略密码输入管道和
+`--password-stdin`。
+
 派生 HD 子账户时，需要传入 `wallet-cli list` 显示的 HD seed id。
 
 ```bash
-wallet-cli derive --seed-id wlt_ab12cd34 --label operations
+printf '%s\n' "$WALLET_PASSWORD" |
+  wallet-cli derive --seed-id wlt_ab12cd34 --label operations --password-stdin
 ```
 
 删除根 HD 钱包会级联删除从该根派生出的账户，并清理孤立标签。在非交互式 shell 中需要传入 `--yes`；
@@ -284,13 +290,3 @@ wallet-cli tx send --json-schema
 
 `--timeout 0` 或不受支持的 `--output` 值等无效全局选项会返回 `invalid_value`，而不是静默退回
 默认值。
-
-非交互式鉴权时，只能通过 `--password-stdin` 管道传入 master password：
-
-```bash
-printf '%s\n' "$WALLET_PASSWORD" | wallet-cli message sign --message 'hello' --password-stdin --output json
-wallet-cli tx broadcast --tx-stdin < signed.json
-```
-
-密码示例假设 shell 变量通过安全方式注入且没有 export。每次调用只能有一个 `*-stdin` 标志消费
-stdin。`import mnemonic`、`import private-key` 和 `change-password` 必须在 TTY 中交互执行。
