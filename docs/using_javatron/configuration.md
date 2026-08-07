@@ -173,11 +173,26 @@ P2P 消息限制独立配置在 `rate.limiter.p2p` 下。
 
 应将配置文件和 keystore 文件的访问权限限制为节点的操作系统用户，不要将密钥提交到源码仓库，也不要在测试环境中重复使用生产私钥。有关说明，请参阅[启动出块节点](installing_javatron.md#starting-a-block-production-node)和[使用 keystore 指定私钥](installing_javatron.md#keystore-password)。
 
-## 事件订阅与监控
+## 事件订阅与监控 { #event-subscription-and-monitoring }
 
 事件投递由 `event.subscribe` 控制。其配置用于选择原生队列或事件插件、插件路径或目标服务器，以及启用的触发器主题。完整配置请参阅[事件订阅](../architecture/event.md)。
 
-Prometheus 监控配置位于 `node.metrics.prometheus` 下，包括启用开关和监听端口。采集和仪表板说明请参阅[节点监控](metrics.md)。
+Prometheus 监控通过 `node.metrics.prometheus` 配置。该功能默认关闭，启用后监听 `9527` 端口：
+
+```hocon
+node.metrics {
+  prometheus {
+    enable = true
+    port = 9527
+  }
+}
+```
+
+已弃用的 `node.metricsEnable` 配置项独立于 Prometheus 开关。它用于启用旧版 Dropwizard 指标采集，并注册 gRPC `Monitor` 服务（`GetStatsInfo`）。
+
+从 GreatVoyage-v4.8.2 开始，不再支持 InfluxDB reporter。`node.metrics.storageEnable` 和整个 `node.metrics.influxdb` 配置块不再使用，可以从配置文件中删除。
+
+有关指标说明、采集、PromQL 示例和仪表板配置，请参阅[节点监控](metrics.md)。
 
 ## 动态配置重载
 

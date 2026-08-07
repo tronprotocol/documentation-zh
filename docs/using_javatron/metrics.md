@@ -15,6 +15,10 @@ node.metrics = {
 }
 ```
 
+Prometheus 监控默认关闭，启用后监听 `9527` 端口。
+
+有关 Prometheus 和旧版监控配置的详细说明，请参阅[事件订阅与监控](configuration.md#event-subscription-and-monitoring)。
+
 ## 启动 java-tron 节点
 
 完成配置后，请参考[启动 java-tron 节点](installing_javatron.md#starting-a-java-tron-node)一节启动节点。
@@ -129,6 +133,3 @@ Grafana 可视化工具的部署流程如下：
     ![image](https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/metrics_import.png)
     
     随后 Grafana 将根据导入的 JSON 文件渲染出对应的仪表盘，您可以实时监控节点的运行情况。
-
-
-
