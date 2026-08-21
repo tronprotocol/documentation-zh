@@ -7698,22 +7698,6 @@
       
         
       
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
     
     
       
@@ -7753,6 +7737,88 @@
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8_1_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_8_1_2" id="__nav_8_1_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Java CLI
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_8_1_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8_1_2">
+            <span class="md-nav__icon md-icon"></span>
+            Java CLI
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../clients/wallet-cli/java-cli/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    概览
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
               
             
               
@@ -7953,6 +8019,58 @@
 
               
             
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8_1_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_8_1_3" id="__nav_8_1_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    TypeScript / npm CLI
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_8_1_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8_1_3">
+            <span class="md-nav__icon md-icon"></span>
+            TypeScript / npm CLI
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
               
                 
   
@@ -7964,12 +8082,42 @@
         
   
   <span class="md-ellipsis">
-    TypeScript / npm CLI
+    概览
     
   </span>
   
 
       </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../clients/wallet-cli/typescript-cli-signing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    签名与安全
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -9206,6 +9354,8 @@ Constant function 是指用 <code>view</code>/<code>pure</code> 修饰的函数�
 <h4 id="create">CREATE 指令<a class="headerlink" href="#create" title="Permanent link">&para;</a></h4>
 <p>该指令会创建一个新的合约并生成一个新的地址。与以太坊的主要区别在于：TRON 新合约地址的推导方式为 <code>sha3omit12(rootTransactionId || nonce)</code>——即把根交易 id 与 8 字节的 nonce 拼接后再做哈希（nonce 本身<strong>不</strong>预先哈希）；最终的 21 字节地址首字节为 <code>0x41</code> TRON 地址前缀。与以太坊不同（以太坊中 nonce 是发起账户的交易 nonce），TRON 这里的 <code>nonce</code> 是每个根交易范围内的计数器，每次内部动作（internal call、transfer、<code>CREATE</code>、suicide 等）都会自增，不只是在 <code>CREATE</code> 时才增。具体实现见 <code>TransactionUtil.generateContractAddress(byte[], long)</code>。</p>
 <p><strong>注意</strong>：与通过 gRPC <code>deployContract</code> 创建合约不同，由 <code>CREATE</code> 指令创建的合约不会保存合约的 abi。</p>
+<p>当 <code>ALLOW_TVM_OSAKA</code> 激活时，<code>CREATE2</code> 达到最大调用深度会将零压入栈，
+而不会继续尝试创建合约。</p>
 <h4 id="_6">内置功能与内置函数属性<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h4>
 <ol>
 <li>
@@ -9218,7 +9368,7 @@ Constant function 是指用 <code>view</code>/<code>pure</code> 修饰的函数�
 <p><strong>注意</strong>：TRON 的智能合约与 TRON 的系统合约不同。在 SOLIDITY_059 升级（链参数 <code>ALLOW_TVM_SOLIDITY_059</code>，由委员会 <a href="https://tronscan.io/#/proposal/29">提案 #29</a> 激活）之前，从智能合约向不存在的账户转账会失败；激活之后，TVM 会在转账时自动创建目标账户，与系统合约行为一致。</p>
 </li>
 <li>
-<p>在合约内为超级节点投票以及提取投票奖励。由链参数 <code>ALLOW_TVM_VOTE</code> 启用，由委员会 <a href="https://tronscan.io/#/proposal/84">提案 #84</a> 在主网激活。提供 <code>VOTEWITNESS</code> / <code>WITHDRAWREWARD</code> 操作码以及相关的只读预编译合约。</p>
+<p>在合约内为超级节点投票以及提取投票奖励。由链参数 <code>ALLOW_TVM_VOTE</code> 启用，由委员会 <a href="https://tronscan.io/#/proposal/84">提案 #84</a> 在主网激活。提供 <code>VOTEWITNESS</code> / <code>WITHDRAWREWARD</code> 操作码以及相关的只读预编译合约。执行时，TVM 会根据已激活的链参数选择 <code>VOTEWITNESS</code> 的 Energy 计算方式。当 <code>ALLOW_TVM_OSAKA</code> 已激活时，使用 <code>BigInteger</code> 处理动态数组的偏移、长度和内存边界，以防止 256 位回绕。否则，如果 <code>ALLOW_ENERGY_ADJUSTMENT</code> 已激活，则使用 Energy 调整计算方式；两个参数均未激活时，则使用未包含 Energy 调整和 Osaka 溢出保护的原始计算方式。</p>
 </li>
 <li>
 <p>TRC-10 token 操作：向目标地址发送 TRC-10、查询某地址的 TRC-10 余额。由链参数 <code>ALLOW_TVM_TRANSFER_TRC10</code> 启用，由委员会 <a href="https://tronscan.io/#/proposal/15">提案 #15</a> 在主网激活。</p>
@@ -9271,8 +9421,22 @@ Constant function 是指用 <code>view</code>/<code>pure</code> 修饰的函数�
 我们推荐使用 tron-studio 代替 remix 进行 TRON 智能合约的编写。</p>
 <h4 id="_12">区块相关<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h4>
 <ul>
-<li><code>blockhash(uint blockNumber) returns (bytes32)</code>：指定区块的区块哈希——仅可用于最新的 256 个区块且不包括当前区块。<strong>注意</strong>：<code>block.blockhash(uint)</code> 形式在上游 Solidity 0.4.22 中被弃用，并在 0.5.0 中被移除；TRON 的 Solidity fork 自 <code>tv_0.4.24</code> 起继承了弃用，自 <code>tv_0.5.4</code> 起继承了移除——请改用顶层的 <code>blockhash(...)</code></li>
-<li><code>block.basefee</code> (uint)：返回链参数中的网络能量费（<code>getEnergyFee</code>）；与以太坊基于每个区块的 EIP-1559 base fee 不同，该值只在委员会提案修改时才会变化。自 London 升级（<code>ALLOW_TVM_LONDON</code>）起可用，由委员会 <a href="https://tronscan.io/#/proposal/72">提案 #72</a> 在主网激活</li>
+<li>
+<p><code>blockhash(uint blockNumber) returns (bytes32)</code>：指定区块的区块哈希——仅可用于最新的 256 个区块且不包括当前区块。<strong>注意</strong>：<code>block.blockhash(uint)</code> 形式在上游 Solidity 0.4.22 中被弃用，并在 0.5.0 中被移除；TRON 的 Solidity fork 自 <code>tv_0.4.24</code> 起继承了弃用，自 <code>tv_0.5.4</code> 起继承了移除——请改用顶层的 <code>blockhash(...)</code></p>
+<p>如需访问更早的区块哈希，<code>ALLOW_TVM_PRAGUE</code> 链参数（ID 95）会在
+<code>0x0000F90827F1C53a10cb7A02335B175320002935</code> 地址部署
+<a href="https://github.com/tronprotocol/tips/blob/master/tip-2935.md">TIP-2935</a>
+区块哈希历史合约。由于该历史合约的字节码使用了 <code>PUSH0</code>，因此必须先激活
+<code>ALLOW_TVM_SHANGHAI</code>，才能激活此参数。</p>
+<p>该合约使用包含 8191 个槽位的环形缓冲区存储父区块哈希。对于以 32 字节编码的
+区块号 <code>K</code>，当 <code>K</code> 位于 <code>[block.number - 8191, block.number - 1]</code>
+范围内时查询有效；查询未来区块或超出该窗口的区块会导致调用回滚。激活时不会
+回填更早区块的哈希，因此该缓冲区会在参数生效后逐步填充。</p>
+<p>该合约是对 <code>BLOCKHASH</code> 操作码的补充，并不会改变其行为。</p>
+</li>
+<li>
+<p><code>block.basefee</code> (uint)：返回链参数中的网络能量费（<code>getEnergyFee</code>）；与以太坊基于每个区块的 EIP-1559 base fee 不同，该值只在委员会提案修改时才会变化。自 London 升级（<code>ALLOW_TVM_LONDON</code>）起可用，由委员会 <a href="https://tronscan.io/#/proposal/72">提案 #72</a> 在主网激活</p>
+</li>
 <li><code>block.coinbase</code> (address)：产当前区块的超级节点地址</li>
 <li><code>block.difficulty</code> (uint)：当前区块难度，波场不推荐使用，设置恒为 0</li>
 <li><code>block.gaslimit</code> (uint)：当前区块 gas 限额，波场暂时不支持使用，暂时设置为 0</li>
@@ -9310,7 +9474,7 @@ Constant function 是指用 <code>view</code>/<code>pure</code> 修饰的函数�
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年6月13日 03:38:23 UTC">2026年6月13日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年8月5日 07:26:05 UTC">2026年8月5日</span>
   </span>
 
     

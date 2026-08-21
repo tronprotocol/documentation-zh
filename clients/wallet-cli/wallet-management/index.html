@@ -11,7 +11,7 @@
         <link rel="canonical" href="https://tronprotocol.github.io/documentation-zh/clients/wallet-cli/wallet-management/">
       
       
-        <link rel="prev" href="../">
+        <link rel="prev" href="../java-cli/">
       
       
         <link rel="next" href="../accounts/">
@@ -7590,22 +7590,6 @@
       
         
       
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
     
     
       
@@ -7645,6 +7629,90 @@
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8_1_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_8_1_2" id="__nav_8_1_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Java CLI
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_8_1_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_8_1_2">
+            <span class="md-nav__icon md-icon"></span>
+            Java CLI
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../java-cli/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    概览
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
               
             
               
@@ -8012,6 +8080,58 @@
 
               
             
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8_1_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_8_1_3" id="__nav_8_1_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    TypeScript / npm CLI
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_8_1_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8_1_3">
+            <span class="md-nav__icon md-icon"></span>
+            TypeScript / npm CLI
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
               
                 
   
@@ -8023,12 +8143,42 @@
         
   
   <span class="md-ellipsis">
-    TypeScript / npm CLI
+    概览
     
   </span>
   
 
       </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../typescript-cli-signing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    签名与安全
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -9255,7 +9405,7 @@
 <div class="tabbed-content">
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">MASTER_PASSWORD</span><span class="o">=</span><span class="s1">&#39;your-wallet-password&#39;</span>
-java<span class="w"> </span>-jar<span class="w"> </span>build/libs/wallet-cli.jar<span class="w"> </span>--network<span class="w"> </span>nile<span class="w"> </span>register-wallet<span class="w"> </span>--name<span class="w"> </span>my-wallet<span class="w"> </span>--words<span class="w"> </span><span class="m">12</span>
+java<span class="w"> </span>-jar<span class="w"> </span>java/build/libs/wallet-cli.jar<span class="w"> </span>--network<span class="w"> </span>nile<span class="w"> </span>register-wallet<span class="w"> </span>--name<span class="w"> </span>my-wallet<span class="w"> </span>--words<span class="w"> </span><span class="m">12</span>
 </code></pre></div>
 <ul>
 <li><code>--name</code>（必填）—— 钱包名称。</li>
@@ -9275,7 +9425,7 @@ java<span class="w"> </span>-jar<span class="w"> </span>build/libs/wallet-cli.ja
 <div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">标准 CLI</label><label for="__tabbed_2_2">交互模式</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code>java<span class="w"> </span>-jar<span class="w"> </span>build/libs/wallet-cli.jar<span class="w"> </span>--network<span class="w"> </span>nile<span class="w"> </span>generate-sub-account<span class="w"> </span>--index<span class="w"> </span><span class="m">1</span><span class="w"> </span>--name<span class="w"> </span>sub-1
+<div class="highlight"><pre><span></span><code>java<span class="w"> </span>-jar<span class="w"> </span>java/build/libs/wallet-cli.jar<span class="w"> </span>--network<span class="w"> </span>nile<span class="w"> </span>generate-sub-account<span class="w"> </span>--index<span class="w"> </span><span class="m">1</span><span class="w"> </span>--name<span class="w"> </span>sub-1
 </code></pre></div>
 <ul>
 <li><code>--index</code>（必填）—— 派生索引。</li>
@@ -9316,14 +9466,14 @@ ImportWalletByLedger         # 从 Ledger 硬件钱包导入账户
 <p>标准 CLI 不进行交互式登录。它作用于<strong>活动钱包</strong>，或用全局选项 <code>--wallet &lt;name|path&gt;</code>
 在每条命令上单独选择钱包。</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># 列出钱包及其活动状态</span>
-java<span class="w"> </span>-jar<span class="w"> </span>build/libs/wallet-cli.jar<span class="w"> </span>list-wallet
+java<span class="w"> </span>-jar<span class="w"> </span>java/build/libs/wallet-cli.jar<span class="w"> </span>list-wallet
 
 <span class="c1"># 按地址或名称设置活动钱包</span>
-java<span class="w"> </span>-jar<span class="w"> </span>build/libs/wallet-cli.jar<span class="w"> </span>set-active-wallet<span class="w"> </span>--address<span class="w"> </span>TXyz...
-java<span class="w"> </span>-jar<span class="w"> </span>build/libs/wallet-cli.jar<span class="w"> </span>set-active-wallet<span class="w"> </span>--name<span class="w"> </span>my-wallet
+java<span class="w"> </span>-jar<span class="w"> </span>java/build/libs/wallet-cli.jar<span class="w"> </span>set-active-wallet<span class="w"> </span>--address<span class="w"> </span>TXyz...
+java<span class="w"> </span>-jar<span class="w"> </span>java/build/libs/wallet-cli.jar<span class="w"> </span>set-active-wallet<span class="w"> </span>--name<span class="w"> </span>my-wallet
 
 <span class="c1"># 显示当前活动钱包</span>
-java<span class="w"> </span>-jar<span class="w"> </span>build/libs/wallet-cli.jar<span class="w"> </span>get-active-wallet
+java<span class="w"> </span>-jar<span class="w"> </span>java/build/libs/wallet-cli.jar<span class="w"> </span>get-active-wallet
 </code></pre></div>
 <ul>
 <li><code>set-active-wallet</code> 接受 <code>--address</code> 或 <code>--name</code>（提供其一）。</li>
@@ -9361,7 +9511,7 @@ ViewBackupRecords       # 列出本地备份历史
 <div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">标准 CLI</label><label for="__tabbed_4_2">交互模式</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code>java<span class="w"> </span>-jar<span class="w"> </span>build/libs/wallet-cli.jar<span class="w"> </span>modify-wallet-name<span class="w"> </span>--name<span class="w"> </span>new-name
+<div class="highlight"><pre><span></span><code>java<span class="w"> </span>-jar<span class="w"> </span>java/build/libs/wallet-cli.jar<span class="w"> </span>modify-wallet-name<span class="w"> </span>--name<span class="w"> </span>new-name
 </code></pre></div>
 <ul>
 <li><code>--name</code>（必填）—— 新的钱包名称。需要鉴权。</li>
@@ -9378,7 +9528,7 @@ ViewBackupRecords       # 列出本地备份历史
 <div class="tabbed-set tabbed-alternate" data-tabs="5:2"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><input id="__tabbed_5_2" name="__tabbed_5" type="radio" /><div class="tabbed-labels"><label for="__tabbed_5_1">标准 CLI</label><label for="__tabbed_5_2">交互模式</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code>java<span class="w"> </span>-jar<span class="w"> </span>build/libs/wallet-cli.jar<span class="w"> </span>clear-wallet-keystore<span class="w"> </span>--force
+<div class="highlight"><pre><span></span><code>java<span class="w"> </span>-jar<span class="w"> </span>java/build/libs/wallet-cli.jar<span class="w"> </span>clear-wallet-keystore<span class="w"> </span>--force
 </code></pre></div>
 <ul>
 <li><code>--force</code> 在语法上是可选的，但在标准 CLI 模式下执行这一破坏性操作时必须提供 —— 不带它命令会
@@ -9396,7 +9546,7 @@ ViewBackupRecords       # 列出本地备份历史
 <div class="tabbed-set tabbed-alternate" data-tabs="6:2"><input checked="checked" id="__tabbed_6_1" name="__tabbed_6" type="radio" /><input id="__tabbed_6_2" name="__tabbed_6" type="radio" /><div class="tabbed-labels"><label for="__tabbed_6_1">标准 CLI</label><label for="__tabbed_6_2">交互模式</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code>java<span class="w"> </span>-jar<span class="w"> </span>build/libs/wallet-cli.jar<span class="w"> </span>reset-wallet<span class="w"> </span>--confirm<span class="w"> </span>delete-all-wallets
+<div class="highlight"><pre><span></span><code>java<span class="w"> </span>-jar<span class="w"> </span>java/build/libs/wallet-cli.jar<span class="w"> </span>reset-wallet<span class="w"> </span>--confirm<span class="w"> </span>delete-all-wallets
 </code></pre></div>
 <ul>
 <li><code>--confirm</code> 必须传入确切的值 <code>delete-all-wallets</code> 才会执行重置。不带 <code>--confirm</code> 运行
@@ -9430,21 +9580,21 @@ Base58 地址。别名按网络隔离，来自两层：一组<strong>内置</str
 <p>它们<strong>不</strong>作用于 TRC-10 资产 ID（<code>--asset</code>）或 <code>--token-id</code>，这些按数字 ID 原样读取。当别名被
 解析时，解析结果会在 JSON 模式下以 <code>meta.resolved</code> 上报。</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># 添加账户别名</span>
-java<span class="w"> </span>-jar<span class="w"> </span>build/libs/wallet-cli.jar<span class="w"> </span>--network<span class="w"> </span>nile<span class="w"> </span>alias-add<span class="w"> </span><span class="se">\</span>
+java<span class="w"> </span>-jar<span class="w"> </span>java/build/libs/wallet-cli.jar<span class="w"> </span>--network<span class="w"> </span>nile<span class="w"> </span>alias-add<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--name<span class="w"> </span>treasury<span class="w"> </span>--type<span class="w"> </span>ACCOUNT<span class="w"> </span>--address<span class="w"> </span>TXyz...<span class="w"> </span>--note<span class="w"> </span><span class="s2">&quot;team treasury&quot;</span>
 
 <span class="c1"># 添加代币别名（带精度）</span>
-java<span class="w"> </span>-jar<span class="w"> </span>build/libs/wallet-cli.jar<span class="w"> </span>--network<span class="w"> </span>nile<span class="w"> </span>alias-add<span class="w"> </span><span class="se">\</span>
+java<span class="w"> </span>-jar<span class="w"> </span>java/build/libs/wallet-cli.jar<span class="w"> </span>--network<span class="w"> </span>nile<span class="w"> </span>alias-add<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--name<span class="w"> </span>usdt<span class="w"> </span>--type<span class="w"> </span>TOKEN<span class="w"> </span>--address<span class="w"> </span>TR7NHq...<span class="w"> </span>--decimals<span class="w"> </span><span class="m">6</span>
 
 <span class="c1"># 列出别名（可按类型过滤）</span>
-java<span class="w"> </span>-jar<span class="w"> </span>build/libs/wallet-cli.jar<span class="w"> </span>--network<span class="w"> </span>nile<span class="w"> </span>alias-list<span class="w"> </span>--type<span class="w"> </span>ACCOUNT
+java<span class="w"> </span>-jar<span class="w"> </span>java/build/libs/wallet-cli.jar<span class="w"> </span>--network<span class="w"> </span>nile<span class="w"> </span>alias-list<span class="w"> </span>--type<span class="w"> </span>ACCOUNT
 
 <span class="c1"># 把别名或地址解析为其规范形式</span>
-java<span class="w"> </span>-jar<span class="w"> </span>build/libs/wallet-cli.jar<span class="w"> </span>--network<span class="w"> </span>nile<span class="w"> </span>alias-resolve<span class="w"> </span>--name<span class="w"> </span>treasury
+java<span class="w"> </span>-jar<span class="w"> </span>java/build/libs/wallet-cli.jar<span class="w"> </span>--network<span class="w"> </span>nile<span class="w"> </span>alias-resolve<span class="w"> </span>--name<span class="w"> </span>treasury
 
 <span class="c1"># 删除用户别名</span>
-java<span class="w"> </span>-jar<span class="w"> </span>build/libs/wallet-cli.jar<span class="w"> </span>--network<span class="w"> </span>nile<span class="w"> </span>alias-remove<span class="w"> </span>--name<span class="w"> </span>treasury
+java<span class="w"> </span>-jar<span class="w"> </span>java/build/libs/wallet-cli.jar<span class="w"> </span>--network<span class="w"> </span>nile<span class="w"> </span>alias-remove<span class="w"> </span>--name<span class="w"> </span>treasury
 </code></pre></div>
 <p>选项说明：</p>
 <ul>
@@ -9473,7 +9623,7 @@ java<span class="w"> </span>-jar<span class="w"> </span>build/libs/wallet-cli.ja
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年6月17日 03:37:32 UTC">2026年6月17日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年8月3日 04:01:03 UTC">2026年8月3日</span>
   </span>
 
     
@@ -9494,7 +9644,7 @@ java<span class="w"> </span>-jar<span class="w"> </span>build/libs/wallet-cli.ja
       <nav class="md-footer__inner md-grid" aria-label="页脚" >
         
           
-          <a href="../" class="md-footer__link md-footer__link--prev" aria-label="上一页: wallet-cli">
+          <a href="../java-cli/" class="md-footer__link md-footer__link--prev" aria-label="上一页: 概览">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -9504,7 +9654,7 @@ java<span class="w"> </span>-jar<span class="w"> </span>build/libs/wallet-cli.ja
                 上一页
               </span>
               <div class="md-ellipsis">
-                wallet-cli
+                概览
               </div>
             </div>
           </a>

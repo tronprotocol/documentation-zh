@@ -7590,22 +7590,6 @@
       
         
       
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
     
     
       
@@ -7645,6 +7629,90 @@
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8_1_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_8_1_2" id="__nav_8_1_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Java CLI
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_8_1_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_8_1_2">
+            <span class="md-nav__icon md-icon"></span>
+            Java CLI
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../java-cli/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    概览
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
               
             
               
@@ -8081,6 +8149,58 @@
 
               
             
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8_1_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_8_1_3" id="__nav_8_1_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    TypeScript / npm CLI
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_8_1_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8_1_3">
+            <span class="md-nav__icon md-icon"></span>
+            TypeScript / npm CLI
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
               
                 
   
@@ -8092,12 +8212,42 @@
         
   
   <span class="md-ellipsis">
-    TypeScript / npm CLI
+    概览
     
   </span>
   
 
       </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../typescript-cli-signing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    签名与安全
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -9408,7 +9558,7 @@
 <p>码 <code>2</code>（TRON_POWER）对 freeze/unfreeze 命令受网络开关限制：
 <code>FreezeBalance</code>/<code>UnfreezeBalance</code>（Stake 1.0）、<code>FreezeBalanceV2</code>/<code>UnfreezeBalanceV2</code>（Stake 2.0）
 以及对应的标准 CLI 命令，只有在链参数 <code>getAllowNewResourceModel</code> 启用时才接受它。如果无法获取该链参数，
-4.9.7 客户端会 fail-open，让节点在广播时进行最终校验。代理命令（两种模式）始终只接受 <code>0</code> 或 <code>1</code>；
+客户端会 fail-open，让节点在广播时进行最终校验。代理命令（两种模式）始终只接受 <code>0</code> 或 <code>1</code>；
 TRON_POWER 不可代理。</p>
 <p>金额以 <strong>SUN</strong> 为单位（1 TRX = 1,000,000 SUN）。</p>
 <p>与别处一样，REPL 用可选的首参 <code>[OwnerAddress]</code> 支持多签；标准 CLI 用 <code>--owner</code> + <code>--multi</code>。本页所有
@@ -9423,7 +9573,7 @@ TRON_POWER 不可代理。</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">标准 CLI</label><label for="__tabbed_1_2">交互模式</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code>java<span class="w"> </span>-jar<span class="w"> </span>build/libs/wallet-cli.jar<span class="w"> </span>--network<span class="w"> </span>nile<span class="w"> </span>freeze-balance<span class="w"> </span><span class="se">\</span>
+<div class="highlight"><pre><span></span><code>java<span class="w"> </span>-jar<span class="w"> </span>java/build/libs/wallet-cli.jar<span class="w"> </span>--network<span class="w"> </span>nile<span class="w"> </span>freeze-balance<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--amount<span class="w"> </span><span class="m">1000000</span><span class="w"> </span>--duration<span class="w"> </span><span class="m">3</span><span class="w"> </span>--resource<span class="w"> </span><span class="m">1</span>
 </code></pre></div>
 <ul>
@@ -9445,7 +9595,7 @@ TRON_POWER 不可代理。</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">标准 CLI</label><label for="__tabbed_2_2">交互模式</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code>java<span class="w"> </span>-jar<span class="w"> </span>build/libs/wallet-cli.jar<span class="w"> </span>--network<span class="w"> </span>nile<span class="w"> </span>unfreeze-balance<span class="w"> </span>--resource<span class="w"> </span><span class="m">1</span>
+<div class="highlight"><pre><span></span><code>java<span class="w"> </span>-jar<span class="w"> </span>java/build/libs/wallet-cli.jar<span class="w"> </span>--network<span class="w"> </span>nile<span class="w"> </span>unfreeze-balance<span class="w"> </span>--resource<span class="w"> </span><span class="m">1</span>
 </code></pre></div>
 <ul>
 <li><code>--resource</code>（可选，<code>0</code>/<code>1</code>/<code>2</code>，默认 <code>0</code>）。<code>2</code> 是 TRON_POWER，仅在
@@ -9466,7 +9616,7 @@ TRON_POWER 不可代理。</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">标准 CLI</label><label for="__tabbed_3_2">交互模式</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code>java<span class="w"> </span>-jar<span class="w"> </span>build/libs/wallet-cli.jar<span class="w"> </span>--network<span class="w"> </span>nile<span class="w"> </span>freeze-balance-v2<span class="w"> </span><span class="se">\</span>
+<div class="highlight"><pre><span></span><code>java<span class="w"> </span>-jar<span class="w"> </span>java/build/libs/wallet-cli.jar<span class="w"> </span>--network<span class="w"> </span>nile<span class="w"> </span>freeze-balance-v2<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--amount<span class="w"> </span><span class="m">1000000</span><span class="w"> </span>--resource<span class="w"> </span><span class="m">1</span>
 </code></pre></div>
 <ul>
@@ -9487,7 +9637,7 @@ TRON_POWER 不可代理。</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">标准 CLI</label><label for="__tabbed_4_2">交互模式</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code>java<span class="w"> </span>-jar<span class="w"> </span>build/libs/wallet-cli.jar<span class="w"> </span>--network<span class="w"> </span>nile<span class="w"> </span>unfreeze-balance-v2<span class="w"> </span><span class="se">\</span>
+<div class="highlight"><pre><span></span><code>java<span class="w"> </span>-jar<span class="w"> </span>java/build/libs/wallet-cli.jar<span class="w"> </span>--network<span class="w"> </span>nile<span class="w"> </span>unfreeze-balance-v2<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--amount<span class="w"> </span><span class="m">1000000</span><span class="w"> </span>--resource<span class="w"> </span><span class="m">1</span>
 </code></pre></div>
 <ul>
@@ -9508,7 +9658,7 @@ TRON_POWER 不可代理。</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="5:2"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><input id="__tabbed_5_2" name="__tabbed_5" type="radio" /><div class="tabbed-labels"><label for="__tabbed_5_1">标准 CLI</label><label for="__tabbed_5_2">交互模式</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code>java<span class="w"> </span>-jar<span class="w"> </span>build/libs/wallet-cli.jar<span class="w"> </span>--network<span class="w"> </span>nile<span class="w"> </span>withdraw-expire-unfreeze
+<div class="highlight"><pre><span></span><code>java<span class="w"> </span>-jar<span class="w"> </span>java/build/libs/wallet-cli.jar<span class="w"> </span>--network<span class="w"> </span>nile<span class="w"> </span>withdraw-expire-unfreeze
 </code></pre></div>
 <ul>
 <li><code>--owner</code>、<code>--multi</code>（可选）。</li>
@@ -9525,7 +9675,7 @@ TRON_POWER 不可代理。</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="6:2"><input checked="checked" id="__tabbed_6_1" name="__tabbed_6" type="radio" /><input id="__tabbed_6_2" name="__tabbed_6" type="radio" /><div class="tabbed-labels"><label for="__tabbed_6_1">标准 CLI</label><label for="__tabbed_6_2">交互模式</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code>java<span class="w"> </span>-jar<span class="w"> </span>build/libs/wallet-cli.jar<span class="w"> </span>--network<span class="w"> </span>nile<span class="w"> </span>cancel-all-unfreeze-v2
+<div class="highlight"><pre><span></span><code>java<span class="w"> </span>-jar<span class="w"> </span>java/build/libs/wallet-cli.jar<span class="w"> </span>--network<span class="w"> </span>nile<span class="w"> </span>cancel-all-unfreeze-v2
 </code></pre></div>
 <ul>
 <li><code>--owner</code>、<code>--multi</code>（可选）。</li>
@@ -9543,7 +9693,7 @@ TRON_POWER 不可代理。</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="7:2"><input checked="checked" id="__tabbed_7_1" name="__tabbed_7" type="radio" /><input id="__tabbed_7_2" name="__tabbed_7" type="radio" /><div class="tabbed-labels"><label for="__tabbed_7_1">标准 CLI</label><label for="__tabbed_7_2">交互模式</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code>java<span class="w"> </span>-jar<span class="w"> </span>build/libs/wallet-cli.jar<span class="w"> </span>--network<span class="w"> </span>nile<span class="w"> </span>delegate-resource<span class="w"> </span><span class="se">\</span>
+<div class="highlight"><pre><span></span><code>java<span class="w"> </span>-jar<span class="w"> </span>java/build/libs/wallet-cli.jar<span class="w"> </span>--network<span class="w"> </span>nile<span class="w"> </span>delegate-resource<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--amount<span class="w"> </span><span class="m">1000000</span><span class="w"> </span>--resource<span class="w"> </span><span class="m">1</span><span class="w"> </span>--receiver<span class="w"> </span>TXyz...<span class="w"> </span>--lock<span class="w"> </span>--lock-period<span class="w"> </span><span class="m">86400</span>
 </code></pre></div>
 <ul>
@@ -9564,7 +9714,7 @@ TRON_POWER 不可代理。</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="8:2"><input checked="checked" id="__tabbed_8_1" name="__tabbed_8" type="radio" /><input id="__tabbed_8_2" name="__tabbed_8" type="radio" /><div class="tabbed-labels"><label for="__tabbed_8_1">标准 CLI</label><label for="__tabbed_8_2">交互模式</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code>java<span class="w"> </span>-jar<span class="w"> </span>build/libs/wallet-cli.jar<span class="w"> </span>--network<span class="w"> </span>nile<span class="w"> </span>undelegate-resource<span class="w"> </span><span class="se">\</span>
+<div class="highlight"><pre><span></span><code>java<span class="w"> </span>-jar<span class="w"> </span>java/build/libs/wallet-cli.jar<span class="w"> </span>--network<span class="w"> </span>nile<span class="w"> </span>undelegate-resource<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--amount<span class="w"> </span><span class="m">1000000</span><span class="w"> </span>--resource<span class="w"> </span><span class="m">1</span><span class="w"> </span>--receiver<span class="w"> </span>TXyz...
 </code></pre></div>
 <ul>
@@ -9583,7 +9733,7 @@ TRON_POWER 不可代理。</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="9:2"><input checked="checked" id="__tabbed_9_1" name="__tabbed_9" type="radio" /><input id="__tabbed_9_2" name="__tabbed_9" type="radio" /><div class="tabbed-labels"><label for="__tabbed_9_1">标准 CLI</label><label for="__tabbed_9_2">交互模式</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code>java<span class="w"> </span>-jar<span class="w"> </span>build/libs/wallet-cli.jar<span class="w"> </span>--network<span class="w"> </span>nile<span class="w"> </span>get-account-net<span class="w"> </span>--address<span class="w"> </span>TXyz...
+<div class="highlight"><pre><span></span><code>java<span class="w"> </span>-jar<span class="w"> </span>java/build/libs/wallet-cli.jar<span class="w"> </span>--network<span class="w"> </span>nile<span class="w"> </span>get-account-net<span class="w"> </span>--address<span class="w"> </span>TXyz...
 </code></pre></div>
 <ul>
 <li><code>--address</code>（必填）。</li>
@@ -9599,7 +9749,7 @@ TRON_POWER 不可代理。</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="10:2"><input checked="checked" id="__tabbed_10_1" name="__tabbed_10" type="radio" /><input id="__tabbed_10_2" name="__tabbed_10" type="radio" /><div class="tabbed-labels"><label for="__tabbed_10_1">标准 CLI</label><label for="__tabbed_10_2">交互模式</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code>java<span class="w"> </span>-jar<span class="w"> </span>build/libs/wallet-cli.jar<span class="w"> </span>--network<span class="w"> </span>nile<span class="w"> </span>get-account-resource<span class="w"> </span>--address<span class="w"> </span>TXyz...
+<div class="highlight"><pre><span></span><code>java<span class="w"> </span>-jar<span class="w"> </span>java/build/libs/wallet-cli.jar<span class="w"> </span>--network<span class="w"> </span>nile<span class="w"> </span>get-account-resource<span class="w"> </span>--address<span class="w"> </span>TXyz...
 </code></pre></div>
 <ul>
 <li><code>--address</code>（必填）。</li>
@@ -9615,9 +9765,9 @@ TRON_POWER 不可代理。</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="11:2"><input checked="checked" id="__tabbed_11_1" name="__tabbed_11" type="radio" /><input id="__tabbed_11_2" name="__tabbed_11" type="radio" /><div class="tabbed-labels"><label for="__tabbed_11_1">标准 CLI</label><label for="__tabbed_11_2">交互模式</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code>java<span class="w"> </span>-jar<span class="w"> </span>build/libs/wallet-cli.jar<span class="w"> </span>--network<span class="w"> </span>nile<span class="w"> </span>get-delegated-resource<span class="w"> </span><span class="se">\</span>
+<div class="highlight"><pre><span></span><code>java<span class="w"> </span>-jar<span class="w"> </span>java/build/libs/wallet-cli.jar<span class="w"> </span>--network<span class="w"> </span>nile<span class="w"> </span>get-delegated-resource<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--from<span class="w"> </span>TFrom...<span class="w"> </span>--to<span class="w"> </span>TTo...
-java<span class="w"> </span>-jar<span class="w"> </span>build/libs/wallet-cli.jar<span class="w"> </span>--network<span class="w"> </span>nile<span class="w"> </span>get-delegated-resource-v2<span class="w"> </span><span class="se">\</span>
+java<span class="w"> </span>-jar<span class="w"> </span>java/build/libs/wallet-cli.jar<span class="w"> </span>--network<span class="w"> </span>nile<span class="w"> </span>get-delegated-resource-v2<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--from<span class="w"> </span>TFrom...<span class="w"> </span>--to<span class="w"> </span>TTo...
 </code></pre></div>
 <ul>
@@ -9635,9 +9785,9 @@ GetDelegatedResourceV2 FromAddress ToAddress
 <div class="tabbed-set tabbed-alternate" data-tabs="12:2"><input checked="checked" id="__tabbed_12_1" name="__tabbed_12" type="radio" /><input id="__tabbed_12_2" name="__tabbed_12" type="radio" /><div class="tabbed-labels"><label for="__tabbed_12_1">标准 CLI</label><label for="__tabbed_12_2">交互模式</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code>java<span class="w"> </span>-jar<span class="w"> </span>build/libs/wallet-cli.jar<span class="w"> </span>--network<span class="w"> </span>nile<span class="w"> </span><span class="se">\</span>
+<div class="highlight"><pre><span></span><code>java<span class="w"> </span>-jar<span class="w"> </span>java/build/libs/wallet-cli.jar<span class="w"> </span>--network<span class="w"> </span>nile<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>get-delegated-resource-account-index<span class="w"> </span>--address<span class="w"> </span>TXyz...
-java<span class="w"> </span>-jar<span class="w"> </span>build/libs/wallet-cli.jar<span class="w"> </span>--network<span class="w"> </span>nile<span class="w"> </span><span class="se">\</span>
+java<span class="w"> </span>-jar<span class="w"> </span>java/build/libs/wallet-cli.jar<span class="w"> </span>--network<span class="w"> </span>nile<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>get-delegated-resource-account-index-v2<span class="w"> </span>--address<span class="w"> </span>TXyz...
 </code></pre></div>
 <ul>
@@ -9655,7 +9805,7 @@ GetDelegatedResourceAccountIndexV2 Address
 <div class="tabbed-set tabbed-alternate" data-tabs="13:2"><input checked="checked" id="__tabbed_13_1" name="__tabbed_13" type="radio" /><input id="__tabbed_13_2" name="__tabbed_13" type="radio" /><div class="tabbed-labels"><label for="__tabbed_13_1">标准 CLI</label><label for="__tabbed_13_2">交互模式</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code>java<span class="w"> </span>-jar<span class="w"> </span>build/libs/wallet-cli.jar<span class="w"> </span>--network<span class="w"> </span>nile<span class="w"> </span>get-can-delegated-max-size<span class="w"> </span><span class="se">\</span>
+<div class="highlight"><pre><span></span><code>java<span class="w"> </span>-jar<span class="w"> </span>java/build/libs/wallet-cli.jar<span class="w"> </span>--network<span class="w"> </span>nile<span class="w"> </span>get-can-delegated-max-size<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--owner<span class="w"> </span>TXyz...<span class="w"> </span>--type<span class="w"> </span><span class="m">1</span>
 </code></pre></div>
 <ul>
@@ -9673,7 +9823,7 @@ GetDelegatedResourceAccountIndexV2 Address
 <div class="tabbed-set tabbed-alternate" data-tabs="14:2"><input checked="checked" id="__tabbed_14_1" name="__tabbed_14" type="radio" /><input id="__tabbed_14_2" name="__tabbed_14" type="radio" /><div class="tabbed-labels"><label for="__tabbed_14_1">标准 CLI</label><label for="__tabbed_14_2">交互模式</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code>java<span class="w"> </span>-jar<span class="w"> </span>build/libs/wallet-cli.jar<span class="w"> </span>--network<span class="w"> </span>nile<span class="w"> </span>get-available-unfreeze-count<span class="w"> </span>--address<span class="w"> </span>TXyz...
+<div class="highlight"><pre><span></span><code>java<span class="w"> </span>-jar<span class="w"> </span>java/build/libs/wallet-cli.jar<span class="w"> </span>--network<span class="w"> </span>nile<span class="w"> </span>get-available-unfreeze-count<span class="w"> </span>--address<span class="w"> </span>TXyz...
 </code></pre></div>
 <ul>
 <li><code>--address</code>（必填）。</li>
@@ -9689,7 +9839,7 @@ GetDelegatedResourceAccountIndexV2 Address
 <div class="tabbed-set tabbed-alternate" data-tabs="15:2"><input checked="checked" id="__tabbed_15_1" name="__tabbed_15" type="radio" /><input id="__tabbed_15_2" name="__tabbed_15" type="radio" /><div class="tabbed-labels"><label for="__tabbed_15_1">标准 CLI</label><label for="__tabbed_15_2">交互模式</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code>java<span class="w"> </span>-jar<span class="w"> </span>build/libs/wallet-cli.jar<span class="w"> </span>--network<span class="w"> </span>nile<span class="w"> </span>get-can-withdraw-unfreeze-amount<span class="w"> </span><span class="se">\</span>
+<div class="highlight"><pre><span></span><code>java<span class="w"> </span>-jar<span class="w"> </span>java/build/libs/wallet-cli.jar<span class="w"> </span>--network<span class="w"> </span>nile<span class="w"> </span>get-can-withdraw-unfreeze-amount<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--address<span class="w"> </span>TXyz...<span class="w"> </span>--timestamp<span class="w"> </span><span class="m">1700000000000</span>
 </code></pre></div>
 <ul>
@@ -9723,7 +9873,7 @@ GetDelegatedResourceAccountIndexV2 Address
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年7月10日 03:09:04 UTC">2026年7月10日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年8月3日 04:01:03 UTC">2026年8月3日</span>
   </span>
 
     

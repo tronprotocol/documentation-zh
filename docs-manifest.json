@@ -36,7 +36,7 @@
       "html_url": "https://tronprotocol.github.io/documentation-zh/using_javatron/configuration/",
       "markdown_url": "https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/docs/using_javatron/configuration.md",
       "source_path": "docs/using_javatron/configuration.md",
-      "last_modified": "2026-07-30T11:06:43+08:00"
+      "last_modified": "2026-08-21T12:07:52+08:00"
     },
     {
       "title": "TRON 网络节点数据备份与恢复",
@@ -44,7 +44,7 @@
       "html_url": "https://tronprotocol.github.io/documentation-zh/using_javatron/backup_restore/",
       "markdown_url": "https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/docs/using_javatron/backup_restore.md",
       "source_path": "docs/using_javatron/backup_restore.md",
-      "last_modified": "2026-07-30T11:06:43+08:00"
+      "last_modified": "2026-08-10T07:26:32+08:00"
     },
     {
       "title": "轻节点",
@@ -60,7 +60,7 @@
       "html_url": "https://tronprotocol.github.io/documentation-zh/using_javatron/private_network/",
       "markdown_url": "https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/docs/using_javatron/private_network.md",
       "source_path": "docs/using_javatron/private_network.md",
-      "last_modified": "2026-07-30T11:06:43+08:00"
+      "last_modified": "2026-08-05T15:53:06+08:00"
     },
     {
       "title": "事件订阅",
@@ -92,7 +92,7 @@
       "html_url": "https://tronprotocol.github.io/documentation-zh/using_javatron/metrics/",
       "markdown_url": "https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/docs/using_javatron/metrics.md",
       "source_path": "docs/using_javatron/metrics.md",
-      "last_modified": "2026-06-14T09:21:38+08:00"
+      "last_modified": "2026-08-13T12:03:07+08:00"
     },
     {
       "title": "Toolkit：Java-tron 节点维护工具集",
@@ -436,7 +436,7 @@
       "html_url": "https://tronprotocol.github.io/documentation-zh/api/http/smart-contract/triggersmartcontract/",
       "markdown_url": "https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/docs/api/http/smart-contract/triggersmartcontract.md",
       "source_path": "docs/api/http/smart-contract/triggersmartcontract.md",
-      "last_modified": "2026-07-15T12:06:34+08:00"
+      "last_modified": "2026-08-05T15:53:06+08:00"
     },
     {
       "title": "/wallet/triggerconstantcontract",
@@ -444,7 +444,7 @@
       "html_url": "https://tronprotocol.github.io/documentation-zh/api/http/smart-contract/triggerconstantcontract/",
       "markdown_url": "https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/docs/api/http/smart-contract/triggerconstantcontract.md",
       "source_path": "docs/api/http/smart-contract/triggerconstantcontract.md",
-      "last_modified": "2026-07-15T12:06:34+08:00"
+      "last_modified": "2026-08-05T15:53:06+08:00"
     },
     {
       "title": "/wallet/estimateenergy",
@@ -452,7 +452,7 @@
       "html_url": "https://tronprotocol.github.io/documentation-zh/api/http/smart-contract/estimateenergy/",
       "markdown_url": "https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/docs/api/http/smart-contract/estimateenergy.md",
       "source_path": "docs/api/http/smart-contract/estimateenergy.md",
-      "last_modified": "2026-07-15T12:06:34+08:00"
+      "last_modified": "2026-08-05T15:53:06+08:00"
     },
     {
       "title": "/wallet/getcontract",
@@ -1644,7 +1644,7 @@
       "html_url": "https://tronprotocol.github.io/documentation-zh/api/json-rpc/smart-contract/eth_call/",
       "markdown_url": "https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/docs/api/json-rpc/smart-contract/eth_call.md",
       "source_path": "docs/api/json-rpc/smart-contract/eth_call.md",
-      "last_modified": "2026-07-15T12:06:34+08:00"
+      "last_modified": "2026-08-05T15:53:06+08:00"
     },
     {
       "title": "eth_estimateGas",
@@ -1652,7 +1652,7 @@
       "html_url": "https://tronprotocol.github.io/documentation-zh/api/json-rpc/smart-contract/eth_estimateGas/",
       "markdown_url": "https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/docs/api/json-rpc/smart-contract/eth_estimateGas.md",
       "source_path": "docs/api/json-rpc/smart-contract/eth_estimateGas.md",
-      "last_modified": "2026-07-15T12:06:34+08:00"
+      "last_modified": "2026-08-05T15:53:06+08:00"
     },
     {
       "title": "eth_getLogs",
@@ -1780,7 +1780,7 @@
       "html_url": "https://tronprotocol.github.io/documentation-zh/contracts/contract/",
       "markdown_url": "https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/docs/contracts/contract.md",
       "source_path": "docs/contracts/contract.md",
-      "last_modified": "2026-06-14T09:21:38+08:00"
+      "last_modified": "2026-08-05T15:53:06+08:00"
     },
     {
       "title": "系统合约",
@@ -1796,7 +1796,7 @@
       "html_url": "https://tronprotocol.github.io/documentation-zh/mechanism-algorithm/multi-signatures/",
       "markdown_url": "https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/docs/mechanism-algorithm/multi-signatures.md",
       "source_path": "docs/mechanism-algorithm/multi-signatures.md",
-      "last_modified": "2026-07-08T12:30:14+08:00"
+      "last_modified": "2026-08-03T12:01:03+08:00"
     },
     {
       "title": "开发者指南",
@@ -1892,7 +1892,15 @@
       "html_url": "https://tronprotocol.github.io/documentation-zh/clients/wallet-cli/",
       "markdown_url": "https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/docs/clients/wallet-cli/index.md",
       "source_path": "docs/clients/wallet-cli/index.md",
-      "last_modified": "2026-07-21T16:35:41+08:00"
+      "last_modified": "2026-08-03T12:01:03+08:00"
+    },
+    {
+      "title": "Java CLI",
+      "section": "客户端",
+      "html_url": "https://tronprotocol.github.io/documentation-zh/clients/wallet-cli/java-cli/",
+      "markdown_url": "https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/docs/clients/wallet-cli/java-cli.md",
+      "source_path": "docs/clients/wallet-cli/java-cli.md",
+      "last_modified": "2026-08-03T12:01:03+08:00"
     },
     {
       "title": "钱包管理",
@@ -1900,7 +1908,7 @@
       "html_url": "https://tronprotocol.github.io/documentation-zh/clients/wallet-cli/wallet-management/",
       "markdown_url": "https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/docs/clients/wallet-cli/wallet-management.md",
       "source_path": "docs/clients/wallet-cli/wallet-management.md",
-      "last_modified": "2026-06-24T11:58:37+08:00"
+      "last_modified": "2026-08-03T12:01:03+08:00"
     },
     {
       "title": "账户",
@@ -1908,7 +1916,7 @@
       "html_url": "https://tronprotocol.github.io/documentation-zh/clients/wallet-cli/accounts/",
       "markdown_url": "https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/docs/clients/wallet-cli/accounts.md",
       "source_path": "docs/clients/wallet-cli/accounts.md",
-      "last_modified": "2026-07-10T11:09:04+08:00"
+      "last_modified": "2026-08-03T12:01:03+08:00"
     },
     {
       "title": "质押与资源",
@@ -1916,7 +1924,7 @@
       "html_url": "https://tronprotocol.github.io/documentation-zh/clients/wallet-cli/staking/",
       "markdown_url": "https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/docs/clients/wallet-cli/staking.md",
       "source_path": "docs/clients/wallet-cli/staking.md",
-      "last_modified": "2026-07-10T11:09:04+08:00"
+      "last_modified": "2026-08-03T12:01:03+08:00"
     },
     {
       "title": "交易",
@@ -1924,7 +1932,7 @@
       "html_url": "https://tronprotocol.github.io/documentation-zh/clients/wallet-cli/transactions/",
       "markdown_url": "https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/docs/clients/wallet-cli/transactions.md",
       "source_path": "docs/clients/wallet-cli/transactions.md",
-      "last_modified": "2026-06-24T11:58:37+08:00"
+      "last_modified": "2026-08-03T12:01:03+08:00"
     },
     {
       "title": "智能合约",
@@ -1932,7 +1940,7 @@
       "html_url": "https://tronprotocol.github.io/documentation-zh/clients/wallet-cli/smart-contracts/",
       "markdown_url": "https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/docs/clients/wallet-cli/smart-contracts.md",
       "source_path": "docs/clients/wallet-cli/smart-contracts.md",
-      "last_modified": "2026-06-24T11:58:37+08:00"
+      "last_modified": "2026-08-03T12:01:03+08:00"
     },
     {
       "title": "TRC-10 资产",
@@ -1940,7 +1948,7 @@
       "html_url": "https://tronprotocol.github.io/documentation-zh/clients/wallet-cli/trc10/",
       "markdown_url": "https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/docs/clients/wallet-cli/trc10.md",
       "source_path": "docs/clients/wallet-cli/trc10.md",
-      "last_modified": "2026-06-24T11:58:37+08:00"
+      "last_modified": "2026-08-03T12:01:03+08:00"
     },
     {
       "title": "治理",
@@ -1948,7 +1956,7 @@
       "html_url": "https://tronprotocol.github.io/documentation-zh/clients/wallet-cli/governance/",
       "markdown_url": "https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/docs/clients/wallet-cli/governance.md",
       "source_path": "docs/clients/wallet-cli/governance.md",
-      "last_modified": "2026-06-24T11:58:37+08:00"
+      "last_modified": "2026-08-03T12:01:03+08:00"
     },
     {
       "title": "GasFree",
@@ -1956,7 +1964,7 @@
       "html_url": "https://tronprotocol.github.io/documentation-zh/clients/wallet-cli/gasfree/",
       "markdown_url": "https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/docs/clients/wallet-cli/gasfree.md",
       "source_path": "docs/clients/wallet-cli/gasfree.md",
-      "last_modified": "2026-06-24T11:58:37+08:00"
+      "last_modified": "2026-08-03T12:01:03+08:00"
     },
     {
       "title": "查询",
@@ -1964,7 +1972,7 @@
       "html_url": "https://tronprotocol.github.io/documentation-zh/clients/wallet-cli/query/",
       "markdown_url": "https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/docs/clients/wallet-cli/query.md",
       "source_path": "docs/clients/wallet-cli/query.md",
-      "last_modified": "2026-06-24T11:58:37+08:00"
+      "last_modified": "2026-08-03T12:01:03+08:00"
     },
     {
       "title": "TypeScript / npm CLI",
@@ -1972,7 +1980,15 @@
       "html_url": "https://tronprotocol.github.io/documentation-zh/clients/wallet-cli/typescript-cli/",
       "markdown_url": "https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/docs/clients/wallet-cli/typescript-cli.md",
       "source_path": "docs/clients/wallet-cli/typescript-cli.md",
-      "last_modified": "2026-07-21T16:04:11+08:00"
+      "last_modified": "2026-08-06T21:14:39+08:00"
+    },
+    {
+      "title": "TypeScript CLI 签名与安全",
+      "section": "客户端",
+      "html_url": "https://tronprotocol.github.io/documentation-zh/clients/wallet-cli/typescript-cli-signing/",
+      "markdown_url": "https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/docs/clients/wallet-cli/typescript-cli-signing.md",
+      "source_path": "docs/clients/wallet-cli/typescript-cli-signing.md",
+      "last_modified": "2026-08-03T12:01:03+08:00"
     },
     {
       "title": "java-tron 节点升级指南",
