@@ -10,12 +10,14 @@ nav:
         - 入门: getting_started/getting_started_with_javatron.md
     - 使用java-tron:
         - 部署: using_javatron/installing_javatron.md
+        - 节点配置: using_javatron/configuration.md
         - 备份和恢复: using_javatron/backup_restore.md
         - 轻节点: using_javatron/litefullnode.md
         - 私链网络: using_javatron/private_network.md
         - 事件订阅: architecture/event.md
         - 数据库配置: architecture/database.md
         - 网络连接: using_javatron/connecting_to_tron.md
+        - 节点日志: using_javatron/logging.md
         - 节点监控: using_javatron/metrics.md
         - 节点维护工具: using_javatron/toolkit.md
     - API接口:
@@ -53,7 +55,7 @@ nav:
                 - 广播签名后的交易 JSON: api/http/tx-build-and-broadcast/broadcasttransaction.md
                 - 广播签名后的交易 hex: api/http/tx-build-and-broadcast/broadcasthex.md
             - TRC10 资产:
-                - 发行 TRC10 通证: api/http/asset/createassetissue.md
+                - 发行 TRC10 token: api/http/asset/createassetissue.md
                 - 修改 TRC10 描述: api/http/asset/updateasset.md
                 - 转账 TRC10: api/http/asset/transferasset.md
                 - 参与 TRC10 募资: api/http/asset/participateassetissue.md
@@ -146,7 +148,7 @@ nav:
                 - 查询多签已签署地址: api/rpc/tx-build-and-broadcast/GetTransactionApprovedList.md
                 - 广播签名后的交易 JSON: api/rpc/tx-build-and-broadcast/BroadcastTransaction.md
             - TRC10 资产:
-                - 发行 TRC10 通证: api/rpc/asset/CreateAssetIssue2.md
+                - 发行 TRC10 token: api/rpc/asset/CreateAssetIssue2.md
                 - 修改 TRC10 描述: api/rpc/asset/UpdateAsset2.md
                 - 转账 TRC10: api/rpc/asset/TransferAsset2.md
                 - 参与 TRC10 募资: api/rpc/asset/ParticipateAssetIssue2.md
@@ -251,6 +253,7 @@ nav:
                 - etherbase 地址: api/json-rpc/stub/eth_coinbase.md
                 - 节点托管账户列表: api/json-rpc/stub/eth_accounts.md
                 - 挖矿任务信息: api/json-rpc/stub/eth_getWork.md
+        - 机器可读定义: api/interface-definitions.md
     - 核心协议:
         - 波场共识: mechanism-algorithm/dpos.md
         - 超级代表: mechanism-algorithm/sr.md
@@ -258,26 +261,210 @@ nav:
         - 资源模型: mechanism-algorithm/resource.md
         - 智能合约: contracts/contract.md
         - 系统合约: mechanism-algorithm/system-contracts.md
-        - 去中心化交易所: mechanism-algorithm/dex.md
         - 账户权限管理: mechanism-algorithm/multi-signatures.md
     - java-tron开发: 
         - 开发者指南: developers/java-tron.md
+        - CI 工作流: developers/workflows.md
+        - 核心模块: developers/code-structure.md
+        - ChainBase 深入解析: developers/chainbase.md
+        - P2P 网络深入解析: developers/network.md
         - TIPs工作流程: developers/tip-workflow.md
         - TIPs: developers/tips.md
         - Issue工作流程: developers/issue-workflow.md
         - 治理流程: developers/governance.md
         - 配置IDE开发环境: developers/run-in-idea.md
         - 开发示例: developers/demo.md
-        - 核心模块: developers/code-structure.md
     - Dapp开发:
         - 工具: contracts/tools.md
-    - 客户端: 
-        - wallet-cli: clients/wallet-cli.md
+    - 客户端:
+        - wallet-cli:
+            - 概览: clients/wallet-cli/index.md
+            - Java CLI:
+                - 概览: clients/wallet-cli/java/index.md
+                - 使用指南:
+                    - "概览": clients/wallet-cli/java/guide/index.md
+                    - "快速上手": clients/wallet-cli/java/guide/getting-started.md
+                    - "命令行操作流程": clients/wallet-cli/java/guide/command-flow.md
+                - 核心概念:
+                    - "概览": clients/wallet-cli/java/concepts/index.md
+                    - "资源": clients/wallet-cli/java/concepts/resources.md
+                    - "质押模型": clients/wallet-cli/java/concepts/staking-models.md
+                    - "多重签名概念": clients/wallet-cli/java/concepts/multisig.md
+                - 命令参考:
+                    - "命令索引": clients/wallet-cli/java/commands/index.md
+                    - "钱包管理": clients/wallet-cli/java/commands/wallet.md
+                    - "账户命令": clients/wallet-cli/java/commands/account.md
+                    - "网络切换": clients/wallet-cli/java/commands/network.md
+                    - "TRC-10 资产": clients/wallet-cli/java/commands/transfer-trc10.md
+                    - "USDT 与 TRC-20": clients/wallet-cli/java/commands/usdt.md
+                    - "质押 Stake 2.0": clients/wallet-cli/java/commands/stake-v2.md
+                    - "质押 Stake 1.0（旧版）": clients/wallet-cli/java/commands/stake-v1-legacy.md
+                    - "资源价格与备注费": clients/wallet-cli/java/commands/resources.md
+                    - "投票、奖励与见证人": clients/wallet-cli/java/commands/vote-reward.md
+                    - "治理提案": clients/wallet-cli/java/commands/proposals.md
+                    - "链上交易所": clients/wallet-cli/java/commands/exchange.md
+                    - "TRON-DEX 市场": clients/wallet-cli/java/commands/dex.md
+                    - "多重签名": clients/wallet-cli/java/commands/multisig.md
+                    - "智能合约": clients/wallet-cli/java/commands/contract.md
+                    - "GasFree 转账": clients/wallet-cli/java/commands/gasfree.md
+                    - "链上数据与工具": clients/wallet-cli/java/commands/chain-data.md
+                - 配置参考: clients/wallet-cli/java/reference/config.md
+            - TypeScript / npm CLI:
+                - 概览: clients/wallet-cli/typescript/index.md
+                - 使用指南:
+                    - "概览": clients/wallet-cli/typescript/guide/index.md
+                    - "快速上手": clients/wallet-cli/typescript/guide/getting-started.md
+                    - "发送 token": clients/wallet-cli/typescript/guide/send-tokens.md
+                    - "质押与资源": clients/wallet-cli/typescript/guide/stake-and-resources.md
+                    - "使用 Ledger": clients/wallet-cli/typescript/guide/ledger.md
+                    - "脚本编写": clients/wallet-cli/typescript/guide/scripting.md
+                - 核心概念:
+                    - "概览": clients/wallet-cli/typescript/concepts/index.md
+                    - "网络": clients/wallet-cli/typescript/concepts/networks.md
+                    - "账户与 HD 钱包": clients/wallet-cli/typescript/concepts/accounts-and-hd.md
+                    - "能量与带宽": clients/wallet-cli/typescript/concepts/energy-bandwidth.md
+                    - "安全模型": clients/wallet-cli/typescript/concepts/security.md
+                - 命令参考:
+                    - "命令索引": clients/wallet-cli/typescript/commands/index.md
+                    - "创建钱包": clients/wallet-cli/typescript/commands/create.md
+                    - "列出账户": clients/wallet-cli/typescript/commands/list.md
+                    - "切换账户": clients/wallet-cli/typescript/commands/use.md
+                    - "查看当前账户": clients/wallet-cli/typescript/commands/current.md
+                    - "派生账户": clients/wallet-cli/typescript/commands/derive.md
+                    - "重命名账户": clients/wallet-cli/typescript/commands/rename.md
+                    - "备份钱包": clients/wallet-cli/typescript/commands/backup.md
+                    - "删除账户": clients/wallet-cli/typescript/commands/delete.md
+                    - "修改主密码": clients/wallet-cli/typescript/commands/change-password.md
+                    - "查询区块": clients/wallet-cli/typescript/commands/block.md
+                    - "列出网络": clients/wallet-cli/typescript/commands/networks.md
+                    - "管理配置": clients/wallet-cli/typescript/commands/config.md
+                    - "账户管理":
+                        - "概览": clients/wallet-cli/typescript/commands/account/index.md
+                        - "激活账户": clients/wallet-cli/typescript/commands/account/activate.md
+                        - "查询余额": clients/wallet-cli/typescript/commands/account/balance.md
+                        - "查询交易历史": clients/wallet-cli/typescript/commands/account/history.md
+                        - "查看账户信息": clients/wallet-cli/typescript/commands/account/info.md
+                        - "查看资产组合": clients/wallet-cli/typescript/commands/account/portfolio.md
+                        - "设置账户属性": clients/wallet-cli/typescript/commands/account/set.md
+                    - "地址工具":
+                        - "概览": clients/wallet-cli/typescript/commands/address/index.md
+                        - "生成密钥对": clients/wallet-cli/typescript/commands/address/generate.md
+                    - "TRC-10 资产":
+                        - "概览": clients/wallet-cli/typescript/commands/asset/index.md
+                        - "查看资产详情": clients/wallet-cli/typescript/commands/asset/info.md
+                        - "发行资产": clients/wallet-cli/typescript/commands/asset/issue.md
+                        - "列出全部资产": clients/wallet-cli/typescript/commands/asset/list.md
+                        - "参与资产发行": clients/wallet-cli/typescript/commands/asset/participate.md
+                        - "解冻发行方资产": clients/wallet-cli/typescript/commands/asset/unfreeze.md
+                        - "修改资产信息": clients/wallet-cli/typescript/commands/asset/update.md
+                    - "链信息":
+                        - "概览": clients/wallet-cli/typescript/commands/chain/index.md
+                        - "查看节点状态": clients/wallet-cli/typescript/commands/chain/node.md
+                        - "查询链参数": clients/wallet-cli/typescript/commands/chain/params.md
+                        - "查询资源价格": clients/wallet-cli/typescript/commands/chain/prices.md
+                    - "联系人":
+                        - "概览": clients/wallet-cli/typescript/commands/contact/index.md
+                        - "添加联系人": clients/wallet-cli/typescript/commands/contact/add.md
+                        - "列出联系人": clients/wallet-cli/typescript/commands/contact/list.md
+                        - "删除联系人": clients/wallet-cli/typescript/commands/contact/remove.md
+                    - "智能合约":
+                        - "概览": clients/wallet-cli/typescript/commands/contract/index.md
+                        - "只读调用": clients/wallet-cli/typescript/commands/contract/call.md
+                        - "清除合约 ABI": clients/wallet-cli/typescript/commands/contract/clear-abi.md
+                        - "计算 CREATE2 地址": clients/wallet-cli/typescript/commands/contract/create2.md
+                        - "部署合约": clients/wallet-cli/typescript/commands/contract/deploy.md
+                        - "查看合约信息": clients/wallet-cli/typescript/commands/contract/info.md
+                        - "发起合约调用": clients/wallet-cli/typescript/commands/contract/send.md
+                        - "设置能量上限": clients/wallet-cli/typescript/commands/contract/set-origin-energy-limit.md
+                        - "设置资源分担比例": clients/wallet-cli/typescript/commands/contract/set-user-resource-percent.md
+                    - "编码转换":
+                        - "概览": clients/wallet-cli/typescript/commands/encoding/index.md
+                        - "转换编码": clients/wallet-cli/typescript/commands/encoding/convert.md
+                    - "链上交易所":
+                        - "概览": clients/wallet-cli/typescript/commands/exchange/index.md
+                        - "创建交易对": clients/wallet-cli/typescript/commands/exchange/create.md
+                        - "交易对注资": clients/wallet-cli/typescript/commands/exchange/inject.md
+                        - "列出交易对": clients/wallet-cli/typescript/commands/exchange/list.md
+                        - "查看交易对": clients/wallet-cli/typescript/commands/exchange/show.md
+                        - "执行兑换": clients/wallet-cli/typescript/commands/exchange/trade.md
+                        - "交易对撤资": clients/wallet-cli/typescript/commands/exchange/withdraw.md
+                    - "GasFree":
+                        - "概览": clients/wallet-cli/typescript/commands/gasfree/index.md
+                        - "查看 GasFree 信息": clients/wallet-cli/typescript/commands/gasfree/info.md
+                        - "跟踪转账进度": clients/wallet-cli/typescript/commands/gasfree/trace.md
+                        - "发起免 gas 转账": clients/wallet-cli/typescript/commands/gasfree/transfer.md
+                    - "导入钱包":
+                        - "概览": clients/wallet-cli/typescript/commands/import/index.md
+                        - "导入 keystore": clients/wallet-cli/typescript/commands/import/keystore.md
+                        - "注册 Ledger": clients/wallet-cli/typescript/commands/import/ledger.md
+                        - "导入助记词": clients/wallet-cli/typescript/commands/import/mnemonic.md
+                        - "导入私钥": clients/wallet-cli/typescript/commands/import/private-key.md
+                        - "添加观察地址": clients/wallet-cli/typescript/commands/import/watch.md
+                    - "消息签名":
+                        - "概览": clients/wallet-cli/typescript/commands/message/index.md
+                        - "签名消息": clients/wallet-cli/typescript/commands/message/sign.md
+                    - "账户权限":
+                        - "概览": clients/wallet-cli/typescript/commands/permission/index.md
+                        - "查看权限": clients/wallet-cli/typescript/commands/permission/show.md
+                        - "更新权限": clients/wallet-cli/typescript/commands/permission/update.md
+                    - "治理提案":
+                        - "概览": clients/wallet-cli/typescript/commands/proposal/index.md
+                        - "批准提案": clients/wallet-cli/typescript/commands/proposal/approve.md
+                        - "创建提案": clients/wallet-cli/typescript/commands/proposal/create.md
+                        - "删除提案": clients/wallet-cli/typescript/commands/proposal/delete.md
+                        - "列出提案": clients/wallet-cli/typescript/commands/proposal/list.md
+                        - "查看提案": clients/wallet-cli/typescript/commands/proposal/show.md
+                    - "投票奖励":
+                        - "概览": clients/wallet-cli/typescript/commands/reward/index.md
+                        - "查询可领取奖励": clients/wallet-cli/typescript/commands/reward/balance.md
+                        - "提取奖励": clients/wallet-cli/typescript/commands/reward/withdraw.md
+                    - "质押与资源":
+                        - "概览": clients/wallet-cli/typescript/commands/stake/index.md
+                        - "取消解质押": clients/wallet-cli/typescript/commands/stake/cancel-unfreeze.md
+                        - "代理资源": clients/wallet-cli/typescript/commands/stake/delegate.md
+                        - "查看代理明细": clients/wallet-cli/typescript/commands/stake/delegated.md
+                        - "质押 TRX": clients/wallet-cli/typescript/commands/stake/freeze.md
+                        - "查看质押状态": clients/wallet-cli/typescript/commands/stake/info.md
+                        - "收回代理": clients/wallet-cli/typescript/commands/stake/undelegate.md
+                        - "解质押": clients/wallet-cli/typescript/commands/stake/unfreeze.md
+                        - "提取解质押": clients/wallet-cli/typescript/commands/stake/withdraw.md
+                    - "Token 地址簿":
+                        - "概览": clients/wallet-cli/typescript/commands/token/index.md
+                        - "添加 token": clients/wallet-cli/typescript/commands/token/add.md
+                        - "查询 token 余额": clients/wallet-cli/typescript/commands/token/balance.md
+                        - "查看 token 信息": clients/wallet-cli/typescript/commands/token/info.md
+                        - "列出 token": clients/wallet-cli/typescript/commands/token/list.md
+                        - "删除 token": clients/wallet-cli/typescript/commands/token/remove.md
+                    - "交易":
+                        - "概览": clients/wallet-cli/typescript/commands/tx/index.md
+                        - "查看签名批准情况": clients/wallet-cli/typescript/commands/tx/approvals.md
+                        - "广播交易": clients/wallet-cli/typescript/commands/tx/broadcast.md
+                        - "查看交易详情": clients/wallet-cli/typescript/commands/tx/info.md
+                        - "管理多签交易": clients/wallet-cli/typescript/commands/tx/multisig.md
+                        - "发送交易": clients/wallet-cli/typescript/commands/tx/send.md
+                        - "签名交易": clients/wallet-cli/typescript/commands/tx/sign.md
+                        - "查询交易状态": clients/wallet-cli/typescript/commands/tx/status.md
+                    - "结构化数据签名":
+                        - "概览": clients/wallet-cli/typescript/commands/typed-data/index.md
+                        - "签名结构化数据": clients/wallet-cli/typescript/commands/typed-data/sign.md
+                    - "投票":
+                        - "概览": clients/wallet-cli/typescript/commands/vote/index.md
+                        - "投票": clients/wallet-cli/typescript/commands/vote/cast.md
+                        - "列出超级代表": clients/wallet-cli/typescript/commands/vote/list.md
+                        - "查看投票状态": clients/wallet-cli/typescript/commands/vote/status.md
+                    - "超级代表":
+                        - "概览": clients/wallet-cli/typescript/commands/witness/index.md
+                        - "注册超级代表": clients/wallet-cli/typescript/commands/witness/create.md
+                        - "设置佣金比例": clients/wallet-cli/typescript/commands/witness/set-brokerage.md
+                        - "更新超级代表信息": clients/wallet-cli/typescript/commands/witness/update.md
+                - 机器接口: clients/wallet-cli/typescript/machine-interface.md
+                - 故障排查: clients/wallet-cli/typescript/troubleshooting.md
     - 版本发布:
         - 新版本部署手册: releases/upgrade-instruction.md
         - 一致性检验: releases/signature_verification.md
         - 历史版本:
             - releases/versions/index.md
+            - v4.8.2 (Pyrrho): releases/versions/v4.8.2.md
             - v4.8.1 (Democritus): releases/versions/v4.8.1.md
             - v4.8.0.1 (Seneca): releases/versions/v4.8.0.1.md
             - v4.8.0 (Kant): releases/versions/v4.8.0.md
@@ -360,6 +547,8 @@ markdown_extensions:
     - pymdownx.tilde
     - pymdownx.tasklist
     - pymdownx.superfences
+    - pymdownx.tabbed:
+        alternate_style: true
 
 plugins:
   - search:
@@ -368,18 +557,3 @@ plugins:
       locale: zh
       type: date
       fallback_to_build_date: true
-  - exclude:
-      glob:
-        - clients/tron-grid.md
-        - contracts/trc20.md
-        - contracts/tvm.md
-        - developers/contribution.md
-        - developers/gpg.md
-        - developers/incentives.md
-        - developers/resources.md
-        - faq/index.md
-        - introduction/index.md
-        - introduction/overview.md
-        - mechanism-algorithm/shielded-TRC20-contract.md
-        - mechanism-algorithm/trc10.md
-

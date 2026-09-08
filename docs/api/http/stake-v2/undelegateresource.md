@@ -14,7 +14,7 @@
 | `receiver_address` | string | 是 | 接收方地址 |
 | `balance` | int64 | 是 | 撤销代理的冻结量（sun） |
 | `resource` | enum | 否 | `BANDWIDTH` / `ENERGY` |
-| `permission_id` | int32 | 否 | 多签权限 ID |
+| `Permission_id` | int32 | 否 | 多签权限 ID |
 | `visible` | bool | 否 | 地址格式 |
 
 示例：
@@ -76,8 +76,8 @@ curl --request POST \
 
 | 触发条件 | 响应 |
 |---|---|
-| 请求体超过 `node.maxMessageSize` | `{"Error": "class java.lang.Exception : body size is too big, the limit is <N>"}` |
-| 请求体不是合法 JSON / 字段类型不符 | `{"Error": "class com.alibaba.fastjson.JSONException : <解析器信息>"}` 或 `{"Error": "class org.tron.core.services.http.JsonFormat$ParseException : <解码器信息>"}` |
+| 请求体超过 `node.http.maxMessageSize` | 通常由 `SizeLimitHandler` 返回 HTTP 413 `Payload Too Large` |
+| 请求体不是合法 JSON / 字段类型不符 | `{"Error": "class org.tron.json.JSONException : <解析器信息>"}` 或 `{"Error": "class org.tron.core.services.http.JsonFormat$ParseException : <解码器信息>"}` |
 | 链未启用资源代理 | `{"Error": "class org.tron.core.exception.ContractValidateException : No support for resource delegate"}` |
 | 提案 #70 `UNFREEZE_DELAY_DAYS` 未激活 | `{"Error": "... : Not support unDelegate resource transaction, need to be opened by the committee"}` |
 | `owner_address` 非法 | `{"Error": "... : Invalid address"}` |

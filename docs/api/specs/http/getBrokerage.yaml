@@ -1,0 +1,206 @@
+"/wallet/getBrokerage":
+  "get":
+    "tags":
+      - "Witness / governance"
+    "summary": "An SR's current brokerage rate"
+    "description": "Endpoint registration, HTTP method, servlet, and request type are derived from java-tron source. See `docs/api/http/witness-and-governance/getBrokerage.md` for examples and detailed behavior."
+    "operationId": "wallet_getBrokerage_get"
+    "externalDocs":
+      "url": "https://github.com/tronprotocol/documentation-en/blob/master/docs/api/http/witness-and-governance/getBrokerage.md"
+    "responses":
+      "200":
+        "description": "java-tron success or in-band error response. Endpoint business failures may use the endpoint result object; shared layers may return JavaTronError. Use x-tron-in-band-error to detect failures and x-tron-error-model catalog IDs to classify retry behavior."
+        "content":
+          "application/json":
+            "schema":
+              "oneOf":
+                -
+                  "type": "object"
+                  "additionalProperties": false
+                  "properties":
+                    "brokerage":
+                      "type": "integer"
+                      "format": "int32"
+                      "description": "Witness brokerage percentage, from 0 to 100."
+                    "Error":
+                      "type": "string"
+                  "not":
+                    "required":
+                      - "Error"
+                  "title": "GetBrokerageGetResultObject1"
+                -
+                  "$ref": "#/components/schemas/JavaTronError"
+              "x-tron-in-band-error":
+                "httpStatus": 200
+                "errors":
+                  -
+                    "kind": "java-tron"
+                    "schema": "#/components/schemas/JavaTronError"
+                    "discriminatorPath": "$.Error"
+                    "catalogIds":
+                      - "HTTP_RATE_LIMITED"
+                      - "HTTP_SERVLET_EXCEPTION"
+                    "sources":
+                      - "servlet"
+                      - "shared-rate-limiter"
+                "errorSchema": "#/components/schemas/JavaTronError"
+                "discriminatorField": "Error"
+                "sources":
+                  - "servlet"
+                  - "shared-rate-limiter"
+      "404":
+        "description": "Endpoint disabled by node configuration."
+        "x-tron-errors":
+          "catalogIds":
+            - "HTTP_API_DISABLED"
+        "content":
+          "application/json":
+            "schema":
+              "$ref": "#/components/schemas/JavaTronError"
+            "example":
+              "Error": "this API is unavailable due to config"
+      "413":
+        "description": "Request body exceeds the node.http.maxMessageSize limit."
+        "x-tron-errors":
+          "catalogIds":
+            - "HTTP_REQUEST_TOO_LARGE"
+        "content":
+          "text/html":
+            "schema":
+              "type": "string"
+    "x-source-derived": true
+    "x-java-service": "FullNode HTTP"
+    "x-java-servlet": "GetBrokerageServlet"
+    "x-java-source": "framework/src/main/java/org/tron/core/services/http/FullNodeHttpApiService.java"
+    "x-tron-alternate-endpoints":
+      -
+        "path": "/walletsolidity/getBrokerage"
+        "service": "HTTP OnSolidity"
+        "consistency": "solidified"
+        "x-java-servlet": "GetBrokerageOnSolidityServlet"
+    "parameters":
+      -
+        "name": "address"
+        "in": "query"
+        "required": false
+        "schema":
+          "type": "string"
+          "description": "Account or contract address accepted by this endpoint."
+        "x-source-derived": true
+      -
+        "name": "int64_as_string"
+        "in": "query"
+        "required": false
+        "description": "When true, serialize int64 and uint64 response fields as JSON strings to avoid precision loss."
+        "schema":
+          "type": "boolean"
+          "default": false
+        "x-java-source": "framework/src/main/java/org/tron/core/services/http/RateLimiterServlet.java"
+        "x-source-derived": true
+    "x-overlay-derived": true
+    "x-source-refs":
+      - "framework/src/main/java/org/tron/core/services/http/GetBrokerageServlet.java"
+  "post":
+    "tags":
+      - "Witness / governance"
+    "summary": "An SR's current brokerage rate"
+    "description": "Endpoint registration, HTTP method, servlet, and request type are derived from java-tron source. See `docs/api/http/witness-and-governance/getBrokerage.md` for examples and detailed behavior."
+    "operationId": "wallet_getBrokerage_post"
+    "externalDocs":
+      "url": "https://github.com/tronprotocol/documentation-en/blob/master/docs/api/http/witness-and-governance/getBrokerage.md"
+    "responses":
+      "200":
+        "description": "java-tron success or in-band error response. Endpoint business failures may use the endpoint result object; shared layers may return JavaTronError. Use x-tron-in-band-error to detect failures and x-tron-error-model catalog IDs to classify retry behavior."
+        "content":
+          "application/json":
+            "schema":
+              "oneOf":
+                -
+                  "type": "object"
+                  "additionalProperties": false
+                  "properties":
+                    "brokerage":
+                      "type": "integer"
+                      "format": "int32"
+                      "description": "Witness brokerage percentage, from 0 to 100."
+                    "Error":
+                      "type": "string"
+                  "not":
+                    "required":
+                      - "Error"
+                  "title": "GetBrokeragePostResultObject1"
+                -
+                  "$ref": "#/components/schemas/JavaTronError"
+              "x-tron-in-band-error":
+                "httpStatus": 200
+                "errors":
+                  -
+                    "kind": "java-tron"
+                    "schema": "#/components/schemas/JavaTronError"
+                    "discriminatorPath": "$.Error"
+                    "catalogIds":
+                      - "HTTP_RATE_LIMITED"
+                      - "HTTP_SERVLET_EXCEPTION"
+                    "sources":
+                      - "servlet"
+                      - "shared-rate-limiter"
+                "errorSchema": "#/components/schemas/JavaTronError"
+                "discriminatorField": "Error"
+                "sources":
+                  - "servlet"
+                  - "shared-rate-limiter"
+      "404":
+        "description": "Endpoint disabled by node configuration."
+        "x-tron-errors":
+          "catalogIds":
+            - "HTTP_API_DISABLED"
+        "content":
+          "application/json":
+            "schema":
+              "$ref": "#/components/schemas/JavaTronError"
+            "example":
+              "Error": "this API is unavailable due to config"
+      "413":
+        "description": "Request body exceeds the node.http.maxMessageSize limit."
+        "x-tron-errors":
+          "catalogIds":
+            - "HTTP_REQUEST_TOO_LARGE"
+        "content":
+          "text/html":
+            "schema":
+              "type": "string"
+    "x-source-derived": true
+    "x-java-service": "FullNode HTTP"
+    "x-java-servlet": "GetBrokerageServlet"
+    "x-java-source": "framework/src/main/java/org/tron/core/services/http/FullNodeHttpApiService.java"
+    "x-tron-alternate-endpoints":
+      -
+        "path": "/walletsolidity/getBrokerage"
+        "service": "HTTP OnSolidity"
+        "consistency": "solidified"
+        "x-java-servlet": "GetBrokerageOnSolidityServlet"
+    "x-overlay-derived": true
+    "x-source-refs":
+      - "framework/src/main/java/org/tron/core/services/http/GetBrokerageServlet.java"
+    "requestBody":
+      "required": false
+      "content":
+        "application/json":
+          "schema":
+            "type": "object"
+            "additionalProperties": false
+            "properties":
+              "address":
+                "type": "string"
+                "description": "Account or contract address accepted by this endpoint."
+            "x-source-shape": "servlet-json-body"
+            "x-java-unknown-fields": "ignored-by-servlet-helper"
+        "application/x-www-form-urlencoded":
+          "schema":
+            "type": "object"
+            "additionalProperties": false
+            "properties":
+              "address":
+                "type": "string"
+                "description": "Account or contract address accepted by this endpoint."
+            "x-source-shape": "servlet-form-body"

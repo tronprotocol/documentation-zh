@@ -9,9 +9,11 @@
 
 ## 请求参数
 
-| 字段 | 类型 | 必填 | 说明 |
-|---|---|---|---|
-| `visible` | bool | 否 | 文本字段格式（仅影响 `Address.host`：`true` 输出 UTF-8 IP 字符串，默认/`false` 输出 hex 字节） |
+GET 和 POST 都从 URL 查询参数读取以下字段；servlet 不解析 POST 请求体。
+
+| 字段 | 方法 | 类型 | 必填 | 说明 |
+|---|---|---|---|---|
+| `visible` | GET / POST | bool | 否 | 文本字段格式（仅影响 `Address.host`：`true` 输出 UTF-8 IP 字符串，默认/`false` 输出 hex 字节） |
 
 示例：
 
@@ -59,6 +61,7 @@ curl --request POST \
 
 ### 异常响应
 
-| 触发条件 | 响应 |
-|---|---|
-| 节点内部异常（拉取节点列表或序列化失败） | `{"Error": "<exceptionClass> : <message>"}` |
+| 方法 | 触发条件 | 响应 |
+|---|---|---|
+| GET / POST | 请求体超过 `node.http.maxMessageSize` | 通常由 `SizeLimitHandler` 返回 HTTP 413 `Payload Too Large` |
+| GET / POST | 节点内部异常（拉取节点列表或序列化失败） | `{"Error": "<exceptionClass> : <message>"}` |

@@ -25,6 +25,8 @@ java-tron 是 TRON 网络的官方 Java 客户端实现，由 TRON 协议团队�
     部署、监控、维护 java-tron 节点的运维指南。
 
     - [部署 java-tron](using_javatron/installing_javatron.md)
+    - [节点配置](using_javatron/configuration.md)
+    - [节点日志](using_javatron/logging.md)
     - [节点监控](using_javatron/metrics.md)
     - [升级到新版本](releases/upgrade-instruction.md)
     - [私链网络](using_javatron/private_network.md)
@@ -39,7 +41,7 @@ java-tron 是 TRON 网络的官方 Java 客户端实现，由 TRON 协议团队�
     - [JSON-RPC 接口](api/json-rpc/index.md)
     - [gRPC 接口](api/rpc/index.md)
     - [智能合约](contracts/contract.md)
-    - [wallet-cli](clients/wallet-cli.md)
+    - [wallet-cli](clients/wallet-cli/index.md)
 
 -   __贡献核心__
 
@@ -61,7 +63,7 @@ java-tron 是 TRON 网络的官方 Java 客户端实现，由 TRON 协议团队�
 - __[核心协议](mechanism-algorithm/dpos.md)__ — DPoS 共识、超级代表、账户模型、资源模型、智能合约、系统合约、去中心化交易所、账户权限管理
 - __[java-tron 开发](developers/java-tron.md)__ — 开发者指南、TIPs 工作流程、Issue 流程、治理流程、IDE 配置、开发示例、核心模块
 - __[DApp 开发](contracts/tools.md)__ — 开发工具
-- __[客户端](clients/wallet-cli.md)__ — wallet-cli
+- __[客户端](clients/wallet-cli/index.md)__ — wallet-cli
 - __[版本发布](releases/upgrade-instruction.md)__ — 新版本部署手册、一致性检验、历史版本
 - __[附录](glossary.md)__ — 术语表
 
@@ -71,3 +73,7 @@ java-tron 是 TRON 网络的官方 Java 客户端实现，由 TRON 协议团队�
 - [TRON 改进提案 (TIPs)](https://github.com/tronprotocol/tips) — 协议演进提案的提交、讨论与归档仓库
 - [TRON 开发者中心](https://developers.tron.network/) — DApp 开发者文档、SDK、教程的英文总入口
 - [TRON 官网](https://tron.network/index?lng=zh) — 项目动态、生态合作伙伴、社区入口
+
+## 文档权威来源
+
+英文文档仓库 ([`documentation-en`](https://github.com/tronprotocol/documentation-en)) 是 java-tron 文档的权威来源，本中文文档仓库 ([`documentation-zh`](https://github.com/tronprotocol/documentation-zh)) 为其翻译跟进版本。当中英文内容不一致时，以英文版为准；内容变更应先在英文源上进行，再同步到中文译文。

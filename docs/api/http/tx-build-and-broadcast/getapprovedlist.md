@@ -14,7 +14,7 @@
 |---|---|---|---|
 | `raw_data` | object | 是 | 与 createtransaction 返回一致 |
 | `raw_data_hex` | string | 否（节点忽略） | 同 [`broadcasttransaction`](broadcasttransaction.md)：客户端可视化辅助字段，不参与验签 |
-| `signature` | string[] | 是 | 已收集的签名 |
+| `signature` | string[] | 否 | 已收集的签名；省略时仍可解析请求，已批准地址列表为空 |
 | `visible` | bool | 否 | 地址、文本字段格式（响应含 `result.message`，受 `visible` 影响） |
 
 示例：请求体为带 `signature` 的 Transaction JSON，结构同 [`/wallet/broadcasttransaction`](broadcasttransaction.md)。
@@ -33,7 +33,7 @@ curl --request POST \
 '
 ```
 
-> 上例为占位结构；实际请求体应为带至少一个 `signature` 的多签交易 JSON（来自 [`/wallet/createtransaction`](createtransaction.md) 等并加签）。
+> 上例为占位结构。实际权限检查通常使用由 [`/wallet/createtransaction`](createtransaction.md) 等接口生成并加签的多签交易 JSON，但该接口也接受空的或省略的 `signature` 数组，并返回空的已批准地址列表。
 
 ## 响应
 
@@ -63,7 +63,7 @@ curl --request POST \
 
 | 触发条件 | 响应 |
 |---|---|
-| 请求体超过 `node.maxMessageSize` | `{"Error": "class java.lang.Exception : body size is too big, the limit is <N>"}` |
-| 请求体不是合法 JSON | `{"Error": "class com.alibaba.fastjson.JSONException : <解析器信息>"}` |
+| 请求体超过 `node.http.maxMessageSize` | 通常由 `SizeLimitHandler` 返回 HTTP 413 `Payload Too Large` |
+| 请求体不是合法 JSON | `{"Error": "class org.tron.json.JSONException : <解析器信息>"}` |
 | 缺少 `raw_data`、`raw_data.contract` 不是数组、`signature` 非数组或元素非 hex、`raw_data` 字段类型不符等 | `{"Error": "class java.lang.NullPointerException : null"}`（`Util.packTransaction` 把 `JsonFormat$ParseException` / `ClassCastException` 静默捕获后返回 `null`，下游 `getTransactionApprovedList(null)` 触发空指针） |
 | 其他异常 | `{"Error": "<exceptionClass> : <message>"}` |

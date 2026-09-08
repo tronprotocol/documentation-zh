@@ -13,7 +13,7 @@
 |---|---|---|---|
 | `account_identifier.address` | string | 是 | 账户地址 |
 | `block_identifier.hash` | string | 是 | 区块哈希 |
-| `block_identifier.number` | int64 | 是 | 区块号 |
+| `block_identifier.number` | int64 | 否 | 区块高度；省略时默认为 `0`。仅查询创世块时可以省略；查询其他区块时必须与 `block_identifier.hash` 匹配 |
 | `visible` | bool | 否 | 地址格式 |
 
 示例：
@@ -59,13 +59,13 @@ curl --request POST \
 
 | 触发条件 | 响应 |
 |---|---|
-| 请求体超过 `node.maxMessageSize` | `{"Error": "class java.lang.Exception : body size is too big, the limit is <N>"}` |
-| 请求体不是合法 JSON / 字段类型不符 | `{"Error": "class com.alibaba.fastjson.JSONException : <解析器信息>"}` 或 `{"Error": "class org.tron.core.services.http.JsonFormat$ParseException : <解码器信息>"}` |
+| 请求体超过 `node.http.maxMessageSize` | 通常由 `SizeLimitHandler` 返回 HTTP 413 `Payload Too Large` |
+| 请求体不是合法 JSON / 字段类型不符 | `{"Error": "class org.tron.json.JSONException : <解析器信息>"}` 或 `{"Error": "class org.tron.core.services.http.JsonFormat$ParseException : <解码器信息>"}` |
 | `account_identifier` 缺失 | `{"Error": "class java.lang.IllegalArgumentException : account_identifier is null"}` |
 | `account_identifier.address` 缺失 | `{"Error": "class java.lang.IllegalArgumentException : account_identifier address is null"}` |
 | `block_identifier` 缺失 | `{"Error": "class java.lang.IllegalArgumentException : block_identifier null"}` |
 | `block_identifier.number < 0` | `{"Error": "class java.lang.IllegalArgumentException : block_identifier number less than 0"}` |
 | `block_identifier.hash` 长度不为 32 字节 | `{"Error": "class java.lang.IllegalArgumentException : block_identifier hash length not equals 32"}` |
 | `block_identifier` 的 `number` 与 `hash` 不匹配 | `{"Error": "class java.lang.IllegalArgumentException : number and hash do not match"}` |
-| 区块号不存在 | `{"Error": "class org.tron.core.exception.ItemNotFoundException : number: <N> is not found!"}` |
+| 区块高度不存在 | `{"Error": "class org.tron.core.exception.ItemNotFoundException : number: <N> is not found!"}` |
 | 其他异常 | `{"Error": "<exceptionClass> : <message>"}` |

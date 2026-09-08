@@ -13,18 +13,23 @@ TRON 支持两种事件订阅方式，开发者可根据不同的使用场景进
 
 这种方式有如下优势：
 
-  - **多样化的插件支持：** 目前支持 Kafka 和 MongoDB。
-  - **丰富的数据类型：** 可订阅区块、交易、智能合约事件及日志。
-  - **支持复杂过滤：** 可根据特定条件过滤事件。
-  - **历史事件回溯：** V2.0 框架支持从指定区块高度开始同步历史事件。
-  - **生产级可靠性：** 推荐用于需要数据完整性和可靠性的场景。
+- **多样化的插件支持：** 目前支持 Kafka 和 MongoDB。
+- **丰富的数据类型：** 可订阅区块、交易、智能合约事件及日志。
+- **支持复杂过滤：** 可根据特定条件过滤事件。
+- **历史事件回溯：** V2.0 框架支持从指定区块高度开始同步历史事件。
+- **生产级可靠性：** 推荐用于需要数据完整性和可靠性的场景。
+
+!!! note "版本兼容性"
+
+    从 java-tron v4.8.2 起，事件插件必须声明 `Plugin-Version` 为 **3.0.0 或更高版本**。较旧的事件插件构建（例如 2.2.0）会在节点启动时被拒绝，因为它们依赖的库已不再随 java-tron 打包。如果配置了不兼容的插件，节点会在事件订阅初始化阶段失败，而不是静默丢弃触发器。
+
 
 ### 事件服务框架
 
 Java-tron 当前支持两个事件服务框架版本：`V1.0` 和 `V2.0`。
 
-  - **V1.0：** 仅支持新区块产生时的实时事件推送。
-  - **V2.0：** **推荐使用**，新增了历史事件回溯功能，允许从任意区块高度开始同步。
+- **V1.0：** 仅支持新区块产生时的实时事件推送。
+- **V2.0：** **推荐使用**，新增了历史事件回溯功能，允许从任意区块高度开始同步。
 
 详细对比与选择建议请参考：[事件服务框架 V2.0 介绍](https://medium.com/tronnetwork/event-service-framework-v2-0-0622f2f07249)。
 
@@ -45,8 +50,8 @@ Java-tron 当前支持两个事件服务框架版本：`V1.0` 和 `V2.0`。
 
 在迁移之前，请考虑以下因素：
 
-  - 内部交易日志支持： `V2.0` 暂不支持内部交易日志（`internalTransactionList` 字段为空）。如果您的业务依赖此字段，请继续使用 `V1.0`。
-  - 插件版本： 建议将事件插件同步升级至最新版，以避免在处理大量历史数据时可能出现的性能问题。
+- 内部交易日志支持： `V2.0` 暂不支持内部交易日志（`internalTransactionList` 字段为空）。如果您的业务依赖此字段，请继续使用 `V1.0`。
+- 插件版本： 请使用 `3.0.0` 或更高版本的事件插件。java-tron v4.8.2 会在启动时拒绝更旧的插件包。
 
 **迁移操作步骤**
 
@@ -56,12 +61,13 @@ Java-tron 当前支持两个事件服务框架版本：`V1.0` 和 `V2.0`。
 
 * 通过源码构建
 
-```
+```bash
 git clone git@github.com:tronprotocol/event-plugin.git
 cd event-plugin
 git checkout master
 ./gradlew build
 ```
+
 构建完成后，生成的 `.zip` 文件即为插件包。
 
 * 直接下载官方发布版本
@@ -72,7 +78,8 @@ git checkout master
 
 在 `config.conf` 文件中，将事件服务版本修改为使用`V2.0`，值为 1 。
 
-```
+```properties
+event.subscribe.enable = true
 event.subscribe.version = 1 # 1 表示 V2.0，0 表示 V1.0
 ```
 
@@ -80,24 +87,25 @@ event.subscribe.version = 1 # 1 表示 V2.0，0 表示 V1.0
 
 新版插件的配置方式与旧版基本一致，你可以参考如下文档进行部署：
 
-  - [事件插件部署(MongoDB)](#use-mongodb)
-  - [事件插件部署(Kafka)](#use-kafka)
+- [事件插件部署(MongoDB)](#use-mongodb)
+- [事件插件部署(Kafka)](#use-kafka)
 
 ##### 步骤 4（可选）：配置历史事件同步起点
 
 如果你需要从指定区块高度开始同步历史事件，请在配置文件中加入以下配置。
 
-```
+```properties
 event.subscribe.startSyncBlockNum = <block_height>
 ```
 
 ##### 步骤 5：启动 FullNode 和插件
 
-完成上述配置后，使用以下命令启动 `FullNode` 并加载事件插件。
+完成上述配置后，正常启动 `FullNode` 即可。`event.subscribe.enable = true` 会从配置文件启用事件订阅。
 
+```bash
+java -jar build/libs/FullNode.jar -c framework/src/main/resources/config.conf
 ```
-java -jar build/libs/FullNode.jar -c framework/src/main/resources/config.conf --es
-```
+
 ### Kafka 事件订阅插件部署与使用指南 { #use-kafka }
 
 本指南旨在帮助开发者高效搭建并运行 TRON Kafka 事件订阅插件，用以监听 TRON 链上事件。我们将从环境准备讲起，一步步带您完成部署、配置和最终验证。主要步骤包括：
@@ -122,13 +130,13 @@ java -jar build/libs/FullNode.jar -c framework/src/main/resources/config.conf --
 
 首先，您需要从 GitHub 仓库克隆 `event-plugin` 项目，并进行编译以生成插件的 `.zip` 文件。请按照以下步骤操作：
 
-```
+```bash
 git clone https://github.com/tronprotocol/event-plugin.git
 cd event-plugin
 ./gradlew build
 ```
 
-编译成功后，您将在 `event-plugin/build/plugins/` 目录下找到生成的 `.zip` 插件文件，例如 `plugin-kafka-1.0.0.zip`。
+编译成功后，您将在 `event-plugin/build/plugins/` 目录下找到生成的 `.zip` 插件文件，例如 `plugin-kafka-*.zip`。java-tron v4.8.2 及以后，请选择 `Plugin-Version` 为 `3.0.0` 或更高版本的插件包。
 
 #### 部署并运行 Kafka { #deploying-and-running-kafka }
 
@@ -136,7 +144,7 @@ cd event-plugin
 
 在 Linux 环境下，请按照以下步骤安装 Kafka：
 
-```
+```bash
 cd /usr/local
 wget https://archive.apache.org/dist/kafka/2.8.0/kafka_2.13-2.8.0.tgz
 tar -xzf kafka_2.13-2.8.0.tgz
@@ -146,7 +154,7 @@ tar -xzf kafka_2.13-2.8.0.tgz
 
 在 Linux 环境下，请按照以下步骤启动 ZooKeeper 服务和 Kafka Broker 服务：
 
-```
+```bash
 cd /usr/local/kafka_2.13-2.8.0
 # 启动 ZooKeeper 服务
 bin/zookeeper-server-start.sh config/zookeeper.properties &
@@ -158,18 +166,19 @@ bin/kafka-server-start.sh config/server.properties &
 
 为了支持 Kafka 事件订阅，您需要修改 Fullnode 节点的配置文件 (`config.conf`)，配置 `event.subscribe` 配置项。
 
-```
+```properties
 event.subscribe = {
-  version = 1 
-  startSyncBlockNum = 0 
+  enable = true
+  version = 1
+  startSyncBlockNum = 0
 
   native = {
-    useNativeQueue = false 
+    useNativeQueue = false
   }
 
-  path = "" 
-  server = "" 
-  dbconfig = "" 
+  path = ""
+  server = ""
+  dbconfig = ""
   contractParse = true
   topics = []
   filter = {}
@@ -179,11 +188,12 @@ event.subscribe = {
 **字段解析**：
 
 *   `version`：事件服务框架版本。`1` 表示使用 V2.0 版本，`0` 表示使用 V1.0 版本。若未配置，默认使用 V1.0。
+*   `enable`：事件订阅的全局开关。如果为 `false`，则事件订阅被禁用，插件路径、topics 和 filter 配置都不会生效，除非同时指定了兼容保留的 `--es` 命令行参数。
 *   `startSyncBlockNum`：V2.0 版本新增功能，支持从本地历史区块处理并推送事件，满足历史数据订阅需求。
     *   当 `startSyncBlockNum <= 0` 时，表示关闭历史事件同步功能；
     *   当 `startSyncBlockNum > 0` 时，表示开启该功能，并从指定区块高度开始同步历史事件。**注意**：启用该功能时建议使用最新版本的事件插件。
 *   `native.useNativeQueue`：是否使用内置消息队列（ZeroMQ）订阅事件。如果需要支持 Kafka 事件订阅，请确保此字段为 `false`，否则 Kafka 事件订阅将无法生效。
-*   `path`：`plugin-kafka-1.0.0.zip` 的本地绝对路径，请确保路径正确，否则无法加载。
+*   `path`：你实际构建或下载的插件 ZIP 文件的本地绝对路径，例如 `plugin-kafka-3.0.0.zip`。java-tron v4.8.2 及以后，插件包必须声明 `Plugin-Version` 为 `3.0.0` 或更高版本。请确保路径正确，否则无法加载。
 *   `server`：Kafka 服务器地址，使用 `ip:port` 的格式。Kafka 默认端口号是 `9092`，请确保端口号正确，并确保 Kafka 服务可访问。
 *   `dbconfig`：此配置项仅针对 MongoDB 插件，对于 Kafka 插件请忽略。
 *   `contractParse`：控制是否对合约日志进行 ABI 解码。设为 `true`（默认值）时，节点会将每条日志与合约 ABI 进行匹配，匹配成功的日志作为解码后的 `contractevent` 事件推送，未匹配的日志则作为原始 `contractlog` 事件推送；设为 `false` 时，跳过 ABI 解码，所有日志均作为原始 `contractlog` 事件推送。
@@ -195,13 +205,15 @@ event.subscribe = {
 
 TRON 事件订阅支持 `block`、`transaction`、`contractevent`、`contractlog`、`solidity`、`solidityevent`、`soliditylog` 7 种类型的事件订阅。开发者需要根据业务需求进行配置，**建议只订阅 1-2 种事件类型，如果开启过多触发器，会导致性能下降。**
 
+当发生主链切换（chain reorganization / reorg），导致此前推送过的区块被回滚时，java-tron v4.8.2 会将已回滚的实时 `block`、`transaction`、`contractevent` 和 `contractlog` 触发器重新推送，并标记为 `removed=true`；随后再以 `removed=false` 正常推送替换的分叉分支。下游消费者应将 `removed=true` 的触发器视为回滚信号，对同一 block / transaction / log 之前已消费的事件进行撤销或标记。固化类触发器（`solidified=true`、`solidityevent` 和 `soliditylog`）只表示已固化的数据；被回滚的合约触发器不会被缓存进 solidity 事件/日志队列。
+
 ##### 1. 交易事件 { #transaction-event }
 
 用于订阅交易相关的事件信息。
 
 配置示例：
 
-```
+```properties
 event.subscribe.topics = [
   {
     triggerName = "transaction"
@@ -215,18 +227,19 @@ event.subscribe.topics = [
 
 参数说明：
 
-  - `triggerName`: 事件类型标识，交易事件固定为 `"transaction"`。
-  - `enable`: 是否订阅此类型的事件。
-  - `topic`: 在 MongoDB 或 Kafka 中接收此类型事件的主题名，该参数值需与 MongoDB 或 Kafka 的配置保持一致。
-  - `solidified`: 如果设为 `true`，则仅订阅已固化的交易事件。
-  - `ethCompatible`: 如果设为 `true`，将包含 ETH 兼容字段（如 `transactionIndex`, `logList`）。
+- `triggerName`: 事件类型标识，交易事件固定为 `"transaction"`。
+- `enable`: 是否订阅此类型的事件。
+- `topic`: 在 MongoDB 或 Kafka 中接收此类型事件的主题名，该参数值需与 MongoDB 或 Kafka 的配置保持一致。
+- `solidified`: 如果设为 `true`，则仅订阅已固化的交易事件。
+- `ethCompatible`: 如果设为 `true`，将包含 ETH 兼容字段（如 `transactionIndex`, `logList`）。
 
 交易事件中包含的主要字段：
 
-  - `transactionId`: 交易哈希。
-  - `blockNumber`: 区块高度。
-  - `energyUsage`: 此次调用中消耗的能量(Energy) 总量。
-  - `energyFee`: 此次调用中消耗的 TRX 数量（以 `sun` 为单位）。
+- `transactionId`: 交易哈希。
+- `blockNumber`: 区块高度。
+- `energyUsage`: 此次调用中消耗的能量(Energy) 总量。
+- `energyFee`: 此次调用中消耗的 TRX 数量（以 `sun` 为单位）。
+- `removed`: 如果该交易事件因主链切换而被回滚，则为 `true`；否则为 `false`。
 
 更多字段请参考 [TransactionLogTrigger](https://github.com/tronprotocol/java-tron/blob/develop/common/src/main/java/org/tron/common/logsfilter/trigger/TransactionLogTrigger.java)。
 
@@ -236,7 +249,7 @@ event.subscribe.topics = [
 
 配置示例：
 
-```
+```properties
 event.subscribe.topics = [
   {
     triggerName = "block"
@@ -249,11 +262,12 @@ event.subscribe.topics = [
 
 区块事件中包含的主要字段：
 
-  - `blockHash`: 区块哈希。
-  - `blockNumber`: 区块高度。
-  - `transactionSize`: 区块中包含的交易数量。
-  - `latestSolidifiedBlockNumber`: 最新的固化块的高度
-  - `transactionList`: 交易哈希列表
+- `blockHash`: 区块哈希。
+- `blockNumber`: 区块高度。
+- `transactionSize`: 区块中包含的交易数量。
+- `latestSolidifiedBlockNumber`: 最新的固化块的高度
+- `transactionList`: 交易哈希列表
+- `removed`: 如果该区块事件因主链切换而被回滚，则为 `true`；否则为 `false`。
 
 更多字段请参考 [BlockLogTrigger](https://github.com/tronprotocol/java-tron/blob/develop/common/src/main/java/org/tron/common/logsfilter/trigger/BlockLogTrigger.java)。
 
@@ -263,7 +277,7 @@ event.subscribe.topics = [
 
 配置示例：
 
-```
+```properties
 event.subscribe.topics = [
   {
     triggerName = "contractevent"
@@ -288,16 +302,17 @@ event.subscribe.topics = [
 ]
 ```
 
-  - `contractevent`: 订阅所有合约事件。
-  - `contractlog`: 订阅所有合约日志。
-  - `solidityevent`: 仅订阅固化块中的合约事件。
-  - `soliditylog`: 仅订阅固化块中的合约日志。
+- `contractevent`: 订阅所有合约事件。
+- `contractlog`: 订阅所有合约日志。
+- `solidityevent`: 仅订阅固化块中的合约事件。
+- `soliditylog`: 仅订阅固化块中的合约日志。
 
 合约事件中包含的主要字段：
 
-  - `transactionId`: 交易哈希。
-  - `contractAddress`: 合约地址。
-  - `blockNumber`: 合约事件所在的区块高度。
+- `transactionId`: 交易哈希。
+- `contractAddress`: 合约地址。
+- `blockNumber`: 合约事件所在的区块高度。
+- `removed`: 如果该合约事件/日志因主链切换而被回滚，则为 `true`；否则为 `false`。`solidityevent` 和 `soliditylog` 不会推送回滚条目，因为它们只在数据固化后才发出。
 
 更多字段请参考 [ContractEventTrigger](https://github.com/tronprotocol/java-tron/blob/develop/common/src/main/java/org/tron/common/logsfilter/trigger/ContractEventTrigger.java) 和  [ContractLogTrigger](https://github.com/tronprotocol/java-tron/blob/develop/common/src/main/java/org/tron/common/logsfilter/trigger/ContractLogTrigger.java)。
 
@@ -327,7 +342,7 @@ filter = {
 
 配置示例：
 
-```
+```properties
 event.subscribe.topics = [
   {
     triggerName = "solidity"
@@ -339,8 +354,8 @@ event.subscribe.topics = [
 
 固化块通知事件中包含的主要字段：
 
-  - `latestSolidifiedBlockNumber`: 最新固化块高度。
-  - `timestamp`: 区块时间戳。
+- `latestSolidifiedBlockNumber`: 最新固化块高度。
+- `timestamp`: 区块时间戳。
 
 更多字段请参考 [SolidityTrigger](https://github.com/tronprotocol/java-tron/blob/develop/common/src/main/java/org/tron/common/logsfilter/trigger/SolidityTrigger.java)。
 
@@ -352,30 +367,30 @@ Kafka 订阅 Topic 的名称必须与 `event.subscribe` 配置中 `topics` 字�
 
 在 Linux 环境下，创建 Kafka Topic 的命令如下：
 
-```
+```bash
 bin/kafka-topics.sh --create --topic block --bootstrap-server localhost:9092
 ```
 
 #### 启动事件订阅节点 { #start-the-node }
 
-完成上述配置后，启动 Fullnode 节点时需要添加 `--es` 参数，以启用事件订阅功能。
+完成上述配置后，正常启动 Fullnode 节点即可。`event.subscribe.enable = true` 会启用事件订阅功能。兼容保留的 `--es` 参数仍映射到同一开关，但推荐使用配置文件字段。
 
-```
-java -jar build/libs/FullNode.jar -c framework/src/main/resources/config.conf --es
+```bash
+java -jar build/libs/FullNode.jar -c framework/src/main/resources/config.conf
 ```
 
 ##### 验证插件加载
 
 您可以通过查看 Fullnode 日志来验证 Kafka 事件插件是否成功加载：
 
-```
+```bash
 grep -i eventplugin logs/tron.log
 ```
 
 如果日志中出现类似以下字样，则表明事件订阅插件已成功加载：
 
-```
-[o.t.c.l.EventPluginLoader] 'your plugin path/plugin-kafka-1.0.0.zip' loaded
+```text
+[o.t.c.l.EventPluginLoader] 'your plugin path/plugin-kafka-*.zip' loaded
 ```
 
 ##### 验证事件订阅
@@ -384,13 +399,13 @@ grep -i eventplugin logs/tron.log
 
 在 Linux 环境下，命令如下：
 
-```
+```bash
 bin/kafka-console-consumer.sh --topic block --from-beginning --bootstrap-server localhost:9092
 ```
 
 如果控制台出现类似以下 JSON 格式的输出，则表明事件订阅成功：
 
-```
+```json
 {
 	"timeStamp": 1539973125000,
 	"triggerName": "blockTrigger",
@@ -398,6 +413,7 @@ bin/kafka-console-consumer.sh --topic block --from-beginning --bootstrap-server 
 	"blockHash": "000000000032fc03440362c3d42eb05e79e8a1aef77fe31c7879d23a750f2a31",
 	"transactionSize": 16,
 	"latestSolidifiedBlockNumber": 3341297,
+	"removed": false,
 	"transactionList": ["8757f846e541b51b5692a2370327f4b8031125f4557f8ad4b1037d4452616d39", "f6adab7814b34e5e756170f93a31a0c3393c5d99eff11e30271916375adc7467", ..., "89bcbcd063a48ef4a5678a033acf5edbb6b17419a3c91eb0479a3c8598774b43"]
 }
 ```
@@ -425,6 +441,7 @@ bin/kafka-console-consumer.sh --topic block --from-beginning --bootstrap-server 
 *   **操作系统**：Linux 或 macOS
 
 #### 系统架构与工作机制 { #understanding-system-architecture }
+
 TRON MongoDB 事件订阅系统包含三大核心模块：
 
 1. 事件订阅插件：连接 TRON 节点，捕获事件数据，然后写入 MongoDB。
@@ -435,13 +452,15 @@ TRON MongoDB 事件订阅系统包含三大核心模块：
 
 ##### 1. 构建插件
 
-```
+```bash
 git clone https://github.com/tronprotocol/event-plugin.git
 cd event-plugin
 ./gradlew build
 ```
+
 构建完成后，生成的插件文件：
-```
+
+```text
 event-plugin/build/plugins/plugin-mongodb-*.zip
 ```
 
@@ -451,28 +470,29 @@ event-plugin/build/plugins/plugin-mongodb-*.zip
 
 ```javascript
 event.subscribe = {
-  version = 1  
-  startSyncBlockNum = 0 
+  enable = true
+  version = 1
+  startSyncBlockNum = 0
 
   native = {
-    useNativeQueue = false 
+    useNativeQueue = false
   }
-  path = "/deploy/fullnode/event-plugin/build/plugins/plugin-mongodb-1.0.0.zip" 
-  server = "127.0.0.1:27017" 
-  dbconfig = "eventlog|<eventlog-username>|<eventlog-password>" 
+  path = "/deploy/fullnode/event-plugin/build/plugins/<plugin-mongodb-x.x.x.zip>"
+  server = "127.0.0.1:27017"
+  dbconfig = "eventlog|<eventlog-username>|<eventlog-password>"
   topics = [
     {
-      triggerName = "block" 
+      triggerName = "block"
       enable = false
-      topic = "block" 
-      solidified = false 
+      topic = "block"
+      solidified = false
     },
     {
       triggerName = "transaction"
       enable = false
       topic = "transaction"
       solidified = false
-      ethCompatible = false 
+      ethCompatible = false
     },
     {
       triggerName = "contractevent"
@@ -483,11 +503,11 @@ event.subscribe = {
       triggerName = "contractlog"
       enable = false
       topic = "contractlog"
-      redundancy = false 
+      redundancy = false
     },
     {
       triggerName = "solidity"
-      enable = true  
+      enable = true
       topic = "solidity"
     },
     {
@@ -499,13 +519,13 @@ event.subscribe = {
       triggerName = "soliditylog"
       enable = false
       topic = "soliditylog"
-      redundancy = false 
+      redundancy = false
     }
   ]
 
   filter = {
-    fromblock = "" 
-    toblock = "" 
+    fromblock = ""
+    toblock = ""
     contractAddress = ["" ]
     contractTopic = [""]
   }
@@ -515,9 +535,10 @@ event.subscribe = {
 **字段解析**：
 
 *   `version`：事件服务框架版本。`1` 表示使用 V2.0 版本，`0` 表示使用 V1.0 版本。若未配置，默认使用 V1.0。
+*   `enable`：事件订阅的全局开关。如果为 `false`，则事件订阅被禁用，插件路径、topics 和 filter 配置都不会生效，除非同时指定了兼容保留的 `--es` 命令行参数。
 *   `startSyncBlockNum`：V2.0 版本新增支持从本地历史区块中处理并推送事件，可满足用户对历史数据的订阅需求。当 `startSyncBlockNum <= 0` 时，表示关闭历史事件同步功能；当 `startSyncBlockNum > 0` 时，表示开启该功能，并从指定区块高度开始同步历史事件。**注意**：启用该功能时建议使用最新版本的事件插件。
 *   `native.useNativeQueue`：是否使用内置消息队列（ZeroMQ）订阅事件。`true` 表示使用内置消息队列，`false` 表示使用插件订阅事件。这里需设置成 `false`。
-*   `path`：插件的绝对路径，例如 `"/deploy/fullnode/event-plugin/build/plugins/plugin-mongodb-1.0.0.zip"`。
+*   `path`：插件的绝对路径。请将占位符 `<plugin-mongodb-x.x.x.zip>` 替换为你实际构建或下载的 ZIP 文件名，例如 `"/deploy/fullnode/event-plugin/build/plugins/plugin-mongodb-3.0.0.zip"`。java-tron v4.8.2 及以后，插件包必须声明 `Plugin-Version` 为 `3.0.0` 或更高版本。
 *   `server`：目标服务器地址，即 MongoDB 的地址和端口，例如 `"127.0.0.1:27017"`。
 *   `dbconfig`：MongoDB 数据库配置，格式为：`数据库名|用户名|密码`，例如 `"eventlog|<eventlog-username>|<eventlog-password>"`。
 *   `topics`：目前支持七种事件类型：`block`、`transaction`、`contractevent`、`contractlog`、`solidity`、`solidityevent` 和 `soliditylog`。详细信息请参考 [事件类型](#event-types) 章节。
@@ -539,7 +560,7 @@ MongoDB 将用于存储 TRON 事件数据。请按照以下步骤安装和配置
 
 首先，创建 MongoDB 的安装目录，并下载、解压 MongoDB 安装包：
 
-```
+```bash
 mkdir /home/java-tron
 cd /home/java-tron
 curl -O https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-4.0.4.tgz
@@ -551,7 +572,7 @@ mv mongodb-linux-x86_64-4.0.4 mongodb
 
 为了便于后续操作，请设置 MongoDB 的环境变量：
 
-```
+```bash
 export MONGOPATH=/home/java-tron/mongodb/
 export PATH=$PATH:$MONGOPATH/bin
 ```
@@ -560,7 +581,7 @@ export PATH=$PATH:$MONGOPATH/bin
 
 创建 MongoDB 的日志和数据目录，并创建配置文件 `mgdb.conf`：
 
-```
+```bash
 mkdir -p /home/java-tron/mongodb/{log,data}
 cd /home/java-tron/mongodb/log/ && touch mongodb.log && cd -
 vim /home/java-tron/mongodb/mgdb.conf
@@ -568,7 +589,7 @@ vim /home/java-tron/mongodb/mgdb.conf
 
 将以下内容写入 `mgdb.conf` 文件中，请确保 `dbpath` 和 `logpath` 使用绝对路径：
 
-```
+```properties
 dbpath=/home/java-tron/mongodb/data
 logpath=/home/java-tron/mongodb/log/mongodb.log
 port=27017
@@ -588,7 +609,7 @@ wiredTigerCacheSizeGB=2
 
 使用配置文件启动 MongoDB 服务：
 
-```
+```bash
 mongod --config /home/java-tron/mongodb/mgdb.conf &
 ```
 
@@ -596,7 +617,7 @@ mongod --config /home/java-tron/mongodb/mgdb.conf &
 
 连接到 MongoDB 并创建管理员用户，然后创建用于事件订阅的数据库和用户：
 
-```
+```text
 mongo
 use admin
 db.createUser({user:"<admin-username>",pwd:"<admin-password>",roles:[{role:"root",db:"admin"}]})
@@ -616,7 +637,7 @@ db.createUser({user:"<eventlog-username>",pwd:"<eventlog-password>",roles:[{role
 
 克隆 `tron-eventquery` 项目源码：
 
-```
+```bash
 git clone https://github.com/tronprotocol/tron-eventquery.git
 cd tron-eventquery
 ```
@@ -625,7 +646,7 @@ cd tron-eventquery
 
 下载 Maven 并使用 Maven 构建 `tron-eventquery` 服务：
 
-```
+```bash
 wget https://archive.apache.org/dist/maven/maven-3/3.5.4/binaries/apache-maven-3.5.4-bin.tar.gz --no-check-certificate
 tar zxvf apache-maven-3.5.4-bin.tar.gz
 export M2_HOME=$HOME/maven/apache-maven-3.5.4
@@ -640,7 +661,7 @@ mvn package
 
 配置文件内容示例如下：
 
-```
+```properties
 mongo.host=127.0.0.1
 mongo.port=27017
 mongo.dbname=eventlog
@@ -656,14 +677,14 @@ mongo.threadsAllowedToBlockForConnectionMultiplier=4
 
 启动 `tron-eventquery` 服务并插入索引：
 
-```
+```bash
 sh deploy.sh
 sh insertIndex.sh
 ```
 
 **注意**：默认端口为 `8080`。如需修改，请编辑 `deploy.sh` 脚本，例如：
 
-```
+```bash
 nohup java -jar -Dserver.port=8081 target/troneventquery-1.0.0-SNAPSHOT.jar 2>&1 &
 ```
 
@@ -675,10 +696,10 @@ nohup java -jar -Dserver.port=8081 target/troneventquery-1.0.0-SNAPSHOT.jar 2>&1
 
 **重要提示**：在启动 FullNode 节点之前，请确保 MongoDB 服务已成功启动。
 
-启动 FullNode 节点的命令如下：
+启动 FullNode 节点的命令如下。请确保配置中包含 `event.subscribe.enable = true`。
 
-```
-java -jar build/libs/FullNode.jar -c framework/src/main/resources/config.conf --es
+```bash
+java -jar build/libs/FullNode.jar -c framework/src/main/resources/config.conf
 ```
 
 有关 FullNode 节点的安装，请参考 [部署 FullNode](../using_javatron/installing_javatron.md) 文档。
@@ -687,21 +708,21 @@ java -jar build/libs/FullNode.jar -c framework/src/main/resources/config.conf --
 
 您可以通过查看 FullNode 日志来验证事件插件是否成功加载：
 
-```
+```bash
 tail -f logs/tron.log | grep -i eventplugin
 ```
 
 如果看到类似以下字样，则表示插件已成功加载：
 
 ```text
-o.t.c.l.EventPluginLoader 'your plugin path/plugin-mongodb-1.0.0.zip' loaded
+o.t.c.l.EventPluginLoader 'your plugin path/plugin-mongodb-*.zip' loaded
 ```
 
 ##### 验证数据是否存入 MongoDB
 
 连接到 MongoDB 并查询数据，以验证事件数据是否已从节点获取并通过事件订阅存储到 MongoDB 中：
 
-```
+```bash
 mongo 127.0.0.1:27017
 use eventlog
 db.auth("<eventlog-username>", "<eventlog-password>")
@@ -724,31 +745,33 @@ Java-tron 节点内置 **ZeroMQ** 消息队列，提供轻量级的事件推送�
 
 这种方式有如下优势：
 
-  - **无需部署插件：** 直接连接 TRON 节点即可订阅。
-  - **高实时性：** 专为实时事件推送而设计。
-  - **轻量级：** 适合快速原型开发和测试环境。
+- **无需部署插件：** 直接连接 TRON 节点即可订阅。
+- **高实时性：** 专为实时事件推送而设计。
+- **轻量级：** 适合快速原型开发和测试环境。
 
 因此，当您希望以最小成本、快速接入事件流，并不依赖持久化能力时，使用 **内置 ZeroMQ 消息队列** 将是更轻便、直接的选择。本指南将详细介绍如何通过 Java-tron 内置的消息队列来订阅事件。
 
 
 ### 配置节点
+
 要通过 Java-tron 内置的 ZeroMQ 实现事件订阅，需在节点的配置文件中启用内置消息队列功能。具体操作如下：
 
-```
+```properties
 event.subscribe = {
+  enable = true
   native = {
-    useNativeQueue = true 
-    bindport = 5555 
-    sendqueuelength = 1000 
+    useNativeQueue = true
+    bindport = 5555
+    sendqueuelength = 1000
   }
 
   ......
- 
+
   topics = [
     {
-      triggerName = "block" 
+      triggerName = "block"
       enable = true
-      topic = "block" 
+      topic = "block"
     },
     ......
   ]
@@ -756,14 +779,17 @@ event.subscribe = {
 ```
 
 * `native.useNativeQueue`: `true` 为使用内置消息队列，`false` 为使用事件插件
+* `enable`: 事件订阅的全局开关。内置队列必须将其设为 `true` 才能推送事件，除非同时指定了兼容保留的 `--es` 命令行参数。
 * `native.bindport`: ZeroMQ 发布者绑定端口。本例中为 `5555`，所以订阅者应连接的发布者地址为`"tcp://127.0.0.1:5555"`
 * `native.sendqueuelength`: 发送队列的长度，即当订阅者接收消息较慢的情况下，TCP 缓冲区最多容纳的发布者发布的消息数量，超过则丢弃
 * `topics`: 订阅的 [事件类型](#event-types)，包括区块类型、交易类型等
 
 ### 启动节点
-事件订阅服务默认为关闭状态，需要通过配置命令行参数 `--es` 的方式来启用。开启事件订阅服务的节点的启动命令如下：
-```
-$ java -jar build/libs/FullNode.jar --es
+
+事件订阅服务默认为关闭状态，应在 `config.conf` 中通过 `event.subscribe.enable = true` 启用。启动命令如下：
+
+```bash
+java -jar build/libs/FullNode.jar -c framework/src/main/resources/config.conf
 ```
 
 ### 准备事件订阅脚本
@@ -771,11 +797,14 @@ $ java -jar build/libs/FullNode.jar --es
 本文以 Node.js 为例来说明如何订阅事件。
 
 首先，下载 `ZeroMQ` 库：
+
+```bash
+npm install zeromq@5
 ```
-$ npm install zeromq@5
-```
+
 然后，编写订阅者代码：
-```
+
+```javascript
 // subscriber.js
 var zmq = require("zeromq");
 var sock = zmq.socket("sub");
@@ -793,20 +822,24 @@ sock.on("message", function(topic, message) {
   );
 });
 ```
+
 本示例将订阅者连接到了节点事件发布者，并订阅了 `block` 事件。
 
 ### 启动订阅者
 
 Node.js 启动命令如下：
-```
-$ node subscriber.js
+
+```bash
+node subscriber.js
 
 > Subscriber connected to port 5555
 ```
+
 当节点有新的区块时，该订阅者将收到区块事件，输出信息如下：
-```
-received a message related to: blockTrigger, containing message: {"timeStamp":1678343709000,"triggerName":"blockTrigger","blockNumber":1361,"blockHash":"00000000000005519b3995cd638753a862c812d1bda11de14bbfaa5ad3383280","transactionSize":0,"latestSolidifiedBlockNumber":1361,"transactionList":[]}
-received a message related to: blockTrigger, containing message: {"timeStamp":1678343712000,"triggerName":"blockTrigger","blockNumber":1362,"blockHash":"0000000000000552d53d1bdd9929e4533a983f14df8931ee9b3bf6d6c74a47b0","transactionSize":0,"latestSolidifiedBlockNumber":1362,"transactionList":[]}
+
+```text
+received a message related to: blockTrigger, containing message: {"timeStamp":1678343709000,"triggerName":"blockTrigger","blockNumber":1361,"blockHash":"00000000000005519b3995cd638753a862c812d1bda11de14bbfaa5ad3383280","transactionSize":0,"latestSolidifiedBlockNumber":1361,"removed":false,"transactionList":[]}
+received a message related to: blockTrigger, containing message: {"timeStamp":1678343712000,"triggerName":"blockTrigger","blockNumber":1362,"blockHash":"0000000000000552d53d1bdd9929e4533a983f14df8931ee9b3bf6d6c74a47b0","transactionSize":0,"latestSolidifiedBlockNumber":1362,"removed":false,"transactionList":[]}
 ```
 
 

@@ -1,0 +1,181 @@
+"/wallet/getcandelegatedmaxsize":
+  "get":
+    "tags":
+      - "Stake 2.0"
+    "summary": "Current maximum delegatable amount"
+    "description": "Endpoint registration, HTTP method, servlet, and request type are derived from java-tron source. See `docs/api/http/stake-v2/getcandelegatedmaxsize.md` for examples and detailed behavior."
+    "operationId": "wallet_getcandelegatedmaxsize_get"
+    "externalDocs":
+      "url": "https://github.com/tronprotocol/documentation-en/blob/master/docs/api/http/stake-v2/getcandelegatedmaxsize.md"
+    "responses":
+      "200":
+        "description": "java-tron success or in-band error response. Endpoint business failures may use the endpoint result object; shared layers may return JavaTronError. Use x-tron-in-band-error to detect failures and x-tron-error-model catalog IDs to classify retry behavior."
+        "content":
+          "application/json":
+            "schema":
+              "oneOf":
+                -
+                  "$ref": "#/components/schemas/CanDelegatedMaxSizeResponseMessageInt64StringCompatible"
+                -
+                  "$ref": "#/components/schemas/JavaTronError"
+              "x-tron-in-band-error":
+                "httpStatus": 200
+                "errors":
+                  -
+                    "kind": "java-tron"
+                    "schema": "#/components/schemas/JavaTronError"
+                    "discriminatorPath": "$.Error"
+                    "catalogIds":
+                      - "HTTP_RATE_LIMITED"
+                      - "HTTP_SERVLET_EXCEPTION"
+                    "sources":
+                      - "servlet"
+                      - "shared-rate-limiter"
+                "errorSchema": "#/components/schemas/JavaTronError"
+                "discriminatorField": "Error"
+                "sources":
+                  - "servlet"
+                  - "shared-rate-limiter"
+      "404":
+        "description": "Endpoint disabled by node configuration."
+        "x-tron-errors":
+          "catalogIds":
+            - "HTTP_API_DISABLED"
+        "content":
+          "application/json":
+            "schema":
+              "$ref": "#/components/schemas/JavaTronError"
+            "example":
+              "Error": "this API is unavailable due to config"
+      "413":
+        "description": "Request body exceeds the node.http.maxMessageSize limit."
+        "x-tron-errors":
+          "catalogIds":
+            - "HTTP_REQUEST_TOO_LARGE"
+        "content":
+          "text/html":
+            "schema":
+              "type": "string"
+    "x-source-derived": true
+    "x-java-service": "FullNode HTTP"
+    "x-java-servlet": "GetCanDelegatedMaxSizeServlet"
+    "x-java-source": "framework/src/main/java/org/tron/core/services/http/FullNodeHttpApiService.java"
+    "x-tron-alternate-endpoints":
+      -
+        "path": "/walletsolidity/getcandelegatedmaxsize"
+        "service": "HTTP OnSolidity"
+        "consistency": "solidified"
+        "x-java-servlet": "GetCanDelegatedMaxSizeOnSolidityServlet"
+    "parameters":
+      -
+        "name": "type"
+        "in": "query"
+        "required": false
+        "schema":
+          "type": "integer"
+          "format": "int32"
+          "description": "Account, contract, or resource type."
+        "x-source-derived": true
+      -
+        "name": "owner_address"
+        "in": "query"
+        "required": true
+        "schema":
+          "type": "string"
+          "description": "Address of the account that owns or initiates the request."
+        "x-source-derived": true
+      -
+        "name": "visible"
+        "in": "query"
+        "required": false
+        "schema":
+          "type": "boolean"
+          "description": "When true, addresses are encoded in base58check; when false or omitted, addresses are hex-encoded."
+        "x-source-derived": true
+      -
+        "name": "int64_as_string"
+        "in": "query"
+        "required": false
+        "description": "When true, serialize int64 and uint64 response fields as JSON strings to avoid precision loss."
+        "schema":
+          "type": "boolean"
+          "default": false
+        "x-java-source": "framework/src/main/java/org/tron/core/services/http/RateLimiterServlet.java"
+        "x-source-derived": true
+  "post":
+    "tags":
+      - "Stake 2.0"
+    "summary": "Current maximum delegatable amount"
+    "description": "Endpoint registration, HTTP method, servlet, and request type are derived from java-tron source. See `docs/api/http/stake-v2/getcandelegatedmaxsize.md` for examples and detailed behavior."
+    "operationId": "wallet_getcandelegatedmaxsize_post"
+    "externalDocs":
+      "url": "https://github.com/tronprotocol/documentation-en/blob/master/docs/api/http/stake-v2/getcandelegatedmaxsize.md"
+    "responses":
+      "200":
+        "description": "java-tron success or in-band error response. Endpoint business failures may use the endpoint result object; shared layers may return JavaTronError. Use x-tron-in-band-error to detect failures and x-tron-error-model catalog IDs to classify retry behavior."
+        "content":
+          "application/json":
+            "schema":
+              "oneOf":
+                -
+                  "$ref": "#/components/schemas/CanDelegatedMaxSizeResponseMessage"
+                -
+                  "$ref": "#/components/schemas/JavaTronError"
+              "x-tron-in-band-error":
+                "httpStatus": 200
+                "errors":
+                  -
+                    "kind": "java-tron"
+                    "schema": "#/components/schemas/JavaTronError"
+                    "discriminatorPath": "$.Error"
+                    "catalogIds":
+                      - "HTTP_RATE_LIMITED"
+                      - "HTTP_SERVLET_EXCEPTION"
+                    "sources":
+                      - "servlet"
+                      - "shared-rate-limiter"
+                "errorSchema": "#/components/schemas/JavaTronError"
+                "discriminatorField": "Error"
+                "sources":
+                  - "servlet"
+                  - "shared-rate-limiter"
+      "404":
+        "description": "Endpoint disabled by node configuration."
+        "x-tron-errors":
+          "catalogIds":
+            - "HTTP_API_DISABLED"
+        "content":
+          "application/json":
+            "schema":
+              "$ref": "#/components/schemas/JavaTronError"
+            "example":
+              "Error": "this API is unavailable due to config"
+      "413":
+        "description": "Request body exceeds the node.http.maxMessageSize limit."
+        "x-tron-errors":
+          "catalogIds":
+            - "HTTP_REQUEST_TOO_LARGE"
+        "content":
+          "text/html":
+            "schema":
+              "type": "string"
+    "x-source-derived": true
+    "x-java-service": "FullNode HTTP"
+    "x-java-servlet": "GetCanDelegatedMaxSizeServlet"
+    "x-java-source": "framework/src/main/java/org/tron/core/services/http/FullNodeHttpApiService.java"
+    "x-tron-alternate-endpoints":
+      -
+        "path": "/walletsolidity/getcandelegatedmaxsize"
+        "service": "HTTP OnSolidity"
+        "consistency": "solidified"
+        "x-java-servlet": "GetCanDelegatedMaxSizeOnSolidityServlet"
+    "requestBody":
+      "required": true
+      "content":
+        "application/json":
+          "schema":
+            "$ref": "#/components/schemas/CanDelegatedMaxSizeRequestMessageRequest"
+    "x-overlay-derived": true
+    "x-source-refs":
+      - "framework/src/main/java/org/tron/core/services/http/GetCanDelegatedMaxSizeServlet.java"
+      - "protocol/src/main/protos/api/api.proto#CanDelegatedMaxSizeRequestMessage"

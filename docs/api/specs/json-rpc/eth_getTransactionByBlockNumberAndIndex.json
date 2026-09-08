@@ -1,0 +1,82 @@
+{
+  "name": "eth_getTransactionByBlockNumberAndIndex",
+  "tags": [
+    {
+      "name": "Block / transaction query"
+    }
+  ],
+  "summary": "Query a transaction by block height + index",
+  "description": "Method name, Java signature, parameters, return type, and declared errors are derived from java-tron source. See `docs/api/json-rpc/block-and-tx-query/eth_getTransactionByBlockNumberAndIndex.md` for examples and detailed behavior.",
+  "paramStructure": "by-position",
+  "params": [
+    {
+      "name": "blockNumOrTag",
+      "required": true,
+      "description": "Non-negative block height (0x-prefixed hexadecimal or decimal) or case-insensitive latest, earliest, or finalized tag.",
+      "schema": {
+        "oneOf": [
+          {
+            "type": "string",
+            "pattern": "^(?:[lL][aA][tT][eE][sS][tT]|[eE][aA][rR][lL][iI][eE][sS][tT]|[fF][iI][nN][aA][lL][iI][zZ][eE][dD])$",
+            "title": "EthGetTransactionByBlockNumberAndIndexParamString1"
+          },
+          {
+            "$ref": "#/components/schemas/BlockNumber"
+          }
+        ]
+      },
+      "x-java-type": "String",
+      "x-position": 0
+    },
+    {
+      "name": "index",
+      "required": true,
+      "description": "0x-prefixed transaction index from 0x0 through 0x7fffffff.",
+      "schema": {
+        "type": "string",
+        "pattern": "^0x(?:[0-9a-fA-F]{1,7}|[0-7][0-9a-fA-F]{7})$"
+      },
+      "x-java-type": "String",
+      "x-position": 1
+    }
+  ],
+  "result": {
+    "name": "result",
+    "schema": {
+      "oneOf": [
+        {
+          "$ref": "#/components/schemas/TransactionResult"
+        },
+        {
+          "type": "null",
+          "title": "EthGetTransactionByBlockNumberAndIndexResultNull2"
+        }
+      ]
+    }
+  },
+  "errors": [
+    {
+      "code": -32602,
+      "message": "JsonRpcInvalidParamsException"
+    }
+  ],
+  "externalDocs": {
+    "url": "https://github.com/tronprotocol/documentation-en/blob/master/docs/api/json-rpc/block-and-tx-query/eth_getTransactionByBlockNumberAndIndex.md"
+  },
+  "x-source-derived": true,
+  "x-java-method": "getTransactionByBlockNumberAndIndex",
+  "x-java-source": "framework/src/main/java/org/tron/core/services/jsonrpc/TronJsonRpc.java",
+  "x-ports": "FullNode 8545 / Solidity 8555",
+  "x-overlay-derived": true,
+  "x-source-refs": [
+    "framework/src/main/java/org/tron/core/services/jsonrpc/TronJsonRpc.java#eth_getTransactionByBlockNumberAndIndex",
+    "framework/src/main/java/org/tron/core/services/jsonrpc/TronJsonRpcImpl.java#getTransactionByBlockNumberAndIndex",
+    "framework/src/main/java/org/tron/core/services/jsonrpc/types/TransactionResult.java#class TransactionResult"
+  ],
+  "x-tron-error-catalog": [
+    {
+      "errorIndex": 0,
+      "catalogId": "JSON_RPC_INVALID_PARAMS"
+    }
+  ]
+}

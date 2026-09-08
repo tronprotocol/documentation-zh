@@ -271,7 +271,7 @@ TRON 网络支持多种不同类型的交易，比如 TRX 转账交易、TRC-10 
 * `new_limit`：每个调用者可以消耗 Bandwidth point 的限制。
 * `new_public_limit`：所有调用者可以消耗 Bandwidth points 的限制。
 
-## 创建提议  ProposalCreateContract
+## 创建提案  ProposalCreateContract
 
 ```protobuf
       message ProposalCreateContract {
@@ -280,10 +280,10 @@ TRON 网络支持多种不同类型的交易，比如 TRX 转账交易、TRC-10 
      }
 ```
 
-* `owner_address`：创建提议的账户地址。
-* `parameters`： 提议。
+* `owner_address`：创建提案的账户地址。
+* `parameters`： 提案。
 
-## 赞成提议 ProposalApproveContract
+## 赞成提案 ProposalApproveContract
 
 ```protobuf
       message ProposalApproveContract {
@@ -293,11 +293,11 @@ TRON 网络支持多种不同类型的交易，比如 TRX 转账交易、TRC-10 
      }
 ```
 
-* `owner_address`：赞成提议的账户地址。
-* `proposal_id`： 提议的Id。
-* `is_add_approval`：是否赞成提议。
+* `owner_address`：赞成提案的账户地址。
+* `proposal_id`： 提案的Id。
+* `is_add_approval`：是否赞成提案。
 
-## 删除提议 ProposalDeleteContract
+## 删除提案 ProposalDeleteContract
 
 ```protobuf
      message ProposalDeleteContract {
@@ -306,8 +306,8 @@ TRON 网络支持多种不同类型的交易，比如 TRX 转账交易、TRC-10 
      }
 ```
 
-* `owner_address`：删除提议的账户地址。
-* `proposal_id`： 提议ID。
+* `owner_address`：删除提案的账户地址。
+* `proposal_id`： 提案ID。
 
 ## 设置账户ID SetAccountIdContract
 

@@ -10,7 +10,7 @@
 
 首先，从 TRON 官方 GitHub 仓库 [tronprotocol/java-tron](https://github.com/tronprotocol/java-tron) Fork 一个新的代码仓库到您个人的 GitHub 账户。然后，将您的 Fork 仓库克隆到本地，并添加 `upstream` 远程仓库以跟踪官方更新：
 
-```
+```bash
 git clone https://github.com/yourname/java-tron.git
 git remote add upstream https://github.com/tronprotocol/java-tron.git
 ```
@@ -19,7 +19,7 @@ git remote add upstream https://github.com/tronprotocol/java-tron.git
 
 在开发新功能之前，务必将您个人 Fork 的仓库与 `upstream`（上游）仓库进行同步，以获取最新的代码更新：
 
-```
+```bash
 git fetch upstream
 git checkout develop
 git merge upstream/develop --no-ff
@@ -32,6 +32,7 @@ git merge upstream/develop --no-ff
 ```shell
 git checkout -b feature/add-new-http-demo develop
 ```
+
 ## 2. 代码实现：新增 `setPeer` HTTP 接口
 
 使用 IntelliJ IDEA 打开 `java-tron` 工程。接下来我们将实现一个 `setPeer` HTTP 接口，以支持用户通过 POST 请求添加信任节点。
@@ -61,7 +62,7 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 
-import com.alibaba.fastjson.JSONObject;
+import org.tron.json.JSONObject;
 
 @Component
 @Slf4j(topic = "API")
@@ -209,6 +210,7 @@ Success to set trusted peer:192.163.3.2:16667
 *   `@After`：在每个测试方法执行后运行一次（用于清理测试环境，如关闭连接）。
 
 ### 3.3 单元测试类的组成
+
 一个典型的单元测试类通常由以下三部分组成：
 
 * **初始化方法**：使用 `@Before` 或 `@BeforeClass` 注解的方法，在测试执行前进行初始化操作，如准备测试数据或配置环境。
@@ -302,6 +304,33 @@ public class SetPeerServletTest {
 
 ![CheckStyle 代码风格修复后示例](https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/demo_codestyle.png)
 
+为了更快获得反馈，可以在仓库根目录运行与 CI 相同的 Checkstyle 任务：
+
+```bash
+./gradlew \
+  :framework:checkstyleMain \
+  :framework:checkstyleTest \
+  :plugins:checkstyleMain
+```
+
+常规构建也会运行 Checkstyle，并执行范围更广的验证任务。在创建 PR 前，请运行完整构建：
+
+```bash
+./gradlew clean build --no-daemon
+```
+
+在 x86-64 环境中，项目要求使用 JDK 8，常规 `test` 任务默认使用 LevelDB。请另行运行有针对性的 RocksDB 引擎测试：
+
+```bash
+./gradlew :framework:testWithRocksDb --no-daemon
+```
+
+在 ARM64 环境中，项目要求使用 JDK 17，`framework` 模块的常规 `test` 任务已经使用 RocksDB。因此，`./gradlew clean build --no-daemon` 已经会使用 RocksDB 运行 `framework` 模块测试，通常无需再运行 `testWithRocksDb`。
+
+GitHub Actions 还会执行一些难以在单台开发机器上完整复现的检查。完整的触发矩阵、覆盖率阈值和分支差异请参阅 [java-tron CI 工作流](workflows.md)。
+
+在请求最终审查前，请确保 PR 的所有必要检查均已通过。
+
 ## 5. 提交代码与 Pull Request
 
 ### 5.1 提交 Commit
@@ -328,5 +357,3 @@ git push origin feature/add-new-http-demo
 ![提交 Pull Request 示例](https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/javatron_pr.png)
 
 请确保您的 Pull Request 描述清晰，包含您所做更改的详细信息和目的。
-
-

@@ -36,6 +36,7 @@ java-tron 节点目前支持在 x86_64 和 arm64 架构上运行（arm64 架构�
 您可以在 [这里](https://github.com/tronprotocol/java-tron/releases) 直接下载官方提供的客户端，也可以自行通过编译源码来打包客户端。
 
 ### 编译 java-tron 前的先决条件
+
 在编译 java-tron 之前，请确保您具备：
 
 - 操作系统：`Linux` 或 `macOS`（不支持 `Windows`）。
@@ -58,47 +59,60 @@ uname -m
 - 如果您的架构是 `x86_64`（Intel/AMD 64 位）：
     - 安装 Java SE 8（JDK 8，推荐最新的小版本）
     - 验证：
+
     ```bash
     java -version
     ```
+
     输出应显示以 `1.8` 开头的版本。
 
 - 如果您的架构是 `arm64` 或 `aarch64`（Apple Silicon / ARM 服务器）：
     - 安装 Java SE 17（JDK 17）
     - 验证：
+
     ```bash
     java -version
     ```
+
     输出应显示以 `17` 开头的版本。
 
 ### 编译 java-tron 源代码
 
 1.  克隆仓库并切换到 `master` 分支：
-    ```
+
+    ```bash
     git clone https://github.com/tronprotocol/java-tron.git
     git checkout -t origin/master
     cd java-tron
     ```
+
 2.  然后，运行以下命令来构建 java-tron：
-    ```
+
+    ```bash
     ./gradlew clean build -x test
     ```
+
     * 参数 `-x test` 表示跳过测试用例的执行。您可以移除此参数以在编译期间执行测试代码，但这将延长编译时间。
-    * 如果在构建过程中遇到 `DependencyVerificationException`，请刷新依赖项并重新生成验证元数据：
-      ```
-      ./gradlew clean build -x test --refresh-dependencies
-      ```
+    * 如果构建因 `DependencyVerificationException` 失败，请使用 `--refresh-dependencies` 重试一次：
+
+        ```bash
+        ./gradlew clean build -x test --refresh-dependencies
+        ```
+
+        `--refresh-dependencies` 选项会刷新依赖项，但不会重新生成 `gradle/verification-metadata.xml`。如果依赖校验仍然失败，请勿仅为绕过校验而重新生成该元数据。请确认当前源码未被修改；如需进一步帮助，请联系 java-tron 维护者。
+
     * 编译完成后，`FullNode.jar` 文件将在 `java-tron/build/libs/` 目录中生成。
 
 ## 启动 java-tron 节点 { #starting-a-java-tron-node }
 
 全节点作为 TRON 网络的入口，通过 HTTP 和 RPC API 提供完整接口。客户端可借助这些端点执行资产转账、部署智能合约并调用链上逻辑。全节点必须接入 TRON 网络，才能参与共识与交易处理。
 
-### TRON 网络类型
+### TRON 网络类型 { #network-types }
+
 TRON 网络主要分为以下几类：
 
 - **主网（Mainnet）**  
-  承载真实价值（TRX、TRC-20 代币等）的公共区块链，由庞大的去中心化网络保障安全。
+  承载真实价值（TRX、TRC-20 token 等）的公共区块链，由庞大的去中心化网络保障安全。
 
 - **[Nile 测试网（Testnet）](https://nileex.io/)**  
   面向未来的测试网，新功能和治理提案会率先在此上线，供开发者体验，因此其代码版本通常领先于主网。
@@ -113,17 +127,18 @@ TRON 网络主要分为以下几类：
 
 ### 启动全节点连接主网 { #starting-a-fullnode-on-the-tron-main-network }
 
-以下是启动 **主网全节点** 的命令，使用默认内置的主网配置文件：
+如果当前工作目录中不存在 `./config.conf`，以下命令将使用 JAR 中内置的 `config.conf` 启动主网 FullNode。如果存在 `./config.conf`，java-tron 会优先加载该文件。为避免歧义，可通过 `-c` 指定明确路径；完整的解析顺序请参阅[节点配置](configuration.md#configuration-files-and-precedence)。
 
-`
-nohup java -jar build/libs/FullNode.jar -c framework/src/main/resources/config.conf &
-`
+```bash
+nohup java -jar build/libs/FullNode.jar &
+```
 
 *   `nohup ... &`：在后台运行命令并忽略挂断信号。
 
 > 对于生产环境部署或长期运行的主网节点，请参考下方 [主网 FullNode 部署的 JVM 参数优化](#mainnet-fullnode-jvm-tuning) 章节，以获取完整的 Java 启动命令。
 
 使用以下命令查看全节点运行日志，可以看到区块同步进度，节点连接状态等信息：
+
 ```bash
 tail -f ./logs/tron.log
 ```
@@ -133,9 +148,11 @@ tail -f ./logs/tron.log
 请参见后续章节，了解在 Nile 测试网和私有网络中部署全节点的详细说明。
 
 #### 主网 FullNode 部署的 JVM 参数优化 { #mainnet-fullnode-jvm-tuning }
+
 为了在连接主网时获得更高的效率和稳定性，请参考以下针对不同架构的完整Java程序启动命令：
 
 ##### x86_64（JDK 8）
+
 ```bash
 nohup java -Xms9G -Xmx12G -XX:ReservedCodeCacheSize=256m \
              -XX:MetaspaceSize=256m -XX:MaxMetaspaceSize=512m \
@@ -147,7 +164,9 @@ nohup java -Xms9G -Xmx12G -XX:ReservedCodeCacheSize=256m \
              -XX:+UseCMSInitiatingOccupancyOnly  -XX:CMSInitiatingOccupancyFraction=70 \
              -jar build/libs/FullNode.jar -c framework/src/main/resources/config.conf &
 ```
+
 ##### arm64（JDK 17）
+
 ```bash
 nohup java -Xmx9G -XX:+UseZGC \
              -Xlog:gc,gc+heap:file=gc.log:time,tags,level:filecount=10,filesize=100M \
@@ -161,6 +180,7 @@ nohup java -Xmx9G -XX:+UseZGC \
 ```
 
 #### Java 启动参数解释
+
 **通用内存参数：**
 
 *   `-Xms` / `-Xmx`：设置 JVM 堆的初始值和最大值。
@@ -209,7 +229,7 @@ Shasta 相关资源（浏览器、水龙头、钱包、开发者文档及网络�
 
 固化节点仅从受信任的全节点同步固化区块。受信任全节点通过配置文件进行配置，端口号为全节点的 grpc 服务端口。
 
-```
+```properties
 node {
   # trust node for solidity node
   # trustNode = "ip:port"
@@ -219,9 +239,35 @@ node {
 ```
 
 自4.8.1版本开始，不再提供单独的`SolidityNode.jar`，固化节点的启动通过命令行参数`--solidity`，即：
+
 ```shell
 java -Xmx24g -XX:+UseConcMarkSweepGC -jar build/libs/FullNode.jar --solidity -c framework/src/main/resources/config.conf 
 ```
+
+#### 配置条件停机 { #configuring-conditional-shutdown }
+
+固化节点支持与全节点相同的 `node.shutdown` 条件。可以将节点配置为：持久化时间或高度与目标值匹配的区块后关闭，或者从启动高度开始同步指定数量的区块后关闭。
+
+请在 `BlockTime`、`BlockHeight` 和 `BlockCount` 中仅配置一项。例如：
+
+```properties
+node.shutdown = {
+  # 与已持久化区块头时间匹配的 Quartz cron 表达式
+  BlockTime = "54 59 08 * * ?"
+
+  # 或者仅配置以下参数之一：
+  # BlockHeight = 33350800
+  # BlockCount = 12
+}
+```
+
+| 参数 | 说明 |
+|---|---|
+| `BlockTime` | Quartz cron 表达式。节点持久化区块头时间满足该表达式的区块后关闭。 |
+| `BlockHeight` | 节点关闭时对应的目标持久化区块高度。请使用不低于节点当前头块高度的正数。负数按未配置处理。正数低于当前头块高度时，节点会启动失败。`0` 可以被接受，但通常不会形成有效的停机目标；如果当前头块高度也是 `0` 且未启用 `--p2p-disable`，节点会立即退出。请勿将 `0` 用作停机高度。 |
+| `BlockCount` | 从节点启动开始，再同步多少个区块后关闭。请使用大于 `0` 的值。值为 `0` 时节点会启动失败，负数按未配置处理。 |
+
+如果同时启用了多个停机条件，或者 `BlockTime` 无效，参数初始化会失败，节点不会启动。
 
 ### 启动出块节点 { #starting-a-block-production-node }
 
@@ -241,9 +287,17 @@ localwitness = [
 ]
 ```
 
+!!! warning "保护好 SR 私钥"
+    `localwitness` 列表以明文形式存储 SR 账户私钥，任何能读取该文件的人都可以接管你的 SR 产块权限，因此务必妥善保护：
+
+    - 限制文件权限，仅允许节点属主读取配置文件：`chmod 600 config.conf`（若使用 keystore 文件，请对其执行相同操作）。
+    - 切勿将含有真实私钥的配置文件提交到 Git——即使之后删除，私钥仍会保留在提交历史中。请将含密钥的文件放在仓库目录之外，并加入 `.gitignore`。
+    - 生产环境建议使用 keystore + 密码方式替代明文私钥（参见下文[使用 Keystore + 密码指定超级代表账户私钥](#keystore-password)）。
+
 对于运行在高性能服务器（例如，≥ 64GB 内存）上的 SR 节点，强烈建议使用以下优化的 Java 启动命令。这些配置旨在确保区块生产的最大稳定性和效率。请执行与您的环境相对应的命令：
 
 #### 选项 1：JDK 8（x86_64 架构）
+
 ```bash
 nohup java -Xms9G -Xmx24G -XX:ReservedCodeCacheSize=256m \
     -XX:MetaspaceSize=256m -XX:MaxMetaspaceSize=512m \
@@ -257,6 +311,7 @@ nohup java -Xms9G -Xmx24G -XX:ReservedCodeCacheSize=256m \
 ```
 
 #### 选项 2：JDK 17（arm64 架构）
+
 ```bash
 nohup java -Xms9G -Xmx24G -XX:+UseZGC \
     -Xlog:gc,gc+heap:file=gc.log:time,tags,level:filecount=10,filesize=100M \
@@ -269,7 +324,7 @@ nohup java -Xms9G -Xmx24G -XX:+UseZGC \
     -jar build/libs/FullNode.jar --witness -c framework/src/main/resources/config.conf &
 ```
 
-### 主从模式的出块全节点
+### 主从模式的出块全节点 { #master-slave-mode-for-block-production-fullnodes }
 
 为了提高出块全节点的可靠性，可以部署多个相同账户的出块全节点，形成主从模式。当一个具有出块权限的账户部署大于等于两个节点时（推荐数量：2个，主节点及从节点各1个），需要完善各节点配置文件中的`node.backup`。`node.backup`的配置项说明如下：
 
@@ -284,13 +339,17 @@ node.backup {
   # time interval to send keepAlive message, each member should have the same configuration unit: ms
   keepAliveInterval = 3000
 
-  # peers‘ ip list, must not include myself
+  # 对端节点的 IP 地址或域名列表，不能包含本机
   members = [
-    # "ip",
-    # "ip"
+    # "ip-or-domain",
+    # "ip-or-domain"
   ]
 }
 ```
+
+`members` 中的每个条目可以是域名、IPv4 地址或 IPv6 地址。成员条目中不能包含端口，所有成员统一使用 `node.backup.port` 单独配置的 UDP 端口。与对等节点连接列表中的 IPv6 地址不同，`node.backup.members` 中的 IPv6 地址不使用方括号，并且不能包含前导或尾随空白字符。
+
+java-tron 在启动时会逐项校验备份成员，并将域名解析为 IP 地址。如果任一成员无法解析，参数初始化将失败，节点不会启动。节点启动后，`members` 中的域名会每 60 秒重新解析一次，以便 DNS 地址变更生效。如果刷新失败，java-tron 将继续使用之前解析得到的 IP 地址。
 
 比如，某个具有出块权限的账户部署了2个节点，两个节点的ip分别为192.168.0.100，192.168.0.101，那么他们的`node.backup`配置需如下所示：
 
@@ -338,7 +397,7 @@ node.backup {
 2. 将其解压至 `tron` 项目的 `output-directory` 目录下。
 3. 启动节点，节点将在数据快照的基础上继续同步。
 
-### 使用 Keystore + 密码指定超级代表账户私钥
+### 使用 Keystore + 密码指定超级代表账户私钥 { #keystore-password }
 
 为了避免以明文方式在配置文件中指定私钥，您可以选择使用 `keystore` 文件和密码的方式。
 
@@ -352,7 +411,16 @@ node.backup {
         localwitnesskeystore = ["B/localwitnesskeystore.json"]
         ```
 
-    * 您可以使用 `wallet-cli` 项目的 `registerwallet` 命令生成 `keystore` 文件和密码或者使用`java -jar build/libs/FullNode.jar --keystore-factory`命令生成(自4.8.1版本之后，不再提供单独的`KeystoreFactory.jar`)
+    * 对于已有的 SR，keystore 必须加密当前在链上获准出块地址所对应的私钥。默认情况下，这是 SR 账户地址；如果已通过 SR 的 witness permission 将出块权限分配给其他地址，则应使用该授权地址对应的私钥。使用 Toolkit 的 [`keystore import`](toolkit.md#import-a-private-key) 从现有私钥创建加密 keystore：
+
+        ```bash
+        # 将当前获准用于区块签名的私钥加密到 keystore 中
+        java -jar build/libs/Toolkit.jar keystore import
+        ```
+
+        迁移已有 SR 时，不要仅使用 `keystore new`：该命令会生成随机密钥，除非先将其派生地址配置为 SR 的 witness permission，否则该密钥无法为该 SR 出块。对于新的 SR 身份，或在有计划地轮换 witness permission 时，可以使用 [`keystore new`](toolkit.md#generate-a-keystore) 或 `wallet-cli` 的 `registerwallet` 命令生成新密钥，但必须在启动出块前完成相应的链上注册或权限更新。
+
+        `java -jar build/libs/FullNode.jar --keystore-factory` 仍为兼容目的保留，但已弃用，并将在未来版本中移除。从 4.8.1 版本开始，不再单独提供 `KeystoreFactory.jar`。
 
 1. **启动出块节点**:
 

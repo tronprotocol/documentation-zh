@@ -2,11 +2,11 @@
 
 **energyUsage**
 
-此次调用中，合约调用者消耗的Energy的总量
+此次调用中，合约调用者消耗的Energy(不含 EnergyFee 对应的部分)
 
 **energyFee**
 
-此次调用中，合约调用者消耗的Energy中，需要TRX支付的数目(SUN为单位)
+此次调用中，合约调用者消耗的Energy中，需要TRX支付的数目(以 sun 为单位，1 TRX = 1,000,000 sun)
 
 **originEnergyUsage**
 
@@ -16,9 +16,9 @@
 
 此次调用中，合约调用者和合约开发者消耗的Energy的总量
 
-**Feelimit**
+**FeeLimit**
 
-用户在调用或者创建智能合约时，指定的最高可接受的trx费用消耗，包含消耗质押获得资源的trx和消耗用户本身持有的trx两部分，优先使用质押获得的资源。
+用户在调用或者创建智能合约时，用于设定可使用的、通过销毁或质押 TRX 获得的 Energy 的上限，优先使用通过质押 TRX 获得的 Energy。
 
 **CallValue**
 
@@ -26,7 +26,7 @@
 
 **consume_user_resource_percent**
 
-对于一个智能合约来说，付费是由两大部分组成的。一部分是合约开发者付费，另一部分是由合约调用者支付。这个值是调用者付费的比例
+对于一个智能合约来说，付费是由两大部分组成的。一部分是合约开发者付费，另一部分是由合约调用者支付。这个值是调用者付费的比例，剩余部分（100 减去该值）由合约开发者承担。
 
 **origin_energy_limit**
 
@@ -38,7 +38,7 @@
 
 **net_fee**
 
-本次合约因Bandwidth不足消耗的TRX
+本次合约因Bandwidth不足而消耗的TRX(以 sun 为单位，1 TRX = 1,000,000 sun)
 
 **Bandwidth**
 
@@ -46,7 +46,7 @@
 
 **Energy**
 
-合约的部署与运行需要消耗能量。能量代表CPU资源的消耗，1 Energy = 1 Microsecond (μs)。 例如，一个合约的执行需要100μs，那么需要消耗100单位的能量。
+Energy 是部署和运行智能合约所消耗的资源。在 TRON 虚拟机（TVM）中执行的每一条指令都会消耗固定且确定的 Energy，其数值由虚拟机的 Energy 计价表规定（例如一次 `SLOAD` 消耗 50 Energy，通过 `SSTORE` 新建一个存储槽消耗 20000 Energy）。合约执行的计算量越大，消耗的 Energy 越多。Energy 可以通过质押 TRX 获得，也可以通过销毁 TRX 支付。
 
 **TRON Power(TP)**
 
@@ -54,4 +54,4 @@
 
 **Super Representative(SR)**
 
-目前正在出块的前27名节点。
+按得票数排名前 27 的 witness，负责出块。

@@ -1,0 +1,125 @@
+"/wallet/broadcasttransaction":
+  "post":
+    "tags":
+      - "Transaction build / broadcast"
+    "summary": "Broadcast a signed transaction (JSON)"
+    "description": "Endpoint registration, HTTP method, servlet, and request type are derived from java-tron source. See `docs/api/http/tx-build-and-broadcast/broadcasttransaction.md` for examples and detailed behavior."
+    "operationId": "wallet_broadcasttransaction_post"
+    "externalDocs":
+      "url": "https://github.com/tronprotocol/documentation-en/blob/master/docs/api/http/tx-build-and-broadcast/broadcasttransaction.md"
+    "responses":
+      "200":
+        "description": "java-tron success or in-band error response. Endpoint business failures may use the endpoint result object; shared layers may return JavaTronError. Use x-tron-in-band-error to detect failures and x-tron-error-model catalog IDs to classify retry behavior."
+        "content":
+          "application/json":
+            "schema":
+              "oneOf":
+                -
+                  "type": "object"
+                  "additionalProperties": false
+                  "properties":
+                    "result":
+                      "type": "boolean"
+                    "code":
+                      "type": "string"
+                    "message":
+                      "type": "string"
+                    "txid":
+                      "type": "string"
+                  "x-java-response": "Return/GrpcAPI.Return plus transaction id fields"
+                  "not":
+                    "required":
+                      - "Error"
+                  "title": "BroadcasttransactionPostResultObject1"
+                -
+                  "$ref": "#/components/schemas/JavaTronError"
+              "x-tron-in-band-error":
+                "httpStatus": 200
+                "errors":
+                  -
+                    "kind": "business"
+                    "responsePath": "$"
+                    "discriminatorPath": "$.code"
+                    "failureCondition": "field exists and is not SUCCESS"
+                    "catalogIds":
+                      - "RETURN_SIGERROR"
+                      - "RETURN_CONTRACT_VALIDATE_ERROR"
+                      - "RETURN_CONTRACT_EXE_ERROR"
+                      - "RETURN_BANDWITH_ERROR"
+                      - "RETURN_DUP_TRANSACTION_ERROR"
+                      - "RETURN_TAPOS_ERROR"
+                      - "RETURN_TOO_BIG_TRANSACTION_ERROR"
+                      - "RETURN_TRANSACTION_EXPIRATION_ERROR"
+                      - "RETURN_SERVER_BUSY"
+                      - "RETURN_NO_CONNECTION"
+                      - "RETURN_NOT_ENOUGH_EFFECTIVE_CONNECTION"
+                      - "RETURN_BLOCK_UNSOLIDIFIED"
+                      - "RETURN_OTHER_ERROR"
+                    "sources":
+                      - "servlet"
+                  -
+                    "kind": "java-tron"
+                    "schema": "#/components/schemas/JavaTronError"
+                    "discriminatorPath": "$.Error"
+                    "catalogIds":
+                      - "HTTP_RATE_LIMITED"
+                      - "HTTP_SERVLET_EXCEPTION"
+                    "sources":
+                      - "servlet"
+                      - "shared-rate-limiter"
+                "errorSchema": "#/components/schemas/JavaTronError"
+                "discriminatorField": "Error"
+                "sources":
+                  - "servlet"
+                  - "shared-rate-limiter"
+      "404":
+        "description": "Endpoint disabled by node configuration."
+        "x-tron-errors":
+          "catalogIds":
+            - "HTTP_API_DISABLED"
+        "content":
+          "application/json":
+            "schema":
+              "$ref": "#/components/schemas/JavaTronError"
+            "example":
+              "Error": "this API is unavailable due to config"
+      "413":
+        "description": "Request body exceeds the node.http.maxMessageSize limit."
+        "x-tron-errors":
+          "catalogIds":
+            - "HTTP_REQUEST_TOO_LARGE"
+        "content":
+          "text/html":
+            "schema":
+              "type": "string"
+    "x-source-derived": true
+    "x-java-service": "FullNode HTTP"
+    "x-java-servlet": "BroadcastServlet"
+    "x-java-source": "framework/src/main/java/org/tron/core/services/http/FullNodeHttpApiService.java"
+    "requestBody":
+      "required": true
+      "content":
+        "application/json":
+          "schema":
+            "allOf":
+              -
+                "$ref": "#/components/schemas/TransactionRequest"
+              -
+                "type": "object"
+                "properties":
+                  "signature":
+                    "type": "array"
+                    "items":
+                      "type": "string"
+                      "description": "Hex-encoded transaction signature. After hexadecimal decoding, including removal of an optional lowercase `0x` prefix and left-padding of an odd number of hexadecimal digits, each supplied signature must be 65\u201368 bytes; otherwise broadcast returns `SIGERROR`."
+                    "description": "Transaction signatures supplied for broadcast."
+            "required":
+              - "raw_data"
+    "x-overlay-derived": true
+    "x-source-refs":
+      - "framework/src/main/java/org/tron/core/services/http/BroadcastServlet.java"
+      - "framework/src/main/java/org/tron/core/services/http/Util.java"
+      - "framework/src/main/java/org/tron/core/Wallet.java"
+      - "crypto/src/main/java/org/tron/common/crypto/SignUtils.java"
+      - "common/src/main/java/org/tron/core/Constant.java"
+      - "protocol/src/main/protos/core/Tron.proto#Transaction"

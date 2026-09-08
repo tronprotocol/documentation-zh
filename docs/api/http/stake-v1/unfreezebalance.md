@@ -13,10 +13,12 @@
 | 字段 | 类型 | 必填 | 说明 |
 |---|---|---|---|
 | `owner_address` | string | 是 | 解冻账户地址 |
-| `resource` | enum | 否 | `BANDWIDTH` / `ENERGY`，默认 `BANDWIDTH` |
+| `resource` | enum | 否 | `BANDWIDTH` / `ENERGY`；链启用新资源模型时也接受 `TRON_POWER`。默认 `BANDWIDTH` |
 | `receiver_address` | string | 否 | 代理时填代理目标地址 |
-| `permission_id` | int32 | 否 | 多签权限 ID |
+| `Permission_id` | int32 | 否 | 多签权限 ID |
 | `visible` | bool | 否 | 地址格式 |
+
+`TRON_POWER` 仅在链启用 `supportAllowNewResourceModel()` 时可用于解冻旧版 TronPower 冻结，否则会被拒绝。此资源解析规则与接口层面的 Stake 1.0/Stake 2.0 可用性检查相互独立。
 
 示例：
 
@@ -73,8 +75,8 @@ curl --request POST \
 
 | 触发条件 | 响应 |
 |---|---|
-| 请求体超过 `node.maxMessageSize` | `{"Error": "class java.lang.Exception : body size is too big, the limit is <N>"}` |
-| 请求体不是合法 JSON / 字段类型不符 | `{"Error": "class com.alibaba.fastjson.JSONException : <解析器信息>"}` 或 `{"Error": "class org.tron.core.services.http.JsonFormat$ParseException : <解码器信息>"}` |
+| 请求体超过 `node.http.maxMessageSize` | 通常由 `SizeLimitHandler` 返回 HTTP 413 `Payload Too Large` |
+| 请求体不是合法 JSON / 字段类型不符 | `{"Error": "class org.tron.json.JSONException : <解析器信息>"}` 或 `{"Error": "class org.tron.core.services.http.JsonFormat$ParseException : <解码器信息>"}` |
 | `owner_address` 不是 21 字节合法地址 | `{"Error": "class org.tron.core.exception.ContractValidateException : Invalid address"}` |
 | `owner_address` 在链上不存在 | `{"Error": "class org.tron.core.exception.ContractValidateException : Account[<addr>] does not exist"}` |
 | `receiver_address == owner_address` | `{"Error": "class org.tron.core.exception.ContractValidateException : receiverAddress must not be the same as ownerAddress"}` |

@@ -2,7 +2,7 @@
 
 java-tron 节点将其持久化数据存储在指定的数据目录下。默认的数据目录是 `output-directory`（相对于当前工作目录的相对路径）。您可以通过在 java-tron 节点启动命令中添加 `-d` 或 `--output-directory` 参数来指定不同的数据存储位置，例如：
 
-```
+```bash
 java -jar build/libs/FullNode.jar -d ./outputdir
 ```
 
@@ -15,13 +15,13 @@ java -jar build/libs/FullNode.jar -d ./outputdir
 
 首先，使用以下命令获取 java-tron 进程的 PID：
 
-```
+```bash
 ps -ef | grep FullNode.jar | grep -v grep | awk '{print $2}'
 ```
 
 然后，使用获取到的 PID 来终止进程。建议使用以下停止脚本来安全关闭 java-tron 进程，以避免数据库损坏：
 
-```
+```bash
 #!/bin/bash
 while true; do
   pid=`ps -ef |grep FullNode.jar |grep -v grep |awk '{print $2}'`
@@ -38,7 +38,7 @@ done
 
 当 java-tron 进程成功关闭后，您可以使用以下命令进行数据备份：
 
-```
+```bash
 tar cvzf output-directory.`date "+%Y%m%d%H%M%S"`.etgz output-directory
 ```
 
@@ -49,7 +49,7 @@ tar cvzf output-directory.`date "+%Y%m%d%H%M%S"`.etgz output-directory
 
 如果您的数据库备份文件名为 `output-directory.20220628152402.etgz`，您可以使用以下命令来恢复数据库文件：
 
-```
+```bash
 tar xzvf output-directory.20220628152402.etgz
 ```
 
@@ -75,7 +75,7 @@ tar xzvf output-directory.20220628152402.etgz
 
 **注意：**
 
-- **LevelDB** 和 **RocksDB** 数据不允许混用。FullNode 的数据库类型通过配置文件中的 `db.engine` 配置项指定，可选值为 `LEVELDB` 或 `ROCKSDB`。如果您拥有 LevelDB 格式的数据，但希望以 RocksDB 引擎启动节点，可以使用 toolkit 中的 [数据转换工具](toolkit.md#_13) 将 LevelDB 数据转换为 RocksDB 格式。
+- **LevelDB** 和 **RocksDB** 数据不允许混用。FullNode 的数据库类型通过配置文件中的 `storage.db.engine` 配置项指定，可选值为 `LEVELDB` 或 `ROCKSDB`。如果您拥有 LevelDB 格式的数据，但希望以 RocksDB 引擎启动节点，可以使用 toolkit 中的 [数据转换工具](toolkit.md#data-conversion-tool) 将 LevelDB 数据转换为 RocksDB 格式。
 - 内部交易通过配置文件中的 `vm.saveInternalTx` 或者 `vm.saveFeaturedInternalTx` 配置项开启/关闭。只有开启 `vm.saveInternalTx`，才会保存内部交易，如果 `saveFeaturedInternalTx` 也同时开启，则会保存所有类型的内部交易，否则，只保存 `call`、`create`、`suicide` 交易。影响接口：[`gettransactioninfobyid`](../api/http/block-and-tx-query/gettransactioninfobyid.md)
 - 配置项 `vm.saveCancelAllUnfreezeV2Details` 会额外把带宽 / 能量 / TRON Power 的取消额度以 `extra` 字段的形式记录到 `CANCELALLUNFREEZEV2` 操作码生成的内部交易上。该配置仅在 `vm.saveInternalTx` 与 `vm.saveFeaturedInternalTx` 同时开启时才会生效。请注意，上表中包含内部交易的官方快照源节点并未开启该配置，仅开启了 `vm.saveInternalTx` 与 `vm.saveFeaturedInternalTx`。
 - 账户历史余额通过配置文件中的 `storage.balance.history.lookup` 配置项开启/关闭。影响接口：[`getaccountbalance`](../api/http/account/getaccountbalance.md)
@@ -86,7 +86,10 @@ TRON 网络从 GreatVoyage-v4.1.0 版本开始支持 **Lite FullNode** 类型的
 
 | Lite FullNode 节点数据源 | 下载地址 | 说明 |
 | :----------------------- | :------- | :--- |
-| 官方数据源 (亚洲: 新加坡) | [http://34.143.247.77/](http://34.143.247.77/) | LevelDB 数据 |
+| 官方数据源 (美洲: 美国弗吉尼亚) | [http://34.86.86.229/](http://34.86.86.229/) | LevelDB 数据，不包含内部交易 |
+| 官方数据源 (亚洲: 新加坡) | [http://34.143.247.77/](http://34.143.247.77/) | LevelDB 数据，不包含内部交易 |
+| 官方数据源 (美洲: 美国) | [http://35.197.17.205/](http://35.197.17.205/) | RocksDB 数据，不包含内部交易 |
+| 官方数据源 (亚洲: 新加坡) | [http://35.247.128.170/](http://35.247.128.170/) | LevelDB 数据，包含内部交易 |
 
 **小提示：** 如果您已经拥有 FullNode 的全量数据，可以使用 [Lite FullNode 数据裁剪工具](toolkit.md#lite-fullnode-data-pruning)自行将 FullNode 数据裁剪为 Lite FullNode 数据。
 
@@ -110,14 +113,14 @@ TRON 网络快照数据大小超过 2TB。我们推荐使用**流式处理（边
 
 创建一个名为 `download_snapshot.sh` 的脚本文件，并写入以下内容：
 
-```
+```bash
 #!/bin/bash
 wget -q -O - SNAPSHOT_URL/FullNode_output-directory.tgz | tar -zxvf -
 ```
 
 运行脚本：
 
-```
+```bash
 bash download_snapshot.sh
 ```
 
@@ -125,7 +128,7 @@ bash download_snapshot.sh
 
 **方法 2：先下载后解压（需充足存储空间）**
 
-```
+```bash
 # 1. 下载完整快照文件  
 wget SNAPSHOT_URL/FullNode_output-directory.tgz  
 

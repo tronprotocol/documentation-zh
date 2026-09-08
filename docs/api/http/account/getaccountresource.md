@@ -7,10 +7,13 @@
 
 ## 请求参数
 
-| 字段 | 类型 | 必填 | 说明 |
-|---|---|---|---|
-| `address` | string | 是 | 账户地址 |
-| `visible` | bool | 否 | 地址格式 |
+GET 从 URL 查询参数读取以下字段；POST 从 JSON 请求体读取。
+
+| 字段 | 方法 | 类型 | 必填 | 说明 |
+|---|---|---|---|---|
+| `address` | GET | string | 是 | 账户地址 |
+| `address` | POST | string | 否 | 账户地址；省略时转换为空地址并返回 `{}` |
+| `visible` | GET / POST | bool | 否 | 地址格式 |
 
 示例：
 
@@ -34,7 +37,7 @@ curl --request POST \
 |---|---|---|
 | `freeNetUsed` / `freeNetLimit` | int64 | 免费带宽（每 24h 重置） |
 | `NetUsed` / `NetLimit` | int64 | 质押带宽 |
-| `assetNetUsed` / `assetNetLimit` | map | TRC10 各自带宽 |
+| `assetNetUsed` / `assetNetLimit` | map | TRC-10 各自带宽 |
 | `TotalNetLimit` / `TotalNetWeight` | int64 | 全网带宽配额、全网质押 |
 | `EnergyUsed` / `EnergyLimit` | int64 | 能量 |
 | `TotalEnergyLimit` / `TotalEnergyWeight` | int64 | 全网能量配额、全网质押 |
@@ -65,10 +68,10 @@ curl --request POST \
 
 ### 异常响应
 
-| 触发条件 | 响应 |
-|---|---|
-| 请求体超过 `node.maxMessageSize`（POST） | `{"Error": "class java.lang.Exception : body size is too big, the limit is <N>"}` |
-| `address` 不是合法 hex（`visible=false`） | `{"Error": "class org.bouncycastle.util.encoders.DecoderException : exception decoding Hex string: <详情>"}` |
-| `address` 不是合法 base58check（`visible=true`） | `{"Error": "class java.lang.IllegalArgumentException : <详情>"}` |
-| 请求体不是合法 JSON / 字段类型不符（POST） | `{"Error": "class com.alibaba.fastjson.JSONException : <解析器信息>"}` |
-| 其他异常 | `{"Error": "<exceptionClass> : <message>"}` |
+| 方法 | 触发条件 | 响应 |
+|---|---|---|
+| GET / POST | 请求体超过 `node.http.maxMessageSize` | 通常由 `SizeLimitHandler` 返回 HTTP 413 `Payload Too Large` |
+| GET / POST | `address` 不是合法 hex（`visible=false`） | `{"Error": "class org.bouncycastle.util.encoders.DecoderException : exception decoding Hex string: <详情>"}` |
+| GET / POST | `address` 不是合法 base58check（`visible=true`） | `{"Error": "class java.lang.IllegalArgumentException : <详情>"}` |
+| POST | 请求体不是合法 JSON / 字段类型不符（POST） | `{"Error": "class org.tron.json.JSONException : <解析器信息>"}` |
+| GET / POST | 其他异常 | `{"Error": "<exceptionClass> : <message>"}` |

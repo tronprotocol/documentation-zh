@@ -1,0 +1,83 @@
+{
+  "name": "eth_getBlockByNumber",
+  "tags": [
+    {
+      "name": "Block / transaction query"
+    }
+  ],
+  "summary": "Query a block by height / tag",
+  "description": "Method name, Java signature, parameters, return type, and declared errors are derived from java-tron source. See `docs/api/json-rpc/block-and-tx-query/eth_getBlockByNumber.md` for examples and detailed behavior.",
+  "paramStructure": "by-position",
+  "params": [
+    {
+      "name": "bnOrId",
+      "required": true,
+      "description": "Non-negative block height (0x-prefixed hexadecimal or decimal) or case-insensitive latest, earliest, or finalized tag.",
+      "schema": {
+        "oneOf": [
+          {
+            "type": "string",
+            "pattern": "^(?:[lL][aA][tT][eE][sS][tT]|[eE][aA][rR][lL][iI][eE][sS][tT]|[fF][iI][nN][aA][lL][iI][zZ][eE][dD])$",
+            "title": "EthGetBlockByNumberParamString1"
+          },
+          {
+            "$ref": "#/components/schemas/BlockNumber"
+          }
+        ]
+      },
+      "x-java-type": "String",
+      "x-position": 0
+    },
+    {
+      "name": "fullTransactionObjects",
+      "required": true,
+      "description": "Whether to return full transaction objects instead of transaction hashes.",
+      "schema": {
+        "type": "boolean"
+      },
+      "x-java-type": "Boolean",
+      "x-position": 1
+    }
+  ],
+  "result": {
+    "name": "result",
+    "schema": {
+      "oneOf": [
+        {
+          "$ref": "#/components/schemas/BlockResult"
+        },
+        {
+          "type": "null",
+          "title": "EthGetBlockByNumberResultNull2"
+        }
+      ]
+    }
+  },
+  "errors": [
+    {
+      "code": -32602,
+      "message": "JsonRpcInvalidParamsException"
+    }
+  ],
+  "externalDocs": {
+    "url": "https://github.com/tronprotocol/documentation-en/blob/master/docs/api/json-rpc/block-and-tx-query/eth_getBlockByNumber.md"
+  },
+  "x-source-derived": true,
+  "x-java-method": "ethGetBlockByNumber",
+  "x-java-source": "framework/src/main/java/org/tron/core/services/jsonrpc/TronJsonRpc.java",
+  "x-ports": "FullNode 8545 / Solidity 8555",
+  "x-overlay-derived": true,
+  "x-source-refs": [
+    "framework/src/main/java/org/tron/core/services/jsonrpc/TronJsonRpc.java#eth_getBlockByNumber",
+    "framework/src/main/java/org/tron/core/services/jsonrpc/TronJsonRpcImpl.java#ethGetBlockByNumber",
+    "framework/src/main/java/org/tron/core/services/jsonrpc/JsonRpcApiUtil.java#parseBlockNumber",
+    "framework/src/main/java/org/tron/core/services/jsonrpc/types/BlockResult.java#class BlockResult",
+    "framework/src/main/java/org/tron/core/services/jsonrpc/types/TransactionResult.java#class TransactionResult"
+  ],
+  "x-tron-error-catalog": [
+    {
+      "errorIndex": 0,
+      "catalogId": "JSON_RPC_INVALID_PARAMS"
+    }
+  ]
+}

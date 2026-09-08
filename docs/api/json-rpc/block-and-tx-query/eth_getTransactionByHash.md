@@ -29,7 +29,7 @@ curl -X POST https://nile.trongrid.io/jsonrpc \
 | `blockNumber` | hex | 同上，未上链时 `0x` |
 | `transactionIndex` | hex | 块内交易下标；未上链时 `0x` |
 | `from` | hex | 发起地址 |
-| `to` | hex | 目标地址（合约创建时为空） |
+| `to` | hex \| null | 目标地址；合约创建时为 `null` |
 | `gas` | hex | 交易 energy 实际用量（**非** `feeLimit`） |
 | `gasPrice` | hex | 出块时刻的 energy 单价 |
 | `value` | hex | 转账金额（sun，TRX 转账有值；其他合约可能为 0） |
@@ -69,5 +69,4 @@ curl -X POST https://nile.trongrid.io/jsonrpc \
 
 | 触发条件 | 错误码 | message |
 |---|---|---|
-| `params[0]` 不匹配 `(0x)?[a-zA-Z0-9]{64}` | `-32602` | `invalid hash value` |
-| `params[0]` 是合法 64 字符但解码失败 | `-32602` | 透传 `ByteArray.fromHexString` 异常 message |
+| `params[0]` 不匹配 `(0x)?[0-9a-fA-F]{64}` | `-32602` | `invalid hash value` |

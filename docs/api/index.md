@@ -22,3 +22,4 @@ java-tron 节点对外暴露三套 API。它们底层能力大体一致，区别
 - [HTTP 接口参考](http/index.md) —— `/wallet/*` 与 `/walletsolidity/*`（部分支持）下的端点，按功能模块组织
 - [JSON-RPC 接口参考](json-rpc/index.md) —— `eth_*` / `net_*` / `web3_*` 方法以及 Tron 专属的 `buildTransaction`，按功能模块组织
 - [gRPC 接口参考](rpc/index.md) —— `protocol.Wallet` / `protocol.WalletSolidity`（部分支持）方法，按功能模块组织
+- [机器可读 API 定义](interface-definitions.md) —— HTTP 的 OpenAPI 定义以及 JSON-RPC 的 OpenRPC 定义

@@ -1,6 +1,6 @@
 # /wallet/createassetissue
 
-创建一个 TRC10 通证发行交易。
+创建一个 TRC-10 token 发行交易。
 
 - 源码：`framework/src/main/java/org/tron/core/services/http/CreateAssetIssueServlet.java`
 - Method：`POST`
@@ -11,20 +11,20 @@
 | 字段 | 类型 | 必填 | 说明 |
 |---|---|---|---|
 | `owner_address` | string | 是 | 发行方地址 |
-| `name` | string | 是 | 通证名（hex 编码 UTF-8） |
+| `name` | string | 是 | token 名（hex 编码 UTF-8） |
 | `abbr` | string | 否 | 缩写（hex 编码 UTF-8） |
 | `total_supply` | int64 | 是 | 总发行量 |
 | `frozen_supply` | repeated FrozenSupply | 否 | 冻结部分；元素 `{frozen_amount, frozen_days}` |
-| `trx_num` | int32 | 是 | 兑换比例分母（trx_num TRX = num 通证） |
+| `trx_num` | int32 | 是 | 兑换比例分母（trx_num TRX = num token） |
 | `num` | int32 | 是 | 兑换比例分子 |
 | `precision` | int32 | 否 | 精度 |
 | `start_time` | int64 | 是 | 募集开始时间，毫秒 |
 | `end_time` | int64 | 是 | 募集结束时间，毫秒 |
 | `description` | string | 否 | 描述（hex UTF-8） |
 | `url` | string | 是 | 项目 URL（hex UTF-8，长度 ≤ 256 字节） |
-| `free_asset_net_limit` | int64 | 否 | 单账户该通证免费带宽 |
-| `public_free_asset_net_limit` | int64 | 否 | 通证公共免费带宽 |
-| `permission_id` | int32 | 否 | 多签权限 ID |
+| `free_asset_net_limit` | int64 | 否 | 单账户该 token 免费带宽 |
+| `public_free_asset_net_limit` | int64 | 否 | token 公共免费带宽 |
+| `Permission_id` | int32 | 否 | 多签权限 ID |
 | `visible` | bool | 否 | 地址、文本字段格式 |
 
 示例：
@@ -90,14 +90,14 @@ curl --request POST \
 }
 ```
 
-费用：发行 TRC10 需消耗一笔较高的 TRX 销毁（链参数 `getAssetIssueFee`，目前 1024 TRX）。
+费用：发行 TRC-10 需消耗一笔较高的 TRX 销毁（链参数 `getAssetIssueFee`，目前 1024 TRX）。
 
 ### 异常响应
 
 | 触发条件 | 响应 |
 |---|---|
-| 请求体超过 `node.maxMessageSize` | `{"Error": "class java.lang.Exception : body size is too big, the limit is <N>"}` |
-| 请求体不是合法 JSON / 字段类型不符 | `{"Error": "class com.alibaba.fastjson.JSONException : <解析器信息>"}` 或 `{"Error": "class org.tron.core.services.http.JsonFormat$ParseException : <解码器信息>"}` |
+| 请求体超过 `node.http.maxMessageSize` | 通常由 `SizeLimitHandler` 返回 HTTP 413 `Payload Too Large` |
+| 请求体不是合法 JSON / 字段类型不符 | `{"Error": "class org.tron.json.JSONException : <解析器信息>"}` 或 `{"Error": "class org.tron.core.services.http.JsonFormat$ParseException : <解码器信息>"}` |
 | `owner_address` 非法 | `{"Error": "class org.tron.core.exception.ContractValidateException : Invalid ownerAddress"}` |
 | `name` 非法（空、长度 > 32、含非法字符） | `{"Error": "... : Invalid assetName"}` |
 | `name` 解析为 "trx" | `{"Error": "... : assetName can't be trx"}` |

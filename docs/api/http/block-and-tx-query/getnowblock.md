@@ -8,9 +8,11 @@
 
 ## 请求参数
 
-| 字段 | 类型 | 必填 | 说明 |
-|---|---|---|---|
-| `visible` | bool | 否 | 地址、文本字段格式 |
+GET 和 POST 都从 URL 查询参数读取以下字段；servlet 不解析 POST 请求体。
+
+| 字段 | 方法 | 类型 | 必填 | 说明 |
+|---|---|---|---|---|
+| `visible` | GET / POST | bool | 否 | 地址、文本字段格式 |
 
 示例：
 
@@ -30,10 +32,10 @@ curl --request POST \
 | `block_header.raw_data.timestamp` | int64 | 出块时间，毫秒 |
 | `block_header.raw_data.txTrieRoot` | bytes | 交易 Merkle 根 |
 | `block_header.raw_data.parentHash` | bytes | 父区块哈希 |
-| `block_header.raw_data.number` | int64 | 区块号 |
-| `block_header.raw_data.witness_address` | bytes | 出块见证人地址 |
+| `block_header.raw_data.number` | int64 | 区块高度 |
+| `block_header.raw_data.witness_address` | bytes | 出块超级代表地址 |
 | `block_header.raw_data.version` | int32 | 区块版本 |
-| `block_header.witness_signature` | bytes | 见证人签名 |
+| `block_header.witness_signature` | bytes | 超级代表签名 |
 | `transactions` | repeated Transaction | 该区块包含的交易 |
 
 响应示例（Nile 上的真实出块，省略 `transactions` 内容）：
@@ -60,6 +62,7 @@ curl --request POST \
 
 ### 异常响应
 
-| 触发条件 | 响应 |
-|---|---|
-| 节点内部异常（读取最新区块或序列化失败） | `{"Error": "<exceptionClass> : <message>"}` |
+| 方法 | 触发条件 | 响应 |
+|---|---|---|
+| GET / POST | 请求体超过 `node.http.maxMessageSize` | 通常由 `SizeLimitHandler` 返回 HTTP 413 `Payload Too Large` |
+| GET / POST | 节点内部异常（读取最新区块或序列化失败） | `{"Error": "<exceptionClass> : <message>"}` |

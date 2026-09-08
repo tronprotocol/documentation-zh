@@ -17,10 +17,10 @@
 | `parameter` | string | 否 | ABI 编码的参数（hex，无函数选择子） |
 | `data` | string | 否 | 直接给定调用 data（hex），与 `function_selector` 二选一 |
 | `call_value` | int64 | 否 | 调用带入的 TRX（sun） |
-| `token_id` | int64 | 否 | 调用带入 TRC10 token id |
-| `call_token_value` | int64 | 否 | 调用带入 TRC10 数量 |
-| `fee_limit` | int64 | 是 | 交易费用上限（sun） |
-| `permission_id` | int32 | 否 | 多签权限 ID |
+| `token_id` | int64 | 否 | 调用带入 TRC-10 token id |
+| `call_token_value` | int64 | 否 | 调用带入 TRC-10 数量 |
+| `fee_limit` | int64 | 否 | 交易费用上限（sun）；省略时默认为 `0` |
+| `Permission_id` | int32 | 否 | 多签权限 ID |
 | `visible` | bool | 否 | 地址、文本字段格式（响应含 `result.message`，受 `visible` 影响） |
 
 示例：
@@ -52,7 +52,7 @@ curl --request POST \
 | `txid` | string(hex) | 交易哈希 |
 | `constant_result` | repeated bytes(hex) | 仅在被 ABI 识别为 `view` / `pure` 函数时填充（写交易通常无此字段） |
 | `result` | Return | 结果状态 |
-| `energy_used` | int64 | 仅在常量调用路径填充；普通写交易不返回 |
+| `energy_used` | int64 | 仅在 constant call 路径填充；普通写交易不返回 |
 | `energy_penalty` | int64 | 能量惩罚（如有） |
 
 响应示例（Nile 实抓）：
@@ -92,12 +92,19 @@ curl --request POST \
 
 > 仅做预演（不上链）请用 [`/wallet/triggerconstantcontract`](triggerconstantcontract.md)；仅估算能量请用 [`/wallet/estimateenergy`](estimateenergy.md)。
 
+> 当 ABI 将目标函数标记为 `view` 或 `pure` 时，该接口会被分派到
+> constant call 路径，因此受
+> [`vm.constantCallTimeoutMs`](../../../using_javatron/configuration.md#tvm-and-constant-call-configuration)
+> 限制。
+
 ### 异常响应
 
-不会写出 `{"Error": ...}`。所有异常被 catch 后写入 `result.code`、`result.message`，HTTP 体仍是 `TransactionExtention`：
+请求进入 servlet 后不会写出 `{"Error": ...}`。由 servlet 接管的异常会被 catch 后写入 `result.code`、`result.message`，HTTP 体仍是 `TransactionExtention`。
+
+在请求进入此 servlet 前，共享层仍可能返回不同结构：请求体超限时，`SizeLimitHandler` 通常返回 HTTP 413 `Payload Too Large`；非阻塞限流拒绝则返回 HTTP 200 和 `{"Error":"class java.lang.IllegalAccessException : lack of computing resources"}`。
 
 | 触发条件 | `result.result` | `result.code` | `result.message` |
 |---|---|---|---|
 | `owner_address` / `contract_address` 为空（`InvalidParameterException`） | false | `OTHER_ERROR` | `class java.security.InvalidParameterException : owner_address isn't set.` 等 |
-| 合约校验失败 / fee_limit 超限 / 调用账户不存在等（`ContractValidateException`） | false | `CONTRACT_VALIDATE_ERROR` | 校验器原始描述 |
+| `contract_address` 未指向已存在的智能合约 | false | `CONTRACT_VALIDATE_ERROR` | `No contract or not a valid smart contract` |
 | 其他（hex 解析、proto merge 等） | false | `OTHER_ERROR` | `<exceptionClass> : <message>`（`"` → `'`） |

@@ -1,6 +1,6 @@
 # /wallet/participateassetissue
 
-参与 TRC10 募集（用 TRX 购买）。
+参与 TRC-10 募集（用 TRX 购买）。
 
 - 源码：`framework/src/main/java/org/tron/core/services/http/ParticipateAssetIssueServlet.java`
 - Method：`POST`
@@ -11,13 +11,13 @@
 | 字段 | 类型 | 必填 | 说明 |
 |---|---|---|---|
 | `owner_address` | string | 是 | 购买方 |
-| `to_address` | string | 是 | 通证发行方地址 |
-| `asset_name` | string | 是 | 通证 ID（自 `ALLOW_SAME_TOKEN_NAME` 提案生效后是字符串形式的 token id，如 `1000001`，hex UTF-8 编码） |
+| `to_address` | string | 是 | token 发行方地址 |
+| `asset_name` | string | 是 | token ID（自 `ALLOW_SAME_TOKEN_NAME` 提案生效后是字符串形式的 token id，如 `1000001`，hex UTF-8 编码） |
 | `amount` | int64 | 是 | 支付的 TRX，sun |
-| `permission_id` | int32 | 否 | 多签权限 ID |
+| `Permission_id` | int32 | 否 | 多签权限 ID |
 | `visible` | bool | 否 | 地址、文本字段格式 |
 
-约束：必须在 `[start_time, end_time)` 期间内；获得的通证数量按 `num/trx_num` 折算。
+约束：必须在 `[start_time, end_time)` 期间内；获得的 token 数量按 `num/trx_num` 折算。
 
 示例：
 
@@ -74,8 +74,8 @@ curl --request POST \
 
 | 触发条件 | 响应 |
 |---|---|
-| 请求体超过 `node.maxMessageSize` | `{"Error": "class java.lang.Exception : body size is too big, the limit is <N>"}` |
-| 请求体不是合法 JSON / 字段类型不符 | `{"Error": "class com.alibaba.fastjson.JSONException : <解析器信息>"}` 或 `{"Error": "class org.tron.core.services.http.JsonFormat$ParseException : <解码器信息>"}` |
+| 请求体超过 `node.http.maxMessageSize` | 通常由 `SizeLimitHandler` 返回 HTTP 413 `Payload Too Large` |
+| 请求体不是合法 JSON / 字段类型不符 | `{"Error": "class org.tron.json.JSONException : <解析器信息>"}` 或 `{"Error": "class org.tron.core.services.http.JsonFormat$ParseException : <解码器信息>"}` |
 | `owner_address` 非法 | `{"Error": "class org.tron.core.exception.ContractValidateException : Invalid ownerAddress"}` |
 | `to_address` 非法 | `{"Error": "... : Invalid toAddress"}` |
 | `amount <= 0` | `{"Error": "... : Amount must greater than 0!"}` |

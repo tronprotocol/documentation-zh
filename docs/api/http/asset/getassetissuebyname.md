@@ -1,6 +1,6 @@
 # /wallet/getassetissuebyname
 
-按通证名查询单个 TRC10。**注意**：自 `ALLOW_SAME_TOKEN_NAME` 提案后，name 不再唯一，调用此接口在重名时会报错；推荐用 [`/wallet/getassetissuebyid`](getassetissuebyid.md) 或 [`/wallet/getassetissuelistbyname`](getassetissuelistbyname.md)。
+按 token 名查询单个 TRC-10。**注意**：自 `ALLOW_SAME_TOKEN_NAME` 提案后，name 不再唯一，调用此接口在重名时会报错；推荐用 [`/wallet/getassetissuebyid`](getassetissuebyid.md) 或 [`/wallet/getassetissuelistbyname`](getassetissuelistbyname.md)。
 
 - 源码：`framework/src/main/java/org/tron/core/services/http/GetAssetIssueByNameServlet.java`
 - Method：`GET` / `POST`
@@ -8,10 +8,13 @@
 
 ## 请求参数
 
-| 字段 | 类型 | 必填 | 说明 |
-|---|---|---|---|
-| `value` | string | 是 | 通证名（hex 编码 UTF-8） |
-| `visible` | bool | 否 | 地址、文本字段格式 |
+GET 从 URL 查询参数读取以下字段；POST 从 JSON 请求体读取。
+
+| 字段 | 方法 | 类型 | 必填 | 说明 |
+|---|---|---|---|---|
+| `value` | GET | string | 是 | token 名（hex 编码 UTF-8） |
+| `value` | POST | string | 否 | token 名；省略时使用空值，`visible=false` 时通常返回 `{}` |
+| `visible` | GET / POST | bool | 否 | 地址、文本字段格式 |
 
 示例：
 
@@ -54,10 +57,10 @@ curl --request POST \
 
 ### 异常响应
 
-| 触发条件 | 响应 |
-|---|---|
-| 请求体超过 `node.maxMessageSize`（POST） | `{"Error": "class java.lang.Exception : body size is too big, the limit is <N>"}` |
-| `value` 不是合法 hex | `{"Error": "class org.bouncycastle.util.encoders.DecoderException : exception decoding Hex string: <详情>"}` |
-| 重名 token 数量 > 1（`ALLOW_SAME_TOKEN_NAME` 提案后） | `{"Error": "class org.tron.core.exception.NonUniqueObjectException : To get more than one asset, please use getAssetIssueById syntax"}` |
-| 请求体不是合法 JSON（POST） | `{"Error": "class com.alibaba.fastjson.JSONException : <解析器信息>"}` |
-| 其他异常 | `{"Error": "<exceptionClass> : <message>"}` |
+| 方法 | 触发条件 | 响应 |
+|---|---|---|
+| GET / POST | 请求体超过 `node.http.maxMessageSize` | 通常由 `SizeLimitHandler` 返回 HTTP 413 `Payload Too Large` |
+| GET / POST | `value` 不是合法 hex | `{"Error": "class org.bouncycastle.util.encoders.DecoderException : exception decoding Hex string: <详情>"}` |
+| GET / POST | 重名 token 数量 > 1（`ALLOW_SAME_TOKEN_NAME` 提案后） | `{"Error": "class org.tron.core.exception.NonUniqueObjectException : To get more than one asset, please use getAssetIssueById syntax"}` |
+| POST | 请求体不是合法 JSON（POST） | `{"Error": "class org.tron.json.JSONException : <解析器信息>"}` |
+| GET / POST | 其他异常 | `{"Error": "<exceptionClass> : <message>"}` |

@@ -4,7 +4,7 @@
 
 无论是小的修复还是重要的功能改进，我们都非常感激您的贡献。  
 
-在 GitHub 上，您可以用于：
+在 GitHub 上，您可以：
 
 - 跟踪问题  
 - 贡献代码  
@@ -27,7 +27,7 @@
 4. **创建 Pull Request (PR)**  
    将改动推送到您的 Fork 仓库，并向官方仓库提交 PR。
 5. **代码审查与合并**  
-   维护者将根据 [代码审查指南](#code-review-guidelines) 审核您的 PR，并在合格后合并至主分支。
+   维护者将根据 [代码审查指南](#code-review-guidelines) 审核您的 PR，并在合格后合并至 `develop` 分支。
 
 
 
@@ -39,7 +39,7 @@
   请先在 [TIP 仓库](https://github.com/tronprotocol/tips) 提交 Issue，详细说明动机与实现方案。  
   参考 [TIP 规范](tips.md)。  
 - **提前提交 PR**  
-  我们鼓励开发者尽早提交 PR，即使功能尚未完成。这样其他开发者能及时获知相关的 TIP Issue 已进入 *In Progress* 状态。  
+  我们鼓励开发者尽早提交 PR，即使功能尚未完成。这样其他开发者能及时获知相关 TIP 的开发已经启动。  
 - **开发分支**  
   所有开发应基于 `develop` 分支进行，随后再提交 PR。  
 
@@ -51,22 +51,23 @@
 
 - **`develop` 分支**
     - 用于日常开发  
-    - 只允许合并分叉分支与 `release-*` 分支  
-    - 每次准备新版本时，从该分支拉取 `release-*`  
+    - 只允许合并分叉分支与 `release_*` 分支  
+    - 每次准备新版本时，从该分支拉取 `release_*`  
 - **`master` 分支**  
     - 只在发布时使用  
-    - 合并对象仅限 `release-*` 与 `hotfix-*`  
-- **`release-*` 分支**  
+    - 合并对象仅限 `release_*` 与 `hotfix/*`  
+- **`release_*` 分支**  
     - 从 `develop` 拉取，用于版本定版和回归测试  
     - 回归完成后合并至 `master`  
     - 永久保留，作为发版快照  
     - Bug 修复直接合并到该分支，并同步回 `develop`  
-- **`feature-*` 分支**  
+- **`feature/*` 分支**  
     - 从 `develop` 拉取，用于新功能开发  
     - 功能完成后合并回 `develop`  
     - 可长期维护  
-- **`hotfix-*` 分支**  
+- **`hotfix/*` 分支**  
     - 从 `master` 拉取，用于紧急 Bug 修复  
+    - 仅接受来自 Fork 仓库的 Bug 修复 PR  
     - 修复完成后合并回 `master` 与 `develop`  
 
 
@@ -74,50 +75,66 @@
 ## 代码提交流程
 
 ### 1. Fork 与克隆仓库
-```
+
+```bash
 git clone https://github.com/yourname/java-tron.git
 cd java-tron
 git remote add upstream https://github.com/tronprotocol/java-tron.git
 ```
+
 > `upstream` 代表官方仓库。命名可自定义，但习惯上使用 `upstream`。
+>
 ### 2. 同步上游代码
-```
+
+```bash
 git fetch upstream
 git checkout develop
 git merge upstream/develop --no-ff
 ```
+
 > `--no-ff` 用于避免快速合并模式，确保提交历史清晰。
+>
 ### 3. 创建开发分支
-```
+
+```bash
 git checkout -b feature/branch_name develop
 ```
+
 ### 4. 提交改动
-```
+
+```bash
 git add .
 git commit -m "commit message"
 ```
+
 ### 5. 推送分支
-```
+
+```bash
 git push origin feature/branch_name
 ```
+
 ### 6. 发起 Pull Request
-从你自己的仓库向 `tronprotocol/java-tron` 提交一个推送代码请求 Pull Request（PR）。
+
+从您自己的仓库向 `tronprotocol/java-tron` 提交一个 Pull Request（PR）。
     ![image](https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/javatron_pr.png)
 
 
 建议选择红框的选项，将 `tronprotocol/java-tron` 的 `develop` 分支选成 base 分支，将个人的 Fork 仓库的分支选成 compare 分支。
 
 ## 代码审查指南 { #code-review-guidelines }
+
 将代码合并到 **java-tron** 的唯一途径是 **Pull Request (PR)**。
 所有 PR 必须经过审查后才能合并。
 
 ### 审查流程
+
 - 审查者需理解 PR 的动机和改动
 - 对于缺少描述或改动过大的 PR，审查者可要求补充说明
 - 审查者检查代码风格、功能完整性与测试情况
 - 审查者应保持礼貌、尊重并及时跟进
 
 ### 功能验证
+
 - **Bug 修复 PR**
     - 审查者应尝试复现问题并验证修复
     - 推荐提交者提供单元测试：未改动时应失败，改动后应通过
@@ -127,38 +144,49 @@ git push origin feature/branch_name
     - 所有新增代码需提供单元测试
 
 ### 代码规范要求
+
 - 使用代码规范工具检查代码
 - 在提交前自测
 - 通过标准化测试
 
-CI 工具：
+### 自动化 CI 检查
 
-- Sonar：静态代码分析
-- Travis CI：持续集成检查
+java-tron 使用 GitHub Actions 执行 PR 校验、代码和配置检查、多平台构建、覆盖率门禁、集成和安全测试、审查者分配，以及取消与已关闭但未合并的 PR 相关的任务。具体运行哪些工作流取决于变更文件、事件类型和目标分支。
 
-所有检查通过后，维护者将审查并合并至 `develop`。
+完整的触发矩阵、检查细节、阈值和分支差异请参阅 [java-tron CI 工作流](workflows.md)。
+
+所有检查通过后，维护者将审查 PR，并将其合并到适当的目标分支。
 
 > **编码规范**
+>
 >- 遵循 [Google Java Style Guide](https://google.github.io/styleguide/javaguide.html)
->- 所有 PR 必须基于 `develop` 分支
+>- PR 的目标分支应根据改动类型选择：常规 PR 应以 `develop` 为目标分支；`release_*` 分支中的缺陷修复 PR 应以相应的 `release_*` 分支为目标分支；发布后的紧急修复 PR 应以相应的 `hotfix/*` 分支为目标分支。
 
 ## 分支命名规范
+
 1. `master` 和 `develop` 固定命名
-2. 版本开发分支以版本号和版本名命名（如 `GreatVoyage-v4.8.0(Kant)`）
-3. `hotfix/*`：用于紧急修复（如 `hotfix/typo`）
-4. `feature/*`：用于新功能开发（如 `feature/new-resource-model`）
+2. `release_*`：以 `release_` 前缀加版本号命名，版本号由项目负责人分配（如 `GreatVoyage-v4.8.0(Kant)` 版本对应 `release_v4.8.0`）
+3. `hotfix/*`：用于紧急修复，单词间以下划线连接（如 `hotfix/typo`、`hotfix/null_point_exception`）
+4. `feature/*`：用于新功能开发，单词间以下划线连接（如 `feature/new_resource_model`）
 
 ## Pull Request 规范
+
 1. 一个 PR 只处理一件事
 2. 避免超大改动量
-3. 标题：简要描述 PR 目标
-4. 描述：面向 Reviewer，详细说明
-5. 明确需要反馈的部分
+3. 标题使用 `type: description` 或 `type(scope): description` 格式
+4. 标题长度保持在 10～72 个字符之间
+5. `type` 必须是以下之一：`feat`、`fix`、`refactor`、`docs`、`style`、`test`、`chore`、`ci`、`perf`、`build` 或 `revert`
+6. 标题中的描述部分不得以 ASCII 大写字母开头，标题结尾不得使用句号
+7. PR 描述不得少于 20 个字符，并说明改动内容及原因
+8. 明确需要反馈的部分
+
+`scope` 是可选的。未知 `scope` 只会产生警告，审查者分配使用另一套独立的 `scope` 映射。详细规则请参阅 [`scope` 校验和审查者分配](workflows.md#scope)。
 
 ## Commit 描述规范
+
 推荐格式：
 
-```
+```text
 <type>(<scope>): <subject>
 
 <body>
@@ -167,23 +195,31 @@ CI 工具：
 ```
 
 ### Commit 类型
+
 - `feat`：新功能
 - `fix`：Bug 修复
 - `docs`：文档修改
 - `style`：格式调整（无功能更改）
 - `refactor`：代码重构
 - `test`：测试代码改动
-- `chore`：其他（如任务分配等）
+- `chore`：构建流程或辅助工具的变更（无生产代码改动）
+- `ci`：CI/CD 配置变更
+- `perf`：性能改进
+- `build`：构建系统或依赖项变更
+- `revert`：撤销之前的改动
+
+`scope` 用于说明改动位置，例如：`protocol`、`api`、`test`、`vm`、`config`、`db`、`net`。若无合适的 `scope`，可使用 `*`。
 
 ### Subject 规范
-1. 不超过 50 个字符
-2. 使用动词开头，第一人称现在时（如 `change` 而非 `changed`）
-3. 首字母小写
-4. 结尾不加句号
-5. 避免无意义 Commit
+
+1. 保持在 10～72 个字符之间，结尾不加句号
+2. 使用动词开头，第一人称现在时（如 `change` 而非 `changed` 或 `changes`）
+3. `subject` 不得以大写字母开头
+4. 避免无意义 Commit，建议使用 `git rebase` 命令
 
 示例
-```
+
+```text
 feat(block): optimize the block-producing logic
 
 1. increase the priority for acquiring synchronization lock
@@ -191,7 +227,9 @@ feat(block): optimize the block-producing logic
 
 Closes #1234
 ```
+
 ## 特殊情况处理
+
 - **提交者未跟进**
     - 等待数日后联系；如无回应，可关闭 PR 或由他人继续
 - **提交者在修复 Bug 时顺带重构**
@@ -201,8 +239,5 @@ Closes #1234
     - 审查者可关闭 PR
 
 ## 行为准则
+
 请保持尊重和建设性，共同营造积极的社区氛围。
-
-
-
-

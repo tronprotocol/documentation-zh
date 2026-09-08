@@ -60,7 +60,7 @@ TIP 由标题序言和主体内容两部分组成。
 
 TIP 标题包含 TIP 编号、简短的描述性标题（限制为最多 44 个字符）、作者详细信息、讨论链接、TIP 状态、TIP 类型、创建时间等。具体格式请参考：
 
-```
+```text
 tip: <to be assigned>
 title: <TIP title>
 author: <a list of the author's or authors' name(s) and/or username(s), or name(s) and email(s), e.g. (use with the parentheses or triangular brackets): FirstName LastName (@GitHubUsername), FirstName LastName <foo@bar.com>, FirstName (@GitHubUsername) and GitHubUsername (@GitHubUsername)>
