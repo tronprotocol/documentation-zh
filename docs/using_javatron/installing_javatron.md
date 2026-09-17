@@ -238,11 +238,26 @@ node {
 }
 ```
 
-自4.8.1版本开始，不再提供单独的`SolidityNode.jar`，固化节点的启动通过命令行参数`--solidity`，即：
+从 4.8.1 版本开始，不再提供单独的 `SolidityNode.jar`。请通过向 `FullNode.jar` 传入 `--solidity` 参数来启动 SolidityNode，并根据本文开头所述的系统架构及对应 JDK 选择启动命令。
 
-```shell
-java -Xmx24g -XX:+UseConcMarkSweepGC -jar build/libs/FullNode.jar --solidity -c framework/src/main/resources/config.conf 
+#### x86_64（JDK 8）
+
+```bash
+java -Xmx24G -XX:+UseConcMarkSweepGC \
+    -jar build/libs/FullNode.jar --solidity \
+    -c framework/src/main/resources/config.conf
 ```
+
+#### arm64（JDK 17）
+
+```bash
+java -Xmx9G -XX:+UseZGC \
+    -Xlog:gc,gc+heap:file=gc.log:time,tags,level:filecount=10,filesize=100M \
+    -jar build/libs/FullNode.jar --solidity \
+    -c framework/src/main/resources/config.conf
+```
+
+`-XX:+UseConcMarkSweepGC` 是 JDK 8 参数，在 JDK 17 中不可用。
 
 #### 配置条件停机 { #configuring-conditional-shutdown }
 
@@ -427,16 +442,44 @@ node.backup {
     * **不使用 `nohup` 命令，人机交互的方式启动节点（推荐）**
         * **注意事项**: 此方式在启动节点时需要人机交互输入密码。建议使用会话保持工具，例如 `screen` 或 `tmux`。
 
-        ```shell
-        java -Xmx24g -XX:+UseConcMarkSweepGC -jar build/libs/FullNode.jar --witness -c framework/src/main/resources/config.conf
+        在 x86_64（JDK 8）环境中：
+
+        ```bash
+        java -Xmx24G -XX:+UseConcMarkSweepGC \
+            -jar build/libs/FullNode.jar --witness \
+            -c framework/src/main/resources/config.conf
+        ```
+
+        在 arm64（JDK 17）环境中：
+
+        ```bash
+        java -Xmx24G -XX:+UseZGC \
+            -Xlog:gc,gc+heap:file=gc.log:time,tags,level:filecount=10,filesize=100M \
+            -jar build/libs/FullNode.jar --witness \
+            -c framework/src/main/resources/config.conf
         ```
 
         * 在节点启动过程中，系统会提示您输入密码。正确输入密码后，节点将完成启动。
 
     * **使用 `nohup` 命令，直接在命令行中通过 `--password` 传入密码**
 
-        ```shell
-        nohup java -Xmx24g -XX:+UseConcMarkSweepGC -jar build/libs/FullNode.jar --witness -c framework/src/main/resources/config.conf --password "密码" > start.log 2>&1 &
+        在 x86_64（JDK 8）环境中：
+
+        ```bash
+        nohup java -Xmx24G -XX:+UseConcMarkSweepGC \
+            -jar build/libs/FullNode.jar --witness \
+            -c framework/src/main/resources/config.conf \
+            --password "密码" > start.log 2>&1 &
+        ```
+
+        在 arm64（JDK 17）环境中：
+
+        ```bash
+        nohup java -Xmx24G -XX:+UseZGC \
+            -Xlog:gc,gc+heap:file=gc.log:time,tags,level:filecount=10,filesize=100M \
+            -jar build/libs/FullNode.jar --witness \
+            -c framework/src/main/resources/config.conf \
+            --password "密码" > start.log 2>&1 &
         ```
 
 ### 使用 `tcmalloc` 优化内存占用

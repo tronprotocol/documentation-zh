@@ -86,4 +86,4 @@ java-tron 仓库保留了 `sonar-project.properties` 以及用于静态分析的
 
 ## 在本地运行检查
 
-[开发示例](demo.md#4-checkstyle)提供了推荐的 Checkstyle、完整构建和 RocksDB 命令，并说明了 ARM64 与 x86-64 环境之间的 JDK 和存储引擎差异。
+[开发示例](demo.md#run-code-quality-checks)提供了推荐的 Checkstyle、完整构建和 RocksDB 命令，并说明了 ARM64 与 x86-64 环境之间的 JDK 和存储引擎差异。
