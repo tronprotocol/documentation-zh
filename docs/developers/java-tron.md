@@ -37,7 +37,7 @@
   可以直接发起 PR，但务必包含完整的描述。  
 - **复杂改动**  
   请先在 [TIP 仓库](https://github.com/tronprotocol/tips) 提交 Issue，详细说明动机与实现方案。  
-  参考 [TIP 规范](tips.md)。  
+  参考 [TIP 规范](tip-workflow.md)。
 - **提前提交 PR**  
   我们鼓励开发者尽早提交 PR，即使功能尚未完成。这样其他开发者能及时获知相关 TIP 的开发已经启动。  
 - **开发分支**  

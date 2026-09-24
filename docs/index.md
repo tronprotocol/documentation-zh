@@ -12,9 +12,10 @@ java-tron 是 TRON 网络的官方 Java 客户端实现，由 TRON 协议团队�
 
     ---
 
-    第一次接触 java-tron 或 TRON 协议？从这里开始。
+    第一次接触 java-tron 或 TRON 协议？先从循序渐进的实践路径开始，再将共识概览和术语表作为参考。
 
-    - [入门指南](getting_started/getting_started_with_javatron.md)
+    - [开始使用](getting_started/index.md)
+    - [动手入门指南](getting_started/getting_started_with_javatron.md)
     - [波场共识 (DPoS)](mechanism-algorithm/dpos.md)
     - [术语表](glossary.md)
 
@@ -22,8 +23,9 @@ java-tron 是 TRON 网络的官方 Java 客户端实现，由 TRON 协议团队�
 
     ---
 
-    部署、监控、维护 java-tron 节点的运维指南。
+    涵盖 java-tron 部署、配置、网络连接、日志、监控、存储、备份和维护的指南。
 
+    - [节点运维概览](using_javatron/index.md)
     - [部署 java-tron](using_javatron/installing_javatron.md)
     - [节点配置](using_javatron/configuration.md)
     - [节点日志](using_javatron/logging.md)
@@ -35,8 +37,10 @@ java-tron 是 TRON 网络的官方 Java 客户端实现，由 TRON 协议团队�
 
     ---
 
-    调用 java-tron 提供的 HTTP/gRPC/JSON-RPC 接口构建应用。
+    在 TRON 上构建 DApp 所需的智能合约开发、java-tron API 和命令行工具。
 
+    - [使用 java-tron 构建 DApp](contracts/index.md)
+    - [选择 API](api/index.md)
     - [HTTP 接口](api/http/index.md)
     - [JSON-RPC 接口](api/json-rpc/index.md)
     - [gRPC 接口](api/rpc/index.md)
@@ -47,10 +51,11 @@ java-tron 是 TRON 网络的官方 Java 客户端实现，由 TRON 协议团队�
 
     ---
 
-    修改 java-tron 源码、提 TIP、参与协议演进。
+    涵盖参与 java-tron 贡献、配置开发环境、理解 CI 与代码库，以及遵循 Issue、TIP 和网络治理流程的指南。
 
+    - [贡献者概览](developers/index.md)
     - [开发者指南](developers/java-tron.md)
-    - [TIPs 工作流程](developers/tips.md)
+    - [TIPs 工作流程](developers/tip-workflow.md)
     - [配置 IDE](developers/run-in-idea.md)
     - [核心模块](developers/code-structure.md)
 
@@ -58,14 +63,15 @@ java-tron 是 TRON 网络的官方 Java 客户端实现，由 TRON 协议团队�
 
 ## 按主题浏览
 
-- __[使用 java-tron](using_javatron/installing_javatron.md)__ — 部署、备份恢复、轻节点、私链网络、事件订阅、数据库配置、节点监控、维护工具
-- __[API 接口](api/index.md)__ — HTTP、gRPC、JSON-RPC
-- __[核心协议](mechanism-algorithm/dpos.md)__ — DPoS 共识、超级代表、账户模型、资源模型、智能合约、系统合约、去中心化交易所、账户权限管理
-- __[java-tron 开发](developers/java-tron.md)__ — 开发者指南、TIPs 工作流程、Issue 流程、治理流程、IDE 配置、开发示例、核心模块
-- __[DApp 开发](contracts/tools.md)__ — 开发工具
-- __[客户端](clients/wallet-cli/index.md)__ — wallet-cli
-- __[版本发布](releases/upgrade-instruction.md)__ — 新版本部署手册、一致性检验、历史版本
-- __[附录](glossary.md)__ — 术语表
+- __[开始使用](getting_started/index.md)__ — 通过动手实践创建 TRON 账户、启动并验证 java-tron 节点，以及使用 wallet-cli 或 cURL 发送交易或查询链上数据
+- __[运维节点](using_javatron/index.md)__ — 涵盖 java-tron 部署、配置、网络连接、日志、监控、存储、备份和维护的指南
+- __[API 参考](api/index.md)__ — 介绍如何在 HTTP、JSON-RPC 和 gRPC 接口之间选择，并提供参考索引和机器可读定义
+- __[wallet-cli](clients/wallet-cli/index.md)__ — 面向 TRON 和部分 EVM 网络的命令行钱包——Java 版侧重交互操作，TypeScript 版面向自动化代理
+- __[理解协议](mechanism-algorithm/index.md)__ — 涵盖 TRON 共识、超级代表、账户与签名、网络资源、系统合约和账户权限的文档
+- __[参与 java-tron 贡献](developers/index.md)__ — 涵盖参与 java-tron 贡献、配置开发环境、理解 CI 与代码库，以及遵循 Issue、TIP 和网络治理流程的指南
+- __[构建 DApp](contracts/index.md)__ — 在 TRON 上构建 DApp 所需的智能合约开发与开发工具
+- __[版本发布](releases/index.md)__ — 节点升级流程、发布包签名验证和版本历史
+- __[附录](glossary.md)__ — 常见 TRON 与 java-tron 术语释义
 
 ## 其它资源
 
