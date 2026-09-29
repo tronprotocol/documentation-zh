@@ -24,7 +24,7 @@ wallet-cli x402 serve --pay-to <address> [--amount <n> | --raw-amount <n>] [--to
 | `/health` | `200`，返回 `{"ok":true}` |
 | 其他任何请求 | `404` |
 
-**价格**由 `--amount`（整数个 token，默认 `0.0001`）或 `--raw-amount`（该 token 的最小单位）给出。**token** 由 `--token` 指定，取地址簿在所选网络上已知的符号（默认 `USDT`；例如 Base Sepolia 上用 `USDC`），或由 `--asset` 指定 token 合约地址；若该合约不在地址簿中，还需同时给出 `--decimals`。`--amount` 的小数位不能超过该 token 的精度。`exact_gasfree` 仅在 TRON 上提供。
+**价格**由 `--amount`（以 token 为单位，可含小数；默认 `0.0001`）或 `--raw-amount`（该 token 的最小单位）给出。**token** 由 `--token` 指定，取地址簿在所选网络上已知的符号（默认 `USDT`；例如 Base Sepolia 上用 `USDC`），或由 `--asset` 指定 token 合约地址；若该合约不在地址簿中，还需同时给出 `--decimals`。`--amount` 的小数位不能超过该 token 的精度。`exact_gasfree` 仅在 TRON 上提供。
 
 `--resource-url` 设置支付要求中对外声明的资源 URL（默认就是 `/pay` 这个 URL 本身）。服务器只绑定到 `127.0.0.1` 或 `::1`。不需要钱包，也不需要密码。
 
@@ -37,7 +37,7 @@ wallet-cli x402 serve --pay-to <address> [--amount <n> | --raw-amount <n>] [--to
 | 选项 | 说明 |
 |---|---|
 | `--pay-to <address>` | **必填。** 所选网络上的收款地址 |
-| `--amount <n>` | 价格，以整数个 token 计，小数位不得超过该 token 的精度（默认 `0.0001`）；与 `--raw-amount` 互斥 |
+| `--amount <n>` | 价格，以 token 为单位（可含小数），小数位不得超过该 token 的精度（默认 `0.0001`）；与 `--raw-amount` 互斥 |
 | `--raw-amount <n>` | 价格，以该 token 的最小单位计 |
 | `--token <symbol>` | 地址簿在该网络上已知的支付 token（默认 `USDT`）；与 `--asset` 互斥 |
 | `--asset <address>` | 用合约地址而非符号指定支付 token；若该合约不在地址簿中，还需给出 `--decimals` |

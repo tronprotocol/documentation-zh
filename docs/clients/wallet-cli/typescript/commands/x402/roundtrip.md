@@ -24,7 +24,7 @@ wallet-cli x402 roundtrip --pay-to <address> [--amount <n> | --raw-amount <n>] [
 | 选项 | 说明 |
 |---|---|
 | `--pay-to <address>` | **必填。** 所选网络上的收款地址 |
-| `--amount <n>` | 价格，以整数个 token 计，小数位不得超过该 token 的精度（默认 `0.0001`）；与 `--raw-amount` 互斥 |
+| `--amount <n>` | 价格，以 token 为单位（可含小数），小数位不得超过该 token 的精度（默认 `0.0001`）；与 `--raw-amount` 互斥 |
 | `--raw-amount <n>` | 价格，以该 token 的最小单位计 |
 | `--token <symbol>` | 地址簿在该网络上已知的支付 token（默认 `USDT`）；与 `--asset` 互斥 |
 | `--asset <address>` | 用合约地址而非符号指定支付 token；若该合约不在地址簿中，还需给出 `--decimals` |

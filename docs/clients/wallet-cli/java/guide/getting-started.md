@@ -31,9 +31,9 @@ $ java -jar wallet-cli.jar
 ## 如何创建账户
 
 你可以通过向不存在的账户转账来创建账户，也可以用 **CreateAccount** 命令发起一笔交易来创建账户。
-两种方式下，付款方都要承担链上的账户创建费，它等于 `getCreateAccountFee` 与
-`getCreateNewAccountFeeInSystemContract` 两个链参数之和。按当前主网参数约为 **1.1 TRX**，但两者都可
-通过提案调整，因此请用 `getchainparameters` 读取——具体规则见
+两种方式下，付款方都要燃烧 `getCreateNewAccountFeeInSystemContract`（按当前主网参数为 1 TRX）；
+只有质押带宽不足以支付该交易时，才会再燃烧 `getCreateAccountFee`（0.1 TRX）。因此按当前主网参数，
+花费为 **1 至 1.1 TRX**，但两者都可通过提案调整，因此请用 `getchainparameters` 读取——具体规则见
 [commands/account](../commands/account.md#how-to-create-account)。
 
 完整的 `CreateAccount` 示例见 [commands/account](../commands/account.md)。

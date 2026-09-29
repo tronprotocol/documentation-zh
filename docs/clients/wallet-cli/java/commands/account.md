@@ -4,11 +4,16 @@
 
 ## 如何创建账户 {#how-to-create-account}
 
-你可以通过向不存在的账户转账来创建账户，也可以用 **CreateAccount** 命令发起一笔交易来创建账户。两种方式下，付款方都要承担链上的账户创建费，它等于两个链参数之和——`getCreateAccountFee` 与 `getCreateNewAccountFeeInSystemContract`。按当前主网参数，这是 100,000 SUN + 1,000,000 SUN = **1.1 TRX**，但两者都可通过提案调整，因此请用 `getchainparameters` 读取，而不要假定一个固定值。
+你可以通过向不存在的账户转账来创建账户，也可以用 **CreateAccount** 命令发起一笔交易来创建账户。两种方式下，付款方都要承担两项相互独立的开销，各由一个链参数决定：
+
+- `getCreateNewAccountFeeInSystemContract` 总会被燃烧——按当前主网参数为 1,000,000 SUN（1 TRX）。
+- 交易所需的带宽先从付款方质押获得的带宽中扣除（每日免费带宽不适用）；只有质押带宽不足时，才改为燃烧 `getCreateAccountFee`——按当前主网参数为 100,000 SUN（0.1 TRX）。
+
+因此，质押带宽充足时创建账户花费 1 TRX，不足时花费 1.1 TRX。两个参数都可通过提案调整，因此请用 `getchainparameters` 读取，而不要假定一个固定值。
 
 ## CreateAccount
 
-用一个未激活的地址创建新账户。付款方承担上文所述的账户创建费（按当前主网参数约 1.1 TRX，即 `getCreateAccountFee` + `getCreateNewAccountFeeInSystemContract`）。
+用一个未激活的地址创建新账户。付款方承担上文所述的账户创建开销（按当前主网参数：`getCreateNewAccountFeeInSystemContract` 1 TRX，质押带宽不足时再加 `getCreateAccountFee` 0.1 TRX）。
 
 ```console
 > CreateAccount [OwnerAddress] Address

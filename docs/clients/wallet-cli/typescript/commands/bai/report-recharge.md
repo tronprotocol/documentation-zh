@@ -34,7 +34,7 @@ wallet-cli bai report-recharge <txHash> --chain <tron|bnb|base> [--amount <n>] [
 | 选项 | 说明 |
 |---|---|
 | `--chain <tron\|bnb\|base>` | **必填。** 原始充值所在的链 |
-| `--amount <n>` | 原始金额，以整数个 token 计 |
+| `--amount <n>` | 原始金额，以 token 为单位（可含小数） |
 | `--to <identifier>` | 原始收款方的邮箱或地址；必须与 `--target-id` 同用 |
 | `--target-id <id>` | 原始的 `rechargeTarget.confirmedTarget.targetId`；必须与 `--to` 同用 |
 

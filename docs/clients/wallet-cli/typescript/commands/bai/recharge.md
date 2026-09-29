@@ -47,7 +47,7 @@ USDT 和 USDC 的最小充值额为 1；USDD 没有下限。
 
 ## 参数
 
-- `amount`——以整数个 token 计的金额，例如 `10`
+- `amount`——以 token 为单位的金额（可含小数），例如 `10`
 
 ## 选项
 
@@ -57,7 +57,7 @@ USDT 和 USDC 的最小充值额为 1；USDD 没有下限。
 | `--to <email\|address>` | 为他人的 B.AI 账户充值；省略则为自己充值 |
 | `--scheme <exact\|exact_gasfree>` | 支付方案（默认 `exact`）；`exact_gasfree` 仅限 TRON |
 | `--gasfree-relay <official\|gasfree\|url>` | `exact_gasfree` 下 GasFree 账户数据的来源（默认 `official`）；见 [`x402 pay`](../x402/pay.md) |
-| `--max-gasfree-fee <n>` | 授权的最高 GasFree 服务费，以整数个 token 计；与 `--max-gasfree-fee-raw` 互斥 |
+| `--max-gasfree-fee <n>` | 授权的最高 GasFree 服务费，以 token 为单位（可含小数）；与 `--max-gasfree-fee-raw` 互斥 |
 | `--max-gasfree-fee-raw <n>` | 同一上限，以最小单位计 |
 | `--dry-run` | 执行校验并预览付款，但不创建订单、不付款 |
 | `--password-stdin` | 从 stdin 读取 master password |
@@ -177,7 +177,7 @@ printf '%s' "$PW" | wallet-cli bai recharge 1 --network tron --password-stdin -o
 | `chain` | string | `tron`、`bnb` 或 `base` |
 | `network` | string | 规范网络 id |
 | `token` | string | 支付所用的 token |
-| `amount` | string | 支付金额，以整数个 token 计 |
+| `amount` | string | 支付金额，以 token 为单位（可含小数） |
 | `payer` | string | 付款地址 |
 | `rechargeTarget` | object | 使用 `--to` 时：你给出的标识，以及 B.AI 解析出的 `targetId`——请保留它，`report-recharge` 会用到 |
 | `retryPayment` | boolean | 恒为 `false` |

@@ -16,7 +16,7 @@ wallet-cli x402 pay <url> [--method <m>] [--header "Name: value"]... [--body <s>
 
 发出请求。如果端点返回成功状态（2xx），该响应原样返回，不会付任何钱；除 `402` 之外的其他状态都会以 `provider_error` 失败，并带上 `httpStatus` 和 `phase: "request"`。如果端点返回 `402 Payment Required`，`pay` 会读取它给出的支付路由，挑选一条与所选 `--network` 及你的筛选条件相匹配的路由，用当前账户（或 `--account`）对支付授权签名，然后带着它重新发起请求。端点的 facilitator 负责在链上结算这笔付款。
 
-**在匹配到路由之前不会签任何名。** 其他网络上的路由会被忽略；`--token`、`--asset` 和 `--scheme` 会进一步缩小选择范围，而 `--max-amount`（整数个 token）或 `--max-raw-amount`（最小单位）会排除定价高于该值的路由。若没有任何路由匹配，命令以 `no_matching_requirement` 失败；若匹配到的路由定价超过限额，则以 `amount_exceeds_limit` 失败。两者都在签名之前抛出，带 `paymentStatus: "not_sent"`，并且不会索要密码——无论是否加了 `--dry-run`。如果你没有自行设定限额，对已知的稳定币会套用一个内置上限 **每笔 $1**；定价高于它的路由同样以 `amount_exceeds_limit` 失败，而传入 `--max-amount` 或 `--max-raw-amount` 会用你的限额取代这个内置上限。
+**在匹配到路由之前不会签任何名。** 其他网络上的路由会被忽略；`--token`、`--asset` 和 `--scheme` 会进一步缩小选择范围，而 `--max-amount`（以 token 为单位，可含小数）或 `--max-raw-amount`（最小单位）会排除定价高于该值的路由。若没有任何路由匹配，命令以 `no_matching_requirement` 失败；若匹配到的路由定价超过限额，则以 `amount_exceeds_limit` 失败。两者都在签名之前抛出，带 `paymentStatus: "not_sent"`，并且不会索要密码——无论是否加了 `--dry-run`。如果你没有自行设定限额，对已知的稳定币会套用一个内置上限 **每笔 $1**；定价高于它的路由同样以 `amount_exceeds_limit` 失败，而传入 `--max-amount` 或 `--max-raw-amount` 会用你的限额取代这个内置上限。
 
 **两种支付方案：**
 
@@ -45,14 +45,14 @@ wallet-cli x402 pay <url> [--method <m>] [--header "Name: value"]... [--body <s>
 | `--header <"Name: value">` | 形如 `Name: value` 的请求头；可重复传入多个 |
 | `--body <string>` | 请求体；与 `--body-file` 互斥 |
 | `--body-file <path>` | 从文件读取请求体，传 `-` 则从 stdin 读取；与 `--body` 互斥 |
-| `--max-amount <n>` | 拒绝定价高于此值的路由，以整数个 token 计；与 `--max-raw-amount` 互斥 |
+| `--max-amount <n>` | 拒绝定价高于此值的路由，以 token 为单位（可含小数）；与 `--max-raw-amount` 互斥 |
 | `--max-raw-amount <n>` | 同一限额，以最小单位计 |
 | `--token <symbol>` | 只接受以该 token 付款的路由 |
 | `--asset <address>` | 只接受以该 token 合约付款的路由 |
 | `--decimals <n>` | `--asset` 所指 token 的精度；必须与 `--asset` 同用 |
 | `--scheme <exact\|exact_gasfree>` | 只接受使用该方案的路由 |
 | `--gasfree-relay <official\|gasfree\|url>` | `exact_gasfree` 下 GasFree 账户数据的来源（默认 `official`）；若给 URL，必须是 HTTPS 且不带凭据、查询串和片段 |
-| `--max-gasfree-fee <n>` | 授权的最高 GasFree 服务费，以整数个 token 计；与 `--max-gasfree-fee-raw` 互斥 |
+| `--max-gasfree-fee <n>` | 授权的最高 GasFree 服务费，以 token 为单位（可含小数）；与 `--max-gasfree-fee-raw` 互斥 |
 | `--max-gasfree-fee-raw <n>` | 同一上限，以最小单位计 |
 | `--out <path>` | 把响应体写入一个新文件，而不是放进 `data.response`；若文件已存在，会在发出任何请求**之前**就以 `output_exists` 拒绝，因此既不会被覆盖，也不会为它付钱 |
 | `--dry-run` | 只读取挑战并报告选中的路由，不签名 |
@@ -121,7 +121,7 @@ printf '%s' "$PW" | wallet-cli x402 pay https://x402-gateway.bankofai.io/provide
 {"schema":"wallet-cli.result.v1","success":true,"command":"x402.pay","data":{"url":"https://x402-gateway.bankofai.io/providers/dia-price-tron/v1/quotation/BTC","status":200,"delivered":true,"settled":true,"payer":{"address":"TWer2Ygk5TEheHp3TPuYeqxmB6SsGZmaL6"},"paymentResponse":{"success":true,"transaction":"9b41c7e2d05f83a6e1c4b8d27f9a03e5c6d8b1f4a2e7c9d0b3f5a8e1c6d2b7f4","network":"tron:0x2b6653dc","payer":"0xe2e1a54926527fbb4e4420de4c6bab82beaee24d"},"output":{"path":"btc-quote.json","bytes":214}},"meta":{"durationMs":6412,"warnings":[]},"chain":{"family":"tron","network":"tron:728126428","chainId":"728126428"}}
 ```
 
-`Settled Yes` 表示这笔付款已在链上完成；`Delivered Yes` 表示付费后的响应已经拿到，并写入了 `btc-quote.json`。`From` 是付款账户，`Transaction` 是该笔付款的交易 ID（JSON 中对应 `data.payer.address` 和 `data.paymentResponse.transaction`）。付款交易由 facilitator 提交并承担其能量开销，因此账户只花掉报价的那部分。
+`Settled Yes` 表示这笔付款已在链上完成；`Delivered Yes` 表示付费后的响应已经拿到，并写入了 `btc-quote.json`。`From` 是付款账户，`Transaction` 是该笔付款的交易 ID（JSON 中对应 `data.payer.address` 和 `data.paymentResponse.transaction`）。付款交易由 facilitator 提交并承担其能量开销，因此付款本身只花掉账户报价的那部分。例外是在 TRON 上首次用某个 token 进行 `exact` 付款：如果账户对该 token 尚无 Permit2 授权额度，且端点不代付这笔授权，账户会先自行广播 `approve(Permit2, MaxUint256)`——消耗自己的能量，不足时燃烧 TRX 抵扣——并授予 Permit2 **无上限**的额度。下文的 `approval` 字段会记录这笔授权。
 
 ## 输出 {#output}
 
