@@ -24,7 +24,7 @@ Tron 私有扩展。构造一条**未签名**的 Tron 交易；签名后通过 H
 | `tokenId` | `0` | TRC-10 token id（用于 `TransferAssetContract`） |
 | `tokenValue` | `0` | TRC-10 数量 |
 | `abi` | `""` | 部署合约时的 ABI JSON 字符串（如 `[{...}]`） |
-| `name` | `""` | 部署合约名，不得超过 32 字节。`VERSION_4_8_2_2` 升级生效后，该限制按 UTF-8 编码后的字节数计算 |
+| `name` | `""` | 部署合约名，不得超过 32 字节。该限制按 UTF-8 编码后的字节数计算 |
 | `consumeUserResourcePercent` | `0` | 用户分担资源百分比（0–100） |
 | `originEnergyLimit` | `0` | 部署者每笔最大 energy |
 | `permissionId` | `0` | 多签 permission id |

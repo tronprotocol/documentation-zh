@@ -11,7 +11,7 @@
 | 字段 | 类型 | 必填 | 说明 |
 |---|---|---|---|
 | `owner_address` | string | 是 | 部署者地址 |
-| `name` | string | 否 | 合约名，不得超过 32 字节。`VERSION_4_8_2_2` 升级生效后，该限制按 UTF-8 编码后的字节数计算 |
+| `name` | string | 否 | 合约名，不得超过 32 字节。该限制按 UTF-8 编码后的字节数计算 |
 | `abi` | json string | 否 | 合约 ABI（JSON 数组字符串） |
 | `bytecode` | string | 是 | 合约字节码（hex） |
 | `parameter` | string | 否 | 构造函数参数（hex，紧接 bytecode） |
