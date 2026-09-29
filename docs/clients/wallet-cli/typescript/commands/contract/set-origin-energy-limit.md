@@ -12,19 +12,19 @@ wallet-cli contract set-origin-energy-limit <address> <energy>
 
 ## 说明
 
+> **仅限 TRON。** 由部署者承担能量的模型在 EVM 上没有对应物；在 EVM 网络上，本命令会以 `family_mismatch` 失败。
+
 设置 `origin_energy_limit`——即**部署者**愿意为对该合约的单次调用支付的能量上限。
 
-它既不是合约的总能量限制，也不是调用方的能量上限。部署者实际承担的能量同时受三个因素约束：该上限、部署者通过质押获得的能量，以及 [`contract set-user-resource-percent`](set-user-resource-percent.md) 设定的调用方/部署者分摊比例。部署者无法承担的部分由调用方支付。在两种情况下，该设置不会产生实际效果：部署者没有质押能量（无论上限是多少，可补贴能量都为 0），或者用户承担比例为 100%（部署者份额为 0）。
+它既不是对合约的上限，也不是对调用方的上限。部署者实际承担的部分同时受三件事约束：这个上限、部署者自己质押的能量，以及 [`contract set-user-resource-percent`](set-user-resource-percent.md) 设定的调用方 / 部署者分摊比例。部署者这一侧覆盖不了的部分，会回落到调用方身上。有两种情况会让它形同虚设：部署者没有质押能量（无论这个上限设多少，补贴都是零），或者调用方份额为 100%（部署者那一份为零，因此这个上限根本不会起作用）。
 
 `<energy>` 必须是**大于零**的整数——链会拒绝 0，因此本地就会拦下来，不会广播出去。
-
-**仅限 TRON**——「部署者付能量」模型在 EVM 上没有对应物；该网络会以 `family_mismatch` 失败。
 
 只有合约的部署者才能执行此操作；当前值见 [`contract info`](info.md)。设置在交易确认后立即生效。
 
 **该命令默认在交易提交后返回**（`stage: "submitted"`），不会等待确认。使用 `--wait` 可阻塞至交易确认或失败。命令需要一个账户；仅在需要签名的模式下，才必须通过 `--password-stdin` 提供 master password。`--dry-run` 和 `--build-only` 不会解锁钱包，因此无需密码。仅观察账户无法签名，会返回 `watch_only_no_signer`。
 
-Ledger 的 TRON 应用无法解析这一治理类合约。Ledger 账户可以做试运行或构建，但签名模式会在与设备交互之前就以 `ledger_unsupported` 失败。
+Ledger 的 TRON app 无法解析这种治理类合约。Ledger 账户可以做试运行或构建；签名类模式会在与设备交互之前就以 `ledger_unsupported` 失败。
 
 ## 选项
 
@@ -47,7 +47,7 @@ Ledger 的 TRON 应用无法解析这一治理类合约。Ledger 账户可以做
 示例中的 `$PW` 是你的 master password（来自环境变量、密码管理器等），通过 `--password-stdin` 从 stdin 传入。
 
 ```bash
-echo "$PW" | wallet-cli contract set-origin-energy-limit TQ5nJ8mV...4wRe 50000000 --network tron:3448148188 --wait --password-stdin
+echo "$PW" | wallet-cli contract set-origin-energy-limit TQ5nJ8mV...4wRe 50000000 --network nile --wait --password-stdin
 ```
 
 ```console
@@ -62,7 +62,7 @@ echo "$PW" | wallet-cli contract set-origin-energy-limit TQ5nJ8mV...4wRe 5000000
 ```
 
 ```bash
-echo "$PW" | wallet-cli contract set-origin-energy-limit TQ5nJ8mV...4wRe 50000000 --network tron:3448148188 --wait --password-stdin -o json
+echo "$PW" | wallet-cli contract set-origin-energy-limit TQ5nJ8mV...4wRe 50000000 --network nile --wait --password-stdin -o json
 ```
 
 ```json
@@ -82,7 +82,7 @@ echo "$PW" | wallet-cli contract set-origin-energy-limit TQ5nJ8mV...4wRe 5000000
 
 ## 退出码
 
-`0` 已提交（早退模式下为已构建/已签名） · `1` 执行失败（`contract_not_found`——没有这个合约、`not_contract_deployer`、`watch_only_no_signer`、`ledger_unsupported`、`auth_failed`） · `2` 用法错误（`invalid_value`——地址格式非法，或能量不是大于 0 的整数）。
+`0` 已提交（提前退出的模式下则为已构建/已签名） · `1` 执行失败（`contract_not_found`——没有该合约、`not_contract_deployer`、`watch_only_no_signer`、`ledger_unsupported`、`auth_failed`） · `2` 用法错误（`invalid_value`——地址格式错误，或能量不是大于 0 的整数；在 EVM 网络上为 `family_mismatch`）。
 
 ## 另请参见
 

@@ -22,7 +22,7 @@ wallet-cli asset update [--description <s>] [--url <url>]
 
 **该命令默认在交易提交后返回**（`stage: "submitted"`），不会等待确认。使用 `--wait` 可阻塞至交易确认或失败。命令需要一个账户；仅在需要签名的模式下，才必须通过 `--password-stdin` 提供 master password。`--dry-run` 和 `--build-only` 不会解锁钱包，因此无需密码。仅观察账户无法签名，会返回 `watch_only_no_signer`。
 
-Ledger 的 TRON 应用无法对 TRC10 发行类合约签名。Ledger 账户可以做试运行或构建未签名的 hex，但签名模式会在与设备交互之前就以 `ledger_unsupported` 失败。
+Ledger 的 TRON app 无法对 TRC10 发行类合约签名。Ledger 账户可以做试运行或构建未签名的 hex；签名类模式会在与设备交互之前就以 `ledger_unsupported` 失败。
 
 ## 选项
 
@@ -47,13 +47,13 @@ Ledger 的 TRON 应用无法对 TRC10 发行类合约签名。Ledger 账户可�
 示例中的 `$PW` 是你的 master password（来自环境变量、密码管理器等），通过 `--password-stdin` 从 stdin 传入。
 
 ```bash
-echo "$PW" | wallet-cli asset update --url https://mytoken.io/v2 --network tron:3448148188 --wait --password-stdin
+echo "$PW" | wallet-cli asset update --url https://mytoken.io/v2 --network nile --wait --password-stdin
 ```
 
 ```console
 ✅ Asset updated
   Asset             MyToken  (id 1000123)
-  Issuer            TQkXm4vN...5Zt7Uw
+  Issuer            TP2Zs9qKScTMs8jDYV3SAHQ5pqgKY1NQ5V
   Url               https://mytoken.io/v2
   Description       Demo TRC10
   Free net/account  0
@@ -65,11 +65,11 @@ echo "$PW" | wallet-cli asset update --url https://mytoken.io/v2 --network tron:
 ```
 
 ```bash
-echo "$PW" | wallet-cli asset update --url https://mytoken.io/v2 --network tron:3448148188 --wait --password-stdin -o json
+echo "$PW" | wallet-cli asset update --url https://mytoken.io/v2 --network nile --wait --password-stdin -o json
 ```
 
 ```json
-{"schema":"wallet-cli.result.v1","success":true,"command":"asset.update","data":{"kind":"asset-update","stage":"confirmed","txId":"9e3...","confirmed":true,"blockNumber":57883190,"feeSun":0,"netUsed":295,"netFeeSun":0,"failed":false,"assetId":"1000123","name":"MyToken","issuerAddress":"TQkXm4vN...","url":"https://mytoken.io/v2","description":"Demo TRC10","freeAssetNetLimit":0,"publicFreeAssetNetLimit":0},"meta":{"durationMs":6480,"warnings":[]},"chain":{"family":"tron","network":"tron:3448148188","chainId":"3448148188"}}
+{"schema":"wallet-cli.result.v1","success":true,"command":"asset.update","data":{"kind":"asset-update","stage":"confirmed","txId":"9e3...","confirmed":true,"blockNumber":57883190,"failed":false,"assetId":"1000123","name":"MyToken","issuerAddress":"TP2Zs9qKScTMs8jDYV3SAHQ5pqgKY1NQ5V","url":"https://mytoken.io/v2","description":"Demo TRC10","freeAssetNetLimit":0,"publicFreeAssetNetLimit":0,"feeSun":0,"netUsed":295,"netFeeSun":0},"meta":{"durationMs":6480,"warnings":[]},"chain":{"family":"tron","network":"tron:3448148188","chainId":"3448148188"}}
 ```
 
 ## 输出
@@ -81,7 +81,7 @@ echo "$PW" | wallet-cli asset update --url https://mytoken.io/v2 --network tron:
 | 默认（提交） | `kind: "asset-update"`、`stage: "submitted"`、`txId`、`assetId`、`name`、`issuerAddress`，以及提交时的那四个字段 |
 | `--wait`（已确认） | 以上内容，外加 `stage: "confirmed"`、`confirmed`（boolean）、`blockNumber`、返回时的扁平结算字段（`feeSun`、`energyUsed`、`netUsed`、`energyFeeSun`、`netFeeSun`）、`failed` |
 
-这四个字段是 `url`、`description`、`freeAssetNetLimit` 和 `publicFreeAssetNetLimit`——始终四个都在，包括那些原样读回、未做修改的字段。确认后的资源字段是扁平的；没有嵌套的 `resource` 对象。
+这四个字段是 `url`、`description`、`freeAssetNetLimit` 和 `publicFreeAssetNetLimit`——始终四个都有，包括那些原样读回、未作改动的。确认后的结算字段是扁平的；没有嵌套的 `resource` 对象。
 
 ## 退出码
 

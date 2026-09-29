@@ -49,7 +49,7 @@ wallet-cli exchange create --pair <tokenA>:<tokenB>
 示例中的 `$PW` 是你的 master password（来自环境变量、密码管理器等），通过 `--password-stdin` 从 stdin 传入。
 
 ```bash
-echo "$PW" | wallet-cli exchange create --pair TRX:1000123 --amounts 10000:500000 --network tron:3448148188 --wait --password-stdin
+echo "$PW" | wallet-cli exchange create --pair TRX:1000123 --amounts 10000:500000 --network nile --wait --password-stdin
 ```
 
 ```console
@@ -64,7 +64,7 @@ echo "$PW" | wallet-cli exchange create --pair TRX:1000123 --amounts 10000:50000
 ```
 
 ```bash
-echo "$PW" | wallet-cli exchange create --pair TRX:1000123 --amounts 10000:500000 --network tron:3448148188 --wait --password-stdin -o json
+echo "$PW" | wallet-cli exchange create --pair TRX:1000123 --amounts 10000:500000 --network nile --wait --password-stdin -o json
 ```
 
 ```json

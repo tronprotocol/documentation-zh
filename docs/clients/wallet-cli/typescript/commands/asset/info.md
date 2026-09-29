@@ -38,7 +38,7 @@ wallet-cli asset info (<asset> | --issuer <address>) [options]
 按 id 查询：
 
 ```bash
-wallet-cli asset info 1000123 --network tron:3448148188
+wallet-cli asset info 1000123 --network nile
 ```
 
 ```console
@@ -61,7 +61,7 @@ Asset MyToken (id 1000123)
 ### 名称不唯一的情况 {#a-name-that-is-not-unique}
 
 ```bash
-wallet-cli asset info MyToken --network tron:3448148188
+wallet-cli asset info MyToken --network nile
 ```
 
 命令以退出码 `1` 失败；消息和候选表输出到 **stderr**：
@@ -70,8 +70,8 @@ wallet-cli asset info MyToken --network tron:3448148188
 error [ambiguous_asset_name]: 2 TRC10 tokens are named MyToken; re-run with the id
 | ID      | Issuer                             | Total supply  | Precision |
 | ------- | ---------------------------------- | ------------- | --------- |
-| 1000123 | TQkXm4vN2f8LrQ5tYc7bWmXe3sVd9Zt7Uw | 1,000,000,000 | 6         |
-| 1000488 | TZx9kP2mR4nJ6vLc8dHqYe1tWbXs5f7bWq | 50,000,000    | 2         |
+| 1000123 | TKDdzNtGz4bbqTzZunrECcpGKqsSnAUFJq | 1,000,000,000 | 6         |
+| 1000488 | TVAk2rzYyAgcMBmbb1SonA2WMb1Qfwdw9W | 50,000,000    | 2         |
 ```
 
 在 json 中，同样的信息位于 `error.details`——参见[输出](#output)。
@@ -79,7 +79,7 @@ error [ambiguous_asset_name]: 2 TRC10 tokens are named MyToken; re-run with the 
 按发行方查询——这里是别人的 token，且没有冻结批次：
 
 ```bash
-wallet-cli asset info --issuer TZx9kP2m...7bWq --network tron:3448148188
+wallet-cli asset info --issuer TZx9kP2m...7bWq --network nile
 ```
 
 ```console
@@ -97,7 +97,7 @@ Asset MyToken (id 1000488)
 ```
 
 ```bash
-wallet-cli asset info 1000123 --network tron:3448148188 -o json
+wallet-cli asset info 1000123 --network nile -o json
 ```
 
 ```json
@@ -107,7 +107,7 @@ wallet-cli asset info 1000123 --network tron:3448148188 -o json
 名称歧义失败在 json 中的形式：
 
 ```bash
-wallet-cli asset info MyToken --network tron:3448148188 -o json
+wallet-cli asset info MyToken --network nile -o json
 ```
 
 ```json
@@ -120,7 +120,7 @@ wallet-cli asset info MyToken --network tron:3448148188 -o json
 
 | 字段 | 类型 | 含义 |
 |---|---|---|
-| `assetId` | string | Token id |
+| `assetId` | string | token id |
 | `name` / `abbr` | string | 发行时的名称和缩写。`abbr` 仅在 json 中——text 没有对应行 |
 | `issuerAddress` | string | 发行方，base58 |
 | `totalSupply` | string | 总供应量，原始值（完整 token × 10^`precision`）。是**字符串**：供应量会达到 int64，作为 JSON number 会损失精度 |

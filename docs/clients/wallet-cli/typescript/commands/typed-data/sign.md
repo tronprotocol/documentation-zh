@@ -12,7 +12,7 @@ wallet-cli typed-data sign --typed-data <json> [options]
 
 使用当前账户（或 `--account` 指定账户）的密钥对结构化（typed）数据签名，并打印签名、被签名的 digest 以及 primary type。只签名——不会广播任何内容，也不访问任何节点。
 
-TRON 与 EVM 上都可用：所选网络决定用该账户的哪把密钥签名、以及报告哪个地址。EIP-712 和 TIP-712 是同一套构造，因此同一份载荷可以为任意一边签名——验证合约检查的是载荷内部的 domain，而不是 `--network`。
+在 TRON 和 EVM 上都可用：用账户的哪一把密钥签名、报告哪个地址，由所选网络决定。EIP-712 与 TIP-712 是同一套构造，因此同一份载荷对两者都能签名——验证方合约检查的是载荷内部的 domain，而不是 `--network`。`--network` 是可选的，省略时回落到 `config.defaultNetwork`。
 
 `--typed-data` 的取值是形如 `{"domain":…,"types":…,"primaryType"?:…,"message":…}` 的 EIP-712 / TIP-712 JSON。解析时有三点便利处理：
 
@@ -38,7 +38,7 @@ TRON 与 EVM 上都可用：所选网络决定用该账户的哪把密钥签名�
 示例中的 `$PW` 是你的 master password（来自环境变量、密码管理器等），通过 `--password-stdin` 从 stdin 传入。
 
 ```bash
-echo "$PW" | wallet-cli typed-data sign --typed-data "$(cat permit.json)" --password-stdin --network tron:3448148188
+echo "$PW" | wallet-cli typed-data sign --typed-data "$(cat permit.json)" --password-stdin --network nile
 ```
 
 ```console
@@ -50,23 +50,23 @@ echo "$PW" | wallet-cli typed-data sign --typed-data "$(cat permit.json)" --pass
 ```
 
 ```bash
-echo "$PW" | wallet-cli typed-data sign --typed-data "$(cat permit.json)" --password-stdin --network tron:3448148188 -o json
+echo "$PW" | wallet-cli typed-data sign --typed-data "$(cat permit.json)" --password-stdin --network nile -o json
 ```
 
 ```json
 {"schema":"wallet-cli.result.v1","success":true,"command":"typed-data.sign","data":{"address":"TMSgJxtPw29AFEHMXsjGo4kWV7UwbCToHJ","primaryType":"Permit","digest":"0x1e0f...","signature":"0x9f3c..."},"meta":{"durationMs":15,"warnings":[]},"chain":{"family":"tron","network":"tron:3448148188","chainId":"3448148188"}}
 ```
 
-同一份载荷在 EVM 网络上签名时，用的是该账户的 EVM 密钥：
-
-```bash
-echo "$PW" | wallet-cli typed-data sign --typed-data "$(cat permit.json)" --password-stdin --network eip155:11155111
-```
-
 Ledger 账户——在设备上确认，不需要 master password：
 
 ```bash
-wallet-cli typed-data sign --typed-data "$(cat permit.json)" --network tron:3448148188
+wallet-cli typed-data sign --typed-data "$(cat permit.json)" --network nile
+```
+
+同一份载荷在 EVM 网络上签名时，用的是该账户的 EVM 密钥：
+
+```bash
+echo "$PW" | wallet-cli typed-data sign --typed-data "$(cat permit.json)" --password-stdin --network sepolia
 ```
 
 ## 输出

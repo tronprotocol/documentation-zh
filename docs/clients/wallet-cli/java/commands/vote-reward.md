@@ -88,7 +88,7 @@
 
 ## 如何创建见证人 {#how-to-create-witness}
 
-注册为超级代表候选人需要燃烧一笔费用，其数额由链参数 `getAccountUpgradeCost` 决定。该参数可以通过治理提案修改，因此请用 [`GetChainParameters`](chain-data.md#getchainparameters) 查询当前值，不要按固定数额估算。这部分资金会被直接燃烧。
+注册为超级代表候选人会燃烧一笔注册费——目前约为 **9,999 TRX**。确切数额由链参数 `getAccountUpgradeCost` 决定，网络可以通过提案修改它，因此请用 `getchainparameters` 读取，而不要假定一个固定值。这笔费用会被直接燃烧且不可退还；也没有任何办法注销注册。
 
 ### CreateWitness
 

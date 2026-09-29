@@ -10,7 +10,7 @@ wallet-cli token list [options]
 
 ## 说明
 
-列出当前账户（或 `--account` 指定的账户）在所选网络上可见的全部 token：内置的 **official** 层，加上你自己添加的 **user** 条目。`source` 列用于区分两者。`tx send --token <symbol>` 解析符号时用的就是这张表。只读，且完全在本地完成——不需要密码，也不访问任何节点。
+列出当前账户（或 `--account`）在所选网络上可见的全部 token：内置的**官方**层，加上你自己的**用户**添加项。`source` 一列用于区分两者。这些就是 `tx send --token <symbol>` 解析时所用的符号。只读，且只涉及本地与元数据——不需要密码。
 
 这张表是按网络划分的，因此同一条命令在 `tron:3448148188` 和 `eip155:11155111` 上列出的 token 并不相同。
 
@@ -21,7 +21,7 @@ wallet-cli token list [options]
 ## 示例
 
 ```bash
-wallet-cli token list --network tron:3448148188
+wallet-cli token list --network nile
 ```
 
 ```console
@@ -31,19 +31,14 @@ wallet-cli token list --network tron:3448148188
 | USDD   | Usdd Stablecoin | official | TYQF9cAeJ3Faq8QXpHxTcFco72DRCQbgFt |
 ```
 
-> `official` 层是按网络内置的，并非每个网络都有。没有内置条目的网络，只会列出你用 `token add` 添加的内容——在此之前是一张空表：
->
-> ```console
-> | Symbol | Name | Source | Contract / ID |
-> | ------ | ---- | ------ | ------------- |
-> ```
+> `official` 层是**按网络**内置的，而且并非每个网络都有：`tron:728126428` 内置 USDT / USDC / USDD，`tron:3448148188` 内置 USDT / USDD，`eip155:1` 内置 USDT / USDC。其余网络一个都没有，因此它们列出的全都是你用 `token add` 添加的 `user` 条目。官方条目绝不会在链之间复制——同一个符号在别的链上可能对应不同的地址和不同的精度（USDT 在以太坊上是 6 位精度，在 BNB Smart Chain 上是 18 位）。
 
 ```bash
-wallet-cli token list --network tron:3448148188 -o json
+wallet-cli token list --network nile -o json
 ```
 
 ```json
-{"schema":"wallet-cli.result.v1","success":true,"command":"token.list","data":{"network":"tron:3448148188","account":"wlt_n5v4r992","tokens":[{"kind":"trc20","id":"TXYZopYRdj2D9XRtbG411XZZ3kM5VkAeBf","symbol":"USDT","decimals":6,"name":"Tether USD","source":"official"},{"kind":"trc20","id":"TYQF9cAeJ3Faq8QXpHxTcFco72DRCQbgFt","symbol":"USDD","decimals":18,"name":"Usdd Stablecoin","source":"official"}]},"meta":{"durationMs":15,"warnings":[]},"chain":{"family":"tron","network":"tron:3448148188","chainId":"3448148188"}}
+{"schema":"wallet-cli.result.v1","success":true,"command":"token.list","data":{"network":"tron:3448148188","account":"wlt_b2.0","tokens":[{"kind":"trc20","id":"TXYZopYRdj2D9XRtbG411XZZ3kM5VkAeBf","symbol":"USDT","decimals":6,"name":"Tether USD","source":"official"},{"kind":"trc20","id":"TYQF9cAeJ3Faq8QXpHxTcFco72DRCQbgFt","symbol":"USDD","decimals":18,"name":"Usdd Stablecoin","source":"official"}]},"meta":{"durationMs":13,"warnings":[]},"chain":{"family":"tron","network":"tron:3448148188","chainId":"3448148188"}}
 ```
 
 ## 输出

@@ -42,7 +42,7 @@ wallet-cli proposal create --set <name|id>=<value> [--set ...]
 单个参数，并等待确认：
 
 ```bash
-echo "$PW" | wallet-cli proposal create --set getTransactionFee=15 --network tron:3448148188 --wait --password-stdin
+echo "$PW" | wallet-cli proposal create --set getTransactionFee=15 --network nile --wait --password-stdin
 ```
 
 ```console
@@ -60,7 +60,7 @@ echo "$PW" | wallet-cli proposal create --set getTransactionFee=15 --network tro
 一个提案里包含多个参数——回执按参数 id 列出它们：
 
 ```bash
-echo "$PW" | wallet-cli proposal create --set getTransactionFee=15 --set getCreateAccountFee=200000 --network tron:3448148188 --wait --password-stdin
+echo "$PW" | wallet-cli proposal create --set getTransactionFee=15 --set getCreateAccountFee=200000 --network nile --wait --password-stdin
 ```
 
 ```console
@@ -77,11 +77,11 @@ echo "$PW" | wallet-cli proposal create --set getTransactionFee=15 --set getCrea
 ```
 
 ```bash
-echo "$PW" | wallet-cli proposal create --set getTransactionFee=15 --network tron:3448148188 --wait --password-stdin -o json
+echo "$PW" | wallet-cli proposal create --set getTransactionFee=15 --network nile --wait --password-stdin -o json
 ```
 
 ```json
-{"schema":"wallet-cli.result.v1","success":true,"command":"proposal.create","data":{"kind":"proposal-create","stage":"confirmed","txId":"9c4...","confirmed":true,"blockNumber":57880102,"feeSun":0,"energyUsed":0,"netUsed":268,"energyFeeSun":0,"netFeeSun":0,"failed":false,"proposerAddress":"TSRmq8kP...","proposalId":48,"changes":[{"id":3,"name":"getTransactionFee","currentValue":10,"proposedValue":15,"unit":"sun/byte"}],"resource":{"netUsage":268,"netFeeSun":0,"energyUsage":0,"energyFeeSun":0}},"meta":{"durationMs":6480,"warnings":[]},"chain":{"family":"tron","network":"tron:3448148188","chainId":"3448148188"}}
+{"schema":"wallet-cli.result.v1","success":true,"command":"proposal.create","data":{"kind":"proposal-create","stage":"confirmed","txId":"9c4...","confirmed":true,"blockNumber":57880102,"feeSun":0,"energyUsed":0,"netUsed":268,"energyFeeSun":0,"netFeeSun":0,"resource":{"netUsage":268,"netFeeSun":0,"energyUsage":0,"energyFeeSun":0},"failed":false,"proposerAddress":"TSRmq8kP...","proposalId":48,"changes":[{"id":3,"name":"getTransactionFee","currentValue":10,"proposedValue":15,"unit":"sun/byte"}]},"meta":{"durationMs":6480,"warnings":[]},"chain":{"family":"tron","network":"tron:3448148188","chainId":"3448148188"}}
 ```
 
 ## 输出
@@ -91,14 +91,11 @@ echo "$PW" | wallet-cli proposal create --set getTransactionFee=15 --network tro
 | 阶段 | 字段 |
 |---|---|
 | 默认（提交） | `kind: "proposal-create"`、`stage: "submitted"`、`txId`、`proposerAddress`、`changes[]` |
-| `--wait`（已确认） | 同上，另加 `stage: "confirmed"`、`confirmed`（boolean）、`blockNumber`、返回时的扁平结算字段（`feeSun`、`energyUsed`、`netUsed`、`energyFeeSun`、`netFeeSun`）、它们面向治理命令的兼容视图 `resource`（`netUsage`、`netFeeSun`、`energyUsage`、`energyFeeSun`）、`failed`，以及可选的 `proposalId`——新提案的 id，只有上链之后才能知道 |
-
-无法可靠确定 id 时，响应会**省略** `proposalId`。链上回执本身不返回该字段，CLI 需要比较提交前后的
-提案列表才能识别新提案。如果节点尚未同步最新列表，或者存在多个参数相同的新提案，CLI 会返回警告并
-省略该字段。程序应把 `proposalId` 视为可选字段，并通过 [`proposal list`](list.md) 查询，不能使用推测的
-id 调用 `proposal approve` 或不可逆的 `proposal delete`。无论能否识别 id，创建提案的交易本身均已完成。
+| `--wait`（已确认） | 同上，另加 `stage: "confirmed"`、`confirmed`（布尔）、`blockNumber`、有返回时的扁平结算字段（`feeSun`、`energyUsed`、`netUsed`、`energyFeeSun`、`netFeeSun`）、它们面向治理的兼容视图 `resource`（`netUsage`、`netFeeSun`、`energyUsage`、`energyFeeSun`）、`failed`，以及可选的 `proposalId`——新提案的 id，只有在它上链之后才可知 |
 
 `changes[]` 的每一项包含 `id`、`name`、`currentValue`、`proposedValue` 和 `unit`，按 `id` 排序。
+
+当无法确凿地确定 id 时，`proposalId` 会被**省略**。链上并不返回它，因此 CLI 的做法是把提案列表与提交前拍下的快照做比对。如果列表尚未跟上，或者有多个新提案都与这些参数匹配，该字段就会被略去，并给出相应警告。这种情况下请用 [`proposal list`](list.md) 查出 id，而不要去猜——这个 id 后续要用于 `proposal approve` 和不可逆的 `proposal delete`。无论如何，交易本身是成功的。
 
 ## 退出码
 

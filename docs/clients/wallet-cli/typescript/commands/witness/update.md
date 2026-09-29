@@ -18,7 +18,7 @@ wallet-cli witness update --url <url>
 
 **该命令默认在交易提交后返回**（`stage: "submitted"`），不会等待确认。使用 `--wait` 可阻塞至交易确认或失败。命令需要一个账户；仅在需要签名的模式下，才必须通过 `--password-stdin` 提供 master password。`--dry-run` 和 `--build-only` 不会解锁钱包，因此无需密码。仅观察账户无法签名，会返回 `watch_only_no_signer`。
 
-Ledger 的 TRON 应用无法对见证人类合约签名。Ledger 账户可以做试运行或构建，但签名模式会在与设备交互之前就以 `ledger_unsupported` 失败。
+Ledger 的 TRON app 无法对见证人类合约签名。Ledger 账户可以做试运行或构建；签名类模式会在与设备交互之前就以 `ledger_unsupported` 失败。
 
 ## 选项
 
@@ -40,7 +40,7 @@ Ledger 的 TRON 应用无法对见证人类合约签名。Ledger 账户可以做
 示例中的 `$PW` 是你的 master password（来自环境变量、密码管理器等），通过 `--password-stdin` 从 stdin 传入。
 
 ```bash
-echo "$PW" | wallet-cli witness update --url https://sr.acme.io/v2 --network tron:3448148188 --wait --password-stdin
+echo "$PW" | wallet-cli witness update --url https://sr.acme.io/v2 --network nile --wait --password-stdin
 ```
 
 ```console
@@ -54,7 +54,7 @@ echo "$PW" | wallet-cli witness update --url https://sr.acme.io/v2 --network tro
 ```
 
 ```bash
-echo "$PW" | wallet-cli witness update --url https://sr.acme.io/v2 --network tron:3448148188 --wait --password-stdin -o json
+echo "$PW" | wallet-cli witness update --url https://sr.acme.io/v2 --network nile --wait --password-stdin -o json
 ```
 
 ```json

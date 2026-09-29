@@ -20,7 +20,7 @@ wallet-cli witness create --url <url>
 
 **该命令默认在交易提交后返回**（`stage: "submitted"`），不会等待确认。使用 `--wait` 可阻塞至交易确认或失败。命令需要一个账户；仅在需要签名的模式下，才必须通过 `--password-stdin` 提供 master password。`--dry-run` 和 `--build-only` 不会解锁钱包，因此无需密码。仅观察账户无法签名，会返回 `watch_only_no_signer`。
 
-Ledger 的 TRON 应用无法对见证人类合约签名。Ledger 账户可以做试运行或构建，但签名模式会在与设备交互之前就以 `ledger_unsupported` 失败。
+Ledger 的 TRON app 无法对见证人类合约签名。Ledger 账户可以做试运行或构建；签名类模式会在与设备交互之前就以 `ledger_unsupported` 失败。
 
 ## 选项
 
@@ -42,7 +42,7 @@ Ledger 的 TRON 应用无法对见证人类合约签名。Ledger 账户可以做
 示例中的 `$PW` 是你的 master password（来自环境变量、密码管理器等），通过 `--password-stdin` 从 stdin 传入。
 
 ```bash
-echo "$PW" | wallet-cli witness create --url https://sr.acme.io --network tron:3448148188 --wait --password-stdin
+echo "$PW" | wallet-cli witness create --url https://sr.acme.io --network nile --wait --password-stdin
 ```
 
 ```console
@@ -56,11 +56,11 @@ echo "$PW" | wallet-cli witness create --url https://sr.acme.io --network tron:3
 ```
 
 ```bash
-echo "$PW" | wallet-cli witness create --url https://sr.acme.io --network tron:3448148188 --wait --password-stdin -o json
+echo "$PW" | wallet-cli witness create --url https://sr.acme.io --network nile --wait --password-stdin -o json
 ```
 
 ```json
-{"schema":"wallet-cli.result.v1","success":true,"command":"witness.create","data":{"kind":"witness-create","stage":"confirmed","txId":"d3a...","confirmed":true,"blockNumber":57881020,"failed":false,"witnessAddress":"TSRmq8kP...","url":"https://sr.acme.io","feeSun":"9999000000","energyUsed":0,"netUsed":285,"energyFeeSun":0,"netFeeSun":0,"registrationFeeSun":"9999000000","resource":{"netUsage":285,"netFeeSun":0,"energyUsage":0,"energyFeeSun":0}},"meta":{"durationMs":6620,"warnings":[]},"chain":{"family":"tron","network":"tron:3448148188","chainId":"3448148188"}}
+{"schema":"wallet-cli.result.v1","success":true,"command":"witness.create","data":{"kind":"witness-create","stage":"confirmed","txId":"d3a...","confirmed":true,"blockNumber":57881020,"failed":false,"witnessAddress":"TSRmq8kP...","url":"https://sr.acme.io","feeSun":"9999000000","energyUsed":0,"netUsed":285,"energyFeeSun":0,"netFeeSun":0,"resource":{"netUsage":285,"netFeeSun":0,"energyUsage":0,"energyFeeSun":0},"registrationFeeSun":"9999000000"},"meta":{"durationMs":6620,"warnings":[]},"chain":{"family":"tron","network":"tron:3448148188","chainId":"3448148188"}}
 ```
 
 ## 输出
@@ -70,9 +70,9 @@ echo "$PW" | wallet-cli witness create --url https://sr.acme.io --network tron:3
 | 阶段 | 字段 |
 |---|---|
 | 默认（提交） | `kind: "witness-create"`、`stage: "submitted"`、`txId`、`witnessAddress`、`url`、`feeSun`，以及 `registrationFeeSun` |
-| `--wait`（已确认） | 同上，另加 `stage: "confirmed"`、`confirmed`（boolean）、`blockNumber`、返回时的扁平结算字段（`feeSun`、`energyUsed`、`netUsed`、`energyFeeSun`、`netFeeSun`）、它们面向治理命令的兼容视图 `resource`（`netUsage`、`netFeeSun`、`energyUsage`、`energyFeeSun`）、`failed`，以及 `registrationFeeSun` |
+| `--wait`（已确认） | 同上，另加 `stage: "confirmed"`、`confirmed`（布尔）、`blockNumber`、有返回时的扁平结算字段（`feeSun`、`energyUsed`、`netUsed`、`energyFeeSun`、`netFeeSun`）、它们面向治理的兼容视图 `resource`（`netUsage`、`netFeeSun`、`energyUsage`、`energyFeeSun`）、`failed`，以及 `registrationFeeSun` |
 
-`registrationFeeSun` 和 `feeSun` 都是十进制字符串，表示的是同一笔不可逆的注册燃烧费。本命令有意用这个具有经济意义的金额覆盖了节点回执中的带宽/能量费用；请不要把这两个字段相加。
+`registrationFeeSun` 和 `feeSun` 是十进制字符串，表示的是同一笔不可逆的注册燃烧额。该命令刻意用这个具有经济意义的数额覆盖了节点回执中的带宽/能量费用，因此**不要**把两者相加。
 
 ## 退出码
 

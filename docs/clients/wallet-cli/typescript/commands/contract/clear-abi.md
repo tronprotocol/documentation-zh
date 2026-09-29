@@ -12,9 +12,9 @@ wallet-cli contract clear-abi <address>
 
 ## 说明
 
-移除合约保存在链上的 ABI。**此操作无法撤销**——ABI 从链上消失后，所有靠读取它来解码调用的工具（区块浏览器、SDK、[`contract call`](call.md)）此后都必须自行提供 ABI。
+> **仅限 TRON。** 链上 ABI 注册表是 TRON 的协议特性——EVM 链不在链上保存 ABI，因此没有什么可清除的，本命令会以 `family_mismatch` 失败。
 
-它**不会**动到的东西：`bytecode` 和合约状态都不受影响，合约照样可以像之前一样被调用。ABI 只是附带的元数据，并不参与执行。
+移除合约保存在链上的 ABI。**此操作无法撤销**——ABI 从链上消失后，所有靠读取它来解码调用的工具（区块浏览器、SDK、[`contract call`](call.md)）此后都必须自行提供 ABI。
 
 **仅限 TRON**——EVM 链上没有链上 ABI 可清除，该网络会以 `family_mismatch` 失败。
 
@@ -22,7 +22,7 @@ wallet-cli contract clear-abi <address>
 
 **该命令默认在交易提交后返回**（`stage: "submitted"`），不会等待确认。使用 `--wait` 可阻塞至交易确认或失败。命令需要一个账户；仅在需要签名的模式下，才必须通过 `--password-stdin` 提供 master password。`--dry-run` 和 `--build-only` 不会解锁钱包，因此无需密码。仅观察账户无法签名，会返回 `watch_only_no_signer`。
 
-Ledger 的 TRON 应用无法解析这一治理类合约。Ledger 账户可以做试运行或构建，但签名模式会在与设备交互之前就以 `ledger_unsupported` 失败。
+Ledger 的 TRON app 无法解析这种治理类合约。Ledger 账户可以做试运行或构建；签名类模式会在与设备交互之前就以 `ledger_unsupported` 失败。
 
 ## 选项
 
@@ -44,7 +44,7 @@ Ledger 的 TRON 应用无法解析这一治理类合约。Ledger 账户可以做
 示例中的 `$PW` 是你的 master password（来自环境变量、密码管理器等），通过 `--password-stdin` 从 stdin 传入。
 
 ```bash
-echo "$PW" | wallet-cli contract clear-abi TQ5nJ8mV...4wRe --network tron:3448148188 --wait --password-stdin
+echo "$PW" | wallet-cli contract clear-abi TQ5nJ8mV...4wRe --network nile --wait --password-stdin
 ```
 
 ```console
@@ -58,7 +58,7 @@ echo "$PW" | wallet-cli contract clear-abi TQ5nJ8mV...4wRe --network tron:344814
 ```
 
 ```bash
-echo "$PW" | wallet-cli contract clear-abi TQ5nJ8mV...4wRe --network tron:3448148188 --wait --password-stdin -o json
+echo "$PW" | wallet-cli contract clear-abi TQ5nJ8mV...4wRe --network nile --wait --password-stdin -o json
 ```
 
 ```json
@@ -76,7 +76,7 @@ echo "$PW" | wallet-cli contract clear-abi TQ5nJ8mV...4wRe --network tron:344814
 
 ## 退出码
 
-`0` 已提交（早退模式下为已构建/已签名） · `1` 执行失败（`contract_not_found`——没有这个合约、`not_contract_deployer`、`watch_only_no_signer`、`ledger_unsupported`、`auth_failed`） · `2` 用法错误（`invalid_value`——地址格式非法）。
+`0` 已提交（提前退出的模式下则为已构建/已签名） · `1` 执行失败（`contract_not_found`——没有该合约、`not_contract_deployer`、`watch_only_no_signer`、`ledger_unsupported`、`auth_failed`） · `2` 用法错误（`invalid_value`——地址格式错误；在 EVM 网络上为 `family_mismatch`）。
 
 ## 另请参见
 

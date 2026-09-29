@@ -17,7 +17,7 @@ wallet-cli chain prices [options]
 - **TRON（`tron-resource`）**——能量单价、带宽单价和备注费用。节点为每一项返回价格*历史*时间线；文本输出只显示当前值（最后一段），`-o json` 则保留完整的 `history`。
 - **EVM（`eip1559` / `legacy`）**——当前的基础费用、建议的优先费用（小费）、由此得出的 gas 价格，以及按这些数字计算、一笔普通的 21,000 gas 原生转账要花多少钱。
 
-**单位**：TRON 的单价一律以 **SUN** 表示（1 TRX = 1,000,000 SUN）——这是业界惯例，`--fee-limit` 也以 SUN 计价；备注费用属于普通金额，因此按 TRX 显示。EVM 的价格按 **gwei** 显示，费用按原生币显示；json 输出统一使用最小单位（SUN、wei）。
+**单位**：TRON 的单价保持以 **SUN** 计（1 TRX = 1,000,000 SUN）——这是业界惯例，且 `--fee-limit` 也以 SUN 计价；备注手续费属于普通金额，因此以 TRX 显示。EVM 的价格以 **gwei** 显示，开销以原生币显示。JSON 中一律使用最小单位（SUN、wei）。
 
 ## 选项
 
@@ -26,7 +26,7 @@ wallet-cli chain prices [options]
 ## 示例
 
 ```bash
-wallet-cli chain prices --network tron:3448148188
+wallet-cli chain prices --network nile
 ```
 
 ```console
@@ -36,7 +36,7 @@ Memo fee         1 TRX
 ```
 
 ```bash
-wallet-cli chain prices --network tron:3448148188 -o json
+wallet-cli chain prices --network nile -o json
 ```
 
 ```json
@@ -46,7 +46,7 @@ wallet-cli chain prices --network tron:3448148188 -o json
 在 EVM 网络上，给出的则是 gas 价格：
 
 ```bash
-wallet-cli chain prices --network eip155:11155111
+wallet-cli chain prices --network sepolia
 ```
 
 ```console
@@ -55,6 +55,10 @@ Base fee       0.947033 gwei
 Priority fee   0.001 gwei
 Gas price      0.948033 gwei
 Transfer cost  0.000019 ETH  (21,000 gas)
+```
+
+```bash
+wallet-cli chain prices --network sepolia -o json
 ```
 
 ```json
@@ -80,11 +84,11 @@ EVM：
 | 字段 | 类型 | 含义 |
 |---|---|---|
 | `feeModel` | string | `eip1559` 或 `legacy` |
-| `baseFeeWei` | string | 最新区块每单位 gas 的基础费用；仅 EIP-1559 链。基础费用为零时报告为 `"0"`，不会省略 |
-| `priorityFeeWei` | string \| null | 节点建议的每单位 gas 小费；节点没有建议时为 `null`。仅在 EIP-1559 链上与 `baseFeeWei` 一同出现 |
-| `gasPriceWei` | string | 按上述数字得出的每单位 gas 价格 |
-| `transferGas` | number | `21000`——一笔普通原生转账所需的 gas |
-| `transferCostWei` | string | `transferGas × gasPriceWei`，即这笔转账现在要花多少 |
+| `baseFeeWei` | string | 最新区块每单位 gas 的基础费用；仅 EIP-1559 链。基础费用为零时报告为 `"0"`，而不是省略 |
+| `priorityFeeWei` | string \| null | 节点建议的每单位 gas 小费；节点不给建议时为 `null`。仅 EIP-1559 链，与 `baseFeeWei` 并列 |
+| `gasPriceWei` | string | 按上述数值折算的每单位 gas 价格 |
+| `transferGas` | number | `21000`——一笔普通原生币转账所需的 gas |
+| `transferCostWei` | string | `transferGas × gasPriceWei`，即这笔转账当前要花多少 |
 
 ## 退出码
 
@@ -92,4 +96,4 @@ EVM：
 
 ## 另请参见
 
-[`chain params`](params.md) · [`chain node`](node.md) · [能量与带宽](../../concepts/energy-bandwidth.md) · [`tx send`](../tx/send.md)
+[`chain params`](params.md) · [`chain node`](node.md) · [能量与带宽](../../concepts/energy-bandwidth.md) · [费用模型](../../concepts/networks.md#fees-the-evm-gas-model) · [`tx send`](../tx/send.md)

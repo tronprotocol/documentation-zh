@@ -1,6 +1,6 @@
 # wallet-cli contact list
 
-列出全部联系人。
+列出联系人簿中的全部收款方。
 
 ## 用法
 
@@ -25,8 +25,8 @@ wallet-cli contact list
 ```console
 | Name  | Address                            | Note          |
 | ----- | ---------------------------------- | ------------- |
-| alice | TBy6mQ7Y3nJ8sD2fWpXk4LhVc9Ra1Zt5Ub | Alice mainnet |
-| bob   | TXe4Kd8nP2rF9gH5jL3mV6cW1bN7yS0aQz | —             |
+| alice | TF9yB7bAL2oBbonYaMvGTqoXxExS14x73c | Alice mainnet |
+| bob   | TNDHPk1LMLZTap8tMWfxUBy4MgArnWeSVP | —             |
 ```
 
 ```bash
@@ -34,14 +34,14 @@ wallet-cli contact list -o json
 ```
 
 ```json
-{"schema":"wallet-cli.result.v1","success":true,"command":"contact.list","data":{"contacts":[{"name":"alice","address":"TBy6mQ7Y3nJ8sD2fWpXk4LhVc9Ra1Zt5Ub","note":"Alice mainnet"},{"name":"bob","address":"TXe4Kd8nP2rF9gH5jL3mV6cW1bN7yS0aQz","note":null}]},"meta":{"durationMs":3,"warnings":[]}}
+{"schema":"wallet-cli.result.v1","success":true,"command":"contact.list","data":{"contacts":[{"name":"alice","address":"TF9yB7bAL2oBbonYaMvGTqoXxExS14x73c","note":"Alice mainnet"},{"name":"bob","address":"TNDHPk1LMLZTap8tMWfxUBy4MgArnWeSVP","note":null}]},"meta":{"durationMs":3,"warnings":[]}}
 ```
 
 ## 输出
 
 | 字段 | 类型 | 含义 |
 |---|---|---|
-| `contacts[]` | array | 收款方列表，每项为 `{name, address, note}`——`note` 未设置时为 `null`。链家族属于内部路由细节，不会返回 |
+| `contacts[]` | array | 收款方列表，每项为 `{name, address, note}`——未设置备注时 `note` 为 `null` |
 
 ## 退出码
 

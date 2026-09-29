@@ -10,7 +10,9 @@ wallet-cli contract create2 --deployer <address> (--code <hex> | --code-file <pa
 
 ## 说明
 
-纯本地运算：不访问节点、不广播，也不涉及任何账户或密码。结果在所有 TRON 网络上都一致，因此 `--network` 对它没有影响。仅限 TRON——在 EVM 网络上本命令会以 `family_mismatch` 失败。
+> **仅限 TRON。** 下面的派生方式是 TRON 的；在 EVM 网络上，该命令会以 `family_mismatch` 失败。
+
+纯本地运算：不访问节点、不广播任何东西，也不涉及账户或密码。在所有 TRON 网络上结果都相同，因此 `--network` 只用于选定链家族，绝不会改变地址。
 
 **TRON 的推导方式与以太坊不同**——不要拿 EVM 的计算器来算。地址为
 
@@ -60,7 +62,7 @@ wallet-cli contract create2 --deployer TQkXm4vN...5Zt7Uw --code 6080604052... --
 ```
 
 ```json
-{"schema":"wallet-cli.result.v1","success":true,"command":"contract.create2","data":{"deployerAddress":"TQkXm4vN...","salt":255,"saltHex":"0x00000000000000000000000000000000000000000000000000000000000000ff","codeHash":"c8f4a1...b91b","address":"TWq8dK3n...2mHb"},"meta":{"durationMs":3,"warnings":[]},"chain":{"family":"tron","network":"tron:728126428","chainId":"728126428"}}
+{"schema":"wallet-cli.result.v1","success":true,"command":"contract.create2","data":{"deployerAddress":"TQkXm4vN...","salt":255,"saltHex":"0x00000000000000000000000000000000000000000000000000000000000000ff","codeHash":"c8f4a1...b91b","address":"TWq8dK3n...2mHb"},"meta":{"durationMs":3,"warnings":[]},"chain":{"family":"tron","network":"tron:3448148188","chainId":"3448148188"}}
 ```
 
 ## 输出
@@ -73,11 +75,11 @@ wallet-cli contract create2 --deployer TQkXm4vN...5Zt7Uw --code 6080604052... --
 | `codeHash` | string | `creation bytecode` 的 `keccak256` |
 | `address` | string | 推导出的合约地址，base58 格式 |
 
-本命令从不访问节点，但它仍然是一条 TRON 链上命令：响应中会照常带上所选网络的 `chain` 块。这里的 `--network` 是可选的，只决定这个块里写的是哪个网络。
+该命令从不访问节点，但它仍然属于 TRON 链上命令：响应中会照常带上所选网络的 `chain` 块。这里的 `--network` 是可选的，它只决定该块里写的是哪个网络。
 
 ## 退出码
 
-`0` 成功 · `1` 执行失败 · `2` 用法错误（`missing_option`——缺少 `--deployer` 或 `--salt`；`file_not_found`——`--code-file` 不存在；`invalid_value`——两个 code 来源都没给或都给了、code 文件读不了、`deployer` 地址格式非法、`code` 不是合法 hex，或 `salt` 超出 64 位有符号范围）。
+`0` 成功 · `1` 执行失败 · `2` 用法错误（`missing_option`——未给出 `--deployer` 或 `--salt`；`file_not_found`——`--code-file` 不存在；`invalid_value`——两个字节码来源一个都没给或都给了、字节码文件不可读、部署者地址格式错误、字节码不是 hex，或 salt 超出有符号 64 位范围；在 EVM 网络上为 `family_mismatch`）。
 
 ## 另请参见
 

@@ -47,14 +47,14 @@ Ledger 的 TRON 应用无法对 TRC10 发行类合约签名。Ledger 账户可�
 在一个按 `1:100` 发行的 token 上花费 100 TRX：
 
 ```bash
-echo "$PW" | wallet-cli asset participate 1000124 --pay 100 --network tron:3448148188 --wait --password-stdin
+echo "$PW" | wallet-cli asset participate 1000124 --pay 100 --network nile --wait --password-stdin
 ```
 
 ```console
 ✅ Participated in ICO
   Asset        BetaToken  (id 1000124)
-  Issuer       TBeta9mR...8pLx
-  Participant  TQkXm4vN...5Zt7Uw
+  Issuer       TF9yB7bAL2oBbonYaMvGTqoXxExS14x73c
+  Participant  TP2Zs9qKScTMs8jDYV3SAHQ5pqgKY1NQ5V
   Paid         100 TRX
   Received     10,000 BetaToken
   TxID         4c8...
@@ -64,11 +64,11 @@ echo "$PW" | wallet-cli asset participate 1000124 --pay 100 --network tron:34481
 ```
 
 ```bash
-echo "$PW" | wallet-cli asset participate 1000124 --pay 100 --network tron:3448148188 --wait --password-stdin -o json
+echo "$PW" | wallet-cli asset participate 1000124 --pay 100 --network nile --wait --password-stdin -o json
 ```
 
 ```json
-{"schema":"wallet-cli.result.v1","success":true,"command":"asset.participate","data":{"kind":"asset-participate","stage":"confirmed","txId":"4c8...","confirmed":true,"blockNumber":57883402,"feeSun":0,"netUsed":301,"netFeeSun":0,"failed":false,"assetId":"1000124","name":"BetaToken","issuerAddress":"TBeta9mR...","participantAddress":"TQkXm4vN...","paidSun":"100000000","receivedAmount":"10000000000","precision":6},"meta":{"durationMs":6450,"warnings":[]},"chain":{"family":"tron","network":"tron:3448148188","chainId":"3448148188"}}
+{"schema":"wallet-cli.result.v1","success":true,"command":"asset.participate","data":{"kind":"asset-participate","stage":"confirmed","txId":"4c8...","confirmed":true,"blockNumber":57883402,"failed":false,"assetId":"1000124","name":"BetaToken","issuerAddress":"TF9yB7bAL2oBbonYaMvGTqoXxExS14x73c","participantAddress":"TP2Zs9qKScTMs8jDYV3SAHQ5pqgKY1NQ5V","paidSun":"100000000","receivedAmount":"10000000000","precision":6,"feeSun":0,"netUsed":301,"netFeeSun":0},"meta":{"durationMs":6450,"warnings":[]},"chain":{"family":"tron","network":"tron:3448148188","chainId":"3448148188"}}
 ```
 
 ## 输出
@@ -77,7 +77,7 @@ echo "$PW" | wallet-cli asset participate 1000124 --pay 100 --network tron:34481
 
 | 阶段 | 字段 |
 |---|---|
-| 默认（提交） | `kind: "asset-participate"`、`stage: "submitted"`、`txId`、`assetId`、`name`、`issuerAddress`、`participantAddress`、`paidSun`、`receivedAmount` |
+| 默认（提交） | `kind: "asset-participate"`、`stage: "submitted"`、`txId`、`assetId`、`name`、`issuerAddress`、`participantAddress`、`paidSun`、`receivedAmount`、`precision` |
 | `--wait`（已确认） | 以上内容，外加 `stage: "confirmed"`、`confirmed`（boolean）、`blockNumber`、返回时的扁平结算字段（`feeSun`、`energyUsed`、`netUsed`、`energyFeeSun`、`netFeeSun`）、`failed` |
 
 `paidSun` 是花费的 TRX，以 sun 计；`receivedAmount` 是 token 数量，以其最小单位计。两者都是十进制字符串；结果中还包含 `precision`，供 text 输出和程序消费方换算 token 数量。

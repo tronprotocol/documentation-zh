@@ -338,6 +338,16 @@ nav:
                     - "查询区块": clients/wallet-cli/typescript/commands/block.md
                     - "列出网络": clients/wallet-cli/typescript/commands/networks.md
                     - "管理配置": clients/wallet-cli/typescript/commands/config.md
+                    - "ERC-8004 Agent 身份":
+                        - "概览": clients/wallet-cli/typescript/commands/8004/index.md
+                        - "查看 Agent": clients/wallet-cli/typescript/commands/8004/show.md
+                        - "检查全局操作者": clients/wallet-cli/typescript/commands/8004/operator-check.md
+                        - "注册 Agent": clients/wallet-cli/typescript/commands/8004/register.md
+                        - "修改 Agent URI": clients/wallet-cli/typescript/commands/8004/update.md
+                        - "转移 Agent": clients/wallet-cli/typescript/commands/8004/transfer.md
+                        - "批准单个 Agent 的操作者": clients/wallet-cli/typescript/commands/8004/approve.md
+                        - "添加全局操作者": clients/wallet-cli/typescript/commands/8004/add-operator.md
+                        - "移除全局操作者": clients/wallet-cli/typescript/commands/8004/remove-operator.md
                     - "账户管理":
                         - "概览": clients/wallet-cli/typescript/commands/account/index.md
                         - "激活账户": clients/wallet-cli/typescript/commands/account/activate.md
@@ -357,6 +367,13 @@ nav:
                         - "参与资产发行": clients/wallet-cli/typescript/commands/asset/participate.md
                         - "解冻发行方资产": clients/wallet-cli/typescript/commands/asset/unfreeze.md
                         - "修改资产信息": clients/wallet-cli/typescript/commands/asset/update.md
+                    - "B.AI 额度与充值":
+                        - "概览": clients/wallet-cli/typescript/commands/bai/index.md
+                        - "用量汇总": clients/wallet-cli/typescript/commands/bai/usage-summary.md
+                        - "用量记录": clients/wallet-cli/typescript/commands/bai/usage-records.md
+                        - "充值订单": clients/wallet-cli/typescript/commands/bai/recharge-orders.md
+                        - "充值": clients/wallet-cli/typescript/commands/bai/recharge.md
+                        - "重新上报充值": clients/wallet-cli/typescript/commands/bai/report-recharge.md
                     - "链信息":
                         - "概览": clients/wallet-cli/typescript/commands/chain/index.md
                         - "查看节点状态": clients/wallet-cli/typescript/commands/chain/node.md
@@ -457,8 +474,18 @@ nav:
                         - "注册超级代表": clients/wallet-cli/typescript/commands/witness/create.md
                         - "设置佣金比例": clients/wallet-cli/typescript/commands/witness/set-brokerage.md
                         - "更新超级代表信息": clients/wallet-cli/typescript/commands/witness/update.md
+                    - "x402 支付":
+                        - "概览": clients/wallet-cli/typescript/commands/x402/index.md
+                        - "支付端点": clients/wallet-cli/typescript/commands/x402/pay.md
+                        - "运行本地付费墙": clients/wallet-cli/typescript/commands/x402/serve.md
+                        - "本地闭环测试": clients/wallet-cli/typescript/commands/x402/roundtrip.md
+                        - "列出服务方": clients/wallet-cli/typescript/commands/x402/provider-list.md
+                        - "查看服务方": clients/wallet-cli/typescript/commands/x402/provider-show.md
+                        - "列出端点与价格": clients/wallet-cli/typescript/commands/x402/endpoint-list.md
+                        - "更新目录缓存": clients/wallet-cli/typescript/commands/x402/update-catalog.md
                 - 机器接口: clients/wallet-cli/typescript/machine-interface.md
                 - 故障排查: clients/wallet-cli/typescript/troubleshooting.md
+                - "旧派生路径恢复": clients/wallet-cli/typescript/troubleshooting/legacy-derivation-recovery.md
     - 版本发布:
         - 新版本部署手册: releases/upgrade-instruction.md
         - 一致性检验: releases/signature_verification.md

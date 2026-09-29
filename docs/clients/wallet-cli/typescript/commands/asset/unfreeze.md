@@ -22,7 +22,7 @@ wallet-cli asset unfreeze
 
 **该命令默认在交易提交后返回**（`stage: "submitted"`），不会等待确认。使用 `--wait` 可阻塞至交易确认或失败。命令需要一个账户；仅在需要签名的模式下，才必须通过 `--password-stdin` 提供 master password。`--dry-run` 和 `--build-only` 不会解锁钱包，因此无需密码。仅观察账户无法签名，会返回 `watch_only_no_signer`。
 
-Ledger 的 TRON 应用无法对 TRC10 发行类合约签名。Ledger 账户可以做试运行或构建未签名的 hex，但签名模式会在与设备交互之前就以 `ledger_unsupported` 失败。
+Ledger 的 TRON app 无法对 TRC10 发行类合约签名。Ledger 账户可以做试运行或构建未签名的 hex；签名类模式会在与设备交互之前就以 `ledger_unsupported` 失败。
 
 ## 选项
 
@@ -45,13 +45,13 @@ Ledger 的 TRON 应用无法对 TRC10 发行类合约签名。Ledger 账户可�
 示例中的 `$PW` 是你的 master password（来自环境变量、密码管理器等），通过 `--password-stdin` 从 stdin 传入。
 
 ```bash
-echo "$PW" | wallet-cli asset unfreeze --network tron:3448148188 --wait --password-stdin
+echo "$PW" | wallet-cli asset unfreeze --network nile --wait --password-stdin
 ```
 
 ```console
 ✅ Frozen supply released
   Asset         MyToken  (id 1000123)
-  Issuer        TQkXm4vN...5Zt7Uw
+  Issuer        TP2Zs9qKScTMs8jDYV3SAHQ5pqgKY1NQ5V
   Released      100,000,000 MyToken
   Still frozen  50,000,000 MyToken
   TxID          6a5...
@@ -61,11 +61,11 @@ echo "$PW" | wallet-cli asset unfreeze --network tron:3448148188 --wait --passwo
 ```
 
 ```bash
-echo "$PW" | wallet-cli asset unfreeze --network tron:3448148188 --wait --password-stdin -o json
+echo "$PW" | wallet-cli asset unfreeze --network nile --wait --password-stdin -o json
 ```
 
 ```json
-{"schema":"wallet-cli.result.v1","success":true,"command":"asset.unfreeze","data":{"kind":"asset-unfreeze","stage":"confirmed","txId":"6a5...","confirmed":true,"blockNumber":57883560,"feeSun":0,"netUsed":288,"netFeeSun":0,"failed":false,"assetId":"1000123","name":"MyToken","issuerAddress":"TQkXm4vN...","releasedAmount":"100000000000000","stillFrozenAmount":"50000000000000","precision":6},"meta":{"durationMs":6410,"warnings":[]},"chain":{"family":"tron","network":"tron:3448148188","chainId":"3448148188"}}
+{"schema":"wallet-cli.result.v1","success":true,"command":"asset.unfreeze","data":{"kind":"asset-unfreeze","stage":"confirmed","txId":"6a5...","confirmed":true,"blockNumber":57883560,"failed":false,"assetId":"1000123","name":"MyToken","issuerAddress":"TP2Zs9qKScTMs8jDYV3SAHQ5pqgKY1NQ5V","releasedAmount":"100000000000000","stillFrozenAmount":"50000000000000","precision":6,"feeSun":0,"netUsed":288,"netFeeSun":0},"meta":{"durationMs":6410,"warnings":[]},"chain":{"family":"tron","network":"tron:3448148188","chainId":"3448148188"}}
 ```
 
 ## 输出
@@ -77,7 +77,7 @@ echo "$PW" | wallet-cli asset unfreeze --network tron:3448148188 --wait --passwo
 | 默认（提交） | `kind: "asset-unfreeze"`、`stage: "submitted"`、`txId`、`assetId`、`name`、`issuerAddress`、`precision`，以及 `releasedAmount` / `stillFrozenAmount`——这里同样存在，但表示本命令*打算*释放的金额 |
 | `--wait`（已确认） | 以上内容，外加 `stage: "confirmed"`、`confirmed`（boolean）、`blockNumber`、返回时的扁平结算字段（`feeSun`、`energyUsed`、`netUsed`、`energyFeeSun`、`netFeeSun`）、`failed`；此时的 `releasedAmount` 取自回执 |
 
-`releasedAmount` 和 `stillFrozenAmount` 是原始十进制字符串（最小单位）；结果中还带有 `precision` 供换算。两者始终存在——确认之前它们是本命令根据该资产的冻结批次自行算出的结果，只有确认后的 `releasedAmount` 才是回执里的数字。
+`releasedAmount` 和 `stillFrozenAmount` 是十进制字符串（最小单位），并附带用于换算的 `precision`。两者始终存在：确认之前，它们是本命令根据该资产各冻结批次自行算出的；只有确认之后的 `releasedAmount` 才是回执给出的数值。
 
 ## 退出码
 

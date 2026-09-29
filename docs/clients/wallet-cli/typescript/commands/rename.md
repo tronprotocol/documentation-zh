@@ -27,13 +27,13 @@ wallet-cli rename <account> --label <new> [options]
 ## 示例
 
 ```bash
-wallet-cli rename main --label primary
+wallet-cli rename main-1 --label hot-hd
 ```
 
 ```console
 ✅ Renamed account
-  Old label  main
-  New label  primary
+  Old label  main-1
+  New label  hot-hd
 ```
 
 ```bash
@@ -41,7 +41,7 @@ wallet-cli rename main-1 --label hot-hd -o json
 ```
 
 ```json
-{"schema":"wallet-cli.result.v1","success":true,"command":"rename","data":{"previousLabel":"main-1","accountId":"wlt_0y2z0gvr.1","label":"hot-hd","type":"seed","index":1,"active":true,"addresses":{"tron":"TRzaAZWRvPCcmqNETTWvmMLDi6cKwM3gbR","evm":"0x94f2e5cbb4BcA39A3F6c252217a0F30A0D23660b"},"seedId":"wlt_0y2z0gvr","derivationPath":{"tron":"m/44'/195'/1'/0/0","evm":"m/44'/60'/0'/0/1"}},"meta":{"durationMs":14,"warnings":[]}}
+{"schema":"wallet-cli.result.v1","success":true,"command":"rename","data":{"previousLabel":"main-1","accountId":"wlt_kwyjcwdh.1","label":"hot-hd","type":"seed","index":1,"active":true,"addresses":{"tron":"TVz38F2QmQf53g7QVATBbsZ6JkHKccJFAQ","evm":"0xEA4A61822322c695F5A9eB7920b843054CbDaA83"},"seedId":"wlt_kwyjcwdh","derivationPath":null},"meta":{"durationMs":26,"warnings":[]}}
 ```
 
 ## 输出
@@ -51,15 +51,16 @@ wallet-cli rename main-1 --label hot-hd -o json
 | 字段 | 类型 | 含义 |
 |---|---|---|
 | `previousLabel` | string | 重命名前的旧标签 |
-| `accountId` | string | 稳定的账户 id（重命名不会改变它） |
+| `accountId` | string | 稳定的账户 id (unchanged by rename) |
 | `label` | string | 新标签 |
 | `type` | string | `seed` / `privateKey` / `watch` / `ledger` |
 | `index` | number \| null | HD 派生索引；非 HD 账户为 `null` |
 | `active` | boolean | 是否为当前账户 |
 | `addresses` | object | 该账户能产生的每个家族各一项：`tron`（base58）和/或 `evm`（`0x`，EIP-55 校验和格式） |
-| `derivationPath` | object \| null | 派生类账户按家族给出的 BIP44 路径；`watch` / `privateKey` 从未派生过，因此为 `null` |
 | `seedId` | string | 所属种子钱包 id（仅 `seed` 账户） |
+| `derivationPath` | null | 恒为 `null`，这是刻意为之——`rename` 不接收 master password，因此在不打开种子的情况下无法分辨旧 TRON 路径与当前路径；`derive` 和 `backup` 会报告经过校验的路径 |
 | `family` | string | 该账户绑定的链家族——仅单家族账户（`watch`、`ledger`）有此字段 |
+| `path` | string | 该账户在设备上的派生路径（仅 `ledger` 账户） |
 
 ## 退出码
 

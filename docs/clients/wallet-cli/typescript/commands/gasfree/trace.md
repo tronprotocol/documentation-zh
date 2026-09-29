@@ -23,7 +23,7 @@ wallet-cli gasfree trace <traceId> [options]
 ## 示例
 
 ```bash
-wallet-cli gasfree trace 7f3e9a02-58c1-4d2e-b6a4-91d0c3f8e527 --network tron:3448148188
+wallet-cli gasfree trace 7f3e9a02-58c1-4d2e-b6a4-91d0c3f8e527 --network nile
 ```
 
 ```console
@@ -35,15 +35,15 @@ Amount          25 USDT
 Service fee     0.5 USDT
 Activation fee  0 USDT
 Total           25.5 USDT
-To              TBy6mQ7Y3nJ8sD2fWpXk4LhVc9Ra1Zt5Ub
+To              TF9yB7bAL2oBbonYaMvGTqoXxExS14x73c
 ```
 
 ```bash
-wallet-cli gasfree trace 7f3e9a02-58c1-4d2e-b6a4-91d0c3f8e527 --network tron:3448148188 -o json
+wallet-cli gasfree trace 7f3e9a02-58c1-4d2e-b6a4-91d0c3f8e527 --network nile -o json
 ```
 
 ```json
-{"schema":"wallet-cli.result.v1","success":true,"command":"gasfree.trace","data":{"traceId":"7f3e9a02-58c1-4d2e-b6a4-91d0c3f8e527","state":"SUCCEED","txId":"d2e...","token":"USDT","tokenAddress":"TXYZopYRdj2D9XRtbG411XZZ3kM5VkAeBf","decimals":6,"amount":"25000000","serviceFee":"500000","activateFee":"0","totalDeducted":"25500000","from":"TNER12mMVWruqopsW9FQtKxCGfZcEtb3ER","owner":"TMVQGm1qAQYVdetCeGRRkTWYYrLXuHK2HC","to":"TBy6mQ7Y3nJ8sD2fWpXk4LhVc9Ra1Zt5Ub","nonce":"8"},"meta":{"durationMs":290,"warnings":[]},"chain":{"family":"tron","network":"tron:3448148188","chainId":"3448148188"}}
+{"schema":"wallet-cli.result.v1","success":true,"command":"gasfree.trace","data":{"traceId":"7f3e9a02-58c1-4d2e-b6a4-91d0c3f8e527","state":"SUCCEED","txId":"d2e...","token":"USDT","tokenAddress":"TXYZopYRdj2D9XRtbG411XZZ3kM5VkAeBf","decimals":6,"amount":"25000000","serviceFee":"500000","activateFee":"0","totalDeducted":"25500000","from":"TNER12mMVWruqopsW9FQtKxCGfZcEtb3ER","owner":"TMVQGm1qAQYVdetCeGRRkTWYYrLXuHK2HC","to":"TF9yB7bAL2oBbonYaMvGTqoXxExS14x73c","nonce":"8"},"meta":{"durationMs":290,"warnings":[]},"chain":{"family":"tron","network":"tron:3448148188","chainId":"3448148188"}}
 ```
 
 ## 输出
@@ -52,21 +52,21 @@ wallet-cli gasfree trace 7f3e9a02-58c1-4d2e-b6a4-91d0c3f8e527 --network tron:344
 |---|---|---|
 | `traceId` | string | 服务方的受理 id |
 | `state` | string | 原始状态枚举：`WAITING` / `INPROGRESS` / `CONFIRMING` / `SUCCEED` / `FAILED` |
-| `txId` | string | 链上交易 id（提交上链后才有） |
-| `token` | string | Token 符号 |
 | `tokenAddress` | string | TRC20 合约地址 |
-| `decimals` | number | 用于渲染金额的 token 精度 |
-| `amount` | string | 金额，以 token 的最小单位计 |
-| `serviceFee` / `activateFee` | string | 扣除的费用，以 token 的最小单位计 |
-| `totalDeducted` | string | 转账金额加上已结算的服务费与激活费，以 token 的最小单位计 |
-| `from` / `owner` | string | GasFree 托管地址 / 所属账户地址 |
-| `to` | string | 接收方地址 |
+| `decimals` | number | 用于呈现金额的 token 精度 |
+| `totalDeducted` | string | 转账金额，加上已结算的服务费与激活费，以 token 最小单位计 |
+| `from` / `owner` | string | GasFree 持有地址 / 所属账户地址 |
 | `nonce` | string | 授权 nonce |
-| `failureReason` | string | 服务方给出的说明，仅在转账失败且服务方提供时出现 |
+| `failureReason` | string | 服务方给出的说明，仅在转账失败且对方提供时才有 |
+| `txId` | string | 链上交易 id（提交之后才有） |
+| `token` | string | token 符号 |
+| `amount` | string | 金额，以 token 最小单位计 |
+| `serviceFee` / `activateFee` | string | 收取的各项费用，以 token 最小单位计 |
+| `to` | string | 收款方地址 |
 
 ## 退出码
 
-`0` 成功 · `1` 执行失败（`not_found`——`traceId` 不存在；`gasfree_integrity`；`provider_error`——服务出错、返回了格式错误或过大的 JSON、返回了本 CLI 不会据以行事的字段，或返回了任何非 429 的错误状态码；`provider_rate_limited`——服务返回了 429） · `2` 用法错误（`gasfree_credentials_missing`、`unsupported_network`、`invalid_value`）。
+`0` 成功 · `1` 执行失败（`not_found`——没有该 trace id、`gasfree_integrity`、`provider_error`——服务失败、返回格式错误或过大的 JSON、返回了本 CLI 不会据以行动的字段，或返回了任何非 429 的错误状态；`provider_rate_limited`——服务返回 429，若它发来 `Retry-After`，则带上 `details.retryAfter`） · `2` 用法错误（`gasfree_credentials_missing`、`unsupported_network`、`invalid_value`）。
 
 转账结果为 `FAILED` 时，查询命令本身仍然执行成功：响应中的 `success` 保持为 `true`，退出码为 `0`，
 `data.failureReason` 提供服务方返回的失败原因。

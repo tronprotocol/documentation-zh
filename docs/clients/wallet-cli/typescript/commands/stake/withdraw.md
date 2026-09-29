@@ -38,7 +38,7 @@ wallet-cli stake withdraw [--dry-run | (--sign-only | --build-only) [--expiratio
 默认——返回**已提交**的回执：
 
 ```bash
-echo "$PW" | wallet-cli stake withdraw --network tron:3448148188 --password-stdin
+echo "$PW" | wallet-cli stake withdraw --network nile --password-stdin
 ```
 
 ```console
@@ -49,7 +49,7 @@ echo "$PW" | wallet-cli stake withdraw --network tron:3448148188 --password-stdi
 ```
 
 ```bash
-echo "$PW" | wallet-cli stake withdraw --network tron:3448148188 --password-stdin -o json
+echo "$PW" | wallet-cli stake withdraw --network nile --password-stdin -o json
 ```
 
 ```json
@@ -59,7 +59,7 @@ echo "$PW" | wallet-cli stake withdraw --network tron:3448148188 --password-stdi
 加 `--wait` 可阻塞直到已确认：
 
 ```bash
-echo "$PW" | wallet-cli stake withdraw --network tron:3448148188 --wait --password-stdin
+echo "$PW" | wallet-cli stake withdraw --network nile --wait --password-stdin
 ```
 
 ```console

@@ -16,10 +16,10 @@ wallet-cli import mnemonic [--label <name>]
 
 交互流程（所有密钥均隐藏输入，绝不回显，也绝不出现在 argv 中）：
 
-1. **master password**——首次使用时设置（需确认输入），或输入以解锁。
-2. **标签**——可选的显示名称；提示处会给出一个随机的默认值（`wallet_ad8f21`），直接回车即可采用。
-3. **助记词**——隐藏粘贴输入；驱动本 CLI 的 AI 或脚本永远看不到它。
-4. **校验并保存**——词数或校验和不对会报 `invalid_mnemonic` 并重新提示；成功后派生出各地址，seed 以加密形式写入，绝不以明文存储。
+1. **master password**——首次使用时设置（需确认一次），或输入以解锁。
+2. **标签**——可选的显示名；留空则自动生成一个（例如 `wallet_ad8f21`）。
+3. **助记词**——以隐藏方式粘贴输入；驱动 CLI 的 AI 或脚本绝不会看到它。
+4. **校验并存储**——词数/校验和不对 → `invalid_mnemonic`，重新提示；成功则派生出各地址，并把种子加密写入，绝不明文保存。
 
 没有 TTY 时，命令会以 `tty_required` 失败——本命令没有非交互式的路径。
 
@@ -44,8 +44,8 @@ wallet-cli import mnemonic --label restored
 ✅ Imported wallet "restored"
   Account ID    wlt_d66fvems.0
   Type          HD
-  TRON address  TUEZSdKsoDHQMeZwihtdoBiN46zxhGWYdH
-  EVM address   0xd41F7a6C39e05B28fA1c7D930e64b8517cA2F069
+  TRON address  TWer2Ygk5TEheHp3TPuYeqxmB6SsGZmaL6
+  EVM address   0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266
   Active        yes
 
 ⚠️ Recovery phrase was read from hidden input and was not printed.
@@ -59,7 +59,7 @@ wallet-cli import mnemonic --label restored -o json
 ? Set master password (hidden):
 ? Confirm master password:
 ? Paste recovery phrase (hidden):
-{"schema":"wallet-cli.result.v1","success":true,"command":"import.mnemonic","data":{"status":"created","accountId":"wlt_d66fvems.0","label":"restored","type":"seed","index":0,"active":true,"addresses":{"tron":"TUEZSdKsoDHQMeZwihtdoBiN46zxhGWYdH","evm":"0xd41F7a6C39e05B28fA1c7D930e64b8517cA2F069"},"seedId":"wlt_d66fvems","derivationPath":{"tron":"m/44'/195'/0'/0/0","evm":"m/44'/60'/0'/0/0"}},"meta":{"durationMs":38,"warnings":[]}}
+{"schema":"wallet-cli.result.v1","success":true,"command":"import.mnemonic","data":{"status":"created","accountId":"wlt_d66fvems.0","label":"restored","type":"seed","index":0,"active":true,"addresses":{"tron":"TWer2Ygk5TEheHp3TPuYeqxmB6SsGZmaL6","evm":"0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"},"seedId":"wlt_d66fvems","derivationPath":{"tron":"m/44'/195'/0'/0/0","evm":"m/44'/60'/0'/0/0"}},"meta":{"durationMs":38,"warnings":[]}}
 ```
 
 ## 输出
@@ -68,19 +68,19 @@ wallet-cli import mnemonic --label restored -o json
 
 | 字段 | 类型 | 含义 |
 |---|---|---|
-| `status` | string | `"created"`；若该助记词的 0 号账户已经存在，则为 `"existing"`（此时选中的是已有的那个账户） |
-| `accountId` | string | 稳定 id `<seedId>.<index>` |
+| `status` | string | `"created"`；若该助记词的 0 号账户此前已存在，则为 `"existing"`（并选中那个账户） |
+| `accountId` | string | 稳定的 id，形如 `<seedId>.<index>` |
 | `label` | string | 账户标签 |
 | `type` | string | `"seed"`（HD 派生） |
-| `index` | number | HD 派生索引（首个账户为 0） |
+| `index` | number | HD 派生索引（第一个账户为 0） |
 | `active` | boolean | 是否成为当前账户 |
 | `addresses` | object | 派生出的两个地址：`tron`（base58）和 `evm`（EIP-55） |
+| `derivationPath` | object | 索引 0 账户按家族给出的 BIP44 路径 |
 | `seedId` | string | 所属种子钱包 id |
-| `derivationPath` | object | 0 号账户索引下各家族的 BIP44 路径 |
 
 ## 退出码
 
-`0` 导入成功 · `1` 执行失败（`auth_failed`——输入的 master password 与已有 keystore 不匹配；`invalid_mnemonic`——存储层校验拒绝了该助记词；`io_error`） · `2` 用法错误（`tty_required`——没有可用于隐藏输入的 TTY；`invalid_value`——标签非法或重复）。在 TTY 提示处输入的非法助记词或强度不足的新密码，会当场被拒绝并重新提示，而不会作为终止性错误返回。
+`0` 导入成功 · `1` 执行失败（`auth_failed`——输入的 master password 与已有 keystore 不匹配；`invalid_mnemonic`——存储层校验拒绝了该助记词；`io_error`） · `2` 用法错误（`tty_required`——没有可用于隐藏输入的 TTY；`invalid_value`——标签非法或重复）。在提示处输入的无效助记词或过弱的新密码会当场被拒并要求重输，而不会作为终态错误返回。
 
 ## 另请参见
 

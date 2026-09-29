@@ -7,35 +7,43 @@ wallet-cli 如何组织你在 `list` 中看到的内容。
 一个**种子钱包**对应一条 BIP39 助记词；它可以派生出多个**账户**。id 正体现了这一点：
 
 ```
-wlt_z259a1hq        ← seedId (one mnemonic)
-wlt_z259a1hq.0      ← accountId = seedId.index (one account, one address per family)
-wlt_z259a1hq.1
+wlt_4473p34m        ← seedId (one mnemonic)
+wlt_4473p34m.0      ← accountId = seedId.index (one account, one address per family)
+wlt_4473p34m.1
 ```
 
-`create` 创建一个新种子以及 0 号账户；`derive --seed-id wlt_…` 从同一条助记词追加下一个账户（或
-显式指定 `--index`）。在其他环境中恢复同一助记词会重新派生出相同的地址，因此助记词才是钱包的恢复
-凭据；master password 仅用于保护本地存储。注意，`create` 不会打印助记词；执行
-[`backup`](../commands/backup.md) 可以把它导出到离线文件。
+`create` 创建一个新种子以及 0 号账户；`derive` 从同一条助记词追加下一个账户（或显式指定 `--index`）。它默认作用于当前账户所属的种子；要选另一个，可用 `--account`（该种子下的任意账户）或 `--seed-id`。在其他环境中恢复同一助记词会重新派生出相同的地址，因此助记词才是真正的备份，而 master password 只是本地保护。注意 `create` 不会打印助记词；执行 [`backup`](../commands/backup.md) 可以把它导出到离线文件。
 
 ## 一个账户，每个链家族一个地址
 
 密钥本身并不绑定某一条链，因此**一个账户在每个[链家族](networks.md)下各有一个地址**——一个 TRON base58 地址和一个 EVM `0x` 地址——它们由同一份种子在不同的 BIP44 币种类型下派生而来：
 
 ```
-m/44'/195'/<index>'/0/0   TRON
+m/44'/195'/0'/0/<index>   TRON
 m/44'/60'/0'/0/<index>    EVM
 ```
 
-两者都是真实且相互独立的地址，各自持有余额；向其中一个地址转账不会改变另一个地址的余额。`list -o json` 和 `current -o json` 会同时返回这两个地址，将它们放在以家族为键的 `addresses` 下，并通过 `derivationPath` 标明各自使用的派生路径模板：
+两者只有币种类型不同；账户索引在两条路径上都是最后一级。因此账户 `.1` 对应的是 `m/44'/195'/0'/0/1` 和 `m/44'/60'/0'/0/1`。
+
+两者都是真实且互相独立的地址：它们各自持有余额，给其中一个打钱不会让另一个多出一分。`list -o json` 和 `current -o json` 会把它们一起报告出来，放在按家族为键的 `addresses` 下。这两条命令不接收 master password，因此在不打开种子的情况下无法分辨旧 TRON 路径与当前路径；它们会刻意返回 `derivationPath: null`。而确实会打开种子的 `derive` 和 `backup`，则会报告每个地址经过校验的路径：
 
 ```json
-{"accountId":"wlt_z259a1hq.0","label":"main","type":"seed","index":0,
- "addresses":{"tron":"TE9kPMtaMjfZN95CuPRsCHUQGWwx9EcJW8","evm":"0x7B28FE10FBccE88c3967ff0Fd64f1ffB46b46C9C"},
- "seedId":"wlt_z259a1hq",
- "derivationPath":{"tron":"m/44'/195'/0'/0/0","evm":"m/44'/60'/0'/0/0"}}
+{"accountId":"wlt_kwyjcwdh.0","label":"main","type":"seed","index":0,"active":false,"addresses":{"tron":"TEKbsrcsL74XyNWH6ju9zfjGDNok78dtTa","evm":"0xeb0a0D15e3B8f6E2FC4bc011Eb6644f1ce3E4fa2"},"seedId":"wlt_kwyjcwdh","derivationPath":null}
 ```
 
 一条命令以哪个地址的身份执行，取决于**所选网络**，而不是账户上的某个设置：`--network nile` 用的是 TRON 地址，`--network sepolia` 用的是 EVM 地址。文本列表一次只显示一个家族，并会说明略去了多少个账户；JSON 则始终带上全部家族。
+
+Ledger 账户用的是另一套模板：`import ledger --index <n>` 遵循 Ledger Live 的 `m/44'/<coin>'/<n>'/0/0`。两者只有在索引 0 上一致。参见 [`import ledger`](../commands/import/ledger.md)。
+
+### 4.13.1 之前创建的账户 {#accounts-from-before-4131}
+
+早先的版本按 `m/44'/195'/<index>'/0/0` 派生 TRON 账户。对 0 号账户来说这是同一条路径，因此毫无影响。1 号及之后的账户仍保留它们原来的 TRON 地址，但本版本不再用它签名：
+
+- 以该 TRON 地址签名会以 `legacy_derivation` 失败。该账户的 EVM 地址、`--build-only` 以及各类查询仍然可用。
+- `derive` 会以 `legacy_derivation` 拒绝向该种子添加新账户。
+- 重新导入助记词并不会把旧的 TRON 地址找回来。
+
+在删除任何东西之前，请先按[出现 `legacy_derivation` 后如何找回地址](../troubleshooting/legacy-derivation-recovery.md)操作。
 
 并非每个账户都同时拥有两个地址。`watch` 或 `ledger` 账户只记录一个地址，即导入时提供的地址或设备应用派生的地址。因此，这类账户带有 `family` 字段，并且只能在对应家族的网络上使用；用于其他家族时会返回 `family_mismatch`。
 
@@ -60,13 +68,10 @@ m/44'/60'/0'/0/<index>    EVM
 
 ## 生命周期 {#lifecycle}
 
-- `backup <account>` 把密钥材料和元数据导出到一个以 **0600** 权限创建、且不会覆盖的文件（默认位于
-  当前工作目录）。请按照密钥文件的安全等级保护该文件，并注意命令的执行目录，因为 CLI 不会
-  检查该目录是否是共享目录或纳入了版本控制。原生格式携带的是种子或密钥本身，因此一次性覆盖全部家族；而 `backup --keystore` 携带的是**单个私钥**，因此由 `--network` 决定它装的是哪个家族的密钥。
-- `delete` 删除账户；**删除 HD 钱包会从种子根开始级联**——该种子派生出的全部账户都会一并删除。
-  链上资产不受影响：重新导入助记词即可恢复访问。
+- `backup <account>` 把密钥材料和元数据导出到一个以 **0600** 权限创建、且不会覆盖的文件（默认位于当前工作目录）。请按照它所包含密钥的等级来对待该文件，并注意命令的执行目录，因为 CLI 不会检查该目录是否是共享目录或纳入了版本控制。原生格式携带的是种子或密钥本身，因此一次性覆盖全部家族；而 `backup --keystore` 携带的是**单个私钥**，因此由 `--network` 决定它装的是哪个家族的密钥。
+- `delete` 删除账户；**删除 HD 钱包会从种子根开始级联**——该种子派生出的全部账户都会一并删除。链上资产不受影响。请先执行 `backup`，并留意它打印的任何警告——参见 [4.13.1 之前创建的账户](#accounts-from-before-4131)。
 - 丢失 master password 在本地无法恢复；退路始终是助记词 → `import mnemonic`。
 
 ## 另请参见
 
-[`list`](../commands/list.md) · [`create`](../commands/create.md) · [`import`](../commands/import/index.md) · [安全模型](security.md)
+[`list`](../commands/list.md) · [`create`](../commands/create.md) · [`import`](../commands/import/index.md) · [网络](networks.md) · [安全模型](security.md)

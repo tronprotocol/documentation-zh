@@ -108,14 +108,15 @@ wallet> GetTransactionById dcfea1d92fc928d24c88f7f71a03ae8105d0b5b112d6d48be93d3
 ### DelegateResource
 
 ```console
-> delegateResource [OwnerAddress] balance ResourceCode(0 BANDWIDTH,1 ENERGY), ReceiverAddress [lock]
+> delegateResource [OwnerAddress] balance ResourceCode(0 BANDWIDTH,1 ENERGY), ReceiverAddress [lock] [lockPeriod]
 ```
 
 - `OwnerAddress`——发起交易的账户地址，可选，默认为登录账户的地址。
-- `balance`——代理的数量，单位为最小单位（Sun），最小为 1000000 sun。
+- `balance`——代理的数量，单位为最小单位（Sun），最小值为 1000000 sun。
 - `ResourceCode`——0 BANDWIDTH；1 ENERGY。
-- `ReceiverAddress`——账户地址。
-- `lock`——默认为 false，如果需要把代理锁定 3 天则设为 true。
+- `ReceiverAddress`——接收方账户的地址。
+- `lock`——默认为 false；设为 true 可锁定该笔代理，使其在锁定期结束前无法收回。
+- `lockPeriod`——可选，只有在 `lock true` 时才有意义。锁定时长**以区块数计**（一个区块约 3 秒），因此 28800 即为一天。省略则使用链上默认的 3 天锁定期。
 
 示例：
 

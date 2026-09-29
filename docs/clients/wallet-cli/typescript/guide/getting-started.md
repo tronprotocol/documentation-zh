@@ -33,30 +33,17 @@ wallet-cli list
 
 ```console
 HD  wlt_4473p34m
-└─ [0] main  TMSgJxtPw29AFEHMXsjGo4kWV7UwbCToHJ  (active)
+└─ [0] main        TMSgJxtPw29AFEHMXsjGo4kWV7UwbCToHJ  (active)
 ```
 
-其中的 `T…` 是 TRON 地址，在所有 TRON 网络上都相同。`(active)` 表示命令默认使用的账户；可通过 `wallet-cli use <label>` 切换。
-
-你的账户还有一个**EVM 地址**，由同一份种子派生而来——`list` 一次只显示一个链家族，因此传 `--network` 才能看到另一个：
-
-```bash
-wallet-cli list --network sepolia
-```
-
-```console
-HD  wlt_4473p34m
-└─ [0] main  0x3f9A1C74E5B2d80Af6C31e97b45D2a08c7E6F193  (active)
-```
-
-这两个是互相独立的地址，余额也互相独立；给其中一个充值不会让另一个多出一分。下面所有内容在两边的用法完全一样——把 `--network tron:3448148188` 换成 `--network sepolia`，金额单位就从 TRX 变成 ETH。参见[网络](../concepts/networks.md)。
+那串 `T…` 就是你的 TRON 地址，在所有 TRON 网络上都相同。该账户还有一个 EVM 的 `0x` 地址，由同一份种子派生——`wallet-cli current` 会把两个都打印出来，而 `list` 显示的是 `--network` 所选家族的那个。`(active)` 标记的是各命令默认作用的账户；用 `wallet-cli use <label>` 切换。
 
 ## 2. 领取测试 TRX
 
 打开 Nile 水龙头 [nileex.io/join/getJoinPage](https://nileex.io/join/getJoinPage)，找到 "Get 2000 test coins" 一节，粘贴你的 `T…` 地址，通过验证码并提交（每天一次；一分钟内到账）。然后确认已经到账：
 
 ```bash
-wallet-cli account balance --network tron:3448148188
+wallet-cli account balance --network nile
 ```
 
 ```console
@@ -75,26 +62,26 @@ wallet-cli config defaultNetwork tron:3448148188
 发送交易需要通过 `--password-stdin` 从 stdin 传入 master password：
 
 ```bash
-printf '%s' "$MY_PASSWORD" | wallet-cli tx send --to TSx72ViULFepRGCS4PM5dP4FqD1d8qggCc --amount 1 --network tron:3448148188 --password-stdin
+printf '%s' "$MY_PASSWORD" | wallet-cli tx send --to TSx72ViULFepRGCS4PM5dP4FqD1d8qggCc --amount 1 --network nile --password-stdin
 ```
 
 **提示——更推荐使用密码管理器**（第 1 步中已配置）。直接把密码从它管道传入：
 
 ```bash
-op read "op://Private/wallet-cli/password" | wallet-cli tx send --to TSx72ViULFepRGCS4PM5dP4FqD1d8qggCc --amount 1 --network tron:3448148188 --password-stdin
+op read "op://Private/wallet-cli/password" | wallet-cli tx send --to TSx72ViULFepRGCS4PM5dP4FqD1d8qggCc --amount 1 --network nile --password-stdin
 ```
 
 交易会被签名并**提交**。提交不等于确认，请继续查询交易状态：
 
 ```bash
-wallet-cli tx status --txid <the txid you got back> --network tron:3448148188
+wallet-cli tx status --txid <the txid you got back> --network nile
 ```
 
 ```console
-TxID           7d9b6a08505537f7fd51ed4fb4223ce89098403d26e8d3fe07bdb3d625a46364
+TxID           1789b6e3d420d84f21013fa4e18ecd2c60df1accb7101fd71c2511b75835c0cd
 Status         confirmed ✅
-Block          #70,433,563
-Confirmations  1
+Block          #70,604,611
+Confirmations  19
 ```
 
 `pending` 表示交易仍在处理中，应稍后再次查询；`failed` 表示交易已经入块，但链上执行失败（见[故障排查](../troubleshooting.md)）。想让 `tx send` 等待交易结果，请加上 `--wait`。
@@ -102,7 +89,7 @@ Confirmations  1
 对某笔交易没把握？先演练一次——`--dry-run` 只构建交易并估算费用，不签名也不广播：
 
 ```bash
-wallet-cli tx send --to TSx72ViULFepRGCS4PM5dP4FqD1d8qggCc --amount 1 --network tron:3448148188 --dry-run
+wallet-cli tx send --to TSx72ViULFepRGCS4PM5dP4FqD1d8qggCc --amount 1 --network nile --dry-run
 ```
 
 ## 4. 接下来看什么
@@ -111,10 +98,10 @@ wallet-cli tx send --to TSx72ViULFepRGCS4PM5dP4FqD1d8qggCc --amount 1 --network 
 - 不再为手续费燃烧 TRX：[质押与资源](stake-and-resources.md)
 - 质押之后为超级代表投票并领取投票奖励：[`vote`](../commands/vote/index.md)、[`reward`](../commands/reward/index.md)
 - 硬件钱包签名：[Ledger 指南](ledger.md)
-- 完整的交易详情和交易回执：[`tx info`](../commands/tx/info.md)
-- 你的历史记录和持仓：[`account history`](../commands/account/history.md)、[`account portfolio`](../commands/account/portfolio.md)
-- 把这些操作自动化：[脚本编写指南](scripting.md)
-- `tron:3448148188` / `eip155:11155111` 究竟是什么，以及哪些命令能在哪里运行：[网络](../concepts/networks.md)
+- 完整的交易详情与回执：[`tx info`](../commands/tx/info.md)
+- 你的历史与持仓：[`account history`](../commands/account/history.md)、[`account portfolio`](../commands/account/portfolio.md)
+- 把上述任何一项自动化：[脚本化指南](scripting.md)
+- `tron:3448148188` / `tron:728126428` 到底是什么：[网络](../concepts/networks.md)
 
 > **主网操作提示**：主网 TRX 具有真实价值。请仔细核对收款地址，并优先执行 `--dry-run`；交易一旦
 > 广播，发送方无法主动撤销，是否达到最终性仍取决于链上固化状态。

@@ -31,7 +31,7 @@ wallet-cli proposal show <id> [options]
 一个仍在投票窗口内的提案：
 
 ```bash
-wallet-cli proposal show 47 --network tron:3448148188
+wallet-cli proposal show 47 --network nile
 ```
 
 ```console
@@ -48,7 +48,7 @@ Proposal #47
 一个在到期时达到阈值的提案——该值从那次统计起就已生效：
 
 ```bash
-wallet-cli proposal show 45 --network tron:3448148188
+wallet-cli proposal show 45 --network nile
 ```
 
 ```console
@@ -65,7 +65,7 @@ Proposal #45
 一个到期时未达阈值、且携带两个参数的提案：
 
 ```bash
-wallet-cli proposal show 44 --network tron:3448148188
+wallet-cli proposal show 44 --network nile
 ```
 
 ```console
@@ -81,7 +81,7 @@ Proposal #44
 ```
 
 ```bash
-wallet-cli proposal show 47 --network tron:3448148188 -o json
+wallet-cli proposal show 47 --network nile -o json
 ```
 
 ```json

@@ -32,9 +32,9 @@ wallet-cli encoding convert TBhCfAytTEh52WFL6HYr64i2nmc3u3TCUp
 ```
 
 ```console
-TRON      TBhCfAytTEh52WFL6HYr64i2nmc3u3TCUp
-TRON hex  4112e94f5a3c88b17d2f6e0b9a45cd310f8e7a6d29
-EVM       0x12E94f5a3c88b17d2F6E0b9a45Cd310f8E7a6D29
+TRON        TBhCfAytTEh52WFL6HYr64i2nmc3u3TCUp
+TRON hex    4112e94f5a3c88b17d2f6e0b9a45cd310f8e7a6d29
+EVM         0x12E94f5a3c88b17d2F6E0b9a45Cd310f8E7a6D29
 ```
 
 ```bash
@@ -52,9 +52,9 @@ wallet-cli encoding convert 04a1b2c3d4e5...f6a7b8c9d0
 ```
 
 ```console
-TRON      TBhCfAytTEh52WFL6HYr64i2nmc3u3TCUp
-TRON hex  4112e94f5a3c88b17d2f6e0b9a45cd310f8e7a6d29
-EVM       0x12E94f5a3c88b17d2F6E0b9a45Cd310f8E7a6D29
+TRON        TBhCfAytTEh52WFL6HYr64i2nmc3u3TCUp
+TRON hex    4112e94f5a3c88b17d2f6e0b9a45cd310f8e7a6d29
+EVM         0x12E94f5a3c88b17d2F6E0b9a45Cd310f8E7a6D29
 ```
 
 不具备地址形态的输入会在各种编码之间互相转换，双向均可：

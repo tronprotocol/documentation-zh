@@ -60,7 +60,7 @@ wallet-cli exchange trade <id> --sell <TRX|asset-id>
 显式给出下限：
 
 ```bash
-echo "$PW" | wallet-cli exchange trade 12 --sell TRX --amount 100 --min-received 4900 --network tron:3448148188 --wait --password-stdin
+echo "$PW" | wallet-cli exchange trade 12 --sell TRX --amount 100 --min-received 4900 --network nile --wait --password-stdin
 ```
 
 ```console
@@ -79,7 +79,7 @@ echo "$PW" | wallet-cli exchange trade 12 --sell TRX --amount 100 --min-received
 同一笔交易改用 `--slippage 1` 时，CLI 会根据当前储备算出 4,950，再扣除 1%，以 4,900.5 作为下限。滑点百分比会先换算为基点并四舍五入到最接近的整数，因此 `--slippage 1.006` 实际容忍 1.01% 的滑点；随后，下限按整数除法向下取整。
 
 ```bash
-echo "$PW" | wallet-cli exchange trade 12 --sell TRX --amount 100 --slippage 1 --network tron:3448148188 --wait --password-stdin -o json
+echo "$PW" | wallet-cli exchange trade 12 --sell TRX --amount 100 --slippage 1 --network nile --wait --password-stdin -o json
 ```
 
 ```json

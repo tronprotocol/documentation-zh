@@ -39,7 +39,7 @@ wallet-cli proposal approve <id> [--cancel]
 示例中的 `$PW` 是你的 master password（来自环境变量、密码管理器等），通过 `--password-stdin` 从 stdin 传入。
 
 ```bash
-echo "$PW" | wallet-cli proposal approve 47 --network tron:3448148188 --wait --password-stdin
+echo "$PW" | wallet-cli proposal approve 47 --network nile --wait --password-stdin
 ```
 
 ```console
@@ -56,7 +56,7 @@ echo "$PW" | wallet-cli proposal approve 47 --network tron:3448148188 --wait --p
 `--cancel` 会把你自己的批准从提案上撤下来：
 
 ```bash
-echo "$PW" | wallet-cli proposal approve 47 --cancel --network tron:3448148188 --wait --password-stdin
+echo "$PW" | wallet-cli proposal approve 47 --cancel --network nile --wait --password-stdin
 ```
 
 ```console
@@ -71,7 +71,7 @@ echo "$PW" | wallet-cli proposal approve 47 --cancel --network tron:3448148188 -
 ```
 
 ```bash
-echo "$PW" | wallet-cli proposal approve 47 --network tron:3448148188 --wait --password-stdin -o json
+echo "$PW" | wallet-cli proposal approve 47 --network nile --wait --password-stdin -o json
 ```
 
 ```json

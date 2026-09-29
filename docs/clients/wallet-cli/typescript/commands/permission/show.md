@@ -31,39 +31,70 @@ wallet-cli permission show [options]
 
 ## 示例
 
-**从未修改过的账户**显示的是链上默认的 owner 组和 active 组。active 组的完整操作集合按固定的 76 字符宽度换行（不是终端宽度）；操作标签绝不会被省略号替代。位图中无法识别的位会打印为 `Unknown contract type <id>`。
+**从未改动过的账户**会显示链上的默认结构——active 组覆盖全部常规操作类型：
+
+```bash
+wallet-cli permission show --account solo --network nile
+```
+
+```console
+Account  solo (TDWjkQ5EoUSoRNhhw6cDfa72YN8WuV5d8a)
+
+Permission Name   owner  (id 0)
+Threshold         1
+Authorized To     Address                             Weight
+                  TDWjkQ5EoUSoRNhhw6cDfa72YN8WuV5d8a       1  (this wallet: solo)
+
+Permission Name   active  (id 2, active)
+Operation(s)      Activate Account · Transfer TRX · Transfer TRC10 · Vote for TRC10 [unused]
+                  Vote · Apply to Become a SR Candidate · Issue TRC10 · Update SR Info
+                  Participate in TRC10 Issuance · Update Account Name · TRX Stake (1.0)
+                  TRX Unstake (1.0) · Claim Voting Rewards · Unstake TRC10
+                  Update TRC10 Parameters · Create Proposal · Approve Proposal
+                  Cancel Proposal · Set Account Id · Custom Contract · Create Smart Contract
+                  Trigger Smart Contract · Get Contract · Update Contract Parameters
+                  Create Bancor Transaction · Inject Assets into Bancor Transaction
+                  Withdraw Assets from Bancor Transaction · Execute Bancor Transaction
+                  Update Contract Energy Limit · Clear Contract ABI
+                  Update SR Commission Ratio · Market Sell Asset · Market Cancel Order
+                  TRX Stake (2.0) · TRX Unstake (2.0) · Withdraw Unstaked TRX
+                  Delegate Resources · Reclaim Resources · Cancel Unstake  (39 total)
+Threshold         1
+Authorized To     Address                             Weight
+                  TDWjkQ5EoUSoRNhhw6cDfa72YN8WuV5d8a       1  (this wallet: solo)
+```
 
 **多签账户**——这里 owner 组是 2-of-3，另有一个限定范围的 `finance` active 组负责日常转账。本钱包只持有其中一个密钥（`main`）；另外两个由外部联署人持有，因此没有标注：
 
 ```bash
-wallet-cli permission show --account main --network tron:3448148188
+wallet-cli permission show --account main --network nile
 ```
 
 ```console
-Account  main (TQkXm4vN8pR2sD6fWbYc3LhJa9Ee5Zt7Uw)
+Account  main (TP2Zs9qKScTMs8jDYV3SAHQ5pqgKY1NQ5V)
 
 Permission Name   owner  (id 0)
 Threshold         2
 Authorized To     Address                             Weight
-                  TQkXm4vN8pR2sD6fWbYc3LhJa9Ee5Zt7Uw       1  (this wallet: main)
-                  TBy6mQ7Y3nJ8sD2fWpXk4LhVc9Ra1Zt5Ub       1
-                  TXe4Kd8nP2rF9gH5jL3mV6cW1bN7yS0aQz       1
+                  TP2Zs9qKScTMs8jDYV3SAHQ5pqgKY1NQ5V       1  (this wallet: main)
+                  TF9yB7bAL2oBbonYaMvGTqoXxExS14x73c       1
+                  TNDHPk1LMLZTap8tMWfxUBy4MgArnWeSVP       1
 
 Permission Name   finance  (id 2, active)
 Operation(s)      Transfer TRX · Transfer TRC10 · Trigger Smart Contract  (3 total)
 Threshold         2
 Authorized To     Address                             Weight
-                  TQkXm4vN8pR2sD6fWbYc3LhJa9Ee5Zt7Uw       1  (this wallet: main)
-                  TBy6mQ7Y3nJ8sD2fWpXk4LhVc9Ra1Zt5Ub       1
-                  TXe4Kd8nP2rF9gH5jL3mV6cW1bN7yS0aQz       1
+                  TP2Zs9qKScTMs8jDYV3SAHQ5pqgKY1NQ5V       1  (this wallet: main)
+                  TF9yB7bAL2oBbonYaMvGTqoXxExS14x73c       1
+                  TNDHPk1LMLZTap8tMWfxUBy4MgArnWeSVP       1
 ```
 
 ```bash
-wallet-cli permission show --account main --network tron:3448148188 -o json
+wallet-cli permission show --account main --network nile -o json
 ```
 
 ```json
-{"schema":"wallet-cli.result.v1","success":true,"command":"permission.show","data":{"address":"TQkXm4vN8pR2sD6fWbYc3LhJa9Ee5Zt7Uw","owner":{"id":0,"name":"owner","threshold":2,"keys":[{"address":"TQkXm4vN8pR2sD6fWbYc3LhJa9Ee5Zt7Uw","weight":1,"local":"main"},{"address":"TBy6mQ7Y3nJ8sD2fWpXk4LhVc9Ra1Zt5Ub","weight":1,"local":null},{"address":"TXe4Kd8nP2rF9gH5jL3mV6cW1bN7yS0aQz","weight":1,"local":null}]},"witness":null,"actives":[{"id":2,"name":"finance","threshold":2,"operations":["TransferContract","TransferAssetContract","TriggerSmartContract"],"operationLabels":["Transfer TRX","Transfer TRC10","Trigger Smart Contract"],"operationsHex":"0600008000000000000000000000000000000000000000000000000000000000","unknownOperationIds":[],"keys":[{"address":"TQkXm4vN8pR2sD6fWbYc3LhJa9Ee5Zt7Uw","weight":1,"local":"main"},{"address":"TBy6mQ7Y3nJ8sD2fWpXk4LhVc9Ra1Zt5Ub","weight":1,"local":null},{"address":"TXe4Kd8nP2rF9gH5jL3mV6cW1bN7yS0aQz","weight":1,"local":null}]}]},"meta":{"durationMs":21,"warnings":[]},"chain":{"family":"tron","network":"tron:3448148188","chainId":"3448148188"}}
+{"schema":"wallet-cli.result.v1","success":true,"command":"permission.show","data":{"address":"TP2Zs9qKScTMs8jDYV3SAHQ5pqgKY1NQ5V","owner":{"id":0,"name":"owner","threshold":2,"keys":[{"address":"TP2Zs9qKScTMs8jDYV3SAHQ5pqgKY1NQ5V","weight":1,"local":"main"},{"address":"TF9yB7bAL2oBbonYaMvGTqoXxExS14x73c","weight":1,"local":null},{"address":"TNDHPk1LMLZTap8tMWfxUBy4MgArnWeSVP","weight":1,"local":null}]},"witness":null,"actives":[{"id":2,"name":"finance","threshold":2,"operations":["TransferContract","TransferAssetContract","TriggerSmartContract"],"operationLabels":["Transfer TRX","Transfer TRC10","Trigger Smart Contract"],"operationsHex":"0600008000000000000000000000000000000000000000000000000000000000","unknownOperationIds":[],"keys":[{"address":"TP2Zs9qKScTMs8jDYV3SAHQ5pqgKY1NQ5V","weight":1,"local":"main"},{"address":"TF9yB7bAL2oBbonYaMvGTqoXxExS14x73c","weight":1,"local":null},{"address":"TNDHPk1LMLZTap8tMWfxUBy4MgArnWeSVP","weight":1,"local":null}]}]},"meta":{"durationMs":21,"warnings":[]},"chain":{"family":"tron","network":"tron:3448148188","chainId":"3448148188"}}
 ```
 
 ## 输出
@@ -72,17 +103,17 @@ wallet-cli permission show --account main --network tron:3448148188 -o json
 |---|---|---|
 | `address` | string | 被查询的账户 |
 | `owner` | object | owner 组 `{id, name, threshold, keys[]}` |
-| `witness` | object \| null | witness 组（仅超级代表有），否则为 `null` |
-| `actives[]` | array | active 组，每项为 `{id, name, threshold, operations[], operationLabels[], operationsHex, unknownOperationIds[], keys[]}` |
-| `…operations[]` | string[] | 该 active 组可执行的合约类型名 |
-| `…operationLabels[]` | string[] | 与已知操作 id 一一对应的人类可读标签 |
-| `…operationsHex` | string | 原始的 32 字节操作位图，hex |
-| `…unknownOperationIds[]` | number[] | 本版本无法映射到已知合约类型的置位；全部操作都已识别时为空数组 |
-| `…keys[]` | array | 组内的密钥：`{address, weight, local}`——若由本地持有，`local` 为钱包标签，否则为 `null` |
+| `witness` | object \| null | 超级代表的 witness 组 `{id, name, threshold, keys[]}`，否则为 `null` |
+| `actives[]` | array | active 组列表，每项为 `{id, name, threshold, operations[], operationLabels[], operationsHex, unknownOperationIds[], keys[]}` |
+| `…operations[]` | string[] | 该 active 组可执行的合约类型名称 |
+| `…operationLabels[]` | string[] | 已知操作 id 对应的可读标签 |
+| `…operationsHex` | string | 原始的 32 字节操作位图，hex 形式 |
+| `…unknownOperationIds[]` | number[] | 本版本无法映射到已知合约类型的置位；全部操作都已知时为空 |
+| `…keys[]` | array | 组内密钥：`{address, weight, local}`——本地持有时 `local` 是钱包标签，否则为 `null` |
 
 ## 退出码
 
-`0` 成功 · `1` 执行失败（`not_found`——地址未激活 / 链上不存在；`rpc_error`） · `2` 用法错误（`invalid_value`）。
+`0` 成功 · `1` 执行失败（`not_found`——该地址未激活或链上不存在；`rpc_error`） · `2` 用法错误（`invalid_value`）。
 
 ## 另请参见
 

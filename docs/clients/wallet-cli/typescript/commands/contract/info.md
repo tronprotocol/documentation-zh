@@ -10,9 +10,9 @@ wallet-cli contract info --contract <address> [options]
 
 ## 说明
 
-获取已部署合约的 ABI 与元数据（合并了 `getContract` 与 `getContractInfo`），包括名称、方法列表、`origin` 地址、`bytecode` 和能量相关设置。在使用 [`contract call`](call.md) 或 [`contract send`](send.md) 前，可通过 ABI 确认准确的方法签名。该命令只读，不涉及账户或密码。
+> **仅限 TRON。** 这里读取的 ABI 是保存在链上的那一份，属于 TRON 的协议特性；在 EVM 网络上，本命令会以 `family_mismatch` 失败。
 
-**仅限 TRON。** 链上 ABI 登记表是 TRON 的协议特性；EVM 链不在链上保存 ABI，因此在 EVM 网络上本命令会以 `family_mismatch` 失败。
+获取已部署合约的 ABI 与元数据（合并了 `getContract` 与 `getContractInfo`），包括名称、方法列表、`origin` 地址、`bytecode` 和能量相关设置。在使用 [`contract call`](call.md) 或 [`contract send`](send.md) 前，可通过 ABI 确认准确的方法签名。该命令只读，不涉及账户或密码。
 
 ## 选项
 
@@ -25,7 +25,7 @@ wallet-cli contract info --contract <address> [options]
 ## 示例
 
 ```bash
-wallet-cli contract info --contract TXYZopYRdj2D9XRtbG411XZZ3kM5VkAeBf --network tron:3448148188
+wallet-cli contract info --contract TXYZopYRdj2D9XRtbG411XZZ3kM5VkAeBf --network nile
 ```
 
 ```console
@@ -35,7 +35,7 @@ Methods   33 (name / deprecate / approve …)
 ```
 
 ```bash
-wallet-cli contract info --contract TXYZopYRdj2D9XRtbG411XZZ3kM5VkAeBf --network tron:3448148188 -o json
+wallet-cli contract info --contract TXYZopYRdj2D9XRtbG411XZZ3kM5VkAeBf --network nile -o json
 ```
 
 ```json
@@ -57,7 +57,7 @@ text 输出只给出便于阅读的摘要；`contract` / `info` 两项原始明�
 
 ## 退出码
 
-`0` 成功 · `1` 执行失败（`rpc_error`；或该地址不是合约） · `2` 用法错误。
+`0` 成功 · `1` 执行失败（`rpc_error`；地址不是合约） · `2` 用法错误（在 EVM 网络上为 `family_mismatch`）。
 
 ## 另请参见
 

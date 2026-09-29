@@ -26,31 +26,27 @@ wallet-cli stake info [options]
 ## 示例
 
 ```bash
-wallet-cli stake info --account main --network tron:3448148188
+wallet-cli stake info --account main --network nile
 ```
 
 ```console
-Label         demo
-Staked        0 TRX  (for energy 0 TRX + for bandwidth 0 TRX)
-Voting power  14 TP  (used 1 / available 13)
-Energy        used 0 / 0
-Bandwidth     used 317 / 600
-Unfreezing    4 pending  (max 32 at a time, 32 more allowed)
-              ├─ 100 TRX        withdrawable 2026-08-11 18:26 (~16 day(s) ago)
-              ├─ 1,800,151 TRX  withdrawable 2026-08-11 18:44 (~16 day(s) ago)
-              ├─ 176 TRX        withdrawable 2026-08-11 18:45 (~16 day(s) ago)
-              └─ 13 TRX         withdrawable 2026-08-11 18:45 (~16 day(s) ago)
-Withdrawable  1,800,440 TRX now
+Label         main
+Staked        1,500 TRX  (for energy 1,000 TRX + for bandwidth 500 TRX)
+Voting power  1,500 TP  (used 1,000 / available 500)
+Energy        used 12,000 / 65,000
+Bandwidth     used 600 / 1,500
+Unfreezing    2 pending  (max 32 at a time, 30 more allowed)
+              ├─ 500 TRX  withdrawable 2026-07-15 08:00 (in ~10 day(s))
+              └─ 300 TRX  withdrawable 2026-07-16 08:00 (in ~11 day(s))
+Withdrawable  0 TRX now
 ```
 
-待处理的解质押以树状列在 `Unfreezing` 之下，每一条都标明它何时可提取，以及距离那一刻还有多久。时间已过的条目已经计入 `Withdrawable`；用 [`stake withdraw`](withdraw.md) 一次性全部领回。
-
 ```bash
-wallet-cli stake info --account main --network tron:3448148188 -o json
+wallet-cli stake info --account main --network nile -o json
 ```
 
 ```json
-{"schema":"wallet-cli.result.v1","success":true,"command":"stake.info","data":{"address":"TNmoJ3Be59WFEq5dsW6eCkZjveiL3G8HVB","staked":{"energySun":"0","bandwidthSun":"0"},"votingPower":{"total":14,"used":1,"available":13},"resource":{"energy":{"used":0,"limit":0},"bandwidth":{"used":317,"limit":600}},"unfreezing":[{"amountSun":"100000000","withdrawableAt":1786444011000},{"amountSun":"1800151000000","withdrawableAt":1786445097000},{"amountSun":"176000000","withdrawableAt":1786445103000},{"amountSun":"13000000","withdrawableAt":1786445148000}],"withdrawableSun":"1800440000000","unfreeze":{"used":4,"max":32,"remaining":32}},"meta":{"durationMs":728,"warnings":[]},"chain":{"family":"tron","network":"tron:3448148188","chainId":"3448148188"}}
+{"schema":"wallet-cli.result.v1","success":true,"command":"stake.info","data":{"address":"TP2Zs9qKScTMs8jDYV3SAHQ5pqgKY1NQ5V","staked":{"energySun":"1000000000","bandwidthSun":"500000000"},"votingPower":{"total":1500,"used":1000,"available":500},"resource":{"energy":{"used":12000,"limit":65000},"bandwidth":{"used":600,"limit":1500}},"unfreezing":[{"amountSun":"500000000","withdrawableAt":1784073600000},{"amountSun":"300000000","withdrawableAt":1784160000000}],"withdrawableSun":"0","unfreeze":{"used":2,"max":32,"remaining":30}},"meta":{"durationMs":22,"warnings":[]},"chain":{"family":"tron","network":"tron:3448148188","chainId":"3448148188"}}
 ```
 
 ## 输出

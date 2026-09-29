@@ -44,7 +44,7 @@ wallet-cli vote cast --for <SR=votes> ... [--dry-run | (--sign-only | --build-on
 默认——广播并返回**已提交**的回执，不等待：
 
 ```bash
-echo "$PW" | wallet-cli vote cast --for TZ4...=600 --for TT5...=400 --network tron:3448148188 --password-stdin
+echo "$PW" | wallet-cli vote cast --for TZ4...=600 --for TT5...=400 --network nile --password-stdin
 ```
 
 ```console
@@ -56,7 +56,7 @@ echo "$PW" | wallet-cli vote cast --for TZ4...=600 --for TT5...=400 --network tr
 ```
 
 ```bash
-echo "$PW" | wallet-cli vote cast --for TZ4...=600 --for TT5...=400 --network tron:3448148188 --password-stdin -o json
+echo "$PW" | wallet-cli vote cast --for TZ4...=600 --for TT5...=400 --network nile --password-stdin -o json
 ```
 
 ```json
@@ -66,7 +66,7 @@ echo "$PW" | wallet-cli vote cast --for TZ4...=600 --for TT5...=400 --network tr
 加 `--wait` 可阻塞直到投票在链上被确认（会补上真实的区块号 / 手续费）：
 
 ```bash
-echo "$PW" | wallet-cli vote cast --for TZ4...=600 --for TT5...=400 --network tron:3448148188 --wait --password-stdin
+echo "$PW" | wallet-cli vote cast --for TZ4...=600 --for TT5...=400 --network nile --wait --password-stdin
 ```
 
 ```console
@@ -89,7 +89,7 @@ echo "$PW" | wallet-cli vote cast --for TZ4...=600 --for TT5...=400 --network tr
 
 ## 退出码
 
-`0` 已提交（提前退出的模式下则是已构建/已签名） · `1` 执行失败（`watch_only_no_signer`、`auth_failed`） · `2` 用法错误（`insufficient_voting_power`——总票数超出该账户的**总** TP（已投出的票是被重新分配，而不是叠加，因此这里比对的是总量，而不是剩余可用量）；`invalid_value`——SR 地址不合法、票数非正整数，或条目超过 30 个）。
+`0` 已提交（提前退出的模式下则为已构建/已签名） · `1` 执行失败（`watch_only_no_signer`、`auth_failed`） · `2` 用法错误（`insufficient_voting_power`——总票数超过了该账户的**全部** TP；已投出的票是被重新分配而不是追加，因此校验的是总量而非可用量；`invalid_value`——SR 地址有误、票数不是正数、条目超过 30 个）。
 
 ## 另请参见
 
