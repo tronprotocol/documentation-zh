@@ -125,6 +125,62 @@ TRON 网络主要分为以下几类：
 
 启动全节点时，通过指定对应的配置文件即可选择网络：主网配置：[config.conf](https://github.com/tronprotocol/java-tron/blob/master/framework/src/main/resources/config.conf)；Nile 测试网配置：[config-nile.conf](https://github.com/tron-nile-testnet/nile-testnet/blob/master/framework/src/main/resources/config-nile.conf)
 
+### 使用 `tcmalloc` 优化内存占用
+
+在 Linux 上使用 `java -jar` 启动 java-tron 节点之前，请配置由 [gperftools](https://github.com/gperftools/gperftools) 提供的 `tcmalloc` 内存分配器，以帮助控制节点运行期间的内存占用。
+
+!!! note
+    此优化仅适用于 Linux。在 macOS 上直接运行 java-tron 时，无需配置 `tcmalloc`。
+
+    4.8.1 及更高版本的 java-tron 官方 Docker 镜像已内置 `tcmalloc`，无需手动配置。
+
+1. **安装 gperftools 运行库**：
+
+    * **Ubuntu 22.04**：
+
+        ```bash
+        sudo apt update
+        sudo apt install libgoogle-perftools4
+        ```
+
+    * **Ubuntu 24.04 / Ubuntu 26.04 / Debian 13**：
+
+        ```bash
+        sudo apt update
+        sudo apt install libgoogle-perftools4t64
+        ```
+
+    对于其他受支持的 Linux 发行版，请使用该发行版的包管理器安装提供 `libtcmalloc.so.4` 的软件包。
+
+2. **定位并预加载库**：
+
+    库路径取决于 Linux 发行版和 CPU 架构。例如，基于 Debian 的 x86_64 系统通常将其安装在 `/usr/lib/x86_64-linux-gnu/` 目录下，而 ARM64 系统则使用 `/usr/lib/aarch64-linux-gnu/` 目录。请解析已安装库的路径，避免直接复制与特定架构绑定的路径：
+
+    ```bash
+    TCMALLOC_PATH="$(ldconfig -p | awk '$1 == "libtcmalloc.so.4" {print $NF; exit}')"
+
+    if [ -z "$TCMALLOC_PATH" ]; then
+        echo "libtcmalloc.so.4 was not found" >&2
+        exit 1
+    fi
+
+    export LD_PRELOAD="$TCMALLOC_PATH"
+    export TCMALLOC_RELEASE_RATE=10
+    ```
+
+    请在同一 Shell 中运行后续章节对应的 `java -jar` 启动命令，或将以上内容添加到节点启动脚本中的 Java 命令之前。
+
+3. **验证是否已加载 `tcmalloc`**：
+
+    启动 FullNode 后，检查进程的内存映射：
+
+    ```bash
+    FULLNODE_PID="$(pgrep -f 'FullNode.jar' | head -n 1)"
+    grep tcmalloc "/proc/$FULLNODE_PID/maps"
+    ```
+
+    如果 `tcmalloc` 已生效，该命令将输出已加载的 `libtcmalloc` 库路径。
+
 ### 启动全节点连接主网 { #starting-a-fullnode-on-the-tron-main-network }
 
 如果当前工作目录中不存在 `./config.conf`，以下命令将使用 JAR 中内置的 `config.conf` 启动主网 FullNode。如果存在 `./config.conf`，java-tron 会优先加载该文件。为避免歧义，可通过 `-c` 指定明确路径；完整的解析顺序请参阅[节点配置](configuration.md#configuration-files-and-precedence)。
@@ -481,62 +537,3 @@ node.backup {
             -c framework/src/main/resources/config.conf \
             --password "密码" > start.log 2>&1 &
         ```
-
-### 使用 `tcmalloc` 优化内存占用
-
-为达到内存使用的最优化，您可以使用 Google `tcmalloc` 替代系统 `glibc malloc`。
-
-1. **安装 `tcmalloc`**:
-    * **Ubuntu 20.04 LTS / Ubuntu 18.04 LTS / Debian stable**:
-
-    ```shell
-    sudo apt install libgoogle-perftools4
-    ```
-
-    * **Ubuntu 16.04 LTS**:
-
-    ```shell
-    sudo apt install libgoogle-perftools4
-    ```
-
-    * **CentOS 7**:
-
-    ```shell
-    sudo yum install gperftools-libs
-    ```
-
-2. **修改启动脚本**:
-
-    * 在您的节点启动脚本中添加以下两行。请注意，不同 Linux 发行版上 `libtcmalloc.so.4` 的路径可能略有差异。
-
-    ```bash
-    #!/bin/bash
-
-    export LD_PRELOAD="/usr/lib/libtcmalloc.so.4" # 根据 您的系统调整路径
-    export TCMALLOC_RELEASE_RATE=10
-
-    # original start command
-    java -jar .....
-    ```
-
-    * **Ubuntu 20.04 LTS / Ubuntu 18.04 LTS / Debian stable**:
-
-    ```bash
-    export LD_PRELOAD="/usr/lib/x86_64-linux-gnu/libtcmalloc.so.4"
-    export TCMALLOC_RELEASE_RATE=10
-    ```
-
-    * **Ubuntu 16.04 LTS**:
-
-    ```bash
-    export LD_PRELOAD="/usr/lib/libtcmalloc.so.4"
-    export TCMALLOC_RELEASE_RATE=10
-    ```
-
-    * **CentOS 7**:
-
-    ```bash
-    export LD_PRELOAD="/usr/lib64/libtcmalloc.so.4"
-    export TCMALLOC_RELEASE_RATE=10
-    ```
-  
