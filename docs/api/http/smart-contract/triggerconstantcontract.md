@@ -58,6 +58,19 @@ curl --request POST \
 | `logs` | repeated TransactionLog | event 日志（如触发） |
 | `internal_transactions` | repeated InternalTransaction | 内部调用（如发生） |
 
+!!! note "理解模拟执行结果"
+    本次模拟所使用的执行上下文包括节点处理请求时可见的状态视图和生效的 TVM 规则。由于节点会持续处理区块和 Pending 交易，并可能同时执行其他 Constant Call，稍后提交的交易在链上执行时可能处于不同的执行上下文，其执行结果也可能与本次模拟的结果不同。这是时点模拟的正常特性。
+
+    模拟使用的执行上下文主要受以下情况影响：
+
+    - **处理区块：** 节点会按顺序执行区块内的交易，并同步更新账户、合约存储、资源和链参数。在此期间发起的模拟会使用节点当时可见的数据。
+    - **处理 Pending 交易：** `/wallet` 提供最新状态视图。节点校验或重放 Pending 交易时，该视图可能包含节点本地更新，并随着交易被打包或新区块到达而继续变化。
+    - **其他 Constant Call：** 通过 `/wallet` 和 `/walletsolidity` 发起的调用可能使用不同的提案状态和 TVM 规则。当不同执行上下文的调用同时进行时，极少数情况下，模拟可能反映节点当时正在应用的执行配置。
+
+    `constant_result`、`energy_used`、`logs` 和 `internal_transactions` 是本次模拟执行产生的结果。当模拟读取的状态或使用的 TVM 规则不同时，合约的执行路径可能发生变化，这些字段的返回值也可能随之不同。顶层 `result` 表示 API 调用状态，`transaction.ret[0].ret` 表示模拟的 TVM 执行结果。
+
+    可根据需要选择接口：`/wallet` 提供最新状态视图，`/walletsolidity` 提供稍早但已固化的状态视图。准备交易时，可将模拟结果作为参考，并为随状态变化的 Energy 消耗预留余量；交易广播后，实际链上执行结果以交易回执为准。
+
 响应示例（Nile 实抓）：
 
 ```json
