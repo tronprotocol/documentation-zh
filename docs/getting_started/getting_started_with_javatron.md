@@ -84,7 +84,7 @@ currentNetwork: NILE
 
 **1. 注册新账户**
 
-在提示符后输入 `registerwallet` 命令，并根据提示设置一个安全的密码。此命令会生成一个新的 TRON 网络账户，并将其注册到 `wallet-cli`，即将其加密后的**私钥**存储在 `wallet-cli` 的本地密钥库中，以便后续使用该私钥对交易进行签名。
+在提示符后输入 `registerwallet` 命令，并根据提示设置一个安全的密码。此命令会生成一对公钥和私钥，并从公钥派生出账户地址。它会将加密后的私钥保存在本地，以便后续对交易进行签名，但不会激活链上账户。步骤 C 将介绍如何通过接收 TRX 转账，在主网或 Nile 测试网上为地址充值并激活账户。
 
 ```text
 wallet> registerwallet
@@ -136,21 +136,28 @@ wallet>
 我们强烈建议您在完成账户创建后立即备份私钥，并将其存放在绝对安全的地方。使用 `backupwallet` 命令，并按提示输入密码，即可查看账户的私钥。
 
 
-### 步骤 C：为账户充值 TRX
+### 步骤 C：为账户充值 TRX 并激活账户
 
-在 TRON 网络上执行任何交易（如转账、调用合约）都需要消耗网络资源，这些资源通过质押或燃烧 TRX 来获得。因此，在进行链上操作前，您必须确保操作账户中持有足够的 TRX。TRX 的获取方式因网络而异：
+新地址接收 TRX 转账时，会在转账所在的网络上创建链上账户记录并激活账户。主网和 Nile 的账户记录相互独立：在一个网络上激活地址，不会激活另一个网络上的同一地址。
+
+链上交易会消耗带宽，智能合约执行还会消耗能量。账户的免费额度可用于支付带宽消耗，额外的带宽和能量可通过质押或接收他人代理的资源获得。可用资源不足时，可能需要燃烧 TRX 来支付费用。发送交易前，请确保有足够的资源，以及足以支付转账金额和相关费用的 TRX。本教程使用测试 TRX 激活地址并完成示例转账。TRX 的获取方式因网络而异：
 
 - **在 TRON 网络主网 (Mainnet)**，TRX 是真实资产，主要通过以下方式获得：
     - 作为超级代表获得出块奖励，或通过为超级代表投票获得奖励
     - 从其他的 TRON 网络账户接收 TRX 转账
     - 从加密货币交易所购买
+
+    要激活主网上新生成的地址，请让一个已有的主网账户向该地址转入 TRX。
+
 - **在 Nile 测试网 (Testnet)**，TRX 没有实际价值。您可以通过访问 [水龙头 (Faucet)](https://nileex.io/join/getJoinPage) 免费获取。详细流程可参考 [如何获取测试币](https://developers.tron.network/docs/getting-testnet-tokens-on-tron)。
+
+    接收水龙头的 TRX 转账会激活您在 Nile 上的地址。您也可以通过接收已有 Nile 账户的 TRX 转账来激活地址。
 
 完成以上所有准备工作后，您现在拥有了一个配置正确、网络环境安全且持有测试币的 TRON 账户。
 
 ## 技能二：启动并运行一个 java-tron 节点 { #start-node }
 
-本模块将指导您启动一个 java-tron 实例，从而将您的计算机转变为一个 TRON 全节点。运行自己的节点可以为您提供最稳定、最可靠且无速率限制的网络访问。在本模块中，我们将连接到 TRON 的 Nile 测试网。
+本模块将指导您启动一个 java-tron 节点。运行自己的节点可让您自行管理 API 访问和限流设置。java-tron 提供可配置的 API 限流，您可以在运行自己的节点时进行管理。本模块使用 TRON 的 [Nile 测试网](https://nileex.io/)。
 
 > 提示：
 > 
@@ -166,7 +173,7 @@ wallet>
 
 **2.1 查看启动与同步日志**
 
-当节点启动后，您首先会在日志中看到节点的网络配置信息。以下日志表明 java-tron 已经启动并连接到了 Nile 测试网：
+启动过程中，java-tron 会打印网络配置。以下日志展示了 Nile 使用的配置值，但不能证明节点已完成启动或已连接到其他节点。日志中的类名、内容和行号可能因版本而异：
 
 ```text
 11:07:58.758 INFO  [main] [app](Args.java:1143) ************************ Net config ************************
@@ -177,7 +184,7 @@ wallet>
 11:07:58.758 INFO  [main] [app](Args.java:1148) Discover enable: true
 ```
 
-接下来，节点会开始寻找网络中可连接的其他对等节点 (peer)，并通过持续向它们请求区块来同步整个链上数据。成功连接上的对等节点即为“活跃对等节点” (active peer)。以下日志表明节点已成功连接到其他节点，并已开始同步数据：
+接下来，节点会寻找对等节点并请求缺失的区块，以更新本地区块链数据。以下日志展示了对等节点握手后开始同步区块的过程；日志内容可能因版本而异：
 
 ```text
 11:08:42.547 INFO  [TronJClientWorker-1] [net](Channel.java:116) Finish handshake with /123.56.3.74:18888.
@@ -206,7 +213,7 @@ Num:23113869,ID:000000000160b08d231e450ae1993a72ba19eb8f3c748fa70d105dadd0c9fd5f
 Num:23113870,ID:000000000160b08e37cb9951d31a4233f106c7e77e0535c597dbb6a16f163699, trx size: 0
 ```
 
-通过观察日志中的区块号（`Num:` 后面的数字）是否在持续稳定增长，可以判断同步是否在正常进行。如果日志长时间没有滚动，或反复出现错误、警告信息，说明节点可能遇到了问题。
+接收消息中的区块号持续增长，说明区块数据正在到达，但不能仅凭这一点证明区块已通过验证并应用到本地区块链。请检查 `/wallet/getnowblock` 返回的本地最新区块高度是否持续增长。如果网络仍在出块，而本地最新区块高度长时间不再增长，或日志反复出现错误，请检查节点的连接和同步状态。
 
 **2.2 使用 API 确认同步状态**
 
@@ -219,7 +226,7 @@ Num:23113870,ID:000000000160b08e37cb9951d31a4233f106c7e77e0535c597dbb6a16f163699
 - 通过 `/wallet/getnowblock` API 获取当前区块高度: 
 `curl http://127.0.0.1:8090/wallet/getnowblock`
 
-要确认您的节点已与网络完全同步，将您本地节点的区块高度与 [Tronscan 区块浏览器](https://tronscan.org/) 上显示的最新区块高度进行比较。如果两者一致，则表示您本地节点的同步状态正常。
+将本地节点的区块高度与 [Nile Tronscan 区块浏览器](https://nile.tronscan.org/) 上的最新高度进行比较。请使用与节点属于同一网络的区块浏览器。两次查询之间可能产生新区块，因此暂时出现较小的高度差是正常的。请多次检查，确认本地最新区块高度持续增长并接近网络最新高度；单次高度相同不足以证明同步状态正常。
 
 ### 3. 关闭节点
 
@@ -233,9 +240,9 @@ Num:23113870,ID:000000000160b08e37cb9951d31a4233f106c7e77e0535c597dbb6a16f163699
 在开始交互前，您可以选择两种节点连接方式：
 
 - **使用公共节点**（推荐新手）：无需等待同步，立即开始体验
-- **使用自有节点**（如已完成技能二）：获得更稳定、无限制的访问
+- **使用自有节点**（如已完成技能二）：自行管理 API 访问，并配置限流
 
-本节的示例将主要以**公共节点**为基础演示。
+`wallet-cli` 示例使用技能一中选择的**公共 Nile 节点**。cURL 示例使用位于 `http://127.0.0.1:8090` 的**本地 Nile 全节点**，需要先完成技能二的部署。如果您跳过了节点部署，可以继续使用 `wallet-cli`，或将 HTTP 示例中的基础 URL 替换为所选公共 Nile 节点服务的地址。
 
 ### 方式一：使用 `wallet-cli` (推荐)
 
@@ -308,11 +315,11 @@ before sign transaction hex string is 0a85010a02cbc322088581ae7e29258a5240a89aef
 Please confirm and input your permission id, if input y/Y means default 0, other non-numeric characters will cancel transaction.
 ```
 
-此命令会返回一个待确认的交易。请按以下步骤完成签名和广播：
+此命令会返回一笔未签名的交易。请按以下步骤完成签名和广播：
 
-1. 确认交易：核对交易详情无误后，输入 `y` 并按回车键（输入其他任意字符则会取消交易）。
-2. 选择签名账户：根据界面提示，选择用于给这笔交易签名的账户（即扣款账户）。
-3. 输入密码授权：输入所选账户的密码，`wallet-cli` 将会完成签名，并将交易广播至 java-tron 节点，完成交易。
+1. 确认交易：核对交易详情无误后，输入 `y` 或 `Y`，使用默认权限 ID `0`。
+2. 选择签名账户：选择发送方账户的钱包来签名交易。本教程使用账户的默认权限。
+3. 输入密码授权：输入所选钱包的密码，`wallet-cli` 会对交易签名并将其广播至 java-tron 节点。广播成功不代表交易已被打包进区块或已确认，请按照下文查询交易状态。
 
 ```text
 Please confirm and input your permission id, if input y/Y means default 0, other non-numeric characters will cancel transaction.
@@ -343,7 +350,7 @@ wallet>
   wallet> gettransactionbyid 21851bcf1faf22c99a7a49c4f246d709cf9f54db2f264ca145adcd464ea155a4
 ```
 
-返回的 JSON 数据包含了交易的所有细节，例如合约类型 (`TransferContract`)、转账金额、发送方和接收方地址等。`"contractRet":"SUCCESS"` 表示这笔交易的合约在语法上是正确的。
+返回的 JSON 数据包含合约类型（`TransferContract`）、转账金额、发送方和接收方地址等交易详情。`"contractRet":"SUCCESS"` 表示交易执行成功。
 
 ```json
   {
@@ -387,7 +394,7 @@ wallet>
   wallet> gettransactioninfobyid 21851bcf1faf22c99a7a49c4f246d709cf9f54db2f264ca145adcd464ea155a4
 ```
 
-在返回的结果中，最重要的字段是 `blockNumber`，它表示交易在哪一个区块高度被确认。如果这个值存在，说明交易已成功上链。此外，`receipt` 对象则记录了该交易消耗的带宽（`net_usage`）等资源。
+`blockNumber` 字段表示包含该交易的区块高度。交易入块本身不能证明执行成功或已固化确认：执行失败的智能合约交易也可能被打包进区块。请检查执行结果和回执，并通过本指南末尾介绍的固化状态查询方式检查确认状态。`receipt` 对象还记录了带宽（`net_usage`）等资源消耗。
 
 ```json
   {
@@ -414,11 +421,12 @@ wallet>
 
 在发送交易前，我们先用通过节点 HTTP 接口 `wallet/getaccount` 来查询一个账户的 TRX 余额。
 
-向节点的 `8090` 端口发送一个 `POST` 请求，请求体中包含您要查询的地址。
+本地 Nile 全节点启动并完成同步后，向其 `8090` 端口发送一个 `POST` 请求，请求体中包含您要查询的地址。
 
 ```bash
- curl -X POST http://127.0.0.1:8090/wallet/getaccount -d 
-     '{"address": "TUoHaVjx7n5xz8LwPRDckgFrDWhMhuSuJM",
+ curl -X POST http://127.0.0.1:8090/wallet/getaccount \
+     -H 'Content-Type: application/json' \
+     -d '{"address": "TPswDDCAWhJAZGdHPidFg5nEf8TkNToDX1",
        "visible": true
      }'
 ```
@@ -428,7 +436,7 @@ wallet>
 ```json
 {
     "account_name": "testacc2",
-    "address": "TUoHaVjx7n5xz8LwPRDckgFrDWhMhuSuJM",
+    "address": "TPswDDCAWhJAZGdHPidFg5nEf8TkNToDX1",
     "balance": 1000000000000000,"account_resource": {}
 }
 ```
@@ -442,10 +450,11 @@ wallet>
   通过 FullNode HTTP 的 `wallet/createtransaction` 接口，创建一笔未签名的 TRX 转账交易。在请求体中，指明发送方 (`owner_address`)、接收方 (`to_address`) 和金额 (`amount`)。
   
   ```bash
-  curl -X POST  http://127.0.0.1:8090/wallet/createtransaction -d 
-      '{
+  curl -X POST http://127.0.0.1:8090/wallet/createtransaction \
+      -H 'Content-Type: application/json' \
+      -d '{
           "to_address": "TUznHJfHe6gdYY7gvWmf6bNZHuPHDZtowf", 
-          "owner_address": "TUoHaVjx7n5xz8LwPRDckgFrDWhMhuSuJM", 
+          "owner_address": "TPswDDCAWhJAZGdHPidFg5nEf8TkNToDX1",
           "amount": 10000000,
           "visible":true
       }'
@@ -482,18 +491,18 @@ wallet>
 
 **第二步 - 对交易进行签名**
 
-  使用发送方账户的私钥，对上一步生成的交易数据 (`raw_data_hex` 或 `txid`) 进行签名，以证明您对该账户的所有权。
+  使用发送方账户的私钥，对交易 ID（`txID`）进行签名。`txID` 是序列化后的 `raw_data` 的 SHA-256 哈希。
   
   **重要提示**: 
   
-- 为保障私钥安全，建议您始终在本地或安全的服务器环境中，并使用 TRON 官方提供的 SDK (如 `TronWeb`, `java-tron-sdk` 等) 完成所有签名操作。
+- 为保障私钥安全，请在本地或安全的服务器环境中，使用 `TronWeb` 或 `Trident-java` 等 TRON SDK 完成签名。
 - `cURL` 无法执行签名操作。此步骤仅作流程说明。
   
-  签名后，您会得到一个长字符串，即交易的签名哈希 (Signature Hash)。
+  已签名交易的 `signature` 数组中包含十六进制编码的签名。
 
 **第三步 - 广播交易**
 
-  最后一步，我们将已签名的交易广播出去。调用  [`wallet/broadcasttransaction`](../api/http/tx-build-and-broadcast/broadcasttransaction.md) 接口，并在其请求体中填入第一步获取的交易对象和第二步生成的签名哈希。提交后，节点会验证签名，然后将交易广播至整个 TRON 网络等待打包确认，至此便完成了整个转账流程。
+  调用 [`wallet/broadcasttransaction`](../api/http/tx-build-and-broadcast/broadcasttransaction.md) 接口，并传入第二步得到的已签名交易对象。节点会验证交易（包括签名），并尝试将其传播给对等节点。成功响应表示节点已接受广播，不代表交易已入块、链上执行成功或已固化确认。广播后请分别查询这些状态。
   
   ```bash
   curl --location --request POST 'http://127.0.0.1:8090/wallet/broadcasttransaction' \
@@ -542,7 +551,7 @@ wallet>
 
 **`wallet/gettransactionbyid`**
 
-通过 HTTP 接口 `wallet/gettransactionbyid` 获取已广播交易的完整数据。在请求体中，通过 `value` 字段传入您要查询的 `txid`：
+当交易已被打包进节点已知的区块后，可通过 HTTP 接口 `wallet/gettransactionbyid` 获取交易数据。刚广播的交易可能暂时查不到，请在入块后重试。在请求体中，通过 `value` 字段传入要查询的交易 ID：
 
   ```bash
   curl --location --request POST 'http://127.0.0.1:8090/wallet/gettransactionbyid' \
@@ -602,7 +611,9 @@ wallet>
   }'
   ```
 
-  返回结果中的 `blockNumber` 字段是交易成功的关键凭证，只要这个字段有值，就代表您的交易已成功上链且不可逆转。而 `receipt` 字段则提供了详细的执行回执。
+  `blockNumber` 字段表示包含该交易的区块高度。要检查执行是否成功，请使用上文的 `wallet/gettransactionbyid`：`ret` 数组中的 `"contractRet":"SUCCESS"` 表示执行成功。交易入块不代表已固化确认。`receipt` 字段记录带宽用量（`net_usage`）等资源消耗。
+
+  要检查固化确认状态，请使用同一个交易 ID 查询 `/walletsolidity/gettransactionbyid`。此接口读取固化状态。本地节点启用 Solidity HTTP 服务后，其默认端口为 `8091`；公共节点服务可能在与其他 API 相同的基础 URL 下提供此路径。接口返回交易后，请检查 `ret` 数组中的 `contractRet` 是否为 `SUCCESS`，以确认执行成功。
 
   ```json
   {
