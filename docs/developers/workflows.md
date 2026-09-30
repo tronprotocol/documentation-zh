@@ -8,14 +8,13 @@
 | --- | --- | --- | --- |
 | PR Check（`pr-check.yml`） | `develop`、`release_**` | 运行 | 推送到 `master` 或 `release_**` |
 | PR Build（`pr-build.yml`） | `master`、`develop`、`release_**` | 跳过 | 手动触发 |
-| 单节点集成测试（`integration-test-single-node.yml`） | `develop`、`release_**` | 跳过 | 推送到 `master` 或 `release_**`；手动触发 |
-| 多节点集成测试（`integration-test-multinode.yml`） | `develop`、`release_**` | 跳过 | 推送到 `master` 或 `release_**`；手动触发 |
+| 单节点冒烟集成测试（`integration-test-single-node.yml`） | `develop`、`release_**` | 跳过 | 推送到 `master` 或 `release_**`；手动触发 |
 | CodeQL（`codeql.yml`） | `develop` | 跳过 | 推送到 `develop`、`master` 或 `release_**`；每周定时运行 |
 | Math 使用检查（`math-check.yml`） | `develop`、`release_**` | 运行 | 推送到 `master` 或 `release_**`；手动触发 |
 | 审查者分配（`pr-reviewer.yml`） | `develop`、`release_**` | 运行 | 无 |
 | 关闭 PR 时取消工作流（`pr-cancel.yml`） | 任意分支 | 未合并的 PR 关闭时运行 | 无 |
 
-如果 Pull Request 仅修改文档或部分仓库元数据文件，PR Build、两个集成测试工作流和 CodeQL 会被跳过。如果同一 Pull Request 还包含其他文件，符合目标分支条件的工作流会正常运行。PR Check、Math 使用检查、审查者分配和关闭时取消工作流没有此路径排除规则。
+如果 Pull Request 仅修改文档或部分仓库元数据文件，PR Build、单节点冒烟集成测试工作流和 CodeQL 会被跳过。如果同一 Pull Request 还包含其他文件，符合目标分支条件的工作流会正常运行。PR Check、Math 使用检查、审查者分配和关闭时取消工作流没有此路径排除规则。
 
 ## PR 校验和代码检查
 
@@ -48,12 +47,9 @@
 
 ## 集成、安全和 Math 检查
 
-本套文档对应的源码版本包含两个完整集成测试工作流：
+本套文档对应的源码版本包含一个单节点集成测试工作流，它针对一个节点运行冒烟测试子集。GitHub Actions 不会运行完整的单节点测试集和多节点集成测试工作流。
 
-- 单节点工作流针对一个节点运行完整测试集。
-- 多节点工作流针对由三个见证节点组成的环境运行完整测试集。
-
-它们会针对目标为 `develop` 或 `release_**` 且符合路径条件的 PR 运行，也会在推送到 `master` 或 `release_**` 时运行，并且支持手动触发。
+该冒烟测试工作流会针对目标为 `develop` 或 `release_**` 且符合路径条件的 PR 运行，也会在推送到 `master` 或 `release_**` 时运行，并且支持手动触发。
 
 CodeQL 仅针对目标为 `develop` 的 PR 运行。此外，它还会在推送到 `develop`、`master` 或 `release_**` 时运行，并且每周定时运行。
 
@@ -77,8 +73,7 @@ PR 校验和审查者分配使用不同的 `scope` 列表。PR 校验的已知�
 
 - PR Build
 - CodeQL
-- 单节点集成测试
-- 多节点集成测试
+- 单节点冒烟集成测试
 
 ## Sonar 配置
 

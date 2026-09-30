@@ -9,7 +9,7 @@
 ```
 
 - `OwnerAddress`——发起交易的账户地址，可选，默认为登录账户的地址。
-- `contractName`——智能合约的名称。
+- `contractName`——智能合约的名称，最长 32 字节。该限制按 UTF-8 编码后的字节数计算，而不是按字符数计算。
 - `ABI`——编译生成的 ABI 代码。
 - `byteCode`——编译生成的字节码。
 - `constructor`、`params`、`isHex`——定义字节码的格式，决定从参数解析 `byteCode` 的方式。
