@@ -3,7 +3,9 @@
 本页介绍首次运行流程：构建 wallet-cli、创建并解锁账户、查看账户信息，以及发送第一笔 TRX。所有操作
 都在交互式提示符中完成。
 
-## 构建并发送第一笔交易
+## 快速开始
+
+构建 wallet-cli、创建账户并发送第一笔转账——全部在交互式提示符中完成：
 
 ```console
 # 1. 构建
@@ -29,8 +31,10 @@ $ java -jar wallet-cli.jar
 ## 如何创建账户
 
 你可以通过向不存在的账户转账来创建账户，也可以用 **CreateAccount** 命令发起一笔交易来创建账户。
-两种方式都会燃烧一笔账户激活费并消耗带宽；这两项都由链参数决定、可经治理提案修改，并不是固定数额
-——具体规则见 [commands/account](../commands/account.md#how-to-create-account)。
+两种方式下，付款方都要燃烧 `getCreateNewAccountFeeInSystemContract`（按当前主网参数为 1 TRX）；
+只有质押带宽不足以支付该交易时，才会再燃烧 `getCreateAccountFee`（0.1 TRX）。因此按当前主网参数，
+花费为 **1 至 1.1 TRX**，但两者都可通过提案调整，因此请用 `getchainparameters` 读取——具体规则见
+[commands/account](../commands/account.md#how-to-create-account)。
 
 完整的 `CreateAccount` 示例见 [commands/account](../commands/account.md)。
 

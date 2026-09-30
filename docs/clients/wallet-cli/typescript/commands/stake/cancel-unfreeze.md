@@ -15,7 +15,7 @@ wallet-cli stake cancel-unfreeze [--dry-run | (--sign-only | --build-only) [--ex
 
 **该命令默认在交易提交后返回**；使用 `--wait` 可阻塞至交易确认。命令需要一个账户；仅在需要签名的模式下，才必须通过 `--password-stdin` 提供 master password。`--dry-run` 和 `--build-only` 不会解锁钱包，因此无需密码。仅观察账户无法签名，会返回 `watch_only_no_signer`。
 
-Ledger 的 TRON 应用无法对 `CancelAllUnfreezeV2` 签名。Ledger 账户可以做试运行或构建，但签名模式会在与设备交互之前就以 `ledger_unsupported` 失败。
+Ledger 的 TRON app 无法对 `CancelAllUnfreezeV2` 签名。Ledger 账户可以做试运行或构建；签名类模式会在与设备交互之前就以 `ledger_unsupported` 失败。
 
 ## 选项
 
@@ -38,7 +38,7 @@ Ledger 的 TRON 应用无法对 `CancelAllUnfreezeV2` 签名。Ledger 账户可�
 默认——返回**已提交**的回执：
 
 ```bash
-echo "$PW" | wallet-cli stake cancel-unfreeze --network tron:3448148188 --password-stdin
+echo "$PW" | wallet-cli stake cancel-unfreeze --network nile --password-stdin
 ```
 
 ```console
@@ -49,7 +49,7 @@ echo "$PW" | wallet-cli stake cancel-unfreeze --network tron:3448148188 --passwo
 ```
 
 ```bash
-echo "$PW" | wallet-cli stake cancel-unfreeze --network tron:3448148188 --password-stdin -o json
+echo "$PW" | wallet-cli stake cancel-unfreeze --network nile --password-stdin -o json
 ```
 
 ```json
@@ -59,7 +59,7 @@ echo "$PW" | wallet-cli stake cancel-unfreeze --network tron:3448148188 --passwo
 加 `--wait` 可阻塞直到已确认：
 
 ```bash
-echo "$PW" | wallet-cli stake cancel-unfreeze --network tron:3448148188 --wait --password-stdin
+echo "$PW" | wallet-cli stake cancel-unfreeze --network nile --wait --password-stdin
 ```
 
 ```console

@@ -11,7 +11,7 @@
 | 字段 | 类型 | 必填 | 说明 |
 |---|---|---|---|
 | `owner_address` | string | 是 | 部署者地址 |
-| `name` | string | 否 | 合约名 |
+| `name` | string | 否 | 合约名，不得超过 32 字节。该限制按 UTF-8 编码后的字节数计算 |
 | `abi` | json string | 否 | 合约 ABI（JSON 数组字符串） |
 | `bytecode` | string | 是 | 合约字节码（hex） |
 | `parameter` | string | 否 | 构造函数参数（hex，紧接 bytecode） |
@@ -102,4 +102,4 @@ curl --request POST \
 | `consume_user_resource_percent` 不在 [0, 100] | `{"Error": "class org.tron.core.exception.ContractValidateException : percent must be >= 0 and <= 100"}` |
 | 其他异常 | `{"Error": "<exceptionClass> : <message>"}` |
 
-> 部署逻辑（如 origin energy 不足、合约代码超长、构造函数 revert）在交易广播或上链阶段才会触发，不会在此接口直接返回。
+> 部署阶段的错误（例如 origin energy 不足、合约代码或合约名超长、构造函数 revert）只会在交易广播或区块打包时触发，不会由此接口在构造未签名交易时触发。

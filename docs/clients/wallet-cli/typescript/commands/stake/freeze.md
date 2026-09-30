@@ -40,7 +40,7 @@ wallet-cli stake freeze --amount-sun <n> [--resource energy|bandwidth]
 默认——质押 1,000 TRX 换取能量，返回**已提交**的回执：
 
 ```bash
-echo "$PW" | wallet-cli stake freeze --amount-sun 1000000000 --resource energy --network tron:3448148188 --password-stdin
+echo "$PW" | wallet-cli stake freeze --amount-sun 1000000000 --resource energy --network nile --password-stdin
 ```
 
 ```console
@@ -51,7 +51,7 @@ echo "$PW" | wallet-cli stake freeze --amount-sun 1000000000 --resource energy -
 ```
 
 ```bash
-echo "$PW" | wallet-cli stake freeze --amount-sun 1000000000 --resource energy --network tron:3448148188 --password-stdin -o json
+echo "$PW" | wallet-cli stake freeze --amount-sun 1000000000 --resource energy --network nile --password-stdin -o json
 ```
 
 ```json
@@ -61,7 +61,7 @@ echo "$PW" | wallet-cli stake freeze --amount-sun 1000000000 --resource energy -
 加 `--wait` 可阻塞直到已确认：
 
 ```bash
-echo "$PW" | wallet-cli stake freeze --amount-sun 1000000000 --resource energy --network tron:3448148188 --wait --password-stdin
+echo "$PW" | wallet-cli stake freeze --amount-sun 1000000000 --resource energy --network nile --wait --password-stdin
 ```
 
 ```console

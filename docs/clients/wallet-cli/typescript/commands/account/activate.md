@@ -12,15 +12,13 @@ wallet-cli account activate --address <T...>
 
 ## 说明
 
-一个 TRON 地址在收到第一笔资产或被显式创建之前，并不存在于链上。在激活之前，`account set` 会返回 `not_found`（普通的 `account info` 仍会成功，但只返回空的 `account` 对象），该地址也无法发起交易。本命令可以在**不转移任何资产**的情况下创建（激活）账户，链上账户创建费用由付款账户承担。
+一个 TRON 地址在收到第一笔资产、或被显式创建之前，在链上是不存在的——在此之前 `account set` 会以 `not_found` 拒绝它（而普通的 `account info` 仍会成功，返回一个空的 `account` 对象），它也无法自行发起交易。本命令在**不转移任何资产**的前提下创建（激活）这样一个账户；付款账户承担链上的账户创建费。
 
 只有在地址需要独立存在于链上，以便接受查询或自行发起交易时，才需要使用本命令。如果本来就要向该地址转账，[`tx send`](../tx/send.md) 会在转账过程中自动激活收款方；将地址加入多签权限则**不需要**激活。
 
-命令需要一个付款账户。仅在需要签名的模式下，才必须通过 `--password-stdin` 提供 master password。
-`--dry-run` 和 `--build-only` 不会解锁钱包，因此无需密码。仅观察账户无法签名，会返回
-`watch_only_no_signer`。
+需要付款账户。只有在所选模式确实要签名时，才需要通过 `--password-stdin` 提供 master password——`--dry-run` 和 `--build-only` 从不解锁钱包。在签名模式下，仅观察账户会以 `watch_only_no_signer` 失败。
 
-Ledger 的 TRON 应用无法对 `AccountCreateContract` 签名：Ledger 账户可以使用 `--dry-run` 或 `--build-only`，但 `--sign-only`、默认提交和 `--wait` 会在与设备交互之前就以 `ledger_unsupported` 失败。
+Ledger 的 TRON app 无法对 `AccountCreateContract` 签名。Ledger 账户仍然可以使用 `--dry-run` 或 `--build-only`；而 `--sign-only`、默认提交和 `--wait` 会在与设备交互之前就以 `ledger_unsupported` 失败。
 
 ## 选项
 
@@ -44,32 +42,32 @@ Ledger 的 TRON 应用无法对 `AccountCreateContract` 签名：Ledger 账户�
 默认——广播并返回**已提交**的回执：
 
 ```bash
-echo "$PW" | wallet-cli account activate --address TNewAddr9k2fP7cW4bXm1sV8dRj6eL3aQz --network tron:3448148188 --password-stdin
+echo "$PW" | wallet-cli account activate --address TGQhRHn5tseyGo3RpWjn9ZA7fGDhJyWmcZ --network nile --password-stdin
 ```
 
 ```console
 ⏳ Account activated
-  Address  TNewAddr9k2fP7cW4bXm1sV8dRj6eL3aQz
-  Payer    TQkXm4vN8pR2sD6fWbYc3LhJa9Ee5Zt7Uw
+  Address  TGQhRHn5tseyGo3RpWjn9ZA7fGDhJyWmcZ
+  Payer    TP2Zs9qKScTMs8jDYV3SAHQ5pqgKY1NQ5V
   TxID     a1b...
   Status   pending — not yet on-chain
 ! Track it: wallet-cli tx info --network tron:3448148188 --txid a1b...
 ```
 
 ```json
-{"schema":"wallet-cli.result.v1","success":true,"command":"account.activate","data":{"kind":"account-activate","stage":"submitted","txId":"a1b...","address":"TNewAddr9k2fP7cW4bXm1sV8dRj6eL3aQz","payer":"TQkXm4vN8pR2sD6fWbYc3LhJa9Ee5Zt7Uw"},"meta":{"durationMs":17,"warnings":[]},"chain":{"family":"tron","network":"tron:3448148188","chainId":"3448148188"}}
+{"schema":"wallet-cli.result.v1","success":true,"command":"account.activate","data":{"kind":"account-activate","stage":"submitted","txId":"a1b...","address":"TGQhRHn5tseyGo3RpWjn9ZA7fGDhJyWmcZ","payer":"TP2Zs9qKScTMs8jDYV3SAHQ5pqgKY1NQ5V"},"meta":{"durationMs":17,"warnings":[]},"chain":{"family":"tron","network":"tron:3448148188","chainId":"3448148188"}}
 ```
 
 加 `--wait` 可阻塞直到已确认，并给出实际的区块和费用：
 
 ```bash
-echo "$PW" | wallet-cli account activate --address TNewAddr9k2fP7cW4bXm1sV8dRj6eL3aQz --network tron:3448148188 --wait --password-stdin
+echo "$PW" | wallet-cli account activate --address TGQhRHn5tseyGo3RpWjn9ZA7fGDhJyWmcZ --network nile --wait --password-stdin
 ```
 
 ```console
 ✅ Account activated
-  Address  TNewAddr9k2fP7cW4bXm1sV8dRj6eL3aQz
-  Payer    TQkXm4vN8pR2sD6fWbYc3LhJa9Ee5Zt7Uw
+  Address  TGQhRHn5tseyGo3RpWjn9ZA7fGDhJyWmcZ
+  Payer    TP2Zs9qKScTMs8jDYV3SAHQ5pqgKY1NQ5V
   TxID     e7a...
   Block    #84,340,277
   Fee      1.1 TRX
@@ -77,7 +75,7 @@ echo "$PW" | wallet-cli account activate --address TNewAddr9k2fP7cW4bXm1sV8dRj6e
 ```
 
 ```json
-{"schema":"wallet-cli.result.v1","success":true,"command":"account.activate","data":{"kind":"account-activate","stage":"confirmed","txId":"e7a...","confirmed":true,"blockNumber":84340277,"feeSun":1100000,"failed":false,"address":"TNewAddr9k2fP7cW4bXm1sV8dRj6eL3aQz","payer":"TQkXm4vN8pR2sD6fWbYc3LhJa9Ee5Zt7Uw"},"meta":{"durationMs":6540,"warnings":[]},"chain":{"family":"tron","network":"tron:3448148188","chainId":"3448148188"}}
+{"schema":"wallet-cli.result.v1","success":true,"command":"account.activate","data":{"kind":"account-activate","stage":"confirmed","txId":"e7a...","confirmed":true,"blockNumber":84340277,"feeSun":1100000,"failed":false,"address":"TGQhRHn5tseyGo3RpWjn9ZA7fGDhJyWmcZ","payer":"TP2Zs9qKScTMs8jDYV3SAHQ5pqgKY1NQ5V"},"meta":{"durationMs":6540,"warnings":[]},"chain":{"family":"tron","network":"tron:3448148188","chainId":"3448148188"}}
 ```
 
 ## 输出

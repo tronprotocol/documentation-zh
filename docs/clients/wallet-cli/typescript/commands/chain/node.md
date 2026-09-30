@@ -23,7 +23,7 @@ wallet-cli chain node [options]
 ## 示例
 
 ```bash
-wallet-cli chain node --network tron:3448148188
+wallet-cli chain node --network nile
 ```
 
 ```console
@@ -35,7 +35,7 @@ Peers        60 connected / 3 active
 ```
 
 ```bash
-wallet-cli chain node --network tron:3448148188 -o json
+wallet-cli chain node --network nile -o json
 ```
 
 ```json
@@ -45,7 +45,7 @@ wallet-cli chain node --network tron:3448148188 -o json
 在 EVM 网络上，还会加上链 id 和节点自己的同步标志：
 
 ```bash
-wallet-cli chain node --network eip155:11155111
+wallet-cli chain node --network sepolia
 ```
 
 ```console
@@ -58,6 +58,10 @@ Syncing      no
 Peers        25 connected / 25 active
 ```
 
+```bash
+wallet-cli chain node --network sepolia -o json
+```
+
 ```json
 {"schema":"wallet-cli.result.v1","success":true,"command":"chain.node","data":{"endpoint":"ethereum-sepolia-rpc.publicnode.com","version":"Geth/v1.17.1-stable-16783c16/linux-amd64/go1.25.7","chainId":"11155111","p2pVersion":null,"headBlock":{"number":11576632,"timestamp":1787818560000},"solidBlock":{"number":11576563},"lagBlocks":69,"inSync":true,"peers":{"connected":25,"active":25}},"meta":{"durationMs":389,"warnings":[]},"chain":{"family":"evm","network":"eip155:11155111","chainId":"11155111"}}
 ```
@@ -66,15 +70,15 @@ Peers        25 connected / 25 active
 
 | 字段 | 类型 | 含义 |
 |---|---|---|
-| `endpoint` | string | 所查询节点的主机名——只有主机名，绝不含完整 URL |
+| `endpoint` | string | 被查询节点的主机名——只给主机名，绝不给完整 URL |
 | `version` | string | 节点软件版本 |
 | `chainId` | string | EIP-155 链 id；**仅 EVM** |
 | `p2pVersion` | string \| null | P2P 协议版本；EVM 上为 `null` |
-| `headBlock` | object | 最新块 `{number, timestamp}` |
-| `solidBlock` | object \| null | TRON 上为已固化块，EVM 上为已 finalized 的区块——`{number}` |
-| `lagBlocks` | number \| null | 最新块与已固化块的高度差 |
-| `inSync` | boolean \| null | 节点是否已跟上。TRON 上：最新块是否新鲜（3 个出块间隔以内，即 ≤ 9 秒）。EVM 上：节点自己的 `eth_syncing` 回答取反——读不到时为 `null`，这与「未同步」不是一回事 |
-| `peers` | object \| null | `{connected, active}`；端点隐藏该信息时为 `null`。EVM 只报告一个对等节点数，因此两个字段取同一个值 |
+| `headBlock` | object | 最新区块 `{number, timestamp}` |
+| `solidBlock` | object \| null | TRON 上是已固化区块，EVM 上是 finalized 区块——`{number}` |
+| `lagBlocks` | number \| null | 头块与固化块之间的差距 |
+| `inSync` | boolean \| null | 节点是否已追平。TRON：头块足够新（在 3 个出块间隔内，即 ≤ 9 秒）。EVM：节点自身 `eth_syncing` 的答案取反——读不到时为 `null`，这与「未同步」不是一回事 |
+| `peers` | object \| null | `{connected, active}`；端点不公开时为 `null`。EVM 只报告一个 peer 计数，因此两个字段取值相同 |
 
 ## 退出码
 

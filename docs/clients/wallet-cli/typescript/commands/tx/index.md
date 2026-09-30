@@ -10,14 +10,14 @@ wallet-cli tx COMMAND
 
 ## 子命令
 
-| 命令 | 说明 | 适用网络 |
+| 命令 | 说明 | 网络 |
 |---|---|---|
-| [`tx send`](send.md) | 用人类可读的 `--amount` 发送原生币或某个 token | TRON、EVM |
+| [`tx send`](send.md) | 用人类可读的 `--amount` 发送原生币或 token | TRON、EVM |
 | [`tx broadcast`](broadcast.md) | 广播一笔预先签名的交易 | TRON、EVM |
-| [`tx status`](status.md) | 查看交易的确认状态 | TRON、EVM |
-| [`tx info`](info.md) | 查看交易的完整详情和交易回执 | TRON、EVM |
-| [`tx sign`](sign.md) | 对在别处构建好的交易签名 | TRON、EVM |
-| [`tx approvals`](approvals.md) | 查看一笔多签交易上已收集的签名 | 仅 TRON |
+| [`tx status`](status.md) | 显示某笔交易的确认状态 | TRON、EVM |
+| [`tx info`](info.md) | 显示完整的交易详情 + 回执 | TRON、EVM |
+| [`tx sign`](sign.md) | 对在别处构建的交易签名 | TRON、EVM |
+| [`tx approvals`](approvals.md) | 显示某段交易 hex 的签名权重与已批准签名者列表 | 仅 TRON |
 | [`tx multisig`](multisig.md) | 通过 TronLink 服务进行多签协作（列出 / 创建 / 联署 / 监听） | 仅 TRON |
 
 这些命令之间传递的交易 **hex**，在 TRON 上是 `protocol.Transaction` protobuf，在 EVM 上是 RLP（`0x02…`）。费用参数也因家族而异——TRON 上是 `--fee-limit` / `--permission-id` / `--expiration`，EVM 上是 `--gas-limit` / `--max-fee` / `--priority-fee` / `--nonce`——两组参数用在另一个家族上都会以 `invalid_option` 被拒绝。
@@ -33,9 +33,9 @@ build ──sign──> submit ──receipt──> confirmed
 
 `tx send` 一步完成构建+签名+提交（用 `--dry-run` / `--sign-only` 可以提前停下）；`tx broadcast` 提交在别处签好名的交易；`tx status` / `tx info` 用于观察结果。`confirmed` 表示已入块并取得回执，不表示已最终确定。**提交不等于确认**——脚本必须遵循[机器接口 → 脚本安全](../../machine-interface.md#script-safety-never-mistake-submitted-for-confirmed)。
 
-## 多签联署
+## 多签联署——仅限 TRON
 
-**仅限 TRON。** EVM 交易只带一个签名，因此既没有阈值可达，也没有联署流程；在 EVM 上 `tx sign` 只是单纯签名，而 `tx approvals` / `tx multisig` 根本不绑定到 EVM。
+EVM 交易只带一个签名，因此既没有阈值需要达到，也没有联署流程：在 EVM 上 `tx sign` 就只是签名，而 `tx approvals` / `tx multisig` 并不适用。
 
 对于需要多个签名的 TRON 账户，有两条联署路径：
 

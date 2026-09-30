@@ -14,14 +14,16 @@ wallet-cli tx status --txid <id> [options]
 这四个状态值属于稳定接口，在兼容版本中不会改名或删除，因此程序可以直接据此分支处理（参见
 [machine-interface](../../machine-interface.md) 中的 `wallet-cli.result.v1` 输出规范）。
 
-| `data.state` | 含义 | 能否停止轮询？ |
+| `data.state` | 含义 | 是否终态？ |
 |---|---|---|
-| `confirmed` | 已入块，且已经能取到执行结果/回执；存在 `blockNumber` | 可以 |
-| `failed` | 已入块，但链上执行失败 | 可以——视为失败 |
-| `pending` | 节点已经看到，但还没有执行结果/回执 | 不能——继续轮询 |
-| `not_found` | 查询端点尚未找到该交易（可能是网络选择错误、交易尚未传播、交易被丢弃，或端点未保留相关历史）；结果未知 | 不能——继续轮询/对账；不要据此判定失败 |
+| `confirmed` | 已入块，且能拿到执行结果 / 回执；带有 `blockNumber` | 是 |
+| `failed` | 已入块但被 revert / 拒绝 | 是 |
+| `pending` | 节点已看到，但尚无执行结果 / 回执 | 否——继续轮询 |
+| `not_found` | 所查询的端点不认识它（网络选错、尚未传播、被丢弃或已被裁剪）；结果未知 | 否——继续轮询并对账；不要臆断为失败 |
 
-> `confirmed` 是一个「已入块且已取到回执」的状态，不是最终性保证。如果某个流程需要最终性，请另行验证——TRON 上查询 SolidityNode 视图，EVM 上检查 finalized 区块。
+> `confirmed` 表示的是「已入块且已拿到回执」，而不是最终性保证。如果你的流程需要最终性，请另行核验——TRON 上查 SolidityNode 视图，EVM 上做 finalized 区块检查。
+
+> 轮询到截止时间仍停在 `pending` 或 `not_found`，结果依然是未知。不要把它记录为失败，也不要用它作为自动重发的触发条件；请先按目标网络和端点核对该 txid。
 
 ## 选项
 
@@ -34,31 +36,31 @@ wallet-cli tx status --txid <id> [options]
 ## 示例
 
 ```bash
-wallet-cli tx status --txid 34d9da372cd7fa9d4e7384744c0925af9d682eef4c9410fb831e0b87b355171b --network tron:3448148188
+wallet-cli tx status --txid 1789b6e3d420d84f21013fa4e18ecd2c60df1accb7101fd71c2511b75835c0cd --network nile
 ```
 
 ```console
-TxID           34d9da372cd7fa9d4e7384744c0925af9d682eef4c9410fb831e0b87b355171b
+TxID           1789b6e3d420d84f21013fa4e18ecd2c60df1accb7101fd71c2511b75835c0cd
 Status         confirmed ✅
-Block          #70,433,563
-Confirmations  1
+Block          #70,604,611
+Confirmations  19
 ```
 
 ```json
-{"schema":"wallet-cli.result.v1","success":true,"command":"tx.status","data":{"txid":"34d9da372cd7fa9d4e7384744c0925af9d682eef4c9410fb831e0b87b355171b","state":"confirmed","confirmed":true,"failed":false,"blockNumber":70433563,"confirmations":1},"meta":{"durationMs":732,"warnings":[]},"chain":{"family":"tron","network":"tron:3448148188","chainId":"3448148188"}}
+{"schema":"wallet-cli.result.v1","success":true,"command":"tx.status","data":{"txid":"1789b6e3d420d84f21013fa4e18ecd2c60df1accb7101fd71c2511b75835c0cd","state":"confirmed","confirmed":true,"failed":false,"blockNumber":70604611,"confirmations":19},"meta":{"durationMs":1817,"warnings":[]},"chain":{"family":"tron","network":"tron:3448148188","chainId":"3448148188"}}
 ```
 
 同一个查询在 EVM 网络上，用 `0x` 哈希：
 
 ```bash
-wallet-cli tx status --txid 0x55b0068ef31bce39bbf5b06d456eaef307fd77f96d85ea291f48c1ae4b900d80 --network eip155:11155111 -o json
+wallet-cli tx status --txid 0x55b0068ef31bce39bbf5b06d456eaef307fd77f96d85ea291f48c1ae4b900d80 --network sepolia -o json
 ```
 
 ```json
 {"schema":"wallet-cli.result.v1","success":true,"command":"tx.status","data":{"txid":"0x55b0068ef31bce39bbf5b06d456eaef307fd77f96d85ea291f48c1ae4b900d80","state":"confirmed","confirmed":true,"failed":false,"blockNumber":11576586,"confirmations":0},"meta":{"durationMs":408,"warnings":[]},"chain":{"family":"evm","network":"eip155:11155111","chainId":"11155111"}}
 ```
 
-未知的 txid 属于**成功**，返回 `state: "not_found"`（退出码 0）——查询本身是成功的，只是这个端点没有该哈希的任何记录：
+未知的 txid 会返回**成功**，`state: "not_found"`（退出码 0）——查询本身是成功的，答案是「不存在」：
 
 ```json
 {"schema":"wallet-cli.result.v1","success":true,"command":"tx.status","data":{"txid":"0000…0000","state":"not_found","confirmed":false,"failed":false},"meta":{"durationMs":1022,"warnings":[]},"chain":{"family":"tron","network":"tron:3448148188","chainId":"3448148188"}}
@@ -67,10 +69,8 @@ wallet-cli tx status --txid 0x55b0068ef31bce39bbf5b06d456eaef307fd77f96d85ea291f
 在 EVM 上，`not_found` 还会带一条 `meta.warnings`，因为一个裁剪过历史的公共端点，和一个从未存在过的哈希，是无法区分的：
 
 ```json
-{"…":"…","data":{"txid":"0x0000…0000","state":"not_found","confirmed":false,"failed":false},"meta":{"durationMs":407,"warnings":["0x0000…0000 is unknown to this endpoint. Public nodes often prune history, so this may mean the node has no record of it rather than that it never existed; try an archival endpoint."]}}
+{"…":"…","data":{"txid":"0x0000…0000","state":"not_found","confirmed":false,"failed":false},"meta":{"durationMs":407,"warnings":["0x0000…0000 is unknown to this endpoint. Public nodes often prune history, so this may mean the node has no record of it rather than that it never existed; try an archival endpoint."]},"chain":{"family":"evm","network":"eip155:11155111","chainId":"11155111"}}
 ```
-
-> 轮询到截止时间仍停在 `pending` 或 `not_found`，结果依然是未知。不要把它当成失败，也不要拿它当作自动重发的触发条件；先把这个 txid 对照目标网络和端点的历史记录核对清楚。
 
 ## 输出
 

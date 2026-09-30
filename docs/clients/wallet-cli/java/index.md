@@ -55,8 +55,8 @@ fullnode = {
     $ java -jar wallet-cli.jar
     ```
 
-wallet-cli 通过 gRPC 连接 java-tron。启动时它会先在当前工作目录查找 `config.conf`，找不到才回退到 JAR 内置的
-classpath 资源。可使用 `SwitchNetwork` 在主网、测试网（Nile 和 Shasta）以及自定义网络之间切换。
+wallet-cli 通过 gRPC 连接 java-tron。启动时它会先在当前工作目录查找 `config.conf`，找不到才回退到构建时
+打包进 JAR 的那一份（仓库中的 `java/src/main/resources/config.conf`）。可使用 `SwitchNetwork` 在主网、测试网（Nile 和 Shasta）以及自定义网络之间切换。
 
 ## 快速上手 {#quickstart}
 

@@ -11,35 +11,48 @@ java -jar build/libs/FullNode.jar -d ./outputdir
 
 ## 备份节点数据
 
-在备份节点数据之前，请务必 **关闭节点进程**。您可以按照以下步骤进行操作：
-
-首先，使用以下命令获取 java-tron 进程的 PID：
+在备份节点数据之前，请务必 **关闭节点进程**。通常一台服务器只运行一个 java-tron 节点，因此下面的脚本会自动查找该进程，发送信号 15（`SIGTERM`）以优雅关闭节点，并等待进程完全退出后再开始备份。将脚本保存为 `stop_java_tron.sh`：
 
 ```bash
-ps -ef | grep FullNode.jar | grep -v grep | awk '{print $2}'
+#!/usr/bin/env bash
+
+set -u
+
+pid="$(ps -eo pid=,args= | awk '/[j]ava .*FullNode\.jar/ {print $1}')"
+
+if [ -z "$pid" ]; then
+  echo "No running java-tron process was found." >&2
+  exit 1
+fi
+
+if [[ "$pid" == *$'\n'* ]]; then
+  echo "Multiple java-tron processes were found; stop them individually." >&2
+  exit 1
+fi
+
+if ! kill -15 "$pid"; then
+  echo "Failed to send SIGTERM to java-tron (PID $pid)." >&2
+  exit 1
+fi
+
+echo "Waiting for java-tron (PID $pid) to shut down cleanly..."
+while kill -0 "$pid" 2>/dev/null; do
+  sleep 1
+done
+
+echo "java-tron stopped successfully."
 ```
 
-然后，使用获取到的 PID 来终止进程。建议使用以下停止脚本来安全关闭 java-tron 进程，以避免数据库损坏：
+运行脚本时无需传入参数：
 
 ```bash
-#!/bin/bash
-while true; do
-  pid=`ps -ef |grep FullNode.jar |grep -v grep |awk '{print $2}'`
-  if [ -n "$pid" ]; then
-    kill -15 $pid
-    echo "The java-tron process is exiting, it may take some time, forcing the exit may cause damage to the database, please wait patiently..."
-    sleep 1
-  else
-    echo "java-tron killed successfully!"
-    break
-  fi
-done
+bash stop_java_tron.sh
 ```
 
 当 java-tron 进程成功关闭后，您可以使用以下命令进行数据备份：
 
 ```bash
-tar cvzf output-directory.`date "+%Y%m%d%H%M%S"`.etgz output-directory
+tar -czvf "output-directory.$(date '+%Y%m%d%H%M%S').etgz" output-directory
 ```
 
 
@@ -50,7 +63,7 @@ tar cvzf output-directory.`date "+%Y%m%d%H%M%S"`.etgz output-directory
 如果您的数据库备份文件名为 `output-directory.20220628152402.etgz`，您可以使用以下命令来恢复数据库文件：
 
 ```bash
-tar xzvf output-directory.20220628152402.etgz
+tar -xzvf output-directory.20220628152402.etgz
 ```
 
 ## 使用公共备份数据（数据快照）

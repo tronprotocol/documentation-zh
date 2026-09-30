@@ -9,12 +9,12 @@ TypeScript 版面向脚本、CI 和 AI 智能体调用：每条命令都有稳�
 
 - **便于自动化集成**——提供稳定的 JSON 输出、确定的退出码和可查询的 schema，适合脚本、CI 和
   AI 智能体调用（细节见[接口约定概要](#the-contract-in-one-paragraph)）。
-- **加密的本地存储**——软件 keystore 在磁盘上加密保存；敏感信息只经由 stdin/TTY 进入，绝不经过命令行参数或专用的敏感信息环境变量。
+- **加密的本地存储**——软件 keystore 在磁盘上加密保存；敏感信息绝不通过命令行参数或环境变量传递。
 - **软件签名与 Ledger 签名**——用软件签名，或在 Ledger 设备上签名（私钥绝不离开设备）。
 - **完整的 TRON 功能支持**——HD 钱包、TRX 与 TRC20/TRC10 转账、质押 / 资源代理、投票 / 奖励、
   治理提案与超级代表运营、智能合约调用、部署与治理、TRC10 发行、链上 Bancor 交易所、多重签名、
   GasFree 转账、消息签名，以及链上查询。
-- **EVM 链同样支持**——转账、token、合约和签名在以太坊与 BNB Smart Chain 上同样可用。仅属于 TRON 协议的命令在 EVM 网络上会以 `family_mismatch` 拒绝执行；参见[哪些命令能在哪些网络上运行](commands/index.md#which-commands-run-on-which-networks)。
+- **TRON 与 EVM 双链**——一个账户在两边各有一个地址；转账、token、合约、签名和链上查询在两边的用法一致，而仅限 TRON 的协议特性在 EVM 上会被直接拒绝，而不是半可用。
 
 ## 目录
 
@@ -29,29 +29,33 @@ TypeScript 版面向脚本、CI 和 AI 智能体调用：每条命令都有稳�
   - [治理、TRC10 与链上交易所](#governance-trc10-and-the-on-chain-exchange)
   - [本地工具与配置](#local-tools-and-configuration)
 - [接口约定概要](#the-contract-in-one-paragraph)
-- [理解 TRON 机制](#understanding-tron-mechanics)
+- [理解这两条链](#understanding-the-chains)
 - [故障排查](#troubleshooting)
 
 ## 支持的链 {#supported-chains}
 
-内置支持七个网络。网络使用规范的 [CAIP-2](https://chainagnostic.org/CAIPs/caip-2) `namespace:reference` id 标识。**namespace 不等于链家族**：`eip155` 是 CAIP-2 为 EVM 链定义的 namespace，而本 CLI 用于分支判断的家族名是 `evm`。**别名**是可代替 id 输入的简称；它只在选择网络时解析，不会出现在输出中：
+网络由规范的 [CAIP-2](https://chainagnostic.org/CAIPs/caip-2) `namespace:reference` id 标识，且各自属于两个链**家族**之一——`tron` 或 `evm`。`--network` 同样接受简短别名：
 
 | 网络 id | 别名 | 说明 | 原生币价值 |
 |---|---|---|---|
 | `tron:728126428` | `tron` | TRON 生产主网 | **真实资金** |
 | `tron:3448148188` | `nile` | 主要的 TRON 测试网（水龙头在 nileex.io） | 无——可自由使用 |
 | `tron:2494104990` | `shasta` | 备用的 TRON 测试网 | 无 |
-| `eip155:1` | `ethereum` | 以太坊主网（ETH） | **真实资金** |
-| `eip155:11155111` | `sepolia` | 以太坊测试网（ETH） | 无 |
-| `eip155:56` | `bsc` | BNB Smart Chain（BNB） | **真实资金** |
-| `eip155:97` | `bsc-testnet` | BNB Smart Chain 测试网（BNB） | 无 |
+| `eip155:1` | `ethereum` | 以太坊主网 | **真实资金** |
+| `eip155:11155111` | `sepolia` | 以太坊测试网 | 无 |
+| `eip155:56` | `bsc` | BNB Smart Chain | **真实资金** |
+| `eip155:97` | `bsc-testnet` | BNB Smart Chain 测试网 | 无 |
+| `eip155:8453` | `base` | Base | **真实资金** |
+| `eip155:84532` | `base-sepolia` | Base 测试网 | 无 |
 
-在同一个家族内部，你的地址在每个网络上都相同（TRON 上是 base58 的 `T…`，EVM 上是 `0x…`——两个家族由同一份种子派生出的是**不同**的地址），而余额、token 和交易按网络隔离。费用跟随家族：TRON 的 `tron-resource` 模型（带宽 + 能量），或者 EVM 的 gas——参见[网络](concepts/networks.md)和[能量与带宽](concepts/energy-bandwidth.md)。
+余额、token 和交易按网络隔离。链家族决定两件事：**以哪个地址身份执行**——一个账户同时持有一个 TRON base58 地址和一个 EVM `0x` 地址，两者由同一份种子派生；以及**存在哪些命令**——TRON 的协议特性（质押、超级代表投票、TRC10、Bancor 交易所、链上权限、GasFree）在 EVM 上没有对应物，会以 `family_mismatch` 被拒绝。费用同样跟随家族：TRON 的 `tron-resource` 模型（带宽 + 能量），或者 EVM 的 gas。参见[网络](concepts/networks.md)、[账户](concepts/accounts-and-hd.md)和[能量与带宽](concepts/energy-bandwidth.md)。
+
+CAIP-2 之前使用的那几个 TRON id（`tron:mainnet`、`tron:nile`、`tron:shasta`）作为永久别名保留，因此既有的调用方式仍然可用——但**输出**现在报告的是 CAIP-2 id，所以凡是按字符串匹配 `tron:nile` 的使用方都需要更新。
 
 ## 安装 {#install}
 
 **前置条件**：[Node.js](https://nodejs.org) **20 或更高版本**（用 `node --version` 检查）。Ledger
-签名还需要一台受支持的 Ledger 设备，并安装与所选家族对应的 app——TRON 账户用 TRON app，EVM 账户用 Ethereum app。参见 [Ledger 指南](guide/ledger.md)。
+签名还需要一台受支持的 Ledger 设备，并安装 TRON 或 Ethereum app。参见 [Ledger 指南](guide/ledger.md)。
 
 ```bash
 npm install -g @tron-walletcli/wallet-cli
@@ -95,7 +99,7 @@ wallet-cli create --label main
   Account ID    wlt_2dbv24de.0
   Type          HD
   TRON address  TTVdGTBXY5mmY3nJFGUp7Vo898kUJ6gtFQ
-  EVM address   0x5c8e1b04A7f39d62C0B3e85A1d47F9028b6ce713
+  EVM address   0x7B28FE10FBccE88c3967ff0Fd64f1ffB46b46C9C
   Active        yes
 
 ⚠️ Recovery phrase is encrypted locally and was not printed.
@@ -183,6 +187,14 @@ Token 与合约操作、资源质押、投票奖励、消息签名，以及权�
 | [`asset`](commands/asset/index.md) | 发行和管理 TRC10 token（[issue](commands/asset/issue.md) · [update](commands/asset/update.md) · [participate](commands/asset/participate.md) · [unfreeze](commands/asset/unfreeze.md) · [info](commands/asset/info.md) · [list](commands/asset/list.md)）；TRC10 转账通过 [`tx send`](commands/tx/send.md) 进行 |
 | [`exchange`](commands/exchange/index.md) | TRX 与 TRC10 之间的协议级 Bancor 交易所（[create](commands/exchange/create.md) · [inject](commands/exchange/inject.md) · [withdraw](commands/exchange/withdraw.md) · [trade](commands/exchange/trade.md) · [show](commands/exchange/show.md) · [list](commands/exchange/list.md)) |
 
+### 支付与 Agent 身份 {#payments-and-agent-identity}
+
+| 命令 | 说明 |
+|---|---|
+| [`x402`](commands/x402/index.md) | 为受 x402 保护的 HTTP 端点付费、运行本地付费墙，并浏览服务方目录 |
+| [`bai`](commands/bai/index.md) | B.AI 额度、用量记录与稳定币充值 |
+| [`8004`](commands/8004/index.md) | 读取并管理 ERC-8004 Agent 身份 |
+
 ### 本地工具与配置 {#local-tools-and-configuration}
 
 离线的本地命令与配置。
@@ -200,12 +212,13 @@ Token 与合约操作、资源质押、投票奖励、消息签名，以及权�
 [`wallet-cli.result.v1`](machine-interface.md#the-result-envelope)。退出码是固定的：`0` 成功、
 `1` 执行失败、`2` 用法错误。敏感信息（密码、助记词、私钥）绝不接受通过命令行参数传入，也不会从专用的敏感信息环境变量读取。密码可以通过 stdin 标志或交互式 TTY 提示进入；助记词/私钥导入和 `change-password` 只能交互执行（完全没有 stdin 路径）。完整规范：[machine-interface.md](machine-interface.md)。
 
-## 理解 TRON 机制 {#understanding-tron-mechanics}
+## 理解这两条链 {#understanding-the-chains}
 
 TRON 在费用、账户和密钥权限方面与 EVM 链有较大差异，建议在操作前了解以下内容：
 
-- [网络](concepts/networks.md)——七个内置网络、CAIP-2 id，以及两个链家族
-- [账户与 HD](concepts/accounts-and-hd.md)——助记词、派生路径、账户激活
+- [网络](concepts/networks.md)——CAIP-2 id 与别名、两个链家族，以及两种费用模型
+- [账户与 HD](concepts/accounts-and-hd.md)——助记词、派生路径、每个家族一个地址、账户激活
+- [哪些命令能在哪些网络上运行](commands/index.md#which-commands-run-on-which-networks)——通用命令、仅限 TRON 的命令，以及本地命令
 - [能量与带宽](concepts/energy-bandwidth.md)——TRON 基于资源的费用模型（取代 EVM gas）
 - [安全](concepts/security.md)——keystore 加密、敏感信息处理、多签权限
 
@@ -213,7 +226,9 @@ TRON 在费用、账户和密钥权限方面与 EVM 链有较大差异，建议�
 
 命令报错或行为异常？常见问题及诊断方法见 [troubleshooting.md](troubleshooting.md)。
 
-> 凡是会花钱的可复制示例都指向测试网——TRON 上是 **Nile**（`--network tron:3448148188`），EVM 上是
-> **Sepolia**（`--network eip155:11155111`）。主网 id（`tron:728126428`、`eip155:1`）也会出现：用在只读示例中，
-> 例如 token 地址簿列表和配置路径，以及少数几处主网 token 合约的示意。最后这类示例带的是占位收款方
-> （`T...` / `0x...`），照抄是跑不通的。
+> 本文档中所有可复制粘贴的示例都在测试网上运行——TRON 上是 **Nile 测试网**（`--network nile`），EVM 上是
+> **Sepolia**（`--network sepolia`）。主网命令会动用真实资金；它们只作为带注释的说明出现，不可直接复制执行。
+>
+> 示例中传的是简短**别名**，因为这样更好读；而旁边的输出样例显示的是规范 id（`tron:3448148188`、
+> `eip155:11155111`），因为 CLI 报告的始终是它。别名属于本地配置、可以被重新指向，所以脚本应当传规范 id
+> ——参见[机器接口](machine-interface.md#calling-convention)。

@@ -10,7 +10,9 @@ wallet-cli chain params [--key <name>] [options]
 
 ## 说明
 
-列出链的治理参数——由 SR 提案修改的全网系统设置（参见 [`proposal create`](../proposal/create.md)）；本命令只负责读取。**仅限 TRON**：EVM 网络没有这样一套参数，会以 `family_mismatch` 失败。`--key` 只返回其中一个。参数键原样透传，与链返回的完全一致；文本输出会为已知的数值型键加上千位分隔符和单位（SUN / ms），`-o json` 保留原始值。
+> **仅限 TRON。** 由超级代表治理的系统参数在 EVM 上没有对应物；在 EVM 网络上，本命令会在任何节点调用之前就以 `family_mismatch` 失败。
+
+列出链上的治理参数——由超级代表提案修改的全网系统设置（见 [`proposal create`](../proposal/create.md)）；本命令只负责读取。`--key` 用于返回其中某一个。键名与链上返回的完全一致；文本输出会为已知的数值型键加上千分位分隔符和单位（SUN / ms），`-o json` 则保留原始值。
 
 常用的键：
 
@@ -37,7 +39,7 @@ wallet-cli chain params [--key <name>] [options]
 用 `--key` 查询单个参数：
 
 ```bash
-wallet-cli chain params --key getEnergyFee --network tron:3448148188
+wallet-cli chain params --key getEnergyFee --network nile
 ```
 
 ```console
@@ -48,7 +50,7 @@ Value  210 SUN
 全部参数（节选）：
 
 ```bash
-wallet-cli chain params --network tron:3448148188
+wallet-cli chain params --network nile
 ```
 
 ```console
@@ -62,7 +64,7 @@ wallet-cli chain params --network tron:3448148188
 ```
 
 ```bash
-wallet-cli chain params --network tron:3448148188 -o json
+wallet-cli chain params --network nile -o json
 ```
 
 ```json
@@ -75,12 +77,12 @@ wallet-cli chain params --network tron:3448148188 -o json
 
 | 字段 | 类型 | 含义 |
 |---|---|---|
-| `key` | string | 参数名，与链上返回的完全一致 |
-| `value` | number | 链上原始值，不带单位后缀（单位由文本输出补上：SUN / ms）。若节点报告某参数时不带值，该字段会整个缺席。承载它的端口类型标注为 `number \| string`，但其背后的 TronWeb 网关只会给出数字 |
+| `key` | string | 参数名，与链上原样一致 |
+| `value` | number | 链上原始值，不带单位后缀（文本输出会补上 SUN / ms）。若节点报告该参数时本就没有值，则完全没有此字段 |
 
 ## 退出码
 
-`0` 成功 · `1` 执行失败（`rpc_error`） · `2` 用法错误（`not_found`——`--key` 指定的参数不存在；`invalid_value`）。
+`0` 成功 · `1` 执行失败（`rpc_error`） · `2` 用法错误（`not_found`——`--key` 不存在；`invalid_value`；在 EVM 网络上为 `family_mismatch`）。
 
 ## 另请参见
 

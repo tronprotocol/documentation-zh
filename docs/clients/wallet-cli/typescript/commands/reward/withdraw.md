@@ -38,7 +38,7 @@ wallet-cli reward withdraw [--dry-run | (--sign-only | --build-only) [--expirati
 默认——广播并返回**已提交**的回执：
 
 ```bash
-echo "$PW" | wallet-cli reward withdraw --network tron:3448148188 --password-stdin
+echo "$PW" | wallet-cli reward withdraw --network nile --password-stdin
 ```
 
 ```console
@@ -50,7 +50,7 @@ echo "$PW" | wallet-cli reward withdraw --network tron:3448148188 --password-std
 ```
 
 ```bash
-echo "$PW" | wallet-cli reward withdraw --network tron:3448148188 --password-stdin -o json
+echo "$PW" | wallet-cli reward withdraw --network nile --password-stdin -o json
 ```
 
 ```json
@@ -60,7 +60,7 @@ echo "$PW" | wallet-cli reward withdraw --network tron:3448148188 --password-std
 加上 `--wait` 可阻塞直到已确认（回执中会带上真实的区块号 / 手续费）：
 
 ```bash
-echo "$PW" | wallet-cli reward withdraw --network tron:3448148188 --wait --password-stdin
+echo "$PW" | wallet-cli reward withdraw --network nile --wait --password-stdin
 ```
 
 ```console

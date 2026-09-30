@@ -27,7 +27,7 @@ wallet-cli create [options]
 
 示例中的 `$PW` 是你的 master password（来自环境变量、密码管理器等），通过 `--password-stdin` 从 stdin 传入。
 
-交互式——先提示输入 master password，然后显示新账户：
+交互方式——两次提示输入 master password，然后显示新账户：
 
 ```bash
 wallet-cli create --label main
@@ -37,24 +37,24 @@ wallet-cli create --label main
 ? Set master password (hidden):
 ? Confirm master password:
 ✅ Created wallet "main"
-  Account ID    wlt_2dbv24de.0
+  Account ID    wlt_kwyjcwdh.0
   Type          HD
-  TRON address  TTVdGTBXY5mmY3nJFGUp7Vo898kUJ6gtFQ
-  EVM address   0x5c8e1b04A7f39d62C0B3e85A1d47F9028b6ce713
+  TRON address  TEKbsrcsL74XyNWH6ju9zfjGDNok78dtTa
+  EVM address   0xeb0a0D15e3B8f6E2FC4bc011Eb6644f1ce3E4fa2
   Active        yes
 
 ⚠️ Recovery phrase is encrypted locally and was not printed.
 ⚠️ Run `backup` soon and store the file offline.
 ```
 
-非交互式（密码通过管道从 stdin 传入）：
+非交互方式，密码通过管道从 stdin 传入：
 
 ```bash
 printf '%s' "$PW" | wallet-cli create --label main --password-stdin -o json
 ```
 
 ```json
-{"schema":"wallet-cli.result.v1","success":true,"command":"create","data":{"status":"created","accountId":"wlt_2dbv24de.0","label":"main","type":"seed","index":0,"active":true,"addresses":{"tron":"TTVdGTBXY5mmY3nJFGUp7Vo898kUJ6gtFQ","evm":"0x5c8e1b04A7f39d62C0B3e85A1d47F9028b6ce713"},"seedId":"wlt_2dbv24de","derivationPath":{"tron":"m/44'/195'/0'/0/0","evm":"m/44'/60'/0'/0/0"}},"meta":{"durationMs":38,"warnings":[]}}
+{"schema":"wallet-cli.result.v1","success":true,"command":"create","data":{"status":"created","accountId":"wlt_kwyjcwdh.0","label":"main","type":"seed","index":0,"active":true,"addresses":{"tron":"TEKbsrcsL74XyNWH6ju9zfjGDNok78dtTa","evm":"0xeb0a0D15e3B8f6E2FC4bc011Eb6644f1ce3E4fa2"},"seedId":"wlt_kwyjcwdh","derivationPath":{"tron":"m/44'/195'/0'/0/0","evm":"m/44'/60'/0'/0/0"}},"meta":{"durationMs":956,"warnings":[]}}
 ```
 
 ## 输出
@@ -62,16 +62,16 @@ printf '%s' "$PW" | wallet-cli create --label main --password-stdin -o json
 `data` 描述所创建的账户（本地命令——没有 `chain` 块）。返回结果中永远不会包含助记词字段。
 
 | 字段 | 类型 | 含义 |
-|---|---|---|
-| `status` | string | `"created"` |
-| `accountId` | string | 稳定 id `<seedId>.<index>` |
-| `label` | string | 账户标签 |
-| `type` | string | `"seed"`（HD 派生） |
-| `index` | number | HD 派生索引（首个账户为 0） |
-| `active` | boolean | 是否成为了当前账户 |
-| `addresses` | object | 该账户能产生的每个家族各一个地址：`tron`（base58）和 `evm`（`0x`，EIP-55 校验和格式） |
-| `derivationPath` | object | 每个地址各自来自的 BIP44 路径：`{"tron":"m/44'/195'/<index>'/0/0","evm":"m/44'/60'/0'/0/<index>"}` |
-| `seedId` | string | 所属种子钱包 id |
+| ---------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| `status`         | string  | `"created"`                                                                                                                   |
+| `accountId`      | string  | 稳定的 id，形如 `<seedId>.<index>`                                                                                                  |
+| `label`          | string  | 账户标签                                                                                                                 |
+| `type`           | string  | `"seed"`（HD 派生）                                                                                                         |
+| `index`          | number  | HD 派生索引（第一个账户为 0）                                                                                 |
+| `active`         | boolean | 是否成为当前账户                                                                                          |
+| `addresses`      | object  | 该账户能产生的每个家族各一个地址：`tron`（base58）和 `evm`（`0x`，EIP-55 校验和格式）                          |
+| `derivationPath` | object  | 每个地址所来自的 BIP44 路径。`create` 始终创建索引 0：`{"tron":"m/44'/195'/0'/0/0","evm":"m/44'/60'/0'/0/0"}` |
+| `seedId`         | string  | 所属种子钱包 id                                                                                                         |
 
 ## 退出码
 

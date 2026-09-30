@@ -10,17 +10,17 @@ wallet-cli import COMMAND
 
 ## 子命令
 
-| 命令 | 说明 | 该账户会拥有的链家族 |
-|---|---|---|
-| [`import mnemonic`](mnemonic.md) | 导入一段 BIP39 助记词 | TRON **与** EVM |
-| [`import private-key`](private-key.md) | 导入一个原始私钥 | TRON **与** EVM |
-| [`import keystore`](keystore.md) | 导入一个 Web3 keystore 文件 | TRON **与** EVM |
-| [`import ledger`](ledger.md) | 注册一个 Ledger 账户（本地仅观察；在设备上签名） | 由 `--app` 决定 |
-| [`import watch`](watch.md) | 注册一个仅观察地址（不含任何密钥） | 由地址本身决定 |
+| 命令 | 说明 |
+|---|---|
+| [`import mnemonic`](mnemonic.md) | 导入 BIP39 助记词 |
+| [`import private-key`](private-key.md) | 导入原始私钥 |
+| [`import keystore`](keystore.md) | 从 Web3 keystore 文件导入账户 |
+| [`import ledger`](ledger.md) | 注册 Ledger 账户（本地仅观察，在设备上签名） |
+| [`import watch`](watch.md) | 注册一个仅观察地址；不保存任何密钥 |
 
-密钥——无论是助记词、私钥还是 keystore——本身并不绑定某一条链：**同一把密钥**既能产生 TRON 地址，也能产生 EVM 地址，因此上面这三种导入方式得到的账户在两个家族上都可用。而 Ledger 账户和仅观察账户是单家族的，因为设备上的 app 和你粘贴的地址各自都只对应一个家族。
+三个涉及密钥的变体——`import mnemonic`、`import private-key`、`import keystore`——**只能交互执行**：每一项敏感信息都从隐藏的 TTY 提示中读取。它们没有 `--mnemonic-stdin` / `--private-key-stdin` 之类的参数，`--password-stdin` 会以 `invalid_option` 被拒绝，而在没有终端时命令会以 `tty_required` 失败。敏感信息绝不经过命令行参数或环境变量。参见 [machine-interface → 敏感信息处理](../../machine-interface.md#secret-handling)。
 
-涉及密钥的三个子命令——`import mnemonic`、`import private-key`、`import keystore`——都是**仅交互式**的：每一项敏感信息都通过隐藏的 TTY 提示读取。没有 `--mnemonic-stdin` / `--private-key-stdin` 这类参数，`--password-stdin` 也会以 `invalid_option` 被拒绝；没有终端时命令会以 `tty_required` 失败。敏感信息绝不会经过命令行参数或环境变量。参见[machine-interface → 敏感信息处理](../../machine-interface.md#secret-handling)。
+导入**密钥**并不与某条链绑定：助记词、私钥或 keystore 都会让该账户同时拥有 TRON 和 EVM 地址。而导入**地址或设备 app** 则是绑定的：`import watch` 取你粘贴的那个地址所属的家族，`import ledger` 取它 `--app` 所选的家族，因此这类账户只能在一个家族上使用。参见[账户与 HD 钱包](../../concepts/accounts-and-hd.md)。
 
 ## 另请参见
 

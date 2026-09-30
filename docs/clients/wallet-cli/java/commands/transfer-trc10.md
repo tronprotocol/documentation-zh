@@ -158,15 +158,15 @@ TRC10 token 转账。
 - `OwnerAddress`（可选）——发起交易的账户地址。默认：登录账户的地址。
 - `ToAddress`——TRC10 发行方的账户地址。
 - `AssetID`——TRC10 token ID。示例：1000001。
-- `Amount`——**要支付的 TRX 数量**，单位 SUN。这是你付出的金额，而不是你会收到的 token 数量：token 按发行时设定的固定汇率发放，向下取整到整数单位，而你支付的 TRX 会被全额转出——截断产生的零头不予退还。
+- `Amount`——**你要支付的 TRX 数量**，单位 SUN。它*不是*你会收到的 token 数量：按 token 发行时设定的固定汇率，入账给你的 token 为 `Amount / TrxNum * AssetNum`，并向下取整到整数个最小单位。TRX 会被全额转出，因此截断产生的零头不予退还。
 
 该操作必须在 TRC10 token 的发行期内完成，否则会报错。
 
 示例：
 
 ```console
-> ParticipateAssetIssue TRGhNNfnmgLegT4zHNjEqDSADjgmnHvubJ 1000001 1000
-> getaccount TJCnKsPa7y5okkXvQAidZBzqx3QyQ6sxMW  # 查看剩余余额
+> ParticipateAssetIssue TRGhNNfnmgLegT4zHNjEqDSADjgmnHvubJ 1000001 1000  # spend 1000 SUN
+> getaccount TJCnKsPa7y5okkXvQAidZBzqx3QyQ6sxMW  # View remaining balance
 {
   "address": "TJCnKsPa7y5okkXvQAidZBzqx3QyQ6sxMW",
   "balance": 9999900000,
@@ -178,6 +178,8 @@ TRC10 token 转账。
   ]
 }
 ```
+
+上面花掉的 1000 SUN 之所以只买到 1000 个最小单位，是因为该 token 发行时的汇率是 `TrxNum` 1 : `AssetNum` 1。若汇率为 `TrxNum` 2 : `AssetNum` 1，同样的 1000 SUN 只会入账 500。参与之前，请用 [`getAssetIssueById`](#how-to-obtain-trc10-token-information) 查清汇率。
 
 ### ListAssetIssuePaginated
 

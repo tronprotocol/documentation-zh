@@ -44,7 +44,7 @@ wallet-cli exchange withdraw <id> --token <TRX|asset-id>
 示例中的 `$PW` 是你的 master password（来自环境变量、密码管理器等），通过 `--password-stdin` 从 stdin 传入。
 
 ```bash
-echo "$PW" | wallet-cli exchange withdraw 12 --token TRX --amount 1000 --network tron:3448148188 --wait --password-stdin
+echo "$PW" | wallet-cli exchange withdraw 12 --token TRX --amount 1000 --network nile --wait --password-stdin
 ```
 
 ```console
@@ -60,7 +60,7 @@ echo "$PW" | wallet-cli exchange withdraw 12 --token TRX --amount 1000 --network
 ```
 
 ```bash
-echo "$PW" | wallet-cli exchange withdraw 12 --token TRX --amount 1000 --network tron:3448148188 --wait --password-stdin -o json
+echo "$PW" | wallet-cli exchange withdraw 12 --token TRX --amount 1000 --network nile --wait --password-stdin -o json
 ```
 
 ```json

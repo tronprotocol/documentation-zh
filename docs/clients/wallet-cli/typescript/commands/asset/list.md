@@ -26,7 +26,7 @@ wallet-cli asset list [--limit <n>] [--offset <n>] [options]
 ## 示例
 
 ```bash
-wallet-cli asset list --limit 3 --network tron:3448148188
+wallet-cli asset list --limit 3 --network nile
 ```
 
 ```console
@@ -39,7 +39,7 @@ Assets (limit 3, offset 0)
 ```
 
 ```bash
-wallet-cli asset list --limit 3 --network tron:3448148188 -o json
+wallet-cli asset list --limit 3 --network nile -o json
 ```
 
 ```json
@@ -52,7 +52,7 @@ wallet-cli asset list --limit 3 --network tron:3448148188 -o json
 
 | 字段 | 类型 | 含义 |
 |---|---|---|
-| `assetId` | string | Token id |
+| `assetId` | string | token id |
 | `name` | string | token 名称 |
 | `issuerAddress` | string | 发行方，base58 |
 | `totalSupply` | string | 总供应量，原始值（完整 token × 10^`precision`）。是**字符串**：供应量会达到 int64，作为 JSON number 会损失精度 |

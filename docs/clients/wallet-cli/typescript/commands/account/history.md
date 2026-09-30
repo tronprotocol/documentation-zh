@@ -1,6 +1,6 @@
 # wallet-cli account history
 
-显示交易历史。仅限 TRON。
+显示交易历史（需要 TronGrid）。
 
 ## 用法
 
@@ -10,9 +10,11 @@ wallet-cli account history [--limit <n>] [--only <native|token>] [options]
 
 ## 说明
 
-按时间倒序列出与该账户相关的近期活动。仅限 TRON——它没有 EVM 实现，因此在 EVM 网络上本命令会以 `family_mismatch` 失败，而不是返回空列表。历史数据由 **TronGrid** 提供，而非普通的节点 RPC，因此在没有 TronGrid 的 TRON 网络/端点上本命令会失败，而 `balance`/`info` 仍然可用。
+> **仅限 TRON。** 该列表在 EVM 上没有对应实现，因此在 EVM 网络上本命令会以 `family_mismatch` 失败，而不是返回一个空列表。
 
-`--only token` 使用 TronGrid 的 TRC20 转账接口。当前的 `--only native` 使用通用交易接口，且不会再次过滤返回记录，因此结果中可能包含非原生币的合约活动；省略 `--only` 时也使用该接口。JSON 中的 `only: "native"` 仅表示选择了该接口，不能证明每条记录都是 TRX 转账。
+列出与该账户相关的近期活动，最新的在前。历史数据由 **TronGrid** 提供，而不是普通的节点 RPC——在没有 TronGrid 的网络或端点上，本命令会失败，而 `balance`/`info` 仍然可用。
+
+`--only token` 选用的是 TronGrid 的 TRC20 转账端点。`--only native` 选用的是通用交易端点，并且不会对其返回的记录做后置过滤，因此结果中可能包含非原生币的合约活动；不带 `--only` 时查询的也是同一个端点。请不要把 JSON 中的 `only: "native"` 理解为「每条记录都是 TRX 转账」的证明。
 
 ## 选项
 
@@ -20,14 +22,14 @@ wallet-cli account history [--limit <n>] [--only <native|token>] [options]
 |---|---|
 | `--limit <number>` | 最大记录数，1–200（默认 20） |
 | `--only token` | 查询 TRC20 转账历史 |
-| `--only native` | 选择通用交易接口；目前并不是严格的原生转账过滤器 |
+| `--only native` | 选用通用交易端点；它并不是严格意义上「只看原生币转账」的筛选 |
 
 此外还有[全局选项](../index.md#global-options-every-command)。
 
 ## 示例
 
 ```bash
-wallet-cli account history --limit 3 --network tron:3448148188
+wallet-cli account history --limit 3 --network nile
 ```
 
 ```console
@@ -40,7 +42,7 @@ wallet-cli account history --limit 3 --network tron:3448148188
 ```
 
 ```bash
-wallet-cli account history --limit 2 --network tron:3448148188 -o json
+wallet-cli account history --limit 2 --network nile -o json
 ```
 
 ```json
@@ -51,18 +53,18 @@ wallet-cli account history --limit 2 --network tron:3448148188 -o json
 
 | 字段 | 类型 | 含义 |
 |---|---|---|
-| `address` / `only` / `count` | — | 查询回显与返回的记录条数；`only` 只是回显所选项，并不会强化上面所说的过滤保证 |
-| `records[].txId` | string | 交给 [`tx info`](../tx/info.md) 查看详情 |
+| `address` / `only` / `count` | —— | 查询条件回显与记录数 |
+| `records[].txId` | string | 可交给 [`tx info`](../tx/info.md) 查看详情 |
 | `records[].time` | number | epoch 毫秒 |
 | `records[].type` | string | 交易类型（例如 `Transfer`、`CreateSmart`） |
 | `records[].amount` | string | 转账金额；非价值转移时为空 |
 | `records[].symbol` | string | 资产符号（例如 `TRX`） |
-| `records[].from` / `to` / `counterparty` | string | 相关地址（按类型可能为空） |
+| `records[].from` / `to` / `counterparty` | string | 各地址（按类型不同可能为空） |
 | `records[].status` | string | `ok` 或失败标记 |
 
 ## 退出码
 
-`0` · `1` 执行失败（`history_not_supported`，包括 TronGrid 端点缺失或不兼容） · `2` 用法错误（limit 超出 1–200）。
+`0` · `1` 执行失败（`history_not_supported`——TronGrid 端点缺失或不兼容） · `2` 用法错误（limit 超出 1–200；在 EVM 网络上为 `family_mismatch`）。
 
 ## 另请参见
 

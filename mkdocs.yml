@@ -95,6 +95,9 @@ nav:
               - 链上交易所: clients/wallet-cli/typescript/commands/exchange/index.md
               - 消息签名: clients/wallet-cli/typescript/commands/message/index.md
               - 结构化数据签名: clients/wallet-cli/typescript/commands/typed-data/index.md
+              - x402: clients/wallet-cli/typescript/commands/x402/index.md
+              - B.AI: clients/wallet-cli/typescript/commands/bai/index.md
+              - ERC-8004 Agent 身份: clients/wallet-cli/typescript/commands/8004/index.md
               - 编码转换: clients/wallet-cli/typescript/commands/encoding/index.md
               - 地址: clients/wallet-cli/typescript/commands/address/index.md
           - 机器接口: clients/wallet-cli/typescript/machine-interface.md
@@ -142,6 +145,7 @@ not_in_nav: |
   clients/wallet-cli/typescript/commands/*/*.md
   !clients/wallet-cli/typescript/commands/index.md
   !clients/wallet-cli/typescript/commands/*/index.md
+  clients/wallet-cli/typescript/troubleshooting/legacy-derivation-recovery.md
   releases/versions/*.md
   !releases/versions/index.md
 

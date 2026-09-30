@@ -10,7 +10,7 @@ wallet-cli contract call --contract <address> --method <sig> [--params <json>] [
 
 ## 说明
 
-在 TRON 或 EVM 上以 `constant`（只读）方式调用合约方法：不签名、不广播、不消耗任何费用，也不需要账户。
+在 TRON 或 EVM 上以常量（只读）调用的方式调用某个合约方法：不签名、不广播、不花任何手续费。不需要账户，也绝不会把你的账户当作调用者——TRON 上从一个固定的占位地址发起，EVM 上不带 `from`——因此读取 `msg.sender` 的方法给出的结果并不代表你。
 
 函数签名和参数类型都由你显式给出——不会去获取或参考任何 ABI。参数是一个 JSON 数组，元素为与方法签名逐一对应的 `{type, value}` 对象。
 
@@ -27,26 +27,26 @@ wallet-cli contract call --contract <address> --method <sig> [--params <json>] [
 ## 示例
 
 ```bash
-wallet-cli contract call --contract TXYZopYRdj2D9XRtbG411XZZ3kM5VkAeBf --method "balanceOf(address)" --params '[{"type":"address","value":"TMSgJxtPw29AFEHMXsjGo4kWV7UwbCToHJ"}]' --network tron:3448148188
+wallet-cli contract call --contract TXYZopYRdj2D9XRtbG411XZZ3kM5VkAeBf --method "balanceOf(address)" --params '[{"type":"address","value":"TMSgJxtPw29AFEHMXsjGo4kWV7UwbCToHJ"}]' --network nile
 ```
 
 ```console
 Method  balanceOf
-Result  0000000000000000000000000000000000000000000000000000000000000000 (raw)
+Result  - 0000000000000000000000000000000000000000000000000000000000000000 (raw)
 ```
 
 ```bash
-wallet-cli contract call --contract TXYZopYRdj2D9XRtbG411XZZ3kM5VkAeBf --method "balanceOf(address)" --params '[{"type":"address","value":"TMSgJxtPw29AFEHMXsjGo4kWV7UwbCToHJ"}]' --network tron:3448148188 -o json
+wallet-cli contract call --contract TXYZopYRdj2D9XRtbG411XZZ3kM5VkAeBf --method "balanceOf(address)" --params '[{"type":"address","value":"TMSgJxtPw29AFEHMXsjGo4kWV7UwbCToHJ"}]' --network nile -o json
 ```
 
 ```json
 {"schema":"wallet-cli.result.v1","success":true,"command":"contract.call","data":{"contract":"TXYZopYRdj2D9XRtbG411XZZ3kM5VkAeBf","method":"balanceOf(address)","result":["0000000000000000000000000000000000000000000000000000000000000000"]},"meta":{"durationMs":15,"warnings":[]},"chain":{"family":"tron","network":"tron:3448148188","chainId":"3448148188"}}
 ```
 
-同一个调用在 EVM 网络上是这样。注意 `result` 的形状：TRON 原样透传节点的 `constant_result` 数组，而 EVM 节点返回的是单个 `0x` 字符串：
+同一次调用在 EVM 网络上的样子。注意 `result` 的形态：TRON 节点把返回数据按 32 字节分片返回，EVM 节点则返回一整段 `0x` 数据：
 
 ```bash
-wallet-cli contract call --contract 0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238 --method "balanceOf(address)" --params '[{"type":"address","value":"0x541B10b92b45C08513e67bb8209f035D810212B6"}]' --network eip155:11155111
+wallet-cli contract call --contract 0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238 --method "balanceOf(address)" --params '[{"type":"address","value":"0x541B10b92b45C08513e67bb8209f035D810212B6"}]' --network sepolia
 ```
 
 ```console

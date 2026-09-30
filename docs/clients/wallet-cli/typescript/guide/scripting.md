@@ -9,6 +9,9 @@
 
 ```bash
 wallet-cli --json-schema | jq '.commands[] | select(.id == "tx.send") | {families, examples}'
+```
+
+```bash
 wallet-cli --json-schema | jq '.errorCodes'
 ```
 
@@ -27,7 +30,7 @@ wallet-cli account balance --network tron:3448148188 -o json
 {"schema":"wallet-cli.result.v1","success":true,"command":"account.balance","data":{"address":"TMSgJxtPw29AFEHMXsjGo4kWV7UwbCToHJ","balance":"1976489000","decimals":6,"symbol":"TRX"},"meta":{"durationMs":1114,"warnings":[]},"chain":{"family":"tron","network":"tron:3448148188","chainId":"3448148188"}}
 ```
 
-**2. 先检查退出码，再检查 `error.code`。** `0` 表示成功，`1` 表示运行时失败，`2` 表示命令用法错误。脚本需要在不同网络之间切换时，应单独处理退出码 `2` 下的两个错误码：`family_mismatch`（命令或账户不适用于所选网络的链家族）和 `invalid_option`（使用了属于另一个家族的参数）：
+**2. 先看退出码，再看 `error.code`。** `0` 成功，`1` 运行时失败，`2` 说明命令写错了。脚本在切换网络时，有两个退出码为 `2` 的 code 值得按名处理：`family_mismatch`（该命令或账户不属于所选网络的链家族）和 `invalid_option`（使用了属于另一个家族的参数）：
 
 ```bash
 if out=$(wallet-cli account balance --network tron:3448148188 -o json); then
@@ -37,15 +40,14 @@ else
 fi
 ```
 
-**3. 通过 stdin 传入敏感信息，不要放在 argv 中。** 参数中的密码、助记词或私钥可能出现在 shell 历史
-和 `ps` 输出中。wallet-cli 也不会读取任何专用的敏感信息环境变量：
+**3. 敏感信息走 stdin，绝不走命令行参数。** 密码、助记词、私钥若出现在参数里，就会进入 shell 历史和 `ps` 输出；wallet-cli 也不会读取任何专用的敏感信息环境变量：
 
 ```bash
 printf '%s' "$PW" | wallet-cli tx send --to T... --amount 1 \
   --network tron:3448148188 --password-stdin -o json
 ```
 
-（`$PW` 应来自密钥存储，并仅作为本次管道使用的临时 shell 变量；不要从仓库中的文件读取，也不要长期 `export`。每次运行只能使用一个 `*-stdin` 标志。）
+（`$PW` 应当来自你的密钥管理服务，作为仅供这一次管道使用的短生命周期 shell 变量——不要放在仓库里的文件中，也不要长期 `export`。每次运行只能使用一个 `*-stdin` 标志。）
 
 ## 等待确认
 
@@ -60,27 +62,34 @@ wallet-cli tx send --to T... --amount 1 --network tron:3448148188 \
 
 ## 分离签名与广播 {#sign-here-broadcast-there}
 
-`--sign-only` 把签名和广播拆开了，但它在签名之前仍然要通过所选的 RPC 端点完成构建和估算。如果签名机没有链访问权限，请在联网机器上构建未签名的 hex，在离线机器上对这份产物签名，再回到联网机器广播：
+`--sign-only` 把签名与广播分开，但它在签名之前仍会通过所选 RPC 端点构建并估算。对于不能联网的签名机，请在联网环境构建未签名的 hex，离线对该产物签名，再从联网机器广播：
 
 ```bash
-# 在联网的构建机上
+# on the connected build machine
 wallet-cli tx send --to T... --amount 1 --network tron:3448148188 \
   --build-only --expiration 3600000 -o json | jq -r '.data.hex' > unsigned.hex
+```
 
-# 在离线的签名机上
+```bash
+# on the offline signing machine
 printf '%s' "$PW" | wallet-cli tx sign --file unsigned.hex --network tron:3448148188 \
   --offline --password-stdin --out signed.hex
+```
 
-# 回到联网机器
+```bash
+# on the connected machine
 wallet-cli tx broadcast --file signed.hex --network tron:3448148188 -o json
 ```
 
-上述 **hex** 格式适用于两个链家族：TRON 使用 protobuf，EVM 使用 RLP。`--expiration` 仅适用于 TRON；示例将交易有效期设为一小时，以便在不同机器之间传递文件并完成签名，允许的上限为 24 小时。节点默认有效期约为 60 秒，`tx sign --offline` 会拒绝已过期的交易，因此应设置满足流程所需的最短有效期；过期后需要重新构建。EVM 交易没有过期时间字段，请省略该参数。如果签名机器可以访问 RPC，只是不希望由它广播，可使用 `tx send --sign-only` 直接输出已签名的 hex。
+上面这种 **hex** 形式在两个链家族上都适用——TRON 上是 protobuf，EVM 上是 RLP。`--expiration` 仅限 TRON；上面给的值让这份产物有一小时的时间用于传输和签名（最长 24 小时）。节点默认值约为 60 秒，而 `tx sign --offline` 会拒绝已过期的产物，因此请选一个切实可行的最短窗口，超时后重新构建。在 EVM 上请省略该参数，因为它的交易格式没有过期字段。如果签名机其实能访问 RPC、你只是想不让它广播，那么 `tx send --sign-only` 可以直接输出已签名的 hex。
 
 TRON 也接受已签名交易的 JSON，但 JSON 只能走 `--transaction` 或 `--tx-stdin`；`--file` 和 `--hex` 只收 hex：
 
 ```bash
 wallet-cli tx send ... --sign-only -o json | jq -c '.data.signed' > signed.json
+```
+
+```bash
 wallet-cli tx broadcast --tx-stdin --network tron:3448148188 -o json < signed.json
 ```
 
@@ -94,5 +103,6 @@ wallet-cli tx broadcast --tx-stdin --network tron:3448148188 -o json < signed.js
 
 ## 另请参见
 
-- [machine-interface](../machine-interface.md)——响应 schema、错误码、稳定性承诺
-- [命令参考](../commands/index.md)——每条命令的 `data` 返回数据，以及[哪些命令能在哪些网络上运行](../commands/index.md#which-commands-run-on-which-networks)
+- [机器接口](../machine-interface.md)——响应结构、错误码、稳定性承诺
+- [命令参考](../commands/index.md#which-commands-run-on-which-networks)——哪些命令能在哪些网络上运行
+- [命令参考](../commands/index.md)——每条命令的 `data` 载荷

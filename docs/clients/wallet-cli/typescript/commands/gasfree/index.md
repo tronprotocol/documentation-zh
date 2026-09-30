@@ -4,7 +4,7 @@
 
 `gasfree` 可以在账户没有 TRX 时转移 token：用户签署 TIP-712 结构化数据（TRON 版的 EIP-712），再由 GasFree 服务（[open.gasfree.io](https://open.gasfree.io)）代为提交上链。费用直接从转出的 token 中扣除，包括每笔交易的服务费，以及首次交易的一次性激活费，因此**完全不需要 TRX**。
 
-**仅限 TRON。** GasFree 是 TRON 上的服务；本组每一条子命令在 EVM 网络上都会以 `family_mismatch` 失败。
+> **仅限 TRON。** 本组的每条命令实现的都是 TRON 独有的协议特性，EVM 上没有对应物；在 EVM 网络上，它们会在任何节点调用之前就以 `family_mismatch` 失败。
 
 ## 用法
 

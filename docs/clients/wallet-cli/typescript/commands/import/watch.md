@@ -35,19 +35,15 @@ wallet-cli import watch --address TMSgJxtPw29AFEHMXsjGo4kWV7UwbCToHJ --label col
   Note          read-only; signing operations will be rejected
 ```
 
-EVM 地址的注册方式完全相同，会成为一个 `evm` 账户：
-
-```bash
-wallet-cli import watch --address 0x742d35Cc6634C0532925a3b844Bc454e4438f44e --label cold-evm
-```
-
 ```bash
 wallet-cli import watch --address TMSgJxtPw29AFEHMXsjGo4kWV7UwbCToHJ --label cold -o json
 ```
 
 ```json
-{"schema":"wallet-cli.result.v1","success":true,"command":"import.watch","data":{"status":"created","accountId":"wlt_jsyq8fxe","label":"cold","type":"watch","index":null,"active":false,"addresses":{"tron":"TMSgJxtPw29AFEHMXsjGo4kWV7UwbCToHJ"},"family":"tron"},"meta":{"durationMs":36,"warnings":[]}}
+{"schema":"wallet-cli.result.v1","success":true,"command":"import.watch","data":{"status":"created","accountId":"wlt_h10w1nm0","label":"cold","type":"watch","index":null,"active":false,"addresses":{"tron":"TMSgJxtPw29AFEHMXsjGo4kWV7UwbCToHJ"},"family":"tron","derivationPath":null},"meta":{"durationMs":28,"warnings":[]}}
 ```
+
+EVM 地址的登记方式完全相同，会成为一个 `evm` 账户：`wallet-cli import watch --address 0x742d35Cc6634C0532925a3b844Bc454e4438f44e --label cold-evm`。
 
 ## 输出
 
@@ -55,14 +51,15 @@ wallet-cli import watch --address TMSgJxtPw29AFEHMXsjGo4kWV7UwbCToHJ --label col
 
 | 字段 | 类型 | 含义 |
 |---|---|---|
-| `status` | string | `"created"`；若同一个观察地址此前已注册过，则为 `"existing"` |
+| `status` | string | `"created"`；若同一个观察地址此前已注册，则为 `"existing"` |
 | `accountId` | string | 稳定的账户 id |
 | `label` | string | 账户标签 |
 | `type` | string | `"watch"`（只读，无法签名） |
 | `index` | number \| null | 非 HD 账户，恒为 `null` |
-| `active` | boolean | 该账户是否已经是当前账户。注册仅观察账户并不会自动选中它；请显式使用 [`use`](../use.md) |
+| `active` | boolean | 该账户是否已经是当前账户。注册仅观察账户并不会选中它——请显式使用 [`use`](../use.md) |
 | `addresses` | object | 唯一的那个地址，以其家族为键——`{"tron":"T…"}` 或 `{"evm":"0x…"}` |
 | `family` | string | 由地址识别出的链家族——`tron` 或 `evm` |
+| `derivationPath` | null | 恒为 `null`——被观察的地址并非由本钱包派生 |
 
 ## 退出码
 

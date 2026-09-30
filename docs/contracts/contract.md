@@ -70,10 +70,10 @@ message SmartContract {
 - `bytecode`：合约字节码
 - `call_value`：随合约调用传入的 TRX 金额
 - `consume_user_resource_percent`：开发者设置的调用者的资源扣费百分比
-- `name`：合约名称
+- `name`：合约名称，不得超过 32 字节。该限制按 UTF-8 编码后的字节数计算，而不是按字符数计算
 - `origin_energy_limit`：开发者设置的在一次合约调用过程中自己消耗的 energy 的上限，必须大于 0。对于之前老的合约，deploy 的时候没有提供设置该值的参数，会存成 0，但是会按照 1000 万 energy 上限计算，开发者可以通过 `updateEnergyLimit` 接口重新设置该值，设置新值时也必须大于 0
-- `code_hash`：合约 runtime bytecode 的哈希
-- `trx_hash`：合约部署的根交易 id。仅对通过 `CREATE2` 操作码部署的合约填充该字段；通过 `CREATE` 操作码或 gRPC `deployContract` 部署的合约该字段为空
+- `code_hash`：已部署合约运行时字节码的哈希。节点会自动计算该字段的值，因此构造 `CreateSmartContract` 消息时必须将该字段留空。`VERSION_4_8_2_2` 升级生效后，提供非空值会导致部署失败
+- `trx_hash`：对于通过 TVM `CREATE2` 操作码创建的合约，节点会将该字段设置为根交易 ID。对于通过 `CREATE` 或 `DeployContract` API 创建的合约，该字段保持为空。构造 `CreateSmartContract` 消息时必须将该字段留空；`VERSION_4_8_2_2` 升级生效后，提供非空值会导致合约部署失败
 - `version`：合约版本号。当网络激活了 `ALLOW_TVM_COMPATIBLE_EVM` 提案后，新部署的合约会被标记为 version 1，使运行时可以仅对这些合约启用 EVM 兼容行为；激活前部署的旧合约保持 version 0，沿用原 TVM 语义。截至撰写时该提案在主网尚未激活，因此主网上所有合约的 version 都是 0
 
 通过另外两个 grpc message 类型 `CreateSmartContract` 和 `TriggerSmartContract` 来创建和使用 smart contract

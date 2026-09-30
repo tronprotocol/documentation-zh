@@ -7,8 +7,8 @@
 ```
 wallet-cli contract send --contract <address> --method <sig> [--params <json>] [--value <n>]
                          [--dry-run | --sign-only | --build-only | --wait [--wait-timeout <ms>]]
-                         [--fee-limit <sun>] [--permission-id <n>] [--expiration <ms>]        # TRON
-                         [--gas-limit <n>] [--max-fee <gwei>] [--priority-fee <gwei>] [--nonce <n>]  # EVM
+                         [--fee-limit <sun>] [--permission-id <n>] [--expiration <ms>]
+                         [--gas-limit <n>] [--max-fee <gwei>] [--priority-fee <gwei>] [--nonce <n>]
                          [options]
 ```
 
@@ -18,7 +18,7 @@ wallet-cli contract send --contract <address> --method <sig> [--params <json>] [
 
 `--value` 用于在调用时附带原生代币，单位是**完整的币**（写 `1.5`，不是最小单位）。TRON 的 `--call-value-sun` 仍然可用、并且以 SUN 计，但它**已废弃，将在下个版本移除**——请改用 `--value`。
 
-两种提前退出方式：`--dry-run` 预览开销但不签名、不广播——TRON 上是能量，EVM 上是 gas 上限；`--sign-only` 完成签名并打印交易，供之后 [`tx broadcast`](../tx/broadcast.md) 使用，`--build-only` 则打印未签名的交易。
+三种提前退出方式：`--dry-run` 预览开销但不签名、不广播——TRON 上是能量，EVM 上是 gas 上限；`--sign-only` 完成签名并打印交易，供之后 [`tx broadcast`](../tx/broadcast.md) 使用；`--build-only` 则打印未签名的交易。
 
 费用相关的参数跟随链家族——TRON 上是 `--fee-limit` / `--permission-id` / `--expiration`，EVM 上是 `--gas-limit` / `--max-fee` / `--priority-fee` / `--nonce`。`--help` 会为每组打上标记，把其中一组用在另一个家族上会以 `invalid_option` 被拒绝。
 
@@ -46,19 +46,19 @@ wallet-cli contract send --contract <address> --method <sig> [--params <json>] [
 
 | 选项 | 说明 |
 |---|---|
-| `--call-value-sun <number>` | **已废弃**，将在下个版本移除——随调用附带的原生 TRX，单位 SUN。请改用 `--value` |
-| `--fee-limit <number>` | 允许燃烧的最高能量费用，单位 SUN（默认 100000000） |
-| `--permission-id <n>` | 用于签名的权限组（0=owner，1=witness，2-9=active）；默认 `0` |
+| `--call-value-sun <string>` | **已废弃**，将在下个版本移除——随调用附带的原生 TRX，单位 SUN。请改用 `--value` |
+| `--fee-limit <string>` | 允许燃烧的最高能量费用，单位 SUN（默认 100000000） |
+| `--permission-id <n>` | 签名所用的权限组（0=owner，1=witness，2-9=active）；默认 `0` |
 | `--expiration <ms>` | 交易过期时间（毫秒），最大 `86400000`（24 小时）；仅可与 `--sign-only` 或 `--build-only` 同用；省略时使用节点默认值（约 60 秒） |
 
 仅限 EVM：
 
 | 选项 | 说明 |
 |---|---|
-| `--gas-limit <n>` | 授权的 gas 单位数；默认取节点的估算值，不做冗余放大 |
-| `--max-fee <gwei>` | 每单位 gas 的最高总费用（仅 EIP-1559 链） |
-| `--priority-fee <gwei>` | 每单位 gas 的小费（仅 EIP-1559 链） |
-| `--nonce <n>` | 交易 nonce；默认取该账户的 pending nonce |
+| `--gas-limit <string>` | 要授权的 gas 数量；默认取节点的估算值，不做冗余放大 |
+| `--max-fee <gwei>` | 每单位 gas 的最高总费用（仅限 EIP-1559 链） |
+| `--priority-fee <gwei>` | 每单位 gas 的小费（仅限 EIP-1559 链） |
+| `--nonce <n>` | 交易 nonce；默认取账户的 pending nonce。在 `--dry-run` 下，显式给出的 nonce 会与账户*已入块*的计数比对，若已被用掉，会在任何估算之前以 `nonce_too_low` 失败；而仅仅高于下一个值的 nonce，仍只作为 `meta.warnings` 中的空档提示 |
 
 此外还有[全局选项](../index.md#global-options-every-command)。
 
@@ -69,7 +69,7 @@ wallet-cli contract send --contract <address> --method <sig> [--params <json>] [
 默认——广播并返回**已提交**的回执：
 
 ```bash
-echo "$PW" | wallet-cli contract send --contract TXYZopYRdj2D9XRtbG411XZZ3kM5VkAeBf --method "transfer(address,uint256)" --params '[{"type":"address","value":"TSx72ViULFepRGCS4PM5dP4FqD1d8qggCc"},{"type":"uint256","value":"1000000"}]' --network tron:3448148188 --password-stdin
+echo "$PW" | wallet-cli contract send --contract TXYZopYRdj2D9XRtbG411XZZ3kM5VkAeBf --method "transfer(address,uint256)" --params '[{"type":"address","value":"TSx72ViULFepRGCS4PM5dP4FqD1d8qggCc"},{"type":"uint256","value":"1000000"}]' --network nile --password-stdin
 ```
 
 ```console
@@ -81,7 +81,7 @@ echo "$PW" | wallet-cli contract send --contract TXYZopYRdj2D9XRtbG411XZZ3kM5VkA
 ```
 
 ```bash
-echo "$PW" | wallet-cli contract send --contract TXYZopYRdj2D9XRtbG411XZZ3kM5VkAeBf --method "transfer(address,uint256)" --params '[...]' --network tron:3448148188 --password-stdin -o json
+echo "$PW" | wallet-cli contract send --contract TXYZopYRdj2D9XRtbG411XZZ3kM5VkAeBf --method "transfer(address,uint256)" --params '[...]' --network nile --password-stdin -o json
 ```
 
 ```json
@@ -91,7 +91,7 @@ echo "$PW" | wallet-cli contract send --contract TXYZopYRdj2D9XRtbG411XZZ3kM5VkA
 加上 `--wait` 会阻塞直到确认——成功时：
 
 ```bash
-echo "$PW" | wallet-cli contract send --contract TXYZopYRdj2D9XRtbG411XZZ3kM5VkAeBf --method "transfer(address,uint256)" --params '[...]' --network tron:3448148188 --wait --password-stdin
+echo "$PW" | wallet-cli contract send --contract TXYZopYRdj2D9XRtbG411XZZ3kM5VkAeBf --method "transfer(address,uint256)" --params '[...]' --network nile --wait --password-stdin
 ```
 
 ```console
@@ -107,7 +107,7 @@ echo "$PW" | wallet-cli contract send --contract TXYZopYRdj2D9XRtbG411XZZ3kM5VkA
 链上执行失败（例如能量不足）会返回 `stage: "failed"`：
 
 ```bash
-echo "$PW" | wallet-cli contract send --contract TXYZopYRdj2D9XRtbG411XZZ3kM5VkAeBf --method "transfer(address,uint256)" --params '[...]' --network tron:3448148188 --wait --password-stdin
+echo "$PW" | wallet-cli contract send --contract TXYZopYRdj2D9XRtbG411XZZ3kM5VkAeBf --method "transfer(address,uint256)" --params '[...]' --network nile --wait --password-stdin
 ```
 
 ```console
@@ -116,6 +116,7 @@ echo "$PW" | wallet-cli contract send --contract TXYZopYRdj2D9XRtbG411XZZ3kM5VkA
   TxID      c8d...
   Block     #66,000,123
   Energy    31,200
+  Fee       0 TRX
   Status    failed
   Reason    OUT_OF_ENERGY
 ```
@@ -138,8 +139,8 @@ echo "$PW" | wallet-cli contract send --contract TXYZopYRdj2D9XRtbG411XZZ3kM5VkA
 
 ## 退出码
 
-`0` 已提交（早退模式下为已构建/已签名） · `1` 执行失败（`watch_only_no_signer`、`auth_failed`、`rpc_error`、`timeout`——超时后交易可能仍在途中，请用 [`tx status`](../tx/status.md) 查询） · `2` 用法错误（`invalid_value`、模式冲突；把标注为 `(TRON only)` 的参数用在 EVM 上、或反之，则为 `invalid_option`）。
+`0` 已提交（提前退出的模式下则为已构建/已签名） · `1` 执行失败（`watch_only_no_signer`、`auth_failed`、`nonce_too_low`——`--dry-run` 配合一个已入块的 `--nonce`、`rpc_error`、`timeout`——超时后交易仍可能在途，请用 [`tx status`](../tx/status.md) 查询） · `2` 用法错误（`invalid_value`、模式互相冲突；`invalid_option`——使用了属于另一个家族的费用或多签参数）。
 
 ## 另请参见
 
-[`contract call`](call.md) · [`contract deploy`](deploy.md) · [`tx broadcast`](../tx/broadcast.md) · [能量与带宽](../../concepts/energy-bandwidth.md)
+[`contract call`](call.md) · [`contract deploy`](deploy.md) · [`tx broadcast`](../tx/broadcast.md) · [能量与带宽](../../concepts/energy-bandwidth.md) · [费用模型](../../concepts/networks.md#fees-the-evm-gas-model)

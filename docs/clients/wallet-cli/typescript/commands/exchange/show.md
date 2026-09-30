@@ -29,7 +29,7 @@ wallet-cli exchange show <id> [options]
 ## 示例
 
 ```bash
-wallet-cli exchange show 12 --network tron:3448148188
+wallet-cli exchange show 12 --network nile
 ```
 
 ```console
@@ -42,7 +42,7 @@ Exchange id 12
 ```
 
 ```bash
-wallet-cli exchange show 12 --network tron:3448148188 -o json
+wallet-cli exchange show 12 --network nile -o json
 ```
 
 ```json

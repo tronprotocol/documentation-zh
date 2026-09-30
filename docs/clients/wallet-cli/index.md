@@ -9,9 +9,7 @@ Java 版面向交互式使用，TypeScript 版面向脚本和自动化集成。
 - **[TypeScript](typescript/index.md)**——面向自动化的重写版本，采用标准子命令，并提供稳定的
   JSON 输出，适合脚本、CI 和 AI 智能体调用。
 
-两者管理同一类钱包，但**各自的账户存储并不通用**。同一助记词只有*第一个*账户的地址相同：再往后两者走的 BIP44 路径就不一样了——Java 递增的是地址索引（`m/44'/195'/0'/0/i`），TypeScript 递增的是 account 层级（`m/44'/195'/i'/0/0`）。因此在另一个 CLI 中恢复钱包会看到不同的地址，这并不是资金丢失。在两者之间迁移前，请先核对账户所记录的 BIP44 路径。它们支持的 TRON 功能基本一致，
-主要区别在于安装方式和操作方式——此外 TypeScript 版还支持 **EVM 网络**（以太坊、BNB Smart Chain 及其测试网），
-Java 版则不支持。选定其一后，请阅读对应文档了解详细用法；本页概述两者的特点，帮助你选择。
+两者管理的都是 TRON 钱包，但它们是各自独立的实现，账户存储并不通用。不要想当然地认为每个派生账户在两种实现下地址都一样：迁移时请核对所记录的 BIP44 路径。此外 TypeScript 版还支持部分 EVM 网络。
 
 ## 概览对比
 
@@ -20,10 +18,10 @@ Java 版则不支持。选定其一后，请阅读对应文档了解详细用法
 | **它是什么** | 成熟、功能完整的参考 CLI。 | 较新的重写版本，专注于程序化集成。 |
 | **运行时** | JVM——使用 Gradle 构建，以 `.jar` 运行。使用 [Trident](https://github.com/tronprotocol/trident) SDK。 | [Node.js](https://nodejs.org) **20+**。 |
 | **安装** | `git clone` + `cd wallet-cli/java && ./gradlew build`（见[环境准备](java/index.md#setup)） | `npm install -g @tron-walletcli/wallet-cli` |
-| **操作方式** | **交互式命令行**——启动后在 `>` 提示符中输入命令。 | **非交互式子命令**——在 shell 中执行 `wallet-cli <command>`。只有一份很短的白名单会出现提示（`create`、各个 `import` 子命令、`backup`、`change-password`、`delete`），其余命令一律直接报错而不询问。 |
+| **操作方式** | **交互式命令行**——启动后在 `>` 提示符中输入命令。 | **非交互式子命令**——在 shell 中执行 `wallet-cli <command>`。只有输入敏感信息时才会出现交互式提示。 |
 | **命令风格** | PascalCase 动词：`RegisterWallet`、`SendCoin`、`GetBalance`。金额以 **SUN** 计（1 TRX = 1,000,000 SUN）。 | 名词—动词子命令：`create`、`tx send`、`account balance`，配合 `--flags`。 |
 | **面向脚本的输出** | 供人阅读的文本。 | 通过 `-o json` 输出稳定 JSON（[`wallet-cli.result.v1`](typescript/machine-interface.md)），配合固定退出码（`0`/`1`/`2`）。 |
-| **配置 / 网络** | `config.conf` 中的端点，或运行时使用 `SwitchNetwork`。主网 · Nile · Shasta · 自定义。 | `--network` 参数 / `config` 命令。使用 CAIP-2 网络 id，并带有简短别名：`tron:728126428`（`tron`）· `tron:3448148188`（`nile`）· `tron:2494104990`（`shasta`）· `eip155:1`（`ethereum`）· `eip155:11155111`（`sepolia`）· `eip155:56`（`bsc`）· `eip155:97`（`bsc-testnet`）。 |
+| **配置 / 网络** | `config.conf` 中的端点，或运行时使用 `SwitchNetwork`。主网 · Nile · Shasta · 自定义。 | `--network` 参数 / `config` 命令。使用 CAIP-2 网络 id，并带有简短别名：`tron:728126428`（`tron`）· `tron:3448148188`（`nile`）· `tron:2494104990`（`shasta`）· `eip155:1`（`ethereum`）· `eip155:11155111`（`sepolia`）· `eip155:56`（`bsc`）· `eip155:97`（`bsc-testnet`）· `eip155:8453`（`base`）· `eip155:84532`（`base-sepolia`）。 |
 | **签名** | 软件 keystore · Ledger。 | 加密的本地 keystore · Ledger。敏感信息不会从命令行参数或环境变量读取。 |
 | **功能范围** | 钱包与转账、质押、投票与奖励、治理、合约、TRC10，以及链上交易所。 | HD 钱包、TRX/TRC20/TRC10 转账、质押与代理、投票与奖励、治理提案与超级代表运营、合约调用/部署/治理、TRC10 发行、链上 Bancor 交易所、多重签名、GasFree 转账、消息签名，以及链上查询。 |
 | **适用场景** | 需要交互式操作和完整 TRON 功能的用户。 | 脚本、CI 流水线和 AI 智能体集成。 |

@@ -18,15 +18,17 @@ wallet-cli token remove (--contract <address> | --asset-id <id>) [options]
 
 | 选项 | 说明 |
 |---|---|
-| `--contract <string>` | 要删除的 token 合约地址——TRON 上为 TRC20，EVM 上为 ERC20 |
-| `--asset-id <string>` | **仅限 TRON。** 要删除的 TRC10 数字资产 id；`--asset-id` / `--contract` 二者必选其一 |
+| `--contract <string>` | 要移除的 token 合约地址——TRON 上是 TRC20，EVM 上是 ERC20；`--contract` / `--asset-id` 二者必选其一 |
+| `--asset-id <string>` | **仅限 TRON。** 要移除的 TRC10 数字资产 id；`--asset-id` / `--contract` 二者必选其一 |
+
+`--asset-id` 是仅限 TRON 的参数：`--help` 会为它标注 `(TRON only)`，在 EVM 网络上传入它会在任何节点调用之前就以 `invalid_option` 失败。
 
 此外还有[全局选项](../index.md#global-options-every-command)。
 
 ## 示例
 
 ```bash
-wallet-cli token remove --contract TXYZopYRdj2D9XRtbG411XZZ3kM5VkAeBf --network tron:3448148188
+wallet-cli token remove --contract TXYZopYRdj2D9XRtbG411XZZ3kM5VkAeBf --network nile
 ```
 
 ```console
@@ -36,7 +38,7 @@ wallet-cli token remove --contract TXYZopYRdj2D9XRtbG411XZZ3kM5VkAeBf --network 
 ```
 
 ```bash
-wallet-cli token remove --contract TXYZopYRdj2D9XRtbG411XZZ3kM5VkAeBf --network tron:3448148188 -o json
+wallet-cli token remove --contract TXYZopYRdj2D9XRtbG411XZZ3kM5VkAeBf --network nile -o json
 ```
 
 ```json

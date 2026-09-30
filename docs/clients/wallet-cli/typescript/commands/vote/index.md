@@ -4,7 +4,7 @@
 
 投票消耗的是 **Tron Power（TP）**：1 TP = 质押 1 TRX（见 [`stake freeze`](../stake/freeze.md)）。票数在下一个维护周期（约 6 小时）统计，之后便持续产生奖励——用 [`reward`](../reward/index.md) 查询和领取。
 
-**仅限 TRON。** 超级代表投票是 TRON 的协议特性；本组每一条子命令在 EVM 网络上都会以 `family_mismatch` 失败。
+> **仅限 TRON。** 本组的每条命令实现的都是 TRON 独有的协议特性，EVM 上没有对应物；在 EVM 网络上，它们会在任何节点调用之前就以 `family_mismatch` 失败。
 
 ## 用法
 

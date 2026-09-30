@@ -24,13 +24,13 @@ wallet-cli asset issue --name <name> --supply <n> --price <trx>:<tokens>
 
 金额（`--supply`、`--freeze`）以**完整 token** 计——`--supply 1000000000 --precision 6` 在链上会成为 `total_supply` 为 `1000000000000000`。
 
-日期按 **UTC** 解析，格式为 `YYYY-MM-DD` 或 `YYYY-MM-DD HH:mm:ss`；只写日期表示 `00:00:00`。`--start` 必须晚于**本机**在构建时的时钟（这是本地校验，不会去读节点），因此只写日期最早也要到明天——想当天开售，就把时间一并写上。链上还会在此之上再做一次自己的窗口校验。
+日期按 **UTC** 解析，格式为 `YYYY-MM-DD` 或 `YYYY-MM-DD HH:mm:ss`；只给日期表示 `00:00:00`。`--start` 必须晚于**本机**在构建时刻的时钟——这是本地检查，不读节点——因此只给日期最早也要到明天；若想当天开售，请把时间一并给出。链上还会再做一次自己的时间窗校验。
 
-以下条件会在广播前进行本地校验：`--name` 和 `--abbr` 必须由 1–32 个可见 ASCII 字符组成（`0x21`–`0x7E`，不能包含空格或非 ASCII 字符）；`--url` 必填且不超过 256 字节；`--description` 不超过 200 字节；`--precision` 为 0–6；`--start` 必须在未来，`--end` 必须晚于 `--start`；每个 `--freeze` 批次的金额和天数都必须大于零。命令还会预先读取账户状态；如果该账户已经发行过 TRC10，会在产生发行费用之前拒绝操作。其他边界由节点校验，包括冻结批次限制（`getMinFrozenSupplyTime`、`getMaxFrozenSupplyTime`、`getMaxFrozenSupplyNumber`，以及各批次总额与总供应量的关系）和免费带宽限额（`getOneDayNetLimit`）。违反任一限制时，节点会返回 `transaction_rejected` 及其原始错误信息。
+广播之前在本地校验的约束：`--name` 和 `--abbr` 为 1–32 个可见 ASCII 字符（`0x21`–`0x7E`，因此不能有空格，也不能有非 ASCII）；`--url` 必填且不超过 256 字节；`--description` 不超过 200 字节；`--precision` 为 0–6；`--start` 必须在未来，`--end` 必须晚于 `--start`；每个 `--freeze` 批次的数量和天数都必须大于零。此外还会额外做一次预检读取，拒绝已经发行过 TRC10 的账户，因为无论成败手续费都会被燃烧。其余所有边界都归节点管：链上对冻结批次的限制（`getMinFrozenSupplyTime`、`getMaxFrozenSupplyTime`、`getMaxFrozenSupplyNumber`，以及各批次之和与总供应量的关系）和对免费带宽额度的限制（`getOneDayNetLimit`）都在广播时强制执行，违反其中任何一条都会以节点自己的措辞返回 `transaction_rejected`。
+
+Ledger 的 TRON app 无法对 TRC10 发行类合约签名。Ledger 账户可以做试运行或构建未签名的 hex；签名类模式会在与设备交互之前就以 `ledger_unsupported` 失败。
 
 **该命令默认在交易提交后返回**（`stage: "submitted"`），不会等待确认。使用 `--wait` 可阻塞至交易确认或失败。命令需要一个账户；仅在需要签名的模式下，才必须通过 `--password-stdin` 提供 master password。`--dry-run` 和 `--build-only` 不会解锁钱包，因此无需密码。仅观察账户无法签名，会返回 `watch_only_no_signer`。
-
-Ledger 的 TRON 应用无法对 TRC10 发行类合约签名。Ledger 账户可以做试运行或构建未签名的 hex，但签名模式会在与设备交互之前就以 `ledger_unsupported` 失败。
 
 ## 选项
 
@@ -65,13 +65,13 @@ Ledger 的 TRON 应用无法对 TRC10 发行类合约签名。Ledger 账户可�
 ```bash
 echo "$PW" | wallet-cli asset issue --name MyToken --abbr MTK --supply 1000000000 --price 1:100 --precision 6 \
   --start 2026-08-01 --end 2026-08-31 --url https://mytoken.io --description "Demo TRC10" \
-  --freeze 100000000:30 --freeze 50000000:90 --network tron:3448148188 --wait --password-stdin
+  --freeze 100000000:30 --freeze 50000000:90 --network nile --wait --password-stdin
 ```
 
 ```console
 ✅ Asset issued
   Asset             MyToken  (id 1000123)
-  Issuer            TQkXm4vN...5Zt7Uw
+  Issuer            TP2Zs9qKScTMs8jDYV3SAHQ5pqgKY1NQ5V
   Total supply      1,000,000,000
   Precision         6
   Price             1 TRX = 100 MyToken
@@ -92,11 +92,11 @@ echo "$PW" | wallet-cli asset issue --name MyToken --abbr MTK --supply 100000000
 ```bash
 echo "$PW" | wallet-cli asset issue --name MyToken --abbr MTK --supply 1000000000 --price 1:100 --precision 6 \
   --start 2026-08-01 --end 2026-08-31 --url https://mytoken.io --description "Demo TRC10" \
-  --freeze 100000000:30 --freeze 50000000:90 --network tron:3448148188 --wait --password-stdin -o json
+  --freeze 100000000:30 --freeze 50000000:90 --network nile --wait --password-stdin -o json
 ```
 
 ```json
-{"schema":"wallet-cli.result.v1","success":true,"command":"asset.issue","data":{"kind":"asset-issue","stage":"confirmed","txId":"7d1...","confirmed":true,"blockNumber":57883010,"feeSun":1024000000,"netUsed":312,"netFeeSun":0,"failed":false,"assetId":"1000123","issuerAddress":"TQkXm4vN...","name":"MyToken","abbr":"MTK","totalSupply":"1000000000000000","precision":6,"price":"1:100","trxNum":1,"num":100,"startTime":1785542400000,"endTime":1788134400000,"url":"https://mytoken.io","description":"Demo TRC10","freeAssetNetLimit":0,"publicFreeAssetNetLimit":0,"frozenSupply":[{"amount":"100000000000000","days":30},{"amount":"50000000000000","days":90}]},"meta":{"durationMs":6720,"warnings":[]},"chain":{"family":"tron","network":"tron:3448148188","chainId":"3448148188"}}
+{"schema":"wallet-cli.result.v1","success":true,"command":"asset.issue","data":{"kind":"asset-issue","stage":"confirmed","txId":"7d1...","confirmed":true,"blockNumber":57883010,"failed":false,"assetId":"1000123","issuerAddress":"TP2Zs9qKScTMs8jDYV3SAHQ5pqgKY1NQ5V","name":"MyToken","abbr":"MTK","totalSupply":"1000000000000000","precision":6,"price":"1:100","trxNum":1,"num":100,"startTime":1785542400000,"endTime":1788134400000,"url":"https://mytoken.io","description":"Demo TRC10","freeAssetNetLimit":0,"publicFreeAssetNetLimit":0,"frozenSupply":[{"amount":"100000000000000","days":30},{"amount":"50000000000000","days":90}],"feeSun":1024000000,"netUsed":312,"netFeeSun":0},"meta":{"durationMs":6720,"warnings":[]},"chain":{"family":"tron","network":"tron:3448148188","chainId":"3448148188"}}
 ```
 
 ## 输出
@@ -108,7 +108,7 @@ echo "$PW" | wallet-cli asset issue --name MyToken --abbr MTK --supply 100000000
 | 默认（提交） | `kind: "asset-issue"`、`stage: "submitted"`、`txId`，以及下面列出的 token 定义字段（不含 `assetId`） |
 | `--wait`（已确认） | 以上内容，外加 `stage: "confirmed"`、`confirmed`（boolean）、`blockNumber`、返回时的扁平结算字段（`feeSun`、`energyUsed`、`netUsed`、`energyFeeSun`、`netFeeSun`）、`failed`，以及 `assetId`——由链分配，因此只有确认后才可知 |
 
-定义字段：`issuerAddress`、`name`、`abbr`、`totalSupply`（原始十进制字符串）、`precision`、`price`（由链上存储的数对反推出来的 `trx:tokens` 字符串，因此它是**约分后**的比率，未必等于你输入的内容——`--price 2:200 --precision 6` 会报告为 `"1:100"`）连同存储的 `trxNum` / `num` 对、`startTime` / `endTime`（epoch 以来的毫秒数）、`url`、`description`、`freeAssetNetLimit`、`publicFreeAssetNetLimit`，以及 `frozenSupply[]`（`amount` 为原始十进制字符串，`days`）。确认后的资源字段是扁平的；没有 `resource` 对象，带宽字段叫 `netUsed`，不是 `netUsage`。
+定义类字段：`issuerAddress`、`name`、`abbr`、`totalSupply`（原始十进制字符串）、`precision`、`price`（一个 `trx:tokens` 形式的字符串，由存储的数对反推而来，因此它是**约简后**的汇率，未必是你输入的那个——`--price 2:200 --precision 6` 会报告 `"1:100"`）以及存储的 `trxNum` / `num` 数对、`startTime` / `endTime`（epoch 毫秒）、`url`、`description`、`freeAssetNetLimit`、`publicFreeAssetNetLimit`，还有 `frozenSupply[]`（`amount` 为原始十进制字符串，`days` 为数字）。确认后的结算字段是扁平的——没有 `resource` 对象，带宽字段名为 `netUsed`。
 
 ## 退出码
 

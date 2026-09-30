@@ -1,8 +1,6 @@
 # 配置参考
 
-`config.conf` 的完整参考。启动时，wallet-cli 先从进程工作目录读取 `./config.conf`；该文件不存在时，
-则加载打包在 classpath 中的资源（源码检出中对应 `src/main/resources/config.conf`）。你也可以在运行时用
-[`SwitchNetwork`](../commands/network.md) 切换网络。
+`config.conf` 的完整参考。启动时，wallet-cli 会先从进程的工作目录读取 `./config.conf`。若该文件不存在，则加载打包进 JAR 的 classpath 资源（在仓库中对应 `java/src/main/resources/config.conf`）。你也可以在运行时用 [`SwitchNetwork`](../commands/network.md) 切换网络。
 
 ## 最小配置
 

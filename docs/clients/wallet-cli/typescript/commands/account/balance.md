@@ -21,26 +21,26 @@ wallet-cli account balance [options]
 ## 示例
 
 ```bash
-wallet-cli account balance --network tron:3448148188
+wallet-cli account balance --network nile
 ```
 
 ```console
-Label    demo
-Balance  9,915.80311 TRX
+Label    main
+Balance  1,976.489 TRX
 ```
 
 ```bash
-wallet-cli account balance --network tron:3448148188 -o json
+wallet-cli account balance --network nile -o json
 ```
 
 ```json
-{"schema":"wallet-cli.result.v1","success":true,"command":"account.balance","data":{"address":"TNmoJ3Be59WFEq5dsW6eCkZjveiL3G8HVB","balance":"9915803110","decimals":6,"symbol":"TRX"},"meta":{"durationMs":681,"warnings":[]},"chain":{"family":"tron","network":"tron:3448148188","chainId":"3448148188"}}
+{"schema":"wallet-cli.result.v1","success":true,"command":"account.balance","data":{"address":"TMSgJxtPw29AFEHMXsjGo4kWV7UwbCToHJ","balance":"1976489000","decimals":6,"symbol":"TRX"},"meta":{"durationMs":1114,"warnings":[]},"chain":{"family":"tron","network":"tron:3448148188","chainId":"3448148188"}}
 ```
 
 同一条命令在 EVM 网络上读取的则是该账户的 EVM 地址：
 
 ```bash
-wallet-cli account balance --network eip155:11155111 -o json
+wallet-cli account balance --network sepolia -o json
 ```
 
 ```json
@@ -51,9 +51,9 @@ wallet-cli account balance --network eip155:11155111 -o json
 
 | 字段 | 类型 | 含义 |
 |---|---|---|
-| `address` | string | 被查询的地址，格式随所选网络而定（TRON 为 base58，EVM 为 `0x` 十六进制） |
-| `balance` | string | 以该链最小单位计的原始余额——TRON 上是 SUN（`"9915803110"` = 9915.80311 TRX），EVM 上是 wei |
-| `decimals` | number | 每枚币包含的最小单位数：TRON 为 `6`，EVM 为 `18` |
+| `address` | string | 被查询的地址，以所选网络的格式给出（TRON 上是 base58，EVM 上是 `0x` hex） |
+| `balance` | string | 以该链最小单位计的原始余额——TRON 上是 SUN（`"1976489000"` = 1976.489 TRX），EVM 上是 wei |
+| `decimals` | number | 每枚币包含多少最小单位：TRON 为 `6`，EVM 为 `18` |
 | `symbol` | string | 该网络的原生币——`TRX`、`ETH`、`BNB` |
 
 ## 退出码
@@ -62,4 +62,4 @@ wallet-cli account balance --network eip155:11155111 -o json
 
 ## 另请参见
 
-[`account portfolio`](portfolio.md)——包含 token · [`account info`](info.md) · [单位：TRX 与 SUN](../../concepts/networks.md#fees-the-tron-resource-model)
+[`account portfolio`](portfolio.md)——包含 token · [`account info`](info.md) · [费用模型与单位](../../concepts/networks.md#fees-the-tron-resource-model)

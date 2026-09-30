@@ -12,19 +12,19 @@ wallet-cli contract set-user-resource-percent <address> <percent>
 
 ## 说明
 
-设置 `consume_user_resource_percent`：一次调用的能量中由**调用方**支付的百分比。其余部分由部署者承担，而部署者一侧又受 [`contract set-origin-energy-limit`](set-origin-energy-limit.md) 和其质押能量的双重限制。
+> **仅限 TRON。** 调用者与部署者分摊能量的机制在 EVM 上没有对应物；在 EVM 网络上，本命令会以 `family_mismatch` 失败。
+
+设置 `consume_user_resource_percent`：即一次调用的能量中由**调用方**支付的百分比。其余部分由部署者承担，并受 [`contract set-origin-energy-limit`](set-origin-energy-limit.md) 以及部署者已质押能量的双重限制。
 
 `100` 表示调用方全额支付、部署者不作任何补贴——这也让 `origin_energy_limit` 失去意义。`0` 表示在上述上限之内全部由部署者支付。该值是 0–100 的整数，在本地校验。
 
 这个数字是**调用方**的份额，与链上字段本身的语义方向一致；本 CLI 不会把它反过来解释。
 
-**仅限 TRON**——调用方 / 部署者的能量分摊在 EVM 上没有对应物；该网络会以 `family_mismatch` 失败。
-
 只有合约的部署者才能执行此操作；当前值见 [`contract info`](info.md)。设置在交易确认后立即生效。
 
 **该命令默认在交易提交后返回**（`stage: "submitted"`），不会等待确认。使用 `--wait` 可阻塞至交易确认或失败。命令需要一个账户；仅在需要签名的模式下，才必须通过 `--password-stdin` 提供 master password。`--dry-run` 和 `--build-only` 不会解锁钱包，因此无需密码。仅观察账户无法签名，会返回 `watch_only_no_signer`。
 
-Ledger 的 TRON 应用无法解析这一治理类合约。Ledger 账户可以做试运行或构建，但签名模式会在与设备交互之前就以 `ledger_unsupported` 失败。
+Ledger 的 TRON app 无法解析这种治理类合约。Ledger 账户可以做试运行或构建；签名类模式会在与设备交互之前就以 `ledger_unsupported` 失败。
 
 ## 选项
 
@@ -49,7 +49,7 @@ Ledger 的 TRON 应用无法解析这一治理类合约。Ledger 账户可以做
 调用方承担全部能量开销：
 
 ```bash
-echo "$PW" | wallet-cli contract set-user-resource-percent TQ5nJ8mV...4wRe 100 --network tron:3448148188 --wait --password-stdin
+echo "$PW" | wallet-cli contract set-user-resource-percent TQ5nJ8mV...4wRe 100 --network nile --wait --password-stdin
 ```
 
 ```console
@@ -64,7 +64,7 @@ echo "$PW" | wallet-cli contract set-user-resource-percent TQ5nJ8mV...4wRe 100 -
 ```
 
 ```bash
-echo "$PW" | wallet-cli contract set-user-resource-percent TQ5nJ8mV...4wRe 100 --network tron:3448148188 --wait --password-stdin -o json
+echo "$PW" | wallet-cli contract set-user-resource-percent TQ5nJ8mV...4wRe 100 --network nile --wait --password-stdin -o json
 ```
 
 ```json
@@ -84,7 +84,7 @@ echo "$PW" | wallet-cli contract set-user-resource-percent TQ5nJ8mV...4wRe 100 -
 
 ## 退出码
 
-`0` 已提交（早退模式下为已构建/已签名） · `1` 执行失败（`contract_not_found`——没有这个合约、`not_contract_deployer`、`watch_only_no_signer`、`ledger_unsupported`、`auth_failed`） · `2` 用法错误（`invalid_value`——地址格式非法，或百分比不在 0–100 之间）。
+`0` 已提交（提前退出的模式下则为已构建/已签名） · `1` 执行失败（`contract_not_found`——没有该合约、`not_contract_deployer`、`watch_only_no_signer`、`ledger_unsupported`、`auth_failed`） · `2` 用法错误（`invalid_value`——地址格式错误，或百分比超出 0–100；在 EVM 网络上为 `family_mismatch`）。
 
 ## 另请参见
 

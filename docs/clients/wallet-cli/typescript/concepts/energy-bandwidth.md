@@ -1,6 +1,6 @@
 # 能量与带宽
 
-本页介绍 TRON 的费用模型，以及使用 `stake` 的原因。**仅限 TRON**——EVM 网络使用 gas 为交易计价，参见[网络 → `evm-gas` 模型](networks.md#fees-the-evm-gas-model)。基本单位为 **1 TRX = 1,000,000 SUN**，所有名为 `*-sun` 的 CLI 参数都以 SUN 计。JSON 中的数值同样使用 SUN，但类型并不统一：余额等 int64 量级的金额为十进制字符串，`feeSun`、`multiSignFeeSun`、`energyUsed`、`netUsed` 等有界的计数和费用则可能是 JSON 数字。请以各命令的字段表为准，不要假定它们采用同一种类型；参见 [machine-interface](../machine-interface.md#the-result-envelope)。
+TRON 的费用模型，以及 `stake` 为何存在。这就是 `tron-resource` 模型，它只适用于 TRON 网络——EVM 网络改为支付 gas，见[网络 → `evm-gas` 模型](networks.md#fees-the-evm-gas-model)。先说单位：**1 TRX = 1,000,000 SUN**；所有名为 `*-sun` 的 CLI 参数都以原始 SUN 计。JSON 中同样是原始 SUN，但并不总是字符串：余额等 int64 量级的金额是十进制字符串，而 `feeSun`、`multiSignFeeSun`、`energyUsed`、`netUsed` 这类有界的计数和费用可能以 JSON 数字返回。请以各命令的字段表为准，不要假设只有一种类型——参见 [machine-interface](../machine-interface.md#the-result-envelope)。
 
 ## 用两种资源代替 gas
 
@@ -14,7 +14,7 @@
 可以随时查看当前资源状态：
 
 ```bash
-wallet-cli account info --network tron:3448148188 -o json | jq '.data.resources'
+wallet-cli account info --network nile -o json | jq '.data.resources'
 ```
 
 ```json

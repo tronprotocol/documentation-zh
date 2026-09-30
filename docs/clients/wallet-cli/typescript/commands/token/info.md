@@ -12,21 +12,23 @@ wallet-cli token info (--contract <address> | --asset-id <id>) [options]
 
 直接通过 RPC 从链上读取 token 元数据，不需要账户或密码。必须且只能指定一种查询方式：合约类 token 使用 `--contract`（TRON 上为 TRC20，EVM 上为 ERC20），TRC10 资产使用 `--asset-id`。
 
-合约类 token（TRC20/ERC20）返回经过归一化的元数据。TRC10 的 `--asset-id` 查询则保留节点响应中以下划线命名的键，只将文本字段（`name`、`abbr`、`url`、`description`）解码为 UTF-8，并把 `total_supply` 等 int64 数量序列化为十进制字符串。因此，不应假定 TRC10 响应与合约类 token 具有相同的字段结构。
+合约型 token（TRC20/ERC20）的读取会返回归一化的元数据。TRC10 的 `--asset-id` 分支则不同：它保留节点记录原本的 snake_case 键名，把文本字段（`name`、`abbr`、`url`、`description`）解码为 UTF-8，并把 `total_supply` 这类 int64 数量序列化为十进制字符串。请不要把合约型 token 的字段集套用到 TRC10 的响应上。
 
 ## 选项
 
 | 选项 | 说明 |
 |---|---|
-| `--contract <string>` | token 合约地址——TRON 上为 TRC20，EVM 上为 ERC20 |
+| `--contract <string>` | token 合约地址——TRON 上是 TRC20，EVM 上是 ERC20；`--contract` / `--asset-id` 二者必选其一 |
 | `--asset-id <string>` | **仅限 TRON。** TRC10 数字资产 id；`--asset-id` / `--contract` 二者必选其一 |
+
+`--asset-id` 是仅限 TRON 的参数：`--help` 会为它标注 `(TRON only)`，在 EVM 网络上传入它会在任何节点调用之前就以 `invalid_option` 失败。
 
 此外还有[全局选项](../index.md#global-options-every-command)。
 
 ## 示例
 
 ```bash
-wallet-cli token info --contract TXYZopYRdj2D9XRtbG411XZZ3kM5VkAeBf --network tron:3448148188
+wallet-cli token info --contract TXYZopYRdj2D9XRtbG411XZZ3kM5VkAeBf --network nile
 ```
 
 ```console
@@ -36,17 +38,17 @@ Decimals  6
 ```
 
 ```bash
-wallet-cli token info --contract TXYZopYRdj2D9XRtbG411XZZ3kM5VkAeBf --network tron:3448148188 -o json
+wallet-cli token info --contract TXYZopYRdj2D9XRtbG411XZZ3kM5VkAeBf --network nile -o json
 ```
 
 ```json
-{"schema":"wallet-cli.result.v1","success":true,"command":"token.info","data":{"contract":"TXYZopYRdj2D9XRtbG411XZZ3kM5VkAeBf","name":"Tether USD","symbol":"USDT","decimals":6,"totalSupply":"17600000000030000000"},"meta":{"durationMs":690,"warnings":[]},"chain":{"family":"tron","network":"tron:3448148188","chainId":"3448148188"}}
+{"schema":"wallet-cli.result.v1","success":true,"command":"token.info","data":{"contract":"TXYZopYRdj2D9XRtbG411XZZ3kM5VkAeBf","name":"Tether USD","symbol":"USDT","decimals":6,"totalSupply":"17600000000030000000"},"meta":{"durationMs":15,"warnings":[]},"chain":{"family":"tron","network":"tron:3448148188","chainId":"3448148188"}}
 ```
 
 EVM 网络上的 ERC20 token——没有 `totalSupply`：
 
 ```bash
-wallet-cli token info --contract 0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238 --network eip155:11155111 -o json
+wallet-cli token info --contract 0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238 --network sepolia -o json
 ```
 
 ```json
@@ -56,7 +58,7 @@ wallet-cli token info --contract 0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238 --ne
 TRC10 查询保留节点自身的键名，同时把文本解码出来、并原样保留各项数量：
 
 ```bash
-wallet-cli token info --asset-id 1002000 --network tron:3448148188 -o json
+wallet-cli token info --asset-id 1002000 --network nile -o json
 ```
 
 ```json
@@ -79,16 +81,16 @@ wallet-cli token info --asset-id 1002000 --network tron:3448148188 -o json
 
 | 字段 | 类型 | 含义 |
 |---|---|---|
-| `id` / `owner_address` | string | 资产 id，以及节点给出的十六进制持有者地址 |
-| `name` / `abbr` / `description` / `url` | string | 从节点响应中解码出的 UTF-8 文本 |
-| `total_supply` | string | 精确的 int64 供应量，以最小单位计 |
-| `trx_num` / `num` | number | 链上的 ICO 比率数对 |
-| `precision` | number? | 资产精度；缺席表示 `0` |
-| `start_time` / `end_time` | number | ICO 窗口，epoch 毫秒 |
-| `free_asset_net_limit` / `public_free_asset_net_limit` | number? | 存在时给出的免费带宽限额 |
-| `frozen_supply` | array? | 冻结批次；其中 `frozen_amount` 是十进制字符串，`frozen_days` 是数字 |
+| `id` / `owner_address` | string | 资产 id，以及节点给出的 hex 形式所有者地址 |
+| `name` / `abbr` / `description` / `url` | string | 从节点响应解码出的 UTF-8 文本 |
+| `total_supply` | string | 以最小单位计的精确 int64 总量 |
+| `trx_num` / `num` | number | 链上的 ICO 汇率数对 |
+| `precision` | number? | 资产精度；没有该字段表示 `0` |
+| `start_time` / `end_time` | number | ICO 时间窗，epoch 毫秒 |
+| `free_asset_net_limit` / `public_free_asset_net_limit` | number? | 存在时给出免费带宽额度 |
+| `frozen_supply` | array? | 冻结批次；每项的 `frozen_amount` 是十进制字符串，`frozen_days` 是数字 |
 
-TRC10 这套结构里没有归一化的 `contract`、`symbol` 或 `decimals` 键。
+TRC10 的结构中没有归一化的 `contract`、`symbol` 或 `decimals` 字段。
 
 ## 退出码
 

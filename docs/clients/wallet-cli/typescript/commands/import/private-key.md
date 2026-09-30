@@ -37,7 +37,7 @@ wallet-cli import private-key --label hot
 ✅ Imported wallet "hot"
   Account ID    wlt_2qnr6j1f
   Type          private key
-  TRON address  TMVQGm1qAQYVdetCeGRRkTWYYrLXuHK2HC
+  TRON address  TFTsyAaajS3DTEbekme2wm9fNcypguDHp4
   EVM address   0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC
   Active        yes
 
@@ -52,7 +52,7 @@ wallet-cli import private-key --label hot -o json
 ? Set master password (hidden):
 ? Confirm master password:
 ? Paste private key (hidden):
-{"schema":"wallet-cli.result.v1","success":true,"command":"import.private-key","data":{"status":"created","accountId":"wlt_2qnr6j1f","label":"hot","type":"privateKey","index":null,"active":true,"addresses":{"tron":"TMVQGm1qAQYVdetCeGRRkTWYYrLXuHK2HC","evm":"0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC"},"derivationPath":null},"meta":{"durationMs":38,"warnings":[]}}
+{"schema":"wallet-cli.result.v1","success":true,"command":"import.private-key","data":{"status":"created","accountId":"wlt_2qnr6j1f","label":"hot","type":"privateKey","index":null,"active":true,"addresses":{"tron":"TFTsyAaajS3DTEbekme2wm9fNcypguDHp4","evm":"0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC"},"derivationPath":null},"meta":{"durationMs":38,"warnings":[]}}
 ```
 
 ## 输出
@@ -61,18 +61,18 @@ wallet-cli import private-key --label hot -o json
 
 | 字段 | 类型 | 含义 |
 |---|---|---|
-| `status` | string | `"created"`；若同一把密钥已经存在，则为 `"existing"`（此时选中的是已有的那个账户） |
+| `status` | string | `"created"`；若同一把密钥此前已存在，则为 `"existing"`（并选中那个账户） |
 | `accountId` | string | 稳定的账户 id |
 | `label` | string | 账户标签 |
-| `type` | string | `"privateKey"`（独立私钥，没有 seed） |
+| `type` | string | `"privateKey"`（独立账户，没有种子） |
 | `index` | number \| null | 非 HD 账户，恒为 `null` |
 | `active` | boolean | 是否成为当前账户 |
-| `addresses` | object | 所导入密钥的两种编码形式：`tron`（base58）和 `evm`（EIP-55） |
+| `addresses` | object | 导入密钥的两种编码：`tron`（base58）和 `evm`（EIP-55） |
 | `derivationPath` | null | 原始私钥没有派生路径 |
 
 ## 退出码
 
-`0` 导入成功 · `1` 执行失败（`auth_failed`——输入的 master password 与已有 keystore 不匹配；`invalid_private_key`——存储层校验拒绝了该私钥；`io_error`） · `2` 用法错误（`tty_required`——没有可用于隐藏输入的 TTY；`invalid_value`——标签非法或重复）。在 TTY 提示处输入的非法私钥或强度不足的新密码，会当场被拒绝并重新提示，而不会作为终止性错误返回。
+`0` 导入成功 · `1` 执行失败（`auth_failed`——输入的 master password 与已有 keystore 不匹配；`invalid_private_key`——存储层校验拒绝了该密钥；`io_error`） · `2` 用法错误（`tty_required`——没有可用于隐藏输入的 TTY；`invalid_value`——标签非法或重复）。在提示处输入的无效密钥或过弱的新密码会当场被拒并要求重输，而不会作为终态错误返回。
 
 ## 另请参见
 

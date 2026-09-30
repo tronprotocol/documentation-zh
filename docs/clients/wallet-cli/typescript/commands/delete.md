@@ -22,42 +22,55 @@ wallet-cli delete <account> [--yes] [options]
 
 ## 注意事项
 
-删除 HD 钱包会从种子根开始级联——所有派生账户一并删除。链上资产不受影响；重新导入助记词即可恢复访问。请先做好备份。该操作只涉及元数据——不需要 master password。
+删除 HD 钱包会从种子根开始级联——全部派生账户都会一并删除。链上资产不受影响。请先执行 [`backup`](backup.md)，并按它打印的任何警告处理。仅涉及元数据——不需要 master password。
+
+**从含有 TRON 子账户（索引 1 或更高）的 HD 钱包中删除**时，总会在确认之前先打印一条警告。在没有密码的情况下，`delete` 无法判断这些地址是由哪条派生路径生成的；如果它们来自更早的版本，重新导入助记词并不能把它们重建出来。请先备份并核验它们的密钥——参见[出现 `legacy_derivation` 后如何找回地址](../troubleshooting/legacy-derivation-recovery.md)。该警告不会阻止删除。
 
 ## 示例
 
-不带 `--yes` 时，删除会要求确认——你必须一字不差地输入账户标签：
+删除 HD 子账户只会移除该账户并保留种子，因此之后还可以再 `derive` 回来。由于该钱包存在 TRON 子账户，会先打印旧派生路径的警告：
 
 ```bash
-wallet-cli delete solo
+wallet-cli delete main-2 --yes
 ```
 
 ```console
-? Delete solo? Type the exact label "solo" to confirm: solo
-✅ Deleted wallet wlt_p7cg790g
-  Secret removed  yes
+warning: This HD wallet contains TRON sub-accounts. If created with an older derivation path, default mnemonic recovery may not recreate them. Back up and verify their keys before deleting. https://github.com/tronprotocol/wallet-cli/blob/wallet-cli-4.13.1/ts/docs/troubleshooting/legacy-derivation-recovery.md
+✅ Deleted account wlt_kwyjcwdh.2
+  Secret removed  no
+  New active      wlt_kwyjcwdh.0
 ```
 
-删除 HD 根会级联到整个钱包（所有派生账户 + 密钥）：
+```bash
+wallet-cli delete main-2 --yes -o json
+```
+
+```json
+{"schema":"wallet-cli.result.v1","success":true,"command":"delete","data":{"accountId":"wlt_kwyjcwdh.2","scope":"account","secretRemoved":false,"newActive":"wlt_kwyjcwdh.0"},"meta":{"durationMs":26,"warnings":["This HD wallet contains TRON sub-accounts. If created with an older derivation path, default mnemonic recovery may not recreate them. Back up and verify their keys before deleting. https://github.com/tronprotocol/wallet-cli/blob/wallet-cli-4.13.1/ts/docs/troubleshooting/legacy-derivation-recovery.md"]}}
+```
+
+删除钱包的根账户会移除整个钱包——包括全部派生账户和种子：
 
 ```bash
 wallet-cli delete main --yes
 ```
 
 ```console
-✅ Deleted wallet wlt_teh9fafq
+warning: This HD wallet contains TRON sub-accounts. If created with an older derivation path, default mnemonic recovery may not recreate them. Back up and verify their keys before deleting. https://github.com/tronprotocol/wallet-cli/blob/wallet-cli-4.13.1/ts/docs/troubleshooting/legacy-derivation-recovery.md
+✅ Deleted wallet wlt_kwyjcwdh
   Secret removed  yes
+  New active      wlt_h10w1nm0
 ```
 
-删除单个 HD 子账户只会移除该账户，保留种子密钥（之后仍可再次 `derive`）；JSON 输出会给出删除范围、密钥是否一并被移除，以及删除后的当前账户：
-
 ```bash
-wallet-cli delete main-1 --yes -o json
+wallet-cli delete main --yes -o json
 ```
 
 ```json
-{"schema":"wallet-cli.result.v1","success":true,"command":"delete","data":{"accountId":"wlt_teh9fafq.1","scope":"account","secretRemoved":false,"newActive":"wlt_teh9fafq.0"},"meta":{"durationMs":14,"warnings":[]}}
+{"schema":"wallet-cli.result.v1","success":true,"command":"delete","data":{"accountId":"wlt_kwyjcwdh","scope":"wallet","secretRemoved":true,"newActive":"wlt_h10w1nm0"},"meta":{"durationMs":53,"warnings":["This HD wallet contains TRON sub-accounts. If created with an older derivation path, default mnemonic recovery may not recreate them. Back up and verify their keys before deleting. https://github.com/tronprotocol/wallet-cli/blob/wallet-cli-4.13.1/ts/docs/troubleshooting/legacy-derivation-recovery.md"]}}
 ```
+
+不加 `--yes` 时，命令会要求你输入该账户的标签以确认，并且需要交互式终端。
 
 ## 输出
 

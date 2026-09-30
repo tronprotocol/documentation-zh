@@ -12,10 +12,10 @@ wallet-cli vote status [options]
 
 在一个只读视图中汇总“质押 → 投票 → 奖励”的完整状态，包括当前票数分配、各 SR 的奖励分配比例、投票权（TP 总量 / 已用 / 可用），以及当前可领取的奖励。
 
-- **投票权（TP）**——total = 已质押的 TRX；used = 已投出的票数；available = total − used。
-- **APR / 分成比例**——分成比例读取自链上。`aprPct` 是预留字段，恒为 `null`，因为当前实现没有 APR 数据源。SR 可以随时通过链上的 UpdateBrokerage 修改比例；如果比例从 80% 降为 0%，已投出的票将不再产生投票奖励。
-- **0% 警告**——如果有票投在分成比例为 0% 的 SR 上，文本输出会追加一行 `!` 提示，json 则在 `meta.warnings` 中加入一条纯字符串，每个受影响的 SR 各一条。
-- **可领取奖励**——数据来源与 [`reward balance`](../reward/balance.md) 相同；用 [`reward withdraw`](../reward/withdraw.md) 领取。
+- **投票权（TP）**——总量 = 已质押的 TRX；已用 = 已投出的票；可用 = 总量 − 已用。
+- **APR / Reward ratio**——语义与 [`vote list`](list.md) 相同；APR 是预留字段，始终显示 `—`。值得反复核对：超级代表随时可以修改自己的比例（链上的 UpdateBrokerage）——按 80% 投出去的票，一旦对方降到 0%，就会在你不知情的情况下不再产生收益。
+- **0% 警告**——如果有票落在奖励比例为 0% 的超级代表上，文本输出会追加一行 `!`，JSON 则在 `meta.warnings` 中为每个受影响的超级代表各加一条纯字符串记录。
+- **可领取**——与 [`reward balance`](../reward/balance.md) 同源；用 [`reward withdraw`](../reward/withdraw.md) 领取。
 
 ## 选项
 
@@ -24,24 +24,24 @@ wallet-cli vote status [options]
 ## 示例
 
 ```bash
-wallet-cli vote status --account main --network tron:3448148188
+wallet-cli vote status --account main --network nile
 ```
 
 ```console
-Label         main
-Voting power  1,500 TP  (used 1,000 / available 500)
-Claimable     12.345678 TRX
+Label           main
+Voting power    1,500 TP  (used 1,000 / available 500)
+Claimable       12.345678 TRX
 
 Current votes (2)
 | Name         | Votes | APR | Reward ratio | Address                            |
 | ------------ | ----- | --- | ------------ | ---------------------------------- |
 | tronscan.org | 600   | —   | 80%          | TZ4UXDV5ZhNW7fb2AMSbgfAEZ7hWsnYS2g |
-| binance.com  | 400   | —   | 0%           | TT5W8MPbYJih9R586kTszb4LoybzUvCYm2 |
+| binance.com  | 400   | —   | 0%           | TNXpQ9nzSJ3bVbmmd4VPhfgHirti3vMFmq |
 ! 400 votes on binance.com earn nothing — 0% reward ratio
 ```
 
 ```bash
-wallet-cli vote status --account main --network tron:3448148188 -o json
+wallet-cli vote status --account main --network nile -o json
 ```
 
 ```json

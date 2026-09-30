@@ -14,11 +14,9 @@ wallet-cli vote list [--limit <n>] [--candidates] [options]
 
 各列的含义：
 
-- **APR**——为将来的估算数据源预留。当前实现并不去查询任何数据源，因此该列始终显示 `—`，json 中始终返回 `null`。
-- **Reward ratio（奖励分配比例）**——SR 分配给投票者的奖励占比，数据来自链上。80% 表示投票者获得
-  奖励的 80%；**0% 表示投票者不会获得奖励**。JSON 中还提供链上原始的 `brokeragePct`
- （= 100 − rewardRatioPct）。
-- **排名与获奖资格**——第 1–27 名是当选的 SR（出块奖励 + 投票奖励）；第 28–127 名是合伙人（只有投票奖励）；127 名之外的候选人没有任何奖励，因此 `--limit` 的上限就是 127。
+- **APR**——预留字段。该列存在，但当前实现并不计算任何估值：它始终显示 `—`（JSON 中为 `null`）。
+- **Reward ratio**——超级代表分给投票者的奖励比例（链上数据，可靠）。80% 表示投票者瓜分 80% 的奖励；**0% 意味着你的投票一分钱也拿不到**。JSON 中还带有链上原生的 `brokeragePct`（= 100 − rewardRatioPct）。
+- **排名与资格**——第 1–27 名是当选的超级代表（出块奖励 + 投票奖励）；第 28–127 名是合作伙伴（仅投票奖励）；127 名之后的候选人没有任何收益，因此 `--limit` 的上限就是 127。
 
 ## 选项
 
@@ -32,23 +30,23 @@ wallet-cli vote list [--limit <n>] [--candidates] [options]
 ## 示例
 
 ```bash
-wallet-cli vote list --limit 3 --network tron:3448148188
+wallet-cli vote list --limit 3 --network nile
 ```
 
 ```console
 | Rank | Name         | Votes         | APR | Reward ratio | Address                            |
 | ---- | ------------ | ------------- | --- | ------------ | ---------------------------------- |
 | 1    | tronscan.org | 1,203,456,789 | —   | 80%          | TZ4UXDV5ZhNW7fb2AMSbgfAEZ7hWsnYS2g |
-| 2    | binance.com  | 998,765,432   | —   | 0%           | TT5W8MPbYJih9R586kTszb4LoybzUvCYm2 |
-| 3    | justlend.org | 876,543,210   | —   | 80%          | TWxkzUeAiKcFvzXvJEcaTQCQqCuMednAtN |
+| 2    | binance.com  | 998,765,432   | —   | 0%           | TNXpQ9nzSJ3bVbmmd4VPhfgHirti3vMFmq |
+| 3    | justlend.org | 876,543,210   | —   | 80%          | TBWEKNMfjjcF8y1hgJvQ8mgvNMfcSMGhx1 |
 ```
 
 ```bash
-wallet-cli vote list --limit 3 --network tron:3448148188 -o json
+wallet-cli vote list --limit 3 --network nile -o json
 ```
 
 ```json
-{"schema":"wallet-cli.result.v1","success":true,"command":"vote.list","data":{"witnesses":[{"rank":1,"name":"tronscan.org","address":"TZ4UXDV5ZhNW7fb2AMSbgfAEZ7hWsnYS2g","voteCount":"1203456789","rewardRatioPct":80,"brokeragePct":20,"aprPct":null},{"rank":2,"name":"binance.com","address":"TT5W8MPbYJih9R586kTszb4LoybzUvCYm2","voteCount":"998765432","rewardRatioPct":0,"brokeragePct":100,"aprPct":null},{"rank":3,"name":"justlend.org","address":"TWxkzUeAiKcFvzXvJEcaTQCQqCuMednAtN","voteCount":"876543210","rewardRatioPct":80,"brokeragePct":20,"aprPct":null}]},"meta":{"durationMs":40,"warnings":[]},"chain":{"family":"tron","network":"tron:3448148188","chainId":"3448148188"}}
+{"schema":"wallet-cli.result.v1","success":true,"command":"vote.list","data":{"witnesses":[{"rank":1,"name":"tronscan.org","address":"TZ4UXDV5ZhNW7fb2AMSbgfAEZ7hWsnYS2g","voteCount":"1203456789","rewardRatioPct":80,"brokeragePct":20,"aprPct":null},{"rank":2,"name":"binance.com","address":"TNXpQ9nzSJ3bVbmmd4VPhfgHirti3vMFmq","voteCount":"998765432","rewardRatioPct":0,"brokeragePct":100,"aprPct":null},{"rank":3,"name":"justlend.org","address":"TBWEKNMfjjcF8y1hgJvQ8mgvNMfcSMGhx1","voteCount":"876543210","rewardRatioPct":80,"brokeragePct":20,"aprPct":null}]},"meta":{"durationMs":40,"warnings":[]},"chain":{"family":"tron","network":"tron:3448148188","chainId":"3448148188"}}
 ```
 
 ## 输出
@@ -57,12 +55,12 @@ wallet-cli vote list --limit 3 --network tron:3448148188 -o json
 
 | 字段 | 类型 | 含义 |
 |---|---|---|
-| `rank` | number | 按得票数排的名次（1 = 得票最多） |
-| `name` | string | 由 SR 的 URL 推导出的主机名；无法取得时改用 URL 文本或地址 |
-| `address` | string | SR base58 address |
-| `voteCount` | string | 总得票数，原始整数 |
-| `rewardRatioPct` | number \| null | 分给投票者的奖励百分比；读不到 brokerage 时为 `null` |
-| `brokeragePct` | number \| null | SR 自留的佣金比例（= 100 − `rewardRatioPct`）；取不到时为 `null` |
+| `rank` | number | 按票数排名（1 = 票数最多） |
+| `name` | string | 由见证人 URL 推出的主机名；取不到时退回 URL 文本，再退回地址 |
+| `address` | string | 超级代表的 base58 地址 |
+| `voteCount` | string | 总票数，原始整数 |
+| `rewardRatioPct` | number \| null | 分给投票者的奖励百分比；读不到佣金比例时为 `null` |
+| `brokeragePct` | number \| null | 超级代表自留的比例（= 100 − `rewardRatioPct`）；不可用时为 `null` |
 | `aprPct` | null | 预留字段；当前实现中恒为 `null` |
 
 ## 退出码
