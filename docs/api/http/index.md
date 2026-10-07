@@ -18,6 +18,7 @@
 - **金额单位**：除 TRC-10 数量按发行精度外，其他金额一律为 sun（1 TRX = 1e6 sun）。
 - **`int64_as_string`**：GET 请求可在 URL 查询参数中添加 `int64_as_string=true`。启用后，protobuf JSON 响应中的 int64 / uint64 字段会序列化为 JSON 字符串，避免 JavaScript 等客户端出现精度损失。该参数只对 GET 请求生效，不影响 POST 请求体。
 - **请求体大小**：HTTP 请求体受 `node.http.maxMessageSize` 限制。其默认值在 `common/src/main/resources/reference.conf` 中定义（`4194304`，约 4 MiB；`0` 表示拒绝所有非空 body），并可在节点的外部配置文件中覆盖。JSON-RPC 有独立的 `node.jsonrpc.maxMessageSize`。有关配置加载和覆盖行为，请参阅[节点配置](../../using_javatron/configuration.md)。
+- **JSON 解析限制**：请求解析器将 JSON 嵌套深度限制为 20 层，token 数量限制为 100,000。JSON 响应使用独立的解析器，最大嵌套深度为 1,000 层，token 数量不设上限。
 - **限流**：HTTP 单接口限流在 `rate.limiter.http` 中配置。全局开关 `rate.limiter.apiNonBlocking` 控制 permit 的获取方式：`true` 表示在没有可用 permit 时立即拒绝；`false` 表示 QPS 和单 IP QPS 策略会阻塞等待令牌，而 `GlobalPreemptibleAdapter` 最多等待两秒以获取并发 permit。请求被拒绝时返回 HTTP 200 和 `{"Error":"class java.lang.IllegalAccessException : lack of computing resources"}`。
 
 !!! warning "XSS 安全提示"

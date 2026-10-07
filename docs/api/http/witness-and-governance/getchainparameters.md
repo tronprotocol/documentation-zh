@@ -31,7 +31,7 @@ curl --request POST \
 
 参数 key 对应提案中可设置的参数编号（如 `getMaintenanceTimeInterval`、`getEnergyFee` 等）。
 
-响应示例（Nile，节选前 8 项；完整列表共 75 项）：
+响应示例（Nile，节选前 8 项；完整列表取决于节点版本）：
 
 ```json
 {
