@@ -216,6 +216,30 @@ function assignAddress() public view {
 - `tx.gasprice` (uint)：交易的 gas 价格，波场不推荐使用，设置值恒为 0
 - `tx.origin` (address)：交易发起者
 
+### 存储
+
+当启用链参数 `ALLOW_OPTIMIZE_TVM_STORAGE` 时，TVM 使用基于完整 32 字节存储槽键的优化数据库键布局。这可以区分在旧布局下可能映射到同一条数据库记录的不同存储槽。
+
+TVM 优先按优化布局读取，并在满足条件时回退读取旧记录。写入使用优化布局，执行期间读取的旧记录会在存储提交时迁移。因此，已有合约存储可以随着访问逐步迁移。
+
+当未启用优化布局且相应协议升级已在网络上生效时，TVM 会检查不同存储槽是否映射到同一条旧数据库记录。如果 TVM 检测到合约执行期间访问的不同存储槽映射到同一条旧数据库记录，就会抛出超时异常，错误信息为 `CPU timeout for storage check`。
+
 ### Energy
 
 智能合约的每条指令在运行时都会消耗系统资源，我们以 `Energy` 作为资源消耗的单位。
+
+### 执行时间限制
+
+基础执行时限由链参数 `MAX_CPU_TIME_OF_ONE_TX` 决定，单位为毫秒，可通过委员会提案调整。在链参数查询 API 的返回结果中，该参数的 key 为 `getMaxCpuTimeOfOneTx`。
+
+`vm.minTimeRatio` 和 `vm.maxTimeRatio` 用于在节点为验证区块而重新执行合约交易时调整本地执行时限。如果交易中记录的执行结果为 `OUT_OF_TIME`，节点会将基础时限乘以 `vm.minTimeRatio`；否则乘以 `vm.maxTimeRatio`。
+
+对于 constant call，`vm.constantCallTimeoutMs` 为正值时会覆盖基础时限；为 `0` 时使用基础时限。详情请参阅 [TVM 与 constant call 配置](../using_javatron/configuration.md#tvm-and-constant-call-configuration)。
+
+合约内部调用共用最外层执行的截止时间。
+
+TVM 会在执行每条指令前检查该截止时间，包括内部调用的合约所执行的指令。启用 `ALLOW_ENERGY_ADJUSTMENT` 时，TVM 还会在最外层执行结束后再检查一次。
+
+预编译合约调用共用同一个执行截止时间。部分预编译合约（如 BN128 pairing）会在内部计算期间进行额外的截止时间检查。
+
+超过截止时间会抛出超时异常。对于交易，这会产生 `OUT_OF_TIME` 结果，消耗分配给本次执行的剩余 Energy，并将内部交易标记为已拒绝。有关超时对资源消耗的影响，请参阅[能量消耗](../mechanism-algorithm/resource.md#_12)。
