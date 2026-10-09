@@ -28,7 +28,7 @@
       "html_url": "https://tronprotocol.github.io/documentation-zh/getting_started/getting_started_with_javatron/",
       "markdown_url": "https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/docs/getting_started/getting_started_with_javatron.md",
       "source_path": "docs/getting_started/getting_started_with_javatron.md",
-      "last_modified": "2026-08-28T15:40:11+08:00"
+      "last_modified": "2026-10-05T11:34:55+08:00"
     },
     {
       "title": "运维 java-tron 节点",
@@ -140,7 +140,7 @@
       "html_url": "https://tronprotocol.github.io/documentation-zh/api/http/",
       "markdown_url": "https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/docs/api/http/index.md",
       "source_path": "docs/api/http/index.md",
-      "last_modified": "2026-07-30T11:06:43+08:00"
+      "last_modified": "2026-10-09T11:57:28+08:00"
     },
     {
       "title": "java-tron gRPC API",
@@ -156,7 +156,7 @@
       "html_url": "https://tronprotocol.github.io/documentation-zh/api/json-rpc/",
       "markdown_url": "https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/docs/api/json-rpc/index.md",
       "source_path": "docs/api/json-rpc/index.md",
-      "last_modified": "2026-07-30T11:06:43+08:00"
+      "last_modified": "2026-10-09T11:57:28+08:00"
     },
     {
       "title": "机器可读 API 定义",
@@ -852,7 +852,7 @@
       "html_url": "https://tronprotocol.github.io/documentation-zh/contracts/contract/",
       "markdown_url": "https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/docs/contracts/contract.md",
       "source_path": "docs/contracts/contract.md",
-      "last_modified": "2026-09-29T15:49:33+08:00"
+      "last_modified": "2026-10-07T14:57:11+08:00"
     },
     {
       "title": "工具",
@@ -892,7 +892,7 @@
       "html_url": "https://tronprotocol.github.io/documentation-zh/releases/versions/",
       "markdown_url": "https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/docs/releases/versions/index.md",
       "source_path": "docs/releases/versions/index.md",
-      "last_modified": "2026-09-09T15:46:17+08:00"
+      "last_modified": "2026-10-07T14:57:11+08:00"
     },
     {
       "title": "术语表",
@@ -1468,7 +1468,7 @@
       "html_url": "https://tronprotocol.github.io/documentation-zh/api/http/witness-and-governance/getchainparameters/",
       "markdown_url": "https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/docs/api/http/witness-and-governance/getchainparameters.md",
       "source_path": "docs/api/http/witness-and-governance/getchainparameters.md",
-      "last_modified": "2026-07-13T16:18:30+08:00"
+      "last_modified": "2026-10-07T14:57:11+08:00"
     },
     {
       "title": "/wallet/getnextmaintenancetime",

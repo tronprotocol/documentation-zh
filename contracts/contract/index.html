@@ -3505,9 +3505,27 @@
 </li>
         
           <li class="md-nav__item ">
+  <a href="#_13" class="md-nav__link" >
+    <span class="md-ellipsis">
+      存储
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
   <a href="#energy" class="md-nav__link" >
     <span class="md-ellipsis">
       Energy
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#_14" class="md-nav__link" >
+    <span class="md-ellipsis">
+      执行时间限制
     </span>
   </a>
   
@@ -3850,9 +3868,27 @@
 </li>
         
           <li class="md-nav__item ">
+  <a href="#_13" class="md-nav__link" >
+    <span class="md-ellipsis">
+      存储
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
   <a href="#energy" class="md-nav__link" >
     <span class="md-ellipsis">
       Energy
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#_14" class="md-nav__link" >
+    <span class="md-ellipsis">
+      执行时间限制
     </span>
   </a>
   
@@ -4078,8 +4114,20 @@ Constant function 是指用 <code>view</code>/<code>pure</code> 修饰的函数�
 <li><code>tx.gasprice</code> (uint)：交易的 gas 价格，波场不推荐使用，设置值恒为 0</li>
 <li><code>tx.origin</code> (address)：交易发起者</li>
 </ul>
+<h3 id="_13">存储<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h3>
+<p>当启用链参数 <code>ALLOW_OPTIMIZE_TVM_STORAGE</code> 时，TVM 使用基于完整 32 字节存储槽键的优化数据库键布局。这可以区分在旧布局下可能映射到同一条数据库记录的不同存储槽。</p>
+<p>TVM 优先按优化布局读取，并在满足条件时回退读取旧记录。写入使用优化布局，执行期间读取的旧记录会在存储提交时迁移。因此，已有合约存储可以随着访问逐步迁移。</p>
+<p>当未启用优化布局且相应协议升级已在网络上生效时，TVM 会检查不同存储槽是否映射到同一条旧数据库记录。如果 TVM 检测到合约执行期间访问的不同存储槽映射到同一条旧数据库记录，就会抛出超时异常，错误信息为 <code>CPU timeout for storage check</code>。</p>
 <h3 id="energy">Energy<a class="headerlink" href="#energy" title="Permanent link">&para;</a></h3>
 <p>智能合约的每条指令在运行时都会消耗系统资源，我们以 <code>Energy</code> 作为资源消耗的单位。</p>
+<h3 id="_14">执行时间限制<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h3>
+<p>基础执行时限由链参数 <code>MAX_CPU_TIME_OF_ONE_TX</code> 决定，单位为毫秒，可通过委员会提案调整。在链参数查询 API 的返回结果中，该参数的 key 为 <code>getMaxCpuTimeOfOneTx</code>。</p>
+<p><code>vm.minTimeRatio</code> 和 <code>vm.maxTimeRatio</code> 用于在节点为验证区块而重新执行合约交易时调整本地执行时限。如果交易中记录的执行结果为 <code>OUT_OF_TIME</code>，节点会将基础时限乘以 <code>vm.minTimeRatio</code>；否则乘以 <code>vm.maxTimeRatio</code>。</p>
+<p>对于 constant call，<code>vm.constantCallTimeoutMs</code> 为正值时会覆盖基础时限；为 <code>0</code> 时使用基础时限。详情请参阅 <a href="../../using_javatron/configuration/#tvm-and-constant-call-configuration">TVM 与 constant call 配置</a>。</p>
+<p>合约内部调用共用最外层执行的截止时间。</p>
+<p>TVM 会在执行每条指令前检查该截止时间，包括内部调用的合约所执行的指令。启用 <code>ALLOW_ENERGY_ADJUSTMENT</code> 时，TVM 还会在最外层执行结束后再检查一次。</p>
+<p>预编译合约调用共用同一个执行截止时间。部分预编译合约（如 BN128 pairing）会在内部计算期间进行额外的截止时间检查。</p>
+<p>超过截止时间会抛出超时异常。对于交易，这会产生 <code>OUT_OF_TIME</code> 结果，消耗分配给本次执行的剩余 Energy，并将内部交易标记为已拒绝。有关超时对资源消耗的影响，请参阅<a href="../../mechanism-algorithm/resource/#_12">能量消耗</a>。</p>
 
 
 
@@ -4100,7 +4148,7 @@ Constant function 是指用 <code>view</code>/<code>pure</code> 修饰的函数�
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年9月29日 07:49:33 UTC">2026年9月29日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年10月7日 06:57:11 UTC">2026年10月7日</span>
   </span>
 
     
