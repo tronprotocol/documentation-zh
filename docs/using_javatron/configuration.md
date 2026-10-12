@@ -144,7 +144,7 @@ storage {
 请求和消息大小限制分别配置：
 
 - `node.http.maxMessageSize` 控制 HTTP 请求体大小。
-- `node.rpc.maxMessageSize` 控制 gRPC 消息大小。
+- `node.rpc.maxMessageSize` 控制 gRPC 请求消息大小。
 - `node.jsonrpc.maxMessageSize` 控制 JSON-RPC 请求体大小。
 - `node.jsonrpc.maxBatchSize`、`maxResponseSize` 和 filter 限制用于约束 JSON-RPC 工作负载。
 
@@ -196,7 +196,7 @@ API 限制在 `rate.limiter` 下配置：
 - `rate.limiter.global.api.qps` 提供各接口的默认限制。
 - `rate.limiter.apiNonBlocking` 选择以非阻塞或阻塞方式获取 permit。
 
-当 `rate.limiter.apiNonBlocking` 为 `true` 时，超限请求会立即被拒绝；为 `false` 时，QPS 和单 IP QPS 策略会阻塞等待令牌。`GlobalPreemptibleAdapter` 的行为不同：它最多等待两秒以获取并发 permit，超过两秒仍未获得时拒绝请求。
+当 `rate.limiter.apiNonBlocking` 为 `true` 时，所有策略（包括 `GlobalPreemptibleAdapter`）都会在无法获取 permit 时立即拒绝请求。为 `false` 时，QPS 和单 IP QPS 策略会阻塞等待，直到获得令牌；而 `GlobalPreemptibleAdapter` 最多等待两秒以获取并发 permit，超过两秒仍未获得时拒绝请求。
 
 P2P 消息限制独立配置在 `rate.limiter.p2p` 下。
 
