@@ -382,7 +382,7 @@ node {
 TRON 节点日志位于 `logs/tron.log`，可通过如下命令实时查看：
 
 ```bash
-tail -f logs/tron.log
+tail -F logs/tron.log
 ```
 
 ### 同步中日志示例：

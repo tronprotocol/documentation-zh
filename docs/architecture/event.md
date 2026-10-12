@@ -709,7 +709,7 @@ java -jar build/libs/FullNode.jar -c framework/src/main/resources/config.conf
 您可以通过查看 FullNode 日志来验证事件插件是否成功加载：
 
 ```bash
-tail -f logs/tron.log | grep -i eventplugin
+tail -F logs/tron.log | grep -i eventplugin
 ```
 
 如果看到类似以下字样，则表示插件已成功加载：

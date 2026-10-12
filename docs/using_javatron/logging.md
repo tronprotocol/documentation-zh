@@ -45,7 +45,7 @@ java-tron 使用 Logback 记录节点应用日志。从 GreatVoyage-v4.8.2 开�
 使用以下命令持续查看 GC 日志：
 
 ```bash
-tail -f ./gc.log
+tail -F ./gc.log
 ```
 
 如果未提供适当的 JVM 日志参数，直接使用 `java -jar FullNode.jar` 启动节点不会创建 GC 日志。
@@ -55,19 +55,19 @@ tail -f ./gc.log
 使用主日志查看区块同步和节点的一般运行状态：
 
 ```bash
-tail -f ./logs/tron.log
+tail -F ./logs/tron.log
 ```
 
 排查 gRPC 连接、传输或 TLS 问题时，查看专用的 gRPC 日志：
 
 ```bash
-tail -f ./logs/grpc/grpc.log
+tail -F ./logs/grpc/grpc.log
 ```
 
 查看路由到专用数据库 logger 的存储引擎诊断日志时，请使用：
 
 ```bash
-tail -f ./logs/db/db.log
+tail -F ./logs/db/db.log
 ```
 
 ## 使用自定义 Logback 配置
@@ -80,7 +80,7 @@ tail -f ./logs/db/db.log
 java -jar FullNode.jar --log-config /absolute/path/to/logback.xml
 ```
 
-如果省略 `--log-config`，java-tron 将使用内置的 Logback 配置。如果指定该参数，其值必须指向一个可读取的普通文件，否则节点将启动失败。
+如果省略 `--log-config`，java-tron 将使用内置的 Logback 配置。如果为 `--log-config` 提供非空值，该值必须指向一个可读取的普通文件，否则节点将启动失败。空值的处理方式与省略该参数相同。
 
 自定义 Logback 配置会取代内置配置。请包含部署所需的 appender 和关闭钩子，例如专用 gRPC appender、Prometheus `METRICS` appender 和 `TronLogShutdownHook`。
 
