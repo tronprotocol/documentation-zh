@@ -82,8 +82,8 @@ uname -m
 
     ```bash
     git clone https://github.com/tronprotocol/java-tron.git
-    git checkout -t origin/master
     cd java-tron
+    git checkout -t origin/master
     ```
 
 2.  然后，运行以下命令来构建 java-tron：
@@ -242,7 +242,8 @@ nohup java -Xmx9G -XX:+UseZGC \
 *   `-Xms` / `-Xmx`：设置 JVM 堆的初始值和最大值。
     * 对于最低硬件要求（16 GB RAM 的服务器）：建议 JDK 8 使用 `-Xms9G -Xmx12G`；JDK 17 使用 `-Xmx9G`。
     * 对于 RAM ≥32 GB 的服务器，建议将最大堆值（`-Xmx`）设置为总 RAM 的 40%，最小堆值设置为 `-Xms9G`。
-*   `-XX:MetaspaceSize` / `-XX:MaxMetaspaceSize`：设置元空间（类元数据）的初始值和最大值。
+*   `-XX:MetaspaceSize`：设置触发垃圾回收的元空间初始阈值。
+*   `-XX:MaxMetaspaceSize`：设置元空间的最大值。
 *   `-XX:MaxDirectMemorySize`：限制 NIO Direct Byte Buffers 使用的内存。
 *   `-XX:ReservedCodeCacheSize`：设置 JIT 代码缓存的最大值。
 *   `-XX:+UseCodeCacheFlushing`：允许 JVM 在代码缓存满时刷新它。
@@ -347,7 +348,7 @@ node.shutdown = {
 **重要提示**:
 
 * 请确保您拥有一个超级代表 (SR) 账户并获得了足够的投票。如果您获得了前 27 名的投票，您需要启动一个 SR 节点来参与区块生产。
-    * 请注意，即使您的节点未进入前 27 名，使用`--witness`参数启动的节点仍会作为一个普通节点运行；一旦排名进入前 27 名，它就能立即开始出块。
+    * 当节点账户尚未入选前 27 名 SR 时，使用 `--witness` 参数启动的节点仍会作为普通全节点运行。一旦该账户在维护阶段入选前 27 名 SR，节点就可以从接下来的 epoch 开始，在分配给它的出块时隙中出块。
 * 将 SR 代表账户的**私钥**填写到 `config.conf` 的 `localwitness` 列表中。
 
 以下是 `localwitness` 配置示例：
@@ -488,6 +489,15 @@ node.backup {
         # 将当前获准用于区块签名的私钥加密到 keystore 中
         java -jar build/libs/Toolkit.jar keystore import
         ```
+
+        如果获准用于区块签名的地址与 SR 账户地址不同，还需将 `localWitnessAccountAddress` 设置为 SR 账户的 Base58Check 地址：
+
+        ```properties
+        localWitnessAccountAddress = "SR_ACCOUNT_BASE58CHECK_ADDRESS"
+        localwitnesskeystore = ["B/localwitnesskeystore.json"]
+        ```
+
+        请将地址占位符替换为 SR 账户地址，并将 keystore 路径调整为存储获准用于区块签名的私钥的文件路径。如果省略 `localWitnessAccountAddress`，java-tron 会将签名私钥派生的地址用作见证人账户地址。当该地址与 SR 账户地址不同时，节点将无法为该 SR 出块。
 
         迁移已有 SR 时，不要仅使用 `keystore new`：该命令会生成随机密钥，除非先将其派生地址配置为 SR 的 witness permission，否则该密钥无法为该 SR 出块。对于新的 SR 身份，或在有计划地轮换 witness permission 时，可以使用 [`keystore new`](toolkit.md#generate-a-keystore) 或 `wallet-cli` 的 `registerwallet` 命令生成新密钥，但必须在启动出块前完成相应的链上注册或权限更新。
 
