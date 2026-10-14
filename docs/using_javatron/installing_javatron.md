@@ -196,7 +196,7 @@ nohup java -jar build/libs/FullNode.jar &
 使用以下命令查看全节点运行日志，可以看到区块同步进度，节点连接状态等信息：
 
 ```bash
-tail -f ./logs/tron.log
+tail -F ./logs/tron.log
 ```
 
 使用 TRON 官方区块链浏览器 [TronScan](https://tronscan.org/#/) 查看主网交易、区块、账户、超级代表投票和治理指标等信息。
