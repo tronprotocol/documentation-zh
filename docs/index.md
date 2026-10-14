@@ -75,7 +75,7 @@ java-tron 是 TRON 网络的官方 Java 客户端实现，由 TRON 协议团队�
 
 ## 其它资源
 
-- [TRON 白皮书](https://tron.network/static/doc/white_paper_v_2_1.pdf) — TRON 协议设计与愿景的官方文献
+- [TRON 白皮书](https://tron.network/static/doc/white_paper.pdf) — TRON 协议设计与愿景的官方文献
 - [TRON 改进提案 (TIPs)](https://github.com/tronprotocol/tips) — 协议演进提案的提交、讨论与归档仓库
 - [TRON 开发者中心](https://developers.tron.network/) — DApp 开发者文档、SDK、教程的英文总入口
 - [TRON 官网](https://tron.network/index?lng=zh) — 项目动态、生态合作伙伴、社区入口
