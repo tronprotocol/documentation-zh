@@ -14,6 +14,7 @@
 
 |  名称 |版本号  | 发布日期 | 包含的TIP | 版本说明 | 技术解读 |
 | -------- | -------- | -------- | -------- | -------- | -------- |
+|  Empedocles    |  GreatVoyage-v4.8.2.4    |  2026-10-22    |  N/A  |  [Release Note](https://github.com/tronprotocol/java-tron/releases/tag/GreatVoyage-v4.8.2.4)   |   N/A   |
 |  Anaxagoras    |  GreatVoyage-v4.8.2.3    |  2026-09-30    |  N/A  |  [Release Note](https://github.com/tronprotocol/java-tron/releases/tag/GreatVoyage-v4.8.2.3)   |   N/A   |
 |  Parmenides    |  GreatVoyage-v4.8.2.2    |  2026-09-08    |  N/A  |  [Release Note](https://github.com/tronprotocol/java-tron/releases/tag/GreatVoyage-v4.8.2.2)   |   N/A   |
 |  Heraclitus    |  GreatVoyage-v4.8.2.1    |  2026-07-31    |  N/A  |  [Release Note](https://github.com/tronprotocol/java-tron/releases/tag/GreatVoyage-v4.8.2.1)   |   N/A   |
