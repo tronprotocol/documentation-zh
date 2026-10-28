@@ -106,7 +106,7 @@
    
      网络参数可以通过 [getchainparameters](../api/http/witness-and-governance/getchainparameters.md) 接口获取。主网的当前网络参数及相关提案可在 TRONSCAN [参数&提案页面](https://tronscan.org/#/sr/committee) 查看。
 
-     如需使用自己的 SR 账户，基于已有主网状态部署私有网络，请先获取数据库快照，或将节点同步到所需高度。然后使用 [DBFork 工具](https://github.com/tronprotocol/tron-docker/blob/main/tools/toolkit/DBFork.md) 修改本地数据库。默认情况下（即未使用 `--retain-witnesses` 时），工具会根据 `fork.conf` 中的 `witnesses` 配置，替换 `witness` 库中的见证人记录和 `witness_schedule` 库中的活跃见证人列表。工具还会根据 `accounts` 配置处理 `account` 库中的账户：地址不存在时新增账户，已存在时修改指定字段。仅配置 `witnesses` 不会自动创建对应账户，因此，数据库中尚不存在的 SR 地址还需加入 `accounts` 配置。启动 SR 节点后，这些账户即可参与出块。
+     如需使用自己的 SR 账户，基于已有主网状态部署私有网络，请先获取数据库快照，或将节点同步到所需高度。然后使用 [DBFork 工具](https://github.com/tronprotocol/tron-docker/blob/main/tools/toolkit/DBFork.md) 修改本地数据库。默认情况下（即未使用 `--retain-witnesses` 时），工具会根据 `fork.conf` 中的 `witnesses` 配置，替换 `witness` 库中的见证人记录和 `witness_schedule` 库中的活跃见证人列表。对于 `witnesses` 中配置的地址，工具会自动创建缺失的账户，并将对应账户标记为见证人。启动 SR 节点后，这些账户即可参与出块。如需进一步配置余额、名称或所有者权限等账户属性，可使用 `accounts` 配置。`accounts` 也可用于新增或修改其他账户。
   
      私有链启动后，您可能需要调整某些网络参数（例如手续费，能量单价等），这可以通过两种方式实现：
 
