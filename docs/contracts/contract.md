@@ -222,7 +222,7 @@ function assignAddress() public view {
 
 启用链参数 `ALLOW_OPTIMIZE_TVM_STORAGE_KEY` 后，TVM 还会对旧存储的读取进行保护：如果读取需要回退到旧布局，而 TVM 在本次执行过程中已记录另一个存储槽使用同一个旧数据库键，且对应的旧记录存在、其值不为 `null`，TVM 就会抛出超时异常，错误信息为 `CPU timeout for storage check`。
 
-当未启用优化布局且相应协议升级已在网络上生效时，TVM 会检查不同存储槽是否映射到同一条旧数据库记录。如果 TVM 检测到合约执行期间访问的不同存储槽映射到同一条旧数据库记录，就会抛出超时异常，错误信息为 `CPU timeout for storage check`。
+当未启用链参数 `ALLOW_OPTIMIZE_TVM_STORAGE_KEY`，且相应协议升级已在网络上生效时，TVM 会检查不同存储槽是否映射到同一条旧数据库记录。如果 TVM 检测到合约执行期间访问的不同存储槽映射到同一条旧数据库记录，就会抛出超时异常，错误信息为 `CPU timeout for storage check`。
 
 ### Energy
 
