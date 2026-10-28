@@ -54,18 +54,18 @@ Prometheus 监控默认关闭；启用后默认监听 `9527` 端口，可通过 
       follow_redirects: true
       static_configs:
       - targets:
-        - 127.0.0.1:9527
+        - 192.0.2.10:9527
         labels:
           group: group-xxx
           instance: xxx-01
       - targets:
-        - 127.0.0.2:9527
+        - 192.0.2.20:9527
         labels:
           group: group-xxx
           instance: xxx-02
     ```
 
-    您可以使用此模板，然后修改配置项 `targets`，它用于配置 java-tron 节点所在机器的 IP 和 Prometheus 端口，如您部署了多个节点，可以通过配置多个 `targets`，来实现对多个节点的监控。将该文件保存到本机的某个目录，例如 `/Users/test/deploy/prometheus/prometheus.yaml`。
+    此示例监控分别运行在两台远程主机上的 java-tron 节点。IP 地址 `192.0.2.10` 和 `192.0.2.20` 为占位地址，请将其替换为节点实际的 IP 地址或主机名，并使用各节点配置的 Prometheus 指标端口。将该文件保存到本机的某个目录，例如 `/Users/test/deploy/prometheus/prometheus.yaml`。
 
 3. 启动一个 Prometheus 容器
 
@@ -79,7 +79,9 @@ Prometheus 监控默认关闭；启用后默认监听 `9527` 端口，可通过 
     ```
 
     容器启动后，您可以通过 `http://localhost:9090/` 查看 Prometheus 服务的运行情况。
-    
+
+    以下截图中的地址和采集目标数量仅为示例，可能与您的实际配置不同。
+
     点击 "Status" -> "Configuration"，查看容器使用的配置文件是否正确：
 
     ![image](https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/metrics_config.png)
@@ -96,12 +98,14 @@ Prometheus 监控默认关闭；启用后默认监听 `9527` 端口，可通过 
 
 Grafana 可视化工具的部署流程如下：
 
+> **Grafana 界面版本说明：** Grafana 界面可能随版本变化。下方截图和操作步骤可能与最新版本不同。最新操作说明请参阅 [Grafana Prometheus 数据源文档](https://grafana.com/docs/grafana/latest/datasources/prometheus/configure/)。
+
 1. 安装 Grafana
 
-    请参考官方文档安装 [Grafana](https://grafana.com/docs/grafana/next/setup-grafana/installation/)。本文将采用 Docker 部署方式，拉取的镜像为开源版（grafana-oss）：
+    请参考官方文档安装 [Grafana](https://grafana.com/docs/grafana/latest/setup-grafana/installation/)。本文将采用 Docker 部署方式，拉取的镜像为开源版（`grafana/grafana`）：
 
     ```bash
-    docker pull grafana/grafana-oss
+    docker pull grafana/grafana
     ```
 
 2. 启动 Grafana
@@ -109,27 +113,27 @@ Grafana 可视化工具的部署流程如下：
     您可以通过如下 Docker 命令来启动 Grafana：
 
     ```bash
-    docker run -d --name=grafana -p 3000:3000 grafana/grafana-oss
+    docker run -d --name=grafana -p 3000:3000 grafana/grafana
     ```
 
 3. 登录 Grafana 界面
 
-    启动后，可以通过 `http://localhost:3000/` 进入 Grafana 页面，初始的用户名和密码均是 `admin`，输入后根据提示修改密码，然后就可以进入到主界面了。点击主页面左侧的设置图标，然后选择 "Data Sources" 配置 Grafana 的数据源：
-    
-    ![image](https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/metrics_datasource.png)
+    启动后，可以通过 `http://localhost:3000/` 进入 Grafana 页面，初始的用户名和密码均是 `admin`，输入后根据提示修改密码，然后就可以进入到主界面了。点击左侧菜单中的 "Connections"，选择 "Data sources" 配置 Grafana 的数据源，并添加一个 Prometheus 数据源。
 
-    在 URL 中输入 Prometheus 服务的 IP 和端口：
+    在 "Prometheus server URL" 中输入 Prometheus 服务的 IP 和端口。图中的 URL 仅为示例，请使用您自己的 Prometheus 服务地址。
 
-    ![image](https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/metrics_prometheus.png)
+    ![Grafana Connections 菜单和 Prometheus 数据源配置](https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/metrics_prometheus.png)
     
-    然后点击页面最下方的 "Save & test" 按钮，保存设置。点击保存后，Grafana 会检测与数据源的连接情况，如果成功通信，则会出现 `Data source is working` 字样。
+    点击页面最下方的 "Save & test" 按钮。Grafana 会测试连接，测试成功后会显示成功提示。
 
 4. 导入 Dashboard
 
     为了方便 java-tron 节点部署者，TRON 社区提供了一组预配置的 Grafana 仪表盘，每个仪表盘以一份 JSON 文件提供。请参考 tron-docker metric_monitor README 的 [Import dashboard 章节](https://github.com/tronprotocol/tron-docker/blob/main/metric_monitor/README.md#import-dashboard)将其导入到 Grafana。
 
-    点击左侧的 Dashboards 图标，然后选择 "+Import"，然后点击 "Upload JSON file" 导入上面提到的 JSON 文件之一：
+    > **注意：** `node-exporter-full.json` 仪表盘展示主机资源指标，例如 CPU、内存、磁盘和网络使用情况。使用该仪表盘需要在被监控的主机上单独部署 Node Exporter，并配置 Prometheus 采集其指标。仅依靠 java-tron 的指标端点无法提供此仪表盘所需的指标。部署步骤请参阅 [Node Exporter 官方指南](https://prometheus.io/docs/guides/node-exporter/)。如果只需要 java-tron 仪表盘，可以跳过此模板。
+
+    点击左侧菜单中的 "Dashboards"，然后选择 "New" → "Import"。点击 "Upload JSON file" 上传上面提到的 JSON 文件之一，如有提示，选择您的 Prometheus 数据源，然后点击 "Import"。
     
-    ![image](https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/metrics_import.png)
+    ![Grafana Dashboards 的 New 和 Import 菜单](https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/metrics_import.png)
     
     随后 Grafana 将根据导入的 JSON 文件渲染出对应的仪表盘，您可以实时监控节点的运行情况。
