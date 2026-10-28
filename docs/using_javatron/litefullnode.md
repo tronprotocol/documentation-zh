@@ -13,7 +13,7 @@
 - **基于状态快照启动**：轻节点不从创世区块开始同步，而是加载包含全网最新状态、创世区块和最近 65,536 个区块的快照。该区块数量为代码中的固定常量，无法通过配置修改。该值 65,536（= 2^16）与 TRON 交易的引用区块窗口一致：每笔交易的 `ref_block_hash` 必须指向最近 65,536 个区块中的某一个，否则该交易将无法通过 TAPOS 校验。因此轻节点必须保留至少这么多最近区块，才能验证新接收到的交易。
 - **初次同步更快，初始磁盘占用更少**：与从创世区块开始同步相比，从快照启动可以节省同步时间。与包含完整区块链历史数据的全节点数据库相比，快照所需的磁盘空间也更少。
 - **提供全节点的部分 API**：默认情况下，轻节点会禁用一组预定义的 API，即使所查询的数据已保存在本地，也无法通过这些 API 查询。默认禁用的 API 列表请参考 [HTTP](https://github.com/tronprotocol/java-tron/blob/master/framework/src/main/java/org/tron/core/services/filter/LiteFnQueryHttpFilter.java) 和 [gRPC](https://github.com/tronprotocol/java-tron/blob/master/framework/src/main/java/org/tron/core/services/filter/LiteFnQueryGrpcInterceptor.java)。
-- **功能可扩展**：如果需要开启这些 API，可在配置文件中设置 `node.openHistoryQueryWhenLiteFN = true`。轻节点启动后，会以与全节点相同的方式保存新数据。开启该配置项后，所有被过滤的 API 将重新开放。但快照起始高度之前的历史数据依然无法查询。
+- **功能可扩展**：如果需要开启这些 API，可在配置文件中设置 `node.openHistoryQueryWhenLiteFN = true`。轻节点启动后，会以与全节点相同的方式保存新数据。开启该配置项后，所有被过滤的 API 将重新开放。但除创世块外，快照起始高度之前的历史数据依然无法查询。
 
 因此，如果开发者仅需要节点进行区块同步、交易处理和广播，轻节点是更合适的选择。
 
