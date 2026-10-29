@@ -15,11 +15,11 @@
 | `Permission_id` | int32 | 否 | 多签权限 ID |
 | `visible` | bool | 否 | 地址格式 |
 
-参数编号见 [`/wallet/getchainparameters`](getchainparameters.md) 返回的 key。
+提案参数项的 `key` 使用链参数的数字编号，而 [`/wallet/getchainparameters`](getchainparameters.md) 响应中的 `key` 使用字符串参数名。例如，提案参数编号 `20` 对应查询响应中的 `getAllowMultiSign`。
 
 > 注意：servlet 通过 `JsonFormat` 解析 protobuf；`parameters` 须是数组形式 `[{"key":N,"value":V}]`，使用 map 形式 `{"<N>": V}` 时所有 key 都会被解析为 0 而触发参数 0 的范围校验。
 
-示例（提案 31 号参数 `getAllowMultiSign` 设为 1）：
+示例（创建提案，将 20 号链参数 `getAllowMultiSign` 设为 1）：
 
 ```bash
 curl --request POST \
@@ -30,7 +30,7 @@ curl --request POST \
 {
   "owner_address": "419c7c7049d26108be0dcb5f78479c6ff27ba101d1",
   "parameters": [
-    {"key": 31, "value": 1}
+    {"key": 20, "value": 1}
   ]
 }
 '
@@ -45,7 +45,7 @@ curl --request POST \
 ```json
 {
   "visible": false,
-  "txID": "d749a445802ea86230d52fb35645ab497612dec59794f815d1418c1b03b67d02",
+  "txID": "e7676fa5abbca3ad505d1272c6231246e0906bf49613b60e608455bcefb7da56",
   "raw_data": {
     "contract": [
       {
@@ -53,7 +53,7 @@ curl --request POST \
           "value": {
             "owner_address": "419c7c7049d26108be0dcb5f78479c6ff27ba101d1",
             "parameters": [
-              { "key": 31, "value": 1 }
+              { "key": 20, "value": 1 }
             ]
           },
           "type_url": "type.googleapis.com/protocol.ProposalCreateContract"
@@ -66,7 +66,7 @@ curl --request POST \
     "expiration": 1777446546000,
     "timestamp": 1777446488573
   },
-  "raw_data_hex": "0a0227e22208c4c88851291881b340d0d4c7c0dd335a58081012540a33747970652e676f6f676c65617069732e636f6d2f70726f746f636f6c2e50726f706f73616c437265617465436f6e7472616374121d0a15419c7c7049d26108be0dcb5f78479c6ff27ba101d11204081f100170fd93c4c0dd33"
+  "raw_data_hex": "0a0227e22208c4c88851291881b340d0d4c7c0dd335a58081012540a33747970652e676f6f676c65617069732e636f6d2f70726f746f636f6c2e50726f706f73616c437265617465436f6e7472616374121d0a15419c7c7049d26108be0dcb5f78479c6ff27ba101d112040814100170fd93c4c0dd33"
 }
 ```
 
