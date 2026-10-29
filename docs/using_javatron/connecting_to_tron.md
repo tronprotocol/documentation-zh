@@ -287,7 +287,11 @@ node {
 
 ### 关闭节点发现
 
-在某些情况下，不需要开启节点发现，比如，运行一个本地测试节点或部署一个具有固定的一些节点的测试网络。这时可以通过将配置项设置成 `node.discovery.enable = false` 来关闭节点发现，也可以通过防火墙关闭 UDP `18888` 端口来实现。
+在某些情况下（例如本地测试或节点固定的私有网络），可以通过设置 `node.discovery.enable = false` 关闭基于 UDP 的节点发现。
+
+虽然阻断 `node.listen.port` 指定端口（默认 `18888`）的 UDP 通信不会关闭节点发现服务，但会阻止发现消息的发送或接收，从而实质上阻断基于 UDP 的节点发现。
+
+关闭节点发现后，在相关 TCP P2P 端口可正常访问的前提下，节点仍可主动建立 TCP 连接（例如连接到 `node.active` 中配置的节点），也可接受 TCP 入站连接（例如来自 `node.passive` 中配置的节点）。
 
 ## 节点连接
 
@@ -298,7 +302,7 @@ node {
 - `node.maxConnections`：节点的最大连接数（默认值：30）。当连接数达到该上限后，来自非可信节点的被动连接会被拒绝。可信节点是指 IP 出现在 `node.passive`、`node.active` 或 `node.fastForward` 中的节点（这三处的 IP 都会被加入可信列表）。主动连接不受该限制约束：对 `node.active` 中配置的节点的主动连接，仅受 `node.active` 列表大小限制；对通过节点发现协议发现的节点的主动连接，由 `minConnections` 和 `minActiveConnections` 驱动（见下文）。
 - `node.minConnections`：期望维持的最小总连接数，包含主动连接和被动连接（默认值：8）。当总连接数低于该值时，节点会向已发现的节点发起主动连接以补足。
 - `node.minActiveConnections`：期望维持的对已发现节点的最小主动连接数（默认值：3）。即使总连接数已经达到或超过 `minConnections`，节点仍会持续向已发现的节点发起主动连接，直到该阈值被满足。
-- `node.maxConnectionsWithSameIp`：允许来自同一 IP 地址的最大连接数（默认值：2），用于缓解来自单一 IP 的滥用。
+- `node.maxConnectionsWithSameIp`：同一 IP 地址的连接数限制（默认值：2），在接受来自非可信节点的被动连接，以及选择已发现节点以发起主动连接时进行检查。来自可信节点的被动连接，以及向 `node.active` 中配置的节点发起的主动连接，会跳过此项检查。
 
 ```properties
 node {
@@ -388,7 +392,7 @@ tail -F logs/tron.log
 ### 同步中日志示例：
 
 ```text
-pushBlock block number:76, cost/txs:13/0 false
+PushBlock block number: 76, cost/txs: 13/0 false.
 Success process block Num:76,ID:000000000000004c9e3899ee9952a7f0d9e4f692c7070a48390e6fea8099432f.
 ```
 
@@ -440,13 +444,13 @@ curl http://127.0.0.1:8090/wallet/getnodeinfo
 
 ### 验证节点同步状态
 
-可在 [TRONSCAN 区块浏览器](https://tronscan.org/) 查询当前区块高度，并与本地接口返回结果对比：
+将本地区块高度与同一网络中可信来源提供的区块高度进行比较。主网可以使用 [TRONSCAN 区块浏览器](https://tronscan.org/)，测试网则使用对应网络的区块浏览器。
 
 ```bash
 curl http://127.0.0.1:8090/wallet/getnowblock
 ```
 
-若区块高度一致，则说明本地节点同步正常。
+两次查询之间可能产生新区块，因此区块高度可能存在小幅差异。应检查本地区块高度是否持续增长，并与参考高度保持接近。仅凭高度一致不能确认同步正常；还应比较相同高度的区块 ID，以确认节点同步的是同一条链。
 
 ## 常见连接问题排查
 
