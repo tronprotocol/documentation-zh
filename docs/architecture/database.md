@@ -31,21 +31,23 @@ storage {
 
 ### 2. RocksDB 优化参数
 
-`dbSettings` 块仅在 `db.engine = "ROCKSDB"` 时生效；使用 LevelDB 时这些值会被静默忽略。
+`dbSettings` 块必须放在 `storage` 块内，如下所示。其中的配置仅在 `storage.db.engine = "ROCKSDB"` 时生效；使用 LevelDB 时这些值会被静默忽略。
 
 RocksDB 支持多种调优参数，可根据节点服务器性能进行配置。以下是一个推荐的参数示例：
 
 ```properties
-dbSettings = {
-  levelNumber = 7
-  # compactThreads = 32
-  blocksize = 64                 # 单位：KB
-  maxBytesForLevelBase = 256     # 单位：MB
-  maxBytesForLevelMultiplier = 10
-  level0FileNumCompactionTrigger = 4
-  targetFileSizeBase = 256       # 单位：MB
-  targetFileSizeMultiplier = 1
-  maxOpenFiles= 5000
+storage {
+  dbSettings = {
+    levelNumber = 7
+    # compactThreads = 32
+    blocksize = 64                 # 单位：KB
+    maxBytesForLevelBase = 256     # 单位：MB
+    maxBytesForLevelMultiplier = 10
+    level0FileNumCompactionTrigger = 4
+    targetFileSizeBase = 256       # 单位：MB
+    targetFileSizeMultiplier = 1
+    maxOpenFiles= 5000
+  }
 }
 ```
 
@@ -100,12 +102,11 @@ java -jar build/libs/Toolkit.jar db convert  your_database_dir/database output-d
 3. 重新启动节点（继续使用原目录）；
 4. 在新目录中执行数据转换操作。
 
-示例命令如下：
+请在 java-tron 源码根目录下执行以下命令：
 
 ```bash
 java -jar build/libs/Toolkit.jar db cp output-directory/database /tmp/output-directory/database
-cd /tmp
-java -jar build/libs/Toolkit.jar db convert output-directory/database output-directory-dst/database
+java -jar build/libs/Toolkit.jar db convert /tmp/output-directory/database /tmp/output-directory-dst/database
 ```
 
 > **注意**：整个数据转换过程预计耗时约 **10 小时**，具体时间依赖于数据量和磁盘性能。
