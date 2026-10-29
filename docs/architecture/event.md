@@ -21,7 +21,7 @@ TRON 支持两种事件订阅方式，开发者可根据不同的使用场景进
 
 !!! note "版本兼容性"
 
-    从 java-tron v4.8.2 起，事件插件必须声明 `Plugin-Version` 为 **3.0.0 或更高版本**。较旧的事件插件构建（例如 2.2.0）会在节点启动时被拒绝，因为它们依赖的库已不再随 java-tron 打包。如果配置了不兼容的插件，节点会在事件订阅初始化阶段失败，而不是静默丢弃触发器。
+    从 java-tron v4.8.2 起，事件插件必须声明 `Plugin-Version` 为 **3.0.0 或更高版本**。较旧的事件插件构建（例如 2.2.0）会在节点启动时被拒绝，因为它们依赖的库已不再随 java-tron 打包。如果配置了不兼容的插件，节点会在事件订阅初始化阶段失败，而不是静默丢弃事件消息。
 
 
 ### 事件服务框架
@@ -29,7 +29,7 @@ TRON 支持两种事件订阅方式，开发者可根据不同的使用场景进
 Java-tron 当前支持两个事件服务框架版本：`V1.0` 和 `V2.0`。
 
 - **V1.0：** 仅支持新区块产生时的实时事件推送。
-- **V2.0：** **推荐使用**，新增了历史事件回溯功能，允许从任意区块高度开始同步。
+- **V2.0：** **推荐使用**，新增了历史事件回溯功能，支持从指定区块高度开始同步历史事件。
 
 详细对比与选择建议请参考：[事件服务框架 V2.0 介绍](https://medium.com/tronnetwork/event-service-framework-v2-0-0622f2f07249)。
 
@@ -50,7 +50,7 @@ Java-tron 当前支持两个事件服务框架版本：`V1.0` 和 `V2.0`。
 
 在迁移之前，请考虑以下因素：
 
-- 内部交易日志支持： `V2.0` 暂不支持内部交易日志（`internalTransactionList` 字段为空）。如果您的业务依赖此字段，请继续使用 `V1.0`。
+- 内部交易日志支持： `V2.0` 暂不支持内部交易日志（`internalTransactionList` 字段为 `null`，而非空数组）。如果您的业务依赖此字段，请继续使用 `V1.0`。
 - 插件版本： 请使用 `3.0.0` 或更高版本的事件插件。java-tron v4.8.2 会在启动时拒绝更旧的插件包。
 
 **迁移操作步骤**
@@ -196,16 +196,16 @@ event.subscribe = {
 *   `path`：你实际构建或下载的插件 ZIP 文件的本地绝对路径，例如 `plugin-kafka-3.0.0.zip`。java-tron v4.8.2 及以后，插件包必须声明 `Plugin-Version` 为 `3.0.0` 或更高版本。请确保路径正确，否则无法加载。
 *   `server`：Kafka 服务器地址，使用 `ip:port` 的格式。Kafka 默认端口号是 `9092`，请确保端口号正确，并确保 Kafka 服务可访问。
 *   `dbconfig`：此配置项仅针对 MongoDB 插件，对于 Kafka 插件请忽略。
-*   `contractParse`：控制是否对合约日志进行 ABI 解码。设为 `true`（默认值）时，节点会将每条日志与合约 ABI 进行匹配，匹配成功的日志作为解码后的 `contractevent` 事件推送，未匹配的日志则作为原始 `contractlog` 事件推送；设为 `false` 时，跳过 ABI 解码，所有日志均作为原始 `contractlog` 事件推送。
+*   `contractParse`：控制是否对合约日志进行 ABI 解码。设为 `true`（默认值）时，匹配合约 ABI 中非匿名事件定义的日志会被解码为 `contractevent` 合约事件；未匹配的日志保留原始数据，作为 `contractlog` 合约日志处理。设为 `false` 时，跳过 ABI 解码，所有日志均作为原始 `contractlog` 合约日志处理。相同规则也适用于 `solidityevent` 和 `soliditylog`。实际推送需要启用相应订阅。
 *   `topics`：配置订阅的事件，详情请参看接下来的[事件类型](#event-types)章节。
 *   `filter`：过滤参数，详情请参看[事件过滤](#event-filtering)章节。
 
 
 #### 事件类型 { #event-types }
 
-TRON 事件订阅支持 `block`、`transaction`、`contractevent`、`contractlog`、`solidity`、`solidityevent`、`soliditylog` 7 种类型的事件订阅。开发者需要根据业务需求进行配置，**建议只订阅 1-2 种事件类型，如果开启过多触发器，会导致性能下降。**
+TRON 事件订阅支持 `block`、`transaction`、`contractevent`、`contractlog`、`solidity`、`solidityevent`、`soliditylog` 7 种类型的事件订阅。开发者需要根据业务需求进行配置，**建议只订阅 1-2 种事件类型，订阅过多类型可能导致性能下降。**
 
-当发生主链切换（chain reorganization / reorg），导致此前推送过的区块被回滚时，java-tron v4.8.2 会将已回滚的实时 `block`、`transaction`、`contractevent` 和 `contractlog` 触发器重新推送，并标记为 `removed=true`；随后再以 `removed=false` 正常推送替换的分叉分支。下游消费者应将 `removed=true` 的触发器视为回滚信号，对同一 block / transaction / log 之前已消费的事件进行撤销或标记。固化类触发器（`solidified=true`、`solidityevent` 和 `soliditylog`）只表示已固化的数据；被回滚的合约触发器不会被缓存进 solidity 事件/日志队列。
+当发生主链切换（chain reorganization / reorg），导致此前推送过的区块被回滚时，节点会将已回滚的实时 `block`、`transaction`、`contractevent` 和 `contractlog` 事件重新推送，并标记为 `removed=true`；随后以 `removed=false` 正常推送新主链分支上的事件。下游消费者应将 `removed=true` 的事件消息视为回滚信号，对同一 block / transaction / log 之前已消费的事件进行撤销或标记。固化类事件（`solidified=true`、`solidityevent` 和 `soliditylog`）只表示已固化的数据；被回滚的合约事件和日志不会被缓存进 solidity 事件/日志队列。
 
 ##### 1. 交易事件 { #transaction-event }
 
@@ -229,16 +229,16 @@ event.subscribe.topics = [
 
 - `triggerName`: 事件类型标识，交易事件固定为 `"transaction"`。
 - `enable`: 是否订阅此类型的事件。
-- `topic`: 在 MongoDB 或 Kafka 中接收此类型事件的主题名，该参数值需与 MongoDB 或 Kafka 的配置保持一致。
-- `solidified`: 如果设为 `true`，则仅订阅已固化的交易事件。
+- `topic`: 接收此类型事件的 Kafka 主题名称或 MongoDB 集合名称。该参数值需与 MongoDB 或 Kafka 的配置保持一致。
+- `solidified`: 如果设为 `true`，则仅推送已固化区块中的交易事件。
 - `ethCompatible`: 如果设为 `true`，将包含 ETH 兼容字段（如 `transactionIndex`, `logList`）。
 
 交易事件中包含的主要字段：
 
 - `transactionId`: 交易哈希。
 - `blockNumber`: 区块高度。
-- `energyUsage`: 此次调用中消耗的能量(Energy) 总量。
-- `energyFee`: 此次调用中消耗的 TRX 数量（以 `sun` 为单位）。
+- `energyUsageTotal`: 交易消耗的能量（Energy）总量。
+- `energyFee`: 为支付能量费用而燃烧的 TRX 数量（以 `sun` 为单位）。
 - `removed`: 如果该交易事件因主链切换而被回滚，则为 `true`；否则为 `false`。
 
 更多字段请参考 [TransactionLogTrigger](https://github.com/tronprotocol/java-tron/blob/develop/common/src/main/java/org/tron/common/logsfilter/trigger/TransactionLogTrigger.java)。
@@ -302,10 +302,10 @@ event.subscribe.topics = [
 ]
 ```
 
-- `contractevent`: 订阅所有合约事件。
-- `contractlog`: 订阅所有合约日志。
-- `solidityevent`: 仅订阅固化块中的合约事件。
-- `soliditylog`: 仅订阅固化块中的合约日志。
+- `contractevent`: 订阅在启用 `contractParse` 时根据合约 ABI 解码得到的合约事件。
+- `contractlog`: 订阅原始合约日志。默认配置下，不包含通过 ABI 解码得到的合约事件所对应的原始日志，除非启用 `redundancy`。
+- `solidityevent`: 与 `contractevent` 对应，仅推送固化区块中的事件。
+- `soliditylog`: 与 `contractlog` 对应，仅推送固化区块中的日志，解码和冗余推送规则相同。
 
 合约事件中包含的主要字段：
 
@@ -355,7 +355,7 @@ event.subscribe.topics = [
 固化块通知事件中包含的主要字段：
 
 - `latestSolidifiedBlockNumber`: 最新固化块高度。
-- `timestamp`: 区块时间戳。
+- `timeStamp`: 区块时间戳。
 
 更多字段请参考 [SolidityTrigger](https://github.com/tronprotocol/java-tron/blob/develop/common/src/main/java/org/tron/common/logsfilter/trigger/SolidityTrigger.java)。
 
@@ -363,7 +363,7 @@ event.subscribe.topics = [
 
 #### 创建 Kafka 订阅 Topic { #creating-the-kafka-subscription-topic }
 
-Kafka 订阅 Topic 的名称必须与 `event.subscribe` 配置中 `topics` 字段的 `topic` 配置项一致。例如，如果开发者需要订阅 `block` 事件，并在 `block` 触发器中填写 `topic` 字段为 `"block"`，则需要在 Kafka 中创建名为 `"block"` 的 Topic，用于接收区块事件。
+Kafka 订阅 Topic 的名称必须与 `event.subscribe` 配置中 `topics` 字段的 `topic` 配置项一致。例如，如果开发者需要订阅 `block` 事件，并在 `triggerName = "block"` 的配置项中设置 `topic = "block"`，则需要在 Kafka 中创建名为 `"block"` 的 Topic，用于接收区块事件。
 
 在 Linux 环境下，创建 Kafka Topic 的命令如下：
 
@@ -394,6 +394,8 @@ grep -i eventplugin logs/tron.log
 ```
 
 ##### 验证事件订阅
+
+在启动 FullNode 前，请在 `event.subscribe.topics` 中找到 `triggerName = "block"` 的配置项，并设置 `enable = true` 和 `topic = "block"`。上面的区块事件配置示例默认关闭了该订阅。
 
 执行 `kafka-console-consumer.sh` 脚本，获取 Kafka 中 Topic 为 `"block"` 的消息，以验证事件订阅是否成功。
 
@@ -444,7 +446,7 @@ bin/kafka-console-consumer.sh --topic block --from-beginning --bootstrap-server 
 
 TRON MongoDB 事件订阅系统包含三大核心模块：
 
-1. 事件订阅插件：连接 TRON 节点，捕获事件数据，然后写入 MongoDB。
+1. 事件订阅插件：加载到 TRON 节点中，接收节点传入的事件数据，并写入 MongoDB。
 2. MongoDB 数据库：事件数据持久化存储层。
 3. 事件查询服务：提供 HTTP API，供外部查询事件数据。
 
@@ -542,10 +544,10 @@ event.subscribe = {
 *   `server`：目标服务器地址，即 MongoDB 的地址和端口，例如 `"127.0.0.1:27017"`。
 *   `dbconfig`：MongoDB 数据库配置，格式为：`数据库名|用户名|密码`，例如 `"eventlog|<eventlog-username>|<eventlog-password>"`。
 *   `topics`：目前支持七种事件类型：`block`、`transaction`、`contractevent`、`contractlog`、`solidity`、`solidityevent` 和 `soliditylog`。详细信息请参考 [事件类型](#event-types) 章节。
-    *   `triggerName`：触发器名称，不可修改。
+    *   `triggerName`：事件类型标识，需使用上述预定义名称。
     *   `enable`：是否启用该事件订阅。`true` 为开启，`false` 为禁用。
     *   `topic`：MongoDB 中接收事件的集合名称，可修改。
-    *   `redundancy`：仅用于 `contractlog` 与 `soliditylog`。设为 `true` 时，已作为 `contractevent`/`solidityevent` 推送的合约日志会**额外再以原始** `contractlog`/`soliditylog` 形式推送一份。默认为 `false`。
+    *   `redundancy`：仅用于 `contractlog` 与 `soliditylog`。设为 `true` 时，已启用的日志订阅还会包含通过 ABI 解码得到的合约事件所对应的原始日志，无论对应的 `contractevent` 或 `solidityevent` 订阅是否启用。默认为 `false`。
 *   `filter`：事件过滤条件。
     *   `fromblock`：查询范围的起始区块号，可以是""、`"earliest"` （从创世区块开始查询） 或指定的区块号。
     *   `toblock`：查询范围的结束区块号，可以是""、`"latest"` （最新区块） 或指定的区块号。
@@ -675,7 +677,7 @@ mongo.threadsAllowedToBlockForConnectionMultiplier=4
 
 ##### 步骤 3：启动 TRON Event Query Service
 
-启动 `tron-eventquery` 服务并插入索引：
+启动 `tron-eventquery` 服务并创建数据库索引：
 
 ```bash
 sh deploy.sh
@@ -720,17 +722,17 @@ o.t.c.l.EventPluginLoader 'your plugin path/plugin-mongodb-*.zip' loaded
 
 ##### 验证数据是否存入 MongoDB
 
-连接到 MongoDB 并查询数据，以验证事件数据是否已从节点获取并通过事件订阅存储到 MongoDB 中：
+上面的配置只启用了 `solidity` 事件，并设置了 `topic = "solidity"`，因此插件会将这些事件写入 MongoDB 的 `solidity` 集合。节点会自动为新固化的区块生成事件。运行以下命令连接 MongoDB，并查询 `solidity` 集合，验证事件数据是否已成功存储：
 
 ```bash
 mongo 127.0.0.1:27017
 use eventlog
 db.auth("<eventlog-username>", "<eventlog-password>")
 show collections
-db.block.find()
+db.solidity.find()
 ```
 
-如果有返回信息，则说明数据已成功存储。否则，请查看 FullNode 日志逐步排查问题。
+如果查询返回事件数据，则说明这些数据已成功存储。否则，请查看 FullNode 日志逐步排查问题。
 
 
 #### 调用 API 查询事件 { #using-the-tron-event-query-service-api }
@@ -741,15 +743,15 @@ TRON Event Query Service 提供了一系列 HTTP API 接口，用于查询 Mongo
 
 ## 内置消息队列订阅（ZeroMQ） { #built-in-message-queue-subscription-zeromq }
 
-Java-tron 节点内置 **ZeroMQ** 消息队列，提供轻量级的事件推送能力。这种方式无需部署额外插件，适用于对实时性要求较高，但不需要存储或回溯事件的简单场景，例如快速开发和测试。
+Java-tron 节点内置 **ZeroMQ** 消息队列，提供轻量级的事件推送能力。这种方式无需部署额外插件，适用于对实时性要求较高，但不需要存储事件的简单场景，例如快速原型开发和测试。
 
 这种方式有如下优势：
 
 - **无需部署插件：** 直接连接 TRON 节点即可订阅。
-- **高实时性：** 专为实时事件推送而设计。
+- **低延迟：** 针对实时事件推送进行了优化。
 - **轻量级：** 适合快速原型开发和测试环境。
 
-因此，当您希望以最小成本、快速接入事件流，并不依赖持久化能力时，使用 **内置 ZeroMQ 消息队列** 将是更轻便、直接的选择。本指南将详细介绍如何通过 Java-tron 内置的消息队列来订阅事件。
+因此，当您希望快速、高效地接入事件流，并不依赖持久化能力时，使用 **内置 ZeroMQ 消息队列** 将是更轻便、直接的选择。本指南将详细介绍如何通过 Java-tron 内置的消息队列来订阅事件。
 
 
 ### 配置节点
@@ -784,6 +786,8 @@ event.subscribe = {
 * `native.sendqueuelength`: 发送队列的长度，即当订阅者接收消息较慢的情况下，TCP 缓冲区最多容纳的发布者发布的消息数量，超过则丢弃
 * `topics`: 订阅的 [事件类型](#event-types)，包括区块类型、交易类型等
 
+使用 V2.0 事件服务框架时，ZeroMQ 也支持历史事件回溯。将 `event.subscribe.version` 设为 `1`，并将 `event.subscribe.startSyncBlockNum` 设为大于 `0` 的区块高度，作为历史事件回溯的起点。历史回溯过程中，只处理高度低于节点最新固化区块高度的区块。节点必须保存生成所订阅事件所需的历史数据。事件会根据节点本地保存的区块链数据重新生成，并通过 ZeroMQ 发布。
+
 ### 启动节点
 
 事件订阅服务默认为关闭状态，应在 `config.conf` 中通过 `event.subscribe.enable = true` 启用。启动命令如下：
@@ -796,7 +800,7 @@ java -jar build/libs/FullNode.jar -c framework/src/main/resources/config.conf
 
 本文以 Node.js 为例来说明如何订阅事件。
 
-首先，下载 `ZeroMQ` 库：
+首先，安装 `ZeroMQ` 库：
 
 ```bash
 npm install zeromq@5
