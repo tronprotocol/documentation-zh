@@ -6,7 +6,7 @@ java-tron 节点将其持久化数据存储在指定的数据目录下。默认�
 java -jar build/libs/FullNode.jar -d ./outputdir
 ```
 
-数据目录下，所有持久化数据都存放在 `database/` 子目录中，子目录名由配置项 `storage.db.directory` 控制（默认值：`database`）。如果您修改了 `storage.db.directory`，请确保备份与恢复时使用重命名后的目录。
+默认情况下，节点数据库存储在数据目录下的 `database/` 子目录中，子目录名由配置项 `storage.db.directory` 控制（默认值：`database`）。如果您修改了 `storage.db.directory`，请确保备份与恢复时使用重命名后的目录。
 
 
 ## 备份节点数据
@@ -60,6 +60,10 @@ tar -czvf "output-directory.$(date '+%Y%m%d%H%M%S').etgz" output-directory
 
 恢复数据非常简单，只需将备份的数据复制到节点的数据目录下即可。
 
+如果 `output-directory` 已存在，请在恢复前将其移动或重命名。
+
+如果恢复后的数据库包含非空的 `checkpoint/` 目录（默认路径为 `output-directory/database/checkpoint/`），请在启动节点前设置 `storage.checkpoint.version = 2`，以避免 checkpoint 版本不匹配错误。
+
 如果您的数据库备份文件名为 `output-directory.20220628152402.etgz`，您可以使用以下命令来恢复数据库文件：
 
 ```bash
@@ -88,10 +92,12 @@ tar -xzvf output-directory.20220628152402.etgz
 
 **注意：**
 
-- **LevelDB** 和 **RocksDB** 数据不允许混用。FullNode 的数据库类型通过配置文件中的 `storage.db.engine` 配置项指定，可选值为 `LEVELDB` 或 `ROCKSDB`。如果您拥有 LevelDB 格式的数据，但希望以 RocksDB 引擎启动节点，可以使用 toolkit 中的 [数据转换工具](toolkit.md#data-conversion-tool) 将 LevelDB 数据转换为 RocksDB 格式。
+- **LevelDB** 和 **RocksDB** 数据不允许混用。FullNode 的数据库类型通过配置文件中的 `storage.db.engine` 配置项指定，可选值为 `LEVELDB` 或 `ROCKSDB`（ARM64 仅支持 `ROCKSDB`）。如果您拥有 LevelDB 格式的数据，但希望以 RocksDB 引擎启动节点，可以使用 toolkit 中的 [数据转换工具](toolkit.md#data-conversion-tool) 将 LevelDB 数据转换为 RocksDB 格式。对于 ARM64 节点，请使用 RocksDB 快照，或在 x86_64 机器上转换 LevelDB 数据后，将转换后的数据复制到节点。
 - 内部交易通过配置文件中的 `vm.saveInternalTx` 或者 `vm.saveFeaturedInternalTx` 配置项开启/关闭。只有开启 `vm.saveInternalTx`，才会保存内部交易，如果 `saveFeaturedInternalTx` 也同时开启，则会保存所有类型的内部交易，否则，只保存 `call`、`create`、`suicide` 交易。影响接口：[`gettransactioninfobyid`](../api/http/block-and-tx-query/gettransactioninfobyid.md)
 - 配置项 `vm.saveCancelAllUnfreezeV2Details` 会额外把带宽 / 能量 / TRON Power 的取消额度以 `extra` 字段的形式记录到 `CANCELALLUNFREEZEV2` 操作码生成的内部交易上。该配置仅在 `vm.saveInternalTx` 与 `vm.saveFeaturedInternalTx` 同时开启时才会生效。请注意，上表中包含内部交易的官方快照源节点并未开启该配置，仅开启了 `vm.saveInternalTx` 与 `vm.saveFeaturedInternalTx`。
-- 账户历史余额通过配置文件中的 `storage.balance.history.lookup` 配置项开启/关闭。影响接口：[`getaccountbalance`](../api/http/account/getaccountbalance.md)
+- 账户历史余额通过配置文件中的 `storage.balance.history.lookup` 配置项开启/关闭。影响接口：[`getaccountbalance`](../api/http/account/getaccountbalance.md) 和 [`getblockbalance`](../api/http/block-and-tx-query/getblockbalance.md)。
+
+开启这些配置不会补齐快照中缺失的内部交易或历史余额记录。
 
 #### Lite FullNode 数据快照
 
@@ -112,6 +118,10 @@ TRON 网络从 GreatVoyage-v4.1.0 版本开始支持 **Lite FullNode** 类型的
 
 ### 数据快照的使用 { #data-snapshot-usage-steps }
 
+如果 `output-directory` 已存在，请在恢复前将其移动或重命名。
+
+如果恢复后的数据库包含非空的 `checkpoint/` 目录（默认路径为 `output-directory/database/checkpoint/`），请在启动节点前设置 `storage.checkpoint.version = 2`，以避免 checkpoint 版本不匹配错误。
+
 数据快照的使用步骤如下：
 
 1. 根据自己需求下载相应压缩备份数据库。
@@ -120,7 +130,7 @@ TRON 网络从 GreatVoyage-v4.1.0 版本开始支持 **Lite FullNode** 类型的
 
 #### 数据快照的解压方式 { #uncompress-ways }
 
-TRON 网络快照数据大小超过 2TB。我们推荐使用**流式处理（边下载边解压）**，以节省磁盘空间。
+TRON 网络快照数据大小超过 3TB。我们推荐使用**流式处理（边下载边解压）**，以节省磁盘空间。
 
 **方法 1：流式下载并解压（推荐，节省空间）**
 
@@ -149,4 +159,4 @@ wget SNAPSHOT_URL/FullNode_output-directory.tgz
 tar -zxvf FullNode_output-directory.tgz  
 ```
 
-**注意：** 此方法在解压时同时保留压缩包和解压后的文件，建议使用2个3TB的磁盘（3TB+ 压缩包 & 3TB+ 解压数据，解压后可释放一块磁盘，节省成本）。
+**注意：** 解压期间需要同时存储压缩包和解压后的数据库。请为两者预留足够的可用空间，并为数据库增长预留额外容量。您可以将压缩包存放在单独的磁盘上，并在解压完成后释放该磁盘以降低成本。
