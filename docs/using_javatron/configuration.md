@@ -10,8 +10,12 @@ java-tron 内置了两个用途不同的配置文件：
 
 | 文件 | 用途 |
 |---|---|
-| `common/src/main/resources/reference.conf` | 定义完整的默认值集合，并始终作为回退配置。 |
+| `common/src/main/resources/reference.conf` | 提供默认值，并自动加载为回退配置。一些可选配置项仅以注释示例的形式出现；要使用这些配置项，需要在您自己的配置文件中显式设置。 |
 | `framework/src/main/resources/config.conf` | 提供内置的主网部署配置和运行参数覆盖。当解析出的名称为 `config.conf`，且文件系统中不存在对应文件时，加载该文件。 |
+
+`config.conf` 模板包含常用配置项和用于部署的配置覆盖值，并未列出所有受支持的参数。自定义配置文件时，请查阅 `reference.conf` 及其中的注释，了解参数的默认值、用法和弃用说明。即使某个受支持的参数未出现在 `config.conf` 模板中，也可以将其添加到您自己的配置文件中，或保留已有的设置。
+
+模板中的值不一定与回退默认值相同。例如，`node.discovery.enable` 和 `node.discovery.persist` 在 `config.conf` 中为 `true`，但在 `reference.conf` 中为 `false`。从您自己的配置文件中删除这些覆盖值会改变节点的运行行为。
 
 配置按照以下顺序解析和应用：
 
@@ -33,6 +37,26 @@ java-tron 内置了两个用途不同的配置文件：
 - [主网配置模板（`config.conf`）](https://github.com/tronprotocol/java-tron/blob/master/framework/src/main/resources/config.conf)
 
 对于 Nile 或其他网络，应使用为该网络提供的配置模板。节点发现、P2P 版本、种子节点和创世块配置必须全部指向同一个网络。支持的网络配置模板请参阅[部署 java-tron](installing_javatron.md#network-types)。
+
+## 自定义配置 { #customize-your-configuration }
+
+1. 复制目标网络的配置模板，作为您自行管理的配置文件。
+2. 如果模板中未列出某个受支持的参数，请在 `reference.conf` 中查找其键名、类型和默认值，并将所需的覆盖值添加到自己的配置文件中。您无需复制整个 `reference.conf`，也无需修改 JAR 中内置的文件。对于 `reference.conf` 中仅以注释形式展示的可选配置项，需要在您自己的配置文件中显式设置才能使用。
+3. 按照下文示例，通过 `-c` 显式指定配置文件路径并启动节点，以明确选择所需的文件。
+4. 修改配置后，重启节点并[验证配置变更](#validate-a-configuration-change)。只有 `node.active` 和 `node.passive` 支持[动态配置重载](#dynamic-configuration-reload)。
+
+例如，`vm.estimateEnergy` 虽然未列在当前的 `config.conf` 模板中，但仍受支持。要启用 constant call 和 Energy 估算，请在您自己的配置文件中添加或更新以下设置：
+
+```hocon
+vm {
+  supportConstant = true
+  estimateEnergy = true
+}
+```
+
+这只是需要合并到网络配置中的片段，并非完整的部署配置文件。这两个配置项在 `reference.conf` 中的默认值均为 `false`；删除其中任一覆盖值都会使对应配置项恢复默认值。
+
+升级现有部署时，请按照[升级指南](../releases/upgrade-instruction.md#step-4-replace-old-files)比较并合并配置变更。
 
 ## 使用外部配置启动节点
 
@@ -81,6 +105,10 @@ node {
 ```
 
 配置键名称和值类型必须与 `reference.conf` 完全一致。尤其要注意：布尔值使用不加引号的 `true` / `false`，数值使用数字，文本使用带引号的字符串，列表使用方括号。
+
+## 条件停机 { #conditional-shutdown }
+
+使用 `node.shutdown` 可以让节点在达到指定的区块时间或高度，或同步指定数量的区块后自动停止。`BlockTime`、`BlockHeight` 和 `BlockCount` 三者只能配置其中一个。配置示例和限制请参阅[配置条件停机](installing_javatron.md#configuring-conditional-shutdown)。
 
 ## 网络与对等节点配置
 
@@ -206,6 +234,10 @@ P2P 消息限制独立配置在 `rate.limiter.p2p` 下。
 
 应将配置文件和 keystore 文件的访问权限限制为节点的操作系统用户，不要将密钥提交到源码仓库，也不要在测试环境中重复使用生产私钥。有关说明，请参阅[启动出块节点](installing_javatron.md#starting-a-block-production-node)和[使用 keystore 指定私钥](installing_javatron.md#keystore-password)。
 
+## 出块节点主备配置 { #block-production-backup }
+
+使用 `node.backup` 可以为使用同一出块账户的多个出块全节点配置主从模式。配置详情和部署示例请参阅[主从模式的出块全节点](installing_javatron.md#master-slave-mode-for-block-production-fullnodes)。
+
 ## 事件订阅与监控 { #event-subscription-and-monitoring }
 
 事件投递由 `event.subscribe` 控制。其配置用于选择原生队列或事件插件、插件路径或目标服务器，以及启用的触发器主题。完整配置请参阅[事件订阅](../architecture/event.md)。
@@ -227,7 +259,7 @@ node.metrics {
 
 有关指标说明、采集、PromQL 示例和仪表板配置，请参阅[节点监控](metrics.md)。
 
-## 动态配置重载
+## 动态配置重载 { #dynamic-configuration-reload }
 
 动态重载默认关闭：
 
@@ -242,7 +274,7 @@ node.dynamicConfig {
 
 目前动态重载只会应用 `node.active` 和 `node.passive` 的变更。其他配置（包括端口、存储、API 开关、限流以及 `node.fastForward`）都需要重启进程。重载成功消息使用 `DEBUG` 级别，默认会被 `app` logger 的 `INFO` 级别隐藏。编辑文件后，可以为 `app` logger 启用 `DEBUG` 以查看重载消息，也可以通过节点运行状态验证更新后的对等连接。
 
-## 验证配置变更
+## 验证配置变更 { #validate-a-configuration-change }
 
 在生产环境中应用配置前：
 
