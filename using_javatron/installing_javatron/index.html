@@ -4170,8 +4170,8 @@
 <li>
 <p>克隆仓库并切换到 <code>master</code> 分支：</p>
 <div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/tronprotocol/java-tron.git
-git<span class="w"> </span>checkout<span class="w"> </span>-t<span class="w"> </span>origin/master
 <span class="nb">cd</span><span class="w"> </span>java-tron
+git<span class="w"> </span>checkout<span class="w"> </span>-t<span class="w"> </span>origin/master
 </code></pre></div>
 </li>
 <li>
@@ -4276,7 +4276,7 @@ grep<span class="w"> </span>tcmalloc<span class="w"> </span><span class="s2">&qu
 <p>对于生产环境部署或长期运行的主网节点，请参考下方 <a href="#mainnet-fullnode-jvm-tuning">主网 FullNode 部署的 JVM 参数优化</a> 章节，以获取完整的 Java 启动命令。</p>
 </blockquote>
 <p>使用以下命令查看全节点运行日志，可以看到区块同步进度，节点连接状态等信息：</p>
-<div class="highlight"><pre><span></span><code>tail<span class="w"> </span>-f<span class="w"> </span>./logs/tron.log
+<div class="highlight"><pre><span></span><code>tail<span class="w"> </span>-F<span class="w"> </span>./logs/tron.log
 </code></pre></div>
 <p>使用 TRON 官方区块链浏览器 <a href="https://tronscan.org/#/">TronScan</a> 查看主网交易、区块、账户、超级代表投票和治理指标等信息。</p>
 <p>请参见后续章节，了解在 Nile 测试网和私有网络中部署全节点的详细说明。</p>
@@ -4312,7 +4312,8 @@ grep<span class="w"> </span>tcmalloc<span class="w"> </span><span class="s2">&qu
 <li>对于 RAM ≥32 GB 的服务器，建议将最大堆值（<code>-Xmx</code>）设置为总 RAM 的 40%，最小堆值设置为 <code>-Xms9G</code>。</li>
 </ul>
 </li>
-<li><code>-XX:MetaspaceSize</code> / <code>-XX:MaxMetaspaceSize</code>：设置元空间（类元数据）的初始值和最大值。</li>
+<li><code>-XX:MetaspaceSize</code>：设置触发垃圾回收的元空间初始阈值。</li>
+<li><code>-XX:MaxMetaspaceSize</code>：设置元空间的最大值。</li>
 <li><code>-XX:MaxDirectMemorySize</code>：限制 NIO Direct Byte Buffers 使用的内存。</li>
 <li><code>-XX:ReservedCodeCacheSize</code>：设置 JIT 代码缓存的最大值。</li>
 <li><code>-XX:+UseCodeCacheFlushing</code>：允许 JVM 在代码缓存满时刷新它。</li>
@@ -4404,7 +4405,7 @@ Shasta 相关资源（浏览器、水龙头、钱包、开发者文档及网络�
 <p><strong>重要提示</strong>:</p>
 <ul>
 <li>请确保您拥有一个超级代表 (SR) 账户并获得了足够的投票。如果您获得了前 27 名的投票，您需要启动一个 SR 节点来参与区块生产。<ul>
-<li>请注意，即使您的节点未进入前 27 名，使用<code>--witness</code>参数启动的节点仍会作为一个普通节点运行；一旦排名进入前 27 名，它就能立即开始出块。</li>
+<li>当节点账户尚未入选前 27 名 SR 时，使用 <code>--witness</code> 参数启动的节点仍会作为普通全节点运行。一旦该账户在维护阶段入选前 27 名 SR，节点就可以从接下来的 epoch 开始，在分配给它的出块时隙中出块。</li>
 </ul>
 </li>
 <li>将 SR 代表账户的<strong>私钥</strong>填写到 <code>config.conf</code> 的 <code>localwitness</code> 列表中。</li>
@@ -4498,6 +4499,11 @@ Shasta 相关资源（浏览器、水龙头、钱包、开发者文档及网络�
 <li>当一个priority高的节点出现故障失去主节点的身份，别的从节点竞争获得主节点的位置，在该priority高的节点恢复正常、重新具备出块的条件时，其不会自动获得主节点的身份，需要等到当前的主节点发生故障之后才能重新竞争获得。</li>
 <li>主从切换需要的时间：当主节点发生故障，从节点切换为主节点的时间最少需要2*keepAliveTimeout，其中keepAliveTimeout=keepAliveInterval * 6。需要2个keepAliveTimeout是因为从节点切换为主节点中间需要经过预备状态(INIT)的过渡，即从节点(SLAVER) -&gt; 预备节点(INIT) -&gt; 主节点(MASTER)。</li>
 </ul>
+<div class="admonition warning">
+<p class="admonition-title">限制主从通信 UDP 端口的访问</p>
+<p>如果您部署了一个主节点和一个从节点，请检查<strong>两个节点</strong>上的防火墙规则，确保用于传输 keep-alive 消息的主从通信 UDP 端口（<code>node.backup.port</code>，默认为 <strong>10001</strong>，或您自定义的端口）仅允许这两个节点通过该端口相互通信。</p>
+<p>keep-alive 消息缺少身份认证，且 UDP 源 IP 地址可以被伪造。请确保该端口无法从公网访问，以降低伪造的 keep-alive 消息干扰出块的风险。</p>
+</div>
 <h2 id="_3">优化与注意事项<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
 <h3 id="_4">加快节点数据同步<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
 <p>对于主网和 Nile 测试网，新节点启动后需要同步的数据量较大，将花费较长时间。您可以使用 <a href="../backup_restore/#data-snapshot-usage-steps">数据快照</a> 来加快节点同步速度。</p>
@@ -4528,6 +4534,11 @@ Shasta 相关资源（浏览器、水龙头、钱包、开发者文档及网络�
 <div class="highlight"><pre><span></span><code><span class="c1"># 将当前获准用于区块签名的私钥加密到 keystore 中</span>
 java<span class="w"> </span>-jar<span class="w"> </span>build/libs/Toolkit.jar<span class="w"> </span>keystore<span class="w"> </span>import
 </code></pre></div>
+<p>如果获准用于区块签名的地址与 SR 账户地址不同，还需将 <code>localWitnessAccountAddress</code> 设置为 SR 账户的 Base58Check 地址：</p>
+<div class="highlight"><pre><span></span><code><span class="na">localWitnessAccountAddress</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;SR_ACCOUNT_BASE58CHECK_ADDRESS&quot;</span>
+<span class="na">localwitnesskeystore</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">[&quot;B/localwitnesskeystore.json&quot;]</span>
+</code></pre></div>
+<p>请将地址占位符替换为 SR 账户地址，并将 keystore 路径调整为存储获准用于区块签名的私钥的文件路径。如果省略 <code>localWitnessAccountAddress</code>，java-tron 会将签名私钥派生的地址用作见证人账户地址。当该地址与 SR 账户地址不同时，节点将无法为该 SR 出块。</p>
 <p>迁移已有 SR 时，不要仅使用 <code>keystore new</code>：该命令会生成随机密钥，除非先将其派生地址配置为 SR 的 witness permission，否则该密钥无法为该 SR 出块。对于新的 SR 身份，或在有计划地轮换 witness permission 时，可以使用 <a href="../toolkit/#generate-a-keystore"><code>keystore new</code></a> 或 <code>wallet-cli</code> 的 <code>registerwallet</code> 命令生成新密钥，但必须在启动出块前完成相应的链上注册或权限更新。</p>
 <p><code>java -jar build/libs/FullNode.jar --keystore-factory</code> 仍为兼容目的保留，但已弃用，并将在未来版本中移除。从 4.8.1 版本开始，不再单独提供 <code>KeystoreFactory.jar</code>。</p>
 </li>
@@ -4595,7 +4606,7 @@ java<span class="w"> </span>-jar<span class="w"> </span>build/libs/Toolkit.jar<s
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年9月25日 03:23:09 UTC">2026年9月25日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年10月15日 06:57:29 UTC">2026年10月15日</span>
   </span>
 
     

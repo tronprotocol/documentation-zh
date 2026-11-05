@@ -3949,18 +3949,20 @@
 <li><code>transHistory.switch</code>：设为 <code>"off"</code> 时，<code>TransactionHistoryStore</code> 和 <code>TransactionRetStore</code> 会静默丢弃新写入，因此 switch 处于关闭期间处理的交易在 <code>gettransactioninfobyid</code> 查询时会返回空；已有数据仍可读取。默认 <code>"on"</code>。</li>
 </ul>
 <h3 id="2-rocksdb">2. RocksDB 优化参数<a class="headerlink" href="#2-rocksdb" title="Permanent link">&para;</a></h3>
-<p><code>dbSettings</code> 块仅在 <code>db.engine = "ROCKSDB"</code> 时生效；使用 LevelDB 时这些值会被静默忽略。</p>
+<p><code>dbSettings</code> 块必须放在 <code>storage</code> 块内，如下所示。其中的配置仅在 <code>storage.db.engine = "ROCKSDB"</code> 时生效；使用 LevelDB 时这些值会被静默忽略。</p>
 <p>RocksDB 支持多种调优参数，可根据节点服务器性能进行配置。以下是一个推荐的参数示例：</p>
-<div class="highlight"><pre><span></span><code><span class="na">dbSettings</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">{</span>
-<span class="w">  </span><span class="na">levelNumber</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">7</span>
-<span class="w">  </span><span class="c1"># compactThreads = 32</span>
-<span class="w">  </span><span class="na">blocksize</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">64                 # 单位：KB</span>
-<span class="w">  </span><span class="na">maxBytesForLevelBase</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">256     # 单位：MB</span>
-<span class="w">  </span><span class="na">maxBytesForLevelMultiplier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">10</span>
-<span class="w">  </span><span class="na">level0FileNumCompactionTrigger</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">4</span>
-<span class="w">  </span><span class="na">targetFileSizeBase</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">256       # 单位：MB</span>
-<span class="w">  </span><span class="na">targetFileSizeMultiplier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">1</span>
-<span class="w">  </span><span class="na">maxOpenFiles</span><span class="o">=</span><span class="w"> </span><span class="s">5000</span>
+<div class="highlight"><pre><span></span><code><span class="na">storage</span><span class="w"> </span><span class="s">{</span>
+<span class="w">  </span><span class="na">dbSettings</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">{</span>
+<span class="w">    </span><span class="na">levelNumber</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">7</span>
+<span class="w">    </span><span class="c1"># compactThreads = 32</span>
+<span class="w">    </span><span class="na">blocksize</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">64                 # 单位：KB</span>
+<span class="w">    </span><span class="na">maxBytesForLevelBase</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">256     # 单位：MB</span>
+<span class="w">    </span><span class="na">maxBytesForLevelMultiplier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">10</span>
+<span class="w">    </span><span class="na">level0FileNumCompactionTrigger</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">4</span>
+<span class="w">    </span><span class="na">targetFileSizeBase</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">256       # 单位：MB</span>
+<span class="w">    </span><span class="na">targetFileSizeMultiplier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">1</span>
+<span class="w">    </span><span class="na">maxOpenFiles</span><span class="o">=</span><span class="w"> </span><span class="s">5000</span>
+<span class="w">  </span><span class="na">}</span>
 <span class="na">}</span>
 </code></pre></div>
 <p>自 java-tron v4.8.2 起，通过 <code>storage.backup</code> 配置的 RocksDB 周期性备份功能已被移除。现有的 <code>storage.backup</code> 配置将被忽略，java-tron 不再通过该机制创建周期性数据库副本。</p>
@@ -3999,10 +4001,9 @@ java<span class="w"> </span>-jar<span class="w"> </span>build/libs/Toolkit.jar<s
 <li>重新启动节点（继续使用原目录）；</li>
 <li>在新目录中执行数据转换操作。</li>
 </ol>
-<p>示例命令如下：</p>
+<p>请在 java-tron 源码根目录下执行以下命令：</p>
 <div class="highlight"><pre><span></span><code>java<span class="w"> </span>-jar<span class="w"> </span>build/libs/Toolkit.jar<span class="w"> </span>db<span class="w"> </span>cp<span class="w"> </span>output-directory/database<span class="w"> </span>/tmp/output-directory/database
-<span class="nb">cd</span><span class="w"> </span>/tmp
-java<span class="w"> </span>-jar<span class="w"> </span>build/libs/Toolkit.jar<span class="w"> </span>db<span class="w"> </span>convert<span class="w"> </span>output-directory/database<span class="w"> </span>output-directory-dst/database
+java<span class="w"> </span>-jar<span class="w"> </span>build/libs/Toolkit.jar<span class="w"> </span>db<span class="w"> </span>convert<span class="w"> </span>/tmp/output-directory/database<span class="w"> </span>/tmp/output-directory-dst/database
 </code></pre></div>
 <blockquote>
 <p><strong>注意</strong>：整个数据转换过程预计耗时约 <strong>10 小时</strong>，具体时间依赖于数据量和磁盘性能。</p>
@@ -4029,7 +4030,7 @@ java<span class="w"> </span>-jar<span class="w"> </span>build/libs/Toolkit.jar<s
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年7月30日 03:06:25 UTC">2026年7月30日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年10月22日 10:56:35 UTC">2026年10月22日</span>
   </span>
 
     

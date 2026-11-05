@@ -3603,7 +3603,7 @@
 </li>
         
           <li class="md-nav__item ">
-  <a href="#4" class="md-nav__link" >
+  <a href="#step-4-replace-old-files" class="md-nav__link" >
     <span class="md-ellipsis">
       第 4 步：替换旧文件
     </span>
@@ -3841,7 +3841,7 @@
 </li>
         
           <li class="md-nav__item ">
-  <a href="#4" class="md-nav__link" >
+  <a href="#step-4-replace-old-files" class="md-nav__link" >
     <span class="md-ellipsis">
       第 4 步：替换旧文件
     </span>
@@ -3983,18 +3983,23 @@ git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </
 </li>
 </ol>
 <p>这样可以确保在升级失败或遇到任何问题时，您能利用备份迅速回滚至上一版本。</p>
-<h3 id="4">第 4 步：替换旧文件<a class="headerlink" href="#4" title="Permanent link">&para;</a></h3>
+<h3 id="step-4-replace-old-files">第 4 步：替换旧文件<a class="headerlink" href="#step-4-replace-old-files" title="Permanent link">&para;</a></h3>
 <p>准备好新版本可执行文件，并备份好原节点数据后，请根据以下步骤替换旧文件：</p>
 <ol>
 <li>将 <a href="#prepare-the-new-version-package">第 1 步</a> 中获取的新版本 <code>FullNode.jar</code> 拷贝到 java-tron 的工作目录。</li>
-<li>更新配置文件 (可选)<ul>
-<li>建议使用新版本的配置文件替换现有文件。替换后，请将您之前的自定义设置（例如，私钥、<code>keystore</code> 路径）合并到新文件中。</li>
-<li><strong>配置更新策略</strong><ul>
-<li>此步骤并非强制性的。 您可以根据自己节点的实际情况和需求，来决定是否更新配置文件。不过，我们仍强烈建议您使用最新的配置文件，以确保节点完全兼容并支持所有新功能。</li>
-<li>如果某一版本要求必须更新配置文件，我们会在其版本发布说明 (Release Notes) 中进行明确说明。请务必在升级前仔细阅读相关的发布说明。</li>
-</ul>
+<li>
+<p>检查并更新配置文件。除非版本发布要求修改，否则更新配置文件是可选的。您可以采用以下任一方式：</p>
+<ul>
+<li><strong>从模板开始，合并自定义配置（推荐）。</strong> 使用相同网络的 <code>config.conf</code> 模板替换配置文件，然后将备份配置中受支持的自定义设置合并到该文件中。</li>
+<li>
+<p><strong>更新现有配置文件。</strong> 将备份配置文件复制回原路径，再根据配置差异和版本发布说明添加或调整配置项。</p>
+<p>例如，如果备份文件名为 <code>config.conf.20261021153000</code>，可以使用以下命令恢复一份副本：</p>
+<div class="highlight"><pre><span></span><code>cp<span class="w"> </span>config.conf.20261021153000<span class="w"> </span>config.conf
+</code></pre></div>
+<p>请将示例中的备份文件名替换为实际文件名。编辑恢复后的 <code>config.conf</code>，并保留备份文件不变。</p>
 </li>
 </ul>
+<p>无论采用哪种方式，都应阅读版本发布说明，并将自己的配置与当前的 <code>config.conf</code>（<code>framework/src/main/resources/config.conf</code>）和 <code>reference.conf</code>（<code>common/src/main/resources/reference.conf</code>）进行比较。<code>reference.conf</code> 提供回退默认值，并记录受支持的参数，包括仅以注释示例形式出现的可选配置项。<code>config.conf</code> 是部署模板，包含常用配置项和用于部署的配置覆盖值。</p>
 </li>
 </ol>
 <blockquote>
@@ -4072,7 +4077,7 @@ git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年7月30日 03:06:43 UTC">2026年7月30日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年10月29日 11:09:02 UTC">2026年10月29日</span>
   </span>
 
     
