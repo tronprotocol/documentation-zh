@@ -12,7 +12,7 @@
       "html_url": "https://tronprotocol.github.io/documentation-zh/",
       "markdown_url": "https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/docs/index.md",
       "source_path": "docs/index.md",
-      "last_modified": "2026-09-24T21:37:29+08:00"
+      "last_modified": "2026-10-14T16:42:58+08:00"
     },
     {
       "title": "开始使用 java-tron",
@@ -44,7 +44,7 @@
       "html_url": "https://tronprotocol.github.io/documentation-zh/using_javatron/installing_javatron/",
       "markdown_url": "https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/docs/using_javatron/installing_javatron.md",
       "source_path": "docs/using_javatron/installing_javatron.md",
-      "last_modified": "2026-09-30T13:32:37+08:00"
+      "last_modified": "2026-10-15T14:57:29+08:00"
     },
     {
       "title": "节点配置",
@@ -52,7 +52,7 @@
       "html_url": "https://tronprotocol.github.io/documentation-zh/using_javatron/configuration/",
       "markdown_url": "https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/docs/using_javatron/configuration.md",
       "source_path": "docs/using_javatron/configuration.md",
-      "last_modified": "2026-09-02T11:48:02+08:00"
+      "last_modified": "2026-10-29T19:09:02+08:00"
     },
     {
       "title": "节点日志",
@@ -60,7 +60,7 @@
       "html_url": "https://tronprotocol.github.io/documentation-zh/using_javatron/logging/",
       "markdown_url": "https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/docs/using_javatron/logging.md",
       "source_path": "docs/using_javatron/logging.md",
-      "last_modified": "2026-08-12T16:49:37+08:00"
+      "last_modified": "2026-10-14T16:43:10+08:00"
     },
     {
       "title": "轻节点",
@@ -68,7 +68,7 @@
       "html_url": "https://tronprotocol.github.io/documentation-zh/using_javatron/litefullnode/",
       "markdown_url": "https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/docs/using_javatron/litefullnode.md",
       "source_path": "docs/using_javatron/litefullnode.md",
-      "last_modified": "2026-07-30T11:06:43+08:00"
+      "last_modified": "2026-10-28T17:33:46+08:00"
     },
     {
       "title": "私链网络",
@@ -76,7 +76,7 @@
       "html_url": "https://tronprotocol.github.io/documentation-zh/using_javatron/private_network/",
       "markdown_url": "https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/docs/using_javatron/private_network.md",
       "source_path": "docs/using_javatron/private_network.md",
-      "last_modified": "2026-08-28T15:40:11+08:00"
+      "last_modified": "2026-10-28T17:18:06+08:00"
     },
     {
       "title": "连接 TRON 网络指南",
@@ -84,7 +84,7 @@
       "html_url": "https://tronprotocol.github.io/documentation-zh/using_javatron/connecting_to_tron/",
       "markdown_url": "https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/docs/using_javatron/connecting_to_tron.md",
       "source_path": "docs/using_javatron/connecting_to_tron.md",
-      "last_modified": "2026-07-30T11:06:43+08:00"
+      "last_modified": "2026-10-22T12:39:00+08:00"
     },
     {
       "title": "数据库配置指南",
@@ -92,7 +92,7 @@
       "html_url": "https://tronprotocol.github.io/documentation-zh/architecture/database/",
       "markdown_url": "https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/docs/architecture/database.md",
       "source_path": "docs/architecture/database.md",
-      "last_modified": "2026-07-30T11:06:25+08:00"
+      "last_modified": "2026-10-22T18:56:35+08:00"
     },
     {
       "title": "事件订阅",
@@ -100,7 +100,7 @@
       "html_url": "https://tronprotocol.github.io/documentation-zh/architecture/event/",
       "markdown_url": "https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/docs/architecture/event.md",
       "source_path": "docs/architecture/event.md",
-      "last_modified": "2026-07-10T13:05:08+08:00"
+      "last_modified": "2026-10-26T18:27:27+08:00"
     },
     {
       "title": "java-tron 节点指标监控",
@@ -108,7 +108,7 @@
       "html_url": "https://tronprotocol.github.io/documentation-zh/using_javatron/metrics/",
       "markdown_url": "https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/docs/using_javatron/metrics.md",
       "source_path": "docs/using_javatron/metrics.md",
-      "last_modified": "2026-08-13T12:03:07+08:00"
+      "last_modified": "2026-10-28T11:38:53+08:00"
     },
     {
       "title": "TRON 网络节点数据备份与恢复",
@@ -116,7 +116,7 @@
       "html_url": "https://tronprotocol.github.io/documentation-zh/using_javatron/backup_restore/",
       "markdown_url": "https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/docs/using_javatron/backup_restore.md",
       "source_path": "docs/using_javatron/backup_restore.md",
-      "last_modified": "2026-09-29T17:30:06+08:00"
+      "last_modified": "2026-10-29T18:19:11+08:00"
     },
     {
       "title": "Toolkit：Java-tron 节点维护工具集",
@@ -852,7 +852,7 @@
       "html_url": "https://tronprotocol.github.io/documentation-zh/contracts/contract/",
       "markdown_url": "https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/docs/contracts/contract.md",
       "source_path": "docs/contracts/contract.md",
-      "last_modified": "2026-10-07T14:57:11+08:00"
+      "last_modified": "2026-10-28T16:17:01+08:00"
     },
     {
       "title": "工具",
@@ -876,7 +876,7 @@
       "html_url": "https://tronprotocol.github.io/documentation-zh/releases/upgrade-instruction/",
       "markdown_url": "https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/docs/releases/upgrade-instruction.md",
       "source_path": "docs/releases/upgrade-instruction.md",
-      "last_modified": "2026-07-30T11:06:43+08:00"
+      "last_modified": "2026-10-29T19:09:02+08:00"
     },
     {
       "title": "java-tron 发布包签名校验",
@@ -892,7 +892,7 @@
       "html_url": "https://tronprotocol.github.io/documentation-zh/releases/versions/",
       "markdown_url": "https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/docs/releases/versions/index.md",
       "source_path": "docs/releases/versions/index.md",
-      "last_modified": "2026-10-07T14:57:11+08:00"
+      "last_modified": "2026-10-23T17:06:30+08:00"
     },
     {
       "title": "术语表",
@@ -1532,7 +1532,7 @@
       "html_url": "https://tronprotocol.github.io/documentation-zh/api/http/witness-and-governance/proposalcreate/",
       "markdown_url": "https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/docs/api/http/witness-and-governance/proposalcreate.md",
       "source_path": "docs/api/http/witness-and-governance/proposalcreate.md",
-      "last_modified": "2026-07-13T13:15:58+08:00"
+      "last_modified": "2026-10-23T17:06:30+08:00"
     },
     {
       "title": "/wallet/proposaldelete",

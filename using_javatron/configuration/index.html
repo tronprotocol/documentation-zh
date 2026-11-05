@@ -503,9 +503,27 @@
 </li>
       
         <li class="md-nav__item ">
+  <a href="#customize-your-configuration" class="md-nav__link" >
+    <span class="md-ellipsis">
+      自定义配置
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item ">
   <a href="#_2" class="md-nav__link" >
     <span class="md-ellipsis">
       使用外部配置启动节点
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item ">
+  <a href="#conditional-shutdown" class="md-nav__link" >
+    <span class="md-ellipsis">
+      条件停机
     </span>
   </a>
   
@@ -566,6 +584,15 @@
 </li>
       
         <li class="md-nav__item ">
+  <a href="#block-production-backup" class="md-nav__link" >
+    <span class="md-ellipsis">
+      出块节点主备配置
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item ">
   <a href="#event-subscription-and-monitoring" class="md-nav__link" >
     <span class="md-ellipsis">
       事件订阅与监控
@@ -575,7 +602,7 @@
 </li>
       
         <li class="md-nav__item ">
-  <a href="#_7" class="md-nav__link" >
+  <a href="#dynamic-configuration-reload" class="md-nav__link" >
     <span class="md-ellipsis">
       动态配置重载
     </span>
@@ -584,7 +611,7 @@
 </li>
       
         <li class="md-nav__item ">
-  <a href="#_8" class="md-nav__link" >
+  <a href="#validate-a-configuration-change" class="md-nav__link" >
     <span class="md-ellipsis">
       验证配置变更
     </span>
@@ -3834,9 +3861,27 @@
 </li>
       
         <li class="md-nav__item ">
+  <a href="#customize-your-configuration" class="md-nav__link" >
+    <span class="md-ellipsis">
+      自定义配置
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item ">
   <a href="#_2" class="md-nav__link" >
     <span class="md-ellipsis">
       使用外部配置启动节点
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item ">
+  <a href="#conditional-shutdown" class="md-nav__link" >
+    <span class="md-ellipsis">
+      条件停机
     </span>
   </a>
   
@@ -3897,6 +3942,15 @@
 </li>
       
         <li class="md-nav__item ">
+  <a href="#block-production-backup" class="md-nav__link" >
+    <span class="md-ellipsis">
+      出块节点主备配置
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item ">
   <a href="#event-subscription-and-monitoring" class="md-nav__link" >
     <span class="md-ellipsis">
       事件订阅与监控
@@ -3906,7 +3960,7 @@
 </li>
       
         <li class="md-nav__item ">
-  <a href="#_7" class="md-nav__link" >
+  <a href="#dynamic-configuration-reload" class="md-nav__link" >
     <span class="md-ellipsis">
       动态配置重载
     </span>
@@ -3915,7 +3969,7 @@
 </li>
       
         <li class="md-nav__item ">
-  <a href="#_8" class="md-nav__link" >
+  <a href="#validate-a-configuration-change" class="md-nav__link" >
     <span class="md-ellipsis">
       验证配置变更
     </span>
@@ -3970,7 +4024,7 @@
 <tbody>
 <tr>
 <td><code>common/src/main/resources/reference.conf</code></td>
-<td>定义完整的默认值集合，并始终作为回退配置。</td>
+<td>提供默认值，并自动加载为回退配置。一些可选配置项仅以注释示例的形式出现；要使用这些配置项，需要在您自己的配置文件中显式设置。</td>
 </tr>
 <tr>
 <td><code>framework/src/main/resources/config.conf</code></td>
@@ -3978,6 +4032,8 @@
 </tr>
 </tbody>
 </table>
+<p><code>config.conf</code> 模板包含常用配置项和用于部署的配置覆盖值，并未列出所有受支持的参数。自定义配置文件时，请查阅 <code>reference.conf</code> 及其中的注释，了解参数的默认值、用法和弃用说明。即使某个受支持的参数未出现在 <code>config.conf</code> 模板中，也可以将其添加到您自己的配置文件中，或保留已有的设置。</p>
+<p>模板中的值不一定与回退默认值相同。例如，<code>node.discovery.enable</code> 和 <code>node.discovery.persist</code> 在 <code>config.conf</code> 中为 <code>true</code>，但在 <code>reference.conf</code> 中为 <code>false</code>。从您自己的配置文件中删除这些覆盖值会改变节点的运行行为。</p>
 <p>配置按照以下顺序解析和应用：</p>
 <ol>
 <li>配置名称取自 <code>-c</code> 传入的值；如果省略 <code>-c</code>，FullNode 默认使用 <code>config.conf</code>。</li>
@@ -3996,6 +4052,21 @@
 <li><a href="https://github.com/tronprotocol/java-tron/blob/master/framework/src/main/resources/config.conf">主网配置模板（<code>config.conf</code>）</a></li>
 </ul>
 <p>对于 Nile 或其他网络，应使用为该网络提供的配置模板。节点发现、P2P 版本、种子节点和创世块配置必须全部指向同一个网络。支持的网络配置模板请参阅<a href="../installing_javatron/#network-types">部署 java-tron</a>。</p>
+<h2 id="customize-your-configuration">自定义配置<a class="headerlink" href="#customize-your-configuration" title="Permanent link">&para;</a></h2>
+<ol>
+<li>复制目标网络的配置模板，作为您自行管理的配置文件。</li>
+<li>如果模板中未列出某个受支持的参数，请在 <code>reference.conf</code> 中查找其键名、类型和默认值，并将所需的覆盖值添加到自己的配置文件中。您无需复制整个 <code>reference.conf</code>，也无需修改 JAR 中内置的文件。对于 <code>reference.conf</code> 中仅以注释形式展示的可选配置项，需要在您自己的配置文件中显式设置才能使用。</li>
+<li>按照下文示例，通过 <code>-c</code> 显式指定配置文件路径并启动节点，以明确选择所需的文件。</li>
+<li>修改配置后，重启节点并<a href="#validate-a-configuration-change">验证配置变更</a>。只有 <code>node.active</code> 和 <code>node.passive</code> 支持<a href="#dynamic-configuration-reload">动态配置重载</a>。</li>
+</ol>
+<p>例如，<code>vm.estimateEnergy</code> 虽然未列在当前的 <code>config.conf</code> 模板中，但仍受支持。要启用 constant call 和 Energy 估算，请在您自己的配置文件中添加或更新以下设置：</p>
+<div class="highlight"><pre><span></span><code>vm {
+  supportConstant = true
+  estimateEnergy = true
+}
+</code></pre></div>
+<p>这只是需要合并到网络配置中的片段，并非完整的部署配置文件。这两个配置项在 <code>reference.conf</code> 中的默认值均为 <code>false</code>；删除其中任一覆盖值都会使对应配置项恢复默认值。</p>
+<p>升级现有部署时，请按照<a href="../../releases/upgrade-instruction/#step-4-replace-old-files">升级指南</a>比较并合并配置变更。</p>
 <h2 id="_2">使用外部配置启动节点<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <p>通过 <code>-c</code> 指定外部配置文件，并通过 <code>-d</code> 选择节点的输出目录：</p>
 <div class="highlight"><pre><span></span><code>java<span class="w"> </span>-jar<span class="w"> </span>FullNode.jar<span class="w"> </span><span class="se">\</span>
@@ -4032,6 +4103,8 @@ node {
 }
 </code></pre></div>
 <p>配置键名称和值类型必须与 <code>reference.conf</code> 完全一致。尤其要注意：布尔值使用不加引号的 <code>true</code> / <code>false</code>，数值使用数字，文本使用带引号的字符串，列表使用方括号。</p>
+<h2 id="conditional-shutdown">条件停机<a class="headerlink" href="#conditional-shutdown" title="Permanent link">&para;</a></h2>
+<p>使用 <code>node.shutdown</code> 可以让节点在达到指定的区块时间或高度，或同步指定数量的区块后自动停止。<code>BlockTime</code>、<code>BlockHeight</code> 和 <code>BlockCount</code> 三者只能配置其中一个。配置示例和限制请参阅<a href="../installing_javatron/#configuring-conditional-shutdown">配置条件停机</a>。</p>
 <h2 id="_3">网络与对等节点配置<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
 <p>主要的 P2P 配置如下：</p>
 <table>
@@ -4170,7 +4243,7 @@ node {
 <p>请求和消息大小限制分别配置：</p>
 <ul>
 <li><code>node.http.maxMessageSize</code> 控制 HTTP 请求体大小。</li>
-<li><code>node.rpc.maxMessageSize</code> 控制 gRPC 消息大小。</li>
+<li><code>node.rpc.maxMessageSize</code> 控制 gRPC 请求消息大小。</li>
 <li><code>node.jsonrpc.maxMessageSize</code> 控制 JSON-RPC 请求体大小。</li>
 <li><code>node.jsonrpc.maxBatchSize</code>、<code>maxResponseSize</code> 和 filter 限制用于约束 JSON-RPC 工作负载。</li>
 </ul>
@@ -4245,11 +4318,13 @@ ABI <code>view</code>/<code>pure</code> 函数被分派到 constant call 路径�
 <li><code>rate.limiter.global.api.qps</code> 提供各接口的默认限制。</li>
 <li><code>rate.limiter.apiNonBlocking</code> 选择以非阻塞或阻塞方式获取 permit。</li>
 </ul>
-<p>当 <code>rate.limiter.apiNonBlocking</code> 为 <code>true</code> 时，超限请求会立即被拒绝；为 <code>false</code> 时，QPS 和单 IP QPS 策略会阻塞等待令牌。<code>GlobalPreemptibleAdapter</code> 的行为不同：它最多等待两秒以获取并发 permit，超过两秒仍未获得时拒绝请求。</p>
+<p>当 <code>rate.limiter.apiNonBlocking</code> 为 <code>true</code> 时，所有策略（包括 <code>GlobalPreemptibleAdapter</code>）都会在无法获取 permit 时立即拒绝请求。为 <code>false</code> 时，QPS 和单 IP QPS 策略会阻塞等待，直到获得令牌；而 <code>GlobalPreemptibleAdapter</code> 最多等待两秒以获取并发 permit，超过两秒仍未获得时拒绝请求。</p>
 <p>P2P 消息限制独立配置在 <code>rate.limiter.p2p</code> 下。</p>
 <h2 id="_6">出块凭证<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
 <p>使用 <code>--witness</code> 启动的节点需要访问出块账户的签名私钥。生产部署应优先使用 <code>localwitnesskeystore</code>。<code>localwitness</code> 会将私钥直接存储在配置文件中，因此必须格外注意文件保护。</p>
 <p>应将配置文件和 keystore 文件的访问权限限制为节点的操作系统用户，不要将密钥提交到源码仓库，也不要在测试环境中重复使用生产私钥。有关说明，请参阅<a href="../installing_javatron/#starting-a-block-production-node">启动出块节点</a>和<a href="../installing_javatron/#keystore-password">使用 keystore 指定私钥</a>。</p>
+<h2 id="block-production-backup">出块节点主备配置<a class="headerlink" href="#block-production-backup" title="Permanent link">&para;</a></h2>
+<p>使用 <code>node.backup</code> 可以为使用同一出块账户的多个出块全节点配置主从模式。配置详情和部署示例请参阅<a href="../installing_javatron/#master-slave-mode-for-block-production-fullnodes">主从模式的出块全节点</a>。</p>
 <h2 id="event-subscription-and-monitoring">事件订阅与监控<a class="headerlink" href="#event-subscription-and-monitoring" title="Permanent link">&para;</a></h2>
 <p>事件投递由 <code>event.subscribe</code> 控制。其配置用于选择原生队列或事件插件、插件路径或目标服务器，以及启用的触发器主题。完整配置请参阅<a href="../../architecture/event/">事件订阅</a>。</p>
 <p>Prometheus 监控通过 <code>node.metrics.prometheus</code> 配置。该功能默认关闭；启用后默认监听 <code>9527</code> 端口，可通过 <code>node.metrics.prometheus.port</code> 修改监听端口：</p>
@@ -4263,7 +4338,7 @@ ABI <code>view</code>/<code>pure</code> 函数被分派到 constant call 路径�
 <p>已弃用的 <code>node.metricsEnable</code> 配置项独立于 Prometheus 开关。它用于启用旧版 Dropwizard 指标采集，并注册 gRPC <code>Monitor</code> 服务（<code>GetStatsInfo</code>）。</p>
 <p>从 GreatVoyage-v4.8.2 开始，不再支持 InfluxDB reporter。<code>node.metrics.storageEnable</code> 和整个 <code>node.metrics.influxdb</code> 配置块不再使用，可以从配置文件中删除。</p>
 <p>有关指标说明、采集、PromQL 示例和仪表板配置，请参阅<a href="../metrics/">节点监控</a>。</p>
-<h2 id="_7">动态配置重载<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<h2 id="dynamic-configuration-reload">动态配置重载<a class="headerlink" href="#dynamic-configuration-reload" title="Permanent link">&para;</a></h2>
 <p>动态重载默认关闭：</p>
 <div class="highlight"><pre><span></span><code>node.dynamicConfig {
   enable = true
@@ -4272,7 +4347,7 @@ ABI <code>view</code>/<code>pure</code> 函数被分派到 constant call 路径�
 </code></pre></div>
 <p><code>checkInterval</code> 的单位是秒。由于重载服务会监视所选文件的修改，应当配合磁盘上的配置文件使用该功能，配置文件可以通过 <code>-c</code> 指定，也可以是自动发现的 <code>./config.conf</code>。</p>
 <p>目前动态重载只会应用 <code>node.active</code> 和 <code>node.passive</code> 的变更。其他配置（包括端口、存储、API 开关、限流以及 <code>node.fastForward</code>）都需要重启进程。重载成功消息使用 <code>DEBUG</code> 级别，默认会被 <code>app</code> logger 的 <code>INFO</code> 级别隐藏。编辑文件后，可以为 <code>app</code> logger 启用 <code>DEBUG</code> 以查看重载消息，也可以通过节点运行状态验证更新后的对等连接。</p>
-<h2 id="_8">验证配置变更<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
+<h2 id="validate-a-configuration-change">验证配置变更<a class="headerlink" href="#validate-a-configuration-change" title="Permanent link">&para;</a></h2>
 <p>在生产环境中应用配置前：</p>
 <ol>
 <li>保留一份可恢复的最近正常配置文件。</li>
@@ -4303,7 +4378,7 @@ ABI <code>view</code>/<code>pure</code> 函数被分派到 constant call 路径�
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年9月2日 03:48:02 UTC">2026年9月2日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年10月29日 11:09:02 UTC">2026年10月29日</span>
   </span>
 
     

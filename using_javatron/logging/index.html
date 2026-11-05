@@ -3944,25 +3944,25 @@
 <p>此配置将带时间戳的详细 GC 事件写入 <code>gc.log</code>。与 JDK 17 配置不同，这些参数没有配置按大小轮转或保留策略。若不通过外部方式进行轮转或归档，该文件会持续增长。</p>
 <p>对于 JDK 8 和 JDK 17，相对路径 <code>gc.log</code> 均基于进程的工作目录解析，而不是基于 <code>FullNode.jar</code> 所在目录解析。</p>
 <p>使用以下命令持续查看 GC 日志：</p>
-<div class="highlight"><pre><span></span><code>tail<span class="w"> </span>-f<span class="w"> </span>./gc.log
+<div class="highlight"><pre><span></span><code>tail<span class="w"> </span>-F<span class="w"> </span>./gc.log
 </code></pre></div>
 <p>如果未提供适当的 JVM 日志参数，直接使用 <code>java -jar FullNode.jar</code> 启动节点不会创建 GC 日志。</p>
 <h2 id="_3">查看节点日志<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
 <p>使用主日志查看区块同步和节点的一般运行状态：</p>
-<div class="highlight"><pre><span></span><code>tail<span class="w"> </span>-f<span class="w"> </span>./logs/tron.log
+<div class="highlight"><pre><span></span><code>tail<span class="w"> </span>-F<span class="w"> </span>./logs/tron.log
 </code></pre></div>
 <p>排查 gRPC 连接、传输或 TLS 问题时，查看专用的 gRPC 日志：</p>
-<div class="highlight"><pre><span></span><code>tail<span class="w"> </span>-f<span class="w"> </span>./logs/grpc/grpc.log
+<div class="highlight"><pre><span></span><code>tail<span class="w"> </span>-F<span class="w"> </span>./logs/grpc/grpc.log
 </code></pre></div>
 <p>查看路由到专用数据库 logger 的存储引擎诊断日志时，请使用：</p>
-<div class="highlight"><pre><span></span><code>tail<span class="w"> </span>-f<span class="w"> </span>./logs/db/db.log
+<div class="highlight"><pre><span></span><code>tail<span class="w"> </span>-F<span class="w"> </span>./logs/db/db.log
 </code></pre></div>
 <h2 id="logback">使用自定义 Logback 配置<a class="headerlink" href="#logback" title="Permanent link">&para;</a></h2>
 <p>以节点所运行的同一 java-tron 版本内置的 <code>logback.xml</code> 为起点。当前版本的参考文件为 <a href="https://github.com/tronprotocol/java-tron/blob/master/framework/src/main/resources/logback.xml"><code>framework/src/main/resources/logback.xml</code></a>。</p>
 <p>使用自定义文件启动节点：</p>
 <div class="highlight"><pre><span></span><code>java<span class="w"> </span>-jar<span class="w"> </span>FullNode.jar<span class="w"> </span>--log-config<span class="w"> </span>/absolute/path/to/logback.xml
 </code></pre></div>
-<p>如果省略 <code>--log-config</code>，java-tron 将使用内置的 Logback 配置。如果指定该参数，其值必须指向一个可读取的普通文件，否则节点将启动失败。</p>
+<p>如果省略 <code>--log-config</code>，java-tron 将使用内置的 Logback 配置。如果为 <code>--log-config</code> 提供非空值，该值必须指向一个可读取的普通文件，否则节点将启动失败。空值的处理方式与省略该参数相同。</p>
 <p>自定义 Logback 配置会取代内置配置。请包含部署所需的 appender 和关闭钩子，例如专用 gRPC appender、Prometheus <code>METRICS</code> appender 和 <code>TronLogShutdownHook</code>。</p>
 <h2 id="stdout">将日志输出到 stdout<a class="headerlink" href="#stdout" title="Permanent link">&para;</a></h2>
 <p>默认文件已经定义了 <code>CONSOLE</code> appender。将其添加到 root logger，即可同时写入 stdout 和主日志：</p>
@@ -4015,7 +4015,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年8月12日 08:49:37 UTC">2026年8月12日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年10月14日 08:43:10 UTC">2026年10月14日</span>
   </span>
 
     
