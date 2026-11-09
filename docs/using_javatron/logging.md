@@ -14,6 +14,8 @@ java-tron 使用 Logback 记录节点应用日志。从 GreatVoyage-v4.8.2 开�
 
 每个默认的滚动文件 appender 都会按天轮转，并在当前日志文件达到约 500 MB 时轮转。每个 appender 的归档文件均使用 gzip 压缩，最多保留最近 7 个日周期产生的归档文件，同时受 50 GB 归档总大小上限的约束。
 
+如需修改保留天数、文件大小或日志路径，请参见[常用日志配置](#common-logging-settings)。
+
 配置中定义了控制台 appender，但默认没有将其添加到 root logger。
 
 `LEVELDB` 和 `ROCKSDB` logger 通过 `DB` appender 直接写入 `db.log`，不经过异步队列。gRPC 的 `GRPC` appender 使用可容纳 1,024 个事件的非阻塞队列；队列已满时，新的 gRPC 日志事件可能会被丢弃，以避免阻塞 gRPC 线程。相比之下，主日志的 `ASYNC` appender 使用可容纳 100 个事件的队列，并会在队列已满时阻塞日志生产线程。将 gRPC appender 的 `discardingThreshold` 设置为 `0` 可以避免基于优先级提前丢弃日志，但无法避免非阻塞队列已满时丢弃日志。
@@ -29,6 +31,8 @@ java-tron 使用 Logback 记录节点应用日志。从 GreatVoyage-v4.8.2 开�
 ```
 
 此配置将 GC 和堆事件写入 `gc.log`，在文件达到 100 MB 时轮转，并在当前 `gc.log` 之外最多保留 10 个已轮转的文件。
+
+Logback 的保留策略不适用于 GC 日志。
 
 对于使用 JDK 8 的 x86_64 环境，java-tron 提供的参数包括：
 
@@ -83,6 +87,35 @@ java -jar FullNode.jar --log-config /absolute/path/to/logback.xml
 如果省略 `--log-config`，java-tron 将使用内置的 Logback 配置。如果为 `--log-config` 提供非空值，该值必须指向一个可读取的普通文件，否则节点将启动失败。空值的处理方式与省略该参数相同。
 
 自定义 Logback 配置会取代内置配置。请包含部署所需的 appender 和关闭钩子，例如专用 gRPC appender、Prometheus `METRICS` appender 和 `TronLogShutdownHook`。
+
+### 常用日志配置 {#common-logging-settings}
+
+在复制的 `logback.xml` 中，找到需要修改的日志对应的 appender：`FILE` 对应 `tron.log`，`DB` 对应 `db.log`，`GRPC_FILE` 对应 `grpc.log`。
+
+| 配置项 | 默认值 | 配置方法 |
+| --- | --- | --- |
+| `maxHistory` | `7` | 归档保留周期数。默认按天轮转，改为 `30` 即最多保留 30 天。 |
+| `maxFileSize` | `500MB` | 单个日志文件达到此近似大小时轮转。例如改为 `1GB`，允许单个文件更大。 |
+| `totalSizeCap` | `50GB` | 每个 appender 的归档总大小上限。例如改为 `100GB`，允许保留更多归档日志。 |
+| `file` | `FILE` 中为 `./logs/tron.log` | 当前日志文件路径。可改为需要的路径，例如 `/data/logs/tron.log`。 |
+| `fileNamePattern` | `FILE` 中为 `./logs/tron-%d{yyyy-MM-dd}.%i.log.gz` | 归档路径和命名模式。`%d{yyyy-MM-dd}` 表示按天轮转，`%i` 为同一天内的文件编号，`.gz` 表示压缩。修改日志目录时，也需同步修改此路径。 |
+
+`file` 直接放在 appender 内，其余四项放在该 appender 的 `rollingPolicy` 内。
+
+例如，要将主日志最多保留 **30 天**，仅将 `FILE` 内的 `rollingPolicy` 替换为：
+
+```xml
+<rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+  <fileNamePattern>./logs/tron-%d{yyyy-MM-dd}.%i.log.gz</fileNamePattern>
+  <maxFileSize>500MB</maxFileSize>
+  <maxHistory>30</maxHistory>
+  <totalSizeCap>50GB</totalSizeCap>
+</rollingPolicy>
+```
+
+以上是配置片段，不是完整的 `logback.xml`。如需修改数据库或 gRPC 日志的保留天数，请调整 `DB` 或 `GRPC_FILE` 中的 `maxHistory`，保留各自原有的文件名模式。达到大小上限时，未满 30 天的旧归档也可能被删除，因此需要根据日志量调整 `totalSizeCap`。
+
+修改后，按照上文通过 `--log-config` 指定完整配置文件并重启节点。
 
 ## 将日志输出到 stdout
 
