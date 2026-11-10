@@ -24,13 +24,13 @@ TRON Toolkit 是一个集成了多种 `java-tron` 周边工具的实用程序，
 
    ```bash
    git clone https://github.com/tronprotocol/java-tron.git
+   cd java-tron
    git checkout -t origin/master
    ```
 
 2. **编译项目**：
 
    ```bash
-   cd java-tron
    ./gradlew clean build -x test
    ```
 
@@ -101,7 +101,7 @@ java -jar build/libs/Toolkit.jar keystore import \
 
 ### 列出 Keystore { #list-keystores }
 
-`keystore list` 会列出目录中结构有效的 `.json` keystore 文件：
+`keystore list` 会列出目录中通过基础元数据检查的 `.json` keystore 文件：
 
 ```bash
 java -jar build/libs/Toolkit.jar keystore list --keystore-dir /data/keystores
@@ -118,7 +118,11 @@ java -jar build/libs/Toolkit.jar keystore list --keystore-dir /data/keystores --
 }
 ```
 
-如果目录不存在或其中没有有效的 keystore，JSON 模式会返回 `{"keystores":[]}`，退出码为 `0`。无法读取或格式错误的 `.json` 文件会被跳过，并可能在 stderr 输出警告。
+通过这些检查并不保证 keystore 完整或能够解密。
+
+如果目录不存在或其中没有通过这些检查的 keystore，JSON 模式会返回 `{"keystores":[]}`，退出码为 `0`。无法读取或格式错误的 `.json` 文件会被跳过，并可能在 stderr 输出警告。
+
+在执行 `keystore list`、进行 `keystore import` 重复检测或 `keystore update` 地址匹配时，工具仅检查大小不超过 8 KiB（8,192 字节）的普通 `.json` 文件。符号链接和超出大小限制的文件会被跳过，并在 stderr 输出警告。
 
 `keystore list` 不会解密每个文件。显示的地址来自 keystore JSON 中声明的地址，本命令不会对其进行密码学验证。仅信任来自受控来源的 keystore。
 
@@ -146,7 +150,7 @@ java -jar build/libs/Toolkit.jar keystore update T... \
 {"address":"T...","file":"UTC--...json","status":"updated"}
 ```
 
-如果没有匹配的 keystore，或有多个有效 keystore 声明了所请求的地址，命令会失败，不会在重复项中任意选择。
+如果没有匹配的 keystore，或有多个通过上述检查的 keystore 声明了所请求的地址，命令会失败，不会在重复项中任意选择。
 
 ### Keystore 选项与安全 { #keystore-options-and-security }
 
@@ -174,15 +178,15 @@ java -jar build/libs/Toolkit.jar keystore update T... \
 
 ```bash
 # full command
-java -jar build/libs/Toolkit.jar db mv [-h] [-c=<config>] [-d=<database>]
+java -jar build/libs/Toolkit.jar db mv [-h] [-d=<database>] [-c=<config>]
 # examples
-java -jar build/libs/Toolkit.jar db mv -c framework/src/main/resources/config.conf -d /data/tron/output-directory
+java -jar build/libs/Toolkit.jar db mv -d /data/tron/output-directory -c framework/src/main/resources/config.conf
 ```
 
 **可选参数**：
 
+*   `-d | --database-directory <string>`：指定 FullNode 输出目录，其中包含由 `storage.db.directory` 配置的数据库目录（默认为 `database`）。默认值为 `output-directory`。
 *   `-c | --config <string>`：指定 FullNode 配置文件路径。默认值为 `config.conf`。
-*   `-d | --database-directory <string>`：指定 FullNode 数据库目录。默认值为 `output-directory`。
 *   `-h | --help <boolean>`：显示帮助信息。默认值为 `false`。
 
 ### 使用步骤
@@ -208,7 +212,7 @@ kill -15 $(ps -ef | grep FullNode.jar | grep -v grep | awk '{print $2}')
 
 数据库迁移的配置通过 `java-tron` 节点配置文件中的 `storage.properties` 字段进行。您可以在 [java-tron 仓库](https://github.com/tronprotocol/java-tron/blob/master/framework/src/main/resources/config.conf) 中找到示例配置。
 
-以下示例展示了如何将 `block` 和 `trans` 数据库迁移到 `/data1/tron` 目录：
+以下示例将 `/data1/tron` 作为 `block` 和 `trans` 数据库迁移的目标基础目录：
 
 ```properties
 storage {
@@ -228,16 +232,16 @@ storage {
 ```
 
 *   `name`：指定要迁移的数据库名称。
-*   `path`：指定数据库迁移的目标目录。
+*   `path`：指定数据库迁移的目标基础目录。
 
-工具会将 `name` 指定的数据库迁移到 `path` 指定的目录，并在原目录下创建一个软链接指向新目录。FullNode 启动后将通过此软链接找到数据。
+工具会将各数据库从 `<output-directory>/<storage.db.directory>/<name>` 迁移到 `<path>/<storage.db.directory>/<name>`，其中 `<output-directory>` 是通过 `-d` 指定的目录。工具会在原位置创建指向新数据库目录的符号链接。当使用默认配置 `storage.db.directory = "database"` 时，上述示例对应的目标目录为 `/data1/tron/database/block` 和 `/data1/tron/database/trans`。
 
 #### 3. 执行数据库迁移 { #execute-the-database-migration }
 
 配置完成后，执行以下命令进行数据库迁移。命令执行时会显示当前迁移进度：
 
 ```bash
-java -jar build/libs/Toolkit.jar db mv -c framework/src/main/resources/config.conf -d /data/tron/output-directory
+java -jar build/libs/Toolkit.jar db mv -d /data/tron/output-directory -c framework/src/main/resources/config.conf
 ```
 
 #### 4. 重新启动 FullNode 服务 { #restart-the-fullnode-service }
@@ -254,10 +258,10 @@ TRON Toolkit 提供了**数据裁剪工具**，主要用于生成和管理轻节
 
 全节点的完整数据可被分成两部分：快照数据集（Snapshot dataset）或历史数据集（History dataset）。
 
-*   **快照数据集**：用于启动轻节点，不包含裁剪时的最新区块高度之前的历史数据。
+*   **快照数据集**：用于启动轻节点。
 *   **历史数据集**：用于历史数据查询。
 
-快照数据集只包含全网最新状态数据和最近的 65536 个区块的历史数据。其占用空间远小于全节点数据，而轻节点只基于快照数据集来启动，所以，Lite Fullnode 具有占用磁盘空间小，启动速度快的优点。
+快照数据集包含全网最新状态、创世区块和最近 65,536 个区块。其占用空间远小于全节点数据，而轻节点只基于快照数据集来启动，所以，Lite Fullnode 具有占用磁盘空间小，启动速度快的优点。
 
 而数据裁剪工具能够根据当前最新区块高度将FullNode的完整数据切分为**快照数据集**（Snapshot dataset）或**历史数据集**（History dataset）；同时数据裁剪工具还支持将历史数据集与快照数据集进行合并，以满足不同的使用场景：
 
@@ -286,14 +290,14 @@ TRON Toolkit 提供了**数据裁剪工具**，主要用于生成和管理轻节
   java -jar build/libs/Toolkit.jar db lite -o merge --fn-data-path /tmp/snapshot --dataset-path /tmp/history
 ```
 
-**可选参数**：
+**参数**：
 
 *   `-o | --operate <split | merge>`：指定操作类型，`split`（拆分）或 `merge`（合并）。默认值为 `split`。
-*   `-t | --type <snapshot | history>`：仅与 `-o split` 配合使用。`snapshot` 表示切分为快照数据集，`history` 表示切分为历史数据集。
-*   `-fn | --fn-data-path <string>`：
+*   `-t | --type <snapshot | history>`：仅与 `-o split` 配合使用。`snapshot` 表示切分为快照数据集，`history` 表示切分为历史数据集。默认值为 `snapshot`。
+*   `-fn | --fn-data-path <string>`：必填。
     *   当操作类型为 `split` 时，指定待裁剪数据的目录。
     *   当操作类型为 `merge` 时，指定轻节点的数据库目录或快照数据集的目录。
-*   `-ds | --dataset-path <string>`：
+*   `-ds | --dataset-path <string>`：必填。
     *   当操作类型为 `split` 时，指定切分完成的快照数据集或历史数据集的输出目录。
     *   当操作类型为 `merge` 时，指定历史数据集目录。
 *   `--exclude-historical-balance`：仅与 `-o split -t snapshot` 配合使用，默认值为 `false`。启用后，工具会从快照数据集中排除 `balance-trace` 和 `account-trace` 数据库，以减小快照体积。`split -t history` 和 `merge` 操作会忽略此参数。
@@ -346,7 +350,7 @@ java -jar build/libs/Toolkit.jar db lite -o split -t history --fn-data-path outp
 
 #### 合并历史数据集和快照数据集
 
-历史数据集和快照数据集中都包含一个 `info.properties` 文件，用于记录数据拆分时的区块高度。
+两个数据集都包含一个 `info.properties` 文件。在快照数据集中，`split_block_num` 记录所保留的非创世区块的最低高度；在历史数据集中，它记录切分时的最新区块高度。
 > **请注意**：在合并两个数据集时，历史数据集的区块高度必须大于或等于快照数据集的区块高度。通过 `merge` 操作合并后，轻节点将成为一个真正的全节点。
 
 合并历史数据集和快照数据集的命令如下：
@@ -379,7 +383,7 @@ java -jar build/libs/Toolkit.jar db lite -o merge --fn-data-path /tmp/snapshot -
 **可选参数**：
 
 *   `<src>`：指定源数据库目录。默认值为 `output-directory/database`。
-*   `<dest>`：指定拷贝的目标目录。默认值为 `output-directory-cp/database`。
+*   `<dest>`：指定拷贝的目标目录。目标目录必须不存在，即使是已有的空目录也不能使用。默认值为 `output-directory-cp/database`。
 *   `-h | --help <boolean>`：显示帮助信息。默认值为 `false`。
 
 > **重要提示**：在使用本工具进行任何操作之前，**必须**停止当前运行的节点。
@@ -427,7 +431,7 @@ TRON Toolkit 支持数据库数据转换功能，可以将 LevelDB 格式的数�
    java -jar build/libs/Toolkit.jar db archive -d /tmp/db/database 
    #3. specify the batch size to 64000 when optimizing manifest
    java -jar build/libs/Toolkit.jar db archive -b 64000
-   #4. specify optimization only when Manifest exceeds 128M
+   #4. 当 manifest 文件大小达到或超过 128 MiB 时进行优化
    java -jar build/libs/Toolkit.jar db archive -m 128 
 ```
 
@@ -435,7 +439,7 @@ TRON Toolkit 支持数据库数据转换功能，可以将 LevelDB 格式的数�
 
 *   `-b | --batch-size <integer>`：指定 `manifest` 批处理大小。默认值为 `80000`。
 *   `-d | --database-directory <string>`：指定 LevelDB 数据库目录。默认值为 `output-directory/database`。
-*   `-m | --manifest-size <integer>`：`manifest` 文件的最小大小（单位：MB）。当 `manifest` 文件大小低于此值时，不进行处理；高于此值时才进行批处理。默认值为 `0`。
+*   `-m | --manifest-size <integer>`：触发优化所需的 `manifest` 文件大小下限（单位：MiB）。只有文件大小达到或超过此值时，工具才会进行处理。默认值为 `0`。
 *   `-h | --help <boolean>`：显示帮助信息。默认值为 `false`。
 
 > **重要提示**：在使用本工具进行任何操作之前，**必须**停止当前运行的节点。
@@ -452,7 +456,7 @@ TRON Toolkit 提供了 **Merkle Root 计算工具**，可以计算指定数据�
 
 ```bash
 # full command
-   java -jar build/libs/Toolkit.jar db root [-h] [--db=<dbs>]... [<db>]
+   java -jar build/libs/Toolkit.jar db root [-h] --db=<name> [--db=<name>]... [<db>]
 # examples
    #计算默认数据库目录下 account 和 witness 两个数据库的 Merkle Root
    java -jar build/libs/Toolkit.jar db root --db account --db witness
@@ -460,8 +464,8 @@ TRON Toolkit 提供了 **Merkle Root 计算工具**，可以计算指定数据�
    java -jar build/libs/Toolkit.jar db root --db account /tmp/db/database
 ```
 
-**可选参数**：
+**参数**：
 
-*   `<db>`：指定数据库目录。默认值为 `output-directory/database`。
-*   `--db <string>`：指定需要计算 Merkle Root 的数据库名称。该选项可以重复使用，以同时计算多个数据库。
+*   `<db>`：可选。指定数据库目录。默认值为 `output-directory/database`。
+*   `--db <string>`：显示帮助信息时可省略，其他情况下必须指定。指定 `<db>` 目录下需要计算 Merkle Root 的数据库名称。指定的数据库中至少有一个必须存在。该选项可以重复使用，以同时计算多个数据库。
 *   `-h | --help <boolean>`：显示帮助信息。默认值为 `false`。
