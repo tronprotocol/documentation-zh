@@ -31,4 +31,4 @@ curl -X POST http://127.0.0.1:8545/jsonrpc \
 
 | 触发条件 | 错误码 | message |
 |---|---|---|
-| filter ID 不存在（已过期 / 从未注册 / 属于另一端口） | `-32000` | `filter not found` |
+| filter ID 不存在（从未注册、已移除、过期后已被清理，或属于另一端口） | `-32000` | `filter not found` |

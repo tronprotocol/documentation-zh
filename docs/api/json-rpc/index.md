@@ -156,10 +156,10 @@ JSON-RPC 限制和 filter 相关默认值（在 `common/src/main/resources/refer
 
 ## 兼容桩方法
 
-Tron 是 DPoS 共识，没有 PoW 工作量、uncle、矿工概念，下列方法仅为兼容标准 ETH 客户端而保留，永远返回常量：
+Tron 是 DPoS 共识，没有 PoW 工作量、uncle、矿工概念。下列方法提供兼容响应，但行为各不相同：`eth_accounts` 固定返回空数组，`eth_getWork` 包含当前区块 hash，`eth_coinbase` 则取决于节点的 witness 配置和链状态：
 
 | 方法 | 返回 | 说明 |
 |---|---|---|
-| [`eth_coinbase`](stub/eth_coinbase.md) | 配置的 etherbase 地址 | 未配置时抛 `-32000 etherbase must be explicitly specified` |
+| [`eth_coinbase`](stub/eth_coinbase.md) | 从节点配置的 witness 私钥派生出的地址中，第一个出现在链上 witness 列表中的地址 | 需要启用 witness 模式；没有匹配地址时抛 `-32000 etherbase must be explicitly specified` |
 | [`eth_accounts`](stub/eth_accounts.md) | `[]` | 节点不托管私钥 |
 | [`eth_getWork`](stub/eth_getWork.md) | `[blockHash, null, null]` | 当前块 hash + 两个 null |

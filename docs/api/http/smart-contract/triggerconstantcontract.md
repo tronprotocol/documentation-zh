@@ -20,7 +20,7 @@
 | `call_value` | int64 | 否 | 调用带入的 TRX（sun） |
 | `token_id` | int64 | 否 | 调用带入的 TRC-10 token id |
 | `call_token_value` | int64 | 否 | 调用带入的 TRC-10 数量 |
-| `extra_data` | string | 否 | 交易备注（hex；`visible=true` 时为 UTF-8 文本） |
+| `extra_data` | string | 否 | 交易备注；`visible=true` 时为普通文本，`visible=false` 时为 hex |
 | `Permission_id` | int32 | 否 | 多签权限 ID |
 | `visible` | bool | 否 | 地址、文本字段格式（响应含 `result.message`，受 `visible` 影响） |
 
@@ -51,8 +51,8 @@ curl --request POST \
 |---|---|---|
 | `transaction` | Transaction | 未签名交易（仅作上下文，不应再签名广播） |
 | `txid` | string(hex) | 交易哈希 |
-| `constant_result` | repeated bytes(hex) | 函数返回值的 ABI 编码 hex；**revert 时是 revert reason 的 ABI 编码**（前 4 字节 `08c379a0` = `Error(string)` 选择器） |
-| `result` | Return | 结果状态；revert / `require` 失败时 `result.result=false`，`result.message` 含 `REVERT opcode executed` 或 `runtime error` |
+| `constant_result` | repeated bytes(hex) | VM 返回的原始数据，以 hex 表示。成功时按函数返回值的 ABI 解码；revert 时可能包含 `Error(string)`、`Panic(uint256)` 或自定义错误的编码，也可能为空 |
+| `result` | Return | API 请求状态。模拟正常返回时（包括 revert），`result.result=true`；需查看 `transaction.ret[0].ret` 判断执行是否失败。存在 revert 或异常详情时，`result.message` 会携带这些信息 |
 | `energy_used` | int64 | 预估能量消耗 |
 | `energy_penalty` | int64 | 能量惩罚（如有） |
 | `logs` | repeated TransactionLog | event 日志（如触发） |
@@ -65,7 +65,7 @@ curl --request POST \
 
     - **处理区块：** 节点会按顺序执行区块内的交易，并同步更新账户、合约存储、资源和链参数。在此期间发起的模拟会使用节点当时可见的数据。
     - **处理 Pending 交易：** `/wallet` 提供最新状态视图。节点校验或重放 Pending 交易时，该视图可能包含节点本地更新，并随着交易被打包或新区块到达而继续变化。
-    - **其他 Constant Call：** 通过 `/wallet` 和 `/walletsolidity` 发起的调用可能使用不同的提案状态和 TVM 规则。当不同执行上下文的调用同时进行时，极少数情况下，模拟可能反映节点当时正在应用的执行配置。
+    - **其他 Constant Call：** `/wallet` 和 `/walletsolidity` 看到的提案激活状态可能不同。每次调用的 TVM 配置快照按线程隔离，但 constant call 共用一张可变的操作表。如果并发调用向这张表应用不同的设置，就可能影响彼此的模拟结果。
 
     `constant_result`、`energy_used`、`logs` 和 `internal_transactions` 是本次模拟执行产生的结果。当模拟读取的状态或使用的 TVM 规则不同时，合约的执行路径可能发生变化，这些字段的返回值也可能随之不同。顶层 `result` 表示 API 调用状态，`transaction.ret[0].ret` 表示模拟的 TVM 执行结果。
 
@@ -116,7 +116,7 @@ curl --request POST \
 
 ### 异常响应
 
-请求进入 servlet 后不会写出 `{"Error": ...}`。由 servlet 接管的异常会被 catch 后写入 `result.code` / `result.message`，HTTP 体仍是 `TransactionExtention`。注意：**EVM revert / runtime 错误不走 `result.code` 路径**，而是 `result.result=true`、`message` 写 revert/runtime 信息，失败标记落在 `transaction.ret[0].ret="FAILED"`。
+请求进入 servlet 后不会写出 `{"Error": ...}`。由 servlet 接管的异常会被 catch 后写入 `result.code` / `result.message`，HTTP 体仍是 `TransactionExtention`。发生 revert 时，`result.result=true`，`result.code` 仍为 `SUCCESS`（省略）；`result.message` 包含 `REVERT opcode executed`，`transaction.ret[0].ret="FAILED"` 表示执行失败。异常则走下表中的错误码分支。
 
 在请求进入此 servlet 前，共享层仍可能返回不同结构：请求体超限时，`SizeLimitHandler` 通常返回 HTTP 413 `Payload Too Large`；非阻塞限流拒绝则返回 HTTP 200 和 `{"Error":"class java.lang.IllegalAccessException : lack of computing resources"}`。
 
@@ -124,9 +124,8 @@ curl --request POST \
 |---|---|---|---|---|
 | `contract_address` 已设置但合约不存在 | 缺省 (false) | `CONTRACT_VALIDATE_ERROR` | `Smart contract is not exist.` | — |
 | 节点关闭 constant call 支持 | 缺省 (false) | `CONTRACT_VALIDATE_ERROR` | `this node does not support constant` | — |
-| EVM revert / `require` 失败 | true | 缺省（`SUCCESS`，不出现） | `REVERT opcode executed` | `transaction.ret[0].ret="FAILED"`；`constant_result[0]` 为 `Error(string)` 的 ABI 编码（合约带 reason 时） |
-| EVM 运行时错误（OOG、非法指令等，无 `result.getException()`） | true | 缺省（`SUCCESS`，不出现） | `result.getRuntimeError()` 原始字符串 | 同上 |
-| `result.getException() != null`（如 `OutOfTimeException`） | 缺省 (false) | `OTHER_ERROR` | `<exceptionClass> : <message>`（`"` → `'`） | — |
+| EVM revert / `require` 失败 | true | 缺省（`SUCCESS`，不出现） | `REVERT opcode executed` | `transaction.ret[0].ret="FAILED"`；`constant_result[0]` 包含原始 revert 数据，也可能为空 |
+| VM 顶层执行异常（例如能量不足、非法指令或超时） | 缺省 (false) | `OTHER_ERROR` | `<exceptionClass> : <message>`（`"` → `'`） | — |
 | 其他（hex 解析、参数缺失、proto merge 等） | 缺省 (false) | `OTHER_ERROR` | `<exceptionClass> : <message>`（`"` → `'`） | — |
 
-revert 时 `result.message` 不携带原 reason 字符串；reason 需自己解码 `constant_result[0]`：跳过前 4 字节选择器 `08c379a0`，按 ABI `string` 解码剩余数据。
+revert 时，`result.message` 包含通用的 `REVERT opcode executed` 文本。更多信息需查看 `constant_result[0]`。仅当前四个字节为 `08c379a0` 时，才应将其余字节按 `Error(string)` 的 ABI 参数解码。`Panic(uint256)` 或自定义错误应使用对应的选择器和 ABI 解码。revert 数据为空时，不包含编码后的原因。

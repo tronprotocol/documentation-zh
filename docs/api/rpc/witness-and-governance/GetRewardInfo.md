@@ -1,6 +1,6 @@
 # GetRewardInfo
 
-查询账户可领取的投票分红（未提取）。
+查询账户可领取的奖励总额，单位为 sun。
 
 - 服务：同时支持 `Wallet` 和 `WalletSolidity`
 

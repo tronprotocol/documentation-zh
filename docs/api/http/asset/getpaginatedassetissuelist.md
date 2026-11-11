@@ -13,10 +13,10 @@ GET 从 URL 查询参数读取以下字段；POST 从 JSON 请求体读取。
 
 | 字段 | 方法 | 类型 | 必填 | 说明 |
 |---|---|---|---|---|
-| `offset` | GET | int64 | 是 | 起始偏移；缺失时执行 `Long.parseLong(null)` 并失败 |
-| `offset` | POST | int64 | 否 | 起始偏移；Protobuf 默认值为 `0` |
-| `limit` | GET | int64 | 是 | 返回条数；缺失时执行 `Long.parseLong(null)` 并失败 |
-| `limit` | POST | int64 | 否 | 返回条数；Protobuf 默认值为 `0`，此时返回空列表 |
+| `offset` | GET | int64 | 是 | 起始偏移，至少为 `0`；缺失时执行 `Long.parseLong(null)` 并失败 |
+| `offset` | POST | int64 | 否 | 起始偏移，至少为 `0`；Protobuf 默认值为 `0` |
+| `limit` | GET | int64 | 是 | 请求记录数，`0`–`1000`；大于 `1000` 时按 `1000` 处理；缺失时执行 `Long.parseLong(null)` 并失败 |
+| `limit` | POST | int64 | 否 | 请求记录数，`0`–`1000`；大于 `1000` 时按 `1000` 处理；Protobuf 默认值 `0` 返回空结果 |
 | `visible` | GET / POST | bool | 否 | 地址、文本字段格式 |
 
 示例：
@@ -80,7 +80,7 @@ curl --request POST \
 }
 ```
 
-无返回 `{}`。
+没有结果、`offset < 0` 或 `limit < 0` 时返回 `{}`。下一页的 `offset` 应增加实际返回的记录数，而不是未经上限截断的请求 `limit`。
 
 ### 异常响应
 

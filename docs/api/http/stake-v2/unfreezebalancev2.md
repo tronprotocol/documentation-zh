@@ -1,6 +1,6 @@
 # /wallet/unfreezebalancev2
 
-发起解冻申请（Stake 2.0），进入 14 天等待期，到期后通过 [`/wallet/withdrawexpireunfreeze`](withdrawexpireunfreeze.md) 提取。
+发起解冻申请（Stake 2.0）。等待期由链参数 `UNFREEZE_DELAY_DAYS` 决定，到期后通过 [`/wallet/withdrawexpireunfreeze`](withdrawexpireunfreeze.md) 提取。
 
 - 源码：`framework/src/main/java/org/tron/core/services/http/UnFreezeBalanceV2Servlet.java`
 - Method：`POST`
@@ -60,10 +60,10 @@ curl --request POST \
         "type": "UnfreezeBalanceV2Contract"
       }
     ],
-    "ref_block_bytes": "<构造时最新固化块>",
-    "ref_block_hash":  "<构造时最新固化块>",
-    "expiration":      "<timestamp + 60_000>",
-    "timestamp":       "<构造时刻>"
+    "ref_block_bytes": "<由 trx.reference.block 选择的参考区块；默认：solid>",
+    "ref_block_hash":  "<由 trx.reference.block 选择的参考区块；默认：solid>",
+    "expiration":      "<头块时间戳 + trx.expiration.timeInMilliseconds（默认间隔：60_000 ms）>",
+    "timestamp":       "<构造时的系统时间>"
   },
   "raw_data_hex": "<raw_data 的 protobuf 编码>"
 }

@@ -45,7 +45,7 @@ curl -X POST https://nile.trongrid.io/jsonrpc \
 | `baseFeePerGas` | hex | 固定 `0x0`（不收 EIP-1559 base fee） |
 | `mixHash` | hex | 固定 32 字节 0 |
 
-下例为上面 curl 调用 Nile testnet 抓回的真实响应（块高 `0x3fe1ca0` = 67026080，可在 [Nile Tronscan](https://nile.tronscan.org/#/block/67026080) 反查）：
+下例为上面 curl 调用 Nile testnet 抓回的真实响应（块高 `0x3fe1ca0` = 66985120，可在 [Nile Tronscan](https://nile.tronscan.org/#/block/66985120) 反查）：
 
 ```json
 {
@@ -73,7 +73,7 @@ curl -X POST https://nile.trongrid.io/jsonrpc \
         "gasPrice": "0x64",
         "input": "0xa6bd98ac0000...0000",
         "type": "0x0",
-        "nonce": "0x0000000000000000",
+        "nonce": "0x0",
         "v": "0x1b",
         "r": "0x2154e8ef08f014063de8a88bafe748c8cbb48633c1657c083dca1a73439b289f",
         "s": "0x6aa796bfa58797da6354d35fb7334a8c145c48ae266e4a885f7ee44791b5a3c3"

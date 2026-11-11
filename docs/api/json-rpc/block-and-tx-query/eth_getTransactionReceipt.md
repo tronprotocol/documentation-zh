@@ -33,9 +33,9 @@ curl -X POST https://nile.trongrid.io/jsonrpc \
 | `contractAddress` | hex | 仅 `CreateSmartContract` 类型有值 |
 | `logs` | array | 日志数组（包含 `logIndex`、`address`、`data`、`topics[]`、`blockHash`、`blockNumber`、`blockTimestamp`、`transactionHash`、`transactionIndex`、`removed`） |
 | `logsBloom` | hex | 固定 256 字节 0 |
-| `status` | hex | `0x1` 成功 / `0x0` 失败（基于 `TransactionInfo.resultValue <= 1`） |
+| `status` | hex | 当 `txInfo.getReceipt().getResultValue() <= 1` 时为 `0x1`（成功），否则为 `0x0` |
 | `type` | hex | 固定 `0x0` |
-| `root` | null | 不填充（post-Byzantium） |
+| `root` | 省略 | 该字段未设置，不包含在 JSON 响应中，而不是返回 null |
 
 > **注意**：解析上方 `logs` 之前，请先确认交易 `status` 为 `"0x1"`——这是保证数据一致性的推荐做法。
 
@@ -61,7 +61,7 @@ curl -X POST https://nile.trongrid.io/jsonrpc \
         "address": "0x9ff8fc48fb114ccd5bbdc24a86f0c73082f08825",
         "blockHash": "0x0000000003fe1ca05cf728c92ee79f5f2758c3e4e4ea88501826726880e8b81c",
         "blockNumber": "0x3fe1ca0",
-        "blockTimestamp": "0x697999ef",
+        "blockTimestamp": "0x69f18c42",
         "transactionHash": "0x01b4cde4197b9d1a1ff09ef5d2b1d939d3ec2401b3f002ebd0802c0f30a6e4ca",
         "transactionIndex": "0x0",
         "logIndex": "0x0",
@@ -81,7 +81,7 @@ curl -X POST https://nile.trongrid.io/jsonrpc \
 }
 ```
 
-> log `data` 实际为 224 字节，此处仅截取首尾以节省篇幅；`logsBloom` 实际为 256 字节全 0；其它字段为节点真实返回值。
+> log `data` 实际为 288 字节，此处仅截取首尾以节省篇幅；`logsBloom` 实际为 256 字节全 0；其它字段为节点真实返回值。
 
 ### 异常响应
 

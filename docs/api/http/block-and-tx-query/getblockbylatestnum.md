@@ -31,13 +31,18 @@ curl --request POST \
 
 ## 响应
 
-返回 `api.BlockList`，字段同 [`/wallet/getblockbylimitnext`](getblockbylimitnext.md)。
+返回 `api.BlockList`，按区块高度升序排列（从旧到新）；字段同 [`/wallet/getblockbylimitnext`](getblockbylimitnext.md)。
 
 响应示例（最近 2 个 Nile 区块，省略 `transactions` 内容）：
 
 ```json
 {
   "block": [
+    {
+      "blockID": "0000000003fe266bf6b6d392f654dc2e5011601546ed04623d9fcc4e9d439a25",
+      "block_header": { /* ... */ },
+      "transactions": [ /* ... */ ]
+    },
     {
       "blockID": "0000000003fe266c55d8ec678995cff469dd46ee18671a96f5866f8cb227eed8",
       "block_header": {
@@ -51,11 +56,6 @@ curl --request POST \
         },
         "witness_signature": "22bb7fdb5cdd33b8eca9104925f0dbd89f65d8e6ee4f7eed6f21d81b1428977e521865406b3ef70abc77b051d930081c2b9e368dc3f2c20c4b5e31187ba945bd00"
       },
-      "transactions": [ /* ... */ ]
-    },
-    {
-      "blockID": "0000000003fe266bf6b6d392f654dc2e5011601546ed04623d9fcc4e9d439a25",
-      "block_header": { /* ... */ },
       "transactions": [ /* ... */ ]
     }
   ]

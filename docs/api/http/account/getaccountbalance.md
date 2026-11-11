@@ -38,8 +38,8 @@ curl --request POST \
 
 | 字段 | 类型 | 说明 |
 |---|---|---|
-| `balance` | int64 | 该区块下账户余额（sun） |
-| `block_identifier` | object | 锚定区块的 hash/number |
+| `balance` | int64 | 请求区块或之前最近一次记录的账户余额（sun）；准确性取决于节点的历史记录覆盖范围 |
+| `block_identifier` | object | 返回的余额记录所在区块的 hash/number；没有找到记录时为请求的区块 |
 
 响应示例（Nile 返回的 `block_identifier` 为节点上最近一次追踪过该账户余额的区块，可能与请求中的锚点不同）：
 
@@ -53,7 +53,7 @@ curl --request POST \
 }
 ```
 
-需要节点开启 `storage.balance.history.lookup = true`（等价启动参数 `--history-balance-lookup`）。否则不会报错，而是返回 `balance: 0` + 原样回显的 `block_identifier`——与"该账户在该区块前确实没有任何记录"的成功响应无法区分，容易被误判。
+要获得准确结果，节点必须已记录相关余额历史。`storage.balance.history.lookup = true`（等价启动参数 `--history-balance-lookup`）用于开启记录；查询本身会读取已有记录，不受当前开关设置影响。关闭记录后，之前的记录仍可查询，但查询较晚区块时可能返回过时的余额。开启或重新开启记录不会补齐缺失的历史。如果在请求区块或之前找不到记录，响应会原样返回请求的 `block_identifier`，并返回 `balance: 0`；这并不能证明账户当时的余额确实为零。
 
 ### 异常响应
 

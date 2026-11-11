@@ -12,7 +12,7 @@
 | `params[0]` | string | 是 | 非负区块高度（`0x` 前缀 hex 或十进制）或 tag：`latest` / `earliest` / `finalized`（`pending` 和 `safe` 显式不支持，见异常响应） |
 | `params[1]` | bool | 是 | 是否返回完整交易对象 |
 
-tag 含义（由 `Wallet.getByJsonBlockId` 解析）：
+tag 含义：
 
 | tag | 解析 |
 |---|---|
@@ -30,7 +30,7 @@ curl -X POST https://nile.trongrid.io/jsonrpc \
 
 `BlockResult` 对象（字段见 [`eth_getBlockByHash`](eth_getBlockByHash.md)），未找到返回 `null`。
 
-下例为 Nile testnet 真实响应（块高 `0x3fe1c00` = 67025920，可在 [Nile Tronscan](https://nile.tronscan.org/#/block/67025920) 反查）：
+下例为 Nile testnet 真实响应（块高 `0x3fe1c00` = 66984960，可在 [Nile Tronscan](https://nile.tronscan.org/#/block/66984960) 反查）：
 
 ```json
 {

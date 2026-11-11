@@ -16,7 +16,7 @@
 ```bash
 curl -X POST http://127.0.0.1:8545/jsonrpc \
   -H 'Content-Type: application/json' \
-  -d '{"jsonrpc":"2.0","method":"eth_newFilter","params":[{"fromBlock":"latest","address":"0x4112ab345..."}],"id":1}'
+  -d '{"jsonrpc":"2.0","method":"eth_newFilter","params":[{"fromBlock":"latest","address":"0x9ff8fc48fb114ccd5bbdc24a86f0c73082f08825"}],"id":1}'
 ```
 
 ## 响应
@@ -31,7 +31,7 @@ filter ID（`0x` 前缀的 hex 字符串）：
 
 - FullNode 端口的 filter 存于 `eventFilter2ResultFull`，Solidity 端口存于 `eventFilter2ResultSolidity`，互不可见。
 - 节点出块/固化时，命中的日志会被异步追加到 filter 的 result 队列中。
-- **5 分钟未被读取（`getFilterChanges` / `getFilterLogs`）即过期**（`EXPIRE_SECONDS = 300`）；过期后下一次访问抛 `-32000 filter not found`。
+- filter 在 5 分钟后过期。只有 `eth_getFilterChanges` 会重置这一计时，`eth_getFilterLogs` 不会。过期 filter 被移除后，再次访问会抛 `-32000 filter not found`。
 - 单节点同时存活的 log filter 数量受 `node.jsonrpc.maxLogFilterNum` 限制（默认 20000）。
 
 ### 异常响应

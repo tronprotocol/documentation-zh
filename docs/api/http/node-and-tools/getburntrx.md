@@ -1,6 +1,6 @@
 # /wallet/getburntrx
 
-查询累计销毁的 TRX 数量（包括手续费、合约销毁等）。
+查询累计销毁的 TRX 数量，不包含转入黑洞账户的金额。
 
 - 源码：`framework/src/main/java/org/tron/core/services/http/GetBurnTrxServlet.java`
 - Method：`GET` / `POST`

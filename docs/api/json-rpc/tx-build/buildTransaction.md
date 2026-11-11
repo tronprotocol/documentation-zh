@@ -9,7 +9,7 @@ Tron 私有扩展。构造一条**未签名**的 Tron 交易；签名后通过 H
 
 | 位置 | 类型 | 必填 | 说明 |
 |---|---|---|---|
-| `params[0]` | object | 是 | `BuildArguments`（继承 `CallArguments`，字段见下） |
+| `params[0]` | object | 是 | `BuildArguments` |
 
 `BuildArguments` 字段（`framework/src/main/java/org/tron/core/services/jsonrpc/types/BuildArguments.java`）：
 
@@ -28,8 +28,8 @@ Tron 私有扩展。构造一条**未签名**的 Tron 交易；签名后通过 H
 | `consumeUserResourcePercent` | `0` | 用户分担资源百分比（0–100） |
 | `originEnergyLimit` | `0` | 部署者每笔最大 energy |
 | `permissionId` | `0` | 多签 permission id |
-| `extraData` | `""` | 写入交易的备注数据 |
-| `visible` | `false` | 输出地址/字符串是否使用 base58/UTF-8 |
+| `extraData` | `""` | 仅用于 TRX / TRC-10 转账的备注数据；`visible=true` 时按普通文本解析，`visible=false` 时按 hex 解析 |
+| `visible` | `false` | 输出地址是否使用 Base58Check，`asset_name` 等字段是否使用 UTF-8 文本；合约部署的输出始终使用 hex |
 
 合约类型推断（`BuildArguments.getContractType`）：
 
@@ -37,8 +37,8 @@ Tron 私有扩展。构造一条**未签名**的 Tron 交易；签名后通过 H
 |---|---|
 | `to` 为空 + calldata 非空 | `CreateSmartContract` |
 | `to` 是合约地址 | `TriggerSmartContract` |
-| `to` 是普通账户 + `tokenId>0` + `tokenValue>0` + `value` 为空 | `TransferAssetContract` |
-| `to` 是普通账户 + `value` 非空 | `TransferContract` |
+| `to` 是普通账户 + `tokenId>0` + `tokenValue>0` + `value` 为 null、`""` 或 `"0x0"` | `TransferAssetContract` |
+| `to` 是普通账户 + `value` 非空 + 至少满足以下一项：`tokenId <= 0`、`tokenValue <= 0` 或 `value != "0x0"` | `TransferContract` |
 | 其它 | 抛 `-32600 invalid json request` |
 
 ```bash
@@ -92,7 +92,7 @@ curl -X POST https://nile.trongrid.io/jsonrpc \
 }
 ```
 
-> `ref_block_bytes` / `ref_block_hash` 取自构造时的最新块；`expiration` = `timestamp` + 60s；`txID` 是 `raw_data` 的 SHA256 hash，因此随上述字段变化，同一请求两次得到的 `txID` 不同。
+> `ref_block_bytes` / `ref_block_hash` 使用 `trx.reference.block` 选定的参考块（默认为 `solid`，可配置为 `head`）。`expiration` 为最新头块时间戳加上 `trx.expiration.timeInMilliseconds`（默认间隔为 60000 ms），交易的 `timestamp` 则为节点构造交易时的系统时间。`txID` 是序列化后 `raw_data` 的 SHA-256 hash，会随 `raw_data` 的变化而变化。
 >
 > `feeLimit` = `gas × wallet.getEnergyFee()`，仅 `CreateSmartContract` / `TriggerSmartContract` 自动覆写到 `raw_data.fee_limit`；`TransferContract` / `TransferAssetContract` 不需要 feeLimit（上例 `raw_data` 中无 `fee_limit` 字段即此原因）。
 

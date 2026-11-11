@@ -62,10 +62,10 @@ curl --request POST \
         "type": "UnfreezeBalanceContract"
       }
     ],
-    "ref_block_bytes": "<构造时最新固化块>",
-    "ref_block_hash":  "<构造时最新固化块>",
-    "expiration":      "<timestamp + 60_000>",
-    "timestamp":       "<构造时刻>"
+    "ref_block_bytes": "<由 trx.reference.block 选择的参考区块；默认：solid>",
+    "ref_block_hash":  "<由 trx.reference.block 选择的参考区块；默认：solid>",
+    "expiration":      "<头块时间戳 + trx.expiration.timeInMilliseconds（默认间隔：60_000 ms）>",
+    "timestamp":       "<构造时的系统时间>"
   },
   "raw_data_hex": "<raw_data 的 protobuf 编码>"
 }
@@ -85,7 +85,7 @@ curl --request POST \
 | 设了 `receiver_address` 但 owner→receiver 没有代理记录 | `{"Error": "class org.tron.core.exception.ContractValidateException : delegated Resource does not exist"}` |
 | 代理解冻 `BANDWIDTH` 但代理记录中带宽冻结额为 0 | `{"Error": "class org.tron.core.exception.ContractValidateException : no delegatedFrozenBalance(BANDWIDTH)"}` |
 | 代理解冻 `ENERGY` 但代理记录中能量冻结额为 0 | `{"Error": "class org.tron.core.exception.ContractValidateException : no delegateFrozenBalance(Energy)"}` |
-| 代理解冻时接收方已使用资源额度小于代理额度（违反不变量） | `{"Error": "class org.tron.core.exception.ContractValidateException : AcquiredDelegatedFrozenBalanceFor<Resource>[<X>] < delegated<Resource>[<Y>]"}` |
+| 接收方记录的已接收代理冻结余额（sun）低于本笔代理的冻结余额；在 `AllowTvmConstantinople=0`，或 `AllowTvmSolidity059!=1` 且接收方存在并且不是合约时检查 | `{"Error": "class org.tron.core.exception.ContractValidateException : AcquiredDelegatedFrozenBalanceFor<Resource>[<X>] < delegated<Resource>[<Y>]"}` |
 | 代理解冻但代理尚未到期 | `{"Error": "class org.tron.core.exception.ContractValidateException : It's not time to unfreeze."}` |
 | 自解冻 `BANDWIDTH` 但账户没有 BANDWIDTH 冻结 | `{"Error": "class org.tron.core.exception.ContractValidateException : no frozenBalance(BANDWIDTH)"}` |
 | 自解冻 `BANDWIDTH` 但全部记录都未到期 | `{"Error": "class org.tron.core.exception.ContractValidateException : It's not time to unfreeze(BANDWIDTH)."}` |

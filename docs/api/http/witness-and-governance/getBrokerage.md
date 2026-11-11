@@ -41,7 +41,7 @@ curl --request POST \
 { "brokerage": 100 }
 ```
 
-> 注意：`address` 字段缺失或为空时不报错，直接返回 `{"brokerage": 0}`——与"该 SR 当前佣金为 0"响应完全一致，调用方需自行区分。
+> 地址缺失或为空，以及 Base58Check 地址因长度、校验和或解码后地址不合法而被拒绝时，均返回 `{"brokerage": 0}`。这与合法地址的佣金比例为零时的响应无法区分。使用结果前请先验证地址；解析器异常见下方错误表。
 
 ### 异常响应
 
@@ -49,6 +49,7 @@ curl --request POST \
 |---|---|---|
 | GET / POST | 请求体超过 `node.http.maxMessageSize` | 通常由 `SizeLimitHandler` 返回 HTTP 413 `Payload Too Large` |
 | GET / POST | `address` 以 `41` 开头但不是合法 hex | `{"Error": "INVALID address, <hex 解析器信息>"}` |
-| GET / POST | `address` 不是合法 base58check | `{"Error": "INVALID address, <base58 校验信息>"}` |
+| GET / POST | Base58 解码抛出异常（例如长度符合要求的地址中含有非法字符） | `{"Error": "INVALID address, <base58 解析器信息>"}` |
+| GET / POST | Base58Check 地址长度或校验和错误，或解码后的地址不合法 | `{"brokerage": 0}` |
 | POST | POST 体不是合法 JSON | `{"Error": "class org.tron.json.JSONException : <解析器信息>"}` |
 | GET / POST | 其他异常 | `{"Error": "<exceptionClass> : <message>"}` |

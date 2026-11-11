@@ -54,19 +54,18 @@ curl --request POST \
 ```json
 {
   "account":      "41dd791d6b49e190062d650e6a23c575510d35f2f9",
-  "fromAccounts": [],
   "toAccounts":   ["4192ad11c1bf16b3b14b0bd6b5c7e2db73a0b5e83a"]
 }
 ```
 
-完全无记录时返回 `{}`。
+对于任意 21 字节的查询地址，即使没有代理记录，响应仍包含 `account`。空的 `fromAccounts` / `toAccounts` 列表会被省略。地址为空或解码后长度不是 21 字节时，接口返回 `{}`。
 
 ### 异常响应
 
 | 方法 | 触发条件 | 响应 |
 |---|---|---|
 | GET / POST | 请求体超过 `node.http.maxMessageSize` | 通常由 `SizeLimitHandler` 返回 HTTP 413 `Payload Too Large` |
-| GET / POST | `value` 不是合法 base58check（`visible=true`） | 含非 base58 字符抛 `{"Error": "class java.lang.IllegalArgumentException : <详情>"}`；仅校验位错误时 `Util.getHexAddress` 静默返回 null → 查询不到记录返回 `{}`（GET、POST 行为一致，POST 在 merge 前先做 base58 → hex 转换） |
+| GET / POST | `value` 不是合法 base58check（`visible=true`） | 仅当输入恰好为 34 个字符时，非 base58 字符才会抛出 `{"Error": "class java.lang.IllegalArgumentException : <详情>"}`。输入长度错误、校验和错误或解码后的地址无效时，`Util.getHexAddress` 返回空 hex 字符串。转换后的地址未通过 21 字节长度检查，因此返回 `{}`（GET、POST 行为一致，POST 在 merge 前先做 base58 → hex 转换） |
 | GET / POST | `value` 不是合法 hex（`visible=false`） | `{"Error": "class org.bouncycastle.util.encoders.DecoderException : <message>"}`（GET）；`{"Error": "class org.tron.core.services.http.JsonFormat$ParseException : <message>"}`（POST） |
 | POST | 请求体不是合法 JSON / 字段类型不符（POST） | `{"Error": "class org.tron.json.JSONException : <解析器信息>"}` 或 `{"Error": "class org.tron.core.services.http.JsonFormat$ParseException : <解码器信息>"}` |
 | GET / POST | 其他异常 | `{"Error": "<exceptionClass> : <message>"}` |

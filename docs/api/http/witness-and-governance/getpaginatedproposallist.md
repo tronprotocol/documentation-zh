@@ -12,10 +12,10 @@ GET 从 URL 查询参数读取以下字段；POST 从 JSON 请求体读取。
 
 | 字段 | 方法 | 类型 | 必填 | 说明 |
 |---|---|---|---|---|
-| `offset` | GET | int64 | 是 | 起始偏移；缺失时执行 `Long.parseLong(null)` 并失败 |
-| `offset` | POST | int64 | 否 | 起始偏移；Protobuf 默认值为 `0` |
-| `limit` | GET | int64 | 是 | 分页大小；缺失时执行 `Long.parseLong(null)` 并失败 |
-| `limit` | POST | int64 | 否 | 分页大小；Protobuf 默认值为 `0`，此时返回空列表 |
+| `offset` | GET | int64 | 是 | 从 ID 为 `offset + 1` 的提案开始查询；缺失时执行 `Long.parseLong(null)` 并失败 |
+| `offset` | POST | int64 | 否 | 从 ID 为 `offset + 1` 的提案开始查询；Protobuf 默认值为 `0` |
+| `limit` | GET | int64 | 是 | 分页大小，上限为 1000；`0` 返回 `{}`；缺失时执行 `Long.parseLong(null)` 并失败 |
+| `limit` | POST | int64 | 否 | 分页大小，上限为 1000；Protobuf 默认值为 `0`，此时返回 `{}` |
 | `visible` | GET / POST | bool | 否 | 地址格式 |
 
 示例：

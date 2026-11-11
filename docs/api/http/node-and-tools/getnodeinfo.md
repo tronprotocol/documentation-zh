@@ -1,6 +1,6 @@
 # /wallet/getnodeinfo
 
-获取本节点运行状态、版本、内存、磁盘、最新区块、对等节点统计等信息。
+获取本节点的运行状态、版本、CPU、内存、线程/JVM/操作系统信息、最新区块及对等节点统计信息。
 
 - 源码：`framework/src/main/java/org/tron/core/services/http/GetNodeInfoServlet.java`
 - Method：`GET` / `POST`
@@ -32,10 +32,10 @@ curl --request POST \
 | `currentConnectCount` | int32 | 当前对等连接数 |
 | `activeConnectCount` | int32 | 主动连接数 |
 | `passiveConnectCount` | int32 | 被动连接数 |
-| `totalFlow` | int64 | 总流量 |
+| `totalFlow` | int64 | 当前实现未填充该字段；其值保持为 `0`，不能用于衡量累计流量 |
 | `peerList` | repeated PeerInfo | 各 peer 详情 |
 | `configNodeInfo` | ConfigNodeInfo | 配置（`codeVersion`、`versionNum`、`p2pVersion`、`listenPort` 等） |
-| `machineInfo` | MachineInfo | 机器信息（CPU、内存、磁盘） |
+| `machineInfo` | MachineInfo | CPU、内存、线程、JVM 和操作系统信息 |
 | `cheatWitnessInfoMap` | map<string,string> | SR 作弊统计（key 为超级代表 hex 地址，含 `41` 前缀） |
 
 响应示例（截取关键字段，省略 `peerList`、`memoryDescInfoList` 完整内容、`cheatWitnessInfoMap` 等）：

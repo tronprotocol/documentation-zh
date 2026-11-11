@@ -24,8 +24,8 @@ curl -X POST https://nile.trongrid.io/jsonrpc \
 | 字段 | 类型 | 说明 |
 |---|---|---|
 | `hash` | hex | txid |
-| `nonce` | hex | 固定 `0x` 前缀 8 字节 0（Tron 无账户 nonce） |
-| `blockHash` | hex | 所在区块 hash；**未上链**或调用方为待确认交易时返回 `0x` |
+| `nonce` | hex | 固定为 QUANTITY `0x0`（Tron 无账户 nonce）；与区块级 nonce 不同，它不是 8 字节的 DATA 值 |
+| `blockHash` | hex | 所在区块 hash；**未上链**或调用方将其视为待确认交易时返回 `0x` |
 | `blockNumber` | hex | 同上，未上链时 `0x` |
 | `transactionIndex` | hex | 块内交易下标；未上链时 `0x` |
 | `from` | hex | 发起地址 |
@@ -55,7 +55,7 @@ curl -X POST https://nile.trongrid.io/jsonrpc \
     "gasPrice": "0x64",
     "input": "0xa6bd98ac0000...0000",
     "type": "0x0",
-    "nonce": "0x0000000000000000",
+    "nonce": "0x0",
     "v": "0x1b",
     "r": "0x2154e8ef08f014063de8a88bafe748c8cbb48633c1657c083dca1a73439b289f",
     "s": "0x6aa796bfa58797da6354d35fb7334a8c145c48ae266e4a885f7ee44791b5a3c3"

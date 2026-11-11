@@ -2,7 +2,7 @@
 
 > **链上已禁用**：提案 #70 `UNFREEZE_DELAY_DAYS` 通过后（主网已生效），`FreezeBalanceActuator.validate()` 会直接抛出 `freeze v2 is open, old freeze is closed`，新请求一律失败。请改用 [`/wallet/freezebalancev2`](../stake-v2/freezebalancev2.md)。
 
-冻结 TRX 获取带宽或能量，可代理给他人。当节点设置 `block.checkFrozenTime=1` 时，冻结天数必须处于链上当前动态范围内（通常必须恰好为 3 天）。
+冻结 TRX 获取带宽或能量，可代理给他人。当节点设置 `block.checkFrozenTime=1` 时，冻结时长必须恰好为 3 天。
 
 - 源码：`framework/src/main/java/org/tron/core/services/http/FreezeBalanceServlet.java`
 - Method：`POST`
@@ -14,7 +14,7 @@
 |---|---|---|---|
 | `owner_address` | string | 是 | 冻结账户地址 |
 | `frozen_balance` | int64 | 是 | 冻结金额（sun） |
-| `frozen_duration` | int64 | 否 | 冻结天数；省略时默认为 `0`。仅当 `block.checkFrozenTime=1` 时校验，届时必须处于 `[minFrozenTime, maxFrozenTime]` 内（通常为 `[3, 3]`） |
+| `frozen_duration` | int64 | 否 | 冻结天数；省略时默认为 `0`。当 `block.checkFrozenTime=1` 时，必须恰好为 `3`。 |
 | `resource` | enum | 否 | `BANDWIDTH` / `ENERGY`；链启用新资源模型时也接受 `TRON_POWER`。默认 `BANDWIDTH` |
 | `receiver_address` | string | 否 | 资源代理目标地址（不填为自己） |
 | `Permission_id` | int32 | 否 | 多签权限 ID |
@@ -68,10 +68,10 @@ curl --request POST \
         "type": "FreezeBalanceContract"
       }
     ],
-    "ref_block_bytes": "<构造时最新固化块>",
-    "ref_block_hash":  "<构造时最新固化块>",
-    "expiration":      "<timestamp + 60_000>",
-    "timestamp":       "<构造时刻>"
+    "ref_block_bytes": "<由 trx.reference.block 选择的参考区块；默认：solid>",
+    "ref_block_hash":  "<由 trx.reference.block 选择的参考区块；默认：solid>",
+    "expiration":      "<头块时间戳 + trx.expiration.timeInMilliseconds（默认间隔：60_000 ms）>",
+    "timestamp":       "<构造时的系统时间>"
   },
   "raw_data_hex": "<raw_data 的 protobuf 编码>"
 }
@@ -90,7 +90,7 @@ curl --request POST \
 | `frozen_balance < 1_000_000`（不足 1 TRX） | `{"Error": "class org.tron.core.exception.ContractValidateException : frozenBalance must be greater than or equal to 1 TRX"}` |
 | 账户已有的 frozen 记录数不在 `{0,1}` | `{"Error": "class org.tron.core.exception.ContractValidateException : frozenCount must be 0 or 1"}` |
 | `frozen_balance > 账户余额` | `{"Error": "class org.tron.core.exception.ContractValidateException : frozenBalance must be less than or equal to accountBalance"}` |
-| `frozen_duration` 超出 `[minFrozenTime, maxFrozenTime]`（仅当 `block.checkFrozenTime=1`） | `{"Error": "class org.tron.core.exception.ContractValidateException : frozenDuration must be less than <max> days and more than <min> days"}` |
+| `block.checkFrozenTime=1` 时，`frozen_duration` 不为 `3` | `{"Error": "class org.tron.core.exception.ContractValidateException : frozenDuration must be less than <max> days and more than <min> days"}` |
 | `resource` 取值非法（未启用 `AllowNewResourceModel` 时不允许 `TRON_POWER`） | `{"Error": "class org.tron.core.exception.ContractValidateException : ResourceCode error, valid ResourceCode[BANDWIDTH、ENERGY]"}` 或 `... [BANDWIDTH、ENERGY、TRON_POWER]` |
 | `resource=TRON_POWER` 但同时设置了 `receiver_address` | `{"Error": "class org.tron.core.exception.ContractValidateException : TRON_POWER is not allowed to delegate to other accounts."}` |
 | `receiver_address == owner_address` | `{"Error": "class org.tron.core.exception.ContractValidateException : receiverAddress must not be the same as ownerAddress"}` |

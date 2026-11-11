@@ -7,22 +7,26 @@ java-tron 节点对外提供 gRPC 接口。本目录按业务分类列出 82 个
 | 服务 | 默认端口 | 说明 | 源码 |
 |---|---|---|---|
 | `protocol.Wallet` | `50051` | FullNode 全功能服务（含写交易） | `framework/src/main/java/org/tron/core/services/RpcApiService.java` |
-| `protocol.WalletSolidity` | `50061` | 仅返回已固化数据，只读 | `framework/src/main/java/org/tron/core/services/interfaceOnSolidity/RpcApiServiceOnSolidity.java` |
+| FullNode 上的 `protocol.WalletSolidity` | `50061` | 已固化数据的只读视图，启用 `node.rpc.solidityEnable` 后可用 | `framework/src/main/java/org/tron/core/services/interfaceOnSolidity/RpcApiServiceOnSolidity.java` |
+| 独立 SolidityNode 上的 `protocol.WalletSolidity` | `50051` | 在节点的主 gRPC 端口提供只读服务 | `framework/src/main/java/org/tron/core/services/RpcApiService.java` |
 
-端口可通过节点配置项 `node.rpc.port` / `node.rpc.solidityPort` 覆盖（参见 `framework/src/main/resources/config.conf`）。
+主 gRPC 端口由 `node.rpc.port` 配置（默认 50051）。FullNode 启用额外的固化数据视图后，使用 `node.rpc.solidityPort`（默认 50061）；独立 SolidityNode 则在 `node.rpc.port` 上提供 `WalletSolidity` 服务。参见[节点配置](../../using_javatron/configuration.md)。
 
 proto 定义位于 `protocol/src/main/protos/api/api.proto`。
 
 ## 调用方式
 
-gRPC 不使用 URL 路径区分 `wallet` 与 `walletsolidity` —— 二者是两个独立的服务桩，连接到不同端口即可：
+gRPC 通过 protobuf 服务名区分 `Wallet` 和 `WalletSolidity`，端口取决于节点运行模式和配置：
 
 ```text
 # Wallet
 grpc://<host>:50051   protocol.Wallet/<Method>
 
-# WalletSolidity（只读）
+# FullNode 上的 WalletSolidity（只读；node.rpc.solidityEnable=true）
 grpc://<host>:50061   protocol.WalletSolidity/<Method>
+
+# 独立 SolidityNode 上的 WalletSolidity（只读）
+grpc://<host>:50051   protocol.WalletSolidity/<Method>
 ```
 
 每个方法文档包含：
@@ -40,7 +44,7 @@ grpc://<host>:50061   protocol.WalletSolidity/<Method>
 | [GetAccountBalance](account/GetAccountBalance.md) | 查询账户在指定区块的余额 |
 | [GetAccountNet](account/GetAccountNet.md) | 查询账户带宽资源 |
 | [GetAccountResource](account/GetAccountResource.md) | 查询账户带宽+能量+TronPower |
-| [CreateAccount2](account/CreateAccount2.md) | 链上创建账户（需消耗 1 TRX） |
+| [CreateAccount2](account/CreateAccount2.md) | 构造创建账户的交易；执行时会额外收取由 `getCreateNewAccountFeeInSystemContract` 决定的账户创建费用（当前主网值为 1,000,000 sun，即 1 TRX）。 |
 | [UpdateAccount2](account/UpdateAccount2.md) | 修改账户名 |
 | [AccountPermissionUpdate](account/AccountPermissionUpdate.md) | 配置多签权限 |
 
@@ -69,8 +73,8 @@ grpc://<host>:50061   protocol.WalletSolidity/<Method>
 |---|---|
 | [CreateTransaction2](tx-build-and-broadcast/CreateTransaction2.md) | 构造 TRX 转账交易 |
 | [GetTransactionSignWeight](tx-build-and-broadcast/GetTransactionSignWeight.md) | 查询多签当前权重 |
-| [GetTransactionApprovedList](tx-build-and-broadcast/GetTransactionApprovedList.md) | 查询多签已签署地址 |
-| [BroadcastTransaction](tx-build-and-broadcast/BroadcastTransaction.md) | 广播签名后的交易（JSON） |
+| [GetTransactionApprovedList](tx-build-and-broadcast/GetTransactionApprovedList.md) | 所有签名验证通过后，返回签名地址列表 |
+| [BroadcastTransaction](tx-build-and-broadcast/BroadcastTransaction.md) | 广播签名后的 protobuf `Transaction` |
 
 ## TRC-10 资产
 
@@ -113,7 +117,7 @@ grpc://<host>:50061   protocol.WalletSolidity/<Method>
 | [VoteWitnessAccount2](witness-and-governance/VoteWitnessAccount2.md) | 给 SR 投票 |
 | [GetBrokerageInfo](witness-and-governance/GetBrokerageInfo.md) | SR 当前佣金比例 |
 | [UpdateBrokerage](witness-and-governance/UpdateBrokerage.md) | SR 修改佣金 |
-| [GetRewardInfo](witness-and-governance/GetRewardInfo.md) | 查询可领取分红 |
+| [GetRewardInfo](witness-and-governance/GetRewardInfo.md) | 查询账户可领取的奖励总额，单位为 sun。 |
 | [WithdrawBalance2](witness-and-governance/WithdrawBalance2.md) | 提取出块奖励/分红 |
 | [ProposalCreate](witness-and-governance/ProposalCreate.md) | 创建链参数提案 |
 | [ProposalApprove](witness-and-governance/ProposalApprove.md) | SR 对提案投票 |
@@ -142,7 +146,7 @@ grpc://<host>:50061   protocol.WalletSolidity/<Method>
 | 方法 | 描述 |
 |---|---|
 | [FreezeBalanceV2](stake-v2/FreezeBalanceV2.md) | 冻结 TRX 获取资源 |
-| [UnfreezeBalanceV2](stake-v2/UnfreezeBalanceV2.md) | 发起解冻（14 天等待） |
+| [UnfreezeBalanceV2](stake-v2/UnfreezeBalanceV2.md) | 发起解冻；等待期由 `UNFREEZE_DELAY_DAYS` 决定（当前主网值为 14 天）。 |
 | [WithdrawExpireUnfreeze](stake-v2/WithdrawExpireUnfreeze.md) | 提取已到期解冻 |
 | [CancelAllUnfreezeV2](stake-v2/CancelAllUnfreezeV2.md) | 取消所有未到期解冻 |
 | [DelegateResource](stake-v2/DelegateResource.md) | 资源代理给他人 |

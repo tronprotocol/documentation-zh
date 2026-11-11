@@ -41,8 +41,8 @@ curl --request POST \
 
 | 字段 | 类型 | 说明 |
 |---|---|---|
-| `result` | bool | 是否进入交易池 |
-| `code` | enum | `SUCCESS` / `SIGERROR` / `CONTRACT_VALIDATE_ERROR` / `CONTRACT_EXE_ERROR` / `BANDWITH_ERROR` / `DUP_TRANSACTION_ERROR` / `TAPOS_ERROR` / `TOO_BIG_TRANSACTION_ERROR` / `TRANSACTION_EXPIRATION_ERROR` / `SERVER_BUSY` / `NO_CONNECTION` / `NOT_ENOUGH_EFFECTIVE_CONNECTION` / `BLOCK_UNSOLIDIFIED` / `OTHER_ERROR` |
+| `result` | bool | 本次广播是否成功；`false` 是 protobuf 默认值，会在 JSON 中省略。交易进入交易池后，P2P 广播仍可能失败 |
+| `code` | enum | `SUCCESS`（默认值，在 JSON 中省略） / `SIGERROR` / `CONTRACT_VALIDATE_ERROR` / `CONTRACT_EXE_ERROR` / `BANDWITH_ERROR` / `DUP_TRANSACTION_ERROR` / `TAPOS_ERROR` / `TOO_BIG_TRANSACTION_ERROR` / `TRANSACTION_EXPIRATION_ERROR` / `SERVER_BUSY` / `NO_CONNECTION` / `NOT_ENOUGH_EFFECTIVE_CONNECTION` / `BLOCK_UNSOLIDIFIED` / `OTHER_ERROR` |
 | `message` | string | 失败原因；`visible=true` 时为 UTF-8 文本，`visible=false` 时为 UTF-8 字节的 hex |
 | `txid` | string | 交易哈希 |
 
@@ -53,20 +53,29 @@ curl --request POST \
 ```json
 {
   "result": true,
-  "code": "SUCCESS",
   "txid": "d5ec749ecc2a615399d8a6c864ea4c74ff9f8453eaa44d6b1e2f0b7b3e2f3b6a"
 }
 ```
 
+protobuf JSON 解析器也接受将单个 hex 字符串作为 `signature`，并将其视为仅含一个元素的列表；非数组值不一定导致解析错误。正常请求请使用文档规定的数组形式。
+
 ### 异常响应
 
-业务级错误**仍按上面的 `result/code/message` 形态返回**，例如：
+业务级错误使用 `code` / `message` / `txid` 返回；默认值 `result=false` 会被省略。以下示例假设 `visible=true`，因此消息以文本表示：
 
 ```json
-{ "result": false, "code": "DUP_TRANSACTION_ERROR", "message": "Dup transaction.", "txid": "..." }
-{ "result": false, "code": "SIGERROR", "message": "validateSignature error", "txid": "..." }
-{ "result": false, "code": "TAPOS_ERROR", "message": "Tapos failed", "txid": "..." }
+{ "code": "DUP_TRANSACTION_ERROR", "message": "Dup transaction.", "txid": "..." }
 ```
+
+```json
+{ "code": "SIGERROR", "message": "Validate signature error: <详情>", "txid": "..." }
+```
+
+```json
+{ "code": "TAPOS_ERROR", "message": "Tapos check error.", "txid": "..." }
+```
+
+当 `visible=false`（默认值）时，`message` 使用 hex 编码；例如 `Dup transaction.` 会变为 `447570207472616e73616374696f6e2e`。成功响应会省略默认值 `code=SUCCESS`。
 
 `code` 含义：
 
@@ -79,18 +88,20 @@ curl --request POST \
 | `DUP_TRANSACTION_ERROR` | 重复交易 |
 | `TAPOS_ERROR` | `ref_block_*` 不在链上（最常见于交易过期或链未同步） |
 | `TOO_BIG_TRANSACTION_ERROR` | 交易体积超限 |
-| `TRANSACTION_EXPIRATION_ERROR` | `expiration` 已过期 |
+| `TRANSACTION_EXPIRATION_ERROR` | 过期时间早于下一个出块时隙、不晚于头块时间戳，或晚于头块时间戳超过 24 小时 |
 | `SERVER_BUSY` | 节点繁忙（pending 满） |
-| `NO_CONNECTION` / `NOT_ENOUGH_EFFECTIVE_CONNECTION` | 节点对外连接不足，未广播 |
-| `BLOCK_UNSOLIDIFIED` | 区块尚未固化（针对相关查询） |
+| `NO_CONNECTION` / `NOT_ENOUGH_EFFECTIVE_CONNECTION` | 当 `node.rpc.minEffectiveConnection` 非零（默认值为 `1`）时：没有活跃对等节点、已完成同步的对等节点数量不足，或 P2P 广播未送达任何对等节点 |
+| `BLOCK_UNSOLIDIFIED` | 启用未固化区块检查时，头块与已固化区块的高度差达到配置的 `maxUnsolidifiedBlocks` 阈值，因此拒绝广播 |
 | `OTHER_ERROR` | 其他 |
 
-JSON 解析失败、`raw_data` 缺失或类型错等走 `Util.processError`：
+请求 JSON 或外层结构错误走 `Util.processError`；单个合约格式错误则可能在解析时被丢弃，具体如下：
 
 | 触发条件 | 响应 |
 |---|---|
 | 请求体超过 `node.http.maxMessageSize` | 通常由 `SizeLimitHandler` 返回 HTTP 413 `Payload Too Large` |
 | 请求体不是合法 JSON | `{"Error": "class org.tron.json.JSONException : <解析器信息>"}` |
-| 缺少 `raw_data`、`raw_data.contract` 不是数组、`signature` 非数组或元素非 hex、`raw_data` 字段类型不符等 | `{"Error": "class java.lang.NullPointerException : null"}`（`Util.packTransaction` 把 `JsonFormat$ParseException` / `ClassCastException` 静默捕获后返回 `null`，下游构造 `TransactionCapsule(null)` 触发空指针） |
-| `raw_data.contract[i].parameter.value` 内字段类型不符 | 该 contract 在 `packTransaction` 内部被 catch 并丢弃，最终广播为空 contract 列表，返回 `{"code": "CONTRACT_VALIDATE_ERROR", "message": "<\"No contract!\" 的 hex>", ...}` |
+| `raw_data` / `raw_data.contract` 缺失或为 null | 访问缺失的对象或数组时返回 `{"Error": "class java.lang.NullPointerException : <message>"}` |
+| `raw_data` 不是对象，或 `raw_data.contract` 不是数组（不包括能解析为所需结构的 JSON 字符串） | `{"Error": "class org.tron.json.JSONException : <message>"}`，例如 `Field 'contract' is not an array` |
+| 签名 hex 非法，或 `raw_data` 中的字段值无法由 `JsonFormat.merge` 解码 | `packTransaction` 捕获最终的 `JsonFormat$ParseException` 并返回 `null`，下游操作随后返回 `{"Error": "class java.lang.NullPointerException : <message>"}` |
+| `raw_data.contract[i].parameter.value` 内字段类型不符 | 有问题的合约会在 `packTransaction` 内被捕获并丢弃。若解析后没有剩余合约，且通过广播前置检查，响应包含 `code: "CONTRACT_VALIDATE_ERROR"`，`message` 为 `Contract validate error : No contract!` 的编码结果（默认为 hex；`visible=true` 时为文本） |
 | 其他异常 | `{"Error": "<exceptionClass> : <message>"}` |

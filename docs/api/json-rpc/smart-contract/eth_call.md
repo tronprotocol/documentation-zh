@@ -72,7 +72,8 @@ curl -X POST https://nile.trongrid.io/jsonrpc \
 | 字符串形式的 `params[1]` 是具体 hex 或十进制高度（即便有效） | `-32602` | `QUANTITY not supported, just support TAG as latest` |
 | `from` / `to` 地址非法 | `-32602` | 透传 message |
 | `input` 不是严格 hex | `-32602` | 透传 `JsonRpcApiUtil.requireValidHex` 校验信息 |
+| `data` 不是合法的宽松 hex | `-32602` | 透传 `JsonRpcApiUtil.requireValidHex` 校验信息 |
 | `value` 不是合法 hex | `-32602` | `invalid param value: invalid hex number` |
 | 合约校验失败（如 `to` 非合约、参数不匹配等） | `-32600` | `ContractValidateException` 透传 message（无 message 时 fallback `Contract validate error : `） |
-| EVM 执行 `REVERT` | `-32000` | message + （若 revert 数据以 `Error(string)` 选择器开头）解析后的字符串；`error.data` 携带原始 revert hex |
-| 其他执行/编码错误 | `-32000` | 透传 message（双引号被替换为单引号） |
+| EVM 执行 `REVERT` | `-32000` | 执行信息；只有 `Error(string)` 原因可解码、非空，且其 ABI 数据不超过 4096 字节时，才会追加该原因。非空 revert 数据以 hex 形式返回在 `error.data` 中；没有数据时，`error.data` 使用默认字符串 `"{}"` |
+| constant call 处理过程中的其他异常 | `-32000` | 透传 message（双引号被替换为单引号） |

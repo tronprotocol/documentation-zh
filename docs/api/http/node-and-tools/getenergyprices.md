@@ -38,4 +38,5 @@ curl --request POST \
 | 方法 | 触发条件 | 响应 |
 |---|---|---|
 | GET / POST | 请求体超过 `node.http.maxMessageSize` | 通常由 `SizeLimitHandler` 返回 HTTP 413 `Payload Too Large` |
-| GET / POST | 节点内部异常（读取价格历史或序列化失败） | `{"Error": "<exceptionClass> : <message>"}` |
+| GET / POST | 读取价格历史失败 | `{}` |
+| GET / POST | 其他传递到 servlet 的异常，例如序列化失败 | `{"Error": "<exceptionClass> : <message>"}` |

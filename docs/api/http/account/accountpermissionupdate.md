@@ -23,7 +23,7 @@
 |---|---|---|
 | `type` | enum | `Owner` / `Witness` / `Active` |
 | `id` | int32 | Owner=0，Witness=1，Active>=2 |
-| `permission_name` | string | 权限名 |
+| `permission_name` | string | 权限名；最多 32 个 UTF-16 代码单元（Java `String.length()`） |
 | `threshold` | int64 | 触发阈值（所有 key.weight 之和达到该值才生效） |
 | `operations` | bytes | active 权限可执行的合约类型位图（hex，32 字节） |
 | `keys` | repeated Key | 签名 key（`{address, weight}`） |
@@ -128,7 +128,7 @@ curl --request POST \
 | `Permission.keys` 为空 | `{"Error": "class org.tron.core.exception.ContractValidateException : key's count should be greater than 0"}` |
 | `witness` 权限的 keys 不为 1 | `{"Error": "class org.tron.core.exception.ContractValidateException : Witness permission's key count should be 1"}` |
 | `Permission.threshold <= 0` | `{"Error": "class org.tron.core.exception.ContractValidateException : permission's threshold should be greater than 0"}` |
-| `Permission.permission_name` 长度超过 32 字节 | `{"Error": "class org.tron.core.exception.ContractValidateException : permission's name is too long"}` |
+| `Permission.permission_name` 长度超过 32 个 UTF-16 代码单元（Java `String.length()`） | `{"Error": "class org.tron.core.exception.ContractValidateException : permission's name is too long"}` |
 | `Permission.parent_id != 0` | `{"Error": "class org.tron.core.exception.ContractValidateException : permission's parent should be owner"}` |
 | `keys` 中存在重复地址 | `{"Error": "class org.tron.core.exception.ContractValidateException : address should be distinct in permission <Owner\|Witness\|Active>"}` |
 | `keys[i].address` 不是 21 字节合法地址 | `{"Error": "class org.tron.core.exception.ContractValidateException : key is not a validate address"}` |

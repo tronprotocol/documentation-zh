@@ -35,7 +35,8 @@ curl --request POST \
 
 | 字段 | 类型 | 说明 |
 |---|---|---|
-| `freeNetUsed` / `freeNetLimit` | int64 | 免费带宽（每 24h 重置） |
+| `freeNetUsed` | int64 | 已使用的免费带宽 |
+| `freeNetLimit` | int64 | 每个账户的免费带宽总额度，由可通过治理提案修改的链参数设定。已使用的免费带宽会在 24 小时恢复窗口内逐步恢复可用。 |
 | `NetUsed` / `NetLimit` | int64 | 质押带宽 |
 | `assetNetUsed` / `assetNetLimit` | map | TRC-10 各自带宽 |
 | `TotalNetLimit` / `TotalNetWeight` | int64 | 全网带宽配额、全网质押 |
@@ -72,6 +73,6 @@ curl --request POST \
 |---|---|---|
 | GET / POST | 请求体超过 `node.http.maxMessageSize` | 通常由 `SizeLimitHandler` 返回 HTTP 413 `Payload Too Large` |
 | GET / POST | `address` 不是合法 hex（`visible=false`） | `{"Error": "class org.bouncycastle.util.encoders.DecoderException : exception decoding Hex string: <详情>"}` |
-| GET / POST | `address` 不是合法 base58check（`visible=true`） | `{"Error": "class java.lang.IllegalArgumentException : <详情>"}` |
+| GET / POST | `address` 不是合法 base58check（`visible=true`） | 长度为 34 个字符且含非 base58 字符时，返回 `{"Error": "class java.lang.IllegalArgumentException : <详情>"}`；空值、长度不为 34、地址前缀非法或校验和错误时，`Util.getHexAddress` 返回空字符串，因此查询返回 `{}` |
 | POST | 请求体不是合法 JSON / 字段类型不符（POST） | `{"Error": "class org.tron.json.JSONException : <解析器信息>"}` |
 | GET / POST | 其他异常 | `{"Error": "<exceptionClass> : <message>"}` |

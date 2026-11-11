@@ -13,7 +13,7 @@ GET 和 POST 都从 URL 查询参数读取以下字段；servlet 不解析 POST 
 
 | 字段 | 方法 | 类型 | 必填 | 说明 |
 |---|---|---|---|---|
-| `visible` | GET / POST | bool | 否 | 文本字段格式（仅影响 `Address.host`：`true` 输出 UTF-8 IP 字符串，默认/`false` 输出 hex 字节） |
+| `visible` | GET / POST | bool | 否 | 文本字段格式（仅影响 `Address.host`）：为 `true` 时，合法的 UTF-8 字节以文本返回；其他情况均使用 hex |
 
 示例：
 
@@ -28,7 +28,7 @@ curl --request POST \
 | 字段 | 类型 | 说明 |
 |---|---|---|
 | `nodes` | repeated Node | 已知节点 |
-| `nodes[].address.host` | string | IP 地址；`visible=true` 为 UTF-8 文本（如 `"176.9.148.236"`），否则为对应字节的 hex（如 `"3137362e392e3134382e323336"`） |
+| `nodes[].address.host` | string | IP 地址；当 `visible=true` 且字节是合法 UTF-8 时，以文本返回（如 `"176.9.148.236"`）；否则返回对应字节的 hex（如 `"3137362e392e3134382e323336"`） |
 | `nodes[].address.port` | int32 | 端口 |
 
 响应示例（默认；以下截取前 3 项，实际响应包含数十个节点）：
@@ -55,7 +55,7 @@ curl --request POST \
 }
 ```
 
-> 公共网关（`nile.trongrid.io`）不会透传 POST body 中的 `visible` 字段，因此通过它请求时 `host` 始终为 hex；如需 UTF-8 形式，需在自有节点直接访问。
+> 如需 UTF-8 格式的 host 字符串，请在 GET 或 POST 请求的 URL 中添加 `?visible=true`。节点的 servlet 会忽略 POST JSON 请求体，因此仅在请求体中设置 `visible` 不会生效，自有节点也是如此。
 
 无节点时返回 `{}`。
 
