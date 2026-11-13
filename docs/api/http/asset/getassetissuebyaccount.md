@@ -70,7 +70,7 @@ curl --request POST \
 | 方法 | 触发条件 | 响应 |
 |---|---|---|
 | GET / POST | 请求体超过 `node.http.maxMessageSize` | 通常由 `SizeLimitHandler` 返回 HTTP 413 `Payload Too Large` |
-| GET / POST | `address` 不是合法 base58check（`visible=true`） | GET：含非 base58 字符抛 `{"Error": "class java.lang.IllegalArgumentException : <详情>"}`；仅校验位错误时 `Util.getHexAddress` 静默返回空串 → 查询不到记录返回 `{}`。POST（走 `JsonFormat.merge`）：含非 base58 字符抛 `{"Error": "class org.tron.core.services.http.JsonFormat$ParseException : <pos>: INVALID base58 String, ..."}`；仅校验位错误抛 `{"Error": "class java.lang.NullPointerException : null"}` |
+| GET / POST | `address` 不是合法 base58check（`visible=true`） | GET：长度为 34 个字符且含非 base58 字符时，返回 `{"Error": "class java.lang.IllegalArgumentException : <详情>"}`；空值、长度不为 34、地址前缀非法或校验和错误时，`Util.getHexAddress` 返回空字符串，查询不到记录并返回 `{}`。POST（通过 `JsonFormat.merge`）：非法字符、长度不正确或校验和错误均返回 `{"Error": "class org.tron.core.services.http.JsonFormat$ParseException : <pos>: invalid address for field: protocol.Account.address"}` |
 | GET / POST | `address` 不是合法 hex（`visible=false`） | `{"Error": "class org.bouncycastle.util.encoders.DecoderException : <message>"}`（GET）；`{"Error": "class org.tron.core.services.http.JsonFormat$ParseException : <message>"}`（POST） |
 | POST | 请求体不是合法 JSON / 字段类型不符（POST） | `{"Error": "class org.tron.json.JSONException : <解析器信息>"}` 或 `{"Error": "class org.tron.core.services.http.JsonFormat$ParseException : <解码器信息>"}` |
 | GET / POST | 其他异常 | `{"Error": "<exceptionClass> : <message>"}` |

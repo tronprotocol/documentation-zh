@@ -112,6 +112,6 @@ curl --request POST \
 |---|---|---|
 | GET / POST | 请求体超过 `node.http.maxMessageSize` | 通常由 `SizeLimitHandler` 返回 HTTP 413 `Payload Too Large` |
 | GET / POST | `address` 不是合法 hex（`visible=false`） | `{"Error": "class org.tron.core.services.http.JsonFormat$ParseException : <pos>: INVALID hex String"}` |
-| GET / POST | `address` 不是合法 base58check（`visible=true`） | 含非 base58 字符抛 `{"Error": "class org.tron.core.services.http.JsonFormat$ParseException : <pos>: INVALID base58 String, <详情>"}`；仅校验位错误抛 `{"Error": "class java.lang.NullPointerException : null"}`（GET、POST 行为一致：GET 路径把 `address` 包成 JSON 后同样走 `JsonFormat.merge`） |
+| GET / POST | `address` 不是合法 base58check（`visible=true`） | 非法字符、长度不正确或校验和错误均返回 `{"Error": "class org.tron.core.services.http.JsonFormat$ParseException : <pos>: invalid address for field: protocol.Account.address"}`（GET 将 `address` 包成 JSON，与 POST 使用相同的 `JsonFormat.merge` 路径） |
 | POST | 请求体不是合法 JSON / 字段类型不符（POST） | `{"Error": "class org.tron.json.JSONException : <解析器信息>"}` 或 `{"Error": "class org.tron.core.services.http.JsonFormat$ParseException : <解码器信息>"}` |
 | GET / POST | 其他异常 | `{"Error": "<exceptionClass> : <message>"}` |

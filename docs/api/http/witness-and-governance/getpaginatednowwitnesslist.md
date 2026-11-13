@@ -1,6 +1,6 @@
 # /wallet/getpaginatednowwitnesslist
 
-按分页获取当前生效的 SR 列表。
+分页查询所有 SR 候选人，按当前总票数排序。总票数包含当前周期的投票变化；结果不限于 27 位活跃 SR，也不限于 `isJobs=true` 的候选人。
 
 - 源码：`framework/src/main/java/org/tron/core/services/http/GetPaginatedNowWitnessListServlet.java`
 - Method：`GET` / `POST`
@@ -15,8 +15,8 @@ GET 从 URL 查询参数读取以下字段；POST 从 JSON 请求体读取。
 |---|---|---|---|---|
 | `offset` | GET | int64 | 是 | 起始偏移；缺失时执行 `Long.parseLong(null)` 并失败 |
 | `offset` | POST | int64 | 否 | 起始偏移；Protobuf 默认值为 `0` |
-| `limit` | GET | int64 | 是 | 分页大小；缺失时执行 `Long.parseLong(null)` 并失败 |
-| `limit` | POST | int64 | 否 | 分页大小；Protobuf 默认值为 `0`，此时返回空列表 |
+| `limit` | GET | int64 | 是 | 分页大小，上限为 1000；缺失时执行 `Long.parseLong(null)` 并失败 |
+| `limit` | POST | int64 | 否 | 分页大小，上限为 1000；Protobuf 默认值为 `0`，此时返回 `{}` |
 | `visible` | GET / POST | bool | 否 | 地址格式 |
 
 示例：
@@ -36,7 +36,9 @@ curl --request POST \
 
 ## 响应
 
-字段同 [`/wallet/listwitnesses`](listwitnesses.md)。
+字段同 [`/wallet/listwitnesses`](listwitnesses.md)，但在排序和分页前，`voteCount` 已包含当前周期的投票变化。`/wallet/listwitnesses` 返回的是已存储的票数。
+
+`limit <= 0`、`offset < 0` 或偏移超出候选人列表时返回 `{}`。`limit` 大于 1000 时会自动按 1000 处理；下一页的偏移应增加实际返回的条目数。
 
 响应示例（Nile，limit=2；`voteCount`、`latestBlockNum`、`latestSlotNum` 等随时间变化）：
 

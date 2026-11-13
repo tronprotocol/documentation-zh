@@ -48,7 +48,7 @@ curl --request POST \
 
 返回未签名 `protocol.Transaction`（contract 类型 `CreateSmartContract`）。
 
-特殊：`Util.printTransactionToJSON` 检测到 `CreateSmartContract` 时，会在 transaction 顶层额外注入预测的合约地址 `contract_address`（hex；由 `owner_address` + nonce 确定，**不受 `visible` 影响**）。签名广播后该地址即生效。
+`Util.printTransactionToJSON` 检测到 `CreateSmartContract` 时，会在顶层添加 hex 格式的 `contract_address`。节点先对 protobuf 编码的交易 `raw_data` 计算哈希（标准 TRON 交易使用 SHA-256），将该哈希与 `owner_address` 字节拼接，再通过 `sha3omit12` 推导地址。修改 `raw_data` 会改变预测地址。只有签名后的部署交易在链上成功执行，合约才会在该地址创建。
 
 响应示例（Nile 实抓）：
 
@@ -87,14 +87,14 @@ curl --request POST \
 }
 ```
 
-> `txID` / `ref_block_*` / `expiration` / `timestamp` / `raw_data_hex` / `contract_address` 因构造时机而异；其它 ephemeral 字段语义同 [`/wallet/createtransaction`](../tx-build-and-broadcast/createtransaction.md)。`contract_address` 由 `owner_address + nonce` 在构造侧本地推导，**不是上链结果**：广播后该地址才生效。
+> `txID` / `ref_block_*` / `expiration` / `timestamp` / `raw_data_hex` / `contract_address` 因构造时机而异；其它 ephemeral 字段语义同 [`/wallet/createtransaction`](../tx-build-and-broadcast/createtransaction.md)。`contract_address` 按上述方法，由交易原始数据的哈希和 `owner_address` 在本地预测。只有部署交易成功执行，合约才会在该地址创建。
 
 ### 异常响应
 
 | 触发条件 | 响应 |
 |---|---|
 | 请求体超过 `node.http.maxMessageSize` | 通常由 `SizeLimitHandler` 返回 HTTP 413 `Payload Too Large` |
-| `owner_address` 不是合法 base58check（`visible=true`） | 含非 base58 字符抛 `{"Error": "class java.lang.IllegalArgumentException : <详情>"}`；仅校验位错误时 `Util.getHexAddress` 静默返回空串，`CreateSmartContract` 构造路径不校验 owner 非空，会返回 `owner_address` 字段缺失的合法交易（签名/广播阶段才会失败） |
+| `owner_address` 不是合法 base58check（`visible=true`） | 仅当输入恰好为 34 个字符时，非 base58 字符才会抛出 `{"Error": "class java.lang.IllegalArgumentException : <详情>"}`。输入长度错误、校验和错误或解码后的地址无效时，`Util.getHexAddress` 返回空 hex 字符串；若其他输入有效，构造会返回缺少 `owner_address` 字段的交易（广播时会被节点拒绝） |
 | `owner_address` 不是合法 hex（`visible=false`） | `{"Error": "class org.bouncycastle.util.encoders.DecoderException : <message>"}`（直调 `ByteArray.fromHexString`） |
 | `bytecode` 不是合法 hex | `{"Error": "class org.bouncycastle.util.encoders.DecoderException : <message>"}`（直调 `ByteArray.fromHexString`） |
 | `abi` 不是合法 JSON | `{"Error": "class org.tron.json.JSONException : <解析器信息>"}` |

@@ -15,9 +15,9 @@
 
 | 字段 | 类型 | 默认 | 说明 |
 |---|---|---|---|
-| `fromBlock` | string | `latest` | 起始块；接受 `latest` / `earliest` / `finalized` 或 hex 高度（`pending` 和 `safe` 显式不支持） |
+| `fromBlock` | string | `latest`；若 `toBlock` 指向更早的区块，则为 `toBlock` | 起始块；接受 `latest` / `earliest` / `finalized` 或 hex 高度（`pending` 和 `safe` 显式不支持） |
 | `toBlock` | string | `latest` | 结束块；同上 |
-| `address` | string \| string[] | null | 单个或多个合约地址，仅匹配该地址产生的日志 |
+| `address` | string \| string[] | null | 单个或多个 20 字节 hex 合约地址，可带或不带 `0x`，需去掉 Tron 的 `41` 前缀；仅匹配这些地址产生的日志 |
 | `topics` | array | null | 最多 4 个 slot；每个 slot 可以是单 topic、`null`、或 topic 数组（OR 语义）；slot 间为 AND |
 | `blockHash` | string | null | 若指定，等同于 `fromBlock = toBlock = 该块高`（EIP-234），与 `fromBlock` / `toBlock` 互斥 |
 
@@ -63,7 +63,7 @@ curl -X POST https://nile.trongrid.io/jsonrpc \
       "address": "0x9ff8fc48fb114ccd5bbdc24a86f0c73082f08825",
       "blockHash": "0x0000000003fe1ca05cf728c92ee79f5f2758c3e4e4ea88501826726880e8b81c",
       "blockNumber": "0x3fe1ca0",
-      "blockTimestamp": "0x697999ef",
+      "blockTimestamp": "0x69f18c42",
       "transactionHash": "0x01b4cde4197b9d1a1ff09ef5d2b1d939d3ec2401b3f002ebd0802c0f30a6e4ca",
       "transactionIndex": "0x0",
       "logIndex": "0x0",
@@ -79,7 +79,7 @@ curl -X POST https://nile.trongrid.io/jsonrpc \
 }
 ```
 
-> log `data` 实际为 224 字节，此处仅截取首尾以节省篇幅；其它字段为节点真实返回值。
+> log `data` 实际为 288 字节，此处仅截取首尾以节省篇幅；其它字段为节点真实返回值。
 
 ### 异常响应
 

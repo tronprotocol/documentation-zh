@@ -4,7 +4,7 @@
 >
 > 注：方法名末尾的 `2` 是 proto 历史命名后缀（返回 `TransactionExtention`），与 Stake 2.0 的 `FreezeBalanceV2` 不是同一个方法。
 
-冻结 TRX 获取带宽或能量，可代理给他人。冻结期最少 3 天。
+冻结 TRX 获取带宽或能量，可代理给他人。在设置了 `block.checkFrozenTime=1` 的节点上，冻结期必须恰好为 3 天。
 
 - 服务：仅支持 `Wallet`
 

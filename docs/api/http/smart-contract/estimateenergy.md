@@ -74,6 +74,7 @@ Energy 估算通过 constant call 路径执行，并受
 | 节点未开启 `vm.estimateEnergy` | false | `CONTRACT_VALIDATE_ERROR` | `this node does not support estimate energy` |
 | 节点关闭 constant call 支持 | false | `CONTRACT_VALIDATE_ERROR` | `this node does not support constant, so estimate energy cannot work` |
 | `contract_address` 已设置但合约不存在 | false | `CONTRACT_VALIDATE_ERROR` | `Smart contract is not exist.` |
-| EVM exception / retry 耗尽 / 其他非校验异常 | false | `OTHER_ERROR` | `<exceptionClass> : <message>`（`"` → `'`） |
+| 使用链上最大费用限制进行的首次模拟返回 `FAILED`（例如 revert 或运行时错误） | 缺省 (false) | `CONTRACT_EXE_ERROR` | `REVERT opcode executed` 或运行时错误文本 |
+| 抛出的非校验异常，包括超时重试耗尽 | false | `OTHER_ERROR` | `<exceptionClass> : <message>`（`"` → `'`） |
 
-异常路径下 `energy_required` 字段不被填充（值为 0）。
+在 `CONTRACT_EXE_ERROR` 路径和异常路径下，`energy_required` 字段不被填充（默认值为 0，在 JSON 中省略）。

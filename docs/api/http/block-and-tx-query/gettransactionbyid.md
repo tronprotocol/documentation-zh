@@ -1,6 +1,6 @@
 # /wallet/gettransactionbyid
 
-按交易 ID 查询交易（**不含执行结果**，只返回打包前的交易体）。
+按交易 ID 查询交易，包含 `ret[].contractRet` 中的基本执行状态。
 
 - 源码：`framework/src/main/java/org/tron/core/services/http/GetTransactionByIdServlet.java`
 - Method：`GET` / `POST`
@@ -78,7 +78,7 @@ curl --request POST \
 }
 ```
 
-不存在返回 `{}`。需要交易执行结果（包含 receipt、log）请用 [`/wallet/gettransactioninfobyid`](gettransactioninfobyid.md)。
+不存在时返回 `{}`。如需包含回执、日志和内部交易的详细执行信息，请使用 [`/wallet/gettransactioninfobyid`](gettransactioninfobyid.md)。
 
 ### 异常响应
 

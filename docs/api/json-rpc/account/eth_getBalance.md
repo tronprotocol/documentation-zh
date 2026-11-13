@@ -22,7 +22,7 @@ curl -X POST https://nile.trongrid.io/jsonrpc \
 
 余额（sun）的 hex 编码；账户不存在视为 0。
 
-下例为上面 curl 调用 Nile testnet 抓回的真实响应（`0x6d1a6c48` ≈ 1.83 TRX）：
+下例为上面 curl 调用 Nile testnet 抓回的真实响应（`0x6d1a6c48` = 1,830,448,200 sun = 1830.4482 TRX）：
 
 ```json
 { "jsonrpc": "2.0", "id": 1, "result": "0x6d1a6c48" }

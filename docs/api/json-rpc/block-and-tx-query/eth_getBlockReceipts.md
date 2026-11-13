@@ -58,7 +58,7 @@ curl -X POST https://nile.trongrid.io/jsonrpc \
           "data": "0x0000...05f",
           "blockHash": "0x0000000003fe1ca05cf728c92ee79f5f2758c3e4e4ea88501826726880e8b81c",
           "blockNumber": "0x3fe1ca0",
-          "blockTimestamp": "0x697999ef",
+          "blockTimestamp": "0x69f18c42",
           "transactionHash": "0x01b4cde4197b9d1a1ff09ef5d2b1d939d3ec2401b3f002ebd0802c0f30a6e4ca",
           "transactionIndex": "0x0",
           "logIndex": "0x0",
@@ -89,7 +89,7 @@ curl -X POST https://nile.trongrid.io/jsonrpc \
 }
 ```
 
-> 实际返回包含全部 4 笔回执，此处仅展示前 2 笔以节省篇幅。`cumulativeGasUsed` 在 index `0x1` 之后保持 `0xae29`，因为该块仅 index `0x0` 的合约调用消耗了 energy（`0xae29`），后续 3 笔 TRX 转账 `gasUsed` 均为 `0x0`。`logsBloom` 实际为 256 字节全 0；其它字段为节点真实返回值。
+> 实际返回包含全部 4 笔回执，此处仅展示前 2 笔以节省篇幅。`cumulativeGasUsed` 在 index `0x1` 之后保持 `0xae29`，因为该块仅 index `0x0` 的合约调用消耗了 energy（`0xae29`），后续 3 笔 TRX 转账 `gasUsed` 均为 `0x0`。日志的 `data` 和 `logsBloom` 已缩略；`logsBloom` 实际为 256 字节全 0。其它字段为节点真实返回值。
 
 ### 异常响应
 

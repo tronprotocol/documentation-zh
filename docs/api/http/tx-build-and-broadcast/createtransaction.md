@@ -14,7 +14,7 @@
 | `to_address` | string | 是 | 接收方地址 |
 | `amount` | int64 | 是 | 金额，sun（1 TRX = 1e6 sun） |
 | `Permission_id` | int32 | 否 | 多签权限 ID |
-| `extra_data` | string | 否 | 写入 `raw_data.data`（hex；`visible=true` 时为 UTF-8） |
+| `extra_data` | string | 否 | 写入 `raw_data.data`；`visible=true` 时为普通文本，`visible=false` 时为 hex |
 | `visible` | bool | 否 | 地址格式 |
 
 示例：
@@ -64,7 +64,7 @@ curl --request POST \
 }
 ```
 
-> 上述 `txID`、`ref_block_bytes` / `ref_block_hash`、`expiration`、`timestamp`、`raw_data_hex` 因构造时机而异：`ref_block_*` 取构造时最新固化块；`expiration = timestamp + 60_000`；`txID` 是 `raw_data` 的 SHA256；`raw_data_hex` 是 `raw_data` 的 protobuf 编码，签名以 `raw_data_hex` 为输入。其它构造类接口（`/wallet/triggersmartcontract`、`freezebalancev2`、`unfreezebalancev2` 等）的响应包含同样的 ephemeral 字段，语义一致，下文不再赘述。
+> 这些字段随构造时机变化。`ref_block_bytes` / `ref_block_hash` 由 `trx.reference.block` 决定：`solid`（默认值）选择最新固化块；包括 `head` 在内的其他值选择头块。`expiration` 为头块时间戳加上 `trx.expiration.timeInMilliseconds`（默认值为 `60_000` ms）。交易的 `timestamp` 独立记录构造时的系统时间。`raw_data_hex` 是 `raw_data` 的 protobuf 编码；`txID` 是该编码的 SHA256 哈希，签名针对这个哈希进行。其他交易构造接口使用相同的参考区块和时间戳规则。
 
 ### 异常响应
 
@@ -81,5 +81,5 @@ curl --request POST \
 | `amount <= 0` | `{"Error": "class org.tron.core.exception.ContractValidateException : Amount must be greater than 0."}` |
 | `to_address` 是合约且 `ForbidTransferToContract` 提案已开启 | `{"Error": "class org.tron.core.exception.ContractValidateException : Cannot transfer TRX to a smartContract."}` |
 | `to_address` 是 v1 合约且 `AllowTvmCompatibleEvm` 提案已开启 | `{"Error": "class org.tron.core.exception.ContractValidateException : Cannot transfer TRX to a smartContract which version is one. Instead please use TriggerSmartContract "}` |
-| 余额不足 `amount + fee`（收方为新账户时 `fee` 含 0.1 TRX 创建费） | `{"Error": "class org.tron.core.exception.ContractValidateException : Validate TransferContract error, balance is not sufficient."}` |
+| 余额不足 `amount + fee`（接收方为新账户时，`fee` 包含链参数 `getCreateNewAccountFeeInSystemContract` 设定的账户创建费，单位为 sun） | `{"Error": "class org.tron.core.exception.ContractValidateException : Validate TransferContract error, balance is not sufficient."}` |
 | `amount + fee` 或目标账户余额溢出 `long` | `{"Error": "class org.tron.core.exception.ContractValidateException : <ArithmeticException 信息>"}` |

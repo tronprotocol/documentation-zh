@@ -17,7 +17,7 @@
 | `Permission_id` | int32 | 否 | 多签权限 ID |
 | `visible` | bool | 否 | 地址、文本字段格式 |
 
-约束：必须在 `[start_time, end_time)` 期间内；获得的 token 数量按 `num/trx_num` 折算。
+约束：必须在 `[start_time, end_time)` 期间内；获得的代币数量为 `floor(amount * num / trx_num)`，单位为代币最小单位，`amount` 和 `trx_num` 的单位均为 sun。非零余数会被舍弃，但仍需支付全部 `amount`；向下取整后的代币数量为零或乘法结果超出 int64 范围时，购买失败。
 
 示例：
 
@@ -85,7 +85,8 @@ curl --request POST \
 | 指定 token 不存在 | `{"Error": "... : No asset named <name>"}` |
 | `to_address` 不是该 token 的发行方 | `{"Error": "... : The asset is not issued by <toAddress hex>"}` |
 | 不在募集时段内 | `{"Error": "... : No longer valid period!"}` |
-| 兑换不能整除（无法精确换算） | `{"Error": "... : Can not process the exchange!"}` |
+| `floor(amount * num / trx_num) <= 0` | `{"Error": "... : Can not process the exchange!"}` |
+| `amount * num` 超出 int64 范围 | `{"Error": "class org.tron.core.exception.ContractValidateException : long overflow"}` |
 | `to_address` 账户不存在 | `{"Error": "... : To account does not exist!"}` |
 | 募集方剩余可分发余额不足 | `{"Error": "... : Asset balance is not enough !"}` |
 | 其他异常 | `{"Error": "<exceptionClass> : <message>"}` |

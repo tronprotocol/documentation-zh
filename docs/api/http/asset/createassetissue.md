@@ -15,9 +15,9 @@
 | `abbr` | string | 否 | 缩写（hex 编码 UTF-8） |
 | `total_supply` | int64 | 是 | 总发行量 |
 | `frozen_supply` | repeated FrozenSupply | 否 | 冻结部分；元素 `{frozen_amount, frozen_days}` |
-| `trx_num` | int32 | 是 | 兑换比例分母（trx_num TRX = num token） |
-| `num` | int32 | 是 | 兑换比例分子 |
-| `precision` | int32 | 否 | 精度 |
+| `trx_num` | int32 | 是 | 兑换比例的分母，单位为 sun：`trx_num` sun 可以兑换 `num` 个代币最小单位 |
+| `num` | int32 | 是 | 兑换比例的分子，单位为代币最小单位 |
+| `precision` | int32 | 否 | 代币的小数位数 |
 | `start_time` | int64 | 是 | 募集开始时间，毫秒 |
 | `end_time` | int64 | 是 | 募集结束时间，毫秒 |
 | `description` | string | 否 | 描述（hex UTF-8） |
@@ -26,6 +26,8 @@
 | `public_free_asset_net_limit` | int64 | 否 | token 公共免费带宽 |
 | `Permission_id` | int32 | 否 | 多签权限 ID |
 | `visible` | bool | 否 | 地址、文本字段格式 |
+
+购买获得的代币数量为 `floor(amount * num / trx_num)`，单位为代币最小单位；`amount` 的单位为 sun（1 TRX = 1,000,000 sun）。下方示例中，`trx_num=1`、`num=1` 表示每个代币最小单位的价格为 1 sun。
 
 示例：
 
@@ -109,7 +111,7 @@ curl --request POST \
 | `end_time` 缺失 | `{"Error": "... : End time should be not empty"}` |
 | `end_time <= start_time` | `{"Error": "... : End time should be greater than start time"}` |
 | `start_time <= 当前出块时间` | `{"Error": "... : Start time should be greater than HeadBlockTime"}` |
-| 同名 token 已存在 | `{"Error": "... : Token exists"}` |
+| 同名 token 已存在且 `AllowSameTokenName = 0` | `{"Error": "... : Token exists"}`；提案开启后，不同发行方可以使用相同名称，代币通过 ID 区分 |
 | `total_supply <= 0` | `{"Error": "... : TotalSupply must greater than 0!"}` |
 | `trx_num <= 0` | `{"Error": "... : TrxNum must greater than 0!"}` |
 | `num <= 0` | `{"Error": "... : Num must greater than 0!"}` |

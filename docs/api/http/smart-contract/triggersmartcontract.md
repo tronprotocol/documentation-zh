@@ -1,6 +1,6 @@
 # /wallet/triggersmartcontract
 
-触发智能合约（写交易）。返回未签名交易和预执行结果。
+构造未签名的智能合约交易并返回构造状态。当合约的链上 ABI 将函数标记为 `view` 或 `pure`，或将旧版 `constant` 标志设为 `true` 时，该接口会执行 constant call 并返回模拟结果。
 
 - 源码：`framework/src/main/java/org/tron/core/services/http/TriggerSmartContractServlet.java`
 - Method：`POST`
@@ -50,7 +50,7 @@ curl --request POST \
 |---|---|---|
 | `transaction` | Transaction | 未签名交易 |
 | `txid` | string(hex) | 交易哈希 |
-| `constant_result` | repeated bytes(hex) | 仅在被 ABI 识别为 `view` / `pure` 函数时填充（写交易通常无此字段） |
+| `constant_result` | repeated bytes(hex) | 仅当合约的链上 ABI 将函数标记为 `view` 或 `pure`，或将旧版 `constant` 标志设为 `true` 时填充；普通写交易不会进行模拟 |
 | `result` | Return | 结果状态 |
 | `energy_used` | int64 | 仅在 constant call 路径填充；普通写交易不返回 |
 | `energy_penalty` | int64 | 能量惩罚（如有） |
@@ -68,7 +68,7 @@ curl --request POST \
         {
           "parameter": {
             "value": {
-              "data":             "a9059cbb000000000000000000000000088a2bfcb1c7271029fd69a66859d5556089588400000000000000000000000000000000000000000000000000000000000000064",
+              "data":             "a9059cbb000000000000000000000000088a2bfcb1c7271029fd69a66859d555608958840000000000000000000000000000000000000000000000000000000000000064",
               "owner_address":    "41dd791d6b49e190062d650e6a23c575510d35f2f9",
               "contract_address": "41eca9bc828a3005b9a3b909f2cc5c2a54794de05f"
             },
@@ -92,7 +92,7 @@ curl --request POST \
 
 > 仅做预演（不上链）请用 [`/wallet/triggerconstantcontract`](triggerconstantcontract.md)；仅估算能量请用 [`/wallet/estimateenergy`](estimateenergy.md)。
 
-> 当 ABI 将目标函数标记为 `view` 或 `pure` 时，该接口会被分派到
+> 当合约的链上 ABI 将目标函数标记为 `view` 或 `pure`，或将旧版 `constant` 标志设为 `true` 时，该接口会被分派到
 > constant call 路径，因此受
 > [`vm.constantCallTimeoutMs`](../../../using_javatron/configuration.md#tvm-and-constant-call-configuration)
 > 限制。

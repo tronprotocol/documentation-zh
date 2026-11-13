@@ -1,6 +1,6 @@
 # /wallet/createwitness
 
-申请成为超级代表候选人，需消耗 9999 TRX（链参数 `getAccountUpgradeCost`）。
+申请成为超级代表（SR）候选人。费用由当前链参数 `getAccountUpgradeCost` 决定，单位为 sun；默认值为 9,999,000,000 sun（9999 TRX）。治理提案可以修改该费用。
 
 - 源码：`framework/src/main/java/org/tron/core/services/http/CreateWitnessServlet.java`
 - Method：`POST`
@@ -32,7 +32,7 @@ curl --request POST \
 
 ## 响应
 
-构造前校验账户余额是否大于等于 `getAccountUpgradeCost`（9999 TRX），且账户当前不在 SR 候选人列表中。示例账户余额不足，Nile 实抓返回：
+构造前校验账户余额是否大于等于当前的 `getAccountUpgradeCost`（默认 9999 TRX），且账户当前不在 SR 候选人列表中。示例账户余额不足，Nile 实抓返回：
 
 ```json
 {"Error": "class org.tron.core.exception.ContractValidateException : balance < AccountUpgradeCost"}
@@ -57,10 +57,10 @@ curl --request POST \
         "type": "WitnessCreateContract"
       }
     ],
-    "ref_block_bytes": "<构造时最新固化块>",
-    "ref_block_hash":  "<构造时最新固化块>",
-    "expiration":      "<timestamp + 60_000>",
-    "timestamp":       "<构造时刻>"
+    "ref_block_bytes": "<由 trx.reference.block 选择的参考区块；默认：solid>",
+    "ref_block_hash":  "<由 trx.reference.block 选择的参考区块；默认：solid>",
+    "expiration":      "<头块时间戳 + trx.expiration.timeInMilliseconds（默认间隔：60_000 ms）>",
+    "timestamp":       "<构造时的系统时间>"
   },
   "raw_data_hex": "<raw_data 的 protobuf 编码>"
 }

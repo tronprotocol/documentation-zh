@@ -1,6 +1,6 @@
 # /wallet/getblockbalance
 
-返回某区块内所有交易引发的余额变动追踪（block balance trace）。
+返回区块的余额变动追踪，包含已记录 TRX 余额变动操作的交易。没有此类操作的交易会被省略；应按 `transaction_identifier` 匹配条目，而不是按其在区块交易列表中的位置匹配。
 
 - 源码：`framework/src/main/java/org/tron/core/services/http/GetBlockBalanceServlet.java`
 - Method：`POST`
@@ -37,7 +37,7 @@ curl --request POST \
 | `block_identifier.hash` | bytes | 区块哈希 |
 | `block_identifier.number` | int64 | 区块高度 |
 | `timestamp` | int64 | 区块时间，毫秒 |
-| `transaction_balance_trace` | repeated TransactionBalanceTrace | 该区块内每笔交易的余额变动 |
+| `transaction_balance_trace` | repeated TransactionBalanceTrace | 已记录的余额变动操作列表非空的交易条目 |
 
 `TransactionBalanceTrace`（`balance_contract.proto`）：
 
@@ -48,7 +48,7 @@ curl --request POST \
 | `type` | string | 合约类型，如 `TransferContract` |
 | `status` | string | 状态 |
 
-响应示例（截取首笔交易，原响应包含 4 笔）：
+响应示例（仅展示第一条追踪记录，实际响应包含 4 条记录）：
 
 ```json
 {
@@ -72,7 +72,7 @@ curl --request POST \
 }
 ```
 
-需开启 `storage.balance.history.lookup = true`（等价启动参数 `--history-balance-lookup`）；否则任意区块查询都会走下方"区块未追踪余额或不存在"那一行的 `ItemNotFoundException`。
+节点上必须已记录目标区块的余额变动追踪。`storage.balance.history.lookup = true`（等价启动参数 `--history-balance-lookup`）用于开启追踪记录；读取已有记录不受当前开关设置影响。关闭记录后，之前的追踪记录仍可查询；开启或重新开启记录不会补齐缺失的历史。没有追踪记录时，返回下方所示的 `ItemNotFoundException`。
 
 ### 异常响应
 

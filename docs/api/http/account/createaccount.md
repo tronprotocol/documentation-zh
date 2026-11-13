@@ -63,7 +63,7 @@ curl --request POST \
 }
 ```
 
-激活账户费用从 `owner_address` 扣除，金额由链参数决定（一般 1 TRX）。
+交易执行时，会从 `owner_address` 扣除额外的账户创建费用。费用由链参数 `getCreateNewAccountFeeInSystemContract` 决定（当前主网值为 1,000,000 sun，即 1 TRX）。
 
 ### 异常响应
 

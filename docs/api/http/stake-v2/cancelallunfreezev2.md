@@ -54,10 +54,10 @@ curl --request POST \
         "type": "CancelAllUnfreezeV2Contract"
       }
     ],
-    "ref_block_bytes": "<构造时最新固化块>",
-    "ref_block_hash":  "<构造时最新固化块>",
-    "expiration":      "<timestamp + 60_000>",
-    "timestamp":       "<构造时刻>"
+    "ref_block_bytes": "<由 trx.reference.block 选择的参考区块；默认：solid>",
+    "ref_block_hash":  "<由 trx.reference.block 选择的参考区块；默认：solid>",
+    "expiration":      "<头块时间戳 + trx.expiration.timeInMilliseconds（默认间隔：60_000 ms）>",
+    "timestamp":       "<构造时的系统时间>"
   },
   "raw_data_hex": "<raw_data 的 protobuf 编码>"
 }
@@ -69,7 +69,7 @@ curl --request POST \
 |---|---|
 | 请求体超过 `node.http.maxMessageSize` | 通常由 `SizeLimitHandler` 返回 HTTP 413 `Payload Too Large` |
 | 请求体不是合法 JSON / 字段类型不符 | `{"Error": "class org.tron.json.JSONException : <解析器信息>"}` 或 `{"Error": "class org.tron.core.services.http.JsonFormat$ParseException : <解码器信息>"}` |
-| 提案 #75 `CANCEL_ALL_UNFREEZE_V2` 未激活 | `{"Error": "class org.tron.core.exception.ContractValidateException : Not support CancelAllUnfreezeV2 transaction, need to be opened by the committee"}` |
+| 链参数 #77 `ALLOW_CANCEL_ALL_UNFREEZE_V2` 不为 `1`，或 #70 `UNFREEZE_DELAY_DAYS` 不大于 `0` | `{"Error": "class org.tron.core.exception.ContractValidateException : Not support CancelAllUnfreezeV2 transaction, need to be opened by the committee"}` |
 | `owner_address` 非法 | `{"Error": "... : Invalid address"}` |
 | owner 账户不存在 | `{"Error": "... : Account[<address>] not exists"}` |
 | 没有任何待解冻条目 | `{"Error": "... : No unfreezeV2 list to cancel"}` |

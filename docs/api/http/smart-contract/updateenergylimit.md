@@ -60,10 +60,10 @@ curl --request POST \
         "type": "UpdateEnergyLimitContract"
       }
     ],
-    "ref_block_bytes": "<构造时最新固化块>",
-    "ref_block_hash":  "<构造时最新固化块>",
-    "expiration":      "<timestamp + 60_000>",
-    "timestamp":       "<构造时刻>"
+    "ref_block_bytes": "<由 trx.reference.block 选择的参考区块；默认：solid>",
+    "ref_block_hash":  "<由 trx.reference.block 选择的参考区块；默认：solid>",
+    "expiration":      "<头块时间戳 + trx.expiration.timeInMilliseconds（默认间隔：60_000 ms）>",
+    "timestamp":       "<构造时的系统时间>"
   },
   "raw_data_hex": "<raw_data 的 protobuf 编码>"
 }
@@ -75,7 +75,7 @@ curl --request POST \
 |---|---|
 | 请求体超过 `node.http.maxMessageSize` | 通常由 `SizeLimitHandler` 返回 HTTP 413 `Payload Too Large` |
 | 请求体不是合法 JSON / 字段类型不符 | `{"Error": "class org.tron.json.JSONException : <解析器信息>"}` 或 `{"Error": "class org.tron.core.services.http.JsonFormat$ParseException : <解码器信息>"}` |
-| 链未开启 ENERGY_LIMIT 提案 | `{"Error": "class org.tron.core.exception.ContractValidateException : contract type error, unexpected type [UpdateEnergyLimitContract]"}` |
+| 最新区块高度低于配置的 ENERGY_LIMIT 激活高度（`enery.limit.block.num`） | `{"Error": "class org.tron.core.exception.ContractValidateException : contract type error, unexpected type [UpdateEnergyLimitContract]"}` |
 | `owner_address` 非法 | `{"Error": "... : Invalid address"}` |
 | owner 账户不存在 | `{"Error": "... : Account[<address>] does not exist"}` |
 | `origin_energy_limit <= 0` | `{"Error": "... : origin energy limit must be > 0"}` |

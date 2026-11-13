@@ -12,8 +12,8 @@
 
 - **Method**：除少量纯查询接口同时支持 `GET`，多数 POST 接口仅接受 `POST`，请求体为 JSON。
 - **GET / POST 边界**：同时支持两种方法的接口会在请求表和异常表中标明适用方法。GET 通常从 URL 查询参数读取，POST 通常读取 JSON 请求体；如果 POST 复用查询参数或忽略请求体，对应接口页面会单独说明。
-- **`visible`**：`true` 时地址使用 base58check 字符串形式，URL/描述等文本字段使用 UTF-8 字符串；`false`（默认）时使用 hex 字符串。
-- **构造类接口**返回未签名的 `protocol.Transaction`，需调用方本地签名后通过 [`/wallet/broadcasttransaction`](tx-build-and-broadcast/broadcasttransaction.md) 或 [`/wallet/broadcasthex`](tx-build-and-broadcast/broadcasthex.md) 广播。
+- **`visible`**：`true` 时，指定的地址 bytes 字段使用 base58check，指定的文本 bytes 字段（如 URL、描述）在内容为有效 UTF-8 时输出文本，否则仍输出 hex；`false`（默认）时，这些 bytes 字段使用 hex。原生 protobuf `string` 字段始终输出 JSON 文本，包括权限名称以及 `TransactionApprovedList.Result` / `TransactionSignWeight.Result` 中的消息。具体受影响的字段请参见各接口文档。
+- **构造类接口**返回未签名交易，可能直接返回 `protocol.Transaction`，也可能将交易嵌套在带有独立 `result` 的 `TransactionExtention` 响应中（例如 `/wallet/triggersmartcontract`）。请按接口的响应结构提取交易，在本地签名后通过 [`/wallet/broadcasttransaction`](tx-build-and-broadcast/broadcasttransaction.md) 或 [`/wallet/broadcasthex`](tx-build-and-broadcast/broadcasthex.md) 广播。
 - **`Permission_id`**：交易构造接口可选；用于多签账户指定使用哪个 `Permission`。字段名区分大小写。
 - **金额单位**：除 TRC-10 数量按发行精度外，其他金额一律为 sun（1 TRX = 1e6 sun）。
 - **`int64_as_string`**：GET 请求可在 URL 查询参数中添加 `int64_as_string=true`。启用后，protobuf JSON 响应中的 int64 / uint64 字段会序列化为 JSON 字符串，避免 JavaScript 等客户端出现精度损失。该参数只对 GET 请求生效，不影响 POST 请求体。
@@ -60,10 +60,10 @@ Catalog ID 和重试分类由 `openapi.yaml` 的 `x-tron-error-model` 定义。�
 | `RETURN_DUP_TRANSACTION_ERROR` | `$.code` 或 `$.result.code` = `DUP_TRANSACTION_ERROR` | 节点已知该交易。 | 否 | `VERIFY_BEFORE_RETRY` | 先按 txid 查询，再决定是否需要新交易。 |
 | `RETURN_TAPOS_ERROR` | `$.code` 或 `$.result.code` = `TAPOS_ERROR` | 交易引用的区块无效或过旧。 | 否 | `AFTER_REQUEST_REBUILD` | 使用较新的引用区块重构并重新签名。 |
 | `RETURN_TOO_BIG_TRANSACTION_ERROR` | `$.code` 或 `$.result.code` = `TOO_BIG_TRANSACTION_ERROR` | 交易过大。 | 否 | `AFTER_REQUEST_REBUILD` | 缩小或拆分交易后重新提交。 |
-| `RETURN_TRANSACTION_EXPIRATION_ERROR` | `$.code` 或 `$.result.code` = `TRANSACTION_EXPIRATION_ERROR` | 交易已过期。 | 否 | `AFTER_REQUEST_REBUILD` | 使用新的 expiration 重构并重新签名。 |
+| `RETURN_TRANSACTION_EXPIRATION_ERROR` | `$.code` 或 `$.result.code` = `TRANSACTION_EXPIRATION_ERROR` | 交易过期时间早于下一个出块时隙、不晚于头块时间，或超过头块时间 24 小时。 | 否 | `AFTER_REQUEST_REBUILD` | 将 expiration 设在允许的时间范围内，重构交易并重新签名。 |
 | `RETURN_SERVER_BUSY` | `$.code` 或 `$.result.code` = `SERVER_BUSY` | 节点待处理交易过多。 | 是 | `SAFE_WITH_BACKOFF` | 使用带抖动的指数退避自动重试，或使用其它健康节点。 |
-| `RETURN_NO_CONNECTION` | `$.code` 或 `$.result.code` = `NO_CONNECTION` | 节点没有活跃对等连接。 | 是 | `SAFE_WITH_BACKOFF` | 等待连接恢复后退避重试，或使用其它已连接节点。 |
-| `RETURN_NOT_ENOUGH_EFFECTIVE_CONNECTION` | `$.code` 或 `$.result.code` = `NOT_ENOUGH_EFFECTIVE_CONNECTION` | 节点的有效对等连接过少。 | 是 | `SAFE_WITH_BACKOFF` | 等待有效对等连接恢复后退避重试，或使用其它节点。 |
+| `RETURN_NO_CONNECTION` | `$.code` 或 `$.result.code` = `NO_CONNECTION` | 当 `node.rpc.minEffectiveConnection` 非零（默认值：`1`）时，节点没有活跃对等连接。 | 是 | `SAFE_WITH_BACKOFF` | 等待连接恢复后退避重试，或使用其它已连接节点。 |
+| `RETURN_NOT_ENOUGH_EFFECTIVE_CONNECTION` | `$.code` 或 `$.result.code` = `NOT_ENOUGH_EFFECTIVE_CONNECTION` | 当 `node.rpc.minEffectiveConnection` 非零（默认值：`1`）时，节点有效对等连接过少，或 P2P 广播未到达任何对等节点。 | 是 | `SAFE_WITH_BACKOFF` | 等待有效对等连接恢复后退避重试，或使用其它节点。 |
 | `RETURN_BLOCK_UNSOLIDIFIED` | `$.code` 或 `$.result.code` = `BLOCK_UNSOLIDIFIED` | 节点暂时处于未固化区块状态。 | 是 | `SAFE_WITH_BACKOFF` | 等待区块固化后退避重试，或使用其它已同步节点。 |
 | `RETURN_OTHER_ERROR` | `$.code` 或 `$.result.code` = `OTHER_ERROR` | Return 响应报告未分类失败。 | 否 | `UNKNOWN` | 检查 message；如无更具体的瞬时原因，不得自动重试。 |
 | `SIGN_WEIGHT_NOT_ENOUGH_PERMISSION` | `$.result.code` = `NOT_ENOUGH_PERMISSION` | 累计签名权重不足。 | 否 | `AFTER_REQUEST_REBUILD` | 在再次尝试前，为所选权限补充有效签名。 |
@@ -85,7 +85,7 @@ Catalog ID 和重试分类由 `openapi.yaml` 的 `x-tron-error-model` 定义。�
 | [`/wallet/getaccountbalance`](account/getaccountbalance.md) | 查询账户在指定区块的余额 |
 | [`/wallet/getaccountnet`](account/getaccountnet.md) | 查询账户带宽资源 |
 | [`/wallet/getaccountresource`](account/getaccountresource.md) | 查询账户带宽+能量+TronPower |
-| [`/wallet/createaccount`](account/createaccount.md) | 链上创建账户（需消耗 1 TRX） |
+| [`/wallet/createaccount`](account/createaccount.md) | 构造创建账户的交易；执行时会额外收取由 `getCreateNewAccountFeeInSystemContract` 决定的账户创建费用（当前主网值为 1,000,000 sun，即 1 TRX）。 |
 | [`/wallet/updateaccount`](account/updateaccount.md) | 修改账户名 |
 | [`/wallet/accountpermissionupdate`](account/accountpermissionupdate.md) | 配置多签权限 |
 | [`/wallet/validateaddress`](account/validateaddress.md) | 校验地址合法性 |
@@ -115,7 +115,7 @@ Catalog ID 和重试分类由 `openapi.yaml` 的 `x-tron-error-model` 定义。�
 |---|---|
 | [`/wallet/createtransaction`](tx-build-and-broadcast/createtransaction.md) | 构造 TRX 转账交易 |
 | [`/wallet/getsignweight`](tx-build-and-broadcast/getsignweight.md) | 查询多签当前权重 |
-| [`/wallet/getapprovedlist`](tx-build-and-broadcast/getapprovedlist.md) | 查询多签已签署地址 |
+| [`/wallet/getapprovedlist`](tx-build-and-broadcast/getapprovedlist.md) | 所有签名验证通过后，返回签名地址列表 |
 | [`/wallet/broadcasttransaction`](tx-build-and-broadcast/broadcasttransaction.md) | 广播签名后的交易（JSON） |
 | [`/wallet/broadcasthex`](tx-build-and-broadcast/broadcasthex.md) | 广播签名后的交易（hex） |
 
@@ -187,7 +187,7 @@ Catalog ID 和重试分类由 `openapi.yaml` 的 `x-tron-error-model` 定义。�
 | 接口 | 说明 |
 |---|---|
 | [`/wallet/freezebalancev2`](stake-v2/freezebalancev2.md) | 冻结 TRX 获取资源 |
-| [`/wallet/unfreezebalancev2`](stake-v2/unfreezebalancev2.md) | 发起解冻（14 天等待） |
+| [`/wallet/unfreezebalancev2`](stake-v2/unfreezebalancev2.md) | 发起解冻；等待期由 `UNFREEZE_DELAY_DAYS` 决定 |
 | [`/wallet/withdrawexpireunfreeze`](stake-v2/withdrawexpireunfreeze.md) | 提取已到期解冻 |
 | [`/wallet/cancelallunfreezev2`](stake-v2/cancelallunfreezev2.md) | 取消所有未到期解冻 |
 | [`/wallet/delegateresource`](stake-v2/delegateresource.md) | 资源代理给他人 |

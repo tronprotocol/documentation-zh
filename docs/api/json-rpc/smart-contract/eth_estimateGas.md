@@ -60,7 +60,7 @@ energy 用量的 hex 编码：
 | `to` 为空，且解析后的 calldata 缺失、为 `""` 或为 `"0x"`（`input` 非 null 时优先于 `data`） | `-32600` | `invalid json request` |
 | `to` 不是合约且 `value` 未传 | `-32600` | `invalid json request: invalid value` |
 | 合约校验失败（`ContractValidateException`） | `-32600` | 透传 message（fallback `invalid contract`） |
-| EVM 执行 `REVERT` | `-32000` | message + 解析后的 revert string；`error.data` 携带原始 revert hex |
+| EVM 执行 `REVERT` | `-32000` | 执行信息；只有 `Error(string)` 原因可解码、非空，且其 ABI 数据不超过 4096 字节时，才会追加该原因。非空 revert 数据以 hex 形式返回在 `error.data` 中；没有数据时，`error.data` 使用默认字符串 `"{}"` |
 | `input` 不是严格 hex | `-32602` | 透传 `JsonRpcApiUtil.requireValidHex` 校验信息 |
 | `data` 不是合法的宽松 hex | `-32602` | 透传 `JsonRpcApiUtil.requireValidHex` 校验信息 |
 | 普通转账路径上的 `value` 不是合法的非负 hex long | `-32602` | `invalid param value: invalid hex number` 或 `invalid param value: negative` |

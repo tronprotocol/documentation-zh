@@ -14,10 +14,12 @@
 | `receiver_address` | string | 是 | 接收方地址 |
 | `balance` | int64 | 是 | 代理对应的冻结量（sun） |
 | `resource` | enum | 否 | `BANDWIDTH` / `ENERGY` |
-| `lock` | bool | 否 | 是否锁定代理（true 时不可中途撤销） |
-| `lock_period` | int64 | 否 | 锁定时长（块数，仅 lock=true） |
+| `lock` | bool | 否 | 是否锁定代理；默认为 `false`。为 `true` 时，锁定期结束前不能撤销代理 |
+| `lock_period` | int64 | 否 | `lock=true` 时的锁定时长，以区块数计；省略或为 `0` 时使用 `86_400` 个区块（3 天）。代理要求 #70 `UNFREEZE_DELAY_DAYS` > `0`；自定义锁定期还要求 #78 `MAX_DELEGATE_LOCK_PERIOD` > `86_400` |
 | `Permission_id` | int32 | 否 | 多签权限 ID |
 | `visible` | bool | 否 | 地址格式 |
+
+当 `lock=true` 且已启用自定义锁定期时，`lock_period` 必须非负且不能超过 #78 `MAX_DELEGATE_LOCK_PERIOD` 的值。当 `lock=true` 且未启用自定义锁定期时，`lock_period` 会被忽略，使用默认的 3 天。
 
 示例：
 
@@ -67,10 +69,10 @@ curl --request POST \
         "type": "DelegateResourceContract"
       }
     ],
-    "ref_block_bytes": "<构造时最新固化块>",
-    "ref_block_hash":  "<构造时最新固化块>",
-    "expiration":      "<timestamp + 60_000>",
-    "timestamp":       "<构造时刻>"
+    "ref_block_bytes": "<由 trx.reference.block 选择的参考区块；默认：solid>",
+    "ref_block_hash":  "<由 trx.reference.block 选择的参考区块；默认：solid>",
+    "expiration":      "<头块时间戳 + trx.expiration.timeInMilliseconds（默认间隔：60_000 ms）>",
+    "timestamp":       "<构造时的系统时间>"
   },
   "raw_data_hex": "<raw_data 的 protobuf 编码>"
 }
@@ -93,7 +95,7 @@ curl --request POST \
 | `receiver_address` 非法 | `{"Error": "... : Invalid receiverAddress"}` |
 | `receiver_address == owner_address` | `{"Error": "... : receiverAddress must not be the same as ownerAddress"}` |
 | receiver 账户不存在 | `{"Error": "... : Account[<address>] not exists"}` |
-| `lock_period` 越界（提案 #76 之后） | `{"Error": "... : The lock period of delegate resource cannot be less than 0 and cannot exceed <max>!"}` |
+| `lock=true` 且链参数 #78 `MAX_DELEGATE_LOCK_PERIOD` 启用自定义锁定期时，实际采用的 `lock_period` 超出范围 | `{"Error": "... : The lock period of delegate resource cannot be less than 0 and cannot exceed <max>!"}` |
 | 已锁定代理仍在锁定期，新锁定期更短 | `{"Error": "... : The lock period for <Resource> this time cannot be less than the remaining time[<n>ms] of the last lock period for <Resource>!"}` |
 | receiver 是合约地址 | `{"Error": "... : Do not allow delegate resources to contract addresses"}` |
 | 其他异常 | `{"Error": "<exceptionClass> : <message>"}` |
