@@ -3744,7 +3744,7 @@
 
 
 <h1 id="walletgetpaginatednowwitnesslist">/wallet/getpaginatednowwitnesslist<a class="headerlink" href="#walletgetpaginatednowwitnesslist" title="Permanent link">&para;</a></h1>
-<p>按分页获取当前生效的 SR 列表。</p>
+<p>分页查询所有 SR 候选人，按当前总票数排序。总票数包含当前周期的投票变化；结果不限于 27 位活跃 SR，也不限于 <code>isJobs=true</code> 的候选人。</p>
 <ul>
 <li>源码：<code>framework/src/main/java/org/tron/core/services/http/GetPaginatedNowWitnessListServlet.java</code></li>
 <li>Method：<code>GET</code> / <code>POST</code></li>
@@ -3783,14 +3783,14 @@
 <td>GET</td>
 <td>int64</td>
 <td>是</td>
-<td>分页大小；缺失时执行 <code>Long.parseLong(null)</code> 并失败</td>
+<td>分页大小，上限为 1000；缺失时执行 <code>Long.parseLong(null)</code> 并失败</td>
 </tr>
 <tr>
 <td><code>limit</code></td>
 <td>POST</td>
 <td>int64</td>
 <td>否</td>
-<td>分页大小；Protobuf 默认值为 <code>0</code>，此时返回空列表</td>
+<td>分页大小，上限为 1000；Protobuf 默认值为 <code>0</code>，此时返回 <code>{}</code></td>
 </tr>
 <tr>
 <td><code>visible</code></td>
@@ -3814,7 +3814,8 @@
 <span class="s1">&#39;</span>
 </code></pre></div>
 <h2 id="_2">响应<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
-<p>字段同 <a href="../listwitnesses/"><code>/wallet/listwitnesses</code></a>。</p>
+<p>字段同 <a href="../listwitnesses/"><code>/wallet/listwitnesses</code></a>，但在排序和分页前，<code>voteCount</code> 已包含当前周期的投票变化。<code>/wallet/listwitnesses</code> 返回的是已存储的票数。</p>
+<p><code>limit &lt;= 0</code>、<code>offset &lt; 0</code> 或偏移超出候选人列表时返回 <code>{}</code>。<code>limit</code> 大于 1000 时会自动按 1000 处理；下一页的偏移应增加实际返回的条目数。</p>
 <p>响应示例（Nile，limit=2；<code>voteCount</code>、<code>latestBlockNum</code>、<code>latestSlotNum</code> 等随时间变化）：</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">&quot;witnesses&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
@@ -3898,7 +3899,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年7月13日 08:18:30 UTC">2026年7月13日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年11月11日 04:16:33 UTC">2026年11月11日</span>
   </span>
 
     

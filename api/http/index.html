@@ -3997,8 +3997,8 @@
 <ul>
 <li><strong>Method</strong>：除少量纯查询接口同时支持 <code>GET</code>，多数 POST 接口仅接受 <code>POST</code>，请求体为 JSON。</li>
 <li><strong>GET / POST 边界</strong>：同时支持两种方法的接口会在请求表和异常表中标明适用方法。GET 通常从 URL 查询参数读取，POST 通常读取 JSON 请求体；如果 POST 复用查询参数或忽略请求体，对应接口页面会单独说明。</li>
-<li><strong><code>visible</code></strong>：<code>true</code> 时地址使用 base58check 字符串形式，URL/描述等文本字段使用 UTF-8 字符串；<code>false</code>（默认）时使用 hex 字符串。</li>
-<li><strong>构造类接口</strong>返回未签名的 <code>protocol.Transaction</code>，需调用方本地签名后通过 <a href="tx-build-and-broadcast/broadcasttransaction/"><code>/wallet/broadcasttransaction</code></a> 或 <a href="tx-build-and-broadcast/broadcasthex/"><code>/wallet/broadcasthex</code></a> 广播。</li>
+<li><strong><code>visible</code></strong>：<code>true</code> 时，指定的地址 bytes 字段使用 base58check，指定的文本 bytes 字段（如 URL、描述）在内容为有效 UTF-8 时输出文本，否则仍输出 hex；<code>false</code>（默认）时，这些 bytes 字段使用 hex。原生 protobuf <code>string</code> 字段始终输出 JSON 文本，包括权限名称以及 <code>TransactionApprovedList.Result</code> / <code>TransactionSignWeight.Result</code> 中的消息。具体受影响的字段请参见各接口文档。</li>
+<li><strong>构造类接口</strong>返回未签名交易，可能直接返回 <code>protocol.Transaction</code>，也可能将交易嵌套在带有独立 <code>result</code> 的 <code>TransactionExtention</code> 响应中（例如 <code>/wallet/triggersmartcontract</code>）。请按接口的响应结构提取交易，在本地签名后通过 <a href="tx-build-and-broadcast/broadcasttransaction/"><code>/wallet/broadcasttransaction</code></a> 或 <a href="tx-build-and-broadcast/broadcasthex/"><code>/wallet/broadcasthex</code></a> 广播。</li>
 <li><strong><code>Permission_id</code></strong>：交易构造接口可选；用于多签账户指定使用哪个 <code>Permission</code>。字段名区分大小写。</li>
 <li><strong>金额单位</strong>：除 TRC-10 数量按发行精度外，其他金额一律为 sun（1 TRX = 1e6 sun）。</li>
 <li><strong><code>int64_as_string</code></strong>：GET 请求可在 URL 查询参数中添加 <code>int64_as_string=true</code>。启用后，protobuf JSON 响应中的 int64 / uint64 字段会序列化为 JSON 字符串，避免 JavaScript 等客户端出现精度损失。该参数只对 GET 请求生效，不影响 POST 请求体。</li>
@@ -4136,10 +4136,10 @@
 <tr>
 <td><code>RETURN_TRANSACTION_EXPIRATION_ERROR</code></td>
 <td><code>$.code</code> 或 <code>$.result.code</code> = <code>TRANSACTION_EXPIRATION_ERROR</code></td>
-<td>交易已过期。</td>
+<td>交易过期时间早于下一个出块时隙、不晚于头块时间，或超过头块时间 24 小时。</td>
 <td>否</td>
 <td><code>AFTER_REQUEST_REBUILD</code></td>
-<td>使用新的 expiration 重构并重新签名。</td>
+<td>将 expiration 设在允许的时间范围内，重构交易并重新签名。</td>
 </tr>
 <tr>
 <td><code>RETURN_SERVER_BUSY</code></td>
@@ -4152,7 +4152,7 @@
 <tr>
 <td><code>RETURN_NO_CONNECTION</code></td>
 <td><code>$.code</code> 或 <code>$.result.code</code> = <code>NO_CONNECTION</code></td>
-<td>节点没有活跃对等连接。</td>
+<td>当 <code>node.rpc.minEffectiveConnection</code> 非零（默认值：<code>1</code>）时，节点没有活跃对等连接。</td>
 <td>是</td>
 <td><code>SAFE_WITH_BACKOFF</code></td>
 <td>等待连接恢复后退避重试，或使用其它已连接节点。</td>
@@ -4160,7 +4160,7 @@
 <tr>
 <td><code>RETURN_NOT_ENOUGH_EFFECTIVE_CONNECTION</code></td>
 <td><code>$.code</code> 或 <code>$.result.code</code> = <code>NOT_ENOUGH_EFFECTIVE_CONNECTION</code></td>
-<td>节点的有效对等连接过少。</td>
+<td>当 <code>node.rpc.minEffectiveConnection</code> 非零（默认值：<code>1</code>）时，节点有效对等连接过少，或 P2P 广播未到达任何对等节点。</td>
 <td>是</td>
 <td><code>SAFE_WITH_BACKOFF</code></td>
 <td>等待有效对等连接恢复后退避重试，或使用其它节点。</td>
@@ -4291,7 +4291,7 @@
 </tr>
 <tr>
 <td><a href="account/createaccount/"><code>/wallet/createaccount</code></a></td>
-<td>链上创建账户（需消耗 1 TRX）</td>
+<td>构造创建账户的交易；执行时会额外收取由 <code>getCreateNewAccountFeeInSystemContract</code> 决定的账户创建费用（当前主网值为 1,000,000 sun，即 1 TRX）。</td>
 </tr>
 <tr>
 <td><a href="account/updateaccount/"><code>/wallet/updateaccount</code></a></td>
@@ -4393,7 +4393,7 @@
 </tr>
 <tr>
 <td><a href="tx-build-and-broadcast/getapprovedlist/"><code>/wallet/getapprovedlist</code></a></td>
-<td>查询多签已签署地址</td>
+<td>所有签名验证通过后，返回签名地址列表</td>
 </tr>
 <tr>
 <td><a href="tx-build-and-broadcast/broadcasttransaction/"><code>/wallet/broadcasttransaction</code></a></td>
@@ -4629,7 +4629,7 @@
 </tr>
 <tr>
 <td><a href="stake-v2/unfreezebalancev2/"><code>/wallet/unfreezebalancev2</code></a></td>
-<td>发起解冻（14 天等待）</td>
+<td>发起解冻；等待期由 <code>UNFREEZE_DELAY_DAYS</code> 决定</td>
 </tr>
 <tr>
 <td><a href="stake-v2/withdrawexpireunfreeze/"><code>/wallet/withdrawexpireunfreeze</code></a></td>
@@ -4720,7 +4720,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年10月9日 03:57:28 UTC">2026年10月9日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年11月11日 04:16:33 UTC">2026年11月11日</span>
   </span>
 
     

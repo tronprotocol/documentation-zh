@@ -3836,11 +3836,10 @@
 <p>存在 V1 代理对手时的响应：</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">&quot;account&quot;</span><span class="p">:</span><span class="w">      </span><span class="s2">&quot;41dd791d6b49e190062d650e6a23c575510d35f2f9&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;fromAccounts&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span>
 <span class="w">  </span><span class="nt">&quot;toAccounts&quot;</span><span class="p">:</span><span class="w">   </span><span class="p">[</span><span class="s2">&quot;4192ad11c1bf16b3b14b0bd6b5c7e2db73a0b5e83a&quot;</span><span class="p">]</span>
 <span class="p">}</span>
 </code></pre></div>
-<p>完全无记录时返回 <code>{}</code>。</p>
+<p>对于任意 21 字节的查询地址，即使没有代理记录，响应仍包含 <code>account</code>。空的 <code>fromAccounts</code> / <code>toAccounts</code> 列表会被省略。地址为空或解码后长度不是 21 字节时，接口返回 <code>{}</code>。</p>
 <h3 id="_3">异常响应<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -3859,7 +3858,7 @@
 <tr>
 <td>GET / POST</td>
 <td><code>value</code> 不是合法 base58check（<code>visible=true</code>）</td>
-<td>含非 base58 字符抛 <code>{"Error": "class java.lang.IllegalArgumentException : &lt;详情&gt;"}</code>；仅校验位错误时 <code>Util.getHexAddress</code> 静默返回 null → 查询不到记录返回 <code>{}</code>（GET、POST 行为一致，POST 在 merge 前先做 base58 → hex 转换）</td>
+<td>仅当输入恰好为 34 个字符时，非 base58 字符才会抛出 <code>{"Error": "class java.lang.IllegalArgumentException : &lt;详情&gt;"}</code>。输入长度错误、校验和错误或解码后的地址无效时，<code>Util.getHexAddress</code> 返回空 hex 字符串。转换后的地址未通过 21 字节长度检查，因此返回 <code>{}</code>（GET、POST 行为一致，POST 在 merge 前先做 base58 → hex 转换）</td>
 </tr>
 <tr>
 <td>GET / POST</td>
@@ -3898,7 +3897,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年7月14日 09:51:24 UTC">2026年7月14日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年11月11日 04:16:33 UTC">2026年11月11日</span>
   </span>
 
     

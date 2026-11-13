@@ -3818,12 +3818,12 @@
 <tr>
 <td><code>result</code></td>
 <td>bool</td>
-<td>是否进入交易池</td>
+<td>本次广播是否成功；<code>false</code> 是 protobuf 默认值，会在 JSON 中省略。交易进入交易池后，P2P 广播仍可能失败</td>
 </tr>
 <tr>
 <td><code>code</code></td>
 <td>enum</td>
-<td><code>SUCCESS</code> / <code>SIGERROR</code> / <code>CONTRACT_VALIDATE_ERROR</code> / <code>CONTRACT_EXE_ERROR</code> / <code>BANDWITH_ERROR</code> / <code>DUP_TRANSACTION_ERROR</code> / <code>TAPOS_ERROR</code> / <code>TOO_BIG_TRANSACTION_ERROR</code> / <code>TRANSACTION_EXPIRATION_ERROR</code> / <code>SERVER_BUSY</code> / <code>NO_CONNECTION</code> / <code>NOT_ENOUGH_EFFECTIVE_CONNECTION</code> / <code>BLOCK_UNSOLIDIFIED</code> / <code>OTHER_ERROR</code></td>
+<td><code>SUCCESS</code>（默认值，在 JSON 中省略） / <code>SIGERROR</code> / <code>CONTRACT_VALIDATE_ERROR</code> / <code>CONTRACT_EXE_ERROR</code> / <code>BANDWITH_ERROR</code> / <code>DUP_TRANSACTION_ERROR</code> / <code>TAPOS_ERROR</code> / <code>TOO_BIG_TRANSACTION_ERROR</code> / <code>TRANSACTION_EXPIRATION_ERROR</code> / <code>SERVER_BUSY</code> / <code>NO_CONNECTION</code> / <code>NOT_ENOUGH_EFFECTIVE_CONNECTION</code> / <code>BLOCK_UNSOLIDIFIED</code> / <code>OTHER_ERROR</code></td>
 </tr>
 <tr>
 <td><code>message</code></td>
@@ -3841,16 +3841,19 @@
 <p>响应示例：</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">&quot;result&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;SUCCESS&quot;</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">&quot;txid&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;d5ec749ecc2a615399d8a6c864ea4c74ff9f8453eaa44d6b1e2f0b7b3e2f3b6a&quot;</span>
 <span class="p">}</span>
 </code></pre></div>
+<p>protobuf JSON 解析器也接受将单个 hex 字符串作为 <code>signature</code>，并将其视为仅含一个元素的列表；非数组值不一定导致解析错误。正常请求请使用文档规定的数组形式。</p>
 <h3 id="_3">异常响应<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
-<p>业务级错误<strong>仍按上面的 <code>result/code/message</code> 形态返回</strong>，例如：</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"> </span><span class="nt">&quot;result&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;DUP_TRANSACTION_ERROR&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Dup transaction.&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;txid&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="w"> </span><span class="p">}</span>
-<span class="p">{</span><span class="w"> </span><span class="nt">&quot;result&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;SIGERROR&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;validateSignature error&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;txid&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="w"> </span><span class="p">}</span>
-<span class="p">{</span><span class="w"> </span><span class="nt">&quot;result&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;TAPOS_ERROR&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Tapos failed&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;txid&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="w"> </span><span class="p">}</span>
+<p>业务级错误使用 <code>code</code> / <code>message</code> / <code>txid</code> 返回；默认值 <code>result=false</code> 会被省略。以下示例假设 <code>visible=true</code>，因此消息以文本表示：</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"> </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;DUP_TRANSACTION_ERROR&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Dup transaction.&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;txid&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="w"> </span><span class="p">}</span>
 </code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"> </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;SIGERROR&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Validate signature error: &lt;详情&gt;&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;txid&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"> </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;TAPOS_ERROR&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Tapos check error.&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;txid&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div>
+<p>当 <code>visible=false</code>（默认值）时，<code>message</code> 使用 hex 编码；例如 <code>Dup transaction.</code> 会变为 <code>447570207472616e73616374696f6e2e</code>。成功响应会省略默认值 <code>code=SUCCESS</code>。</p>
 <p><code>code</code> 含义：</p>
 <table>
 <thead>
@@ -3890,7 +3893,7 @@
 </tr>
 <tr>
 <td><code>TRANSACTION_EXPIRATION_ERROR</code></td>
-<td><code>expiration</code> 已过期</td>
+<td>过期时间早于下一个出块时隙、不晚于头块时间戳，或晚于头块时间戳超过 24 小时</td>
 </tr>
 <tr>
 <td><code>SERVER_BUSY</code></td>
@@ -3898,11 +3901,11 @@
 </tr>
 <tr>
 <td><code>NO_CONNECTION</code> / <code>NOT_ENOUGH_EFFECTIVE_CONNECTION</code></td>
-<td>节点对外连接不足，未广播</td>
+<td>当 <code>node.rpc.minEffectiveConnection</code> 非零（默认值为 <code>1</code>）时：没有活跃对等节点、已完成同步的对等节点数量不足，或 P2P 广播未送达任何对等节点</td>
 </tr>
 <tr>
 <td><code>BLOCK_UNSOLIDIFIED</code></td>
-<td>区块尚未固化（针对相关查询）</td>
+<td>启用未固化区块检查时，头块与已固化区块的高度差达到配置的 <code>maxUnsolidifiedBlocks</code> 阈值，因此拒绝广播</td>
 </tr>
 <tr>
 <td><code>OTHER_ERROR</code></td>
@@ -3910,7 +3913,7 @@
 </tr>
 </tbody>
 </table>
-<p>JSON 解析失败、<code>raw_data</code> 缺失或类型错等走 <code>Util.processError</code>：</p>
+<p>请求 JSON 或外层结构错误走 <code>Util.processError</code>；单个合约格式错误则可能在解析时被丢弃，具体如下：</p>
 <table>
 <thead>
 <tr>
@@ -3928,12 +3931,20 @@
 <td><code>{"Error": "class org.tron.json.JSONException : &lt;解析器信息&gt;"}</code></td>
 </tr>
 <tr>
-<td>缺少 <code>raw_data</code>、<code>raw_data.contract</code> 不是数组、<code>signature</code> 非数组或元素非 hex、<code>raw_data</code> 字段类型不符等</td>
-<td><code>{"Error": "class java.lang.NullPointerException : null"}</code>（<code>Util.packTransaction</code> 把 <code>JsonFormat$ParseException</code> / <code>ClassCastException</code> 静默捕获后返回 <code>null</code>，下游构造 <code>TransactionCapsule(null)</code> 触发空指针）</td>
+<td><code>raw_data</code> / <code>raw_data.contract</code> 缺失或为 null</td>
+<td>访问缺失的对象或数组时返回 <code>{"Error": "class java.lang.NullPointerException : &lt;message&gt;"}</code></td>
+</tr>
+<tr>
+<td><code>raw_data</code> 不是对象，或 <code>raw_data.contract</code> 不是数组（不包括能解析为所需结构的 JSON 字符串）</td>
+<td><code>{"Error": "class org.tron.json.JSONException : &lt;message&gt;"}</code>，例如 <code>Field 'contract' is not an array</code></td>
+</tr>
+<tr>
+<td>签名 hex 非法，或 <code>raw_data</code> 中的字段值无法由 <code>JsonFormat.merge</code> 解码</td>
+<td><code>packTransaction</code> 捕获最终的 <code>JsonFormat$ParseException</code> 并返回 <code>null</code>，下游操作随后返回 <code>{"Error": "class java.lang.NullPointerException : &lt;message&gt;"}</code></td>
 </tr>
 <tr>
 <td><code>raw_data.contract[i].parameter.value</code> 内字段类型不符</td>
-<td>该 contract 在 <code>packTransaction</code> 内部被 catch 并丢弃，最终广播为空 contract 列表，返回 <code>{"code": "CONTRACT_VALIDATE_ERROR", "message": "&lt;\"No contract!\" 的 hex&gt;", ...}</code></td>
+<td>有问题的合约会在 <code>packTransaction</code> 内被捕获并丢弃。若解析后没有剩余合约，且通过广播前置检查，响应包含 <code>code: "CONTRACT_VALIDATE_ERROR"</code>，<code>message</code> 为 <code>Contract validate error : No contract!</code> 的编码结果（默认为 hex；<code>visible=true</code> 时为文本）</td>
 </tr>
 <tr>
 <td>其他异常</td>
@@ -3961,7 +3972,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年7月30日 03:07:04 UTC">2026年7月30日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年11月11日 04:16:33 UTC">2026年11月11日</span>
   </span>
 
     

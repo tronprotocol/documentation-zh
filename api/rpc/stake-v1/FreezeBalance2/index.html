@@ -3707,7 +3707,7 @@
 <p><strong>链上已禁用</strong>：提案 #70 <code>UNFREEZE_DELAY_DAYS</code> 通过后（主网已生效），<code>FreezeBalanceActuator.validate()</code> 会直接抛出 <code>freeze v2 is open, old freeze is closed</code>，新请求一律失败。请改用 <a href="../../stake-v2/FreezeBalanceV2/"><code>FreezeBalanceV2</code></a>。</p>
 <p>注：方法名末尾的 <code>2</code> 是 proto 历史命名后缀（返回 <code>TransactionExtention</code>），与 Stake 2.0 的 <code>FreezeBalanceV2</code> 不是同一个方法。</p>
 </blockquote>
-<p>冻结 TRX 获取带宽或能量，可代理给他人。冻结期最少 3 天。</p>
+<p>冻结 TRX 获取带宽或能量，可代理给他人。在设置了 <code>block.checkFrozenTime=1</code> 的节点上，冻结期必须恰好为 3 天。</p>
 <ul>
 <li>服务：仅支持 <code>Wallet</code></li>
 </ul>
@@ -3734,7 +3734,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年4月30日 07:36:44 UTC">2026年4月30日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年11月11日 04:16:33 UTC">2026年11月11日</span>
   </span>
 
     

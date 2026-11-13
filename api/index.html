@@ -3757,13 +3757,13 @@
 <td>基于 HTTP/2 长连接，protobuf 编码，客户端代码可由 <code>.proto</code> 自动生成，无需手写网络层</td>
 </tr>
 <tr>
-<td>复用以太坊生态工具（web3.js、ethers.js、MetaMask、Hardhat、Foundry 等）</td>
+<td>通过 web3.js、ethers.js 等客户端进行以太坊风格的查询和合约调用</td>
 <td><strong>JSON-RPC 接口</strong></td>
-<td>实现了 <code>eth_*</code> / <code>net_*</code> / <code>web3_*</code> 方法集，EVM 工具可直接使用</td>
+<td>支持部分 <code>eth_*</code> / <code>net_*</code> / <code>web3_*</code> 方法</td>
 </tr>
 </tbody>
 </table>
-<p>如果暂时无法决定：先从 <strong>HTTP 接口</strong> 入手。它部署成本最低，方法覆盖最广。仅当目标是兼容 EVM 工具时改用 JSON-RPC；只有在性能分析显示 HTTP 通路是瓶颈时才切换到 gRPC。</p>
+<p>如果暂时无法决定：先从 <strong>HTTP 接口</strong> 入手。它部署成本最低，方法覆盖最广。如果 JSON-RPC 支持的以太坊风格查询和调用适合你的客户端，可以使用 JSON-RPC；当性能分析显示 HTTP 通路是瓶颈时，再考虑 gRPC。</p>
 <p>注意事项：</p>
 <ul>
 <li>三套 API 连接的是同一份底层数据库。选哪一套并不会限制可读取的数据，只会限制可用的方法名和数据结构。</li>
@@ -3796,7 +3796,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年9月24日 13:37:29 UTC">2026年9月24日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年11月11日 04:16:33 UTC">2026年11月11日</span>
   </span>
 
     
