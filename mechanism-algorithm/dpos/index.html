@@ -4047,9 +4047,8 @@
 
 <h1 id="tron-dpos">TRON DPoS 共识机制<a class="headerlink" href="#tron-dpos" title="Permanent link">&para;</a></h1>
 <h2 id="_1">概述<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<p>区块链作为一种分布式账本系统，拥有遍布全球的数千甚至上万个独立节点，它们各自维护一份相同的账本副本。要将新的交易数据写入这个共享账本，必须获得这些节点的普遍认可。在固有的不可信分布式环境中实现这一目标，是一个复杂的系统工程。</p>
-<p>区块链系统能够正常运行（即所有节点能够持续维护一份一致的账本），前提是系统中绝大多数节点是诚实可靠的。为了确保诚实节点能够共同监督交易数据的写入，每个区块链系统都需要建立自己的<strong>共识机制</strong>。</p>
-<p>共识机制就像区块链的“宪法”，它保证了即便在不可信的分布式环境下，只要绝大多数节点遵守共识规定，系统就能达成确定且可信的结果。因此，共识机制的意义在于，它使区块链中的诚实节点能够最终就账本内容达成一致。</p>
+<p>区块链作为一种分布式账本系统，可以由分布在不同地区的众多独立节点共同维护，它们各自保存账本副本，并通过网络同步数据。要将新的交易数据写入这个共享账本，节点需要按照共识规则验证交易，并就接受哪些区块达成一致。在部分参与者可能发生故障或实施恶意行为的分布式环境中实现这一目标，是一个复杂的系统工程。</p>
+<p><strong>共识机制</strong>定义了达成这种一致所需遵循的规则。不同共识机制对参与方式和达成一致的要求各不相同。</p>
 <p>目前主流的共识机制包括工作量证明（PoW）、权益证明（PoS）和委托权益证明（DPoS）。每种机制在不同的区块链系统中都有其独特的具体实现。本文将重点介绍 <strong>TRON 网络</strong> 所采用的 DPoS 共识机制，并详细阐述其核心组件和运作原理。</p>
 <h3 id="dpos">DPoS 共识机制<a class="headerlink" href="#dpos" title="Permanent link">&para;</a></h3>
 <p>DPoS 共识机制在区块链系统中的核心作用是选举出<strong>超级代表（Super Representative，简称 SR）</strong>，即网络的指定区块生产者（或出块节点/Block Producer）。这些 SR 负责验证交易数据并将其记录到账本中，随后将包含新账目的区块广播至全网，并获得其他节点的认可。</p>
@@ -4089,7 +4088,7 @@
 </tr>
 <tr>
 <td>超级代表合伙人（Super Representative Partner / SRP）</td>
-<td>得票数排名第 <strong>28</strong> 至 <strong>127</strong> 名的超级代表候选人被称为<strong>超级代表合伙人</strong>。他们不参与区块生产或交易打包，但可以获得投票奖励。投票给超级代表合伙人的选民也将获得投票奖励。</td>
+<td>得票数排名第 <strong>28</strong> 至 <strong>127</strong> 名的超级代表候选人被称为<strong>超级代表合伙人</strong>。他们不参与区块生产或交易打包，但可以获得投票奖励。投票给超级代表合伙人的选民可以分享扣除该合伙人佣金后剩余的奖励。</td>
 </tr>
 <tr>
 <td>生产区块 / 记账</td>
@@ -4105,11 +4104,11 @@
 </tr>
 <tr>
 <td>出块轮（Epoch）</td>
-<td>TRON 设定每 <strong>6 小时</strong>为一个出块轮，称为一个 <strong>Epoch</strong>。在相邻两个出块轮的交界处，系统会执行一次<strong>维护期</strong>，以确定下一个出块轮的出块顺序。</td>
+<td>一个出块轮是相邻两次预定维护时间之间的间隔，当前主网设为 <strong>6 小时</strong>。该间隔可以通过<strong>链上提案</strong>调整。</td>
 </tr>
 <tr>
 <td>维护期</td>
-<td>在每个出块轮的交界处，系统会触发维护：统计本出块轮内累计的选票、重新选出 27 个 SR，并更新下一个出块轮的出块顺序。维护期间，产块会<strong>跳过 2 个槽位</strong>（<strong>6 秒钟</strong>），因此在该区间内不会产生新区块。由于 24 小时有 4 个出块轮，因此每天自然有 4 个维护期。</td>
+<td>当节点处理首个时间戳达到或超过预定维护时间的区块时，会触发维护。维护时会统计选票、重新选出 27 个 SR，并更新其出块顺序。在触发维护的区块之后，产块会<strong>跳过 2 个槽位</strong>（<strong>6 秒钟</strong>）。在当前主网维护间隔为 6 小时且正常出块的情况下，每天会进行 <strong>4 次维护</strong>。</td>
 </tr>
 </tbody>
 </table>
@@ -4127,7 +4126,9 @@
 <h2 id="_4">超级代表的选举机制<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
 <h3 id="_5">选票<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
 <p>在为 SR 投票之前，账户需要获得<strong>投票权</strong>，即 <strong>TRON Power (TP)</strong>。投票权通过<strong>质押 TRX</strong> 获得。除了获取带宽或能量，质押 TRX 还会同时为用户带来投票权。每质押 <strong>1 TRX</strong>，用户将获得 <strong>1 TP</strong>。</p>
-<p>账户在解除 TRX 质押后，会失去相应数量的 TP，并且其当前进行的投票也将失效。选票每 <strong>6 小时</strong>统计一次，超级代表和超级代表合伙人也会每 6 小时更新一次。如果在选票统计前，一个账户进行了多次投票，TRON 网络只会记录该账户的<strong>最新一次投票</strong>，之前的投票将被覆盖。</p>
+<p>解除通过 <strong>Stake 1.0</strong> 质押的 TRX，会清空该账户已有的全部投票。</p>
+<p>在 <strong>Stake 2.0</strong> 下，解除 TRX 质押会减少账户的 TP。如果剩余 TP 足以覆盖账户的总投票数，已有投票保持不变；否则，会以剩余 TP 为基数，按该账户原先分配给各候选人的票数比例重新计算各候选人的票数，并分别向下取整。因此，保留的总票数可能少于剩余 TP。</p>
+<p>选票统计以及超级代表和超级代表合伙人的更新在每个维护期进行，当前主网每 <strong>6 小时</strong>安排一次维护。如果在选票统计前，一个账户进行了多次投票，TRON 网络只会记录该账户的<strong>最新一次投票</strong>，之前的投票将被覆盖。</p>
 <h3 id="_6">投票过程<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
 <p>在 TRON 中，对候选人的投票被定义为一种特殊类型的<strong>交易</strong>。节点可以通过生成一笔投票交易来为候选人投票。</p>
 <h3 id="_7">统计选票<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
@@ -4145,13 +4146,18 @@
 </ol>
 <p><img alt="longest_chain1" src="https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/longest_chain1.png" />
 <img alt="longest_chain2" src="https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/images/longest_chain2.png" /></p>
-<p>如前文所述，区块链系统正常运行的基础是系统中绝大部分节点是诚实可靠的。进一步探讨这个问题，区块链系统安全的首要保证是账本的安全：账本既不能被恶意写入不合法数据，账本在各个节点上保存的副本也应该保持一致。从 DPoS 共识的角度来看，记账过程由超级代表完成，因此 TRON 的安全性取决于大多数超级代表的可靠性。</p>
+<p>区块链系统安全的首要保证是账本的安全：账本既不能被恶意写入不合法数据，账本在各个节点上保存的副本也应该保持一致。从 DPoS 共识的角度来看，记账过程由超级代表完成。在 TRON 的区块固化确认中，每个活跃超级代表的确认权重相同，因此，TRON 的安全性依赖于足够数量的活跃超级代表诚实可靠地遵守共识规则。</p>
 <p>TRON 设定了<strong>不可逆转区块</strong>（或称<strong>固化块</strong>）机制，同时为了抵抗少数 SR 的恶意行为，TRON 采用基于<strong>最长链原则</strong>来确认主链。</p>
 <h3 id="_9">固化块原则<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
-<p>新生产出的区块初始处于未确认状态。当一个区块被至少 <strong>70%</strong>（即 <span class="arithmatex"><span class="MathJax_Preview">27 \times 70\% \approx 19</span><script type="math/tex">27 \times 70\% \approx 19</script></span> 个，向上取整）的超级代表认可后，该区块被认为是<strong>不可逆区块</strong>，通常称为<strong>固化块</strong>。此时，固化块中包含的交易已被整个区块链网络确认。</p>
-<p>此处对未确认状态区块的“认可”方式是：其他超级代表在该区块之后生产后续区块。例如，如图 d 所示，当超级代表 C 生产了第 103 块后，超级代表 E 在第 103 块的基础上生产了第 104' 块，超级代表 G、A、B 分别生产了第 105'、106'、107' 块，这些实质上都是第 103 块的后续区块，因此也是对 C 生产的第 103 块的认可。由此可知，当高度为 121' 的区块被生产出来时，第 103 块就成为了固化块，因为它此时已经有了 18 个后续区块。需要强调的是：生产这 18 个区块的超级代表必须<strong>互不相同</strong>，并且与生产第 103 个区块的超级代表也<strong>不同</strong>，这样就保证这个区块获得了 19 个不同的 SR 的确认，19 个 SR 包括区块的生产者。</p>
+<p>新生产出的区块初始处于未确认状态。固化过程如下：</p>
+<ul>
+<li>当至少 <strong>70%</strong> 的<strong>当前活跃 SR</strong> 在当前链上最近生产的区块高度大于或等于目标区块的高度时，目标区块就成为<strong>不可逆区块</strong>，通常称为<strong>固化块</strong>。在有 27 个活跃 SR 的情况下，需要 <strong>19 个不同的 SR</strong> 满足这一条件。区块固化后，其中的交易即被整个网络永久确认。</li>
+<li>SR 通过生产目标区块本身，或在其基础上生产后续区块，来表示对该区块的认可。只有当前活跃集合中的 SR 才计入确认门槛，因此维护时活跃集合的变化可能改变哪些生产者被计入。活跃集合发生变化时，已记录的固化高度不会降低。</li>
+<li>当 27 个活跃 SR 的集合保持不变时，原区块生产者加上在目标区块基础上生产后续区块的<strong>另外 18 个互不相同的 SR</strong>，就足以使目标区块固化。同一 SR 重复出块不会增加不同 SR 的确认数。</li>
+</ul>
+<p>图 d 展示了一个由固定的 <strong>7 个 SR（A–G）</strong> 组成的简化网络。在这个示例中，70% 的门槛需要 <strong>5 个不同的 SR</strong> 确认。超级代表 C 生产了第 103 块，超级代表 E 在第 103 块的基础上生产了第 104' 块，超级代表 G、A、B 分别在同一分支上生产了第 105'、106'、107' 块。这些都是第 103 块的后续区块，表示其生产者对 C 生产的第 103 块的认可。因此，当第 <strong>107'</strong> 块被生产出来时，第 <strong>103 块就成为固化块</strong>，因为它此时已经有了由 4 个不同 SR 生产的 4 个后续区块。加上原区块生产者 C，共有 <strong>5 个不同的 SR 确认</strong>。</p>
 <h3 id="_10">最长链原则<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
-<p>当区块链发生分叉时，诚实的超级代表总是会选择在当前<strong>最长</strong>的分叉链上继续生产区块。</p>
+<p>当区块链发生分叉时，诚实的超级代表总是会选择在当前<strong>最长</strong>的分叉链上继续生产区块。仅仅收到另一条高度相同的分支，并不会触发链切换。</p>
 <h2 id="_11">激励模型<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h2>
 <p>为了保证 TRON 区块链系统安全高效地运行，TRON 设计了激励模型，以鼓励更多节点加入 TRON 网络，从而扩大网络规模。</p>
 <p>下方所列的奖励数额为通过链上提案调整后的<strong>当前主网值</strong>，并非协议硬编码，未来仍可通过提案再次调整（详见<a href="#proposal-based-parameter-adjustment">基于提案的参数调整</a>）。</p>
@@ -4161,7 +4167,7 @@
 </ul>
 <p><a id="proposal-based-parameter-adjustment"></a></p>
 <h2 id="_12">基于提案的参数调整<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h2>
-<p>DPoS 的一个重要特性是，任何系统参数的调整都可以通过<strong>链上提案</strong>发起。SR 通过对提案的投票来决定提案是否生效。这种机制的好处在于，在链上调整参数时，<strong>无需进行硬分叉升级</strong>。</p>
+<p>TRON 节点软件已支持的动态链参数可以通过<strong>链上提案</strong>调整。SR 通过对提案的投票来决定提案是否生效。</p>
 <p>目前 TRON 的网络参数及其值，以及过往的提案记录，请参考 <a href="https://tronscan.org/#/sr/committee">TRONSCAN 委员会</a> 页面。</p>
 <h2 id="_13">参考文档<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h2>
 <ul>
@@ -4187,7 +4193,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年6月12日 09:37:35 UTC">2026年6月12日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年11月12日 09:04:40 UTC">2026年11月12日</span>
   </span>
 
     

@@ -3764,7 +3764,7 @@
 <td><code>params[0]</code></td>
 <td>object</td>
 <td>是</td>
-<td><code>BuildArguments</code>（继承 <code>CallArguments</code>，字段见下）</td>
+<td><code>BuildArguments</code></td>
 </tr>
 </tbody>
 </table>
@@ -3846,12 +3846,12 @@
 <tr>
 <td><code>extraData</code></td>
 <td><code>""</code></td>
-<td>写入交易的备注数据</td>
+<td>仅用于 TRX / TRC-10 转账的备注数据；<code>visible=true</code> 时按普通文本解析，<code>visible=false</code> 时按 hex 解析</td>
 </tr>
 <tr>
 <td><code>visible</code></td>
 <td><code>false</code></td>
-<td>输出地址/字符串是否使用 base58/UTF-8</td>
+<td>输出地址是否使用 Base58Check，<code>asset_name</code> 等字段是否使用 UTF-8 文本；合约部署的输出始终使用 hex</td>
 </tr>
 </tbody>
 </table>
@@ -3873,11 +3873,11 @@
 <td><code>TriggerSmartContract</code></td>
 </tr>
 <tr>
-<td><code>to</code> 是普通账户 + <code>tokenId&gt;0</code> + <code>tokenValue&gt;0</code> + <code>value</code> 为空</td>
+<td><code>to</code> 是普通账户 + <code>tokenId&gt;0</code> + <code>tokenValue&gt;0</code> + <code>value</code> 为 null、<code>""</code> 或 <code>"0x0"</code></td>
 <td><code>TransferAssetContract</code></td>
 </tr>
 <tr>
-<td><code>to</code> 是普通账户 + <code>value</code> 非空</td>
+<td><code>to</code> 是普通账户 + <code>value</code> 非空 + 至少满足以下一项：<code>tokenId &lt;= 0</code>、<code>tokenValue &lt;= 0</code> 或 <code>value != "0x0"</code></td>
 <td><code>TransferContract</code></td>
 </tr>
 <tr>
@@ -3932,7 +3932,7 @@ curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </spa
 <span class="p">}</span>
 </code></pre></div>
 <blockquote>
-<p><code>ref_block_bytes</code> / <code>ref_block_hash</code> 取自构造时的最新块；<code>expiration</code> = <code>timestamp</code> + 60s；<code>txID</code> 是 <code>raw_data</code> 的 SHA256 hash，因此随上述字段变化，同一请求两次得到的 <code>txID</code> 不同。</p>
+<p><code>ref_block_bytes</code> / <code>ref_block_hash</code> 使用 <code>trx.reference.block</code> 选定的参考块（默认为 <code>solid</code>，可配置为 <code>head</code>）。<code>expiration</code> 为最新头块时间戳加上 <code>trx.expiration.timeInMilliseconds</code>（默认间隔为 60000 ms），交易的 <code>timestamp</code> 则为节点构造交易时的系统时间。<code>txID</code> 是序列化后 <code>raw_data</code> 的 SHA-256 hash，会随 <code>raw_data</code> 的变化而变化。</p>
 <p><code>feeLimit</code> = <code>gas × wallet.getEnergyFee()</code>，仅 <code>CreateSmartContract</code> / <code>TriggerSmartContract</code> 自动覆写到 <code>raw_data.fee_limit</code>；<code>TransferContract</code> / <code>TransferAssetContract</code> 不需要 feeLimit（上例 <code>raw_data</code> 中无 <code>fee_limit</code> 字段即此原因）。</p>
 </blockquote>
 <h3 id="_3">异常响应<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
@@ -4032,7 +4032,7 @@ curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </spa
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年9月29日 07:49:33 UTC">2026年9月29日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年11月11日 04:16:33 UTC">2026年11月11日</span>
   </span>
 
     

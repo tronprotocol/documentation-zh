@@ -3815,7 +3815,7 @@
 <td><code>extra_data</code></td>
 <td>string</td>
 <td>否</td>
-<td>交易备注（hex；<code>visible=true</code> 时为 UTF-8 文本）</td>
+<td>交易备注；<code>visible=true</code> 时为普通文本，<code>visible=false</code> 时为 hex</td>
 </tr>
 <tr>
 <td><code>Permission_id</code></td>
@@ -3870,12 +3870,12 @@
 <tr>
 <td><code>constant_result</code></td>
 <td>repeated bytes(hex)</td>
-<td>函数返回值的 ABI 编码 hex；<strong>revert 时是 revert reason 的 ABI 编码</strong>（前 4 字节 <code>08c379a0</code> = <code>Error(string)</code> 选择器）</td>
+<td>VM 返回的原始数据，以 hex 表示。成功时按函数返回值的 ABI 解码；revert 时可能包含 <code>Error(string)</code>、<code>Panic(uint256)</code> 或自定义错误的编码，也可能为空</td>
 </tr>
 <tr>
 <td><code>result</code></td>
 <td>Return</td>
-<td>结果状态；revert / <code>require</code> 失败时 <code>result.result=false</code>，<code>result.message</code> 含 <code>REVERT opcode executed</code> 或 <code>runtime error</code></td>
+<td>API 请求状态。模拟正常返回时（包括 revert），<code>result.result=true</code>；需查看 <code>transaction.ret[0].ret</code> 判断执行是否失败。存在 revert 或异常详情时，<code>result.message</code> 会携带这些信息</td>
 </tr>
 <tr>
 <td><code>energy_used</code></td>
@@ -3906,7 +3906,7 @@
 <ul>
 <li><strong>处理区块：</strong> 节点会按顺序执行区块内的交易，并同步更新账户、合约存储、资源和链参数。在此期间发起的模拟会使用节点当时可见的数据。</li>
 <li><strong>处理 Pending 交易：</strong> <code>/wallet</code> 提供最新状态视图。节点校验或重放 Pending 交易时，该视图可能包含节点本地更新，并随着交易被打包或新区块到达而继续变化。</li>
-<li><strong>其他 Constant Call：</strong> 通过 <code>/wallet</code> 和 <code>/walletsolidity</code> 发起的调用可能使用不同的提案状态和 TVM 规则。当不同执行上下文的调用同时进行时，极少数情况下，模拟可能反映节点当时正在应用的执行配置。</li>
+<li><strong>其他 Constant Call：</strong> <code>/wallet</code> 和 <code>/walletsolidity</code> 看到的提案激活状态可能不同。每次调用的 TVM 配置快照按线程隔离，但 constant call 共用一张可变的操作表。如果并发调用向这张表应用不同的设置，就可能影响彼此的模拟结果。</li>
 </ul>
 <p><code>constant_result</code>、<code>energy_used</code>、<code>logs</code> 和 <code>internal_transactions</code> 是本次模拟执行产生的结果。当模拟读取的状态或使用的 TVM 规则不同时，合约的执行路径可能发生变化，这些字段的返回值也可能随之不同。顶层 <code>result</code> 表示 API 调用状态，<code>transaction.ret[0].ret</code> 表示模拟的 TVM 执行结果。</p>
 <p>可根据需要选择接口：<code>/wallet</code> 提供最新状态视图，<code>/walletsolidity</code> 提供稍早但已固化的状态视图。准备交易时，可将模拟结果作为参考，并为随状态变化的 Energy 消耗预留余量；交易广播后，实际链上执行结果以交易回执为准。</p>
@@ -3952,7 +3952,7 @@
 <a href="../../../../using_javatron/configuration/#tvm-and-constant-call-configuration">TVM 与 constant call 配置</a>。</p>
 </blockquote>
 <h3 id="_3">异常响应<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
-<p>请求进入 servlet 后不会写出 <code>{"Error": ...}</code>。由 servlet 接管的异常会被 catch 后写入 <code>result.code</code> / <code>result.message</code>，HTTP 体仍是 <code>TransactionExtention</code>。注意：<strong>EVM revert / runtime 错误不走 <code>result.code</code> 路径</strong>，而是 <code>result.result=true</code>、<code>message</code> 写 revert/runtime 信息，失败标记落在 <code>transaction.ret[0].ret="FAILED"</code>。</p>
+<p>请求进入 servlet 后不会写出 <code>{"Error": ...}</code>。由 servlet 接管的异常会被 catch 后写入 <code>result.code</code> / <code>result.message</code>，HTTP 体仍是 <code>TransactionExtention</code>。发生 revert 时，<code>result.result=true</code>，<code>result.code</code> 仍为 <code>SUCCESS</code>（省略）；<code>result.message</code> 包含 <code>REVERT opcode executed</code>，<code>transaction.ret[0].ret="FAILED"</code> 表示执行失败。异常则走下表中的错误码分支。</p>
 <p>在请求进入此 servlet 前，共享层仍可能返回不同结构：请求体超限时，<code>SizeLimitHandler</code> 通常返回 HTTP 413 <code>Payload Too Large</code>；非阻塞限流拒绝则返回 HTTP 200 和 <code>{"Error":"class java.lang.IllegalAccessException : lack of computing resources"}</code>。</p>
 <table>
 <thead>
@@ -3984,17 +3984,10 @@
 <td>true</td>
 <td>缺省（<code>SUCCESS</code>，不出现）</td>
 <td><code>REVERT opcode executed</code></td>
-<td><code>transaction.ret[0].ret="FAILED"</code>；<code>constant_result[0]</code> 为 <code>Error(string)</code> 的 ABI 编码（合约带 reason 时）</td>
+<td><code>transaction.ret[0].ret="FAILED"</code>；<code>constant_result[0]</code> 包含原始 revert 数据，也可能为空</td>
 </tr>
 <tr>
-<td>EVM 运行时错误（OOG、非法指令等，无 <code>result.getException()</code>）</td>
-<td>true</td>
-<td>缺省（<code>SUCCESS</code>，不出现）</td>
-<td><code>result.getRuntimeError()</code> 原始字符串</td>
-<td>同上</td>
-</tr>
-<tr>
-<td><code>result.getException() != null</code>（如 <code>OutOfTimeException</code>）</td>
+<td>VM 顶层执行异常（例如能量不足、非法指令或超时）</td>
 <td>缺省 (false)</td>
 <td><code>OTHER_ERROR</code></td>
 <td><code>&lt;exceptionClass&gt; : &lt;message&gt;</code>（<code>"</code> → <code>'</code>）</td>
@@ -4009,7 +4002,7 @@
 </tr>
 </tbody>
 </table>
-<p>revert 时 <code>result.message</code> 不携带原 reason 字符串；reason 需自己解码 <code>constant_result[0]</code>：跳过前 4 字节选择器 <code>08c379a0</code>，按 ABI <code>string</code> 解码剩余数据。</p>
+<p>revert 时，<code>result.message</code> 包含通用的 <code>REVERT opcode executed</code> 文本。更多信息需查看 <code>constant_result[0]</code>。仅当前四个字节为 <code>08c379a0</code> 时，才应将其余字节按 <code>Error(string)</code> 的 ABI 参数解码。<code>Panic(uint256)</code> 或自定义错误应使用对应的选择器和 ABI 解码。revert 数据为空时，不包含编码后的原因。</p>
 
 
 
@@ -4030,7 +4023,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年9月18日 01:39:57 UTC">2026年9月18日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年11月11日 04:16:33 UTC">2026年11月11日</span>
   </span>
 
     

@@ -3744,7 +3744,7 @@
 
 
 <h1 id="walletgetreward">/wallet/getReward<a class="headerlink" href="#walletgetreward" title="Permanent link">&para;</a></h1>
-<p>查询账户可领取的投票分红（未提取）。</p>
+<p>查询账户可领取的奖励总额，单位为 sun。</p>
 <ul>
 <li>源码：<code>framework/src/main/java/org/tron/core/services/http/GetRewardServlet.java</code></li>
 <li>Method：<code>GET</code> / <code>POST</code></li>
@@ -3768,7 +3768,7 @@
 <td>GET / POST</td>
 <td>string</td>
 <td>否</td>
-<td>投票账户地址；省略或为空时返回 <code>reward: 0</code></td>
+<td>账户地址（投票者或 SR）；省略或为空时返回 <code>reward: 0</code></td>
 </tr>
 <tr>
 <td><code>visible</code></td>
@@ -3810,15 +3810,15 @@
 <tr>
 <td><code>reward</code></td>
 <td>int64</td>
-<td>单位 sun（1 TRX = 1e6 sun）</td>
+<td>可领取的奖励总额；单位 sun（1 TRX = 1e6 sun）</td>
 </tr>
 </tbody>
 </table>
-<p>响应示例（Nile，sr-15 当前累积分红，约 29994831 TRX）：</p>
+<p>响应示例（Nile，sr-15 当前累计奖励，约 29994831 TRX）：</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"> </span><span class="nt">&quot;reward&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">29994831460307</span><span class="w"> </span><span class="p">}</span>
 </code></pre></div>
 <blockquote>
-<p>注意：<code>address</code> 缺失或为空时不会报错；<code>reward</code> 为 <code>0</code>（GET 使用 <code>int64_as_string=true</code> 时为 <code>"0"</code>）。</p>
+<p>地址缺失或为空，以及 Base58Check 地址因长度、校验和或解码后地址不合法而被拒绝时，均返回零奖励。这与账户没有可领取奖励时的响应无法区分。使用结果前请先验证地址；解析器异常见下方错误表。</p>
 </blockquote>
 <p>使用 GET 请求并添加 <code>?int64_as_string=true</code> 时：</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"> </span><span class="nt">&quot;reward&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;29994831460307&quot;</span><span class="w"> </span><span class="p">}</span>
@@ -3841,8 +3841,13 @@
 </tr>
 <tr>
 <td>GET / POST</td>
-<td><code>address</code> 解析失败（非法 hex / base58）</td>
-<td><code>{"Error": "INVALID address, &lt;details&gt;"}</code></td>
+<td>Hex 解码抛出异常，或 Base58 解码抛出异常（例如长度符合要求的地址中含有非法字符）</td>
+<td><code>{"Error": "INVALID address, &lt;详情&gt;"}</code></td>
+</tr>
+<tr>
+<td>GET / POST</td>
+<td>Base58Check 地址长度或校验和错误，或解码后的地址不合法</td>
+<td><code>{"reward": 0}</code>（GET 使用 <code>int64_as_string=true</code> 时为 <code>{"reward": "0"}</code>）</td>
 </tr>
 <tr>
 <td>POST</td>
@@ -3876,7 +3881,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年7月13日 08:18:30 UTC">2026年7月13日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年11月11日 04:16:33 UTC">2026年11月11日</span>
   </span>
 
     

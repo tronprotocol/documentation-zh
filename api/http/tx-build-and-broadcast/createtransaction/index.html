@@ -3789,7 +3789,7 @@
 <td><code>extra_data</code></td>
 <td>string</td>
 <td>否</td>
-<td>写入 <code>raw_data.data</code>（hex；<code>visible=true</code> 时为 UTF-8）</td>
+<td>写入 <code>raw_data.data</code>；<code>visible=true</code> 时为普通文本，<code>visible=false</code> 时为 hex</td>
 </tr>
 <tr>
 <td><code>visible</code></td>
@@ -3840,7 +3840,7 @@
 <span class="p">}</span>
 </code></pre></div>
 <blockquote>
-<p>上述 <code>txID</code>、<code>ref_block_bytes</code> / <code>ref_block_hash</code>、<code>expiration</code>、<code>timestamp</code>、<code>raw_data_hex</code> 因构造时机而异：<code>ref_block_*</code> 取构造时最新固化块；<code>expiration = timestamp + 60_000</code>；<code>txID</code> 是 <code>raw_data</code> 的 SHA256；<code>raw_data_hex</code> 是 <code>raw_data</code> 的 protobuf 编码，签名以 <code>raw_data_hex</code> 为输入。其它构造类接口（<code>/wallet/triggersmartcontract</code>、<code>freezebalancev2</code>、<code>unfreezebalancev2</code> 等）的响应包含同样的 ephemeral 字段，语义一致，下文不再赘述。</p>
+<p>这些字段随构造时机变化。<code>ref_block_bytes</code> / <code>ref_block_hash</code> 由 <code>trx.reference.block</code> 决定：<code>solid</code>（默认值）选择最新固化块；包括 <code>head</code> 在内的其他值选择头块。<code>expiration</code> 为头块时间戳加上 <code>trx.expiration.timeInMilliseconds</code>（默认值为 <code>60_000</code> ms）。交易的 <code>timestamp</code> 独立记录构造时的系统时间。<code>raw_data_hex</code> 是 <code>raw_data</code> 的 protobuf 编码；<code>txID</code> 是该编码的 SHA256 哈希，签名针对这个哈希进行。其他交易构造接口使用相同的参考区块和时间戳规则。</p>
 </blockquote>
 <h3 id="_3">异常响应<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
 <table>
@@ -3896,7 +3896,7 @@
 <td><code>{"Error": "class org.tron.core.exception.ContractValidateException : Cannot transfer TRX to a smartContract which version is one. Instead please use TriggerSmartContract "}</code></td>
 </tr>
 <tr>
-<td>余额不足 <code>amount + fee</code>（收方为新账户时 <code>fee</code> 含 0.1 TRX 创建费）</td>
+<td>余额不足 <code>amount + fee</code>（接收方为新账户时，<code>fee</code> 包含链参数 <code>getCreateNewAccountFeeInSystemContract</code> 设定的账户创建费，单位为 sun）</td>
 <td><code>{"Error": "class org.tron.core.exception.ContractValidateException : Validate TransferContract error, balance is not sufficient."}</code></td>
 </tr>
 <tr>
@@ -3925,7 +3925,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年7月7日 02:56:40 UTC">2026年7月7日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年11月11日 04:16:33 UTC">2026年11月11日</span>
   </span>
 
     

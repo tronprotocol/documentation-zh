@@ -3744,7 +3744,7 @@
 
 
 <h1 id="walletgetblockbalance">/wallet/getblockbalance<a class="headerlink" href="#walletgetblockbalance" title="Permanent link">&para;</a></h1>
-<p>返回某区块内所有交易引发的余额变动追踪（block balance trace）。</p>
+<p>返回区块的余额变动追踪，包含已记录 TRX 余额变动操作的交易。没有此类操作的交易会被省略；应按 <code>transaction_identifier</code> 匹配条目，而不是按其在区块交易列表中的位置匹配。</p>
 <ul>
 <li>源码：<code>framework/src/main/java/org/tron/core/services/http/GetBlockBalanceServlet.java</code></li>
 <li>Method：<code>POST</code></li>
@@ -3822,7 +3822,7 @@
 <tr>
 <td><code>transaction_balance_trace</code></td>
 <td>repeated TransactionBalanceTrace</td>
-<td>该区块内每笔交易的余额变动</td>
+<td>已记录的余额变动操作列表非空的交易条目</td>
 </tr>
 </tbody>
 </table>
@@ -3858,7 +3858,7 @@
 </tr>
 </tbody>
 </table>
-<p>响应示例（截取首笔交易，原响应包含 4 笔）：</p>
+<p>响应示例（仅展示第一条追踪记录，实际响应包含 4 条记录）：</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">&quot;block_identifier&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="nt">&quot;hash&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0000000003fe262d52bfa4b2814f816fd2e57af5b98a33d60d8630a03a908e0e&quot;</span><span class="p">,</span>
@@ -3879,7 +3879,7 @@
 <span class="w">  </span><span class="p">]</span>
 <span class="p">}</span>
 </code></pre></div>
-<p>需开启 <code>storage.balance.history.lookup = true</code>（等价启动参数 <code>--history-balance-lookup</code>）；否则任意区块查询都会走下方"区块未追踪余额或不存在"那一行的 <code>ItemNotFoundException</code>。</p>
+<p>节点上必须已记录目标区块的余额变动追踪。<code>storage.balance.history.lookup = true</code>（等价启动参数 <code>--history-balance-lookup</code>）用于开启追踪记录；读取已有记录不受当前开关设置影响。关闭记录后，之前的追踪记录仍可查询；开启或重新开启记录不会补齐缺失的历史。没有追踪记录时，返回下方所示的 <code>ItemNotFoundException</code>。</p>
 <h3 id="_3">异常响应<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -3943,7 +3943,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年7月14日 09:51:24 UTC">2026年7月14日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年11月11日 04:16:33 UTC">2026年11月11日</span>
   </span>
 
     

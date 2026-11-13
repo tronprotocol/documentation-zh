@@ -3744,7 +3744,7 @@
 
 
 <h1 id="wallettriggersmartcontract">/wallet/triggersmartcontract<a class="headerlink" href="#wallettriggersmartcontract" title="Permanent link">&para;</a></h1>
-<p>触发智能合约（写交易）。返回未签名交易和预执行结果。</p>
+<p>构造未签名的智能合约交易并返回构造状态。当合约的链上 ABI 将函数标记为 <code>view</code> 或 <code>pure</code>，或将旧版 <code>constant</code> 标志设为 <code>true</code> 时，该接口会执行 constant call 并返回模拟结果。</p>
 <ul>
 <li>源码：<code>framework/src/main/java/org/tron/core/services/http/TriggerSmartContractServlet.java</code></li>
 <li>Method：<code>POST</code></li>
@@ -3870,7 +3870,7 @@
 <tr>
 <td><code>constant_result</code></td>
 <td>repeated bytes(hex)</td>
-<td>仅在被 ABI 识别为 <code>view</code> / <code>pure</code> 函数时填充（写交易通常无此字段）</td>
+<td>仅当合约的链上 ABI 将函数标记为 <code>view</code> 或 <code>pure</code>，或将旧版 <code>constant</code> 标志设为 <code>true</code> 时填充；普通写交易不会进行模拟</td>
 </tr>
 <tr>
 <td><code>result</code></td>
@@ -3900,7 +3900,7 @@
 <span class="w">        </span><span class="p">{</span>
 <span class="w">          </span><span class="nt">&quot;parameter&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">            </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">              </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w">             </span><span class="s2">&quot;a9059cbb000000000000000000000000088a2bfcb1c7271029fd69a66859d5556089588400000000000000000000000000000000000000000000000000000000000000064&quot;</span><span class="p">,</span>
+<span class="w">              </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w">             </span><span class="s2">&quot;a9059cbb000000000000000000000000088a2bfcb1c7271029fd69a66859d555608958840000000000000000000000000000000000000000000000000000000000000064&quot;</span><span class="p">,</span>
 <span class="w">              </span><span class="nt">&quot;owner_address&quot;</span><span class="p">:</span><span class="w">    </span><span class="s2">&quot;41dd791d6b49e190062d650e6a23c575510d35f2f9&quot;</span><span class="p">,</span>
 <span class="w">              </span><span class="nt">&quot;contract_address&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;41eca9bc828a3005b9a3b909f2cc5c2a54794de05f&quot;</span>
 <span class="w">            </span><span class="p">},</span>
@@ -3922,7 +3922,7 @@
 <blockquote>
 <p><code>txID</code> / <code>ref_block_*</code> / <code>expiration</code> / <code>timestamp</code> / <code>raw_data_hex</code> 等 ephemeral 字段语义同 <a href="../../tx-build-and-broadcast/createtransaction/"><code>/wallet/createtransaction</code></a>。写交易路径不会填充 <code>txid</code> / <code>constant_result</code> / <code>energy_used</code>；如需要预演结果改用 <a href="../triggerconstantcontract/"><code>/wallet/triggerconstantcontract</code></a>。</p>
 <p>仅做预演（不上链）请用 <a href="../triggerconstantcontract/"><code>/wallet/triggerconstantcontract</code></a>；仅估算能量请用 <a href="../estimateenergy/"><code>/wallet/estimateenergy</code></a>。</p>
-<p>当 ABI 将目标函数标记为 <code>view</code> 或 <code>pure</code> 时，该接口会被分派到
+<p>当合约的链上 ABI 将目标函数标记为 <code>view</code> 或 <code>pure</code>，或将旧版 <code>constant</code> 标志设为 <code>true</code> 时，该接口会被分派到
 constant call 路径，因此受
 <a href="../../../../using_javatron/configuration/#tvm-and-constant-call-configuration"><code>vm.constantCallTimeoutMs</code></a>
 限制。</p>
@@ -3980,7 +3980,7 @@ constant call 路径，因此受
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年8月5日 07:26:05 UTC">2026年8月5日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年11月11日 04:16:33 UTC">2026年11月11日</span>
   </span>
 
     

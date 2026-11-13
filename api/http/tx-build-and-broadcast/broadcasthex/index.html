@@ -3793,7 +3793,7 @@
 <tr>
 <td><code>result</code></td>
 <td>bool</td>
-<td>是否进入交易池</td>
+<td>本次广播是否成功。交易进入交易池后，P2P 广播仍可能失败</td>
 </tr>
 <tr>
 <td><code>code</code></td>
@@ -3828,7 +3828,7 @@
 </code></pre></div>
 <h3 id="_3">异常响应<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
 <p>业务级错误（<code>SIGERROR</code> / <code>DUP_TRANSACTION_ERROR</code> / <code>TAPOS_ERROR</code> 等）按 <code>result/code/message</code> 形态返回，<code>code</code> 取值与 <a href="../broadcasttransaction/"><code>/wallet/broadcasttransaction</code></a> 一致。</p>
-<p>入参 <code>transaction</code> 字段缺失、不是合法 hex、<code>Transaction.parseFrom</code> 反序列化失败时走 <code>Util.processError</code>（servlet 本身不调用 <code>Util.checkBodySize</code>，但共享 <code>SizeLimitHandler</code> 仍可能先拒绝超大请求体）：</p>
+<p>非法 hex 和 protobuf 反序列化错误走 <code>Util.processError</code>。缺失或为 null 的 <code>transaction</code> 会被解析为空交易；如果通过广播前置检查，节点返回 <code>CONTRACT_VALIDATE_ERROR</code>，消息为 <code>Contract validate error : No contract!</code>。该 servlet 本身不调用 <code>Util.checkBodySize</code>，但共享 HTTP <code>SizeLimitHandler</code> 仍可能拒绝超大请求体。</p>
 <table>
 <thead>
 <tr>
@@ -3846,12 +3846,12 @@
 <td><code>{"Error": "class org.tron.json.JSONException : &lt;解析器信息&gt;"}</code></td>
 </tr>
 <tr>
-<td><code>transaction</code> 字段缺失</td>
-<td>业务级响应 <code>{"result": false, "code": "CONTRACT_VALIDATE_ERROR", "message": "Contract validate error : No contract!", "transaction": "{}", "txid": "&lt;空 Transaction 的 SHA256&gt;"}</code>（<code>getString</code> 返 null → <code>ByteArray.fromHexString(null)</code> 得空数组 → <code>Transaction.parseFrom</code> 得空 Transaction → 进入广播）</td>
+<td><code>transaction</code> 字段缺失或为 null</td>
+<td>如果通过广播前置检查，返回业务级响应 <code>{"result": false, "code": "CONTRACT_VALIDATE_ERROR", "message": "Contract validate error : No contract!", "transaction": "{}", "txid": "&lt;空 raw_data 的 SHA256&gt;"}</code>（<code>getString</code> 返回 null → <code>ByteArray.fromHexString(null)</code> 得到空数组 → <code>Transaction.parseFrom</code> 得到空 Transaction → 被节点拒绝）</td>
 </tr>
 <tr>
 <td><code>transaction</code> 非字符串（数组/对象/数字）</td>
-<td><code>{"Error": "class org.bouncycastle.util.encoders.DecoderException : &lt;message&gt;"}</code>（<code>org.tron.json.JSONObject#getString</code> 对标量值使用 <code>asText(null)</code>，对数组/对象序列化后再交给 <code>ByteArray.fromHexString</code>）</td>
+<td>不支持的输入形式。<code>getString</code> 将标量转换为文本，并将数组/对象序列化；非法 hex 会触发 <code>DecoderException</code>，合法 hex 但非法 protobuf 会触发 <code>InvalidProtocolBufferException</code>，合法 protobuf 内容则进入广播流程。例如，数字 <code>10</code> 转换为 hex <code>10</code>，随后 protobuf 解析失败</td>
 </tr>
 <tr>
 <td><code>transaction</code> 不是合法 hex</td>
@@ -3887,7 +3887,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年7月30日 03:07:04 UTC">2026年7月30日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年11月11日 04:16:33 UTC">2026年11月11日</span>
   </span>
 
     
