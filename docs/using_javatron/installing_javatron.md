@@ -5,7 +5,7 @@
 java-tron 节点目前支持在 x86_64 和 arm64 架构上运行（arm64 架构的支持从 4.8.1 版本开始）。不同架构上，JDK 的支持情况：
 
 - x86_64 架构上，目前仅支持 JDK 8（推荐 OpenJDK 8u514）
-- arm64 架构上，目前仅支持 JDK 17（推荐 OpenJDK 17.0.20.1）。
+- arm64 架构上，目前仅支持 JDK 17（推荐 OpenJDK 17.0.21.1+2）。
 
 ## 硬件配置要求
 
@@ -67,7 +67,7 @@ uname -m
     输出应显示以 `1.8` 开头的版本。
 
 - 如果您的架构是 `arm64` 或 `aarch64`（Apple Silicon / ARM 服务器）：
-    - 安装 Java SE 17（JDK 17，推荐 OpenJDK 17.0.20.1）
+    - 安装 Java SE 17（JDK 17，推荐 OpenJDK 17.0.21.1+2）
     - 验证：
 
     ```bash
