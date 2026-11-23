@@ -708,7 +708,7 @@
       "html_url": "https://tronprotocol.github.io/documentation-zh/mechanism-algorithm/sr/",
       "markdown_url": "https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/docs/mechanism-algorithm/sr.md",
       "source_path": "docs/mechanism-algorithm/sr.md",
-      "last_modified": "2026-06-14T09:21:38+08:00"
+      "last_modified": "2026-11-20T14:43:43+08:00"
     },
     {
       "title": "账户模型",
@@ -716,7 +716,7 @@
       "html_url": "https://tronprotocol.github.io/documentation-zh/mechanism-algorithm/account/",
       "markdown_url": "https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/docs/mechanism-algorithm/account.md",
       "source_path": "docs/mechanism-algorithm/account.md",
-      "last_modified": "2026-06-14T09:21:38+08:00"
+      "last_modified": "2026-11-20T14:43:50+08:00"
     },
     {
       "title": "资源模型",
@@ -724,7 +724,7 @@
       "html_url": "https://tronprotocol.github.io/documentation-zh/mechanism-algorithm/resource/",
       "markdown_url": "https://raw.githubusercontent.com/tronprotocol/documentation-zh/master/docs/mechanism-algorithm/resource.md",
       "source_path": "docs/mechanism-algorithm/resource.md",
-      "last_modified": "2026-06-27T08:18:58+08:00"
+      "last_modified": "2026-11-20T14:43:57+08:00"
     },
     {
       "title": "系统合约",
