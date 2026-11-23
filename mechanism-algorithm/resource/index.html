@@ -4182,8 +4182,8 @@
 <li><strong>查询接口</strong>：您随时可以通过 <code>wallet/getaccountresource</code> API 接口，查询自己账户当前拥有的总 TP 以及已使用的 TP 数量。</li>
 </ul>
 <h2 id="_4">带宽<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
-<p>交易以字节数组的形式在网络中传输及存储。一条交易消耗的带宽（Bandwidth） = <code>交易字节数 * Bandwidth 费率</code>，当前 Bandwidth 费率 = 1。</p>
-<p>假如一条交易的字节数为 200，那么该交易需要消耗 200 带宽。</p>
+<p>一笔交易消耗的带宽取决于其计费大小。对于一笔已完成全部签名、等待广播的常规交易，计费大小为交易经 Protobuf 序列化后的字节数，加上为交易结果预留的 64 字节。每字节消耗 1 带宽。</p>
+<p>例如，一笔已完成全部签名的交易，其序列化大小为 200 字节，则计费大小为 264 字节，消耗 264 带宽。</p>
 <blockquote>
 <p><strong>注意</strong>：由于网络中总质押资金以及账户的质押资金随时可能发生变化，因此账户拥有的带宽不是固定值。</p>
 </blockquote>
@@ -4214,17 +4214,18 @@
 <p><strong>场景一：普通交易</strong></p>
 <p>系统将按以下顺序尝试支付带宽费用：</p>
 <ol>
-<li>消耗质押带宽：优先消耗发起者通过质押 TRX 获得的带宽。</li>
-<li>消耗免费带宽：其次消耗交易发起者的 600 每日免费带宽。</li>
-<li>燃烧 TRX 支付：若以上两者均不足，则会燃烧交易发起者的 TRX 来支付。<ul>
-<li><em><code>燃烧费用 = 交易字节数 × 1,000 sun</code></em></li>
+<li>消耗质押带宽：如果发起者通过质押或接受代理获得的带宽足以覆盖整笔交易的带宽消耗，则使用该带宽。</li>
+<li>消耗免费带宽：否则，尝试使用发起者剩余的每日免费带宽覆盖整笔消耗。</li>
+<li>燃烧 TRX 支付：若前两种方式均无法支付，则燃烧发起者的 TRX 支付全部带宽费用。<ul>
+<li><em><code>燃烧费用 = 交易计费字节数 × 1,000 sun</code></em></li>
 </ul>
 </li>
 </ol>
+<p>质押带宽和免费带宽不能合并用于支付同一笔交易的带宽消耗。</p>
 <p><strong>场景二：创建新账户的交易</strong></p>
 <p>创建新账户的交易在支付带宽时有其特殊规则，不使用每日免费带宽：</p>
 <ol>
-<li>消耗质押带宽：优先尝试消耗交易发起者通过质押 TRX 获得的带宽。</li>
+<li>消耗质押带宽：优先尝试使用发起者通过质押或接受代理获得的带宽覆盖整笔带宽消耗。</li>
 <li>燃烧 TRX 支付：若质押带宽不足，则直接燃烧 0.1 TRX 作为费用来完成账户创建。</li>
 </ol>
 <p><strong>场景三：TRC-10 token 转账</strong></p>
@@ -4243,27 +4244,27 @@
 <li>含义：该 token 持有者还能使用的由发行方提供的免费带宽额度</li>
 </ul>
 </li>
-<li>token 发行方通过质押获取的带宽充足<ul>
+<li>token 发行方的质押带宽充足<ul>
 <li>查询方式：<a href="../../api/http/account/getaccountnet/">/wallet/getaccountnet</a> </li>
 <li>计算公式： <code>NetLimit - NetUsed</code></li>
-<li>含义：发行方通过质押获取的可用带宽数额</li>
+<li>含义：发行方通过质押或接受代理获得的可用带宽数额</li>
 </ul>
 </li>
 </ul>
 </li>
-<li>消耗发起者质押带宽：尝试消耗交易发起者通过质押 TRX 获得的带宽。
-若质押带宽不足，则进入下一步。</li>
-<li>消耗发起者免费带宽：如果免费带宽也不足，则进入下一步。</li>
-<li>燃烧 TRX 支付：若以上所有带宽资源均不足，则会燃烧发起者的 TRX 来支付费用。</li>
-<li><em>燃烧费用 = 交易字节数 × 1,000 sun</em></li>
+<li>消耗发起者质押带宽：尝试使用发起者通过质押或接受代理获得的带宽覆盖整笔带宽消耗。</li>
+<li>消耗发起者免费带宽：若质押带宽不足，则尝试使用发起者剩余的每日免费带宽覆盖整笔消耗。</li>
+<li>燃烧 TRX 支付：若以上方式均无法支付，则燃烧发起者的 TRX 支付全部带宽费用。</li>
+<li><em>燃烧费用 = 交易计费字节数 × 1,000 sun</em></li>
 </ol>
 <h3 id="_7">带宽的自动恢复<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
 <p>账户的免费带宽和质押 TRX 获取的带宽消耗后，会在 24 小时内逐步恢复。</p>
 <h3 id="_8">账户带宽余额查询<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
 <p>您可以通过调用 <code>wallet/getaccountresource</code> HTTP 接口来获取一个账户当前的资源状态。在返回的 JSON 数据中，您可以使用以下公式来精确计算两种带宽的剩余额度。</p>
 <div class="highlight"><pre><span></span><code>免费带宽余额 = freeNetLimit - freeNetUsed
-通过质押获取的带宽余额 = NetLimit - NetUsed
+通过质押获取的带宽余额 = max(NetLimit - NetUsed, 0)
 </code></pre></div>
+<p>例如，解质押后，<code>NetUsed</code> 可能暂时超过 <code>NetLimit</code>；此时，剩余的质押带宽为 <code>0</code>。</p>
 <p><em>注：如果接口返回的结果中没有包含上述公式中的参数，表示该参数值为 <code>0</code>。</em></p>
 <h2 id="_9">能量<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
 <p>能量 (Energy) 是在 TRON 虚拟机（TVM）中执行智能合约指令时所需消耗的计算资源的计量单位。本章将从以下三个方面全面介绍能量这一核心资源：</p>
@@ -4324,8 +4325,8 @@ C: 36,000,000,000
 <ul>
 <li><strong>对于正常中断 (<code>REVERT</code> 指令)</strong>：
 如果合约中途由于抛出 <code>REVERT</code> 异常而退出，则仅扣除已经执行的指令所对应的能量。</li>
-<li><strong>对于意外中断 (bug 或超时)</strong>：
-如果合约因代码 bug、执行超时或其他意外错误而崩溃，系统将扣除本次交易可用的全部能量作为惩罚，用户可以通过设置交易的 <code>fee_limit</code> 参数来限定这笔交易最多可以消耗的能量费用上限。</li>
+<li><strong>对于异常中断</strong>：
+超时或无效指令等导致交易执行终止的错误，会消耗本次交易的全部能量预算。<code>TRANSFER_FAILED</code> 是例外，仅消耗失败前已经使用的能量。用户可以通过设置交易的 <code>fee_limit</code> 限制调用者的能量消耗。</li>
 </ul>
 <h4 id="_13">能量的恢复<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h4>
 <p>账户的能量资源消耗后，会在 24 小时内逐步恢复。</p>
@@ -4339,16 +4340,16 @@ C: 36,000,000,000
 <p>在设置 <code>fee_limit</code> 之前，需要了解几个概念：</p>
 <ol>
 <li>合法的 <code>fee_limit</code> 为 0 - 15,000,000,000 sun（折合 0 - 15,000 TRX）之间的整数。<code>fee_limit</code> 上限是一个可通过委员会提案修改的网络参数（<a href="https://tronscan.io/#/sr/committee">#47</a>），目前的值是 15,000 TRX。</li>
-<li>不同复杂度的合约，每次正常执行消耗不同的 Energy；相同合约每次消耗的能量基本相同<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup>，但由于动态能量模型机制，对于热门合约，不同时刻执行时可能需要的能量不同，具体请参考 <a href="#dynamic-energy-model">动态能量模型</a> 章节；执行合约时，逐条指令计算并扣除 Energy，如果超过 <code>fee_limit</code> 的限制，则合约执行失败，已扣除的能量不退还。</li>
-<li>当前 <code>fee_limit</code> 是指调用者在执行合约时愿意支付的 TRX 上限<sup id="fnref:2"><a class="footnote-ref" href="#fn:2">2</a></sup>。需要注意的是，合约执行消耗的总能量，除了调用者支付的部分，也可能包含开发者为其承担的部分。</li>
-<li>一个恶意合约，如果最终执行超时，或者因 bug 合约崩溃，则会扣除当前交易允许消耗的所有 Energy。这个总能量池由以下几部分相加构成：<code>总消耗能量 = 调用者质押所得能量 + 开发者分摊能量 + 燃烧 TRX 所得能量</code>。其中，“燃烧 TRX 所得能量”的上限由 <code>fee_limit</code> 决定。</li>
-<li>开发者可以通过 <a href="https://developers.tron.network/docs/energy-consumption-mechanism#tron-energy-sharing-mechanism">能量分摊机制</a> 承担一定比例的能量消耗（比如 90%）。但是，当开发者账户的 Energy 不足以支付时，剩余部分完全由调用者承担。在 <code>fee_limit</code> 限制范围内，如调用者的 Energy 不足，则会燃烧等价值的 TRX。<sup id="fnref2:2"><a class="footnote-ref" href="#fn:2">2</a></sup></li>
+<li>不同复杂度的合约，每次正常执行消耗不同的 Energy；相同合约每次消耗的能量基本相同<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup>，但由于动态能量模型机制，对于热门合约，不同时刻执行时可能需要的能量不同，具体请参考 <a href="#dynamic-energy-model">动态能量模型</a> 章节；执行合约时，逐条指令计算并扣除 Energy，如果执行所需能量超过本次交易的总能量预算，则合约执行失败，已消耗的能量不退还。</li>
+<li><code>fee_limit</code> 以 sun 为单位，按当前能量单价折算为能量后，限定调用者的总能量消耗。该上限涵盖通过质押或接受代理获得的能量，以及通过燃烧 TRX 支付的能量，并不代表实际必然燃烧的 TRX 金额。合约部署者承担的能量另行计算<sup id="fnref:2"><a class="footnote-ref" href="#fn:2">2</a></sup>。</li>
+<li>无论能量来源如何，调用者的能量预算都不能超过 <code>floor(fee_limit / 能量单价)</code>。</li>
+<li>开发者可以通过 <a href="https://developers.tron.network/docs/energy-consumption-mechanism#tron-energy-sharing-mechanism">能量分摊机制</a> 承担一定比例的能量消耗（比如 90%）。开发者承担的能量同时受其可用能量和合约的 <code>origin_energy_limit</code> 限制，后者以能量为单位。剩余能量消耗由调用者承担。在 <code>fee_limit</code> 限制范围内，如调用者的 Energy 不足，则会燃烧等价值的 TRX。<sup id="fnref2:2"><a class="footnote-ref" href="#fn:2">2</a></sup></li>
 </ol>
 <p><strong>示例</strong>: 下面将以一个合约 <code>C</code> 的执行，来具体举例，如何估算 <code>fee_limit</code>：</p>
 <ul>
 <li>假设合约 <code>C</code> 上一次成功执行时，消耗了 18000 Energy。通过调用 <a href="../../api/http/smart-contract/estimateenergy/">estimateenergy</a> 接口进行预估，假设本次执行消耗的 Energy 上限约为 20,000 Energy；</li>
 <li>燃烧 TRX 时，由于能量单价目前为 100 sun，所以 10 TRX 固定可以兑换 100,000 Energy；</li>
-<li>假设开发者承诺承担 90% 的 Energy，而且开发者账户有充足的 Energy。</li>
+<li>假设开发者承诺承担 90% 的 Energy。开发者至少有 18,000 Energy 可用，且合约的 <code>origin_energy_limit</code> 至少为 18,000 Energy。</li>
 </ul>
 <p><code>fee_limit</code> 的估算步骤如下：</p>
 <ul>
@@ -4386,9 +4387,11 @@ C: 36,000,000,000
 <li>合约的 <code>energy_factor</code> 为 <code>0</code> 时，表示该合约在合理的使用资源，调用该合约不会有额外的能量消耗。</li>
 <li>当 <code>energy_factor</code> 大于 <code>0</code> 时，表示该合约已经是热门合约，调用该合约时将消耗额外的能量。合约的能量消耗放大系数可以通过 <a href="../../api/http/smart-contract/getcontractinfo/">getcontractinfo</a> 接口查询。</li>
 </ul>
-<p>合约调用交易最终需要消耗的能量的计算公式为：</p>
-<div class="highlight"><pre><span></span><code>合约交易能量消耗量 = 合约调用交易产生的基础能量消耗 * （1 +  energy_factor）
+<p><code>getcontractinfo</code> 返回的 <code>energy_factor</code> 值放大了 10,000 倍。代入下方公式前，应先将该值除以 10,000。例如，<code>34000</code> 表示 <code>energy_factor</code> 为 <code>3.4</code>。</p>
+<p>对于单个合约的执行，能量消耗可近似计算为：</p>
+<div class="highlight"><pre><span></span><code>能量消耗量 ≈ 基础能量消耗 * (1 + energy_factor)
 </code></pre></div>
+<p>在合约调用交易执行期间，对其他合约的内部调用可能涉及不同的能量消耗放大系数。交易的总能量消耗包括入口合约及其内部调用消耗的能量。</p>
 <p>动态能量模型引入了如下三个 TRON 网络参数，它们共同控制合约的 <code>energy_factor</code> 字段：</p>
 <ul>
 <li><code>threshold</code>：合约基础能量消耗的阈值，如果合约在一个维护周期中的基础能量消耗超过这个阈值，下一个维护周期，该合约的能量消耗量就会增加。</li>
@@ -4441,14 +4444,14 @@ C: 36,000,000,000
 <p>在代理资源时，您可以选择是否启用“时间锁”，这将影响您何时能收回资源。</p>
 <ul>
 <li><strong>带时间锁</strong>：资源将被锁定，您需要在等待期后才能执行取消代理的操作。
-    <strong>重要</strong>：在此期间，如果您对同一个地址再次进行代理，等待期将重新开始计算。  </li>
+    <strong>重要</strong>：如果在现有锁定期结束前，向同一接收方再次进行同一种资源的锁定代理，新的锁定时长不得短于现有锁定的剩余时间。新的锁定到期时间将同时适用于原有和新增的代理额度。</li>
 <li><strong>不带时间锁</strong>：您可以随时取消代理，立即收回资源。</li>
 </ul>
 <p><strong>相关 API 接口</strong></p>
 <ul>
 <li><code>delegateresource</code>: 执行资源代理操作。</li>
 <li><code>undelegateresource</code>: 取消资源代理（收回资源）。</li>
-<li><code>getcandelegatedmaxsize</code>: 查询您当前某种资源可供代理的最大份额。</li>
+<li><code>getcandelegatedmaxsize</code>: 查询当前可用于资源代理的最大质押 TRX 金额，单位为 sun。</li>
 </ul>
 <h3 id="_20">如何解质押<a class="headerlink" href="#_20" title="Permanent link">&para;</a></h3>
 <p>您可以在质押 TRX 后随时进行解质押。在调用 <code>unfreezebalancev2</code> API 发起解质押操作后，您的资金会进入一个 14 天的锁定期。此锁定期由 TRON 网络的 <a href="https://tronscan.io/#/sr/committee">#70</a> 号参数定义，未来可通过网络治理提案进行修改。14 天锁定期结束后，您便可以通过 <code>withdrawexpireunfreeze</code> API 将这笔已解质押的 TRX 提取到您的账户中。</p>
@@ -4473,12 +4476,15 @@ C: 36,000,000,000
     如果空闲 TP 不足以满足回收需求，系统将开始撤销您已投出的选票，以回收剩余所需 TP。</li>
 </ol>
 <p><em><strong>选票撤销的计算规则</strong></em></p>
-<p>撤销操作并非随机，而是按比例公平地从您投票给的每一个超级代表/超级代表合伙人身上撤回选票。</p>
+<p>如果解质押后账户的总 TP 少于其总投票数，则按以下方式计算每个超级代表或超级代表合伙人的剩余票数：</p>
 <ul>
 <li>
 <p><em>计算公式:</em></p>
-<div class="highlight"><pre><span></span><code>从当前超级代表撤销的票数 = 总撤票数 * (给当前超级代表或超级代表合伙人的投票数 / 该账户总投票数)
+<div class="highlight"><pre><span></span><code>剩余票数 = floor((原票数 / 原总票数) * 剩余 TP)
+撤销票数 = 原票数 - 剩余票数
 </code></pre></div>
+<p>其中，<code>原票数</code> 是解质押前投给当前超级代表或超级代表合伙人的票数，<code>原总票数</code> 是解质押前该账户的总投票数。<code>剩余 TP</code> 是解质押后该账户的总 TP，包括仍用于投票的 TP。</p>
+<p>每个超级代表或超级代表合伙人的剩余票数分别向下取整。因此，撤销的总票数可能超过需要回收的 TP 差额，留下部分未使用的 TP。</p>
 </li>
 <li>
 <p><em>示例说明:</em></p>
@@ -4495,9 +4501,9 @@ C: 36,000,000,000
 <li>回收需求：系统需要从 <code>A</code> 的账户中回收 1,500 TP。</li>
 <li>回收空闲 TP：首先回收全部 1,000 点空闲 TP。</li>
 <li>计算差额：仍需回收 <code>1,500 - 1,000 = 500 TP</code>。这部分必须通过撤销选票来获取。</li>
-<li>按比例撤票：</li>
-<li>从 SR1 撤销的票数 = 500 * (600 / 1000) = 300 票</li>
-<li>从 SR2 撤销的票数 = 500 * (400 / 1000) = 200 票</li>
+<li>根据解质押后账户的 <code>2,000 - 1,500 = 500 TP</code> 计算剩余票数：</li>
+<li>SR1：剩余 <code>floor((600 / 1000) * 500) = 300</code> 票，因此撤销 <code>600 - 300 = 300</code> 票。</li>
+<li>SR2：剩余 <code>floor((400 / 1000) * 500) = 200</code> 票，因此撤销 <code>400 - 200 = 200</code> 票。</li>
 <li>最终结果：A 的账户成功解质押 1,500 TRX，其投票状态更新为：为 SR1 投 300 票，为 SR2 投 200 票。</li>
 </ol>
 </li>
@@ -4519,7 +4525,7 @@ C: 36,000,000,000
 <p>您可以通过 <code>gettransactioninfobyid</code> 接口查询该笔交易的详情，并重点关注以下两个字段：</p>
 <ul>
 <li><code>cancel_unfreezeV2_amount</code>:
-该字段显示了本次操作中，被成功取消并重新用于质押的 TRX 总额。</li>
+该字段是资源类型到本次操作重新质押的 TRX 金额的映射，金额单位为 sun。</li>
 <li><code>withdraw_expire_amount</code>:
 该字段显示了本次操作中，被自动提取到您账户余额中的、已到期的解质押 TRX 总额。</li>
 </ul>
@@ -4651,7 +4657,7 @@ C: 36,000,000,000
 </tr>
 <tr>
 <td><code>wallet/getcandelegatedmaxsize</code></td>
-<td>查看可代理的资源份额数量</td>
+<td>查询当前可用于资源代理的最大质押 TRX 金额，单位为 sun。</td>
 </tr>
 <tr>
 <td><code>wallet/getdelegatedresourcev2</code></td>
@@ -4706,7 +4712,7 @@ C: 36,000,000,000
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年6月13日 02:56:54 UTC">2026年6月13日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年11月20日 06:43:57 UTC">2026年11月20日</span>
   </span>
 
     
