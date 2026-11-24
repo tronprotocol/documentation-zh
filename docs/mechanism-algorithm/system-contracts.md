@@ -1,7 +1,7 @@
 # 系统合约
 
 
-TRON 网络支持多种不同类型的交易，比如 TRX 转账交易、TRC-10 转账交易、创建智能合约交易、触发智能合约交易、质押 TRX 交易等等。创建不同类型的交易，需要调用不同的 API 接口，例如部署合约交易的类型是 `CreateSmartContract`，需要调用 `wallet/deploycontract` API 来创建交易；质押 TRX 获取资源交易的类型是 `FreezeBalanceV2Contract`，需要调用 `wallet/freezebalancev2` API 来创建交易，我们将这些不同的交易类型的实现统称为系统合约，下面为系统合约类型及其包含的内容：
+TRON 网络支持多种不同类型的交易，比如 TRX 转账交易、TRC-10 转账交易、创建智能合约交易、触发智能合约交易、质押 TRX 交易等等。创建不同类型的交易，需要调用不同的 API 接口，例如部署合约交易的类型是 `CreateSmartContract`，需要调用 `/wallet/deploycontract` API 来创建交易；质押 TRX 获取资源交易的类型是 `FreezeBalanceV2Contract`，需要调用 `/wallet/freezebalancev2` API 来创建交易，我们将这些不同的交易类型的实现统称为系统合约，下面为系统合约类型及其包含的内容：
 
 ## ContractType 总览
 
@@ -12,10 +12,10 @@ TRON 网络支持多种不同类型的交易，比如 TRX 转账交易、TRC-10 
 | 0 | AccountCreateContract | AccountContract.AccountCreateContract | CreateAccountActuator | ✅ 启用 | 创建一个链上账户 |
 | 1 | TransferContract | BalanceContract.TransferContract | TransferActuator | ✅ 启用 | TRX 转账 |
 | 2 | TransferAssetContract | AssetIssueContractOuterClass.TransferAssetContract | TransferAssetActuator | ✅ 启用 | TRC-10 token 转账 |
-| 3 | VoteAssetContract |  |  | 🚫 禁用(未实现Actuator)  |  |
+| 3 | VoteAssetContract | VoteAssetContractOuterClass.VoteAssetContract |  | 🚫 禁用(未实现Actuator)  |  |
 | 4 | VoteWitnessContract | WitnessContract.VoteWitnessContract | VoteWitnessActuator | ✅ 启用 | 用账户的 TronPower 为超级代表投票,刷新投票记录(下次 maintenance 生效) |
 | 5 | WitnessCreateContract | WitnessContract.WitnessCreateContract | WitnessCreateActuator | ✅ 启用 | 申请成为超级代表 |
-| 6 | AssetIssueContract | AssetIssueContractOuterClass.AssetIssueContract | AssetIssueActuator | ✅ 启用 | 发行 TRC-10 token,按 ICO 规则冻结募集期余额 |
+| 6 | AssetIssueContract | AssetIssueContractOuterClass.AssetIssueContract | AssetIssueActuator | ✅ 启用 | 发行 TRC-10 token,可选择锁定发行的 token |
 | 8 | WitnessUpdateContract | WitnessContract.WitnessUpdateContract | WitnessUpdateActuator | ✅ 启用 | 更新超级代表的官网 URL |
 | 9 | ParticipateAssetIssueContract | AssetIssueContractOuterClass.ParticipateAssetIssueContract | ParticipateAssetIssueActuator | ✅ 启用 | 在 ICO 期间用 TRX 参与 TRC-10 token 发行 |
 | 10 | AccountUpdateContract | AccountContract.AccountUpdateContract | UpdateAccountActuator | ✅ 启用 | 修改账户名(受 AllowUpdateAccountName 约束) |
@@ -40,7 +40,7 @@ TRON 网络支持多种不同类型的交易，比如 TRX 转账交易、TRC-10 
 | 45 | UpdateEnergyLimitContract | SmartContractOuterClass.UpdateEnergyLimitContract | UpdateEnergyLimitContractActuator | ✅ 启用 | 更新合约的 origin_energy_limit(每次合约调用愿意承担的能量消耗上限) |
 | 46 | AccountPermissionUpdateContract | AccountContract.AccountPermissionUpdateContract | AccountPermissionUpdateActuator | ✅ 启用 | 更新账户权限:owner/witness/active |
 | 48 | ClearABIContract | SmartContractOuterClass.ClearABIContract | ClearABIContractActuator | ✅ 启用 | 清空合约 ABI |
-| 49 | UpdateBrokerageContract | StorageContract.UpdateBrokerageContract | UpdateBrokerageActuator | ✅ 启用 | 调整对投票者的分成比例(0-100%) |
+| 49 | UpdateBrokerageContract | StorageContract.UpdateBrokerageContract | UpdateBrokerageActuator | ✅ 启用 | 调整超级代表保留的奖励比例 |
 | 51 | ShieldedTransferContract | ShieldContract.ShieldedTransferContract | ShieldedTransferActuator | 🚫 禁用(`getAllowShieldedTransaction` 未开启) | ZK-SNARK 匿名转账(透明 in + 匿名 spend/receive + 透明 out) |
 | 52 | MarketSellAssetContract | MarketContract.MarketSellAssetContract | MarketSellAssetActuator | 🚫 禁用(`getAllowMarketTransaction` 未开启) | 内置订单簿挂限价卖单(sell / buy 两种资产 + 价格) |
 | 53 | MarketCancelOrderContract | MarketContract.MarketCancelOrderContract | MarketCancelOrderActuator | 🚫 禁用(`getAllowMarketTransaction` 未开启) | 撤销自己挂出的未成交订单,退回剩余资产 |
@@ -65,7 +65,9 @@ TRON 网络支持多种不同类型的交易，比如 TRX 转账交易、TRC-10 
 
 * `owner_address`：创建账户的发起账户地址。
 * `account_address`： 将要创建的账户地址。
-* `type`：账户类型。0代表普通账户，1代表创世块中初始账号，2代表智能合约账户。
+* `type`：新账户的类型：`0` 表示普通账户（`Normal`），`1` 表示 `AssetIssue` 账户（创世账户使用此类型），`2` 表示智能合约账户（`Contract`）。
+
+将 `type` 设置为 `Contract` 不会部署智能合约。部署智能合约应使用 `CreateSmartContract`，该操作也会创建合约账户。
 
 ## TRX转账 TransferContract
 
@@ -115,7 +117,7 @@ TRON 网络支持多种不同类型的交易，比如 TRX 转账交易、TRC-10 
 * `owner_address`：为超级代表投票的账户地址。
 * `vote_address`：超级代表的地址。
 * `vote_count`：投给超级代表的票数。
-* `support`：是否支持，这里应该是恒为true，暂未使用该参数。
+* `support`：未使用。
 
 ## 创建超级代表 WitnessCreateContract
 
@@ -163,7 +165,7 @@ TRON 网络支持多种不同类型的交易，比如 TRX 转账交易、TRC-10 
 * `name`：发行 token 的名称。
 * `abbr`：token 缩写。
 * `total_supply`：发行总的 token 数量。
-* `frozen_supply`：质押 token 的数量和质押时间列表。
+* `frozen_supply`：要锁定的 token 数量列表。每项指定锁定数量 `frozen_amount` 和锁定天数 `frozen_days`。锁定到期时间为 `start_time + frozen_days * 86400000`（毫秒），到期后可通过 `UnfreezeAssetContract` 释放 token。
 * `trx_num`：对应 TRX 数量。
 * `num`：对应的自定义资产数目。
 * `start_time`：ICO 开始时间。
@@ -204,12 +206,11 @@ TRON 网络支持多种不同类型的交易，比如 TRX 转账交易、TRC-10 
 * `owner_address`：参与 TRC-10 token 发行的账户地址。
 * `to_address`：发行 token 所有者地址。
 * `asset_name`：发行 token 的 ID。
-* `amount`：购买发行 token 使用 TRX 的数量，单位是 sun。
+* `amount`：购买发行 token 使用 TRX 的数量，单位是 sun。购买的 token 数量为 `floor(amount * num / trx_num)`，以该 token 的最小单位计。
 
 ## 更新账户 AccountUpdateContract
 
 ```protobuf
-      // Update account name. Account name is unique now.
      message AccountUpdateContract {
        bytes account_name = 1;
        bytes owner_address = 2;
@@ -217,7 +218,7 @@ TRON 网络支持多种不同类型的交易，比如 TRX 转账交易、TRC-10 
 ```
 
 * `owner_address`：待更新账户的地址。
-* `account_name`： 账户名称。
+* `account_name`：账户名称。当 `AllowUpdateAccountName` 为 `0`（当前主网配置）时，名称必须唯一，且已有的非空名称不能修改。
 
 ## 解质押 Stake 1.0 阶段质押的资产 UnfreezeBalanceContract
 
@@ -231,7 +232,7 @@ TRON 网络支持多种不同类型的交易，比如 TRX 转账交易、TRC-10 
 
 * `owner_address`：解质押 TRX 的账户地址。
 * `resource`： 解质押资源的类型。
-* `receiver_address`：接收资源的账户。
+* `receiver_address`：之前接收 Stake 1.0 代理资源的账户地址。解质押已代理资源对应的 TRX 时填写；解质押用于账户自身资源的 TRX 时省略。解质押的 TRX 返还给 `owner_address`。资源代理功能关闭时，该字段会被忽略；使用该字段时，其值不能与 `owner_address` 相同。
 
 ## 提取奖励 WithdrawBalanceContract
 
@@ -268,8 +269,10 @@ TRON 网络支持多种不同类型的交易，比如 TRX 转账交易、TRC-10 
 * `owner_address`：token 发行方账户地址。
 * `description`： token 的描述。
 * `url`：token 的网址。
-* `new_limit`：每个调用者可以消耗 Bandwidth point 的限制。
-* `new_public_limit`：所有调用者可以消耗 Bandwidth points 的限制。
+* `new_limit`：每个账户转账该 TRC-10 token 时，由 token 发行方承担的带宽额度。
+* `new_public_limit`：由 token 发行方承担、供所有账户转账该 TRC-10 token 时共享的带宽总额度。
+
+如果发行方提供的带宽无法覆盖该笔交易，则使用发送方的带宽或 TRX。
 
 ## 创建提案  ProposalCreateContract
 
@@ -335,7 +338,7 @@ TRON 网络支持多种不同类型的交易，比如 TRX 转账交易、TRC-10 
 
 * `owner_address`：部署智能合约的账户地址。
 * `new_contract`： 智能合约。
-* `call_token_value`：转入 TRC-10 数目。
+* `call_token_value`：部署合约时转入该合约的 TRC-10 token 数量。
 * `token_id`：转入 TRC-10 的 id。
 
 ## 触发智能合约 TriggerSmartContract
@@ -354,7 +357,7 @@ TRON 网络支持多种不同类型的交易，比如 TRX 转账交易、TRC-10 
 * `owner_address`：调用智能合约的账户地址。
 * `contract_address`： 合约地址。
 * `call_value`：传入合约的TRX的值。
-* `data`：操作参数。
+* `data`：发送给合约的数据，通常由 4 字节函数选择器和随后按 ABI 编码的函数参数组成。
 * `call_token_value`：转入 TRC-10 数目。
 * `token_id`：转入 TRC-10 的 id。
 
@@ -476,7 +479,7 @@ TRON 网络支持多种不同类型的交易，比如 TRX 转账交易、TRC-10 
 ```
 
 * `owner_address`：调整分成比例的超级代表地址。
-* `brokerage`：分成比例，从 0 到 100，1 代表 1%。
+* `brokerage`：超级代表保留的奖励百分比，取值为 `0` 到 `100`。剩余部分用于投票者奖励。例如，`20` 表示超级代表保留 20%，投票者共享剩余的 80%。
 
 ## 质押资产 FreezeBalanceV2Contract
 
