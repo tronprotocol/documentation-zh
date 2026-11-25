@@ -103,6 +103,7 @@ message AccountPermissionUpdateContract {
 
 - 此合约用于 **一次性更新账户的所有权限结构**；
 - 即便只修改其中一种权限，也需完整设置其余字段。
+- `witness` 字段对于见证人账户是必填项，非见证人账户必须省略该字段。非见证人账户提供此字段会导致校验失败。
 
 ### 5. 合约类型枚举：`ContractType`
 
@@ -134,10 +135,10 @@ localwitness = [
 ]
 ```
 
-若修改了 `witness` 权限，则：
+若将 `witness` 权限授权给 `TSMC4YzU...PBebBk2E`，应将 `localWitnessAccountAddress` 设置为原超级代表账户地址，并在 `localwitness` 中配置被授权地址的私钥：
 
 ```properties
-localWitnessAccountAddress = TSMC4YzU...PBebBk2E
+localWitnessAccountAddress = TMK5c1jd...m6FXFXEz
 localwitness = [
   yyy  # TSMC4YzU...PBebBk2E 地址的私钥
 ]
@@ -151,6 +152,8 @@ localwitness = [
 - 最多支持 8 个 `active` 权限配置；
 - 权限 ID 从 2 开始递增；
 - 默认创建账户时生成一个 `active` 权限，默认阈值为 1，仅包含自身地址。
+
+>**注意**：当 Active 权限的 `operations` 位图中启用 bit 46 时，该权限可以授权执行 `AccountPermissionUpdateContract`（ID 46）。默认 Active 权限未启用 bit 46。
 
 ## 操作费用
 
@@ -170,9 +173,9 @@ localwitness = [
 3. 调用 `AccountPermissionUpdateContract`；
 4. 签名并广播交易。
 
-**注意**: 当一个区块内有账户权限变更交易时，后续不会再打包该账户的其他交易，以保证账户权限变更交易从下一个区块才实际生效。
+**注意**：java-tron 生成区块时，在选入一笔 `AccountPermissionUpdateContract` 交易后，会跳过同一账户的后续交易。权限状态在权限更新交易执行时更新。在这一出块打包策略下，使用更新后权限的后续交易从下一个区块开始可以被打包进区块。
 
-#### 示例请求：
+#### 示例请求（见证人账户）：
 
 ```text
 POST http://{{host}}:{{port}}/wallet/accountpermissionupdate
@@ -205,6 +208,8 @@ POST http://{{host}}:{{port}}/wallet/accountpermissionupdate
   ]
 }
 ```
+
+本示例中的 `operations` 值包含 bit 46，因此该 Active 权限可以授权执行账户权限更新。
 
 ### 2. operations 值计算示例 { #operations-value-calculation-example }
 
